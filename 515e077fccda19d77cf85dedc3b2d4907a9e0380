@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a7db7c94_fd7b4e90",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-28T16:38:54Z",
+      "side": 1,
+      "message": "Looking like a great start!",
+      "revId": "515e077fccda19d77cf85dedc3b2d4907a9e0380",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a032dea_68061852",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 2974,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-28T16:38:54Z",
+      "side": 1,
+      "message": "You don\u0027t need to check this here.  ParseParameters can\u0027t return an expression that can\u0027t be done.\n\n\nAlso, how do you see this function evolving as we add other query param types? (filter, select, ect)  Considering those functions chain, it\u0027s not clear to me how that would work in the model that you\u0027ve done here.  Can you elaborate a little on what you\u0027re thinking?",
+      "range": {
+        "startLine": 2971,
+        "startChar": 0,
+        "endLine": 2974,
+        "endChar": 5
+      },
+      "revId": "515e077fccda19d77cf85dedc3b2d4907a9e0380",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a3eca94f_51c1b16c",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 2979,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-28T16:38:54Z",
+      "side": 1,
+      "message": "nit, can you please do this code move in another patchset?  it doesn\u0027t have much to do with the work being done here.",
+      "range": {
+        "startLine": 2979,
+        "startChar": 0,
+        "endLine": 2979,
+        "endChar": 4
+      },
+      "revId": "515e077fccda19d77cf85dedc3b2d4907a9e0380",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f641a214_10932f27",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 3023,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-28T16:38:54Z",
+      "side": 1,
+      "message": "This shouldn\u0027t be called directly, as when the other patches for setupRedfishRoute are merged, it\u0027s going to bypass protocol checks.  I suspect we need another overload of setupRedfishRoute that allows returning the query struct",
+      "range": {
+        "startLine": 3023,
+        "startChar": 29,
+        "endLine": 3023,
+        "endChar": 44
+      },
+      "revId": "515e077fccda19d77cf85dedc3b2d4907a9e0380",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "52aac950_4af5e697",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 3030,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-28T16:38:54Z",
+      "side": 1,
+      "message": "nit, no need for an intermediate variable here if it doesn\u0027t get used later.",
+      "range": {
+        "startLine": 3030,
+        "startChar": 17,
+        "endLine": 3030,
+        "endChar": 41
+      },
+      "revId": "515e077fccda19d77cf85dedc3b2d4907a9e0380",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "96dc7585_0e304d73",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 3038,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-28T16:38:54Z",
+      "side": 1,
+      "message": "See above.  This isn\u0027t going to handle parameters (like odata.version) properly.",
+      "range": {
+        "startLine": 3033,
+        "startChar": 0,
+        "endLine": 3038,
+        "endChar": 17
+      },
+      "revId": "515e077fccda19d77cf85dedc3b2d4907a9e0380",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
