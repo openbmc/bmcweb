@@ -3,6 +3,75 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7eb69834_5674018c",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-03-28T15:41:55Z",
+      "side": 1,
+      "message": "Why not let the compiler choose its underlying integral type?",
+      "range": {
+        "startLine": 18,
+        "startChar": 24,
+        "endLine": 18,
+        "endChar": 31
+      },
+      "revId": "7ed3f6239a9d37e0f4fac82ffc68182e93e8569a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c7839471_df23eceb",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-03-28T15:41:55Z",
+      "side": 1,
+      "message": "I double checked the Spec, these names are misleading to me.\n\nIn the spec,\n\n1. * expands all hyperlinks\n2. . expands all hyperlinks not in any links property\n3. ~ expands only hyperlinks that are links property\n\nSo, all Expand types are for hyperlinkes, the difference is whether to expand hyperlinks in \"links property\" or not.\n\nI suggest changing these names to\n\n{\n  None,\n  AllHyperlinks,\n  HyperlinksNotLinksProperty,\n  LinksProperty\n}",
+      "range": {
+        "startLine": 21,
+        "startChar": 4,
+        "endLine": 21,
+        "endChar": 14
+      },
+      "revId": "7ed3f6239a9d37e0f4fac82ffc68182e93e8569a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7eae1b40_5938640b",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-03-28T15:41:55Z",
+      "side": 1,
+      "message": "shouldn\u0027t this be both? Please also consider my above comments to rename expand types.",
+      "range": {
+        "startLine": 42,
+        "startChar": 43,
+        "endLine": 42,
+        "endChar": 53
+      },
+      "revId": "7ed3f6239a9d37e0f4fac82ffc68182e93e8569a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e88d1846_7ac953b6",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 19
@@ -95,6 +164,53 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "725cd315_dfe0ed79",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-03-28T15:41:55Z",
+      "side": 1,
+      "message": "we discard `query.expandLevel` if this function returns false.",
+      "parentUuid": "92ac86ea_3504aa9d",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 75,
+        "endChar": 24
+      },
+      "revId": "7ed3f6239a9d37e0f4fac82ffc68182e93e8569a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ae5112b7_a4ea2789",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-03-28T15:41:55Z",
+      "side": 1,
+      "message": "I was testing this. \"redfish/v1/Chassis/fake_chassis?$expand\u003d.\" gave me wrong results. \n\nPeriod shall expand sources like sensors under this chassis but not links property (e.g., ComputerSystems, ManagedBy). Testing result shows that here we don\u0027t expand anything.\n\ntilde shall expand only links property. Testing results shows it expands both.",
+      "range": {
+        "startLine": 191,
+        "startChar": 12,
+        "endLine": 191,
+        "endChar": 45
+      },
+      "revId": "7ed3f6239a9d37e0f4fac82ffc68182e93e8569a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9a667c09_99d42375",
@@ -137,6 +253,29 @@
         "startChar": 4,
         "endLine": 217,
         "endChar": 5
+      },
+      "revId": "7ed3f6239a9d37e0f4fac82ffc68182e93e8569a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "317fcbfa_6cd84f98",
+        "filename": "redfish-core/include/utils/query_param_test.cpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-03-28T15:41:55Z",
+      "side": 1,
+      "message": "#include \u003cnlohmann/json.hpp\u003e?",
+      "range": {
+        "startLine": 3,
+        "startChar": 10,
+        "endLine": 3,
+        "endChar": 14
       },
       "revId": "7ed3f6239a9d37e0f4fac82ffc68182e93e8569a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
