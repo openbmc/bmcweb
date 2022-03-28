@@ -72,6 +72,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0065716b_edda8891",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-28T19:37:12Z",
+      "side": 1,
+      "message": "\u003e Ack. I thought compiler is smart enough to choose the least integral that\u0027s large enough.\n\nIt picks the one that is \"fastest\" ie the word-aligned one (int).\n\n\u003e \n\u003e Checked the C++ standard, it says this is \"implementation-defined\". Won\u0027t bother check GCC or Clang. Setting to uint8_t LGTM.",
+      "parentUuid": "f25d2733_b6d565fa",
+      "range": {
+        "startLine": 18,
+        "startChar": 24,
+        "endLine": 18,
+        "endChar": 31
+      },
+      "revId": "7ed3f6239a9d37e0f4fac82ffc68182e93e8569a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c7839471_df23eceb",
