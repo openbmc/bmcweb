@@ -177,6 +177,30 @@
       },
       "revId": "a28e9eef897ae2ff88df01f48fa4f95b0f640eeb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bfbbaad5_6e6409c5",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 2658,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-28T03:27:24Z",
+      "side": 1,
+      "message": "I left it here because it allows the tested statement to still function, and doesn\u0027t check in dead code into the patch (ie, it\u0027s usable, even if in a small context).\n\nIf you really think it needs to move out into the other patch, I guess it could, but the end result will be the same code, and there would be no way to put a useful tested statement here.\n\nUp to you though if you still want it moved.",
+      "parentUuid": "196f7e42_e6a1b986",
+      "range": {
+        "startLine": 2658,
+        "startChar": 25,
+        "endLine": 2658,
+        "endChar": 42
+      },
+      "revId": "a28e9eef897ae2ff88df01f48fa4f95b0f640eeb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

@@ -74,6 +74,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "681cf7ca_9316d673",
+        "filename": "redfish-core/include/query.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-28T03:27:24Z",
+      "side": 1,
+      "message": "\u003e Yes, processAllParams would take `query\u0026` directly.\n\u003e \n\nSure, that seems reasonable.\n\n\u003e Also before parsing params, if intermediateResponse failed, we just return, right?\n\n\nI\u0027m not following how that could happen in the current code paths.  Arguably, calling this function with an error already in the res object at this scope (intermediateResponse isn\u0027t in this scope at all) is a user error, and given it doesn\u0027t really have a use case, I\u0027m not sure that\u0027s something we should explicitly define at this point.  Even if you called it with an error, this function would still have code paths to handle things, so I\u0027m not quite understanding the concern.",
+      "parentUuid": "700810ab_6495b13d",
+      "range": {
+        "startLine": 32,
+        "startChar": 30,
+        "endLine": 32,
+        "endChar": 35
+      },
+      "revId": "30a0fdc28d7b0b06ff098a92b9f95ba432c1ce0c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5065cbd0_7e0d337e",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 11
@@ -192,6 +216,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9466a546_2927fa65",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-28T03:27:24Z",
+      "side": 1,
+      "message": "Ah, good point.  Will fix.",
+      "parentUuid": "96932c84_b8d0716f",
+      "range": {
+        "startLine": 25,
+        "startChar": 13,
+        "endLine": 25,
+        "endChar": 15
+      },
+      "revId": "30a0fdc28d7b0b06ff098a92b9f95ba432c1ce0c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e314e3c1_27af6487",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 11
@@ -203,6 +251,30 @@
       "writtenOn": "2022-03-27T06:08:26Z",
       "side": 1,
       "message": "is this not the same as just\n\n```\nstd::string_view key(it.key);\nstd::string_view value(it.value);\n```\n\nparams_view::value_type::key is just string, right?",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 65
+      },
+      "revId": "30a0fdc28d7b0b06ff098a92b9f95ba432c1ce0c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0dc6f8c2_f4dca035",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-28T03:27:24Z",
+      "side": 1,
+      "message": "\u003e is this not the same as just\n\u003e \n\u003e ```\n\u003e std::string_view key(it.key);\n\u003e std::string_view value(it.value);\n\u003e ```\n\u003e \n\u003e params_view::value_type::key is just string, right?\n\nWouldn\u0027t that be nice.  No, it\u0027s not.  In theory in the next version fo boost we get boost::core::string_view, which is implicitly convertible to std::string_view, but that\u0027s not there yet, so we have to do this mess.",
+      "parentUuid": "e314e3c1_27af6487",
       "range": {
         "startLine": 28,
         "startChar": 0,
@@ -238,6 +310,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b5495b37_788d7167",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-28T03:27:24Z",
+      "side": 1,
+      "message": "\u003e Do we need to check `itMemBegin \u003d\u003d itMembers-\u003eend()`?\n\u003e \n\u003e shouldn\u0027t `itMembers-\u003esize() !\u003d 1` already cover that case?\n\nIn theory, yes, that\u0027s an equivalent check, but in general, we require that all pointers be checked, because static analysis tools can be pretty naive sometimes, and checking all pointers before dereferencing helps keep the security scans clean.\n\n\u003e \n\u003e If not, we can move `auto itMemBegin \u003d itMembers-\u003ebegin();` to line 62 since it is not really used until there.\n\nSee above.  I don\u0027t think it can move.",
+      "parentUuid": "3a451a7a_eb448638",
+      "range": {
+        "startLine": 54,
+        "startChar": 4,
+        "endLine": 54,
+        "endChar": 41
+      },
+      "revId": "30a0fdc28d7b0b06ff098a92b9f95ba432c1ce0c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3caf25f6_8a78bb35",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 11
@@ -261,6 +357,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "531f0716_e776a712",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-28T03:27:24Z",
+      "side": 1,
+      "message": "The version of http that we\u0027re constructing, ie HTTP1.1.",
+      "parentUuid": "3caf25f6_8a78bb35",
+      "range": {
+        "startLine": 82,
+        "startChar": 63,
+        "endLine": 82,
+        "endChar": 65
+      },
+      "revId": "30a0fdc28d7b0b06ff098a92b9f95ba432c1ce0c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fb3b8ff7_e6fc5185",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 11
@@ -272,6 +392,30 @@
       "writtenOn": "2022-03-27T06:08:26Z",
       "side": 1,
       "message": "Log the error code?",
+      "range": {
+        "startLine": 83,
+        "startChar": 0,
+        "endLine": 84,
+        "endChar": 5
+      },
+      "revId": "30a0fdc28d7b0b06ff098a92b9f95ba432c1ce0c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b5a44f69_2a8d162f",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-28T03:27:24Z",
+      "side": 1,
+      "message": "internalError logs the call site where it was added automatically.  Adding another log would be somewhat redundant.",
+      "parentUuid": "fb3b8ff7_e6fc5185",
       "range": {
         "startLine": 83,
         "startChar": 0,
