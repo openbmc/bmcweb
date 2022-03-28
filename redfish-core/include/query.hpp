@@ -7,6 +7,24 @@
 namespace redfish
 {
 
+// The non-default Redfish route which allows injecting resource-specific
+// handlers
+inline std::optional<query_param::Query>
+    setUpRedfishRouteNonDefault(const crow::Request& req, crow::Response& res)
+{
+    // If query parameters aren't enabled, do nothing.
+    if constexpr (bmcwebInsecureEnableQueryParams)
+    {
+        return std::nullopt;
+    }
+    if (req.method() != boost::beast::http::verb::get)
+    {
+        return std::nullopt;
+    }
+    return query_param::parseParameters(req.urlView.params(), res);
+}
+
+// The default Redfish route
 inline bool setUpRedfishRoute(crow::App& app, const crow::Request& req,
                               crow::Response& res)
 {
