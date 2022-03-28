@@ -16,6 +16,24 @@
       "message": "This is interesting but if this is what Redfish wants.. \n🤷. Seems fine to me",
       "revId": "96cc7f5b4a5982c0f9f6804476c1d45c30138e81",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ef09433_6c5b7d0f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-28T19:39:37Z",
+      "side": 1,
+      "message": "Yep.  I suspect it\u0027s leftover from when redfish thought they were going to be 100% odata, and use common bindings.  Clearly that didn\u0027t happen;  I kinda wonder if in the standard there\u0027s a couple places like this that could be made to be \"should\" not \"shall\".",
+      "parentUuid": "d9696eed_1354d3c9",
+      "revId": "96cc7f5b4a5982c0f9f6804476c1d45c30138e81",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
