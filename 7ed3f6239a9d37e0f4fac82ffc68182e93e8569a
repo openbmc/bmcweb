@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e88d1846_7ac953b6",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1001027
+      },
+      "writtenOn": "2022-03-28T10:53:50Z",
+      "side": 1,
+      "message": "‘*’ means both.\n\u0027~\u0027 means link property.",
+      "range": {
+        "startLine": 41,
+        "startChar": 8,
+        "endLine": 48,
+        "endChar": 48
+      },
+      "revId": "7ed3f6239a9d37e0f4fac82ffc68182e93e8569a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "92ac86ea_3504aa9d",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 19
