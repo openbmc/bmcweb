@@ -82,6 +82,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "96a0bf7f_0fa9d428",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-28T19:07:16Z",
+      "side": 1,
+      "message": "\u003e I would not have messed with this at all but for the fact that clang-tidy disliked\n\u003e \n\u003e if ()\n\u003e   return \"lit_str\";\n\u003e else if ()\n\u003e   return \"lit_str\";\n\u003e ...\n\u003e return \"lit_str\";\n\nThat\u0027s.... odd.  We do that pattern other places and clang-tidy seems fine with it, do you remember what the error was?  Was it related to the return type of that method returning const char* instead of string or string_view?  (just guessing)\n\n\u003e \n\u003e Thus the constexpr and the var assignment model was my favored answer.\n\u003e \n\u003e I have this vague recollection that I may have tried to dedup these in the past, and you requested not to. \n\nThe main concern here is declaring things at global scope, then those things get used in another file over, and we end up with weird #include dependencies (as a real example, SensorCollection relied on AccountService) that take a long convoluted set of patches to resolve.  There is probably a pattern for these that might be reasonable to maintain, and I\u0027m happy to have that discussion, just not in a patch that\u0027s also changing behavior, because it makes it hard to validate that we\u0027re getting the same optimization, binary size, and other stuff.\n\n\u003e \n\u003e I also like that the various code blocks get shorter, ala translateDHCPv4DbusToBool, and translateDHCPv6DbusToModeString.\n\u003e \n\u003e Will revert, just expect me to forget you prefer the inline vs the dedup.\n\nNo worries.  Like I said, it\u0027s largely about consistency, and FWIW, this file suffers from being one of the first we wrote, and having non-trivial dbus conversion, and so it does some strange things.  I\u0027m not completely against non-inline variables, I\u0027d just like them to be backed by the specification if we do them.\n\nAKA: https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/51993/2/redfish-core/include/redfish_defs.hpp\n\n\nIf you have strong opinions on this, I\u0027d love your input on the above.",
+      "parentUuid": "dfbc4d19_57292204",
+      "range": {
+        "startLine": 112,
+        "startChar": 0,
+        "endLine": 124,
+        "endChar": 64
+      },
+      "revId": "43e1e29927a5d78236d1ab32219ec75de17280f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "36a512be_12727977",
@@ -223,6 +247,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b0d08442_d75528e3",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-28T19:07:16Z",
+      "side": 1,
+      "message": "No worries.  It is naming, so it\u0027s not a bridge I\u0027m going to stand on if you really want to call it next, I just didn\u0027t really get the reference.",
+      "parentUuid": "8fda9d09_88d19ec6",
+      "range": {
+        "startLine": 159,
+        "startChar": 19,
+        "endLine": 159,
+        "endChar": 38
+      },
+      "revId": "43e1e29927a5d78236d1ab32219ec75de17280f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1970bf6d_176d3411",
@@ -332,6 +380,30 @@
       "side": 1,
       "message": "It appears value_or can throw an exception. BMCWeb is designed to avoid exceptions. I expect using syntax similar to the remaining statements in the function are preferred.",
       "parentUuid": "e95f10c3_981cd375",
+      "range": {
+        "startLine": 1278,
+        "startChar": 0,
+        "endLine": 1281,
+        "endChar": 0
+      },
+      "revId": "43e1e29927a5d78236d1ab32219ec75de17280f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ccd8128a_6c8932ea",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1281,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-28T19:07:16Z",
+      "side": 1,
+      "message": "value_or doesn\u0027t throw exceptions so its use would be fine, with that said, there are zero uses of it in the bmcweb codebase to date, so I\u0027m not going to require it on new patches, although it could\u0027ve worked fine here.",
+      "parentUuid": "f82fa324_a246f981",
       "range": {
         "startLine": 1278,
         "startChar": 0,
