@@ -16,6 +16,29 @@
       "message": "It looks like this patchset is gaining life again, which is great to see!  Lets get the existing comments that are outstanding but have been fixed in code or are no longer relevant marked as resolved, and replies sent to any comments that are still outstanding but not understood but the current batch of people working on this.  It\u0027s been a while, but from what I recall this was pretty close the last time we looked at it, it just needs a little push over the edge.",
       "revId": "b5ae118804055af5e04ca8cfd2ef11b3f43fc83b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e10255b5_56f7891b",
+        "filename": "redfish-core/include/utils/chassis_utils.hpp",
+        "patchSetId": 121
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1000998
+      },
+      "writtenOn": "2022-03-28T16:32:05Z",
+      "side": 1,
+      "message": "Wouldn\u0027t it make more sense to make this something like `getValidChassisPath` and return the DBus path of the chassis? That would make this useful for many other cases when we are searching for a chassis based on the ID.",
+      "range": {
+        "startLine": 49,
+        "startChar": 15,
+        "endLine": 49,
+        "endChar": 43
+      },
+      "revId": "b5ae118804055af5e04ca8cfd2ef11b3f43fc83b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
