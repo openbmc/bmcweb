@@ -23,6 +23,7 @@
 #include <query.hpp>
 #include <registries/privilege_registry.hpp>
 #include <sdbusplus/asio/property.hpp>
+#include <utils/asset_utils.hpp>
 #include <utils/collection.hpp>
 
 namespace redfish
@@ -335,83 +336,40 @@ inline void requestRoutesChassis(App& app)
                             }
                         }
 
-                        crow::connections::systemBus->async_method_call(
-                            [asyncResp, chassisId(std::string(chassisId))](
-                                const boost::system::error_code /*ec2*/,
-                                const dbus::utility::DBusPropertiesMap&
-                                    propertiesList) {
-                                for (const std::pair<
-                                         std::string,
-                                         dbus::utility::DbusVariantType>&
-                                         property : propertiesList)
-                                {
-                                    // Store DBus properties that are also
-                                    // Redfish properties with same name and a
-                                    // string value
-                                    const std::string& propertyName =
-                                        property.first;
-                                    if ((propertyName == "PartNumber") ||
-                                        (propertyName == "SerialNumber") ||
-                                        (propertyName == "Manufacturer") ||
-                                        (propertyName == "Model") ||
-                                        (propertyName == "SparePartNumber"))
-                                    {
-                                        const std::string* value =
-                                            std::get_if<std::string>(
-                                                &property.second);
-                                        if (value == nullptr)
-                                        {
-                                            BMCWEB_LOG_ERROR
-                                                << "Null value returned for "
-                                                << propertyName;
-                                            messages::internalError(
-                                                asyncResp->res);
-                                            return;
-                                        }
-                                        // SparePartNumber is optional on D-Bus
-                                        // so skip if it is empty
-                                        if (propertyName == "SparePartNumber")
-                                        {
-                                            if (value->empty())
-                                            {
-                                                continue;
-                                            }
-                                        }
-                                        asyncResp->res.jsonValue[propertyName] =
-                                            *value;
-                                    }
-                                }
-                                asyncResp->res.jsonValue["Name"] = chassisId;
-                                asyncResp->res.jsonValue["Id"] = chassisId;
-#ifdef BMCWEB_ALLOW_DEPRECATED_POWER_THERMAL
-                                asyncResp->res.jsonValue["Thermal"] = {
-                                    {"@odata.id", "/redfish/v1/Chassis/" +
-                                                      chassisId + "/Thermal"}};
-                                // Power object
-                                asyncResp->res.jsonValue["Power"] = {
-                                    {"@odata.id", "/redfish/v1/Chassis/" +
-                                                      chassisId + "/Power"}};
-#endif
-                                // SensorCollection
-                                asyncResp->res.jsonValue["Sensors"] = {
-                                    {"@odata.id", "/redfish/v1/Chassis/" +
-                                                      chassisId + "/Sensors"}};
-                                asyncResp->res.jsonValue["Status"] = {
-                                    {"State", "Enabled"},
-                                };
+                        asset_utils::addAssetProperties(
+                            asyncResp, connectionName, path, ""_json_pointer,
+                            [](const std::string& propertyName) {
+                                return (propertyName == "PartNumber") ||
+                                       (propertyName == "SerialNumber") ||
+                                       (propertyName == "Manufacturer") ||
+                                       (propertyName == "Model") ||
+                                       (propertyName == "SparePartNumber");
+                            });
 
-                                asyncResp->res
-                                    .jsonValue["Links"]["ComputerSystems"] = {
-                                    {{"@odata.id",
-                                      "/redfish/v1/Systems/system"}}};
-                                asyncResp->res.jsonValue["Links"]["ManagedBy"] =
-                                    {{{"@odata.id",
-                                       "/redfish/v1/Managers/bmc"}}};
-                                getChassisState(asyncResp);
-                            },
-                            connectionName, path,
-                            "org.freedesktop.DBus.Properties", "GetAll",
-                            "xyz.openbmc_project.Inventory.Decorator.Asset");
+                        asyncResp->res.jsonValue["Name"] = chassisId;
+                        asyncResp->res.jsonValue["Id"] = chassisId;
+#ifdef BMCWEB_ALLOW_DEPRECATED_POWER_THERMAL
+                        asyncResp->res.jsonValue["Thermal"] = {
+                            {"@odata.id",
+                             "/redfish/v1/Chassis/" + chassisId + "/Thermal"}};
+                        // Power object
+                        asyncResp->res.jsonValue["Power"] = {
+                            {"@odata.id",
+                             "/redfish/v1/Chassis/" + chassisId + "/Power"}};
+#endif
+                        // SensorCollection
+                        asyncResp->res.jsonValue["Sensors"] = {
+                            {"@odata.id",
+                             "/redfish/v1/Chassis/" + chassisId + "/Sensors"}};
+                        asyncResp->res.jsonValue["Status"] = {
+                            {"State", "Enabled"},
+                        };
+
+                        asyncResp->res.jsonValue["Links"]["ComputerSystems"] = {
+                            {{"@odata.id", "/redfish/v1/Systems/system"}}};
+                        asyncResp->res.jsonValue["Links"]["ManagedBy"] = {
+                            {{"@odata.id", "/redfish/v1/Managers/bmc"}}};
+                        getChassisState(asyncResp);
 
                         for (const auto& interface : interfaces2)
                         {
