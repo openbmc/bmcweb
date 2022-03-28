@@ -48,6 +48,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "878d4adf_ec4b19bc",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-03-28T06:45:33Z",
+      "side": 1,
+      "message": "I was thinking of maybe it is a good idea to dump-proof the code, but maybe that\u0027s not worth the extra complexity. but yeah, you are right that using the value without checking the error is programming errors.\n\nI am fine with the it is without the change.",
+      "parentUuid": "519dca35_6901c0e0",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 75,
+        "endChar": 24
+      },
+      "revId": "7ed3f6239a9d37e0f4fac82ffc68182e93e8569a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9a667c09_99d42375",
