@@ -1729,18 +1729,17 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
  * @brief Retrieves BMC manager location data over DBus
  *
  * @param[in] aResp Shared pointer for completing asynchronous calls
- * @param[in] connectionName - service name
+ * @param[in] serviceName - service name
  * @param[in] path - object path
  * @return none
  */
 inline void getLocation(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
-                        const std::string& connectionName,
-                        const std::string& path)
+                        const std::string& serviceName, const std::string& path)
 {
     BMCWEB_LOG_DEBUG << "Get BMC manager Location data.";
 
     sdbusplus::asio::getProperty<std::string>(
-        *crow::connections::systemBus, connectionName, path,
+        *crow::connections::systemBus, serviceName, path,
         "xyz.openbmc_project.Inventory.Decorator.LocationCode", "LocationCode",
         [aResp](const boost::system::error_code ec,
                 const std::string& property) {
@@ -2125,8 +2124,7 @@ inline void requestRoutesManager(App& app)
                     }
 
                     const std::string& path = subtree[0].first;
-                    const std::string& connectionName =
-                        subtree[0].second[0].first;
+                    const std::string& serviceName = subtree[0].second[0].first;
 
                     for (const auto& interfaceName :
                          subtree[0].second[0].second)
@@ -2175,7 +2173,7 @@ inline void requestRoutesManager(App& app)
                                         }
                                     }
                                 },
-                                connectionName, path,
+                                serviceName, path,
                                 "org.freedesktop.DBus.Properties", "GetAll",
                                 "xyz.openbmc_project.Inventory.Decorator.Asset");
                         }
@@ -2183,7 +2181,7 @@ inline void requestRoutesManager(App& app)
                             interfaceName ==
                             "xyz.openbmc_project.Inventory.Decorator.LocationCode")
                         {
-                            getLocation(asyncResp, connectionName, path);
+                            getLocation(asyncResp, serviceName, path);
                         }
                     }
                 },

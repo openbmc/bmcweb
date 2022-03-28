@@ -261,8 +261,8 @@ inline void
                 BMCWEB_LOG_DEBUG << "Got path: " << path;
                 const std::vector<
                     std::pair<std::string, std::vector<std::string>>>&
-                    connectionNames = object.second;
-                if (connectionNames.empty())
+                    serviceNames = object.second;
+                if (serviceNames.empty())
                 {
                     continue;
                 }
@@ -278,7 +278,7 @@ inline void
 
                 // This is not system, so check if it's cpu, dimm, UUID or
                 // BiosVer
-                for (const auto& connection : connectionNames)
+                for (const auto& connection : serviceNames)
                 {
                     for (const auto& interfaceName : connection.second)
                     {

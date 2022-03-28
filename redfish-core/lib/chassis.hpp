@@ -157,11 +157,11 @@ inline void requestRoutesChassisCollection(App& app)
 
 inline void
     getChassisLocationCode(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                           const std::string& connectionName,
+                           const std::string& serviceName,
                            const std::string& path)
 {
     sdbusplus::asio::getProperty<std::string>(
-        *crow::connections::systemBus, connectionName, path,
+        *crow::connections::systemBus, serviceName, path,
         "xyz.openbmc_project.Inventory.Decorator.LocationCode", "LocationCode",
         [asyncResp](const boost::system::error_code ec,
                     const std::string& property) {
@@ -179,11 +179,11 @@ inline void
 }
 
 inline void getChassisUUID(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                           const std::string& connectionName,
+                           const std::string& serviceName,
                            const std::string& path)
 {
     sdbusplus::asio::getProperty<std::string>(
-        *crow::connections::systemBus, connectionName, path,
+        *crow::connections::systemBus, serviceName, path,
         "xyz.openbmc_project.Common.UUID", "UUID",
         [asyncResp](const boost::system::error_code ec,
                     const std::string& chassisUUID) {
@@ -233,7 +233,7 @@ inline void requestRoutesChassis(App& app)
                         const std::string& path = object.first;
                         const std::vector<
                             std::pair<std::string, std::vector<std::string>>>&
-                            connectionNames = object.second;
+                            serviceNames = object.second;
 
                         sdbusplus::message::object_path objPath(path);
                         if (objPath.filename() != chassisId)
@@ -260,7 +260,7 @@ inline void requestRoutesChassis(App& app)
 
                         health->populate();
 
-                        if (connectionNames.empty())
+                        if (serviceNames.empty())
                         {
                             BMCWEB_LOG_ERROR << "Got 0 Connection names";
                             continue;
@@ -282,11 +282,10 @@ inline void requestRoutesChassis(App& app)
                             {"@odata.id",
                              "/redfish/v1/Systems/system/PCIeDevices"}};
 
-                        const std::string& connectionName =
-                            connectionNames[0].first;
+                        const std::string& serviceName = serviceNames[0].first;
 
                         const std::vector<std::string>& interfaces2 =
-                            connectionNames[0].second;
+                            serviceNames[0].second;
                         const std::array<const char*, 2> hasIndicatorLed = {
                             "xyz.openbmc_project.Inventory.Item.Panel",
                             "xyz.openbmc_project.Inventory.Item.Board.Motherboard"};
@@ -297,7 +296,7 @@ inline void requestRoutesChassis(App& app)
                                       assetTagInterface) != interfaces2.end())
                         {
                             sdbusplus::asio::getProperty<std::string>(
-                                *crow::connections::systemBus, connectionName,
+                                *crow::connections::systemBus, serviceName,
                                 path, assetTagInterface, "AssetTag",
                                 [asyncResp, chassisId(std::string(chassisId))](
                                     const boost::system::error_code ec,
@@ -400,7 +399,7 @@ inline void requestRoutesChassis(App& app)
                                        "/redfish/v1/Managers/bmc"}}};
                                 getChassisState(asyncResp);
                             },
-                            connectionName, path,
+                            serviceName, path,
                             "org.freedesktop.DBus.Properties", "GetAll",
                             "xyz.openbmc_project.Inventory.Decorator.Asset");
 
@@ -408,14 +407,14 @@ inline void requestRoutesChassis(App& app)
                         {
                             if (interface == "xyz.openbmc_project.Common.UUID")
                             {
-                                getChassisUUID(asyncResp, connectionName, path);
+                                getChassisUUID(asyncResp, serviceName, path);
                             }
                             else if (
                                 interface ==
                                 "xyz.openbmc_project.Inventory.Decorator.LocationCode")
                             {
-                                getChassisLocationCode(asyncResp,
-                                                       connectionName, path);
+                                getChassisLocationCode(asyncResp, serviceName,
+                                                       path);
                             }
                         }
 
@@ -494,7 +493,7 @@ inline void requestRoutesChassis(App& app)
                         const std::string& path = object.first;
                         const std::vector<
                             std::pair<std::string, std::vector<std::string>>>&
-                            connectionNames = object.second;
+                            serviceNames = object.second;
 
                         sdbusplus::message::object_path objPath(path);
                         if (objPath.filename() != chassisId)
@@ -502,14 +501,14 @@ inline void requestRoutesChassis(App& app)
                             continue;
                         }
 
-                        if (connectionNames.empty())
+                        if (serviceNames.empty())
                         {
                             BMCWEB_LOG_ERROR << "Got 0 Connection names";
                             continue;
                         }
 
                         const std::vector<std::string>& interfaces3 =
-                            connectionNames[0].second;
+                            serviceNames[0].second;
 
                         const std::array<const char*, 2> hasIndicatorLed = {
                             "xyz.openbmc_project.Inventory.Item.Panel",

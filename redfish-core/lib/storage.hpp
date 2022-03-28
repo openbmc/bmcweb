@@ -143,7 +143,7 @@ inline void requestRoutesStorage(App& app)
                             return;
                         }
 
-                        const std::string& connectionName =
+                        const std::string& serviceName =
                             interfaceDict.front().first;
 
                         size_t index = root.size();
@@ -162,7 +162,7 @@ inline void requestRoutesStorage(App& app)
                         storageController["Status"]["State"] = "Enabled";
 
                         sdbusplus::asio::getProperty<bool>(
-                            *crow::connections::systemBus, connectionName, path,
+                            *crow::connections::systemBus, serviceName, path,
                             "xyz.openbmc_project.Inventory.Item", "Present",
                             [asyncResp,
                              index](const boost::system::error_code ec2,
@@ -227,7 +227,7 @@ inline void requestRoutesStorage(App& app)
                                     }
                                 }
                             },
-                            connectionName, path,
+                            serviceName, path,
                             "org.freedesktop.DBus.Properties", "GetAll",
                             "xyz.openbmc_project.Inventory.Decorator.Asset");
                     }
@@ -256,7 +256,7 @@ inline void requestRoutesStorage(App& app)
 }
 
 inline void getDriveAsset(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                          const std::string& connectionName,
+                          const std::string& serviceName,
                           const std::string& path)
 {
     crow::connections::systemBus->async_method_call(
@@ -293,16 +293,16 @@ inline void getDriveAsset(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                 }
             }
         },
-        connectionName, path, "org.freedesktop.DBus.Properties", "GetAll",
+        serviceName, path, "org.freedesktop.DBus.Properties", "GetAll",
         "xyz.openbmc_project.Inventory.Decorator.Asset");
 }
 
 inline void getDrivePresent(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                            const std::string& connectionName,
+                            const std::string& serviceName,
                             const std::string& path)
 {
     sdbusplus::asio::getProperty<bool>(
-        *crow::connections::systemBus, connectionName, path,
+        *crow::connections::systemBus, serviceName, path,
         "xyz.openbmc_project.Inventory.Item", "Present",
         [asyncResp, path](const boost::system::error_code ec,
                           const bool enabled) {
@@ -321,11 +321,11 @@ inline void getDrivePresent(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 }
 
 inline void getDriveState(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                          const std::string& connectionName,
+                          const std::string& serviceName,
                           const std::string& path)
 {
     sdbusplus::asio::getProperty<bool>(
-        *crow::connections::systemBus, connectionName, path,
+        *crow::connections::systemBus, serviceName, path,
         "xyz.openbmc_project.State.Drive", "Rebuilding",
         [asyncResp](const boost::system::error_code ec, const bool updating) {
             // this interface isn't necessary, only check it
@@ -384,11 +384,11 @@ inline std::optional<std::string> convertDriveProtocol(const std::string& proto)
 
 inline void
     getDriveItemProperties(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                           const std::string& connectionName,
+                           const std::string& serviceName,
                            const std::string& path)
 {
     sdbusplus::asio::getAllProperties(
-        *crow::connections::systemBus, connectionName, path,
+        *crow::connections::systemBus, serviceName, path,
         "xyz.openbmc_project.Inventory.Item.Drive",
         [asyncResp](const boost::system::error_code ec,
                     const std::vector<
@@ -513,7 +513,7 @@ inline void requestRoutesDrive(App& app)
                     const std::string& path = drive->first;
                     const std::vector<
                         std::pair<std::string, std::vector<std::string>>>&
-                        connectionNames = drive->second;
+                        serviceNames = drive->second;
 
                     asyncResp->res.jsonValue["@odata.type"] =
                         "#Drive.v1_7_0.Drive";
@@ -523,10 +523,10 @@ inline void requestRoutesDrive(App& app)
                     asyncResp->res.jsonValue["Name"] = driveId;
                     asyncResp->res.jsonValue["Id"] = driveId;
 
-                    if (connectionNames.size() != 1)
+                    if (serviceNames.size() != 1)
                     {
                         BMCWEB_LOG_ERROR << "Connection size "
-                                         << connectionNames.size()
+                                         << serviceNames.size()
                                          << ", not equal to 1";
                         messages::internalError(asyncResp->res);
                         return;
@@ -548,13 +548,12 @@ inline void requestRoutesDrive(App& app)
                     health->inventory.emplace_back(path);
                     health->populate();
 
-                    const std::string& connectionName =
-                        connectionNames[0].first;
+                    const std::string& serviceName = serviceNames[0].first;
 
-                    getDriveAsset(asyncResp, connectionName, path);
-                    getDrivePresent(asyncResp, connectionName, path);
-                    getDriveState(asyncResp, connectionName, path);
-                    getDriveItemProperties(asyncResp, connectionName, path);
+                    getDriveAsset(asyncResp, serviceName, path);
+                    getDrivePresent(asyncResp, serviceName, path);
+                    getDriveState(asyncResp, serviceName, path);
+                    getDriveItemProperties(asyncResp, serviceName, path);
                 },
                 "xyz.openbmc_project.ObjectMapper",
                 "/xyz/openbmc_project/object_mapper",

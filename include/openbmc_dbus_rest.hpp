@@ -244,20 +244,20 @@ struct InProgressEnumerateData
 
 inline void getManagedObjectsForEnumerate(
     const std::string& objectName, const std::string& objectManagerPath,
-    const std::string& connectionName,
+    const std::string& serviceName,
     const std::shared_ptr<InProgressEnumerateData>& transaction)
 {
     BMCWEB_LOG_DEBUG << "getManagedObjectsForEnumerate " << objectName
                      << " object_manager_path " << objectManagerPath
-                     << " connection_name " << connectionName;
+                     << " connection_name " << serviceName;
     crow::connections::systemBus->async_method_call(
         [transaction, objectName,
-         connectionName](const boost::system::error_code ec,
-                         const dbus::utility::ManagedObjectType& objects) {
+         serviceName](const boost::system::error_code ec,
+                      const dbus::utility::ManagedObjectType& objects) {
             if (ec)
             {
                 BMCWEB_LOG_ERROR << "GetManagedObjects on path " << objectName
-                                 << " on connection " << connectionName
+                                 << " on connection " << serviceName
                                  << " failed with code " << ec;
                 return;
             }
@@ -305,25 +305,25 @@ inline void getManagedObjectsForEnumerate(
                 {
                     if (interface.first == "org.freedesktop.DBus.ObjectManager")
                     {
-                        getManagedObjectsForEnumerate(
-                            objectPath.first.str, objectPath.first.str,
-                            connectionName, transaction);
+                        getManagedObjectsForEnumerate(objectPath.first.str,
+                                                      objectPath.first.str,
+                                                      serviceName, transaction);
                     }
                 }
             }
         },
-        connectionName, objectManagerPath, "org.freedesktop.DBus.ObjectManager",
+        serviceName, objectManagerPath, "org.freedesktop.DBus.ObjectManager",
         "GetManagedObjects");
 }
 
 inline void findObjectManagerPathForEnumerate(
-    const std::string& objectName, const std::string& connectionName,
+    const std::string& objectName, const std::string& serviceName,
     const std::shared_ptr<InProgressEnumerateData>& transaction)
 {
     BMCWEB_LOG_DEBUG << "Finding objectmanager for path " << objectName
-                     << " on connection:" << connectionName;
+                     << " on connection:" << serviceName;
     crow::connections::systemBus->async_method_call(
-        [transaction, objectName, connectionName](
+        [transaction, objectName, serviceName](
             const boost::system::error_code ec,
             const dbus::utility::MapperGetAncestorsResponse& objects) {
             if (ec)
@@ -337,12 +337,12 @@ inline void findObjectManagerPathForEnumerate(
             {
                 for (const auto& connectionGroup : pathGroup.second)
                 {
-                    if (connectionGroup.first == connectionName)
+                    if (connectionGroup.first == serviceName)
                     {
                         // Found the object manager path for this resource.
-                        getManagedObjectsForEnumerate(
-                            objectName, pathGroup.first, connectionName,
-                            transaction);
+                        getManagedObjectsForEnumerate(objectName,
+                                                      pathGroup.first,
+                                                      serviceName, transaction);
                         return;
                     }
                 }
@@ -1341,12 +1341,11 @@ inline void handleMethodResponse(
 
 inline void findActionOnInterface(
     const std::shared_ptr<InProgressActionData>& transaction,
-    const std::string& connectionName)
+    const std::string& serviceName)
 {
-    BMCWEB_LOG_DEBUG << "findActionOnInterface for connection "
-                     << connectionName;
+    BMCWEB_LOG_DEBUG << "findActionOnInterface for connection " << serviceName;
     crow::connections::systemBus->async_method_call(
-        [transaction, connectionName{std::string(connectionName)}](
+        [transaction, serviceName{std::string(serviceName)}](
             const boost::system::error_code ec,
             const std::string& introspectXml) {
             BMCWEB_LOG_DEBUG << "got xml:\n " << introspectXml;
@@ -1354,7 +1353,7 @@ inline void findActionOnInterface(
             {
                 BMCWEB_LOG_ERROR
                     << "Introspect call failed with error: " << ec.message()
-                    << " on process: " << connectionName << "\n";
+                    << " on process: " << serviceName << "\n";
                 return;
             }
             tinyxml2::XMLDocument doc;
@@ -1364,7 +1363,7 @@ inline void findActionOnInterface(
             if (pRoot == nullptr)
             {
                 BMCWEB_LOG_ERROR << "XML document failed to parse "
-                                 << connectionName << "\n";
+                                 << serviceName << "\n";
                 return;
             }
             tinyxml2::XMLElement* interfaceNode =
@@ -1398,7 +1397,7 @@ inline void findActionOnInterface(
                                 << " on interface " << thisInterfaceName;
                             sdbusplus::message::message m =
                                 crow::connections::systemBus->new_method_call(
-                                    connectionName.c_str(),
+                                    serviceName.c_str(),
                                     transaction->path.c_str(),
                                     thisInterfaceName,
                                     transaction->methodName.c_str());
@@ -1503,8 +1502,8 @@ inline void findActionOnInterface(
                 interfaceNode = interfaceNode->NextSiblingElement("interface");
             }
         },
-        connectionName, transaction->path,
-        "org.freedesktop.DBus.Introspectable", "Introspect");
+        serviceName, transaction->path, "org.freedesktop.DBus.Introspectable",
+        "Introspect");
 }
 
 inline void handleAction(const crow::Request& req,
@@ -1873,10 +1872,10 @@ inline void handlePut(const crow::Request& req,
             for (const std::pair<std::string, std::vector<std::string>>&
                      connection : objectNames)
             {
-                const std::string& connectionName = connection.first;
+                const std::string& serviceName = connection.first;
 
                 crow::connections::systemBus->async_method_call(
-                    [connectionName{std::string(connectionName)},
+                    [serviceName{std::string(serviceName)},
                      transaction](const boost::system::error_code ec3,
                                   const std::string& introspectXml) {
                         if (ec3)
@@ -1884,7 +1883,7 @@ inline void handlePut(const crow::Request& req,
                             BMCWEB_LOG_ERROR
                                 << "Introspect call failed with error: "
                                 << ec3.message()
-                                << " on process: " << connectionName;
+                                << " on process: " << serviceName;
                             transaction->setErrorStatus("Unexpected Error");
                             return;
                         }
@@ -1925,7 +1924,7 @@ inline void handlePut(const crow::Request& req,
                                         sdbusplus::message::message m =
                                             crow::connections::systemBus
                                                 ->new_method_call(
-                                                    connectionName.c_str(),
+                                                    serviceName.c_str(),
                                                     transaction->objectPath
                                                         .c_str(),
                                                     "org.freedesktop.DBus."
@@ -2016,7 +2015,7 @@ inline void handlePut(const crow::Request& req,
                                 ifaceNode->NextSiblingElement("interface");
                         }
                     },
-                    connectionName, transaction->objectPath,
+                    serviceName, transaction->objectPath,
                     "org.freedesktop.DBus.Introspectable", "Introspect");
             }
         },
