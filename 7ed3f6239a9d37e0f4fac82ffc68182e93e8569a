@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "976290c6_88e16bca",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-28T16:07:04Z",
+      "side": 1,
+      "message": "Because there are a number of cases where this is passed/copied by value, so keeping the Query struct small is agood, and the compiler without the hint will pick int, which is wasteful.  There is a compiler option that can influence this as well, but I didn\u0027t want to apply that to all of bmcweb.",
+      "parentUuid": "7eb69834_5674018c",
+      "range": {
+        "startLine": 18,
+        "startChar": 24,
+        "endLine": 18,
+        "endChar": 31
+      },
+      "revId": "7ed3f6239a9d37e0f4fac82ffc68182e93e8569a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c7839471_df23eceb",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 19
@@ -37,6 +61,30 @@
       "writtenOn": "2022-03-28T15:41:55Z",
       "side": 1,
       "message": "I double checked the Spec, these names are misleading to me.\n\nIn the spec,\n\n1. * expands all hyperlinks\n2. . expands all hyperlinks not in any links property\n3. ~ expands only hyperlinks that are links property\n\nSo, all Expand types are for hyperlinkes, the difference is whether to expand hyperlinks in \"links property\" or not.\n\nI suggest changing these names to\n\n{\n  None,\n  AllHyperlinks,\n  HyperlinksNotLinksProperty,\n  LinksProperty\n}",
+      "range": {
+        "startLine": 21,
+        "startChar": 4,
+        "endLine": 21,
+        "endChar": 14
+      },
+      "revId": "7ed3f6239a9d37e0f4fac82ffc68182e93e8569a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "441e3b69_5aff3a36",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-28T16:07:04Z",
+      "side": 1,
+      "message": "\u003e I double checked the Spec, these names are misleading to me.\n\u003e \n\u003e In the spec,\n\u003e \n\u003e 1. * expands all hyperlinks\n\u003e 2. . expands all hyperlinks not in any links property\n\u003e 3. ~ expands only hyperlinks that are links property\n\u003e \n\u003e So, all Expand types are for hyperlinkes, the difference is whether to expand hyperlinks in \"links property\" or not.\n\u003e \n\u003e I suggest changing these names to\n\u003e \n\u003e {\n\u003e   None,\n\u003e   AllHyperlinks,\n\u003e   HyperlinksNotLinksProperty,\n\u003e   LinksProperty\n\u003e }\n\nIn a previous patchset it was basically that naming convention.  Happy to go back to\n\nNone,\nNotLinks\nLinks,\nAll\n\nif that works for you?  I\u0027d rather not include the name \"Property\" because technically in Redfish, they aren\u0027t properties, they\u0027re NavigationReferences.  And I\u0027d rather not include the word Hyperlinks, because of your previous comment that they\u0027re all hyperlinks.",
+      "parentUuid": "c7839471_df23eceb",
       "range": {
         "startLine": 21,
         "startChar": 4,
@@ -72,6 +120,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bd060c42_86f15fec",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-28T16:07:04Z",
+      "side": 1,
+      "message": "Yep, Good catch.  Will fix.",
+      "parentUuid": "7eae1b40_5938640b",
+      "range": {
+        "startLine": 42,
+        "startChar": 43,
+        "endLine": 42,
+        "endChar": 53
+      },
+      "revId": "7ed3f6239a9d37e0f4fac82ffc68182e93e8569a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e88d1846_7ac953b6",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 19
@@ -83,6 +155,30 @@
       "writtenOn": "2022-03-28T10:53:50Z",
       "side": 1,
       "message": "‘*’ means both.\n\u0027~\u0027 means link property.",
+      "range": {
+        "startLine": 41,
+        "startChar": 8,
+        "endLine": 48,
+        "endChar": 48
+      },
+      "revId": "7ed3f6239a9d37e0f4fac82ffc68182e93e8569a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c1837260_dbaa360a",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-28T16:07:04Z",
+      "side": 1,
+      "message": "Will fix.",
+      "parentUuid": "e88d1846_7ac953b6",
       "range": {
         "startLine": 41,
         "startChar": 8,
@@ -188,6 +284,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "28f707cc_376b68cc",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-28T16:07:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "725cd315_dfe0ed79",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 75,
+        "endChar": 24
+      },
+      "revId": "7ed3f6239a9d37e0f4fac82ffc68182e93e8569a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ae5112b7_a4ea2789",
@@ -201,6 +321,30 @@
       "writtenOn": "2022-03-28T15:41:55Z",
       "side": 1,
       "message": "I was testing this. \"redfish/v1/Chassis/fake_chassis?$expand\u003d.\" gave me wrong results. \n\nPeriod shall expand sources like sensors under this chassis but not links property (e.g., ComputerSystems, ManagedBy). Testing result shows that here we don\u0027t expand anything.\n\ntilde shall expand only links property. Testing results shows it expands both.",
+      "range": {
+        "startLine": 191,
+        "startChar": 12,
+        "endLine": 191,
+        "endChar": 45
+      },
+      "revId": "7ed3f6239a9d37e0f4fac82ffc68182e93e8569a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "79923a5a_51c8340e",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-28T16:07:04Z",
+      "side": 1,
+      "message": "Tracking for this error is covered on line 42.  I\u0027m closing this comment, and will track resolving it on that comment chain, but agreed, this is an issue.",
+      "parentUuid": "ae5112b7_a4ea2789",
       "range": {
         "startLine": 191,
         "startChar": 12,
