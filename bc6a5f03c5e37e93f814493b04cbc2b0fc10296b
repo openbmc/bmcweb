@@ -16,6 +16,24 @@
       "message": "The protocol validator wasn\u0027t okay with no content?\nThe spec says no content is okay. Section 7.5.2 \"modification success responce\" (1.15 DSP 0266)",
       "revId": "bc6a5f03c5e37e93f814493b04cbc2b0fc10296b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "53447a88_3d741379",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-28T03:34:46Z",
+      "side": 1,
+      "message": "It\u0027s arguably a bug in the protocol validator as well (it seems to require json responses to all modification requests).  It might be something to take up with the tools working group, but this patch is just making us internally consistent.",
+      "parentUuid": "fec9d1cb_ea56b733",
+      "revId": "bc6a5f03c5e37e93f814493b04cbc2b0fc10296b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
