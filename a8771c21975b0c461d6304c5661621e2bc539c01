@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8b46edd0_f2213df7",
+        "filename": "redfish-core/lib/ut/service_root_test.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-03-28T16:59:30Z",
+      "side": 1,
+      "message": "can you verify the size of ProtocolFeaturesSupported,ExpandQuery and DeepOperations\nie.\nEXPECT_EQ(json[\"ProtocolFeaturesSupported\"]).size(),6);\nEXPECT_EQ(json[\"ProtocolFeaturesSupported\"][\"ExpandQuery\"]).size(),4);\nEXPECT_EQ(json[\"ProtocolFeaturesSupported\"][\"DeepOperations\"]).size(),2);",
+      "range": {
+        "startLine": 78,
+        "startChar": 4,
+        "endLine": 78,
+        "endChar": 16
+      },
+      "revId": "a8771c21975b0c461d6304c5661621e2bc539c01",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
