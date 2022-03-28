@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "82b40193_d4fc6d22",
+        "filename": "redfish-core/lib/service_root.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-28T23:45:45Z",
+      "side": 1,
+      "message": "Is maxLevel required when we have no max level?  I thought it was optional, and this patchset doesn\u0027t impose a max level, so I intentionally omitted it.",
+      "parentUuid": "73cb9891_88cc7c08",
+      "range": {
+        "startLine": 79,
+        "startChar": 22,
+        "endLine": 79,
+        "endChar": 33
+      },
+      "revId": "c8ea700cab04fa6ef775ddc0a327cf83507a3fdb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fad2772f_4c8a6487",
         "filename": "redfish-core/lib/ut/service_root_test.cpp",
         "patchSetId": 23
@@ -37,6 +61,30 @@
       "writtenOn": "2022-03-28T23:40:44Z",
       "side": 1,
       "message": "missing the config header here",
+      "range": {
+        "startLine": 4,
+        "startChar": 10,
+        "endLine": 4,
+        "endChar": 17
+      },
+      "revId": "c8ea700cab04fa6ef775ddc0a327cf83507a3fdb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c2428b3b_cf916fc9",
+        "filename": "redfish-core/lib/ut/service_root_test.cpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-28T23:45:45Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "fad2772f_4c8a6487",
       "range": {
         "startLine": 4,
         "startChar": 10,
