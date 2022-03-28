@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bc99d262_e7b9140e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-28T20:17:23Z",
+      "side": 1,
+      "message": "Please see my comment on https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/50135/10\n\nIdeally we should be using the depth readJsonPatch parser for this.",
+      "revId": "54b922483204b227d39fd26b5ad762a60f793d4e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
