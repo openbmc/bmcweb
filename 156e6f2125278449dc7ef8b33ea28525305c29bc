@@ -48,6 +48,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e5987b6_7c7fb362",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-03-29T00:47:02Z",
+      "side": 1,
+      "message": "I was able to revert to capturing \"self(shared_from_this())\" rather than \"this\".  I did this by changing \"std::vector\u003cConnectionInfo*\u003e connections\" to \"std::vector\u003cstd::shared_ptr\u003cConnectionInfo\u003e\u003e\" and using \"make_shared\" when creating a new connection",
+      "parentUuid": "4f29b9da_64d957a6",
+      "range": {
+        "startLine": 229,
+        "startChar": 13,
+        "endLine": 229,
+        "endChar": 17
+      },
+      "revId": "156e6f2125278449dc7ef8b33ea28525305c29bc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "99ff26c6_cb3aefc9",
@@ -179,6 +203,30 @@
       "side": 1,
       "message": "In that case I\u0027ll store a reference and use that whenever I need to add a new connection to the pool.",
       "parentUuid": "3098e158_88adf509",
+      "range": {
+        "startLine": 472,
+        "startChar": 31,
+        "endLine": 472,
+        "endChar": 71
+      },
+      "revId": "156e6f2125278449dc7ef8b33ea28525305c29bc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e66ca3f6_567ec469",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 472,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-03-29T00:47:02Z",
+      "side": 1,
+      "message": "I changed the code as described",
+      "parentUuid": "f679512e_b44e8e63",
       "range": {
         "startLine": 472,
         "startChar": 31,
