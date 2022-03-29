@@ -84,6 +84,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2b79c35e_29c6d78c",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1126,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-29T15:49:52Z",
+      "side": 1,
+      "message": "\u003e I guess we should return when messageID is empty, and omit Message and Severity if they are empty?\n\nif the message pointer is filled in here, we are guaranteed to have a non empty message and severity (because of the way registries work).\n\n\u003e Otherwise the user doesn\u0027t get to see log entries like \"OpenBMC.1.0.ServiceStarted\".\n\n\nYep, and that message not being in the message registry is a bug.  OpenBMC.1.0.ServiceStarted doesn\u0027t exist.\n\nIt should exist in this table if it were legal:\nhttps://github.com/openbmc/bmcweb/blob/master/redfish-core/include/registries/openbmc_message_registry.hpp\n\nLets get this check fixed, and then we can start to triage how many bad messages we have.",
+      "parentUuid": "3cd75868_db0e3dfd",
+      "range": {
+        "startLine": 1122,
+        "startChar": 0,
+        "endLine": 1126,
+        "endChar": 5
+      },
+      "revId": "8de7f90975bd9a4e725f5669d1041efec2b556dc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "169e630f_ad41765b",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 1
@@ -119,6 +143,30 @@
       "side": 1,
       "message": "It appears that Message and Severity could be empty strings? I think we need to return if the non-nullable MessageId is empty.",
       "parentUuid": "169e630f_ad41765b",
+      "range": {
+        "startLine": 1177,
+        "startChar": 0,
+        "endLine": 1193,
+        "endChar": 0
+      },
+      "revId": "8de7f90975bd9a4e725f5669d1041efec2b556dc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e7bada43_960fa039",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1193,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-29T15:49:52Z",
+      "side": 1,
+      "message": "Not nullable means \"can\u0027t be equal to null\" it does not note whether or not the property is required.  With that said, in this context, because we\u0027re producing a LogService that\u0027s backed by a message registry, they are required.",
+      "parentUuid": "deda41e7_35fc63c1",
       "range": {
         "startLine": 1177,
         "startChar": 0,
