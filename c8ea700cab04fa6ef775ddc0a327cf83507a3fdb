@@ -122,6 +122,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "359197d2_920b2e56",
+        "filename": "redfish-core/lib/service_root.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-03-29T01:14:56Z",
+      "side": 1,
+      "message": "\"This property shall contain the maximum $levels option value in the $expand query parameter.  Shall be included only if $levels is true.\"",
+      "parentUuid": "f47df969_df09c43e",
+      "range": {
+        "startLine": 79,
+        "startChar": 22,
+        "endLine": 79,
+        "endChar": 33
+      },
+      "revId": "c8ea700cab04fa6ef775ddc0a327cf83507a3fdb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fad2772f_4c8a6487",
         "filename": "redfish-core/lib/ut/service_root_test.cpp",
         "patchSetId": 23
