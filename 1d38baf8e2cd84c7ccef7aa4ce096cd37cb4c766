@@ -22,6 +22,30 @@
       },
       "revId": "1d38baf8e2cd84c7ccef7aa4ce096cd37cb4c766",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee238684_b965e932",
+        "filename": "redfish-core/src/error_messages.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 774,
+      "author": {
+        "id": 1000427
+      },
+      "writtenOn": "2022-03-29T12:51:57Z",
+      "side": 1,
+      "message": "wrong line comment",
+      "parentUuid": "8735f54f_4ef8c4eb",
+      "range": {
+        "startLine": 774,
+        "startChar": 43,
+        "endLine": 774,
+        "endChar": 51
+      },
+      "revId": "1d38baf8e2cd84c7ccef7aa4ce096cd37cb4c766",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
