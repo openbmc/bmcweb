@@ -18,6 +18,23 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0bc8c1bf_2bade526",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2022-03-29T01:10:55Z",
+      "side": 1,
+      "message": "Added a return statement upon seeing an empty messageID, because messageID is not nullable (while message and severity are nullable).",
+      "revId": "8de7f90975bd9a4e725f5669d1041efec2b556dc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "387ef820_1c01e30e",
@@ -43,6 +60,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3cd75868_db0e3dfd",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1126,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2022-03-29T01:10:55Z",
+      "side": 1,
+      "message": "I guess we should return when messageID is empty, and omit Message and Severity if they are empty? Otherwise the user doesn\u0027t get to see log entries like \"OpenBMC.1.0.ServiceStarted\".",
+      "parentUuid": "387ef820_1c01e30e",
+      "range": {
+        "startLine": 1122,
+        "startChar": 0,
+        "endLine": 1126,
+        "endChar": 5
+      },
+      "revId": "8de7f90975bd9a4e725f5669d1041efec2b556dc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "169e630f_ad41765b",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 1
@@ -54,6 +95,30 @@
       "writtenOn": "2022-03-27T05:55:08Z",
       "side": 1,
       "message": "If we get to this code, none of these should be empty;  If they are, it means something in the code has failed (probably someone logging a message that isn\u0027t in the registry).",
+      "range": {
+        "startLine": 1177,
+        "startChar": 0,
+        "endLine": 1193,
+        "endChar": 0
+      },
+      "revId": "8de7f90975bd9a4e725f5669d1041efec2b556dc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "deda41e7_35fc63c1",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1193,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2022-03-29T01:10:55Z",
+      "side": 1,
+      "message": "It appears that Message and Severity could be empty strings? I think we need to return if the non-nullable MessageId is empty.",
+      "parentUuid": "169e630f_ad41765b",
       "range": {
         "startLine": 1177,
         "startChar": 0,

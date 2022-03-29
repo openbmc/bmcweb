@@ -22,6 +22,30 @@
       },
       "revId": "e76cd86812f29f1153a50c7de177945c7e4fb3e3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4cbc8ab0_4e753153",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1174,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2022-03-29T01:10:55Z",
+      "side": 0,
+      "message": "Yes you are right, the schema says:\n  \u003cProperty Name\u003d\"MessageId\" Type\u003d\"Edm.String\" Nullable\u003d\"false\"\u003e",
+      "parentUuid": "ccbf92e7_a4378e4d",
+      "range": {
+        "startLine": 1174,
+        "startChar": 8,
+        "endLine": 1174,
+        "endChar": 44
+      },
+      "revId": "e76cd86812f29f1153a50c7de177945c7e4fb3e3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
