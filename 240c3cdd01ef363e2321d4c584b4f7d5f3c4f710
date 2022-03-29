@@ -49,6 +49,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "38839afd_f89a9385",
+        "filename": "redfish-core/include/utils/service_utils.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-03-29T16:09:39Z",
+      "side": 1,
+      "message": "Nope. Some services will have multiple instances, like phosphor-ipmi-net will create instance for each ethernet port, and they are controlled individually in srvcfg-manager. In bmcweb, we need to set the value to all these instances.",
+      "parentUuid": "fe3c3fc3_6066c12c",
+      "range": {
+        "startLine": 19,
+        "startChar": 11,
+        "endLine": 19,
+        "endChar": 54
+      },
+      "revId": "240c3cdd01ef363e2321d4c584b4f7d5f3c4f710",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "088d9410_68858486",
         "filename": "redfish-core/include/utils/service_utils.hpp",
         "patchSetId": 8
@@ -106,6 +130,30 @@
       "writtenOn": "2022-03-28T23:21:14Z",
       "side": 1,
       "message": "All of these strings are present in the below struct.  Why are we duplicating them?\n\n\nnvm, I see why they\u0027re duplicated;  If you call the sdbusplus_encode functions, you can convert one of these to the other, and these won\u0027t be needed.",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 71
+      },
+      "revId": "240c3cdd01ef363e2321d4c584b4f7d5f3c4f710",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "401b4335_eb1084d9",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-03-29T16:09:39Z",
+      "side": 1,
+      "message": "This is kept here temporarily. In following patches, these highlighed ones will be removed, all the services names hardcoded here will be in dbus-encoded format to reduce calls to sdbusplus_encode functions.",
+      "parentUuid": "461f3d32_88d5fff7",
       "range": {
         "startLine": 38,
         "startChar": 0,
