@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "230f6385_2b7680a4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-29T15:38:40Z",
+      "side": 1,
+      "message": "With great respect to the work you\u0027ve done here, this isn\u0027t something we\u0027d generally maintain at project level given that this script makes a great number of assumptions about your specific workflow, very few of which are likely true across the board or common across developers.  As a general rule, building within yocto is the primary workflow we support through either building real images or qemu.\n\nAlso, fwiw, a less complex version of this script already exists in the root build_x86.sh, so if anything, we would modify that one rather than checking in a new one.\n\nHope that makes sense.",
+      "revId": "8359d5b4b508a663c686912b0e9ca211840b0a35",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
