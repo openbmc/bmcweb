@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7f0ea96e_fcbf961e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-29T15:22:59Z",
+      "side": 1,
+      "message": "I\u0027m not sure when we\u0027d use this particular error, but it looks in line with the standard way we do these, so it\u0027s fine.",
+      "revId": "ffc83ab9a091add95f2db93c67c050140c310049",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "784dc5d5_1116b513",
