@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "26ee07b0_7c0ab960",
+        "filename": "redfish-core/include/query.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-03-29T20:04:05Z",
+      "side": 1,
+      "message": "A lot of logging considering this might be run before each request, do we need all the DEBUG ? I think it is useful but do we need 4 traces or would like 2 do?",
+      "revId": "2d22e2d33c8ff42dbad6ac6b40222237d57fdccb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dc697956_1b6bb2ee",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-03-29T20:04:05Z",
+      "side": 1,
+      "message": "Anyway we could unit test any of this?",
+      "revId": "2d22e2d33c8ff42dbad6ac6b40222237d57fdccb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
