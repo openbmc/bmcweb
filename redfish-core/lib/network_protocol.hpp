@@ -29,6 +29,7 @@
 
 #include <optional>
 #include <variant>
+
 namespace redfish
 {
 
@@ -410,16 +411,23 @@ inline void requestRoutesNetworkProtocol(App& app)
                 return;
             }
             std::optional<std::string> newHostName;
-            std::optional<nlohmann::json> ntp;
-            std::optional<nlohmann::json> ipmi;
-            std::optional<nlohmann::json> ssh;
+            std::optional<std::vector<std::string>> ntpServers;
+            std::optional<bool> ntpEnabled;
+            std::optional<bool> ipmiEnabled;
+            std::optional<bool> sshEnabled;
 
-            if (!json_util::readJsonPatch(req, asyncResp->res, "NTP", ntp,
-                                          "HostName", newHostName, "IPMI", ipmi,
-                                          "SSH", ssh))
+            // clang-format off
+            if (!json_util::readJsonPatch(
+                    req, asyncResp->res,
+                    "HostName", newHostName,
+                    "NTP/NTPServers", ntpServers,
+                    "NTP/ProtocolEnabled", ntpEnabled,
+                    "IPMI/ProtocolEnabled", ipmiEnabled,
+                    "SSH/ProtocolEnabled", sshEnabled))
             {
                 return;
             }
+            // clang-format on
 
             asyncResp->res.result(boost::beast::http::status::no_content);
             if (newHostName)
@@ -428,62 +436,28 @@ inline void requestRoutesNetworkProtocol(App& app)
                 return;
             }
 
-            if (ntp)
+            if (ntpEnabled)
             {
-                std::optional<std::vector<std::string>> ntpServers;
-                std::optional<bool> ntpEnabled;
-                if (!json_util::readJson(*ntp, asyncResp->res, "NTPServers",
-                                         ntpServers, "ProtocolEnabled",
-                                         ntpEnabled))
-                {
-                    return;
-                }
-
-                if (ntpEnabled)
-                {
-                    handleNTPProtocolEnabled(*ntpEnabled, asyncResp);
-                }
-
-                if (ntpServers)
-                {
-                    stl_utils::removeDuplicate(*ntpServers);
-                    handleNTPServersPatch(asyncResp, *ntpServers);
-                }
+                handleNTPProtocolEnabled(*ntpEnabled, asyncResp);
+            }
+            if (ntpServers)
+            {
+                stl_utils::removeDuplicate(*ntpServers);
+                handleNTPServersPatch(asyncResp, *ntpServers);
             }
 
-            if (ipmi)
+            if (ipmiEnabled)
             {
-                std::optional<bool> ipmiProtocolEnabled;
-                if (!json_util::readJson(*ipmi, asyncResp->res,
-                                         "ProtocolEnabled",
-                                         ipmiProtocolEnabled))
-                {
-                    return;
-                }
-
-                if (ipmiProtocolEnabled)
-                {
-                    handleProtocolEnabled(
-                        *ipmiProtocolEnabled, asyncResp,
-                        "/xyz/openbmc_project/control/service/phosphor_2dipmi_2dnet_40");
-                }
+                handleProtocolEnabled(
+                    *ipmiEnabled, asyncResp,
+                    "/xyz/openbmc_project/control/service/phosphor_2dipmi_2dnet_40");
             }
 
-            if (ssh)
+            if (sshEnabled)
             {
-                std::optional<bool> sshProtocolEnabled;
-                if (!json_util::readJson(*ssh, asyncResp->res,
-                                         "ProtocolEnabled", sshProtocolEnabled))
-                {
-                    return;
-                }
-
-                if (sshProtocolEnabled)
-                {
-                    handleProtocolEnabled(
-                        *sshProtocolEnabled, asyncResp,
-                        "/xyz/openbmc_project/control/service/dropbear");
-                }
+                handleProtocolEnabled(
+                    *sshEnabled, asyncResp,
+                    "/xyz/openbmc_project/control/service/dropbear");
             }
         });
 
