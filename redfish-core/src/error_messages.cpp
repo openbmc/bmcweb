@@ -755,6 +755,29 @@ void propertyValueResourceConflict(crow::Response& res, std::string_view arg1,
 
 /**
  * @internal
+ * @brief Formats PropertyValueExternalConflict message into JSON
+ *
+ * See header file for more information
+ * @endinternal
+ */
+nlohmann::json propertyValueExternalConflict(std::string_view arg1,
+                                             std::string_view arg2)
+{
+    return getLog(
+        redfish::registries::base::Index::propertyValueExternalConflict,
+        std::to_array({arg1, arg2}));
+}
+
+void propertyValueExternalConflict(crow::Response& res, std::string_view arg1,
+                                   std::string_view arg2)
+{
+    res.result(boost::beast::http::status::conflict);
+    addMessageToErrorJson(res.jsonValue,
+                          propertyValueExternalConflict(arg1, arg2));
+}
+
+/**
+ * @internal
  * @brief Formats PropertyValueIncorrect message into JSON
  *
  * See header file for more information
