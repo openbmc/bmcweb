@@ -1,0 +1,23 @@
+#!/bin/sh
+
+set -e
+set -x
+
+# Clean up after previous run
+rm -rf builddir
+
+# Combination of useful options
+meson builddir -Dbuildtype=minsize -Db_lto=true -Db_coverage=true -Dtests=enabled -Dbmcweb-logging=enabled
+
+# Compile
+ninja -C builddir
+
+# Help out CLion and other IDE editors without native meson/ninja support
+ninja -C builddir -t compdb c_COMPILER cpp_COMPILER > builddir/compile_commands.json
+
+# Code coverage
+ninja -C builddir test
+ninja -C builddir coverage
+
+# Unit test
+./builddir/bmcweb_unit_test
