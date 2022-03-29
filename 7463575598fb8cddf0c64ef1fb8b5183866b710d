@@ -1,0 +1,1159 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6c6c2610_e6092341",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 18
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-29T16:39:06Z",
+      "side": 1,
+      "message": "Please wrap your commits 50/72 please.\n\nAlso, more details needed here.  What is external storer?  Why is it useful?  What value does this patch add?",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 26
+      },
+      "revId": "7463575598fb8cddf0c64ef1fb8b5183866b710d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "991d7400_a781158d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 18
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-29T16:39:06Z",
+      "side": 1,
+      "message": "More details here please.  What tests did you run?  How did the result change as a result of this patch?  Did you run unit or functional tests?  Where are the tests checked in?",
+      "range": {
+        "startLine": 14,
+        "startChar": 9,
+        "endLine": 14,
+        "endChar": 27
+      },
+      "revId": "7463575598fb8cddf0c64ef1fb8b5183866b710d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1cbc08b9_483bca14",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 18
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-29T16:39:06Z",
+      "side": 1,
+      "message": "This is looking like a great start!  Can\u0027t wait to see where you go with it.",
+      "revId": "7463575598fb8cddf0c64ef1fb8b5183866b710d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c6a67586_3d3498b6",
+        "filename": "redfish-core/lib/external_storer.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-29T16:39:06Z",
+      "side": 1,
+      "message": "We generally don\u0027t use auto in this codebase, and we try to avoid declaring things at global scope that only have one use.  I suspect both these variables can just be inlined.",
+      "range": {
+        "startLine": 75,
+        "startChar": 10,
+        "endLine": 75,
+        "endChar": 14
+      },
+      "revId": "7463575598fb8cddf0c64ef1fb8b5183866b710d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4c69a59b_6bd8f89a",
+        "filename": "redfish-core/lib/external_storer.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-29T16:39:06Z",
+      "side": 1,
+      "message": "Please come up with another pattern for this that doesn\u0027t involve a non-const global variable, which in general is an anti-pattern.  Generally this would be done by passing the path prefix into the functions that need it from the calling scope.",
+      "range": {
+        "startLine": 79,
+        "startChar": 25,
+        "endLine": 79,
+        "endChar": 70
+      },
+      "revId": "7463575598fb8cddf0c64ef1fb8b5183866b710d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "54103341_5677745d",
+        "filename": "redfish-core/lib/external_storer.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-29T16:39:06Z",
+      "side": 1,
+      "message": "nit, we don\u0027t need to have comments about things that don\u0027t exist.",
+      "range": {
+        "startLine": 82,
+        "startChar": 0,
+        "endLine": 83,
+        "endChar": 60
+      },
+      "revId": "7463575598fb8cddf0c64ef1fb8b5183866b710d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ac09a092_10f5cf24",
+        "filename": "redfish-core/lib/external_storer.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-29T16:39:06Z",
+      "side": 1,
+      "message": "considering that there are no inherited classes for this, I suspect you want private here.",
+      "range": {
+        "startLine": 86,
+        "startChar": 2,
+        "endLine": 86,
+        "endChar": 11
+      },
+      "revId": "7463575598fb8cddf0c64ef1fb8b5183866b710d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b1119cdf_0928a0e9",
+        "filename": "redfish-core/lib/external_storer.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-29T16:39:06Z",
+      "side": 1,
+      "message": "Any reason these just can\u0027t use boost::urls::url?  it seems odd that we would avoid those classes, as they give us escaping of requests.",
+      "range": {
+        "startLine": 87,
+        "startChar": 0,
+        "endLine": 91,
+        "endChar": 26
+      },
+      "revId": "7463575598fb8cddf0c64ef1fb8b5183866b710d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c6a0e8de_57aa644b",
+        "filename": "redfish-core/lib/external_storer.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-29T16:39:06Z",
+      "side": 1,
+      "message": "please avoid one character variable names.",
+      "range": {
+        "startLine": 97,
+        "startChar": 9,
+        "endLine": 98,
+        "endChar": 42
+      },
+      "revId": "7463575598fb8cddf0c64ef1fb8b5183866b710d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c3b0a51_31c83ae1",
+        "filename": "redfish-core/lib/external_storer.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-29T16:39:06Z",
+      "side": 1,
+      "message": "There\u0027s no need to forward declare these unless you\u0027re going to put your implementations in a cpp file.  Please remove.",
+      "range": {
+        "startLine": 102,
+        "startChar": 0,
+        "endLine": 123,
+        "endChar": 0
+      },
+      "revId": "7463575598fb8cddf0c64ef1fb8b5183866b710d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "24e53cdc_218a506e",
+        "filename": "redfish-core/lib/external_storer.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-29T16:39:06Z",
+      "side": 1,
+      "message": "nit, we generally omit the void.",
+      "range": {
+        "startLine": 125,
+        "startChar": 43,
+        "endLine": 125,
+        "endChar": 47
+      },
+      "revId": "7463575598fb8cddf0c64ef1fb8b5183866b710d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eafeff79_8b039fa8",
+        "filename": "redfish-core/lib/external_storer.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-29T16:39:06Z",
+      "side": 1,
+      "message": "Should this be std::filesystem::path?",
+      "range": {
+        "startLine": 134,
+        "startChar": 18,
+        "endLine": 134,
+        "endChar": 35
+      },
+      "revId": "7463575598fb8cddf0c64ef1fb8b5183866b710d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "46053237_f799eaad",
+        "filename": "redfish-core/lib/external_storer.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-29T16:39:06Z",
+      "side": 1,
+      "message": "in all cases this is used, this out parameter is constructed directly before this read.  Could we return by std::optional\u003cnlohman::json\u003e to make the API easier to use?",
+      "range": {
+        "startLine": 134,
+        "startChar": 45,
+        "endLine": 134,
+        "endChar": 70
+      },
+      "revId": "7463575598fb8cddf0c64ef1fb8b5183866b710d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ade95bf8_d816c251",
+        "filename": "redfish-core/lib/external_storer.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-29T16:39:06Z",
+      "side": 1,
+      "message": "you need to check for errors on this.  generally you would  check for input.good()",
+      "range": {
+        "startLine": 138,
+        "startChar": 0,
+        "endLine": 138,
+        "endChar": 25
+      },
+      "revId": "7463575598fb8cddf0c64ef1fb8b5183866b710d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d3822018_6017b08e",
+        "filename": "redfish-core/lib/external_storer.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-29T16:39:06Z",
+      "side": 1,
+      "message": "This code block doesn\u0027t look quite right.  I would\u0027ve expected to not have to close() input directly (just rely on raii)",
+      "range": {
+        "startLine": 143,
+        "startChar": 0,
+        "endLine": 151,
+        "endChar": 23
+      },
+      "revId": "7463575598fb8cddf0c64ef1fb8b5183866b710d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7eabee0c_e8cd4abb",
+        "filename": "redfish-core/lib/external_storer.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-29T16:39:06Z",
+      "side": 1,
+      "message": "nit: lets leave this comment out, because these calls technically do \"block\" in the engineering sense, they just don\u0027t block on IO.  This subtlety isn\u0027t the most important to this code.",
+      "range": {
+        "startLine": 154,
+        "startChar": 0,
+        "endLine": 154,
+        "endChar": 65
+      },
+      "revId": "7463575598fb8cddf0c64ef1fb8b5183866b710d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f375ba03_e7c8a57e",
+        "filename": "redfish-core/lib/external_storer.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-29T16:39:06Z",
+      "side": 1,
+      "message": "same as above, I suspect there\u0027s no reason to expliticly close the file, we can just return true and raii will clean up the rest.",
+      "range": {
+        "startLine": 164,
+        "startChar": 0,
+        "endLine": 167,
+        "endChar": 25
+      },
+      "revId": "7463575598fb8cddf0c64ef1fb8b5183866b710d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5fac99a2_9d8ace90",
+        "filename": "redfish-core/lib/external_storer.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-29T16:39:06Z",
+      "side": 1,
+      "message": "like we talked about previously, there are other places that have these same requirements around file name validation.  Please reuse that code instead of creating new code.",
+      "range": {
+        "startLine": 171,
+        "startChar": 0,
+        "endLine": 171,
+        "endChar": 46
+      },
+      "revId": "7463575598fb8cddf0c64ef1fb8b5183866b710d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d19e33f6_d1e105ca",
+        "filename": "redfish-core/lib/external_storer.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-29T16:39:06Z",
+      "side": 1,
+      "message": "nit, extra parens.",
+      "range": {
+        "startLine": 217,
+        "startChar": 9,
+        "endLine": 217,
+        "endChar": 10
+      },
+      "revId": "7463575598fb8cddf0c64ef1fb8b5183866b710d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d7b24aee_1e89f0da",
+        "filename": "redfish-core/lib/external_storer.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-29T16:39:06Z",
+      "side": 1,
+      "message": "Would std::find be of use here?",
+      "range": {
+        "startLine": 223,
+        "startChar": 0,
+        "endLine": 223,
+        "endChar": 41
+      },
+      "revId": "7463575598fb8cddf0c64ef1fb8b5183866b710d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f0fc0ef5_730c230a",
+        "filename": "redfish-core/lib/external_storer.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-29T16:39:06Z",
+      "side": 1,
+      "message": "as we do with other bmcweb code, please explicitly list the type here.",
+      "range": {
+        "startLine": 223,
+        "startChar": 15,
+        "endLine": 223,
+        "endChar": 19
+      },
+      "revId": "7463575598fb8cddf0c64ef1fb8b5183866b710d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "245e0fb9_204ed9e4",
+        "filename": "redfish-core/lib/external_storer.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-29T16:39:06Z",
+      "side": 1,
+      "message": "this operation throws if Id is not of type string.  Please use get_ptr as we do elsewhere in bmcweb.\n\nAlso, as a general pattern please prefer to return early in these cases, ie\n\nreturn id\n\nbecause it avoids the extra indent for the continuing code.",
+      "range": {
+        "startLine": 241,
+        "startChar": 0,
+        "endLine": 241,
+        "endChar": 29
+      },
+      "revId": "7463575598fb8cddf0c64ef1fb8b5183866b710d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2f920379_3da0d113",
+        "filename": "redfish-core/lib/external_storer.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-29T16:39:06Z",
+      "side": 1,
+      "message": "can we call this something other than \"trim\" considering the naming conflict with string trimming operations?  Maybe something like \"removeUnusedFields\"",
+      "range": {
+        "startLine": 254,
+        "startChar": 5,
+        "endLine": 254,
+        "endChar": 11
+      },
+      "revId": "7463575598fb8cddf0c64ef1fb8b5183866b710d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3d8944cf_4cc0b901",
+        "filename": "redfish-core/lib/external_storer.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-29T16:39:06Z",
+      "side": 1,
+      "message": "Considering you assume this to be a nlohmann object, you probably want to pass by nlohmann::json::object_t\u0026.  Doing that will also validate at a higher scope that it\u0027s an object type.",
+      "range": {
+        "startLine": 254,
+        "startChar": 12,
+        "endLine": 254,
+        "endChar": 26
+      },
+      "revId": "7463575598fb8cddf0c64ef1fb8b5183866b710d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d58bccee_58f8d979",
+        "filename": "redfish-core/lib/external_storer.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-29T16:39:06Z",
+      "side": 1,
+      "message": "nit: same as above, lets stick with something other than \"trim\"",
+      "range": {
+        "startLine": 271,
+        "startChar": 5,
+        "endLine": 271,
+        "endChar": 8
+      },
+      "revId": "7463575598fb8cddf0c64ef1fb8b5183866b710d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cfe1967e_33cfd615",
+        "filename": "redfish-core/lib/external_storer.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-29T16:39:06Z",
+      "side": 1,
+      "message": "considering this can fail, does it need to return an error?",
+      "range": {
+        "startLine": 288,
+        "startChar": 0,
+        "endLine": 288,
+        "endChar": 5
+      },
+      "revId": "7463575598fb8cddf0c64ef1fb8b5183866b710d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "21a660e2_78510c04",
+        "filename": "redfish-core/lib/external_storer.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-29T16:39:06Z",
+      "side": 1,
+      "message": "nit, extra parens.",
+      "range": {
+        "startLine": 300,
+        "startChar": 9,
+        "endLine": 300,
+        "endChar": 10
+      },
+      "revId": "7463575598fb8cddf0c64ef1fb8b5183866b710d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5f7a67c2_bcf77418",
+        "filename": "redfish-core/lib/external_storer.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-29T16:39:06Z",
+      "side": 1,
+      "message": "I\u0027m not quite understanding how the above works, but it could just be because my coffee hasn\u0027t kicked in yet.  Will revisit on future review.",
+      "revId": "7463575598fb8cddf0c64ef1fb8b5183866b710d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f1debc0_0c5e1a14",
+        "filename": "redfish-core/lib/external_storer.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 333,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-29T16:39:06Z",
+      "side": 1,
+      "message": "nit, extra parens.  Happens a lot in this file.  I will stop mentioning it in this review, but it would be great if you could fix all of them.",
+      "range": {
+        "startLine": 333,
+        "startChar": 9,
+        "endLine": 333,
+        "endChar": 10
+      },
+      "revId": "7463575598fb8cddf0c64ef1fb8b5183866b710d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0c9a4476_995f387b",
+        "filename": "redfish-core/lib/external_storer.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-29T16:39:06Z",
+      "side": 1,
+      "message": "Please take a look at the string in this message, and realize that it\u0027s user facing.  \"CreateInstance\" isn\u0027t something known to the user, so it shouldn\u0027t be returned in an error message.",
+      "range": {
+        "startLine": 337,
+        "startChar": 0,
+        "endLine": 337,
+        "endChar": 56
+      },
+      "revId": "7463575598fb8cddf0c64ef1fb8b5183866b710d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ae461462_aaecf30b",
+        "filename": "redfish-core/lib/external_storer.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-29T16:39:06Z",
+      "side": 1,
+      "message": "Please avoid auto for these, it makes it very difficult to track what types are being used.  With that said, in this case, it looks to be a std::string, when it should be using the URL type.  There are a couple places where urls are used as strings.  Please fix all of them.",
+      "range": {
+        "startLine": 341,
+        "startChar": 4,
+        "endLine": 341,
+        "endChar": 8
+      },
+      "revId": "7463575598fb8cddf0c64ef1fb8b5183866b710d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "74c59929_bc4d8c32",
+        "filename": "redfish-core/lib/external_storer.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 346,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-29T16:39:06Z",
+      "side": 1,
+      "message": "common error #5",
+      "range": {
+        "startLine": 346,
+        "startChar": 8,
+        "endLine": 346,
+        "endChar": 30
+      },
+      "revId": "7463575598fb8cddf0c64ef1fb8b5183866b710d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cae6cfba_66830f0a",
+        "filename": "redfish-core/lib/external_storer.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-29T16:39:06Z",
+      "side": 1,
+      "message": "Please take a look at what each of these parameters mean, and correct them to produce the correct error message.  As written, this doesn\u0027t look right.",
+      "range": {
+        "startLine": 349,
+        "startChar": 65,
+        "endLine": 350,
+        "endChar": 51
+      },
+      "revId": "7463575598fb8cddf0c64ef1fb8b5183866b710d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c92a4187_3f83bcee",
+        "filename": "redfish-core/lib/external_storer.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-29T16:39:06Z",
+      "side": 1,
+      "message": "in this case, please convert your types to use std::filesystem::path.  It is generally safer and handles conversions like these in a cleaner way.  There are a number of places that need changed, I will only mention this one.",
+      "range": {
+        "startLine": 354,
+        "startChar": 4,
+        "endLine": 354,
+        "endChar": 8
+      },
+      "revId": "7463575598fb8cddf0c64ef1fb8b5183866b710d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1cee1402_1ae09b15",
+        "filename": "redfish-core/lib/external_storer.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 385,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-29T16:39:06Z",
+      "side": 1,
+      "message": "The redfish specification you\u0027re meeting here (ie message) does not allow for a Location field in the body.",
+      "range": {
+        "startLine": 385,
+        "startChar": 55,
+        "endLine": 385,
+        "endChar": 64
+      },
+      "revId": "7463575598fb8cddf0c64ef1fb8b5183866b710d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1968bbe9_045e2917",
+        "filename": "redfish-core/lib/external_storer.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 390,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-29T16:39:06Z",
+      "side": 1,
+      "message": "Why is this declared outside the class?  Please declare inside the class, or in a cpp file.",
+      "range": {
+        "startLine": 390,
+        "startChar": 5,
+        "endLine": 390,
+        "endChar": 11
+      },
+      "revId": "7463575598fb8cddf0c64ef1fb8b5183866b710d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "938a746c_66d3c121",
+        "filename": "redfish-core/lib/external_storer.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-29T16:39:06Z",
+      "side": 1,
+      "message": "like I said above, here would use get_ptr\u003cnlohmann::json::object_t\u003e rather than is_object, to avoid a duplicated object lookup.",
+      "range": {
+        "startLine": 412,
+        "startChar": 18,
+        "endLine": 412,
+        "endChar": 27
+      },
+      "revId": "7463575598fb8cddf0c64ef1fb8b5183866b710d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "689a63de_c87aa4c4",
+        "filename": "redfish-core/lib/external_storer.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 429,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-29T16:39:06Z",
+      "side": 1,
+      "message": "I mentioned this above about the other logging call, this has the same issue.  CreateEntry is not user facing.",
+      "range": {
+        "startLine": 429,
+        "startChar": 66,
+        "endLine": 429,
+        "endChar": 77
+      },
+      "revId": "7463575598fb8cddf0c64ef1fb8b5183866b710d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cd21478d_512dda44",
+        "filename": "redfish-core/lib/external_storer.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 439,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-29T16:39:06Z",
+      "side": 1,
+      "message": "common error #5",
+      "range": {
+        "startLine": 439,
+        "startChar": 34,
+        "endLine": 439,
+        "endChar": 38
+      },
+      "revId": "7463575598fb8cddf0c64ef1fb8b5183866b710d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4024048f_e55beae6",
+        "filename": "redfish-core/lib/external_storer.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 472,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-29T16:39:06Z",
+      "side": 1,
+      "message": "CreateInstance and CreateMiddle duplicate a lot of code between them.  Can any of it be deduplicated?",
+      "revId": "7463575598fb8cddf0c64ef1fb8b5183866b710d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b4db6250_4de9c170",
+        "filename": "redfish-core/lib/external_storer.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 496,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-29T16:39:06Z",
+      "side": 1,
+      "message": "common error #5.  Lots of your filesystem calls seem to have ignored this error, I will stop mentioning it, but please check all of them.",
+      "range": {
+        "startLine": 496,
+        "startChar": 0,
+        "endLine": 496,
+        "endChar": 41
+      },
+      "revId": "7463575598fb8cddf0c64ef1fb8b5183866b710d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b166b0e1_309056f5",
+        "filename": "redfish-core/lib/external_storer.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 513,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-29T16:39:06Z",
+      "side": 1,
+      "message": "Should we have more validation than this?  Something like ends_with .json to make sure that we\u0027re looking at json typed files?",
+      "range": {
+        "startLine": 513,
+        "startChar": 0,
+        "endLine": 513,
+        "endChar": 38
+      },
+      "revId": "7463575598fb8cddf0c64ef1fb8b5183866b710d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b109e07a_3a824a7f",
+        "filename": "redfish-core/lib/external_storer.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 610,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-29T16:39:06Z",
+      "side": 1,
+      "message": "nit, this code would be a lot easier to read if you constructed url on the line prior to setting these.",
+      "range": {
+        "startLine": 610,
+        "startChar": 0,
+        "endLine": 610,
+        "endChar": 42
+      },
+      "revId": "7463575598fb8cddf0c64ef1fb8b5183866b710d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eb0c79cd_5d1acbe2",
+        "filename": "redfish-core/lib/external_storer.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 619,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-29T16:39:06Z",
+      "side": 1,
+      "message": "std::move()",
+      "range": {
+        "startLine": 619,
+        "startChar": 31,
+        "endLine": 619,
+        "endChar": 38
+      },
+      "revId": "7463575598fb8cddf0c64ef1fb8b5183866b710d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3663cfdb_469fcf1e",
+        "filename": "redfish-core/lib/external_storer.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 771,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-29T16:39:06Z",
+      "side": 1,
+      "message": "std::move() please",
+      "range": {
+        "startLine": 771,
+        "startChar": 31,
+        "endLine": 771,
+        "endChar": 38
+      },
+      "revId": "7463575598fb8cddf0c64ef1fb8b5183866b710d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f604119d_b0547935",
+        "filename": "redfish-core/lib/external_storer.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 792,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-29T16:39:06Z",
+      "side": 1,
+      "message": "I suspect that Hook should be in the redfish namespace, and shouldn\u0027t have its own external_storer namespace.",
+      "range": {
+        "startLine": 792,
+        "startChar": 0,
+        "endLine": 792,
+        "endChar": 30
+      },
+      "revId": "7463575598fb8cddf0c64ef1fb8b5183866b710d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c25b2101_471b20ef",
+        "filename": "redfish-core/lib/external_storer.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 810,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-29T16:39:06Z",
+      "side": 1,
+      "message": "This is very.... very hardcoded to one specific node;  Do you have ideas on how to generalize this for the problem of storing arbitrary members within the redfish tree?  Even LogServices shows up at multiple locations, so as written, this can only write to one.  Another thing to be aware of is that the \"system\" keyword is in the process of being removed as a hardcode, and move to more generic things.\n\nhttps://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/52075",
+      "range": {
+        "startLine": 809,
+        "startChar": 0,
+        "endLine": 810,
+        "endChar": 38
+      },
+      "revId": "7463575598fb8cddf0c64ef1fb8b5183866b710d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "769e7334_f5f29d5c",
+        "filename": "redfish-core/lib/external_storer.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 812,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-29T16:39:06Z",
+      "side": 1,
+      "message": "Why were they duplicated?",
+      "range": {
+        "startLine": 812,
+        "startChar": 29,
+        "endLine": 812,
+        "endChar": 68
+      },
+      "revId": "7463575598fb8cddf0c64ef1fb8b5183866b710d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1af467bf_1e8f8247",
+        "filename": "redfish-core/lib/external_storer.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 881,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-29T16:39:06Z",
+      "side": 1,
+      "message": "As written, this is going to require us to write an external storer route for EVERY node in the redfish tree (I believe there are 160 of them).  This doesn\u0027t scale as a design pattern;  Like we talked about before, there needs to be work to the router system to be able to handle modifiable redfish routes without having to duplicate all this information.",
+      "range": {
+        "startLine": 814,
+        "startChar": 7,
+        "endLine": 881,
+        "endChar": 1
+      },
+      "revId": "7463575598fb8cddf0c64ef1fb8b5183866b710d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "469068b5_aa0b22ba",
+        "filename": "redfish-core/lib/external_storer.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 884,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-29T16:39:06Z",
+      "side": 1,
+      "message": "This is not something we should rely on.",
+      "range": {
+        "startLine": 882,
+        "startChar": 0,
+        "endLine": 884,
+        "endChar": 48
+      },
+      "revId": "7463575598fb8cddf0c64ef1fb8b5183866b710d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b56e1803_425faeba",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 985,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-29T16:39:06Z",
+      "side": 1,
+      "message": "as a pattern, this is going to require us to populate this call to every single collection, and resource within this code.  This seems like a lot of boilerplate to be injecting in a lot of places, but maybe you have some plans on that?",
+      "range": {
+        "startLine": 975,
+        "startChar": 0,
+        "endLine": 985,
+        "endChar": 17
+      },
+      "revId": "7463575598fb8cddf0c64ef1fb8b5183866b710d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
