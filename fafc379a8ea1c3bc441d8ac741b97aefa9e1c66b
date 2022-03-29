@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c2b47763_d3b5ff32",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-29T17:29:54Z",
+      "side": 1,
+      "message": "This is looking good to me as written, just a couple minor things (one typo, and one thing that if you didn\u0027t want to fix, I would be fine with leaving).",
+      "revId": "fafc379a8ea1c3bc441d8ac741b97aefa9e1c66b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4173e3f0_4fd4c249",
+        "filename": "http/utility.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 677,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-29T17:29:54Z",
+      "side": 1,
+      "message": "nit, typo.",
+      "range": {
+        "startLine": 677,
+        "startChar": 62,
+        "endLine": 677,
+        "endChar": 67
+      },
+      "revId": "fafc379a8ea1c3bc441d8ac741b97aefa9e1c66b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "de09839f_2092a60f",
+        "filename": "http/utility.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 700,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-29T17:29:54Z",
+      "side": 1,
+      "message": "nit, considering that every place this is used it\u0027s used as a std::string_view, should we just store it directly as a string view here?",
+      "range": {
+        "startLine": 700,
+        "startChar": 10,
+        "endLine": 700,
+        "endChar": 35
+      },
+      "revId": "fafc379a8ea1c3bc441d8ac741b97aefa9e1c66b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
