@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e7f54499_240b4525",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 17
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000520
+      },
+      "writtenOn": "2022-03-29T10:22:49Z",
+      "side": 1,
+      "message": "Added test cases. Refactored as per previous comments. As for utility functions, there are still some prerequisites elsewhere, but I did improve isolation.\n",
+      "revId": "0edfd153d263c3d548d95f51206b8f31851b10ea",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
