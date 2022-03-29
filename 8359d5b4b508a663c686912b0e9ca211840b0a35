@@ -34,6 +34,24 @@
       "parentUuid": "230f6385_2b7680a4",
       "revId": "8359d5b4b508a663c686912b0e9ca211840b0a35",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ba091d8_0bbc9e3b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-29T20:23:01Z",
+      "side": 1,
+      "message": "the run-ci script is used by the ci system (take a look within openbmc-build-scripts for how) to run per-repo CI jobs that are specific (in this case verifying our schema files are up to date and correct).  It is not intended to be run directly, although the script does work when run directly, the output isn\u0027t really human usable.",
+      "parentUuid": "87e9953c_99ef621e",
+      "revId": "8359d5b4b508a663c686912b0e9ca211840b0a35",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
