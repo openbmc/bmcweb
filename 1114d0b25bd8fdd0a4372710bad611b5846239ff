@@ -89,6 +89,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ab86327a_aca248ba",
+        "filename": "http/ut/utility_test.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1001026
+      },
+      "writtenOn": "2022-03-29T16:00:58Z",
+      "side": 1,
+      "message": "As we are dropping anySegement matcher, this is no longer needed.",
+      "parentUuid": "30ce4ca2_fd63ff27",
+      "range": {
+        "startLine": 186,
+        "startChar": 33,
+        "endLine": 186,
+        "endChar": 43
+      },
+      "revId": "1114d0b25bd8fdd0a4372710bad611b5846239ff",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "93f43288_e4014864",
@@ -159,6 +183,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "51c5ac23_2e923761",
+        "filename": "http/utility.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 705,
+      "author": {
+        "id": 1001026
+      },
+      "writtenOn": "2022-03-29T16:00:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "811ce8bf_dd7a9562",
+      "range": {
+        "startLine": 705,
+        "startChar": 46,
+        "endLine": 705,
+        "endChar": 47
+      },
+      "revId": "1114d0b25bd8fdd0a4372710bad611b5846239ff",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5c859de1_db6f8a5b",
@@ -172,6 +220,30 @@
       "writtenOn": "2022-03-25T16:13:46Z",
       "side": 1,
       "message": "This is the return of the failure.  Should this have a name to denote that \"NodeFindError\" or something like that?",
+      "range": {
+        "startLine": 32,
+        "startChar": 7,
+        "endLine": 32,
+        "endChar": 20
+      },
+      "revId": "1114d0b25bd8fdd0a4372710bad611b5846239ff",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b8446b47_8dc9ab42",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1001026
+      },
+      "writtenOn": "2022-03-29T16:00:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5c859de1_db6f8a5b",
       "range": {
         "startLine": 32,
         "startChar": 7,

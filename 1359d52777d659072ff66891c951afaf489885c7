@@ -122,6 +122,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a254f2fa_71cf8244",
+        "filename": "http/utility.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 706,
+      "author": {
+        "id": 1001026
+      },
+      "writtenOn": "2022-03-29T16:00:58Z",
+      "side": 1,
+      "message": "Sure, I see now. There won\u0027t be many (if any) other usages of this matcher, so I will remove anySegment and replace it with your previous suggestion of implicit ignored string.",
+      "parentUuid": "003a3fda_8c9060ee",
+      "range": {
+        "startLine": 704,
+        "startChar": 0,
+        "endLine": 706,
+        "endChar": 35
+      },
+      "revId": "1359d52777d659072ff66891c951afaf489885c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "da494609_b466e13b",
         "filename": "http/utility.hpp",
         "patchSetId": 4

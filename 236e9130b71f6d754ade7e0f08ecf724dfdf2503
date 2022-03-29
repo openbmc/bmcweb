@@ -654,6 +654,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fbbc9462_9311ede5",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1001026
+      },
+      "writtenOn": "2022-03-29T16:00:58Z",
+      "side": 1,
+      "message": "Yeah, got it, no need to complicate, when it is the only such use-case. I replaced it with ignored std::strings, with short comment why.",
+      "parentUuid": "ad93e632_e1bbdc3e",
+      "range": {
+        "startLine": 64,
+        "startChar": 43,
+        "endLine": 64,
+        "endChar": 68
+      },
+      "revId": "236e9130b71f6d754ade7e0f08ecf724dfdf2503",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "23bc7bd7_f799f5cf",
         "filename": "redfish-core/lib/metric_report_definition.hpp",
         "patchSetId": 3
