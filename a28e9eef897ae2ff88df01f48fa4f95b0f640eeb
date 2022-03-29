@@ -249,6 +249,30 @@
       },
       "revId": "a28e9eef897ae2ff88df01f48fa4f95b0f640eeb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "62014a91_331b80f1",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 2658,
+      "author": {
+        "id": 1001027
+      },
+      "writtenOn": "2022-03-29T01:11:51Z",
+      "side": 1,
+      "message": "I don\u0027t have a better idea.",
+      "parentUuid": "121d6588_62535453",
+      "range": {
+        "startLine": 2658,
+        "startChar": 25,
+        "endLine": 2658,
+        "endChar": 42
+      },
+      "revId": "a28e9eef897ae2ff88df01f48fa4f95b0f640eeb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
