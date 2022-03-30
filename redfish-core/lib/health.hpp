@@ -22,12 +22,14 @@
 #include <boost/container/flat_set.hpp>
 #include <dbus_singleton.hpp>
 #include <dbus_utility.hpp>
+#include <sdbusplus/asio/property.hpp>
+#include <sdbusplus/bus.hpp>
+#include <sdbusplus/message.hpp>
 
 #include <variant>
 
 namespace redfish
 {
-
 struct HealthPopulate : std::enable_shared_from_this<HealthPopulate>
 {
     HealthPopulate(const std::shared_ptr<bmcweb::AsyncResp>& asyncRespIn) :
@@ -249,4 +251,292 @@ struct HealthPopulate : std::enable_shared_from_this<HealthPopulate>
     std::string globalInventoryPath = "-"; // default to illegal dbus path
     bool populated = false;
 };
+
+class HealthRollup
+{
+    std::string objPath;
+    sdbusplus::bus::bus bus;
+    uint64_t dbusTimeoutUs;
+
+    static std::string
+        translateDbusHealthStateToRedfish(const std::string& state)
+    {
+        if (state == "xyz.openbmc_project.State.Decorator.Health.HealthType.OK")
+        {
+            return "OK";
+        }
+        if (state ==
+            "xyz.openbmc_project.State.Decorator.Health.HealthType.Warning")
+        {
+            return "Warning";
+        }
+        if (state ==
+            "xyz.openbmc_project.State.Decorator.Health.HealthType.Critical")
+        {
+            return "Critical";
+        }
+        return "";
+    }
+
+    std::string getService(const std::string& objPath)
+    {
+        try
+        {
+            sdbusplus::message::message method;
+            sdbusplus::message::message reply;
+            int err = 0;
+            std::map<std::string, std::vector<std::string>> objInfo;
+            std::vector<std::string> services;
+
+            method = bus.new_method_call("xyz.openbmc_project.ObjectMapper",
+                                         "/xyz/openbmc_project/object_mapper",
+                                         "xyz.openbmc_project.ObjectMapper",
+                                         "GetObject");
+            method.append(objPath,
+                          std::vector<std::string>{
+                              "xyz.openbmc_project.State.Decorator.Health"});
+            reply = bus.call(method, dbusTimeoutUs);
+            err = reply.get_errno();
+            if (err != 0)
+            {
+                BMCWEB_LOG_DEBUG << "failed to get object of " << objPath
+                                 << ", errno=" << err;
+                return "";
+            }
+
+            reply.read(objInfo);
+            services.reserve(objInfo.size());
+            for (auto const& [key, value] : objInfo)
+            {
+                services.push_back(key);
+            }
+            if (services.size() != 1)
+            {
+                BMCWEB_LOG_ERROR << "multiple services refer to the object"
+                                 << objPath;
+                return "";
+            }
+            return services[0];
+        }
+        catch (const sdbusplus::exception::exception& e)
+        {
+            BMCWEB_LOG_ERROR << e.what();
+            return "";
+        }
+    }
+
+    virtual std::shared_ptr<std::vector<std::string>>
+        getChildren(const std::string& objPath)
+    {
+        std::string healthRollupPath = boost::ends_with(objPath, "/")
+                                           ? objPath + "health_rollup"
+                                           : objPath + "/health_rollup";
+        sdbusplus::message::message method;
+        sdbusplus::message::message reply;
+        int err = 0;
+
+        try
+        {
+            std::variant<std::vector<std::string>> endpointsVar;
+            std::vector<std::string>* endpoints = nullptr;
+
+            method = bus.new_method_call(
+                "xyz.openbmc_project.ObjectMapper", healthRollupPath.c_str(),
+                "org.freedesktop.DBus.Properties", "Get");
+            method.append("xyz.openbmc_project.Association", "endpoints");
+            reply = bus.call(method, dbusTimeoutUs);
+            err = reply.get_errno();
+            if (err != 0)
+            {
+                BMCWEB_LOG_DEBUG << "failed to get endpoints of " << objPath
+                                 << ", errno=" << err;
+                return nullptr;
+            }
+
+            reply.read(endpointsVar);
+            endpoints = std::get_if<std::vector<std::string>>(&endpointsVar);
+            if (endpoints == nullptr)
+            {
+                BMCWEB_LOG_ERROR << "invalid non-string-array endpoints "
+                                    "property of "
+                                 << objPath;
+                return nullptr;
+            }
+            return std::make_shared<std::vector<std::string>>(*endpoints);
+        }
+        catch (const sdbusplus::exception::exception& e)
+        {
+            // Check if the object exists or not
+            try
+            {
+                method = bus.new_method_call(
+                    "xyz.openbmc_project.ObjectMapper",
+                    "/xyz/openbmc_project/object_mapper",
+                    "xyz.openbmc_project.ObjectMapper", "GetObject");
+                method.append(objPath, std::vector<std::string>{});
+                reply = bus.call(method, dbusTimeoutUs);
+                err = reply.get_errno();
+                if (err != 0)
+                {
+                    BMCWEB_LOG_DEBUG << "failed to get object of " << objPath
+                                     << ", errno=" << err;
+                    return nullptr;
+                }
+                return std::make_shared<std::vector<std::string>>();
+            }
+            catch (const sdbusplus::exception::exception& e)
+            {
+                BMCWEB_LOG_ERROR << e.what();
+                return nullptr;
+            }
+        }
+    }
+
+    virtual std::string getHealth(const std::string& objPath)
+    {
+        std::string service;
+
+        service = getService(objPath);
+        if (service.empty())
+        {
+            return "";
+        }
+
+        try
+        {
+            sdbusplus::message::message method;
+            sdbusplus::message::message reply;
+            int err = 0;
+            std::variant<std::string> healthStateVar;
+            std::string* healthState = nullptr;
+            std::string newHealth;
+
+            method =
+                bus.new_method_call(service.c_str(), objPath.c_str(),
+                                    "org.freedesktop.DBus.Properties", "Get");
+            method.append("xyz.openbmc_project.State.Decorator.Health",
+                          "Health");
+            reply = bus.call(method, dbusTimeoutUs);
+            err = reply.get_errno();
+            if (err != 0)
+            {
+                BMCWEB_LOG_ERROR << "failed to get health of " << objPath
+                                 << ", errno=" << err;
+            }
+            else
+            {
+                reply.read(healthStateVar);
+                healthState = std::get_if<std::string>(&healthStateVar);
+                if (healthState != nullptr)
+                {
+                    newHealth = translateDbusHealthStateToRedfish(*healthState);
+                    BMCWEB_LOG_DEBUG << "health of " << objPath << ": "
+                                     << newHealth;
+                }
+                else
+                {
+                    BMCWEB_LOG_ERROR << "invalid non-string health property of "
+                                     << objPath;
+                }
+            }
+            return newHealth;
+        }
+        catch (const sdbusplus::exception::exception& e)
+        {
+            BMCWEB_LOG_ERROR << e.what();
+            return "";
+        }
+    }
+
+  public:
+    std::string health;
+    std::string healthRollup;
+    bool valid;
+    bool isLeaf;
+
+    HealthRollup(const std::string& objPathIn,
+                 const uint64_t& dbusTimeoutUsIn = 100000,
+                 const bool autoUpdate = true) :
+        objPath(objPathIn),
+        bus(sdbusplus::bus::new_default()), dbusTimeoutUs(dbusTimeoutUsIn),
+        valid(false), isLeaf(true)
+    {
+        if (autoUpdate)
+        {
+            update();
+        }
+    }
+
+    virtual ~HealthRollup() = default;
+    HealthRollup(const HealthRollup&) = default;
+    HealthRollup(HealthRollup&&) = default;
+    HealthRollup& operator=(const HealthRollup& r) = default;
+    HealthRollup& operator=(HealthRollup&&) = default;
+
+    void update()
+    {
+        std::shared_ptr<std::vector<std::string>> endpoints;
+
+        valid = false;
+
+        health = getHealth(objPath);
+        if (health.empty())
+        {
+            return;
+        }
+
+        endpoints = getChildren(objPath);
+        if (endpoints == nullptr)
+        {
+            return;
+        }
+        healthRollup = health;
+
+        if (endpoints->empty())
+        {
+            isLeaf = true;
+        }
+        else
+        {
+            isLeaf = false;
+            for (auto const& endpoint : *endpoints)
+            {
+                std::string childHealth = getHealth(endpoint);
+                if (childHealth.empty())
+                {
+                    return;
+                }
+                if (childHealth == "Critical" && healthRollup != "Critical")
+                {
+                    healthRollup = "Critical";
+                    valid = true;
+                    return;
+                }
+                if (childHealth == "Warning" && healthRollup == "OK")
+                {
+                    healthRollup = "Warning";
+                }
+            }
+        }
+
+        valid = true;
+    }
+
+    bool setStatus(crow::Response& res)
+    {
+        if (valid)
+        {
+            res.jsonValue["Status"]["Health"] = health;
+            if (!isLeaf)
+            {
+                res.jsonValue["Status"]["HealthRollup"] = healthRollup;
+            }
+            return true;
+        }
+
+        messages::internalError(res);
+        return false;
+    }
+};
+
 } // namespace redfish

@@ -408,6 +408,15 @@ inline void getAcceleratorDataByService(
 {
     BMCWEB_LOG_DEBUG
         << "Get available system Accelerator resources by service.";
+
+#ifdef BMCWEB_ENABLE_HEALTH_ROLLUP_ALTERNATIVE
+    HealthRollup health(objPath);
+    if (!health.setStatus(aResp->res))
+    {
+        return;
+    }
+#endif // ifdef BMCWEB_ENABLE_HEALTH_ROLLUP_ALTERNATIVE
+
     crow::connections::systemBus->async_method_call(
         [acclrtrId, aResp{std::move(aResp)}](
             const boost::system::error_code ec,
@@ -437,13 +446,14 @@ inline void getAcceleratorDataByService(
             }
 
             std::string state = "Enabled";
+#ifndef BMCWEB_ENABLE_HEALTH_ROLLUP_ALTERNATIVE
             std::string health = "OK";
-
+#endif // ifndef BMCWEB_ENABLE_HEALTH_ROLLUP_ALTERNATIVE
             if (accPresent != nullptr && !*accPresent)
             {
                 state = "Absent";
             }
-
+#ifndef BMCWEB_ENABLE_HEALTH_ROLLUP_ALTERNATIVE
             if ((accFunctional != nullptr) && !*accFunctional)
             {
                 if (state == "Enabled")
@@ -451,9 +461,14 @@ inline void getAcceleratorDataByService(
                     health = "Critical";
                 }
             }
+#else  // ifndef BMCWEB_ENABLE_HEALTH_ROLLUP_ALTERNATIVE
+            (void)accFunctional;
+#endif // ifndef BMCWEB_ENABLE_HEALTH_ROLLUP_ALTERNATIVE
 
             aResp->res.jsonValue["Status"]["State"] = state;
+#ifndef BMCWEB_ENABLE_HEALTH_ROLLUP_ALTERNATIVE
             aResp->res.jsonValue["Status"]["Health"] = health;
+#endif // ifndef BMCWEB_ENABLE_HEALTH_ROLLUP_ALTERNATIVE
             aResp->res.jsonValue["ProcessorType"] = "Accelerator";
         },
         service, objPath, "org.freedesktop.DBus.Properties", "GetAll", "");
