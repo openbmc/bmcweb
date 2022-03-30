@@ -135,6 +135,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f5919cf_f9cb5822",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-30T18:26:16Z",
+      "side": 1,
+      "message": "That sounds great!  That kind of detail would help a lot to add in your commit message, to make clear that:\n\n1. This is the first in a series, and doesn\u0027t really stand alone.\n2. Long term, we will move over all the resources to a non-hardcoded route.\n\nAs far as engaging with the community, asking questions on the discord bmcweb channel would be a great start.",
+      "parentUuid": "91f512c8_24be1dd6",
+      "revId": "efda40865a6fdfbd6bf5ae91ea0a450592a69253",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "53fce4b2_ed441da3",
