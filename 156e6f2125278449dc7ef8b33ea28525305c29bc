@@ -168,6 +168,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "030fb5c6_b78ba803",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 422,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-03-30T00:01:47Z",
+      "side": 1,
+      "message": "I\u0027m assuming a single client to be denoted by its hostname:port pair.  ConnectionInfo is a single connection to a single client.  \n\nConnectionPool contains a vector of ConnectionInfo objects so it represents multiple connections to a single client.  \n\nHttpClient in Patchset9 contains a vector of ConnectionPool objects.  This has been changed to std::map as of Patchset 13.  Through this HttpClient allows multiple connections to multiple clients.\n\nHttpClient has also been implemented as a singleton to provide global access to sending requests.\n\nThe general process for sending a request is HttpClient\u0027s sendData() method now requires hostname and port arguments.  The hostname and port get concatenated to serve as the key hostnamePort. The \"std::map\u003chostnamePort,ConnectionPool\u003e connectionPools\" is checked for the hostnamePort key to see if the associated connection pool object exists.\n\nIf one exists then that ConnectionPool calls its own sendData() method which searches all of its connections for one that is not in use.  If a connection is not available then ConnectionPool will add a new connection to its pool and then use that connection to send the request.",
+      "parentUuid": "3c18966c_b51f53b5",
+      "range": {
+        "startLine": 422,
+        "startChar": 4,
+        "endLine": 422,
+        "endChar": 45
+      },
+      "revId": "156e6f2125278449dc7ef8b33ea28525305c29bc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "08c7a2c5_39bd79f9",
         "filename": "http/http_client.hpp",
         "patchSetId": 9
@@ -322,6 +346,30 @@
       "side": 1,
       "message": "I have a connectionPool for each destination host:port.  Each time a message is sent the first step is to look up the connection pool associated with the destination.  My worry with std::unordered_map is will a bmc typically have enough host:port destinations so that the hashing operation does not end up taking more time than would searching a map for a given host:port?",
       "parentUuid": "3a6f635c_764ab3c8",
+      "range": {
+        "startLine": 500,
+        "startChar": 0,
+        "endLine": 500,
+        "endChar": 48
+      },
+      "revId": "156e6f2125278449dc7ef8b33ea28525305c29bc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9fc84b6b_c08195e2",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 500,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-03-30T00:01:47Z",
+      "side": 1,
+      "message": "In Patchset 13 I have modified this to be std::map instead of std::vector.  That\u0027s to keep it in line with the approach suggested in your above comment on line 422 as well as the discussions in https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/49667.",
+      "parentUuid": "fa04d21f_8cfa30ce",
       "range": {
         "startLine": 500,
         "startChar": 0,
