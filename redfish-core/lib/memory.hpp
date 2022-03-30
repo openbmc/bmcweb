@@ -431,9 +431,17 @@ inline void getDimmDataByService(std::shared_ptr<bmcweb::AsyncResp> aResp,
                                  const std::string& service,
                                  const std::string& objPath)
 {
+#ifndef BMCWEB_ENABLE_HEALTH_ROLLUP_ALTERNATIVE
     auto health = std::make_shared<HealthPopulate>(aResp);
     health->selfPath = objPath;
     health->populate();
+#else  // ifndef BMCWEB_ENABLE_HEALTH_ROLLUP_ALTERNATIVE
+    HealthRollup health(objPath);
+    if (!health.setStatus(aResp->res))
+    {
+        return;
+    }
+#endif // ifndef BMCWEB_ENABLE_HEALTH_ROLLUP_ALTERNATIVE
 
     BMCWEB_LOG_DEBUG << "Get available system components.";
     crow::connections::systemBus->async_method_call(
@@ -449,8 +457,9 @@ inline void getDimmDataByService(std::shared_ptr<bmcweb::AsyncResp> aResp,
             aResp->res.jsonValue["Id"] = dimmId;
             aResp->res.jsonValue["Name"] = "DIMM Slot";
             aResp->res.jsonValue["Status"]["State"] = "Enabled";
+#ifndef BMCWEB_ENABLE_HEALTH_ROLLUP_ALTERNATIVE
             aResp->res.jsonValue["Status"]["Health"] = "OK";
-
+#endif // ifndef BMCWEB_ENABLE_HEALTH_ROLLUP_ALTERNATIVE
             for (const auto& property : properties)
             {
                 if (property.first == "MemoryDataWidth")
