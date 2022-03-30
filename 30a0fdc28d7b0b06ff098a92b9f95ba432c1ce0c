@@ -160,6 +160,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f758a58f_73e55a11",
+        "filename": "redfish-core/include/query.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-30T23:50:56Z",
+      "side": 1,
+      "message": "Code review is the only other way I\u0027m aware of, but nodiscard is the only way I\u0027m aware of that\u0027s automated.  Open to other options if there are some.",
+      "parentUuid": "3cf67b41_54dd0b0f",
+      "range": {
+        "startLine": 10,
+        "startChar": 7,
+        "endLine": 10,
+        "endChar": 12
+      },
+      "revId": "30a0fdc28d7b0b06ff098a92b9f95ba432c1ce0c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b4b3bb7d_3e9c2ba1",
