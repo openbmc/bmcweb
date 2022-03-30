@@ -60,6 +60,46 @@ inline void
 }
 
 /**
+ * @brief Create Links for Chassis in Cable resource.
+ * @param[in,out]   asyncResp            Async HTTP response.
+ * @param[in]       associationPath      Cable association path.
+ * @param[in]       chassisPropertyName  Chassis of PropertyName of Cable.
+ */
+inline void getCableChassisAssociation(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& associationPath, const std::string& chassisPropertyName)
+{
+    sdbusplus::asio::getProperty<std::vector<std::string>>(
+        *crow::connections::systemBus, "xyz.openbmc_project.ObjectMapper",
+        associationPath, "xyz.openbmc_project.Association", "endpoints",
+        [asyncResp, chassisPropertyName](const boost::system::error_code ec,
+                                         const std::vector<std::string>& resp) {
+            if (ec)
+            {
+                return; // no downstream_chassis = no failures
+            }
+            nlohmann::json& chassis =
+                asyncResp->res.jsonValue["Links"][chassisPropertyName];
+            chassis = nlohmann::json::array();
+            const std::string chassisCollectionPath = "/redfish/v1/Chassis";
+            for (const std::string& chassisPath : resp)
+            {
+                BMCWEB_LOG_INFO << chassisPath << "chassis path";
+                sdbusplus::message::object_path path(chassisPath);
+                std::string leaf = path.filename();
+                if (leaf.empty())
+                {
+                    continue;
+                }
+                std::string newPath = chassisCollectionPath;
+                newPath += "/";
+                newPath += leaf;
+                chassis.push_back({{"@odata.id", std::move(newPath)}});
+            }
+        });
+}
+
+/**
  * @brief Api to get Cable properties.
  * @param[in,out]   asyncResp       Async HTTP response.
  * @param[in]       cableObjectPath Object path of the Cable.
@@ -142,6 +182,12 @@ inline void requestRoutesCable(App& app)
 
                             getCableProperties(asyncResp, objectPath,
                                                serviceMap);
+                            getCableChassisAssociation(
+                                asyncResp, objectPath + "/downstream_chassis",
+                                "DownstreamChassis");
+                            getCableChassisAssociation(
+                                asyncResp, objectPath + "/upstream_chassis",
+                                "UpstreamChassis");
                             return;
                         }
                         messages::resourceNotFound(asyncResp->res, "Cable",

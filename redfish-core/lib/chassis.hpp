@@ -212,6 +212,47 @@ inline void
         });
 }
 
+inline void getChassisCableAssociation(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& chassisPath)
+{
+    BMCWEB_LOG_DEBUG << "Get chassis -- cable association";
+
+    sdbusplus::asio::getProperty<std::vector<std::string>>(
+        *crow::connections::systemBus, "xyz.openbmc_project.ObjectMapper",
+        chassisPath + "/attached_cables", "xyz.openbmc_project.Association",
+        "endpoints",
+        [asyncResp](const boost::system::error_code ec,
+                    const std::vector<std::string>& cableList) {
+            if (ec)
+            {
+                return;
+            }
+
+            if (cableList.empty())
+            {
+                return;
+            }
+            nlohmann::json& jValue =
+                asyncResp->res.jsonValue["Links"]["Cables"];
+            jValue = nlohmann::json::array();
+            for (const std::string& cable : cableList)
+            {
+                sdbusplus::message::object_path cablePath(cable);
+                std::string cableName = cablePath.filename();
+                if (cable.empty())
+                {
+                    BMCWEB_LOG_ERROR << "filename() is empty in " << cable;
+                    continue;
+                }
+                jValue.push_back(
+                    {{"@odata.id", "/redfish/v1/Cables/" + cableName}});
+            }
+            asyncResp->res.jsonValue["Links"]["Cables@odata.count"] =
+                cableList.size();
+        });
+}
+
 inline void getChassisProcessorAssociation(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& chassisPath)
@@ -391,6 +432,7 @@ inline void requestRoutesChassis(App& app)
                             continue;
                         }
                         getChassisConnectivity(asyncResp, chassisId, path);
+                        getChassisCableAssociation(asyncResp, path);
                         getChassisProcessorAssociation(asyncResp, path);
                         getChassisMemoryAssociation(asyncResp, path);
 
@@ -420,7 +462,7 @@ inline void requestRoutesChassis(App& app)
                         }
 
                         asyncResp->res.jsonValue["@odata.type"] =
-                            "#Chassis.v1_16_0.Chassis";
+                            "#Chassis.v1_17_0.Chassis";
                         asyncResp->res.jsonValue["@odata.id"] =
                             "/redfish/v1/Chassis/" + chassisId;
                         asyncResp->res.jsonValue["Name"] = "Chassis Collection";
@@ -577,7 +619,7 @@ inline void requestRoutesChassis(App& app)
 
                     // Couldn't find an object with that name.  return an error
                     messages::resourceNotFound(
-                        asyncResp->res, "#Chassis.v1_16_0.Chassis", chassisId);
+                        asyncResp->res, "#Chassis.v1_17_0.Chassis", chassisId);
                 },
                 "xyz.openbmc_project.ObjectMapper",
                 "/xyz/openbmc_project/object_mapper",
