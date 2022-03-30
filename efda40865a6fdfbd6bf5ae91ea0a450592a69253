@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0461d376_ce1034e2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1001093
+      },
+      "writtenOn": "2022-03-30T14:13:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cb60a7c2_9163a1c1",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 23
+      },
+      "revId": "efda40865a6fdfbd6bf5ae91ea0a450592a69253",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "85f84278_0ff4479e",
@@ -37,6 +61,24 @@
       "writtenOn": "2022-03-24T21:52:35Z",
       "side": 1,
       "message": "This is nowhere near enough detail in your commit message.  Key things to answer:\n\n1. Why are you doing this?\n2. What value does it add?\n3. What impacts will it have to users (both developers and clients)\n4. How did you test this change?",
+      "revId": "efda40865a6fdfbd6bf5ae91ea0a450592a69253",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "48dcd665_27ddf5ec",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1001093
+      },
+      "writtenOn": "2022-03-30T14:13:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "85f84278_0ff4479e",
       "revId": "efda40865a6fdfbd6bf5ae91ea0a450592a69253",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -75,6 +117,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "91f512c8_24be1dd6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001093
+      },
+      "writtenOn": "2022-03-30T14:13:04Z",
+      "side": 1,
+      "message": "Hi Ed, This change is initial patch of multiple patches to extend redfish core library  support for multi host bmc systems. This change done in \"systems.hpp\" which has the logic for discovery of number host systems.so we have pushed this patch as first step. we can take any inputs/suggestions from community and once this is finalised we can submit the rest of the patches regarding multi host system support.",
+      "parentUuid": "db46af76_625b7135",
+      "revId": "efda40865a6fdfbd6bf5ae91ea0a450592a69253",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "53fce4b2_ed441da3",
@@ -88,6 +148,30 @@
       "writtenOn": "2022-03-24T21:50:02Z",
       "side": 1,
       "message": "Per the developing guide, please don\u0027t do string manipulations of these kinds of things when we have:\n\nA. Generic classes for handling this stuff in a type safe way that handles encoding and decoding properly, to the HTTP RFC.\nB. Generic utilities for doing this kinds of manipulation and field picking.",
+      "range": {
+        "startLine": 80,
+        "startChar": 0,
+        "endLine": 87,
+        "endChar": 1
+      },
+      "revId": "efda40865a6fdfbd6bf5ae91ea0a450592a69253",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3b7b1432_528635a9",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1001093
+      },
+      "writtenOn": "2022-03-30T14:13:04Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "53fce4b2_ed441da3",
       "range": {
         "startLine": 80,
         "startChar": 0,
@@ -121,6 +205,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ab63c26d_5d5d9041",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1001093
+      },
+      "writtenOn": "2022-03-30T14:13:04Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "cae800e1_43e64ad7",
+      "range": {
+        "startLine": 95,
+        "startChar": 1,
+        "endLine": 107,
+        "endChar": 19
+      },
+      "revId": "efda40865a6fdfbd6bf5ae91ea0a450592a69253",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d88254d5_d8dac7d0",
@@ -138,6 +246,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e07dccfa_52d75807",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 3004,
+      "author": {
+        "id": 1001093
+      },
+      "writtenOn": "2022-03-30T14:13:04Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "d88254d5_d8dac7d0",
+      "revId": "efda40865a6fdfbd6bf5ae91ea0a450592a69253",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c3b637db_12526034",
@@ -151,6 +277,30 @@
       "writtenOn": "2022-03-24T21:50:02Z",
       "side": 1,
       "message": "we have a URL class for these kinds of URL manipulations, please use it.",
+      "range": {
+        "startLine": 3011,
+        "startChar": 17,
+        "endLine": 3011,
+        "endChar": 23
+      },
+      "revId": "efda40865a6fdfbd6bf5ae91ea0a450592a69253",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e3d54622_daaeea21",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 3011,
+      "author": {
+        "id": 1001093
+      },
+      "writtenOn": "2022-03-30T14:13:04Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c3b637db_12526034",
       "range": {
         "startLine": 3011,
         "startChar": 17,
@@ -208,6 +358,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0c277e7f_2ce70988",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 3018,
+      "author": {
+        "id": 1001093
+      },
+      "writtenOn": "2022-03-30T14:13:04Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "76d7634e_75566608",
+      "range": {
+        "startLine": 3004,
+        "startChar": 0,
+        "endLine": 3018,
+        "endChar": 76
+      },
+      "revId": "efda40865a6fdfbd6bf5ae91ea0a450592a69253",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "644e72bd_193ec48f",
@@ -221,6 +395,30 @@
       "writtenOn": "2022-03-24T21:50:02Z",
       "side": 1,
       "message": "This is going to change the \"Name\" of the system for basically every deployed OpenBMC Redfish instance.  Please mention this as an impact in your commit message, and we can start a discussion about whether or not that\u0027s ok, if we need to make it configurable for clients that need the old behavior and whatnot.  As-written, i\u0027m fairly certain this breaks webui-vue because of:\n\nhttps://github.com/openbmc/webui-vue/issues/43\n\nFWIW, webui-vue maintainers and contributors have had 18 months of warning that this change was coming, and in the meantime have only added more hardcoded resources, so while we should definitely discuss it, those that rely on protocol-ignoring clients can probably come up with ways to fix them in short order once this patch series lands.  I\u0027m not of the mind to require a contributor that\u0027s adding things that obey the Redfish spec properly to have to do a bunch of mitigation and testing because one client ignored the spec.  Happy to discuss if there are easier paths to go down.",
+      "range": {
+        "startLine": 3022,
+        "startChar": 27,
+        "endLine": 3022,
+        "endChar": 65
+      },
+      "revId": "efda40865a6fdfbd6bf5ae91ea0a450592a69253",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b06997fb_f8612cee",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 3022,
+      "author": {
+        "id": 1001093
+      },
+      "writtenOn": "2022-03-30T14:13:04Z",
+      "side": 1,
+      "message": "The name referenced here before is \"system\".I just assigned it to a variable before storing in the json object.so this is expected to keep the same name for single host as before but the multi hosts will have numbers added at the end of system such as system1,system2 etc. please correct me if any other way this will have impact the existing implementation.",
+      "parentUuid": "644e72bd_193ec48f",
       "range": {
         "startLine": 3022,
         "startChar": 27,
@@ -248,6 +446,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bc15da38_40c2b498",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 3135,
+      "author": {
+        "id": 1001093
+      },
+      "writtenOn": "2022-03-30T14:13:04Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "985c7634_12b40300",
+      "revId": "efda40865a6fdfbd6bf5ae91ea0a450592a69253",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "61256ad0_ea6ab6e2",
@@ -261,6 +477,30 @@
       "writtenOn": "2022-03-22T16:47:19Z",
       "side": 1,
       "message": "Probably need validation on this one too?",
+      "range": {
+        "startLine": 3284,
+        "startChar": 42,
+        "endLine": 3284,
+        "endChar": 49
+      },
+      "revId": "efda40865a6fdfbd6bf5ae91ea0a450592a69253",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e884074c_a1d9cda5",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 3284,
+      "author": {
+        "id": 1001093
+      },
+      "writtenOn": "2022-03-30T14:13:04Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "61256ad0_ea6ab6e2",
       "range": {
         "startLine": 3284,
         "startChar": 42,
