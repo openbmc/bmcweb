@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a4cf61f0_313a684e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000520
+      },
+      "writtenOn": "2022-03-30T00:18:49Z",
+      "side": 1,
+      "message": "This is a minor refactoring, no change to functionality is intended.\n",
+      "revId": "3fe7d81911e92c0aed3f8efed409ec4aa1967678",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
