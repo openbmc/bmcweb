@@ -22,6 +22,7 @@
 #include <boost/range/algorithm/replace_copy_if.hpp>
 #include <dbus_singleton.hpp>
 #include <dbus_utility.hpp>
+#include <health.hpp>
 #include <query.hpp>
 #include <registries/privilege_registry.hpp>
 #include <sdbusplus/asio/property.hpp>
@@ -905,9 +906,16 @@ inline void objectInterfacesToJson(
     }
 
     sensorJson["Status"]["State"] = getState(inventoryItem);
+#ifndef BMCWEB_ENABLE_HEALTH_ROLLUP_ALTERNATIVE
     sensorJson["Status"]["Health"] =
         getHealth(sensorJson, interfacesDict, inventoryItem);
-
+#else  // ifndef BMCWEB_ENABLE_HEALTH_ROLLUP_ALTERNATIVE
+    HealthRollup health(sensorPath);
+    if (!health.setStatus(sensorsAsyncResp->asyncResp->res))
+    {
+        return;
+    }
+#endif // ifndef BMCWEB_ENABLE_HEALTH_ROLLUP_ALTERNATIVE
     // Parameter to set to override the type we get from dbus, and force it to
     // int, regardless of what is available.  This is used for schemas like fan,
     // that require integers, not floats.
@@ -1233,7 +1241,7 @@ inline void populateFanRedundancy(
                                              ' ');
 
                                 std::string health;
-
+#ifndef BMCWEB_ENABLE_HEALTH_ROLLUP_ALTERNATIVE
                                 if (boost::ends_with(*status, "Full"))
                                 {
                                     health = "OK";
@@ -1246,6 +1254,7 @@ inline void populateFanRedundancy(
                                 {
                                     health = "Critical";
                                 }
+#endif // ifndef BMCWEB_ENABLE_HEALTH_ROLLUP_ALTERNATIVE
                                 std::vector<nlohmann::json> redfishCollection;
                                 const auto& fanRedfish =
                                     sensorsAsyncResp->asyncResp->res
@@ -1305,8 +1314,11 @@ inline void populateFanRedundancy(
                                      {"Name", name},
                                      {"RedundancySet", redfishCollection},
                                      {"Status",
-                                      {{"Health", health},
-                                       {"State", "Enabled"}}}});
+                                      {
+#ifndef BMCWEB_ENABLE_HEALTH_ROLLUP_ALTERNATIVE
+                                          {"Health", health},
+#endif // ifndef BMCWEB_ENABLE_HEALTH_ROLLUP_ALTERNATIVE
+                                          {"State", "Enabled"}}}});
                             },
                             owner, path, "org.freedesktop.DBus.Properties",
                             "GetAll",

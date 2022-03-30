@@ -249,7 +249,7 @@ inline void requestRoutesChassis(App& app)
                         {
                             continue;
                         }
-
+#ifndef BMCWEB_ENABLE_HEALTH_ROLLUP_ALTERNATIVE
                         auto health =
                             std::make_shared<HealthPopulate>(asyncResp);
 
@@ -268,7 +268,13 @@ inline void requestRoutesChassis(App& app)
                             });
 
                         health->populate();
-
+#else  // ifndef BMCWEB_ENABLE_HEALTH_ROLLUP_ALTERNATIVE
+                        HealthRollup health(path);
+                        if (!health.setStatus(asyncResp->res))
+                        {
+                            return;
+                        }
+#endif // ifndef BMCWEB_ENABLE_HEALTH_ROLLUP_ALTERNATIVE
                         if (connectionNames.empty())
                         {
                             BMCWEB_LOG_ERROR << "Got 0 Connection names";
@@ -396,9 +402,8 @@ inline void requestRoutesChassis(App& app)
                                 asyncResp->res.jsonValue["Sensors"] = {
                                     {"@odata.id", "/redfish/v1/Chassis/" +
                                                       chassisId + "/Sensors"}};
-                                asyncResp->res.jsonValue["Status"] = {
-                                    {"State", "Enabled"},
-                                };
+                                asyncResp->res.jsonValue["Status"]["State"] =
+                                    "Enabled";
 
                                 asyncResp->res
                                     .jsonValue["Links"]["ComputerSystems"] = {
