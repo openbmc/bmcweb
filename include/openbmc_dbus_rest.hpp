@@ -51,6 +51,13 @@ const constexpr char* forbiddenPropDesc =
 const constexpr char* forbiddenResDesc =
     "The specified resource cannot be created";
 
+inline bool validateFilename(const std::string& filename)
+{
+    std::regex validFilename(R"(^[\w\- ]+(\.?[\w\- ]*)$)");
+
+    return std::regex_match(filename, validFilename);
+}
+
 inline void setErrorResponse(crow::Response& res,
                              boost::beast::http::status result,
                              const std::string& desc,
@@ -2538,8 +2545,7 @@ inline void requestRoutes(App& app)
             [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                const std::string& dumpId) {
-                std::regex validFilename(R"(^[\w\- ]+(\.?[\w\- ]*)$)");
-                if (!std::regex_match(dumpId, validFilename))
+                if (!validateFilename(dumpId))
                 {
                     asyncResp->res.result(
                         boost::beast::http::status::bad_request);
