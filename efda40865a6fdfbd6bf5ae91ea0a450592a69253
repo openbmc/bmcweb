@@ -449,6 +449,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "add070f3_1efdc5ff",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 3022,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-30T18:33:43Z",
+      "side": 1,
+      "message": "Call that out in your commit message as an explicit design decision, and we can discuss more.  I suspect this is going to be important as we get to resources at depth 2+, because we can\u0027t really be doing a mapper call for every host resource, before querying the host that we actually care about.",
+      "parentUuid": "b06997fb_f8612cee",
+      "range": {
+        "startLine": 3022,
+        "startChar": 27,
+        "endLine": 3022,
+        "endChar": 65
+      },
+      "revId": "efda40865a6fdfbd6bf5ae91ea0a450592a69253",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "985c7634_12b40300",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 4
