@@ -41,6 +41,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7af38582_06c8c4e0",
+        "filename": "http/utility.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 677,
+      "author": {
+        "id": 1001026
+      },
+      "writtenOn": "2022-03-30T13:23:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4173e3f0_4fd4c249",
+      "range": {
+        "startLine": 677,
+        "startChar": 62,
+        "endLine": 677,
+        "endChar": 67
+      },
+      "revId": "fafc379a8ea1c3bc441d8ac741b97aefa9e1c66b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "de09839f_2092a60f",
@@ -54,6 +78,30 @@
       "writtenOn": "2022-03-29T17:29:54Z",
       "side": 1,
       "message": "nit, considering that every place this is used it\u0027s used as a std::string_view, should we just store it directly as a string view here?",
+      "range": {
+        "startLine": 700,
+        "startChar": 10,
+        "endLine": 700,
+        "endChar": 35
+      },
+      "revId": "fafc379a8ea1c3bc441d8ac741b97aefa9e1c66b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "05b65e76_74ace125",
+        "filename": "http/utility.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 700,
+      "author": {
+        "id": 1001026
+      },
+      "writtenOn": "2022-03-30T13:23:10Z",
+      "side": 1,
+      "message": "Overall this would be good idea, but due to potential bug in implementation of urls::string_value class, there are compatibility issues with string_view, related to lifetime of data(). It was caught by adress sanitazer when I run CI on my local machine. I tried to debug it together with @Krzysztof Grobelny, and current solution is the safest one. \n\nSee this for full context: https://github.com/CPPAlliance/url/issues/159",
+      "parentUuid": "de09839f_2092a60f",
       "range": {
         "startLine": 700,
         "startChar": 10,
