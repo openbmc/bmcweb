@@ -112,6 +112,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "72cae614_f7a9d84a",
+        "filename": "redfish-core/include/query.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-30T20:46:45Z",
+      "side": 1,
+      "message": "FWIW, I think this is also bmcwebs first use of nodiscard, which I would like to see us use more, but haven\u0027t had time to play around with to see what functions need annotated with that and in what cases we wouldn\u0027t use it.",
+      "parentUuid": "59123610_751991c0",
+      "range": {
+        "startLine": 10,
+        "startChar": 7,
+        "endLine": 10,
+        "endChar": 12
+      },
+      "revId": "30a0fdc28d7b0b06ff098a92b9f95ba432c1ce0c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b4b3bb7d_3e9c2ba1",
