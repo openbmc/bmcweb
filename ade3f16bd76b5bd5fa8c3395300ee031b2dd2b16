@@ -49,6 +49,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "01ad5a6c_4b7ed3aa",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1001386
+      },
+      "writtenOn": "2022-03-31T21:04:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fd5bab50_709713d9",
+      "range": {
+        "startLine": 11,
+        "startChar": 8,
+        "endLine": 11,
+        "endChar": 28
+      },
+      "revId": "ade3f16bd76b5bd5fa8c3395300ee031b2dd2b16",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "a9e8ed0a_1eb8b5fd",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 1
@@ -181,6 +205,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "81940fd7_74a54604",
+        "filename": "include/google/google_service_root.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1001386
+      },
+      "writtenOn": "2022-03-31T21:04:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "08ca1ae2_c241a940",
+      "range": {
+        "startLine": 56,
+        "startChar": 12,
+        "endLine": 61,
+        "endChar": 13
+      },
+      "revId": "ade3f16bd76b5bd5fa8c3395300ee031b2dd2b16",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "12a2ae86_5b26259a",
@@ -204,6 +252,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "42a0048b_5a11d2d1",
+        "filename": "include/google/google_service_root.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1001386
+      },
+      "writtenOn": "2022-03-31T21:04:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "12a2ae86_5b26259a",
+      "range": {
+        "startLine": 69,
+        "startChar": 0,
+        "endLine": 69,
+        "endChar": 42
+      },
+      "revId": "ade3f16bd76b5bd5fa8c3395300ee031b2dd2b16",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c545cdbc_7fa09937",
@@ -217,6 +289,30 @@
       "writtenOn": "2022-03-22T16:36:23Z",
       "side": 1,
       "message": "Status is generally not an array, but you\u0027re treating it like one here.",
+      "range": {
+        "startLine": 84,
+        "startChar": 55,
+        "endLine": 84,
+        "endChar": 67
+      },
+      "revId": "ade3f16bd76b5bd5fa8c3395300ee031b2dd2b16",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6c3e9c7f_b38c0588",
+        "filename": "include/google/google_service_root.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1001386
+      },
+      "writtenOn": "2022-03-31T21:04:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c545cdbc_7fa09937",
       "range": {
         "startLine": 84,
         "startChar": 55,
@@ -252,6 +348,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c217eb25_7b4d03bc",
+        "filename": "include/google/google_service_root.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1001386
+      },
+      "writtenOn": "2022-03-31T21:04:55Z",
+      "side": 1,
+      "message": "I think we dont need description. Name would do.",
+      "parentUuid": "ac89c12d_1a56fac2",
+      "range": {
+        "startLine": 88,
+        "startChar": 42,
+        "endLine": 88,
+        "endChar": 46
+      },
+      "revId": "ade3f16bd76b5bd5fa8c3395300ee031b2dd2b16",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9b08ad3f_7570591d",
         "filename": "include/google/google_service_root.hpp",
         "patchSetId": 1
@@ -263,6 +383,30 @@
       "writtenOn": "2022-03-22T16:36:23Z",
       "side": 1,
       "message": "Please don\u0027t combine initializer list initialization and operator[] initialization.  It makes the code hard to read.  YOu probably want\n\njsonValue[\"Actions\"][\"#RootOfTrust.SendCommand\"][\"target\"] \u003d ...",
+      "range": {
+        "startLine": 90,
+        "startChar": 72,
+        "endLine": 92,
+        "endChar": 71
+      },
+      "revId": "ade3f16bd76b5bd5fa8c3395300ee031b2dd2b16",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e87fc5a5_61a34879",
+        "filename": "include/google/google_service_root.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1001386
+      },
+      "writtenOn": "2022-03-31T21:04:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9b08ad3f_7570591d",
       "range": {
         "startLine": 90,
         "startChar": 72,
@@ -286,6 +430,30 @@
       "writtenOn": "2022-03-22T16:36:23Z",
       "side": 1,
       "message": "You should be using the rotId as some piece of the dbus path, so that if the object doesn\u0027t exist, dbus can return an error.",
+      "range": {
+        "startLine": 103,
+        "startChar": 21,
+        "endLine": 103,
+        "endChar": 34
+      },
+      "revId": "ade3f16bd76b5bd5fa8c3395300ee031b2dd2b16",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "be747d39_b7f29a2d",
+        "filename": "include/google/google_service_root.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1001386
+      },
+      "writtenOn": "2022-03-31T21:04:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "222bdc9a_bb50bc73",
       "range": {
         "startLine": 103,
         "startChar": 21,
