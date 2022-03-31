@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "37ce6da4_1bb687d9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001359
+      },
+      "writtenOn": "2022-03-31T22:27:32Z",
+      "side": 1,
+      "message": "Please Abandon this CL.",
+      "revId": "40f2289d7094b839704e69008848854293d28b6b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
