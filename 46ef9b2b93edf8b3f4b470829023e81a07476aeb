@@ -1,0 +1,153 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fd1b61b2_20ddd225",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-31T02:47:06Z",
+      "side": 1,
+      "message": "Lots more details needed here.  Why would someone choose this version over the existing?  Why is it better at?  What is it worse at?  How does it implement the rollup interfaces that Redfish specifies?  How do existing daemons need to change?",
+      "revId": "46ef9b2b93edf8b3f4b470829023e81a07476aeb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4410532a_9bc9eeb9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-31T02:47:06Z",
+      "side": 1,
+      "message": "Please document what changes you saw in your tests;  Looking at the patch, it\u0027s unlikely that health rollup operated in the way that Redfish requires, which is part of the reason the solution you replaced is so complex in implementation.",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 0
+      },
+      "revId": "46ef9b2b93edf8b3f4b470829023e81a07476aeb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b53dc77b_ea59e7f7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-31T02:47:06Z",
+      "side": 1,
+      "message": "I partially reviewed this until it looks like the design did not read COMMON_ERRORS.md or DEVELOPING.md.  Please read both, rework your code, and i\u0027ll review it further once you\u0027ve done so.  Implementing to the developing guide is going to rewrite a majority of the async portions of this patchset.",
+      "revId": "46ef9b2b93edf8b3f4b470829023e81a07476aeb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ad5edf19_9f7f06a5",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-31T02:47:06Z",
+      "side": 1,
+      "message": "Please don\u0027t hardcode path names in bmcweb.  They make things incompatible with other peoples systems.",
+      "range": {
+        "startLine": 264,
+        "startChar": 0,
+        "endLine": 265,
+        "endChar": 37
+      },
+      "revId": "46ef9b2b93edf8b3f4b470829023e81a07476aeb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f099c1e8_87b79660",
+        "filename": "redfish-core/lib/health.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-31T02:47:06Z",
+      "side": 1,
+      "message": "please move this outside the class.  I\u0027m pretty sure this conversion already exists somewhere;  Please use it if it does.",
+      "range": {
+        "startLine": 260,
+        "startChar": 0,
+        "endLine": 278,
+        "endChar": 5
+      },
+      "revId": "46ef9b2b93edf8b3f4b470829023e81a07476aeb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2a0a6a29_755b5af8",
+        "filename": "redfish-core/lib/health.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-31T02:47:06Z",
+      "side": 1,
+      "message": "Please read and understand common_errors.md.  This function is called out by name, and does a blocking call, which shouldn\u0027t be done in an async reactor like bmcweb.",
+      "range": {
+        "startLine": 297,
+        "startChar": 0,
+        "endLine": 297,
+        "endChar": 52
+      },
+      "revId": "46ef9b2b93edf8b3f4b470829023e81a07476aeb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c0d339ba_965fac38",
+        "filename": "redfish-core/lib/health.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 524,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-31T02:47:06Z",
+      "side": 1,
+      "message": "Responses that do not need to take ownership should be passed by crow::Response\u0026",
+      "range": {
+        "startLine": 524,
+        "startChar": 19,
+        "endLine": 524,
+        "endChar": 66
+      },
+      "revId": "46ef9b2b93edf8b3f4b470829023e81a07476aeb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
