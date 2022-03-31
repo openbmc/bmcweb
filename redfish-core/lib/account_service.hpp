@@ -1157,7 +1157,9 @@ inline void updateUserProperties(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
                         asyncResp->res, "#ManagerAccount.v1_4_0.ManagerAccount",
                         username);
                 }
-                else if (retval == PAM_AUTHTOK_ERR)
+                // PAM_NEW_AUTHTOK_REQD here is a workaroud for pam-ipmi
+                else if (retval == PAM_AUTHTOK_ERR ||
+                         retval == PAM_NEW_AUTHTOK_REQD)
                 {
                     // If password is invalid
                     messages::propertyValueFormatError(asyncResp->res,
