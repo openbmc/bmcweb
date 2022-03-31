@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "103e6b3e_d1b584bf",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-03-31T17:44:13Z",
+      "side": 1,
+      "message": "nite: just ec instead",
+      "range": {
+        "startLine": 75,
+        "startChar": 73,
+        "endLine": 75,
+        "endChar": 76
+      },
+      "revId": "d7a5dc97572c6f28f26ad8c8e0e6d94315d5c56a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ed602a51_4cefdaec",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-03-31T17:44:13Z",
+      "side": 1,
+      "message": "combine?",
+      "range": {
+        "startLine": 95,
+        "startChar": 0,
+        "endLine": 97,
+        "endChar": 32
+      },
+      "revId": "d7a5dc97572c6f28f26ad8c8e0e6d94315d5c56a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d5652c5_204866c1",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-03-31T17:44:13Z",
+      "side": 1,
+      "message": "can we document this association in dbus interface? like https://gerrit.openbmc-project.xyz/c/openbmc/phosphor-dbus-interfaces/+/52401",
+      "range": {
+        "startLine": 186,
+        "startChar": 0,
+        "endLine": 191,
+        "endChar": 51
+      },
+      "revId": "d7a5dc97572c6f28f26ad8c8e0e6d94315d5c56a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4a56ca4b_df61d1e8",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-03-31T17:44:13Z",
+      "side": 1,
+      "message": "const std::String\u0026 instead",
+      "range": {
+        "startLine": 239,
+        "startChar": 17,
+        "endLine": 239,
+        "endChar": 28
+      },
+      "revId": "d7a5dc97572c6f28f26ad8c8e0e6d94315d5c56a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ea93afaf_b9bb27dc",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 476,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-03-31T17:44:13Z",
+      "side": 1,
+      "message": "mention this in the commit message.",
+      "range": {
+        "startLine": 476,
+        "startChar": 28,
+        "endLine": 476,
+        "endChar": 55
+      },
+      "revId": "d7a5dc97572c6f28f26ad8c8e0e6d94315d5c56a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
