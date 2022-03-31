@@ -1,6 +1,52 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "c58858d8_fc777646",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-31T20:22:56Z",
+      "side": 1,
+      "message": "is this #define documented somewhere?\n\nReading the pam docs, this error code is used for\n\"The user account is valid but their authentication token is expired.  The correct response to this return-value is to require that the user satisfies the pam_chauthtok() function before obtaining service. It may not be possible for some applications to do this. In such cases, the user should be denied access until such time as they can update their password.\"\n\nConsidering in this case the authentication token isn\u0027t expired, but invalid, is this the right error to be returning if the password doesn\u0027t meet the complexity requirements?",
+      "range": {
+        "startLine": 10,
+        "startChar": 35,
+        "endLine": 10,
+        "endChar": 55
+      },
+      "revId": "0af1df0cd3a01702cdcf16a4e1c9a87efe63902f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6e9f7390_5bc2decd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-03-31T20:22:56Z",
+      "side": 1,
+      "message": "This seems like poor behavior on the part of IPMI.  Redfish doesn\u0027t really have this limitation, so it seems like it shouldn\u0027t set a entire-system limit for setting a password that\u0027s longer, a longer password just won\u0027t work for IPMI (and maybe we return a warning message to that effect in Redfish).",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 54
+      },
+      "revId": "0af1df0cd3a01702cdcf16a4e1c9a87efe63902f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "1a34b309_bcb89ba9",
