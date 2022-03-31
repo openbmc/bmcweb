@@ -95,6 +95,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f34add1_b60721f1",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1001193
+      },
+      "writtenOn": "2022-03-31T22:43:00Z",
+      "side": 1,
+      "message": "../redfish-core/include/../lib/cable.hpp:94:67: error: string concatenation results in allocation of unnecessary temporary strings; consider using \u0027operator+\u003d\u0027 or \u0027string::append()\u0027 instead [performance-inefficient-string-concatenation,-warnings-as-errors]\n\nActually it seems \"+\u003d\" is recommended.",
+      "parentUuid": "64bec303_8a84321d",
+      "range": {
+        "startLine": 95,
+        "startChar": 0,
+        "endLine": 97,
+        "endChar": 32
+      },
+      "revId": "d7a5dc97572c6f28f26ad8c8e0e6d94315d5c56a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5d5652c5_204866c1",
