@@ -186,6 +186,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "50017813_7950096c",
+        "filename": "redfish-core/include/query.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-03-31T21:24:30Z",
+      "side": 1,
+      "message": "https://clang.llvm.org/extra/clang-tidy/checks/modernize-use-nodiscard.html\n\nCan clang-tidy throw an error?\n\nI know in Google codebase, nodiscard is enforced automatically.",
+      "parentUuid": "f758a58f_73e55a11",
+      "range": {
+        "startLine": 10,
+        "startChar": 7,
+        "endLine": 10,
+        "endChar": 12
+      },
+      "revId": "30a0fdc28d7b0b06ff098a92b9f95ba432c1ce0c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b4b3bb7d_3e9c2ba1",
         "filename": "redfish-core/include/query.hpp",
         "patchSetId": 11
