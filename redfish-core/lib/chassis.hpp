@@ -15,6 +15,7 @@
 */
 #pragma once
 
+#include "assembly.hpp"
 #include "health.hpp"
 #include "led.hpp"
 #include "utils/json_utils.hpp"
@@ -25,6 +26,7 @@
 #include <registries/privilege_registry.hpp>
 #include <sdbusplus/asio/property.hpp>
 #include <sdbusplus/unpack_properties.hpp>
+#include <utils/chassis_utils.hpp>
 #include <utils/collection.hpp>
 #include <utils/dbus_utils.hpp>
 
@@ -411,6 +413,9 @@ inline void
                                                  chassisId,
                                                  "EnvironmentMetrics");
 #endif
+                asyncResp->res.jsonValue["Assembly"]["@odata.id"] =
+                    crow::utility::urlFromPieces("redfish", "v1", "Chassis",
+                                                 chassisId, "Assembly");
                 // SensorCollection
                 asyncResp->res.jsonValue["Sensors"]["@odata.id"] =
                     "/redfish/v1/Chassis/" + chassisId + "/Sensors";
@@ -743,6 +748,38 @@ inline void requestRoutesChassisResetActionInfo(App& app)
         .privileges(redfish::privileges::getActionInfo)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handleChassisResetActionInfoGet, std::ref(app)));
+}
+
+void getChassisAssembly(App& app, const crow::Request& req,
+                        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                        const std::string& chassisId)
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+
+    chassis_utils::getValidChassisPath(
+        asyncResp, chassisId,
+        [asyncResp, chassisId](const std::optional<std::string>& path) {
+        if (!path)
+        {
+            messages::resourceNotFound(asyncResp->res,
+                                       "#Chassis.v1_16_0.Chassis", chassisId);
+            return;
+        }
+        boost::urls::url assemblyId = crow::utility::urlFromPieces(
+            "redfish", "v1", "Chassis", chassisId, "Assembly");
+        getAssembly(asyncResp, assemblyId, *path);
+        });
+}
+
+inline void requestRoutesChassisAssembly(App& app)
+{
+    BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/Assembly/")
+        .privileges(redfish::privileges::getAssembly)
+        .methods(boost::beast::http::verb::get)(
+            std::bind_front(getChassisAssembly, std::ref(app)));
 }
 
 } // namespace redfish
