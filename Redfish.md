@@ -130,6 +130,7 @@ Fields common to all schemas
 #### /redfish/v1/Chassis/{ChassisId}/
 ##### Chassis
 - Actions
+- Assembly
 - ChassisType
 - Links/ComputerSystems
 - Links/ManagedBy
@@ -144,6 +145,20 @@ Fields common to all schemas
   - Shall be included if component contains temperature sensors, otherwise
     shall be omitted.
 
+#### /redfish/v1/Chassis/{ChassisId}/Assembly/
+##### Assembly
+- Assemblies
+
+#### /redfish/v1/Chassis/{ChassisId}/Assembly/Assemblies#/{MemberId}/
+##### AssemblyData
+- Location
+- MemberId
+- Model
+- Name
+- PartNumber
+- SerialNumber
+- SparePartNumber
+ 
 #### /redfish/v1/Chassis/{ChassisId}/Power/
 ##### Power
 - PowerControl
