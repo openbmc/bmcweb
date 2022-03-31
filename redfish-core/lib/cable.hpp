@@ -6,6 +6,7 @@
 #include "utils/collection.hpp"
 #include "utils/dbus_utils.hpp"
 #include "utils/json_utils.hpp"
+#include "utils/location_utils.hpp"
 
 #include <boost/system/error_code.hpp>
 #include <sdbusplus/asio/property.hpp>
@@ -16,6 +17,24 @@
 
 namespace redfish
 {
+
+/**
+ * @brief Check if the interface is a supported connector
+ *
+ * @param[in]       interface   Location type interface.
+ *
+ * @return true if the interface is a supported connector
+ */
+inline bool isConnector(const std::string& interface)
+{
+    return interface == "xyz.openbmc_project.Inventory.Connector.Backplane" ||
+           interface == "xyz.openbmc_project.Inventory.Connector.Bay" ||
+           interface == "xyz.openbmc_project.Inventory.Connector.Connector" ||
+           interface == "xyz.openbmc_project.Inventory.Connector.Embedded" ||
+           interface == "xyz.openbmc_project.Inventory.Connector.Slot" ||
+           interface == "xyz.openbmc_project.Inventory.Connector.Socket";
+}
+
 /**
  * @brief Fill cable specific properties.
  * @param[in,out]   resp        HTTP response.
@@ -88,19 +107,39 @@ inline void
     {
         for (const auto& interface : interfaces)
         {
-            if (interface != "xyz.openbmc_project.Inventory.Item.Cable")
+            if (interface == "xyz.openbmc_project.Inventory.Item.Cable")
             {
-                continue;
+                crow::connections::systemBus->async_method_call(
+                    [asyncResp](
+                        const boost::system::error_code ec,
+                        const dbus::utility::DBusPropertiesMap& properties) {
+                        fillCableProperties(asyncResp->res, ec, properties);
+                    },
+                    service, cableObjectPath, "org.freedesktop.DBus.Properties",
+                    "GetAll", interface);
             }
+            else if (interface ==
+                     "xyz.openbmc_project.Inventory.Decorator.LocationCode")
+            {
+                location_util::getLocationCode(asyncResp, service,
+                                               cableObjectPath,
+                                               "/Location"_json_pointer);
+            }
+            else if (isConnector(interface))
+            {
+                std::optional<std::string> locationType =
+                    location_util::getLocationType(interface);
+                if (!locationType)
+                {
+                    BMCWEB_LOG_DEBUG << "getLocationType for Cable failed for "
+                                     << interface;
+                    continue;
+                }
 
-            sdbusplus::asio::getAllProperties(
-                *crow::connections::systemBus, service, cableObjectPath,
-                interface,
-                [asyncResp](
-                    const boost::system::error_code& ec,
-                    const dbus::utility::DBusPropertiesMap& properties) {
-                fillCableProperties(asyncResp->res, ec, properties);
-                });
+                asyncResp->res
+                    .jsonValue["Location"]["PartLocation"]["LocationType"] =
+                    *locationType;
+            }
         }
     }
 }
