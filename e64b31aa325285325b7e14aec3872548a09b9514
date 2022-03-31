@@ -50,6 +50,24 @@
       "message": "I am confused, I see some of these same changes at a pervious review: https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/50059/11/include/google/google_service_root.hpp ?",
       "revId": "e64b31aa325285325b7e14aec3872548a09b9514",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a3ed6857_385fcbd4",
+        "filename": "include/google/google_service_root.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1001386
+      },
+      "writtenOn": "2022-03-31T21:01:14Z",
+      "side": 1,
+      "message": "Ah. Please consider that PR dropped. \nThe person left the position so it\u0027s on me to carry this 😊\n\nThe idea is largely the same. Added unit tests and some discovery mechanisms in this iteration.",
+      "parentUuid": "da3ca772_fdcb3187",
+      "revId": "e64b31aa325285325b7e14aec3872548a09b9514",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
