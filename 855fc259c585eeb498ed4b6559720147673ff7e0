@@ -117,6 +117,30 @@
       },
       "revId": "855fc259c585eeb498ed4b6559720147673ff7e0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2a4723e5_c57d205b",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 431,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-03-31T10:31:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "372502f7_50a961d6",
+      "range": {
+        "startLine": 429,
+        "startChar": 0,
+        "endLine": 431,
+        "endChar": 21
+      },
+      "revId": "855fc259c585eeb498ed4b6559720147673ff7e0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
