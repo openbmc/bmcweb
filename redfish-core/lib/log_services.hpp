@@ -7092,16 +7092,50 @@ inline void deleteSystemHardwareIsolationLogEntryById(
 
         // Delete the respective dbus entry object
         crow::connections::systemBus->async_method_call(
-            [asyncResp, entryObjPath](const boost::system::error_code& ec1) {
-            if (ec1)
+            [asyncResp, entryObjPath](const boost::system::error_code& ec1,
+                                      const sdbusplus::message::message& msg) {
+            if (!ec1)
             {
-                BMCWEB_LOG_ERROR(
-                    "DBUS response error [{} : {}] when tried to delete the given object path: ",
-                    ec1.value(), ec1.message(), entryObjPath.str);
+                messages::success(asyncResp->res);
+                return;
+            }
+
+            BMCWEB_LOG_ERROR(
+                "DBUS response error [{} : {}] when tried to delete the given object path: ",
+                ec1.value(), ec1.message(), entryObjPath.str);
+
+            const sd_bus_error* dbusError = msg.get_error();
+
+            if (dbusError == nullptr)
+            {
                 messages::internalError(asyncResp->res);
                 return;
             }
-            messages::success(asyncResp->res);
+
+            BMCWEB_LOG_ERROR("DBus ErrorName: {} ErrorMsg: {}", dbusError->name,
+                             dbusError->message);
+
+            if (std::string_view(
+                    "xyz.openbmc_project.Common.Error.NotAllowed") ==
+                dbusError->name)
+            {
+                messages::chassisPowerStateOffRequired(asyncResp->res,
+                                                       "chassis");
+            }
+            else if (
+                std::string_view(
+                    "xyz.openbmc_project.Common.Error.InsufficientPermission") ==
+                dbusError->name)
+            {
+                messages::resourceCannotBeDeleted(asyncResp->res);
+            }
+            else
+            {
+                BMCWEB_LOG_ERROR(
+                    "DBus Error is unsupported so returning as Internal Error");
+                messages::internalError(asyncResp->res);
+            }
+            return;
         },
             objType[0].first, entryObjPath.str,
             "xyz.openbmc_project.Object.Delete", "Delete");
