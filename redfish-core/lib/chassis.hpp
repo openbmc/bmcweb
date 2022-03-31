@@ -23,6 +23,7 @@
 #include <registries/privilege_registry.hpp>
 #include <sdbusplus/asio/property.hpp>
 #include <utils/asset_utils.hpp>
+#include <utils/chassis_utils.hpp>
 #include <utils/collection.hpp>
 
 namespace redfish
@@ -362,6 +363,10 @@ inline void requestRoutesChassis(App& app)
                             {{"@odata.id", "/redfish/v1/Managers/bmc"}}};
                         getChassisState(asyncResp);
 
+                        asyncResp->res.jsonValue["Assembly"] = {
+                            {"@odata.id",
+                             "/redfish/v1/Chassis/" + chassisId + "/Assembly"}};
+
                         for (const auto& interface : interfaces2)
                         {
                             if (interface == "xyz.openbmc_project.Common.UUID")
@@ -376,7 +381,6 @@ inline void requestRoutesChassis(App& app)
                                                        connectionName, path);
                             }
                         }
-
                         return;
                     }
 
@@ -645,6 +649,34 @@ inline void requestRoutesChassisResetActionInfo(App& app)
                        {"Required", true},
                        {"DataType", "String"},
                        {"AllowableValues", {"PowerCycle"}}}}}};
+            });
+}
+
+inline void requestRoutesChassisAssembly(App& app)
+{
+    BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/Assembly/")
+        .privileges({{"Login"}})
+        .methods(boost::beast::http::verb::get)(
+            [](const crow::Request&,
+               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const std::string& chassisId) {
+                chassis_utils::getValidChassisPath(
+                    asyncResp, chassisId,
+                    [asyncResp,
+                     chassisId](const std::optional<std::string>& path) {
+                        if (!path)
+                        {
+                            messages::resourceNotFound(
+                                asyncResp->res, "#Chassis.v1_14_0.Chassis",
+                                chassisId);
+                        }
+                        else
+                        {
+                            std::string assemblyId = "/redfish/v1/Chassis/" +
+                                                     chassisId + "/Assembly/";
+                            getAssembly(asyncResp, assemblyId, *path);
+                        }
+                    });
             });
 }
 
