@@ -1,6 +1,7 @@
 #pragma once
 #include <dbus_utility.hpp>
 #include <utils/json_utils.hpp>
+#include <utils/location_utils.hpp>
 
 namespace redfish
 {
@@ -77,19 +78,40 @@ inline void
     {
         for (const auto& interface : interfaces)
         {
-            if (interface != "xyz.openbmc_project.Inventory.Item.Cable")
+            if (interface == "xyz.openbmc_project.Inventory.Item.Cable")
             {
-                continue;
-            }
 
-            crow::connections::systemBus->async_method_call(
-                [asyncResp](
-                    const boost::system::error_code ec,
-                    const dbus::utility::DBusPropertiesMap& properties) {
-                    fillCableProperties(asyncResp->res, ec, properties);
-                },
-                service, cableObjectPath, "org.freedesktop.DBus.Properties",
-                "GetAll", interface);
+                crow::connections::systemBus->async_method_call(
+                    [asyncResp](
+                        const boost::system::error_code ec,
+                        const dbus::utility::DBusPropertiesMap& properties) {
+                        fillCableProperties(asyncResp->res, ec, properties);
+                    },
+                    service, cableObjectPath, "org.freedesktop.DBus.Properties",
+                    "GetAll", interface);
+            }
+            else if (interface ==
+                     "xyz.openbmc_project.Inventory.Decorator.LocationCode")
+            {
+                location_util::getLocationCode(asyncResp, service,
+                                               cableObjectPath,
+                                               "/Location"_json_pointer);
+            }
+            else if (location_util::isConnector(interface))
+            {
+                std::optional<std::string> locationType =
+                    location_util::getLocationType(interface);
+                if (!locationType)
+                {
+                    BMCWEB_LOG_DEBUG << "getLocationType for Cable failed for "
+                                     << interface;
+                    continue;
+                }
+
+                asyncResp->res
+                    .jsonValue["Location"]["PartLocation"]["LocationType"] =
+                    *locationType;
+            }
         }
     }
 }
