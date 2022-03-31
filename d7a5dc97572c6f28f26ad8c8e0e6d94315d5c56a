@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0fdef68a_059b8aa4",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1001193
+      },
+      "writtenOn": "2022-03-31T22:23:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "103e6b3e_d1b584bf",
+      "range": {
+        "startLine": 75,
+        "startChar": 73,
+        "endLine": 75,
+        "endChar": 76
+      },
+      "revId": "d7a5dc97572c6f28f26ad8c8e0e6d94315d5c56a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ed602a51_4cefdaec",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-03-31T17:44:13Z",
       "side": 1,
       "message": "combine?",
+      "range": {
+        "startLine": 95,
+        "startChar": 0,
+        "endLine": 97,
+        "endChar": 32
+      },
+      "revId": "d7a5dc97572c6f28f26ad8c8e0e6d94315d5c56a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "64bec303_8a84321d",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1001193
+      },
+      "writtenOn": "2022-03-31T22:23:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ed602a51_4cefdaec",
       "range": {
         "startLine": 95,
         "startChar": 0,
@@ -94,6 +142,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a2fd064_0f951312",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1001193
+      },
+      "writtenOn": "2022-03-31T22:23:32Z",
+      "side": 1,
+      "message": "It\u0027s documented here\nhttps://gerrit.openbmc-project.xyz/c/openbmc/phosphor-dbus-interfaces/+/48370",
+      "parentUuid": "b621922a_02fe65f0",
+      "range": {
+        "startLine": 186,
+        "startChar": 0,
+        "endLine": 191,
+        "endChar": 51
+      },
+      "revId": "d7a5dc97572c6f28f26ad8c8e0e6d94315d5c56a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4a56ca4b_df61d1e8",
@@ -117,6 +189,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3b602347_d892661a",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1001193
+      },
+      "writtenOn": "2022-03-31T22:23:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4a56ca4b_df61d1e8",
+      "range": {
+        "startLine": 239,
+        "startChar": 17,
+        "endLine": 239,
+        "endChar": 28
+      },
+      "revId": "d7a5dc97572c6f28f26ad8c8e0e6d94315d5c56a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ea93afaf_b9bb27dc",
@@ -130,6 +226,30 @@
       "writtenOn": "2022-03-31T17:44:13Z",
       "side": 1,
       "message": "mention this in the commit message.",
+      "range": {
+        "startLine": 476,
+        "startChar": 28,
+        "endLine": 476,
+        "endChar": 55
+      },
+      "revId": "d7a5dc97572c6f28f26ad8c8e0e6d94315d5c56a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b89cff70_ed5de272",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 476,
+      "author": {
+        "id": 1001193
+      },
+      "writtenOn": "2022-03-31T22:23:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ea93afaf_b9bb27dc",
       "range": {
         "startLine": 476,
         "startChar": 28,
