@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "15d4de42_fa24d23c",
+        "filename": "redfish-core/include/utils/service_utils.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-03-31T09:50:31Z",
+      "side": 1,
+      "message": "Unfortunately, service-config-manager does not use sdbusplus to encode path, instead, it only replaces some specific characters. Meaning that it is not in sdbusplus-encodeable format.\n\nhttps://github.com/openbmc/service-config-manager/blob/ef5ceced0bee522da0fce5c759b9b733298d82bd/src/main.cpp#L135\n\nProbably we have to use this hardcode for now in bmcweb.\n\nLater I will try to use sdbusplus in service-config-manager, then use sdbusplus here.",
+      "parentUuid": "070919b4_0d709778",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 42
+      },
+      "revId": "240c3cdd01ef363e2321d4c584b4f7d5f3c4f710",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fe3c3fc3_6066c12c",
         "filename": "redfish-core/include/utils/service_utils.hpp",
         "patchSetId": 8
@@ -94,6 +118,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee92f103_f0921659",
+        "filename": "redfish-core/include/utils/service_utils.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-03-31T09:50:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "088d9410_68858486",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 19
+      },
+      "revId": "240c3cdd01ef363e2321d4c584b4f7d5f3c4f710",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "41b23a2b_a440266c",
@@ -107,6 +155,30 @@
       "writtenOn": "2022-03-28T23:21:14Z",
       "side": 1,
       "message": "nullptr dereference if entry.second.empty() is true.",
+      "range": {
+        "startLine": 59,
+        "startChar": 37,
+        "endLine": 59,
+        "endChar": 45
+      },
+      "revId": "240c3cdd01ef363e2321d4c584b4f7d5f3c4f710",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "287339f2_247f674d",
+        "filename": "redfish-core/include/utils/service_utils.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-03-31T09:50:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "41b23a2b_a440266c",
       "range": {
         "startLine": 59,
         "startChar": 37,
