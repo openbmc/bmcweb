@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "df0ae343_d5e9f428",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000276
+      },
+      "writtenOn": "2022-03-31T20:44:34Z",
+      "side": 1,
+      "message": "Patchset 2 is a rebase of this change to the latest",
+      "revId": "fdc3b8a82f6942cb5ab6dafffb29aa4d63a3cd17",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
