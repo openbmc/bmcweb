@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1a34b309_bcb89ba9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-03-31T17:59:20Z",
+      "side": 1,
+      "message": "Related pam-ipmi code: https://github.com/openbmc/pam-ipmi/blob/9dbd02268dfc40603e4a4985ba2fdf75b253dbf0/src/pam_ipmicheck/pam_ipmicheck.c#L117",
+      "revId": "0af1df0cd3a01702cdcf16a4e1c9a87efe63902f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
