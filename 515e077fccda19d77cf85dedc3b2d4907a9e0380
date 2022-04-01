@@ -91,6 +91,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1fda6661_4165cd39",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 2974,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-04-01T23:11:15Z",
+      "side": 1,
+      "message": "Thanks for your reply. Let\u0027s skip other comments for now and focus on how injecting efficient handler is possible in the current implementation.\n\n\u003e Off the top of my head, I had imagined that you\u0027d basically move the Query struct to a shared_ptr (so it would be shared between the instances) then each step could tag the Query structure with \"expand handled\" \u003d true, \"filter handled\" ect.  Then when the core runs as the last step, it would know that expand was already covered, and didn\u0027t need to run again.  Does that makes sense?\n\nMy initial idea about this now is that \"setUpRedfishRoute\" takes a lambda (which takes a query and set whether it can handle certain steps efficiently). Then when query codes run at the end, it skips steps which are already handled by redfish-core codes. \n \nIf we accept this, then we can limit the \"check of whether redfish-core supports efficient expand\" to \"expand\" only, which solves the problem \"every time we add a new query parameter, we\u0027ll have to go look at each one and make sure it handles the new parameters\".",
+      "parentUuid": "21dce785_cdaeec66",
+      "range": {
+        "startLine": 2971,
+        "startChar": 0,
+        "endLine": 2974,
+        "endChar": 5
+      },
+      "revId": "515e077fccda19d77cf85dedc3b2d4907a9e0380",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a3eca94f_51c1b16c",
         "filename": "redfish-core/lib/sensors.hpp",
         "patchSetId": 2
