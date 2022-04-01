@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a9aaf94f_8c5837f2",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1159,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-01T18:18:58Z",
+      "side": 1,
+      "message": "Pretty sure this should also be internal error, because if the dbus path exists, but the pam user doesn\u0027t, something has gone very...very wrong, and it isn\u0027t a user error.  I\u0027ll look at this next time I\u0027m in this file rooting around.",
+      "parentUuid": "290fb855_fe72e06b",
+      "revId": "74172af9e32e623e6142b77ce58004c9a09e0589",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9228a0c1_418619df",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 9
@@ -31,6 +49,24 @@
       "writtenOn": "2022-03-31T19:50:51Z",
       "side": 1,
       "message": "I would think we should return here too like we do for the rest of the errors with internal error. \nOh well, these were there before",
+      "revId": "74172af9e32e623e6142b77ce58004c9a09e0589",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf20281f_803fa612",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1167,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-01T18:18:58Z",
+      "side": 1,
+      "message": "Yeah, we probably should, although we\u0027ve never really had a great consistent pattern for how to handle \"partial\" updates.  With that said, line 1171 does return, so it\u0027s clear the original author had an intent, just maybe not the intent we want.",
+      "parentUuid": "9228a0c1_418619df",
       "revId": "74172af9e32e623e6142b77ce58004c9a09e0589",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
