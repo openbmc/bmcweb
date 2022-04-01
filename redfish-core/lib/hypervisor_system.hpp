@@ -478,7 +478,7 @@ inline void
 }
 
 inline void parseInterfaceData(
-    nlohmann::json& jsonResponse, const std::string& ifaceId,
+    nlohmann::json::object_t& jsonResponse, const std::string& ifaceId,
     const EthernetInterfaceData& ethData,
     const boost::container::flat_set<IPv4AddressData>& ipv4Data)
 {

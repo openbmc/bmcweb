@@ -1085,7 +1085,7 @@ inline void requestRoutesJournalEventLogClear(App& app)
 
 static int fillEventLogEntryJson(const std::string& logEntryID,
                                  const std::string& logEntry,
-                                 nlohmann::json& logEntryJson)
+                                 nlohmann::json::object_t& logEntryJson)
 {
     // The redfish log format is "<Timestamp> <MessageId>,<MessageArgs>"
     // First get the Timestamp
@@ -1252,9 +1252,16 @@ inline void requestRoutesJournalEventLogEntryCollection(App& app)
                         firstEntry = false;
                     }
 
-                    logEntryArray.push_back({});
-                    nlohmann::json& bmcLogEntry = logEntryArray.back();
-                    if (fillEventLogEntryJson(idStr, logEntry, bmcLogEntry) !=
+                    nlohmann::json& bmcLogEntry =
+                        logEntryArray.emplace_back(nlohmann::json::object_t{});
+                    nlohmann::json::object_t* logEntryObj =
+                        bmcLogEntry.get_ptr<nlohmann::json::object_t*>();
+                    if (logEntryObj == nullptr)
+                    {
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+                    if (fillEventLogEntryJson(idStr, logEntry, *logEntryObj) !=
                         0)
                     {
                         messages::internalError(asyncResp->res);
@@ -1855,7 +1862,7 @@ inline bool
 
 inline void fillHostLoggerEntryJson(const std::string& logEntryID,
                                     const std::string& msg,
-                                    nlohmann::json& logEntryJson)
+                                    nlohmann::json::object_t& logEntryJson)
 {
     // Fill in the log entry with the gathered data.
     logEntryJson = {
@@ -1952,10 +1959,18 @@ inline void requestRoutesSystemHostLoggerCollection(App& app)
             {
                 for (size_t i = 0; i < logEntries.size(); i++)
                 {
-                    logEntryArray.push_back({});
-                    nlohmann::json& hostLogEntry = logEntryArray.back();
+                    nlohmann::json& hostLogEntry =
+                        logEntryArray.emplace_back(nlohmann::json::object_t{});
+                    nlohmann::json::object_t* hostLogEntryObj =
+                        hostLogEntry.get_ptr<nlohmann::json::object_t*>();
+                    if (hostLogEntryObj == nullptr)
+                    {
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+
                     fillHostLoggerEntryJson(std::to_string(skip + i),
-                                            logEntries[i], hostLogEntry);
+                                            logEntries[i], *hostLogEntryObj);
                 }
 
                 asyncResp->res.jsonValue["Members@odata.count"] = logCount;
@@ -2097,9 +2112,10 @@ inline void requestRoutesBMCJournalLogService(App& app)
             });
 }
 
-static int fillBMCJournalLogEntryJson(const std::string& bmcJournalLogEntryID,
-                                      sd_journal* journal,
-                                      nlohmann::json& bmcJournalLogEntryJson)
+static int
+    fillBMCJournalLogEntryJson(const std::string& bmcJournalLogEntryID,
+                               sd_journal* journal,
+                               nlohmann::json::object_t& bmcJournalLogEntryJson)
 {
     // Get the Log Entry contents
     int ret = 0;
@@ -2227,10 +2243,17 @@ inline void requestRoutesBMCJournalLogEntryCollection(App& app)
                     firstEntry = false;
                 }
 
-                logEntryArray.push_back({});
-                nlohmann::json& bmcJournalLogEntry = logEntryArray.back();
+                nlohmann::json& bmcJournalLogEntry =
+                    logEntryArray.emplace_back(nlohmann::json::object_t{});
+                nlohmann::json::object_t* objTypePtr =
+                    bmcJournalLogEntry.get_ptr<nlohmann::json::object_t*>();
+                if (objTypePtr == nullptr)
+                {
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
                 if (fillBMCJournalLogEntryJson(idStr, journal.get(),
-                                               bmcJournalLogEntry) != 0)
+                                               *objTypePtr) != 0)
                 {
                     messages::internalError(asyncResp->res);
                     return;
@@ -2610,12 +2633,13 @@ void inline requestRoutesCrashdumpClear(App& app)
 
 static void
     logCrashdumpEntry(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                      const std::string& logID, nlohmann::json& logEntryJson)
+                      const std::string& logID,
+                      nlohmann::json::json_pointer location)
 {
     auto getStoredLogCallback =
         [asyncResp, logID,
-         &logEntryJson](const boost::system::error_code ec,
-                        const dbus::utility::DBusPropertiesMap& params) {
+         location](const boost::system::error_code ec,
+                   const dbus::utility::DBusPropertiesMap& params) {
             if (ec)
             {
                 BMCWEB_LOG_DEBUG << "failed to get log ec: " << ec.message();
@@ -2647,7 +2671,7 @@ static void
             std::string crashdumpURI =
                 "/redfish/v1/Systems/system/LogServices/Crashdump/Entries/" +
                 logID + "/" + filename;
-            nlohmann::json logEntry = {
+            asyncResp->res.jsonValue[location] = {
                 {"@odata.type", "#LogEntry.v1_7_0.LogEntry"},
                 {"@odata.id",
                  "/redfish/v1/Systems/system/LogServices/Crashdump/Entries/" +
@@ -2663,15 +2687,18 @@ static void
             // If logEntryJson references an array of LogEntry resources
             // ('Members' list), then push this as a new entry, otherwise set it
             // directly
-            if (logEntryJson.is_array())
+            nlohmann::json::json_pointer parent = location.parent_pointer();
+            if (parent != location)
             {
-                logEntryJson.push_back(logEntry);
-                asyncResp->res.jsonValue["Members@odata.count"] =
-                    logEntryJson.size();
-            }
-            else
-            {
-                logEntryJson = logEntry;
+                size_t val = 0;
+                std::string index = location.back();
+                auto out = std::from_chars(index.data(),
+                                           index.data() + index.size(), val);
+                if (out.ec != std::errc())
+                {
+                    return;
+                }
+                asyncResp->res.jsonValue[parent / "Members@odata.count"] = val;
             }
         };
     crow::connections::systemBus->async_method_call(
@@ -2721,7 +2748,7 @@ inline void requestRoutesCrashdumpEntryCollection(App& app)
                     asyncResp->res.jsonValue["Members"] =
                         nlohmann::json::array();
                     asyncResp->res.jsonValue["Members@odata.count"] = 0;
-
+                    size_t index = 0;
                     for (const std::string& path : resp)
                     {
                         const sdbusplus::message::object_path objPath(path);
@@ -2732,8 +2759,10 @@ inline void requestRoutesCrashdumpEntryCollection(App& app)
                             continue;
                         }
                         // Add the log entry to the array
-                        logCrashdumpEntry(asyncResp, logID,
-                                          asyncResp->res.jsonValue["Members"]);
+                        logCrashdumpEntry(
+                            asyncResp, logID,
+                            nlohmann::json::json_pointer{"Members"} / index);
+                        index++;
                     }
                 },
                 "xyz.openbmc_project.ObjectMapper",
@@ -2758,7 +2787,8 @@ inline void requestRoutesCrashdumpEntry(App& app)
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                const std::string& param) {
                 const std::string& logID = param;
-                logCrashdumpEntry(asyncResp, logID, asyncResp->res.jsonValue);
+                logCrashdumpEntry(asyncResp, logID,
+                                  nlohmann::json::json_pointer{"/"});
             });
 }
 
