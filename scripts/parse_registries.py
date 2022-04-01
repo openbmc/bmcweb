@@ -18,7 +18,7 @@ WARNING = '''/****************************************************************
  * This is an auto-generated header which contains definitions
  * for Redfish DMTF defined messages.
  * DO NOT modify this registry outside of running the
- * parse_regisries.py script.  The definitions contained within
+ * parse_registries.py script.  The definitions contained within
  * this file are owned by DMTF.  Any modifications to these files
  * should be first pushed to the relevant registry in the DMTF
  * github organization.
@@ -94,11 +94,10 @@ for file, json_dict, namespace, url in files:
             "constexpr const char* url =\n"
             "    \"{url}\";\n"
             "\n"
-            "constexpr std::array<MessageEntry, {message_len}> registry =\n"
+            "constexpr std::array registry =\n"
             "{{\n".format(
                 json_dict=json_dict,
                 url=url,
-                message_len=len(json_dict["Messages"]),
             ))
 
         messages_sorted = sorted(json_dict["Messages"].items())
