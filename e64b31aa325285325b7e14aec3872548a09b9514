@@ -35,6 +35,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d72a5cbb_f34f0248",
+        "filename": "include/google/google_service_root.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1001386
+      },
+      "writtenOn": "2022-04-01T07:32:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9614058a_d9626cd8",
+      "revId": "e64b31aa325285325b7e14aec3872548a09b9514",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "da3ca772_fdcb3187",

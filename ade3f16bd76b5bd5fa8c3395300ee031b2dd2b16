@@ -534,6 +534,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b417f708_8f2a606f",
+        "filename": "static/google/v1/schema/RootOfTrust_v1.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1001386
+      },
+      "writtenOn": "2022-04-01T07:32:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "30d72aa6_1e576d96",
+      "range": {
+        "startLine": 66,
+        "startChar": 0,
+        "endLine": 66,
+        "endChar": 4
+      },
+      "revId": "ade3f16bd76b5bd5fa8c3395300ee031b2dd2b16",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "04e0ddf3_c5040d1d",
@@ -557,6 +581,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ab793d65_a7825179",
+        "filename": "static/google/v1/schema/RootOfTrust_v1.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1001386
+      },
+      "writtenOn": "2022-04-01T07:32:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "04e0ddf3_c5040d1d",
+      "range": {
+        "startLine": 69,
+        "startChar": 80,
+        "endLine": 69,
+        "endChar": 98
+      },
+      "revId": "ade3f16bd76b5bd5fa8c3395300ee031b2dd2b16",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f9ed4117_44faf3dc",
@@ -570,6 +618,24 @@
       "writtenOn": "2022-03-22T17:14:15Z",
       "side": 1,
       "message": "Is this still needed if we\u0027re going with RootOfTrust/RootOfTrustCollection?",
+      "revId": "ade3f16bd76b5bd5fa8c3395300ee031b2dd2b16",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "47cb370b_2deb1f36",
+        "filename": "static/google/v1/schema/ServiceRoot_v1.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1001386
+      },
+      "writtenOn": "2022-04-01T07:32:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f9ed4117_44faf3dc",
       "revId": "ade3f16bd76b5bd5fa8c3395300ee031b2dd2b16",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
