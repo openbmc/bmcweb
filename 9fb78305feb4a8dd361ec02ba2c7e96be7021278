@@ -22,6 +22,30 @@
       },
       "revId": "9fb78305feb4a8dd361ec02ba2c7e96be7021278",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3cfffec8_f3911c8c",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-01T03:05:42Z",
+      "side": 1,
+      "message": "Yes, but not in this patch;  I would like to avoid any limits at the moment so people can test (there are systems with OEM schemas deeper than 6 that I\u0027m aware of).  Thats why I initially omitted the maxDepth property, but considering it\u0027s required, and this is behind an \"insecure, don\u0027t use in production\" flag, we should be ok here.",
+      "parentUuid": "41197f8c_ab35c474",
+      "range": {
+        "startLine": 73,
+        "startChar": 15,
+        "endLine": 73,
+        "endChar": 20
+      },
+      "revId": "9fb78305feb4a8dd361ec02ba2c7e96be7021278",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
