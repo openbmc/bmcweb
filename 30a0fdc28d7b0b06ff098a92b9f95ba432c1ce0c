@@ -210,6 +210,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bc25f298_56210ea2",
+        "filename": "redfish-core/include/query.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-01T14:43:25Z",
+      "side": 1,
+      "message": "I think that check enforces that you USE nodiscard when coding, which yes, would be nice to turn on if it didn\u0027t have any problems (not all clang-tidy checks are perfect).  In terms of checking that the value isn\u0027t ignored, the compiler does that by default, nothing to configure (and I tested that by ignoring the return in a spot, and the code failed to compile.)",
+      "parentUuid": "50017813_7950096c",
+      "range": {
+        "startLine": 10,
+        "startChar": 7,
+        "endLine": 10,
+        "endChar": 12
+      },
+      "revId": "30a0fdc28d7b0b06ff098a92b9f95ba432c1ce0c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b4b3bb7d_3e9c2ba1",
         "filename": "redfish-core/include/query.hpp",
         "patchSetId": 11
