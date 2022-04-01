@@ -1664,7 +1664,7 @@ inline void parseInterfaceData(
     constexpr const std::array<const char*, 1> inventoryForEthernet = {
         "xyz.openbmc_project.Inventory.Item.Ethernet"};
 
-    nlohmann::json& jsonResponse = asyncResp->res.jsonValue;
+    nlohmann::json::object_t& jsonResponse = asyncResp->res.jsonValue;
     jsonResponse["Id"] = ifaceId;
     jsonResponse["@odata.id"] =
         "/redfish/v1/Managers/bmc/EthernetInterfaces/" + ifaceId;
@@ -1798,7 +1798,7 @@ inline void parseInterfaceData(
     }
 }
 
-inline void parseInterfaceData(nlohmann::json& jsonResponse,
+inline void parseInterfaceData(nlohmann::json::object_t& jsonResponse,
                                const std::string& parentIfaceId,
                                const std::string& ifaceId,
                                const EthernetInterfaceData& ethData)

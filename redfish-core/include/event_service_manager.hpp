@@ -523,7 +523,7 @@ class Subscription : public persistent_data::UserSubscription
             }
         }
 
-        nlohmann::json msg;
+        nlohmann::json::object_t msg;
         if (!telemetry::fillReport(msg, reportId, var))
         {
             BMCWEB_LOG_ERROR << "Failed to fill the MetricReport for DBus "
@@ -540,7 +540,8 @@ class Subscription : public persistent_data::UserSubscription
         }
 
         std::string strMsg =
-            msg.dump(2, ' ', true, nlohmann::json::error_handler_t::replace);
+            nlohmann::json(std::move(msg))
+                .dump(2, ' ', true, nlohmann::json::error_handler_t::replace);
         this->sendEvent(strMsg);
     }
 

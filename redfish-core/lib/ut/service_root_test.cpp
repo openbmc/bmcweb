@@ -18,7 +18,7 @@ namespace
 
 void assertServiceRootGet(crow::Response& res)
 {
-    nlohmann::json& json = res.jsonValue;
+    nlohmann::json::object_t& json = res.jsonValue;
     EXPECT_EQ(json["@odata.id"], "/redfish/v1");
     EXPECT_EQ(json["@odata.type"], "#ServiceRoot.v1_11_0.ServiceRoot");
 

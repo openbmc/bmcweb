@@ -281,10 +281,10 @@ inline bool processOnly(crow::App& app, crow::Response& res,
         completionHandler(res);
         return false;
     }
-    auto itMemBegin = itMembers->begin();
-    if (itMemBegin == itMembers->end() || itMembers->size() != 1)
+    auto itMemBegin = itMembers->second.begin();
+    if (itMemBegin == itMembers->second.end() || itMembers->second.size() != 1)
     {
-        BMCWEB_LOG_DEBUG << "Members contains " << itMembers->size()
+        BMCWEB_LOG_DEBUG << "Members contains " << itMembers->second.size()
                          << " element, returning full collection.";
         completionHandler(res);
         return false;
@@ -415,11 +415,17 @@ inline void findNavigationReferencesRecursive(
 }
 
 inline std::vector<ExpandNode>
-    findNavigationReferences(ExpandType eType, nlohmann::json& jsonResponse)
+    findNavigationReferences(ExpandType eType,
+                             nlohmann::json::object_t& jsonResponse)
 {
     std::vector<ExpandNode> ret;
-    const nlohmann::json::json_pointer root = nlohmann::json::json_pointer("");
-    findNavigationReferencesRecursive(eType, jsonResponse, root, false, ret);
+
+    for (auto& key : jsonResponse)
+    {
+        const nlohmann::json::json_pointer root =
+            nlohmann::json::json_pointer(key.first);
+        findNavigationReferencesRecursive(eType, key.second, root, false, ret);
+    }
     return ret;
 }
 
@@ -542,18 +548,9 @@ class MultiAsyncResp : public std::enable_shared_from_this<MultiAsyncResp>
 
 inline void processTopAndSkip(const Query& query, crow::Response& res)
 {
-    nlohmann::json::object_t* obj =
-        res.jsonValue.get_ptr<nlohmann::json::object_t*>();
-    if (obj == nullptr)
-    {
-        // Shouldn't be possible.  All responses should be objects.
-        messages::internalError(res);
-        return;
-    }
-
     BMCWEB_LOG_DEBUG << "Handling top/skip";
-    nlohmann::json::object_t::iterator members = obj->find("Members");
-    if (members == obj->end())
+    nlohmann::json::object_t::iterator members = res.jsonValue.find("Members");
+    if (members == res.jsonValue.end())
     {
         // From the Redfish specification 7.3.1
         // ... the HTTP 400 Bad Request status code with the

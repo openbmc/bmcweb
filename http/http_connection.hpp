@@ -460,8 +460,10 @@ class Connection :
             else
             {
                 res.jsonMode();
-                res.body() = res.jsonValue.dump(
-                    2, ' ', true, nlohmann::json::error_handler_t::replace);
+                res.body() =
+                    nlohmann::json(std::move(res.jsonValue))
+                        .dump(2, ' ', true,
+                              nlohmann::json::error_handler_t::replace);
             }
         }
 
