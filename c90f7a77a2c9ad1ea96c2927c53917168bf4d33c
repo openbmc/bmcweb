@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "db01eb7a_e1fc27eb",
+        "filename": "redfish-core/include/utils/service_utils.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-04-01T17:07:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "27ef73db_b0097f39",
+      "range": {
+        "startLine": 51,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 17
+      },
+      "revId": "c90f7a77a2c9ad1ea96c2927c53917168bf4d33c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "81bf2ffa_02f986c9",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-04-01T14:22:59Z",
       "side": 1,
       "message": "this block can be abstracted to a method.",
+      "range": {
+        "startLine": 60,
+        "startChar": 0,
+        "endLine": 79,
+        "endChar": 25
+      },
+      "revId": "c90f7a77a2c9ad1ea96c2927c53917168bf4d33c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7907d865_90bc6132",
+        "filename": "redfish-core/include/utils/service_utils.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-04-01T17:07:24Z",
+      "side": 1,
+      "message": "Return in a method brings more effort as it requires checking the return value of that method to decide whether return here or continue the loop.",
+      "parentUuid": "81bf2ffa_02f986c9",
       "range": {
         "startLine": 60,
         "startChar": 0,
@@ -70,6 +118,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f303575_40ccb058",
+        "filename": "redfish-core/include/utils/service_utils.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-04-01T17:07:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "449174b8_a4d9a0d5",
+      "range": {
+        "startLine": 106,
+        "startChar": 0,
+        "endLine": 107,
+        "endChar": 17
+      },
+      "revId": "c90f7a77a2c9ad1ea96c2927c53917168bf4d33c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0278ffc0_398e0f0a",
@@ -93,6 +165,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "656ba0af_74b44115",
+        "filename": "redfish-core/include/utils/service_utils.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-04-01T17:07:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0278ffc0_398e0f0a",
+      "range": {
+        "startLine": 120,
+        "startChar": 0,
+        "endLine": 121,
+        "endChar": 29
+      },
+      "revId": "c90f7a77a2c9ad1ea96c2927c53917168bf4d33c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "db21629e_cb72bae0",
@@ -106,6 +202,30 @@
       "writtenOn": "2022-04-01T14:22:59Z",
       "side": 1,
       "message": "?  Why would we set it to null if the service doesn\u0027t exist?  That seems incorrect?",
+      "range": {
+        "startLine": 135,
+        "startChar": 0,
+        "endLine": 136,
+        "endChar": 46
+      },
+      "revId": "c90f7a77a2c9ad1ea96c2927c53917168bf4d33c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e7f1eda0_ca25a821",
+        "filename": "redfish-core/include/utils/service_utils.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-04-01T17:07:24Z",
+      "side": 1,
+      "message": "Redfish spec says this property is nullable. https://redfish.dmtf.org/schemas/DSP2046_2021.4.html#managernetworkprotocol-180\n\nAnd in our current implementation, Port is null when the service does not exist or is disabled.\nhttps://github.com/openbmc/bmcweb/blob/456cd875f3c56b45605d8a017e91d810876a035c/redfish-core/lib/network_protocol.hpp#L184\n\nBut for the unexist \"HTTP\" service, the Port is set to 0. It\u0027s also okay as 0 is an invalid port.\nhttps://github.com/openbmc/bmcweb/blob/456cd875f3c56b45605d8a017e91d810876a035c/redfish-core/lib/network_protocol.hpp#L124\n\nI have no idea of which one is preferred. Any suggestions will be appreciated.",
+      "parentUuid": "db21629e_cb72bae0",
       "range": {
         "startLine": 135,
         "startChar": 0,
