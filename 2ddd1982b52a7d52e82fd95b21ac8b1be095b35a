@@ -16,6 +16,64 @@
       "message": "The hardcoded size and dot notation to know the meaning of the various MessageEntry fields were what we lost when we had to resolve build warnings before C++20.\n\nRemoving the hardcoded size helps simplify adding new messages to the registry and is a smaller change.\n\nAdding back the dot notation is a bigger change but may not have much benefit anymore.  I am happy to pursue that change as well if there is interest.  Thanks!",
       "revId": "2ddd1982b52a7d52e82fd95b21ac8b1be095b35a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "04d2ac95_b39e2c86",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-01T21:49:58Z",
+      "side": 1,
+      "message": "I have no strong opinion one way or the other.  The dot notation was kinda nice, but hard to say if it\u0027s worth the effort to put back because the openbmc registry is still created by hand, we should really fix that at some point, but that\u0027s unrelated.",
+      "parentUuid": "fe85766c_c3672483",
+      "revId": "2ddd1982b52a7d52e82fd95b21ac8b1be095b35a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eb8c554e_65b13cee",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-01T21:49:58Z",
+      "side": 1,
+      "message": "This is next-level cool.  Leaving the review open for a bit so that it gets messaged that this is a thing, and in case someone has a strong aversion to it, but this kind of cleanup is awesome to see.",
+      "revId": "2ddd1982b52a7d52e82fd95b21ac8b1be095b35a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a9da5af7_c8bd56b4",
+        "filename": "redfish-core/include/registries/base_message_registry.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-01T21:49:58Z",
+      "side": 1,
+      "message": "What whichcraft sorcery is this!?!?!?!?!?!?!",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 31
+      },
+      "revId": "2ddd1982b52a7d52e82fd95b21ac8b1be095b35a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
