@@ -156,6 +156,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "30ecc7e4_f455141a",
+        "filename": "redfish-core/include/utils/service_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-01T14:22:59Z",
+      "side": 1,
+      "message": "Left comments above.",
+      "parentUuid": "d29d6214_d16acec0",
+      "revId": "4e40e3eddb20dcc6bc1fb2510a350b3a40635234",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b9bd523b_69d9bb39",
         "filename": "redfish-core/include/utils/service_utils.hpp",
         "patchSetId": 2
@@ -309,6 +327,30 @@
       "side": 1,
       "message": "Unfortunately, service-config-manager does not use sdbusplus to encode path, instead, it only replaces some specific characters. Meaning that it is not in sdbusplus-encodeable format.\n\nhttps://github.com/openbmc/service-config-manager/blob/ef5ceced0bee522da0fce5c759b9b733298d82bd/src/main.cpp#L135",
       "parentUuid": "259d04cf_6208dcff",
+      "range": {
+        "startLine": 43,
+        "startChar": 33,
+        "endLine": 43,
+        "endChar": 54
+      },
+      "revId": "4e40e3eddb20dcc6bc1fb2510a350b3a40635234",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d08b0805_e914bbef",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-01T14:22:59Z",
+      "side": 1,
+      "message": "Seems like something we need to fix then.",
+      "parentUuid": "7a7d0f06_f67370db",
       "range": {
         "startLine": 43,
         "startChar": 33,
