@@ -117,6 +117,53 @@
       },
       "revId": "9fb78305feb4a8dd361ec02ba2c7e96be7021278",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "abb5c15a_506fd590",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-04-01T22:48:47Z",
+      "side": 1,
+      "message": "More comments, e.g., explaining what |jsonResponse| and the json pointer |p| mean and their relationship",
+      "parentUuid": "265375ed_95598a89",
+      "range": {
+        "startLine": 193,
+        "startChar": 12,
+        "endLine": 193,
+        "endChar": 45
+      },
+      "revId": "9fb78305feb4a8dd361ec02ba2c7e96be7021278",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "84c5d103_b0b43785",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-04-01T22:48:47Z",
+      "side": 1,
+      "message": "nit: miss this; but prefer to put output parameters to the end;",
+      "range": {
+        "startLine": 196,
+        "startChar": 9,
+        "endLine": 196,
+        "endChar": 16
+      },
+      "revId": "9fb78305feb4a8dd361ec02ba2c7e96be7021278",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
