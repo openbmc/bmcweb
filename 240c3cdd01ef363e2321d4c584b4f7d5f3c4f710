@@ -306,6 +306,30 @@
       },
       "revId": "240c3cdd01ef363e2321d4c584b4f7d5f3c4f710",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f50e8b08_19f2ba53",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-01T14:23:43Z",
+      "side": 1,
+      "message": "I looked through the rest of the series, where are these ones removed?",
+      "parentUuid": "12ccf1c9_0bb0750e",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 71
+      },
+      "revId": "240c3cdd01ef363e2321d4c584b4f7d5f3c4f710",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
