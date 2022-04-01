@@ -94,6 +94,30 @@
       },
       "revId": "7c918c7d57e5cf9e104944b9ed6224022ac6931f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "482b020a_67b513a9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-01T18:52:47Z",
+      "side": 1,
+      "message": "The problem with that approach is that there are BMCWEB_ROUTE instances that aren\u0027t redfish, but maybe doing that from within redfish-core might give the same number?  (minus the service root pointer (ie /redfish), which doesn\u0027t implement these features?  Probably worth trying.",
+      "parentUuid": "401cb238_9f24790a",
+      "range": {
+        "startLine": 7,
+        "startChar": 25,
+        "endLine": 7,
+        "endChar": 34
+      },
+      "revId": "7c918c7d57e5cf9e104944b9ed6224022ac6931f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
