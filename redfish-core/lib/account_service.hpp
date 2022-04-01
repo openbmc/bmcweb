@@ -154,7 +154,7 @@ inline void userErrorMessageHandler(
     }
 }
 
-inline void parseLDAPConfigData(nlohmann::json& jsonResponse,
+inline void parseLDAPConfigData(nlohmann::json::object_t& jsonResponse,
                                 const LDAPConfigData& confData,
                                 const std::string& ldapType)
 {
@@ -1249,7 +1249,7 @@ inline void
     const persistent_data::AuthConfigMethods& authMethodsConfig =
         persistent_data::SessionStore::getInstance().getAuthMethodsConfig();
 
-    nlohmann::json& json = asyncResp->res.jsonValue;
+    nlohmann::json::object_t& json = asyncResp->res.jsonValue;
     json["@odata.id"] = "/redfish/v1/AccountService";
     json["@odata.type"] = "#AccountService."
                           "v1_10_0.AccountService";

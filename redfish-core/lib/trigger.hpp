@@ -180,7 +180,7 @@ inline std::vector<std::string>
 }
 
 inline bool fillTrigger(
-    nlohmann::json& json, const std::string& id,
+    nlohmann::json::object_t& json, const std::string& id,
     const std::vector<std::pair<std::string, TriggerGetParamsVariant>>&
         properties)
 {

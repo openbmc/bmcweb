@@ -298,7 +298,8 @@ TEST(QueryParams, FindNavigationReferencesNonLink)
 {
     using nlohmann::json;
 
-    json singleTreeNode = R"({"Foo" : {"@odata.id": "/foobar"}})"_json;
+    json::object_t singleTreeNode =
+        R"({"Foo" : {"@odata.id": "/foobar"}})"_json;
 
     // Parsing as the root should net one entry
     EXPECT_THAT(findNavigationReferences(ExpandType::Both, singleTreeNode),
@@ -318,7 +319,7 @@ TEST(QueryParams, FindNavigationReferencesNonLink)
     EXPECT_TRUE(
         findNavigationReferences(ExpandType::Links, singleTreeNode).empty());
 
-    json multiTreeNodes =
+    json::object_t multiTreeNodes =
         R"({"Links": {"@odata.id": "/links"}, "Foo" : {"@odata.id": "/foobar"}})"_json;
     // Should still find Foo
     EXPECT_THAT(findNavigationReferences(ExpandType::NotLinks, multiTreeNodes),
@@ -330,7 +331,7 @@ TEST(QueryParams, FindNavigationReferencesLink)
 {
     using nlohmann::json;
 
-    json singleLinkNode =
+    json::object_t singleLinkNode =
         R"({"Links" : {"Sessions": {"@odata.id": "/foobar"}}})"_json;
 
     // Parsing as the root should net one entry

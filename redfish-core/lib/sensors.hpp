@@ -741,7 +741,7 @@ inline std::string getState(const InventoryItem* inventoryItem)
  * @return Health value for sensor.
  */
 inline std::string
-    getHealth(nlohmann::json& sensorJson,
+    getHealth(nlohmann::json::object_t& sensorJson,
               const dbus::utility::DBusInteracesMap& interfacesDict,
               const InventoryItem* inventoryItem)
 {
@@ -752,8 +752,8 @@ inline std::string
     auto statusIt = sensorJson.find("Status");
     if (statusIt != sensorJson.end())
     {
-        auto healthIt = statusIt->find("Health");
-        if (healthIt != statusIt->end())
+        auto healthIt = statusIt->second.find("Health");
+        if (healthIt != statusIt->second.end())
         {
             std::string* health = healthIt->get_ptr<std::string*>();
             if (health != nullptr)
@@ -835,7 +835,7 @@ inline std::string
     return "OK";
 }
 
-inline void setLedState(nlohmann::json& sensorJson,
+inline void setLedState(nlohmann::json::object_t& sensorJson,
                         const InventoryItem* inventoryItem)
 {
     if (inventoryItem != nullptr && !inventoryItem->ledObjectPath.empty())
@@ -873,7 +873,7 @@ inline void objectInterfacesToJson(
     const std::string& sensorName, const std::string& sensorType,
     const std::shared_ptr<SensorsAsyncResp>& sensorsAsyncResp,
     const dbus::utility::DBusInteracesMap& interfacesDict,
-    nlohmann::json& sensorJson, InventoryItem* inventoryItem)
+    nlohmann::json::object_t& sensorJson, InventoryItem* inventoryItem)
 {
     // Assume values exist as is (10^0 == 1) if no scale exists
     int64_t scaleMultiplier = 0;
@@ -1320,7 +1320,8 @@ inline void populateFanRedundancy(
 inline void
     sortJSONResponse(const std::shared_ptr<SensorsAsyncResp>& sensorsAsyncResp)
 {
-    nlohmann::json& response = sensorsAsyncResp->asyncResp->res.jsonValue;
+    nlohmann::json::object_t& response =
+        sensorsAsyncResp->asyncResp->res.jsonValue;
     std::array<std::string, 2> sensorHeaders{"Temperatures", "Fans"};
     if (sensorsAsyncResp->chassisSubNode == sensors::node::power)
     {
@@ -1328,17 +1329,17 @@ inline void
     }
     for (const std::string& sensorGroup : sensorHeaders)
     {
-        nlohmann::json::iterator entry = response.find(sensorGroup);
+        nlohmann::json::object_t::iterator entry = response.find(sensorGroup);
         if (entry != response.end())
         {
-            std::sort(entry->begin(), entry->end(),
+            std::sort(entry->second.begin(), entry->second.end(),
                       [](const nlohmann::json& c1, const nlohmann::json& c2) {
                 return c1["Name"] < c2["Name"];
             });
 
             // add the index counts to the end of each entry
             size_t count = 0;
-            for (nlohmann::json& sensorJson : *entry)
+            for (nlohmann::json& sensorJson : entry->second)
             {
                 nlohmann::json::iterator odata = sensorJson.find("@odata.id");
                 if (odata == sensorJson.end())
@@ -2385,22 +2386,22 @@ static void getInventoryItems(
  * @param chassisId Chassis that contains the power supply.
  * @return JSON PowerSupply object for the specified inventory item.
  */
-inline nlohmann::json& getPowerSupply(nlohmann::json& powerSupplyArray,
-                                      const InventoryItem& inventoryItem,
-                                      const std::string& chassisId)
+inline nlohmann::json::object_t*
+    getPowerSupply(nlohmann::json& powerSupplyArray,
+                   const InventoryItem& inventoryItem,
+                   const std::string& chassisId)
 {
     // Check if matching PowerSupply object already exists in JSON array
     for (nlohmann::json& powerSupply : powerSupplyArray)
     {
         if (powerSupply["MemberId"] == inventoryItem.name)
         {
-            return powerSupply;
+            return powerSupply.get_ptr<nlohmann::json::object_t*>();
         }
     }
 
     // Add new PowerSupply object to JSON array
-    powerSupplyArray.push_back({});
-    nlohmann::json& powerSupply = powerSupplyArray.back();
+    nlohmann::json::object_t powerSupply;
     powerSupply["@odata.id"] =
         "/redfish/v1/Chassis/" + chassisId + "/Power#/PowerSupplies/";
     powerSupply["MemberId"] = inventoryItem.name;
@@ -2421,7 +2422,8 @@ inline nlohmann::json& getPowerSupply(nlohmann::json& powerSupplyArray,
     const char* health = inventoryItem.isFunctional ? "OK" : "Critical";
     powerSupply["Status"]["Health"] = health;
 
-    return powerSupply;
+    nlohmann::json& ret = powerSupplyArray.emplace_back(std::move(powerSupply));
+    return ret.get_ptr<nlohmann::json::object_t*>();
 }
 
 /**
@@ -2514,7 +2516,7 @@ inline void getSensorData(
                 const std::string& sensorSchema =
                     sensorsAsyncResp->chassisSubNode;
 
-                nlohmann::json* sensorJson = nullptr;
+                nlohmann::json::object_t* sensorJson = nullptr;
 
                 if (sensorSchema == sensors::node::sensors &&
                     !sensorsAsyncResp->efficientExpand)
@@ -2586,15 +2588,16 @@ inline void getSensorData(
                                 fieldName + "/0";
                             tempArray.push_back(std::move(power));
                         }
-                        sensorJson = &(tempArray.back());
+                        sensorJson = tempArray.back()
+                                         .get_ptr<nlohmann::json::object_t*>();
                     }
                     else if (fieldName == "PowerSupplies")
                     {
                         if (inventoryItem != nullptr)
                         {
                             sensorJson =
-                                &(getPowerSupply(tempArray, *inventoryItem,
-                                                 sensorsAsyncResp->chassisId));
+                                getPowerSupply(tempArray, *inventoryItem,
+                                               sensorsAsyncResp->chassisId);
                         }
                     }
                     else if (fieldName == "Members")
@@ -2605,7 +2608,8 @@ inline void getSensorData(
                             sensorsAsyncResp->chassisId + "/" +
                             sensorsAsyncResp->chassisSubNode + "/" + sensorName;
                         tempArray.push_back(std::move(member));
-                        sensorJson = &(tempArray.back());
+                        sensorJson = tempArray.back()
+                                         .get_ptr<nlohmann::json::object_t*>();
                     }
                     else
                     {
@@ -2616,7 +2620,8 @@ inline void getSensorData(
                                               sensorsAsyncResp->chassisSubNode +
                                               "#/" + fieldName + "/";
                         tempArray.push_back(std::move(member));
-                        sensorJson = &(tempArray.back());
+                        sensorJson = tempArray.back()
+                                         .get_ptr<nlohmann::json::object_t*>();
                     }
                 }
 
