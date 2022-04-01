@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "8fd06b15_b968afaf",
         "filename": "/COMMIT_MSG",
@@ -20,10 +21,10 @@
         "endChar": 9
       },
       "revId": "87aadf715c036a994ef316b36a44a6652a7a5bf4",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "515c7c28_f9e9c194",
         "filename": "/COMMIT_MSG",
@@ -44,10 +45,10 @@
         "endChar": 9
       },
       "revId": "87aadf715c036a994ef316b36a44a6652a7a5bf4",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "69cc67e4_690a5a58",
         "filename": "/COMMIT_MSG",
@@ -67,10 +68,10 @@
         "endChar": 18
       },
       "revId": "87aadf715c036a994ef316b36a44a6652a7a5bf4",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "2b4a6f78_c4da44b7",
         "filename": "/COMMIT_MSG",
@@ -91,10 +92,10 @@
         "endChar": 18
       },
       "revId": "87aadf715c036a994ef316b36a44a6652a7a5bf4",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "c7542d84_0bec9163",
         "filename": "/COMMIT_MSG",
@@ -114,10 +115,10 @@
         "endChar": 31
       },
       "revId": "87aadf715c036a994ef316b36a44a6652a7a5bf4",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "00f9e1c9_37cd4bdf",
         "filename": "/COMMIT_MSG",
@@ -138,10 +139,10 @@
         "endChar": 31
       },
       "revId": "87aadf715c036a994ef316b36a44a6652a7a5bf4",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "30bdf664_36aec453",
         "filename": "redfish-core/lib/assembly.hpp",
@@ -161,10 +162,10 @@
         "endChar": 30
       },
       "revId": "87aadf715c036a994ef316b36a44a6652a7a5bf4",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "487c5f4f_49e7de85",
         "filename": "redfish-core/lib/assembly.hpp",
@@ -185,10 +186,10 @@
         "endChar": 30
       },
       "revId": "87aadf715c036a994ef316b36a44a6652a7a5bf4",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "3197789e_361c3be0",
         "filename": "redfish-core/lib/assembly.hpp",
@@ -208,10 +209,10 @@
         "endChar": 53
       },
       "revId": "87aadf715c036a994ef316b36a44a6652a7a5bf4",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "0f38e74b_895d41a2",
         "filename": "redfish-core/lib/assembly.hpp",
@@ -232,10 +233,10 @@
         "endChar": 53
       },
       "revId": "87aadf715c036a994ef316b36a44a6652a7a5bf4",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "9e20a268_ca0da678",
         "filename": "redfish-core/lib/assembly.hpp",
@@ -249,10 +250,10 @@
       "side": 1,
       "message": "What if you don\u0027t have \n                \"xyz.openbmc_project.Inventory.Item.Vrm\",\n                \"xyz.openbmc_project.Inventory.Item.Tpm\",\n                \"xyz.openbmc_project.Inventory.Item.Panel\",\n                \"xyz.openbmc_project.Inventory.Item.Battery\"\nMapper will return boost::system::errc::io_error correct?\nShould we then return an empty array of assemblies ?\nE.g. \nChassis has a link to \n/redfish/v1/Chassis/\u003cchassisId\u003e/Assembly\nBut calling /redfish/v1/Chassis/\u003cchassisId\u003e/Assembly returns a 500 now if it can\u0027t find any Vrm/Tpm/Panel/Battery Inventory Items. This would be a validator error.",
       "revId": "87aadf715c036a994ef316b36a44a6652a7a5bf4",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "be9491bf_fb251661",
         "filename": "redfish-core/lib/assembly.hpp",
@@ -267,10 +268,10 @@
       "message": "Please let me know if I am understanding it correctly.\nYou mean to say that there is entry in association json file but that inventory does not implement the interface or the inventoryPath does not exist at all?",
       "parentUuid": "9e20a268_ca0da678",
       "revId": "87aadf715c036a994ef316b36a44a6652a7a5bf4",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "044f5dc1_682211e5",
         "filename": "redfish-core/lib/assembly.hpp",
@@ -285,10 +286,10 @@
       "message": "This has been implemented in following patch sets",
       "parentUuid": "be9491bf_fb251661",
       "revId": "87aadf715c036a994ef316b36a44a6652a7a5bf4",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "87368bfb_3b72cc7d",
         "filename": "redfish-core/lib/assembly.hpp",
@@ -308,10 +309,10 @@
         "endChar": 50
       },
       "revId": "87aadf715c036a994ef316b36a44a6652a7a5bf4",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "c664dac3_944caff7",
         "filename": "redfish-core/lib/assembly.hpp",
@@ -332,10 +333,10 @@
         "endChar": 50
       },
       "revId": "87aadf715c036a994ef316b36a44a6652a7a5bf4",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "0e446892_dcf60a07",
         "filename": "redfish-core/lib/assembly.hpp",
@@ -356,10 +357,10 @@
         "endChar": 50
       },
       "revId": "87aadf715c036a994ef316b36a44a6652a7a5bf4",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "4e2a2a50_de2fea83",
         "filename": "redfish-core/lib/assembly.hpp",
@@ -373,10 +374,10 @@
       "side": 1,
       "message": "Please split this function up.  There are places that go to 10 scopes deep in a single method, which we should avoid where possible.",
       "revId": "87aadf715c036a994ef316b36a44a6652a7a5bf4",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "f773f29e_90c7b99f",
         "filename": "redfish-core/lib/assembly.hpp",
@@ -391,10 +392,10 @@
       "message": "Done",
       "parentUuid": "4e2a2a50_de2fea83",
       "revId": "87aadf715c036a994ef316b36a44a6652a7a5bf4",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "c0a35ffc_f9211413",
         "filename": "redfish-core/lib/assembly.hpp",
@@ -414,10 +415,10 @@
         "endChar": 75
       },
       "revId": "87aadf715c036a994ef316b36a44a6652a7a5bf4",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "783791b2_fe5ea50b",
         "filename": "redfish-core/lib/assembly.hpp",
@@ -438,10 +439,10 @@
         "endChar": 75
       },
       "revId": "87aadf715c036a994ef316b36a44a6652a7a5bf4",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "8a924cc5_a3d5784e",
         "filename": "redfish-core/lib/assembly.hpp",
@@ -455,10 +456,10 @@
       "side": 1,
       "message": "To not have duplicated it in 373 and 378 line you can move it to 252 line after creation of \"Assemblies\" array",
       "revId": "87aadf715c036a994ef316b36a44a6652a7a5bf4",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "3d33358d_bef562db",
         "filename": "redfish-core/lib/assembly.hpp",
@@ -473,10 +474,10 @@
       "message": "Done",
       "parentUuid": "8a924cc5_a3d5784e",
       "revId": "87aadf715c036a994ef316b36a44a6652a7a5bf4",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "2d60527f_3db95034",
         "filename": "redfish-core/lib/assembly.hpp",
@@ -496,10 +497,10 @@
         "endChar": 75
       },
       "revId": "87aadf715c036a994ef316b36a44a6652a7a5bf4",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "566bcf76_fd93f965",
         "filename": "redfish-core/lib/assembly.hpp",
@@ -520,10 +521,10 @@
         "endChar": 75
       },
       "revId": "87aadf715c036a994ef316b36a44a6652a7a5bf4",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "66550149_cb94b512",
         "filename": "redfish-core/lib/assembly.hpp",
@@ -537,10 +538,10 @@
       "side": 1,
       "message": "Looks incorrect?",
       "revId": "87aadf715c036a994ef316b36a44a6652a7a5bf4",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "6b278a20_b05134a1",
         "filename": "redfish-core/lib/assembly.hpp",
@@ -555,10 +556,10 @@
       "message": "Ack",
       "parentUuid": "66550149_cb94b512",
       "revId": "87aadf715c036a994ef316b36a44a6652a7a5bf4",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "ce82424d_cd6a4e43",
         "filename": "redfish-core/lib/assembly.hpp",
@@ -572,10 +573,10 @@
       "side": 1,
       "message": "Consider to use namespace for getChassis() that is specific for Assembly. Thanks to it getChassis name is not occupied",
       "revId": "87aadf715c036a994ef316b36a44a6652a7a5bf4",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "f6001f81_aebcc3db",
         "filename": "redfish-core/lib/assembly.hpp",
@@ -590,10 +591,10 @@
       "message": "Done",
       "parentUuid": "ce82424d_cd6a4e43",
       "revId": "87aadf715c036a994ef316b36a44a6652a7a5bf4",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "d97bd9b3_59cd3526",
         "filename": "redfish-core/lib/assembly.hpp",
@@ -613,10 +614,10 @@
         "endChar": 37
       },
       "revId": "87aadf715c036a994ef316b36a44a6652a7a5bf4",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "19313031_4b841d04",
         "filename": "redfish-core/lib/assembly.hpp",
@@ -637,10 +638,10 @@
         "endChar": 37
       },
       "revId": "87aadf715c036a994ef316b36a44a6652a7a5bf4",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "ac5dfd8d_0bffd943",
         "filename": "redfish-core/lib/assembly.hpp",
@@ -654,10 +655,10 @@
       "side": 1,
       "message": "Should add a check for if no Chassis/Board\u0027s found. \n\nE.g. \n// No adapter objects found by mapper\n                if (ec.value() \u003d\u003d boost::system::errc::io_error)\n                {\n                    messages::resourceNotFound(\n....\n                    return;\n                }",
       "revId": "87aadf715c036a994ef316b36a44a6652a7a5bf4",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "4cc19157_03dcc126",
         "filename": "redfish-core/lib/assembly.hpp",
@@ -672,10 +673,10 @@
       "message": "We have already handled that.\nIf chassis/board is not found the call to mapper will return 0. Hence the for loop will not execute and it will jump to line 435.\nI also tested the same,\ncurl -k -H \"X-Auth-Token: $bmc_token\" -X GET https://${bmc}/redfish/v1/Chassis/chassis/Assembly/\n{\n  \"error\": {\n    \"@Message.ExtendedInfo\": [\n      {\n        \"@odata.type\": \"#Message.v1_1_1.Message\",\n        \"Message\": \"The requested resource of type Chassis named chassis was not found.\",\n        \"MessageArgs\": [\n          \"Chassis\",\n          \"chassis\"\n        ],\n        \"MessageId\": \"Base.1.8.1.ResourceNotFound\",\n        \"MessageSeverity\": \"Critical\",\n        \"Resolution\": \"Provide a valid resource identifier and resubmit the request.\"\n      }\n    ],\n    \"code\": \"Base.1.8.1.ResourceNotFound\",\n    \"message\": \"The requested resource of type Chassis named chassis was not found.\"\n  }\n}",
       "parentUuid": "ac5dfd8d_0bffd943",
       "revId": "87aadf715c036a994ef316b36a44a6652a7a5bf4",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "7179ce23_bbadd861",
         "filename": "redfish-core/lib/assembly.hpp",
@@ -690,10 +691,10 @@
       "message": "Can we close this?",
       "parentUuid": "4cc19157_03dcc126",
       "revId": "87aadf715c036a994ef316b36a44a6652a7a5bf4",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "0cddfa9f_a6f5953f",
         "filename": "redfish-core/lib/assembly.hpp",
@@ -708,10 +709,10 @@
       "message": "Done",
       "parentUuid": "7179ce23_bbadd861",
       "revId": "87aadf715c036a994ef316b36a44a6652a7a5bf4",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "9a5b2d4f_1ac6586e",
         "filename": "redfish-core/lib/assembly.hpp",
@@ -731,10 +732,10 @@
         "endChar": 60
       },
       "revId": "87aadf715c036a994ef316b36a44a6652a7a5bf4",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "d1f5612e_9598ddbc",
         "filename": "redfish-core/lib/assembly.hpp",
@@ -755,10 +756,34 @@
         "endChar": 60
       },
       "revId": "87aadf715c036a994ef316b36a44a6652a7a5bf4",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c560aaf0_272abd46",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 440,
+      "author": {
+        "id": 1000998
+      },
+      "writtenOn": "2022-04-01T20:45:10Z",
+      "side": 1,
+      "message": "Resolving old comments.",
+      "parentUuid": "d1f5612e_9598ddbc",
+      "range": {
+        "startLine": 440,
+        "startChar": 45,
+        "endLine": 440,
+        "endChar": 60
+      },
+      "revId": "87aadf715c036a994ef316b36a44a6652a7a5bf4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "04ff95ef_441d516e",
         "filename": "redfish-core/lib/assembly.hpp",
@@ -778,10 +803,10 @@
         "endChar": 22
       },
       "revId": "87aadf715c036a994ef316b36a44a6652a7a5bf4",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "07d4bd0f_d36af9ca",
         "filename": "redfish-core/lib/assembly.hpp",
@@ -802,8 +827,7 @@
         "endChar": 22
       },
       "revId": "87aadf715c036a994ef316b36a44a6652a7a5bf4",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

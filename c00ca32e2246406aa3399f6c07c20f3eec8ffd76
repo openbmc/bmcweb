@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "41c6b404_920a7136",
         "filename": "redfish-core/lib/assembly.hpp",
@@ -20,10 +21,34 @@
         "endChar": 66
       },
       "revId": "c00ca32e2246406aa3399f6c07c20f3eec8ffd76",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "88c0c4b2_4fc0696d",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000998
+      },
+      "writtenOn": "2022-04-01T20:45:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "41c6b404_920a7136",
+      "range": {
+        "startLine": 32,
+        "startChar": 59,
+        "endLine": 32,
+        "endChar": 66
+      },
+      "revId": "c00ca32e2246406aa3399f6c07c20f3eec8ffd76",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "cb3e55c3_a498b4ac",
         "filename": "redfish-core/lib/assembly.hpp",
@@ -37,10 +62,10 @@
       "side": 1,
       "message": "You\u0027ve forgotten to match up the associations to ensure that this entry is associated with the chassis in question.  Using the path hierarchy won\u0027t work in all cases.",
       "revId": "c00ca32e2246406aa3399f6c07c20f3eec8ffd76",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "454cea68_d78ad66e",
         "filename": "redfish-core/lib/assembly.hpp",
@@ -55,10 +80,10 @@
       "message": "Ed, are you saying we should be associating every inventory D-Bus object with its chassis using\nhttps://github.com/openbmc/phosphor-dbus-interfaces/tree/master/xyz/openbmc_project/Association ? There was some concern that this could lead to a lot D-Bus objects\n\nIs that the direction in general for OpenBMC? Trying to understand why it is wrong to rely on the object path hierarchy, when that is what a `bustl tree` would show.",
       "parentUuid": "cb3e55c3_a498b4ac",
       "revId": "c00ca32e2246406aa3399f6c07c20f3eec8ffd76",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "fe54c105_0ddf7d38",
         "filename": "redfish-core/lib/assembly.hpp",
@@ -73,10 +98,10 @@
       "message": "\u003e Ed, are you saying we should be associating every inventory D-Bus object with its chassis using\n\u003e https://github.com/openbmc/phosphor-dbus-interfaces/tree/master/xyz/openbmc_project/Association ? There was some concern that this could lead to a lot D-Bus objects\n\u003e \n\u003e Is that the direction in general for OpenBMC? Trying to understand why it is wrong to rely on the object path hierarchy, when that is what a `bustl tree` would show.\n\nBecause redfish has multiple hierarchy.  Things like \"contained by\" \"cooled by\" \"managed by\" ect.  There\u0027s not a good way to represent all of those in a folder hierarchy, so in general, associations are needed, as they allows more flexibility in the code.\n\nIf we checked this in, this would be the only place that we use a multi-level dbus path hierarchy to determine the redfish paths.",
       "parentUuid": "454cea68_d78ad66e",
       "revId": "c00ca32e2246406aa3399f6c07c20f3eec8ffd76",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "3b547514_b5ab20d2",
         "filename": "redfish-core/lib/assembly.hpp",
@@ -91,10 +116,28 @@
       "message": "Thank you Ed. The point about non-containment type relationships is very valid, associations would be the only way to represent those.",
       "parentUuid": "fe54c105_0ddf7d38",
       "revId": "c00ca32e2246406aa3399f6c07c20f3eec8ffd76",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6da4d513_ad14bbd3",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1000998
+      },
+      "writtenOn": "2022-04-01T20:45:10Z",
+      "side": 1,
+      "message": "Looks like this has been resolved.",
+      "parentUuid": "3b547514_b5ab20d2",
+      "revId": "c00ca32e2246406aa3399f6c07c20f3eec8ffd76",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "f2dc9f25_fa195daa",
         "filename": "redfish-core/lib/assembly.hpp",
@@ -114,10 +157,34 @@
         "endChar": 46
       },
       "revId": "c00ca32e2246406aa3399f6c07c20f3eec8ffd76",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "483d2e16_75395121",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 1000998
+      },
+      "writtenOn": "2022-04-01T20:45:10Z",
+      "side": 1,
+      "message": "Resolving old comments.",
+      "parentUuid": "f2dc9f25_fa195daa",
+      "range": {
+        "startLine": 201,
+        "startChar": 0,
+        "endLine": 206,
+        "endChar": 46
+      },
+      "revId": "c00ca32e2246406aa3399f6c07c20f3eec8ffd76",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "375b3016_ee029ac2",
         "filename": "redfish-core/lib/assembly.hpp",
@@ -137,8 +204,31 @@
         "endChar": 58
       },
       "revId": "c00ca32e2246406aa3399f6c07c20f3eec8ffd76",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ce265cb4_eac67137",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1000998
+      },
+      "writtenOn": "2022-04-01T20:45:10Z",
+      "side": 1,
+      "message": "Resolving old comments.",
+      "parentUuid": "375b3016_ee029ac2",
+      "range": {
+        "startLine": 208,
+        "startChar": 0,
+        "endLine": 208,
+        "endChar": 58
+      },
+      "revId": "c00ca32e2246406aa3399f6c07c20f3eec8ffd76",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

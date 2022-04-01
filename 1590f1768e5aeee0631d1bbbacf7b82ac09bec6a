@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "26b2aa22_a86061e1",
         "filename": "/COMMIT_MSG",
@@ -14,10 +15,10 @@
       "side": 1,
       "message": "Going to need more detail than this.",
       "revId": "1590f1768e5aeee0631d1bbbacf7b82ac09bec6a",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "142fe14c_5a6eb5fc",
         "filename": "/COMMIT_MSG",
@@ -32,10 +33,28 @@
       "message": "Sure, it was there just till the work was in progress. Will add details once it is review ready.",
       "parentUuid": "26b2aa22_a86061e1",
       "revId": "1590f1768e5aeee0631d1bbbacf7b82ac09bec6a",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "88122d06_12cae65a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000998
+      },
+      "writtenOn": "2022-04-01T20:45:10Z",
+      "side": 1,
+      "message": "Appears to have been resolved.",
+      "parentUuid": "142fe14c_5a6eb5fc",
+      "revId": "1590f1768e5aeee0631d1bbbacf7b82ac09bec6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "91443d86_5023a792",
         "filename": "redfish-core/lib/assembly.hpp",
@@ -55,10 +74,10 @@
         "endChar": 33
       },
       "revId": "1590f1768e5aeee0631d1bbbacf7b82ac09bec6a",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "8b1c31f7_4ecd5dec",
         "filename": "redfish-core/lib/assembly.hpp",
@@ -79,10 +98,34 @@
         "endChar": 33
       },
       "revId": "1590f1768e5aeee0631d1bbbacf7b82ac09bec6a",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cd0d139d_e91e3ec5",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000998
+      },
+      "writtenOn": "2022-04-01T20:45:10Z",
+      "side": 1,
+      "message": "Resolving old comments.",
+      "parentUuid": "8b1c31f7_4ecd5dec",
+      "range": {
+        "startLine": 16,
+        "startChar": 24,
+        "endLine": 16,
+        "endChar": 33
+      },
+      "revId": "1590f1768e5aeee0631d1bbbacf7b82ac09bec6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "b1c0108d_e316d9eb",
         "filename": "redfish-core/lib/assembly.hpp",
@@ -96,10 +139,10 @@
       "side": 1,
       "message": "GetSubTree returns an error if it can\u0027t find any elements in the subtree command, not sure this should be an error.",
       "revId": "1590f1768e5aeee0631d1bbbacf7b82ac09bec6a",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "5456f48b_00adf5c8",
         "filename": "redfish-core/lib/assembly.hpp",
@@ -114,10 +157,28 @@
       "message": "Did not get your concern here.",
       "parentUuid": "b1c0108d_e316d9eb",
       "revId": "1590f1768e5aeee0631d1bbbacf7b82ac09bec6a",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "be2638ca_788a753a",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000998
+      },
+      "writtenOn": "2022-04-01T20:45:10Z",
+      "side": 1,
+      "message": "I think this is no longer a problem. It works fine if there are no assemblies.",
+      "parentUuid": "5456f48b_00adf5c8",
+      "revId": "1590f1768e5aeee0631d1bbbacf7b82ac09bec6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "640db1f3_515a0f0e",
         "filename": "redfish-core/lib/assembly.hpp",
@@ -137,10 +198,10 @@
         "endChar": 54
       },
       "revId": "1590f1768e5aeee0631d1bbbacf7b82ac09bec6a",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "58472027_4522d6d7",
         "filename": "redfish-core/lib/assembly.hpp",
@@ -161,8 +222,7 @@
         "endChar": 54
       },
       "revId": "1590f1768e5aeee0631d1bbbacf7b82ac09bec6a",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

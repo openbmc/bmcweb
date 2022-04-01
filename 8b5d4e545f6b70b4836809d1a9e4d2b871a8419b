@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "981b911c_5902df4d",
         "filename": "/COMMIT_MSG",
@@ -14,10 +15,28 @@
       "side": 1,
       "message": "Please update https://github.com/openbmc/bmcweb/blob/master/Redfish.md",
       "revId": "8b5d4e545f6b70b4836809d1a9e4d2b871a8419b",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bdffb69f_94bb3c3e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 32
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000998
+      },
+      "writtenOn": "2022-04-01T20:45:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "981b911c_5902df4d",
+      "revId": "8b5d4e545f6b70b4836809d1a9e4d2b871a8419b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "23c272ff_008c48f0",
         "filename": "redfish-core/lib/assembly.hpp",
@@ -37,10 +56,10 @@
         "endChar": 33
       },
       "revId": "8b5d4e545f6b70b4836809d1a9e4d2b871a8419b",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "93b8009f_9f522e8f",
         "filename": "redfish-core/lib/assembly.hpp",
@@ -61,10 +80,10 @@
         "endChar": 33
       },
       "revId": "8b5d4e545f6b70b4836809d1a9e4d2b871a8419b",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "84d32a0c_2433974f",
         "filename": "redfish-core/lib/assembly.hpp",
@@ -84,10 +103,10 @@
         "endChar": 19
       },
       "revId": "8b5d4e545f6b70b4836809d1a9e4d2b871a8419b",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "793c0c8f_6f9cbbfe",
         "filename": "redfish-core/lib/assembly.hpp",
@@ -108,10 +127,34 @@
         "endChar": 19
       },
       "revId": "8b5d4e545f6b70b4836809d1a9e4d2b871a8419b",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bc260bd4_77f8d343",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000998
+      },
+      "writtenOn": "2022-04-01T20:45:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "793c0c8f_6f9cbbfe",
+      "range": {
+        "startLine": 27,
+        "startChar": 15,
+        "endLine": 27,
+        "endChar": 19
+      },
+      "revId": "8b5d4e545f6b70b4836809d1a9e4d2b871a8419b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "cc088e05_3dd5d981",
         "filename": "redfish-core/lib/assembly.hpp",
@@ -131,10 +174,10 @@
         "endChar": 34
       },
       "revId": "8b5d4e545f6b70b4836809d1a9e4d2b871a8419b",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "4d37eae8_6d93af21",
         "filename": "redfish-core/lib/assembly.hpp",
@@ -155,10 +198,10 @@
         "endChar": 34
       },
       "revId": "8b5d4e545f6b70b4836809d1a9e4d2b871a8419b",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "66590c96_35c77104",
         "filename": "redfish-core/lib/assembly.hpp",
@@ -178,10 +221,10 @@
         "endChar": 63
       },
       "revId": "8b5d4e545f6b70b4836809d1a9e4d2b871a8419b",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "5ac6eac6_8346d7af",
         "filename": "redfish-core/lib/assembly.hpp",
@@ -202,10 +245,10 @@
         "endChar": 63
       },
       "revId": "8b5d4e545f6b70b4836809d1a9e4d2b871a8419b",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "bff57c5e_9b4b71cb",
         "filename": "redfish-core/lib/assembly.hpp",
@@ -225,10 +268,10 @@
         "endChar": 25
       },
       "revId": "8b5d4e545f6b70b4836809d1a9e4d2b871a8419b",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "2ee98146_b69f22b4",
         "filename": "redfish-core/lib/assembly.hpp",
@@ -249,10 +292,10 @@
         "endChar": 25
       },
       "revId": "8b5d4e545f6b70b4836809d1a9e4d2b871a8419b",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "098a21c0_0ee2ce30",
         "filename": "redfish-core/lib/assembly.hpp",
@@ -273,10 +316,10 @@
         "endChar": 25
       },
       "revId": "8b5d4e545f6b70b4836809d1a9e4d2b871a8419b",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "a1d87318_76776d7b",
         "filename": "redfish-core/lib/assembly.hpp",
@@ -297,10 +340,34 @@
         "endChar": 25
       },
       "revId": "8b5d4e545f6b70b4836809d1a9e4d2b871a8419b",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "297d351d_1d9c983f",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 1000998
+      },
+      "writtenOn": "2022-04-01T20:45:10Z",
+      "side": 1,
+      "message": "Resolving old comments.",
+      "parentUuid": "a1d87318_76776d7b",
+      "range": {
+        "startLine": 267,
+        "startChar": 67,
+        "endLine": 269,
+        "endChar": 25
+      },
+      "revId": "8b5d4e545f6b70b4836809d1a9e4d2b871a8419b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "293dead9_b3bb05cf",
         "filename": "redfish-core/lib/assembly.hpp",
@@ -314,10 +381,10 @@
       "side": 1,
       "message": "See old comment, this needs split up.",
       "revId": "8b5d4e545f6b70b4836809d1a9e4d2b871a8419b",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "6638bca7_bdd7105f",
         "filename": "redfish-core/lib/assembly.hpp",
@@ -332,10 +399,10 @@
       "message": "Ack",
       "parentUuid": "293dead9_b3bb05cf",
       "revId": "8b5d4e545f6b70b4836809d1a9e4d2b871a8419b",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "380cb0bb_a2fb489a",
         "filename": "redfish-core/lib/assembly.hpp",
@@ -355,10 +422,10 @@
         "endChar": 50
       },
       "revId": "8b5d4e545f6b70b4836809d1a9e4d2b871a8419b",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "9a0e4f8f_cf363e82",
         "filename": "redfish-core/lib/assembly.hpp",
@@ -379,10 +446,10 @@
         "endChar": 50
       },
       "revId": "8b5d4e545f6b70b4836809d1a9e4d2b871a8419b",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "9587e150_d6febc7a",
         "filename": "redfish-core/lib/assembly.hpp",
@@ -402,10 +469,10 @@
         "endChar": 47
       },
       "revId": "8b5d4e545f6b70b4836809d1a9e4d2b871a8419b",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "c1649e82_e2811007",
         "filename": "redfish-core/lib/assembly.hpp",
@@ -426,10 +493,10 @@
         "endChar": 47
       },
       "revId": "8b5d4e545f6b70b4836809d1a9e4d2b871a8419b",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "72c3862f_e5f3793f",
         "filename": "redfish-core/lib/assembly.hpp",
@@ -449,10 +516,34 @@
         "endChar": 56
       },
       "revId": "8b5d4e545f6b70b4836809d1a9e4d2b871a8419b",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b18a8bc2_9f6ba6ab",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 433,
+      "author": {
+        "id": 1000998
+      },
+      "writtenOn": "2022-04-01T20:45:10Z",
+      "side": 1,
+      "message": "Resolving old comments.",
+      "parentUuid": "72c3862f_e5f3793f",
+      "range": {
+        "startLine": 433,
+        "startChar": 44,
+        "endLine": 433,
+        "endChar": 56
+      },
+      "revId": "8b5d4e545f6b70b4836809d1a9e4d2b871a8419b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "5fac3dd7_e83b3a4b",
         "filename": "redfish-core/lib/assembly.hpp",
@@ -472,10 +563,10 @@
         "endChar": 9
       },
       "revId": "8b5d4e545f6b70b4836809d1a9e4d2b871a8419b",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "72e7c47e_474f0629",
         "filename": "redfish-core/lib/assembly.hpp",
@@ -496,10 +587,34 @@
         "endChar": 9
       },
       "revId": "8b5d4e545f6b70b4836809d1a9e4d2b871a8419b",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a023e942_c3eac08f",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 457,
+      "author": {
+        "id": 1000998
+      },
+      "writtenOn": "2022-04-01T20:45:10Z",
+      "side": 1,
+      "message": "Resolving old comments.",
+      "parentUuid": "72e7c47e_474f0629",
+      "range": {
+        "startLine": 457,
+        "startChar": 0,
+        "endLine": 457,
+        "endChar": 9
+      },
+      "revId": "8b5d4e545f6b70b4836809d1a9e4d2b871a8419b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "4d648bbe_824dd564",
         "filename": "redfish-core/lib/assembly.hpp",
@@ -519,10 +634,10 @@
         "endChar": 1
       },
       "revId": "8b5d4e545f6b70b4836809d1a9e4d2b871a8419b",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "ed3403ed_604cffd8",
         "filename": "redfish-core/lib/assembly.hpp",
@@ -543,8 +658,31 @@
         "endChar": 1
       },
       "revId": "8b5d4e545f6b70b4836809d1a9e4d2b871a8419b",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "31e5a36c_6d8f2c9a",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 515,
+      "author": {
+        "id": 1000998
+      },
+      "writtenOn": "2022-04-01T20:45:10Z",
+      "side": 1,
+      "message": "Resolving old comments.",
+      "parentUuid": "ed3403ed_604cffd8",
+      "range": {
+        "startLine": 509,
+        "startChar": 0,
+        "endLine": 515,
+        "endChar": 1
+      },
+      "revId": "8b5d4e545f6b70b4836809d1a9e4d2b871a8419b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

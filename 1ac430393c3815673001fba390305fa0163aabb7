@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "feadc0c0_4a64fd31",
         "filename": "/COMMIT_MSG",
@@ -14,10 +15,10 @@
       "side": 1,
       "message": "I don\u0027t think we should hardcode this to 0. How about id here? i.e. how about vdd_vrm0 here?",
       "revId": "1ac430393c3815673001fba390305fa0163aabb7",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "cc1542c2_62bc54bd",
         "filename": "/COMMIT_MSG",
@@ -32,10 +33,10 @@
       "message": "I think Sunny has fixed this in the latest PS based on the comment I gave earlier. This tested section needs to be updated.",
       "parentUuid": "feadc0c0_4a64fd31",
       "revId": "1ac430393c3815673001fba390305fa0163aabb7",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "aacd86a0_ab510ff7",
         "filename": "/COMMIT_MSG",
@@ -50,10 +51,10 @@
       "message": "Done",
       "parentUuid": "cc1542c2_62bc54bd",
       "revId": "1ac430393c3815673001fba390305fa0163aabb7",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "88bfe953_c876b1ae",
         "filename": "/COMMIT_MSG",
@@ -67,10 +68,10 @@
       "side": 1,
       "message": "I am fine with this, but I don\u0027t think this is very useful either. \n\nStorage uses id for both of these.. \nhttps://github.com/openbmc/bmcweb/blob/f23b729676559f539790580930b1ff3b0c05805b/redfish-core/lib/storage.hpp#L175\n\nDoes \"Vdd Vrm0\" make sense? I.e. replace the underscores with spaces?\n\n\nPrettyName isn\u0027t used? I think that would be a great fit here\nhttps://github.com/openbmc/phosphor-dbus-interfaces/blob/32304979b404c24e32f195d08c667e65b9b34695/xyz/openbmc_project/Inventory/Item.interface.yaml#L5",
       "revId": "1ac430393c3815673001fba390305fa0163aabb7",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "ccddd786_d355c05e",
         "filename": "/COMMIT_MSG",
@@ -85,10 +86,10 @@
       "message": "Agree, Updated the field with PrettyName.",
       "parentUuid": "88bfe953_c876b1ae",
       "revId": "1ac430393c3815673001fba390305fa0163aabb7",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "104d9e9b_86fc9904",
         "filename": "/COMMIT_MSG",
@@ -102,10 +103,10 @@
       "side": 1,
       "message": "How about just \"Assembly\" here so it matches other resources in bmcweb? typically we set Id to the last segment of the URI.",
       "revId": "1ac430393c3815673001fba390305fa0163aabb7",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "57abc396_bc99d327",
         "filename": "/COMMIT_MSG",
@@ -120,10 +121,10 @@
       "message": "Done",
       "parentUuid": "104d9e9b_86fc9904",
       "revId": "1ac430393c3815673001fba390305fa0163aabb7",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "06a36652_db8e8d13",
         "filename": "redfish-core/lib/assembly.hpp",
@@ -143,10 +144,10 @@
         "endChar": 45
       },
       "revId": "1ac430393c3815673001fba390305fa0163aabb7",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "daebdca0_6aaa2701",
         "filename": "redfish-core/lib/assembly.hpp",
@@ -167,10 +168,10 @@
         "endChar": 45
       },
       "revId": "1ac430393c3815673001fba390305fa0163aabb7",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "2d79c32d_589ecf34",
         "filename": "redfish-core/lib/assembly.hpp",
@@ -190,10 +191,34 @@
         "endChar": 63
       },
       "revId": "1ac430393c3815673001fba390305fa0163aabb7",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4942102f_c6f024a0",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1000998
+      },
+      "writtenOn": "2022-04-01T20:45:10Z",
+      "side": 1,
+      "message": "Resolving old comments.",
+      "parentUuid": "2d79c32d_589ecf34",
+      "range": {
+        "startLine": 48,
+        "startChar": 60,
+        "endLine": 48,
+        "endChar": 63
+      },
+      "revId": "1ac430393c3815673001fba390305fa0163aabb7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "fc0df261_41329e89",
         "filename": "redfish-core/lib/assembly.hpp",
@@ -213,10 +238,10 @@
         "endChar": 49
       },
       "revId": "1ac430393c3815673001fba390305fa0163aabb7",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "39007c6b_24713a06",
         "filename": "redfish-core/lib/assembly.hpp",
@@ -237,10 +262,10 @@
         "endChar": 49
       },
       "revId": "1ac430393c3815673001fba390305fa0163aabb7",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "63b42f89_c7e986d6",
         "filename": "redfish-core/lib/assembly.hpp",
@@ -261,10 +286,10 @@
         "endChar": 49
       },
       "revId": "1ac430393c3815673001fba390305fa0163aabb7",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "9dd3e73b_afe00c05",
         "filename": "redfish-core/lib/assembly.hpp",
@@ -285,10 +310,10 @@
         "endChar": 49
       },
       "revId": "1ac430393c3815673001fba390305fa0163aabb7",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "6fd57abd_7658f1b1",
         "filename": "redfish-core/lib/assembly.hpp",
@@ -309,10 +334,10 @@
         "endChar": 49
       },
       "revId": "1ac430393c3815673001fba390305fa0163aabb7",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "ac2c70e1_8d65910f",
         "filename": "redfish-core/lib/assembly.hpp",
@@ -333,10 +358,10 @@
         "endChar": 49
       },
       "revId": "1ac430393c3815673001fba390305fa0163aabb7",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "d1c4b883_f6e8c6cf",
         "filename": "redfish-core/lib/assembly.hpp",
@@ -357,10 +382,34 @@
         "endChar": 49
       },
       "revId": "1ac430393c3815673001fba390305fa0163aabb7",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "eb3076bb_e2827777",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1000998
+      },
+      "writtenOn": "2022-04-01T20:45:10Z",
+      "side": 1,
+      "message": "Resolving old comments.",
+      "parentUuid": "d1c4b883_f6e8c6cf",
+      "range": {
+        "startLine": 76,
+        "startChar": 46,
+        "endLine": 76,
+        "endChar": 49
+      },
+      "revId": "1ac430393c3815673001fba390305fa0163aabb7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "c04b576d_a505867e",
         "filename": "redfish-core/lib/assembly.hpp",
@@ -374,10 +423,10 @@
       "side": 1,
       "message": "Can all of them be done in doGet() based on return value?",
       "revId": "1ac430393c3815673001fba390305fa0163aabb7",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "974b1f0a_2660ee49",
         "filename": "redfish-core/lib/assembly.hpp",
@@ -392,10 +441,10 @@
       "message": "Simply put, We will have to return codes from each method, and also we are following specific pattern in bmcweb so it has been done like this.",
       "parentUuid": "c04b576d_a505867e",
       "revId": "1ac430393c3815673001fba390305fa0163aabb7",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "2d626d19_b4d74640",
         "filename": "redfish-core/lib/assembly.hpp",
@@ -415,10 +464,10 @@
         "endChar": 71
       },
       "revId": "1ac430393c3815673001fba390305fa0163aabb7",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "a5443cf9_5550e965",
         "filename": "redfish-core/lib/assembly.hpp",
@@ -439,10 +488,10 @@
         "endChar": 71
       },
       "revId": "1ac430393c3815673001fba390305fa0163aabb7",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "9d5c7eb5_74068f87",
         "filename": "redfish-core/lib/assembly.hpp",
@@ -463,10 +512,10 @@
         "endChar": 71
       },
       "revId": "1ac430393c3815673001fba390305fa0163aabb7",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "af02417a_55ae1ecd",
         "filename": "redfish-core/lib/assembly.hpp",
@@ -487,8 +536,7 @@
         "endChar": 71
       },
       "revId": "1ac430393c3815673001fba390305fa0163aabb7",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
