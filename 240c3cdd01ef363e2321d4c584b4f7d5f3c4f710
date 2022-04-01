@@ -378,6 +378,30 @@
       },
       "revId": "240c3cdd01ef363e2321d4c584b4f7d5f3c4f710",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ad37ed1d_bdbf22c6",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-04-01T16:28:33Z",
+      "side": 1,
+      "message": "https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/51753/6/redfish-core/lib/network_protocol.hpp\n\nThis one. I have to keep these strings here as finding it in the array brings extra cost.",
+      "parentUuid": "f50e8b08_19f2ba53",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 71
+      },
+      "revId": "240c3cdd01ef363e2321d4c584b4f7d5f3c4f710",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
