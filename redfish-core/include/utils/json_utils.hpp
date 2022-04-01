@@ -201,8 +201,8 @@ bool unpackValue(nlohmann::json& jsonValue, std::string_view key,
         {
             messages::propertyValueTypeError(
                 res,
-                res.jsonValue.dump(2, ' ', true,
-                                   nlohmann::json::error_handler_t::replace),
+                jsonValue.dump(2, ' ', true,
+                               nlohmann::json::error_handler_t::replace),
                 key);
             return false;
         }
@@ -210,8 +210,8 @@ bool unpackValue(nlohmann::json& jsonValue, std::string_view key,
         {
             messages::propertyValueTypeError(
                 res,
-                res.jsonValue.dump(2, ' ', true,
-                                   nlohmann::json::error_handler_t::replace),
+                jsonValue.dump(2, ' ', true,
+                               nlohmann::json::error_handler_t::replace),
                 key);
             return false;
         }
@@ -229,8 +229,8 @@ bool unpackValue(nlohmann::json& jsonValue, std::string_view key,
         {
             messages::propertyValueTypeError(
                 res,
-                res.jsonValue.dump(2, ' ', true,
-                                   nlohmann::json::error_handler_t::replace),
+                jsonValue.dump(2, ' ', true,
+                               nlohmann::json::error_handler_t::replace),
                 key);
             return false;
         }

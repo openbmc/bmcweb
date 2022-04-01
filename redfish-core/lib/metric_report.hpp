@@ -39,7 +39,7 @@ inline nlohmann::json toMetricValues(const Readings& readings)
     return metricValues;
 }
 
-inline bool fillReport(nlohmann::json& json, const std::string& id,
+inline bool fillReport(nlohmann::json::object_t& json, const std::string& id,
                        const TimestampReadings& timestampReadings)
 {
     json["@odata.type"] = "#MetricReport.v1_3_0.MetricReport";

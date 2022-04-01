@@ -25,7 +25,7 @@ struct Response
 
     std::optional<response_type> stringResponse;
 
-    nlohmann::json jsonValue;
+    nlohmann::json::object_t jsonValue;
 
     void addHeader(const std::string_view key, const std::string_view value)
     {

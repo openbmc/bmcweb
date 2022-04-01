@@ -1320,7 +1320,8 @@ inline void populateFanRedundancy(
 inline void
     sortJSONResponse(const std::shared_ptr<SensorsAsyncResp>& sensorsAsyncResp)
 {
-    nlohmann::json& response = sensorsAsyncResp->asyncResp->res.jsonValue;
+    nlohmann::json::object_t& response =
+        sensorsAsyncResp->asyncResp->res.jsonValue;
     std::array<std::string, 2> sensorHeaders{"Temperatures", "Fans"};
     if (sensorsAsyncResp->chassisSubNode == sensors::node::power)
     {
@@ -1328,17 +1329,17 @@ inline void
     }
     for (const std::string& sensorGroup : sensorHeaders)
     {
-        nlohmann::json::iterator entry = response.find(sensorGroup);
+        nlohmann::json::object_t::iterator entry = response.find(sensorGroup);
         if (entry != response.end())
         {
-            std::sort(entry->begin(), entry->end(),
+            std::sort(entry->second.begin(), entry->second.end(),
                       [](const nlohmann::json& c1, const nlohmann::json& c2) {
                 return c1["Name"] < c2["Name"];
             });
 
             // add the index counts to the end of each entry
             size_t count = 0;
-            for (nlohmann::json& sensorJson : *entry)
+            for (nlohmann::json& sensorJson : entry->second)
             {
                 nlohmann::json::iterator odata = sensorJson.find("@odata.id");
                 if (odata == sensorJson.end())
@@ -2523,7 +2524,9 @@ inline void getSensorData(
                         "/redfish/v1/Chassis/" + sensorsAsyncResp->chassisId +
                         "/" + sensorsAsyncResp->chassisSubNode + "/" +
                         sensorName;
-                    sensorJson = &(sensorsAsyncResp->asyncResp->res.jsonValue);
+                    // TODO?????
+                    // sensorJson =
+                    // &(sensorsAsyncResp->asyncResp->res.jsonValue);
                 }
                 else
                 {

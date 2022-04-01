@@ -76,7 +76,7 @@ inline void
                       const std::string& objectPath,
                       const std::shared_ptr<bmcweb::AsyncResp>& transaction)
 {
-    if (transaction->res.jsonValue.is_null())
+    if (transaction->res.jsonValue.empty())
     {
         transaction->res.jsonValue["status"] = "ok";
         transaction->res.jsonValue["bus_name"] = processName;

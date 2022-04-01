@@ -12,7 +12,7 @@ namespace
 
 void validateServiceRootGet(crow::Response& res)
 {
-    nlohmann::json& json = res.jsonValue;
+    nlohmann::json::object_t& json = res.jsonValue;
     EXPECT_EQ(json["@odata.id"], "/google/v1");
     EXPECT_EQ(json["@odata.type"],
               "#GoogleServiceRoot.v1_0_0.GoogleServiceRoot");
