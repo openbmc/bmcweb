@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fe85766c_c3672483",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000276
+      },
+      "writtenOn": "2022-04-01T21:11:42Z",
+      "side": 1,
+      "message": "The hardcoded size and dot notation to know the meaning of the various MessageEntry fields were what we lost when we had to resolve build warnings before C++20.\n\nRemoving the hardcoded size helps simplify adding new messages to the registry and is a smaller change.\n\nAdding back the dot notation is a bigger change but may not have much benefit anymore.  I am happy to pursue that change as well if there is interest.  Thanks!",
+      "revId": "2ddd1982b52a7d52e82fd95b21ac8b1be095b35a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
