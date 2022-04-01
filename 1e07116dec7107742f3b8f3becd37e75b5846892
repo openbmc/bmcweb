@@ -53,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e0e80245_93c68d3e",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-04-01T17:58:55Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "25efff7a_428cb671",
+      "revId": "1e07116dec7107742f3b8f3becd37e75b5846892",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a8f694d0_70a8afac",
@@ -84,6 +102,24 @@
       "side": 1,
       "message": "I tested the zero members case and the \u003e 1 members case on previous patchsets.  I haven\u0027t necessarily tested them this second, but this code basically hasn\u0027t changed since they were tested.",
       "parentUuid": "a8f694d0_70a8afac",
+      "revId": "1e07116dec7107742f3b8f3becd37e75b5846892",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e71e739_29fb9611",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-04-01T17:58:55Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "75cb74eb_68255968",
       "revId": "1e07116dec7107742f3b8f3becd37e75b5846892",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
