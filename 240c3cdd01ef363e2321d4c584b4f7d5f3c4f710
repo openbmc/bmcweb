@@ -426,6 +426,30 @@
       },
       "revId": "240c3cdd01ef363e2321d4c584b4f7d5f3c4f710",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3c49110a_1622d19b",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-01T17:40:19Z",
+      "side": 1,
+      "message": "Looks like this is now fixed.  Resolving.",
+      "parentUuid": "ad37ed1d_bdbf22c6",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 71
+      },
+      "revId": "240c3cdd01ef363e2321d4c584b4f7d5f3c4f710",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
