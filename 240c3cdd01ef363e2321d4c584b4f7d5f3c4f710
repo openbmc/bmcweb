@@ -74,6 +74,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ed96bcca_61e1176d",
+        "filename": "redfish-core/include/utils/service_utils.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-04-01T15:37:06Z",
+      "side": 1,
+      "message": "I\u0027ve submitted a patchset in service-config-manager to encode the object path with sdbusplus. Please help review it.\n\nhttps://gerrit.openbmc-project.xyz/q/topic:srvcfg-sdbusplus-encode\n\nI will submit patches in bmcweb later using sdbusplus to encode/decode. These should be merged after the service-config-manager patches merged.",
+      "parentUuid": "f6e2135d_5e041fe3",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 42
+      },
+      "revId": "240c3cdd01ef363e2321d4c584b4f7d5f3c4f710",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fe3c3fc3_6066c12c",
         "filename": "redfish-core/include/utils/service_utils.hpp",
         "patchSetId": 8
@@ -133,6 +157,30 @@
       "side": 1,
       "message": "ACK.",
       "parentUuid": "38839afd_f89a9385",
+      "range": {
+        "startLine": 19,
+        "startChar": 11,
+        "endLine": 19,
+        "endChar": 54
+      },
+      "revId": "240c3cdd01ef363e2321d4c584b4f7d5f3c4f710",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "69c50ae6_d5db4f25",
+        "filename": "redfish-core/include/utils/service_utils.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-04-01T15:37:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "038f3160_6fd40a94",
       "range": {
         "startLine": 19,
         "startChar": 11,
