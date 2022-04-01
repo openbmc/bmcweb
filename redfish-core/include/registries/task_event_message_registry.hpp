@@ -3,7 +3,7 @@
  * This is an auto-generated header which contains definitions
  * for Redfish DMTF defined messages.
  * DO NOT modify this registry outside of running the
- * parse_regisries.py script.  The definitions contained within
+ * parse_registries.py script.  The definitions contained within
  * this file are owned by DMTF.  Any modifications to these files
  * should be first pushed to the relevant registry in the DMTF
  * github organization.
@@ -29,7 +29,7 @@ const Header header = {
 constexpr const char* url =
     "https://redfish.dmtf.org/registries/TaskEvent.1.0.3.json";
 
-constexpr std::array<MessageEntry, 9> registry =
+constexpr std::array registry =
 {
     MessageEntry{
         "TaskAborted",

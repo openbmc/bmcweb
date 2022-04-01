@@ -29,7 +29,7 @@ const Header header = {
     "0.3.1",
     "OpenBMC",
 };
-constexpr std::array<MessageEntry, 189> registry = {
+constexpr std::array registry = {
     MessageEntry{
         "ADDDCCorrectable",
         {
