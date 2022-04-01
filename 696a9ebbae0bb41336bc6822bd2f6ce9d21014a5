@@ -143,6 +143,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0ea6a1e5_d209c30e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1001193
+      },
+      "writtenOn": "2022-04-01T14:37:28Z",
+      "side": 1,
+      "message": "Addressed the comment in  https://gerrit.openbmc-project.xyz/c/openbmc/phosphor-dbus-interfaces/+/46806.\n\nAdded the documentation link in the commit msg.",
+      "parentUuid": "16752197_ba42ec00",
+      "revId": "696a9ebbae0bb41336bc6822bd2f6ce9d21014a5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2acd5b83_38e98dbb",
@@ -203,6 +221,30 @@
       "writtenOn": "2021-09-10T19:15:30Z",
       "side": 1,
       "message": "spelling/capitalization",
+      "range": {
+        "startLine": 108,
+        "startChar": 36,
+        "endLine": 108,
+        "endChar": 37
+      },
+      "revId": "696a9ebbae0bb41336bc6822bd2f6ce9d21014a5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "05cdca02_f5c7d434",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1001193
+      },
+      "writtenOn": "2022-04-01T14:37:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1b62e50b_4fae1677",
       "range": {
         "startLine": 108,
         "startChar": 36,
