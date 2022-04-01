@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f6e2135d_5e041fe3",
+        "filename": "redfish-core/include/utils/service_utils.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-01T03:13:40Z",
+      "side": 1,
+      "message": "\u003e Unfortunately, service-config-manager does not use sdbusplus to encode path, instead, it only replaces some specific characters. Meaning that it is not in sdbusplus-encodeable format.\n\u003e \n\u003e https://github.com/openbmc/service-config-manager/blob/ef5ceced0bee522da0fce5c759b9b733298d82bd/src/main.cpp#L135\n\u003e \n\u003e Probably we have to use this hardcode for now in bmcweb.\n\u003e \n\u003e Later I will try to use sdbusplus in service-config-manager, then use sdbusplus here.\n\nLets do that first, no sense in checking in code that we know is incorrect and will need to be changed.  It looks to my eye like a 5 line patch to fix the config-manager behavior to properly escape things, and we can interlock it with this patch.  If it\u0027s really a blocking issue, I can write those 5 lines and push a patch, but it might take me a day or two.",
+      "parentUuid": "15d4de42_fa24d23c",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 42
+      },
+      "revId": "240c3cdd01ef363e2321d4c584b4f7d5f3c4f710",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fe3c3fc3_6066c12c",
         "filename": "redfish-core/include/utils/service_utils.hpp",
         "patchSetId": 8
@@ -85,6 +109,30 @@
       "side": 1,
       "message": "Nope. Some services will have multiple instances, like phosphor-ipmi-net will create instance for each ethernet port, and they are controlled individually in srvcfg-manager. In bmcweb, we need to set the value to all these instances.",
       "parentUuid": "fe3c3fc3_6066c12c",
+      "range": {
+        "startLine": 19,
+        "startChar": 11,
+        "endLine": 19,
+        "endChar": 54
+      },
+      "revId": "240c3cdd01ef363e2321d4c584b4f7d5f3c4f710",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "038f3160_6fd40a94",
+        "filename": "redfish-core/include/utils/service_utils.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-01T03:13:40Z",
+      "side": 1,
+      "message": "ACK.",
+      "parentUuid": "38839afd_f89a9385",
       "range": {
         "startLine": 19,
         "startChar": 11,
@@ -226,6 +274,30 @@
       "side": 1,
       "message": "This is kept here temporarily. In following patches, these highlighed ones will be removed, all the services names hardcoded here will be in dbus-encoded format to reduce calls to sdbusplus_encode functions.",
       "parentUuid": "461f3d32_88d5fff7",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 71
+      },
+      "revId": "240c3cdd01ef363e2321d4c584b4f7d5f3c4f710",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "12ccf1c9_0bb0750e",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-01T03:13:40Z",
+      "side": 1,
+      "message": "I haven\u0027t reviewed the later patches, but assuming what you say is true, that\u0027s ok.  So long as we don\u0027t end up duplicating this information in the final patch in the series.",
+      "parentUuid": "401b4335_eb1084d9",
       "range": {
         "startLine": 38,
         "startChar": 0,
