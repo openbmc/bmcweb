@@ -65,6 +65,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "21dce785_cdaeec66",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 2974,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-01T18:44:27Z",
+      "side": 1,
+      "message": "\u003e \u003e You don\u0027t need to check this here.  ParseParameters can\u0027t return an expression that can\u0027t be done.\n\u003e \n\u003e Done.\n\u003e \n\u003e \u003e Also, how do you see this function evolving as we add other query param types? (filter, select, ect)  Considering those functions chain, it\u0027s not clear to me how that would work in the model that you\u0027ve done here.  Can you elaborate a little on what you\u0027re thinking?\n\u003e \n\u003e Got an idea. Please see the unit test.\n\nIt might be because it\u0027s friday, but I\u0027m not seeing the code you\u0027re talking about.  Sorry to ask for this, but can you point to the specific line?\n\n\u003e If people add new parameters to the struct, the |isEfficientExpandAvailable| will get revisited.\n\n\n\nI\u0027m not quite  following this statement, in this context, isEfficientExpandAvailable is sensors::isEfficientExpandAvailable, so are you trying to say that, once we have, say a dozen or so efficient expanders in bmcweb, every time we add a new query parameter, we\u0027ll have to go look at each one and make sure it handles the new parameters?  That doesn\u0027t seem like it scales (or maybe I\u0027m completely misunderstanding what you\u0027re proposing).\n\n\u003e \n\u003e Filter and Select can be implemented efficiently in the future (e.g., when assembling sensors\u0027 JSONs, we add some Query parameter context so some attributes/sensors are omitted/selected).\n\nSure, but how does the core KNOW that this implements an efficient filter?  You\u0027re returning the entire query in this case, how does the core know that say, this one handles $expand, and another handler handled $top?\n\nI wonder if this conversation would be more productive with a quick implementation of say, $top (picked because I think it\u0027s the most trivial of the remaining query params), so we can example what would break if someone wanted to implement a custom $top efficient handler, but not an efficient $expand.  I can add this to my list, unless you get there first.\n\n\u003e \n\u003e \n\u003e Glad to see if you have better ideas.\n\n\nOff the top of my head, I had imagined that you\u0027d basically move the Query struct to a shared_ptr (so it would be shared between the instances) then each step could tag the Query structure with \"expand handled\" \u003d true, \"filter handled\" ect.  Then when the core runs as the last step, it would know that expand was already covered, and didn\u0027t need to run again.  Does that makes sense?",
+      "parentUuid": "9b00e18f_efca1807",
+      "range": {
+        "startLine": 2971,
+        "startChar": 0,
+        "endLine": 2974,
+        "endChar": 5
+      },
+      "revId": "515e077fccda19d77cf85dedc3b2d4907a9e0380",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a3eca94f_51c1b16c",
@@ -159,6 +183,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6c226e27_28a17863",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 3023,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-01T18:44:27Z",
+      "side": 1,
+      "message": "This got changed, but still isn\u0027t done, but lets track that in the new comment.",
+      "parentUuid": "677363b4_e02803bb",
+      "range": {
+        "startLine": 3023,
+        "startChar": 29,
+        "endLine": 3023,
+        "endChar": 44
+      },
+      "revId": "515e077fccda19d77cf85dedc3b2d4907a9e0380",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "52aac950_4af5e697",
@@ -243,6 +291,30 @@
       "side": 1,
       "message": "Not fully understand your concerns, but this should be resolved if we get the overload version of setUpRedfishRoute, right?",
       "parentUuid": "96dc7585_0e304d73",
+      "range": {
+        "startLine": 3033,
+        "startChar": 0,
+        "endLine": 3038,
+        "endChar": 17
+      },
+      "revId": "515e077fccda19d77cf85dedc3b2d4907a9e0380",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb73c5be_2cb499dc",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 3038,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-01T18:44:27Z",
+      "side": 1,
+      "message": "Specifically, this patch (see its tested statement for exactly what would have problems) now breaks if you fork off the method at this level.\n\nhttps://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/52357/9",
+      "parentUuid": "aaca213d_fd39b78f",
       "range": {
         "startLine": 3033,
         "startChar": 0,
