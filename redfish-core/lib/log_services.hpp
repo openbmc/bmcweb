@@ -1290,15 +1290,12 @@ inline void requestRoutesJournalEventLogEntry(App& app)
 
                 if (idStr == targetID)
                 {
-                    nlohmann::json::object_t bmcLogEntry;
-                    LogParseError status =
-                        fillEventLogEntryJson(idStr, logEntry, bmcLogEntry);
+                    LogParseError status = fillEventLogEntryJson(
+                        idStr, logEntry, asyncResp->res.jsonValue);
                     if (status != LogParseError::success)
                     {
                         messages::internalError(asyncResp->res);
-                        return;
                     }
-                    asyncResp->res.jsonValue.update(bmcLogEntry);
                     return;
                 }
             }
@@ -1985,9 +1982,8 @@ inline void requestRoutesSystemHostLoggerLogEntry(App& app)
 
         if (!logEntries.empty())
         {
-            nlohmann::json::object_t hostLogEntry;
-            fillHostLoggerEntryJson(targetID, logEntries[0], hostLogEntry);
-            asyncResp->res.jsonValue.update(hostLogEntry);
+            fillHostLoggerEntryJson(targetID, logEntries[0],
+                                    asyncResp->res.jsonValue);
             return;
         }
 
@@ -2316,14 +2312,12 @@ inline void requestRoutesBMCJournalLogEntry(App& app)
             return;
         }
 
-        nlohmann::json::object_t bmcJournalLogEntry;
         if (fillBMCJournalLogEntryJson(entryID, journal.get(),
-                                       bmcJournalLogEntry) != 0)
+                                       asyncResp->res.jsonValue) != 0)
         {
             messages::internalError(asyncResp->res);
             return;
         }
-        asyncResp->res.jsonValue.update(bmcJournalLogEntry);
         });
 }
 
@@ -2900,7 +2894,9 @@ inline void requestRoutesCrashdumpEntry(App& app)
             return;
         }
         const std::string& logID = param;
-        logCrashdumpEntry(asyncResp, logID, asyncResp->res.jsonValue);
+        nlohmann::json temp = nlohmann::json::object_t();
+        logCrashdumpEntry(asyncResp, logID, temp);
+        asyncResp->res.jsonValue.insert(temp.begin(), temp.end());
         });
 }
 

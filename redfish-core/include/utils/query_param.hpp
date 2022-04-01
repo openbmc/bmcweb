@@ -281,10 +281,10 @@ inline bool processOnly(crow::App& app, crow::Response& res,
         completionHandler(res);
         return false;
     }
-    auto itMemBegin = itMembers->begin();
-    if (itMemBegin == itMembers->end() || itMembers->size() != 1)
+    auto itMemBegin = itMembers->second.begin();
+    if (itMemBegin == itMembers->second.end() || itMembers->second.size() != 1)
     {
-        BMCWEB_LOG_DEBUG << "Members contains " << itMembers->size()
+        BMCWEB_LOG_DEBUG << "Members contains " << itMembers->second.size()
                          << " element, returning full collection.";
         completionHandler(res);
         return false;
@@ -336,50 +336,42 @@ struct ExpandNode
     }
 };
 
-// Walks a json object looking for Redfish NavigationReference entries that
-// might need resolved.  It recursively walks the jsonResponse object, looking
-// for links at every level, and returns a list (out) of locations within the
-// tree that need to be expanded.  The current json pointer location p is passed
-// in to reference the current node that's being expanded, so it can be combined
-// with the keys from the jsonResponse object
+// Forwrad declare recursive function
 inline void findNavigationReferencesRecursive(
     ExpandType eType, nlohmann::json& jsonResponse,
     const nlohmann::json::json_pointer& p, bool inLinks,
+    std::vector<ExpandNode>& out);
+
+inline void findNavigationReferencesInArrayRecursive(
+    ExpandType eType, nlohmann::json::array_t& jsonArray,
+    const nlohmann::json::json_pointer& p, bool inLinks,
     std::vector<ExpandNode>& out)
 {
-    // If no expand is needed, return early
-    if (eType == ExpandType::None)
+
+    size_t index = 0;
+    // For arrays, walk every element in the array
+    for (auto& element : jsonArray)
     {
-        return;
+        nlohmann::json::json_pointer newPtr = p / index;
+        BMCWEB_LOG_DEBUG << "Traversing response at " << newPtr.to_string();
+        findNavigationReferencesRecursive(eType, element, newPtr, inLinks, out);
+        index++;
     }
-    nlohmann::json::array_t* array =
-        jsonResponse.get_ptr<nlohmann::json::array_t*>();
-    if (array != nullptr)
-    {
-        size_t index = 0;
-        // For arrays, walk every element in the array
-        for (auto& element : *array)
-        {
-            nlohmann::json::json_pointer newPtr = p / index;
-            BMCWEB_LOG_DEBUG << "Traversing response at " << newPtr.to_string();
-            findNavigationReferencesRecursive(eType, element, newPtr, inLinks,
-                                              out);
-            index++;
-        }
-    }
-    nlohmann::json::object_t* obj =
-        jsonResponse.get_ptr<nlohmann::json::object_t*>();
-    if (obj == nullptr)
-    {
-        return;
-    }
+}
+
+inline void findNavigationReferencesInObjectRecursive(
+    ExpandType eType, nlohmann::json::object_t& jsonObject,
+    const nlohmann::json::json_pointer& p, bool inLinks,
+    std::vector<ExpandNode>& out)
+{
+
     // Navigation References only ever have a single element
-    if (obj->size() == 1)
+    if (jsonObject.size() == 1)
     {
-        if (obj->begin()->first == "@odata.id")
+        if (jsonObject.begin()->first == "@odata.id")
         {
             const std::string* uri =
-                obj->begin()->second.get_ptr<const std::string*>();
+                jsonObject.begin()->second.get_ptr<const std::string*>();
             if (uri != nullptr)
             {
                 BMCWEB_LOG_DEBUG << "Found element at " << p.to_string();
@@ -388,7 +380,7 @@ inline void findNavigationReferencesRecursive(
         }
     }
     // Loop the object and look for links
-    for (auto& element : *obj)
+    for (auto& element : jsonObject)
     {
         bool localInLinks = inLinks;
         if (!localInLinks)
@@ -413,13 +405,46 @@ inline void findNavigationReferencesRecursive(
                                           localInLinks, out);
     }
 }
+// Walks a json object looking for Redfish NavigationReference entries that
+// might need resolved.  It recursively walks the jsonResponse object, looking
+// for links at every level, and returns a list (out) of locations within the
+// tree that need to be expanded.  The current json pointer location p is passed
+// in to reference the current node that's being expanded, so it can be combined
+// with the keys from the jsonResponse object
+inline void findNavigationReferencesRecursive(
+    ExpandType eType, nlohmann::json& jsonResponse,
+    const nlohmann::json::json_pointer& p, bool inLinks,
+    std::vector<ExpandNode>& out)
+{
+    // If no expand is needed, return early
+    if (eType == ExpandType::None)
+    {
+        return;
+    }
+    nlohmann::json::array_t* array =
+        jsonResponse.get_ptr<nlohmann::json::array_t*>();
+    if (array != nullptr)
+    {
+        findNavigationReferencesInArrayRecursive(eType, *array, p, inLinks,
+                                                 out);
+    }
+    nlohmann::json::object_t* obj =
+        jsonResponse.get_ptr<nlohmann::json::object_t*>();
+    if (obj != nullptr)
+    {
+        findNavigationReferencesInObjectRecursive(eType, *obj, p, inLinks, out);
+    }
+}
 
 inline std::vector<ExpandNode>
-    findNavigationReferences(ExpandType eType, nlohmann::json& jsonResponse)
+    findNavigationReferences(ExpandType eType,
+                             nlohmann::json::object_t& jsonResponse)
 {
     std::vector<ExpandNode> ret;
+
     const nlohmann::json::json_pointer root = nlohmann::json::json_pointer("");
-    findNavigationReferencesRecursive(eType, jsonResponse, root, false, ret);
+    findNavigationReferencesInObjectRecursive(eType, jsonResponse, root, false,
+                                              ret);
     return ret;
 }
 
@@ -542,18 +567,9 @@ class MultiAsyncResp : public std::enable_shared_from_this<MultiAsyncResp>
 
 inline void processTopAndSkip(const Query& query, crow::Response& res)
 {
-    nlohmann::json::object_t* obj =
-        res.jsonValue.get_ptr<nlohmann::json::object_t*>();
-    if (obj == nullptr)
-    {
-        // Shouldn't be possible.  All responses should be objects.
-        messages::internalError(res);
-        return;
-    }
-
     BMCWEB_LOG_DEBUG << "Handling top/skip";
-    nlohmann::json::object_t::iterator members = obj->find("Members");
-    if (members == obj->end())
+    nlohmann::json::object_t::iterator members = res.jsonValue.find("Members");
+    if (members == res.jsonValue.end())
     {
         // From the Redfish specification 7.3.1
         // ... the HTTP 400 Bad Request status code with the
