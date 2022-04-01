@@ -30,7 +30,7 @@ namespace redfish
 namespace messages
 {
 
-static void addMessageToErrorJson(nlohmann::json& target,
+static void addMessageToErrorJson(nlohmann::json::object_t& target,
                                   const nlohmann::json& message)
 {
     auto& error = target["error"];
@@ -77,7 +77,7 @@ static void addMessageToErrorJson(nlohmann::json& target,
     extendedInfo.push_back(message);
 }
 
-static void addMessageToJsonRoot(nlohmann::json& target,
+static void addMessageToJsonRoot(nlohmann::json::object_t& target,
                                  const nlohmann::json& message)
 {
     if (!target[messages::messageAnnotation].is_array())
@@ -89,7 +89,7 @@ static void addMessageToJsonRoot(nlohmann::json& target,
     target[messages::messageAnnotation].push_back(message);
 }
 
-static void addMessageToJson(nlohmann::json& target,
+static void addMessageToJson(nlohmann::json::object_t& target,
                              const nlohmann::json& message,
                              std::string_view fieldPath)
 {

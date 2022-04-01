@@ -153,7 +153,7 @@ inline void userErrorMessageHandler(
     }
 }
 
-inline void parseLDAPConfigData(nlohmann::json& jsonResponse,
+inline void parseLDAPConfigData(nlohmann::json::object_t& jsonResponse,
                                 const LDAPConfigData& confData,
                                 const std::string& ldapType)
 {

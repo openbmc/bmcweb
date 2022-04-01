@@ -537,7 +537,7 @@ inline void getCpuConfigData(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
                 return;
             }
 
-            nlohmann::json& json = aResp->res.jsonValue;
+            nlohmann::json::object_t& json = aResp->res.jsonValue;
 
             for (const auto& [dbusPropName, variantVal] : properties)
             {
@@ -828,7 +828,7 @@ inline void
                 return;
             }
 
-            nlohmann::json& json = aResp->res.jsonValue;
+            nlohmann::json::object_t& json = aResp->res.jsonValue;
             for (const auto& [key, variant] : properties)
             {
                 if (key == "AvailableCoreCount")
@@ -1147,7 +1147,8 @@ inline void requestRoutesOperatingConfig(App& app)
                             continue;
                         }
 
-                        nlohmann::json& json = asyncResp->res.jsonValue;
+                        nlohmann::json::object_t& json =
+                            asyncResp->res.jsonValue;
                         json["@odata.type"] =
                             "#OperatingConfig.v1_0_0.OperatingConfig";
                         json["@odata.id"] = reqUrl;
