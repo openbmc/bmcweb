@@ -41,6 +41,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2c2869e2_4885a92d",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-04-02T09:37:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f247e0c6_0db95944",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 43
+      },
+      "revId": "c54196e32cf2b6df99d3edb44cf218d483325d05",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "365d2552_b38ad04d",
@@ -54,6 +78,30 @@
       "writtenOn": "2022-04-01T17:37:45Z",
       "side": 1,
       "message": "Nit, in modern code generally we\u0027d prefer these to be string_view.  With that said, given these are constexpr, it\u0027s not a significant problem.",
+      "range": {
+        "startLine": 43,
+        "startChar": 38,
+        "endLine": 43,
+        "endChar": 62
+      },
+      "revId": "c54196e32cf2b6df99d3edb44cf218d483325d05",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2211b7d7_05fba024",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-04-02T09:37:03Z",
+      "side": 1,
+      "message": "Using std::string_view here breaks calling which use implicit const char* \u003d\u003c std::string conversion, here I keep uses const char*.",
+      "parentUuid": "365d2552_b38ad04d",
       "range": {
         "startLine": 43,
         "startChar": 38,
