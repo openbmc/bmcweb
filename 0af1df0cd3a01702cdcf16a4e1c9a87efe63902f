@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c77433f8_dc25fa50",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-04-02T09:55:32Z",
+      "side": 1,
+      "message": "Checked the man page of pam_chauthtok, PAM_NEW_AUTHTOK_REQD is not a valid error return value. That should be something wrong in the pam-ipmi.",
+      "parentUuid": "c58858d8_fc777646",
+      "range": {
+        "startLine": 10,
+        "startChar": 35,
+        "endLine": 10,
+        "endChar": 55
+      },
+      "revId": "0af1df0cd3a01702cdcf16a4e1c9a87efe63902f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6e9f7390_5bc2decd",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -37,6 +61,30 @@
       "writtenOn": "2022-03-31T20:22:56Z",
       "side": 1,
       "message": "This seems like poor behavior on the part of IPMI.  Redfish doesn\u0027t really have this limitation, so it seems like it shouldn\u0027t set a entire-system limit for setting a password that\u0027s longer, a longer password just won\u0027t work for IPMI (and maybe we return a warning message to that effect in Redfish).",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 54
+      },
+      "revId": "0af1df0cd3a01702cdcf16a4e1c9a87efe63902f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fe4bb890_2059090d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-04-02T09:55:32Z",
+      "side": 1,
+      "message": "This check is performed in pam with the pam-ipmi plugins. It only applies to users with IPMI permissions (of the ipmi group). If a user does not belong that group, the password length is unlimited.",
+      "parentUuid": "6e9f7390_5bc2decd",
       "range": {
         "startLine": 15,
         "startChar": 0,
@@ -60,6 +108,23 @@
       "writtenOn": "2022-03-31T17:59:20Z",
       "side": 1,
       "message": "Related pam-ipmi code: https://github.com/openbmc/pam-ipmi/blob/9dbd02268dfc40603e4a4985ba2fdf75b253dbf0/src/pam_ipmicheck/pam_ipmicheck.c#L117",
+      "revId": "0af1df0cd3a01702cdcf16a4e1c9a87efe63902f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d3c8c345_30b1bf43",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-04-02T09:55:32Z",
+      "side": 1,
+      "message": "By checking man page of pam_chauthtok, PAM_NEW_AUTHTOK_REQD is not a valid return value. This need to be fixed in pam-ipmi instead of workaround in bmcweb. Abandon this patch.",
       "revId": "0af1df0cd3a01702cdcf16a4e1c9a87efe63902f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
