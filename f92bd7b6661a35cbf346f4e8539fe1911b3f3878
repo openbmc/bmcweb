@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "90cce085_f579fa16",
+        "filename": "redfish-core/include/query.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-04-04T19:44:23Z",
+      "side": 1,
+      "message": "nit: the exact section will probably change in the future",
+      "range": {
+        "startLine": 16,
+        "startChar": 7,
+        "endLine": 16,
+        "endChar": 18
+      },
+      "revId": "f92bd7b6661a35cbf346f4e8539fe1911b3f3878",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
