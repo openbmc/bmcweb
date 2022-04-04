@@ -7,6 +7,67 @@
 #include "gmock/gmock.h"
 #include "gtest/gtest.h"
 
+namespace redfish::query_param
+{
+namespace
+{
+
+TEST(Delegate, OnlyPositive)
+{
+    Query query{
+        .isOnly = true,
+    };
+    QueryCapabilities capabilities{
+        .canDelegateOnly = true,
+    };
+    Query delegated = delegate(capabilities, query);
+    EXPECT_TRUE(delegated.isOnly);
+    EXPECT_FALSE(query.isOnly);
+}
+
+TEST(Delegate, ExpandPositive)
+{
+    Query query{
+        .isOnly = false,
+        .expandLevel = 5,
+        .expandType = ExpandType::Both,
+    };
+    QueryCapabilities capabilities{
+        .canDelegateExpandLevel = 3,
+    };
+    Query delegated = delegate(capabilities, query);
+    EXPECT_FALSE(delegated.isOnly);
+    EXPECT_EQ(delegated.expandLevel, capabilities.canDelegateExpandLevel);
+    EXPECT_EQ(delegated.expandType, ExpandType::Both);
+    EXPECT_EQ(query.expandLevel, 2);
+}
+
+TEST(Delegate, OnlyNegative)
+{
+    Query query{
+        .isOnly = true,
+    };
+    QueryCapabilities capabilities{
+        .canDelegateOnly = false,
+    };
+    Query delegated = delegate(capabilities, query);
+    EXPECT_FALSE(delegated.isOnly);
+    EXPECT_EQ(query.isOnly, true);
+}
+
+TEST(Delegate, ExpandNegative)
+{
+    Query query{
+        .isOnly = false,
+        .expandType = ExpandType::None,
+    };
+    Query delegated = delegate(QueryCapabilities{}, query);
+    EXPECT_EQ(delegated.expandType, ExpandType::None);
+}
+
+} // namespace
+} // namespace redfish::query_param
+
 TEST(QueryParams, ParseParametersOnly)
 {
     auto ret = boost::urls::parse_relative_ref("/redfish/v1?only");
