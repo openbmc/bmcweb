@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "20d61c6d_6eab07d7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1000652
+      },
+      "writtenOn": "2022-04-04T10:45:00Z",
+      "side": 1,
+      "message": "At present, changing the BIOS attributes via OOB is possible only through Redfish PATCH operation and not through IPMI.\nHere, I kept \"OOB\" as message argument to mainly detect whether BIOS attributes changed via InBand (EDKII menu) Versus OOB.\nCurrently we don\u0027t log when BIOS attribute changed via InBand though; I made this distinction for future extensibility of this registry.",
+      "parentUuid": "dd6b9d44_0321e022",
+      "range": {
+        "startLine": 43,
+        "startChar": 51,
+        "endLine": 43,
+        "endChar": 54
+      },
+      "revId": "9920cc32d771afdea1ac8ec870f901e8325d4de3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7315f691_23139b08",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-03-30T20:28:01Z",
       "side": 1,
       "message": "This got added between patchset 1 and 5, but there\u0027s no mention in the commit message of how it\u0027s intended to be used?  Can you add some more information about it.",
+      "range": {
+        "startLine": 135,
+        "startChar": 52,
+        "endLine": 135,
+        "endChar": 59
+      },
+      "revId": "9920cc32d771afdea1ac8ec870f901e8325d4de3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "008b2068_df40ca6e",
+        "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1000652
+      },
+      "writtenOn": "2022-04-04T10:45:00Z",
+      "side": 1,
+      "message": "Added this info to commit message now.",
+      "parentUuid": "7315f691_23139b08",
       "range": {
         "startLine": 135,
         "startChar": 52,
