@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ed320a33_97a7d00b",
+        "filename": "redfish-core/include/query.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-04T22:30:51Z",
+      "side": 1,
+      "message": "Good catch;  Looks like I was testing with a different local.conf than I thought I was.",
+      "parentUuid": "6bd5b7e6_0fe0a0d7",
+      "range": {
+        "startLine": 15,
+        "startChar": 18,
+        "endLine": 15,
+        "endChar": 49
+      },
+      "revId": "1e07116dec7107742f3b8f3becd37e75b5846892",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "801f0963_45f12898",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 18
