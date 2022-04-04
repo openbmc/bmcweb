@@ -8,6 +8,7 @@
 #include <charconv>
 #include <string>
 #include <string_view>
+#include <unordered_set>
 #include <utility>
 #include <vector>
 
@@ -24,11 +25,24 @@ enum class ExpandType : uint8_t
     Both,
 };
 
+// The struct stores the parsed query parameters of the default Redfish route.
 struct Query
 {
+    // Only
     bool isOnly = false;
+    // Expand
     uint8_t expandLevel = 1;
     ExpandType expandType = ExpandType::None;
+};
+
+// The struct defines how resource handlers in redfish-core/lib/ can handle
+// query parameters themselves, so that the default Redfish route will delegate
+// the processing.
+struct QueryCapabilities
+{
+    bool canDelegateOnly = false;
+    uint8_t canDelegateExpandLevel = 0;
+    std::unordered_set<ExpandType> canDelegateType;
 };
 
 inline bool getExpandType(std::string_view value, Query& query)
