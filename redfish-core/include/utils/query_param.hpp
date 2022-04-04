@@ -26,9 +26,14 @@ enum class ExpandType : uint8_t
 
 struct Query
 {
+    // Only
     bool isOnly = false;
+    bool delegateOnly = false;
+    // Expand
     uint8_t expandLevel = 1;
     ExpandType expandType = ExpandType::None;
+    bool delegateExpand = false;
+
     size_t skip = 0;
     size_t top = std::numeric_limits<size_t>::max();
 };
@@ -435,12 +440,12 @@ inline void
         completionHandler(intermediateResponse);
         return;
     }
-    if (query.isOnly)
+    if (query.isOnly && !query.delegateOnly)
     {
         processOnly(app, intermediateResponse, completionHandler);
         return;
     }
-    if (query.expandType != ExpandType::None)
+    if (query.expandType != ExpandType::None && !query.delegateOnly)
     {
         BMCWEB_LOG_DEBUG << "Executing expand query";
         // TODO(ed) this is a copy of the response object.  Admittedly,
