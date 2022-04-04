@@ -61,4 +61,8 @@ inline void fillMessageArgs(const std::span<const std::string_view> messageArgs,
     }
 }
 
+const Message*
+    getMessageFromRegistry(const std::string& messageKey,
+                           const std::span<const MessageEntry> registry);
+
 } // namespace redfish::registries
