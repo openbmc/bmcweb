@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3f1271ea_3d9b965c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000520
+      },
+      "writtenOn": "2022-04-04T09:55:47Z",
+      "side": 1,
+      "message": "Probably a GitHub Gist is a better place for this, unless others find it useful too.\n",
+      "revId": "7f15ba332d6df3f70659e833ccf41e2b5313bf19",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
