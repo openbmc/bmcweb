@@ -108,6 +108,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9133d0dd_6e20292e",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1126,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2022-04-04T17:44:28Z",
+      "side": 1,
+      "message": "Added a unit test for \"getMessageFromRegistry\" and \"getMessage\" (in a follow-up change), it seems these two functions are working correctly. So in this case the code will continue when `message` is nullptr such that the program fills whatever is in /var/log/redfish into the response.\n\nI think for the ServiceStarted services to be properly populated, a rule also needs to be added to rsyslogd.conf so that the unit name can be picked up by the registry template, maybe like this: https://gerrit.openbmc-project.xyz/c/openbmc/openbmc/+/52591",
+      "parentUuid": "2b79c35e_29c6d78c",
+      "range": {
+        "startLine": 1122,
+        "startChar": 0,
+        "endLine": 1126,
+        "endChar": 5
+      },
+      "revId": "8de7f90975bd9a4e725f5669d1041efec2b556dc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "169e630f_ad41765b",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 1
@@ -167,6 +191,30 @@
       "side": 1,
       "message": "Not nullable means \"can\u0027t be equal to null\" it does not note whether or not the property is required.  With that said, in this context, because we\u0027re producing a LogService that\u0027s backed by a message registry, they are required.",
       "parentUuid": "deda41e7_35fc63c1",
+      "range": {
+        "startLine": 1177,
+        "startChar": 0,
+        "endLine": 1193,
+        "endChar": 0
+      },
+      "revId": "8de7f90975bd9a4e725f5669d1041efec2b556dc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "19f562a9_3cc5b548",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1193,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2022-04-04T17:44:28Z",
+      "side": 1,
+      "message": "This document (https://www.dmtf.org/sites/default/files/standards/documents/DSP2055_1.0.0.pdf) says:\n\nNullable is ..\n- If false, the property is required.\n- If true or this qualifier is omitted, the property is optional.\n\nHowever yes it does seem all entries in the registry have a message field, so it seems we can say that if the entry is found in the registry, `message` must not be empty.",
+      "parentUuid": "e7bada43_960fa039",
       "range": {
         "startLine": 1177,
         "startChar": 0,
