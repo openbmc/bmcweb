@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "093182ba_10910808",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1001193
+      },
+      "writtenOn": "2022-04-04T21:58:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5e821f98_614a5102",
+      "range": {
+        "startLine": 239,
+        "startChar": 17,
+        "endLine": 239,
+        "endChar": 31
+      },
+      "revId": "3cf2d09a0e7d1d12c51b0fcd07094a09ac6142dc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1f7e979b_c7344c0e",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-04-04T19:48:53Z",
       "side": 1,
       "message": "use \n\n```\nsdbusplus::asio::getProperty\u003cstd::vector\u003cstd::string\u003e\u003e(...\n```\n\ninstead.\n\nSame with the others.",
+      "range": {
+        "startLine": 255,
+        "startChar": 0,
+        "endLine": 257,
+        "endChar": 56
+      },
+      "revId": "3cf2d09a0e7d1d12c51b0fcd07094a09ac6142dc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ce63953d_b242917b",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 1001193
+      },
+      "writtenOn": "2022-04-04T21:58:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1f7e979b_c7344c0e",
       "range": {
         "startLine": 255,
         "startChar": 0,
@@ -70,6 +118,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "08f5cba7_eb07b45c",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 828,
+      "author": {
+        "id": 1001193
+      },
+      "writtenOn": "2022-04-04T21:58:03Z",
+      "side": 1,
+      "message": "check if the list is empty beforehand",
+      "parentUuid": "a6428676_9fe46786",
+      "range": {
+        "startLine": 823,
+        "startChar": 0,
+        "endLine": 828,
+        "endChar": 13
+      },
+      "revId": "3cf2d09a0e7d1d12c51b0fcd07094a09ac6142dc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3fb373f2_5dc66287",
@@ -93,6 +165,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7076c148_d6a8c525",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 835,
+      "author": {
+        "id": 1001193
+      },
+      "writtenOn": "2022-04-04T21:58:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3fb373f2_5dc66287",
+      "range": {
+        "startLine": 834,
+        "startChar": 0,
+        "endLine": 835,
+        "endChar": 52
+      },
+      "revId": "3cf2d09a0e7d1d12c51b0fcd07094a09ac6142dc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1e4ea2fd_1e6c992f",
@@ -106,6 +202,30 @@
       "writtenOn": "2022-04-04T19:48:53Z",
       "side": 1,
       "message": "return?",
+      "range": {
+        "startLine": 703,
+        "startChar": 0,
+        "endLine": 704,
+        "endChar": 52
+      },
+      "revId": "3cf2d09a0e7d1d12c51b0fcd07094a09ac6142dc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "657a6335_c92dcc38",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 704,
+      "author": {
+        "id": 1001193
+      },
+      "writtenOn": "2022-04-04T21:58:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1e4ea2fd_1e6c992f",
       "range": {
         "startLine": 703,
         "startChar": 0,
