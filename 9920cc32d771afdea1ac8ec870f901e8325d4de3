@@ -48,6 +48,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e69b1ccb_8bb06545",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-04T18:40:09Z",
+      "side": 1,
+      "message": "\u003e At present, changing the BIOS attributes via OOB is possible only through Redfish PATCH operation and not through IPMI.\n\u003e Here, I kept \"OOB\" as message argument to mainly detect whether BIOS attributes changed via InBand (EDKII menu) Versus OOB.\n\u003e Currently we don\u0027t log when BIOS attribute changed via InBand though; I made this distinction for future extensibility of this registry.\n\n\nSo, what I\u0027m reading in the above (correct me if I\u0027m wrong) is that there\u0027s not code to implement this message as it stands.  Assuming I have that right, we can either:\n\n1. Merge the first version of this message that you specified before without the argument, and add the argument later once the backend can properly identify clients.\n2. Wait until the backend infrastructure work has been done.\n3. Something else?\n\nFor future extensibility, we can modify the message if required to add the new argument, but for the moment, if we don\u0027t have an implementation that can use that argument, I\u0027d prefer it be left out (ie option 1).",
+      "parentUuid": "20d61c6d_6eab07d7",
+      "range": {
+        "startLine": 43,
+        "startChar": 51,
+        "endLine": 43,
+        "endChar": 54
+      },
+      "revId": "9920cc32d771afdea1ac8ec870f901e8325d4de3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7315f691_23139b08",
