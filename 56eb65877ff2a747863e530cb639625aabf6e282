@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7c279b87_a73e3b2d",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-04-04T22:47:47Z",
+      "side": 1,
+      "message": "Actually, we don\u0027t these two booleans, we can just set isOnly to false if there\u0027s a special handler.\n\nSimilarly, if there\u0027s a special handler for level 1 expand, we can just set expandType to ExpandType::None to bypass the default handler.\n\nI can change if anything thinks this makes sense",
+      "range": {
+        "startLine": 31,
+        "startChar": 9,
+        "endLine": 31,
+        "endChar": 21
+      },
+      "revId": "56eb65877ff2a747863e530cb639625aabf6e282",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
