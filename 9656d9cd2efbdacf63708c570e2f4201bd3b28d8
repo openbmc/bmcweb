@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0515f19d_9c3d751a",
+        "filename": "include/google/dbus_utils.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1001386
+      },
+      "writtenOn": "2022-04-04T21:47:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "80d4f6f4_b90f74a4",
+      "revId": "9656d9cd2efbdacf63708c570e2f4201bd3b28d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fb9ad827_9a8d0b6e",
@@ -31,6 +49,30 @@
       "writtenOn": "2022-04-04T20:49:14Z",
       "side": 1,
       "message": "struct instead?",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 2
+      },
+      "revId": "9656d9cd2efbdacf63708c570e2f4201bd3b28d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e4120db0_31c5e2f4",
+        "filename": "include/google/dbus_utils.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1001386
+      },
+      "writtenOn": "2022-04-04T21:47:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fb9ad827_9a8d0b6e",
       "range": {
         "startLine": 38,
         "startChar": 0,
@@ -58,6 +100,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4a2024e4_2182cf3a",
+        "filename": "include/google/google_service_root.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1001386
+      },
+      "writtenOn": "2022-04-04T21:47:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "196c6b22_d87baff8",
+      "revId": "9656d9cd2efbdacf63708c570e2f4201bd3b28d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b7285108_64c98474",
@@ -71,6 +131,30 @@
       "writtenOn": "2022-04-04T20:49:14Z",
       "side": 1,
       "message": "combine since `path` is not sued anywhere else.",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 69,
+        "endChar": 58
+      },
+      "revId": "9656d9cd2efbdacf63708c570e2f4201bd3b28d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6bab5343_b4507c03",
+        "filename": "include/google/google_service_root.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1001386
+      },
+      "writtenOn": "2022-04-04T21:47:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b7285108_64c98474",
       "range": {
         "startLine": 68,
         "startChar": 0,
