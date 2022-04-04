@@ -558,6 +558,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "59bc2aad_6dce01c8",
+        "filename": "redfish-core/lib/external_storer.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1000520
+      },
+      "writtenOn": "2022-04-04T06:43:55Z",
+      "side": 1,
+      "message": "Good suggestion, I changed the functions that take filenames to take std::filesystem::path instead of just a generic string.",
+      "parentUuid": "eafeff79_8b039fa8",
+      "range": {
+        "startLine": 134,
+        "startChar": 18,
+        "endLine": 134,
+        "endChar": 35
+      },
+      "revId": "7463575598fb8cddf0c64ef1fb8b5183866b710d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ade95bf8_d816c251",
@@ -665,6 +689,30 @@
       "writtenOn": "2022-03-29T16:39:06Z",
       "side": 1,
       "message": "nit: lets leave this comment out, because these calls technically do \"block\" in the engineering sense, they just don\u0027t block on IO.  This subtlety isn\u0027t the most important to this code.",
+      "range": {
+        "startLine": 154,
+        "startChar": 0,
+        "endLine": 154,
+        "endChar": 65
+      },
+      "revId": "7463575598fb8cddf0c64ef1fb8b5183866b710d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "81f7deb1_fea0334e",
+        "filename": "redfish-core/lib/external_storer.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1000520
+      },
+      "writtenOn": "2022-04-04T06:43:55Z",
+      "side": 1,
+      "message": "OK, removed it. Since the base directory location is now changeable at runtime (for testing purposes), there\u0027s no more guarantee it\u0027s on tmpfs, anyway.",
+      "parentUuid": "7eabee0c_e8cd4abb",
       "range": {
         "startLine": 154,
         "startChar": 0,
@@ -792,6 +840,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a30f805f_7f3b35ea",
+        "filename": "redfish-core/lib/external_storer.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 1000520
+      },
+      "writtenOn": "2022-04-04T06:43:55Z",
+      "side": 1,
+      "message": "I actually like the style of using parens inside the !() expression. It makes sure the ! operator applies to the intended expression as a whole. I\u0027ve been bitten in previous situations where it did not. It\u0027s also idiomatic.\n\nIt would be nice if C++ had a syntax \"if not\" or \"unless\" to make it visually neater than using the 3 layers of parens, though, but it\u0027s also an easily recognizable idiom.",
+      "parentUuid": "d19e33f6_d1e105ca",
+      "range": {
+        "startLine": 217,
+        "startChar": 9,
+        "endLine": 217,
+        "endChar": 10
+      },
+      "revId": "7463575598fb8cddf0c64ef1fb8b5183866b710d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d7b24aee_1e89f0da",
@@ -838,6 +910,54 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0b4ab70e_5a49ec16",
+        "filename": "redfish-core/lib/external_storer.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 1000520
+      },
+      "writtenOn": "2022-04-04T06:43:55Z",
+      "side": 1,
+      "message": "Rewritten to use find, no need to declare any type.",
+      "parentUuid": "f0fc0ef5_730c230a",
+      "range": {
+        "startLine": 223,
+        "startChar": 15,
+        "endLine": 223,
+        "endChar": 19
+      },
+      "revId": "7463575598fb8cddf0c64ef1fb8b5183866b710d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e16cf304_ec2ca477",
+        "filename": "redfish-core/lib/external_storer.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 1000520
+      },
+      "writtenOn": "2022-04-04T06:43:55Z",
+      "side": 1,
+      "message": "Thanks for that suggestion, done.",
+      "parentUuid": "d7b24aee_1e89f0da",
+      "range": {
+        "startLine": 223,
+        "startChar": 0,
+        "endLine": 223,
+        "endChar": 41
+      },
+      "revId": "7463575598fb8cddf0c64ef1fb8b5183866b710d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "245e0fb9_204ed9e4",
@@ -851,6 +971,30 @@
       "writtenOn": "2022-03-29T16:39:06Z",
       "side": 1,
       "message": "this operation throws if Id is not of type string.  Please use get_ptr as we do elsewhere in bmcweb.\n\nAlso, as a general pattern please prefer to return early in these cases, ie\n\nreturn id\n\nbecause it avoids the extra indent for the continuing code.",
+      "range": {
+        "startLine": 241,
+        "startChar": 0,
+        "endLine": 241,
+        "endChar": 29
+      },
+      "revId": "7463575598fb8cddf0c64ef1fb8b5183866b710d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "214bda33_0c2cc9a3",
+        "filename": "redfish-core/lib/external_storer.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 1000520
+      },
+      "writtenOn": "2022-04-04T06:43:55Z",
+      "side": 1,
+      "message": "Thanks, good catch for checking that it\u0027s a string.",
+      "parentUuid": "245e0fb9_204ed9e4",
       "range": {
         "startLine": 241,
         "startChar": 0,
@@ -907,6 +1051,54 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "be900a9d_f27ea43b",
+        "filename": "redfish-core/lib/external_storer.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 1000520
+      },
+      "writtenOn": "2022-04-04T06:43:55Z",
+      "side": 1,
+      "message": "OK, renamed them.",
+      "parentUuid": "2f920379_3da0d113",
+      "range": {
+        "startLine": 254,
+        "startChar": 5,
+        "endLine": 254,
+        "endChar": 11
+      },
+      "revId": "7463575598fb8cddf0c64ef1fb8b5183866b710d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "91f46588_00211199",
+        "filename": "redfish-core/lib/external_storer.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 1000520
+      },
+      "writtenOn": "2022-04-04T06:43:55Z",
+      "side": 1,
+      "message": "I don\u0027t want to do a type conversion here, or introduce a child type of nlohmann:json that would require a downcast. Good catch about assuming it\u0027s an object, though. I added a check to be sure it\u0027s an object.",
+      "parentUuid": "3d8944cf_4cc0b901",
+      "range": {
+        "startLine": 254,
+        "startChar": 12,
+        "endLine": 254,
+        "endChar": 26
+      },
+      "revId": "7463575598fb8cddf0c64ef1fb8b5183866b710d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d58bccee_58f8d979",
@@ -920,6 +1112,30 @@
       "writtenOn": "2022-03-29T16:39:06Z",
       "side": 1,
       "message": "nit: same as above, lets stick with something other than \"trim\"",
+      "range": {
+        "startLine": 271,
+        "startChar": 5,
+        "endLine": 271,
+        "endChar": 8
+      },
+      "revId": "7463575598fb8cddf0c64ef1fb8b5183866b710d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f9fed9c8_361cc533",
+        "filename": "redfish-core/lib/external_storer.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 1000520
+      },
+      "writtenOn": "2022-04-04T06:43:55Z",
+      "side": 1,
+      "message": "Renamed it to \"strip\" which has a similar meaning to \"trim\".",
+      "parentUuid": "d58bccee_58f8d979",
       "range": {
         "startLine": 271,
         "startChar": 5,
@@ -953,6 +1169,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3677d431_0a6be55b",
+        "filename": "redfish-core/lib/external_storer.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 1000520
+      },
+      "writtenOn": "2022-04-04T06:43:55Z",
+      "side": 1,
+      "message": "The route handlers can\u0027t fail. They return void, by definition. They will always succeed, from the point of view of completing the HTTP transaction. If something goes wrong from the user\u0027s point of view, a HTTP error code will be included within the reply. However, from the function\u0027s point of view, it will always be a successful execution.",
+      "parentUuid": "cfe1967e_33cfd615",
+      "range": {
+        "startLine": 288,
+        "startChar": 0,
+        "endLine": 288,
+        "endChar": 5
+      },
+      "revId": "7463575598fb8cddf0c64ef1fb8b5183866b710d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "21a660e2_78510c04",
@@ -966,6 +1206,30 @@
       "writtenOn": "2022-03-29T16:39:06Z",
       "side": 1,
       "message": "nit, extra parens.",
+      "range": {
+        "startLine": 300,
+        "startChar": 9,
+        "endLine": 300,
+        "endChar": 10
+      },
+      "revId": "7463575598fb8cddf0c64ef1fb8b5183866b710d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0430d5bc_63ff4685",
+        "filename": "redfish-core/lib/external_storer.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 1000520
+      },
+      "writtenOn": "2022-04-04T06:43:55Z",
+      "side": 1,
+      "message": "Same comment as elsewhere.",
+      "parentUuid": "21a660e2_78510c04",
       "range": {
         "startLine": 300,
         "startChar": 9,
@@ -993,6 +1257,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c4ba4661_e72702f3",
+        "filename": "redfish-core/lib/external_storer.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 1000520
+      },
+      "writtenOn": "2022-04-04T06:43:55Z",
+      "side": 1,
+      "message": "Take a look at the API document. It\u0027s possible to customize both the outer layer of the GET response (without the \"Members\" suffix), and the inner layer (with the \"Members\" suffix). To tell the layers apart, I accept a nested JSON dictionary in the POST command.",
+      "parentUuid": "5f7a67c2_bcf77418",
+      "revId": "7463575598fb8cddf0c64ef1fb8b5183866b710d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4f1debc0_0c5e1a14",
@@ -1006,6 +1288,30 @@
       "writtenOn": "2022-03-29T16:39:06Z",
       "side": 1,
       "message": "nit, extra parens.  Happens a lot in this file.  I will stop mentioning it in this review, but it would be great if you could fix all of them.",
+      "range": {
+        "startLine": 333,
+        "startChar": 9,
+        "endLine": 333,
+        "endChar": 10
+      },
+      "revId": "7463575598fb8cddf0c64ef1fb8b5183866b710d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "702abe48_937045f6",
+        "filename": "redfish-core/lib/external_storer.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 333,
+      "author": {
+        "id": 1000520
+      },
+      "writtenOn": "2022-04-04T06:43:55Z",
+      "side": 1,
+      "message": "Hmm, I still like the parens, I mentioned that in another comment.",
+      "parentUuid": "4f1debc0_0c5e1a14",
       "range": {
         "startLine": 333,
         "startChar": 9,
@@ -1039,6 +1345,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "51dc0921_e26c170b",
+        "filename": "redfish-core/lib/external_storer.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 1000520
+      },
+      "writtenOn": "2022-04-04T06:43:55Z",
+      "side": 1,
+      "message": "OK, I changed it to \"POST\", because the action is a HTTP POST operation.",
+      "parentUuid": "0c9a4476_995f387b",
+      "range": {
+        "startLine": 337,
+        "startChar": 0,
+        "endLine": 337,
+        "endChar": 56
+      },
+      "revId": "7463575598fb8cddf0c64ef1fb8b5183866b710d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ae461462_aaecf30b",
@@ -1052,6 +1382,30 @@
       "writtenOn": "2022-03-29T16:39:06Z",
       "side": 1,
       "message": "Please avoid auto for these, it makes it very difficult to track what types are being used.  With that said, in this case, it looks to be a std::string, when it should be using the URL type.  There are a couple places where urls are used as strings.  Please fix all of them.",
+      "range": {
+        "startLine": 341,
+        "startChar": 4,
+        "endLine": 341,
+        "endChar": 8
+      },
+      "revId": "7463575598fb8cddf0c64ef1fb8b5183866b710d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "11261fcd_647ff7ad",
+        "filename": "redfish-core/lib/external_storer.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 1000520
+      },
+      "writtenOn": "2022-04-04T06:43:55Z",
+      "side": 1,
+      "message": "Can the URL type be used, even if it\u0027s not a complete URL? Maybe the filesystem path type would be more appropriate, since what I need to track is the portion of the URL that looks like a filesystem path.",
+      "parentUuid": "ae461462_aaecf30b",
       "range": {
         "startLine": 341,
         "startChar": 4,
@@ -1085,6 +1439,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "391d63fc_9be8e7e9",
+        "filename": "redfish-core/lib/external_storer.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 346,
+      "author": {
+        "id": 1000520
+      },
+      "writtenOn": "2022-04-04T06:43:55Z",
+      "side": 1,
+      "message": "Yep, fixed all of these.",
+      "parentUuid": "74c59929_bc4d8c32",
+      "range": {
+        "startLine": 346,
+        "startChar": 8,
+        "endLine": 346,
+        "endChar": 30
+      },
+      "revId": "7463575598fb8cddf0c64ef1fb8b5183866b710d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cae6cfba_66830f0a",
@@ -1098,6 +1476,30 @@
       "writtenOn": "2022-03-29T16:39:06Z",
       "side": 1,
       "message": "Please take a look at what each of these parameters mean, and correct them to produce the correct error message.  As written, this doesn\u0027t look right.",
+      "range": {
+        "startLine": 349,
+        "startChar": 65,
+        "endLine": 350,
+        "endChar": 51
+      },
+      "revId": "7463575598fb8cddf0c64ef1fb8b5183866b710d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "baf8702c_c5da0386",
+        "filename": "redfish-core/lib/external_storer.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 1000520
+      },
+      "writtenOn": "2022-04-04T06:43:55Z",
+      "side": 1,
+      "message": "What should the \"type\" be? I\u0027m guessing it\u0027s \"String\". Changed it accordingly.\n\nIn general, what\u0027s the best way to shoehorn an error message into the vocabulary of the error messages registry? I have to pick the closest match to what I want to say, and in this case, it has too many substitutions and I\u0027m not sure what to put in for all of the substitutions.",
+      "parentUuid": "cae6cfba_66830f0a",
       "range": {
         "startLine": 349,
         "startChar": 65,
@@ -1131,6 +1533,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1d771761_c07651c2",
+        "filename": "redfish-core/lib/external_storer.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 1000520
+      },
+      "writtenOn": "2022-04-04T06:43:55Z",
+      "side": 1,
+      "message": "I went through and changed many std::string usages, for filesystem things, to use std::filesystem::path instead.",
+      "parentUuid": "c92a4187_3f83bcee",
+      "range": {
+        "startLine": 354,
+        "startChar": 4,
+        "endLine": 354,
+        "endChar": 8
+      },
+      "revId": "7463575598fb8cddf0c64ef1fb8b5183866b710d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1cee1402_1ae09b15",
@@ -1144,6 +1570,30 @@
       "writtenOn": "2022-03-29T16:39:06Z",
       "side": 1,
       "message": "The redfish specification you\u0027re meeting here (ie message) does not allow for a Location field in the body.",
+      "range": {
+        "startLine": 385,
+        "startChar": 55,
+        "endLine": 385,
+        "endChar": 64
+      },
+      "revId": "7463575598fb8cddf0c64ef1fb8b5183866b710d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "55439a9a_2c9fb560",
+        "filename": "redfish-core/lib/external_storer.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 385,
+      "author": {
+        "id": 1000520
+      },
+      "writtenOn": "2022-04-04T06:43:55Z",
+      "side": 1,
+      "message": "OK, I looked more at the Message schema. It looks like I can safely put it in MessageArgs.",
+      "parentUuid": "1cee1402_1ae09b15",
       "range": {
         "startLine": 385,
         "startChar": 55,
@@ -1224,6 +1674,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5d4a95bf_be08c89e",
+        "filename": "redfish-core/lib/external_storer.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 1000520
+      },
+      "writtenOn": "2022-04-04T06:43:55Z",
+      "side": 1,
+      "message": "Hmm, is it an object lookup? The is_object() function is just a simple check of type, and it\u0027s O(1).",
+      "parentUuid": "938a746c_66d3c121",
+      "range": {
+        "startLine": 412,
+        "startChar": 18,
+        "endLine": 412,
+        "endChar": 27
+      },
+      "revId": "7463575598fb8cddf0c64ef1fb8b5183866b710d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "689a63de_c87aa4c4",
@@ -1237,6 +1711,30 @@
       "writtenOn": "2022-03-29T16:39:06Z",
       "side": 1,
       "message": "I mentioned this above about the other logging call, this has the same issue.  CreateEntry is not user facing.",
+      "range": {
+        "startLine": 429,
+        "startChar": 66,
+        "endLine": 429,
+        "endChar": 77
+      },
+      "revId": "7463575598fb8cddf0c64ef1fb8b5183866b710d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "01d1fedb_e657c053",
+        "filename": "redfish-core/lib/external_storer.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 429,
+      "author": {
+        "id": 1000520
+      },
+      "writtenOn": "2022-04-04T06:43:55Z",
+      "side": 1,
+      "message": "Changed it to \"POST\", as above.",
+      "parentUuid": "689a63de_c87aa4c4",
       "range": {
         "startLine": 429,
         "startChar": 66,
@@ -1270,6 +1768,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4231641e_17d372cf",
+        "filename": "redfish-core/lib/external_storer.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 439,
+      "author": {
+        "id": 1000520
+      },
+      "writtenOn": "2022-04-04T06:43:55Z",
+      "side": 1,
+      "message": "Yep, fixed all of these.",
+      "parentUuid": "cd21478d_512dda44",
+      "range": {
+        "startLine": 439,
+        "startChar": 34,
+        "endLine": 439,
+        "endChar": 38
+      },
+      "revId": "7463575598fb8cddf0c64ef1fb8b5183866b710d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4024048f_e55beae6",
@@ -1287,6 +1809,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf7a8328_a4bdd24e",
+        "filename": "redfish-core/lib/external_storer.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 472,
+      "author": {
+        "id": 1000520
+      },
+      "writtenOn": "2022-04-04T06:43:55Z",
+      "side": 1,
+      "message": "I think so. I will look through and see what commonality I can pull out.",
+      "parentUuid": "4024048f_e55beae6",
+      "revId": "7463575598fb8cddf0c64ef1fb8b5183866b710d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b4db6250_4de9c170",
@@ -1300,6 +1840,30 @@
       "writtenOn": "2022-03-29T16:39:06Z",
       "side": 1,
       "message": "common error #5.  Lots of your filesystem calls seem to have ignored this error, I will stop mentioning it, but please check all of them.",
+      "range": {
+        "startLine": 496,
+        "startChar": 0,
+        "endLine": 496,
+        "endChar": 41
+      },
+      "revId": "7463575598fb8cddf0c64ef1fb8b5183866b710d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "57b8022e_6563d59e",
+        "filename": "redfish-core/lib/external_storer.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 496,
+      "author": {
+        "id": 1000520
+      },
+      "writtenOn": "2022-04-04T06:43:55Z",
+      "side": 1,
+      "message": "Good catch. I went through all std::filesystem functions and made sure to use the error-checking version of each.\n\nIs there a way to tell the compiler you don\u0027t want to accidentally use a throwing function, and to make it a compilation error/warning to call anything that could throw?",
+      "parentUuid": "b4db6250_4de9c170",
       "range": {
         "startLine": 496,
         "startChar": 0,
