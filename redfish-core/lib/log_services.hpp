@@ -1146,6 +1146,7 @@ inline void requestRoutesJournalEventLogEntryCollection(App& app)
             boost::beast::http::verb::
                 get)([](const crow::Request& req,
                         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+<<<<<<< HEAD
             uint64_t skip = 0;
             // Show max entries by default
             uint64_t top = query_param::maxEntriesPerPage;
@@ -1154,6 +1155,12 @@ inline void requestRoutesJournalEventLogEntryCollection(App& app)
                 return;
             }
             if (!query_param::getTopParam(asyncResp, req, top))
+=======
+            std::optional<query_param::Query> queryOpt =
+                query_param::parseParameters(req.urlView.params(),
+                                             asyncResp->res);
+            if (queryOpt == std::nullopt)
+>>>>>>> 2298ba43f (Move existing top and skip uses to parseParameters)
             {
                 return;
             }
@@ -1195,7 +1202,8 @@ inline void requestRoutesJournalEventLogEntryCollection(App& app)
                     // Handle paging using skip (number of entries to skip
                     // from the start) and top (number of entries to
                     // display)
-                    if (entryCount <= skip || entryCount > skip + top)
+                    if (entryCount <= queryOpt->skip ||
+                        entryCount > queryOpt->skip + queryOpt->top)
                     {
                         continue;
                     }
@@ -1222,11 +1230,11 @@ inline void requestRoutesJournalEventLogEntryCollection(App& app)
                 }
             }
             asyncResp->res.jsonValue["Members@odata.count"] = entryCount;
-            if (skip + top < entryCount)
+            if (queryOpt->skip + queryOpt->top < entryCount)
             {
                 asyncResp->res.jsonValue["Members@odata.nextLink"] =
                     "/redfish/v1/Systems/system/LogServices/EventLog/Entries?$skip=" +
-                    std::to_string(skip + top);
+                    std::to_string(queryOpt->skip + queryOpt->top);
             }
         });
 }
@@ -1860,16 +1868,10 @@ inline void requestRoutesSystemHostLoggerCollection(App& app)
             boost::beast::http::verb::
                 get)([](const crow::Request& req,
                         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-            uint64_t skip = 0;
-            uint64_t top =
-                query_param::maxEntriesPerPage; // Show max 1000 entries by
-                                                // default, allow range 1 to
-                                                // 1000 entries per page.
-            if (!query_param::getSkipParam(asyncResp, req, skip))
-            {
-                return;
-            }
-            if (!query_param::getTopParam(asyncResp, req, top))
+            std::optional<query_param::Query> queryOpt =
+                query_param::parseParameters(req.urlView.params(),
+                                             asyncResp->res);
+            if (queryOpt == std::nullopt)
             {
                 return;
             }
@@ -1895,8 +1897,8 @@ inline void requestRoutesSystemHostLoggerCollection(App& app)
             // This vector only store the entries we want to expose that
             // control by skip and top.
             std::vector<std::string> logEntries;
-            if (!getHostLoggerEntries(hostLoggerFiles, skip, top, logEntries,
-                                      logCount))
+            if (!getHostLoggerEntries(hostLoggerFiles, queryOpt->skip,
+                                      queryOpt->top, logEntries, logCount))
             {
                 messages::internalError(asyncResp->res);
                 return;
@@ -1914,16 +1916,16 @@ inline void requestRoutesSystemHostLoggerCollection(App& app)
                 {
                     logEntryArray.push_back({});
                     nlohmann::json& hostLogEntry = logEntryArray.back();
-                    fillHostLoggerEntryJson(std::to_string(skip + i),
+                    fillHostLoggerEntryJson(std::to_string(queryOpt->skip + i),
                                             logEntries[i], hostLogEntry);
                 }
 
                 asyncResp->res.jsonValue["Members@odata.count"] = logCount;
-                if (skip + top < logCount)
+                if (queryOpt->skip + queryOpt->top < logCount)
                 {
                     asyncResp->res.jsonValue["Members@odata.nextLink"] =
                         "/redfish/v1/Systems/system/LogServices/HostLogger/Entries?$skip=" +
-                        std::to_string(skip + top);
+                        std::to_string(queryOpt->skip + queryOpt->top);
                 }
             }
         });
@@ -2126,6 +2128,7 @@ inline void requestRoutesBMCJournalLogEntryCollection(App& app)
             boost::beast::http::verb::
                 get)([](const crow::Request& req,
                         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+<<<<<<< HEAD
             uint64_t skip = 0;
             // Show max entries by default
             uint64_t top = query_param::maxEntriesPerPage;
@@ -2134,6 +2137,12 @@ inline void requestRoutesBMCJournalLogEntryCollection(App& app)
                 return;
             }
             if (!query_param::getTopParam(asyncResp, req, top))
+=======
+            std::optional<query_param::Query> queryOpt =
+                query_param::parseParameters(req.urlView.params(),
+                                             asyncResp->res);
+            if (queryOpt == std::nullopt)
+>>>>>>> 2298ba43f (Move existing top and skip uses to parseParameters)
             {
                 return;
             }
@@ -2171,7 +2180,8 @@ inline void requestRoutesBMCJournalLogEntryCollection(App& app)
                 entryCount++;
                 // Handle paging using skip (number of entries to skip from
                 // the start) and top (number of entries to display)
-                if (entryCount <= skip || entryCount > skip + top)
+                if (entryCount <= queryOpt->skip ||
+                    entryCount > queryOpt->skip + queryOpt->top)
                 {
                     continue;
                 }
@@ -2197,11 +2207,11 @@ inline void requestRoutesBMCJournalLogEntryCollection(App& app)
                 }
             }
             asyncResp->res.jsonValue["Members@odata.count"] = entryCount;
-            if (skip + top < entryCount)
+            if (queryOpt->skip + queryOpt->top < entryCount)
             {
                 asyncResp->res.jsonValue["Members@odata.nextLink"] =
                     "/redfish/v1/Managers/bmc/LogServices/Journal/Entries?$skip=" +
-                    std::to_string(skip + top);
+                    std::to_string(queryOpt->skip + queryOpt->top);
             }
         });
 }
@@ -3307,18 +3317,22 @@ inline void requestRoutesPostCodesEntryCollection(App& app)
                 asyncResp->res.jsonValue["Members"] = nlohmann::json::array();
                 asyncResp->res.jsonValue["Members@odata.count"] = 0;
 
+<<<<<<< HEAD
                 uint64_t skip = 0;
                 // Show max entries by default
                 uint64_t top = query_param::maxEntriesPerPage;
                 if (!query_param::getSkipParam(asyncResp, req, skip))
+=======
+                std::optional<query_param::Query> queryOpt =
+                    query_param::parseParameters(req.urlView.params(),
+                                                 asyncResp->res);
+                if (queryOpt == std::nullopt)
+>>>>>>> 2298ba43f (Move existing top and skip uses to parseParameters)
                 {
                     return;
                 }
-                if (!query_param::getTopParam(asyncResp, req, top))
-                {
-                    return;
-                }
-                getCurrentBootNumber(asyncResp, skip, top);
+
+                getCurrentBootNumber(asyncResp, queryOpt->skip, queryOpt->top);
             });
 }
 
