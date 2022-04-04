@@ -139,6 +139,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8c4a8f3b_9507edbb",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 2974,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-04-04T22:00:08Z",
+      "side": 1,
+      "message": "Please take a look at https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/52604/2, which adds a way to delegate any parameter.\n\nWhat about getting $top later but merge this expand delegation first? It\u0027s a proof of concept of delegation and doesn\u0027t make things worse now (regarding $top + $expand).",
+      "parentUuid": "4ee9e7b4_3dcf9023",
+      "range": {
+        "startLine": 2971,
+        "startChar": 0,
+        "endLine": 2974,
+        "endChar": 5
+      },
+      "revId": "515e077fccda19d77cf85dedc3b2d4907a9e0380",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a3eca94f_51c1b16c",
         "filename": "redfish-core/lib/sensors.hpp",
         "patchSetId": 2
