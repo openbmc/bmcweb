@@ -110,6 +110,30 @@
       },
       "revId": "c54196e32cf2b6df99d3edb44cf218d483325d05",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c2d38871_0c74ba0a",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-04T20:54:39Z",
+      "side": 1,
+      "message": "const std::string_view \u003d\u003c std::string also exists though, so I don\u0027t quite understand your comment.",
+      "parentUuid": "2211b7d7_05fba024",
+      "range": {
+        "startLine": 43,
+        "startChar": 38,
+        "endLine": 43,
+        "endChar": 62
+      },
+      "revId": "c54196e32cf2b6df99d3edb44cf218d483325d05",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
