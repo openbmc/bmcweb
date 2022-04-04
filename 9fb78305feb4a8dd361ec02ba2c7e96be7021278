@@ -143,6 +143,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9f7a83ff_d30cd40d",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-04T18:54:14Z",
+      "side": 1,
+      "message": "Added more comments.",
+      "parentUuid": "abb5c15a_506fd590",
+      "range": {
+        "startLine": 193,
+        "startChar": 12,
+        "endLine": 193,
+        "endChar": 45
+      },
+      "revId": "9fb78305feb4a8dd361ec02ba2c7e96be7021278",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "84c5d103_b0b43785",
@@ -156,6 +180,30 @@
       "writtenOn": "2022-04-01T22:48:47Z",
       "side": 1,
       "message": "nit: miss this; but prefer to put output parameters to the end;",
+      "range": {
+        "startLine": 196,
+        "startChar": 9,
+        "endLine": 196,
+        "endChar": 16
+      },
+      "revId": "9fb78305feb4a8dd361ec02ba2c7e96be7021278",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b7ba438_528a5f67",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-04T18:54:14Z",
+      "side": 1,
+      "message": "Not something that I think we have a cpp core guidelines rule for, and not something I would probably enforce, but sure, seems reasonable.\n\nDone",
+      "parentUuid": "84c5d103_b0b43785",
       "range": {
         "startLine": 196,
         "startChar": 9,
