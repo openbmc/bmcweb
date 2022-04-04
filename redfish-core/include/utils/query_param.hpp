@@ -76,6 +76,49 @@ inline bool getExpandType(std::string_view value, Query& query)
     return value == ")";
 }
 
+static bool getSkipParam(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                         const crow::Request& req, uint64_t& skip)
+{
+    boost::urls::params_view::iterator it = req.urlView.params().find("$skip");
+    if (it != req.urlView.params().end())
+    {
+        std::from_chars_result r = std::from_chars(
+            (*it).value.data(), (*it).value.data() + (*it).value.size(), skip);
+        if (r.ec != std::errc())
+        {
+            messages::queryParameterValueTypeError(asyncResp->res, "", "$skip");
+            return false;
+        }
+    }
+    return true;
+}
+
+static constexpr const uint64_t maxEntriesPerPage = 1000;
+static bool getTopParam(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                        const crow::Request& req, uint64_t& top)
+{
+    boost::urls::params_view::iterator it = req.urlView.params().find("$top");
+    if (it != req.urlView.params().end())
+    {
+        std::from_chars_result r = std::from_chars(
+            (*it).value.data(), (*it).value.data() + (*it).value.size(), top);
+        if (r.ec != std::errc())
+        {
+            messages::queryParameterValueTypeError(asyncResp->res, "", "$top");
+            return false;
+        }
+        if (top < 1U || top > maxEntriesPerPage)
+        {
+
+            messages::queryParameterOutOfRange(
+                asyncResp->res, std::to_string(top), "$top",
+                "1-" + std::to_string(maxEntriesPerPage));
+            return false;
+        }
+    }
+    return true;
+}
+
 inline std::optional<Query>
     parseParameters(const boost::urls::params_view& urlParams,
                     crow::Response& res)
