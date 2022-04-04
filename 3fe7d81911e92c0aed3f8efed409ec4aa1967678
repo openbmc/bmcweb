@@ -38,6 +38,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "3cd128d7_a5a3851e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-04T18:42:44Z",
+      "side": 1,
+      "message": "Looks great.  Thanks for doing that, that helps a lot.\n\nmanagement_console_rest.hpp is IBMs OEM namespace, so maybe Gunnar can shine some light on why it duplicates code?",
+      "parentUuid": "52f2ead3_2d366434",
+      "revId": "3fe7d81911e92c0aed3f8efed409ec4aa1967678",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "a4cf61f0_313a684e",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 1
