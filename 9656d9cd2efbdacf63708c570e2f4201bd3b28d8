@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "80d4f6f4_b90f74a4",
+        "filename": "include/google/dbus_utils.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-04-04T20:49:14Z",
+      "side": 1,
+      "message": "Add Google Copyright for this?\n\nAlso auto format for all files in this change",
+      "revId": "9656d9cd2efbdacf63708c570e2f4201bd3b28d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb9ad827_9a8d0b6e",
+        "filename": "include/google/dbus_utils.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-04-04T20:49:14Z",
+      "side": 1,
+      "message": "struct instead?",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 2
+      },
+      "revId": "9656d9cd2efbdacf63708c570e2f4201bd3b28d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "196c6b22_d87baff8",
+        "filename": "include/google/google_service_root.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-04-04T20:49:14Z",
+      "side": 1,
+      "message": "nit: remove line",
+      "revId": "9656d9cd2efbdacf63708c570e2f4201bd3b28d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b7285108_64c98474",
+        "filename": "include/google/google_service_root.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-04-04T20:49:14Z",
+      "side": 1,
+      "message": "combine since `path` is not sued anywhere else.",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 69,
+        "endChar": 58
+      },
+      "revId": "9656d9cd2efbdacf63708c570e2f4201bd3b28d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
