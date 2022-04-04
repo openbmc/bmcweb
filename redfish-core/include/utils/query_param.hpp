@@ -24,12 +24,55 @@ enum class ExpandType : uint8_t
     Both,
 };
 
+// The struct stores the parsed query parameters of the default Redfish route.
 struct Query
 {
+    // Only
     bool isOnly = false;
-    uint8_t expandLevel = 1;
+    // Expand
+    uint8_t expandLevel = 0;
     ExpandType expandType = ExpandType::None;
 };
+
+// The struct defines how resource handlers in redfish-core/lib/ can handle
+// query parameters themselves, so that the default Redfish route will delegate
+// the processing.
+struct QueryCapabilities
+{
+    bool canDelegateOnly = false;
+    uint8_t canDelegateExpandLevel = 0;
+};
+
+// Delegates query parameters according to the given |queryCapabilities|
+// This function doesn't check query parameter conflicts since the parse
+// function will take care of it.
+// Returns a delegated query object which can be used by individual resource
+// handlers so that handlers don't need to query again.
+inline Query delegate(const QueryCapabilities& queryCapabilities, Query& query)
+{
+    Query delegated;
+    // delegate only
+    if (query.isOnly && queryCapabilities.canDelegateOnly)
+    {
+        std::swap(query.isOnly, delegated.isOnly);
+    }
+    // delegate expand as much as we can
+    if (query.expandType != ExpandType::None)
+    {
+        if (query.expandLevel <= queryCapabilities.canDelegateExpandLevel)
+        {
+            std::swap(delegated.expandType, query.expandType);
+            std::swap(delegated.expandLevel, query.expandLevel);
+        }
+        else
+        {
+            query.expandLevel -= queryCapabilities.canDelegateExpandLevel;
+            delegated.expandLevel = queryCapabilities.canDelegateExpandLevel;
+            delegated.expandType = query.expandType;
+        }
+    }
+    return delegated;
+}
 
 inline bool getExpandType(std::string_view value, Query& query)
 {
