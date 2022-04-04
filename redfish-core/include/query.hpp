@@ -7,9 +7,14 @@
 namespace redfish
 {
 
-[[nodiscard]] inline bool setUpRedfishRoute(crow::App& app,
-                                            const crow::Request& req,
-                                            crow::Response& res)
+// Sets up the Redfish Route and delegates some of the query parameter
+// processing. |queryCapabilities| stores which query parameters will be
+// handled by redfish-core/lib codes, then default query parameter handler won't
+// process these parameters.
+[[nodiscard]] inline bool setUpRedfishRouteWithDelegation(
+    crow::App& app, const crow::Request& req, crow::Response& res,
+    query_param::Query& delegated,
+    const query_param::QueryCapabilities& queryCapabilities)
 {
     BMCWEB_LOG_DEBUG << "setup redfish route";
 
@@ -42,14 +47,25 @@ namespace redfish
         return true;
     }
 
+    delegated = query_param::delegate(queryCapabilities, *queryOpt);
     std::function<void(crow::Response&)> handler =
         res.releaseCompleteRequestHandler();
-
     res.setCompleteRequestHandler(
         [&app, handler(std::move(handler)),
          query{*queryOpt}](crow::Response& res) mutable {
             processAllParams(app, query, handler, res);
         });
     return true;
+}
+
+// Sets up the Redfish Route. All parameters are handled by the default handler.
+[[nodiscard]] inline bool setUpRedfishRoute(crow::App& app,
+                                            const crow::Request& req,
+                                            crow::Response& res)
+{
+    // This route |delegated| is never used
+    query_param::Query delegated;
+    return setUpRedfishRouteWithDelegation(app, req, res, delegated,
+                                           query_param::QueryCapabilities{});
 }
 } // namespace redfish
