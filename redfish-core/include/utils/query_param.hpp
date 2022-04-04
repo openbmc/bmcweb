@@ -29,6 +29,8 @@ struct Query
     bool isOnly = false;
     uint8_t expandLevel = 1;
     ExpandType expandType = ExpandType::None;
+    size_t skip = 0;
+    size_t top = std::numeric_limits<size_t>::max();
 };
 
 inline bool getExpandType(std::string_view value, Query& query)
@@ -76,47 +78,45 @@ inline bool getExpandType(std::string_view value, Query& query)
     return value == ")";
 }
 
-static bool getSkipParam(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                         const crow::Request& req, uint64_t& skip)
+static bool getSkipParam(std::string_view value, Query& query)
 {
-    boost::urls::params_view::iterator it = req.urlView.params().find("$skip");
-    if (it != req.urlView.params().end())
-    {
-        std::from_chars_result r = std::from_chars(
-            (*it).value.data(), (*it).value.data() + (*it).value.size(), skip);
-        if (r.ec != std::errc())
-        {
-            messages::queryParameterValueTypeError(asyncResp->res, "", "$skip");
-            return false;
-        }
-    }
-    return true;
+    std::from_chars_result r =
+        std::from_chars(value.data(), value.data() + value.size(), query.skip);
+    return r.ec == std::errc();
 }
 
-static constexpr const uint64_t maxEntriesPerPage = 1000;
-static bool getTopParam(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                        const crow::Request& req, uint64_t& top)
+enum class QueryError
 {
-    boost::urls::params_view::iterator it = req.urlView.params().find("$top");
-    if (it != req.urlView.params().end())
-    {
-        std::from_chars_result r = std::from_chars(
-            (*it).value.data(), (*it).value.data() + (*it).value.size(), top);
-        if (r.ec != std::errc())
-        {
-            messages::queryParameterValueTypeError(asyncResp->res, "", "$top");
-            return false;
-        }
-        if (top < 1U || top > maxEntriesPerPage)
-        {
+    OK,
+    OUT_OF_RANGE,
+    VALUE_FORMAT,
+};
 
-            messages::queryParameterOutOfRange(
-                asyncResp->res, std::to_string(top), "$top",
-                "1-" + std::to_string(maxEntriesPerPage));
-            return false;
-        }
+static constexpr const size_t maxEntriesPerPage = 1000;
+
+static QueryError getTopParam(std::string_view value, Query& query)
+{
+    std::from_chars_result r =
+        std::from_chars(value.data(), value.data() + value.size(), query.top);
+
+    // If the number wasn't representable in the type, it's out of range
+    if (r.ec == std::errc::result_out_of_range)
+    {
+        return QueryError::OUT_OF_RANGE;
     }
-    return true;
+    // All other errors are value format
+    if (r.ec != std::errc())
+    {
+        return QueryError::VALUE_FORMAT;
+    }
+
+    // Range check for sanity.
+    if (query.top < 1U || query.top > maxEntriesPerPage)
+    {
+        return QueryError::OUT_OF_RANGE;
+    }
+
+    return QueryError::OK;
 }
 
 inline std::optional<Query>
@@ -140,6 +140,31 @@ inline std::optional<Query>
         else if (key == "$expand")
         {
             if (!getExpandType(value, ret))
+            {
+                messages::queryParameterValueFormatError(res, value, key);
+                return std::nullopt;
+            }
+        }
+        else if (key == "$top")
+        {
+            QueryError topRet = getTopParam(value, ret);
+            if (topRet == QueryError::VALUE_FORMAT)
+            {
+                messages::queryParameterValueFormatError(res, value, key);
+                return std::nullopt;
+            }
+            if (topRet == QueryError::OUT_OF_RANGE)
+            {
+                messages::queryParameterOutOfRange(
+                    res, value, "$top",
+                    "1-" + std::to_string(maxEntriesPerPage));
+                return std::nullopt;
+            }
+        }
+        else if (key == "$skip")
+        {
+
+            if (!getSkipParam(value, ret))
             {
                 messages::queryParameterValueFormatError(res, value, key);
                 return std::nullopt;
