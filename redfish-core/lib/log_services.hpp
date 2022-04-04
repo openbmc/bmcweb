@@ -58,22 +58,6 @@ constexpr char const* crashdumpTelemetryInterface =
 
 namespace registries
 {
-static const Message*
-    getMessageFromRegistry(const std::string& messageKey,
-                           const std::span<const MessageEntry> registry)
-{
-    std::span<const MessageEntry>::iterator messageIt = std::find_if(
-        registry.begin(), registry.end(),
-        [&messageKey](const MessageEntry& messageEntry) {
-            return std::strcmp(messageEntry.first, messageKey.c_str()) == 0;
-        });
-    if (messageIt != registry.end())
-    {
-        return &messageIt->second;
-    }
-
-    return nullptr;
-}
 
 static const Message* getMessage(const std::string_view& messageID)
 {
