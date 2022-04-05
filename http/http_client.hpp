@@ -89,7 +89,7 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
     std::string port;
     uint32_t connId;
     std::string data;
-    std::function<void(bool, uint32_t)> callback;
+    std::function<void(bool, uint32_t, Response&)> callback;
 
     // Retry policy for the larger connection pool
     const uint32_t& maxRetryAttempts;
@@ -238,7 +238,9 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
                 BMCWEB_LOG_DEBUG << "recvMessage() keepalive : "
                                  << self->parser->keep_alive();
 
-                self->callback(self->parser->keep_alive(), self->connId);
+                Response res;
+                res.stringResponse = self->parser->get();
+                self->callback(self->parser->keep_alive(), self->connId, res);
             });
     }
 
@@ -248,16 +250,18 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
         {
             BMCWEB_LOG_ERROR << "Maximum number of retries reached.";
             BMCWEB_LOG_DEBUG << "Retry policy: " << retryPolicyAction;
+            Response res;
+            redfish::messages::internalError(res);
             if (retryPolicyAction == "TerminateAfterRetries")
             {
                 // TODO: delete subscription
                 state = ConnState::terminated;
-                callback(false, connId);
+                callback(false, connId, res);
             }
             if (retryPolicyAction == "SuspendRetries")
             {
                 state = ConnState::suspended;
-                callback(false, connId);
+                callback(false, connId, res);
             }
             // Reset the retrycount to zero so that client can try connecting
             // again if needed
@@ -382,7 +386,7 @@ class ConnectionPool
     const boost::beast::http::fields& httpHeader;
     std::vector<std::shared_ptr<ConnectionInfo>> connections;
     boost::container::devector<std::string> requestDataQueue;
-    boost::container::devector<std::function<void(bool, uint32_t)>>
+    boost::container::devector<std::function<void(bool, uint32_t, Response&)>>
         requestCallbackQueue;
 
     // Retry policy for all connections in the pool
@@ -436,12 +440,15 @@ class ConnectionPool
         }
     }
 
-    void sendData(const std::string& data)
+    void sendData(const std::string& data, std::function<void(Response&)> resHandler)
     {
         // Callback to be called once the request has been sent
-        auto cb = [this](bool keepAlive, uint32_t connId) {
+        auto cb = [this, &resHandler](bool keepAlive, uint32_t connId, Response& res) {
             // If requests remain in the queue then we want to reuse this
             // connection to send the next request
+            BMCWEB_LOG_DEBUG << "MYDEBUG: Inside cb created by ConnectionPool.sendData()";
+            resHandler(res);
+            BMCWEB_LOG_DEBUG << "MYDEBUG: Just called resHandler(res)";
             this->sendNext(keepAlive, connId);
         };
 
@@ -568,6 +575,23 @@ class HttpClient
                   const std::string& destUri,
                   const boost::beast::http::fields& httpHeader)
     {
+        // Create a dummy callback for handling the response
+        auto resHandler = [](Response& res) {
+            BMCWEB_LOG_DEBUG << "MYDEBUG: Inside the dummy callback";
+            BMCWEB_LOG_DEBUG << "Response handled with return code: " << std::to_string(res.resultInt());
+        };
+
+        sendData(data, id, destIP, destPort, destUri, httpHeader, std::bind_front(resHandler));
+    }
+
+    // Send request to destIP:destPort and use the provided callback to
+    // handle the response
+    void sendData(const std::string& data, const std::string& id,
+                  const std::string& destIP, const std::string& destPort,
+                  const std::string& destUri,
+                  const boost::beast::http::fields& httpHeader,
+                  std::function<void(Response&)> resHandler)
+    {
         std::string clientKey = destIP + ":" + destPort;
         auto result = connectionPools.try_emplace(
             clientKey, ioc, id, destIP, destPort, destUri, httpHeader);
@@ -584,7 +608,7 @@ class HttpClient
 
         // Send the data using either the existing connection pool or the newly
         // created connection pool
-        result.first->second.sendData(data);
+        result.first->second.sendData(data,resHandler);
     }
 
     void setRetryConfig(const uint32_t retryAttempts,
