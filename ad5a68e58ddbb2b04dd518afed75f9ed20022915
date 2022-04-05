@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d0385da2_2cdbed80",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-05T16:20:47Z",
+      "side": 1,
+      "message": "Can you please do this as two commits?  They\u0027re relatively unrelated.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 66
+      },
+      "revId": "ad5a68e58ddbb2b04dd518afed75f9ed20022915",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "44ec9a8a_e2bae31d",
+        "filename": "redfish-core/include/registries.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-05T16:20:47Z",
+      "side": 1,
+      "message": "This isn\u0027t the right header file for these if the implementation is in error_messages.cpp, these shoudl be going in error_messages.hpp",
+      "range": {
+        "startLine": 63,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 74
+      },
+      "revId": "ad5a68e58ddbb2b04dd518afed75f9ed20022915",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
