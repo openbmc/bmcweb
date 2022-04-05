@@ -493,9 +493,48 @@ class MultiAsyncResp : public std::enable_shared_from_this<MultiAsyncResp>
     std::shared_ptr<bmcweb::AsyncResp> finalRes;
 };
 
+inline void processTopAndSkip(const Query& query, crow::Response& res)
+{
+    nlohmann::json::object_t* obj =
+        res.jsonValue.get_ptr<nlohmann::json::object_t*>();
+    if (obj == nullptr)
+    {
+        // Shouldn't be possible.  All responses should be objects.
+        messages::internalError(res);
+        return;
+    }
+
+    BMCWEB_LOG_DEBUG << "Handling top/skip";
+    nlohmann::json::object_t::iterator members = obj->find("Members");
+    if (members == obj->end())
+    {
+        // From the specification
+        // ... the HTTP 400 Bad Request status code with the
+        // QueryNotSupportedOnResource message from the Base Message Registry
+        // for any supported query parameters that apply only to resource
+        // collections but are used on singular resources.
+        messages::queryNotSupportedOnResource(res);
+        return;
+    }
+
+    nlohmann::json::array_t* arr =
+        members->second.get_ptr<nlohmann::json::array_t*>();
+    if (arr == nullptr)
+    {
+        messages::internalError(res);
+        return;
+    }
+
+    // Can only skip as many values as we have
+    size_t skip = std::min(arr->size(), query.skip);
+    arr->erase(arr->begin(), arr->begin() + static_cast<ssize_t>(skip));
+
+    size_t top = std::min(arr->size(), query.top);
+    arr->erase(arr->begin() + static_cast<ssize_t>(top), arr->end());
+}
+
 inline void
     processAllParams(crow::App& app, const Query query,
-
                      std::function<void(crow::Response&)>& completionHandler,
                      crow::Response& intermediateResponse)
 {
@@ -519,6 +558,12 @@ inline void
         processOnly(app, intermediateResponse, completionHandler);
         return;
     }
+
+    if (query.top != std::numeric_limits<size_t>::max() || query.skip != 0)
+    {
+        processTopAndSkip(query, intermediateResponse);
+    }
+
     if (query.expandType != ExpandType::None)
     {
         BMCWEB_LOG_DEBUG << "Executing expand query";
