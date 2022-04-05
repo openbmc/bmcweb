@@ -142,6 +142,73 @@ TEST(QueryParams, ParseParametersExpand)
     EXPECT_TRUE(query->expandType == redfish::query_param::ExpandType::Both);
 }
 
+TEST(QueryParams, ParseParametersTop)
+{
+    auto ret = boost::urls::parse_relative_ref("/redfish/v1?$top=1");
+    ASSERT_TRUE(ret);
+
+    crow::Response res;
+
+    using redfish::query_param::parseParameters;
+    using redfish::query_param::Query;
+    std::optional<Query> query = parseParameters(ret->params(), res);
+    ASSERT_TRUE(query != std::nullopt);
+    EXPECT_EQ(query->top, 1);
+}
+
+TEST(QueryParams, ParseParametersTopOutOfRangeNegative)
+{
+    auto ret = boost::urls::parse_relative_ref("/redfish/v1?$top=-1");
+    ASSERT_TRUE(ret);
+
+    crow::Response res;
+
+    using redfish::query_param::parseParameters;
+    using redfish::query_param::Query;
+    std::optional<Query> query = parseParameters(ret->params(), res);
+    ASSERT_TRUE(query == std::nullopt);
+}
+
+TEST(QueryParams, ParseParametersTopOutOfRangePositive)
+{
+    auto ret = boost::urls::parse_relative_ref("/redfish/v1?$top=1001");
+    ASSERT_TRUE(ret);
+
+    crow::Response res;
+
+    using redfish::query_param::parseParameters;
+    using redfish::query_param::Query;
+    std::optional<Query> query = parseParameters(ret->params(), res);
+    ASSERT_TRUE(query == std::nullopt);
+}
+
+TEST(QueryParams, ParseParametersSkip)
+{
+    auto ret = boost::urls::parse_relative_ref("/redfish/v1?$skip=1");
+    ASSERT_TRUE(ret);
+
+    crow::Response res;
+
+    using redfish::query_param::parseParameters;
+    using redfish::query_param::Query;
+    std::optional<Query> query = parseParameters(ret->params(), res);
+    ASSERT_TRUE(query != std::nullopt);
+    EXPECT_EQ(query->skip, 1);
+}
+TEST(QueryParams, ParseParametersSkipOutOfRange)
+{
+    auto ret = boost::urls::parse_relative_ref(
+        "/redfish/v1?$skip=99999999999999999999");
+    ASSERT_TRUE(ret);
+
+    crow::Response res;
+
+    using redfish::query_param::parseParameters;
+    using redfish::query_param::Query;
+    std::optional<Query> query = parseParameters(ret->params(), res);
+    ASSERT_EQ(query, std::nullopt);
+}
+
 TEST(QueryParams, ParseParametersUnexpectedGetsIgnored)
 {
     auto ret = boost::urls::parse_relative_ref("/redfish/v1?unexpected_param");
