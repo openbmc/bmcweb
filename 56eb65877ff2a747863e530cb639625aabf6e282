@@ -3,6 +3,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "63bcb545_1a2c15fa",
+        "filename": "redfish-core/include/query.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-05T16:46:05Z",
+      "side": 1,
+      "message": "Should this be taken by reference, and simply modifying the Query object that exists, instead of making a full copy?",
+      "range": {
+        "startLine": 17,
+        "startChar": 43,
+        "endLine": 17,
+        "endChar": 61
+      },
+      "revId": "56eb65877ff2a747863e530cb639625aabf6e282",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "33c9d3f4_69080fe8",
+        "filename": "redfish-core/include/query.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-05T16:46:05Z",
+      "side": 1,
+      "message": "I commented on the other review, but as written, this is going to require an extra method for every single function that wants to do efficient handling, and in most cases, it\u0027s just going to be a simple return true (at least in the existing log service cases).",
+      "range": {
+        "startLine": 18,
+        "startChar": 8,
+        "endLine": 18,
+        "endChar": 26
+      },
+      "revId": "56eb65877ff2a747863e530cb639625aabf6e282",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7c279b87_a73e3b2d",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 3
