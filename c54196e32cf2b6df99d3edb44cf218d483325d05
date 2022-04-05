@@ -134,6 +134,30 @@
       },
       "revId": "c54196e32cf2b6df99d3edb44cf218d483325d05",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6d529e11_b6214478",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-04-05T12:29:29Z",
+      "side": 1,
+      "message": "Sorry for not making this clear and there was a typo in the comment. I mean it breaks existing function calls that take `const std::string\u0026` arguments as std::string_view cannot be implicitly converted to std::string. E.g. getPortStatusAndPath().\n\nImplicit std::string_view \u003d\u003e std::string  Error\nImplicit const char * \u003d\u003e std::string  OK",
+      "parentUuid": "c2d38871_0c74ba0a",
+      "range": {
+        "startLine": 43,
+        "startChar": 38,
+        "endLine": 43,
+        "endChar": 62
+      },
+      "revId": "c54196e32cf2b6df99d3edb44cf218d483325d05",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
