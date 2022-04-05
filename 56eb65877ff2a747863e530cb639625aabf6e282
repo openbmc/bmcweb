@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7de9cb37_7cab0e49",
+        "filename": "redfish-core/include/query.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-04-05T20:22:53Z",
+      "side": 1,
+      "message": "Yes we can do that, can save a copy. It\u0027s reasonable as this struct can be larger and larger.\n\nWill do",
+      "parentUuid": "63bcb545_1a2c15fa",
+      "range": {
+        "startLine": 17,
+        "startChar": 43,
+        "endLine": 17,
+        "endChar": 61
+      },
+      "revId": "56eb65877ff2a747863e530cb639625aabf6e282",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "33c9d3f4_69080fe8",
         "filename": "redfish-core/include/query.hpp",
         "patchSetId": 3
@@ -37,6 +61,30 @@
       "writtenOn": "2022-04-05T16:46:05Z",
       "side": 1,
       "message": "I commented on the other review, but as written, this is going to require an extra method for every single function that wants to do efficient handling, and in most cases, it\u0027s just going to be a simple return true (at least in the existing log service cases).",
+      "range": {
+        "startLine": 18,
+        "startChar": 8,
+        "endLine": 18,
+        "endChar": 26
+      },
+      "revId": "56eb65877ff2a747863e530cb639625aabf6e282",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f0a75ea8_b9937d3d",
+        "filename": "redfish-core/include/query.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-04-05T20:22:53Z",
+      "side": 1,
+      "message": "What\u0027s your suggestion? Move this to a common place?\n\nYes, I would also image most other resources can do Expand level 1 efficiently. So, get a isExpandLevelOne function in some common lib?",
+      "parentUuid": "33c9d3f4_69080fe8",
       "range": {
         "startLine": 18,
         "startChar": 8,
