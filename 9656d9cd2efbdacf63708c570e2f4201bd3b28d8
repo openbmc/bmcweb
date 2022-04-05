@@ -36,6 +36,52 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "61be8484_71412ee9",
+        "filename": "include/google/dbus_utils.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2022-04-05T06:15:11Z",
+      "side": 1,
+      "message": "nit: strongly",
+      "range": {
+        "startLine": 6,
+        "startChar": 12,
+        "endLine": 6,
+        "endChar": 19
+      },
+      "revId": "9656d9cd2efbdacf63708c570e2f4201bd3b28d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "89a19740_4de48382",
+        "filename": "include/google/dbus_utils.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2022-04-05T06:15:11Z",
+      "side": 1,
+      "message": "nit: different styles (snake_case and camelCase) here and elsewhere in this change\nbmcweb uses mostly camelCase.",
+      "range": {
+        "startLine": 24,
+        "startChar": 42,
+        "endLine": 25,
+        "endChar": 41
+      },
+      "revId": "9656d9cd2efbdacf63708c570e2f4201bd3b28d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fb9ad827_9a8d0b6e",
@@ -83,6 +129,23 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "687c7127_1118d9b3",
+        "filename": "include/google/dbus_utils.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2022-04-05T06:15:11Z",
+      "side": 1,
+      "message": "Some nits from CodeChecker:\n\ninclude/google/dbus_utils.hpp @ Line 48\ncppcoreguidelines-special-member-functions\nclass \u0027ObjectMapperInterface\u0027 defines a default destructor but does not define a copy constructor, a copy assignment operator, a move constructor or a move assignment operator\n\nSame for HothInterface and RedfishUtilWrapper\n\nBut I guess these are not real concerns here.",
+      "revId": "9656d9cd2efbdacf63708c570e2f4201bd3b28d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "196c6b22_d87baff8",
@@ -114,6 +177,23 @@
       "side": 1,
       "message": "Done",
       "parentUuid": "196c6b22_d87baff8",
+      "revId": "9656d9cd2efbdacf63708c570e2f4201bd3b28d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1b788aa7_7bbb428f",
+        "filename": "include/google/google_service_root.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2022-04-05T06:15:11Z",
+      "side": 1,
+      "message": "Some nits from the CodeChecker:\n\nmisc-definitions-in-headers\nvariable \u0027obj_mapper\u0027 defined in a header file; variable definitions in header files can lead to ODR violations\n\nSame for rf_utils and hoth_iface.\n\nSince this is not enforced by the CI it is probably okay for now.",
       "revId": "9656d9cd2efbdacf63708c570e2f4201bd3b28d8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
