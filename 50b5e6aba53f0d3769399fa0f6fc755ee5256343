@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6000c14a_af2614fb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 17
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-05T17:52:23Z",
+      "side": 1,
+      "message": "Ping @Nan, is the last comment resolved to your satisfaction?",
+      "revId": "50b5e6aba53f0d3769399fa0f6fc755ee5256343",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
