@@ -22,6 +22,30 @@
       },
       "revId": "7fc28bfd2f6b0bb634e30cc5264dd0df726b250d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e2ce6298_bf4ea1cb",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 310,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-04-05T11:59:55Z",
+      "side": 1,
+      "message": "I\u0027ve tried keeping `const std::string_view` here, but the argument will be corrupted. Below is some logs.\n\nJan 30 17:35:19 intel-obmc bmcweb[364]: (1970-01-30 17:35:19) [DEBUG \"network_protocol.hpp\":412] Encoded service name dropbear\nJan 30 17:35:19 intel-obmc bmcweb[364]: (1970-01-30 17:35:19) [DEBUG \"network_protocol.hpp\":416] Encoded path /xyz/openbmc_project/control/service/dropbear length 45\nJan 30 17:35:19 intel-obmc bmcweb[364]: (1970-01-30 17:35:19) [DEBUG \"network_protocol.hpp\":322] netBasePath: xyz.openbmc_project.Control.Service.Attribute len: 45\n\nJan 30 17:44:47 intel-obmc bmcweb[364]: (1970-01-30 17:44:47) [DEBUG \"network_protocol.hpp\":412] Encoded service name phosphor-ipmi-net@\nJan 30 17:44:47 intel-obmc bmcweb[364]: (1970-01-30 17:44:47) [DEBUG \"network_protocol.hpp\":416] Encoded path /xyz/openbmc_project/control/service/_70hosphor_2dipmi_2dnet_40 length 63\nJan 30 17:44:47 intel-obmc bmcweb[364]: (1970-01-30 17:44:47) [DEBUG \"network_protocol.hpp\":322] netBasePath: /xyz/openbmc_project/control/service/_6fbmc_2dconsole_40ttyS2\nJan 30 17:44:47 intel-obmc bmcweb[364]: 0 len: 63\n\nI cannot figure out why it is happened... Maybe some lifetime issue?",
+      "parentUuid": "1cafc3f4_ed3b262b",
+      "range": {
+        "startLine": 310,
+        "startChar": 0,
+        "endLine": 310,
+        "endChar": 57
+      },
+      "revId": "7fc28bfd2f6b0bb634e30cc5264dd0df726b250d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
