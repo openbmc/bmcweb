@@ -83,28 +83,29 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
 
     friend class ConnectionPool;
 
-    void doResolve(const std::string& data)
+    void doResolve(const std::string& data,
+                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
     {
         state = ConnState::resolveInProgress;
         BMCWEB_LOG_DEBUG << "Trying to resolve: " << host << ":" << port
                          << ", id: " << std::to_string(connId);
 
         auto respHandler =
-            [self(shared_from_this()),
-             data](const boost::beast::error_code ec,
-                   const std::vector<boost::asio::ip::tcp::endpoint>&
-                       endpointList) {
+            [self(shared_from_this()), data,
+             asyncResp](const boost::beast::error_code ec,
+                        const std::vector<boost::asio::ip::tcp::endpoint>&
+                            endpointList) {
                 if (ec || (endpointList.empty()))
                 {
                     BMCWEB_LOG_ERROR << "Resolve failed: " << ec.message();
                     self->state = ConnState::resolveFailed;
-                    self->waitAndRetry(data);
+                    self->waitAndRetry(data, asyncResp);
                     return;
                 }
                 BMCWEB_LOG_DEBUG << "Resolved " << self->host << ":"
                                  << self->port
                                  << ", id: " << std::to_string(self->connId);
-                self->doConnect(data, endpointList);
+                self->doConnect(data, endpointList, asyncResp);
             };
 
         resolver.asyncResolve(host, port, std::move(respHandler));
@@ -112,7 +113,8 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
 
     void doConnect(
         const std::string& data,
-        const std::vector<boost::asio::ip::tcp::endpoint>& endpointList)
+        const std::vector<boost::asio::ip::tcp::endpoint>& endpointList,
+        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
     {
         state = ConnState::connectInProgress;
 
@@ -121,7 +123,7 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
 
         conn.expires_after(std::chrono::seconds(30));
         conn.async_connect(
-            endpointList, [self(shared_from_this()), data](
+            endpointList, [self(shared_from_this()), data, asyncResp](
                               const boost::beast::error_code ec,
                               const boost::asio::ip::tcp::endpoint& endpoint) {
                 if (ec)
@@ -132,7 +134,7 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
                                      << ", id: " << std::to_string(self->connId)
                                      << " failed: " << ec.message();
                     self->state = ConnState::connectFailed;
-                    self->waitAndRetry(data);
+                    self->waitAndRetry(data, asyncResp);
                     return;
                 }
                 BMCWEB_LOG_DEBUG
@@ -140,11 +142,12 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
                     << std::to_string(endpoint.port())
                     << ", id: " << std::to_string(self->connId);
                 self->state = ConnState::connected;
-                self->sendMessage(data);
+                self->sendMessage(data, asyncResp);
             });
     }
 
-    void sendMessage(const std::string& data)
+    void sendMessage(const std::string& data,
+                     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
     {
         state = ConnState::sendInProgress;
 
@@ -157,26 +160,27 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
         // Send the HTTP request to the remote host
         boost::beast::http::async_write(
             conn, req,
-            [self(shared_from_this()),
-             data](const boost::beast::error_code& ec,
-                   const std::size_t& bytesTransferred) {
+            [self(shared_from_this()), data,
+             asyncResp](const boost::beast::error_code& ec,
+                        const std::size_t& bytesTransferred) {
                 if (ec)
                 {
                     BMCWEB_LOG_ERROR << "sendMessage() failed: "
                                      << ec.message();
                     self->state = ConnState::sendFailed;
-                    self->waitAndRetry(data);
+                    self->waitAndRetry(data, asyncResp);
                     return;
                 }
                 BMCWEB_LOG_DEBUG << "sendMessage() bytes transferred: "
                                  << bytesTransferred;
                 boost::ignore_unused(bytesTransferred);
 
-                self->recvMessage(data);
+                self->recvMessage(data, asyncResp);
             });
     }
 
-    void recvMessage(const std::string& data)
+    void recvMessage(const std::string& data,
+                     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
     {
         parser.emplace(std::piecewise_construct, std::make_tuple());
         parser->body_limit(httpReadBodyLimit);
@@ -184,15 +188,15 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
         // Receive the HTTP response
         boost::beast::http::async_read(
             conn, buffer, *parser,
-            [self(shared_from_this()),
-             data](const boost::beast::error_code& ec,
-                   const std::size_t& bytesTransferred) {
+            [self(shared_from_this()), data,
+             asyncResp](const boost::beast::error_code& ec,
+                        const std::size_t& bytesTransferred) {
                 if (ec)
                 {
                     BMCWEB_LOG_ERROR << "recvMessage() failed: "
                                      << ec.message();
                     self->state = ConnState::recvFailed;
-                    self->waitAndRetry(data);
+                    self->waitAndRetry(data, asyncResp);
                     return;
                 }
                 BMCWEB_LOG_DEBUG << "recvMessage() bytes transferred: "
@@ -204,6 +208,9 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
                 BMCWEB_LOG_DEBUG << "recvMessage() Header Response Code: "
                                  << respCode;
 
+                // TODO ME: We'll need to do different handling based on if
+                // this is a subscription event or Redfish Aggregation
+                //
                 // 2XX response is considered to be successful
                 if ((respCode < 200) || (respCode >= 300))
                 {
@@ -213,13 +220,16 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
                            "receive Sent-Event. Header Response Code: "
                         << respCode;
                     self->state = ConnState::recvFailed;
-                    self->waitAndRetry(data);
+                    self->waitAndRetry(data, asyncResp);
                     return;
                 }
 
                 // Send is successful
                 // Reset the counter just in case this was after retrying
                 self->retryCount = 0;
+
+                // TODO ME: Add additional handling for asyncResp if this was
+                // part of Redfish Aggregation
 
                 // Keep the connection alive if server supports it
                 // Else close the connection
@@ -239,7 +249,8 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
             });
     }
 
-    void waitAndRetry(const std::string& data)
+    void waitAndRetry(const std::string& data,
+                      const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
     {
         if (retryCount >= maxRetryAttempts)
         {
@@ -274,8 +285,8 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
         BMCWEB_LOG_DEBUG << "Attempt retry after " << retryIntervalSecs
                          << " seconds. RetryCount = " << retryCount;
         timer.expires_after(std::chrono::seconds(retryIntervalSecs));
-        timer.async_wait([self(shared_from_this()),
-                          data](const boost::system::error_code ec) {
+        timer.async_wait([self(shared_from_this()), data,
+                          asyncResp](const boost::system::error_code ec) {
             if (ec == boost::asio::error::operation_aborted)
             {
                 BMCWEB_LOG_DEBUG
@@ -291,7 +302,7 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
             self->runningTimer = false;
 
             // Let's close connection and restart from resolve.
-            self->doCloseAndRetry(data);
+            self->doCloseAndRetry(data, asyncResp);
         });
     }
 
@@ -315,7 +326,8 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
         }
     }
 
-    void doCloseAndRetry(const std::string& data)
+    void doCloseAndRetry(const std::string& data,
+                         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
     {
         state = ConnState::closeInProgress;
         boost::beast::error_code ec;
@@ -333,7 +345,7 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
         {
             // Now let's try to resend the data
             state = ConnState::retry;
-            this->doResolve(data);
+            this->doResolve(data, asyncResp);
         }
     }
 
@@ -367,7 +379,8 @@ class ConnectionPool
 
     friend class HttpClient;
 
-    void sendData(const std::string& data)
+    void sendData(const std::string& data,
+                  const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
     {
         for (unsigned int i = 0; i < connections.size(); i++)
         {
@@ -377,7 +390,7 @@ class ConnectionPool
                 BMCWEB_LOG_DEBUG << "Grabbing idle connection "
                                  << std::to_string(i) << " from pool " << destIP
                                  << ":" << destPort;
-                conn->sendMessage(data);
+                conn->sendMessage(data, asyncResp);
                 return;
             }
             if ((conn->state == ConnState::initialized) ||
@@ -386,7 +399,7 @@ class ConnectionPool
                 BMCWEB_LOG_DEBUG << "Reusing existing connection "
                                  << std::to_string(i) << " from pool " << destIP
                                  << ":" << destPort;
-                conn->doResolve(data);
+                conn->doResolve(data, asyncResp);
                 return;
             }
         }
@@ -397,7 +410,7 @@ class ConnectionPool
             BMCWEB_LOG_DEBUG << "Adding new connection to pool " << destIP
                              << ":" << destPort;
             this->addConnection();
-            connections.back()->doResolve(data);
+            connections.back()->doResolve(data, asyncResp);
         }
         else
         {
@@ -479,10 +492,18 @@ class HttpClient
     void sendData(const std::string& data, const std::string& destIP,
                   const std::string& destPort)
     {
+        auto asyncResp = std::make_shared<bmcweb::AsyncResp>();
+        this->sendDataAndResp(data, destIP, destPort, asyncResp);
+    }
+
+    void sendDataAndResp(const std::string& data, const std::string& destIP,
+                         const std::string& destPort,
+                         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+    {
         std::string clientKey = destIP + ":" + destPort;
         try
         {
-            connectionPools.at(clientKey).sendData(data);
+            connectionPools.at(clientKey).sendData(data, asyncResp);
         }
         catch (const std::out_of_range& oor)
         {
