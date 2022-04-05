@@ -192,6 +192,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "65331b60_07156544",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 422,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-05T21:18:09Z",
+      "side": 1,
+      "message": "\u003e \n\u003e ConnectionPool contains a vector of ConnectionInfo objects so it represents multiple connections to a single client.  \n\u003e \n\n\nI suspect I missed this subtlety the first time I reviewed this;  Seems like you have it under control.",
+      "parentUuid": "030fb5c6_b78ba803",
+      "range": {
+        "startLine": 422,
+        "startChar": 4,
+        "endLine": 422,
+        "endChar": 45
+      },
+      "revId": "156e6f2125278449dc7ef8b33ea28525305c29bc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "08c7a2c5_39bd79f9",
         "filename": "http/http_client.hpp",
         "patchSetId": 9
