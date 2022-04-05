@@ -46,6 +46,30 @@
       },
       "revId": "7fc28bfd2f6b0bb634e30cc5264dd0df726b250d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3c549196_0a4ec5df",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 310,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-04-05T12:21:11Z",
+      "side": 1,
+      "message": "Oh I found the reason, the document of `operator basic_string_view` of std::string says\n\n\u003e It is the programmer\u0027s responsibility to ensure that the resulting string view does not outlive the string.\n\nhttps://en.cppreference.com/w/cpp/string/basic_string/operator_basic_string_view\n\nIn my code, the underlying std::string lives in the call to handleProtocolEnabled(), but as async_method_call() immediatly returns, it will be destoryed before the handler of async_method_call() is called. The underlying pointer of the string_view dangles and gives garbled data.\n\nIn prvious code, string_view always points to the inlined `const char*`, there wasn\u0027t such lifetime issue.\n\nPassing `const std::string\u0026` here won\u0027t bring extra cost as encodeServiceObjectPath() returns std::string.",
+      "parentUuid": "e2ce6298_bf4ea1cb",
+      "range": {
+        "startLine": 310,
+        "startChar": 0,
+        "endLine": 310,
+        "endChar": 57
+      },
+      "revId": "7fc28bfd2f6b0bb634e30cc5264dd0df726b250d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
