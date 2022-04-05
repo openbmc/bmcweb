@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "198f89b0_1a9092ac",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 3000,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-05T16:42:03Z",
+      "side": 1,
+      "message": "As I\u0027m looking at this and I suspect this API can be improved quite a bit.  Most efficient handlers won\u0027t have this level of specific requirements, and ideally in the end, the sensor handler doesn\u0027t have that level of requirements either, even if it does today.",
+      "range": {
+        "startLine": 3000,
+        "startChar": 54,
+        "endLine": 3000,
+        "endChar": 68
+      },
+      "revId": "65c4088b09060014cd06e5bb1165d9c6d5fff64a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "41938f88_8f08166b",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 3006,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-05T16:42:03Z",
+      "side": 1,
+      "message": "So in this model, we\u0027re parsing the parameters twice, which doesn\u0027t seem like the best.  Is there a way to avoid walking the parameters a second time?",
+      "range": {
+        "startLine": 3005,
+        "startChar": 0,
+        "endLine": 3006,
+        "endChar": 79
+      },
+      "revId": "65c4088b09060014cd06e5bb1165d9c6d5fff64a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "019d0a96_17019ec5",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 3008,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-05T16:42:03Z",
+      "side": 1,
+      "message": "Generally we rely on the bool overload, and not has_value directly.  Also, if this isn\u0027t filled in, we should be returning immediately.",
+      "range": {
+        "startLine": 3008,
+        "startChar": 16,
+        "endLine": 3008,
+        "endChar": 33
+      },
+      "revId": "65c4088b09060014cd06e5bb1165d9c6d5fff64a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4262dc60_28a72690",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 3009,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-05T16:42:03Z",
+      "side": 1,
+      "message": "This call is now duplicated as well with delegateExpand",
+      "range": {
+        "startLine": 3009,
+        "startChar": 25,
+        "endLine": 3009,
+        "endChar": 51
+      },
+      "revId": "65c4088b09060014cd06e5bb1165d9c6d5fff64a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3483ef7e_89c5fe56",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 3071,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-05T16:42:03Z",
+      "side": 1,
+      "message": "nit: This is redundant and not needed.\n\n\nThis callback being a lambda is making it kind of tough to review given that every line changed.  Can you put together a patch to move it to a free function first, then stack this change on top of it?  That would help quite a bit.  If you need help breaking it up, I\u0027m happy to help as well.",
+      "revId": "65c4088b09060014cd06e5bb1165d9c6d5fff64a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
