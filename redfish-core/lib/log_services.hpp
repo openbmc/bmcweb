@@ -180,49 +180,6 @@ inline static bool getEntryTimestamp(sd_journal* journal,
     return true;
 }
 
-static bool getSkipParam(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                         const crow::Request& req, uint64_t& skip)
-{
-    boost::urls::params_view::iterator it = req.urlView.params().find("$skip");
-    if (it != req.urlView.params().end())
-    {
-        std::from_chars_result r = std::from_chars(
-            (*it).value.data(), (*it).value.data() + (*it).value.size(), skip);
-        if (r.ec != std::errc())
-        {
-            messages::queryParameterValueTypeError(asyncResp->res, "", "$skip");
-            return false;
-        }
-    }
-    return true;
-}
-
-static constexpr const uint64_t maxEntriesPerPage = 1000;
-static bool getTopParam(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                        const crow::Request& req, uint64_t& top)
-{
-    boost::urls::params_view::iterator it = req.urlView.params().find("$top");
-    if (it != req.urlView.params().end())
-    {
-        std::from_chars_result r = std::from_chars(
-            (*it).value.data(), (*it).value.data() + (*it).value.size(), top);
-        if (r.ec != std::errc())
-        {
-            messages::queryParameterValueTypeError(asyncResp->res, "", "$top");
-            return false;
-        }
-        if (top < 1U || top > maxEntriesPerPage)
-        {
-
-            messages::queryParameterOutOfRange(
-                asyncResp->res, std::to_string(top), "$top",
-                "1-" + std::to_string(maxEntriesPerPage));
-            return false;
-        }
-    }
-    return true;
-}
-
 inline static bool getUniqueEntryID(sd_journal* journal, std::string& entryID,
                                     const bool firstEntry = true)
 {
@@ -1200,17 +1157,13 @@ inline void requestRoutesJournalEventLogEntryCollection(App& app)
                                                        const std::shared_ptr<
                                                            bmcweb::AsyncResp>&
                                                            asyncResp) {
-            if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
-            {
-                return;
-            }
-            uint64_t skip = 0;
-            uint64_t top = maxEntriesPerPage; // Show max entries by default
-            if (!getSkipParam(asyncResp, req, skip))
-            {
-                return;
-            }
-            if (!getTopParam(asyncResp, req, top))
+            query_param::QueryCapabilities capabilities = {
+                .canDelegateTop = true,
+                .canDelegateSkip = true,
+            };
+            query_param::Query delegatedQuery;
+            if (!redfish::setUpRedfishRouteWithDelegation(
+                    app, req, asyncResp->res, delegatedQuery, capabilities))
             {
                 return;
             }
@@ -1252,7 +1205,8 @@ inline void requestRoutesJournalEventLogEntryCollection(App& app)
                     // Handle paging using skip (number of entries to skip
                     // from the start) and top (number of entries to
                     // display)
-                    if (entryCount <= skip || entryCount > skip + top)
+                    if (entryCount <= delegatedQuery.skip ||
+                        entryCount > delegatedQuery.skip + delegatedQuery.top)
                     {
                         continue;
                     }
@@ -1279,11 +1233,11 @@ inline void requestRoutesJournalEventLogEntryCollection(App& app)
                 }
             }
             asyncResp->res.jsonValue["Members@odata.count"] = entryCount;
-            if (skip + top < entryCount)
+            if (delegatedQuery.skip + delegatedQuery.top < entryCount)
             {
                 asyncResp->res.jsonValue["Members@odata.nextLink"] =
                     "/redfish/v1/Systems/system/LogServices/EventLog/Entries?$skip=" +
-                    std::to_string(skip + top);
+                    std::to_string(delegatedQuery.skip + delegatedQuery.top);
             }
         });
 }
@@ -1861,7 +1815,7 @@ inline bool
 
 inline bool
     getHostLoggerEntries(std::vector<std::filesystem::path>& hostLoggerFiles,
-                         uint64_t& skip, uint64_t& top,
+                         uint64_t skip, uint64_t top,
                          std::vector<std::string>& logEntries, size_t& logCount)
 {
     GzFileReader logFile;
@@ -1940,19 +1894,13 @@ inline void requestRoutesSystemHostLoggerCollection(App& app)
                                                        const std::shared_ptr<
                                                            bmcweb::AsyncResp>&
                                                            asyncResp) {
-            if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
-            {
-                return;
-            }
-            uint64_t skip = 0;
-            uint64_t top = maxEntriesPerPage; // Show max 1000 entries by
-                                              // default, allow range 1 to
-                                              // 1000 entries per page.
-            if (!getSkipParam(asyncResp, req, skip))
-            {
-                return;
-            }
-            if (!getTopParam(asyncResp, req, top))
+            query_param::QueryCapabilities capabilities = {
+                .canDelegateTop = true,
+                .canDelegateSkip = true,
+            };
+            query_param::Query delegatedQuery;
+            if (!redfish::setUpRedfishRouteWithDelegation(
+                    app, req, asyncResp->res, delegatedQuery, capabilities))
             {
                 return;
             }
@@ -1978,8 +1926,8 @@ inline void requestRoutesSystemHostLoggerCollection(App& app)
             // This vector only store the entries we want to expose that
             // control by skip and top.
             std::vector<std::string> logEntries;
-            if (!getHostLoggerEntries(hostLoggerFiles, skip, top, logEntries,
-                                      logCount))
+            if (!getHostLoggerEntries(hostLoggerFiles, delegatedQuery.skip,
+                                      delegatedQuery.top, logEntries, logCount))
             {
                 messages::internalError(asyncResp->res);
                 return;
@@ -1997,16 +1945,18 @@ inline void requestRoutesSystemHostLoggerCollection(App& app)
                 {
                     logEntryArray.push_back({});
                     nlohmann::json& hostLogEntry = logEntryArray.back();
-                    fillHostLoggerEntryJson(std::to_string(skip + i),
-                                            logEntries[i], hostLogEntry);
+                    fillHostLoggerEntryJson(
+                        std::to_string(delegatedQuery.skip + i), logEntries[i],
+                        hostLogEntry);
                 }
 
                 asyncResp->res.jsonValue["Members@odata.count"] = logCount;
-                if (skip + top < logCount)
+                if (delegatedQuery.skip + delegatedQuery.top < logCount)
                 {
                     asyncResp->res.jsonValue["Members@odata.nextLink"] =
                         "/redfish/v1/Systems/system/LogServices/HostLogger/Entries?$skip=" +
-                        std::to_string(skip + top);
+                        std::to_string(delegatedQuery.skip +
+                                       delegatedQuery.top);
                 }
             }
         });
@@ -2219,18 +2169,13 @@ inline void requestRoutesBMCJournalLogEntryCollection(App& app)
                                                        const std::shared_ptr<
                                                            bmcweb::AsyncResp>&
                                                            asyncResp) {
-            if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
-            {
-                return;
-            }
-            static constexpr const long maxEntriesPerPage = 1000;
-            uint64_t skip = 0;
-            uint64_t top = maxEntriesPerPage; // Show max entries by default
-            if (!getSkipParam(asyncResp, req, skip))
-            {
-                return;
-            }
-            if (!getTopParam(asyncResp, req, top))
+            query_param::QueryCapabilities capabilities = {
+                .canDelegateTop = true,
+                .canDelegateSkip = true,
+            };
+            query_param::Query delegatedQuery;
+            if (!redfish::setUpRedfishRouteWithDelegation(
+                    app, req, asyncResp->res, delegatedQuery, capabilities))
             {
                 return;
             }
@@ -2268,7 +2213,8 @@ inline void requestRoutesBMCJournalLogEntryCollection(App& app)
                 entryCount++;
                 // Handle paging using skip (number of entries to skip from
                 // the start) and top (number of entries to display)
-                if (entryCount <= skip || entryCount > skip + top)
+                if (entryCount <= delegatedQuery.skip ||
+                    entryCount > delegatedQuery.skip + delegatedQuery.top)
                 {
                     continue;
                 }
@@ -2294,11 +2240,11 @@ inline void requestRoutesBMCJournalLogEntryCollection(App& app)
                 }
             }
             asyncResp->res.jsonValue["Members@odata.count"] = entryCount;
-            if (skip + top < entryCount)
+            if (delegatedQuery.skip + delegatedQuery.top < entryCount)
             {
                 asyncResp->res.jsonValue["Members@odata.nextLink"] =
                     "/redfish/v1/Managers/bmc/LogServices/Journal/Entries?$skip=" +
-                    std::to_string(skip + top);
+                    std::to_string(delegatedQuery.skip + delegatedQuery.top);
             }
         });
 }
@@ -3478,7 +3424,13 @@ inline void requestRoutesPostCodesEntryCollection(App& app)
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-                if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+                query_param::QueryCapabilities capabilities = {
+                    .canDelegateTop = true,
+                    .canDelegateSkip = true,
+                };
+                query_param::Query delegatedQuery;
+                if (!redfish::setUpRedfishRouteWithDelegation(
+                        app, req, asyncResp->res, delegatedQuery, capabilities))
                 {
                     return;
                 }
@@ -3492,17 +3444,8 @@ inline void requestRoutesPostCodesEntryCollection(App& app)
                 asyncResp->res.jsonValue["Members"] = nlohmann::json::array();
                 asyncResp->res.jsonValue["Members@odata.count"] = 0;
 
-                uint64_t skip = 0;
-                uint64_t top = maxEntriesPerPage; // Show max entries by default
-                if (!getSkipParam(asyncResp, req, skip))
-                {
-                    return;
-                }
-                if (!getTopParam(asyncResp, req, top))
-                {
-                    return;
-                }
-                getCurrentBootNumber(asyncResp, skip, top);
+                getCurrentBootNumber(asyncResp, delegatedQuery.skip,
+                                     delegatedQuery.top);
             });
 }
 
