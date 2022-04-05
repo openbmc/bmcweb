@@ -112,6 +112,7 @@ class Server
         // path
         if (!fs::exists(certPath))
         {
+            BMCWEB_LOG_INFO << "Creating directories";
             fs::create_directories(certPath);
         }
         fs::path certFile = certPath / "server.pem";

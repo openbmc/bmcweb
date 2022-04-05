@@ -73,6 +73,7 @@ inline void requestRoutes(App& app)
 
     for (const std::filesystem::directory_entry& dir : paths)
     {
+        BMCWEB_LOG_INFO << "Setting up route for " << dir.path().string();
         const std::filesystem::path& absolutePath = dir.path();
         std::filesystem::path relativePath{
             absolutePath.string().substr(rootpath.string().size() - 1)};
