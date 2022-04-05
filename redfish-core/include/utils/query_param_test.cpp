@@ -65,6 +65,52 @@ TEST(Delegate, ExpandNegative)
     EXPECT_EQ(delegated.expandType, ExpandType::None);
 }
 
+TEST(Delegate, TopNegative)
+{
+    Query query{
+        .top = 42,
+    };
+    Query delegated = delegate(QueryCapabilities{}, query);
+    EXPECT_EQ(delegated.top, std::numeric_limits<size_t>::max());
+    EXPECT_EQ(query.top, 42);
+}
+
+TEST(Delegate, TopPositive)
+{
+    Query query{
+        .top = 42,
+    };
+    QueryCapabilities capabilities{
+        .canDelegateTop = false,
+    };
+    Query delegated = delegate(capabilities, query);
+    EXPECT_EQ(delegated.top, std::numeric_limits<size_t>::max());
+    EXPECT_EQ(query.top, 42);
+}
+
+TEST(Delegate, SkipNegative)
+{
+    Query query{
+        .skip = 42,
+    };
+    Query delegated = delegate(QueryCapabilities{}, query);
+    EXPECT_EQ(delegated.skip, 0);
+    EXPECT_EQ(query.skip, 42);
+}
+
+TEST(Delegate, SkipPositive)
+{
+    Query query{
+        .skip = 42,
+    };
+    QueryCapabilities capabilities{
+        .canDelegateSkip = false,
+    };
+    Query delegated = delegate(capabilities, query);
+    EXPECT_EQ(delegated.skip, 0);
+    EXPECT_EQ(query.skip, 42);
+}
+
 } // namespace
 } // namespace redfish::query_param
 
