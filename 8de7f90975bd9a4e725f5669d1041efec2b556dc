@@ -132,6 +132,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ed9fb4b4_9c8b50d3",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1126,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-05T15:44:42Z",
+      "side": 1,
+      "message": "I\u0027m not an expert on the rsyslog configuration, but there are other people that are, so lets follow up on your review with those people.",
+      "parentUuid": "9133d0dd_6e20292e",
+      "range": {
+        "startLine": 1122,
+        "startChar": 0,
+        "endLine": 1126,
+        "endChar": 5
+      },
+      "revId": "8de7f90975bd9a4e725f5669d1041efec2b556dc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "169e630f_ad41765b",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 1
