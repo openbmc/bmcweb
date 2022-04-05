@@ -35,7 +35,10 @@ struct Query
     bool delegateExpand = false;
 
     size_t skip = 0;
+    bool delegateSkip = false;
+
     size_t top = std::numeric_limits<size_t>::max();
+    bool delegateTop = false;
 };
 
 inline bool getExpandType(std::string_view value, Query& query)

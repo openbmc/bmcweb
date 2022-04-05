@@ -1150,6 +1150,13 @@ static int fillEventLogEntryJson(const std::string& logEntryID,
     return 0;
 }
 
+inline query_param::Query delegateTopAndSkip(query_param::Query query)
+{
+    query.delegateTop = true;
+    query.delegateSkip = true;
+    return query;
+}
+
 inline void requestRoutesJournalEventLogEntryCollection(App& app)
 {
     BMCWEB_ROUTE(app,
@@ -1159,7 +1166,8 @@ inline void requestRoutesJournalEventLogEntryCollection(App& app)
                                                        const std::shared_ptr<
                                                            bmcweb::AsyncResp>&
                                                            asyncResp) {
-            if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+            if (!redfish::setUpRedfishRoute(app, req, asyncResp->res,
+                                            delegateTopAndSkip))
             {
                 return;
             }
@@ -1898,7 +1906,8 @@ inline void requestRoutesSystemHostLoggerCollection(App& app)
                                                        const std::shared_ptr<
                                                            bmcweb::AsyncResp>&
                                                            asyncResp) {
-            if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+            if (!redfish::setUpRedfishRoute(app, req, asyncResp->res,
+                                            delegateTopAndSkip))
             {
                 return;
             }
@@ -2172,11 +2181,11 @@ inline void requestRoutesBMCJournalLogEntryCollection(App& app)
                                                        const std::shared_ptr<
                                                            bmcweb::AsyncResp>&
                                                            asyncResp) {
-            if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+            if (!redfish::setUpRedfishRoute(app, req, asyncResp->res,
+                                            delegateTopAndSkip))
             {
                 return;
             }
-
             std::optional<query_param::Query> queryOpt =
                 query_param::parseParameters(req.urlView.params(),
                                              asyncResp->res);
@@ -3429,7 +3438,8 @@ inline void requestRoutesPostCodesEntryCollection(App& app)
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-                if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+                if (!redfish::setUpRedfishRoute(app, req, asyncResp->res,
+                                                delegateTopAndSkip))
                 {
                     return;
                 }
