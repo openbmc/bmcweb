@@ -513,6 +513,15 @@ nlohmann::json operationFailed();
 void operationFailed(crow::Response& res);
 
 /**
+ * @brief Formats OperationFailed message into JSON
+ * Message body: "An error occurred internal to the service as part of the
+ * overall request.  Partial results may have been returned."
+ *
+ *
+ * @returns Message OperationFailed formatted to JSON */
+void satelliteOperationFailed(crow::Response& res);
+
+/**
  * @brief Formats OperationTimeout message into JSON
  * Message body: "A timeout internal to the service occured as part of the
  * request.  Partial results may have been returned."

@@ -893,6 +893,19 @@ void operationFailed(crow::Response& res)
 
 /**
  * @internal
+ * @brief Formats OperationFailed message into JSON
+ *
+ * See header file for more information
+ * @endinternal
+ */
+void satelliteOperationFailed(crow::Response& res)
+{
+    res.result(boost::beast::http::status::bad_gateway);
+    addMessageToErrorJson(res.jsonValue, operationFailed());
+}
+
+/**
+ * @internal
  * @brief Formats OperationTimeout message into JSON
  *
  * See header file for more information

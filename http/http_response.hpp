@@ -76,7 +76,7 @@ struct Response
         return stringResponse->result();
     }
 
-    unsigned resultInt()
+    unsigned resultInt() const
     {
         return stringResponse->result_int();
     }

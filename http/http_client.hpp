@@ -73,11 +73,12 @@ struct RetryPolicyData
 struct PendingRequest
 {
     std::string requestData;
-    std::function<void(bool, uint32_t)> callback;
+    std::function<void(bool, uint32_t, const Response&)> callback;
     RetryPolicyData retryPolicy;
-    PendingRequest(const std::string& requestData,
-                   const std::function<void(bool, uint32_t)>& callback,
-                   const RetryPolicyData& retryPolicy) :
+    PendingRequest(
+        const std::string& requestData,
+        const std::function<void(bool, uint32_t, const Response&)>& callback,
+        const RetryPolicyData& retryPolicy) :
         requestData(requestData),
         callback(callback), retryPolicy(retryPolicy)
     {}
@@ -105,9 +106,10 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
         boost::beast::http::response_parser<boost::beast::http::string_body>>
         parser;
     boost::beast::flat_static_buffer<httpReadBodyLimit> buffer;
+    Response res;
 
     // Ascync callables
-    std::function<void(bool, uint32_t)> callback;
+    std::function<void(bool, uint32_t, const Response&)> callback;
     crow::async_resolve::Resolver resolver;
     boost::beast::tcp_stream conn;
     boost::asio::steady_timer timer;
@@ -258,7 +260,12 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
                 BMCWEB_LOG_DEBUG << "recvMessage() keepalive : "
                                  << self->parser->keep_alive();
 
-                self->callback(self->parser->keep_alive(), self->connId);
+                // Copy the response into a Response object so that it can be
+                // processed by the callback function.
+                self->res.clear();
+                self->res.stringResponse = self->parser->release();
+                self->callback(self->parser->keep_alive(), self->connId,
+                               self->res);
             });
     }
 
@@ -269,16 +276,22 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
             BMCWEB_LOG_ERROR << "Maximum number of retries reached.";
             BMCWEB_LOG_DEBUG << "Retry policy: "
                              << retryPolicy.retryPolicyAction;
+
+            // We want to return a 502 to indicate there was an error with the
+            // external server
+            res.clear();
+            redfish::messages::satelliteOperationFailed(res);
+
             if (retryPolicy.retryPolicyAction == "TerminateAfterRetries")
             {
                 // TODO: delete subscription
                 state = ConnState::terminated;
-                callback(false, connId);
+                callback(false, connId, res);
             }
             if (retryPolicy.retryPolicyAction == "SuspendRetries")
             {
                 state = ConnState::suspended;
-                callback(false, connId);
+                callback(false, connId, res);
             }
             // Reset the retrycount to zero so that client can try connecting
             // again if needed
@@ -483,12 +496,18 @@ class ConnectionPool : public std::enable_shared_from_this<ConnectionPool>
         }
     }
 
-    void sendData(std::string& data, const RetryPolicyData& retryPolicy)
+    void sendData(std::string& data, const RetryPolicyData& retryPolicy,
+                  std::function<void(const Response&)>& resHandler)
     {
         std::weak_ptr<ConnectionPool> weakSelf = weak_from_this();
 
         // Callback to be called once the request has been sent
-        auto cb = [weakSelf](bool keepAlive, uint32_t connId) {
+        auto cb = [weakSelf, resHandler](bool keepAlive, uint32_t connId,
+                                         const Response& res) {
+            // Allow provided callback to perform additional processing of the
+            // request
+            resHandler(res);
+
             // If requests remain in the queue then we want to reuse this
             // connection to send the next request
             std::shared_ptr<ConnectionPool> self = weakSelf.lock();
@@ -600,6 +619,14 @@ class HttpClient
     std::unordered_map<std::string, RetryPolicyData> retryInfo;
     HttpClient() = default;
 
+    // Used as a dummy callback by sendData() in order to call
+    // sendDataWithCallback()
+    static void genericResHandler(const Response& res)
+    {
+        BMCWEB_LOG_DEBUG << "Response handled with return code: "
+                         << std::to_string(res.resultInt());
+    };
+
   public:
     HttpClient(const HttpClient&) = delete;
     HttpClient& operator=(const HttpClient&) = delete;
@@ -613,11 +640,28 @@ class HttpClient
         return handler;
     }
 
+    // Send a request to destIP:destPort where additional processing of the
+    // result is not required
     void sendData(std::string& data, const std::string& id,
                   const std::string& destIP, const uint16_t destPort,
                   const std::string& destUri,
                   const boost::beast::http::fields& httpHeader,
                   std::string& retryPolicyName)
+    {
+        std::function<void(const Response&)> cb = genericResHandler;
+        sendDataWithCallback(data, id, destIP, destPort, destUri, httpHeader,
+                             retryPolicyName, cb);
+    }
+
+    // Send request to destIP:destPort and use the provided callback to
+    // handle the response
+    void sendDataWithCallback(std::string& data, const std::string& id,
+                              const std::string& destIP,
+                              const uint16_t destPort,
+                              const std::string& destUri,
+                              const boost::beast::http::fields& httpHeader,
+                              std::string& retryPolicyName,
+                              std::function<void(const Response&)>& resHandler)
     {
         std::string clientKey = destIP + ":" + std::to_string(destPort);
         // Use nullptr to avoid creating a ConnectionPool each time
@@ -647,7 +691,7 @@ class HttpClient
 
         // Send the data using either the existing connection pool or the newly
         // created connection pool
-        result.first->second->sendData(data, policy.first->second);
+        result.first->second->sendData(data, policy.first->second, resHandler);
     }
 
     void setRetryConfig(const uint32_t retryAttempts,
