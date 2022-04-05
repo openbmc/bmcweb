@@ -97,6 +97,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "755c50d5_47d3df7f",
+        "filename": "redfish-core/include/query.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-05T21:26:50Z",
+      "side": 1,
+      "message": "\u003e What\u0027s your suggestion? Move this to a common place?\n\n\nWhat if we separated out the \"delegate\" stuff, into its own structure, something like:\n\nstruct QueryCapabilities{\n  canDelegateExpand \u003d false;\n  canDelegateTop \u003d false;\n  canDelegateSkip \u003d false;\n}\n\nThen have the callback just return the QueryCapabilities struct, that way a majority of implementations will just return hardcoded data.\n\n\u003e \n\u003e Yes, I would also image most other resources can do Expand level 1 efficiently. So, get a isExpandLevelOne function in some common lib?\n\nI\u0027m a little less worried about having a common function for checking query.expandLevel \u003d\u003d 1, as it\u0027s basically a one liner, it just seems like we need some kind of \"not a callback\" abstraction for the majority of cases.\n\nMaybe we do the QueryCapabilities struct above, but instead of a bool, we do \"canDelegateDepth \u003d 0\", and implementations could define the tree depth that they can handle internally?  That would mean that at some point in the future, the core could be updated to be smarter, and call the \"efficient\" one for depth 1, then when that\u0027s done, depth 2 can use the less efficient one.\n\nThat would remove the need for a callback entirely, right?",
+      "parentUuid": "f0a75ea8_b9937d3d",
+      "range": {
+        "startLine": 18,
+        "startChar": 8,
+        "endLine": 18,
+        "endChar": 26
+      },
+      "revId": "56eb65877ff2a747863e530cb639625aabf6e282",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7c279b87_a73e3b2d",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 3
