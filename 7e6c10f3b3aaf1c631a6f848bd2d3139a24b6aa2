@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2bf011a5_15d2a446",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-04-05T20:19:14Z",
+      "side": 1,
+      "message": "Pretty sure this can be unit tested easily. Consider adding them?",
+      "range": {
+        "startLine": 79,
+        "startChar": 12,
+        "endLine": 79,
+        "endChar": 24
+      },
+      "revId": "7e6c10f3b3aaf1c631a6f848bd2d3139a24b6aa2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
