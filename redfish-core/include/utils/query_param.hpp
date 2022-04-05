@@ -205,6 +205,38 @@ inline std::optional<Query>
                 return std::nullopt;
             }
         }
+        else if (key == "$top")
+        {
+            QueryError topRet = getTopParam(value, ret);
+            if (topRet == QueryError::VALUE_FORMAT)
+            {
+                messages::queryParameterValueFormatError(res, value, key);
+                return std::nullopt;
+            }
+            if (topRet == QueryError::OUT_OF_RANGE)
+            {
+                messages::queryParameterOutOfRange(
+                    res, value, "$top",
+                    "1-" + std::to_string(maxEntriesPerPage));
+                return std::nullopt;
+            }
+        }
+        else if (key == "$skip")
+        {
+            QueryError topRet = getSkipParam(value, ret);
+            if (topRet == QueryError::VALUE_FORMAT)
+            {
+                messages::queryParameterValueFormatError(res, value, key);
+                return std::nullopt;
+            }
+            if (topRet == QueryError::OUT_OF_RANGE)
+            {
+                messages::queryParameterOutOfRange(
+                    res, value, key,
+                    "1-" + std::to_string(std::numeric_limits<size_t>::max()));
+                return std::nullopt;
+            }
+        }
         else
         {
             // Intentionally ignore other errors Redfish spec, 7.3.1
@@ -403,8 +435,56 @@ class MultiAsyncResp : public std::enable_shared_from_this<MultiAsyncResp>
     {
         nlohmann::json& finalObj = finalRes->res.jsonValue[locationToPlace];
         finalObj = std::move(res.jsonValue);
+        nlohmann::json::object_t* obj =
+            finalObj.get_ptr<nlohmann::json::object_t*>();
+        if (obj == nullptr)
+        {
+            // Shouldn't be possible.  All responses should be objects.
+            messages::internalError(res);
+            return;
+        }
+        bool handleSkip = !query.delegateSkip && query.skip != 0;
+        bool handleTop = !query.delegateTop &&
+                         query.top != std::numeric_limits<size_t>::max();
 
-        if (query.expandLevel <= 0)
+        if (handleTop || handleSkip)
+        {
+            BMCWEB_LOG_DEBUG << "Handling top/skip";
+            nlohmann::json::object_t::iterator members = obj->end();
+
+            // TODO(ed) we can't hardcode all possible collection members names.
+            // Do we need to get it from each individual handler?
+            for (const std::string_view collectionKey :
+                 std::to_array<std::string_view>({"Members", "Entries"}))
+            {
+                members = obj->find(collectionKey);
+                if (members != obj->end())
+                {
+                    break;
+                }
+            }
+            if (members == obj->end())
+            {
+                messages::internalError(res);
+                return;
+            }
+            nlohmann::json::array_t* arr =
+                members->second.get_ptr<nlohmann::json::array_t*>();
+            if (arr == nullptr)
+            {
+                messages::internalError(res);
+                return;
+            }
+
+            // Can only skip as many values as we have
+            size_t skip = std::min(arr->size(), query.skip);
+            arr->erase(arr->begin(), arr->begin() + static_cast<ssize_t>(skip));
+
+            size_t top = std::min(arr->size(), query.top);
+            arr->erase(arr->begin() + static_cast<ssize_t>(top), arr->end());
+        }
+
+        if (query.delegateExpand || query.expandLevel <= 0)
         {
             // Last level to expand, no need to go deeper
             return;
@@ -475,22 +555,18 @@ inline void
         processOnly(app, intermediateResponse, completionHandler);
         return;
     }
-    if (query.expandType != ExpandType::None)
-    {
-        BMCWEB_LOG_DEBUG << "Executing expand query";
-        // TODO(ed) this is a copy of the response object.  Admittedly,
-        // we're inherently doing something inefficient, but we shouldn't
-        // have to do a full copy
-        auto asyncResp = std::make_shared<bmcweb::AsyncResp>();
-        asyncResp->res.setCompleteRequestHandler(std::move(completionHandler));
-        asyncResp->res.jsonValue = std::move(intermediateResponse.jsonValue);
-        auto multi = std::make_shared<MultiAsyncResp>(app, asyncResp);
 
-        // Start the chain by "ending" the root response
-        multi->onEnd(query, nlohmann::json::json_pointer(""), asyncResp->res);
-        return;
-    }
-    completionHandler(intermediateResponse);
+    BMCWEB_LOG_DEBUG << "Executing expand query";
+    // TODO(ed) this is a copy of the response object.  Admittedly,
+    // we're inherently doing something inefficient, but we shouldn't
+    // have to do a full copy
+    auto asyncResp = std::make_shared<bmcweb::AsyncResp>();
+    asyncResp->res.setCompleteRequestHandler(std::move(completionHandler));
+    asyncResp->res.jsonValue = std::move(intermediateResponse.jsonValue);
+    auto multi = std::make_shared<MultiAsyncResp>(app, asyncResp);
+
+    // Start the chain by "ending" the root response
+    multi->onEnd(query, nlohmann::json::json_pointer(""), asyncResp->res);
 }
 
 } // namespace query_param
