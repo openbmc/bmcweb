@@ -32,6 +32,12 @@ struct Query
     // Expand
     uint8_t expandLevel = 0;
     ExpandType expandType = ExpandType::None;
+
+    // Skip
+    size_t skip = 0;
+
+    // Top
+    size_t top = std::numeric_limits<size_t>::max();
 };
 
 // The struct defines how resource handlers in redfish-core/lib/ can handle
@@ -40,6 +46,8 @@ struct Query
 struct QueryCapabilities
 {
     bool canDelegateOnly = false;
+    bool canDelegateTop = false;
+    bool canDelegateSkip = false;
     uint8_t canDelegateExpandLevel = 0;
 };
 
@@ -117,6 +125,58 @@ inline bool getExpandType(std::string_view value, Query& query)
     }
     value.remove_prefix(static_cast<size_t>(it.ptr - value.data()));
     return value == ")";
+}
+
+enum class QueryError
+{
+    OK,
+    OUT_OF_RANGE,
+    VALUE_FORMAT,
+};
+
+inline QueryError getSkipParam(std::string_view value, Query& query)
+{
+    std::from_chars_result r =
+        std::from_chars(value.data(), value.data() + value.size(), query.top);
+
+    // If the number wasn't representable in the type, it's out of range
+    if (r.ec == std::errc::result_out_of_range)
+    {
+        return QueryError::OUT_OF_RANGE;
+    }
+    // All other errors are value format
+    if (r.ec != std::errc())
+    {
+        return QueryError::VALUE_FORMAT;
+    }
+
+    return QueryError::OK;
+}
+
+static constexpr const uint64_t maxEntriesPerPage = 1000;
+inline QueryError getTopParam(std::string_view value, Query& query)
+{
+    std::from_chars_result r =
+        std::from_chars(value.data(), value.data() + value.size(), query.top);
+
+    // If the number wasn't representable in the type, it's out of range
+    if (r.ec == std::errc::result_out_of_range)
+    {
+        return QueryError::OUT_OF_RANGE;
+    }
+    // All other errors are value format
+    if (r.ec != std::errc())
+    {
+        return QueryError::VALUE_FORMAT;
+    }
+
+    // Range check for sanity.
+    if (query.top < 1U || query.top > maxEntriesPerPage)
+    {
+        return QueryError::OUT_OF_RANGE;
+    }
+
+    return QueryError::OK;
 }
 
 inline std::optional<Query>
