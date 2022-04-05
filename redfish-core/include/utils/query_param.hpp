@@ -32,6 +32,12 @@ struct Query
     // Expand
     uint8_t expandLevel = 0;
     ExpandType expandType = ExpandType::None;
+
+    // Skip
+    size_t skip = 0;
+
+    // Top
+    size_t top = std::numeric_limits<size_t>::max();
 };
 
 // The struct defines how resource handlers in redfish-core/lib/ can handle
@@ -40,6 +46,8 @@ struct Query
 struct QueryCapabilities
 {
     bool canDelegateOnly = false;
+    bool canDelegateTop = false;
+    bool canDelegateSkip = false;
     uint8_t canDelegateExpandLevel = 0;
 };
 
@@ -72,6 +80,16 @@ inline Query delegate(const QueryCapabilities& queryCapabilities, Query& query)
             query.expandLevel -= queryCapabilities.canDelegateExpandLevel;
             delegated.expandLevel = queryCapabilities.canDelegateExpandLevel;
         }
+    }
+    if (queryCapabilities.canDelegateTop)
+    {
+        delegated.top = query.top;
+        query.top = std::numeric_limits<size_t>::max();
+    }
+    if (queryCapabilities.canDelegateSkip)
+    {
+        delegated.skip = query.skip;
+        query.skip = 0;
     }
     return delegated;
 }
@@ -121,6 +139,54 @@ inline bool getExpandType(std::string_view value, Query& query)
     return value == ")";
 }
 
+enum class QueryError
+{
+    Ok,
+    OutOfRange,
+    ValueFormat,
+};
+
+inline QueryError getNumericParam(std::string_view value, size_t& param)
+{
+    std::from_chars_result r =
+        std::from_chars(value.data(), value.data() + value.size(), param);
+
+    // If the number wasn't representable in the type, it's out of range
+    if (r.ec == std::errc::result_out_of_range)
+    {
+        return QueryError::OutOfRange;
+    }
+    // All other errors are value format
+    if (r.ec != std::errc())
+    {
+        return QueryError::ValueFormat;
+    }
+    return QueryError::Ok;
+}
+
+inline QueryError getSkipParam(std::string_view value, Query& query)
+{
+    return getNumericParam(value, query.skip);
+}
+
+static constexpr size_t maxEntriesPerPage = 1000;
+inline QueryError getTopParam(std::string_view value, Query& query)
+{
+    QueryError ret = getNumericParam(value, query.top);
+    if (ret != QueryError::Ok)
+    {
+        return ret;
+    }
+
+    // Range check for sanity.
+    if (query.top < 0 || query.top > maxEntriesPerPage)
+    {
+        return QueryError::OutOfRange;
+    }
+
+    return QueryError::Ok;
+}
+
 inline std::optional<Query>
     parseParameters(const boost::urls::params_view& urlParams,
                     crow::Response& res)
@@ -144,6 +210,38 @@ inline std::optional<Query>
             if (!getExpandType(value, ret))
             {
                 messages::queryParameterValueFormatError(res, value, key);
+                return std::nullopt;
+            }
+        }
+        else if (key == "$top")
+        {
+            QueryError topRet = getTopParam(value, ret);
+            if (topRet == QueryError::ValueFormat)
+            {
+                messages::queryParameterValueFormatError(res, value, key);
+                return std::nullopt;
+            }
+            if (topRet == QueryError::OutOfRange)
+            {
+                messages::queryParameterOutOfRange(
+                    res, value, "$top",
+                    "1-" + std::to_string(maxEntriesPerPage));
+                return std::nullopt;
+            }
+        }
+        else if (key == "$skip")
+        {
+            QueryError topRet = getSkipParam(value, ret);
+            if (topRet == QueryError::ValueFormat)
+            {
+                messages::queryParameterValueFormatError(res, value, key);
+                return std::nullopt;
+            }
+            if (topRet == QueryError::OutOfRange)
+            {
+                messages::queryParameterOutOfRange(
+                    res, value, key,
+                    "1-" + std::to_string(std::numeric_limits<size_t>::max()));
                 return std::nullopt;
             }
         }
