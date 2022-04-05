@@ -61,6 +61,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "7ea49d85_a6d84e2d",
+        "filename": "include/google/dbus_utils.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1001386
+      },
+      "writtenOn": "2022-04-05T15:57:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "61be8484_71412ee9",
+      "range": {
+        "startLine": 6,
+        "startChar": 12,
+        "endLine": 6,
+        "endChar": 19
+      },
+      "revId": "9656d9cd2efbdacf63708c570e2f4201bd3b28d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "89a19740_4de48382",
         "filename": "include/google/dbus_utils.hpp",
         "patchSetId": 6
@@ -72,6 +96,30 @@
       "writtenOn": "2022-04-05T06:15:11Z",
       "side": 1,
       "message": "nit: different styles (snake_case and camelCase) here and elsewhere in this change\nbmcweb uses mostly camelCase.",
+      "range": {
+        "startLine": 24,
+        "startChar": 42,
+        "endLine": 25,
+        "endChar": 41
+      },
+      "revId": "9656d9cd2efbdacf63708c570e2f4201bd3b28d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "834c7da3_93b94a2f",
+        "filename": "include/google/dbus_utils.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1001386
+      },
+      "writtenOn": "2022-04-05T15:57:04Z",
+      "side": 1,
+      "message": "Old patchset. Done.",
+      "parentUuid": "89a19740_4de48382",
       "range": {
         "startLine": 24,
         "startChar": 42,
@@ -142,6 +190,24 @@
       "writtenOn": "2022-04-05T06:15:11Z",
       "side": 1,
       "message": "Some nits from CodeChecker:\n\ninclude/google/dbus_utils.hpp @ Line 48\ncppcoreguidelines-special-member-functions\nclass \u0027ObjectMapperInterface\u0027 defines a default destructor but does not define a copy constructor, a copy assignment operator, a move constructor or a move assignment operator\n\nSame for HothInterface and RedfishUtilWrapper\n\nBut I guess these are not real concerns here.",
+      "revId": "9656d9cd2efbdacf63708c570e2f4201bd3b28d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e63f844_e9fd1bce",
+        "filename": "include/google/dbus_utils.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1001386
+      },
+      "writtenOn": "2022-04-05T15:57:04Z",
+      "side": 1,
+      "message": "Old patchset. Done.",
+      "parentUuid": "687c7127_1118d9b3",
       "revId": "9656d9cd2efbdacf63708c570e2f4201bd3b28d8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
