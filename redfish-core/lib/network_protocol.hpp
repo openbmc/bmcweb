@@ -280,7 +280,7 @@ inline void
                         }
                         },
                         service, objectPath, "org.freedesktop.DBus.Properties",
-                        "Set", interface, "NTPServers",
+                        "Set", interface, "StaticNTPServers",
                         dbus::utility::DbusVariantType{ntpServers});
                 }
             }
