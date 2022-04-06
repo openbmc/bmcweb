@@ -351,9 +351,10 @@ std::string getDumpEntriesPath(const std::string& dumpType)
     return entriesPath;
 }
 
+template <typename SdbusConnection>
 inline void
     getDumpEntryCollection(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                           const std::string& dumpType)
+                           const std::string& dumpType, SdbusConnection& conn)
 {
     std::string entriesPath;
     if ((entriesPath = getDumpEntriesPath(dumpType)).empty())
@@ -362,7 +363,7 @@ inline void
         return;
     }
 
-    crow::connections::systemBus->async_method_call(
+    conn.async_method_call(
         [asyncResp, entriesPath,
          dumpType](const boost::system::error_code ec,
                    dbus::utility::ManagedObjectType& resp) {
@@ -499,9 +500,11 @@ inline void
         "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
 }
 
+template <typename SdbusConnection>
 inline void
     getDumpEntryById(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                     const std::string& entryID, const std::string& dumpType)
+                     const std::string& entryID, const std::string& dumpType,
+                     SdbusConnection& conn)
 {
     std::string entriesPath;
     if ((entriesPath = getDumpEntriesPath(dumpType)).empty())
@@ -510,7 +513,7 @@ inline void
         return;
     }
 
-    crow::connections::systemBus->async_method_call(
+    conn.async_method_call(
         [asyncResp, entryID, dumpType,
          entriesPath](const boost::system::error_code ec,
                       dbus::utility::ManagedObjectType& resp) {
@@ -720,8 +723,10 @@ inline void
     task->payload.emplace(std::move(payload));
 }
 
+template <typename SdbusConnection>
 inline void createDump(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                       const crow::Request& req, const std::string& dumpType)
+                       const crow::Request& req, const std::string& dumpType,
+                       SdbusConnection& conn)
 {
     if (dumpType == "FaultLog")
     {
@@ -789,7 +794,7 @@ inline void createDump(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         }
     }
 
-    crow::connections::systemBus->async_method_call(
+    conn.async_method_call(
         [asyncResp, payload(task::Payload(req)), dumpPath,
          dumpType](const boost::system::error_code ec,
                    const uint32_t& dumpId) mutable {
@@ -2421,7 +2426,7 @@ inline void getBMCDumpEntryCollection(
     asyncResp->res.jsonValue["Description"] =
         "Collection of " + dumpType + " Dump Entries";
 
-    getDumpEntryCollection(asyncResp, dumpType);
+    getDumpEntryCollection(asyncResp, dumpType, *crow::connections::systemBus);
 }
 
 inline void getBMCDumpEntry(crow::App& app, const std::string& dumpType,
@@ -2434,7 +2439,8 @@ inline void getBMCDumpEntry(crow::App& app, const std::string& dumpType,
         return;
     }
 
-    getDumpEntryById(asyncResp, dumpId, dumpType);
+    getDumpEntryById(asyncResp, dumpId, dumpType,
+                     *crow::connections::systemBus);
 }
 
 inline void
@@ -2461,7 +2467,7 @@ inline void
         return;
     }
 
-    createDump(asyncResp, req, dumpType);
+    createDump(asyncResp, req, dumpType, *crow::connections::systemBus);
 }
 
 inline void clearBMCDump(crow::App& app, const std::string& dumpType,
@@ -2638,7 +2644,8 @@ inline void requestRoutesSystemDumpEntryCollection(App& app)
         asyncResp->res.jsonValue["Description"] =
             "Collection of System Dump Entries";
 
-        getDumpEntryCollection(asyncResp, "System");
+        getDumpEntryCollection(asyncResp, "System",
+                               *crow::connections::systemBus);
         });
 }
 
@@ -2656,7 +2663,8 @@ inline void requestRoutesSystemDumpEntry(App& app)
         {
             return;
         }
-        getDumpEntryById(asyncResp, param, "System");
+        getDumpEntryById(asyncResp, param, "System",
+                         *crow::connections::systemBus);
         });
 
     BMCWEB_ROUTE(app,
@@ -2687,7 +2695,7 @@ inline void requestRoutesSystemDumpCreate(App& app)
         {
             return;
         }
-        createDump(asyncResp, req, "System");
+        createDump(asyncResp, req, "System", *crow::connections::systemBus);
         });
 }
 
