@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e0beddd5_43f92cdf",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-04-06T19:44:59Z",
+      "side": 1,
+      "message": "I wanted connID to refer to its vector location within ConnectionPool\u0027s std::vector\u003cstd::shared_ptr\u003cConnectionInfo\u003e\u003e connections.  It\u0027s only used for logging purposes.  The actual ID of a ConnectionInfo instance is a combination of host, port, and connId.  As-is, ConnectionPool does not delete an instance of ConnectionInfo so there are not concerns about connId collisions within a given connection pool.\n\nI at least want to keep the current fields since I think those are the most readable for logging purpose.  I can add \"this\" pointer as an overall unique ID if you still think it\u0027s necessary.",
+      "parentUuid": "02cede11_e21fe92d",
+      "range": {
+        "startLine": 82,
+        "startChar": 0,
+        "endLine": 82,
+        "endChar": 24
+      },
+      "revId": "b61ba6f3154203ee2ec27df956c849e4111b6718",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bdf399c8_ccbbdc3c",
         "filename": "http/http_client.hpp",
         "patchSetId": 20
@@ -54,6 +78,30 @@
       "writtenOn": "2022-04-06T00:07:24Z",
       "side": 1,
       "message": "Slightly confused here why doResolve needs to store data?  Would it be better just loaded into a class variable prior to resolving the dns?",
+      "range": {
+        "startLine": 86,
+        "startChar": 19,
+        "endLine": 86,
+        "endChar": 42
+      },
+      "revId": "b61ba6f3154203ee2ec27df956c849e4111b6718",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f05267e_2a3fd413",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-04-06T19:44:59Z",
+      "side": 1,
+      "message": "That was to make it available to sendMessage() since one of the flows is doResolve() -\u003e doConnect() -\u003e sendMessage().  I didn\u0027t consider using a class variable, but yes that would be better than passing data through the entire flow.",
+      "parentUuid": "bdf399c8_ccbbdc3c",
       "range": {
         "startLine": 86,
         "startChar": 19,
@@ -89,6 +137,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "053d35f4_e0a83d3b",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-04-06T19:44:59Z",
+      "side": 1,
+      "message": "The only alternative I could think of was using \"\u0026data\" and that\u0027s unsafe.  Your above suggestion of storing data as a class variable should get around this issue.",
+      "parentUuid": "9eacb25c_89c2f985",
+      "range": {
+        "startLine": 278,
+        "startChar": 26,
+        "endLine": 278,
+        "endChar": 30
+      },
+      "revId": "b61ba6f3154203ee2ec27df956c849e4111b6718",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "add36b4d_1539c7e4",
         "filename": "http/http_client.hpp",
         "patchSetId": 20
@@ -100,6 +172,30 @@
       "writtenOn": "2022-04-06T00:07:24Z",
       "side": 1,
       "message": "If the operation got aborted (ie, the request completed within the timeout) we should not be closing the connection.  I would expect this code to to nothing.",
+      "range": {
+        "startLine": 279,
+        "startChar": 0,
+        "endLine": 279,
+        "endChar": 60
+      },
+      "revId": "b61ba6f3154203ee2ec27df956c849e4111b6718",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a8e7d539_2d2579b9",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-04-06T19:44:59Z",
+      "side": 1,
+      "message": "This is how it\u0027s handled in the existing code.  waitAndRetry gets called when there is a failure in the flow before a response is received.  When the timer expires the connection is closed so we can attempt to resend the message beginning with doResolve().\n\nI need to do something or else the connection will just remain in a fail state and never get reused.  It seems like my only options are close the connection so it gets returned to the pool or retry sending the message.",
+      "parentUuid": "add36b4d_1539c7e4",
       "range": {
         "startLine": 279,
         "startChar": 0,
@@ -135,6 +231,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "482a0c85_ee220d06",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-04-06T19:44:59Z",
+      "side": 1,
+      "message": "Similar to the previous comment, I was replicating the existing approach.  I\u0027ll do your suggestions and close the connection regardless of how many retries were remaining.",
+      "parentUuid": "7f98f37f_19f4f10b",
+      "range": {
+        "startLine": 287,
+        "startChar": 0,
+        "endLine": 289,
+        "endChar": 60
+      },
+      "revId": "b61ba6f3154203ee2ec27df956c849e4111b6718",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ee582f70_520f56d9",
         "filename": "http/http_client.hpp",
         "patchSetId": 20
@@ -146,6 +266,30 @@
       "writtenOn": "2022-04-06T00:07:24Z",
       "side": 1,
       "message": "This is going to force a re-resolve for every request, which I\u0027m pretty sure isn\u0027t what we want.  We only want to re-resolve if the system stops responding.",
+      "range": {
+        "startLine": 334,
+        "startChar": 12,
+        "endLine": 334,
+        "endChar": 47
+      },
+      "revId": "b61ba6f3154203ee2ec27df956c849e4111b6718",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dc6f1815_aef3d877",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-04-06T19:44:59Z",
+      "side": 1,
+      "message": "This function only gets called when we want to retry a request that previously failed (including failures during doResolve()).  For all retries wouldn\u0027t we want to close the connection and then retry starting from the very beginning of the flow like in the existing code just to be safe?\n\nI suppose the alternative would be to check the value of self-\u003estate at the end of waitAndRetry() in order to begin the retry from the point in the flow the failed.  That would look like:\n\nresolveFailed --\u003e doResolve()\nconnectFailed --\u003e doConnect()\nsendFailed --\u003e sendMessage()\nrecvFailed --\u003e doCloseAndRetry()",
+      "parentUuid": "ee582f70_520f56d9",
       "range": {
         "startLine": 334,
         "startChar": 12,
@@ -227,6 +371,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4a8daef9_57255b09",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 436,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-04-06T19:44:59Z",
+      "side": 1,
+      "message": "I know unordered_map has constant time lookup, but I\u0027m still concerned that there won\u0027t realistically be enough \"connectionPool\" objects in the map to overcome the overhead of the hash operation (e.g. for 10 items it should actually take less time to locate an item in std::map than in std::unordered_map).\n\nI\u0027ll make the change to unordered_map for this CL and leave exploring alternatives to something that can be revisited in the future if needed.",
+      "parentUuid": "3c5272ee_50abc82a",
+      "range": {
+        "startLine": 436,
+        "startChar": 9,
+        "endLine": 436,
+        "endChar": 12
+      },
+      "revId": "b61ba6f3154203ee2ec27df956c849e4111b6718",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "455c1737_4ec93aa2",
         "filename": "http/http_client.hpp",
         "patchSetId": 20
@@ -296,6 +464,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cc105b22_06a295f7",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 476,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-04-06T19:44:59Z",
+      "side": 1,
+      "message": "I did that to try to simply the individual calls to sendData().  I can change connectionExists() and createConnection() to be private, but that will require providing their arguments to sendData().  This new sendData() would attempt to create a connection pool if one doesn\u0027t already exist before sending the message to the specified client.  The end result would be something like:\n\nvoid sendData(\n    const std::string\u0026 data, \n    boost::asio::io_context\u0026 ioc,\n    const std::string\u0026 id,\n    const std::string\u0026 destIP,\n    const std::string\u0026 destPort,\n    const std::string\u0026 destUri,\n    const boost::beast::http::fields\u0026 httpHeader\n)\n\nI feel like this still complicates the calling code, but just in a different way.  Is this acceptable or is there another option?\n\nWhat if I make \"createConnection\" private, keep the existing version of sendData(), and also add the new version of sendData()?  Presumably you\u0027ll want to send data when you first create a connection pool so that would combine the two steps.  The existing sendData() would be called when you can assume a client connection already exists, and connectionExists() provides the ability to choose between the two situations in case the calling code needs to know.",
+      "parentUuid": "421eb687_651e4a7d",
+      "range": {
+        "startLine": 451,
+        "startChar": 0,
+        "endLine": 476,
+        "endChar": 8
+      },
+      "revId": "b61ba6f3154203ee2ec27df956c849e4111b6718",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d52047bd_24a1aafa",
         "filename": "http/http_client.hpp",
         "patchSetId": 20
@@ -319,6 +511,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "81252901_041f1672",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 491,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-04-06T19:44:59Z",
+      "side": 1,
+      "message": "I was trying to avoid performing two lookups on \"connectionPools\".  I can use find() instead to accomplish this while also removing the use of exceptions.",
+      "parentUuid": "d52047bd_24a1aafa",
+      "range": {
+        "startLine": 487,
+        "startChar": 0,
+        "endLine": 491,
+        "endChar": 9
+      },
+      "revId": "b61ba6f3154203ee2ec27df956c849e4111b6718",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9267cdb4_506701c8",
         "filename": "http/http_client.hpp",
         "patchSetId": 20
@@ -330,6 +546,30 @@
       "writtenOn": "2022-04-06T00:07:24Z",
       "side": 1,
       "message": "There retry policies are EventService subscription specific, and I wouldn\u0027t really expect them to be in a common class.  Aggregator retries (which are implementation defined) are going to have very different policies than EventSerivce, which is defined by the redfish spec.",
+      "range": {
+        "startLine": 495,
+        "startChar": 0,
+        "endLine": 505,
+        "endChar": 1
+      },
+      "revId": "b61ba6f3154203ee2ec27df956c849e4111b6718",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9eb227f6_d81b6a01",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 505,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-04-06T19:44:59Z",
+      "side": 1,
+      "message": "Sounds good.  I\u0027ll make each ConnectionPool have its own associated retry policy.  The policy will need to be viewable by each ConnectionInfo in the pool.  My options are:\n(1) Have the policy variables be members of ConnectionPool and add pointers to these members within each associated ConnectionInfo.\n(2) Have a global map (or similar struct) that contains \u003cHostPortKey,policy struct\u003e.  Each ConnectionInfo would have to query the global to get its associated policy.\n\nI think the first option would be both faster to interact with and require less memory.",
+      "parentUuid": "9267cdb4_506701c8",
       "range": {
         "startLine": 495,
         "startChar": 0,
