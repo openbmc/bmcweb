@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "90bb59b7_7c340f9a",
+        "filename": "redfish-core/include/gzfile.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-04-06T18:14:25Z",
+      "side": 1,
+      "message": "split it to https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/52687 so it can merge fast",
+      "range": {
+        "startLine": 12,
+        "startChar": 9,
+        "endLine": 12,
+        "endChar": 19
+      },
+      "revId": "593bfa5320d49aaa5557fc4348b856408f363ec6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
