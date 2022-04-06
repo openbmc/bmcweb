@@ -1884,8 +1884,6 @@ inline void getProvisioningStatus(std::shared_ptr<bmcweb::AsyncResp> aResp)
 inline void translatePowerMode(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
                                const std::string& modeValue)
 {
-    std::string modeString;
-
     if (modeValue == "xyz.openbmc_project.Control.Power.Mode.PowerMode.Static")
     {
         aResp->res.jsonValue["PowerMode"] = "Static";
