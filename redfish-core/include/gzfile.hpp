@@ -9,7 +9,7 @@
 class GzFileReader
 {
   public:
-    bool gzGetLines(const std::string& filename, uint64_t& skip, uint64_t& top,
+    bool gzGetLines(const std::string& filename, uint64_t skip, uint64_t top,
                     std::vector<std::string>& logEntries, size_t& logCount)
     {
         gzFile logStream = gzopen(filename.c_str(), "r");
@@ -48,7 +48,7 @@ class GzFileReader
                          << "Error Number: " << errNum;
     }
 
-    bool readFile(gzFile logStream, uint64_t& skip, uint64_t& top,
+    bool readFile(gzFile logStream, uint64_t skip, uint64_t top,
                   std::vector<std::string>& logEntries, size_t& logCount)
     {
         constexpr int bufferLimitSize = 1024;
@@ -76,8 +76,8 @@ class GzFileReader
         return true;
     }
 
-    bool hostLogEntryParser(const std::string& bufferStr, uint64_t& skip,
-                            uint64_t& top, std::vector<std::string>& logEntries,
+    bool hostLogEntryParser(const std::string& bufferStr, uint64_t skip,
+                            uint64_t top, std::vector<std::string>& logEntries,
                             size_t& logCount)
     {
         // Assume we have 8 files, and the max size of each file is
