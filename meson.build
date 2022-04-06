@@ -13,20 +13,20 @@ project('bmcweb', 'cpp',
             'werror=true',
            ])
 
-# Project related links
+#Project related links
 
 project_pretty_name = 'bmcweb'
 project_url = 'https://github.com/openbmc/' + project_pretty_name
 project_issues_url = project_url + '/issues/new'
 summary('Issues',project_issues_url, section: 'Report Issues')
 
-# Validate the c++ Standard
+#Validate the c++ Standard
 
 if get_option('cpp_std') != 'c++20'
     error('This project requires c++20 support')
 endif
 
-# Get compiler and default build type
+#Get compiler and default build type
 
 cxx = meson.get_compiler('cpp')
 build = get_option('buildtype')
@@ -34,20 +34,19 @@ optimization = get_option('optimization')
 summary('Build Type',build, section : 'Build Info')
 summary('Optimization',optimization, section : 'Build Info')
 
-
-# remove debug information for minsize buildtype
+#remove debug information for minsize buildtype
 if(get_option('buildtype') == 'minsize')
   add_project_arguments(['-fdata-sections', '-ffunction-sections'], language : 'cpp')
   add_project_arguments('-DNDEBUG', language : 'cpp')
 endif
 
-# Disable lto when compiling with no optimization
+#Disable lto when compiling with no optimization
 if(get_option('optimization') == '0')
   add_project_arguments('-fno-lto', language: 'cpp')
   message('Disabling lto & its supported features as optimization is disabled')
 endif
 
-# Include Directories
+#Include Directories
 
 incdir = include_directories(
   'include',
@@ -56,7 +55,7 @@ incdir = include_directories(
   'http'
 )
 
-# Get the options and enable the respective features
+#Get the options and enable the respective features
 ## create a MAP of  "options : feature_flag"
 
 feature_map = {
@@ -86,11 +85,11 @@ feature_map = {
   'static-hosting'                              : '-DBMCWEB_ENABLE_STATIC_HOSTING',
   'vm-websocket'                                : '-DBMCWEB_ENABLE_VM_WEBSOCKET',
   'xtoken-auth'                                 : '-DBMCWEB_ENABLE_XTOKEN_AUTHENTICATION',
-  #'vm-nbdproxy'                                : '-DBMCWEB_ENABLE_VM_NBDPROXY',
+#'vm-nbdproxy' : '-DBMCWEB_ENABLE_VM_NBDPROXY',
 }
 
-# Get the options status and build a project summary to show which flags are
-# being enabled during the configuration time.
+#Get the options status and build a project summary to show which flags are
+#being enabled during the configuration time.
 
 foreach option_key,option_value : feature_map
   if(get_option(option_key).enabled())
@@ -115,9 +114,9 @@ if(get_option('tests').enabled())
   summary('unittest','NA', section : 'Enabled Features')
 endif
 
-# Add compiler arguments
+#Add compiler arguments
 
-# -Wpedantic, -Wextra comes by default with warning level
+#- Wpedantic, - Wextra comes by default with warning level
 add_project_arguments(
   cxx.get_supported_arguments([
   '-Wcast-align',
@@ -151,8 +150,8 @@ add_project_arguments(
   language:'cpp')
 endif
 
-# if compiler is gnu-gcc , and version is > 8.0 then we add few more
-# compiler arguments , we know that will pass
+#if compiler is gnu - gcc, and version is > 8.0 then we add few more
+#compiler arguments, we know that will pass
 
 if (cxx.get_id() == 'gcc' and cxx.version().version_compare('>8.0'))
   add_project_arguments(
@@ -169,8 +168,8 @@ endif
 
 if (get_option('buildtype') != 'plain')
   if (get_option('b_lto') == true and get_option('optimization')!='0')
-    # Reduce the binary size by removing unnecessary
-    # dynamic symbol table entries
+#Reduce the binary size by removing unnecessary
+#dynamic symbol table entries
 
     add_project_arguments(
      cxx.get_supported_arguments([
@@ -200,7 +199,7 @@ if( get_option('bmcweb-logging').enabled() or \
     },section : 'Enabled Features')
 endif
 
-# Set Compiler Security flags
+#Set Compiler Security flags
 
 security_flags = [
   '-fstack-protector-strong',
@@ -221,7 +220,7 @@ if not (get_option('buildtype') == 'plain' or get_option('buildtype').startswith
   language: 'cpp')
 endif
 
-# Boost dependency configuration
+#Boost dependency configuration
 
 add_project_arguments(
 cxx.get_supported_arguments([
@@ -237,8 +236,8 @@ cxx.get_supported_arguments([
 ]),
 language : 'cpp')
 
-# Find the dependency modules, if not found use meson wrap to get them
-# automatically during the configure step
+#Find the dependency modules, if not found use meson wrap to get them
+#automatically during the configure step
 bmcweb_dependencies = []
 
 pam = cxx.find_library('pam', required: true)
@@ -306,7 +305,7 @@ if get_option('tests').enabled()
   gmock = gmock.as_system('system')
 endif
 
-# Gather the Configuration data
+#Gather the Configuration data
 
 conf_data = configuration_data()
 conf_data.set('BMCWEB_HTTP_REQ_BODY_LIMIT_MB', get_option('http-body-limit'))
@@ -320,7 +319,7 @@ configure_file(input: 'bmcweb_config.h.in',
                output: 'bmcweb_config.h',
                configuration: conf_data)
 
-# Configure and install systemd unit files
+#Configure and install systemd unit files
 
 systemd_system_unit_dir = systemd.get_variable(pkgconfig: 'systemdsystemunitdir')
 
@@ -344,7 +343,7 @@ configure_file(input : 'bmcweb.service.in',
                configuration: conf_data,
                install : true)
 
-# Copy pam-webserver to etc/pam.d
+#Copy pam - webserver to etc / pam.d
 configure_file(input : 'pam-webserver',
                output : 'webserver',
                copy : true,
@@ -353,7 +352,7 @@ configure_file(input : 'pam-webserver',
 
 install_subdir('static', install_dir : 'share/www', strip_directory : true)
 
-# Source files
+#Source files
 
 srcfiles_bmcweb = [
   'redfish-core/src/error_messages.cpp',
@@ -364,7 +363,7 @@ srcfiles_bmcweb = [
   'src/boost_url.cpp',
 ]
 
-# Generate the bmcweb executable
+#Generate the bmcweb executable
 executable(
   'bmcweb',
   srcfiles_bmcweb + ['src/webserver_main.cpp'],
@@ -391,10 +390,11 @@ srcfiles_unittest = [
   'redfish-core/ut/registries_test.cpp',
   'redfish-core/ut/stl_utils_test.cpp',
   'redfish-core/ut/time_utils_test.cpp',
+  'redfish-core/lib/ut/log_services_test.cpp',
 ]
 
 if(get_option('tests').enabled())
-    # generate the test executable
+#generate the test executable
     ut_bin = executable(
       'bmcweb_unit_test',
       srcfiles_unittest + srcfiles_bmcweb,
