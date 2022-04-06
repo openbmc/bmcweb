@@ -2921,6 +2921,39 @@ inline void retrieveUriToDbusMap(const std::string& chassis,
     getChassisData(resp);
 }
 
+namespace sensors
+{
+inline void getChassisCallback(
+    const std::shared_ptr<SensorsAsyncResp>& asyncResp,
+    const std::shared_ptr<boost::container::flat_set<std::string>>& sensorNames)
+{
+    BMCWEB_LOG_DEBUG << "getChassisCallback enter";
+
+    nlohmann::json& entriesArray =
+        asyncResp->asyncResp->res.jsonValue["Members"];
+    for (auto& sensor : *sensorNames)
+    {
+        BMCWEB_LOG_DEBUG << "Adding sensor: " << sensor;
+
+        sdbusplus::message::object_path path(sensor);
+        std::string sensorName = path.filename();
+        if (sensorName.empty())
+        {
+            BMCWEB_LOG_ERROR << "Invalid sensor path: " << sensor;
+            messages::internalError(asyncResp->asyncResp->res);
+            return;
+        }
+        entriesArray.push_back(
+            {{"@odata.id", "/redfish/v1/Chassis/" + asyncResp->chassisId + "/" +
+                               asyncResp->chassisSubNode + "/" + sensorName}});
+    }
+
+    asyncResp->asyncResp->res.jsonValue["Members@odata.count"] =
+        entriesArray.size();
+    BMCWEB_LOG_DEBUG << "getChassisCallback exit";
+}
+} // namespace sensors
+
 inline void requestRoutesSensorCollection(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/Sensors/")
@@ -2941,44 +2974,10 @@ inline void requestRoutesSensorCollection(App& app)
                         aResp, chassisId,
                         sensors::dbus::paths.at(sensors::node::sensors),
                         sensors::node::sensors);
-
-                auto getChassisCb =
-                    [asyncResp](const std::shared_ptr<
-                                boost::container::flat_set<std::string>>&
-                                    sensorNames) {
-                        BMCWEB_LOG_DEBUG << "getChassisCb enter";
-
-                        nlohmann::json& entriesArray =
-                            asyncResp->asyncResp->res.jsonValue["Members"];
-                        for (auto& sensor : *sensorNames)
-                        {
-                            BMCWEB_LOG_DEBUG << "Adding sensor: " << sensor;
-
-                            sdbusplus::message::object_path path(sensor);
-                            std::string sensorName = path.filename();
-                            if (sensorName.empty())
-                            {
-                                BMCWEB_LOG_ERROR << "Invalid sensor path: "
-                                                 << sensor;
-                                messages::internalError(
-                                    asyncResp->asyncResp->res);
-                                return;
-                            }
-                            entriesArray.push_back(
-                                {{"@odata.id", "/redfish/v1/Chassis/" +
-                                                   asyncResp->chassisId + "/" +
-                                                   asyncResp->chassisSubNode +
-                                                   "/" + sensorName}});
-                        }
-
-                        asyncResp->asyncResp->res
-                            .jsonValue["Members@odata.count"] =
-                            entriesArray.size();
-                        BMCWEB_LOG_DEBUG << "getChassisCb exit";
-                    };
-
                 // Get set of sensors in chassis
-                getChassis(asyncResp, std::move(getChassisCb));
+                getChassis(
+                    asyncResp,
+                    std::bind_front(sensors::getChassisCallback, asyncResp));
                 BMCWEB_LOG_DEBUG << "SensorCollection doGet exit";
             });
 }
