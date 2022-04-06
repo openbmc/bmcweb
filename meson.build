@@ -382,6 +382,7 @@ srcfiles_unittest = [
   'include/ut/human_sort_test.cpp',
   'include/ut/multipart_test.cpp',
   'redfish-core/include/utils/query_param_test.cpp',
+  'redfish-core/lib/ut/log_services_test.cpp',
   'redfish-core/lib/ut/service_root_test.cpp',
   'redfish-core/ut/configfile_test.cpp',
   'redfish-core/ut/hex_utils_test.cpp',
