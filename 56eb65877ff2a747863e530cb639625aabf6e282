@@ -48,6 +48,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c908131e_cfe1341d",
+        "filename": "redfish-core/include/query.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-04-06T23:28:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7de9cb37_7cab0e49",
+      "range": {
+        "startLine": 17,
+        "startChar": 43,
+        "endLine": 17,
+        "endChar": 61
+      },
+      "revId": "56eb65877ff2a747863e530cb639625aabf6e282",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "33c9d3f4_69080fe8",
@@ -119,6 +143,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6bc369f7_ab464a04",
+        "filename": "redfish-core/include/query.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-04-06T23:28:07Z",
+      "side": 1,
+      "message": "Done. Using QueryCapabilities now, which also removes the need of a callback.",
+      "parentUuid": "755c50d5_47d3df7f",
+      "range": {
+        "startLine": 18,
+        "startChar": 8,
+        "endLine": 18,
+        "endChar": 26
+      },
+      "revId": "56eb65877ff2a747863e530cb639625aabf6e282",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7c279b87_a73e3b2d",
@@ -156,6 +204,30 @@
       "side": 1,
       "message": "*anything\u003d\u003e anyone. \n\nApologize for this silly typo. No offense\n\n:)",
       "parentUuid": "7c279b87_a73e3b2d",
+      "range": {
+        "startLine": 31,
+        "startChar": 9,
+        "endLine": 31,
+        "endChar": 21
+      },
+      "revId": "56eb65877ff2a747863e530cb639625aabf6e282",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f034604_0ed067f9",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-04-06T23:28:07Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c34b090e_d47c3d76",
       "range": {
         "startLine": 31,
         "startChar": 9,
