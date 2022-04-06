@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "094a6c22_53620ba3",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 543,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-04-06T17:42:22Z",
+      "side": 1,
+      "message": "\"it\" is only referenced inside the loop, then why not using a for loop?",
+      "revId": "25137e52b3d834f626eabc421bd968a64bda17d7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
