@@ -368,9 +368,11 @@ static bool
     return !redfishLogFiles.empty();
 }
 
+template <typename Sdbus>
 inline void
     getDumpEntryCollection(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                           const std::string& dumpType)
+                           const std::string& dumpType,
+                           const std::shared_ptr<Sdbus>& bus)
 {
     std::string dumpPath;
     if (dumpType == "BMC")
@@ -388,7 +390,7 @@ inline void
         return;
     }
 
-    crow::connections::systemBus->async_method_call(
+    bus->async_method_call(
         [asyncResp, dumpPath,
          dumpType](const boost::system::error_code ec,
                    dbus::utility::ManagedObjectType& resp) {
@@ -527,10 +529,11 @@ inline void
         "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
 }
 
+template <typename Sdbus>
 inline void
     getDumpEntryById(crow::App& app, const crow::Request& req,
                      const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                     const std::string& entryID, const std::string& dumpType)
+                     const std::string& entryID, const std::string& dumpType, const std::shared_ptr<Sdbus>& bus)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
     {
@@ -552,7 +555,7 @@ inline void
         return;
     }
 
-    crow::connections::systemBus->async_method_call(
+    bus->async_method_call(
         [asyncResp, entryID, dumpPath,
          dumpType](const boost::system::error_code ec,
                    dbus::utility::ManagedObjectType& resp) {
@@ -770,8 +773,10 @@ inline void
     task->payload.emplace(std::move(payload));
 }
 
+template <typename Sdbus>
 inline void createDump(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                       const crow::Request& req, const std::string& dumpType)
+                       const crow::Request& req, const std::string& dumpType,
+                       const std::shared_ptr<Sdbus>& bus)
 {
     std::string dumpPath;
     if (dumpType == "BMC")
@@ -837,7 +842,7 @@ inline void createDump(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         }
     }
 
-    crow::connections::systemBus->async_method_call(
+    bus->async_method_call(
         [asyncResp, payload(task::Payload(req)), dumpPath,
          dumpType](const boost::system::error_code ec,
                    const uint32_t& dumpId) mutable {
@@ -2440,7 +2445,8 @@ inline void requestRoutesBMCDumpEntryCollection(App& app)
                 asyncResp->res.jsonValue["Description"] =
                     "Collection of BMC Dump Entries";
 
-                getDumpEntryCollection(asyncResp, "BMC");
+                getDumpEntryCollection(asyncResp, "BMC",
+                                       crow::connections::systemBus);
             });
 }
 
@@ -2458,7 +2464,7 @@ inline void requestRoutesBMCDumpEntry(App& app)
                     return;
                 }
 
-                getDumpEntryById(app, req, asyncResp, param, "BMC");
+                getDumpEntryById(app, req, asyncResp, param, "BMC", crow::connections::systemBus);
             });
     BMCWEB_ROUTE(app,
                  "/redfish/v1/Managers/bmc/LogServices/Dump/Entries/<str>/")
@@ -2488,7 +2494,7 @@ inline void requestRoutesBMCDumpCreate(App& app)
                 {
                     return;
                 }
-                createDump(asyncResp, req, "BMC");
+                createDump(asyncResp, req, "BMC", crow::connections::systemBus);
             });
 }
 
@@ -2572,7 +2578,7 @@ inline void requestRoutesSystemDumpEntryCollection(App& app)
                 asyncResp->res.jsonValue["Description"] =
                     "Collection of System Dump Entries";
 
-                getDumpEntryCollection(asyncResp, "System");
+                getDumpEntryCollection(asyncResp, "System", crow::connections::systemBus);
             });
 }
 
@@ -2586,7 +2592,7 @@ inline void requestRoutesSystemDumpEntry(App& app)
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                    const std::string& param) {
-                getDumpEntryById(app, req, asyncResp, param, "System");
+                getDumpEntryById(app, req, asyncResp, param, "System", crow::connections::systemBus);
             });
 
     BMCWEB_ROUTE(app,
@@ -2617,7 +2623,7 @@ inline void requestRoutesSystemDumpCreate(App& app)
                 {
                     return;
                 }
-                createDump(asyncResp, req, "System");
+                createDump(asyncResp, req, "System", crow::connections::systemBus);
             });
 }
 
