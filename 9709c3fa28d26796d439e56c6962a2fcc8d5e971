@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "128da23d_999d41fa",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-06T15:07:12Z",
+      "side": 1,
+      "message": "Does this need to be syncronized with any service-config-manager patch?",
+      "revId": "9709c3fa28d26796d439e56c6962a2fcc8d5e971",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
