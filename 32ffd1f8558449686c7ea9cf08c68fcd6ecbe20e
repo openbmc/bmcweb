@@ -72,6 +72,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "04de32b5_9d91c821",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-04-06T03:03:52Z",
+      "side": 1,
+      "message": "Here this fuction returns empty vector for when not match, the caller should check if the return value is an empty vector instead of std::nullopt.\n\nOf course, if this funtion returns std::nullopt, then this std::optioal is necessary.",
+      "parentUuid": "0e3b1569_a6ebf608",
+      "revId": "32ffd1f8558449686c7ea9cf08c68fcd6ecbe20e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e58fa8da_541a94fe",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 11
