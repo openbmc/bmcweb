@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "711cbc77_8583c687",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2022-04-06T16:34:52Z",
+      "side": 1,
+      "message": "Redfish does not have any way to differentiate. I will be creating a DMTF forum question soon for this.\n\nIt needs to have the schema in similar way - the Nameservers are defined. They should also probably move the NTPServers property to the interface level as per https://github.com/systemd/systemd/issues/22384. \n\nNTPServers property at NetworkProtocol resource will list both the Static and DHCP provided IPs - once we have the phosphor-networkd commit https://gerrit.openbmc-project.xyz/c/openbmc/phosphor-networkd/+/50156 merged.\n\nThis bmcweb commit is to set the read-write Dbus property \u0027StaticNTPServers\u0027 when the user sends PATCH. The GET handler will pull the read-only Dbus property \u0027NTPServers\u0027 which will list all the active NTP servers at the BMC",
+      "parentUuid": "6a4d4306_f08e2ca4",
+      "range": {
+        "startLine": 12,
+        "startChar": 4,
+        "endLine": 13,
+        "endChar": 26
+      },
+      "revId": "9e0d70859cba23b8339a63aca217dfb7dd801c0e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5bf09429_93f79525",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
