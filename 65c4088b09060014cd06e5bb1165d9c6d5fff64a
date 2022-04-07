@@ -72,6 +72,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8e42f4c9_5589b9da",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 3000,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-07T02:14:41Z",
+      "side": 1,
+      "message": "Yeah, i think this is covered now.",
+      "parentUuid": "d670d341_ea0e970e",
+      "range": {
+        "startLine": 3000,
+        "startChar": 54,
+        "endLine": 3000,
+        "endChar": 68
+      },
+      "revId": "65c4088b09060014cd06e5bb1165d9c6d5fff64a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "41938f88_8f08166b",
@@ -109,6 +133,30 @@
       "side": 1,
       "message": "I don\u0027t have a good way to avoid calling this twice if we don\u0027t want setRedfishRoute returns a copy.",
       "parentUuid": "41938f88_8f08166b",
+      "range": {
+        "startLine": 3005,
+        "startChar": 0,
+        "endLine": 3006,
+        "endChar": 79
+      },
+      "revId": "65c4088b09060014cd06e5bb1165d9c6d5fff64a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e45c8b38_ad5b274b",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 3006,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-07T02:14:41Z",
+      "side": 1,
+      "message": "Hmm..... setRedfishRoute could return a shared_ptr\u003cQuery\u003e, that way the ownership of the object would be shared for the lifetime of the request, and we\u0027d avoid parsing the parameters twice, or duplicating the error check?",
+      "parentUuid": "7746190b_3035750c",
       "range": {
         "startLine": 3005,
         "startChar": 0,
@@ -166,6 +214,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "154a34da_61f79c4c",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 3008,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-07T02:14:41Z",
+      "side": 1,
+      "message": "Lets continue in the previous comment;  I think if that goes to conclusion this problem will go away.",
+      "parentUuid": "25fa469c_7afab255",
+      "range": {
+        "startLine": 3008,
+        "startChar": 16,
+        "endLine": 3008,
+        "endChar": 33
+      },
+      "revId": "65c4088b09060014cd06e5bb1165d9c6d5fff64a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4262dc60_28a72690",
@@ -213,6 +285,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "946d983e_dd6d061b",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 3009,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-07T02:14:41Z",
+      "side": 1,
+      "message": "The capacity?",
+      "parentUuid": "55ea6029_b3d3831b",
+      "range": {
+        "startLine": 3009,
+        "startChar": 25,
+        "endLine": 3009,
+        "endChar": 51
+      },
+      "revId": "65c4088b09060014cd06e5bb1165d9c6d5fff64a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3483ef7e_89c5fe56",
@@ -244,6 +340,24 @@
       "side": 1,
       "message": "Done. Made a separate change.",
       "parentUuid": "3483ef7e_89c5fe56",
+      "revId": "65c4088b09060014cd06e5bb1165d9c6d5fff64a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a9d023d9_1cc7d685",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 3071,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-07T02:14:41Z",
+      "side": 1,
+      "message": "👍",
+      "parentUuid": "b4edee8e_413f07a2",
       "revId": "65c4088b09060014cd06e5bb1165d9c6d5fff64a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
