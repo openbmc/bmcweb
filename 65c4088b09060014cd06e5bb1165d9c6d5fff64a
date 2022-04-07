@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "29d353a9_d36fc848",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 3000,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-04-07T00:03:22Z",
+      "side": 1,
+      "message": "What level of specific requirements do you refer to? Does it look good now?",
+      "parentUuid": "198f89b0_1a9092ac",
+      "range": {
+        "startLine": 3000,
+        "startChar": 54,
+        "endLine": 3000,
+        "endChar": 68
+      },
+      "revId": "65c4088b09060014cd06e5bb1165d9c6d5fff64a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "41938f88_8f08166b",
         "filename": "redfish-core/lib/sensors.hpp",
         "patchSetId": 11
@@ -37,6 +61,30 @@
       "writtenOn": "2022-04-05T16:42:03Z",
       "side": 1,
       "message": "So in this model, we\u0027re parsing the parameters twice, which doesn\u0027t seem like the best.  Is there a way to avoid walking the parameters a second time?",
+      "range": {
+        "startLine": 3005,
+        "startChar": 0,
+        "endLine": 3006,
+        "endChar": 79
+      },
+      "revId": "65c4088b09060014cd06e5bb1165d9c6d5fff64a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7746190b_3035750c",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 3006,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-04-07T00:03:22Z",
+      "side": 1,
+      "message": "I don\u0027t have a good way to avoid calling this twice if we don\u0027t want setRedfishRoute returns a copy.",
+      "parentUuid": "41938f88_8f08166b",
       "range": {
         "startLine": 3005,
         "startChar": 0,
@@ -70,6 +118,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "25fa469c_7afab255",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 3008,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-04-07T00:03:22Z",
+      "side": 1,
+      "message": "if query doesn\u0027t have a value, it will fail in previous setUpRedfishRoute. We can probably just reference the value directly. Otherwise, if we can\u0027t rely on setUpRedfishRoute, we will need duplicate a lot of codes.\n\nLet me know if you still have concerns.",
+      "parentUuid": "019d0a96_17019ec5",
+      "range": {
+        "startLine": 3008,
+        "startChar": 16,
+        "endLine": 3008,
+        "endChar": 33
+      },
+      "revId": "65c4088b09060014cd06e5bb1165d9c6d5fff64a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4262dc60_28a72690",
@@ -93,6 +165,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "55ea6029_b3d3831b",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 3009,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-04-07T00:03:22Z",
+      "side": 1,
+      "message": "I removed the function, but we have to inspect the capacity again, in addition to the one in setRedfishRoute.",
+      "parentUuid": "4262dc60_28a72690",
+      "range": {
+        "startLine": 3009,
+        "startChar": 25,
+        "endLine": 3009,
+        "endChar": 51
+      },
+      "revId": "65c4088b09060014cd06e5bb1165d9c6d5fff64a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3483ef7e_89c5fe56",
@@ -106,6 +202,24 @@
       "writtenOn": "2022-04-05T16:42:03Z",
       "side": 1,
       "message": "nit: This is redundant and not needed.\n\n\nThis callback being a lambda is making it kind of tough to review given that every line changed.  Can you put together a patch to move it to a free function first, then stack this change on top of it?  That would help quite a bit.  If you need help breaking it up, I\u0027m happy to help as well.",
+      "revId": "65c4088b09060014cd06e5bb1165d9c6d5fff64a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b4edee8e_413f07a2",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 3071,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-04-07T00:03:22Z",
+      "side": 1,
+      "message": "Done. Made a separate change.",
+      "parentUuid": "3483ef7e_89c5fe56",
       "revId": "65c4088b09060014cd06e5bb1165d9c6d5fff64a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
