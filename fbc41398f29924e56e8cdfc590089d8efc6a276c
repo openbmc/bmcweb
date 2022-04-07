@@ -1,0 +1,107 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1a40c1f5_ba44aea2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-07T02:09:16Z",
+      "side": 1,
+      "message": "Bunch of minor comments, this is looking pretty good to me.",
+      "revId": "fbc41398f29924e56e8cdfc590089d8efc6a276c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cb5fde9b_4e2bd57d",
+        "filename": "redfish-core/include/query.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-07T02:09:16Z",
+      "side": 1,
+      "message": "nit, generally in bmcweb we call this \"details\".\n\nAdmittedly, it\u0027s not part of the coding standard.",
+      "range": {
+        "startLine": 10,
+        "startChar": 10,
+        "endLine": 10,
+        "endChar": 18
+      },
+      "revId": "fbc41398f29924e56e8cdfc590089d8efc6a276c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "02b86502_798a78b5",
+        "filename": "redfish-core/include/query.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-07T02:09:16Z",
+      "side": 1,
+      "message": "nit, can we give this a different name, something like \"SetUpRedfishWithQuery\", just so we don\u0027t have two overloads with the same name?",
+      "range": {
+        "startLine": 94,
+        "startChar": 26,
+        "endLine": 94,
+        "endChar": 43
+      },
+      "revId": "fbc41398f29924e56e8cdfc590089d8efc6a276c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "855a90ff_e3812ed9",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-07T02:09:16Z",
+      "side": 1,
+      "message": "The comment additions here are excellent improvements.",
+      "revId": "fbc41398f29924e56e8cdfc590089d8efc6a276c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d891aae_7497eb11",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-07T02:09:16Z",
+      "side": 1,
+      "message": "SensorCollection doesn\u0027t have a Links object, and I imagine most other implementations of expand would be expected to handle all types (links and non links).\n\nWould it make more sense to omit this parameter for the moment, until we have a handler that needs to select Links vs NotLinks separately (I suspect we won\u0027t ever need it).",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 51
+      },
+      "revId": "fbc41398f29924e56e8cdfc590089d8efc6a276c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
