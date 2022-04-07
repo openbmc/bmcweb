@@ -16,6 +16,24 @@
       "message": "Good first step IMO.\n\nI noticed with this change, that the Manager resource will always get a new hash (because of DateTime changing every second). Shouldn\u0027t the ETag indicate no change in cases like these? Because otherwise it kind of loses it\u0027s purpose on such resources.\nMaybe erase properties named \"DateTime\" from the json before calculating the hash? ",
       "revId": "367a8e0ffb08ecd239e2098a0dc2fa7fb359d881",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "00a3cb3a_b6eaf771",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-07T20:41:08Z",
+      "side": 1,
+      "message": "Thanks for the review!\n\n\u003e Maybe erase properties named \"DateTime\" from the json before calculating the hash?\n\nPer the definition of etags, I don\u0027t think we\u0027re allowed to do that, because the content of the payload has actually changed.  if we removed DateTime, the user would get an incorrect datetime if they asked for the Managers resource.\n\nI think the overall intent of the standard is that if users only care about fields that aren\u0027t temporal (ie not DateTime) they would add a $select statement to their request, so they could request the Managers resource without the DateTime in it, and therefore improve their caching potential.\n\nAdmittedly, we don\u0027t support $select yet, but we\u0027re getting there, and I think when that support lands, we\u0027ll have a way to handle it.",
+      "parentUuid": "76f89362_a4ad2682",
+      "revId": "367a8e0ffb08ecd239e2098a0dc2fa7fb359d881",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
