@@ -67,6 +67,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "46cde50c_11ce88a5",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-07T02:47:36Z",
+      "side": 1,
+      "message": "\u003e I wanted connID to refer to its vector location within ConnectionPool\u0027s std::vector\u003cstd::shared_ptr\u003cConnectionInfo\u003e\u003e connections.  It\u0027s only used for logging purposes.  The actual ID of a ConnectionInfo instance is a combination of host, port, and connId.  As-is, ConnectionPool does not delete an instance of ConnectionInfo so there are not concerns about connId collisions within a given connection pool.\n\nNot deleting ConnInfo seems like a problem.  If all the connections time out, I would expect them to be deleted from the pool, right?  Or am I missing a subtlety?\n\n\u003e \n\u003e I at least want to keep the current fields since I think those are the most readable for logging purpose.  I can add \"this\" pointer as an overall unique ID if you still think it\u0027s necessary.\n\nconnID pointing to the index in the vector seems error prone, given that it\u0027s not fixed.  If I call connections.erase(connections.begin(), 1) ie erase the first connection, all the indexes now get invalidated.",
+      "parentUuid": "e0beddd5_43f92cdf",
+      "range": {
+        "startLine": 82,
+        "startChar": 0,
+        "endLine": 82,
+        "endChar": 24
+      },
+      "revId": "b61ba6f3154203ee2ec27df956c849e4111b6718",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bdf399c8_ccbbdc3c",
         "filename": "http/http_client.hpp",
         "patchSetId": 20
@@ -161,6 +185,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "08367aba_af38657d",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-07T02:47:36Z",
+      "side": 1,
+      "message": "yep.",
+      "parentUuid": "053d35f4_e0a83d3b",
+      "range": {
+        "startLine": 278,
+        "startChar": 26,
+        "endLine": 278,
+        "endChar": 30
+      },
+      "revId": "b61ba6f3154203ee2ec27df956c849e4111b6718",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "add36b4d_1539c7e4",
         "filename": "http/http_client.hpp",
         "patchSetId": 20
@@ -208,6 +256,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1a37a22a_2287d01c",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-07T02:47:36Z",
+      "side": 1,
+      "message": "\u003e This is how it\u0027s handled in the existing code.\n\nACK.  Existing code is incorrect then, but I won\u0027t hold you to solve all problems for all code in one patch 😊\n\nLuckily timers don\u0027t fail that often, if ever (and if they do, something else is very...very wrong) so it\u0027s not a big deal.\n\n\u003e  waitAndRetry gets called when there is a failure in the flow before a response is received.  When the timer expires the connection is closed so we can attempt to resend the message beginning with doResolve().\n\u003e \n\u003e I need to do something or else the connection will just remain in a fail state and never get reused.  It seems like my only options are close the connection so it gets returned to the pool or retry sending the message.\n\nThis is where we need some subtleties;  I suspect that the class above (HttpClient) class needs to hold the to-be-sent data queue, and only erase items from the queue once they\u0027ve been successfully sent.\n\nIdeally the connection would never truly own any data, given the connection might be destroyed and need to be retried.  It might own by a shared_ptr, just to get lifetime gaurantees (probably want to hold weak_ptr internally, then shared_ptr when you start an async transaction with the data).",
+      "parentUuid": "a8e7d539_2d2579b9",
+      "range": {
+        "startLine": 279,
+        "startChar": 0,
+        "endLine": 279,
+        "endChar": 60
+      },
+      "revId": "b61ba6f3154203ee2ec27df956c849e4111b6718",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7f98f37f_19f4f10b",
         "filename": "http/http_client.hpp",
         "patchSetId": 20
@@ -243,6 +315,30 @@
       "side": 1,
       "message": "Similar to the previous comment, I was replicating the existing approach.  I\u0027ll do your suggestions and close the connection regardless of how many retries were remaining.",
       "parentUuid": "7f98f37f_19f4f10b",
+      "range": {
+        "startLine": 287,
+        "startChar": 0,
+        "endLine": 289,
+        "endChar": 60
+      },
+      "revId": "b61ba6f3154203ee2ec27df956c849e4111b6718",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d060a461_455d5f33",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-07T02:47:36Z",
+      "side": 1,
+      "message": "Yep, if the old code had a problem it\u0027s fine.  No need to boil the ocean.",
+      "parentUuid": "482a0c85_ee220d06",
       "range": {
         "startLine": 287,
         "startChar": 0,
@@ -393,6 +489,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a9e799d1_4b435a29",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 436,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-07T02:47:36Z",
+      "side": 1,
+      "message": "ACK.  I do appreciate that you\u0027ve thought about the problem;  If you want to leave it as-is, it\u0027s fine.  I guess I always assumed that std::less on a string, when doing multiple comparisons (especially comparisons that have common prefixes, which seems likely) would far and above beat the overhead of std::hash.\n\nWith that said, agree, we\u0027re probably in the noise for either.  Use whichever works for you.",
+      "parentUuid": "4a8daef9_57255b09",
+      "range": {
+        "startLine": 436,
+        "startChar": 9,
+        "endLine": 436,
+        "endChar": 12
+      },
+      "revId": "b61ba6f3154203ee2ec27df956c849e4111b6718",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "455c1737_4ec93aa2",
@@ -488,6 +608,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fba4f22d_4e1235cc",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 476,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-07T02:47:36Z",
+      "side": 1,
+      "message": "\u003e I did that to try to simply the individual calls to sendData().  I can change connectionExists() and createConnection() to be private, but that will require providing their arguments to sendData().  This new sendData() would attempt to create a connection pool if one doesn\u0027t already exist before sending the message to the specified client.  The end result would be something like:\n\u003e \n\u003e void sendData(\n\u003e     const std::string\u0026 data, \n\u003e     boost::asio::io_context\u0026 ioc,\n\u003e     const std::string\u0026 id,\n\u003e     const std::string\u0026 destIP,\n\u003e     const std::string\u0026 destPort,\n\u003e     const std::string\u0026 destUri,\n\u003e     const boost::beast::http::fields\u0026 httpHeader\n\u003e )\n\nwhile it seems a little messy, I think it\u0027s a decent API, although can we pass ioc on construction of the object, instead of for each sendData call?  that\u0027s how most of the other implementations do it.\n\n\u003e \n\u003e I feel like this still complicates the calling code, but just in a different way.  Is this acceptable or is there another option?\n\nIf I compare to the python requests library (which is my gold standard for this kind of thing):\nhttps://docs.python-requests.org/en/latest/api/\n\nWhat you have above is basically the same, with the exceptions that destIp/Port/URI are all combined into one string (which seems reasonable given your API)\n\n\u003e \n\u003e What if I make \"createConnection\" private, keep the existing version of sendData(), and also add the new version of sendData()?  Presumably you\u0027ll want to send data when you first create a connection pool so that would combine the two steps.\n\nI\u0027m not quite following;  Why is that better than just calling a single overload of sendData?  The caller has to maintain the request structure around anyway, right?\n\n\u003e  The existing sendData() would be called when you can assume a client connection already exists, and connectionExists() provides the ability to choose between the two situations in case the calling code needs to know.\n\nThis seems like it\u0027s just pushing stuff into the library that really shouldn\u0027t be.  If you think it\u0027s cleaner, I\u0027ll concede, this isn\u0027t super important to me, but just about every client http library I know of requires you provide the connection details with every request (see requests above).",
+      "parentUuid": "cc105b22_06a295f7",
+      "range": {
+        "startLine": 451,
+        "startChar": 0,
+        "endLine": 476,
+        "endChar": 8
+      },
+      "revId": "b61ba6f3154203ee2ec27df956c849e4111b6718",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d52047bd_24a1aafa",
         "filename": "http/http_client.hpp",
         "patchSetId": 20
@@ -535,6 +679,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5008f0bb_c8db9cd6",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 491,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-07T02:47:36Z",
+      "side": 1,
+      "message": "👍",
+      "parentUuid": "81252901_041f1672",
+      "range": {
+        "startLine": 487,
+        "startChar": 0,
+        "endLine": 491,
+        "endChar": 9
+      },
+      "revId": "b61ba6f3154203ee2ec27df956c849e4111b6718",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9267cdb4_506701c8",
         "filename": "http/http_client.hpp",
         "patchSetId": 20
@@ -570,6 +738,30 @@
       "side": 1,
       "message": "Sounds good.  I\u0027ll make each ConnectionPool have its own associated retry policy.  The policy will need to be viewable by each ConnectionInfo in the pool.  My options are:\n(1) Have the policy variables be members of ConnectionPool and add pointers to these members within each associated ConnectionInfo.\n(2) Have a global map (or similar struct) that contains \u003cHostPortKey,policy struct\u003e.  Each ConnectionInfo would have to query the global to get its associated policy.\n\nI think the first option would be both faster to interact with and require less memory.",
       "parentUuid": "9267cdb4_506701c8",
+      "range": {
+        "startLine": 495,
+        "startChar": 0,
+        "endLine": 505,
+        "endChar": 1
+      },
+      "revId": "b61ba6f3154203ee2ec27df956c849e4111b6718",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eb8faca6_33145197",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 505,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-07T02:47:36Z",
+      "side": 1,
+      "message": "\u003e Sounds good.  I\u0027ll make each ConnectionPool have its own associated retry policy.  The policy will need to be viewable by each ConnectionInfo in the pool.  My options are:\n\nI was actually thinking we just push it into client code (ie, EventService has a retry mechanism, and aggregator has a different retry mechanism).  With that said, if you want to try to do a generic thing, I\u0027m in for the ride, lets see if we can build something reasonable.\n\n\u003e (1) Have the policy variables be members of ConnectionPool and add pointers to these members within each associated ConnectionInfo.\n\u003e (2) Have a global map (or similar struct) that contains \u003cHostPortKey,policy struct\u003e.  Each ConnectionInfo would have to query the global to get its associated policy.\n\u003e \n\u003e I think the first option would be both faster to interact with and require less memory.\n\n1 seems fine, just use shared_ptr where appropriate.",
+      "parentUuid": "9eb227f6_d81b6a01",
       "range": {
         "startLine": 495,
         "startChar": 0,
