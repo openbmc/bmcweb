@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bdf3ea13_14fac143",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-07T20:41:31Z",
+      "side": 1,
+      "message": "I sanity tested a little.  If we\u0027re ok with this direction I\u0027ll do better testing, I just wanted to make sure nobody cared a ton about the brace construction stuff.",
+      "parentUuid": "2da2b8a4_3863db57",
+      "revId": "12f65f87b442c67c8176895e8db7303fbebbb21a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4d850cdf_be1698cb",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 1
@@ -31,6 +49,30 @@
       "writtenOn": "2022-04-07T03:05:02Z",
       "side": 1,
       "message": "better var name than j ?",
+      "range": {
+        "startLine": 1272,
+        "startChar": 28,
+        "endLine": 1272,
+        "endChar": 29
+      },
+      "revId": "12f65f87b442c67c8176895e8db7303fbebbb21a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f73da009_628059b1",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1272,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-07T20:41:31Z",
+      "side": 1,
+      "message": "Totally fair.  ACK.",
+      "parentUuid": "4d850cdf_be1698cb",
       "range": {
         "startLine": 1272,
         "startChar": 28,
