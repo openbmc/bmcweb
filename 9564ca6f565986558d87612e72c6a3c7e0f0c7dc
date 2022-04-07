@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f34206f_157f62f5",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-04-07T17:44:02Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "658ce842_870f36b7",
+      "revId": "9564ca6f565986558d87612e72c6a3c7e0f0c7dc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b59e4638_4fdb7f48",
@@ -55,6 +73,30 @@
       "side": 1,
       "message": "No,  I don\u0027t think so",
       "parentUuid": "b59e4638_4fdb7f48",
+      "range": {
+        "startLine": 2924,
+        "startChar": 0,
+        "endLine": 2925,
+        "endChar": 1
+      },
+      "revId": "9564ca6f565986558d87612e72c6a3c7e0f0c7dc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a6d6a41e_50d62ea1",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2925,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-04-07T17:44:02Z",
+      "side": 1,
+      "message": "Yes, as Gunnar pointed out, sensors namespace has ended before this function.",
+      "parentUuid": "948eb39d_eaf462a3",
       "range": {
         "startLine": 2924,
         "startChar": 0,
