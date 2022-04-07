@@ -91,6 +91,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "741e73dc_f8820771",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-04-07T20:56:51Z",
+      "side": 1,
+      "message": "The subtlety is ConnInfo is never deleted so there is not a worry about the indexes getting invalidated.  The connection can be closed for failure events like timeouts, but once it has been closed it can be re-resolved and used by future message sending events.\n\nMy thought is message sending is a repeated event. If the message load is high enough to cause multiple connections to be added to the pool then that load will happen again. When a message fails we don\u0027t block sending other messages to that client.  It should be sufficient to just close the connection.  Deleting and then recreating ConnectionInfo\u0027s then would just be unnecessary overhead.\n\nAdding queues and capping the pool size at 4 would limit the size of the connection pools.",
+      "parentUuid": "46cde50c_11ce88a5",
+      "range": {
+        "startLine": 82,
+        "startChar": 0,
+        "endLine": 82,
+        "endChar": 24
+      },
+      "revId": "b61ba6f3154203ee2ec27df956c849e4111b6718",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bdf399c8_ccbbdc3c",
         "filename": "http/http_client.hpp",
         "patchSetId": 20
@@ -620,6 +644,30 @@
       "side": 1,
       "message": "\u003e I did that to try to simply the individual calls to sendData().  I can change connectionExists() and createConnection() to be private, but that will require providing their arguments to sendData().  This new sendData() would attempt to create a connection pool if one doesn\u0027t already exist before sending the message to the specified client.  The end result would be something like:\n\u003e \n\u003e void sendData(\n\u003e     const std::string\u0026 data, \n\u003e     boost::asio::io_context\u0026 ioc,\n\u003e     const std::string\u0026 id,\n\u003e     const std::string\u0026 destIP,\n\u003e     const std::string\u0026 destPort,\n\u003e     const std::string\u0026 destUri,\n\u003e     const boost::beast::http::fields\u0026 httpHeader\n\u003e )\n\nwhile it seems a little messy, I think it\u0027s a decent API, although can we pass ioc on construction of the object, instead of for each sendData call?  that\u0027s how most of the other implementations do it.\n\n\u003e \n\u003e I feel like this still complicates the calling code, but just in a different way.  Is this acceptable or is there another option?\n\nIf I compare to the python requests library (which is my gold standard for this kind of thing):\nhttps://docs.python-requests.org/en/latest/api/\n\nWhat you have above is basically the same, with the exceptions that destIp/Port/URI are all combined into one string (which seems reasonable given your API)\n\n\u003e \n\u003e What if I make \"createConnection\" private, keep the existing version of sendData(), and also add the new version of sendData()?  Presumably you\u0027ll want to send data when you first create a connection pool so that would combine the two steps.\n\nI\u0027m not quite following;  Why is that better than just calling a single overload of sendData?  The caller has to maintain the request structure around anyway, right?\n\n\u003e  The existing sendData() would be called when you can assume a client connection already exists, and connectionExists() provides the ability to choose between the two situations in case the calling code needs to know.\n\nThis seems like it\u0027s just pushing stuff into the library that really shouldn\u0027t be.  If you think it\u0027s cleaner, I\u0027ll concede, this isn\u0027t super important to me, but just about every client http library I know of requires you provide the connection details with every request (see requests above).",
       "parentUuid": "cc105b22_06a295f7",
+      "range": {
+        "startLine": 451,
+        "startChar": 0,
+        "endLine": 476,
+        "endChar": 8
+      },
+      "revId": "b61ba6f3154203ee2ec27df956c849e4111b6718",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "af0fb90e_07ffbbe0",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 476,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-04-07T20:56:51Z",
+      "side": 1,
+      "message": "Most of my motivation was trying to keep sendData() as close to the original implementation as possible which was only \"void sendData(const std::string\u0026 data)\". I\u0027m good with only having the single version with more arguments now that I know that\u0027s pretty standard.\n\n\u003e can we pass ioc on construction of the object, instead of for each sendData call?\n\nI can lookup ioc when HttpClient is initialized and then pass it to ConnectionPool and later ConnectionInfo each time one is created.",
+      "parentUuid": "fba4f22d_4e1235cc",
       "range": {
         "startLine": 451,
         "startChar": 0,
