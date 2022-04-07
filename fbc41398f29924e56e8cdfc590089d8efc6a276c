@@ -135,6 +135,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f19dbdff_4c0cdd63",
+        "filename": "redfish-core/include/query.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-07T23:59:30Z",
+      "side": 1,
+      "message": "\u003e  expand, then we change query.expandLevel and subtract the levels we\u0027d already expanded.\n\nOK..... I think I get it now;  Because the existing expand stuff walks recursively, expand \u003d 3 on an unoptimized tree ends up being the same as expand \u003d 2 on an already expanded tree.\n\n\nThat\u0027s cool.  I didn\u0027t think we were going to be able to get that behavior so simply, but that\u0027s awesome.",
+      "parentUuid": "2de9cfff_a72cd62c",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 74
+      },
+      "revId": "fbc41398f29924e56e8cdfc590089d8efc6a276c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "02b86502_798a78b5",
@@ -172,6 +196,30 @@
       "side": 1,
       "message": "Yes, we can give it another name, but not this function which was already referenced by many places. I changed the other overload which takes a capability.",
       "parentUuid": "02b86502_798a78b5",
+      "range": {
+        "startLine": 94,
+        "startChar": 26,
+        "endLine": 94,
+        "endChar": 43
+      },
+      "revId": "fbc41398f29924e56e8cdfc590089d8efc6a276c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6ba0997b_d8a8c61b",
+        "filename": "redfish-core/include/query.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-07T23:59:30Z",
+      "side": 1,
+      "message": "Yeah, Agreed, I left the comment on the wrong spot.  New function should have a different name, which you did.",
+      "parentUuid": "5ae6e99c_647dbf13",
       "range": {
         "startLine": 94,
         "startChar": 26,
