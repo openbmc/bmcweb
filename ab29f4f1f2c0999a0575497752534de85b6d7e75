@@ -74,6 +74,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "377160ea_871b68fb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-07T02:26:08Z",
+      "side": 1,
+      "message": "Latest patchset looks like it actually drops the binary size.  Good work.",
+      "parentUuid": "9971b3f4_398b46a5",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 44
+      },
+      "revId": "ab29f4f1f2c0999a0575497752534de85b6d7e75",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "3ee6e1ff_27ac1012",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 4
