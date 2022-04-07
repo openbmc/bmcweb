@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "583553c8_916d63e5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-04-07T17:04:33Z",
+      "side": 1,
+      "message": "If you don\u0027t want review now you can can mark the change WIP (work in progress) in the upper right hand of the screen (three dots to the right of the \"edit\" button)\n\nRemoving people from a review is uncommon. ",
+      "revId": "a4814ce3ec90c51a584a3b4fac6f7c688a040d1a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
