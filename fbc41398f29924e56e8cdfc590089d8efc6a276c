@@ -41,6 +41,52 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e3cceb97_532ebb83",
+        "filename": "redfish-core/include/query.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-07T02:21:38Z",
+      "side": 1,
+      "message": "This wasn\u0027t quite how I imagined it, but I kinda like this better.\n\n\nI imagined you\u0027d have Query contain the QueryCapabilities object, then have it get used better, but removing the portions that are already handled does seem kinda better.  good work!",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 77
+      },
+      "revId": "fbc41398f29924e56e8cdfc590089d8efc6a276c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1ba9a776_fc73209d",
+        "filename": "redfish-core/include/query.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-07T02:21:38Z",
+      "side": 1,
+      "message": "if the query can\u0027t expand, should query.expandLevel be left as-is?",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 74
+      },
+      "revId": "fbc41398f29924e56e8cdfc590089d8efc6a276c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "02b86502_798a78b5",
