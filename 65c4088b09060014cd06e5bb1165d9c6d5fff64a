@@ -167,6 +167,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d454fb08_5b620599",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 3006,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-04-07T22:52:00Z",
+      "side": 1,
+      "message": "Please take a look at what I have now, it avoids either returning copy or pointers.",
+      "parentUuid": "e45c8b38_ad5b274b",
+      "range": {
+        "startLine": 3005,
+        "startChar": 0,
+        "endLine": 3006,
+        "endChar": 79
+      },
+      "revId": "65c4088b09060014cd06e5bb1165d9c6d5fff64a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "019d0a96_17019ec5",
@@ -299,6 +323,30 @@
       "side": 1,
       "message": "The capacity?",
       "parentUuid": "55ea6029_b3d3831b",
+      "range": {
+        "startLine": 3009,
+        "startChar": 25,
+        "endLine": 3009,
+        "endChar": 51
+      },
+      "revId": "65c4088b09060014cd06e5bb1165d9c6d5fff64a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "779c3744_2f75808d",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 3009,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-04-07T22:52:00Z",
+      "side": 1,
+      "message": "capability",
+      "parentUuid": "946d983e_dd6d061b",
       "range": {
         "startLine": 3009,
         "startChar": 25,
