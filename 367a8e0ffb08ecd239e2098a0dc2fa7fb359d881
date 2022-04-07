@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "76f89362_a4ad2682",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001230
+      },
+      "writtenOn": "2022-04-07T12:58:10Z",
+      "side": 1,
+      "message": "Good first step IMO.\n\nI noticed with this change, that the Manager resource will always get a new hash (because of DateTime changing every second). Shouldn\u0027t the ETag indicate no change in cases like these? Because otherwise it kind of loses it\u0027s purpose on such resources.\nMaybe erase properties named \"DateTime\" from the json before calculating the hash? ",
+      "revId": "367a8e0ffb08ecd239e2098a0dc2fa7fb359d881",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
