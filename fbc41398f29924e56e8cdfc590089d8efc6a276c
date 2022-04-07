@@ -43,6 +43,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "e240b423_cbc4c13e",
+        "filename": "redfish-core/include/query.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-04-07T22:14:55Z",
+      "side": 1,
+      "message": "Done. I moved them to query_param.hpp and added unit tests.",
+      "parentUuid": "cb5fde9b_4e2bd57d",
+      "range": {
+        "startLine": 10,
+        "startChar": 10,
+        "endLine": 10,
+        "endChar": 18
+      },
+      "revId": "fbc41398f29924e56e8cdfc590089d8efc6a276c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "e3cceb97_532ebb83",
         "filename": "redfish-core/include/query.hpp",
         "patchSetId": 6
@@ -87,6 +111,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2de9cfff_a72cd62c",
+        "filename": "redfish-core/include/query.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-04-07T22:14:55Z",
+      "side": 1,
+      "message": "Apologize, I don\u0027t understand this comment.\n\nWhat do you mean by \"if query can\u0027t expand\". I thought query can always expand. Here the idea is that if queryCapabilities can only handle a smaller level of expand, we will firstly let queryCapabilities (redfish-core/lib codes) expand, then we change query.expandLevel and subtract the levels we\u0027d already expanded.\n\nLet me know if this doesn\u0027t work.",
+      "parentUuid": "1ba9a776_fc73209d",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 74
+      },
+      "revId": "fbc41398f29924e56e8cdfc590089d8efc6a276c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "02b86502_798a78b5",
@@ -100,6 +148,30 @@
       "writtenOn": "2022-04-07T02:09:16Z",
       "side": 1,
       "message": "nit, can we give this a different name, something like \"SetUpRedfishWithQuery\", just so we don\u0027t have two overloads with the same name?",
+      "range": {
+        "startLine": 94,
+        "startChar": 26,
+        "endLine": 94,
+        "endChar": 43
+      },
+      "revId": "fbc41398f29924e56e8cdfc590089d8efc6a276c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ae6e99c_647dbf13",
+        "filename": "redfish-core/include/query.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-04-07T22:14:55Z",
+      "side": 1,
+      "message": "Yes, we can give it another name, but not this function which was already referenced by many places. I changed the other overload which takes a capability.",
+      "parentUuid": "02b86502_798a78b5",
       "range": {
         "startLine": 94,
         "startChar": 26,
