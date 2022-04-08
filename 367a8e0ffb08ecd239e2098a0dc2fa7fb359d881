@@ -34,6 +34,41 @@
       "parentUuid": "76f89362_a4ad2682",
       "revId": "367a8e0ffb08ecd239e2098a0dc2fa7fb359d881",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "767593b8_739ee6e2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001230
+      },
+      "writtenOn": "2022-04-08T10:39:36Z",
+      "side": 1,
+      "message": "Also, I didn\u0027t have any measurable difference in repose times for the ManagerAccount resource on my AST2500 with this change. However, I can imagine if you request a larger resource (e.g. something containing hundreds of logs or similar) there might be more of a difference?",
+      "parentUuid": "76f89362_a4ad2682",
+      "revId": "367a8e0ffb08ecd239e2098a0dc2fa7fb359d881",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3faac320_8de999b5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001230
+      },
+      "writtenOn": "2022-04-08T10:39:36Z",
+      "side": 1,
+      "message": "\u003e Per the definition of etags, I don\u0027t think we\u0027re allowed to do that, because the content of the payload has actually changed.  if we removed DateTime, the user would get an incorrect datetime if they asked for the Managers resource.\n\nI think the ETag is allowed to do that, but it would need to be declared as \"weak\" instead of \"strong\": https://datatracker.ietf.org/doc/html/rfc7232#section-2.3\n\nIf we would use the $select statement, does it still \"reduce unnecessary RESTful accesses\"? (http://redfish.dmtf.org/schemas/DSP0266_1.8.0.html#etags)\n\nOverall I think I\u0027m ok with the ETag changing constantly in resources that include properties like the current time. I just think it would be unfortunate if we don\u0027t use the benefit/purpose of ETags on such resources. ",
+      "revId": "367a8e0ffb08ecd239e2098a0dc2fa7fb359d881",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
