@@ -58,6 +58,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6913d7ca_61e44529",
+        "filename": "include/google/dbus_utils.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1001386
+      },
+      "writtenOn": "2022-04-08T21:32:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "69c3b8d5_d881f333",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 1
+      },
+      "revId": "b9b1c43fdb608ea098d17df55e199dea2f476715",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dcf31975_665f17c0",
@@ -94,6 +118,30 @@
       "writtenOn": "2022-04-07T16:43:59Z",
       "side": 1,
       "message": "is this the only way to do this?\n\nI don\u0027t think we really want global variable like this.\n\nI think normally we want to create a new class that inherient AsyncResp and have the variables in there like with SensorAsyncResp https://github.com/openbmc/bmcweb/blob/master/redfish-core/lib/sensors.hpp#L160",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 0
+      },
+      "revId": "b9b1c43fdb608ea098d17df55e199dea2f476715",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3b3bafa1_3fcc56c4",
+        "filename": "include/google/google_service_root.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1001386
+      },
+      "writtenOn": "2022-04-08T21:32:29Z",
+      "side": 1,
+      "message": "LGTM. Thanks for pointing this.\nI looked at the pattern for dbus_singleton.hpp where there is one instance of systemBus and thought it is standard/applicable.\n\nWe can totally avoid global variables as you point out.",
+      "parentUuid": "07c09e61_b07450f6",
       "range": {
         "startLine": 47,
         "startChar": 0,
