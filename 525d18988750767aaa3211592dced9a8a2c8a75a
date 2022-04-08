@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d5d19c79_4396e2a8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-08T19:57:17Z",
+      "side": 1,
+      "message": "This is looking way closer;  Just want to see if there\u0027s a minor code reduction we can do, but otherwise, looks good to me.",
+      "revId": "525d18988750767aaa3211592dced9a8a2c8a75a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dbbd87ab_50dad9fc",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-08T19:57:17Z",
+      "side": 1,
+      "message": "Thinking about it, do we need the branch at all?  Doesn\u0027t the:\nquery.expandLevel -\u003d queryCapabilities.canDelegateExpandLevel;\n\nLine work in both cases (ie if canDeleteExpandLevel \u003d 0, that line is noop).\n\n\nso we\u0027d end up with something like:\nquery.expandLevel -\u003d queryCapabilities.canDelegateExpandLevel;\ndelegated.expandLevel \u003d queryCapabilities.canDelegateExpandLevel;\ndelegated.expandType \u003d query.expandType;\n\n\nI think that covers all the cases, and is less code, right?  It does change the value of query.expandType in the former case, but ExpandType \u003d\u003d All, with depth of 0 is no-op still, so I think it still generalizes.",
+      "range": {
+        "startLine": 60,
+        "startChar": 0,
+        "endLine": 73,
+        "endChar": 5
+      },
+      "revId": "525d18988750767aaa3211592dced9a8a2c8a75a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
