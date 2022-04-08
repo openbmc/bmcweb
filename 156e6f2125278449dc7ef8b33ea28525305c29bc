@@ -426,6 +426,30 @@
       },
       "revId": "156e6f2125278449dc7ef8b33ea28525305c29bc",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "65014934_a0404b7f",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 500,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-04-08T20:53:13Z",
+      "side": 1,
+      "message": "I\u0027m marking this as resolved since it is closely related to another comment suggesting I use unordered_map as the data structure.  That change has been made",
+      "parentUuid": "9fc84b6b_c08195e2",
+      "range": {
+        "startLine": 500,
+        "startChar": 0,
+        "endLine": 500,
+        "endChar": 48
+      },
+      "revId": "156e6f2125278449dc7ef8b33ea28525305c29bc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

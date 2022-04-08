@@ -160,6 +160,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "94a3288c_3ec35b7a",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-04-08T20:53:13Z",
+      "side": 1,
+      "message": "I have uploaded the change.  I added \"data\" as a class variable for ConnectionInfo",
+      "parentUuid": "3f05267e_2a3fd413",
+      "range": {
+        "startLine": 86,
+        "startChar": 19,
+        "endLine": 86,
+        "endChar": 42
+      },
+      "revId": "b61ba6f3154203ee2ec27df956c849e4111b6718",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9eacb25c_89c2f985",
@@ -221,6 +245,30 @@
       "side": 1,
       "message": "yep.",
       "parentUuid": "053d35f4_e0a83d3b",
+      "range": {
+        "startLine": 278,
+        "startChar": 26,
+        "endLine": 278,
+        "endChar": 30
+      },
+      "revId": "b61ba6f3154203ee2ec27df956c849e4111b6718",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e8c4b39_08c26c2b",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-04-08T20:53:13Z",
+      "side": 1,
+      "message": "I have removed the \"data\" captures in the latest patchset",
+      "parentUuid": "08367aba_af38657d",
       "range": {
         "startLine": 278,
         "startChar": 26,
@@ -466,6 +514,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1463af06_d38d28dc",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 429,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-04-08T20:53:13Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "8d7cfc75_c199fe8a",
+      "range": {
+        "startLine": 429,
+        "startChar": 8,
+        "endLine": 429,
+        "endChar": 14
+      },
+      "revId": "b61ba6f3154203ee2ec27df956c849e4111b6718",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3c5272ee_50abc82a",
@@ -550,6 +622,30 @@
       "writtenOn": "2022-04-06T00:07:24Z",
       "side": 1,
       "message": "This is doing your key lookup twice.  The API you\u0027re looking for here is try_emplace().  The ret.second parameter tells you if the element was constructed.",
+      "range": {
+        "startLine": 467,
+        "startChar": 28,
+        "endLine": 467,
+        "endChar": 36
+      },
+      "revId": "b61ba6f3154203ee2ec27df956c849e4111b6718",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "063824aa_08c64ee7",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 467,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-04-08T20:53:13Z",
+      "side": 1,
+      "message": "I switched to using try_emplace() and moved this section of code into sendData().",
+      "parentUuid": "455c1737_4ec93aa2",
       "range": {
         "startLine": 467,
         "startChar": 28,
@@ -680,6 +776,54 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "36242d63_c62294e4",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 476,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-04-08T20:53:13Z",
+      "side": 1,
+      "message": "sendData() is now the lone public API.  It handles creating a new connection pool if one does not already exist and then sends the request.  I used try_emplace() as advised in a previous comment to perform the check and also construct a new ConnectionPool in place if one does not exist.\n\nThe createConnection() and connectionExists() functions have been deleted and their functionality effectively moved into sendData().",
+      "parentUuid": "af0fb90e_07ffbbe0",
+      "range": {
+        "startLine": 451,
+        "startChar": 0,
+        "endLine": 476,
+        "endChar": 8
+      },
+      "revId": "b61ba6f3154203ee2ec27df956c849e4111b6718",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3e350639_5e9d5f41",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 476,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-04-08T20:53:13Z",
+      "side": 1,
+      "message": "I think I got it to work if you can confirm it looks correct.  I also moved this section of code into sendData().",
+      "parentUuid": "040eae57_0b8b0132",
+      "range": {
+        "startLine": 476,
+        "startChar": 12,
+        "endLine": 476,
+        "endChar": 26
+      },
+      "revId": "b61ba6f3154203ee2ec27df956c849e4111b6718",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d52047bd_24a1aafa",
         "filename": "http/http_client.hpp",
         "patchSetId": 20
@@ -739,6 +883,30 @@
       "side": 1,
       "message": "👍",
       "parentUuid": "81252901_041f1672",
+      "range": {
+        "startLine": 487,
+        "startChar": 0,
+        "endLine": 491,
+        "endChar": 9
+      },
+      "revId": "b61ba6f3154203ee2ec27df956c849e4111b6718",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "19fd5cac_86b05b2f",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 491,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-04-08T20:53:13Z",
+      "side": 1,
+      "message": "I removed the exception in favor of using find().",
+      "parentUuid": "5008f0bb_c8db9cd6",
       "range": {
         "startLine": 487,
         "startChar": 0,
