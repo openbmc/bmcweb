@@ -104,6 +104,30 @@
       },
       "revId": "525d18988750767aaa3211592dced9a8a2c8a75a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "69706832_06b8599e",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-04-08T22:50:53Z",
+      "side": 1,
+      "message": "I removed swap and set both type and level explicitly.\n\n\n\u003e Why\u0027s that?  They should be equivalent, in fact, I think expandLevel \u003d 0 calls less code.\n\nhttps://github.com/openbmc/bmcweb/blob/master/redfish-core/include/utils/query_param.hpp#L375\n\n\"query.expandType \u003d ExpandType::None\" runs less codes, right? It won\u0027t touch MultiAsyncResp.",
+      "parentUuid": "1ae716a5_16b114f6",
+      "range": {
+        "startLine": 60,
+        "startChar": 0,
+        "endLine": 73,
+        "endChar": 5
+      },
+      "revId": "525d18988750767aaa3211592dced9a8a2c8a75a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
