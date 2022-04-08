@@ -46,6 +46,30 @@
       },
       "revId": "63692bea57f5f69447f4b87537fc88aae08458af",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a133618b_fe2e5a0e",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 3019,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-08T02:07:03Z",
+      "side": 1,
+      "message": "$top is just an example, it can be replaced with essentially any of the query params, but I feel like I haven\u0027t been clear.  What if a efficient handler\n\n.canDelegateExpandLevel \u003d 1\n.canDeletgateOnly \u003d true;\n \nbut then the user requests /foo?$only (ie no expand)\n\nHow does the handler know that it should ONLY do the only case, and not the expand case?\n\n\u003e I couldn\u0027t see a case where redfish-core/lib codes can do expand but not $top efficiently\n\nPost codes might be one example, LogServiceCollection (in systems or manager) might be another.\n\n\n\u003e So, in this architecture, what we don\u0027t support is cases when redfish-core/lib codes can do higher priority parameters efficiently but not lower priority parameters efficiently. As far as I can imagine, there are not many cases we will hit this limitation.\n\nI could definitely see both a case where an implementation would want to do only efficient $filter (LogEntryCollections), and a case where a handler would want to do only efficient $select (Sensor), and those are at opposite ends of the list you made.\n\n\nI really suspect that just returning the query structure, or a reference to the query structure (even if it\u0027s a copy) is the best thing here.  It makes it a ton more clear what the API requires (ie, you check the Query structure for things that need done) rather than it just being implicit.",
+      "parentUuid": "0ed0c5e3_352413d0",
+      "range": {
+        "startLine": 3019,
+        "startChar": 16,
+        "endLine": 3019,
+        "endChar": 25
+      },
+      "revId": "63692bea57f5f69447f4b87537fc88aae08458af",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
