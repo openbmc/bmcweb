@@ -41,6 +41,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2b9251ae_8c81d870",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-08T20:58:37Z",
+      "side": 1,
+      "message": "Because this is a return code, and not used as part of a structure that\u0027s copied, we generally will prefer letting the compiler pick here, which will pick int, which in theory is more efficient.",
+      "parentUuid": "5548700e_66ff56de",
+      "range": {
+        "startLine": 130,
+        "startChar": 11,
+        "endLine": 130,
+        "endChar": 21
+      },
+      "revId": "d6c9510b3fcf2b3859ab31b5927be30622838df8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f811fb2b_5d181b35",
@@ -64,6 +88,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9ce1ca57_86e0b1aa",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-08T20:58:37Z",
+      "side": 1,
+      "message": "ACK.  I forgot we even had a naming convention for that.",
+      "parentUuid": "f811fb2b_5d181b35",
+      "range": {
+        "startLine": 133,
+        "startChar": 4,
+        "endLine": 133,
+        "endChar": 16
+      },
+      "revId": "d6c9510b3fcf2b3859ab31b5927be30622838df8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e676a0ab_12f564e8",
@@ -77,6 +125,30 @@
       "writtenOn": "2022-04-08T20:54:05Z",
       "side": 1,
       "message": "is this different than \"constexpr uint64_t\"?",
+      "range": {
+        "startLine": 156,
+        "startChar": 7,
+        "endLine": 156,
+        "endChar": 22
+      },
+      "revId": "d6c9510b3fcf2b3859ab31b5927be30622838df8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d0c22bc9_cf88d684",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-08T20:58:37Z",
+      "side": 1,
+      "message": "I\u0027ve never understood if constexpr implies const or not.  Maybe it does?, but I remember it mattering in some old context (that I can\u0027t remember).\n\nHappy to change it so long as it compiles.",
+      "parentUuid": "e676a0ab_12f564e8",
       "range": {
         "startLine": 156,
         "startChar": 7,
