@@ -181,6 +181,30 @@
       },
       "revId": "d6c9510b3fcf2b3859ab31b5927be30622838df8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7084af6b_bca3a317",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-08T22:20:53Z",
+      "side": 1,
+      "message": "I\u0027m sure the compiler generates the same code in either case, that\u0027s less what I\u0027m worried about:\n\nhttps://stackoverflow.com/questions/50609668/is-const-constexpr-on-variables-redundant\n\nSeems to say that it matters if you take pointers to things, because the pointer needs to be const as well.  In this case, I\u0027m happy to change this, because I don\u0027t think it hits that case.",
+      "parentUuid": "b391d629_526594bc",
+      "range": {
+        "startLine": 156,
+        "startChar": 7,
+        "endLine": 156,
+        "endChar": 22
+      },
+      "revId": "d6c9510b3fcf2b3859ab31b5927be30622838df8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
