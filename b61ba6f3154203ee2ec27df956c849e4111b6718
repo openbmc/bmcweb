@@ -352,6 +352,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7f8429c8_ced4124b",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-04-08T21:23:20Z",
+      "side": 1,
+      "message": "\u003e This is where we need some subtleties;  I suspect that the class above (HttpClient) class needs to hold the to-be-sent data queue, and only erase items from the queue once they\u0027ve been successfully sent.\n\u003e \n\u003e Ideally the connection would never truly own any data, given the connection might be destroyed and need to be retried.  It might own by a shared_ptr, just to get lifetime gaurantees (probably want to hold weak_ptr internally, then shared_ptr when you start an async transaction with the data).\n\nIf my justification from a previous comment for never deleting connections is valid then I won\u0027t have to worry about letting the ConnectionInfo own the data.  Because I\u0027ll have a connection pool I\u0027ll need some intermediate container anyway to hold the data when it is being sent.  If I wait to remove data from the queue until it\u0027s been successfully sent, then that would lock me into only sending a single message at a time.  ConnectionInfo\u0027s data member can serve as this intermediate container.",
+      "parentUuid": "1a37a22a_2287d01c",
+      "range": {
+        "startLine": 279,
+        "startChar": 0,
+        "endLine": 279,
+        "endChar": 60
+      },
+      "revId": "b61ba6f3154203ee2ec27df956c849e4111b6718",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7f98f37f_19f4f10b",
         "filename": "http/http_client.hpp",
         "patchSetId": 20
