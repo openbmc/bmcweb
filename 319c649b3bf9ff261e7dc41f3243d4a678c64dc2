@@ -16,6 +16,23 @@
       "message": "Sorry I didn\u0027t pick up on this earlier, but it\u0027s worth talking about for a second.  Should we avoid the word \"BIOS\" here, considering that UEFI is hardly a BIOS these days, and not all systems it\u0027s called BIOS?  Does redfish have anything similar we can reference?",
       "revId": "319c649b3bf9ff261e7dc41f3243d4a678c64dc2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0eaf1155_38e9de98",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000652
+      },
+      "writtenOn": "2022-04-08T04:12:23Z",
+      "side": 1,
+      "message": "Checked in Redfish literature and found that BIOS is used more instead of UEFI, if needed I can change it to \"BIOS/UEFI\" in the code.",
+      "revId": "319c649b3bf9ff261e7dc41f3243d4a678c64dc2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
