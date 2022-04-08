@@ -69,6 +69,42 @@
       "message": "\u003e Per the definition of etags, I don\u0027t think we\u0027re allowed to do that, because the content of the payload has actually changed.  if we removed DateTime, the user would get an incorrect datetime if they asked for the Managers resource.\n\nI think the ETag is allowed to do that, but it would need to be declared as \"weak\" instead of \"strong\": https://datatracker.ietf.org/doc/html/rfc7232#section-2.3\n\nIf we would use the $select statement, does it still \"reduce unnecessary RESTful accesses\"? (http://redfish.dmtf.org/schemas/DSP0266_1.8.0.html#etags)\n\nOverall I think I\u0027m ok with the ETag changing constantly in resources that include properties like the current time. I just think it would be unfortunate if we don\u0027t use the benefit/purpose of ETags on such resources. ",
       "revId": "367a8e0ffb08ecd239e2098a0dc2fa7fb359d881",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a1894be_579b440b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-08T16:02:59Z",
+      "side": 1,
+      "message": "\u003e Also, I didn\u0027t have any measurable difference in repose times for the ManagerAccount resource on my AST2500 with this change.\n\n\nYep, that is expected, and pointed out in the commit message.   We don\u0027t have an implementation of the headers that would allow response time improvements.\n\n\u003e However, I can imagine if you request a larger resource (e.g. something containing hundreds of logs or similar) there might be more of a difference?\n\nNot at this point in time with this patch.",
+      "parentUuid": "767593b8_739ee6e2",
+      "revId": "367a8e0ffb08ecd239e2098a0dc2fa7fb359d881",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1710a627_0b413249",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-08T16:02:59Z",
+      "side": 1,
+      "message": "This is definitely worth discussing more, but I suspect not in the context of this patchset (given that this doesn\u0027t implement any of the efficiency improvements).\n\nWith that said, I don\u0027t think weak etags are the answer here;  Weak etags are supposed to be where the payload might not be byte-for-byte identical, but is semantically the same.  In this case, the DateTime field is actually different.\n\n\u003e If we would use the $select statement, does it still \"reduce unnecessary RESTful accesses\"? \n\nYes, I believe it does, because the payload for the select query wont have changed.\n\n\u003e I just think it would be unfortunate if we don\u0027t use the benefit/purpose of ETags on such resources.\n\nAgreed, but I think select gets us both, so long as the client correctly forms their query.",
+      "parentUuid": "3faac320_8de999b5",
+      "revId": "367a8e0ffb08ecd239e2098a0dc2fa7fb359d881",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
