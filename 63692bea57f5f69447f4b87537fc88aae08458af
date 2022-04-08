@@ -70,6 +70,30 @@
       },
       "revId": "63692bea57f5f69447f4b87537fc88aae08458af",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "789d1588_364eb214",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 3019,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-04-08T18:35:22Z",
+      "side": 1,
+      "message": "Done. I finally got what the problem is. As you said, a simple case is that the resource handler can do only and expand, the actual query only has \"only\", then how does the resource handler know this fact.\n\nPlease take a look at what I have now, I returned a new Query, as \"delegatedQuery\", so that resource handler doesn\u0027t need to parse query parameters again.",
+      "parentUuid": "a133618b_fe2e5a0e",
+      "range": {
+        "startLine": 3019,
+        "startChar": 16,
+        "endLine": 3019,
+        "endChar": 25
+      },
+      "revId": "63692bea57f5f69447f4b87537fc88aae08458af",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
