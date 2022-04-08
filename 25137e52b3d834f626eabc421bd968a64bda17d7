@@ -34,6 +34,24 @@
       "parentUuid": "094a6c22_53620ba3",
       "revId": "25137e52b3d834f626eabc421bd968a64bda17d7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4ba31381_6e761c9c",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 543,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-04-08T01:41:50Z",
+      "side": 1,
+      "message": "oh, I meant a normal for loop where you can define variables whose scope is just the for loop. It is really a nit :)",
+      "parentUuid": "b4d10b54_41e11278",
+      "revId": "25137e52b3d834f626eabc421bd968a64bda17d7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
