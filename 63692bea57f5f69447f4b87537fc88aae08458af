@@ -22,6 +22,30 @@
       },
       "revId": "63692bea57f5f69447f4b87537fc88aae08458af",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0ed0c5e3_352413d0",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 3019,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-04-08T00:44:30Z",
+      "side": 1,
+      "message": "Regarding combinations like this, we will reply on the order of executing query parameters,\n\n```\nServices shall process query parameters in this order:\n• $filter\n• $skip\n• $top\n• Apply server-side pagination\n• $expand\n• excerpt\n• $select\n```\n\nWhen redfish-core/lib codes said they have capabilities to do both (e.g., .canDelegateExpandLevel\u003d1 \u0026\u0026 .canDeletgateTop\u003dtrue), since we execute $top before expand, the behavior in cases when query.expandLevel\u003d2 is still correct, the default handler won\u0027t do top, but do the remaining level\u003d1 expand.\n\nWhen redfish-core/lib codes can only do $top, they need to set the capabilities to (.canDeletgateTop\u003dtrue). The  the default handler won\u0027t do top, but do the full level\u003d2 expand.\n\nI couldn\u0027t see a case where redfish-core/lib codes can do expand but not $top efficiently. Please note, $top only applies to resource collection. The only drawback I could see is duplicate codes. The generic $top handler might just be like the efficient one in certain cases. This can be solved in making a common $top library on JSON objects.\n\nSo, in this architecture, what we don\u0027t support is cases when redfish-core/lib codes can do higher priority parameters efficiently but not lower priority parameters efficiently. As far as I can imagine, there are not many cases we will hit this limitation.\n\nLet me know if this doesn\u0027t answer your question.",
+      "parentUuid": "a5bf815a_2c859ea3",
+      "range": {
+        "startLine": 3019,
+        "startChar": 16,
+        "endLine": 3019,
+        "endChar": 25
+      },
+      "revId": "63692bea57f5f69447f4b87537fc88aae08458af",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
