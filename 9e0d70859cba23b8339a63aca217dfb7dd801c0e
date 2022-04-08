@@ -122,6 +122,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f871e649_1a82b21f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2022-04-08T10:04:50Z",
+      "side": 1,
+      "message": "Yes. DMTF said that they will look into this further.\n\nOnce we get new parameters added at EthernetInterface level, then PATCH to set this Dbus will need to be moved to ethernet.hpp. It would look like:\n\nPATCH StaticNTPSevers: [\"192.168.1.1\"]\nGET StaticNTPServers: [\"192.168.1.1\"]\nGET NTPServers: [\"192.168.1.1\", \"10.10.1.1\"] \u003d\u003d\u003e a combined list of static \u0026 dhcp provided values\n\nBut until then we may have to work with the current approach only ?",
+      "parentUuid": "11de13fb_ea862929",
+      "range": {
+        "startLine": 12,
+        "startChar": 4,
+        "endLine": 13,
+        "endChar": 26
+      },
+      "revId": "9e0d70859cba23b8339a63aca217dfb7dd801c0e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5bf09429_93f79525",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
