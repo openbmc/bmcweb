@@ -55,6 +55,23 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "739d77cd_c67459a9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-08T16:22:11Z",
+      "side": 1,
+      "message": "And..... I waiting too long and now we have a merge conflict.  If you get this rebased (or I can do it as I have time) we can get this merged.",
+      "revId": "2ddd1982b52a7d52e82fd95b21ac8b1be095b35a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "a9da5af7_c8bd56b4",
         "filename": "redfish-core/include/registries/base_message_registry.hpp",
         "patchSetId": 1
