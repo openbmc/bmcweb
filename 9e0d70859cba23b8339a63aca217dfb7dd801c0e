@@ -146,6 +146,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7fb1c007_566f86ca",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-08T16:16:50Z",
+      "side": 1,
+      "message": "\u003e Yes. DMTF said that they will look into this further.\n\nGreat, feel free to tag me in those conversations if necessary, otherwise I\u0027ll assume you have it handled.\n\n\u003e \n\u003e Once we get new parameters added at EthernetInterface level, then PATCH to set this Dbus will need to be moved to ethernet.hpp. It would look like:\n\u003e \n\u003e PATCH StaticNTPSevers: [\"192.168.1.1\"]\n\u003e GET StaticNTPServers: [\"192.168.1.1\"]\n\u003e GET NTPServers: [\"192.168.1.1\", \"10.10.1.1\"] \u003d\u003d\u003e a combined list of static \u0026 dhcp provided values\n\n\nAnd to be clear PATCH NTPServers: [\"192.168.1.1\"] should return on GET exactly what was patched [\"192.168.1.1\"]\n\n\u003e \n\u003e But until then we may have to work with the current approach only ?\n\nBy \"current approach\" do you mean what\u0027s on master, or what\u0027s in this patch?",
+      "parentUuid": "f871e649_1a82b21f",
+      "range": {
+        "startLine": 12,
+        "startChar": 4,
+        "endLine": 13,
+        "endChar": 26
+      },
+      "revId": "9e0d70859cba23b8339a63aca217dfb7dd801c0e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5bf09429_93f79525",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
