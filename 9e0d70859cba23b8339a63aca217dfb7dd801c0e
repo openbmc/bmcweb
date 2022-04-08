@@ -194,6 +194,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "73b0dd74_ebd5327c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-08T17:58:54Z",
+      "side": 1,
+      "message": "\u003e... just wait and continue with what we have on master\n\n+1",
+      "parentUuid": "1fbfbd2c_67eb05d8",
+      "range": {
+        "startLine": 12,
+        "startChar": 4,
+        "endLine": 13,
+        "endChar": 26
+      },
+      "revId": "9e0d70859cba23b8339a63aca217dfb7dd801c0e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5bf09429_93f79525",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
