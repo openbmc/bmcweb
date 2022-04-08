@@ -39,6 +39,30 @@
       },
       "revId": "525d18988750767aaa3211592dced9a8a2c8a75a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "db586ecb_53f8a0bb",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-04-08T20:28:59Z",
+      "side": 1,
+      "message": "The only reason I use a branch here is to prevent underflow, both query.expandLevel and queryCapabilities.canDelegateExpandLevel are unsigned integers.\n\nThere might be other tricks we can play, e.g., std::max(0, (int)expandLevel - (int)canDelegateExpandLevel), but it\u0027s less readable IMO.\n\nAlso, I felt setting query.expandType explicitly and not relying on query.expandLevel\u003d0 is safer.\n\nAny more thoughts?",
+      "parentUuid": "dbbd87ab_50dad9fc",
+      "range": {
+        "startLine": 60,
+        "startChar": 0,
+        "endLine": 73,
+        "endChar": 5
+      },
+      "revId": "525d18988750767aaa3211592dced9a8a2c8a75a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
