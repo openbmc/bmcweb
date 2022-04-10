@@ -46,6 +46,8 @@
 #include "../lib/update_service.hpp"
 #include "../lib/virtual_media.hpp"
 
+#include <bmcweb_config.h>
+
 namespace redfish
 {
 /*
@@ -203,7 +205,10 @@ class RedfishService
         requestRoutesEventDestination(app);
         requestRoutesSubmitTestEvent(app);
 
-        hypervisor::requestRoutesHypervisorSystems(app);
+        if constexpr (bmcwebRedfishIbmHypervisorFeature)
+        {
+            hypervisor::requestRoutesHypervisorSystems(app);
+        }
 
         requestRoutesTelemetryService(app);
         requestRoutesMetricReportDefinitionCollection(app);
