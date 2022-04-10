@@ -203,7 +203,9 @@ class RedfishService
         requestRoutesEventDestination(app);
         requestRoutesSubmitTestEvent(app);
 
+#ifdef BMCWEB_ENABLE_REDFISH_IBM_HYPERVISOR_FEATURE
         hypervisor::requestRoutesHypervisorSystems(app);
+#endif
 
         requestRoutesTelemetryService(app);
         requestRoutesMetricReportDefinitionCollection(app);
