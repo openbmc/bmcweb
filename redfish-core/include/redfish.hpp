@@ -22,7 +22,6 @@
 #include "../lib/chassis.hpp"
 #include "../lib/ethernet.hpp"
 #include "../lib/event_service.hpp"
-#include "../lib/hypervisor_system.hpp"
 #include "../lib/log_services.hpp"
 #include "../lib/managers.hpp"
 #include "../lib/memory.hpp"
@@ -45,6 +44,10 @@
 #include "../lib/trigger.hpp"
 #include "../lib/update_service.hpp"
 #include "../lib/virtual_media.hpp"
+
+#ifdef BMCWEB_ENABLE_REDFISH_IBM_HYPERVISOR_FEATURE
+#include "../lib/hypervisor_system.hpp"
+#endif
 
 namespace redfish
 {
@@ -203,7 +206,9 @@ class RedfishService
         requestRoutesEventDestination(app);
         requestRoutesSubmitTestEvent(app);
 
+#ifdef BMCWEB_ENABLE_REDFISH_IBM_HYPERVISOR_FEATURE
         hypervisor::requestRoutesHypervisorSystems(app);
+#endif
 
         requestRoutesTelemetryService(app);
         requestRoutesMetricReportDefinitionCollection(app);
