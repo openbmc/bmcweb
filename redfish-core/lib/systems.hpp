@@ -2650,44 +2650,28 @@ inline void requestRoutesSystemsCollection(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/")
         .privileges(redfish::privileges::getComputerSystemCollection)
-        .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-                if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
-                {
-                    return;
-                }
-                asyncResp->res.jsonValue["@odata.type"] =
-                    "#ComputerSystemCollection.ComputerSystemCollection";
-                asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1/Systems";
-                asyncResp->res.jsonValue["Name"] = "Computer System Collection";
+        .methods(boost::beast::http::verb::get)([&app](const crow::Request& req,
+                                                       const std::shared_ptr<
+                                                           bmcweb::AsyncResp>&
+                                                           asyncResp) {
+            if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+            {
+                return;
+            }
+            asyncResp->res.jsonValue["@odata.type"] =
+                "#ComputerSystemCollection.ComputerSystemCollection";
+            asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1/Systems";
+            asyncResp->res.jsonValue["Name"] = "Computer System Collection";
 
-                sdbusplus::asio::getProperty<std::string>(
-                    *crow::connections::systemBus,
-                    "xyz.openbmc_project.Settings",
-                    "/xyz/openbmc_project/network/hypervisor",
-                    "xyz.openbmc_project.Network.SystemConfiguration",
-                    "HostName",
-                    [asyncResp](const boost::system::error_code ec,
-                                const std::string& /*hostName*/) {
-                        nlohmann::json& ifaceArray =
-                            asyncResp->res.jsonValue["Members"];
-                        ifaceArray = nlohmann::json::array();
-                        auto& count =
-                            asyncResp->res.jsonValue["Members@odata.count"];
-                        ifaceArray.push_back(
-                            {{"@odata.id", "/redfish/v1/Systems/system"}});
-                        count = ifaceArray.size();
-                        if (!ec)
-                        {
-                            BMCWEB_LOG_DEBUG << "Hypervisor is available";
-                            ifaceArray.push_back(
-                                {{"@odata.id",
-                                  "/redfish/v1/Systems/hypervisor"}});
-                            count = ifaceArray.size();
-                        }
-                    });
-            });
+            nlohmann::json& ifaceArray = asyncResp->res.jsonValue["Members"];
+            ifaceArray = nlohmann::json::array();
+            ifaceArray.push_back({{"@odata.id", "/redfish/v1/Systems/system"}});
+#ifdef BMCWEB_ENABLE_REDFISH_IBM_HYPERVISOR_FEATURE
+            ifaceArray.push_back(
+                {{"@odata.id", "/redfish/v1/Systems/hypervisor"}});
+#endif
+            asyncResp->res.jsonValue["Members@odata.count"] = ifaceArray.size();
+        });
 }
 
 /**

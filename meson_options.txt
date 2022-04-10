@@ -20,6 +20,7 @@ option('redfish-dump-log', type : 'feature', value : 'disabled', description : '
 option('redfish-dbus-log', type : 'feature', value : 'disabled', description : 'Enable DBUS log service transactions through Redfish. Paths are under \'/redfish/v1/Systems/system/LogServices/EventLog/Entries\'')
 option('redfish-host-logger', type : 'feature', value : 'enabled', description : 'Enable host log service transactions based on phosphor-hostlogger through Redfish.  Paths are under \'/redfish/v1/Systems/system/LogServices/HostLogger\'')
 option('redfish-provisioning-feature', type : 'feature', value : 'disabled', description : 'Enable provisioning feature support in redfish. Paths are under \'/redfish/v1/Systems/system/\'')
+option('redfish-ibm-hypervisor-feature', type : 'feature', value : 'disabled', description : 'Enable IBM hypervisor feature support in Redfish. Paths are under \'/redfish/v1/Systems/hypervisor/\'')
 option('bmcweb-logging', type : 'feature', value : 'disabled', description : 'Enable output the extended debug logs')
 option('basic-auth', type : 'feature', value : 'enabled', description : '''Enable basic authentication''')
 option('session-auth', type : 'feature', value : 'enabled', description : '''Enable session authentication''')

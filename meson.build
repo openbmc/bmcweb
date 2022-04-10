@@ -80,6 +80,7 @@ feature_map = {
   'redfish-host-logger'                         : '-DBMCWEB_ENABLE_REDFISH_HOST_LOGGER',
   'redfish-new-powersubsystem-thermalsubsystem' : '-DBMCWEB_NEW_POWERSUBSYSTEM_THERMALSUBSYSTEM',
   'redfish-provisioning-feature'                : '-DBMCWEB_ENABLE_REDFISH_PROVISIONING_FEATURE',
+  'redfish-ibm-hypervisor-feature'              : '-DBMCWEB_ENABLE_REDFISH_IBM_HYPERVISOR_FEATURE',
   'redfish'                                     : '-DBMCWEB_ENABLE_REDFISH',
   'rest'                                        : '-DBMCWEB_ENABLE_DBUS_REST',
   'session-auth'                                : '-DBMCWEB_ENABLE_SESSION_AUTHENTICATION',
@@ -316,6 +317,7 @@ enable_redfish_query = get_option('insecure-enable-redfish-query')
 conf_data.set10('BMCWEB_INSECURE_ENABLE_QUERY_PARAMS', enable_redfish_query.enabled())
 conf_data.set('MESON_INSTALL_PREFIX', get_option('prefix'))
 conf_data.set('HTTPS_PORT', get_option('https_port'))
+conf_data.set10('BMCWEB_ENABLE_REDFISH_IBM_HYPERVISOR_FEATURE', get_option('redfish-ibm-hypervisor-feature').enabled())
 configure_file(input: 'bmcweb_config.h.in',
                output: 'bmcweb_config.h',
                configuration: conf_data)
