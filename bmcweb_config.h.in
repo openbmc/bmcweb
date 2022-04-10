@@ -13,4 +13,6 @@ constexpr const size_t bmcwebHttpReqBodyLimitMb = @BMCWEB_HTTP_REQ_BODY_LIMIT_MB
 
 constexpr const char* mesonInstallPrefix = "@MESON_INSTALL_PREFIX@";
 
+constexpr const int bmcwebRedfishIbmHypervisorFeature = @BMCWEB_ENABLE_REDFISH_IBM_HYPERVISOR_FEATURE@;
+
 // clang-format on
