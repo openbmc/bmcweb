@@ -2662,6 +2662,7 @@ inline void requestRoutesSystemsCollection(App& app)
                 asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1/Systems";
                 asyncResp->res.jsonValue["Name"] = "Computer System Collection";
 
+#ifdef BMCWEB_ENABLE_REDFISH_IBM_HYPERVISOR_FEATURE
                 sdbusplus::asio::getProperty<std::string>(
                     *crow::connections::systemBus,
                     "xyz.openbmc_project.Settings",
@@ -2687,6 +2688,15 @@ inline void requestRoutesSystemsCollection(App& app)
                             count = ifaceArray.size();
                         }
                     });
+#else
+                nlohmann::json& ifaceArray =
+                    asyncResp->res.jsonValue["Members"];
+                ifaceArray = nlohmann::json::array();
+                ifaceArray.push_back(
+                    {{"@odata.id", "/redfish/v1/Systems/system"}});
+                asyncResp->res.jsonValue["Members@odata.count"] =
+                    ifaceArray.size();
+#endif
             });
 }
 
