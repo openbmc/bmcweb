@@ -1206,9 +1206,8 @@ class EventServiceManager
                             continue;
                         }
 
-                        std::string fileName(&readBuffer[index + iEventSize],
-                                             event.len);
-                        if (std::strcmp(fileName.c_str(), "redfish") != 0)
+                        std::string fileName(&readBuffer[index + iEventSize]);
+                        if (fileName != "redfish")
                         {
                             index += (iEventSize + event.len);
                             continue;
