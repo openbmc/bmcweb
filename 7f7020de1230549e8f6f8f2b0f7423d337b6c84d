@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3e8f79db_6b1f7efd",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2665,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-04-11T03:00:53Z",
+      "side": 1,
+      "message": "The dbus interfaces are only defined in meta-ibm. e.g. https://github.com/openbmc/openbmc/blob/master/meta-ibm/recipes-phosphor/settings/phosphor-settings-manager/HypervisorInterface-default-p10bmc.override.yml\n\nThough other vendors can implement their own \"hypervisor\", but the API might be different. That\u0027s why I added IBM here.\n\nI\u0027m not familar with the CI, but by checking the CI logs, some other features are also not compiled like redfish-cpu-log, redfish-bmc-journal. If we need CI support, it might be better to add some CI rules to enable all meson options?",
+      "parentUuid": "c9f46449_cde2469a",
+      "revId": "7f7020de1230549e8f6f8f2b0f7423d337b6c84d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0d4e48e8_3405ef7b",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 1
@@ -31,6 +49,24 @@
       "writtenOn": "2022-04-10T21:56:15Z",
       "side": 1,
       "message": "This seems to be the genesis of the problem here. These settings should not exist on any system that doesn’t intend to support the feature.\n\nI suspect we have a mistake in the default setting somewhere and this is getting included in them.",
+      "revId": "7f7020de1230549e8f6f8f2b0f7423d337b6c84d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6ad42717_af87dfbb",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2668,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-04-11T03:00:53Z",
+      "side": 1,
+      "message": "I checked the code, these settings are only defined in meta-ibm. In meta-phosphor, there is no such settings.\n\nhttps://github.com/openbmc/openbmc/blob/master/meta-ibm/recipes-phosphor/settings/phosphor-settings-manager_%25.bbappend\n\nI did a quick search, there is no hypervisor-related interface defined outside meta-ibm.",
+      "parentUuid": "0d4e48e8_3405ef7b",
       "revId": "7f7020de1230549e8f6f8f2b0f7423d337b6c84d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
