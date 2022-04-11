@@ -198,6 +198,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "20125eca_c39f0bc1",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2665,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-11T22:49:52Z",
+      "side": 1,
+      "message": "\u003e Implemented there but the D-Bus interfaces all look to be defined in\n\nThe hardcoded dbus paths are not however, and considering those interfaces would conflict with the host based ones, that seems like something we should resolve at some point.\n\n\u003e And to be clear, by refactor you mostly mean addressing this comment, \nI mean what I said earlier in the thread.  The interfaces for a \"hypervisor\" aren\u0027t really special in comparison to a host.  Given where we need to go into the future, I don\u0027t think we can survive hardcoding \"has a hypervisor\" at this level, because you have to answer too many questions.\n\nWhat if it has 2 hypervisors?\nWhat if we need to handle a different kind of hypervisor on the same system?\nWhat if a bmc has both both (2 different kinds of hypervisors)?\nWhat if we have one of each type of hypervisor on N host systems?\n\nWe have answers for that at design level for most other things:  Declare a well defined dbus interface, then use the mapper to determine if those collections, and how many of items need to exist in the collection.\n\nIn a perfect world (where software is easy) I\u0027d love to see us completely remove the hardcoded dbus path names, and have the hypervisor guys participate in the design here: https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/52075 which is trying to abstract out how we deal with ComputerSystem collections.\n\nThat\u0027s really what I\u0027m getting at with refactoring.\n\n\nYes, ideally deduplicating the code in the process would be good too, but I think that\u0027s less important;  The end goal is getting it to be like the other subsystems.  For example, bmcweb doesn\u0027t have a \"# of sensors\" configure option.  ComputerSystem should ideally work the same.\n\nI think the more we can do this, the easier it will be to extend things in the future when new hypervisor and host interface things come online.",
+      "parentUuid": "83800e79_58317f02",
+      "revId": "7f7020de1230549e8f6f8f2b0f7423d337b6c84d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0d4e48e8_3405ef7b",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 1
