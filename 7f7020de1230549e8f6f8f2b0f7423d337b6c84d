@@ -126,6 +126,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a22be0bc_04484650",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2665,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-04-11T16:29:17Z",
+      "side": 1,
+      "message": "\u003e Basically, put your option into the bmcweb_config.h file, and use if constexpr() to enable the logic needed.\nCould you help explain this in more detail? I cannot figure out hot to do this. Any examples would be greatly appreciated.",
+      "parentUuid": "ad91f7cf_203eb0d4",
+      "revId": "7f7020de1230549e8f6f8f2b0f7423d337b6c84d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0d4e48e8_3405ef7b",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 1
@@ -215,6 +233,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f2b47c53_863c54eb",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2668,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-04-11T16:29:17Z",
+      "side": 1,
+      "message": "Yes checking the setting is strange here. I will remove the dbus call.\n\nFrom my personal opinion, I would suggest Hypervisor using a interface like xyz.openbmc_project.State.Host later for probing it dynamically. https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/52075 This change implements such logic.",
+      "parentUuid": "5b87c9bd_8988f25a",
+      "revId": "7f7020de1230549e8f6f8f2b0f7423d337b6c84d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c6c0fa79_c6d1802a",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 1
@@ -273,6 +309,30 @@
       "writtenOn": "2022-04-11T15:31:38Z",
       "side": 1,
       "message": "In terms of logic, please don\u0027t duplicate this between the paths.  This code is essentially the same as what\u0027s on 2679.  Please deduplicate",
+      "range": {
+        "startLine": 2692,
+        "startChar": 0,
+        "endLine": 2698,
+        "endChar": 38
+      },
+      "revId": "7f7020de1230549e8f6f8f2b0f7423d337b6c84d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "24002153_b1e3e181",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2698,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-04-11T16:29:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cf4d468a_ee5b34b3",
       "range": {
         "startLine": 2692,
         "startChar": 0,
