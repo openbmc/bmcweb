@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "44f579c3_ef085819",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-04-11T21:08:31Z",
+      "side": 1,
+      "message": "This would be a breaking change since this was enabled before.. What if it was enabled, allowing a period of time for meta layers who wanted this to enable it?",
+      "revId": "bc5b69a12160c0163c5885a1ed7c3107deb29938",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a62fa05d_f6a43fbf",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
