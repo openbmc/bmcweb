@@ -1,0 +1,187 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5f44fd3e_d5076035",
+        "filename": "redfish-core/include/registries.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-11T15:51:22Z",
+      "side": 1,
+      "message": "https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/52603/6..8/redfish-core/include/registries.hpp#b68\n\nStill needs addressed.",
+      "revId": "08fc04156fb89618faa43a790537f087ffb9f886",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5e3f6e5f_686616a1",
+        "filename": "redfish-core/src/error_messages.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-11T15:51:22Z",
+      "side": 1,
+      "message": "Please put your includes where they\u0027re used;  In this case, in registries.cpp (which they are already there.\n\n\nAs a general guideline when reviewing your own code, if you\u0027re making #include changes to a file, and that\u0027s the only modification to said file, it\u0027s generally the wrong place to be putting the includes (unless said file was already incorrect to begin with).",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 43
+      },
+      "revId": "08fc04156fb89618faa43a790537f087ffb9f886",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ee9ad275_1630fa7a",
+        "filename": "redfish-core/src/registries.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-11T15:51:22Z",
+      "side": 1,
+      "message": "So the old code had a memory leak?  Please do your best to split up the patch such that it\u0027s easy to review.  Moving a block of code, then making modifications to it in the same commit makes it very difficult to review.\n\nIn reviewing this, it\u0027s really difficult to understand why this change was made, because it\u0027s not mentioned in the commit message, and appears to violate:\nhttps://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#Ri-global-init",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 35
+      },
+      "revId": "08fc04156fb89618faa43a790537f087ffb9f886",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb37149f_0704b68f",
+        "filename": "redfish-core/src/registries.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-11T15:51:22Z",
+      "side": 1,
+      "message": "not a problem in your commit, but this code doesn\u0027t range check properly.  If called with getMessage(\"\") this code would likely seg fault.  Just FYI, in line with the previous comment, please don\u0027t attempt to fix it in this patch, but if you wanted to fix it in a subsequent patch, you could.",
+      "revId": "08fc04156fb89618faa43a790537f087ffb9f886",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ec5a15de_ced9f730",
+        "filename": "redfish-core/src/registries.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-11T15:51:22Z",
+      "side": 1,
+      "message": "Again, not a problem in your code, but spans should generally be taken by value (both here and on line 45).",
+      "range": {
+        "startLine": 49,
+        "startChar": 10,
+        "endLine": 49,
+        "endChar": 20
+      },
+      "revId": "08fc04156fb89618faa43a790537f087ffb9f886",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "be3d5889_dcb0d152",
+        "filename": "redfish-core/ut/registries_test.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-11T15:51:22Z",
+      "side": 1,
+      "message": "I don\u0027t see these headers used in this code?",
+      "range": {
+        "startLine": 5,
+        "startChar": 0,
+        "endLine": 6,
+        "endChar": 43
+      },
+      "revId": "08fc04156fb89618faa43a790537f087ffb9f886",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c1c2f1e8_ab460f60",
+        "filename": "redfish-core/ut/registries_test.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-11T15:51:22Z",
+      "side": 1,
+      "message": "nit, please just inline the above within the ASSERT_NE macro;  It makes the prints more helpful with this fails.",
+      "revId": "08fc04156fb89618faa43a790537f087ffb9f886",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "55019cbc_ef30e3fd",
+        "filename": "redfish-core/ut/registries_test.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-11T15:51:22Z",
+      "side": 1,
+      "message": "Also, unless you need to have the test stop at the point of failure (for memory safety or something) please prefer EXPECT_NE, so that the test will continue to run assertions on failures.",
+      "range": {
+        "startLine": 39,
+        "startChar": 14,
+        "endLine": 39,
+        "endChar": 18
+      },
+      "revId": "08fc04156fb89618faa43a790537f087ffb9f886",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7b13fda9_5cbd27dc",
+        "filename": "redfish-core/ut/registries_test.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-11T15:51:22Z",
+      "side": 1,
+      "message": "Do we need more EXPECT statements here on the content of msg1?  Maybe check that the messageId, and messagefields are what we expect?",
+      "revId": "08fc04156fb89618faa43a790537f087ffb9f886",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
