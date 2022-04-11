@@ -16,6 +16,8 @@
 #include "http_response.hpp"
 #include "registries/base_message_registry.hpp"
 
+#include <boost/algorithm/string/classification.hpp>
+#include <boost/algorithm/string/split.hpp>
 #include <boost/beast/http/status.hpp>
 #include <boost/url/url.hpp>
 #include <error_messages.hpp>
