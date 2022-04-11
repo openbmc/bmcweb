@@ -21,15 +21,15 @@ namespace redfish::registries::openbmc
 const Header header = {
     "Copyright 2022 OpenBMC. All rights reserved.",
     "#MessageRegistry.v1_4_0.MessageRegistry",
-    "OpenBMC.0.3.1",
+    "OpenBMC.0.4.0",
     "OpenBMC Message Registry",
     "en",
     "This registry defines the base messages for OpenBMC.",
     "OpenBMC",
-    "0.3.1",
+    "0.4.0",
     "OpenBMC",
 };
-constexpr std::array registry = {
+constexpr std::array<MessageEntry, 191> registry = {
     MessageEntry{
         "ADDDCCorrectable",
         {
@@ -2116,6 +2116,15 @@ constexpr std::array registry = {
                      "Indicates that a service has exited unsuccessfully.",
                      "Service %1 has exited unsuccessfully.",
                      "Warning",
+                     1,
+                     {"string"},
+                     "None.",
+                 }},
+    MessageEntry{"ServiceStarted",
+                 {
+                     "Indicates that a service has started successfully.",
+                     "Service %1 has started successfully.",
+                     "OK",
                      1,
                      {"string"},
                      "None.",
