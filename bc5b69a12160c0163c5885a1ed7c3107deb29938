@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a62fa05d_f6a43fbf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-11T19:41:44Z",
+      "side": 1,
+      "message": "FYI, I\u0027m not sure how you\u0027re measuring this, but I got a significantly different number.\n\nI measured with:\n\nbitbake obmc-phosphoor-image\nxz -zc $BBPATH/tmp/work/qemuarm-openbmc-linux-gnueabi/obmc-phosphor-image/1.0-r0/rootfs/usr/bin/bmcweb | wc -c\n865564\ncd \u003cbmcweb dir\u003e\ngit reset --hard HEAD~1\nbitbake obmc-phosphoor-image\nxz -zc $BBPATH/tmp/work/qemuarm-openbmc-linux-gnueabi/obmc-phosphor-image/1.0-r0/rootfs/usr/bin/bmcweb | wc -c\n880404\n\nThat shows a 15KB difference, not a 50KB difference.  Granted, it\u0027s still 1.6% (down from 5.6%), which is quite a nice chunk of change to get rid of for low flash-size systems, but differs 3.3X from what you posted, so it\u0027s probably worth examining whos number is correct.",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 69
+      },
+      "revId": "bc5b69a12160c0163c5885a1ed7c3107deb29938",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c2958885_aac88a5c",
+        "filename": "redfish-core/include/redfish.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-11T19:41:44Z",
+      "side": 1,
+      "message": "Please follow the patterns of the other header files that contain \"optional\" routes.  We didn\u0027t come to what\u0027s there on accident.  If you had good reasons for not doing that, please note it in your commit message.",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 51,
+        "endChar": 0
+      },
+      "revId": "bc5b69a12160c0163c5885a1ed7c3107deb29938",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
