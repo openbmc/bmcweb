@@ -327,6 +327,7 @@ fs = import('fs')
 
 srcfiles_bmcweb = files(
   'redfish-core/src/error_messages.cpp',
+  'redfish-core/src/registries.cpp',
   'redfish-core/src/utils/json_utils.cpp',
   'src/boost_asio_ssl.cpp',
   'src/boost_asio.cpp',
