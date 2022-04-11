@@ -120,4 +120,9 @@ inline nlohmann::json::object_t
     return response;
 }
 
+const Message* getMessage(std::string_view messageID);
+
+const Message* getMessageFromRegistry(const std::string& messageKey,
+                                      std::span<const MessageEntry> registry);
+
 } // namespace redfish::registries

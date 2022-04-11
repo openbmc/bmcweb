@@ -72,51 +72,6 @@ enum class DumpCreationProgress
     DUMP_CREATE_INPROGRESS
 };
 
-namespace registries
-{
-static const Message*
-    getMessageFromRegistry(const std::string& messageKey,
-                           const std::span<const MessageEntry> registry)
-{
-    std::span<const MessageEntry>::iterator messageIt =
-        std::find_if(registry.begin(), registry.end(),
-                     [&messageKey](const MessageEntry& messageEntry) {
-        return std::strcmp(messageEntry.first, messageKey.c_str()) == 0;
-        });
-    if (messageIt != registry.end())
-    {
-        return &messageIt->second;
-    }
-
-    return nullptr;
-}
-
-static const Message* getMessage(std::string_view messageID)
-{
-    // Redfish MessageIds are in the form
-    // RegistryName.MajorVersion.MinorVersion.MessageKey, so parse it to find
-    // the right Message
-    std::vector<std::string> fields;
-    fields.reserve(4);
-    bmcweb::split(fields, messageID, '.');
-    const std::string& registryName = fields[0];
-    const std::string& messageKey = fields[3];
-
-    // Find the right registry and check it for the MessageKey
-    if (std::string(base::header.registryPrefix) == registryName)
-    {
-        return getMessageFromRegistry(
-            messageKey, std::span<const MessageEntry>(base::registry));
-    }
-    if (std::string(openbmc::header.registryPrefix) == registryName)
-    {
-        return getMessageFromRegistry(
-            messageKey, std::span<const MessageEntry>(openbmc::registry));
-    }
-    return nullptr;
-}
-} // namespace registries
-
 namespace fs = std::filesystem;
 
 inline std::string translateSeverityDbusToRedfish(const std::string& s)
