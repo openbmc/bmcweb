@@ -52,6 +52,24 @@
       "parentUuid": "9805d609_2890b242",
       "revId": "fc0ee651500c91f7433b994dc36c2513e1a00572",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "49f96976_5111a133",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 22
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-04-11T15:40:48Z",
+      "side": 1,
+      "message": "\u003e Sorry, I didn\u0027t find your discussion. My thinking is that only the first request comes with query parameters, so when this happens:\n\nThat\u0027s correct. The recursive calls at https://github.com/openbmc/bmcweb/blob/master/redfish-core/include/utils/query_param.hpp#L312 don\u0027t come with query parameters for now.\n\nIt doesn\u0027t affect the correctness, though, only this sensor collection efficient handler doesn\u0027t get invoked.\n\n\u003e http://localhost/redfish/v1/Chassis/xxx?$expand\u003d.($levels\u003d2)\nSensors is not the first request, so we can\u0027t get the correct data from setUpRedfishRouteWithDelegation(). Can we solve the problem this way?\n\nAgain, the current codes are still correct IIUC. Only the performance is not improved when you query the Chassis collection.\n\nYour idea about adding query parameters to request of Expand calls should work, but shouldn\u0027t you change the URL string? Also, you have to consider query parameter combinations as well (e.g., Expand + Select). I would imagine that in |MultiAsyncResp|, you will have to replace the recursive call with an iteration, then append all parameters in |query| to the request URL, finally assemble the JSON object at this level of Expand.\n\nAlso, it won\u0027t help much if we don\u0027t have a way to \"select\" the attributes to expand at the Chassis Collection (e.g., /Chassis/chassis/$expand\u003d.($levels\u003d2)\u0026$select\u003dSensors).\n\nAs a conclusion, this change only targets Sensor Collection, it doesn\u0027t mean to improve Chassis Collection with Expand level 2. So your concern should be addressed in new patches.\n\nLet me know if this doesn\u0027t resolve your comment.",
+      "parentUuid": "e31c251d_23c4b1d1",
+      "revId": "fc0ee651500c91f7433b994dc36c2513e1a00572",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
