@@ -70,6 +70,24 @@
       "parentUuid": "e31c251d_23c4b1d1",
       "revId": "fc0ee651500c91f7433b994dc36c2513e1a00572",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "38adf349_34afa618",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 22
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-11T16:04:53Z",
+      "side": 1,
+      "message": "\u003e As a conclusion, this change only targets Sensor Collection, it doesn\u0027t mean to improve Chassis Collection with Expand level 2. So your concern should be addressed in new patches.\n\n+1 to this overall.  I\u0027m happy to discuss making the query you showed above faster as well, but in the context of this patchset, and with the goal of keeping this patchset small and self contained, I\u0027d like to keep it largely as-is.  From my maintainers perspective, there\u0027s only one setUpRedfishWithDelegation call sofar, so if the prototype needs to change in the future, it\u0027s not as difficult of a change to effect.",
+      "parentUuid": "49f96976_5111a133",
+      "revId": "fc0ee651500c91f7433b994dc36c2513e1a00572",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
