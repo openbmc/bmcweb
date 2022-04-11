@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "08b01527_f30655a2",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2665,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2022-04-11T13:22:59Z",
+      "side": 1,
+      "message": "\u003e I\u0027m not familar with the CI, but by checking the CI logs, some other features are also not compiled like redfish-cpu-log, redfish-bmc-journal. If we need CI support, it might be better to add some CI rules to enable all meson options?\n\nMy opinion is yes, but I\u0027m not the maintainer of this repo.  In most cases we want CI to cover the maximum code it can so we enable all options and then disable them as necessary in the bitbake recipe(s).",
+      "parentUuid": "3e8f79db_6b1f7efd",
+      "revId": "7f7020de1230549e8f6f8f2b0f7423d337b6c84d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0d4e48e8_3405ef7b",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 1
@@ -67,6 +85,24 @@
       "side": 1,
       "message": "I checked the code, these settings are only defined in meta-ibm. In meta-phosphor, there is no such settings.\n\nhttps://github.com/openbmc/openbmc/blob/master/meta-ibm/recipes-phosphor/settings/phosphor-settings-manager_%25.bbappend\n\nI did a quick search, there is no hypervisor-related interface defined outside meta-ibm.",
       "parentUuid": "0d4e48e8_3405ef7b",
+      "revId": "7f7020de1230549e8f6f8f2b0f7423d337b6c84d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a80aa2b3_1e4e44f4",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2668,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2022-04-11T13:22:59Z",
+      "side": 1,
+      "message": "If that is the case, why is this code doing anything on your system?",
+      "parentUuid": "6ad42717_af87dfbb",
       "revId": "7f7020de1230549e8f6f8f2b0f7423d337b6c84d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
