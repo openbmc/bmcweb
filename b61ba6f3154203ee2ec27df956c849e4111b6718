@@ -517,6 +517,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c9d1c1d1_42cc899d",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 394,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-04-11T06:54:44Z",
+      "side": 1,
+      "message": "I changed it so that now each connection pool can only have a max of 4 connections.  Each pool also has a requestDataQueue like in the old code to buffer the additional requests that need to be sent when all connections in the pool are in use.",
+      "parentUuid": "072067ba_69251c1a",
+      "range": {
+        "startLine": 394,
+        "startChar": 8,
+        "endLine": 394,
+        "endChar": 60
+      },
+      "revId": "b61ba6f3154203ee2ec27df956c849e4111b6718",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8d7cfc75_c199fe8a",
         "filename": "http/http_client.hpp",
         "patchSetId": 20
@@ -1002,6 +1026,30 @@
       "side": 1,
       "message": "\u003e Sounds good.  I\u0027ll make each ConnectionPool have its own associated retry policy.  The policy will need to be viewable by each ConnectionInfo in the pool.  My options are:\n\nI was actually thinking we just push it into client code (ie, EventService has a retry mechanism, and aggregator has a different retry mechanism).  With that said, if you want to try to do a generic thing, I\u0027m in for the ride, lets see if we can build something reasonable.\n\n\u003e (1) Have the policy variables be members of ConnectionPool and add pointers to these members within each associated ConnectionInfo.\n\u003e (2) Have a global map (or similar struct) that contains \u003cHostPortKey,policy struct\u003e.  Each ConnectionInfo would have to query the global to get its associated policy.\n\u003e \n\u003e I think the first option would be both faster to interact with and require less memory.\n\n1 seems fine, just use shared_ptr where appropriate.",
       "parentUuid": "9eb227f6_d81b6a01",
+      "range": {
+        "startLine": 495,
+        "startChar": 0,
+        "endLine": 505,
+        "endChar": 1
+      },
+      "revId": "b61ba6f3154203ee2ec27df956c849e4111b6718",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b5dca36f_49e116e1",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 505,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-04-11T06:54:44Z",
+      "side": 1,
+      "message": "I moved these functions back to HttpClient methods.  They now take also require a host and port argument so that the retry details can be linked to the associated connection pool.\n\nI think this will work as a generic approach as long as each each host:port combination can only have a single retry policy.\n\nAre shared_ptr\u0027s still needed if connections won\u0027t be destroyed during normal operation?",
+      "parentUuid": "eb8faca6_33145197",
       "range": {
         "startLine": 495,
         "startChar": 0,
