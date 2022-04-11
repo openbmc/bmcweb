@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eb855c14_2b6eac15",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 22
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001027
+      },
+      "writtenOn": "2022-04-11T00:42:26Z",
+      "side": 1,
+      "message": "Does it work when we use it like this?\nhttp://localhost/redfish/v1/Chassis/xxx?$expand\u003d.($levels\u003d2)\nI have a feeling it won\u0027t work, are we going to consider this situation?",
+      "revId": "fc0ee651500c91f7433b994dc36c2513e1a00572",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
