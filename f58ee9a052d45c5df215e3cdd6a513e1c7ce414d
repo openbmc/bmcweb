@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "69ffd540_ea8bd6fe",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1128,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-11T16:15:20Z",
+      "side": 1,
+      "message": "nitpick.  Now that message is guaranteed to be filled in, do we need these intermediate strings at all?  Could we just inline message-\u003emessage on line 1174 (and same thing for severity)?\n\nThese were copies before, so not a big deal either way, just seems like it would be less code.",
+      "range": {
+        "startLine": 1126,
+        "startChar": 0,
+        "endLine": 1128,
+        "endChar": 0
+      },
+      "revId": "f58ee9a052d45c5df215e3cdd6a513e1c7ce414d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
