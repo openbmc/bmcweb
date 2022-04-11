@@ -38,6 +38,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "341bede8_56fbf84e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-11T15:31:38Z",
+      "side": 1,
+      "message": "I left a long comment in one of the threads, but haven\u0027t looked at the full content of the patch in depth.  Lets figure out what we\u0027d like to do long-term about this hypervisor node (and ComputerSystem collection in general) which will need input from the other maintainers, then, once we have a reasonable direction, we can start talking about what specific patches get us from point A to point B.\n\nI find it very likely that we\u0027ll need something like this patch as an intermediate step, but I really don\u0027t want it to spawn into a design pattern of if(ibm_oem), if(google_oem) for anything more than the \u003coem\u003e/v1 namespaces (and even in that case, it\u0027s a mediocre design pattern, for the moment it\u0027s the best we have).",
+      "revId": "7f7020de1230549e8f6f8f2b0f7423d337b6c84d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c9f46449_cde2469a",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 1
@@ -85,6 +102,24 @@
       "side": 1,
       "message": "\u003e I\u0027m not familar with the CI, but by checking the CI logs, some other features are also not compiled like redfish-cpu-log, redfish-bmc-journal. If we need CI support, it might be better to add some CI rules to enable all meson options?\n\nMy opinion is yes, but I\u0027m not the maintainer of this repo.  In most cases we want CI to cover the maximum code it can so we enable all options and then disable them as necessary in the bitbake recipe(s).",
       "parentUuid": "3e8f79db_6b1f7efd",
+      "revId": "7f7020de1230549e8f6f8f2b0f7423d337b6c84d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ad91f7cf_203eb0d4",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2665,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-11T15:31:38Z",
+      "side": 1,
+      "message": "Here\u0027s my take on this:\nAs a design principal in bmcweb, Redfish collections should:\n1. Call the mapper to determine what dbus interfaces exist on the system\n2. Use those dbus interface listings to construct the appropriate resources on Redfish.\n\nWe do that to avoid code duplication, and to avoid the exact problem being seen here, where because we\u0027ve duplicated a bunch of code, and hardcoded resource names, we\u0027re seeing inefficiencies in producing these interfaces properly, and having debates about a sea of options that are easily determined at runtime.  From my perspective, an OpenBMC system might have:\n\n1 host ComputerSystem resource\nN host ComputerSystem resources as is the case on yosemite and similar high density platforms\n0 host ComputerSystems, as is in the case of many JBOF BMC applications.\nMultiple classes of ComputerSystem (ie N \"hosts\" and M \"hypervisors\")\n1 host ComputerSystem representing the BMC itself (as has been discussed in DMTF before)\n\nAnd bmcweb will need to handle all of those cases;\n\nUnfortunately, the hypervisor code chose to do neither 1 or 2 of the above, and instead copied and pasted a bunch of code, hardcoding in the new resource.  This has been noted before, and why for the moment, the hypervisor code needs its own unique namespace to handle all the collisions.\nhttps://github.com/openbmc/bmcweb/blob/bacb216228c45ca715163f4c81717b1af39889ab/redfish-core/lib/hypervisor_system.hpp#L16\n\n\n\u003e Though other vendors can implement their own \"hypervisor\", but the API might be different. That\u0027s why I added IBM here.\n\nThe DBus API should be, to the limits possible, the same;  This keeps business logic code (that likely needs to be changed per application) out of bmcweb, and in the specific instances of the daemons where it belongs, while still being able to produce the correct Redfish API.\n\n\n\u003e If we need CI support, it might be better to add some CI rules to enable all meson options?\n\nWe already have ways to handle this, it\u0027s just this patchset chose not to implement them.  Not the fault of the author, as we have both patterns inside bmcweb at the moment (yay inconsistency).  Basically, put your option into the bmcweb_config.h file, and use if constexpr() to enable the logic needed.  This means that all code is \"compiled\" in all modes, then the code that we don\u0027t use gets deleted at link time.  For the things we\u0027ve moved to this pattern, we\u0027re already seeing builds break a lot less, and we can avoid mixing the repos opinions on what the \"defaults\" should be from being able to make sure all the code compiles.\n\nWith that said, in the ideal case, we should not have an option at all, but I realize that this code is already here, so I\u0027d like to get some input from the people that use it on:\nA. is it still being used?\nB. Are there any plans to refactor it in the future?",
+      "parentUuid": "08b01527_f30655a2",
       "revId": "7f7020de1230549e8f6f8f2b0f7423d337b6c84d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -162,6 +197,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5b87c9bd_8988f25a",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2668,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-11T15:31:38Z",
+      "side": 1,
+      "message": "FWIW, this is the only place where we use a settings string to determine whether something is supported.  The mapper is far more reliable and preferred.\n\nIf this is moving to an option flag, should we be checking settings at all?  I suspect not.",
+      "parentUuid": "a80aa2b3_1e4e44f4",
+      "revId": "7f7020de1230549e8f6f8f2b0f7423d337b6c84d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c6c0fa79_c6d1802a",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 1
@@ -202,6 +255,29 @@
         "startChar": 20,
         "endLine": 2669,
         "endChar": 61
+      },
+      "revId": "7f7020de1230549e8f6f8f2b0f7423d337b6c84d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cf4d468a_ee5b34b3",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2698,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-11T15:31:38Z",
+      "side": 1,
+      "message": "In terms of logic, please don\u0027t duplicate this between the paths.  This code is essentially the same as what\u0027s on 2679.  Please deduplicate",
+      "range": {
+        "startLine": 2692,
+        "startChar": 0,
+        "endLine": 2698,
+        "endChar": 38
       },
       "revId": "7f7020de1230549e8f6f8f2b0f7423d337b6c84d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
