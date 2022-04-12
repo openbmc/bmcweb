@@ -131,6 +131,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9f9ded78_76e821e0",
+        "filename": "include/google/google_service_root.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1000233
+      },
+      "writtenOn": "2022-04-12T21:48:33Z",
+      "side": 1,
+      "message": "You should be using the OpenBMC style guide since this code lives in OpenBMC",
+      "parentUuid": "548fdc0a_c91ef531",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 75
+      },
+      "revId": "b9b1c43fdb608ea098d17df55e199dea2f476715",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "07c09e61_b07450f6",
         "filename": "include/google/google_service_root.hpp",
         "patchSetId": 13
