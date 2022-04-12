@@ -45,6 +45,29 @@
       },
       "revId": "268fdc9b1394c306d6244a3443db7209ea89b74e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f2c0e617_ca589fab",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1897,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-04-12T18:29:44Z",
+      "side": 1,
+      "message": "I missed this in the previous change, but can this be constexpr? That could save an allocation, right?",
+      "range": {
+        "startLine": 1897,
+        "startChar": 12,
+        "endLine": 1897,
+        "endChar": 23
+      },
+      "revId": "268fdc9b1394c306d6244a3443db7209ea89b74e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
