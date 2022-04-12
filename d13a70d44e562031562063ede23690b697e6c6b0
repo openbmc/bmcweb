@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fad2b8bd_ed261779",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-12T20:15:41Z",
+      "side": 1,
+      "message": "This patchset was idle long enough that I\u0027ve forgotten all context for it.\n\nLets start with updating this commit message to \"why is this necessary\" ideally with cases of user-facing behavior that this improves.  From my perspective, websocket routes don\u0027t really have good reasons where they need to \"fail\" at a response level, and can quite easily fail once the connection is already open.  With that said, I\u0027m open to the possibility that this could be needed, so I\u0027m curious what user facing feature this would allow for.\n\nThe code that this was originally patching has changed a bit since originally written, so I suspect some of the initial reasoning behind this might not be present anymore, but lets walk through it in the commit message text.",
+      "revId": "d13a70d44e562031562063ede23690b697e6c6b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

@@ -74,6 +74,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b22b0327_22196fe7",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 374,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-12T20:15:41Z",
+      "side": 1,
+      "message": "\u003e upgradation was done, the response would contain 200\n\nTechnically if everything worked, we would expect to see a 101 Switching Protocols, right?  I think this is kind of the core of the problem, we\u0027re trying to inject behavior post-upgrade that needs to be done pre-upgrade.  Beast handles this already on line 106 of websocket.hpp.  If we need to expose that callback to each individual route, I suspect we need a separate callback from onopen(), because onopen happens after the websocket has been negotiated.",
+      "parentUuid": "dafad917_ef53409a",
+      "range": {
+        "startLine": 374,
+        "startChar": 0,
+        "endLine": 374,
+        "endChar": 49
+      },
+      "revId": "813cb23c020737b825c33a5ba25121b9a0f48130",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ce93ecd7_9444012a",
         "filename": "http/http_connection.hpp",
         "patchSetId": 1
