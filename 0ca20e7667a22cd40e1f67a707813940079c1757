@@ -54,6 +54,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "cd3d5b44_9cd598b5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001387
+      },
+      "writtenOn": "2022-04-12T01:31:56Z",
+      "side": 1,
+      "message": "Thanks! Totally understand and the feedback is greatly appreciated.",
+      "parentUuid": "fe4f6e1f_73c272d9",
+      "revId": "0ca20e7667a22cd40e1f67a707813940079c1757",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "65d102e5_4841260a",
         "filename": "meson.build",
         "patchSetId": 12
@@ -65,6 +83,30 @@
       "writtenOn": "2022-04-08T17:58:27Z",
       "side": 1,
       "message": "NIT: \nplease move to line 385, to keep the redfish-core/lib/ut test to together and in alphabetical order",
+      "range": {
+        "startLine": 394,
+        "startChar": 2,
+        "endLine": 394,
+        "endChar": 3
+      },
+      "revId": "0ca20e7667a22cd40e1f67a707813940079c1757",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a0a4f3a3_3074304d",
+        "filename": "meson.build",
+        "patchSetId": 12
+      },
+      "lineNbr": 394,
+      "author": {
+        "id": 1001387
+      },
+      "writtenOn": "2022-04-12T01:31:56Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "65d102e5_4841260a",
       "range": {
         "startLine": 394,
         "startChar": 2,
@@ -124,6 +166,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "65a035d0_faff9abc",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 1001387
+      },
+      "writtenOn": "2022-04-12T01:31:56Z",
+      "side": 1,
+      "message": "The inheritance way is how I wish I could have done it from the start. Unfortunately, all the methods in sdbusplus::asio::connection are non-virtual, so MockSdbusConnection can\u0027t override them.\n\nI was messing around with it today and I can\u0027t really get around this issue without going in and creating an interface for sdbusplus::asio::connection. I\u0027m also not a huge fan of the templating within log_services.hpp, but I think it\u0027s unavoidable without significant changes to sdbusplus::asio::connection (and anything that uses it).\n\nI\u0027d appreciate any suggestions though!",
+      "parentUuid": "5edf0688_52939d01",
+      "range": {
+        "startLine": 371,
+        "startChar": 0,
+        "endLine": 371,
+        "endChar": 25
+      },
+      "revId": "0ca20e7667a22cd40e1f67a707813940079c1757",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8add00c9_125354d7",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 12
@@ -135,6 +201,30 @@
       "writtenOn": "2022-04-08T02:13:38Z",
       "side": 1,
       "message": "Nit, unless this function needs to take ownership of bus in some way (which it doesn\u0027t look like it does) this should be passed by a reference, not a pointer.  This helps in that we don\u0027t have to nullptr check it inside every handler, and it helps users know that it\u0027s just using the bus, rather than \"owning\" the bus.",
+      "range": {
+        "startLine": 375,
+        "startChar": 27,
+        "endLine": 375,
+        "endChar": 56
+      },
+      "revId": "0ca20e7667a22cd40e1f67a707813940079c1757",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5c8f651e_d63b7d18",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 375,
+      "author": {
+        "id": 1001387
+      },
+      "writtenOn": "2022-04-12T01:31:56Z",
+      "side": 1,
+      "message": "That makes sense. Updated.\n\nAlso changed the type and argument names to better reflect what this actually is.",
+      "parentUuid": "8add00c9_125354d7",
       "range": {
         "startLine": 375,
         "startChar": 27,
@@ -168,6 +258,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3ec0deee_a0638baf",
+        "filename": "redfish-core/lib/ut/log_services_test.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1001387
+      },
+      "writtenOn": "2022-04-12T01:31:56Z",
+      "side": 1,
+      "message": "That pointer is never used in this test, which is why this doesn\u0027t fail. Pretty sure it\u0027s not filled in, but I\u0027ve changed it to be the mock object since that seems more appropriate for a test.",
+      "parentUuid": "4a38068d_31969dfc",
+      "range": {
+        "startLine": 24,
+        "startChar": 24,
+        "endLine": 24,
+        "endChar": 52
+      },
+      "revId": "0ca20e7667a22cd40e1f67a707813940079c1757",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "44377b62_663cdf6c",
@@ -181,6 +295,30 @@
       "writtenOn": "2022-04-08T02:13:38Z",
       "side": 1,
       "message": "Isn\u0027t this the default?",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 54
+      },
+      "revId": "0ca20e7667a22cd40e1f67a707813940079c1757",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6534d009_98acd8ff",
+        "filename": "redfish-core/lib/ut/log_services_test.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1001387
+      },
+      "writtenOn": "2022-04-12T01:31:56Z",
+      "side": 1,
+      "message": "Yeah, you\u0027re right. Removed the unnecessary lines throughout the test.",
+      "parentUuid": "44377b62_663cdf6c",
       "range": {
         "startLine": 38,
         "startChar": 0,
