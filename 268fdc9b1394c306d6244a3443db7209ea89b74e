@@ -68,6 +68,30 @@
       },
       "revId": "268fdc9b1394c306d6244a3443db7209ea89b74e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6a9b50a8_f1d8a1c3",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1897,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-12T18:59:19Z",
+      "side": 1,
+      "message": "Could it be constexpr, maybe, but that imposes that QueryCapabilities always be constexpr constructible, so we don\u0027t necessarily want to do that.\n\nI\u0027m pretty sure constexpr or not these will generate the same code, so this isn\u0027t really the level of change that I would generally enforce.\n\nWith all that said, if there\u0027s a good reason to do that, I\u0027m happy to make the change, I\u0027m just not seeing what it would improve.  Does making this contexpr actually generate different code?",
+      "parentUuid": "f2c0e617_ca589fab",
+      "range": {
+        "startLine": 1897,
+        "startChar": 12,
+        "endLine": 1897,
+        "endChar": 23
+      },
+      "revId": "268fdc9b1394c306d6244a3443db7209ea89b74e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
