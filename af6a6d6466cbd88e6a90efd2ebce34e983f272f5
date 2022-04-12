@@ -33,6 +33,41 @@
       "message": "Please help to review and test the patch here, which is attempting to solve the same problem in a more complete way.\n\nhttps://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/51094",
       "revId": "af6a6d6466cbd88e6a90efd2ebce34e983f272f5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ae62aa04_189ca91e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-04-12T17:36:06Z",
+      "side": 1,
+      "message": "I think we should move away from regex \nhttps://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/51094",
+      "revId": "af6a6d6466cbd88e6a90efd2ebce34e983f272f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "da9e9127_53803ace",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-04-12T17:36:06Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "6856d1fb_98ecae91",
+      "revId": "af6a6d6466cbd88e6a90efd2ebce34e983f272f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
