@@ -274,9 +274,9 @@ inline void requestRoutesEventDestinationCollection(App& app)
             // uri: Start with '/' and Exclude '#', ' '
             //      Can include query params(ex: '/event?test=1')
             // TODO: Need to validate hostname extensively(as per rfc)
-            const std::regex urlRegex(
-                "(http|https)://([^/\\x20\\x3f\\x23\\x3a]+):?([0-9]*)(/"
-                "([^\\x20\\x23\\x3f]*\\x3f?([^\\x20\\x23\\x3f])*)?)");
+            const std::regex urlRegex("(http|https)://([^/ ?#:]+):?([0-9]*)(/*"
+                                      "([^ #?]*\?"
+                                      "?([^ #?])*)?)");
             std::cmatch match;
             if (!std::regex_match(destUrl.c_str(), match, urlRegex))
             {
