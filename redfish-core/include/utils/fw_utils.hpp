@@ -178,12 +178,6 @@ inline void
                                                  << swInvPurpose;
                                 BMCWEB_LOG_DEBUG << "Running image: "
                                                  << runningImage;
-
-                                if (version.empty())
-                                {
-                                    messages::internalError(aResp->res);
-                                    return;
-                                }
                                 if (swInvPurpose != fwVersionPurpose)
                                 {
                                     // Not purpose we're looking for
@@ -223,6 +217,11 @@ inline void
                                 if (!activeVersionPropName.empty() &&
                                     runningImage)
                                 {
+                                    if (version.empty())
+                                    {
+                                        messages::internalError(aResp->res);
+                                        return;
+                                    }
                                     aResp->res
                                         .jsonValue[activeVersionPropName] =
                                         version;
