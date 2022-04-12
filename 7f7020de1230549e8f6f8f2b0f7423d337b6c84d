@@ -234,6 +234,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "991ef1c7_a666be55",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2665,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-12T17:22:06Z",
+      "side": 1,
+      "message": "\u003e \u003e Example that was checked in a couple days ago:\n\u003e \u003e \n\u003e \u003e https://github.com/openbmc/bmcweb/blob/142ec9aeb70c23a1aa98aa90d472ff11a76529ee/redfish-core/include/query.hpp#L28\n\u003e \u003e \n\u003e \u003e Lots of other examples can be seen in the bmcweb_config.h file.\n\u003e \n\u003e I\u0027m personally not infavor of this solution. One point of having the build options is to save build time as unneeded code are not compiled.\n\nAt this time, in the opinion of this maintainer, this requirement is less important than ensuring that CI can effectively build in all configurations.  In practice, the amount of actual code we turn on and off with the options doesn\u0027t significantly effect our compile time (if you have information to the contrary, please let me know).\n\n\u003e Is there any other solutions available to only enable features in CI build?\n\nYes, the recommended way is to rely on your distro config, and not put code in bmcweb, as we do in many other subsystems to great effect (Sensors for example).  bmcweb should use dbus to determine resources, and should be as close to a Redfish to Dbus converter as is possible, which shouldn\u0027t really necessitate a lot of options for modifying behavior, given it doesn\u0027t contain a majority of the logic.",
+      "parentUuid": "9e1e6d9f_87e3e77c",
+      "revId": "7f7020de1230549e8f6f8f2b0f7423d337b6c84d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0d4e48e8_3405ef7b",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 1
