@@ -16,6 +16,23 @@
       "message": "Friendly ping.",
       "revId": "da442c3403b07d343ac6afaa5ed0ff6516b7fb2a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3942597e_e59fabba",
+        "filename": "include/google/dbus_utils.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1000233
+      },
+      "writtenOn": "2022-04-12T21:58:19Z",
+      "side": 1,
+      "message": "Should this be moved to the main dbus_utils.hpp since it isn\u0027t specific to Google?",
+      "revId": "da442c3403b07d343ac6afaa5ed0ff6516b7fb2a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
