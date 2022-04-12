@@ -88,6 +88,24 @@
       "parentUuid": "49f96976_5111a133",
       "revId": "fc0ee651500c91f7433b994dc36c2513e1a00572",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "00eb2bd2_ec7f7f87",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 22
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001027
+      },
+      "writtenOn": "2022-04-12T00:20:59Z",
+      "side": 1,
+      "message": "\u003e Also, you have to consider query parameter combinations as well (e.g., Expand + Select).\n\nI didn\u0027t think about that. Maybe it would be better to consider optimizing it after other parameters are implemented. I have no problem with this patch.",
+      "parentUuid": "38adf349_34afa618",
+      "revId": "fc0ee651500c91f7433b994dc36c2513e1a00572",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
