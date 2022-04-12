@@ -16,6 +16,23 @@
       "message": "AppaRao, please re-check if POST really worked with your regexp, in our testing it looks wrong and it doesn\u0027t work.\nThank you!",
       "revId": "af6a6d6466cbd88e6a90efd2ebce34e983f272f5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6856d1fb_98ecae91",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-12T15:20:02Z",
+      "side": 1,
+      "message": "Please help to review and test the patch here, which is attempting to solve the same problem in a more complete way.\n\nhttps://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/51094",
+      "revId": "af6a6d6466cbd88e6a90efd2ebce34e983f272f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
