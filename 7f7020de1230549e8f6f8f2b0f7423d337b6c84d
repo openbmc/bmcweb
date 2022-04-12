@@ -216,6 +216,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9e1e6d9f_87e3e77c",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2665,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-04-12T06:28:32Z",
+      "side": 1,
+      "message": "\u003e Example that was checked in a couple days ago:\n\u003e \n\u003e https://github.com/openbmc/bmcweb/blob/142ec9aeb70c23a1aa98aa90d472ff11a76529ee/redfish-core/include/query.hpp#L28\n\u003e \n\u003e Lots of other examples can be seen in the bmcweb_config.h file.\n\nI\u0027m personally not infavor of this solution. One point of having the build options is to save build time as unneeded code are not compiled. Is there any other solutions available to only enable features in CI build?",
+      "parentUuid": "20125eca_c39f0bc1",
+      "revId": "7f7020de1230549e8f6f8f2b0f7423d337b6c84d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0d4e48e8_3405ef7b",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 1

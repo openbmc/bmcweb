@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1eae0179_b82e748e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-04-12T06:28:32Z",
+      "side": 1,
+      "message": "+1, I think only IBM need to enable this option in bbappend file.",
+      "parentUuid": "2066fa33_68249f35",
+      "revId": "bc5b69a12160c0163c5885a1ed7c3107deb29938",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a62fa05d_f6a43fbf",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
@@ -85,6 +103,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a925e800_4e9618b7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-04-12T06:28:32Z",
+      "side": 1,
+      "message": "Sorry I have some misunderstanding, I thought in tmp/work/\u003carch\u003e-openbmc-linux-gnueabi/bmcweb/1.0+git999-r0/, the package/usr/bin/bmcweb is the uncompressed one and the image/usr/bin/bmcweb (identical to the file in tmp/work/\u003ctarget\u003e/\u003cimage\u003e/1.0-r0/rootfs/usr/bin/bmcweb) is the compressed one. I\u0027m not aware of this file is not the compressed one need to be compressed manually.\n\nI\u0027m using a intel build of openbmc, it enables some other options in bmcweb, the result might be different from the qemu image. With xz it manually, the difference is 13332 (784640-\u003e771308) in this intel build.\n\nI also tried building a qemu obmc-phosphor-image with all default configs. The result is 14108 (763340-\u003e749232)\n\nSo your test result is right. I\u0027ll update the commit message.",
+      "parentUuid": "3eff2897_1ce9f329",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 69
+      },
+      "revId": "bc5b69a12160c0163c5885a1ed7c3107deb29938",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c2958885_aac88a5c",
         "filename": "redfish-core/include/redfish.hpp",
         "patchSetId": 2
@@ -96,6 +138,30 @@
       "writtenOn": "2022-04-11T19:41:44Z",
       "side": 1,
       "message": "Please follow the patterns of the other header files that contain \"optional\" routes.  We didn\u0027t come to what\u0027s there on accident.  If you had good reasons for not doing that, please note it in your commit message.",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 51,
+        "endChar": 0
+      },
+      "revId": "bc5b69a12160c0163c5885a1ed7c3107deb29938",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fdf785c9_47e78b93",
+        "filename": "redfish-core/include/redfish.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-04-12T06:28:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c2958885_aac88a5c",
       "range": {
         "startLine": 48,
         "startChar": 0,
