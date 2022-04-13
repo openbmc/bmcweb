@@ -3,6 +3,7 @@
 #include <app.hpp>
 #include <boost/convert.hpp>
 #include <boost/convert/strtol.hpp>
+#include <boost/system/linux_error.hpp>
 #include <dbus_utility.hpp>
 #include <query.hpp>
 #include <registries/privilege_registry.hpp>
@@ -780,8 +781,14 @@ inline void requestRoutesCertificateActionsReplaceCertificate(App& app)
                     if (ec)
                     {
                         BMCWEB_LOG_ERROR << "DBUS response error: " << ec;
-                        messages::resourceNotFound(asyncResp->res, name,
-                                                   std::to_string(id));
+                        if (ec.value() ==
+                            boost::system::linux_error::bad_request_descriptor)
+                        {
+                            messages::resourceNotFound(asyncResp->res, name,
+                                                       std::to_string(id));
+                            return;
+                        }
+                        messages::internalError(asyncResp->res);
                         return;
                     }
                     getCertificateProperties(asyncResp, objectPath, service, id,
