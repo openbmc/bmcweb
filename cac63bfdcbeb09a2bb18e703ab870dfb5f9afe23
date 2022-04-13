@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a6090a08_0c32a31d",
+        "filename": "redfish-core/lib/external_storer.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 511,
+      "author": {
+        "id": 1000520
+      },
+      "writtenOn": "2022-04-13T08:29:58Z",
+      "side": 1,
+      "message": "Not sure what you mean by \"returning when else\".\n\nThe \"innerContent\" is optional, it\u0027s not mandatory. If it\u0027s given, though, it has to be a JSON dictionary, and must not contain certain fields. That\u0027s because it\u0027s used to optionally customize the GET results of the URL that ends in \"/Entries\".",
+      "parentUuid": "181149b3_8995654e",
+      "range": {
+        "startLine": 494,
+        "startChar": 0,
+        "endLine": 511,
+        "endChar": 5
+      },
+      "revId": "cac63bfdcbeb09a2bb18e703ab870dfb5f9afe23",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4c0a4208_7fce5044",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-04-13T01:39:24Z",
       "side": 1,
       "message": "I believe constructor / destructor is favored in gtest unless you have the \"special cases\" they list on this FAQ, which I believe we\u0027re not hitting here: https://github.com/google/googletest/blob/main/docs/faq.md#should-i-use-the-constructordestructor-of-the-test-fixture-or-setupteardown-ctorvssetup",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 5
+      },
+      "revId": "cac63bfdcbeb09a2bb18e703ab870dfb5f9afe23",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "66168ed8_5662e76c",
+        "filename": "redfish-core/lib/ut/external_storer_test.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000520
+      },
+      "writtenOn": "2022-04-13T08:29:58Z",
+      "side": 1,
+      "message": "Interesting, did not know the constructor/destructor could be used instead. The documentation I found just listed SetUp() and TearDown() as the way to wrap tests that needed setup/teardown done. Should this be changed to constructor/destructor?",
+      "parentUuid": "4c0a4208_7fce5044",
       "range": {
         "startLine": 10,
         "startChar": 0,
