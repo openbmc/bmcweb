@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0434a36c_f6426a6f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-04-13T17:09:41Z",
+      "side": 1,
+      "message": "Seems reasonable to me. Just need to address what happens when getProcessorType returns \"\" because I\u0027m pretty sure that will cause a valditor error ",
+      "revId": "cf471c87cf6284e77f758b95338bd728d013fbdc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d4017750_f1e5e429",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 460,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-04-13T17:09:41Z",
+      "side": 1,
+      "message": "Nitpick: We are kind of mixing AcceleratorType and ProcessorType. Would processorType be more consistent? You may want to have a comment above that we map AcceleratorType to 3 of the values of ProcessorType",
+      "revId": "cf471c87cf6284e77f758b95338bd728d013fbdc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "828a9213_55b0b8cd",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 470,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-04-13T17:09:41Z",
+      "side": 1,
+      "message": "Doesn\u0027t empty throw a validator error? Need to check for empty?",
+      "revId": "cf471c87cf6284e77f758b95338bd728d013fbdc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0080250f_d0e1d33a",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 492,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-04-13T17:09:41Z",
+      "side": 1,
+      "message": "It may not be bad to have a default incase you have a xyz.openbmc_project.Inventory.Item.Accelerator but no xyz.openbmc_project.Inventory.Item.Accelerator.AcceleratorType. Your call.",
+      "revId": "cf471c87cf6284e77f758b95338bd728d013fbdc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
