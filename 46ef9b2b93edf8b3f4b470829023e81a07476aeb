@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "01e91683_8c37ab48",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1001257
+      },
+      "writtenOn": "2022-04-13T20:52:53Z",
+      "side": 1,
+      "message": "I put the change ID to the document change about this alternative. Is this good?",
+      "parentUuid": "fd1b61b2_20ddd225",
+      "revId": "46ef9b2b93edf8b3f4b470829023e81a07476aeb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4410532a_9bc9eeb9",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
@@ -81,6 +99,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "114a2948_2b60b3ed",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 1001257
+      },
+      "writtenOn": "2022-04-13T20:52:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ad5edf19_9f7f06a5",
+      "range": {
+        "startLine": 264,
+        "startChar": 0,
+        "endLine": 265,
+        "endChar": 37
+      },
+      "revId": "46ef9b2b93edf8b3f4b470829023e81a07476aeb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f099c1e8_87b79660",
@@ -94,6 +136,30 @@
       "writtenOn": "2022-03-31T02:47:06Z",
       "side": 1,
       "message": "please move this outside the class.  I\u0027m pretty sure this conversion already exists somewhere;  Please use it if it does.",
+      "range": {
+        "startLine": 260,
+        "startChar": 0,
+        "endLine": 278,
+        "endChar": 5
+      },
+      "revId": "46ef9b2b93edf8b3f4b470829023e81a07476aeb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "052297a8_dfae916a",
+        "filename": "redfish-core/lib/health.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 1001257
+      },
+      "writtenOn": "2022-04-13T20:52:53Z",
+      "side": 1,
+      "message": "This is a new interface which is added in change https://gerrit.openbmc-project.xyz/c/openbmc/phosphor-dbus-interfaces/+/52339.",
+      "parentUuid": "f099c1e8_87b79660",
       "range": {
         "startLine": 260,
         "startChar": 0,
@@ -129,6 +195,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4dd3cc21_d65e3251",
+        "filename": "redfish-core/lib/health.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 1001257
+      },
+      "writtenOn": "2022-04-13T20:52:53Z",
+      "side": 1,
+      "message": "Because we want to get all health states of descendant devices before doing the rollup logic, async operations do not guarantee the order here. Actually, I can understand the proactor design of bmcweb when handling web requests, but it really introduces much more complexity when making async dbus calls in request handlers. Especially when there exists some required execution order. What\u0027s the reasoning behind? For the cases I mentioned above, what\u0027s the ideal solution?",
+      "parentUuid": "2a0a6a29_755b5af8",
+      "range": {
+        "startLine": 297,
+        "startChar": 0,
+        "endLine": 297,
+        "endChar": 52
+      },
+      "revId": "46ef9b2b93edf8b3f4b470829023e81a07476aeb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c0d339ba_965fac38",
         "filename": "redfish-core/lib/health.hpp",
         "patchSetId": 2
@@ -140,6 +230,30 @@
       "writtenOn": "2022-03-31T02:47:06Z",
       "side": 1,
       "message": "Responses that do not need to take ownership should be passed by crow::Response\u0026",
+      "range": {
+        "startLine": 524,
+        "startChar": 19,
+        "endLine": 524,
+        "endChar": 66
+      },
+      "revId": "46ef9b2b93edf8b3f4b470829023e81a07476aeb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b16017fc_8c97d63b",
+        "filename": "redfish-core/lib/health.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 524,
+      "author": {
+        "id": 1001257
+      },
+      "writtenOn": "2022-04-13T20:52:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c0d339ba_965fac38",
       "range": {
         "startLine": 524,
         "startChar": 19,
