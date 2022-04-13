@@ -388,6 +388,12 @@ class Connection :
             asyncResp->res.setCompleteRequestHandler(nullptr);
             return;
         }
+        std::string_view expected =
+            req->getHeaderValue(boost::beast::http::field::if_none_match);
+        if (!expected.empty())
+        {
+            res.setExpectedHash(expected);
+        }
         handler->handle(thisReq, asyncResp);
     }
 
@@ -433,6 +439,7 @@ class Connection :
             return;
         }
         res = std::move(thisRes);
+
         BMCWEB_LOG_INFO << "Response: " << this << ' ' << req->url << ' '
                         << res.resultInt() << " keepalive=" << req->keepAlive();
 
@@ -452,6 +459,9 @@ class Connection :
             res.setCompleteRequestHandler(nullptr);
             return;
         }
+
+        res.setHashAndHandleNotModified();
+
         if (res.body().empty() && !res.jsonValue.empty())
         {
             if (http_helpers::requestPrefersHtml(req->getHeaderValue("Accept")))
