@@ -214,6 +214,33 @@ struct Response
         return ret;
     }
 
+    void setHashAndHandleNotModified()
+    {
+        // Can only hash if we have content that's valid
+        if (jsonValue.empty() || result() != boost::beast::http::status::ok)
+        {
+            return;
+        }
+        size_t hashval = std::hash<nlohmann::json>{}(jsonValue);
+        std::string hexVal = "\"" + intToHexString(hashval, 8) + "\"";
+        addHeader(boost::beast::http::field::etag, hexVal);
+        if (expectedHash)
+        {
+            if (hexVal == *expectedHash)
+            {
+                jsonValue.clear();
+                result(boost::beast::http::status::not_modified);
+            }
+        }
+    }
+
+    void setExpectedHash(std::string_view hash)
+    {
+        expectedHash = hash;
+    }
+
+    std::optional<std::string> expectedHash;
+
   private:
     bool completed = false;
     std::function<void(Response&)> completeRequestHandler;
