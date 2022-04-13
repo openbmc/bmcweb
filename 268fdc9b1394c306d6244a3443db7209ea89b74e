@@ -47,6 +47,54 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5fcd924b_08c71ed2",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-13T23:49:27Z",
+      "side": 1,
+      "message": "This was copied from the old $top code, so it had a bug, but yes, you\u0027re correct, zero is legal.",
+      "parentUuid": "4b5d9306_50045484",
+      "range": {
+        "startLine": 182,
+        "startChar": 14,
+        "endLine": 182,
+        "endChar": 17
+      },
+      "revId": "268fdc9b1394c306d6244a3443db7209ea89b74e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ac9f6718_13b20462",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-13T23:49:27Z",
+      "side": 1,
+      "message": "This is what the old top code picked, and I\u0027m pretty sure it was arbitrary (Jason can weigh in if he remembers why it was picked).\n\nI suspect this is something we\u0027ll need to evaluate and tune, but 1000 seems like a reasonable default for most of our larger collections.",
+      "parentUuid": "4d69a64e_2785cbfc",
+      "range": {
+        "startLine": 182,
+        "startChar": 38,
+        "endLine": 182,
+        "endChar": 55
+      },
+      "revId": "268fdc9b1394c306d6244a3443db7209ea89b74e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f2c0e617_ca589fab",
