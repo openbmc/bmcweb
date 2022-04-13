@@ -92,6 +92,30 @@
       },
       "revId": "268fdc9b1394c306d6244a3443db7209ea89b74e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "50ce2fa3_41f1300c",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1897,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-04-13T22:24:32Z",
+      "side": 1,
+      "message": "https://godbolt.org/z/TjhsqYbqE\n\nI tried, codes are similar. I don\u0027t know if that will make a big difference. And yeah, I agree, when we have std::unordered_set introduced into QueryCapabilities, it won\u0027t be constexpr constructible",
+      "parentUuid": "6a9b50a8_f1d8a1c3",
+      "range": {
+        "startLine": 1897,
+        "startChar": 12,
+        "endLine": 1897,
+        "endChar": 23
+      },
+      "revId": "268fdc9b1394c306d6244a3443db7209ea89b74e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
