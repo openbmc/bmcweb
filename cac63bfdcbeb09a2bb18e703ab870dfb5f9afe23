@@ -48,6 +48,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d9d21cc2_e9475906",
+        "filename": "redfish-core/lib/external_storer.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 511,
+      "author": {
+        "id": 1000388
+      },
+      "writtenOn": "2022-04-13T16:03:19Z",
+      "side": 1,
+      "message": "by returning \"when else\" I meant, should we add an \"else\" here to return early.\n\nIt sounds like it\u0027s optional and therefore we don\u0027t need it.",
+      "parentUuid": "a6090a08_0c32a31d",
+      "range": {
+        "startLine": 494,
+        "startChar": 0,
+        "endLine": 511,
+        "endChar": 5
+      },
+      "revId": "cac63bfdcbeb09a2bb18e703ab870dfb5f9afe23",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4c0a4208_7fce5044",
@@ -85,6 +109,30 @@
       "side": 1,
       "message": "Interesting, did not know the constructor/destructor could be used instead. The documentation I found just listed SetUp() and TearDown() as the way to wrap tests that needed setup/teardown done. Should this be changed to constructor/destructor?",
       "parentUuid": "4c0a4208_7fce5044",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 5
+      },
+      "revId": "cac63bfdcbeb09a2bb18e703ab870dfb5f9afe23",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d1058295_eb0c109e",
+        "filename": "redfish-core/lib/ut/external_storer_test.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000388
+      },
+      "writtenOn": "2022-04-13T16:03:19Z",
+      "side": 1,
+      "message": "Yes, unless we can\u0027t, we should be using constructor / destructor if possible as per the FAQ",
+      "parentUuid": "66168ed8_5662e76c",
       "range": {
         "startLine": 10,
         "startChar": 0,
