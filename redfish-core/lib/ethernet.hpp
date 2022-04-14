@@ -2144,8 +2144,8 @@ inline void requestEthernetInterfacesRoutes(App& app)
                     return;
                 }
 
-                bool vlanEnable = false;
-                uint32_t vlanId = 0;
+                std::optional<bool> vlanEnable;
+                std::optional<uint32_t> vlanId;
 
                 if (!json_util::readJsonPatch(req, asyncResp->res, "VLANEnable",
                                               vlanEnable, "VLANId", vlanId))
@@ -2153,11 +2153,17 @@ inline void requestEthernetInterfacesRoutes(App& app)
                     return;
                 }
 
+                if (vlanId)
+                {
+                    messages::propertyNotWritable(asyncResp->res, "VLANId");
+                    return;
+                }
+
                 // Get single eth interface data, and call the below callback
                 // for JSON preparation
                 getEthernetIfaceData(
                     ifaceId,
-                    [asyncResp, parentIfaceId, ifaceId, &vlanEnable, &vlanId](
+                    [asyncResp, parentIfaceId, ifaceId, vlanEnable](
                         const bool& success,
                         const EthernetInterfaceData& ethData,
                         const boost::container::flat_set<IPv4AddressData>&,
@@ -2170,20 +2176,11 @@ inline void requestEthernetInterfacesRoutes(App& app)
                                     if (ec)
                                     {
                                         messages::internalError(asyncResp->res);
+                                        return;
                                     }
                                 };
 
-                            if (vlanEnable)
-                            {
-                                crow::connections::systemBus->async_method_call(
-                                    std::move(callback),
-                                    "xyz.openbmc_project.Network",
-                                    "/xyz/openbmc_project/network/" + ifaceId,
-                                    "org.freedesktop.DBus.Properties", "Set",
-                                    "xyz.openbmc_project.Network.VLAN", "Id",
-                                    dbus::utility::DbusVariantType(vlanId));
-                            }
-                            else
+                            if (vlanEnable && !(*vlanEnable))
                             {
                                 BMCWEB_LOG_DEBUG
                                     << "vlanEnable is false. Deleting the "
