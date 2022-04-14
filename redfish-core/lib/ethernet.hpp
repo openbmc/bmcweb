@@ -590,27 +590,6 @@ inline void
 }
 
 /**
- * @brief Sets given Id on the given VLAN interface through D-Bus
- *
- * @param[in] ifaceId       Id of VLAN interface that should be modified
- * @param[in] inputVlanId   New ID of the VLAN
- * @param[in] callback      Function that will be called after the operation
- *
- * @return None.
- */
-template <typename CallbackFunc>
-void changeVlanId(const std::string& ifaceId, const uint32_t& inputVlanId,
-                  CallbackFunc&& callback)
-{
-    crow::connections::systemBus->async_method_call(
-        callback, "xyz.openbmc_project.Network",
-        std::string("/xyz/openbmc_project/network/") + ifaceId,
-        "org.freedesktop.DBus.Properties", "Set",
-        "xyz.openbmc_project.Network.VLAN", "Id",
-        dbus::utility::DbusVariantType(inputVlanId));
-}
-
-/**
  * @brief Helper function that verifies IP address to check if it is in
  *        proper format. If bits pointer is provided, also calculates active
  *        bit count for Subnet Mask.
