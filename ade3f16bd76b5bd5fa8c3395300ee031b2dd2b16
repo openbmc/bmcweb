@@ -396,6 +396,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bf1fee41_9df3c0bb",
+        "filename": "include/google/google_service_root.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-14T21:25:29Z",
+      "side": 1,
+      "message": "If you\u0027re trying to make this look like a Redfish resource type, Description is generally required.  If you\u0027re not, I\u0027m really surprised we\u0027d take the time to do odata.",
+      "parentUuid": "c217eb25_7b4d03bc",
+      "range": {
+        "startLine": 88,
+        "startChar": 42,
+        "endLine": 88,
+        "endChar": 46
+      },
+      "revId": "ade3f16bd76b5bd5fa8c3395300ee031b2dd2b16",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9b08ad3f_7570591d",
         "filename": "include/google/google_service_root.hpp",
         "patchSetId": 1
@@ -525,6 +549,30 @@
       "side": 1,
       "message": "Vidya proposed encoding the host command bytes in a hex string (2-char per byte). \n\nIs there a convention in OpenBMC for encoding bytes over the wire? base64 is more efficient; hex encoding is easier to visual parse during debug, etc.",
       "parentUuid": "47052a79_2ae7df42",
+      "range": {
+        "startLine": 112,
+        "startChar": 16,
+        "endLine": 112,
+        "endChar": 27
+      },
+      "revId": "ade3f16bd76b5bd5fa8c3395300ee031b2dd2b16",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4ca61456_43902534",
+        "filename": "include/google/google_service_root.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-14T21:25:29Z",
+      "side": 1,
+      "message": "The convention is \"don\u0027t\" ie, structure your data structures in ways that are parsable in the tree 😊\n\nWe do have other places where we encode a json payload as a separate URI path, then just set the content-type appropriately there (see any of the dump routes for that) but that doesn\u0027t  seem great either.",
+      "parentUuid": "286bba7c_8f2c3d51",
       "range": {
         "startLine": 112,
         "startChar": 16,

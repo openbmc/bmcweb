@@ -16,6 +16,230 @@
       "message": "Friendly ping.",
       "revId": "3f6dc44eeec470f44660d68c0aa6fde94fa2b1c4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b297888b_622fb008",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-14T21:25:29Z",
+      "side": 1,
+      "message": "partial comments.",
+      "revId": "3f6dc44eeec470f44660d68c0aa6fde94fa2b1c4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f7ec1019_3e355b68",
+        "filename": "include/google/dbus_utils.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-14T21:25:29Z",
+      "side": 1,
+      "message": "We have two competing patches for the \"abstract dbus to unit test it\" approach.  Can you discuss with the Heinz (on discord, mailing list, or in gerrit review) and come up with something that meets both of your needs?\n\nhttps://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/52693\n\nYou\u0027re both essentially doing the same thing, in two radically different ways. FWIW, my read is, the 52693 approach is a lot less code, but less type safe, so we need to decide what tradeoffs are important to us.",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 11
+      },
+      "revId": "3f6dc44eeec470f44660d68c0aa6fde94fa2b1c4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1c49fbd4_587d3f4c",
+        "filename": "include/google/dbus_utils.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-14T21:25:29Z",
+      "side": 1,
+      "message": "\u003d 0 please.",
+      "range": {
+        "startLine": 66,
+        "startChar": 14,
+        "endLine": 66,
+        "endChar": 15
+      },
+      "revId": "3f6dc44eeec470f44660d68c0aa6fde94fa2b1c4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c79109d5_28ea5da6",
+        "filename": "include/google/dbus_utils.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-14T21:25:29Z",
+      "side": 1,
+      "message": "std::string_view please, as it\u0027s generally safer, and doesn\u0027t need checked for nullptr.  With that said, I wonder if this should really just be an owning copy (std::string).  thoughts?",
+      "range": {
+        "startLine": 67,
+        "startChar": 10,
+        "endLine": 67,
+        "endChar": 15
+      },
+      "revId": "3f6dc44eeec470f44660d68c0aa6fde94fa2b1c4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9d37c43f_042f6f71",
+        "filename": "include/google/dbus_utils.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-14T21:25:29Z",
+      "side": 1,
+      "message": "Why do we need a custom AsyncResp object here?  Generally the reason for declaring an AsyncResp is to do \"work\" once all things are complete, but this class isn\u0027t actually doing any work at the end, so I\u0027m not really sure why it exists?",
+      "range": {
+        "startLine": 139,
+        "startChar": 7,
+        "endLine": 139,
+        "endChar": 29
+      },
+      "revId": "3f6dc44eeec470f44660d68c0aa6fde94fa2b1c4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a27341d1_b6ea0240",
+        "filename": "include/google/google_service_root.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-14T21:25:29Z",
+      "side": 1,
+      "message": "Please try to avoid forward declaring methods like this.  It generally implies that your code needs reorganized into different files.",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 78
+      },
+      "revId": "3f6dc44eeec470f44660d68c0aa6fde94fa2b1c4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b38167d_81d53d92",
+        "filename": "include/google/google_service_root.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-14T21:25:29Z",
+      "side": 1,
+      "message": "This is going to malloc on startup and consume memory for the life of the program.  Please use constexpr std::array.",
+      "range": {
+        "startLine": 42,
+        "startChar": 18,
+        "endLine": 42,
+        "endChar": 24
+      },
+      "revId": "3f6dc44eeec470f44660d68c0aa6fde94fa2b1c4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "10a73b55_9b0adb30",
+        "filename": "include/google/google_service_root.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-14T21:25:29Z",
+      "side": 1,
+      "message": "nit, please just call it \"req\", if only for consistency.",
+      "range": {
+        "startLine": 63,
+        "startChar": 27,
+        "endLine": 63,
+        "endChar": 33
+      },
+      "revId": "3f6dc44eeec470f44660d68c0aa6fde94fa2b1c4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8eed8393_639f08b9",
+        "filename": "include/google/google_service_root.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-14T21:25:29Z",
+      "side": 1,
+      "message": "Please don\u0027t use auto in this way.  It obfuscates the type.\n\nhttps://google.github.io/styleguide/cppguide.html#Type_deduction",
+      "range": {
+        "startLine": 163,
+        "startChar": 10,
+        "endLine": 163,
+        "endChar": 14
+      },
+      "revId": "3f6dc44eeec470f44660d68c0aa6fde94fa2b1c4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "831cf4c5_43949587",
+        "filename": "include/google/google_service_root.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-14T21:25:29Z",
+      "side": 1,
+      "message": "Are you sure this is the privilege level you want?  Do we need a specific privilege level for interacting with ROT devices?",
+      "range": {
+        "startLine": 215,
+        "startChar": 23,
+        "endLine": 215,
+        "endChar": 39
+      },
+      "revId": "3f6dc44eeec470f44660d68c0aa6fde94fa2b1c4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

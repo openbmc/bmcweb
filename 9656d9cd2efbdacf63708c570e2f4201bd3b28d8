@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6985b7d0_07a1e7dd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-14T21:25:29Z",
+      "side": 1,
+      "message": "Please write a commit message 😊",
+      "revId": "9656d9cd2efbdacf63708c570e2f4201bd3b28d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "80d4f6f4_b90f74a4",
         "filename": "include/google/dbus_utils.hpp",
         "patchSetId": 6
@@ -32,6 +49,24 @@
       "side": 1,
       "message": "Done",
       "parentUuid": "80d4f6f4_b90f74a4",
+      "revId": "9656d9cd2efbdacf63708c570e2f4201bd3b28d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4ad94ed3_8639d4ca",
+        "filename": "include/google/dbus_utils.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-14T21:25:29Z",
+      "side": 1,
+      "message": "\u003e Add Google Copyright for this?\n\n\nWe generally don\u0027t add copyrights to individual files.  They have no effect, as technically all this code is owned by LF openbmc.\n\nSorry for the thrash, but please remove.",
+      "parentUuid": "0515f19d_9c3d751a",
       "revId": "9656d9cd2efbdacf63708c570e2f4201bd3b28d8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -260,6 +295,29 @@
       "writtenOn": "2022-04-05T06:15:11Z",
       "side": 1,
       "message": "Some nits from the CodeChecker:\n\nmisc-definitions-in-headers\nvariable \u0027obj_mapper\u0027 defined in a header file; variable definitions in header files can lead to ODR violations\n\nSame for rf_utils and hoth_iface.\n\nSince this is not enforced by the CI it is probably okay for now.",
+      "revId": "9656d9cd2efbdacf63708c570e2f4201bd3b28d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b1bffd6_42c78dbe",
+        "filename": "include/google/google_service_root.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-14T21:25:29Z",
+      "side": 1,
+      "message": "nitpick/future thing.  There are reviews in process to deprecate using \u003d {} syntax for nlohmann as it leads to more code.\n\nJust do \n\nasyncResp-\u003eres.jsonValue[\"RootOfTrustCollection\"][\"@odata.id\"]",
+      "range": {
+        "startLine": 35,
+        "startChar": 53,
+        "endLine": 35,
+        "endChar": 57
+      },
       "revId": "9656d9cd2efbdacf63708c570e2f4201bd3b28d8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
