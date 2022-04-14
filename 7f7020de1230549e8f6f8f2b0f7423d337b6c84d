@@ -252,6 +252,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5c4a88a0_562af2f5",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2665,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-04-14T16:50:57Z",
+      "side": 1,
+      "message": "I tried the constexpr way, but found it was hard to achieve it. Unlike insecure-enable-redfish-query that generates a value in bmcweb_config.h.in, features mapped in feature_map are defined by -D option in compile time. \n\nIf it is needed to make all these features compiled by making them as a value defined in bmcweb_config.h.in, I think this should be another patch.",
+      "parentUuid": "991ef1c7_a666be55",
+      "revId": "7f7020de1230549e8f6f8f2b0f7423d337b6c84d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0d4e48e8_3405ef7b",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 1
