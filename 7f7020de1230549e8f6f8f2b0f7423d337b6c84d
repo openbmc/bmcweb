@@ -288,6 +288,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "73966825_1e1023ac",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2665,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-04-14T18:29:05Z",
+      "side": 1,
+      "message": "I pushed the changes.\n\nOne interesting thing I\u0027d like to mention is that, by creating some errors in hypervisor_system.hpp, the code is confirmed to be compiled in both #ifdef and if costexpr cases.\n\nThe probably reason is, I only wrapped the requestRoutesHypervisorSystems() call with #ifdef, not wrapped the #include or the whole hpp file, so it achieves the compiles but remove at linkage. I think a better solution for them might be only use #ifdef to wrap the function call, not function itself.",
+      "parentUuid": "4ec403a5_02153707",
+      "revId": "7f7020de1230549e8f6f8f2b0f7423d337b6c84d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0d4e48e8_3405ef7b",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 1
