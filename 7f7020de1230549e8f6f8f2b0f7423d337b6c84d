@@ -270,6 +270,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4ec403a5_02153707",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2665,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-14T18:09:30Z",
+      "side": 1,
+      "message": "Please push your attempt as a patchset in this series, and we can work through what the issues are.  FWIW, it\u0027s on my list to put up a patch to completely remove the #ifdef variant of the options (as was stated in the original if constexpr patch)\n\nI\u0027m happy to merge the ifdef version if there are technical issues, but I\u0027d like to understand them before I do.",
+      "parentUuid": "5c4a88a0_562af2f5",
+      "revId": "7f7020de1230549e8f6f8f2b0f7423d337b6c84d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0d4e48e8_3405ef7b",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 1
