@@ -46,6 +46,53 @@
       },
       "revId": "393e85f889fa1c4c765b28b0d05fa06a43a9de68",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a97ab92f_1642b85f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 50
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-04-14T18:30:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0bccb1e3_22ec815d",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 66
+      },
+      "revId": "393e85f889fa1c4c765b28b0d05fa06a43a9de68",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "58c7bbec_4c5e9098",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 604,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-04-14T18:30:21Z",
+      "side": 1,
+      "message": "Cleanup for this in https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/52433",
+      "range": {
+        "startLine": 599,
+        "startChar": 18,
+        "endLine": 604,
+        "endChar": 64
+      },
+      "revId": "393e85f889fa1c4c765b28b0d05fa06a43a9de68",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
