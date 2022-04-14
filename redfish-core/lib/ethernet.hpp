@@ -83,7 +83,6 @@ struct EthernetInterfaceData
     bool DNSEnabled;
     bool NTPEnabled;
     bool HostNameEnabled;
-    bool SendHostNameEnabled;
     bool linkUp;
     bool nicEnabled;
     std::string DHCPEnabled;
@@ -389,16 +388,6 @@ inline bool
                             if (hostNameEnabled != nullptr)
                             {
                                 ethData.HostNameEnabled = *hostNameEnabled;
-                            }
-                        }
-                        else if (propertyPair.first == "SendHostNameEnabled")
-                        {
-                            const bool* sendHostNameEnabled =
-                                std::get_if<bool>(&propertyPair.second);
-                            if (sendHostNameEnabled != nullptr)
-                            {
-                                ethData.SendHostNameEnabled =
-                                    *sendHostNameEnabled;
                             }
                         }
                     }
