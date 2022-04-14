@@ -162,6 +162,24 @@
       "parentUuid": "d33c4aa8_bd9a9f1d",
       "revId": "275644220bee8ba58e829bcffb69aa523ae5a08c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b3dd5d5e_b5a8fd4a",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 784,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-14T20:19:58Z",
+      "side": 1,
+      "message": "isConnector is going away per the above comment.  As a general rule, if we get an enum value we don\u0027t expect, we should set internalError().",
+      "parentUuid": "f7555b2f_a54a6939",
+      "revId": "275644220bee8ba58e829bcffb69aa523ae5a08c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
