@@ -16,6 +16,24 @@
       "message": "I like this concept.\nIt\u0027s nice to turn the various enumeration strings into objects that can be confirmed at compile time. It is also nice that the strings can be associated to their respective XML, which can\u0027t be done with raw strings.\nI was originally wary of the monolithic include file. Trying to find the correct item in a large blob of text may be daunting. In this case the XML file name helps zero in on the enum values. It also avoids the need to include svc-enums1.hpp, svc-enums-2.hpp, ... svc-enums-x.hpp. IMO that makes the large include file acceptable.\n\nI can\u0027t find an argument to make against implementing this concept.",
       "revId": "4051b9129cfc52497d20130524ce9e5dbf8cd8c2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5cbc3280_7642aee6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-14T18:56:26Z",
+      "side": 1,
+      "message": "Thanks for the review!\n\nI agree, I think there\u0027s a better way to breakdown the redfish_defs.h file into sub files without it devolving into a mess, and that\u0027s probably what I\u0027ll look at next.\n\nI\u0027m really looking for input on if the amount of magic in the nlohmann ifdefs is worth the cost of not being able to \"read\" the code, but it sounds like it is.",
+      "parentUuid": "a7cf0cb6_365828d4",
+      "revId": "4051b9129cfc52497d20130524ce9e5dbf8cd8c2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
