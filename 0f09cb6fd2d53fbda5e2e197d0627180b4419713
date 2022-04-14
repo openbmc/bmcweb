@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "474f56ac_20998e8e",
+        "filename": "redfish-core/include/utils/chassis_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-04-14T18:43:28Z",
+      "side": 1,
+      "message": "Please use `dbus::utility::MapperGetSubTreePathsResponse` for the respose data type",
+      "revId": "0f09cb6fd2d53fbda5e2e197d0627180b4419713",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "db085df3_cdd37d44",
+        "filename": "redfish-core/include/utils/chassis_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-04-14T18:43:28Z",
+      "side": 1,
+      "message": "Personally, I would prefer to have an `ec` in the callback parameter than using std::optional to indicate if it is success or not. Passing ec can have all the errors handled in one place",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 52
+      },
+      "revId": "0f09cb6fd2d53fbda5e2e197d0627180b4419713",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
