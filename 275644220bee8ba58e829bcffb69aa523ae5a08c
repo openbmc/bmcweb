@@ -81,6 +81,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "df255c6c_89261e9e",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 776,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-04-14T18:08:31Z",
+      "side": 1,
+      "message": "yeah, I it is. I will remove it.",
+      "parentUuid": "80ec4c3a_84601102",
+      "range": {
+        "startLine": 776,
+        "startChar": 21,
+        "endLine": 776,
+        "endChar": 58
+      },
+      "revId": "275644220bee8ba58e829bcffb69aa523ae5a08c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d33c4aa8_bd9a9f1d",
@@ -94,6 +118,24 @@
       "writtenOn": "2022-04-14T17:45:06Z",
       "side": 1,
       "message": "set internalError() here please.",
+      "revId": "275644220bee8ba58e829bcffb69aa523ae5a08c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f7555b2f_a54a6939",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 784,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-04-14T18:08:31Z",
+      "side": 1,
+      "message": "I actually don\u0027t think that is too useful since we either check `isConnector` and we will never hit this error or we remove `isConnector` and any other interface will throw that error.\n\nAny suggestion here?",
+      "parentUuid": "d33c4aa8_bd9a9f1d",
       "revId": "275644220bee8ba58e829bcffb69aa523ae5a08c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
