@@ -91,7 +91,7 @@ struct EthernetInterfaceData
     std::string defaultGateway;
     std::string ipv6DefaultGateway;
     std::string macAddress;
-    std::vector<std::uint32_t> vlanId;
+    std::optional<uint32_t> vlanId;
     std::vector<std::string> nameServers;
     std::vector<std::string> staticNameServers;
     std::vector<std::string> domainnames;
@@ -221,7 +221,7 @@ inline bool
                                 std::get_if<uint32_t>(&propertyPair.second);
                             if (id != nullptr)
                             {
-                                ethData.vlanId.push_back(*id);
+                                ethData.vlanId = *id;
                             }
                         }
                     }
@@ -1809,9 +1809,9 @@ inline void parseInterfaceData(nlohmann::json& jsonResponse,
                                 parentIfaceId + "/VLANs/" + ifaceId;
 
     jsonResponse["VLANEnable"] = true;
-    if (!ethData.vlanId.empty())
+    if (ethData.vlanId)
     {
-        jsonResponse["VLANId"] = ethData.vlanId.back();
+        jsonResponse["VLANId"] = *ethData.vlanId;
     }
 }
 
@@ -2108,7 +2108,7 @@ inline void requestEthernetInterfacesRoutes(App& app)
                         const EthernetInterfaceData& ethData,
                         const boost::container::flat_set<IPv4AddressData>&,
                         const boost::container::flat_set<IPv6AddressData>&) {
-                        if (success && !ethData.vlanId.empty())
+                        if (success && ethData.vlanId)
                         {
                             parseInterfaceData(asyncResp->res.jsonValue,
                                                parentIfaceId, ifaceId, ethData);
@@ -2162,7 +2162,7 @@ inline void requestEthernetInterfacesRoutes(App& app)
                         const EthernetInterfaceData& ethData,
                         const boost::container::flat_set<IPv4AddressData>&,
                         const boost::container::flat_set<IPv6AddressData>&) {
-                        if (success && !ethData.vlanId.empty())
+                        if (success && ethData.vlanId)
                         {
                             auto callback =
                                 [asyncResp](
@@ -2238,7 +2238,7 @@ inline void requestEthernetInterfacesRoutes(App& app)
                         const EthernetInterfaceData& ethData,
                         const boost::container::flat_set<IPv4AddressData>&,
                         const boost::container::flat_set<IPv6AddressData>&) {
-                        if (success && !ethData.vlanId.empty())
+                        if (success && ethData.vlanId)
                         {
                             auto callback =
                                 [asyncResp](
