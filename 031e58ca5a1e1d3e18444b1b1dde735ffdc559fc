@@ -74,6 +74,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "225b7f59_e19d529d",
+        "filename": "redfish-core/include/utils/location_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-14T17:35:54Z",
+      "side": 1,
+      "message": "\u003e Using string_view doesn\u0027t bring us benefits.\n\nI disagree, and we use string_view to great effect in other places.  at the very least for consistency, I\u0027d like to keep it here.\n\n\u003e \n\u003e In case of string_view:\n\u003e - If you pass const char* it is neutral, std::string will be created in line 69 and passed as const\u0026.\n\nI\u0027m not following this statement.  std::string_view has an implicit const char* constructor.  Why would that require a std::string to be created?\n\n\n\u003e - If you pass const std::string\u0026 it will be converted to string_view then new std::string will be created and passed as const\u0026.\n\u003e \n\u003e In case of const std::string\u0026, object will be created only when parameter is const char*, in case of passing std::string we can avoid one copy operation.\n\nYes, you\u0027re right, this actually has some issues mentioned in common_errors.md.  Ideally getProperty should accept a string_view instead of a const char*.",
+      "parentUuid": "88c04946_35cd4f50",
+      "range": {
+        "startLine": 64,
+        "startChar": 20,
+        "endLine": 64,
+        "endChar": 36
+      },
+      "revId": "031e58ca5a1e1d3e18444b1b1dde735ffdc559fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "21e4b64a_388c74a5",
         "filename": "redfish-core/include/utils/location_utils.hpp",
         "patchSetId": 1

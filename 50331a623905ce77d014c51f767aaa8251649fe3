@@ -16,6 +16,98 @@
       "message": "friendly ping.",
       "revId": "50331a623905ce77d014c51f767aaa8251649fe3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b790010d_40ae3172",
+        "filename": "redfish-core/include/utils/location_utils.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-14T17:35:54Z",
+      "side": 1,
+      "message": "This is really odd.  On dbus bay/backplane is not a connector, and a connector is distinct from the item plugged into the connector.  Please add some detail in your commit message, and lets try to get to the bottom of the design.",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 73
+      },
+      "revId": "50331a623905ce77d014c51f767aaa8251649fe3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "99126845_a51a61a3",
+        "filename": "redfish-core/include/utils/location_utils.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-14T17:35:54Z",
+      "side": 1,
+      "message": "Please follow the pattern we have elsewhere for this:\n\nif \"xyz.openbmc_project.Inventory.Connector.Backplane\":\n    return \"Backplane\";\n....\n\nreturn nullopt.\n\n\n\nWe do this because there are many occasions where the dbus APIs don\u0027t match up directly with the Redfish APIs or we need to overload multiple parameters into a single redfish parameter.  I realize that\u0027s not the case here, but if it ever occurred in the future, it helps to not have to completely rewrite the logic.\n\nAlso, there was a lot of discussion on this way back when, and the above ends up generating smaller, more performant code (at least it did at the time).",
+      "range": {
+        "startLine": 49,
+        "startChar": 11,
+        "endLine": 49,
+        "endChar": 61
+      },
+      "revId": "50331a623905ce77d014c51f767aaa8251649fe3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9183aa61_6087cfcb",
+        "filename": "redfish-core/include/utils/location_utils.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-14T17:35:54Z",
+      "side": 1,
+      "message": "nit, generally when we pass this type around we use nlohmann::json::json_pointer, rather than explicitly declaring the template args.  Lets be consistent in that case.",
+      "range": {
+        "startLine": 65,
+        "startChar": 48,
+        "endLine": 65,
+        "endChar": 64
+      },
+      "revId": "50331a623905ce77d014c51f767aaa8251649fe3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "03b94750_b59e98c0",
+        "filename": "redfish-core/ut/location_utils_test.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-14T17:35:54Z",
+      "side": 1,
+      "message": "Thank you for writing unit tests!",
+      "range": {
+        "startLine": 5,
+        "startChar": 0,
+        "endLine": 5,
+        "endChar": 46
+      },
+      "revId": "50331a623905ce77d014c51f767aaa8251649fe3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
