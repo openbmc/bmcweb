@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "270379b5_9494f9a5",
+        "filename": "redfish-core/include/utils/location_utils.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-04-14T18:00:57Z",
+      "side": 1,
+      "message": "It seems like most of it are not documented in https://github.com/openbmc/phosphor-dbus-interfaces/tree/master/yaml/xyz/openbmc_project/Inventory/Connector.\n\nIt is just from Redfish spec, https://www.dmtf.org/sites/default/files/standards/documents/DSP2046_2021.4.pdf?#page\u003d28\n\nI think Zhenwei@ added them. I guess to want to add them as different interfaces?\n\nWe can remove it for now and discuss more about it.",
+      "parentUuid": "b790010d_40ae3172",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 73
+      },
+      "revId": "50331a623905ce77d014c51f767aaa8251649fe3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "99126845_a51a61a3",
         "filename": "redfish-core/include/utils/location_utils.hpp",
         "patchSetId": 16
@@ -66,6 +90,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3fdf637a_bcc0e604",
+        "filename": "redfish-core/include/utils/location_utils.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-04-14T18:00:57Z",
+      "side": 1,
+      "message": "yeah, I swear that I removed this before. It somehow came back and I missed it. 😞",
+      "parentUuid": "99126845_a51a61a3",
+      "range": {
+        "startLine": 49,
+        "startChar": 11,
+        "endLine": 49,
+        "endChar": 61
+      },
+      "revId": "50331a623905ce77d014c51f767aaa8251649fe3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9183aa61_6087cfcb",
         "filename": "redfish-core/include/utils/location_utils.hpp",
         "patchSetId": 16
@@ -77,6 +125,30 @@
       "writtenOn": "2022-04-14T17:35:54Z",
       "side": 1,
       "message": "nit, generally when we pass this type around we use nlohmann::json::json_pointer, rather than explicitly declaring the template args.  Lets be consistent in that case.",
+      "range": {
+        "startLine": 65,
+        "startChar": 48,
+        "endLine": 65,
+        "endChar": 64
+      },
+      "revId": "50331a623905ce77d014c51f767aaa8251649fe3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2d09f64d_d1970003",
+        "filename": "redfish-core/include/utils/location_utils.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-04-14T18:00:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9183aa61_6087cfcb",
       "range": {
         "startLine": 65,
         "startChar": 48,
