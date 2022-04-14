@@ -174,7 +174,7 @@ inline bool extractHypervisorInterfaceData(
                                 std::get_if<std::string>(&propertyPair.second);
                             if (mac != nullptr)
                             {
-                                ethData.mac_address = *mac;
+                                ethData.macAddress = *mac;
                             }
                         }
                     }
@@ -190,7 +190,7 @@ inline bool extractHypervisorInterfaceData(
                                 std::get_if<std::string>(&propertyPair.second);
                             if (dhcp != nullptr)
                             {
-                                ethData.DHCPEnabled = *dhcp;
+                                ethData.dhcpEnabled = *dhcp;
                                 break; // Interested on only "DHCPEnabled".
                                        // Stop parsing since we got the
                                        // "DHCPEnabled" value.
@@ -286,7 +286,7 @@ inline bool extractHypervisorInterfaceData(
                                 std::get_if<std::string>(&propertyPair.second);
                             if (hostName != nullptr)
                             {
-                                ethData.hostname = *hostName;
+                                ethData.hostName = *hostName;
                             }
                         }
                         else if (propertyPair.first == "DefaultGateway")
@@ -295,7 +295,7 @@ inline bool extractHypervisorInterfaceData(
                                 std::get_if<std::string>(&propertyPair.second);
                             if (defaultGateway != nullptr)
                             {
-                                ethData.default_gateway = *defaultGateway;
+                                ethData.defaultGateway = *defaultGateway;
                             }
                         }
                     }
@@ -487,11 +487,11 @@ inline void parseInterfaceData(
     jsonResponse["@odata.id"] =
         "/redfish/v1/Systems/hypervisor/EthernetInterfaces/" + ifaceId;
     jsonResponse["InterfaceEnabled"] = true;
-    jsonResponse["MACAddress"] = ethData.mac_address;
+    jsonResponse["MACAddress"] = ethData.macAddress;
 
-    jsonResponse["HostName"] = ethData.hostname;
+    jsonResponse["HostName"] = ethData.hostName;
     jsonResponse["DHCPv4"]["DHCPEnabled"] =
-        translateDHCPEnabledToBool(ethData.DHCPEnabled, true);
+        translateDhcpEnabledToBool(ethData.dhcpEnabled, true);
 
     nlohmann::json& ipv4Array = jsonResponse["IPv4Addresses"];
     nlohmann::json& ipv4StaticArray = jsonResponse["IPv4StaticAddresses"];
@@ -505,14 +505,14 @@ inline void parseInterfaceData(
             ipv4Array.push_back({{"AddressOrigin", ipv4Config.origin},
                                  {"SubnetMask", ipv4Config.netmask},
                                  {"Address", ipv4Config.address},
-                                 {"Gateway", ethData.default_gateway}});
+                                 {"Gateway", ethData.defaultGateway}});
             if (ipv4Config.origin == "Static")
             {
                 ipv4StaticArray.push_back(
                     {{"AddressOrigin", ipv4Config.origin},
                      {"SubnetMask", ipv4Config.netmask},
                      {"Address", ipv4Config.address},
-                     {"Gateway", ethData.default_gateway}});
+                     {"Gateway", ethData.defaultGateway}});
             }
         }
     }
@@ -959,7 +959,7 @@ inline void requestRoutesHypervisorSystems(App& app)
                         // configured. Deleting the address originated from DHCP
                         // is not allowed.
                         if ((ipv4Json.is_null()) &&
-                            (translateDHCPEnabledToBool(ethData.DHCPEnabled,
+                            (translateDhcpEnabledToBool(ethData.dhcpEnabled,
                                                         true)))
                         {
                             BMCWEB_LOG_INFO
