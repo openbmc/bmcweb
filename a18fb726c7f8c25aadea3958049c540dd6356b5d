@@ -546,6 +546,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4450890e_e23f80e4",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 41
+      },
+      "lineNbr": 372,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-14T17:28:50Z",
+      "side": 1,
+      "message": "Presumably this just needs documented in the docs repo?  @Gunnar, do you remember specifically where we documented this?",
+      "parentUuid": "ea6bdf7b_b6774edb",
+      "range": {
+        "startLine": 372,
+        "startChar": 0,
+        "endLine": 372,
+        "endChar": 66
+      },
+      "revId": "a18fb726c7f8c25aadea3958049c540dd6356b5d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "430f777f_a2853fd9",
         "filename": "redfish-core/lib/assembly.hpp",
         "patchSetId": 41

@@ -1,0 +1,308 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3b86436d_0895e4b8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 47
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-14T17:28:50Z",
+      "side": 1,
+      "message": "Thanks for taking this on!  Lots of pretty minor things, but overall this patch is shaping up.",
+      "revId": "e9adfd2ec9e45acdcbd118e60a62559f32910d7d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c095eefe_33f9fe89",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 47
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-14T17:28:50Z",
+      "side": 1,
+      "message": "assembliesJson should be set to an array here for cases where the assemblies variable is empty.",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 72
+      },
+      "revId": "e9adfd2ec9e45acdcbd118e60a62559f32910d7d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c4f922f5_3beff5a1",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 47
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-14T17:28:50Z",
+      "side": 1,
+      "message": "There is no gaurantee you have a trailing slash (in fact in most cases you don\u0027t).  I\u0027m a little surprised this code works.  As a pattern, we should be passing \"ID\" type things absent their trailing slash.",
+      "range": {
+        "startLine": 29,
+        "startChar": 8,
+        "endLine": 29,
+        "endChar": 40
+      },
+      "revId": "e9adfd2ec9e45acdcbd118e60a62559f32910d7d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8c11d039_db198957",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 47
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-14T17:28:50Z",
+      "side": 1,
+      "message": "Please use urlFromPieces to build this url.  Admittedly, I don\u0027t think it supports fragments yet, so if you need to add the fragment as a separate step, or make urlFromPieces support fragments, I\u0027m fine with either.",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 38
+      },
+      "revId": "e9adfd2ec9e45acdcbd118e60a62559f32910d7d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4cb85c26_34005362",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 47
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-14T17:28:50Z",
+      "side": 1,
+      "message": "This method is explicitly called out by name as something to avoid.  In this case, I suspect you want to just include this in the push_back call, given it looks like you\u0027re just accessing the element that you just push_backed().",
+      "range": {
+        "startLine": 39,
+        "startChar": 23,
+        "endLine": 39,
+        "endChar": 25
+      },
+      "revId": "e9adfd2ec9e45acdcbd118e60a62559f32910d7d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3018bfa9_98333608",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 47
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-14T17:28:50Z",
+      "side": 1,
+      "message": "This call can fail, (it returns empty string), which needs chcked before you load it into the array.",
+      "range": {
+        "startLine": 40,
+        "startChar": 54,
+        "endLine": 40,
+        "endChar": 64
+      },
+      "revId": "e9adfd2ec9e45acdcbd118e60a62559f32910d7d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "481865af_93f7359a",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 47
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-14T17:28:50Z",
+      "side": 1,
+      "message": "Please don\u0027t capture by reference in this way, it leads to safety issues (this is basically a reference to an iterator that can be invalidated if aResp changes).  Generally I would advocate for adding the complete element when the call returns (ie move the section on line 34 to line 53), which means that you are constructing the element in the array at one time.\n\n\n\nIF you really wanted to do it this way, generally we would pass a json_pointer, then redo the lookup in the aresp object using operator[].",
+      "range": {
+        "startLine": 43,
+        "startChar": 46,
+        "endLine": 43,
+        "endChar": 60
+      },
+      "revId": "e9adfd2ec9e45acdcbd118e60a62559f32910d7d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "af34f2f3_1680d82a",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 47
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-14T17:28:50Z",
+      "side": 1,
+      "message": "This needs taken up in the other review, but given that Asset properties are known at compile time, I suspect we don\u0027t want ot have an API like this.",
+      "range": {
+        "startLine": 61,
+        "startChar": 41,
+        "endLine": 61,
+        "endChar": 59
+      },
+      "revId": "e9adfd2ec9e45acdcbd118e60a62559f32910d7d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "76ea65b8_c1732e76",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 47
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-14T17:28:50Z",
+      "side": 1,
+      "message": "nit: generally we just do if(type)\n\nnon-nit;: if this fails, we need to set internalError().",
+      "range": {
+        "startLine": 82,
+        "startChar": 36,
+        "endLine": 82,
+        "endChar": 48
+      },
+      "revId": "e9adfd2ec9e45acdcbd118e60a62559f32910d7d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3954e486_2a1a7bad",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 47
+      },
+      "lineNbr": 377,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-14T17:28:50Z",
+      "side": 1,
+      "message": "Please use \"urlFromPieces\" here to make sure this gets escaped properly.",
+      "range": {
+        "startLine": 377,
+        "startChar": 29,
+        "endLine": 377,
+        "endChar": 77
+      },
+      "revId": "e9adfd2ec9e45acdcbd118e60a62559f32910d7d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9c4683ef_8bde0176",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 47
+      },
+      "lineNbr": 678,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-14T17:28:50Z",
+      "side": 1,
+      "message": "This is incorrect as a privilege.  Please look at the other handlers as a pattern for how to do this correctly using the privilege registry.  This should follow the same pattern.",
+      "range": {
+        "startLine": 678,
+        "startChar": 20,
+        "endLine": 678,
+        "endChar": 30
+      },
+      "revId": "e9adfd2ec9e45acdcbd118e60a62559f32910d7d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "367ec908_35f2a99e",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 47
+      },
+      "lineNbr": 682,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-14T17:28:50Z",
+      "side": 1,
+      "message": "Can we just make this a \"real\" function instead of an inline lambda.  In general, we\u0027re moving away from lambdas for readability/debugability reasons.",
+      "range": {
+        "startLine": 680,
+        "startChar": 11,
+        "endLine": 682,
+        "endChar": 44
+      },
+      "revId": "e9adfd2ec9e45acdcbd118e60a62559f32910d7d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e930ec5_373c32ac",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 47
+      },
+      "lineNbr": 683,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-14T17:28:50Z",
+      "side": 1,
+      "message": "This looks like it collided with Nans the patch adding \"SetupRedfishRoute\".  Please add that call to the top of this handler.",
+      "revId": "e9adfd2ec9e45acdcbd118e60a62559f32910d7d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "319a4770_9c12189a",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 47
+      },
+      "lineNbr": 691,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-14T17:28:50Z",
+      "side": 1,
+      "message": "nit, prefer to return early.",
+      "revId": "e9adfd2ec9e45acdcbd118e60a62559f32910d7d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
