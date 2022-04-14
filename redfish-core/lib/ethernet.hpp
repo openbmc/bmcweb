@@ -79,19 +79,19 @@ struct EthernetInterfaceData
 {
     uint32_t speed;
     size_t mtuSize;
-    bool auto_neg;
-    bool DNSEnabled;
-    bool NTPEnabled;
-    bool HostNameEnabled;
+    bool autoNeg;
+    bool dnsEnabled;
+    bool ntpEnabled;
+    bool hostNameEnabled;
     bool linkUp;
     bool nicEnabled;
-    std::string DHCPEnabled;
+    std::string dhcpEnabled;
     std::string operatingMode;
-    std::string hostname;
-    std::string default_gateway;
-    std::string ipv6_default_gateway;
-    std::string mac_address;
-    std::vector<std::uint32_t> vlan_id;
+    std::string hostName;
+    std::string defaultGateway;
+    std::string ipv6DefaultGateway;
+    std::string macAddress;
+    std::vector<std::uint32_t> vlanId;
     std::vector<std::string> nameServers;
     std::vector<std::string> staticNameServers;
     std::vector<std::string> domainnames;
@@ -100,9 +100,9 @@ struct EthernetInterfaceData
 struct DHCPParameters
 {
     std::optional<bool> dhcpv4Enabled;
-    std::optional<bool> useDNSServers;
-    std::optional<bool> useNTPServers;
-    std::optional<bool> useUseDomainName;
+    std::optional<bool> useDnsServers;
+    std::optional<bool> useNtpServers;
+    std::optional<bool> useDomainName;
     std::optional<std::string> dhcpv6OperatingMode;
 };
 
@@ -118,7 +118,7 @@ inline std::string getNetmask(unsigned int bits)
     return netmask;
 }
 
-inline bool translateDHCPEnabledToBool(const std::string& inputDHCP,
+inline bool translateDhcpEnabledToBool(const std::string& inputDHCP,
                                        bool isIPv4)
 {
     if (isIPv4)
@@ -206,7 +206,7 @@ inline bool
                                 std::get_if<std::string>(&propertyPair.second);
                             if (mac != nullptr)
                             {
-                                ethData.mac_address = *mac;
+                                ethData.macAddress = *mac;
                             }
                         }
                     }
@@ -221,7 +221,7 @@ inline bool
                                 std::get_if<uint32_t>(&propertyPair.second);
                             if (id != nullptr)
                             {
-                                ethData.vlan_id.push_back(*id);
+                                ethData.vlanId.push_back(*id);
                             }
                         }
                     }
@@ -237,7 +237,7 @@ inline bool
                                 std::get_if<bool>(&propertyPair.second);
                             if (autoNeg != nullptr)
                             {
-                                ethData.auto_neg = *autoNeg;
+                                ethData.autoNeg = *autoNeg;
                             }
                         }
                         else if (propertyPair.first == "Speed")
@@ -302,7 +302,7 @@ inline bool
                                 std::get_if<std::string>(&propertyPair.second);
                             if (dhcpEnabled != nullptr)
                             {
-                                ethData.DHCPEnabled = *dhcpEnabled;
+                                ethData.dhcpEnabled = *dhcpEnabled;
                             }
                         }
                         else if (propertyPair.first == "DomainName")
@@ -324,11 +324,11 @@ inline bool
                                 std::string defaultGatewayStr = *defaultGateway;
                                 if (defaultGatewayStr.empty())
                                 {
-                                    ethData.default_gateway = "0.0.0.0";
+                                    ethData.defaultGateway = "0.0.0.0";
                                 }
                                 else
                                 {
-                                    ethData.default_gateway = defaultGatewayStr;
+                                    ethData.defaultGateway = defaultGatewayStr;
                                 }
                             }
                         }
@@ -342,12 +342,12 @@ inline bool
                                     *defaultGateway6;
                                 if (defaultGateway6Str.empty())
                                 {
-                                    ethData.ipv6_default_gateway =
+                                    ethData.ipv6DefaultGateway =
                                         "0:0:0:0:0:0:0:0";
                                 }
                                 else
                                 {
-                                    ethData.ipv6_default_gateway =
+                                    ethData.ipv6DefaultGateway =
                                         defaultGateway6Str;
                                 }
                             }
@@ -369,7 +369,7 @@ inline bool
                                 std::get_if<bool>(&propertyPair.second);
                             if (dnsEnabled != nullptr)
                             {
-                                ethData.DNSEnabled = *dnsEnabled;
+                                ethData.dnsEnabled = *dnsEnabled;
                             }
                         }
                         else if (propertyPair.first == "NTPEnabled")
@@ -378,7 +378,7 @@ inline bool
                                 std::get_if<bool>(&propertyPair.second);
                             if (ntpEnabled != nullptr)
                             {
-                                ethData.NTPEnabled = *ntpEnabled;
+                                ethData.ntpEnabled = *ntpEnabled;
                             }
                         }
                         else if (propertyPair.first == "HostNameEnabled")
@@ -387,7 +387,7 @@ inline bool
                                 std::get_if<bool>(&propertyPair.second);
                             if (hostNameEnabled != nullptr)
                             {
-                                ethData.HostNameEnabled = *hostNameEnabled;
+                                ethData.hostNameEnabled = *hostNameEnabled;
                             }
                         }
                     }
@@ -406,7 +406,7 @@ inline bool
                             std::get_if<std::string>(&propertyPair.second);
                         if (hostname != nullptr)
                         {
-                            ethData.hostname = *hostname;
+                            ethData.hostName = *hostname;
                         }
                     }
                 }
@@ -932,7 +932,7 @@ void getEthernetIfaceData(const std::string& ethifaceId,
                      (ipv4.gateway == "0.0.0.0")) ||
                     (ipv4.origin == "DHCP") || (ipv4.origin == "Static"))
                 {
-                    ipv4.gateway = ethData.default_gateway;
+                    ipv4.gateway = ethData.defaultGateway;
                 }
             }
 
@@ -1207,8 +1207,8 @@ inline void handleDHCPPatch(const std::string& ifaceId,
                             const DHCPParameters& v6dhcpParms,
                             const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    bool ipv4Active = translateDHCPEnabledToBool(ethData.DHCPEnabled, true);
-    bool ipv6Active = translateDHCPEnabledToBool(ethData.DHCPEnabled, false);
+    bool ipv4Active = translateDhcpEnabledToBool(ethData.dhcpEnabled, true);
+    bool ipv6Active = translateDhcpEnabledToBool(ethData.dhcpEnabled, false);
 
     bool nextv4DHCPState =
         v4dhcpParms.dhcpv4Enabled ? *v4dhcpParms.dhcpv4Enabled : ipv4Active;
@@ -1233,72 +1233,72 @@ inline void handleDHCPPatch(const std::string& ifaceId,
     }
 
     bool nextDNS{};
-    if (v4dhcpParms.useDNSServers && v6dhcpParms.useDNSServers)
+    if (v4dhcpParms.useDnsServers && v6dhcpParms.useDnsServers)
     {
-        if (*v4dhcpParms.useDNSServers != *v6dhcpParms.useDNSServers)
+        if (*v4dhcpParms.useDnsServers != *v6dhcpParms.useDnsServers)
         {
             messages::generalError(asyncResp->res);
             return;
         }
-        nextDNS = *v4dhcpParms.useDNSServers;
+        nextDNS = *v4dhcpParms.useDnsServers;
     }
-    else if (v4dhcpParms.useDNSServers)
+    else if (v4dhcpParms.useDnsServers)
     {
-        nextDNS = *v4dhcpParms.useDNSServers;
+        nextDNS = *v4dhcpParms.useDnsServers;
     }
-    else if (v6dhcpParms.useDNSServers)
+    else if (v6dhcpParms.useDnsServers)
     {
-        nextDNS = *v6dhcpParms.useDNSServers;
+        nextDNS = *v6dhcpParms.useDnsServers;
     }
     else
     {
-        nextDNS = ethData.DNSEnabled;
+        nextDNS = ethData.dnsEnabled;
     }
 
     bool nextNTP{};
-    if (v4dhcpParms.useNTPServers && v6dhcpParms.useNTPServers)
+    if (v4dhcpParms.useNtpServers && v6dhcpParms.useNtpServers)
     {
-        if (*v4dhcpParms.useNTPServers != *v6dhcpParms.useNTPServers)
+        if (*v4dhcpParms.useNtpServers != *v6dhcpParms.useNtpServers)
         {
             messages::generalError(asyncResp->res);
             return;
         }
-        nextNTP = *v4dhcpParms.useNTPServers;
+        nextNTP = *v4dhcpParms.useNtpServers;
     }
-    else if (v4dhcpParms.useNTPServers)
+    else if (v4dhcpParms.useNtpServers)
     {
-        nextNTP = *v4dhcpParms.useNTPServers;
+        nextNTP = *v4dhcpParms.useNtpServers;
     }
-    else if (v6dhcpParms.useNTPServers)
+    else if (v6dhcpParms.useNtpServers)
     {
-        nextNTP = *v6dhcpParms.useNTPServers;
+        nextNTP = *v6dhcpParms.useNtpServers;
     }
     else
     {
-        nextNTP = ethData.NTPEnabled;
+        nextNTP = ethData.ntpEnabled;
     }
 
     bool nextUseDomain{};
-    if (v4dhcpParms.useUseDomainName && v6dhcpParms.useUseDomainName)
+    if (v4dhcpParms.useDomainName && v6dhcpParms.useDomainName)
     {
-        if (*v4dhcpParms.useUseDomainName != *v6dhcpParms.useUseDomainName)
+        if (*v4dhcpParms.useDomainName != *v6dhcpParms.useDomainName)
         {
             messages::generalError(asyncResp->res);
             return;
         }
-        nextUseDomain = *v4dhcpParms.useUseDomainName;
+        nextUseDomain = *v4dhcpParms.useDomainName;
     }
-    else if (v4dhcpParms.useUseDomainName)
+    else if (v4dhcpParms.useDomainName)
     {
-        nextUseDomain = *v4dhcpParms.useUseDomainName;
+        nextUseDomain = *v4dhcpParms.useDomainName;
     }
-    else if (v6dhcpParms.useUseDomainName)
+    else if (v6dhcpParms.useDomainName)
     {
-        nextUseDomain = *v6dhcpParms.useUseDomainName;
+        nextUseDomain = *v6dhcpParms.useDomainName;
     }
     else
     {
-        nextUseDomain = ethData.HostNameEnabled;
+        nextUseDomain = ethData.hostNameEnabled;
     }
 
     BMCWEB_LOG_DEBUG << "set DHCPEnabled...";
@@ -1703,28 +1703,28 @@ inline void parseInterfaceData(
     jsonResponse["LinkStatus"] = ethData.linkUp ? "LinkUp" : "LinkDown";
     jsonResponse["SpeedMbps"] = ethData.speed;
     jsonResponse["MTUSize"] = ethData.mtuSize;
-    jsonResponse["MACAddress"] = ethData.mac_address;
+    jsonResponse["MACAddress"] = ethData.macAddress;
     jsonResponse["DHCPv4"]["DHCPEnabled"] =
-        translateDHCPEnabledToBool(ethData.DHCPEnabled, true);
-    jsonResponse["DHCPv4"]["UseNTPServers"] = ethData.NTPEnabled;
-    jsonResponse["DHCPv4"]["UseDNSServers"] = ethData.DNSEnabled;
-    jsonResponse["DHCPv4"]["UseDomainName"] = ethData.HostNameEnabled;
+        translateDhcpEnabledToBool(ethData.dhcpEnabled, true);
+    jsonResponse["DHCPv4"]["UseNTPServers"] = ethData.ntpEnabled;
+    jsonResponse["DHCPv4"]["UseDNSServers"] = ethData.dnsEnabled;
+    jsonResponse["DHCPv4"]["UseDomainName"] = ethData.hostNameEnabled;
 
     jsonResponse["DHCPv6"]["OperatingMode"] =
-        translateDHCPEnabledToBool(ethData.DHCPEnabled, false) ? "Stateful"
+        translateDhcpEnabledToBool(ethData.dhcpEnabled, false) ? "Stateful"
                                                                : "Disabled";
-    jsonResponse["DHCPv6"]["UseNTPServers"] = ethData.NTPEnabled;
-    jsonResponse["DHCPv6"]["UseDNSServers"] = ethData.DNSEnabled;
-    jsonResponse["DHCPv6"]["UseDomainName"] = ethData.HostNameEnabled;
+    jsonResponse["DHCPv6"]["UseNTPServers"] = ethData.ntpEnabled;
+    jsonResponse["DHCPv6"]["UseDNSServers"] = ethData.dnsEnabled;
+    jsonResponse["DHCPv6"]["UseDomainName"] = ethData.hostNameEnabled;
 
-    if (!ethData.hostname.empty())
+    if (!ethData.hostName.empty())
     {
-        jsonResponse["HostName"] = ethData.hostname;
+        jsonResponse["HostName"] = ethData.hostName;
 
         // When domain name is empty then it means, that it is a network
         // without domain names, and the host name itself must be treated as
         // FQDN
-        std::string fqdn = ethData.hostname;
+        std::string fqdn = ethData.hostName;
         if (!ethData.domainnames.empty())
         {
             fqdn += "." + ethData.domainnames[0];
@@ -1765,7 +1765,7 @@ inline void parseInterfaceData(
         }
     }
 
-    std::string ipv6GatewayStr = ethData.ipv6_default_gateway;
+    std::string ipv6GatewayStr = ethData.ipv6DefaultGateway;
     if (ipv6GatewayStr.empty())
     {
         ipv6GatewayStr = "0:0:0:0:0:0:0:0";
@@ -1806,9 +1806,9 @@ inline void parseInterfaceData(nlohmann::json& jsonResponse,
                                 parentIfaceId + "/VLANs/" + ifaceId;
 
     jsonResponse["VLANEnable"] = true;
-    if (!ethData.vlan_id.empty())
+    if (!ethData.vlanId.empty())
     {
-        jsonResponse["VLANId"] = ethData.vlan_id.back();
+        jsonResponse["VLANId"] = ethData.vlanId.back();
     }
 }
 
@@ -1915,7 +1915,6 @@ inline void requestEthernetInterfacesRoutes(App& app)
 
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/EthernetInterfaces/<str>/")
         .privileges(redfish::privileges::patchEthernetInterface)
-
         .methods(boost::beast::http::verb::patch)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -1955,9 +1954,9 @@ inline void requestEthernetInterfacesRoutes(App& app)
                     if (!json_util::readJson(
                             *dhcpv4, asyncResp->res, "DHCPEnabled",
                             v4dhcpParms.dhcpv4Enabled, "UseDNSServers",
-                            v4dhcpParms.useDNSServers, "UseNTPServers",
-                            v4dhcpParms.useNTPServers, "UseDomainName",
-                            v4dhcpParms.useUseDomainName))
+                            v4dhcpParms.useDnsServers, "UseNTPServers",
+                            v4dhcpParms.useNtpServers, "UseDomainName",
+                            v4dhcpParms.useDomainName))
                     {
                         return;
                     }
@@ -1968,9 +1967,9 @@ inline void requestEthernetInterfacesRoutes(App& app)
                     if (!json_util::readJson(
                             *dhcpv6, asyncResp->res, "OperatingMode",
                             v6dhcpParms.dhcpv6OperatingMode, "UseDNSServers",
-                            v6dhcpParms.useDNSServers, "UseNTPServers",
-                            v6dhcpParms.useNTPServers, "UseDomainName",
-                            v6dhcpParms.useUseDomainName))
+                            v6dhcpParms.useDnsServers, "UseNTPServers",
+                            v6dhcpParms.useNtpServers, "UseDomainName",
+                            v6dhcpParms.useDomainName))
                     {
                         return;
                     }
@@ -2105,7 +2104,7 @@ inline void requestEthernetInterfacesRoutes(App& app)
                         const EthernetInterfaceData& ethData,
                         const boost::container::flat_set<IPv4AddressData>&,
                         const boost::container::flat_set<IPv6AddressData>&) {
-                        if (success && !ethData.vlan_id.empty())
+                        if (success && !ethData.vlanId.empty())
                         {
                             parseInterfaceData(asyncResp->res.jsonValue,
                                                parentIfaceId, ifaceId, ethData);
@@ -2161,7 +2160,7 @@ inline void requestEthernetInterfacesRoutes(App& app)
                         const EthernetInterfaceData& ethData,
                         const boost::container::flat_set<IPv4AddressData>&,
                         const boost::container::flat_set<IPv6AddressData>&) {
-                        if (success && !ethData.vlan_id.empty())
+                        if (success && !ethData.vlanId.empty())
                         {
                             auto callback =
                                 [asyncResp](
@@ -2239,7 +2238,7 @@ inline void requestEthernetInterfacesRoutes(App& app)
                         const EthernetInterfaceData& ethData,
                         const boost::container::flat_set<IPv4AddressData>&,
                         const boost::container::flat_set<IPv6AddressData>&) {
-                        if (success && !ethData.vlan_id.empty())
+                        if (success && !ethData.vlanId.empty())
                         {
                             auto callback =
                                 [asyncResp](
