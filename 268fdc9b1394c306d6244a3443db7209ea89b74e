@@ -95,6 +95,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "491457a4_1e1a9dfe",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-14T17:53:05Z",
+      "side": 1,
+      "message": "Fixed.",
+      "parentUuid": "5fcd924b_08c71ed2",
+      "range": {
+        "startLine": 182,
+        "startChar": 14,
+        "endLine": 182,
+        "endChar": 17
+      },
+      "revId": "268fdc9b1394c306d6244a3443db7209ea89b74e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f2c0e617_ca589fab",
