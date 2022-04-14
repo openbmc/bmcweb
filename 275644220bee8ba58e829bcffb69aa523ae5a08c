@@ -39,6 +39,63 @@
       "message": "friendly ping",
       "revId": "275644220bee8ba58e829bcffb69aa523ae5a08c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aa590e9c_5165a015",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-14T17:45:06Z",
+      "side": 1,
+      "message": "Patchset looks good.  Needs a commit message.",
+      "revId": "275644220bee8ba58e829bcffb69aa523ae5a08c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "80ec4c3a_84601102",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 776,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-14T17:45:06Z",
+      "side": 1,
+      "message": "as written, getLocationType calls isConnector internally.  Isnt\u0027 this duplicated?",
+      "range": {
+        "startLine": 776,
+        "startChar": 21,
+        "endLine": 776,
+        "endChar": 58
+      },
+      "revId": "275644220bee8ba58e829bcffb69aa523ae5a08c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d33c4aa8_bd9a9f1d",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 784,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-14T17:45:06Z",
+      "side": 1,
+      "message": "set internalError() here please.",
+      "revId": "275644220bee8ba58e829bcffb69aa523ae5a08c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
