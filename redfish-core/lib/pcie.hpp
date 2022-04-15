@@ -208,16 +208,6 @@ inline void requestRoutesSystemPCIeDevice(App& app)
                             asyncResp->res.jsonValue["DeviceType"] =
                                 *propertyString;
                         }
-                        if (property.first == "DeviceType")
-                        {
-                            if (propertyString == nullptr)
-                            {
-                                messages::internalError(asyncResp->res);
-                                return;
-                            }
-                            asyncResp->res.jsonValue["DeviceType"] =
-                                *propertyString;
-                        }
                         if (property.first == "GenerationInUse")
                         {
                             if (propertyString == nullptr)
