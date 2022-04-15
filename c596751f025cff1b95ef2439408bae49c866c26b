@@ -41,6 +41,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "aa9a2393_9bda87c6",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-15T15:04:15Z",
+      "side": 1,
+      "message": "This had a merge conflict that I didn\u0027t resolve properly on the latest patch.  It is fixed now.",
+      "parentUuid": "9ae32b4b_b855c672",
+      "range": {
+        "startLine": 271,
+        "startChar": 12,
+        "endLine": 290,
+        "endChar": 80
+      },
+      "revId": "c596751f025cff1b95ef2439408bae49c866c26b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "78dbe228_6a4989e2",
@@ -64,6 +88,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1c03b0bf_1de05f5a",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-15T15:04:15Z",
+      "side": 1,
+      "message": "These aren\u0027t needed anymore.  This logic is now handled within setProtocolDefaults()",
+      "parentUuid": "78dbe228_6a4989e2",
+      "range": {
+        "startLine": 291,
+        "startChar": 11,
+        "endLine": 298,
+        "endChar": 13
+      },
+      "revId": "c596751f025cff1b95ef2439408bae49c866c26b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "db411ebe_e0244180",
@@ -77,6 +125,30 @@
       "writtenOn": "2022-04-15T13:13:09Z",
       "side": 1,
       "message": "s/uriProto/urlProto/",
+      "range": {
+        "startLine": 319,
+        "startChar": 0,
+        "endLine": 320,
+        "endChar": 75
+      },
+      "revId": "c596751f025cff1b95ef2439408bae49c866c26b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d639a4a9_8460ae48",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-15T15:04:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "db411ebe_e0244180",
       "range": {
         "startLine": 319,
         "startChar": 0,
