@@ -233,6 +233,9 @@ cxx.get_supported_arguments([
   '-DBOOST_BEAST_SEPARATE_COMPILATION',
   '-DBOOST_BEAST_USE_STD_STRING_VIEW',
   '-DBOOST_EXCEPTION_DISABLE',
+  '-DBOOST_SPIRIT_X3_NO_RTTI',
+  '-DBOOST_SPIRIT_DEBUG',
+  '-DBOOST_SPIRIT_DEBUG_OUT',
   '-DJSON_NOEXCEPTION',
 ]),
 language : 'cpp')
@@ -359,6 +362,7 @@ install_subdir('static', install_dir : 'share/www', strip_directory : true)
 
 srcfiles_bmcweb = [
   'redfish-core/src/error_messages.cpp',
+  'redfish-core/src/filter_expr_parser.cpp',
   'redfish-core/src/utils/json_utils.cpp',
   'src/boost_asio_ssl.cpp',
   'src/boost_asio.cpp',
@@ -386,6 +390,7 @@ srcfiles_unittest = [
   'redfish-core/include/utils/query_param_test.cpp',
   'redfish-core/lib/ut/service_root_test.cpp',
   'redfish-core/ut/configfile_test.cpp',
+  'redfish-core/ut/filter_expr_parser_test.cpp',
   'redfish-core/ut/hex_utils_test.cpp',
   'redfish-core/ut/json_utils_test.cpp',
   'redfish-core/ut/lock_test.cpp',
