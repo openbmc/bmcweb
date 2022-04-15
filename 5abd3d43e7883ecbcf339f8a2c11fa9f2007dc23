@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "12c930f7_470f82d4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-15T15:18:29Z",
+      "side": 1,
+      "message": "Sorry for not pointing this stuff out earlier.",
+      "revId": "5abd3d43e7883ecbcf339f8a2c11fa9f2007dc23",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "08fe5823_f470c3ff",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-15T15:18:29Z",
+      "side": 1,
+      "message": "Why does this need checked?  Also, this check seems a little odd, this would imply that the dbus path being passed in here is /TelemetryService/\u003cname\u003e\n\nGenerally dbus paths start with /xyz/.  Is it possible this is actually a url that we need to parse (and should be using the url parsing semantics for?)",
+      "range": {
+        "startLine": 149,
+        "startChar": 0,
+        "endLine": 149,
+        "endChar": 53
+      },
+      "revId": "5abd3d43e7883ecbcf339f8a2c11fa9f2007dc23",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2e92eb35_fb7004c0",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-15T15:18:29Z",
+      "side": 1,
+      "message": "Sorry for not catching this sooner, filename() can fail, which needs checked.",
+      "range": {
+        "startLine": 158,
+        "startChar": 57,
+        "endLine": 158,
+        "endChar": 72
+      },
+      "revId": "5abd3d43e7883ecbcf339f8a2c11fa9f2007dc23",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
