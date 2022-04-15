@@ -156,6 +156,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6cfaf42e_9f6b8f74",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-15T15:45:25Z",
+      "side": 1,
+      "message": "Agreed..... Lots of this detail needs to be in the commit message, it would help this patchset move forward.  For example, I was totally unaware of the language above.  Some things about the above that I see:\n\n\"A `true` value shall indicate the service needs to either accept the value without changes or reject the request.\"\n\nIt looks like the logic does that properly, agreed, but it also looks like the intent is that this property is settable by the user?\n\n\u003e\"readonly\": false,\n\nSo maybe we missed something in the intent there on implementation?\n\n\n\n\u003e The service may add additional values when this property is set or updated if allowed by the value of the StrictAccountTypes property.\n\nIt doesn\u0027t look like that\u0027s the behavior this code has.  Right now it just outright rejects the request.  If I\u0027m reading the above right, if we wanted to do this, I think we need more logic around the StrictAccountTypes parameter?\n\nIMO, it seems a lot easier to just break the permissions into two groups, but I\u0027m not going to dictate which one gets worked on, I\u0027ll accept either.\n\n(wouldn\u0027t it be nice if redfish had a test harness for stuff like this.....?)",
+      "parentUuid": "55fd0289_b5790bfd",
+      "range": {
+        "startLine": 193,
+        "startChar": 0,
+        "endLine": 193,
+        "endChar": 45
+      },
+      "revId": "b6dea0c53142e394db03b57b9283179fd5b3a666",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "129728d4_e803f9f8",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 14
