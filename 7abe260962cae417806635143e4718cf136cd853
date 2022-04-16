@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "65f6ec39_6f569777",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000388
+      },
+      "writtenOn": "2022-04-16T00:14:35Z",
+      "side": 1,
+      "message": "Ah. That\u0027s a little confusing haha\n\nYou could just highlight the filter query param types like, \"expand\" and \"only\", then \"top\" and \"skip\" in the next sentence for clarity",
+      "parentUuid": "96ceb361_baefc2c5",
+      "range": {
+        "startLine": 9,
+        "startChar": 68,
+        "endLine": 9,
+        "endChar": 71
+      },
+      "revId": "7abe260962cae417806635143e4718cf136cd853",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d49e0a49_99fdf925",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 11
@@ -85,6 +109,30 @@
       "side": 1,
       "message": "Interesting..... I thought it was upper camel.....  For the moment, all of bmcweb is upper camel for enum class members, so in this case consistency is better than having one that follows the standard, although I\u0027ll stick it on my list to figure out the tidy rule for it and get it fixed across the whole codebase.",
       "parentUuid": "d49e0a49_99fdf925",
+      "range": {
+        "startLine": 144,
+        "startChar": 0,
+        "endLine": 147,
+        "endChar": 0
+      },
+      "revId": "7abe260962cae417806635143e4718cf136cd853",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "99e49cc2_b5fd7b8c",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1000388
+      },
+      "writtenOn": "2022-04-16T00:14:35Z",
+      "side": 1,
+      "message": "Fair enough, I actually stumbled across this review because I was looking for examples of enum being lowerCamelCase (as I was writing my own enum following the guide but I haven\u0027t seen many lowerCamelCase enums in my reviews much - I\u0027ve even seen all caps enums)",
+      "parentUuid": "22c94a6d_d2ffd84a",
       "range": {
         "startLine": 144,
         "startChar": 0,
