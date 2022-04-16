@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "96ceb361_baefc2c5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-16T00:07:58Z",
+      "side": 1,
+      "message": "\"only\" in this case is the name of a filter query param type, so no, there\u0027s not a word missing.  Not sure how I could phrase that to be less confusing....",
+      "parentUuid": "36bdb92e_bafa0840",
+      "range": {
+        "startLine": 9,
+        "startChar": 68,
+        "endLine": 9,
+        "endChar": 71
+      },
+      "revId": "7abe260962cae417806635143e4718cf136cd853",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d49e0a49_99fdf925",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 11
@@ -37,6 +61,30 @@
       "writtenOn": "2022-04-15T21:36:49Z",
       "side": 1,
       "message": "nit: not sure if this is really enforced much, but I see in the C++ style guide that the enum members should be lowerCamelCase - https://github.com/openbmc/docs/blob/master/cpp-style-and-conventions.md#constants",
+      "range": {
+        "startLine": 144,
+        "startChar": 0,
+        "endLine": 147,
+        "endChar": 0
+      },
+      "revId": "7abe260962cae417806635143e4718cf136cd853",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "22c94a6d_d2ffd84a",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-16T00:07:58Z",
+      "side": 1,
+      "message": "Interesting..... I thought it was upper camel.....  For the moment, all of bmcweb is upper camel for enum class members, so in this case consistency is better than having one that follows the standard, although I\u0027ll stick it on my list to figure out the tidy rule for it and get it fixed across the whole codebase.",
+      "parentUuid": "d49e0a49_99fdf925",
       "range": {
         "startLine": 144,
         "startChar": 0,
