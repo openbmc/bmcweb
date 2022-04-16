@@ -72,6 +72,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c0749989_496613f9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-16T00:19:14Z",
+      "side": 1,
+      "message": "I change them to the names with $ so hopefully that\u0027s better.\n\nDone.",
+      "parentUuid": "65f6ec39_6f569777",
+      "range": {
+        "startLine": 9,
+        "startChar": 68,
+        "endLine": 9,
+        "endChar": 71
+      },
+      "revId": "7abe260962cae417806635143e4718cf136cd853",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d49e0a49_99fdf925",
@@ -133,6 +157,30 @@
       "side": 1,
       "message": "Fair enough, I actually stumbled across this review because I was looking for examples of enum being lowerCamelCase (as I was writing my own enum following the guide but I haven\u0027t seen many lowerCamelCase enums in my reviews much - I\u0027ve even seen all caps enums)",
       "parentUuid": "22c94a6d_d2ffd84a",
+      "range": {
+        "startLine": 144,
+        "startChar": 0,
+        "endLine": 147,
+        "endChar": 0
+      },
+      "revId": "7abe260962cae417806635143e4718cf136cd853",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "865e17cc_3dccb818",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-16T00:19:14Z",
+      "side": 1,
+      "message": "There\u0027s a bunch more tidy rules I need to go turn on.  What we have is pretty minimal (as you\u0027re seeing).",
+      "parentUuid": "99e49cc2_b5fd7b8c",
       "range": {
         "startLine": 144,
         "startChar": 0,
