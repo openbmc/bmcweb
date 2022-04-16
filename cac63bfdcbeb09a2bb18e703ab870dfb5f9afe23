@@ -141,6 +141,30 @@
       },
       "revId": "cac63bfdcbeb09a2bb18e703ab870dfb5f9afe23",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9dd71787_9ba3efa5",
+        "filename": "redfish-core/lib/ut/external_storer_test.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000520
+      },
+      "writtenOn": "2022-04-16T03:51:35Z",
+      "side": 1,
+      "message": "I have revised it accordingly, now it uses constructor and destructor.",
+      "parentUuid": "d1058295_eb0c109e",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 5
+      },
+      "revId": "cac63bfdcbeb09a2bb18e703ab870dfb5f9afe23",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
