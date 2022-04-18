@@ -294,3 +294,10 @@ option(
                     enable on production systems at this time.  Other query
                     parameters such as only are not controlled by this option.'''
 )
+
+option(
+    'insecure-redfish-aggregation',
+    type: 'feature',
+    value: 'disabled',
+    description: 'Allows this BMC to aggregate resources from satellite BMCs'
+)
