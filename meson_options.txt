@@ -223,7 +223,6 @@ option(
                     Option will be removed Q4 2022.'''
 )
 
-
 option(
     'https_port',
     type: 'integer',
@@ -231,6 +230,13 @@ option(
     max: 65535,
     value: 443,
     description: 'HTTPS Port number.'
+)
+
+option(
+    'redfish-aggregation',
+    type: 'feature',
+    value: 'disabled',
+    description: 'Allows this BMC to aggregate resources from satellite BMCs'
 )
 
 # Insecure options. Every option that starts with a `insecure` flag should
