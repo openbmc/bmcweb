@@ -15,6 +15,7 @@
 #include <obmc_console.hpp>
 #include <openbmc_dbus_rest.hpp>
 #include <redfish.hpp>
+#include <redfish_aggregator.hpp>
 #include <redfish_v1.hpp>
 #include <sdbusplus/asio/connection.hpp>
 #include <sdbusplus/bus.hpp>
@@ -86,8 +87,14 @@ static int run()
     redfish::requestRoutes(app);
     redfish::RedfishService redfish(app);
 
+    // Create HttpClient instance and initialize Config
+    crow::HttpClient::getInstance();
+
     // Create EventServiceManager instance and initialize Config
     redfish::EventServiceManager::getInstance();
+
+    // Create RedfishAggregator instance and initialize Config
+    redfish::RedfishAggregator::getInstance();
 #endif
 
 #ifdef BMCWEB_ENABLE_DBUS_REST
