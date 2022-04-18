@@ -391,14 +391,19 @@ srcfiles_unittest = [
   'redfish-core/ut/registries_test.cpp',
   'redfish-core/ut/stl_utils_test.cpp',
   'redfish-core/ut/time_utils_test.cpp',
+  'redfish-core/lib/ut/cable_test.cpp',
 ]
 
+testincdir = include_directories(
+  'redfish-core/lib/ut/include',
+  '.',
+  )
 if(get_option('tests').enabled())
     # generate the test executable
     ut_bin = executable(
       'bmcweb_unit_test',
       srcfiles_unittest + srcfiles_bmcweb,
-      include_directories : incdir,
+      include_directories : [testincdir, incdir],
       install_dir: bindir,
       dependencies: bmcweb_dependencies + [
         gtest,
