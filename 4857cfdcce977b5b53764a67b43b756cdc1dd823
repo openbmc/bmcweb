@@ -45,6 +45,30 @@
       },
       "revId": "4857cfdcce977b5b53764a67b43b756cdc1dd823",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e1ab0d87_e4afa3ca",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-04-18T16:36:42Z",
+      "side": 1,
+      "message": "This is a limitation of current implementation of OpenBMC network stack, including phosphor-networkd, systemd-networkd and linux.\n\nIn OpenBMC, VLAN interfaces uses the standard \"interface-name.VLAN-ID\" naming like eth0.2. Though code can be implemented to change the vlan id at runtime, but the interface name should also be changed, like eth0.2 -\u003e eth0.3, then the correspoding redfish endpoint URL will also be changed, which does not follows the redfish spec. 301 Moved Permanently is not a valid response for redfish PATCH requests.\n\nA dirty workaround can be making it able to set the vlan id of eth0.2 to a non-2 value in networkd, but it would be really confusing for users if eth0.2 actually operates with vlan id 3.\n\nRedfish spec says \"A service may implement a writable property as read-only.\" (9.5. Properties http://redfish.dmtf.org/schemas/DSP0266_1.11.0.html#properties).",
+      "parentUuid": "8f35e19b_2febed1f",
+      "range": {
+        "startLine": 11,
+        "startChar": 14,
+        "endLine": 11,
+        "endChar": 57
+      },
+      "revId": "4857cfdcce977b5b53764a67b43b756cdc1dd823",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
