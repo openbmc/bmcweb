@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "23b702d2_70281ee1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 17
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-04-18T20:20:35Z",
+      "side": 1,
+      "message": "This is a very interesting patch, thanks for writing it.\n\nBMCweb is looking to add unit test to more then just the google specific parts.",
+      "revId": "8d5db8c990457980c061d76def33ee6241d2bac0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "00994d40_4e4d73cf",
+        "filename": "include/google/dbus_utils.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-04-18T20:20:35Z",
+      "side": 1,
+      "message": "So we are able to mock google specific calls by adding rfUtils, and hothInterfaces indirection to the GoogleServiceAsyncResp. \n\nIs the is the idea?\n1) that google stuff is tested differently then other AsyncResp\n2) or that most bmcweb responses would need a unique AsyncResp struct \n3) or that we would be able to write a general AsyncResp that would handle most responses?",
+      "range": {
+        "startLine": 130,
+        "startChar": 0,
+        "endLine": 131,
+        "endChar": 62
+      },
+      "revId": "8d5db8c990457980c061d76def33ee6241d2bac0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
