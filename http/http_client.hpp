@@ -69,6 +69,18 @@ struct RetryPolicyData
 };
 static std::unordered_map<std::string, RetryPolicyData> unconnectedRetryInfo;
 
+struct SatelliteConfig
+{
+    std::string name;
+    std::string host;
+    uint16_t port = 0;
+    std::string authType;
+};
+static std::unordered_map<std::string, SatelliteConfig> satelliteInfo;
+
+// Match signals for adding Satellite Config
+static std::unique_ptr<sdbusplus::bus::match::match> matchSatelliteSignalMonitor;
+
 class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
 {
   private:
@@ -567,7 +579,386 @@ class HttpClient
     std::unordered_map<std::string, ConnectionPool> connectionPools;
     boost::asio::io_context& ioc =
         crow::connections::systemBus->get_io_context();
-    HttpClient() = default;
+    HttpClient()
+    {
+        // Setup signal matching first in case a satellite becomes available
+        // before we complete manual searching
+        registerSatelliteConfigSignal();
+
+        // Search for satellite config information that's already available
+        crow::connections::systemBus->async_method_call(
+            [](const boost::system::error_code ec,
+               const dbus::utility::ManagedObjectType& objects) {
+                if (ec)
+                {
+                    BMCWEB_LOG_ERROR << "DBUS response error " << ec.value()
+                                     << ", " << ec.message();
+                    return;
+                }
+
+                for (const auto& objectPath : objects)
+                {
+                    for (const auto& interface : objectPath.second)
+                    {
+                        if (interface.first ==
+                            "xyz.openbmc_project.Configuration.SatelliteController")
+                        {
+                            BMCWEB_LOG_DEBUG << "Found Satellite Controller at "
+                                             << objectPath.first.str;
+                            SatelliteConfig satellite;
+                            for (const auto& val : interface.second)
+                            {
+                                if (val.first == "Name")
+                                {
+                                    const std::string* valData =
+                                        std::get_if<std::string>(&val.second);
+                                    if (valData == nullptr)
+                                    {
+                                        BMCWEB_LOG_ERROR
+                                            << "Invalid Name value";
+                                        break;
+                                    }
+                                    if (satelliteInfo.find(*valData) !=
+                                        satelliteInfo.end())
+                                    {
+                                        BMCWEB_LOG_ERROR
+                                            << "Satellite config already exists for "
+                                            << *valData;
+                                        break;
+                                    }
+                                    satellite.name = *valData;
+                                }
+
+                                else if (val.first == "Hostname")
+                                {
+                                    const std::string* valData =
+                                        std::get_if<std::string>(&val.second);
+                                    if (valData == nullptr)
+                                    {
+                                        BMCWEB_LOG_ERROR
+                                            << "Invalid Hostname value";
+                                        break;
+                                    }
+                                    satellite.host = *valData;
+                                }
+
+                                else if (val.first == "Port")
+                                {
+                                    const uint64_t* valData =
+                                        std::get_if<uint64_t>(&val.second);
+                                    if (valData == nullptr)
+                                    {
+                                        BMCWEB_LOG_ERROR
+                                            << "Invalid Port value";
+                                        break;
+                                    }
+
+                                    if ((*valData > 65535) || (*valData == 0))
+                                    {
+                                        BMCWEB_LOG_ERROR
+                                            << "Port value out of range";
+                                    }
+                                    satellite.port =
+                                        static_cast<uint16_t>(*valData);
+                                }
+
+                                else if (val.first == "AuthType")
+                                {
+                                    const std::string* valData =
+                                        std::get_if<std::string>(&val.second);
+                                    if (valData == nullptr)
+                                    {
+                                        BMCWEB_LOG_ERROR
+                                            << "Invalid AuthType value";
+                                        break;
+                                    }
+
+                                    // For now assume authentication not
+                                    // required to communicate with the
+                                    // satellite BMC
+                                    if (*valData != "none")
+                                    {
+                                        BMCWEB_LOG_ERROR
+                                            << "Unsupported AuthType value: "
+                                            << *valData;
+                                        break;
+                                    }
+                                    satellite.authType = *valData;
+                                }
+                            }
+
+                            // Make sure all required config information was
+                            // available
+                            if (satellite.name.empty())
+                            {
+                                BMCWEB_LOG_ERROR
+                                    << "Satellite config missing Name";
+                                continue;
+                            }
+                            if (satellite.host.empty())
+                            {
+                                BMCWEB_LOG_ERROR << "Satellite config "
+                                                 << satellite.name
+                                                 << " missing Hostname";
+                                continue;
+                            }
+                            if (satellite.port == 0)
+                            {
+                                BMCWEB_LOG_ERROR << "Satellite config "
+                                                 << satellite.name
+                                                 << " missing Port";
+                                continue;
+                            }
+                            if (satellite.authType.empty())
+                            {
+                                BMCWEB_LOG_ERROR << "Satellite config "
+                                                 << satellite.name
+                                                 << " missing AuthType";
+                                continue;
+                            }
+                            satelliteInfo[satellite.name] = satellite;
+                            BMCWEB_LOG_DEBUG
+                                << "Added satellite config " << satellite.name
+                                << " at " << satellite.host << ":"
+                                << std::to_string(satellite.port)
+                                << ", AuthType=" << satellite.authType;
+                        }
+                    }
+                }
+
+                if (!satelliteInfo.empty())
+                {
+                    BMCWEB_LOG_DEBUG << "Redfish Aggregation enabled with "
+                                     << std::to_string(satelliteInfo.size())
+                                     << " satellite BMCs";
+                }
+                else
+                {
+                    BMCWEB_LOG_DEBUG
+                        << "No satellite BMCs detected.  Redfish Aggregation not enabled";
+                }
+            },
+            "xyz.openbmc_project.EntityManager", "/",
+            "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
+    }
+
+    // Setup a D-Bus match to add the config info for any new satellites
+    // that added after bmcweb starts
+    void registerSatelliteConfigSignal()
+    {
+/*
+        // This causes getSatelliteConfig to get called 5 times (once per property)
+        BMCWEB_LOG_DEBUG << "Satellite config signal - Register";
+        std::string matchStr = "type='signal',member='PropertiesChanged',"
+                               "path_namespace='/xyz/openbmc_project/inventory',"
+                               "arg0='xyz.openbmc_project.Configuration.SatelliteController'";
+        matchSatelliteConfigMonitor = std::make_shared<sdbusplus::bus::match::match>(
+            *crow::connections::systemBus, matchStr, getSatelliteConfig);
+*/
+
+/*
+        // This gets individual properties
+        BMCWEB_LOG_DEBUG << "Satellite config signal - Register";
+        std::string matchStr = "type='signal',member='PropertiesChanged',"
+                               "interface='org.freedesktop.DBus.Properties',"
+                               "arg0namespace='xyz.openbmc_project.Configuration.SatelliteController'";
+        matchSatelliteSignalMonitor = std::make_unique<sdbusplus::bus::match::match>(
+            *crow::connections::systemBus, matchStr, getSatelliteConfig);
+*/
+
+/*
+        // This will get called multiple times for every interface including
+        // xyz.openbmc_project.Configuration.SatelliteController
+        BMCWEB_LOG_DEBUG << "Satellite config signal - Register";
+        std::string matchStr =
+            ("type='signal',"
+             "interface='org.freedesktop.DBus.ObjectManager',"
+             "member='InterfacesAdded'");
+             //"path_namespace='/xyz/openbmc_project/inventory',"
+             //"member='InterfacesAdded'");
+        matchSatelliteSignalMonitor = std::make_unique<sdbusplus::bus::match::match>(
+            *crow::connections::systemBus, matchStr, getSatelliteConfig);
+*/
+
+
+
+        // This will get called multiple times for every interface including
+        // xyz.openbmc_project.Configuration.SatelliteController
+        BMCWEB_LOG_DEBUG << "Satellite config signal - Register";
+        std::string matchStr =
+            ("type='signal',"
+             "interface='org.freedesktop.DBus.ObjectManager',"
+             "member='InterfacesAdded'");
+             //"path='/xyz/openbmc_project/inventory'");
+             //"arg3='xyz.openbmc_project.Configuration.SatelliteController'");
+             //"path_namespace='/xyz/openbmc_project/inventory',"
+             //"member='InterfacesAdded'");
+        matchSatelliteSignalMonitor = std::make_unique<sdbusplus::bus::match::match>(
+            *crow::connections::systemBus, matchStr, getSatelliteConfig);
+
+
+
+
+
+/*
+        // Not working as-is
+        BMCWEB_LOG_DEBUG << "Satellite config signal - Register";
+        std::string matchStr = "interface='org.freedesktop.DBus.ObjectMapper',"
+                               "type='signal',member='InterfacesAdded'";
+                               //"path_namespace='/xyz/openbmc_project/inventory'";
+                               //"arg0='xyz.openbmc_project.Configuration.SatelliteController'";
+        matchSatelliteSignalMonitor = std::make_unique<sdbusplus::bus::match::match>(
+            *crow::connections::systemBus, matchStr, getSatelliteConfig);
+*/
+    }
+
+    static void getSatelliteConfig(sdbusplus::message::message& msg)
+    {
+      BMCWEB_LOG_DEBUG << "";
+      BMCWEB_LOG_DEBUG << "MYDEBUG: Here we go again...";
+      const std::string& pathName = msg.get_path();
+      std::string interfaceName;
+
+//using BasicVariantType =
+//    std::variant<std::vector<std::string>, std::string, int64_t, uint64_t,
+//                 double, int32_t, uint32_t, int16_t, uint16_t, uint8_t, bool>;
+//      boost::container::flat_map<std::string, BasicVariantType> properties;
+
+      //boost::container::flat_map<std::string, dbus::utility::DbusVariantType> properties;
+
+//      dbus::utility::ManagedObjectType properties;
+//      dbus::utility::DBusInteracesMap properties;
+//      dbus::utility::DBusPropertiesMap properties;
+      BMCWEB_LOG_DEBUG << "MYDEBUG: pathName = " << pathName;
+
+//      BMCWEB_LOG_DEBUG << "MYDEBUG: About to call read()";
+
+      BMCWEB_LOG_DEBUG << "MYDEBUG: msg.get_member() = " << msg.get_member();
+
+//      msg.read(interfaceName, properties);
+//      BMCWEB_LOG_DEBUG << "MYDEBUG: interfaceName = " << interfaceName;
+
+      nlohmann::json data;
+      int r = openbmc_mapper::convertDBusToJSON("oa{sa{sv}}", msg, data);
+      if (r < 0)
+      {
+          BMCWEB_LOG_ERROR << "convertDBUSToJSON failed with " << r;
+          return;
+      }
+
+      if (!data.is_array())
+      {
+          BMCWEB_LOG_ERROR << "No data in InterfacesAdded signal";
+      }
+
+      for (auto& entry : data[1].items())
+      {
+          BMCWEB_LOG_ERROR << "MYDEBUG: entry.key()=" << entry.key();
+          BMCWEB_LOG_ERROR << "MYDEBUG: entry.value()=" << entry.value();
+      }
+
+
+//      for (const auto& prop : properties)
+//      {
+          //BMCWEB_LOG_DEBUG << "MYDEBUG: prop.first = " << prop.first;
+//          BMCWEB_LOG_DEBUG << "MYDEBUG: prop.first = " << prop.first.str;
+//      }
+      BMCWEB_LOG_DEBUG << "MYDEBUG: Past the new stuff";
+
+
+/*
+        //boost::asio::deadline_timer filterTimer(ioc);
+        boost::asio::deadline_timer filterTimer(
+            crow::connections::systemBus->get_io_context());
+
+
+
+
+        BMCWEB_LOG_DEBUG << "MYDEBUG: Start of getSatelliteConfig()";
+        if (msg.is_method_error())
+        {
+            BMCWEB_LOG_ERROR << "SatelliteConfig Signal error";
+            return;
+        }
+
+        sdbusplus::message::object_path path(msg.get_path());
+        std::string id = path.filename();
+        if (id.empty())
+        {
+            BMCWEB_LOG_ERROR << "Failed to get Id from path";
+        }
+
+        BMCWEB_LOG_DEBUG << "MYDEBUG: Id is " << id;
+
+
+        filterTimer.expires_from_now(boost::posix_time::seconds(1));
+        filterTimer.async_wait([&msg](const boost::system::error_code& ec) {
+            if (ec == boost::asio::error::operation_aborted)
+            {
+                // We were canceled
+                return;
+            }
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR << "timer error";
+                return;
+            }
+*/
+
+/*
+        std::string interface;
+        dbus::utility::DBusPropertiesMap props;
+        std::vector<std::string> invalidProps;
+        msg.read(interface, props, invalidProps);
+
+        BMCWEB_LOG_DEBUG << "MYDEBUG: interface = " << interface;
+        BMCWEB_LOG_DEBUG << "MYDEBUG: About to print properties";
+        for (const auto& prop : props)
+        {
+            BMCWEB_LOG_DEBUG << "MYDEBUG: prop.first = " << prop.first;
+        //                     << ", prop.second = " << prop.second;
+        }
+        
+        BMCWEB_LOG_DEBUG << "MYDEBUG: Past the for loop";
+        }); // End of async_wait
+*/
+
+
+      /*
+        BMCWEB_LOG_DEBUG << "MYDEBUG: About to create interfacesProperties";
+
+        dbus::utility::DBusInteracesMap interfacesProperties;
+        sdbusplus::message::object_path objPath;
+        
+        BMCWEB_LOG_DEBUG << "MYDEBUG: About to call msg.read()";
+        
+        msg.read(objPath, interfacesProperties);
+        
+        BMCWEB_LOG_DEBUG << "objPath = " << objPath.str;
+        
+        for (auto& interface : interfacesProperties)
+        {
+            BMCWEB_LOG_DEBUG << "interface = " << interface.first;
+        }
+*/
+
+
+/*
+        std::vector<
+            std::pair<std::string, dbus::utility::DBusPropertiesMap>>
+            interfacesProperties;
+        sdbusplus::message::object_path objPath;
+        msg.read(objPath, interfacesProperties);
+
+        BMCWEB_LOG_DEBUG << "MYDEBUG: objPath = " << objPath.str;
+        for (const auto& : props)
+        {
+            BMCWEB_LOG_DEBUG << "MYDEBUG: propts.first = " props.first;
+        }
+*/
+
+        BMCWEB_LOG_DEBUG << "MYDEBUG: End of getSatelliteConfig";
+    }
 
   public:
     HttpClient(const HttpClient&) = delete;
