@@ -39,6 +39,30 @@
       },
       "revId": "8d5db8c990457980c061d76def33ee6241d2bac0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "02794b53_8fc3c4ad",
+        "filename": "include/google/dbus_utils.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1001386
+      },
+      "writtenOn": "2022-04-18T22:59:47Z",
+      "side": 1,
+      "message": "I went this route to be able to add mocking support.\npresumably, there is mostly no need for a GoogleServiceAsyncResp if we can add add the mockable interfaces to bmcweb::AsyncResp directly and mock them out.\n\nI just added GoogleServiceAsyncResp because I was not sure if hothinterface is a thing for non-Google resources.",
+      "parentUuid": "00994d40_4e4d73cf",
+      "range": {
+        "startLine": 130,
+        "startChar": 0,
+        "endLine": 131,
+        "endChar": 62
+      },
+      "revId": "8d5db8c990457980c061d76def33ee6241d2bac0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
