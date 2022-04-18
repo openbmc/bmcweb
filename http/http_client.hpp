@@ -69,6 +69,15 @@ struct RetryPolicyData
 };
 std::unordered_map<std::string, RetryPolicyData> unconnectedRetryInfo;
 
+struct SatelliteConfig
+{
+    std::string name;
+    std::string host;
+    std::string port;
+    std::string authType;
+};
+static std::unordered_map<std::string, SatelliteConfig> satelliteInfo;
+
 class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
 {
   private:
@@ -565,7 +574,153 @@ class HttpClient
     std::unordered_map<std::string, ConnectionPool> connectionPools;
     boost::asio::io_context& ioc =
         crow::connections::systemBus->get_io_context();
-    HttpClient() = default;
+    HttpClient()
+    {
+        // Search for satellite config information
+        crow::connections::systemBus->async_method_call(
+            [](const boost::system::error_code ec,
+               const dbus::utility::ManagedObjectType& objects) {
+                if (ec)
+                {
+                    BMCWEB_LOG_ERROR << "DBUS response error " << ec.value()
+                                     << ", " << ec.message();
+                    return;
+                }
+
+                for (const auto& objectPath : objects)
+                {
+                    for (const auto& interface : objectPath.second)
+                    {
+                        if (interface.first ==
+                            "xyz.openbmc_project.Configuration.SatelliteController")
+                        {
+                            BMCWEB_LOG_DEBUG << "Found Satellite Controller at "
+                                             << objectPath.first.str;
+                            SatelliteConfig satellite;
+                            for (const auto& val : interface.second)
+                            {
+                                if (val.first == "Name")
+                                {
+                                    const std::string* valData =
+                                        std::get_if<std::string>(&val.second);
+                                    if (valData == nullptr)
+                                    {
+                                        BMCWEB_LOG_ERROR
+                                            << "Invalid Name value";
+                                        break;
+                                    }
+                                    if (satelliteInfo.find(*valData) !=
+                                        satelliteInfo.end())
+                                    {
+                                        BMCWEB_LOG_ERROR
+                                            << "Satellite config already exists for "
+                                            << *valData;
+                                        break;
+                                    }
+                                    satellite.name = *valData;
+                                }
+
+                                else if (val.first == "Hostname")
+                                {
+                                    const std::string* valData =
+                                        std::get_if<std::string>(&val.second);
+                                    if (valData == nullptr)
+                                    {
+                                        BMCWEB_LOG_ERROR
+                                            << "Invalid Hostname value";
+                                        break;
+                                    }
+                                    satellite.host = *valData;
+                                }
+
+                                else if (val.first == "Port")
+                                {
+                                    const uint64_t* valData =
+                                        std::get_if<uint64_t>(&val.second);
+                                    if (valData == nullptr)
+                                    {
+                                        BMCWEB_LOG_ERROR
+                                            << "Invalid Port value";
+                                        break;
+                                    }
+                                    satellite.port = std::to_string(*valData);
+                                }
+
+                                else if (val.first == "AuthType")
+                                {
+                                    const std::string* valData =
+                                        std::get_if<std::string>(&val.second);
+                                    if (valData == nullptr)
+                                    {
+                                        BMCWEB_LOG_ERROR
+                                            << "Invalid AuthType value";
+                                        break;
+                                    }
+
+                                    // For now assume authentication not
+                                    // required to communicate with the
+                                    // satellite BMC
+                                    if (*valData != "none")
+                                    {
+                                        BMCWEB_LOG_ERROR
+                                            << "Unsupported AuthType value: "
+                                            << *valData;
+                                        break;
+                                    }
+                                    satellite.authType = *valData;
+                                }
+                            }
+
+                            // Make sure all required config information was
+                            // available
+                            if (satellite.name.empty())
+                            {
+                                BMCWEB_LOG_ERROR
+                                    << "Satellite config missing Name";
+                                continue;
+                            }
+                            if (satellite.host.empty())
+                            {
+                                BMCWEB_LOG_ERROR
+                                    << "Satellite config missing Hostname";
+                                continue;
+                            }
+                            if (satellite.port.empty())
+                            {
+                                BMCWEB_LOG_ERROR
+                                    << "Satellite config missing Port";
+                                continue;
+                            }
+                            if (satellite.authType.empty())
+                            {
+                                BMCWEB_LOG_ERROR
+                                    << "Satellite config missing AuthType";
+                                continue;
+                            }
+                            satelliteInfo[satellite.name] = satellite;
+                            BMCWEB_LOG_DEBUG
+                                << "Added satellite config " << satellite.name
+                                << ": " << satellite.host << ":"
+                                << satellite.port << ", " << satellite.authType;
+                        }
+                    }
+                }
+
+                if (!satelliteInfo.empty())
+                {
+                    BMCWEB_LOG_DEBUG << "Redfish Aggregation enabled with "
+                                     << std::to_string(satelliteInfo.size())
+                                     << " satellite BMCs";
+                }
+                else
+                {
+                    BMCWEB_LOG_DEBUG
+                        << "No satellite BMCs detected.  Redfish Aggregation not enabled";
+                }
+            },
+            "xyz.openbmc_project.EntityManager", "/",
+            "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
+    }
 
   public:
     HttpClient(const HttpClient&) = delete;
