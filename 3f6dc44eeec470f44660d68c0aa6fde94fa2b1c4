@@ -81,6 +81,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0fc83e52_0db81fe3",
+        "filename": "include/google/dbus_utils.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1001386
+      },
+      "writtenOn": "2022-04-18T17:28:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1c49fbd4_587d3f4c",
+      "range": {
+        "startLine": 66,
+        "startChar": 14,
+        "endLine": 66,
+        "endChar": 15
+      },
+      "revId": "3f6dc44eeec470f44660d68c0aa6fde94fa2b1c4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c79109d5_28ea5da6",
@@ -104,6 +128,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "07d25131_1e2e816e",
+        "filename": "include/google/dbus_utils.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1001386
+      },
+      "writtenOn": "2022-04-18T17:28:30Z",
+      "side": 1,
+      "message": "Agree. Can be a string.",
+      "parentUuid": "c79109d5_28ea5da6",
+      "range": {
+        "startLine": 67,
+        "startChar": 10,
+        "endLine": 67,
+        "endChar": 15
+      },
+      "revId": "3f6dc44eeec470f44660d68c0aa6fde94fa2b1c4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9d37c43f_042f6f71",
@@ -117,6 +165,30 @@
       "writtenOn": "2022-04-14T21:25:29Z",
       "side": 1,
       "message": "Why do we need a custom AsyncResp object here?  Generally the reason for declaring an AsyncResp is to do \"work\" once all things are complete, but this class isn\u0027t actually doing any work at the end, so I\u0027m not really sure why it exists?",
+      "range": {
+        "startLine": 139,
+        "startChar": 7,
+        "endLine": 139,
+        "endChar": 29
+      },
+      "revId": "3f6dc44eeec470f44660d68c0aa6fde94fa2b1c4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "80519304_36514cbe",
+        "filename": "include/google/dbus_utils.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1001386
+      },
+      "writtenOn": "2022-04-18T17:28:30Z",
+      "side": 1,
+      "message": "This provides a way for us to pass in either mocks of various dbus objects or the real ones without having \n\nApproach copied from https://github.com/openbmc/bmcweb/blob/master/redfish-core/lib/sensors.hpp#L160\n\nbased on inputs from Willy.\n\nhttps://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/52222/13..15/include/google/google_service_root.hpp#b50",
+      "parentUuid": "9d37c43f_042f6f71",
       "range": {
         "startLine": 139,
         "startChar": 7,
@@ -152,6 +224,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d696db46_d9f83f59",
+        "filename": "include/google/google_service_root.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1001386
+      },
+      "writtenOn": "2022-04-18T17:28:30Z",
+      "side": 1,
+      "message": "We are creating a static const object here. Not invoking a method. \nSame as other object creations below?",
+      "parentUuid": "a27341d1_b6ea0240",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 78
+      },
+      "revId": "3f6dc44eeec470f44660d68c0aa6fde94fa2b1c4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0b38167d_81d53d92",
         "filename": "include/google/google_service_root.hpp",
         "patchSetId": 15
@@ -163,6 +259,30 @@
       "writtenOn": "2022-04-14T21:25:29Z",
       "side": 1,
       "message": "This is going to malloc on startup and consume memory for the life of the program.  Please use constexpr std::array.",
+      "range": {
+        "startLine": 42,
+        "startChar": 18,
+        "endLine": 42,
+        "endChar": 24
+      },
+      "revId": "3f6dc44eeec470f44660d68c0aa6fde94fa2b1c4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "761bff58_7ab15b7c",
+        "filename": "include/google/google_service_root.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1001386
+      },
+      "writtenOn": "2022-04-18T17:28:30Z",
+      "side": 1,
+      "message": "Oh. This looks like its not even useful.",
+      "parentUuid": "0b38167d_81d53d92",
       "range": {
         "startLine": 42,
         "startChar": 18,
@@ -196,6 +316,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c9d7ba3d_35288493",
+        "filename": "include/google/google_service_root.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1001386
+      },
+      "writtenOn": "2022-04-18T17:28:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "10a73b55_9b0adb30",
+      "range": {
+        "startLine": 63,
+        "startChar": 27,
+        "endLine": 63,
+        "endChar": 33
+      },
+      "revId": "3f6dc44eeec470f44660d68c0aa6fde94fa2b1c4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8eed8393_639f08b9",
@@ -219,6 +363,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "33d6ca3b_65c3f0da",
+        "filename": "include/google/google_service_root.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1001386
+      },
+      "writtenOn": "2022-04-18T17:28:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8eed8393_639f08b9",
+      "range": {
+        "startLine": 163,
+        "startChar": 10,
+        "endLine": 163,
+        "endChar": 14
+      },
+      "revId": "3f6dc44eeec470f44660d68c0aa6fde94fa2b1c4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "831cf4c5_43949587",
@@ -232,6 +400,30 @@
       "writtenOn": "2022-04-14T21:25:29Z",
       "side": 1,
       "message": "Are you sure this is the privilege level you want?  Do we need a specific privilege level for interacting with ROT devices?",
+      "range": {
+        "startLine": 215,
+        "startChar": 23,
+        "endLine": 215,
+        "endChar": 39
+      },
+      "revId": "3f6dc44eeec470f44660d68c0aa6fde94fa2b1c4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "05865ca4_1fb9b0e3",
+        "filename": "include/google/google_service_root.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 1001386
+      },
+      "writtenOn": "2022-04-18T17:28:30Z",
+      "side": 1,
+      "message": "Yes. Only the host should be able to do it so, at least for now. Confirmed with some folks internal to Google.",
+      "parentUuid": "831cf4c5_43949587",
       "range": {
         "startLine": 215,
         "startChar": 23,

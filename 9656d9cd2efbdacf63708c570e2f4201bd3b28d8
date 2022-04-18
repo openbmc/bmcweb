@@ -73,6 +73,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "976074bc_bf10dded",
+        "filename": "include/google/dbus_utils.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1001386
+      },
+      "writtenOn": "2022-04-18T17:28:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4ad94ed3_8639d4ca",
+      "revId": "9656d9cd2efbdacf63708c570e2f4201bd3b28d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "61be8484_71412ee9",
         "filename": "include/google/dbus_utils.hpp",
         "patchSetId": 6
@@ -312,6 +330,30 @@
       "writtenOn": "2022-04-14T21:25:29Z",
       "side": 1,
       "message": "nitpick/future thing.  There are reviews in process to deprecate using \u003d {} syntax for nlohmann as it leads to more code.\n\nJust do \n\nasyncResp-\u003eres.jsonValue[\"RootOfTrustCollection\"][\"@odata.id\"]",
+      "range": {
+        "startLine": 35,
+        "startChar": 53,
+        "endLine": 35,
+        "endChar": 57
+      },
+      "revId": "9656d9cd2efbdacf63708c570e2f4201bd3b28d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9f6b829d_3a110b41",
+        "filename": "include/google/google_service_root.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1001386
+      },
+      "writtenOn": "2022-04-18T17:28:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3b1bffd6_42c78dbe",
       "range": {
         "startLine": 35,
         "startChar": 53,

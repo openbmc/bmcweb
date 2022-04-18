@@ -418,6 +418,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "63ca42ec_73987968",
+        "filename": "include/google/google_service_root.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1001386
+      },
+      "writtenOn": "2022-04-18T17:28:30Z",
+      "side": 1,
+      "message": "Nothing upstream currently requires that field. Will add once we have a usecase for it.",
+      "parentUuid": "bf1fee41_9df3c0bb",
+      "range": {
+        "startLine": 88,
+        "startChar": 42,
+        "endLine": 88,
+        "endChar": 46
+      },
+      "revId": "ade3f16bd76b5bd5fa8c3395300ee031b2dd2b16",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9b08ad3f_7570591d",
@@ -573,6 +597,30 @@
       "side": 1,
       "message": "The convention is \"don\u0027t\" ie, structure your data structures in ways that are parsable in the tree 😊\n\nWe do have other places where we encode a json payload as a separate URI path, then just set the content-type appropriately there (see any of the dump routes for that) but that doesn\u0027t  seem great either.",
       "parentUuid": "286bba7c_8f2c3d51",
+      "range": {
+        "startLine": 112,
+        "startChar": 16,
+        "endLine": 112,
+        "endChar": 27
+      },
+      "revId": "ade3f16bd76b5bd5fa8c3395300ee031b2dd2b16",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "882682f0_76c5ea06",
+        "filename": "include/google/google_service_root.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1001386
+      },
+      "writtenOn": "2022-04-18T17:28:30Z",
+      "side": 1,
+      "message": "Hex encoding is also not super friendly for parsing in our usecases but it helps us with\na) debugging things faster\nb) achieve parity with how we currently represent things on the gsys methods.\n\nOpting for hex, because the strings are also not very large. ~100 bytes.",
+      "parentUuid": "4ca61456_43902534",
       "range": {
         "startLine": 112,
         "startChar": 16,
