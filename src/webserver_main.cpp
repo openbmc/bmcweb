@@ -88,6 +88,9 @@ static int run()
 
     // Create EventServiceManager instance and initialize Config
     redfish::EventServiceManager::getInstance();
+
+    // Create HttpClient instance and initialize Config
+    crow::HttpClient::getInstance();
 #endif
 
 #ifdef BMCWEB_ENABLE_DBUS_REST
