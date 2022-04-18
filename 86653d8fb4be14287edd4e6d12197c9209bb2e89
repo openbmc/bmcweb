@@ -22,6 +22,30 @@
       },
       "revId": "86653d8fb4be14287edd4e6d12197c9209bb2e89",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c135b8a9_4922a5ce",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-04-18T16:15:33Z",
+      "side": 1,
+      "message": "In https://redfish.dmtf.org/schemas/DSP2046_2021.4.html#ethernetinterface-180, EthernetInterface.VLAN.VLANId is a interger instead of array. This also applies to VLanNetworkInterface https://redfish.dmtf.org/schemas/DSP2046_2021.4.html#vlannetworkinterface-130-deprecated\n\nI\u0027ll update the the commit message with the redfish spec",
+      "parentUuid": "d6f17b22_0b271c10",
+      "range": {
+        "startLine": 9,
+        "startChar": 49,
+        "endLine": 10,
+        "endChar": 26
+      },
+      "revId": "86653d8fb4be14287edd4e6d12197c9209bb2e89",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
