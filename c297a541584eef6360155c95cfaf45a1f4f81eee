@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1511db97_4ff17fde",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 599,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-19T18:21:18Z",
+      "side": 1,
+      "message": "+1..... please break this method up a bit.  At a minimum, drop the entire contents of the lambda into its own method, outside of the class definition.",
+      "parentUuid": "42e42708_00f2ee8f",
+      "range": {
+        "startLine": 599,
+        "startChar": 0,
+        "endLine": 599,
+        "endChar": 54
+      },
+      "revId": "c297a541584eef6360155c95cfaf45a1f4f81eee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1f4554d1_209c47a3",
         "filename": "http/http_client.hpp",
         "patchSetId": 2

@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "065b6bf8_498a4fe8",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-19T18:21:18Z",
+      "side": 1,
+      "message": "In terms of long term data storage data structures, please store these as boost::urls::url to ensure we maintain better safety.  Ideally the whole system would be using that struct (and there are patches in the works to improve the situation).",
+      "range": {
+        "startLine": 73,
+        "startChar": 0,
+        "endLine": 77,
+        "endChar": 25
+      },
+      "revId": "22bf54deca23cba52805cf71678bbd9d09406ef9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "27f4d22b_05717ef0",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-19T18:21:18Z",
+      "side": 1,
+      "message": "For the first implementation, lets just go to dbus every time to simplify the first patchset (yes, it will slow things down, that\u0027s ok).\n\nFWIW, we need a generic \"cache dbus data\" mechanism for many....many other things, so this might fall into a more generic category where we solve the whole problem space, not just for Satelite configs.",
+      "range": {
+        "startLine": 79,
+        "startChar": 0,
+        "endLine": 79,
+        "endChar": 70
+      },
+      "revId": "22bf54deca23cba52805cf71678bbd9d09406ef9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
