@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ac968a77_ee3a2524",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-19T15:47:44Z",
+      "side": 1,
+      "message": "I need to look at it",
+      "parentUuid": "649a4c05_4de9b10c",
+      "revId": "59bb646e23bf82c666632c35d49c91ee411b824f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c755f0f7_7ae6e349",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 12
@@ -49,6 +67,30 @@
       "writtenOn": "2022-04-19T00:48:37Z",
       "side": 1,
       "message": "When query parameter is not enabled, this will always be a default struct, which means no parameters are delegated, then this code is wrong since $top and $skip are not handled at all.",
+      "range": {
+        "startLine": 1164,
+        "startChar": 31,
+        "endLine": 1164,
+        "endChar": 45
+      },
+      "revId": "59bb646e23bf82c666632c35d49c91ee411b824f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "32b83107_3019dffd",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 1164,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-19T15:47:44Z",
+      "side": 1,
+      "message": "Can you elaborate a little on what you mean?  I\u0027m assuming \"default struct\" means \"default constructed struct with default parameters\"?\n\ntop defaults to size_t::max(), and skip defaults to 0, so even with default arguments, we should still get the desired effect.\n\n\u003e $top and $skip are not handled at all.\n\nI also don\u0027t understand this statement.  Top and skip are handled on line 1266 and 1282.",
+      "parentUuid": "c755f0f7_7ae6e349",
       "range": {
         "startLine": 1164,
         "startChar": 31,
