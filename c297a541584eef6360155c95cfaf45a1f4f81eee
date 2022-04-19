@@ -56,6 +56,24 @@
       "message": "Would make debugging easier to have the name of the config (or maybe the object path instead?) in the error message",
       "revId": "c297a541584eef6360155c95cfaf45a1f4f81eee",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e179dffb_a5dc089f",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 682,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-04-19T16:44:10Z",
+      "side": 1,
+      "message": "I do print the object path right before I begin populating and then checking the config info.  If one of these checks fail then they would be printed on the very next line in the debug logs.\n\nI have added the name of the config to the rest of these failure statements",
+      "parentUuid": "1f4554d1_209c47a3",
+      "revId": "c297a541584eef6360155c95cfaf45a1f4f81eee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
