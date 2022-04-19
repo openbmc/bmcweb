@@ -99,6 +99,30 @@
       },
       "revId": "59bb646e23bf82c666632c35d49c91ee411b824f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "50516ed0_7503c0a8",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 1164,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-04-19T20:34:58Z",
+      "side": 1,
+      "message": "When redifsh-query is turned off, the returned |delegatedQuery| struct is basically the following\n\n```\nstruct Query\n{\n    // Only\n    bool isOnly \u003d false;\n    // Expand\n    uint8_t expandLevel \u003d 0;\n    ExpandType expandType \u003d ExpandType::None;\n\n    // Skip\n    size_t skip \u003d 0;\n\n    // Top\n    size_t top \u003d std::numeric_limits\u003csize_t\u003e::max();\n};\n```\nBecause we returned early.\nhttps://github.com/openbmc/bmcweb/blob/54417b02efbfe896d6ef442cfc6a721314aac3f8/redfish-core/include/query.hpp#L35\n\nthen the codes here will assume don\u0027t skip any entry and return all entry (top\u003d\u003dmax), right?\n\nFinally the async response just closed without running a new completion handler at https://github.com/openbmc/bmcweb/blob/54417b02efbfe896d6ef442cfc6a721314aac3f8/redfish-core/include/query.hpp#L53.\n\nAs a result, we just ignore $top and $skip in this request. Is that the indented behavior when redifsh-query is off?",
+      "parentUuid": "32b83107_3019dffd",
+      "range": {
+        "startLine": 1164,
+        "startChar": 31,
+        "endLine": 1164,
+        "endChar": 45
+      },
+      "revId": "59bb646e23bf82c666632c35d49c91ee411b824f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
