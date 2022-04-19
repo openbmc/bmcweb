@@ -39,6 +39,23 @@
       "message": "Any testing?",
       "revId": "3ac850d28abf24337894e328cef6fc3b2aadc8a5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b258f1fd_dd52d424",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-04-19T16:39:30Z",
+      "side": 1,
+      "message": "CI fail, need to run clang-format: \n\ndiff --git a/redfish-core/lib/storage.hpp b/redfish-core/lib/storage.hpp\nindex fe2b396..0f5b0f9 100644\n--- a/redfish-core/lib/storage.hpp\n+++ b/redfish-core/lib/storage.hpp\n@@ -564,7 +564,8 @@ inline void requestRoutesDrive(App\u0026 app)\n                     const std::string\u0026 connectionName \u003d\n                         connectionNames[0].first;\n \n-                    for (const std::string\u0026 interface : connectionNames[0].second)\n+                    for (const std::string\u0026 interface :\n+                         connectionNames[0].second)\n                     {\n                         if (interface \u003d\u003d\n                             \"xyz.openbmc_project.Inventory.Decorator.Asset\")",
+      "revId": "3ac850d28abf24337894e328cef6fc3b2aadc8a5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
