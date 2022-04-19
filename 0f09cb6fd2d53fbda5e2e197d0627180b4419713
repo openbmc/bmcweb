@@ -53,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b1fbdc21_28580dce",
+        "filename": "redfish-core/include/utils/chassis_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000998
+      },
+      "writtenOn": "2022-04-19T21:48:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "345a5eae_ec941503",
+      "revId": "0f09cb6fd2d53fbda5e2e197d0627180b4419713",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "db085df3_cdd37d44",
@@ -114,6 +132,30 @@
       "side": 1,
       "message": "+1, Good idea",
       "parentUuid": "56f88721_02a90152",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 52
+      },
+      "revId": "0f09cb6fd2d53fbda5e2e197d0627180b4419713",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a4af260d_ab1fd065",
+        "filename": "redfish-core/include/utils/chassis_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000998
+      },
+      "writtenOn": "2022-04-19T21:48:30Z",
+      "side": 1,
+      "message": "Added Ed\u0027s change to get rid of the variable.\n\nFinding no matching chassis is not necessarily an error, and it is not associated with a system error code if it is, thus the need for an optional parameter to the callback.  I\u0027m open passing `ec` to the callback in addition to the optional, but I don\u0027t see any particular benefit to doing that.",
+      "parentUuid": "8df7a9ed_b0cd41e2",
       "range": {
         "startLine": 28,
         "startChar": 0,
