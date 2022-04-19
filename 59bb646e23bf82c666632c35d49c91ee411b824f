@@ -123,6 +123,30 @@
       },
       "revId": "59bb646e23bf82c666632c35d49c91ee411b824f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1e7ea9df_578cd205",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 1164,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-19T23:15:54Z",
+      "side": 1,
+      "message": "\u003e When redifsh-query is turned off, the returned |delegatedQuery| struct is basically the following\n\u003e \n\u003e ```\n\u003e struct Query\n\u003e {\n\u003e     // Only\n\u003e     bool isOnly \u003d false;\n\u003e     // Expand\n\u003e     uint8_t expandLevel \u003d 0;\n\u003e     ExpandType expandType \u003d ExpandType::None;\n\u003e \n\u003e     // Skip\n\u003e     size_t skip \u003d 0;\n\u003e \n\u003e     // Top\n\u003e     size_t top \u003d std::numeric_limits\u003csize_t\u003e::max();\n\u003e };\n\u003e ```\n\u003e Because we returned early.\n\u003e https://github.com/openbmc/bmcweb/blob/54417b02efbfe896d6ef442cfc6a721314aac3f8/redfish-core/include/query.hpp#L35\n\u003e \n\u003e then the codes here will assume don\u0027t skip any entry and return all entry (top\u003d\u003dmax), right?\n\u003e \n\u003e Finally the async response just closed without running a new completion handler at https://github.com/openbmc/bmcweb/blob/54417b02efbfe896d6ef442cfc6a721314aac3f8/redfish-core/include/query.hpp#L53.\n\u003e \n\u003e As a result, we just ignore $top and $skip in this request. Is that the indented behavior when redifsh-query is off?\n\n\nGotcha, yes, this is what I was pointing out in the other comment.  If query params are disabled, and we merge this code, the existing top implementations will break.  I suspect we need to find a solution where $top and $skip are not covered by that check.  I\"m looking into it.",
+      "parentUuid": "50516ed0_7503c0a8",
+      "range": {
+        "startLine": 1164,
+        "startChar": 31,
+        "endLine": 1164,
+        "endChar": 45
+      },
+      "revId": "59bb646e23bf82c666632c35d49c91ee411b824f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
