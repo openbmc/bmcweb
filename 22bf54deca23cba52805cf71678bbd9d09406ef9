@@ -45,6 +45,30 @@
       },
       "revId": "22bf54deca23cba52805cf71678bbd9d09406ef9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "41b8b44e_1f7879b6",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-04-19T19:50:34Z",
+      "side": 1,
+      "message": "Since this CL doesn\u0027t use the information I store in the map, I\u0027m not sure how much that change will simplify this patchset.  Are you referring to not also setting up a D-Bus match for new satellites like Benjamin requested in his comment?  If so I can move that into a subsequent CL and just focus on breaking up the config loading code.\n\nWill I need to wait until that \"cache dbus data\" mechanism is added before I can store the satellite config info?  I\u0027m planning to use the presence of satellite config info as an indicator that Redfish Aggregation is enabled.  Going to D-Bus every time will slow down not just aggregation operations, but also every endpoint that supports aggregation.  I want to double check that the future slowdown is alright for that as well.",
+      "parentUuid": "27f4d22b_05717ef0",
+      "range": {
+        "startLine": 79,
+        "startChar": 0,
+        "endLine": 79,
+        "endChar": 70
+      },
+      "revId": "22bf54deca23cba52805cf71678bbd9d09406ef9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
