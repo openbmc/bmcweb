@@ -541,6 +541,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "93a6e48c_d2894194",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 394,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-19T18:28:53Z",
+      "side": 1,
+      "message": "Based on what you described, sounds good (haven\u0027t gotten a chance to look at the patchset yet).",
+      "parentUuid": "c9d1c1d1_42cc899d",
+      "range": {
+        "startLine": 394,
+        "startChar": 8,
+        "endLine": 394,
+        "endChar": 60
+      },
+      "revId": "b61ba6f3154203ee2ec27df956c849e4111b6718",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8d7cfc75_c199fe8a",
         "filename": "http/http_client.hpp",
         "patchSetId": 20
@@ -1050,6 +1074,30 @@
       "side": 1,
       "message": "I moved these functions back to HttpClient methods.  They now take also require a host and port argument so that the retry details can be linked to the associated connection pool.\n\nI think this will work as a generic approach as long as each each host:port combination can only have a single retry policy.\n\nAre shared_ptr\u0027s still needed if connections won\u0027t be destroyed during normal operation?",
       "parentUuid": "eb8faca6_33145197",
+      "range": {
+        "startLine": 495,
+        "startChar": 0,
+        "endLine": 505,
+        "endChar": 1
+      },
+      "revId": "b61ba6f3154203ee2ec27df956c849e4111b6718",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "252dd3a9_ee370245",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 505,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-19T18:28:53Z",
+      "side": 1,
+      "message": "\u003e I moved these functions back to HttpClient methods.  They now take also require a host and port argument so that the retry details can be linked to the associated connection pool.\n\u003e \n\u003e I think this will work as a generic approach as long as each each host:port combination can only have a single retry policy.\n\nI don\u0027t think that can be guaranteed.  EventService and a Redfish client could be on the same server, or could be operating through a reverse proxy or load balancer.\n\n\u003e \n\u003e Are shared_ptr\u0027s still needed if connections won\u0027t be destroyed during normal operation?\n\nAs a statement, we can\u0027t have that;  Connections MUST be able to be destroyed in normal operation, otherwise we\u0027ll run out of memory.\n\nAlso application shutdown is part of \"normal operation\" so the connections will be destroyed at some point.  If we\u0027re in the middle of a read/write when that shutdown happens, the ownership needs to be handled properly.\n\nNow, there are a bunch of patterns for ensuring RAII correctness, shared_ptr/weak_ptr is one of them (ie, share ownership between the real owners, and the callback) and I\u0027m ok with basically any that are engineer-wise correct.  What I\u0027m not ok with is relying on UB on object destruction.  Not handling that properly has caused way too much hard-to-triage bugs in the past.\n\nNote, all of the above is said without having looked at your current patch, and someone keying off a single sentence.  It\u0027s quite possible you\u0027ve handled this already",
+      "parentUuid": "b5dca36f_49e116e1",
       "range": {
         "startLine": 495,
         "startChar": 0,
