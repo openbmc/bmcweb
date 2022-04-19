@@ -180,6 +180,24 @@
       "parentUuid": "f7555b2f_a54a6939",
       "revId": "275644220bee8ba58e829bcffb69aa523ae5a08c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "02b9ce15_428bc5f6",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 784,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-04-19T21:59:13Z",
+      "side": 1,
+      "message": "doesn\u0027t this mean that for any interface that is not part the if statements or a valid location type, then it will error out.\n\nHow about the cases where the interface just have extra interface for some other uses it will hit this case and fail.",
+      "parentUuid": "b3dd5d5e_b5a8fd4a",
+      "revId": "275644220bee8ba58e829bcffb69aa523ae5a08c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
