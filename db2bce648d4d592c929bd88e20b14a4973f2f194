@@ -16,6 +16,24 @@
       "message": "And ServiceLabel works like it did before?",
       "revId": "db2bce648d4d592c929bd88e20b14a4973f2f194",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4b39524a_baef3ef9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-04-19T16:47:00Z",
+      "side": 1,
+      "message": "I guess you tested this helper function in pervious commits",
+      "parentUuid": "4feacb81_87c7869c",
+      "revId": "db2bce648d4d592c929bd88e20b14a4973f2f194",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
