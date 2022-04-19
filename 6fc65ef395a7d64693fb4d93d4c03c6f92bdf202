@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3da95970_8423f659",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 17
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-04-19T21:52:59Z",
+      "side": 1,
+      "message": "isConnector is used for LocationType.",
+      "parentUuid": "6a544595_d3b48955",
+      "revId": "6fc65ef395a7d64693fb4d93d4c03c6f92bdf202",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f66a9c42_cfc04d03",
         "filename": "/COMMIT_MSG",
         "patchSetId": 17
@@ -31,6 +49,24 @@
       "writtenOn": "2022-04-19T16:44:51Z",
       "side": 1,
       "message": "nitpick: double sign off",
+      "revId": "6fc65ef395a7d64693fb4d93d4c03c6f92bdf202",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f49a0f2a_7303623b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 17
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-04-19T21:52:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f66a9c42_cfc04d03",
       "revId": "6fc65ef395a7d64693fb4d93d4c03c6f92bdf202",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }

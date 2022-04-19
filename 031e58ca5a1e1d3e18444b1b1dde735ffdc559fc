@@ -98,6 +98,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "93574d0c_19534ff2",
+        "filename": "redfish-core/include/utils/location_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-04-19T21:52:59Z",
+      "side": 1,
+      "message": "I moved it back to string_view for consistency.",
+      "parentUuid": "225b7f59_e19d529d",
+      "range": {
+        "startLine": 64,
+        "startChar": 20,
+        "endLine": 64,
+        "endChar": 36
+      },
+      "revId": "031e58ca5a1e1d3e18444b1b1dde735ffdc559fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "21e4b64a_388c74a5",
         "filename": "redfish-core/include/utils/location_utils.hpp",
         "patchSetId": 1

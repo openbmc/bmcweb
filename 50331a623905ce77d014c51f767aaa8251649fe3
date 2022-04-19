@@ -112,6 +112,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4c07c2de_5b08e856",
+        "filename": "redfish-core/include/utils/location_utils.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-04-19T21:52:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3fdf637a_bcc0e604",
+      "range": {
+        "startLine": 49,
+        "startChar": 11,
+        "endLine": 49,
+        "endChar": 61
+      },
+      "revId": "50331a623905ce77d014c51f767aaa8251649fe3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9183aa61_6087cfcb",
