@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b42121b_375fbe29",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-04-20T18:00:18Z",
+      "side": 1,
+      "message": "Hi, \nThanks for this commit. \nPlease follow https://github.com/openbmc/bmcweb/blob/master/DEVELOPING.md and https://github.com/openbmc/docs/blob/master/CONTRIBUTING.md \n\nA couple things of note: \n1. A commit this size should include a much bigger commit msg. Much bigger  than just 4 words for a 300+ line change. Why does bmcweb need this commit? What is this commit doing? What schema? Anything unexpected?\n2. Please follow https://github.com/openbmc/docs/blob/master/CONTRIBUTING.md#testing\n\"Commit messages should include a \"Tested\" field describing how you tested the code changes in the patch. \"\n3. Please follow https://github.com/openbmc/docs/blob/master/CONTRIBUTING.md#formatting-commit-messages \n\"All commit messages must include a \"Signed-off-by\" line, which indicates that you the contributor have agreed to the Developer Certificate of Origin (see below). This line must include the full name you commonly use, often a given name and a family name or surname. (ok: Sam Samuelsson, Robert A. Heinlein; not ok: xXthorXx, Sam, RAH)\"",
+      "revId": "a9fad1b5d0cbb1c07459f7835cdc36cf55046e43",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
