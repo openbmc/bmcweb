@@ -179,14 +179,14 @@ inline void
                                 BMCWEB_LOG_DEBUG << "Running image: "
                                                  << runningImage;
 
-                                if (version.empty())
-                                {
-                                    messages::internalError(aResp->res);
-                                    return;
-                                }
                                 if (swInvPurpose != fwVersionPurpose)
                                 {
                                     // Not purpose we're looking for
+                                    return;
+                                }
+                                if (version.empty())
+                                {
+                                    messages::internalError(aResp->res);
                                     return;
                                 }
 
