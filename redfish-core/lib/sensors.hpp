@@ -56,6 +56,7 @@ static const boost::container::flat_map<std::string_view,
               {"/xyz/openbmc_project/sensors/power",
                "/xyz/openbmc_project/sensors/current",
                "/xyz/openbmc_project/sensors/airflow",
+               "/xyz/openbmc_project/sensors/humidity",
 #ifdef BMCWEB_NEW_POWERSUBSYSTEM_THERMALSUBSYSTEM
                "/xyz/openbmc_project/sensors/voltage",
                "/xyz/openbmc_project/sensors/fan_tach",
@@ -93,7 +94,8 @@ inline const char* toReadingType(const std::string& sensorType)
     {
         return "Temperature";
     }
-    if (sensorType == "fan_pwm" || sensorType == "utilization")
+    if (sensorType == "fan_pwm" || sensorType == "utilization" ||
+        sensorType == "humidity")
     {
         return "Percent";
     }
@@ -134,7 +136,8 @@ inline const char* toReadingUnits(const std::string& sensorType)
     {
         return "Cel";
     }
-    if (sensorType == "fan_pwm" || sensorType == "utilization")
+    if (sensorType == "fan_pwm" || sensorType == "utilization" ||
+        sensorType == "humidity")
     {
         return "%";
     }
