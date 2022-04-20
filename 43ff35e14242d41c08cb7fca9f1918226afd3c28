@@ -164,6 +164,30 @@
       },
       "revId": "43ff35e14242d41c08cb7fca9f1918226afd3c28",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "60f39752_cc4ba399",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 757,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2022-04-20T04:58:55Z",
+      "side": 1,
+      "message": "If the interface doesn\u0027t match the task will expire after the timeout. But again, if the Progress interface is made mandatory for all the dumps to implement (waiting on the discord discussion on this), this problem should not occur.",
+      "parentUuid": "efe470c9_90152f50",
+      "range": {
+        "startLine": 757,
+        "startChar": 0,
+        "endLine": 757,
+        "endChar": 35
+      },
+      "revId": "43ff35e14242d41c08cb7fca9f1918226afd3c28",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
