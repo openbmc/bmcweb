@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!---->
+<!--################################################################################       -->
+<!--# Redfish Schema:  RootOfTrust v1.0.0                                           -->
+<!--#                                                                                      -->
+<!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
+<!--# available at http://www.dmtf.org/standards/redfish                                   -->
+<!--# Copyright 2014-2021 DMTF.                                                            -->
+<!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
+<!--################################################################################       -->
+<!---->
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Core.V1.xml">
+    <edmx:Include Namespace="Org.OData.Core.V1" Alias="OData"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Capabilities.V1.xml">
+    <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml">
+    <edmx:Include Namespace="Validation.v1_0_0" Alias="Validation"/>
+    <edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Resource_v1.xml">
+    <edmx:Include Namespace="Resource"/>
+    <edmx:Include Namespace="Resource.v1_0_0"/>
+  </edmx:Reference>
+
+  <edmx:DataServices>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="RootOfTrust">
+      <Annotation Term="Redfish.OwningEntity" String="Google"/>
+
+      <EntityType Name="RootOfTrust" BaseType="Resource.v1_0_0.Resource" Abstract="true">
+        <Annotation Term="OData.Description" String="The RootOfTrust resource represents a trusted physical entity."/>
+        <Annotation Term="OData.LongDescription" String="This resource shall represent a trusted physical entity."/>
+      </EntityType>
+
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="RootOfTrust.v1_0_0">
+      <Annotation Term="Redfish.OwningEntity" String="Google"/>
+
+      <EntityType Name="RootOfTrust" BaseType="RootOfTrust.RootOfTrust">
+        <Property Name="Actions" Type="RootOfTrust.v1_0_0.Actions" Nullable="false">
+          <Annotation Term="OData.Description" String="The available actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this resource."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="Actions">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The available actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
+      </ComplexType>
+
+     <Action Name="SendCommand" IsBound="true">
+        <Annotation Term="OData.Description" String="This action sends commands to trusted component."/>
+        <Annotation Term="OData.LongDescription" String="This action shall send hoth commands to trusted component."/>
+        <Parameter Name="RootOfTrust" Type="RootOfTrust.v1_0_0.Actions"/>
+        <Parameter Name="Command" Type="Edm.String" Nullable="false"/>
+          <Annotation Term="OData.Description" String="The bytes to forward to the root of trust device."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the bytes to be forwarded to the root of trust device. The string should be a hex-encoded string, for instance '0100'. Each byte shall be encoded as a 2-character hex."/>
+        <ReturnType Name="CommandResponse" Type="Edm.String"/>
+          <Annotation Term="OData.Description" String="The bytes returned by the root of trust device."/>
+          <Annotation Term="OData.LongDescription" String="This return value shall contain the bytes returned by the root of trust device. The string should be a hex-encoded string, for instance '0100'. Each byte shall be encoded as a 2-character hex."/>
+      </Action>
+    </Schema>
+
+  </edmx:DataServices>
+</edmx:Edmx>
