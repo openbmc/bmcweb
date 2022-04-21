@@ -1660,9 +1660,20 @@ inline void parseInterfaceData(
         jsonResponse["FQDN"] = fqdn;
     }
 
-    jsonResponse["VLANs"] = {
-        {"@odata.id",
-         "/redfish/v1/Managers/bmc/EthernetInterfaces/" + ifaceId + "/VLANs"}};
+    if (ethData.vlanId)
+    {
+        jsonResponse["EthernetInterfaceType"] = "Virtual";
+        jsonResponse["VLAN"]["VLANEnable"] = true;
+        jsonResponse["VLAN"]["VLANId"] = *ethData.vlanId;
+        jsonResponse["VLAN"]["Tagged"] = true;
+    }
+    else
+    {
+        jsonResponse["EthernetInterfaceType"] = "Physical";
+        jsonResponse["VLANs"] = {
+            {"@odata.id", "/redfish/v1/Managers/bmc/EthernetInterfaces/" +
+                              ifaceId + "/VLANs"}};
+    }
 
     jsonResponse["NameServers"] = ethData.nameServers;
     jsonResponse["StaticNameServers"] = ethData.staticNameServers;
@@ -1766,18 +1777,12 @@ inline void requestEthernetInterfacesRoutes(App& app)
 
             nlohmann::json& ifaceArray = asyncResp->res.jsonValue["Members"];
             ifaceArray = nlohmann::json::array();
-            std::string tag = "_";
             for (const std::string& ifaceItem : ifaceList)
             {
-                std::size_t found = ifaceItem.find(tag);
-                if (found == std::string::npos)
-                {
-                    nlohmann::json::object_t iface;
-                    iface["@odata.id"] =
-                        "/redfish/v1/Managers/bmc/EthernetInterfaces/" +
-                        ifaceItem;
-                    ifaceArray.push_back(std::move(iface));
-                }
+                nlohmann::json::object_t iface;
+                iface["@odata.id"] =
+                    "/redfish/v1/Managers/bmc/EthernetInterfaces/" + ifaceItem;
+                ifaceArray.push_back(std::move(iface));
             }
 
             asyncResp->res.jsonValue["Members@odata.count"] = ifaceArray.size();
