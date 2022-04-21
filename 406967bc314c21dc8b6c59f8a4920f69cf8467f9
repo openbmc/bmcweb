@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "df72f8c3_2ce9718a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 18
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001386
+      },
+      "writtenOn": "2022-04-21T21:57:10Z",
+      "side": 1,
+      "message": "Removed unit tests for now and will revisit that in a child CL in a bid to unblock this CL.",
+      "revId": "406967bc314c21dc8b6c59f8a4920f69cf8467f9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
