@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6acc44eb_1bbbf6cc",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 72
+      },
+      "lineNbr": 748,
+      "author": {
+        "id": 1001048
+      },
+      "writtenOn": "2022-04-21T07:44:00Z",
+      "side": 1,
+      "message": "nit : can else if more suitable here  ..?",
+      "range": {
+        "startLine": 748,
+        "startChar": 4,
+        "endLine": 748,
+        "endChar": 6
+      },
+      "revId": "eb9af5b4d9c5d52d4d4c211c6515fa0ff4129b8c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
