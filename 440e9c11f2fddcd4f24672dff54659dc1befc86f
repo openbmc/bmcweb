@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "119f3ebf_58c3be3d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-21T18:17:58Z",
+      "side": 1,
+      "message": "The first step on this patch is to fix the dbus interface.  If vlanId can\u0027t be set, then at a dbus level, phosphor-networkd shouldn\u0027t allow setting it, and should return the appropriate error code.\n\nAfter that, this patchset would then pick up the error code and return the correct response.",
+      "revId": "440e9c11f2fddcd4f24672dff54659dc1befc86f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
