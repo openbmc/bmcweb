@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f059ed53_6a4f736b",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1001048
+      },
+      "writtenOn": "2022-04-22T18:20:07Z",
+      "side": 1,
+      "message": "are you treating maxPoolSize as constant here..? If so, wanted to understand static usage here .",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 6
+      },
+      "revId": "ecd0f74dd2670db21f4d99e51ffe598cb9611219",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a8676fb_568ecee4",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1001048
+      },
+      "writtenOn": "2022-04-22T18:20:07Z",
+      "side": 1,
+      "message": "initialization ..?",
+      "range": {
+        "startLine": 90,
+        "startChar": 13,
+        "endLine": 90,
+        "endChar": 19
+      },
+      "revId": "ecd0f74dd2670db21f4d99e51ffe598cb9611219",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
