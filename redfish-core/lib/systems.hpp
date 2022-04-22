@@ -3003,7 +3003,7 @@ inline void requestRoutesSystems(App& app)
                 if (!json_util::readJsonPatch(
                         req, asyncResp->res, "IndicatorLED", indicatorLed,
                         "LocationIndicatorActive", locationIndicatorActive,
-                        "Boot", bootProps, "WatchdogTimer", wdtTimerProps,
+                        "Boot", bootProps, "HostWatchdogTimer", wdtTimerProps,
                         "PowerRestorePolicy", powerRestorePolicy, "AssetTag",
                         assetTag, "PowerMode", powerMode, "IdlePowerSaver",
                         ipsProps))
