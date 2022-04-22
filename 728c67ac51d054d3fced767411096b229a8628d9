@@ -16,6 +16,23 @@
       "message": "Redfish spec: https://redfish.dmtf.org/schemas/DSP2046_2021.4.html#computersystem-1170",
       "revId": "728c67ac51d054d3fced767411096b229a8628d9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "06294ce1_4753a990",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-04-22T13:14:26Z",
+      "side": 1,
+      "message": "Shall we also use the multi-depth readJson here to simplify the code?",
+      "revId": "728c67ac51d054d3fced767411096b229a8628d9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
