@@ -43,12 +43,12 @@ option(
 # this interface, so for the moment this appears to be dead code;  In leiu of
 # removing it, it has been disabled to try to give those that use it the
 # opportunity to upstream their backend implementation
-#option(
-#    'vm-nbdproxy',
-#    type: 'feature',
-#    value: 'disabled',
-#    description: 'Enable the Virtual Media WebSocket.'
-#)
+option(
+    'vm-nbdproxy',
+    type: 'feature',
+    value: 'disabled',
+    description: 'Enable the Virtual Media WebSocket.'
+)
 
 # BMCWEB_REST
 option(
