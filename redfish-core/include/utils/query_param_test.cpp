@@ -111,6 +111,37 @@ TEST(Delegate, SkipPositive)
     EXPECT_EQ(query.skip, 42);
 }
 
+TEST(FormatQueryForExpand, EmptyQueryString)
+{
+    EXPECT_EQ(formatQueryForExpand(Query{}), "");
+}
+
+TEST(FormatQueryForExpand, NoSubQuery)
+{
+    EXPECT_EQ(formatQueryForExpand(
+                  Query{.expandLevel = 2, .expandType = ExpandType::None}),
+              "");
+    EXPECT_EQ(formatQueryForExpand(
+                  Query{.expandLevel = 1, .expandType = ExpandType::Both}),
+              "");
+    EXPECT_EQ(formatQueryForExpand(Query{.expandType = ExpandType::Links}), "");
+    EXPECT_EQ(formatQueryForExpand(Query{.expandType = ExpandType::NotLinks}),
+              "");
+}
+
+TEST(FormatQueryForExpand, DelegateSubQuery)
+{
+    EXPECT_EQ(formatQueryForExpand(
+                  Query{.expandLevel = 3, .expandType = ExpandType::Both}),
+              "?$expand=*($levels=2)");
+    EXPECT_EQ(formatQueryForExpand(
+                  Query{.expandLevel = 4, .expandType = ExpandType::Links}),
+              "?$expand=~($levels=3)");
+    EXPECT_EQ(formatQueryForExpand(
+                  Query{.expandLevel = 2, .expandType = ExpandType::NotLinks}),
+              "?$expand=.($levels=1)");
+}
+
 } // namespace
 } // namespace redfish::query_param
 
@@ -295,37 +326,29 @@ TEST(QueryParams, FindNavigationReferencesNonLink)
     json singleTreeNode = R"({"Foo" : {"@odata.id": "/foobar"}})"_json;
 
     // Parsing as the root should net one entry
-    EXPECT_THAT(findNavigationReferences(ExpandType::Both, singleTreeNode,
-                                         json::json_pointer("")),
+    EXPECT_THAT(findNavigationReferences(ExpandType::Both, singleTreeNode),
                 UnorderedElementsAre(redfish::query_param::ExpandNode{
                     json::json_pointer("/Foo"), "/foobar"}));
-    // Parsing at a depth should net one entry at depth
-    EXPECT_THAT(findNavigationReferences(ExpandType::Both, singleTreeNode,
-                                         json::json_pointer("/baz")),
-                UnorderedElementsAre(redfish::query_param::ExpandNode{
-                    json::json_pointer("/baz/Foo"), "/foobar"}));
 
     // Parsing in Non-hyperlinks mode should net one entry
-    EXPECT_THAT(findNavigationReferences(ExpandType::NotLinks, singleTreeNode,
-                                         json::json_pointer("")),
+    EXPECT_THAT(findNavigationReferences(ExpandType::NotLinks, singleTreeNode),
                 UnorderedElementsAre(redfish::query_param::ExpandNode{
                     json::json_pointer("/Foo"), "/foobar"}));
 
-    // Parsing non-hyperlinks at depth should net one entry at depth
-    EXPECT_THAT(findNavigationReferences(ExpandType::NotLinks, singleTreeNode,
-                                         json::json_pointer("/baz")),
-                UnorderedElementsAre(redfish::query_param::ExpandNode{
-                    json::json_pointer("/baz/Foo"), "/foobar"}));
-
     // Searching for not types should return empty set
-    EXPECT_TRUE(findNavigationReferences(ExpandType::None, singleTreeNode,
-                                         json::json_pointer(""))
-                    .empty());
+    EXPECT_TRUE(
+        findNavigationReferences(ExpandType::None, singleTreeNode).empty());
 
     // Searching for hyperlinks only should return empty set
-    EXPECT_TRUE(findNavigationReferences(ExpandType::Links, singleTreeNode,
-                                         json::json_pointer(""))
-                    .empty());
+    EXPECT_TRUE(
+        findNavigationReferences(ExpandType::Links, singleTreeNode).empty());
+
+    json multiTreeNodes =
+        R"({"Links": {"@odata.id": "/links"}, "Foo" : {"@odata.id": "/foobar"}})"_json;
+    // Should still find Foo
+    EXPECT_THAT(findNavigationReferences(ExpandType::NotLinks, multiTreeNodes),
+                UnorderedElementsAre(redfish::query_param::ExpandNode{
+                    json::json_pointer("/Foo"), "/foobar"}));
 }
 
 TEST(QueryParams, FindNavigationReferencesLink)
@@ -338,43 +361,19 @@ TEST(QueryParams, FindNavigationReferencesLink)
         R"({"Links" : {"Sessions": {"@odata.id": "/foobar"}}})"_json;
 
     // Parsing as the root should net one entry
-    EXPECT_THAT(findNavigationReferences(ExpandType::Both, singleLinkNode,
-                                         json::json_pointer("")),
+    EXPECT_THAT(findNavigationReferences(ExpandType::Both, singleLinkNode),
                 UnorderedElementsAre(redfish::query_param::ExpandNode{
                     json::json_pointer("/Links/Sessions"), "/foobar"}));
-    // Parsing at a depth should net one entry at depth
-    EXPECT_THAT(findNavigationReferences(ExpandType::Both, singleLinkNode,
-                                         json::json_pointer("/baz")),
-                UnorderedElementsAre(redfish::query_param::ExpandNode{
-                    json::json_pointer("/baz/Links/Sessions"), "/foobar"}));
-
     // Parsing in hyperlinks mode should net one entry
-    EXPECT_THAT(findNavigationReferences(ExpandType::Links, singleLinkNode,
-                                         json::json_pointer("")),
+    EXPECT_THAT(findNavigationReferences(ExpandType::Links, singleLinkNode),
                 UnorderedElementsAre(redfish::query_param::ExpandNode{
                     json::json_pointer("/Links/Sessions"), "/foobar"}));
-
-    // Parsing hyperlinks at depth should net one entry at depth
-    EXPECT_THAT(findNavigationReferences(ExpandType::Links, singleLinkNode,
-                                         json::json_pointer("/baz")),
-                UnorderedElementsAre(redfish::query_param::ExpandNode{
-                    json::json_pointer("/baz/Links/Sessions"), "/foobar"}));
 
     // Searching for not types should return empty set
-    EXPECT_TRUE(findNavigationReferences(ExpandType::None, singleLinkNode,
-                                         json::json_pointer(""))
-                    .empty());
+    EXPECT_TRUE(
+        findNavigationReferences(ExpandType::None, singleLinkNode).empty());
 
     // Searching for non-hyperlinks only should return empty set
-    EXPECT_TRUE(findNavigationReferences(ExpandType::NotLinks, singleLinkNode,
-                                         json::json_pointer(""))
-                    .empty());
-
-    json multiTreeNodes =
-        R"({"Links": {"@odata.id": "/links"}, "Foo" : {"@odata.id": "/foobar"}})"_json;
-    // Should still find Foo
-    EXPECT_THAT(findNavigationReferences(ExpandType::NotLinks, multiTreeNodes,
-                                         json::json_pointer("")),
-                UnorderedElementsAre(redfish::query_param::ExpandNode{
-                    json::json_pointer("/Foo"), "/foobar"}));
+    EXPECT_TRUE(
+        findNavigationReferences(ExpandType::NotLinks, singleLinkNode).empty());
 }
