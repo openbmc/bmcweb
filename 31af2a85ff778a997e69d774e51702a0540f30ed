@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dde0100e_0cf683ca",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1806,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2022-04-22T03:46:29Z",
+      "side": 1,
+      "message": "The property \"Vlans\" which points to the collection of vlans is deprecated from \"v1_7_0\". I believe its better to update to the latest schema since you are making changes to Vlans\n\n\"VLAN\": {\n          \"$ref\": \"http://redfish.dmtf.org/schemas/v1/VLanNetworkInterface.json#/definitions/VLAN\",\n          \"description\": \"If this network interface supports more than one VLAN, this property is absent.  VLAN collections appear in the Links property of this resource.\",\n          \"longDescription\": \"This property shall contain the VLAN for this interface.  If this interface supports more than one VLAN, the VLAN property shall be absent and, instead, the VLAN collection link shall be present.\"\n          },",
+      "range": {
+        "startLine": 1805,
+        "startChar": 0,
+        "endLine": 1806,
+        "endChar": 68
+      },
+      "revId": "31af2a85ff778a997e69d774e51702a0540f30ed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ff429d40_02507e84",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1905,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2022-04-22T03:46:29Z",
+      "side": 1,
+      "message": "I think you should bump this up to the latest EthernetInterface schema and then make all the related changes.",
+      "range": {
+        "startLine": 1905,
+        "startChar": 28,
+        "endLine": 1905,
+        "endChar": 73
+      },
+      "revId": "31af2a85ff778a997e69d774e51702a0540f30ed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
