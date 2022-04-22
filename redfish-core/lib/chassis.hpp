@@ -267,6 +267,20 @@ inline void requestRoutesChassis(App& app)
                                 health->inventory = resp;
                             });
 
+                        sdbusplus::asio::getProperty<std::vector<std::string>>(
+                            *crow::connections::systemBus,
+                            "xyz.openbmc_project.ObjectMapper",
+                            path + "/drives", "xyz.openbmc_project.Association",
+                            "endpoints",
+                            [health](const boost::system::error_code ec2,
+                                     const std::vector<std::string>& resp) {
+                                if (ec2)
+                                {
+                                    return; // no sensors = no failures
+                                }
+                                health->inventory = resp;
+                            });
+
                         health->populate();
 
                         if (connectionNames.empty())
