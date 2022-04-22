@@ -105,6 +105,24 @@
       "parentUuid": "3faac320_8de999b5",
       "revId": "367a8e0ffb08ecd239e2098a0dc2fa7fb359d881",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cbf25bec_e422f556",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-22T00:07:24Z",
+      "side": 1,
+      "message": "FYI, I put together a quick (untested) patch to improve the performance.\n\nhttps://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/52921/1",
+      "parentUuid": "5a1894be_579b440b",
+      "revId": "367a8e0ffb08ecd239e2098a0dc2fa7fb359d881",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
