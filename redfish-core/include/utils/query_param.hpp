@@ -414,12 +414,46 @@ inline void findNavigationReferencesRecursive(
 }
 
 inline std::vector<ExpandNode>
-    findNavigationReferences(ExpandType eType, nlohmann::json& jsonResponse,
-                             const nlohmann::json::json_pointer& root)
+    findNavigationReferences(ExpandType eType, nlohmann::json& jsonResponse)
 {
     std::vector<ExpandNode> ret;
+    const nlohmann::json::json_pointer root = nlohmann::json::json_pointer("");
     findNavigationReferencesRecursive(eType, jsonResponse, root, false, ret);
     return ret;
+}
+
+// Formats a query parameter string for the sub-query.
+// This function shall handle $select when it is added.
+// There is no need to handle parameters that's not campatible with $expand,
+// e.g., $only, since this function will only be called in side $expand handlers
+inline std::string formatQueryForExpand(const Query& query)
+{
+    // query.expandLevel<=1: no need to do subqueries
+    if (query.expandLevel <= 1)
+    {
+        return {};
+    }
+    std::string str = "?$expand=";
+    switch (query.expandType)
+    {
+        case ExpandType::None:
+            return {};
+        case ExpandType::Links:
+            str += '~';
+            break;
+        case ExpandType::NotLinks:
+            str += '.';
+            break;
+        case ExpandType::Both:
+            str += '*';
+            break;
+        default:
+            return {};
+    }
+    str += "($levels=";
+    str += std::to_string(query.expandLevel - 1);
+    str += ')';
+    return str;
 }
 
 class MultiAsyncResp : public std::enable_shared_from_this<MultiAsyncResp>
@@ -436,58 +470,57 @@ class MultiAsyncResp : public std::enable_shared_from_this<MultiAsyncResp>
     {}
 
     void addAwaitingResponse(
-        Query query, std::shared_ptr<bmcweb::AsyncResp>& res,
+        std::shared_ptr<bmcweb::AsyncResp>& res,
         const nlohmann::json::json_pointer& finalExpandLocation)
     {
         res->res.setCompleteRequestHandler(std::bind_front(
-            onEndStatic, shared_from_this(), query, finalExpandLocation));
+            placeResultStatic, shared_from_this(), finalExpandLocation));
     }
 
-    void onEnd(Query query, const nlohmann::json::json_pointer& locationToPlace,
-               crow::Response& res)
+    void placeResult(const nlohmann::json::json_pointer& locationToPlace,
+                     crow::Response& res)
     {
         nlohmann::json& finalObj = finalRes->res.jsonValue[locationToPlace];
         finalObj = std::move(res.jsonValue);
+    }
 
-        if (query.expandLevel <= 0)
-        {
-            // Last level to expand, no need to go deeper
-            return;
-        }
-        // Now decrease the depth by one to account for the tree node we
-        // just resolved
-        query.expandLevel--;
-
-        std::vector<ExpandNode> nodes = findNavigationReferences(
-            query.expandType, finalObj, locationToPlace);
+    // Handles the very first level of Expand, and starts a chain of sub-queries
+    // for deeper levels.
+    void startQuery(const Query& query)
+    {
+        std::vector<ExpandNode> nodes =
+            findNavigationReferences(query.expandType, finalRes->res.jsonValue);
         BMCWEB_LOG_DEBUG << nodes.size() << " nodes to traverse";
+        const std::string queryStr = formatQueryForExpand(query);
         for (const ExpandNode& node : nodes)
         {
-            BMCWEB_LOG_DEBUG << "Expanding " << locationToPlace;
+            const std::string subQuery = node.uri + queryStr;
+            BMCWEB_LOG_DEBUG << "URL of subquery:  " << subQuery;
             std::error_code ec;
-            crow::Request newReq({boost::beast::http::verb::get, node.uri, 11},
+            crow::Request newReq({boost::beast::http::verb::get, subQuery, 11},
                                  ec);
             if (ec)
             {
-                messages::internalError(res);
+                messages::internalError(finalRes->res);
                 return;
             }
 
             auto asyncResp = std::make_shared<bmcweb::AsyncResp>();
             BMCWEB_LOG_DEBUG << "setting completion handler on "
                              << &asyncResp->res;
-            addAwaitingResponse(query, asyncResp, node.location);
+
+            addAwaitingResponse(asyncResp, node.location);
             app.handle(newReq, asyncResp);
         }
     }
 
   private:
-    static void onEndStatic(const std::shared_ptr<MultiAsyncResp>& multi,
-                            Query query,
-                            const nlohmann::json::json_pointer& locationToPlace,
-                            crow::Response& res)
+    static void
+        placeResultStatic(const std::shared_ptr<MultiAsyncResp>& multi,
+                          const nlohmann::json::json_pointer& locationToPlace,
+                          crow::Response& res)
     {
-        multi->onEnd(query, locationToPlace, res);
+        multi->placeResult(locationToPlace, res);
     }
 
     crow::App& app;
@@ -577,8 +610,7 @@ inline void
         asyncResp->res.jsonValue = std::move(intermediateResponse.jsonValue);
         auto multi = std::make_shared<MultiAsyncResp>(app, asyncResp);
 
-        // Start the chain by "ending" the root response
-        multi->onEnd(query, nlohmann::json::json_pointer(""), asyncResp->res);
+        multi->startQuery(query);
         return;
     }
     completionHandler(intermediateResponse);
