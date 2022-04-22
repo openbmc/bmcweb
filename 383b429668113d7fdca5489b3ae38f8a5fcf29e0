@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a2c6467_e34d10df",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 47
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1001048
+      },
+      "writtenOn": "2022-04-22T17:51:00Z",
+      "side": 1,
+      "message": "Have you thought about if ... else if ...else if ladder here .?",
+      "range": {
+        "startLine": 179,
+        "startChar": 4,
+        "endLine": 179,
+        "endChar": 7
+      },
+      "revId": "383b429668113d7fdca5489b3ae38f8a5fcf29e0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
