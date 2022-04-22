@@ -15,18 +15,43 @@
 */
 #pragma once
 
+#include "logging.hpp"
+
 #include <account_service.hpp>
 #include <app.hpp>
+#include <async_resp.hpp>
+#include <boost/asio/error.hpp>
+#include <boost/asio/io_context.hpp>
+#include <boost/asio/steady_timer.hpp>
+#include <boost/container/flat_map.hpp>
 #include <boost/process/async_pipe.hpp>
 #include <boost/type_traits/has_dereference.hpp>
 #include <boost/url/url_view.hpp>
+#include <dbus_singleton.hpp>
 #include <query.hpp>
 #include <registries/privilege_registry.hpp>
+#include <sdbusplus/bus/match.hpp>
 #include <sdbusplus/message/native_types.hpp>
 #include <utils/json_utils.hpp>
 
+#include <chrono>
+#include <memory>
+#include <optional>
+
 namespace redfish
 {
+
+const char* legacyMode = "Legacy";
+const char* proxyMode = "Proxy";
+
+std::string getModeName(bool isLegacy)
+{
+    if (isLegacy)
+    {
+        return legacyMode;
+    }
+    return proxyMode;
+}
 
 /**
  * @brief Function parses getManagedObject response, finds item, makes generic
@@ -365,7 +390,7 @@ inline void getVmData(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
                 actionsId += "/Actions";
 
                 // Check if dbus path is Legacy type
-                if (mode.filename() == "Legacy")
+                if (mode.filename() == legacyMode)
                 {
                     aResp->res.jsonValue["Actions"]["#VirtualMedia.InsertMedia"]
                                         ["target"] =
@@ -744,6 +769,107 @@ class Pipe
 };
 
 /**
+ * @brief holder for dbus signal matchers
+ */
+struct MatchWrapper
+{
+    void stop()
+    {
+        timer->cancel();
+        matcher = std::nullopt;
+    }
+
+    std::optional<sdbusplus::bus::match::match> matcher{};
+    std::optional<boost::asio::steady_timer> timer;
+};
+
+/**
+ * @brief Function starts waiting for signal completion
+ */
+static inline std::shared_ptr<MatchWrapper>
+    doListenForCompletion(const std::string& name,
+                          const std::string& objectPath,
+                          const std::string& action, bool legacy,
+                          std::shared_ptr<bmcweb::AsyncResp> asyncResp)
+{
+    BMCWEB_LOG_DEBUG << "Start Listening for completion : " << action;
+    std::string matcherString = sdbusplus::bus::match::rules::type::signal();
+
+    std::string interface =
+        std::string("xyz.openbmc_project.VirtualMedia.") + getModeName(legacy);
+
+    matcherString += sdbusplus::bus::match::rules::interface(interface);
+    matcherString += sdbusplus::bus::match::rules::member("Completion");
+    matcherString += sdbusplus::bus::match::rules::sender(
+        "xyz.openbmc_project.VirtualMedia");
+    matcherString += sdbusplus::bus::match::rules::path(objectPath);
+
+    auto matchWrapper = std::make_shared<MatchWrapper>();
+    auto matchHandler = [asyncResp = std::move(asyncResp), name, action,
+                         objectPath,
+                         matchWrapper](sdbusplus::message::message& m) {
+        int errorCode = 0;
+        try
+        {
+            BMCWEB_LOG_INFO << "Completion signal from " << m.get_path()
+                            << " has been received";
+
+            m.read(errorCode);
+            switch (errorCode)
+            {
+                case 0: // success
+                    BMCWEB_LOG_INFO << "Signal received: Success";
+                    messages::success(asyncResp->res);
+                    break;
+                case EPERM:
+                    BMCWEB_LOG_ERROR << "Signal received: EPERM";
+                    messages::accessDenied(
+                        asyncResp->res, crow::utility::urlFromPieces(action));
+                    break;
+                case EBUSY:
+                    BMCWEB_LOG_ERROR << "Signal received: EAGAIN";
+                    messages::resourceInUse(asyncResp->res);
+                    break;
+                default:
+                    BMCWEB_LOG_ERROR << "Signal received: Other: " << errorCode;
+                    messages::operationFailed(asyncResp->res);
+                    break;
+            };
+        }
+        catch (sdbusplus::exception::SdBusError& e)
+        {
+            BMCWEB_LOG_ERROR << e.what();
+        };
+        // postpone matcher deletion after callback finishes
+        boost::asio::post(crow::connections::systemBus->get_io_context(),
+                          [name, matchWrapper = matchWrapper]()
+
+                          {
+                              BMCWEB_LOG_DEBUG << "Removing matcher for "
+                                               << name << " node.";
+                              matchWrapper->stop();
+                          });
+    };
+    matchWrapper->timer.emplace(crow::connections::systemBus->get_io_context());
+
+    // Safety valve. Clean itself after 3 minutes without signal
+    matchWrapper->timer->expires_after(std::chrono::minutes(3));
+    matchWrapper->timer->async_wait(
+        [matchWrapper](const boost::system::error_code& ec) {
+            if (ec != boost::asio::error::operation_aborted)
+            {
+                BMCWEB_LOG_DEBUG << "Timer expired! Signal did not come";
+                matchWrapper->matcher = std::nullopt;
+                return;
+            }
+        });
+
+    matchWrapper->matcher.emplace(*crow::connections::systemBus, matcherString,
+                                  matchHandler);
+    return matchWrapper;
+}
+
+/**
  * @brief Function transceives data with dbus directly.
  *
  * All BMC state properties will be retrieved before sending reset request.
@@ -799,23 +925,46 @@ inline void doMountVmLegacy(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
             });
     }
 
+    const std::string objectPath =
+        "/xyz/openbmc_project/VirtualMedia/Legacy/" + name;
+    const std::string action = "VirtualMedia.Insert";
+    auto wrapper =
+        doListenForCompletion(name, objectPath, action, true, asyncResp);
+
     crow::connections::systemBus->async_method_call(
-        [asyncResp, secretPipe](const boost::system::error_code ec,
-                                bool success) {
+        [asyncResp, secretPipe, name, action, wrapper,
+         objectPath](const boost::system::error_code ec, bool success) {
             if (ec)
             {
                 BMCWEB_LOG_ERROR << "Bad D-Bus request error: " << ec;
-                messages::internalError(asyncResp->res);
+                if (ec == boost::system::errc::device_or_resource_busy)
+                {
+                    messages::resourceInUse(asyncResp->res);
+                }
+                else if (ec == boost::system::errc::permission_denied)
+                {
+                    messages::accessDenied(asyncResp->res,
+                                           crow::utility::urlFromPieces(
+                                               "redfish", "v1", "Managers",
+                                               "bmc", "VirtualMedia", name,
+                                               "Actions", action));
+                }
+                else
+                {
+                    messages::internalError(asyncResp->res);
+                }
+                wrapper->stop();
+                return;
             }
-            else if (!success)
+            if (!success)
             {
-                BMCWEB_LOG_ERROR << "Service responded with error";
-                messages::generalError(asyncResp->res);
+                BMCWEB_LOG_ERROR << "Service responded with error ";
+                messages::operationFailed(asyncResp->res);
+                wrapper->stop();
             }
         },
-        service, "/xyz/openbmc_project/VirtualMedia/Legacy/" + name,
-        "xyz.openbmc_project.VirtualMedia.Legacy", "Mount", imageUrl, rw,
-        unixFd);
+        service, objectPath, "xyz.openbmc_project.VirtualMedia.Legacy", "Mount",
+        imageUrl, rw, unixFd);
 }
 
 /**
@@ -827,38 +976,48 @@ inline void doEjectAction(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                           const std::string& service, const std::string& name,
                           bool legacy)
 {
+    const std::string vmMode = getModeName(legacy);
+    const std::string objectPath =
+        "/xyz/openbmc_project/VirtualMedia/" + vmMode + "/" + name;
+    const std::string ifaceName = "xyz.openbmc_project.VirtualMedia." + vmMode;
+    std::string action = "VirtualMedia.Eject";
 
-    // Legacy mount requires parameter with image
-    if (legacy)
-    {
-        crow::connections::systemBus->async_method_call(
-            [asyncResp](const boost::system::error_code ec) {
-                if (ec)
+    auto wrapper =
+        doListenForCompletion(name, objectPath, action, legacy, asyncResp);
+
+    crow::connections::systemBus->async_method_call(
+        [asyncResp, name, action, objectPath,
+         wrapper](const boost::system::error_code ec, bool success) {
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR << "Bad D-Bus request error: " << ec;
+                if (ec == boost::system::errc::device_or_resource_busy)
                 {
-                    BMCWEB_LOG_ERROR << "Bad D-Bus request error: " << ec;
-
-                    messages::internalError(asyncResp->res);
-                    return;
+                    messages::resourceInUse(asyncResp->res);
                 }
-            },
-            service, "/xyz/openbmc_project/VirtualMedia/Legacy/" + name,
-            "xyz.openbmc_project.VirtualMedia.Legacy", "Unmount");
-    }
-    else // proxy
-    {
-        crow::connections::systemBus->async_method_call(
-            [asyncResp](const boost::system::error_code ec) {
-                if (ec)
+                else if (ec == boost::system::errc::permission_denied)
                 {
-                    BMCWEB_LOG_ERROR << "Bad D-Bus request error: " << ec;
-
-                    messages::internalError(asyncResp->res);
-                    return;
+                    messages::accessDenied(asyncResp->res,
+                                           crow::utility::urlFromPieces(
+                                               "redfish", "v1", "Managers",
+                                               "bmc", "VirtualMedia", name,
+                                               "Actions", action));
                 }
-            },
-            service, "/xyz/openbmc_project/VirtualMedia/Proxy/" + name,
-            "xyz.openbmc_project.VirtualMedia.Proxy", "Unmount");
-    }
+                else
+                {
+                    messages::internalError(asyncResp->res);
+                }
+                wrapper->stop();
+                return;
+            }
+
+            if (!success)
+            {
+                messages::operationFailed(asyncResp->res);
+                wrapper->stop();
+            }
+        },
+        service, objectPath, ifaceName, "Unmount");
 }
 
 struct InsertMediaActionParams
@@ -881,7 +1040,7 @@ inline void requestNBDVirtualMediaRoutes(App& app)
         auto mode = item.first.parent_path();
         auto type = mode.parent_path();
         // Check if dbus path is Legacy type
-        if (mode.filename() == "Legacy")
+        if (mode.filename() == legacyMode)
         {
             BMCWEB_LOG_DEBUG << "InsertMedia only allowed "
                                 "with POST method "
@@ -891,7 +1050,7 @@ inline void requestNBDVirtualMediaRoutes(App& app)
             return true;
         }
         // Check if dbus path is Proxy type
-        if (mode.filename() == "Proxy")
+        if (mode.filename() == proxyMode)
         {
             // Not possible in proxy mode
             BMCWEB_LOG_DEBUG << "InsertMedia not "
@@ -953,7 +1112,7 @@ inline void requestNBDVirtualMediaRoutes(App& app)
                                   dbus::utility::DBusInteracesMap>& item) {
                         auto mode = item.first.parent_path();
                         auto type = mode.parent_path();
-                        if (mode.filename() == "Proxy")
+                        if (mode.filename() == proxyMode)
                         {
                             // Not possible in proxy mode
                             BMCWEB_LOG_DEBUG << "InsertMedia not "
@@ -1070,7 +1229,7 @@ inline void requestNBDVirtualMediaRoutes(App& app)
 
                                     if (path.substr(lastIndex) == resName)
                                     {
-                                        lastIndex = path.rfind("Proxy");
+                                        lastIndex = path.rfind(proxyMode);
                                         if (lastIndex != std::string::npos)
                                         {
                                             // Proxy mode
@@ -1078,7 +1237,8 @@ inline void requestNBDVirtualMediaRoutes(App& app)
                                                           resName, false);
                                         }
 
-                                        lastIndex = path.rfind("Legacy");
+                                        lastIndex = path.rfind(legacyMode);
+
                                         if (lastIndex != std::string::npos)
                                         {
                                             // Legacy mode
