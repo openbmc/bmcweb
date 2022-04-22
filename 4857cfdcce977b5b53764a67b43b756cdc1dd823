@@ -93,6 +93,30 @@
       },
       "revId": "4857cfdcce977b5b53764a67b43b756cdc1dd823",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "14449c46_4d036574",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-04-22T03:41:51Z",
+      "side": 1,
+      "message": "\u003e \u003e This is a limitation of current implementation of OpenBMC network stack, including phosphor-networkd, systemd-networkd and linux.\n\u003e \u003e \n\u003e \u003e In OpenBMC, VLAN interfaces uses the standard \"interface-name.VLAN-ID\" naming like eth0.2. Though code can be implemented to change the vlan id at runtime, but the interface name should also be changed, like eth0.2 -\u003e eth0.3, then the correspoding redfish endpoint URL will also be changed, which does not follows the redfish spec. 301 Moved Permanently is not a valid response for redfish PATCH requests.\n\u003e \u003e \n\u003e \u003e A dirty workaround can be making it able to set the vlan id of eth0.2 to a non-2 value in networkd, but it would be really confusing for users if eth0.2 actually operates with vlan id 3.\n\u003e \n\u003e Wouldn\u0027t the dbus path need to change though?  Maybe the vlanid shouldn\u0027t be in the dbus path name?\n\u003e \n\nI think the answer is no. The dbus path uses standard linux interface naming, except that `.` is replaced by `_`. In linux naming, vlan interfaces contains its vlan ID.",
+      "parentUuid": "e8498310_84bce404",
+      "range": {
+        "startLine": 11,
+        "startChar": 14,
+        "endLine": 11,
+        "endChar": 57
+      },
+      "revId": "4857cfdcce977b5b53764a67b43b756cdc1dd823",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

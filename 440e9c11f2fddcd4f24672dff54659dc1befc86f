@@ -16,6 +16,24 @@
       "message": "The first step on this patch is to fix the dbus interface.  If vlanId can\u0027t be set, then at a dbus level, phosphor-networkd shouldn\u0027t allow setting it, and should return the appropriate error code.\n\nAfter that, this patchset would then pick up the error code and return the correct response.",
       "revId": "440e9c11f2fddcd4f24672dff54659dc1befc86f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a5a4fa6f_14bfbc2a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-04-22T03:41:51Z",
+      "side": 1,
+      "message": "Yes, I\u0027ve submitted a patchset at https://gerrit.openbmc-project.xyz/c/openbmc/phosphor-dbus-interfaces/+/52947 to disable writing vlanID property. Being able to write the vlanID property seems to be a bug as it actually changes nothing.",
+      "parentUuid": "119f3ebf_58c3be3d",
+      "revId": "440e9c11f2fddcd4f24672dff54659dc1befc86f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
