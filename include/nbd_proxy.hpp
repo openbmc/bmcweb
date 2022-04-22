@@ -413,9 +413,9 @@ inline void requestRoutes(App& app)
                     BMCWEB_LOG_DEBUG << "No session to close";
                     return;
                 }
+                session->second->close();
                 // Remove reference to session in global map
                 sessions.erase(session);
-                session->second->close();
             })
         .onmessage([](crow::websocket::Connection& conn,
                       const std::string& data, bool) {
