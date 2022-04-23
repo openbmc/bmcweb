@@ -45,6 +45,29 @@
       },
       "revId": "5641616cbda87cc244ba40f666946968aeb05d72",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0239b228_cf1acc51",
+        "filename": "redfish-core/include/utils/query_param_test.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-04-23T00:47:56Z",
+      "side": 1,
+      "message": "This is an example case that old code missed.",
+      "range": {
+        "startLine": 225,
+        "startChar": 4,
+        "endLine": 230,
+        "endChar": 61
+      },
+      "revId": "5641616cbda87cc244ba40f666946968aeb05d72",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
