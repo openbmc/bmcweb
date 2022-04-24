@@ -70,6 +70,30 @@
       },
       "revId": "86653d8fb4be14287edd4e6d12197c9209bb2e89",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f543cfb7_94143328",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-04-24T16:36:24Z",
+      "side": 1,
+      "message": "In OpenBMC and linux, VLANs are represented as \"virtual interfaces\" like eth0.100 for VLAN ID 100, as long as the untagged \"base interface\" eth0. So for each interface, it can have either none or one VLAN ID. The association is represented by the interface name.",
+      "parentUuid": "faeba811_e7fdda46",
+      "range": {
+        "startLine": 9,
+        "startChar": 49,
+        "endLine": 10,
+        "endChar": 26
+      },
+      "revId": "86653d8fb4be14287edd4e6d12197c9209bb2e89",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
