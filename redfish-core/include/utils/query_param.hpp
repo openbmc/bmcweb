@@ -5,7 +5,12 @@
 #include "http_request.hpp"
 #include "routing.hpp"
 
+#include <boost/algorithm/string.hpp>
+#include <boost/container/flat_set.hpp>
+
+#include <array>
 #include <charconv>
+#include <span>
 #include <string>
 #include <string_view>
 #include <utility>
@@ -32,6 +37,8 @@ struct Query
     // Expand
     uint8_t expandLevel = 0;
     ExpandType expandType = ExpandType::None;
+    // Select
+    std::vector<std::string> selectedProperties = {};
 };
 
 // The struct defines how resource handlers in redfish-core/lib/ can handle
@@ -41,6 +48,7 @@ struct QueryCapabilities
 {
     bool canDelegateOnly = false;
     uint8_t canDelegateExpandLevel = 0;
+    bool canDelegateSelect = false;
 };
 
 // Delegates query parameters according to the given |queryCapabilities|
@@ -72,6 +80,12 @@ inline Query delegate(const QueryCapabilities& queryCapabilities, Query& query)
             query.expandLevel -= queryCapabilities.canDelegateExpandLevel;
             delegated.expandLevel = queryCapabilities.canDelegateExpandLevel;
         }
+    }
+    // delegate select
+    if (!query.selectedProperties.empty() &&
+        queryCapabilities.canDelegateSelect)
+    {
+        std::swap(delegated.selectedProperties, query.selectedProperties);
     }
     return delegated;
 }
@@ -146,6 +160,11 @@ inline std::optional<Query>
                 messages::queryParameterValueFormatError(res, value, key);
                 return std::nullopt;
             }
+        }
+        else if (key == "$select")
+        {
+            // TODO(nanzhou): check if these properties are valid?
+            boost::split(ret.selectedProperties, value, boost::is_any_of(","));
         }
         else
         {
@@ -322,38 +341,124 @@ inline std::vector<ExpandNode>
 }
 
 // Formats a query parameter string for the sub-query.
-// This function shall handle $select when it is added.
+// This function handles $select when doing sub-query.
 // There is no need to handle parameters that's not campatible with $expand,
 // e.g., $only, since this function will only be called in side $expand handlers
 inline std::string formatQueryForExpand(const Query& query)
 {
-    // query.expandLevel<=1: no need to do subqueries
-    if (query.expandLevel <= 1)
+    std::string str;
+    if (query.expandLevel >= 2 && query.expandType != ExpandType::None)
     {
-        return "";
+        // there needs further $expand
+        str += "?$expand=";
+        switch (query.expandType)
+        {
+            case ExpandType::Links:
+                str += '~';
+                break;
+            case ExpandType::NotLinks:
+                str += '.';
+                break;
+            case ExpandType::Both:
+                str += '*';
+                break;
+            default:
+                // This shall never happen
+                str = "";
+        }
+        str += "($levels=";
+        str += std::to_string(query.expandLevel - 1);
+        str += ')';
     }
-    std::string str = "?$expand=";
-    switch (query.expandType)
+    if (query.selectedProperties.empty())
     {
-        case ExpandType::None:
-            return "";
-        case ExpandType::Links:
-            str += '~';
-            break;
-        case ExpandType::NotLinks:
-            str += '.';
-            break;
-        case ExpandType::Both:
-            str += '*';
-            break;
-        default:
-            return "";
+        return str;
     }
-    str += "($levels=";
-    str += std::to_string(query.expandLevel - 1);
-    str += ')';
+    str += str.empty() ? '?' : '&';
+    str += "$select=";
+    str += boost::join(query.selectedProperties, ",");
     return str;
 }
+
+inline void
+    recursiveSelect(const nlohmann::json& currRoot,
+                    const nlohmann::json::json_pointer& currRootPtr,
+                    const std::string& prefix, bool parentSelected,
+                    const boost::container::flat_set<std::string>& shouldSelect,
+                    std::vector<nlohmann::json::json_pointer>& selected)
+{
+    // If the current node is not a value type, we do recursion
+    const nlohmann::json::object_t* object =
+        currRoot.get_ptr<const nlohmann::json::object_t*>();
+    if (object != nullptr)
+    {
+        BMCWEB_LOG_DEBUG << "Current JSON is an object "
+                         << currRootPtr.to_string();
+        for (const auto& [k, v] : currRoot.items())
+        {
+            std::string newPrefix = prefix.empty() ? k : (prefix + "/" + k);
+            // do recursion; if the entire current tree is selected, set
+            // |parentSelected| to true for recursions
+            recursiveSelect(v, currRootPtr / k, newPrefix,
+                            parentSelected || shouldSelect.contains(newPrefix),
+                            shouldSelect, selected);
+        }
+        return;
+    }
+    const nlohmann::json::array_t* array =
+        currRoot.get_ptr<const nlohmann::json::array_t*>();
+    if (array != nullptr)
+    {
+        BMCWEB_LOG_DEBUG << "Current JSON is an array "
+                         << currRootPtr.to_string();
+        for (size_t i = 0; i < array->size(); ++i)
+        {
+            nlohmann::json::json_pointer newPtr = currRootPtr / i;
+            recursiveSelect((*array)[i], currRootPtr / i, prefix,
+                            parentSelected, shouldSelect, selected);
+        }
+        return;
+    }
+    BMCWEB_LOG_DEBUG << "Current JSON is a property value: " << currRootPtr;
+    // otherwise, determine if we select this property
+    if (parentSelected || shouldSelect.contains(prefix))
+    {
+        selected.push_back(currRootPtr);
+        return;
+    }
+    // per the Redfish spec, the service shall select certain properties as if
+    // $select was omitted.
+    constexpr std::array<std::string_view, 4> odataProperties = {
+        "@odata.id", "@odata.type", "@odata.context", "@odata.etag"};
+    if (std::any_of(odataProperties.begin(), odataProperties.end(),
+                    [&prefix](std::string_view str) { return str == prefix; }))
+    {
+        selected.push_back(currRootPtr);
+    }
+}
+
+inline nlohmann::json performSelect(const nlohmann::json& root,
+                                    std::span<const std::string> shouldSelect)
+{
+    std::vector<nlohmann::json::json_pointer> selected;
+    // start recursion at the root
+    recursiveSelect(root, nlohmann::json::json_pointer(""), "", false,
+                    {shouldSelect.begin(), shouldSelect.end()}, selected);
+    BMCWEB_LOG_DEBUG << "Selected size: " << selected.size();
+    if (selected.empty())
+    {
+        return nlohmann::json{};
+    }
+    nlohmann::json res;
+    for (auto const& ptr : selected)
+    {
+        if (std::move(root[ptr]).is_object())
+        {}
+        res[ptr.to_string()] = std::move(root[ptr]);
+    }
+    BMCWEB_LOG_DEBUG << "Flattened selected tree: " << res.dump(2);
+    return res.unflatten();
+};
 
 class MultiAsyncResp : public std::enable_shared_from_this<MultiAsyncResp>
 {
@@ -388,6 +493,13 @@ class MultiAsyncResp : public std::enable_shared_from_this<MultiAsyncResp>
     // for deeper levels.
     void startQuery(const Query& query)
     {
+        // perform $select if any first
+        if (!query.selectedProperties.empty())
+        {
+            finalRes->res.jsonValue = performSelect(finalRes->res.jsonValue,
+                                                    query.selectedProperties);
+        }
+        // then find all nodes that need to expand
         std::vector<ExpandNode> nodes =
             findNavigationReferences(query.expandType, finalRes->res.jsonValue);
         BMCWEB_LOG_DEBUG << nodes.size() << " nodes to traverse";
@@ -427,8 +539,17 @@ class MultiAsyncResp : public std::enable_shared_from_this<MultiAsyncResp>
 };
 
 inline void
-    processAllParams(crow::App& app, const Query query,
+    processSelect(crow::Response& intermediateResponse,
+                  std::span<const std::string> shouldSelect,
+                  std::function<void(crow::Response&)>& completionHandler)
+{
+    intermediateResponse.jsonValue =
+        performSelect(intermediateResponse.jsonValue, shouldSelect);
+    completionHandler(intermediateResponse);
+}
 
+inline void
+    processAllParams(crow::App& app, const Query query,
                      std::function<void(crow::Response&)>& completionHandler,
                      crow::Response& intermediateResponse)
 {
@@ -454,7 +575,8 @@ inline void
     }
     if (query.expandType != ExpandType::None)
     {
-        BMCWEB_LOG_DEBUG << "Executing expand query";
+        BMCWEB_LOG_DEBUG
+            << "Executing expand query (with other query parameters combinations)";
         // TODO(ed) this is a copy of the response object.  Admittedly,
         // we're inherently doing something inefficient, but we shouldn't
         // have to do a full copy
@@ -463,8 +585,16 @@ inline void
         asyncResp->res.jsonValue = std::move(intermediateResponse.jsonValue);
         auto multi = std::make_shared<MultiAsyncResp>(app, asyncResp);
 
-        // Start the Expand query
+        // Start the Expand query; note that |MultiAsyncResp| handles parameters
+        // combined with $expand, e.g., $select
         multi->startQuery(query);
+        return;
+    }
+    if (!query.selectedProperties.empty())
+    {
+        BMCWEB_LOG_DEBUG << "Executing select query";
+        processSelect(intermediateResponse, query.selectedProperties,
+                      completionHandler);
         return;
     }
     completionHandler(intermediateResponse);
