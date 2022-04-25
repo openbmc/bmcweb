@@ -74,6 +74,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "855bd704_9bd8bda1",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 889,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-25T02:37:05Z",
+      "side": 1,
+      "message": "InternalError is the correct answer here.  If we get a dbus interface that\u0027s invalid from within the system, there\u0027s nothing a client can do to resolve it, so we return 500, internal error, because someone on dbus broke the contract.",
+      "parentUuid": "b6acb844_791e001b",
+      "revId": "d2a139093b135fb804eca7534dbc299f36f8d092",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "377ff6f9_4a206e54",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 13
@@ -144,6 +162,30 @@
       "side": 1,
       "message": "will sync up in a different change if needed.",
       "parentUuid": "b764a7d8_e5eca5c5",
+      "range": {
+        "startLine": 966,
+        "startChar": 45,
+        "endLine": 966,
+        "endChar": 56
+      },
+      "revId": "d2a139093b135fb804eca7534dbc299f36f8d092",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e12a253c_d022a2c5",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 966,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-25T02:37:05Z",
+      "side": 1,
+      "message": "arguably they should both be \"software\" so we can reuse this on software inventory, but the getFwStatus existed before.  I don\u0027t have a strong opinion here, but if gunnar really wants it, I\u0027m happy to wait for something renaming this method.",
+      "parentUuid": "6b7b62a9_4ed6a56a",
       "range": {
         "startLine": 966,
         "startChar": 45,

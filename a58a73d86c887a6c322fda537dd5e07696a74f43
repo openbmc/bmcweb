@@ -46,6 +46,132 @@
       },
       "revId": "a58a73d86c887a6c322fda537dd5e07696a74f43",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "24d71639_2ba08828",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 842,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-25T02:37:05Z",
+      "side": 1,
+      "message": "I see what you did here, and while it\u0027s clever, I don\u0027t think it solves the problem.  The issue here is that just adding these generic things to the description doesn\u0027t really help to determine what it should be used for.  Some common things that this doesn\u0027t solve:\n\nWhat if there are two hosts?  What if there are two different types of hosts?\n\nWhat if there are multiple types of BMC?\n\nWhat would a user do with an \"Other\" description?\n\nWhat would a user do with an \"Unknown\" description?\n\n\nThere was a description on this with the VR work that other google guys are doing, in that there\u0027s a compatibility string, I suspect this patchset needs to incorporate some of that in its design.",
+      "revId": "a58a73d86c887a6c322fda537dd5e07696a74f43",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c6122c9e_b5e27161",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 845,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-25T02:37:05Z",
+      "side": 1,
+      "message": "Please put the code move in its own patch.  It\u0027s difficult to determine which parts you changed, because they\u0027re not called out.  I didn\u0027t realize that this code was moved, so if any of what I mentioned is a bug on master already, feel free to ignore it in the context of this review (although we should fix it anyway).",
+      "range": {
+        "startLine": 845,
+        "startChar": 0,
+        "endLine": 845,
+        "endChar": 75
+      },
+      "revId": "a58a73d86c887a6c322fda537dd5e07696a74f43",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e6b9741a_70ff482c",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 872,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-25T02:37:05Z",
+      "side": 1,
+      "message": "all of these need to be internalError().  The user did not supply Purpose, so we shouldn\u0027t be telling them they supplied it incorrectly.",
+      "range": {
+        "startLine": 872,
+        "startChar": 0,
+        "endLine": 872,
+        "endChar": 76
+      },
+      "revId": "a58a73d86c887a6c322fda537dd5e07696a74f43",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "902fbda6_fb4a447d",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 892,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-25T02:37:05Z",
+      "side": 1,
+      "message": "Like I said above, this needs some more thought, the intent needs documented in the commit message, and we need to have a discussion around how the \"compatible\" strings would work here.  I don\u0027t necessarily know all the intent here (maybe Gunnar knows more?) so we might also want to discuss with DMTF if Description is intended to be used to identify which fields are used for which properties.",
+      "revId": "a58a73d86c887a6c322fda537dd5e07696a74f43",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "439afc19_017e9263",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 924,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-25T02:37:05Z",
+      "side": 1,
+      "message": "FWIW, we tend to not throw internal errors on missing properties (yes, there are counter examples) because dbus interfaces aren\u0027t versioned, and have removed/renamed fields in the past.",
+      "range": {
+        "startLine": 913,
+        "startChar": 0,
+        "endLine": 924,
+        "endChar": 13
+      },
+      "revId": "a58a73d86c887a6c322fda537dd5e07696a74f43",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "98128f73_81c15d9b",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 1022,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-25T02:37:05Z",
+      "side": 1,
+      "message": "Do all known clients expose objects at this path?  Why would we want to make this more specific?  It seems like risk to this patchset, which we can discuss, but seems unrelated to the change being made.",
+      "range": {
+        "startLine": 1022,
+        "startChar": 17,
+        "endLine": 1022,
+        "endChar": 46
+      },
+      "revId": "a58a73d86c887a6c322fda537dd5e07696a74f43",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
