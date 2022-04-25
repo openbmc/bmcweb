@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b2cbd688_7a062938",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1001026
+      },
+      "writtenOn": "2022-04-25T13:45:24Z",
+      "side": 1,
+      "message": "It is not an url, it is relative path, which should always be \"TelemetryService/{SomeID}\", so I thought that object_path semantics would be good here. But it turned out, that sdbusplus object_path should not work with relative paths, according to the comment in: https://github.com/openbmc/sdbusplus/blob/master/src/message/native_types.cpp\n\n  std::string string_path_wrapper::filename() const\n  {\n    ...\n    // Dbus paths must start with /, if we don\u0027t find one, it\u0027s an error\n    ...\n  }\n\nCurrently sdbusplus code doesn\u0027t really check if path starts with \u0027/\u0027, so my solution works just fine, but now I see that I should not take it for granted.\n\nSo in summary, we have relative path-like string. It is not an url and not an object_path. What do you suggest to parse it properly?",
+      "parentUuid": "08fe5823_f470c3ff",
+      "range": {
+        "startLine": 149,
+        "startChar": 0,
+        "endLine": 149,
+        "endChar": 53
+      },
+      "revId": "5abd3d43e7883ecbcf339f8a2c11fa9f2007dc23",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2e92eb35_fb7004c0",
         "filename": "redfish-core/lib/trigger.hpp",
         "patchSetId": 10
@@ -54,6 +78,30 @@
       "writtenOn": "2022-04-15T15:18:29Z",
       "side": 1,
       "message": "Sorry for not catching this sooner, filename() can fail, which needs checked.",
+      "range": {
+        "startLine": 158,
+        "startChar": 57,
+        "endLine": 158,
+        "endChar": 72
+      },
+      "revId": "5abd3d43e7883ecbcf339f8a2c11fa9f2007dc23",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8d9eca2c_a8428175",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1001026
+      },
+      "writtenOn": "2022-04-25T13:45:24Z",
+      "side": 1,
+      "message": "Ack, but lets discuss your comment above, before changing the code.",
+      "parentUuid": "2e92eb35_fb7004c0",
       "range": {
         "startLine": 158,
         "startChar": 57,
