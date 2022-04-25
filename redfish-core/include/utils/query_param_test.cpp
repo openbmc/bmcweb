@@ -83,7 +83,7 @@ TEST(FormatQueryForExpand, NoSubQuery)
               "");
 }
 
-TEST(FormatQueryForExpand, DelegateSubQuery)
+TEST(FormatQueryForExpand, Expand)
 {
     EXPECT_EQ(formatQueryForExpand(
                   Query{.expandLevel = 3, .expandType = ExpandType::Both}),
@@ -95,6 +95,64 @@ TEST(FormatQueryForExpand, DelegateSubQuery)
                   Query{.expandLevel = 2, .expandType = ExpandType::NotLinks}),
               "?$expand=.($levels=1)");
 }
+
+TEST(FormatQueryForExpand, Select)
+{
+    EXPECT_EQ(formatQueryForExpand(Query{.expandLevel = 1,
+                                         .expandType = ExpandType::Both,
+                                         .selectedProperties = {"foo", "bar"}}),
+              "?$select=foo,bar");
+    EXPECT_EQ(formatQueryForExpand(Query{.selectedProperties = {"foo", "bar"}}),
+              "?$select=foo,bar");
+}
+
+TEST(FormatQueryForExpand, ExpandAndSelect)
+{
+    EXPECT_EQ(
+        formatQueryForExpand(Query{.expandLevel = 2,
+                                   .expandType = ExpandType::NotLinks,
+                                   .selectedProperties = {"foo", "foo/bar"}}),
+        "?$expand=.($levels=1)&$select=foo,foo/bar");
+    EXPECT_EQ(
+        formatQueryForExpand(Query{.expandLevel = 3,
+                                   .expandType = ExpandType::Both,
+                                   .selectedProperties = {"foo", "foo/bar"}}),
+        "?$expand=*($levels=2)&$select=foo,foo/bar");
+}
+
+TEST(RecursiveSelect, SimpleObject)
+{
+    std::vector<std::string> shouldSelect = {"select_me"};
+    nlohmann::json root = R"({"select_me" : "foo", "omit_me" : "bar"})"_json;
+
+    EXPECT_EQ(performSelect(root, shouldSelect),
+              R"({"select_me" : "foo"})"_json);
+}
+
+TEST(RecursiveSelect, NestedObject)
+{
+    std::vector<std::string> shouldSelect = {"select_me", "prefix0",
+                                             "prefix0/explicit_select_me",
+                                             "prefix1/select_me"};
+    nlohmann::json root =
+        R"({"select_me" : ["foo"], "omit_me" : "bar", "prefix0": {"explicit_select_me" : "123", "implicit_select_me": "456"}, "prefix1": [{"select_me" : "123"}, {"omit_me": "456"}]})"_json;
+
+    EXPECT_EQ(
+        performSelect(root, shouldSelect),
+        R"({"select_me" : ["foo"], "prefix0": {"explicit_select_me" : "123", "implicit_select_me": "456"}, "prefix1": [{"select_me" : "123"}]})"_json);
+}
+
+TEST(RecursiveSelect, OdataProperties)
+{
+    nlohmann::json root =
+        R"({"omit_me" : "bar", "@odata.id" : 1, "@odata.type":2, "@odata.context":3, "@odata.etag":4})"_json;
+    EXPECT_EQ(
+        performSelect(root, {}),
+        R"({"@odata.id" : 1, "@odata.type":2, "@odata.context":3, "@odata.etag":4})"_json);
+}
+
+TEST(RecursiveSelect, ImplicitPropertiesAreSelected)
+{}
 
 } // namespace
 } // namespace redfish::query_param
@@ -125,6 +183,22 @@ TEST(QueryParams, ParseParametersExpand)
     std::optional<Query> query = parseParameters(ret->params(), res);
     ASSERT_TRUE(query != std::nullopt);
     EXPECT_TRUE(query->expandType == redfish::query_param::ExpandType::Both);
+}
+
+TEST(QueryParams, ParseParametersSelect)
+{
+    auto ret =
+        boost::urls::parse_relative_ref("/redfish/v1?$select=foo,bar,foo/bar");
+    ASSERT_TRUE(ret);
+
+    crow::Response res;
+
+    using redfish::query_param::parseParameters;
+    using redfish::query_param::Query;
+    std::optional<Query> query = parseParameters(ret->params(), res);
+    ASSERT_TRUE(query != std::nullopt);
+    EXPECT_THAT(query->selectedProperties,
+                testing::UnorderedElementsAre("foo", "bar", "foo/bar"));
 }
 
 TEST(QueryParams, ParseParametersUnexpectedGetsIgnored)
