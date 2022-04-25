@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6c2606b8_b107efef",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-04-25T20:10:35Z",
+      "side": 1,
+      "message": "I have completely removed that struct in favor of using boost::urls::url as the container for the satellite config information.",
+      "parentUuid": "065b6bf8_498a4fe8",
+      "range": {
+        "startLine": 73,
+        "startChar": 0,
+        "endLine": 77,
+        "endChar": 25
+      },
+      "revId": "22bf54deca23cba52805cf71678bbd9d09406ef9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "27f4d22b_05717ef0",

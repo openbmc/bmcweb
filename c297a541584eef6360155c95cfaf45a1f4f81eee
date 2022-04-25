@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c52ca7f6_cefe4456",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 580,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-04-25T20:10:35Z",
+      "side": 1,
+      "message": "I have added the match",
+      "parentUuid": "e677fe09_adf09f4b",
+      "revId": "c297a541584eef6360155c95cfaf45a1f4f81eee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "42e42708_00f2ee8f",
@@ -55,6 +73,30 @@
       "side": 1,
       "message": "+1..... please break this method up a bit.  At a minimum, drop the entire contents of the lambda into its own method, outside of the class definition.",
       "parentUuid": "42e42708_00f2ee8f",
+      "range": {
+        "startLine": 599,
+        "startChar": 0,
+        "endLine": 599,
+        "endChar": 54
+      },
+      "revId": "c297a541584eef6360155c95cfaf45a1f4f81eee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ca0b80d1_1345ca2f",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 599,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-04-25T20:10:35Z",
+      "side": 1,
+      "message": "I have broken up the method.  HttpClient() now only calls registerSatelliteConfigSignal() to register a D-Bus match for satellite configs and getSatelliteConfigs() which queries the D-Bus for satellite config information.  The parsing of the properties of a single satellite config object is further separated into parseSatelliteConfig().\n\nThe match event handler ultimately calls getSatelliteConfigs().",
+      "parentUuid": "1511db97_4ff17fde",
       "range": {
         "startLine": 599,
         "startChar": 0,
