@@ -1154,10 +1154,74 @@ inline void getAutomaticRetry(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
                     "Disabled";
             }
 
-            // Not on D-Bus. Hardcoded here:
-            // https://github.com/openbmc/phosphor-state-manager/blob/1dbbef42675e94fb1f78edb87d6b11380260535a/meson_options.txt#L71
-            aResp->res.jsonValue["Boot"]["AutomaticRetryAttempts"] = 3;
+            if (autoRebootEnabled)
+            {
+                crow::connections::systemBus->async_method_call(
+                    [aResp](const boost::system::error_code ec3,
+                            const dbus::utility::MapperGetSubTreeResponse&
+                                subtree) {
+                        if (ec3)
+                        {
+                            BMCWEB_LOG_DEBUG << "D-BUS response error" << ec3;
+                            return;
+                        }
+                        if (subtree.empty())
+                        {
+                            // Since autoreboot is enabled there should be a
+                            // value set.
+                            BMCWEB_LOG_DEBUG
+                                << "allowed automatic reboot attempts enabled but not set";
+                        }
+                        if (subtree.size() > 1)
+                        {
+                            BMCWEB_LOG_DEBUG
+                                << "DBUS response has more than 1 automatic retry attempts set"
+                                << subtree.size();
+                            // throw an error
+                            messages::internalError(aResp->res);
+                            return;
+                        }
+                        if (subtree[0].first.empty() ||
+                            subtree[0].second.size() != 1)
+                        {
+                            BMCWEB_LOG_DEBUG
+                                << "RebootAttempts.Policy mapper error!";
+                            messages::internalError(aResp->res);
+                            return;
+                        }
 
+                        const std::string& path = subtree[0].first;
+                        const std::string& serv =
+                            subtree[0].second.begin()->first;
+
+                        // Valid RebootAttempts found, read the value
+                        sdbusplus::asio::getProperty<uint32_t>(
+                            *crow::connections::systemBus, serv, path,
+                            "xyz.openbmc_project.Control.Boot.RebootAttempts",
+                            "AttemptLeft",
+                            [aResp](const boost::system::error_code ec3,
+                                    uint32_t attemptsLeft) {
+                                if (ec3)
+                                {
+                                    BMCWEB_LOG_DEBUG
+                                        << "Dbus response error on RebootAttempts.Policy Get"
+                                        << ec3;
+                                    messages::internalError(aResp->res);
+                                    return;
+                                }
+
+                                aResp->res.jsonValue["Boot"]
+                                                    ["AutomaticRetryAttempts"] =
+                                    attemptsLeft;
+                            });
+                    },
+                    "xyz.openbmc_project.ObjectMapper",
+                    "/xyz/openbmc_project/object_mapper",
+                    "xyz.openbmc_project.ObjectMapper", "GetSubTree", "/",
+                    int32_t(0),
+                    std::array<const char*, 1>{
+                        "xyz.openbmc_project.Control.Boot.RebootAttempts"});
+            }
             // "AutomaticRetryConfig" can be 3 values, Disabled, RetryAlways,
             // and RetryAttempts. OpenBMC only supports Disabled and
             // RetryAttempts.
@@ -1166,6 +1230,133 @@ inline void getAutomaticRetry(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
                           ["AutomaticRetryConfig@Redfish.AllowableValues"] = {
                 "Disabled", "RetryAttempts"};
         });
+}
+
+/**
+ * @brief Sets automaticRety (AttemptsLeft)
+ *
+ * @param[in] aResp   Shared pointer for generating response message.
+ * @param[in] automaticRetryConfig  "AutomaticRetryConfig" from request.
+ *
+ *@return None.
+ */
+inline void
+    setAutomaticRetryAttempts(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+                              const uint32_t& attemptsLeft)
+{
+    BMCWEB_LOG_DEBUG << "Set Automatic Retry Attempts.";
+
+    crow::connections::systemBus->async_method_call(
+        [aResp,
+         attemptsLeft](const boost::system::error_code ec,
+                       dbus::utility::MapperGetSubTreeResponse& subtree) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG
+                    << "DBUS response error on RebootPolicy GetSubTree" << ec;
+                messages::internalError(aResp->res);
+                return;
+            }
+            if (subtree.empty())
+            {
+                messages::propertyValueNotInList(aResp->res, "RebootPolicy",
+                                                 "AutomaticRetryAttempts");
+                return;
+            }
+            // There needs to be two paths
+            if (subtree.size() == 1)
+            {
+                BMCWEB_LOG_DEBUG
+                    << "DBUS response did not report 2 paths, two are needed RebootAttempts and RebootPolicy.";
+                messages::internalError(aResp->res);
+                return;
+            }
+            if (subtree.size() > 2)
+            {
+                BMCWEB_LOG_DEBUG
+                    << "DBUS response gave more than the 2 required paths"
+                    << subtree.size();
+                // throw am internal error and return
+                messages::internalError(aResp->res);
+                return;
+            }
+            if (subtree[0].first.empty() || subtree[0].second.size() != 1 ||
+                subtree[1].first.empty() || subtree[1].second.size() != 1)
+            {
+                BMCWEB_LOG_DEBUG << "BOOT.Policy mapper error!";
+                messages::internalError(aResp->res);
+                return;
+            }
+            const std::string& policyPath = subtree[0].first;
+            const std::string& policyServ = subtree[0].second.begin()->first;
+            if (policyServ.empty())
+            {
+                BMCWEB_LOG_DEBUG << "BOOT.Policy service mapper error!";
+                messages::internalError(aResp->res);
+                return;
+            }
+            sdbusplus::asio::getProperty<bool>(
+                *crow::connections::systemBus, policyServ, policyPath,
+                "xyz.openbmc_project.Control.Boot.RebootPolicy", "RebootPolicy",
+                [aResp, attemptsLeft,
+                 subtree](const boost::system::error_code ec2,
+                          bool autoRebootEnabled) {
+                    if (ec2)
+                    {
+                        BMCWEB_LOG_DEBUG
+                            << "DBUS response error in Boot.Policy Get" << ec2;
+                        messages::internalError(aResp->res);
+                        return;
+                    }
+
+                    if (autoRebootEnabled)
+                    {
+                        const std::string& attemptPath = subtree[1].first;
+                        const std::string& attemptServ =
+                            subtree[1].second.begin()->first;
+                        if (attemptServ.empty())
+                        {
+                            BMCWEB_LOG_DEBUG
+                                << "BOOT.Policy service mapper error!";
+                            messages::internalError(aResp->res);
+                            return;
+                        }
+                        // AutomaticReboots are enabled. RebootAttempts can be
+                        // set.
+                        crow::connections::systemBus->async_method_call(
+                            [aResp](const boost::system::error_code ec3) {
+                                if (ec3)
+                                {
+                                    BMCWEB_LOG_DEBUG
+                                        << "DBUS response error: Set AutomaticRebootAttempts"
+                                        << ec3;
+                                    messages::internalError(aResp->res);
+                                }
+
+                                BMCWEB_LOG_DEBUG
+                                    << "Set AutomaticRebootAttempts done.";
+                            },
+                            attemptServ, attemptPath,
+                            "org.freedesktop.Dbus.Properties", "Set",
+                            "xyz.openbmc_project.Control.Boot.RebootAttempts",
+                            "AttemptsLeft",
+                            dbus::utility::DbusVariantType(attemptsLeft));
+                    }
+
+                    else
+                    {
+                        BMCWEB_LOG_DEBUG
+                            << "Failed to set AutomaticRebbotAttempts. AutomaticReboot is not enabled";
+                    }
+                });
+        },
+
+        "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetSubTree", "/", int32_t(0),
+        std::array<const char*, 2>{
+            "xyz.openbmc_project.Control.Boot.RebootPolicy",
+            "xyz.openbmc_project.Control.Boot.RebootAttempts"});
 }
 
 /**
@@ -2675,18 +2866,15 @@ inline void requestRoutesSystemsCollection(App& app)
                         ifaceArray = nlohmann::json::array();
                         auto& count =
                             asyncResp->res.jsonValue["Members@odata.count"];
-
-                        nlohmann::json::object_t system;
-                        system["@odata.id"] = "/redfish/v1/Systems/system";
-                        ifaceArray.push_back(std::move(system));
+                        ifaceArray.push_back(
+                            {{"@odata.id", "/redfish/v1/Systems/system"}});
                         count = ifaceArray.size();
                         if (!ec)
                         {
                             BMCWEB_LOG_DEBUG << "Hypervisor is available";
-                            nlohmann::json::object_t hypervisor;
-                            hypervisor["@odata.id"] =
-                                "/redfish/v1/Systems/hypervisor";
-                            ifaceArray.push_back(std::move(hypervisor));
+                            ifaceArray.push_back(
+                                {{"@odata.id",
+                                  "/redfish/v1/Systems/hypervisor"}});
                             count = ifaceArray.size();
                         }
                     });
@@ -2886,56 +3074,54 @@ inline void requestRoutesSystems(App& app)
             asyncResp->res.jsonValue["@odata.id"] =
                 "/redfish/v1/Systems/system";
 
-            asyncResp->res.jsonValue["Processors"]["@odata.id"] =
-                "/redfish/v1/Systems/system/Processors";
-            asyncResp->res.jsonValue["Memory"]["@odata.id"] =
-                "/redfish/v1/Systems/system/Memory";
-            asyncResp->res.jsonValue["Storage"]["@odata.id"] =
-                "/redfish/v1/Systems/system/Storage";
+            asyncResp->res.jsonValue["Processors"] = {
+                {"@odata.id", "/redfish/v1/Systems/system/Processors"}};
+            asyncResp->res.jsonValue["Memory"] = {
+                {"@odata.id", "/redfish/v1/Systems/system/Memory"}};
+            asyncResp->res.jsonValue["Storage"] = {
+                {"@odata.id", "/redfish/v1/Systems/system/Storage"}};
 
-            asyncResp->res
-                .jsonValue["Actions"]["#ComputerSystem.Reset"]["target"] =
-                "/redfish/v1/Systems/system/Actions/ComputerSystem.Reset";
-            asyncResp->res.jsonValue["Actions"]["#ComputerSystem.Reset"]
-                                    ["@Redfish.ActionInfo"] =
-                "/redfish/v1/Systems/system/ResetActionInfo";
+            asyncResp->res.jsonValue["Actions"]["#ComputerSystem.Reset"] = {
+                {"target",
+                 "/redfish/v1/Systems/system/Actions/ComputerSystem.Reset"},
+                {"@Redfish.ActionInfo",
+                 "/redfish/v1/Systems/system/ResetActionInfo"}};
 
-            asyncResp->res.jsonValue["LogServices"]["@odata.id"] =
-                "/redfish/v1/Systems/system/LogServices";
-            asyncResp->res.jsonValue["Bios"]["@odata.id"] =
-                "/redfish/v1/Systems/system/Bios";
+            asyncResp->res.jsonValue["LogServices"] = {
+                {"@odata.id", "/redfish/v1/Systems/system/LogServices"}};
 
-            nlohmann::json::array_t managedBy;
-            nlohmann::json& manager = managedBy.emplace_back();
-            manager["@odata.id"] = "/redfish/v1/Managers/bmc";
-            asyncResp->res.jsonValue["Links"]["ManagedBy"] =
-                std::move(managedBy);
-            asyncResp->res.jsonValue["Status"]["Health"] = "OK";
-            asyncResp->res.jsonValue["Status"]["State"] = "Enabled";
+            asyncResp->res.jsonValue["Bios"] = {
+                {"@odata.id", "/redfish/v1/Systems/system/Bios"}};
+
+            asyncResp->res.jsonValue["Links"]["ManagedBy"] = {
+                {{"@odata.id", "/redfish/v1/Managers/bmc"}}};
+
+            asyncResp->res.jsonValue["Status"] = {
+                {"Health", "OK"},
+                {"State", "Enabled"},
+            };
 
             // Fill in SerialConsole info
             asyncResp->res.jsonValue["SerialConsole"]["MaxConcurrentSessions"] =
                 15;
-            asyncResp->res
-                .jsonValue["SerialConsole"]["IPMI"]["ServiceEnabled"] = true;
-
+            asyncResp->res.jsonValue["SerialConsole"]["IPMI"] = {
+                {"ServiceEnabled", true},
+            };
             // TODO (Gunnar): Should look for obmc-console-ssh@2200.service
-            asyncResp->res.jsonValue["SerialConsole"]["SSH"]["ServiceEnabled"] =
-                true;
-            asyncResp->res.jsonValue["SerialConsole"]["SSH"]["Port"] = 2200;
-            asyncResp->res
-                .jsonValue["SerialConsole"]["SSH"]["HotKeySequenceDisplay"] =
-                "Press ~. to exit console";
+            asyncResp->res.jsonValue["SerialConsole"]["SSH"] = {
+                {"ServiceEnabled", true},
+                {"Port", 2200},
+                // https://github.com/openbmc/docs/blob/master/console.md
+                {"HotKeySequenceDisplay", "Press ~. to exit console"},
+            };
 
 #ifdef BMCWEB_ENABLE_KVM
             // Fill in GraphicalConsole info
-            asyncResp->res.jsonValue["GraphicalConsole"]["ServiceEnabled"] =
-                true;
-            asyncResp->res
-                .jsonValue["GraphicalConsole"]["MaxConcurrentSessions"] = 4;
-            asyncResp->res.jsonValue["GraphicalConsole"]
-                                    ["ConnectTypesSupported"] = {"KVMIP"};
-
+            asyncResp->res.jsonValue["GraphicalConsole"] = {
+                {"ServiceEnabled", true},
+                {"MaxConcurrentSessions", 4},
+                {"ConnectTypesSupported", {"KVMIP"}},
+            };
 #endif // BMCWEB_ENABLE_KVM
             constexpr const std::array<const char*, 4> inventoryForSystems = {
                 "xyz.openbmc_project.Inventory.Item.Dimm",
@@ -2965,8 +3151,8 @@ inline void requestRoutesSystems(App& app)
             getMainChassisId(
                 asyncResp, [](const std::string& chassisId,
                               const std::shared_ptr<bmcweb::AsyncResp>& aRsp) {
-                    aRsp->res.jsonValue["Links"]["Chassis"]["@odata.id"] =
-                        "/redfish/v1/Chassis/" + chassisId;
+                    aRsp->res.jsonValue["Links"]["Chassis"] = {
+                        {{"@odata.id", "/redfish/v1/Chassis/" + chassisId}}};
                 });
 
             getLocationIndicatorActive(asyncResp);
@@ -3111,6 +3297,7 @@ inline void requestRoutesSystems(App& app)
  */
 inline void requestRoutesSystemResetActionInfo(App& app)
 {
+
     /**
      * Functions triggers appropriate requests on DBus
      */
@@ -3123,25 +3310,19 @@ inline void requestRoutesSystemResetActionInfo(App& app)
                 {
                     return;
                 }
-
-                asyncResp->res.jsonValue["@odata.id"] =
-                    "/redfish/v1/Systems/system/ResetActionInfo";
-                asyncResp->res.jsonValue["@odata.type"] =
-                    "#ActionInfo.v1_1_2.ActionInfo";
-                asyncResp->res.jsonValue["Name"] = "Reset Action Info";
-                asyncResp->res.jsonValue["Id"] = "ResetActionInfo";
-                asyncResp->res.jsonValue["Parameters"]["Name"] = "ResetType";
-                asyncResp->res.jsonValue["Parameters"]["Required"] = true;
-                asyncResp->res.jsonValue["Parameters"]["DataType"] = "String";
-                asyncResp->res.jsonValue["Parameters"]["AllowableValues"] = {
-                    "On",
-                    "ForceOff",
-                    "ForceOn",
-                    "ForceRestart",
-                    "GracefulRestart",
-                    "GracefulShutdown",
-                    "PowerCycle",
-                    "Nmi"};
+                asyncResp->res.jsonValue = {
+                    {"@odata.type", "#ActionInfo.v1_1_2.ActionInfo"},
+                    {"@odata.id", "/redfish/v1/Systems/system/ResetActionInfo"},
+                    {"Name", "Reset Action Info"},
+                    {"Id", "ResetActionInfo"},
+                    {"Parameters",
+                     {{{"Name", "ResetType"},
+                       {"Required", true},
+                       {"DataType", "String"},
+                       {"AllowableValues",
+                        {"On", "ForceOff", "ForceOn", "ForceRestart",
+                         "GracefulRestart", "GracefulShutdown", "PowerCycle",
+                         "Nmi"}}}}}};
             });
 }
 } // namespace redfish
