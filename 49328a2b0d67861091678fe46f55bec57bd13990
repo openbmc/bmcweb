@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "7c691935_0aac942b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-04-26T19:12:42Z",
+      "side": 1,
+      "message": "\"HostWatchdogTimer\": {\n                    \"$ref\": \"#/definitions/WatchdogTimer\",\n                    \"description\": \"The host watchdog timer functionality for this system.\",\n                    \"longDescription\": \"This object shall contain properties that describe the host watchdog timer functionality for this ComputerSystem.\",\n                    \"versionAdded\": \"v1_5_0\"\n                },",
+      "revId": "49328a2b0d67861091678fe46f55bec57bd13990",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "17cedd6b_ebc6791b",
@@ -14,6 +31,23 @@
       "writtenOn": "2022-04-26T15:53:36Z",
       "side": 1,
       "message": "Looks correct to me.",
+      "revId": "49328a2b0d67861091678fe46f55bec57bd13990",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cdfa78d2_0e0972dc",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 2201,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-04-26T19:12:42Z",
+      "side": 1,
+      "message": "Looks correct on the GET.",
       "revId": "49328a2b0d67861091678fe46f55bec57bd13990",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
