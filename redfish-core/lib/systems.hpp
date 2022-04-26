@@ -1107,57 +1107,98 @@ inline void getAutomaticRetry(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
 {
     BMCWEB_LOG_DEBUG << "Get Automatic Retry policy";
 
-    sdbusplus::asio::getProperty<bool>(
-        *crow::connections::systemBus, "xyz.openbmc_project.Settings",
-        "/xyz/openbmc_project/control/host0/auto_reboot",
-        "xyz.openbmc_project.Control.Boot.RebootPolicy", "AutoReboot",
-        [aResp](const boost::system::error_code ec, bool autoRebootEnabled) {
+    crow::connections::systemBus->async_method_call(
+        [aResp](const boost::system::error_code ec,
+                const dbus::utility::MapperGetSubTreeResponse& subtree) {
             if (ec)
             {
-                BMCWEB_LOG_DEBUG << "D-BUS response error " << ec;
+                BMCWEB_LOG_DEBUG << "D-BUS response error" << ec;
                 return;
             }
-
-            BMCWEB_LOG_DEBUG << "Auto Reboot: " << autoRebootEnabled;
-            if (autoRebootEnabled)
+            if (subtree.empty())
             {
-                aResp->res.jsonValue["Boot"]["AutomaticRetryConfig"] =
-                    "RetryAttempts";
-                // If AutomaticRetry (AutoReboot) is enabled see how many
-                // attempts are left
-                sdbusplus::asio::getProperty<uint32_t>(
-                    *crow::connections::systemBus,
-                    "xyz.openbmc_project.State.Host",
-                    "/xyz/openbmc_project/state/host0",
-                    "xyz.openbmc_project.Control.Boot.RebootAttempts",
-                    "AttemptsLeft",
-                    [aResp](const boost::system::error_code ec2,
-                            const uint32_t autoRebootAttemptsLeft) {
-                        if (ec2)
-                        {
-                            BMCWEB_LOG_DEBUG << "D-BUS response error " << ec2;
-                            return;
-                        }
 
-                        BMCWEB_LOG_DEBUG << "Auto Reboot Attempts Left: "
-                                         << autoRebootAttemptsLeft;
-
-                        aResp->res
-                            .jsonValue["Boot"]
-                                      ["RemainingAutomaticRetryAttempts"] =
-                            autoRebootAttemptsLeft;
-                    });
+                BMCWEB_LOG_DEBUG
+                    << "Could not find path to Boot.Control.RebootPolicy";
+                messages::internalError(aResp->res);
+                return;
             }
-            else
+            if (subtree.size() > 2)
             {
-                aResp->res.jsonValue["Boot"]["AutomaticRetryConfig"] =
-                    "Disabled";
+                BMCWEB_LOG_DEBUG
+                    << "DBUS response for Boot.Control.has more than 2 paths"
+                    << "For Boot.Control.RebootPolicy/BootControl.RebootAttempts"
+                    << subtree.size();
+                // throw an error
+                messages::internalError(aResp->res);
+                return;
             }
+            if (subtree[0].first.empty() || subtree[0].second.size() != 1 ||
+                subtree[1].first.empty() || subtree[1].second.size() != 1)
+            {
+                BMCWEB_LOG_DEBUG << "RebootPolicy/RebootAttempts mapper error!";
+                messages::internalError(aResp->res);
+                return;
+            }
+            const std::string& path = subtree[0].first;
+            const std::string& serv = subtree[0].second.begin()->first;
+            const std::string& attemptPath = subtree[1].first;
+            const std::string& attemptServ = subtree[1].second.begin()->first;
+            // Valid RebootAttempts found, read the value
+            sdbusplus::asio::getProperty<bool>(
+                *crow::connections::systemBus, serv, path,
+                "xyz.openbmc_project.Control.Boot.RebootPolicy", "AutoReboot",
+                [aResp, attemptPath,
+                 attemptServ](const boost::system::error_code ec2,
+                              bool autoRebootEnabled) {
+                    if (ec2)
+                    {
+                        BMCWEB_LOG_DEBUG
+                            << "Dbus response error on RebootAttempts.Policy Get"
+                            << ec2;
+                        messages::internalError(aResp->res);
+                        return;
+                    }
+                    BMCWEB_LOG_DEBUG << "Auto Reboot: " << autoRebootEnabled;
+                    if (autoRebootEnabled)
+                    {
+                        aResp->res.jsonValue["Boot"]["AutomaticRetryConfig"] =
+                            "RetryAttempts";
 
-            // Not on D-Bus. Hardcoded here:
-            // https://github.com/openbmc/phosphor-state-manager/blob/1dbbef42675e94fb1f78edb87d6b11380260535a/meson_options.txt#L71
-            aResp->res.jsonValue["Boot"]["AutomaticRetryAttempts"] = 3;
+                        sdbusplus::asio::getProperty<uint32_t>(
+                            *crow::connections::systemBus, attemptServ,
+                            attemptPath,
+                            "xyz.openbmc_project.Control.Boot.RebootAttempts",
+                            "AttemptLeft",
+                            [aResp](const boost::system::error_code ec3,
+                                    uint32_t autoRebootAttemptsLeft) {
+                                if (ec3)
+                                {
+                                    BMCWEB_LOG_DEBUG
+                                        << "Dbus response error on RebootAttempts.Policy Get"
+                                        << ec3;
+                                    messages::internalError(aResp->res);
+                                    return;
+                                }
 
+                                BMCWEB_LOG_DEBUG
+                                    << "Auto Reboot Attempts Left: "
+                                    << autoRebootAttemptsLeft;
+                                aResp->res.jsonValue
+                                    ["Boot"]
+                                    ["RemainingAutomaticRetryAttempts"] =
+                                    autoRebootAttemptsLeft;
+                                aResp->res.jsonValue["Boot"]
+                                                    ["AutomaticRetryAttempts"] =
+                                    autoRebootAttemptsLeft;
+                            });
+                    }
+                    else
+                    {
+                        aResp->res.jsonValue["Boot"]["AutomaticRetryConfig"] =
+                            "Disabled";
+                    }
+                });
             // "AutomaticRetryConfig" can be 3 values, Disabled, RetryAlways,
             // and RetryAttempts. OpenBMC only supports Disabled and
             // RetryAttempts.
@@ -1165,7 +1206,13 @@ inline void getAutomaticRetry(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
                 .jsonValue["Boot"]
                           ["AutomaticRetryConfig@Redfish.AllowableValues"] = {
                 "Disabled", "RetryAttempts"};
-        });
+        },
+        "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetSubTree", "/", int32_t(0),
+        std::array<const char*, 2>{
+            "xyz.openbmc_project.Control.Boot.RebootPolicy",
+            "xyz.openbmc_project.Control.Boot.RebootAttempts"});
 }
 
 /**
