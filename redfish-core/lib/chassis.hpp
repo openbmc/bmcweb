@@ -23,7 +23,11 @@
 #include <query.hpp>
 #include <registries/privilege_registry.hpp>
 #include <sdbusplus/asio/property.hpp>
+#include <storage.hpp>
 #include <utils/collection.hpp>
+
+#include <functional>
+#include <string>
 
 namespace redfish
 {
@@ -291,6 +295,22 @@ inline void requestRoutesChassis(App& app)
                             {"@odata.id",
                              "/redfish/v1/Systems/system/PCIeDevices"}};
 
+                        sdbusplus::asio::getProperty<std::vector<std::string>>(
+                            *crow::connections::systemBus,
+                            "xyz.openbmc_project.ObjectMapper", path + "/drive",
+                            "xyz.openbmc_project.Association", "endpoints",
+                            [asyncResp,
+                             chassisId](const boost::system::error_code ec3,
+                                        const std::vector<std::string>& resp) {
+                                if (ec3 || resp.empty())
+                                {
+                                    return; // no drives = no failures
+                                }
+                                asyncResp->res.jsonValue["Drives"] = {
+                                    {"@odata.id", "/redfish/v1/Chassis/" +
+                                                      chassisId + "/Drives"}};
+                            });
+
                         const std::string& connectionName =
                             connectionNames[0].first;
 
@@ -470,7 +490,8 @@ inline void requestRoutesChassis(App& app)
                 return;
             }
 
-            // TODO (Gunnar): Remove IndicatorLED after enough time has passed
+            // TODO (Gunnar): Remove IndicatorLED after enough time has
+            // passed
             if (!locationIndicatorActive && !indicatorLed)
             {
                 return; // delete this when we support more patch properties
@@ -612,8 +633,9 @@ inline void
             if ((std::find(chassisList.begin(), chassisList.end(),
                            objectPath)) == chassisList.end())
             {
-                /* We prefer to reset the full chassis_system, but if it doesn't
-                 * exist on some platforms, fall back to a host-only power reset
+                /* We prefer to reset the full chassis_system, but if it
+                 * doesn't exist on some platforms, fall back to a host-only
+                 * power reset
                  */
                 objectPath = "/xyz/openbmc_project/state/chassis0";
             }
@@ -708,6 +730,105 @@ inline void requestRoutesChassisResetActionInfo(App& app)
                        {"DataType", "String"},
                        {"AllowableValues", {"PowerCycle"}}}}}};
             });
+}
+
+/**
+ * Chassis drives, this URL will show all the DriveCollection DriveCollection
+ * information
+ */
+
+void chassisDriveGet(crow::App& app, const crow::Request& req,
+                     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                     const std::string& chassisId)
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+    {
+        return;
+    }
+    const std::array<const char*, 2> interfaces = {
+        "xyz.openbmc_project.Inventory.Item.Board",
+        "xyz.openbmc_project.Inventory.Item.Chassis"};
+
+    // mapper call lambda
+    crow::connections::systemBus->async_method_call(
+        [asyncResp,
+         chassisId](const boost::system::error_code ec,
+                    const dbus::utility::MapperGetSubTreeResponse& subtree) {
+            if (ec)
+            {
+                messages::internalError(asyncResp->res);
+                return;
+            }
+
+            // Iterate over all retrieved ObjectPaths.
+            for (const std::pair<std::string,
+                                 std::vector<std::pair<
+                                     std::string, std::vector<std::string>>>>&
+                     object : subtree)
+            {
+                const std::string& path = object.first;
+                const std::vector<
+                    std::pair<std::string, std::vector<std::string>>>&
+                    connectionNames = object.second;
+
+                sdbusplus::message::object_path objPath(path);
+                if (objPath.filename() != chassisId)
+                {
+                    continue;
+                }
+
+                if (connectionNames.empty())
+                {
+                    BMCWEB_LOG_ERROR << "Got 0 Connection names";
+                    continue;
+                }
+
+                asyncResp->res.jsonValue = {
+                    {"@odata.type", "#DriveCollection.DriveCollection"},
+                    {"@odata.id",
+                     "/redfish/v1/Chassis/" + chassisId + "/Drives"},
+                    {"Name", "Drive Collection"}};
+                // Association lambda
+                sdbusplus::asio::getProperty<std::vector<std::string>>(
+                    *crow::connections::systemBus,
+                    "xyz.openbmc_project.ObjectMapper", path + "/drive",
+                    "xyz.openbmc_project.Association", "endpoints",
+                    [asyncResp,
+                     chassisId](const boost::system::error_code ec3,
+                                const std::vector<std::string>& resp) {
+                        if (ec3)
+                        {
+                            return; // no drives = no failures
+                        }
+                        nlohmann::json& members =
+                            asyncResp->res.jsonValue["Members"];
+                        members = nlohmann::json::array();
+
+                        for (const std::string& drive : resp)
+                        {
+                            sdbusplus::message::object_path path(drive);
+                            members.push_back(
+                                {{"@odata.id", "/redfish/v1/Chassis/" +
+                                                   chassisId + "/Drives/" +
+                                                   path.filename()}});
+                        }
+                        asyncResp->res.jsonValue["Members@odata.count"] =
+                            std::to_string(resp.size());
+                    }); // end association lambda
+            }           // end Iterate over all retrieved ObjectPaths
+        },
+        "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetSubTree",
+        "/xyz/openbmc_project/inventory", 0, interfaces);
+} // end mapper lambda
+
+inline void requestRoutesChassisDriveGet(App& app)
+{
+    BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/Drives/")
+        .privileges(redfish::privileges::getActionInfo)
+        .methods(boost::beast::http::verb::get)(
+            std::bind_front(chassisDriveGet, std::ref(app)));
 }
 
 } // namespace redfish
