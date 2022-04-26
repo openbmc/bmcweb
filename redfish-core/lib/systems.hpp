@@ -1149,13 +1149,74 @@ inline void getLastResetTime(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
 }
 
 /**
+ * @brief Retrieves the number of automatic boot Retry attempts allowed/left.
+ *
+ * The total number of automatic reboot retries allowed "RetryAttempts" and its
+ * corresponding property "AttemptsLeft" that keeps track of the amount of
+ * automatic retry attempts left are hosted in phosphor-state-manager through
+ * dbus.
+ *
+ * @param[in] aResp     Shared pointer for generating response message.
+ *
+ * @return None.
+ */
+inline void
+    getAutomaticRebootAttempts(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
+{
+    BMCWEB_LOG_DEBUG << "Get Automatic Retry policy";
+
+    sdbusplus::asio::getAllProperties(
+        *crow::connections::systemBus, "xyz.openbmc_project.State.Host",
+        "/xyz/openbmc_project/state/host0",
+        "xyz.openbmc_project.Control.Boot.RebootAttempts",
+        [aResp{aResp}](const boost::system::error_code& ec,
+                       const dbus::utility::DBusPropertiesMap& propertiesList) {
+        if (ec)
+        {
+            if (ec.value() != EBADR)
+            {
+                BMCWEB_LOG_ERROR << "D-Bus responses error: " << ec;
+                messages::internalError(aResp->res);
+            }
+            return;
+        }
+
+        const uint32_t* attemptsLeft = nullptr;
+        const uint32_t* retryAttempts = nullptr;
+
+        const bool success = sdbusplus::unpackPropertiesNoThrow(
+            dbus_utils::UnpackErrorPrinter(), propertiesList, "AttemptsLeft",
+            attemptsLeft, "RetryAttempts", retryAttempts);
+
+        if (!success)
+        {
+            messages::internalError(aResp->res);
+            return;
+        }
+
+        if (attemptsLeft != nullptr)
+        {
+            aResp->res.jsonValue["Boot"]["RemainingAutomaticRetryAttempts"] =
+                *attemptsLeft;
+        }
+
+        if (retryAttempts != nullptr)
+        {
+            aResp->res.jsonValue["Boot"]["AutomaticRetryAttempts"] =
+                *retryAttempts;
+        }
+        });
+}
+
+/**
  * @brief Retrieves Automatic Retry properties. Known on D-Bus as AutoReboot.
  *
  * @param[in] aResp     Shared pointer for generating response message.
  *
  * @return None.
  */
-inline void getAutomaticRetry(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
+inline void
+    getAutomaticRetryPolicy(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
 {
     BMCWEB_LOG_DEBUG << "Get Automatic Retry policy";
 
@@ -1166,7 +1227,7 @@ inline void getAutomaticRetry(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
         [aResp](const boost::system::error_code& ec, bool autoRebootEnabled) {
         if (ec)
         {
-            BMCWEB_LOG_DEBUG << "D-BUS response error " << ec;
+            BMCWEB_LOG_ERROR << "D-BUS response error " << ec;
             return;
         }
 
@@ -1175,37 +1236,12 @@ inline void getAutomaticRetry(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
         {
             aResp->res.jsonValue["Boot"]["AutomaticRetryConfig"] =
                 "RetryAttempts";
-            // If AutomaticRetry (AutoReboot) is enabled see how many
-            // attempts are left
-            sdbusplus::asio::getProperty<uint32_t>(
-                *crow::connections::systemBus, "xyz.openbmc_project.State.Host",
-                "/xyz/openbmc_project/state/host0",
-                "xyz.openbmc_project.Control.Boot.RebootAttempts",
-                "AttemptsLeft",
-                [aResp](const boost::system::error_code& ec2,
-                        const uint32_t autoRebootAttemptsLeft) {
-                if (ec2)
-                {
-                    BMCWEB_LOG_DEBUG << "D-BUS response error " << ec2;
-                    return;
-                }
-
-                BMCWEB_LOG_DEBUG << "Auto Reboot Attempts Left: "
-                                 << autoRebootAttemptsLeft;
-
-                aResp->res
-                    .jsonValue["Boot"]["RemainingAutomaticRetryAttempts"] =
-                    autoRebootAttemptsLeft;
-                });
         }
         else
         {
             aResp->res.jsonValue["Boot"]["AutomaticRetryConfig"] = "Disabled";
         }
-
-        // Not on D-Bus. Hardcoded here:
-        // https://github.com/openbmc/phosphor-state-manager/blob/1dbbef42675e94fb1f78edb87d6b11380260535a/meson_options.txt#L71
-        aResp->res.jsonValue["Boot"]["AutomaticRetryAttempts"] = 3;
+        getAutomaticRebootAttempts(aResp);
 
         // "AutomaticRetryConfig" can be 3 values, Disabled, RetryAlways,
         // and RetryAttempts. OpenBMC only supports Disabled and
@@ -1214,6 +1250,36 @@ inline void getAutomaticRetry(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
                             ["AutomaticRetryConfig@Redfish.AllowableValues"] = {
             "Disabled", "RetryAttempts"};
         });
+}
+
+/**
+ * @brief Sets RetryAttempts
+ *
+ * @param[in] aResp   Shared pointer for generating response message.
+ * @param[in] retryAttempts  "AutomaticRetryAttempts" from request.
+ *
+ *@return None.
+ */
+
+inline void
+    setAutomaticRetryAttempts(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+                              const uint32_t& retryAttempts)
+{
+    BMCWEB_LOG_DEBUG << "Set Automatic Retry Attempts.";
+    crow::connections::systemBus->async_method_call(
+        [aResp](const boost::system::error_code& ec) {
+        if (ec)
+        {
+            BMCWEB_LOG_ERROR
+                << "DBUS response error: Set setAutomaticRetryAttempts" << ec;
+            messages::internalError(aResp->res);
+            return;
+        }
+        },
+        "xyz.openbmc_project.State.Host", "/xyz/openbmc_project/state/host0",
+        "org.freedesktop.DBus.Properties", "Set",
+        "xyz.openbmc_project.Control.Boot.RebootAttempts", "RetryAttempts",
+        std::variant<uint32_t>(retryAttempts));
 }
 
 /**
@@ -3060,7 +3126,7 @@ inline void requestRoutesSystems(App& app)
         getPCIeDeviceList(asyncResp, "PCIeDevices");
         getHostWatchdogTimer(asyncResp);
         getPowerRestorePolicy(asyncResp);
-        getAutomaticRetry(asyncResp);
+        getAutomaticRetryPolicy(asyncResp);
         getLastResetTime(asyncResp);
 #ifdef BMCWEB_ENABLE_REDFISH_PROVISIONING_FEATURE
         getProvisioningStatus(asyncResp);
@@ -3102,6 +3168,7 @@ inline void requestRoutesSystems(App& app)
         std::optional<std::string> bootType;
         std::optional<std::string> bootEnable;
         std::optional<std::string> bootAutomaticRetry;
+        std::optional<uint32_t> bootAutomaticRetryAttempts;
         std::optional<bool> bootTrustedModuleRequired;
         std::optional<bool> ipsEnable;
         std::optional<uint8_t> ipsEnterUtil;
@@ -3123,6 +3190,7 @@ inline void requestRoutesSystems(App& app)
                         "Boot/BootSourceOverrideMode", bootType,
                         "Boot/BootSourceOverrideEnabled", bootEnable,
                         "Boot/AutomaticRetryConfig", bootAutomaticRetry,
+                        "Boot/AutomaticRetryAttempts", bootAutomaticRetryAttempts,
                         "Boot/TrustedModuleRequiredToBoot", bootTrustedModuleRequired,
                         "IdlePowerSaver/Enabled", ipsEnable,
                         "IdlePowerSaver/EnterUtilizationPercent", ipsEnterUtil,
@@ -3153,6 +3221,11 @@ inline void requestRoutesSystems(App& app)
         if (bootAutomaticRetry)
         {
             setAutomaticRetry(asyncResp, *bootAutomaticRetry);
+        }
+
+        if (bootAutomaticRetryAttempts)
+        {
+            setAutomaticRetryAttempts(asyncResp, *bootAutomaticRetryAttempts);
         }
 
         if (bootTrustedModuleRequired)
