@@ -2983,6 +2983,7 @@ inline void requestRoutesSystems(App& app)
             getPowerMode(asyncResp);
             getIdlePowerSaver(asyncResp);
         });
+
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/")
         .privileges(redfish::privileges::patchComputerSystem)
         .methods(boost::beast::http::verb::patch)(
@@ -2994,22 +2995,46 @@ inline void requestRoutesSystems(App& app)
                 }
                 std::optional<bool> locationIndicatorActive;
                 std::optional<std::string> indicatorLed;
-                std::optional<nlohmann::json> bootProps;
-                std::optional<nlohmann::json> wdtTimerProps;
                 std::optional<std::string> assetTag;
                 std::optional<std::string> powerRestorePolicy;
                 std::optional<std::string> powerMode;
-                std::optional<nlohmann::json> ipsProps;
+                std::optional<bool> wdtEnable;
+                std::optional<std::string> wdtTimeOutAction;
+                std::optional<std::string> bootSource;
+                std::optional<std::string> bootType;
+                std::optional<std::string> bootEnable;
+                std::optional<std::string> bootAutomaticRetry;
+                std::optional<bool> bootTrustedModuleRequired;
+                std::optional<bool> ipsEnable;
+                std::optional<uint8_t> ipsEnterUtil;
+                std::optional<uint64_t> ipsEnterTime;
+                std::optional<uint8_t> ipsExitUtil;
+                std::optional<uint64_t> ipsExitTime;
+
+                // clang-format off
                 if (!json_util::readJsonPatch(
-                        req, asyncResp->res, "IndicatorLED", indicatorLed,
+                        req, asyncResp->res, 
+                        "IndicatorLED", indicatorLed,
                         "LocationIndicatorActive", locationIndicatorActive,
-                        "Boot", bootProps, "HostWatchdogTimer", wdtTimerProps,
-                        "PowerRestorePolicy", powerRestorePolicy, "AssetTag",
-                        assetTag, "PowerMode", powerMode, "IdlePowerSaver",
-                        ipsProps))
+                        "AssetTag", assetTag,
+                        "PowerRestorePolicy", powerRestorePolicy,
+                        "PowerMode", powerMode,
+                        "HostWatchdogTimer/FunctionEnabled", wdtEnable,
+                        "HostWatchdogTimer/TimeoutAction", wdtTimeOutAction,
+                        "Boot/BootSourceOverrideTarget", bootSource,
+                        "Boot/BootSourceOverrideMode", bootType,
+                        "Boot/BootSourceOverrideEnabled", bootEnable,
+                        "Boot/AutomaticRetryConfig", bootAutomaticRetry,
+                        "Boot/TrustedModuleRequiredToBoot", bootTrustedModuleRequired,
+                        "IdlePowerSaver/Enabled", ipsEnable,
+                        "IdlePowerSaver/EnterUtilizationPercent", ipsEnterUtil,
+                        "IdlePowerSaver/EnterDwellTimeSeconds", ipsEnterTime,
+                        "IdlePowerSaver/ExitUtilizationPercent", ipsExitUtil,
+                        "IdlePowerSaver/ExitDwellTimeSeconds", ipsExitTime))
                 {
                     return;
                 }
+                // clang-format on
 
                 asyncResp->res.result(boost::beast::http::status::no_content);
 
@@ -3018,55 +3043,25 @@ inline void requestRoutesSystems(App& app)
                     setAssetTag(asyncResp, *assetTag);
                 }
 
-                if (wdtTimerProps)
+                if (wdtEnable || wdtTimeOutAction)
                 {
-                    std::optional<bool> wdtEnable;
-                    std::optional<std::string> wdtTimeOutAction;
-
-                    if (!json_util::readJson(*wdtTimerProps, asyncResp->res,
-                                             "FunctionEnabled", wdtEnable,
-                                             "TimeoutAction", wdtTimeOutAction))
-                    {
-                        return;
-                    }
                     setWDTProperties(asyncResp, wdtEnable, wdtTimeOutAction);
                 }
 
-                if (bootProps)
+                if (bootSource || bootType || bootEnable)
                 {
-                    std::optional<std::string> bootSource;
-                    std::optional<std::string> bootType;
-                    std::optional<std::string> bootEnable;
-                    std::optional<std::string> automaticRetryConfig;
-                    std::optional<bool> trustedModuleRequiredToBoot;
+                    setBootProperties(asyncResp, bootSource, bootType,
+                                      bootEnable);
+                }
+                if (bootAutomaticRetry)
+                {
+                    setAutomaticRetry(asyncResp, *bootAutomaticRetry);
+                }
 
-                    if (!json_util::readJson(
-                            *bootProps, asyncResp->res,
-                            "BootSourceOverrideTarget", bootSource,
-                            "BootSourceOverrideMode", bootType,
-                            "BootSourceOverrideEnabled", bootEnable,
-                            "AutomaticRetryConfig", automaticRetryConfig,
-                            "TrustedModuleRequiredToBoot",
-                            trustedModuleRequiredToBoot))
-                    {
-                        return;
-                    }
-
-                    if (bootSource || bootType || bootEnable)
-                    {
-                        setBootProperties(asyncResp, bootSource, bootType,
-                                          bootEnable);
-                    }
-                    if (automaticRetryConfig)
-                    {
-                        setAutomaticRetry(asyncResp, *automaticRetryConfig);
-                    }
-
-                    if (trustedModuleRequiredToBoot)
-                    {
-                        setTrustedModuleRequiredToBoot(
-                            asyncResp, *trustedModuleRequiredToBoot);
-                    }
+                if (bootTrustedModuleRequired)
+                {
+                    setTrustedModuleRequiredToBoot(asyncResp,
+                                                   *bootTrustedModuleRequired);
                 }
 
                 if (locationIndicatorActive)
@@ -3096,23 +3091,9 @@ inline void requestRoutesSystems(App& app)
                     setPowerMode(asyncResp, *powerMode);
                 }
 
-                if (ipsProps)
+                if (ipsEnable || ipsEnterUtil || ipsEnterTime || ipsExitUtil ||
+                    ipsExitTime)
                 {
-                    std::optional<bool> ipsEnable;
-                    std::optional<uint8_t> ipsEnterUtil;
-                    std::optional<uint64_t> ipsEnterTime;
-                    std::optional<uint8_t> ipsExitUtil;
-                    std::optional<uint64_t> ipsExitTime;
-
-                    if (!json_util::readJson(
-                            *ipsProps, asyncResp->res, "Enabled", ipsEnable,
-                            "EnterUtilizationPercent", ipsEnterUtil,
-                            "EnterDwellTimeSeconds", ipsEnterTime,
-                            "ExitUtilizationPercent", ipsExitUtil,
-                            "ExitDwellTimeSeconds", ipsExitTime))
-                    {
-                        return;
-                    }
                     setIdlePowerSaver(asyncResp, ipsEnable, ipsEnterUtil,
                                       ipsEnterTime, ipsExitUtil, ipsExitTime);
                 }
