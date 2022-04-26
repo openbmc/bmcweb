@@ -1154,9 +1154,22 @@ inline void getAutomaticRetry(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
                     "Disabled";
             }
 
-            // Not on D-Bus. Hardcoded here:
-            // https://github.com/openbmc/phosphor-state-manager/blob/1dbbef42675e94fb1f78edb87d6b11380260535a/meson_options.txt#L71
-            aResp->res.jsonValue["Boot"]["AutomaticRetryAttempts"] = 3;
+            sdbusplus::asio::getProperty<uint32_t>(
+                *crow::connections::systemBus, "xyz.openbmc_project.State.Host",
+                "/xyz/openbmc_project/state/host0",
+                "xyz.openbmc_project.Control.Boot.RebootAttempts",
+                "AttemptsLeft",
+                [aResp](const boost::system::error_code ec3,
+                        const uint32_t attemptsLeft) {
+                    if (ec3)
+                    {
+                        BMCWEB_LOG_DEBUG << "D-BUS response error" << ec3;
+                        return;
+                    }
+                    BMCWEB_LOG_DEBUG << "Reboot Attempts Left" << attemptsLeft;
+                    aResp->res.jsonValue["Boot"]["AutomaticRetryAttempts"] =
+                        attemptsLeft;
+                });
 
             // "AutomaticRetryConfig" can be 3 values, Disabled, RetryAlways,
             // and RetryAttempts. OpenBMC only supports Disabled and
@@ -1166,6 +1179,36 @@ inline void getAutomaticRetry(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
                           ["AutomaticRetryConfig@Redfish.AllowableValues"] = {
                 "Disabled", "RetryAttempts"};
         });
+}
+
+/**
+ * @brief Sets automaticRety (AttemptsLeft)
+ *
+ * @param[in] aResp   Shared pointer for generating response message.
+ * @param[in] automaticRetryConfig  "AutomaticRetryConfig" from request.
+ *
+ *@return None.
+ */
+inline void
+    setAutomaticRetryAttempts(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+                              const uint32_t& attemptsLeft)
+{
+    BMCWEB_LOG_DEBUG << "Set Automatic Retry Attempts.";
+
+    crow::connections::systemBus->async_method_call(
+        [aResp](const boost::system::error_code ec) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG << "D-BUS response error " << ec;
+                messages::internalError(aResp->res);
+                return;
+            }
+        },
+        "xyz.openbmc_project.Settings",
+        "/xyz/openbmc_project/control/host0/auto_reboot",
+        "org.freedesktop.DBus.Properties", "Set",
+        "xyz.openbmc_project.Control.Boot.RebootAttempts", "AttemptsLeft",
+        dbus::utility::DbusVariantType(attemptsLeft));
 }
 
 /**
