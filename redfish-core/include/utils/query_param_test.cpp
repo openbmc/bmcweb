@@ -92,8 +92,16 @@ TEST(QueryParams, ParseParametersExpand)
     using redfish::query_param::parseParameters;
     using redfish::query_param::Query;
     std::optional<Query> query = parseParameters(ret->params(), res);
-    ASSERT_TRUE(query != std::nullopt);
-    EXPECT_TRUE(query->expandType == redfish::query_param::ExpandType::Both);
+    if constexpr (bmcwebInsecureEnableQueryParams)
+    {
+        ASSERT_NE(query, std::nullopt);
+        EXPECT_TRUE(query->expandType ==
+                    redfish::query_param::ExpandType::Both);
+    }
+    else
+    {
+        ASSERT_EQ(query, std::nullopt);
+    }
 }
 
 TEST(QueryParams, ParseParametersUnexpectedGetsIgnored)
