@@ -293,6 +293,22 @@ inline void requestRoutesChassis(App& app)
                         asyncResp->res.jsonValue["PCIeDevices"]["@odata.id"] =
                             "/redfish/v1/Systems/system/PCIeDevices";
 
+                        sdbusplus::asio::getProperty<std::vector<std::string>>(
+                            *crow::connections::systemBus,
+                            "xyz.openbmc_project.ObjectMapper", path + "/drive",
+                            "xyz.openbmc_project.Association", "endpoints",
+                            [asyncResp,
+                             chassisId](const boost::system::error_code ec3,
+                                        const std::vector<std::string>& resp) {
+                                if (ec3 || resp.empty())
+                                {
+                                    return; // no drives = no failures
+                                }
+                                asyncResp->res.jsonValue["Drives"] = {
+                                    {"@odata.id", "/redfish/v1/Chassis/" +
+                                                      chassisId + "/Drives"}};
+                            });
+
                         const std::string& connectionName =
                             connectionNames[0].first;
 
