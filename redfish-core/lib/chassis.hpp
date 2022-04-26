@@ -269,6 +269,41 @@ inline void requestRoutesChassis(App& app)
 
                         health->populate();
 
+                        sdbusplus::asio::getProperty<std::vector<std::string>>(
+                            *crow::connections::systemBus,
+                            "xyz.openbmc_project.ObjectMapper", path + "/drive",
+                            "xyz.openbmc_project.Association", "endpoints",
+                            [](const boost::system::error_code ec3,
+                               const std::vector<std::string>& resp) {
+                                BMCWEB_LOG_ERROR << "jebr test: in call back";
+                                if (ec3)
+                                {
+                                    BMCWEB_LOG_ERROR << "jebr test: noDrives";
+                                    return; // no drives = no failures
+                                }
+                                // ["@odata.type"]
+                                BMCWEB_LOG_ERROR << "jebr test: dumping resp";
+                                // resp is
+                                // [/xyz/openbmc_project/inventory/storage/mmcblk0]
+                                bool drivesFound = false;
+                                std::vector<std::string> driveList;
+                                for (string i : resp)
+                                {
+                                    BMCWEB_LOG_ERROR << i;
+                                    driveFound = true;
+                                }
+
+                                if(drivesFound)
+                                {
+                                  /* need to turn
+                                   * /xyz/openbmc_project/inventory/storage/mmcblk0
+                                   * into redfish path*/
+
+                                    // inlohmann::json& drive =
+                                    // asyncResp->res.jsonValue["Drives"] = {"@odata.id",i}
+                                }
+                            });
+
                         if (connectionNames.empty())
                         {
                             BMCWEB_LOG_ERROR << "Got 0 Connection names";
@@ -470,7 +505,8 @@ inline void requestRoutesChassis(App& app)
                 return;
             }
 
-            // TODO (Gunnar): Remove IndicatorLED after enough time has passed
+            // TODO (Gunnar): Remove IndicatorLED after enough time has
+            // passed
             if (!locationIndicatorActive && !indicatorLed)
             {
                 return; // delete this when we support more patch properties
@@ -612,8 +648,9 @@ inline void
             if ((std::find(chassisList.begin(), chassisList.end(),
                            objectPath)) == chassisList.end())
             {
-                /* We prefer to reset the full chassis_system, but if it doesn't
-                 * exist on some platforms, fall back to a host-only power reset
+                /* We prefer to reset the full chassis_system, but if it
+                 * doesn't exist on some platforms, fall back to a host-only
+                 * power reset
                  */
                 objectPath = "/xyz/openbmc_project/state/chassis0";
             }
