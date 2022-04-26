@@ -150,6 +150,14 @@ Fields common to all schemas
 (this is dependant on a entity manager association from
 Chassis to Drives)
 
+#### /redfish/v1/Chassis/{ChassisId}/Drive/{DriveId}
+#### Drive
+- Drives
+- Drives@odata.count
+- Status
+(this is dependant on a entity manager association from
+Chassis to Drives)
+
 #### /redfish/v1/Chassis/{ChassisId}/Power/
 ##### Power
 - PowerControl
