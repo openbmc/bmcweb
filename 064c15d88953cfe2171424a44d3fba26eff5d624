@@ -16,6 +16,40 @@
       "message": "LGTM  Waiting on dependent patch.",
       "revId": "064c15d88953cfe2171424a44d3fba26eff5d624",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "30480bdc_d255d4fb",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 3014,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-04-26T19:11:02Z",
+      "side": 1,
+      "message": "Why turn off clang-format? Just easier to read if they are each on a separate line?",
+      "revId": "064c15d88953cfe2171424a44d3fba26eff5d624",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "47e20442_a8d355a1",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 3016,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-04-26T19:11:02Z",
+      "side": 1,
+      "message": "extra space at the end?",
+      "revId": "064c15d88953cfe2171424a44d3fba26eff5d624",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
