@@ -258,9 +258,9 @@ inline void requestRoutes(App& app)
         .onopen([](crow::websocket::Connection& conn) {
             BMCWEB_LOG_DEBUG << "nbd-proxy.onopen(" << &conn << ")";
 
-            auto getUserInfoHandler = [&conn, asyncResp](
+            auto getUserInfoHandler = [&conn](
                                           const boost::system::error_code ec,
-                                          const dbus::utilities::
+                                          const dbus::utility::
                                               DBusPropertiesMap& userInfo) {
                 if (ec)
                 {
@@ -270,7 +270,9 @@ inline void requestRoutes(App& app)
                 }
 
                 const std::string* userRolePtr = nullptr;
-                auto userInfoIter = userInfo.find("UserPrivilege");
+                auto userInfoIter = std::find_if(
+                    userInfo.begin(), userInfo.end(),
+                    [](const auto& p) { return p.first == "UserPrivilege"; });
                 if (userInfoIter != userInfo.end())
                 {
                     userRolePtr =
@@ -300,7 +302,7 @@ inline void requestRoutes(App& app)
                     return;
                 }
 
-                auto openHandler = [&conn, asyncResp](
+                auto openHandler = [&conn](
                                        const boost::system::error_code ec,
                                        const dbus::utility::ManagedObjectType&
                                            objects) {
