@@ -34,6 +34,24 @@
       "parentUuid": "e38aa06d_df0f81d3",
       "revId": "1ccb493481c8a9013ca0c4ea800e98791bd7fb32",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3defbf12_098c7368",
+        "filename": "meson_options.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-04-26T20:48:21Z",
+      "side": 1,
+      "message": "Nitpick: Remove the s at the end of parameters. \n\nCould we add a sentence about other query parameters are not impacted? \n\nEnables Redfish expand query parameter. This feature is experimental, and has not been tested against the full limits of user-facing behavior.  It is not recommended to enable on production systems at this time. Other query parameters such as only are not controlled by this option.",
+      "parentUuid": "508d2d08_7fb5a4d2",
+      "revId": "1ccb493481c8a9013ca0c4ea800e98791bd7fb32",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
