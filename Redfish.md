@@ -144,6 +144,12 @@ Fields common to all schemas
   - Shall be included if component contains temperature sensors, otherwise
     shall be omitted.
 
+#### /redfish/v1/Chassis/{ChassisId}/Drive/
+#### Drive
+- Members
+(This is dependent on a entity manager association from
+Chassis to Drives)
+
 #### /redfish/v1/Chassis/{ChassisId}/Power/
 ##### Power
 - PowerControl
