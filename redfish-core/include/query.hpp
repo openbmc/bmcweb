@@ -29,11 +29,6 @@ namespace redfish
         return false;
     }
 
-    // If query parameters aren't enabled, do nothing.
-    if constexpr (!bmcwebInsecureEnableQueryParams)
-    {
-        return true;
-    }
     std::optional<query_param::Query> queryOpt =
         query_param::parseParameters(req.urlView.params(), res);
     if (queryOpt == std::nullopt)

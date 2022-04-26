@@ -139,7 +139,7 @@ inline std::optional<Query>
             }
             ret.isOnly = true;
         }
-        else if (key == "$expand")
+        else if (key == "$expand" && bmcwebInsecureEnableQueryParams)
         {
             if (!getExpandType(value, ret))
             {
