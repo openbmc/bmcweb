@@ -467,6 +467,31 @@ inline void
         });
 }
 
+void addAllDriveInfo(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                     const std::string& connectionName, const std::string& path,
+                     const std::vector<std::string>& interfaces)
+{
+    for (const std::string& interface : interfaces)
+    {
+        if (interface == "xyz.openbmc_project.Inventory.Decorator.Asset")
+        {
+            getDriveAsset(asyncResp, connectionName, path);
+        }
+        else if (interface == "xyz.openbmc_project.Inventory.Item")
+        {
+            getDrivePresent(asyncResp, connectionName, path);
+        }
+        else if (interface == "xyz.openbmc_project.State.Drive")
+        {
+            getDriveState(asyncResp, connectionName, path);
+        }
+        else if (interface == "xyz.openbmc_project.Inventory.Item.Drive")
+        {
+            getDriveItemProperties(asyncResp, connectionName, path);
+        }
+    }
+}
+
 inline void requestRoutesDrive(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/Storage/1/Drives/<str>/")
@@ -539,29 +564,8 @@ inline void requestRoutesDrive(App& app)
             health->inventory.emplace_back(path);
             health->populate();
 
-            const std::string& connectionName = connectionNames[0].first;
-
-            for (const std::string& interface : connectionNames[0].second)
-            {
-                if (interface ==
-                    "xyz.openbmc_project.Inventory.Decorator.Asset")
-                {
-                    getDriveAsset(asyncResp, connectionName, path);
-                }
-                else if (interface == "xyz.openbmc_project.Inventory.Item")
-                {
-                    getDrivePresent(asyncResp, connectionName, path);
-                }
-                else if (interface == "xyz.openbmc_project.State.Drive")
-                {
-                    getDriveState(asyncResp, connectionName, path);
-                }
-                else if (interface ==
-                         "xyz.openbmc_project.Inventory.Item.Drive")
-                {
-                    getDriveItemProperties(asyncResp, connectionName, path);
-                }
-            }
+            addAllDriveInfo(asyncResp, connectionNames[0].first, path,
+                            connectionNames[0].second);
             },
             "xyz.openbmc_project.ObjectMapper",
             "/xyz/openbmc_project/object_mapper",
@@ -686,6 +690,170 @@ inline void requestRoutesChassisDrive(App& app)
         .privileges(redfish::privileges::getDriveCollection)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(chassisDriveCollectionGet, std::ref(app)));
+}
+
+void buildDrive(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                const std::string& chassisId, const std::string& driveName,
+                const boost::system::error_code ec,
+                const dbus::utility::MapperGetSubTreeResponse& subtree)
+{
+
+    if (ec)
+    {
+        BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    // Iterate over all retrieved ObjectPaths.
+    for (const std::pair<
+             std::string,
+             std::vector<std::pair<std::string, std::vector<std::string>>>>&
+             object : subtree)
+    {
+        const std::string& path = object.first;
+        const std::vector<std::pair<std::string, std::vector<std::string>>>&
+            connectionNames = object.second;
+
+        sdbusplus::message::object_path objPath(path);
+        if (objPath.filename() != driveName)
+        {
+            continue;
+        }
+
+        if (connectionNames.empty())
+        {
+            BMCWEB_LOG_ERROR << "Got 0 Connection names";
+            continue;
+        }
+
+        asyncResp->res.jsonValue["@odata.id"] = crow::utility::urlFromPieces(
+            "redfish", "v1", "Chassis", "Drives", driveName);
+
+        asyncResp->res.jsonValue["@odata.type"] = "#Drive.v1_7_0.Drive";
+        asyncResp->res.jsonValue["Name"] = "Name";
+        asyncResp->res.jsonValue["Id"] = driveName;
+        // default it to Enabled
+        asyncResp->res.jsonValue["Status"]["State"] = "Enabled";
+
+        nlohmann::json::object_t linkChassisNav;
+        linkChassisNav["@odata.id"] =
+            crow::utility::urlFromPieces("redfish", "v1", "Chassis", chassisId);
+        asyncResp->res.jsonValue["Links"]["Chassis"] = linkChassisNav;
+
+        addAllDriveInfo(asyncResp, connectionNames[0].first, path,
+                        connectionNames[0].second);
+    }
+}
+
+void matchAndFillDrive(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                       const std::string& chassisId,
+                       const std::string& driveName,
+                       const std::vector<std::string>& resp)
+{
+
+    for (const std::string& drivePath : resp)
+    {
+        sdbusplus::message::object_path path(drivePath);
+        std::string leaf = path.filename();
+        if (leaf != driveName)
+        {
+            continue;
+        }
+        //  mapper call drive
+        const std::array<const char*, 1> driveInterface = {
+            "xyz.openbmc_project.Inventory.Item.Drive"};
+
+        crow::connections::systemBus->async_method_call(
+            [asyncResp, chassisId, driveName](
+                const boost::system::error_code ec,
+                const dbus::utility::MapperGetSubTreeResponse& subtree) {
+            buildDrive(asyncResp, chassisId, driveName, ec, subtree);
+            },
+            "xyz.openbmc_project.ObjectMapper",
+            "/xyz/openbmc_project/object_mapper",
+            "xyz.openbmc_project.ObjectMapper", "GetSubTree",
+            "/xyz/openbmc_project/inventory", 0, driveInterface);
+    }
+}
+
+void handleChassisDriveGet(crow::App& app, const crow::Request& req,
+                           const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                           const std::string& chassisId,
+                           const std::string& driveName)
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+    {
+        return;
+    }
+    const std::array<const char*, 2> interfaces = {
+        "xyz.openbmc_project.Inventory.Item.Board",
+        "xyz.openbmc_project.Inventory.Item.Chassis"};
+
+    // mapper call chassis
+    crow::connections::systemBus->async_method_call(
+        [asyncResp, chassisId,
+         driveName](const boost::system::error_code ec,
+                    const dbus::utility::MapperGetSubTreeResponse& subtree) {
+        if (ec)
+        {
+            messages::internalError(asyncResp->res);
+            return;
+        }
+
+        // Iterate over all retrieved ObjectPaths.
+        for (const std::pair<
+                 std::string,
+                 std::vector<std::pair<std::string, std::vector<std::string>>>>&
+                 object : subtree)
+        {
+            const std::string& path = object.first;
+            const std::vector<std::pair<std::string, std::vector<std::string>>>&
+                connectionNames = object.second;
+
+            sdbusplus::message::object_path objPath(path);
+            if (objPath.filename() != chassisId)
+            {
+                continue;
+            }
+
+            if (connectionNames.empty())
+            {
+                BMCWEB_LOG_ERROR << "Got 0 Connection names";
+                continue;
+            }
+
+            sdbusplus::asio::getProperty<std::vector<std::string>>(
+                *crow::connections::systemBus,
+                "xyz.openbmc_project.ObjectMapper", path + "/drive",
+                "xyz.openbmc_project.Association", "endpoints",
+                [asyncResp, chassisId,
+                 driveName](const boost::system::error_code ec3,
+                            const std::vector<std::string>& resp) {
+                if (ec3)
+                {
+                    return; // no drives = no failures
+                }
+                matchAndFillDrive(asyncResp, chassisId, driveName, resp);
+                });
+            break;
+        }
+        },
+        "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetSubTree",
+        "/xyz/openbmc_project/inventory", 0, interfaces);
+}
+
+/**
+ * This URL will show the drive interface for the specific drive in the chassis
+ */
+inline void requestRoutesChassisDriveName(App& app)
+{
+    BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/Drives/<str>/")
+        .privileges(redfish::privileges::getChassis)
+        .methods(boost::beast::http::verb::get)(
+            std::bind_front(handleChassisDriveGet, std::ref(app)));
 }
 
 } // namespace redfish
