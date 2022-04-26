@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e38aa06d_df0f81d3",
+        "filename": "meson_options.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-04-26T18:42:16Z",
+      "side": 1,
+      "message": "Rename it to insecure-enable-expand-redfish-query ?",
+      "revId": "1ccb493481c8a9013ca0c4ea800e98791bd7fb32",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
