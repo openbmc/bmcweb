@@ -1154,9 +1154,74 @@ inline void getAutomaticRetry(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
                     "Disabled";
             }
 
-            // Not on D-Bus. Hardcoded here:
-            // https://github.com/openbmc/phosphor-state-manager/blob/1dbbef42675e94fb1f78edb87d6b11380260535a/meson_options.txt#L71
-            aResp->res.jsonValue["Boot"]["AutomaticRetryAttempts"] = 3;
+            if (autoRebootEnabled)
+            {
+                crow::connections::systemBus->async_method_call(
+                    [aResp](const boost::system::error_code ec3,
+                            const dbus::utility::MapperGetSubTreeResponse&
+                                subtree) {
+                        if (ec3)
+                        {
+                            BMCWEB_LOG_DEBUG << "D-BUS response error" << ec3;
+                            return;
+                        }
+                        if (subtree.empty())
+                        {
+                            // Since autoreboot is enabled there should be a
+                            // value set.
+                            BMCWEB_LOG_DEBUG
+                                << "allowed automatic reboot attempts enabled but not set";
+                            messages::internalError(aResp->res);
+                            return;
+                        }
+                        if (subtree.size() > 1)
+                        {
+                            BMCWEB_LOG_DEBUG
+                                << "DBUS response has more than 1 automatic retry attempts set"
+                                << subtree.size();
+                            // throw an error
+                            messages::internalError(aResp->res);
+                            return;
+                        }
+                        if (subtree[0].first.empty() ||
+                            subtree[0].second.size() != 1)
+                        {
+                            BMCWEB_LOG_DEBUG
+                                << "RebootAttempts.Policy mapper error!";
+                            messages::internalError(aResp->res);
+                            return;
+                        }
+                        const std::string& path = subtree[0].first;
+                        const std::string& serv =
+                            subtree[0].second.begin()->first;
+
+                        // Valid RebootAttempts found, read the value
+                        sdbusplus::asio::getProperty<uint32_t>(
+                            *crow::connections::systemBus, serv, path,
+                            "xyz.openbmc_project.Control.Boot.RebootAttempts",
+                            "AttemptLeft",
+                            [aResp](const boost::system::error_code ec3,
+                                    uint32_t attemptsLeft) {
+                                if (ec3)
+                                {
+                                    BMCWEB_LOG_DEBUG
+                                        << "Dbus response error on RebootAttempts.Policy Get"
+                                        << ec3;
+                                    messages::internalError(aResp->res);
+                                    return;
+                                }
+                                aResp->res.jsonValue["Boot"]
+                                                    ["AutomaticRetryAttempts"] =
+                                    attemptsLeft;
+                            });
+                    },
+                    "xyz.openbmc_project.ObjectMapper",
+                    "/xyz/openbmc_project/object_mapper",
+                    "xyz.openbmc_project.ObjectMapper", "GetSubTree", "/",
+                    int32_t(0),
+                    std::array<const char*, 1>{
+                        "xyz.openbmc_project.Control.Boot.RebootAttempts"});
+            }
 
             // "AutomaticRetryConfig" can be 3 values, Disabled, RetryAlways,
             // and RetryAttempts. OpenBMC only supports Disabled and
