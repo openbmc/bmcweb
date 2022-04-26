@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1216bfe0_ffaed4ff",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 675,
+      "author": {
+        "id": 1000233
+      },
+      "writtenOn": "2022-04-26T18:21:27Z",
+      "side": 1,
+      "message": "Might be worth using BMCWEB_LOG_INFO for this in case there\u0027s an error parsing the config so we\u0027ll know which object had the problem",
+      "range": {
+        "startLine": 675,
+        "startChar": 28,
+        "endLine": 675,
+        "endChar": 44
+      },
+      "revId": "41c2714fed22b9a194dc506bccb033d97f73240d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
