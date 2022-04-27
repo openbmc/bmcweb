@@ -85,7 +85,7 @@ inline void requestRoutesSystemPCIeDeviceCollection(App& app)
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-                if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+                if (!redfish::setUpRedfishRoute(app, req, asyncResp))
                 {
                     return;
                 }
@@ -151,7 +151,7 @@ inline void requestRoutesSystemPCIeDevice(App& app)
                 get)([&app](const crow::Request& req,
                             const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                             const std::string& device) {
-            if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+            if (!redfish::setUpRedfishRoute(app, req, asyncResp))
             {
                 return;
             }
@@ -258,7 +258,7 @@ inline void requestRoutesSystemPCIeFunctionCollection(App& app)
                 get)([&app](const crow::Request& req,
                             const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                             const std::string& device) {
-            if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+            if (!redfish::setUpRedfishRoute(app, req, asyncResp))
             {
                 return;
             }
@@ -349,7 +349,7 @@ inline void requestRoutesSystemPCIeFunction(App& app)
                             const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                             const std::string& device,
                             const std::string& function) {
-            if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+            if (!redfish::setUpRedfishRoute(app, req, asyncResp))
             {
                 return;
             }

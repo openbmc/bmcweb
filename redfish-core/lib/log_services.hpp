@@ -495,7 +495,7 @@ inline void
                      const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                      const std::string& entryID, const std::string& dumpType)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
@@ -906,7 +906,7 @@ inline void requestRoutesSystemLogServiceCollection(App& app)
                                                        const std::shared_ptr<
                                                            bmcweb::AsyncResp>&
                                                            asyncResp) {
-            if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+            if (!redfish::setUpRedfishRoute(app, req, asyncResp))
             {
                 return;
             }
@@ -989,7 +989,7 @@ inline void requestRoutesEventLogService(App& app)
                                                        const std::shared_ptr<
                                                            bmcweb::AsyncResp>&
                                                            asyncResp) {
-            if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+            if (!redfish::setUpRedfishRoute(app, req, asyncResp))
             {
                 return;
             }
@@ -1028,7 +1028,7 @@ inline void requestRoutesJournalEventLogClear(App& app)
         .methods(boost::beast::http::verb::post)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-                if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+                if (!redfish::setUpRedfishRoute(app, req, asyncResp))
                 {
                     return;
                 }
@@ -1173,7 +1173,7 @@ inline void requestRoutesJournalEventLogEntryCollection(App& app)
             };
             query_param::Query delegatedQuery;
             if (!redfish::setUpRedfishRouteWithDelegation(
-                    app, req, asyncResp->res, delegatedQuery, capabilities))
+                    app, req, asyncResp, delegatedQuery, capabilities))
             {
                 return;
             }
@@ -1261,7 +1261,7 @@ inline void requestRoutesJournalEventLogEntry(App& app)
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                    const std::string& param) {
-                if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+                if (!redfish::setUpRedfishRoute(app, req, asyncResp))
                 {
                     return;
                 }
@@ -1327,7 +1327,7 @@ inline void requestRoutesDBusEventLogEntryCollection(App& app)
                                                        const std::shared_ptr<
                                                            bmcweb::AsyncResp>&
                                                            asyncResp) {
-            if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+            if (!redfish::setUpRedfishRoute(app, req, asyncResp))
             {
                 return;
             }
@@ -1492,7 +1492,7 @@ inline void requestRoutesDBusEventLogEntry(App& app)
                 get)([&app](const crow::Request& req,
                             const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                             const std::string& param) {
-            if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+            if (!redfish::setUpRedfishRoute(app, req, asyncResp))
             {
                 return;
             }
@@ -1612,7 +1612,7 @@ inline void requestRoutesDBusEventLogEntry(App& app)
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                    const std::string& entryId) {
-                if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+                if (!redfish::setUpRedfishRoute(app, req, asyncResp))
                 {
                     return;
                 }
@@ -1650,7 +1650,7 @@ inline void requestRoutesDBusEventLogEntry(App& app)
                                      const std::shared_ptr<bmcweb::AsyncResp>&
                                          asyncResp,
                                      const std::string& param) {
-            if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+            if (!redfish::setUpRedfishRoute(app, req, asyncResp))
             {
                 return;
             }
@@ -1703,7 +1703,7 @@ inline void requestRoutesDBusEventLogEntryDownload(App& app)
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                    const std::string& param) {
-                if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+                if (!redfish::setUpRedfishRoute(app, req, asyncResp))
                 {
                     return;
                 }
@@ -1877,7 +1877,7 @@ inline void requestRoutesSystemHostLogger(App& app)
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-                if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+                if (!redfish::setUpRedfishRoute(app, req, asyncResp))
                 {
                     return;
                 }
@@ -1908,7 +1908,7 @@ inline void requestRoutesSystemHostLoggerCollection(App& app)
             };
             query_param::Query delegatedQuery;
             if (!redfish::setUpRedfishRouteWithDelegation(
-                    app, req, asyncResp->res, delegatedQuery, capabilities))
+                    app, req, asyncResp, delegatedQuery, capabilities))
             {
                 return;
             }
@@ -1979,7 +1979,7 @@ inline void requestRoutesSystemHostLoggerLogEntry(App& app)
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                    const std::string& param) {
-                if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+                if (!redfish::setUpRedfishRoute(app, req, asyncResp))
                 {
                     return;
                 }
@@ -2041,7 +2041,7 @@ inline void requestRoutesBMCLogServiceCollection(App& app)
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-                if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+                if (!redfish::setUpRedfishRoute(app, req, asyncResp))
                 {
                     return;
                 }
@@ -2080,7 +2080,7 @@ inline void requestRoutesBMCJournalLogService(App& app)
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-                if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+                if (!redfish::setUpRedfishRoute(app, req, asyncResp))
                 {
                     return;
                 }
@@ -2182,7 +2182,7 @@ inline void requestRoutesBMCJournalLogEntryCollection(App& app)
             };
             query_param::Query delegatedQuery;
             if (!redfish::setUpRedfishRouteWithDelegation(
-                    app, req, asyncResp->res, delegatedQuery, capabilities))
+                    app, req, asyncResp, delegatedQuery, capabilities))
             {
                 return;
             }
@@ -2265,7 +2265,7 @@ inline void requestRoutesBMCJournalLogEntry(App& app)
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                    const std::string& entryID) {
-                if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+                if (!redfish::setUpRedfishRoute(app, req, asyncResp))
                 {
                     return;
                 }
@@ -2338,7 +2338,7 @@ inline void requestRoutesBMCDumpService(App& app)
                                                        const std::shared_ptr<
                                                            bmcweb::AsyncResp>&
                                                            asyncResp) {
-            if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+            if (!redfish::setUpRedfishRoute(app, req, asyncResp))
             {
                 return;
             }
@@ -2380,7 +2380,7 @@ inline void requestRoutesBMCDumpEntryCollection(App& app)
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-                if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+                if (!redfish::setUpRedfishRoute(app, req, asyncResp))
                 {
                     return;
                 }
@@ -2405,7 +2405,7 @@ inline void requestRoutesBMCDumpEntry(App& app)
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                    const std::string& param) {
-                if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+                if (!redfish::setUpRedfishRoute(app, req, asyncResp))
                 {
                     return;
                 }
@@ -2419,7 +2419,7 @@ inline void requestRoutesBMCDumpEntry(App& app)
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                    const std::string& param) {
-                if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+                if (!redfish::setUpRedfishRoute(app, req, asyncResp))
                 {
                     return;
                 }
@@ -2436,7 +2436,7 @@ inline void requestRoutesBMCDumpCreate(App& app)
         .methods(boost::beast::http::verb::post)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-                if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+                if (!redfish::setUpRedfishRoute(app, req, asyncResp))
                 {
                     return;
                 }
@@ -2453,7 +2453,7 @@ inline void requestRoutesBMCDumpClear(App& app)
         .methods(boost::beast::http::verb::post)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-                if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+                if (!redfish::setUpRedfishRoute(app, req, asyncResp))
                 {
                     return;
                 }
@@ -2469,7 +2469,7 @@ inline void requestRoutesSystemDumpService(App& app)
                                                        const std::shared_ptr<
                                                            bmcweb::AsyncResp>&
                                                            asyncResp) {
-            if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+            if (!redfish::setUpRedfishRoute(app, req, asyncResp))
             {
                 return;
             }
@@ -2512,7 +2512,7 @@ inline void requestRoutesSystemDumpEntryCollection(App& app)
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-                if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+                if (!redfish::setUpRedfishRoute(app, req, asyncResp))
                 {
                     return;
                 }
@@ -2548,7 +2548,7 @@ inline void requestRoutesSystemDumpEntry(App& app)
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                    const std::string& param) {
-                if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+                if (!redfish::setUpRedfishRoute(app, req, asyncResp))
                 {
                     return;
                 }
@@ -2565,7 +2565,7 @@ inline void requestRoutesSystemDumpCreate(App& app)
         .methods(boost::beast::http::verb::post)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-                if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+                if (!redfish::setUpRedfishRoute(app, req, asyncResp))
                 {
                     return;
                 }
@@ -2584,7 +2584,7 @@ inline void requestRoutesSystemDumpClear(App& app)
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 
             {
-                if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+                if (!redfish::setUpRedfishRoute(app, req, asyncResp))
                 {
                     return;
                 }
@@ -2607,7 +2607,7 @@ inline void requestRoutesCrashdumpService(App& app)
                                                        const std::shared_ptr<
                                                            bmcweb::AsyncResp>&
                                                            asyncResp) {
-            if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+            if (!redfish::setUpRedfishRoute(app, req, asyncResp))
             {
                 return;
             }
@@ -2652,7 +2652,7 @@ void inline requestRoutesCrashdumpClear(App& app)
         .methods(boost::beast::http::verb::post)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-                if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+                if (!redfish::setUpRedfishRoute(app, req, asyncResp))
                 {
                     return;
                 }
@@ -2759,7 +2759,7 @@ inline void requestRoutesCrashdumpEntryCollection(App& app)
                                                        const std::shared_ptr<
                                                            bmcweb::AsyncResp>&
                                                            asyncResp) {
-            if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+            if (!redfish::setUpRedfishRoute(app, req, asyncResp))
             {
                 return;
             }
@@ -2824,7 +2824,7 @@ inline void requestRoutesCrashdumpEntry(App& app)
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                    const std::string& param) {
-                if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+                if (!redfish::setUpRedfishRoute(app, req, asyncResp))
                 {
                     return;
                 }
@@ -2845,7 +2845,7 @@ inline void requestRoutesCrashdumpFile(App& app)
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                    const std::string& logID, const std::string& fileName) {
-                if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+                if (!redfish::setUpRedfishRoute(app, req, asyncResp))
                 {
                     return;
                 }
@@ -2945,7 +2945,7 @@ inline void requestRoutesCrashdumpCollect(App& app)
                 post)([&app](
                           const crow::Request& req,
                           const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-            if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+            if (!redfish::setUpRedfishRoute(app, req, asyncResp))
             {
                 return;
             }
@@ -3072,7 +3072,7 @@ inline void requestRoutesDBusLogServiceActionsClear(App& app)
         .methods(boost::beast::http::verb::post)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-                if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+                if (!redfish::setUpRedfishRoute(app, req, asyncResp))
                 {
                     return;
                 }
@@ -3117,7 +3117,7 @@ inline void requestRoutesPostCodesLogService(App& app)
                                                        const std::shared_ptr<
                                                            bmcweb::AsyncResp>&
                                                            asyncResp) {
-            if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+            if (!redfish::setUpRedfishRoute(app, req, asyncResp))
             {
                 return;
             }
@@ -3156,7 +3156,7 @@ inline void requestRoutesPostCodesClear(App& app)
         .methods(boost::beast::http::verb::post)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-                if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+                if (!redfish::setUpRedfishRoute(app, req, asyncResp))
                 {
                     return;
                 }
@@ -3435,7 +3435,7 @@ inline void requestRoutesPostCodesEntryCollection(App& app)
                 };
                 query_param::Query delegatedQuery;
                 if (!redfish::setUpRedfishRouteWithDelegation(
-                        app, req, asyncResp->res, delegatedQuery, capabilities))
+                        app, req, asyncResp, delegatedQuery, capabilities))
                 {
                     return;
                 }
@@ -3504,7 +3504,7 @@ inline void requestRoutesPostCodesEntryAdditionalData(App& app)
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                    const std::string& postCodeID) {
-                if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+                if (!redfish::setUpRedfishRoute(app, req, asyncResp))
                 {
                     return;
                 }
@@ -3588,7 +3588,7 @@ inline void requestRoutesPostCodesEntry(App& app)
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                    const std::string& targetID) {
-                if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+                if (!redfish::setUpRedfishRoute(app, req, asyncResp))
                 {
                     return;
                 }
