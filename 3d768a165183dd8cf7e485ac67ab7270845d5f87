@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5d64602a_94bf6c9b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-27T15:57:13Z",
+      "side": 1,
+      "message": "Removed the subordinate override, because we still need a design for that feature, but I suspect the rest can merge.\n\nThe emails sent out asking about operator permissions got no replies, and I haven\u0027t seen any evidence that users are actually using the operator level permissions for this use case (or any use case for that matter).",
+      "revId": "3d768a165183dd8cf7e485ac67ab7270845d5f87",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
