@@ -34,6 +34,24 @@
       "parentUuid": "a7cf0cb6_365828d4",
       "revId": "4051b9129cfc52497d20130524ce9e5dbf8cd8c2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c6deb304_4f30c64c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-27T18:59:08Z",
+      "side": 1,
+      "message": "Take a look at what I just pushed.  I organized the enums by namespace (Sensor, Task, ect) IMO I think is a happy medium between header per enum and one giant header.  Take a look and see if that tracks for you.",
+      "parentUuid": "5cbc3280_7642aee6",
+      "revId": "4051b9129cfc52497d20130524ce9e5dbf8cd8c2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
