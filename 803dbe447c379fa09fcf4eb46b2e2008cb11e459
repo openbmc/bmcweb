@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cc3a2e25_0a13f616",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 642,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-27T15:43:55Z",
+      "side": 1,
+      "message": "This interface doesn\u0027t exist, maybe you meant https://github.com/openbmc/phosphor-dbus-interfaces/blob/master/yaml/xyz/openbmc_project/Control/Power/Cap.interface.yaml\n\n?",
+      "range": {
+        "startLine": 641,
+        "startChar": 28,
+        "endLine": 642,
+        "endChar": 40
+      },
+      "revId": "803dbe447c379fa09fcf4eb46b2e2008cb11e459",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
