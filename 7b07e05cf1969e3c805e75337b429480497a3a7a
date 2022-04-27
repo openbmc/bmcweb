@@ -1,6 +1,24 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "663b9630_f0c5b0e5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-27T15:40:24Z",
+      "side": 1,
+      "message": "This patch fell off my radar unfortunately, and now has a bunch of conflicts against master.  If it\u0027s still desired, lets get it rebased (I\u0027m happy to help with that) and see if we can get it on master, considering it was largely just rearranging code, hopefully it\u0027s relatively easy to get updated and rebased?",
+      "revId": "7b07e05cf1969e3c805e75337b429480497a3a7a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "48b1bd28_944d2c93",
         "filename": "redfish-core/include/utils/telemetry_utils.hpp",
@@ -20,10 +38,10 @@
         "endChar": 32
       },
       "revId": "7b07e05cf1969e3c805e75337b429480497a3a7a",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "cc41573d_eabb0672",
         "filename": "redfish-core/include/utils/telemetry_utils.hpp",
@@ -44,8 +62,7 @@
         "endChar": 32
       },
       "revId": "7b07e05cf1969e3c805e75337b429480497a3a7a",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
