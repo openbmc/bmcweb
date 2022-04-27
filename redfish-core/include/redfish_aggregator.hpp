@@ -15,6 +15,9 @@
 */
 #pragma once
 
+#include <boost/asio/deadline_timer.hpp>
+#include <dbus_utility.hpp>
+#include <error_messages.hpp>
 #include <http_client.hpp>
 
 namespace redfish
@@ -27,9 +30,12 @@ class RedfishAggregator
     std::unique_ptr<boost::asio::deadline_timer> filterTimer;
     boost::asio::io_context& ioc =
         crow::connections::systemBus->get_io_context();
+    const std::string id = "Aggregator";
+    const std::string retryPolicyName = "RedfishAggregation";
 
-    // Match signals for adding Satellite Config
-    std::unique_ptr<sdbusplus::bus::match::match> matchSatelliteSignalMonitor;
+        // Match signals for adding Satellite Config
+        std::unique_ptr<sdbusplus::bus::match::match>
+            matchSatelliteSignalMonitor;
 
     // Maps a chosen alias representing a satellite BMC to a url containing
     // the information required to create a http connection to the satellite
@@ -267,6 +273,77 @@ class RedfishAggregator
     {
         static RedfishAggregator handler;
         return handler;
+    }
+
+    bool aggregationEnabled()
+    {
+        return !satelliteInfo.empty();
+    }
+
+    // Returns all aggregation prefixes including "main" formatted to be used
+    // in regex matching
+    void getPrefixes(std::string& prefixes)
+    {
+        prefixes.clear();
+        if (satelliteInfo.empty())
+        {
+            return;
+        }
+
+        for (const auto& sat : satelliteInfo)
+        {
+            prefixes += sat.first + '|';
+        }
+
+        prefixes += "main";
+        BMCWEB_LOG_DEBUG << "Regex prefix is \"" << prefixes << "\"";
+    }
+
+    // Attempt to forward a request to the satellite BMC associated with the
+    // prefix.  Set a 404 error in asyncResp if the prefix is not associated
+    // with any known satellites
+    void forwardRequest(crow::Request& thisReq,
+                        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                        const std::string& prefix)
+    {
+        const auto& sat = satelliteInfo.find(prefix);
+        if (sat == satelliteInfo.end())
+        {
+            BMCWEB_LOG_ERROR << "Unrecognized satellite prefix " << prefix;
+            asyncResp->res.result(boost::beast::http::status::not_found);
+            return;
+        }
+
+        // We need to strip the prefix from the request's path
+        std::string targetURI(thisReq.target());
+        size_t pos = targetURI.find(prefix + "_");
+        if (pos == std::string::npos)
+        {
+            // If this fails then something went wrong
+            BMCWEB_LOG_ERROR << "Error removing prefix \"" << prefix
+                             << "_\" from request URI";
+            messages::internalError(asyncResp->res);
+            return;
+        }
+
+        targetURI.erase(pos, prefix.size() + 1);
+
+        // We need a handler to load asyncResp with the result of the response
+        // from the satellite BMC
+        auto resHandler =
+            [](const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               crow::Response& resp) {
+                asyncResp->res.jsonValue = std::move(resp.jsonValue);
+                asyncResp->res.stringResponse = std::move(resp.stringResponse);
+                resp.stringResponse.emplace(boost::beast::http::response<
+                                            boost::beast::http::string_body>{});
+            };
+
+        std::string data = boost::lexical_cast<std::string>(thisReq.req.body());
+        client.sendData(data, id, std::string(sat->second.host()),
+                        sat->second.port_number(), targetURI, thisReq.fields,
+                        thisReq.method(), retryPolicyName,
+                        std::bind_front(resHandler, asyncResp));
     }
 };
 
