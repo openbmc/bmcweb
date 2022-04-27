@@ -385,6 +385,32 @@ class Connection :
             asyncResp->res.setCompleteRequestHandler(nullptr);
             return;
         }
+
+        BMCWEB_LOG_DEBUG << "MYDEBUG: About to check aggregation";
+        if (crow::HttpClient::getInstance().aggregationEnabled())
+        {
+            BMCWEB_LOG_DEBUG << "MYDEBUG: Aggregation is enabled";
+
+            // Make sure the URI is for Chassis, Managers, Systems, or Fabrics
+            // resource
+            // Its form should be /redfish/v1/<valid_resource>/<prefix>_<str>
+            //
+            // Extract prefix
+            // Match to known satellite prefix or "main"
+            // Retrieve config info if satellite prefix
+            // Remove prefix from URI
+            //
+            // If satellite:
+            // Forward to satellite using config info
+            // Load response into asyncResp
+            // Return;
+            //
+            // If "main":
+            // Proceed like normal by calling handler->handle()
+
+            
+        }
+
         handler->handle(thisReq, asyncResp);
     }
 

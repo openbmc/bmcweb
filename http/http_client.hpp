@@ -843,6 +843,11 @@ class HttpClient
         return handler;
     }
 
+    bool aggregationEnabled()
+    {
+        return !satelliteInfo.empty();
+    }
+
     // Send a request to destIP:destPort where additional processing of the
     // result is not required
     void sendData(const std::string& data, const std::string& id,
@@ -935,5 +940,4 @@ void setRetryPolicy(const std::string& retryPolicy,
 
     result.first->second.retryPolicyAction = retryPolicy;
 }
-
 } // namespace crow
