@@ -2,6 +2,7 @@
 #include "bmcweb_config.h"
 
 #include "authorization.hpp"
+#include "http_client.hpp"
 #include "http_response.hpp"
 #include "http_utility.hpp"
 #include "logging.hpp"
@@ -24,6 +25,7 @@
 #include <atomic>
 #include <chrono>
 #include <vector>
+#include <regex>
 
 namespace crow
 {
@@ -385,6 +387,111 @@ class Connection :
             asyncResp->res.setCompleteRequestHandler(nullptr);
             return;
         }
+
+        BMCWEB_LOG_DEBUG << "MYDEBUG: About to check aggregation";
+        if (crow::HttpClient::getInstance().aggregationEnabled())
+        {
+            BMCWEB_LOG_DEBUG << "MYDEBUG: Aggregation is enabled";
+
+            // I can't offload all of this into a method because I need to be
+            // able to continue to handle()
+
+            // Make sure the URI is for Chassis, Managers, Systems, or Fabrics
+            // resource
+            // Its form should be /redfish/v1/<valid_resource>/<prefix>_<str>
+            //
+            // Extract prefix
+            // Match to known satellite prefix or "main"
+            // Retrieve config info if satellite prefix
+            // Remove prefix from URI
+            //
+            // If satellite:
+            // Forward to satellite using config info
+            // Load response into asyncResp
+            // Return;
+            //
+            // If "main":
+            // Proceed like normal by calling handler->handle()
+
+            BMCWEB_LOG_DEBUG << "MYDEBUG: URI is " << thisReq.target();
+
+            std::string prefixes;
+            crow::HttpClient::getInstance().getPrefixes(prefixes);
+
+            const std::regex urlRegex(
+                "/redfish/v1/(Chassis|Managers|Systems|Fabrics)/(" +
+                prefixes + ")_.+");
+
+            std::string targetURI(thisReq.target());
+            if(std::regex_match(targetURI, urlRegex))
+            {
+                // The URI is for an aggregated resource and includes a prefix
+                BMCWEB_LOG_DEBUG << "MYDEBUG: We have a match! " << targetURI;
+
+                // Now we need to isolate the prefix
+                // tokenize by "/" to get id,
+                // then tokenize by "_" to get the prefix
+
+                std::vector<std::string> fields;
+                boost::split(fields, targetURI, boost::is_any_of("/"));
+
+                BMCWEB_LOG_DEBUG << "MYDEBUG: Split into " << fields.size() << " fields!";
+                for (const auto& field : fields)
+                {
+                    BMCWEB_LOG_DEBUG << field;
+                }
+
+                // TODOME: Should this only be 2, i.e. no "_" in ids?
+                // fields[0] will be empty because of the leader "/" in the URI
+                std::vector<std::string> ids;
+                boost::split(ids, fields[4], boost::is_any_of("_"));
+
+                BMCWEB_LOG_DEBUG << "MYDEBUG: Broke id into " << ids.size() << " parts";
+                BMCWEB_LOG_DEBUG << "MYDEBUG: Prefix is " << ids[0];
+
+                // TODOME: Make separate functions for adding and removing
+                // prefixes? There's hopefully a better way than piecewise like
+                // this.  Maybe determine the specific resource first and then
+                // go from there?  I already know what letter should be at each
+                // location.
+
+                // Is this meant for the aggregating BMC?
+                if (ids[0] == "main")
+                {
+                    BMCWEB_LOG_DEBUG << "MYDEBUG: Native resource!";
+
+                    // fields[1] = redfish
+                    std::string correctedURI;
+                    for (unsigned int i=1; i<4; i++)
+                    {
+                       correctedURI += "/" + fields[i];
+                    }
+
+                    correctedURI += "/" + ids[1];
+
+                    for (unsigned int i=5; i< fields.size(); i++)
+                    {
+                        correctedURI += "/" + fields[i];
+                    }
+
+                    BMCWEB_LOG_DEBUG << "MYDEBUG: The corrected URI is: "
+                                     << correctedURI;
+
+                    thisReq.target(std::string_view(correctedURI));
+                    BMCWEB_LOG_DEBUG << "MYDEBUG: thisReq.target() is now " << thisReq.target();
+                }
+                else
+                {
+                    BMCWEB_LOG_DEBUG << "MYDEBUG: We need to search the satellite prefixes";
+                }
+            }
+            else
+            {
+                BMCWEB_LOG_DEBUG << "MYDEBUG: No match!";
+            }
+
+        }
+
         handler->handle(thisReq, asyncResp);
     }
 
