@@ -16,6 +16,24 @@
       "message": "Tested?",
       "revId": "5b508da995433eb984da3ef1760c34774a5580a5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bfe9c0b1_d3380b5c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000998
+      },
+      "writtenOn": "2022-04-27T16:41:16Z",
+      "side": 1,
+      "message": "This patch seemed like a good idea when I wrote it, but it doesn\u0027t seem to be any more: Asset properties are often mapped directly to Redfish properties, but this isn\u0027t always the case, (as I found in assemblies), so this isn\u0027t a useful API. \n\nReally the only thing that could be a common API for extracting Asset properties is the logic for skipping SparePartNumber if it has the default empty string value. I\u0027m don\u0027t have any great ideas on how to do that in a usable way, so marking this WIP for now.",
+      "parentUuid": "28727d8e_4ec99b8c",
+      "revId": "5b508da995433eb984da3ef1760c34774a5580a5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
