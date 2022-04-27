@@ -22,6 +22,30 @@
       },
       "revId": "41c2714fed22b9a194dc506bccb033d97f73240d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "368020af_75e235a0",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 675,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-04-27T19:15:38Z",
+      "side": 1,
+      "message": "Good point.  I made that change and also changed the status messages that notify whether or not redfish aggregation has been enabled to be BMCWEB_LOG_INFO as well.  I figure that is important information to know considering how wide ranging the impact should be.  \n\nDo you think it would be overkill to also reveal the exact configuration details for each satellite that gets added, i.e. change line#798 to BMCWEB_LOG_INFO?",
+      "parentUuid": "1216bfe0_ffaed4ff",
+      "range": {
+        "startLine": 675,
+        "startChar": 28,
+        "endLine": 675,
+        "endChar": 44
+      },
+      "revId": "41c2714fed22b9a194dc506bccb033d97f73240d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
