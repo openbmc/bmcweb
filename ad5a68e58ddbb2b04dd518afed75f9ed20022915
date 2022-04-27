@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7da58b05_67447344",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2022-04-27T17:31:54Z",
+      "side": 1,
+      "message": "Separated into two changes.",
+      "parentUuid": "d0385da2_2cdbed80",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 66
+      },
+      "revId": "ad5a68e58ddbb2b04dd518afed75f9ed20022915",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "44ec9a8a_e2bae31d",
@@ -47,6 +71,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4de41e08_7a43a85f",
+        "filename": "redfish-core/include/registries.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2022-04-27T17:31:54Z",
+      "side": 1,
+      "message": "Moved to the other change (similarly to the previous comment.)",
+      "parentUuid": "44ec9a8a_e2bae31d",
+      "range": {
+        "startLine": 63,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 74
+      },
+      "revId": "ad5a68e58ddbb2b04dd518afed75f9ed20022915",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ce202a1d_df7267a3",
@@ -60,6 +108,30 @@
       "writtenOn": "2022-04-05T16:21:12Z",
       "side": 1,
       "message": "Looks like you forgot to rev the version when making changes.",
+      "range": {
+        "startLine": 29,
+        "startChar": 5,
+        "endLine": 29,
+        "endChar": 10
+      },
+      "revId": "ad5a68e58ddbb2b04dd518afed75f9ed20022915",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "68599eaa_ed1577a0",
+        "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2022-04-27T17:31:54Z",
+      "side": 1,
+      "message": "I checked the history on this file and couldn\u0027t seem to find a clear rule on how the version is bumped, so I added 0.0.1 to it.",
+      "parentUuid": "ce202a1d_df7267a3",
       "range": {
         "startLine": 29,
         "startChar": 5,
