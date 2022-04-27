@@ -33,6 +33,24 @@
       "message": "I thought this would come after ServiceFailure ?",
       "revId": "2f84f082ef756bf3f54c45457247c3dd349b5160",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "63999bdc_c73ac725",
+        "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 2114,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2022-04-27T21:17:03Z",
+      "side": 1,
+      "message": "Moved this entry to after ServiceFailure.",
+      "parentUuid": "230dafa1_ca7d2ace",
+      "revId": "2f84f082ef756bf3f54c45457247c3dd349b5160",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
