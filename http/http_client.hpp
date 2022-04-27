@@ -72,14 +72,14 @@ struct RetryPolicyData
 
 struct PendingRequest
 {
-    std::string requestData;
+    boost::beast::http::request<boost::beast::http::string_body> req;
     std::function<void(bool, uint32_t, const Response&)> callback;
     RetryPolicyData retryPolicy;
     PendingRequest(
-        const std::string& requestData,
+        boost::beast::http::request<boost::beast::http::string_body>&& req,
         const std::function<void(bool, uint32_t, const Response&)>& callback,
         const RetryPolicyData& retryPolicy) :
-        requestData(requestData),
+        req(std::move(req)),
         callback(callback), retryPolicy(retryPolicy)
     {}
 };
@@ -100,7 +100,6 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
     RetryPolicyData retryPolicy;
 
     // Data buffers
-    std::string data;
     boost::beast::http::request<boost::beast::http::string_body> req;
     std::optional<
         boost::beast::http::response_parser<boost::beast::http::string_body>>
@@ -181,9 +180,6 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
     void sendMessage()
     {
         state = ConnState::sendInProgress;
-
-        req.body() = data;
-        req.prepare_payload();
 
         // Set a timeout on the operation
         conn.expires_after(std::chrono::seconds(30));
@@ -387,17 +383,10 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
   public:
     explicit ConnectionInfo(boost::asio::io_context& ioc, const std::string& id,
                             const std::string& destIP, const uint16_t destPort,
-                            const std::string& destUri,
-                            const boost::beast::http::fields& httpHeader,
                             const unsigned int connId) :
         subId(id),
-        host(destIP), port(destPort), connId(connId),
-        req(boost::beast::http::verb::post, destUri, 11, "", httpHeader),
-        conn(ioc), timer(ioc)
-    {
-        req.set(boost::beast::http::field::host, host);
-        req.keep_alive(true);
-    }
+        host(destIP), port(destPort), connId(connId), conn(ioc), timer(ioc)
+    {}
 };
 
 class ConnectionPool : public std::enable_shared_from_this<ConnectionPool>
@@ -407,15 +396,13 @@ class ConnectionPool : public std::enable_shared_from_this<ConnectionPool>
     const std::string id;
     const std::string destIP;
     const uint16_t destPort;
-    const std::string destUri;
-    const boost::beast::http::fields httpHeader;
     std::vector<std::shared_ptr<ConnectionInfo>> connections;
     boost::container::devector<PendingRequest> requestQueue;
 
     friend class HttpClient;
 
-    // Configure a connections's data, callback, and retry info in preparation
-    // to begin sending a request
+    // Configure a connections's request, callback, and retry info in
+    // preparation to begin sending the request
     void setConnProps(ConnectionInfo& conn)
     {
         if (requestQueue.empty())
@@ -425,10 +412,10 @@ class ConnectionPool : public std::enable_shared_from_this<ConnectionPool>
             return;
         }
 
-        auto req = requestQueue.front();
-        conn.retryPolicy = std::move(req.retryPolicy);
-        conn.data = std::move(req.requestData);
-        conn.callback = std::move(req.callback);
+        auto nextReq = requestQueue.front();
+        conn.retryPolicy = std::move(nextReq.retryPolicy);
+        conn.req = std::move(nextReq.req);
+        conn.callback = std::move(nextReq.callback);
 
         BMCWEB_LOG_DEBUG << "Setting properties for connection " << conn.host
                          << ":" << std::to_string(conn.port)
@@ -496,7 +483,10 @@ class ConnectionPool : public std::enable_shared_from_this<ConnectionPool>
         }
     }
 
-    void sendData(std::string& data, const RetryPolicyData& retryPolicy,
+    void sendData(std::string& data, const std::string& destUri,
+                  const boost::beast::http::fields& httpHeader,
+                  const boost::beast::http::verb verb,
+                  const RetryPolicyData& retryPolicy,
                   std::function<void(const Response&)>& resHandler)
     {
         std::weak_ptr<ConnectionPool> weakSelf = weak_from_this();
@@ -520,6 +510,15 @@ class ConnectionPool : public std::enable_shared_from_this<ConnectionPool>
             self->sendNext(keepAlive, connId);
         };
 
+        // Construct the request to be sent
+        boost::beast::http::request<boost::beast::http::string_body> thisReq =
+            boost::beast::http::request<boost::beast::http::string_body>(
+                verb, destUri, 11, "", httpHeader);
+        thisReq.set(boost::beast::http::field::host, destIP);
+        thisReq.keep_alive(true);
+        thisReq.body() = std::move(data);
+        thisReq.prepare_payload();
+
         // Reuse an existing connection if one is available
         for (unsigned int i = 0; i < connections.size(); i++)
         {
@@ -528,9 +527,8 @@ class ConnectionPool : public std::enable_shared_from_this<ConnectionPool>
                 (conn->state == ConnState::initialized) ||
                 (conn->state == ConnState::closed))
             {
-                conn->data = std::move(data);
+                conn->req = std::move(thisReq);
                 conn->callback = std::move(cb);
-                conn->retryPolicy = retryPolicy;
                 setConnRetryPolicy(*conn, retryPolicy);
                 std::string commonMsg = std::to_string(i) + " from pool " +
                                         destIP + ":" + std::to_string(destPort);
@@ -558,7 +556,7 @@ class ConnectionPool : public std::enable_shared_from_this<ConnectionPool>
             BMCWEB_LOG_DEBUG << "Adding new connection to pool " << destIP
                              << ":" << std::to_string(destPort);
             auto conn = addConnection();
-            conn->data = std::move(data);
+            conn->req = std::move(thisReq);
             conn->callback = std::move(cb);
             setConnRetryPolicy(*conn, retryPolicy);
             conn->doResolve();
@@ -566,7 +564,7 @@ class ConnectionPool : public std::enable_shared_from_this<ConnectionPool>
         else if (requestQueue.size() < maxRequestQueueSize)
         {
             BMCWEB_LOG_ERROR << "Max pool size reached. Adding data to queue.";
-            requestQueue.emplace_back(std::move(data), std::move(cb),
+            requestQueue.emplace_back(std::move(thisReq), std::move(cb),
                                       retryPolicy);
         }
         else
@@ -580,8 +578,8 @@ class ConnectionPool : public std::enable_shared_from_this<ConnectionPool>
     {
         unsigned int newId = static_cast<unsigned int>(connections.size());
 
-        auto& ret = connections.emplace_back(std::make_shared<ConnectionInfo>(
-            ioc, id, destIP, destPort, destUri, httpHeader, newId));
+        auto& ret = connections.emplace_back(
+            std::make_shared<ConnectionInfo>(ioc, id, destIP, destPort, newId));
 
         BMCWEB_LOG_DEBUG << "Added connection "
                          << std::to_string(connections.size() - 1)
@@ -593,12 +591,10 @@ class ConnectionPool : public std::enable_shared_from_this<ConnectionPool>
 
   public:
     explicit ConnectionPool(boost::asio::io_context& ioc, const std::string& id,
-                            const std::string& destIP, const uint16_t destPort,
-                            const std::string& destUri,
-                            const boost::beast::http::fields& httpHeader) :
+                            const std::string& destIP,
+                            const uint16_t destPort) :
         ioc(ioc),
-        id(id), destIP(destIP), destPort(destPort), destUri(destUri),
-        httpHeader(httpHeader)
+        id(id), destIP(destIP), destPort(destPort)
     {
         std::string clientKey = destIP + ":" + std::to_string(destPort);
         BMCWEB_LOG_DEBUG << "Initializing connection pool for " << destIP << ":"
@@ -646,11 +642,12 @@ class HttpClient
                   const std::string& destIP, const uint16_t destPort,
                   const std::string& destUri,
                   const boost::beast::http::fields& httpHeader,
-                  std::string& retryPolicyName)
+                  const boost::beast::http::verb verb,
+                  const std::string& retryPolicyName)
     {
         std::function<void(const Response&)> cb = genericResHandler;
         sendDataWithCallback(data, id, destIP, destPort, destUri, httpHeader,
-                             retryPolicyName, cb);
+                             verb, retryPolicyName, cb);
     }
 
     // Send request to destIP:destPort and use the provided callback to
@@ -660,7 +657,8 @@ class HttpClient
                               const uint16_t destPort,
                               const std::string& destUri,
                               const boost::beast::http::fields& httpHeader,
-                              std::string& retryPolicyName,
+                              const boost::beast::http::verb verb,
+                              const std::string& retryPolicyName,
                               std::function<void(const Response&)>& resHandler)
     {
         std::string clientKey = destIP + ":" + std::to_string(destPort);
@@ -670,8 +668,8 @@ class HttpClient
         {
             // Now actually create the ConnectionPool shared_ptr since it does
             // not already exist
-            result.first->second = std::make_shared<ConnectionPool>(
-                ioc, id, destIP, destPort, destUri, httpHeader);
+            result.first->second =
+                std::make_shared<ConnectionPool>(ioc, id, destIP, destPort);
             BMCWEB_LOG_DEBUG << "Created connection pool for " << clientKey;
         }
         else
@@ -691,7 +689,8 @@ class HttpClient
 
         // Send the data using either the existing connection pool or the newly
         // created connection pool
-        result.first->second->sendData(data, policy.first->second, resHandler);
+        result.first->second->sendData(data, destUri, httpHeader, verb,
+                                       policy.first->second, resHandler);
     }
 
     void setRetryConfig(const uint32_t retryAttempts,
