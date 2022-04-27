@@ -1,16 +1,23 @@
 #pragma once
 
+#include <boost/asio/deadline_timer.hpp>
+#include <dbus_utility.hpp>
+#include <error_messages.hpp>
 #include <http_client.hpp>
+#include <http_connection.hpp>
 
 namespace redfish
 {
 
-class RedfishAggregator
+class RedfishAggregator : public std::enable_shared_from_this<RedfishAggregator>
 {
   private:
     crow::HttpClient& client = crow::HttpClient::getInstance();
     boost::asio::io_context& ioc =
         crow::connections::systemBus->get_io_context();
+    const std::string id = "Aggregator";
+    const std::string retryPolicyName = "RedfishAggregation";
+
     RedfishAggregator()
     {
         auto cb = [](const std::unordered_map<std::string, boost::urls::url>&
@@ -24,7 +31,7 @@ class RedfishAggregator
 
     // Polls D-Bus to get all available satellite config information
     // Expects a handler which interacts with the returned configs
-    static void getSatelliteConfigs(
+    void getSatelliteConfigs(
         const std::function<void(
             const std::unordered_map<std::string, boost::urls::url>&)>& handler)
     {
@@ -209,6 +216,189 @@ class RedfishAggregator
                          << result.first->second.encoded_host_and_port();
     }
 
+    // Intended to handle an incoming request based on if Redfish Aggregation
+    // is enabled.  The provided reqHandler will be called to handle requests
+    // meant for URIs associated with the aggregating BMC
+    void aggregateAndHandle(
+        const std::function<void(crow::Request&,
+                                 const std::shared_ptr<bmcweb::AsyncResp>&)>&
+            reqHandler,
+        crow::Request& thisReq,
+        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+        const std::unordered_map<std::string, boost::urls::url>& satelliteInfo)
+    {
+        // satelliteInfo will contain all satellite config information
+        // If it is empty then that means we don't need to perform any
+        // aggregation operations
+        if (!satelliteInfo.empty())
+        {
+            BMCWEB_LOG_DEBUG << "Aggregation is enabled, begin processing of "
+                             << thisReq.target();
+
+            std::string prefixes;
+            getPrefixes(prefixes, satelliteInfo);
+
+            // Make sure the URI is for a Chassis, Managers, Systems, Fabrics,
+            // or ComponentIntegrity resource
+            // Its form should be /redfish/v1/<valid_resource>/<prefix>_<str>
+            const std::regex urlRegex(
+                "/redfish/v1/(Chassis|Managers|Systems|Fabrics|ComponentIntegrity)/(" +
+                prefixes + ")_.+");
+
+            std::string targetURI(thisReq.target());
+
+            // Is the target URI related to an aggregated resource?
+            if (std::regex_match(targetURI, urlRegex))
+            {
+                // The URI is for an aggregated resource and includes a prefix
+                // We need to either remove the prefix so the request can be
+                // locally handled, or forward the request to a satellite BMC
+                std::vector<std::string> fields;
+                boost::split(fields, targetURI, boost::is_any_of("/"));
+
+                // fields[0] will be empty because of the leading "/" in the URI
+                // request.  The prefix will therefore be part of fields[4]
+                std::vector<std::string> ids;
+                boost::split(ids, fields[4], boost::is_any_of("_"));
+                BMCWEB_LOG_DEBUG << "Extracted prefix is \"" << ids[0] << "\"";
+
+                // Is request meant for the aggregating BMC?
+                if (ids[0] == "main")
+                {
+                    BMCWEB_LOG_DEBUG
+                        << "Request received for aggregated native resource";
+
+                    size_t pos = targetURI.find("main_");
+                    if (pos == std::string::npos)
+                    {
+                        // If this happens then something went wrong
+                        BMCWEB_LOG_ERROR
+                            << "Error removing prefix \"main_\" from request URI";
+                        redfish::messages::internalError(asyncResp->res);
+                        return;
+                    }
+
+                    // Remove first occurrence of "main_" from the URI so the
+                    // aggregating BMC can handle the request correctly
+                    targetURI.erase(pos, 5);
+                    thisReq.target(std::string_view(targetURI));
+                }
+                else
+                {
+                    // We need to search the satellite prefixes";
+                    BMCWEB_LOG_DEBUG << "Searching satellite prefixes for "
+                                     << ids[0];
+
+                    // Will either forward the request to the associated
+                    // satellite BMC or set a 404 if the prefix is not
+                    // recognized
+                    forwardRequest(thisReq, asyncResp, ids[0], satelliteInfo);
+
+                    // No need to locally handle this request
+                    return;
+                }
+            } // end handling of aggregated resource
+            else
+            {
+                // Make sure the previous check did not fail because a required
+                // prefix was not supplied
+                const std::regex illegalRegex(
+                    "/redfish/v1/(Chassis|Managers|Systems|Fabrics|ComponentIntegrity)/(.+)");
+
+                if (std::regex_match(targetURI, illegalRegex))
+                {
+                    // It is not possible to have an aggregated resource that
+                    // does not include a prefix in the URI
+                    asyncResp->res.result(
+                        boost::beast::http::status::not_found);
+                    return;
+                }
+
+                // The request is meant for a valid URI that is not
+                // aggregated so we can proceed as normal, no need to
+                // remove a URI prefix
+                BMCWEB_LOG_DEBUG << "Aggregation not required";
+            }
+        } // End Redfish Aggregation initial processing
+
+        // Now locally handle the request
+        reqHandler(thisReq, asyncResp);
+    }
+
+    // Returns all aggregation prefixes including "main" formatted to be used
+    // in regex matching
+    static void getPrefixes(
+        std::string& prefixes,
+        const std::unordered_map<std::string, boost::urls::url>& satelliteInfo)
+    {
+        prefixes.clear();
+        if (satelliteInfo.empty())
+        {
+            return;
+        }
+
+        for (const auto& sat : satelliteInfo)
+        {
+            prefixes += sat.first + '|';
+        }
+
+        prefixes += "main";
+        BMCWEB_LOG_DEBUG << "Regex prefix is \"" << prefixes << "\"";
+    }
+
+    // Attempt to forward a request to the satellite BMC associated with the
+    // prefix.  Set a 404 error in asyncResp if the prefix is not associated
+    // with any known satellites
+    void forwardRequest(
+        crow::Request& thisReq,
+        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+        const std::string& prefix,
+        const std::unordered_map<std::string, boost::urls::url>& satelliteInfo)
+    {
+        const auto& sat = satelliteInfo.find(prefix);
+        if (sat == satelliteInfo.end())
+        {
+            BMCWEB_LOG_ERROR << "Unrecognized satellite prefix " << prefix;
+            asyncResp->res.result(boost::beast::http::status::not_found);
+            return;
+        }
+
+        // We need to strip the prefix from the request's path
+        std::string targetURI(thisReq.target());
+        size_t pos = targetURI.find(prefix + "_");
+        if (pos == std::string::npos)
+        {
+            // If this fails then something went wrong
+            BMCWEB_LOG_ERROR << "Error removing prefix \"" << prefix
+                             << "_\" from request URI";
+            messages::internalError(asyncResp->res);
+            return;
+        }
+
+        targetURI.erase(pos, prefix.size() + 1);
+
+        std::function<void(const crow::Response&)> cb =
+            std::bind_front(processResponse, asyncResp);
+
+        std::string data = boost::lexical_cast<std::string>(thisReq.req.body());
+        client.sendDataWithCallback(data, id, std::string(sat->second.host()),
+                                    sat->second.port_number(), targetURI,
+                                    thisReq.fields, thisReq.method(),
+                                    retryPolicyName, cb);
+    }
+
+    // Processes the response returned by a satellite BMC and loads its
+    // contents into asyncResp
+    static void
+        processResponse(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                        crow::Response& resp)
+    {
+        asyncResp->res.jsonValue = std::move(resp.jsonValue);
+        asyncResp->res.stringResponse = std::move(resp.stringResponse);
+        // resp.stringResponse.emplace(boost::beast::http::response<
+        //                             boost::beast::http::string_body>{});
+    }
+
   public:
     RedfishAggregator(const RedfishAggregator&) = delete;
     RedfishAggregator& operator=(const RedfishAggregator&) = delete;
@@ -220,6 +410,25 @@ class RedfishAggregator
     {
         static RedfishAggregator handler;
         return handler;
+    }
+
+    // Entry point to Redfish Aggregation
+    // reqHandler should locally handle thisReq and then write the results
+    // into asyncResp
+    void beginAggregation(
+        std::function<void(crow::Request&,
+                           const std::shared_ptr<bmcweb::AsyncResp>&)>&
+            reqHandler,
+        crow::Request& thisReq, std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+    {
+        auto cb = [reqHandler, &thisReq, asyncResp](
+                      const std::unordered_map<std::string, boost::urls::url>&
+                          satelliteInfo) {
+            getInstance().aggregateAndHandle(reqHandler, thisReq, asyncResp,
+                                             satelliteInfo);
+        };
+
+        getSatelliteConfigs(std::move(cb));
     }
 };
 
