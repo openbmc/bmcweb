@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b22c5e46_cbfe87a5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000388
+      },
+      "writtenOn": "2022-04-27T20:11:18Z",
+      "side": 1,
+      "message": "Looks good to me",
+      "revId": "897700b006a7f17718cd55b53ef022141f177a85",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f0d64813_479a3e24",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 528,
+      "author": {
+        "id": 1000388
+      },
+      "writtenOn": "2022-04-27T20:11:18Z",
+      "side": 1,
+      "message": "very minor not: I guess this and in the other file, this change can technically be a separate CL I believe this is an independent change.",
+      "range": {
+        "startLine": 524,
+        "startChar": 0,
+        "endLine": 528,
+        "endChar": 0
+      },
+      "revId": "897700b006a7f17718cd55b53ef022141f177a85",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4c8e8ed7_082af044",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 536,
+      "author": {
+        "id": 1000388
+      },
+      "writtenOn": "2022-04-27T20:11:18Z",
+      "side": 1,
+      "message": "Should this also be a different CL? seems like a cleanup unrelated to faultlog",
+      "range": {
+        "startLine": 532,
+        "startChar": 12,
+        "endLine": 536,
+        "endChar": 25
+      },
+      "revId": "897700b006a7f17718cd55b53ef022141f177a85",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
