@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "82ca8c47_14b1f2d9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-04-27T19:44:35Z",
+      "side": 1,
+      "message": "CI fail: \n\nbmcweb.p/src_webserver_main.cpp.o -MF bmcweb.p/src_webserver_main.cpp.o.d -o bmcweb.p/src_webserver_main.cpp.o -c ../src/webserver_main.cpp\nIn file included from ../redfish-core/include/redfish.hpp:35,\n                 from ../src/webserver_main.cpp:17:\n../redfish-core/include/../lib/processor.hpp: In function ‘void redfish::getProcessorObject(const std::shared_ptr\u003cbmcweb::AsyncResp\u003e\u0026, const string\u0026, Handler\u0026\u0026)’:\n../redfish-core/include/../lib/processor.hpp:790:51: error: too many initializers for ‘std::array\u003cconst char*, 8\u003e’\n  790 |             \"xyz.openbmc_project.Software.Version\"});\n      |                                                   ^\nninja: build ",
+      "revId": "9c7db9030ea4838d4c1bdb2cdce651f6fdffcef4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
