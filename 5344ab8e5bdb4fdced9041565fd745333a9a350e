@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e1ea1f14_0e469db9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-27T15:58:19Z",
+      "side": 1,
+      "message": "The emails sent out asking about operator permissions got no replies, and I haven\u0027t seen any evidence that users are actually using the operator level permissions for this use case (or any use case for that matter), and in this case, because a conforming Redfish client implementation would have to walk the tree to find this node, and walk through nodes where the permissions are correct already, they would get 401, so there\u0027s no way that it\u0027s possible for this to break compatibility with a client that didn\u0027t hardcode URIs.  I suspect this can merge.",
+      "revId": "5344ab8e5bdb4fdced9041565fd745333a9a350e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
