@@ -12,7 +12,7 @@ namespace redfish
 inline void redfishGet(App& app, const crow::Request& req,
                        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }

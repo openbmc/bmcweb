@@ -782,7 +782,7 @@ inline void requestNBDVirtualMediaRoutes(App& app)
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                    const std::string& name, const std::string& resName) {
-                if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+                if (!redfish::setUpRedfishRoute(app, req, asyncResp))
                 {
                     return;
                 }
@@ -921,7 +921,7 @@ inline void requestNBDVirtualMediaRoutes(App& app)
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                    const std::string& name, const std::string& resName) {
-                if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+                if (!redfish::setUpRedfishRoute(app, req, asyncResp))
                 {
                     return;
                 }
@@ -1015,7 +1015,7 @@ inline void requestNBDVirtualMediaRoutes(App& app)
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                    const std::string& name) {
-                if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+                if (!redfish::setUpRedfishRoute(app, req, asyncResp))
                 {
                     return;
                 }
@@ -1064,7 +1064,7 @@ inline void requestNBDVirtualMediaRoutes(App& app)
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                    const std::string& name, const std::string& resName) {
-                if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+                if (!redfish::setUpRedfishRoute(app, req, asyncResp))
                 {
                     return;
                 }

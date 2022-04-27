@@ -420,7 +420,7 @@ inline void requestRoutesUpdateServiceActionsSimpleUpdate(App& app)
                 post)([&app](
                           const crow::Request& req,
                           const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-            if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+            if (!redfish::setUpRedfishRoute(app, req, asyncResp))
             {
                 return;
             }
@@ -541,7 +541,7 @@ inline void
     handleUpdateServicePost(App& app, const crow::Request& req,
                             const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
@@ -569,7 +569,7 @@ inline void requestRoutesUpdateService(App& app)
                                                        const std::shared_ptr<
                                                            bmcweb::AsyncResp>&
                                                            asyncResp) {
-            if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+            if (!redfish::setUpRedfishRoute(app, req, asyncResp))
             {
                 return;
             }
@@ -652,7 +652,7 @@ inline void requestRoutesUpdateService(App& app)
                                                     const std::shared_ptr<
                                                         bmcweb::AsyncResp>&
                                                         asyncResp) {
-            if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+            if (!redfish::setUpRedfishRoute(app, req, asyncResp))
             {
                 return;
             }
@@ -765,7 +765,7 @@ inline void requestRoutesSoftwareInventoryCollection(App& app)
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-                if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+                if (!redfish::setUpRedfishRoute(app, req, asyncResp))
                 {
                     return;
                 }
@@ -860,7 +860,7 @@ inline void requestRoutesSoftwareInventory(App& app)
                 get)([&app](const crow::Request& req,
                             const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                             const std::string& param) {
-            if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+            if (!redfish::setUpRedfishRoute(app, req, asyncResp))
             {
                 return;
             }

@@ -242,9 +242,14 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
                         << "recvMessage() Listener Failed to "
                            "receive Sent-Event. Header Response Code: "
                         << respCode;
-                    self->state = ConnState::recvFailed;
-                    self->waitAndRetry();
-                    return;
+
+                    // We can continue if the error was a 404
+                    if (respCode != 404)
+                    {
+                        self->state = ConnState::recvFailed;
+                        self->waitAndRetry();
+                        return;
+                    }
                 }
 
                 // Send is successful
@@ -445,6 +450,12 @@ class ConnectionPool : public std::enable_shared_from_this<ConnectionPool>
     void sendNext(bool keepAlive, uint32_t connId)
     {
         auto conn = connections[connId];
+
+        // Allow the connection's handler to be deleted
+        // This is needed because of Redfish Aggregation passing an
+        // AsyncResponse shared_ptr to this callback
+        auto tmp = std::move(conn->callback);
+
         // Reuse the connection to send the next request in the queue
         if (!requestQueue.empty())
         {

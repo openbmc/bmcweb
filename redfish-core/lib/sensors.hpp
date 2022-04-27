@@ -3038,7 +3038,7 @@ inline void requestRoutesSensorCollection(App& app)
             };
             query_param::Query delegatedQuery;
             if (!redfish::setUpRedfishRouteWithDelegation(
-                    app, req, aResp->res, delegatedQuery, capabilities))
+                    app, req, aResp, delegatedQuery, capabilities))
             {
                 return;
             }
@@ -3082,7 +3082,7 @@ inline void requestRoutesSensor(App& app)
                                                    bmcweb::AsyncResp>& aResp,
                                                const std::string& chassisId,
                                                const std::string& sensorName) {
-            if (!redfish::setUpRedfishRoute(app, req, aResp->res))
+            if (!redfish::setUpRedfishRoute(app, req, aResp))
             {
                 return;
             }
