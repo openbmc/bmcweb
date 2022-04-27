@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "22aca6e3_79e8e16f",
         "filename": "DEVELOPING.md",
@@ -20,10 +21,10 @@
         "endChar": 39
       },
       "revId": "7bc32057217556a19137768d9fd4fe5f71d56f1e",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "9ba7bb70_4e868dd1",
         "filename": "DEVELOPING.md",
@@ -44,10 +45,10 @@
         "endChar": 39
       },
       "revId": "7bc32057217556a19137768d9fd4fe5f71d56f1e",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "c96fc421_f39ecd70",
         "filename": "DEVELOPING.md",
@@ -67,10 +68,10 @@
         "endChar": 74
       },
       "revId": "7bc32057217556a19137768d9fd4fe5f71d56f1e",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "63c809f8_d138a0af",
         "filename": "DEVELOPING.md",
@@ -90,10 +91,10 @@
         "endChar": 16
       },
       "revId": "7bc32057217556a19137768d9fd4fe5f71d56f1e",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "bdae1ee1_443cfee7",
         "filename": "DEVELOPING.md",
@@ -114,10 +115,10 @@
         "endChar": 74
       },
       "revId": "7bc32057217556a19137768d9fd4fe5f71d56f1e",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "66bd4607_50084bf8",
         "filename": "DEVELOPING.md",
@@ -138,10 +139,58 @@
         "endChar": 16
       },
       "revId": "7bc32057217556a19137768d9fd4fe5f71d56f1e",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff8a0a32_e693919f",
+        "filename": "DEVELOPING.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-27T14:47:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bdae1ee1_443cfee7",
+      "range": {
+        "startLine": 141,
+        "startChar": 73,
+        "endLine": 141,
+        "endChar": 74
+      },
+      "revId": "7bc32057217556a19137768d9fd4fe5f71d56f1e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "53b46e55_9bc3910c",
+        "filename": "DEVELOPING.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-27T14:47:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "66bd4607_50084bf8",
+      "range": {
+        "startLine": 141,
+        "startChar": 15,
+        "endLine": 141,
+        "endChar": 16
+      },
+      "revId": "7bc32057217556a19137768d9fd4fe5f71d56f1e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "c1cb74b9_db5c26e5",
         "filename": "DEVELOPING.md",
@@ -161,10 +210,10 @@
         "endChar": 57
       },
       "revId": "7bc32057217556a19137768d9fd4fe5f71d56f1e",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "9cf8acac_b58a4a7a",
         "filename": "DEVELOPING.md",
@@ -185,10 +234,34 @@
         "endChar": 57
       },
       "revId": "7bc32057217556a19137768d9fd4fe5f71d56f1e",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f33e6e19_dcaf319e",
+        "filename": "DEVELOPING.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-27T14:47:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9cf8acac_b58a4a7a",
+      "range": {
+        "startLine": 142,
+        "startChar": 56,
+        "endLine": 142,
+        "endChar": 57
+      },
+      "revId": "7bc32057217556a19137768d9fd4fe5f71d56f1e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "a633e656_250bac08",
         "filename": "DEVELOPING.md",
@@ -208,10 +281,10 @@
         "endChar": 35
       },
       "revId": "7bc32057217556a19137768d9fd4fe5f71d56f1e",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "f78b690c_da225e42",
         "filename": "DEVELOPING.md",
@@ -232,10 +305,34 @@
         "endChar": 35
       },
       "revId": "7bc32057217556a19137768d9fd4fe5f71d56f1e",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f03a4ea_099be9f0",
+        "filename": "DEVELOPING.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-27T14:47:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f78b690c_da225e42",
+      "range": {
+        "startLine": 153,
+        "startChar": 31,
+        "endLine": 153,
+        "endChar": 35
+      },
+      "revId": "7bc32057217556a19137768d9fd4fe5f71d56f1e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "10a7a8fe_f835f2e6",
         "filename": "DEVELOPING.md",
@@ -249,10 +346,10 @@
       "side": 1,
       "message": "What about a change made in the name of security, some permission change?",
       "revId": "7bc32057217556a19137768d9fd4fe5f71d56f1e",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "139483ff_4e2539c6",
         "filename": "DEVELOPING.md",
@@ -267,10 +364,10 @@
       "message": "I didn\u0027t think it needed to be called out explicitly.   A number of security changes are visible to users, and a number aren\u0027t, so I didn\u0027t think it deserved its own callout, but what did you have in mind?",
       "parentUuid": "10a7a8fe_f835f2e6",
       "revId": "7bc32057217556a19137768d9fd4fe5f71d56f1e",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "87969f92_a005905f",
         "filename": "DEVELOPING.md",
@@ -285,10 +382,28 @@
       "message": "I was thinking \n\"- In the best interest of security\" \n\"- For security fixes\"  \nor something like that but I am fine if you want to leave off",
       "parentUuid": "139483ff_4e2539c6",
       "revId": "7bc32057217556a19137768d9fd4fe5f71d56f1e",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "302182cb_eb9333ed",
+        "filename": "DEVELOPING.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-27T14:47:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "87969f92_a005905f",
+      "revId": "7bc32057217556a19137768d9fd4fe5f71d56f1e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "13416c61_3ac7438b",
         "filename": "DEVELOPING.md",
@@ -302,10 +417,10 @@
       "side": 1,
       "message": "New schemas?",
       "revId": "7bc32057217556a19137768d9fd4fe5f71d56f1e",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "04b5a408_833a7037",
         "filename": "DEVELOPING.md",
@@ -320,8 +435,25 @@
       "message": "I kinda lumped that in with new items added to a collection (given that a correctly implemented new schema would require a new odata link) but sure, we can call it out explicitly.  ACK",
       "parentUuid": "13416c61_3ac7438b",
       "revId": "7bc32057217556a19137768d9fd4fe5f71d56f1e",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e0c49aaf_f6ed934a",
+        "filename": "DEVELOPING.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-27T14:47:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "04b5a408_833a7037",
+      "revId": "7bc32057217556a19137768d9fd4fe5f71d56f1e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
