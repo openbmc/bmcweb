@@ -227,9 +227,14 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
                         << "recvMessage() Listener Failed to "
                            "receive Sent-Event. Header Response Code: "
                         << respCode;
-                    self->state = ConnState::recvFailed;
-                    self->waitAndRetry();
-                    return;
+
+                    // We can continue if the error was a 404
+                    if (respCode != 404)
+                    {
+                        self->state = ConnState::recvFailed;
+                        self->waitAndRetry();
+                        return;
+                    }
                 }
 
                 // Send is successful
@@ -450,6 +455,12 @@ class ConnectionPool
     void sendNext(bool keepAlive, uint32_t connId)
     {
         auto conn = connections[connId];
+
+        // Allow the connection's handler to be deleted
+        // This is needed because of Redfish Aggregation passing an
+        // AsyncResponse shared_ptr to this callback
+        auto tmp = std::move(conn->callback);
+
         // Reuse the connection to send the next request in the queue
         if (!requestInfoQueue.empty())
         {
@@ -497,8 +508,6 @@ class ConnectionPool
         // Callback to be called once the request has been sent
         auto cb = [this, resHandler](bool keepAlive, uint32_t connId,
                                      Response& res) {
-            // Allow provided callback to perform additional processing of the
-            // request
             resHandler(res);
 
             // If requests remain in the queue then we want to reuse this
@@ -677,7 +686,7 @@ class HttpClient
     }
 };
 
-void setRetryConfig(const uint32_t retryAttempts,
+inline void setRetryConfig(const uint32_t retryAttempts,
                     const uint32_t retryTimeoutInterval,
                     const std::string& retryPolicyName)
 {
@@ -699,7 +708,7 @@ void setRetryConfig(const uint32_t retryAttempts,
     result.first->second.retryIntervalSecs = retryTimeoutInterval;
 }
 
-void setRetryPolicy(const std::string& retryPolicy,
+inline void setRetryPolicy(const std::string& retryPolicy,
                     const std::string& retryPolicyName)
 {
     // We need to create the retry policy if one does not already exist for
