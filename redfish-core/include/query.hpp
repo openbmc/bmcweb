@@ -4,6 +4,8 @@
 
 #include <bmcweb_config.h>
 
+#include <redfish_aggregator.hpp>
+
 namespace redfish
 {
 
@@ -17,6 +19,23 @@ namespace redfish
     query_param::Query& delegated,
     const query_param::QueryCapabilities& queryCapabilities)
 {
+#ifdef BMCWEB_ENABLE_REDFISH_AGGREGATION
+    // Asynchronously determine if this request needs to be routed to a
+    // satellite BMC.  We will locally process the request at the same time.
+    // If the request should be forwarded to a satellite, then local handling
+    // won't recognize the path due to the prefix and set res to return a 404.
+    // That error will get overwritten by the actual response from the
+    // satellite BMC.
+
+    // TODO: There is a chance of a race condition where the local BMC does
+    // not finish until after the response from the satellite BMC has already
+    // been processed.  In that instance, the valid response from the
+    // satellite would get clobbered by us locally writing a 404.  Future
+    // changes should be made to remove the possibility of this occurring.
+
+    RedfishAggregator::getInstance().beginAggregation(req, asyncResp);
+#endif
+
     BMCWEB_LOG_DEBUG << "setup redfish route";
 
     // Section 7.4 of the redfish spec "Redfish Services shall process the
