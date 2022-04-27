@@ -5,6 +5,7 @@
 #include "http_response.hpp"
 #include "http_utility.hpp"
 #include "logging.hpp"
+#include <redfish_aggregator.hpp>
 #include "utility.hpp"
 
 #include <boost/algorithm/string.hpp>
@@ -23,6 +24,7 @@
 
 #include <atomic>
 #include <chrono>
+#include <regex>
 #include <vector>
 
 namespace crow
@@ -385,6 +387,105 @@ class Connection :
             asyncResp->res.setCompleteRequestHandler(nullptr);
             return;
         }
+
+        if (redfish::RedfishAggregator::getInstance().aggregationEnabled())
+        {
+            BMCWEB_LOG_DEBUG << "Aggregation is enabled, begin processing of "
+                             << thisReq.target();
+
+            std::string prefixes;
+            redfish::RedfishAggregator::getInstance().getPrefixes(prefixes);
+
+            // Make sure the URI is for a Chassis, Managers, Systems, Fabrics,
+            // or ComponentIntegrity resource
+            // Its form should be /redfish/v1/<valid_resource>/<prefix>_<str>
+            const std::regex urlRegex(
+                "/redfish/v1/(Chassis|Managers|Systems|Fabrics|ComponentIntegrity)/(" +
+                prefixes + ")_.+");
+
+            std::string targetURI(thisReq.target());
+
+            // Is the target URI related to an aggregated resource?
+            if (std::regex_match(targetURI, urlRegex))
+            {
+                // The URI is for an aggregated resource and includes a prefix
+                // We need to either remove the prefix so the request can be
+                // locally handled, or forward the request to a satellite BMC
+                BMCWEB_LOG_DEBUG << "MYDEBUG: We have a match! " << targetURI;
+
+                std::vector<std::string> fields;
+                boost::split(fields, targetURI, boost::is_any_of("/"));
+
+                // fields[0] will be empty because of the leading "/" in the URI
+                // request.  The prefix will therefore be part of fields[4]
+                std::vector<std::string> ids;
+                boost::split(ids, fields[4], boost::is_any_of("_"));
+                BMCWEB_LOG_DEBUG << "Extracted prefix is \"" << ids[0] << "\"";
+
+                // Is request meant for the aggregating BMC?
+                if (ids[0] == "main")
+                {
+                    BMCWEB_LOG_DEBUG
+                        << "Request received for aggregated native resource";
+
+                    size_t pos = targetURI.find("main_");
+                    if (pos == std::string::npos)
+                    {
+                        // If this happens then something went wrong
+                        BMCWEB_LOG_ERROR
+                            << "Error removing prefix \"main_\" from request URI";
+                        redfish::messages::internalError(asyncResp->res);
+                        return;
+                    }
+
+                    // Remove first occurrence of "main_" from the URI so the
+                    // aggregating BMC can handle the request correctly
+                    targetURI.erase(pos, 5);
+                    thisReq.target(std::string_view(targetURI));
+                    BMCWEB_LOG_DEBUG << "MYDEBUG: thisReq.target() is now "
+                                     << thisReq.target();
+                }
+                else
+                {
+                    // We need to search the satellite prefixes";
+                    BMCWEB_LOG_DEBUG << "Searching satellite prefixes for "
+                                     << ids[0];
+
+                    // Will either forward the request to the associated
+                    // satellite BMC or set a 404 if the prefix is not
+                    // recognized
+                    redfish::RedfishAggregator::getInstance().forwardRequest(
+                        thisReq, asyncResp, ids[0]);
+
+                    // No need to locally handle this request
+                    return;
+                }
+            }
+            else
+            {
+                // Make sure the previous check did not fail because a required
+                // prefix was not supplied
+                const std::regex illegalRegex(
+                    "/redfish/v1/(Chassis|Managers|Systems|Fabrics|ComponentIntegrity)/(.+)");
+
+                if (std::regex_match(targetURI, illegalRegex))
+                {
+                    // It is not possible to have an aggregated resources that
+                    // does not include a prefix in the URI
+                    asyncResp->res.result(
+                        boost::beast::http::status::not_found);
+                    return;
+                }
+                else
+                {
+                    // The request is meant for a valid URI that is not
+                    // aggregated so we can proceed as normal, no need to
+                    // remove a URI prefix
+                    BMCWEB_LOG_DEBUG << "Aggregation not required";
+                }
+            }
+        } // End Redfish Aggregation initial processing
+
         handler->handle(thisReq, asyncResp);
     }
 
