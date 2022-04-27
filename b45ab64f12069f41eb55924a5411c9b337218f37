@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "61221dd0_4cda3421",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 17
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-04-27T18:07:27Z",
+      "side": 1,
+      "message": "LGTM. The previous concern was resolved.",
+      "revId": "b45ab64f12069f41eb55924a5411c9b337218f37",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
