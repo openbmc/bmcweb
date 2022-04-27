@@ -73,11 +73,11 @@ struct RetryPolicyData
 struct PendingRequest
 {
     boost::beast::http::request<boost::beast::http::string_body> req;
-    std::function<void(bool, uint32_t, const Response&)> callback;
+    std::function<void(bool, uint32_t, Response&)> callback;
     RetryPolicyData retryPolicy;
     PendingRequest(
         boost::beast::http::request<boost::beast::http::string_body>&& req,
-        const std::function<void(bool, uint32_t, const Response&)>& callback,
+        const std::function<void(bool, uint32_t, Response&)>& callback,
         const RetryPolicyData& retryPolicy) :
         req(std::move(req)),
         callback(callback), retryPolicy(retryPolicy)
@@ -108,7 +108,7 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
     Response res;
 
     // Ascync callables
-    std::function<void(bool, uint32_t, const Response&)> callback;
+    std::function<void(bool, uint32_t, Response&)> callback;
     crow::async_resolve::Resolver resolver;
     boost::beast::tcp_stream conn;
     boost::asio::steady_timer timer;
@@ -242,9 +242,14 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
                         << "recvMessage() Listener Failed to "
                            "receive Sent-Event. Header Response Code: "
                         << respCode;
-                    self->state = ConnState::recvFailed;
-                    self->waitAndRetry();
-                    return;
+
+                    // We can continue if the error was a 404
+                    if (respCode != 404)
+                    {
+                        self->state = ConnState::recvFailed;
+                        self->waitAndRetry();
+                        return;
+                    }
                 }
 
                 // Send is successful
@@ -445,6 +450,12 @@ class ConnectionPool : public std::enable_shared_from_this<ConnectionPool>
     void sendNext(bool keepAlive, uint32_t connId)
     {
         auto conn = connections[connId];
+
+        // Allow the connection's handler to be deleted
+        // This is needed because of Redfish Aggregation passing an
+        // AsyncResponse shared_ptr to this callback
+        auto tmp = std::move(conn->callback);
+
         // Reuse the connection to send the next request in the queue
         if (!requestQueue.empty())
         {
@@ -487,13 +498,13 @@ class ConnectionPool : public std::enable_shared_from_this<ConnectionPool>
                   const boost::beast::http::fields& httpHeader,
                   const boost::beast::http::verb verb,
                   const RetryPolicyData& retryPolicy,
-                  std::function<void(const Response&)>& resHandler)
+                  std::function<void(Response&)>& resHandler)
     {
         std::weak_ptr<ConnectionPool> weakSelf = weak_from_this();
 
         // Callback to be called once the request has been sent
         auto cb = [weakSelf, resHandler](bool keepAlive, uint32_t connId,
-                                         const Response& res) {
+                                         Response& res) {
             // Allow provided callback to perform additional processing of the
             // request
             resHandler(res);
@@ -617,7 +628,7 @@ class HttpClient
 
     // Used as a dummy callback by sendData() in order to call
     // sendDataWithCallback()
-    static void genericResHandler(const Response& res)
+    static void genericResHandler(Response& res)
     {
         BMCWEB_LOG_DEBUG << "Response handled with return code: "
                          << std::to_string(res.resultInt());
@@ -645,7 +656,7 @@ class HttpClient
                   const boost::beast::http::verb verb,
                   const std::string& retryPolicyName)
     {
-        std::function<void(const Response&)> cb = genericResHandler;
+        std::function<void(Response&)> cb = genericResHandler;
         sendDataWithCallback(data, id, destIP, destPort, destUri, httpHeader,
                              verb, retryPolicyName, cb);
     }
@@ -659,7 +670,7 @@ class HttpClient
                               const boost::beast::http::fields& httpHeader,
                               const boost::beast::http::verb verb,
                               const std::string& retryPolicyName,
-                              std::function<void(const Response&)>& resHandler)
+                              std::function<void(Response&)>& resHandler)
     {
         std::string clientKey = destIP + ":" + std::to_string(destPort);
         // Use nullptr to avoid creating a ConnectionPool each time
