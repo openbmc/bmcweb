@@ -4,8 +4,10 @@
 #include "authorization.hpp"
 #include "http_response.hpp"
 #include "http_utility.hpp"
+//#include "http_client.hpp"
 #include "logging.hpp"
 #include "utility.hpp"
+#include "http_client.hpp"
 
 #include <boost/algorithm/string.hpp>
 #include <boost/algorithm/string/predicate.hpp>
@@ -20,6 +22,7 @@
 #include <json_html_serializer.hpp>
 #include <security_headers.hpp>
 #include <ssl_key_handler.hpp>
+//#include <http_client.hpp>
 
 #include <atomic>
 #include <chrono>
@@ -385,6 +388,32 @@ class Connection :
             asyncResp->res.setCompleteRequestHandler(nullptr);
             return;
         }
+
+        BMCWEB_LOG_DEBUG << "MYDEBUG: About to check aggregation";
+        if (crow::HttpClient::getInstance().aggregationEnabled())
+        {
+            BMCWEB_LOG_DEBUG << "MYDEBUG: Aggregation is enabled";
+
+            // Make sure the URI is for Chassis, Managers, Systems, or Fabrics
+            // resource
+            // Its form should be /redfish/v1/<valid_resource>/<prefix>_<str>
+            //
+            // Extract prefix
+            // Match to known satellite prefix or "main"
+            // Retrieve config info if satellite prefix
+            // Remove prefix from URI
+            //
+            // If satellite:
+            // Forward to satellite using config info
+            // Load response into asyncResp
+            // Return;
+            //
+            // If "main":
+            // Proceed like normal by calling handler->handle()
+
+            
+        }
+
         handler->handle(thisReq, asyncResp);
     }
 
