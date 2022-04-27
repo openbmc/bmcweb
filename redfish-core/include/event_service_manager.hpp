@@ -393,7 +393,9 @@ class Subscription : public persistent_data::UserSubscription
 
         // A connection pool will be created if one does not already exist
         crow::HttpClient::getInstance().sendData(msg, id, host, port, path,
-                                                 httpHeaders, retryPolicyName);
+                                                 httpHeaders,
+                                                 boost::beast::http::verb::post,
+                                                 retryPolicyName);
         eventSeqNum++;
 
         if (sseConn != nullptr)
