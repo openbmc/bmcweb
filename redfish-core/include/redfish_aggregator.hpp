@@ -1,6 +1,10 @@
 #pragma once
 
+#include <boost/asio/deadline_timer.hpp>
+#include <dbus_utility.hpp>
+#include <error_messages.hpp>
 #include <http_client.hpp>
+#include <http_connection.hpp>
 
 namespace redfish
 {
@@ -11,6 +15,7 @@ class RedfishAggregator
     const std::string retryPolicyName = "RedfishAggregation";
     const uint32_t retryAttempts = 5;
     const uint32_t retryTimeoutInterval = 0;
+    const std::string id = "Aggregator";
 
     RedfishAggregator()
     {
@@ -236,6 +241,203 @@ class RedfishAggregator
                          << result.first->second.encoded_host_and_port();
     }
 
+    // Intended to handle an incoming request based on if Redfish Aggregation
+    // is enabled.  Forwards request to satellite BMC if it exists.
+    void aggregateAndHandle(
+        crow::Request& thisReq,
+        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+        const std::unordered_map<std::string, boost::urls::url>& satelliteInfo)
+    {
+        // satelliteInfo will contain all satellite config information
+        // If it is empty then that means we don't need to perform any
+        // aggregation operations
+        if (!satelliteInfo.empty())
+        {
+            BMCWEB_LOG_DEBUG << "Aggregation is enabled, begin processing of "
+                             << thisReq.target();
+
+            std::vector<std::string> prefixes;
+            getPrefixes(prefixes, satelliteInfo);
+            boost::urls::string_view origTarget(thisReq.target().data(),
+                                                thisReq.target().size());
+
+            // We need to forward the request if its path begins with form of
+            // /redfish/v1/<resource>/<known_prefix>_<resource_id>
+            //
+            // TODO: We will also want to forward collections and also make
+            // sure that satellite only collections still show up in the
+            // service root /redfish/v1
+            auto parsed = boost::urls::parse_relative_ref(origTarget);
+
+            if (!parsed)
+            {
+                BMCWEB_LOG_ERROR << "Unable to parse path";
+                return;
+            }
+
+            boost::urls::url thisURL(*parsed);
+            auto segments = thisURL.segments();
+            if (segments.size() >= 4)
+            {
+                if ((segments.size() == 4) && (segments[3].empty()))
+                {
+                    // The request was for a collection and ended with a "/"
+                    // Don't actually do anything
+                    // TODO: This should be handled so that we can aggregate
+                    // the satellite resource collections
+                    return;
+                }
+
+                for (const auto& prefix : prefixes)
+                {
+                    std::string targetURI(segments[3]);
+                    size_t pos = targetURI.find(prefix + "_");
+                    if (pos != std::string::npos)
+                    {
+                        BMCWEB_LOG_DEBUG << "\"" << prefix
+                                         << "\" is a known prefix";
+                        // Remove the known prefix from the request's URI and
+                        // then forward to the associated satellite BMC
+                        forwardRequest(thisReq, asyncResp, prefix,
+                                       satelliteInfo);
+                        return;
+                    }
+                }
+            }
+
+            // TODO: We need to perform some special handling for aggregated
+            // collections.  We'll want to make sure the request is for a
+            // collection so we don't accidentally forward a request
+            // meant for the local bmc
+            //
+            // Might want to create a forwardCollectionRequest() method
+            // for this since we'll need to handle the response differently
+
+            // We didn't recognize the request as one that should be aggregated
+            // so we'll just locally handle it.  No need to attempt to forward
+            // anything
+            BMCWEB_LOG_DEBUG << "Aggregation not required";
+        } // End Redfish Aggregation initial processing
+    }     // End aggregateAndHAndle()
+
+    // Returns vector of all aggregation prefixes
+    static void getPrefixes(
+        std::vector<std::string>& prefixes,
+        const std::unordered_map<std::string, boost::urls::url>& satelliteInfo)
+    {
+        prefixes.clear();
+        if (satelliteInfo.empty())
+        {
+            return;
+        }
+
+        for (const auto& sat : satelliteInfo)
+        {
+            BMCWEB_LOG_DEBUG << "Found aggregation prefix \"" << sat.first
+                             << "\"";
+            prefixes.push_back(sat.first);
+        }
+
+        BMCWEB_LOG_DEBUG << "Total aggregation prefixes = " << prefixes.size();
+    }
+
+    // Attempt to forward a request to the satellite BMC associated with the
+    // prefix.
+    void forwardRequest(
+        crow::Request& thisReq,
+        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+        const std::string& prefix,
+        const std::unordered_map<std::string, boost::urls::url>& satelliteInfo)
+    {
+        const auto& sat = satelliteInfo.find(prefix);
+        if (sat == satelliteInfo.end())
+        {
+            // Realistically this shouldn't get called since we perform an
+            // earlier check to make sure the prefix exists
+            BMCWEB_LOG_ERROR << "Unrecognized satellite prefix " << prefix;
+            return;
+        }
+
+        // We need to strip the prefix from the request's path
+        std::string targetURI(thisReq.target());
+        size_t pos = targetURI.find(prefix + "_");
+        if (pos == std::string::npos)
+        {
+            // If this fails then something went wrong
+            BMCWEB_LOG_ERROR << "Error removing prefix \"" << prefix
+                             << "_\" from request URI";
+            messages::internalError(asyncResp->res);
+            return;
+        }
+
+        targetURI.erase(pos, prefix.size() + 1);
+
+        std::function<void(crow::Response&)> cb =
+            std::bind_front(processResponse, asyncResp);
+
+        std::string data = boost::lexical_cast<std::string>(thisReq.req.body());
+        crow::HttpClient::getInstance().sendDataWithCallback(
+            data, id, std::string(sat->second.host()),
+            sat->second.port_number(), targetURI, thisReq.fields,
+            thisReq.method(), retryPolicyName, cb);
+    }
+
+    // Processes the response returned by a satellite BMC and loads its
+    // contents into asyncResp
+    static void
+        processResponse(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                        crow::Response& resp)
+    {
+        // No processing needed if the request wasn't successful
+        if (resp.resultInt() != 200)
+        {
+            BMCWEB_LOG_DEBUG << "No need to parse satellite response";
+            asyncResp->res.stringResponse = std::move(resp.stringResponse);
+            return;
+        }
+
+        // The resp will not have a json component
+        // We need to create a json from resp's stringResponse
+        if ((resp.stringResponse->base()["Content-Type"] ==
+             "application/json") ||
+            (nlohmann::json::accept(resp.body())))
+        {
+            nlohmann::json jsonVal =
+                nlohmann::json::parse(resp.body(), nullptr, false);
+            if (jsonVal.is_discarded())
+            {
+                BMCWEB_LOG_ERROR << "Error parsing satellite response as JSON";
+                messages::internalError(asyncResp->res);
+                return;
+            }
+
+            BMCWEB_LOG_DEBUG << "Successfully parsed satellite response";
+
+            // TODO: For collections (including $expand) we  want to add the
+            // satellite responses to our response rather than just straight
+            // overwriting them if our local handling was successful (i.e.
+            // would return a 200).
+
+            // The aggregating BMC should have also handled this request and
+            // returned a 404.  We need to overwrite that.
+            asyncResp->res.stringResponse.emplace(
+                boost::beast::http::response<
+                    boost::beast::http::string_body>{});
+            asyncResp->res.result(resp.result());
+            asyncResp->res.jsonValue = std::move(jsonVal);
+
+            BMCWEB_LOG_DEBUG << "Finished overwriting asyncResp";
+            // TODO: Need to fix the URIs in the response so that they include
+            // the prefix
+        }
+        else
+        {
+            // We received a 200 response without a parsable payload so just
+            // copy it as is
+            asyncResp->res.stringResponse = std::move(resp.stringResponse);
+        }
+    }
+
   public:
     RedfishAggregator(const RedfishAggregator&) = delete;
     RedfishAggregator& operator=(const RedfishAggregator&) = delete;
@@ -247,6 +449,32 @@ class RedfishAggregator
     {
         static RedfishAggregator handler;
         return handler;
+    }
+
+    // Entry point to Redfish Aggregation
+    static void
+        beginAggregation(const crow::Request& thisReq,
+                         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+    {
+        // Create a copy of thisReq so we we can still locally process the req
+        boost::beast::http::request<boost::beast::http::string_body> req =
+            thisReq.req;
+        std::error_code ec;
+        auto localReq = std::make_shared<crow::Request>(req, ec);
+        if (ec)
+        {
+            BMCWEB_LOG_ERROR << "Failed to create copy of request";
+            return;
+        }
+
+        auto cb = [localReq, asyncResp](
+                      const std::unordered_map<std::string, boost::urls::url>&
+                          satelliteInfo) {
+            getInstance().aggregateAndHandle(*localReq, asyncResp,
+                                             satelliteInfo);
+        };
+
+        getSatelliteConfigs(std::move(cb));
     }
 };
 
