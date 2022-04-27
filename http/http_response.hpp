@@ -96,6 +96,11 @@ struct Response
         return stringResponse->body();
     }
 
+    std::string_view getBaseValue(std::string_view key) const
+    {
+        return stringResponse->base()[key];
+    }
+
     void keepAlive(bool k)
     {
         stringResponse->keep_alive(k);
