@@ -455,6 +455,12 @@ class ConnectionPool : public std::enable_shared_from_this<ConnectionPool>
     void sendNext(bool keepAlive, uint32_t connId)
     {
         auto conn = connections[connId];
+
+        // Allow the connection's handler to be deleted
+        // This is needed because of Redfish Aggregation passing an
+        // AsyncResponse shared_ptr to this callback
+        conn->callback = nullptr;
+
         // Reuse the connection to send the next request in the queue
         if (!requestQueue.empty())
         {
