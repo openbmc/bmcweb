@@ -18,11 +18,13 @@
 #include <boost/beast/websocket.hpp>
 #include <boost/url/url_view.hpp>
 #include <json_html_serializer.hpp>
+#include <redfish_aggregator.hpp>
 #include <security_headers.hpp>
 #include <ssl_key_handler.hpp>
 
 #include <atomic>
 #include <chrono>
+#include <regex>
 #include <vector>
 
 namespace crow
@@ -385,7 +387,16 @@ class Connection :
             asyncResp->res.setCompleteRequestHandler(nullptr);
             return;
         }
-        handler->handle(thisReq, asyncResp);
+
+        std::function<void(crow::Request&,
+                           const std::shared_ptr<bmcweb::AsyncResp>&)>
+            cb = [self(shared_from_this())](
+                     crow::Request& thisReq,
+                     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+                self->handler->handle(thisReq, asyncResp);
+            };
+
+        redfish::RedfishAggregator::beginAggregation(cb, thisReq, asyncResp);
     }
 
     bool isAlive()
