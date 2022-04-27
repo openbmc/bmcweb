@@ -17,12 +17,15 @@
 #include <boost/asio/ip/address.hpp>
 #include <boost/asio/ip/basic_endpoint.hpp>
 #include <boost/asio/steady_timer.hpp>
+#include <boost/asio/deadline_timer.hpp>
 #include <boost/beast/core/flat_buffer.hpp>
 #include <boost/beast/core/tcp_stream.hpp>
 #include <boost/beast/http/message.hpp>
 #include <boost/beast/version.hpp>
 #include <boost/container/devector.hpp>
 #include <include/async_resolve.hpp>
+#include <dbus_utility.hpp>
+#include <error_messages.hpp>
 
 #include <cstdlib>
 #include <functional>
@@ -843,6 +846,29 @@ class HttpClient
         return handler;
     }
 
+    bool aggregationEnabled()
+    {
+        return !satelliteInfo.empty();
+    }
+
+    // Returns all aggregation prefixes including "main"
+    void getPrefixes(std::string& prefixes)
+    {
+        prefixes.clear();
+        if (satelliteInfo.empty())
+        {
+            return;
+        }
+
+        for (const auto& sat : satelliteInfo)
+        {
+            prefixes += sat.first + '|';
+        }
+
+        prefixes += "main";
+        BMCWEB_LOG_DEBUG << "MYDEBUG: Generated prefix: " << prefixes;
+    }
+
     // Send a request to destIP:destPort where additional processing of the
     // result is not required
     void sendData(const std::string& data, const std::string& id,
@@ -935,5 +961,4 @@ void setRetryPolicy(const std::string& retryPolicy,
 
     result.first->second.retryPolicyAction = retryPolicy;
 }
-
 } // namespace crow
