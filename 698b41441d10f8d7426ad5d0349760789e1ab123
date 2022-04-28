@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8d67b5b4_22982740",
+        "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-28T01:02:35Z",
+      "side": 1,
+      "message": "You need to rev the subminor revision when adding new entries.  The patch version is only allowed when modifying existing entries.\n\nSo this should be OpenBMC.0.4.0",
+      "range": {
+        "startLine": 24,
+        "startChar": 15,
+        "endLine": 24,
+        "endChar": 16
+      },
+      "revId": "698b41441d10f8d7426ad5d0349760789e1ab123",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
