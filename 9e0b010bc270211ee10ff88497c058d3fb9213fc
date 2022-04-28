@@ -16,6 +16,24 @@
       "message": "The namespace plan looks like a good progression.\nWill be interested to see how to add OEM schemas to the mix.",
       "revId": "9e0b010bc270211ee10ff88497c058d3fb9213fc",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a38a7016_00a1a7a3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-28T22:19:51Z",
+      "side": 1,
+      "message": "One of the existing OEM schemas is already handled for redfish-core/include/redfish_defs/oem_computer_system.hpp\n\nThis patch doesn\u0027t endeavor to solve the \"we need generic OEM parameters\" problem, but I don\u0027t think it makes it any worse.  In this context, OEM schemas aren\u0027t really \"special\"",
+      "parentUuid": "e8826880_9902e02f",
+      "revId": "9e0b010bc270211ee10ff88497c058d3fb9213fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
