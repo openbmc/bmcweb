@@ -406,6 +406,10 @@ inline void
                 std::string(boost::algorithm::to_lower_copy(dumpType)) +
                 "/entry/";
 
+            std::sort(resp.begin(), resp.end(), [](auto& l, auto& r) {
+                return alphanumComp(l.first.filename(), r.first.filename()) < 0;
+            });
+
             for (auto& object : resp)
             {
                 if (object.first.str.find(dumpEntryPath) == std::string::npos)
