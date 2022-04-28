@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e8826880_9902e02f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000278
+      },
+      "writtenOn": "2022-04-28T21:05:18Z",
+      "side": 1,
+      "message": "The namespace plan looks like a good progression.\nWill be interested to see how to add OEM schemas to the mix.",
+      "revId": "9e0b010bc270211ee10ff88497c058d3fb9213fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
