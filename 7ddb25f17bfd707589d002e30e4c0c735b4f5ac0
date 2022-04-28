@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "115a051a_a2f29cfa",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-28T19:23:06Z",
+      "side": 1,
+      "message": "You\u0027ve seen the patch here doing (what I think) is the same thing?\n\nhttps://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/38599\n\nCan you and Chicago work together and work on a solution that works for both of you please?  His patch is much further along and pretty close to being able to merge, so if there are extra extensions you need for your use case, I\u0027d really like them stacked on top of that work.",
+      "revId": "7ddb25f17bfd707589d002e30e4c0c735b4f5ac0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
