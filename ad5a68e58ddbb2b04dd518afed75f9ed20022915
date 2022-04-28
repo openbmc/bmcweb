@@ -140,6 +140,30 @@
       },
       "revId": "ad5a68e58ddbb2b04dd518afed75f9ed20022915",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8373529a_8383bef9",
+        "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-28T01:03:17Z",
+      "side": 1,
+      "message": "Close, it needs to go to the next subminor revision (ie 0.4.0)",
+      "parentUuid": "68599eaa_ed1577a0",
+      "range": {
+        "startLine": 29,
+        "startChar": 5,
+        "endLine": 29,
+        "endChar": 10
+      },
+      "revId": "ad5a68e58ddbb2b04dd518afed75f9ed20022915",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
