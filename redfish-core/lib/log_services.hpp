@@ -520,6 +520,10 @@ inline void
                 }
                 entriesArray.push_back(std::move(thisEntry));
             }
+
+            std::sort(entriesArray.begin(), entriesArray.end(),
+                      alphanumCompByIdString);
+
             asyncResp->res.jsonValue["Members@odata.count"] =
                 entriesArray.size();
         },

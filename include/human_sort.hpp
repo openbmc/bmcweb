@@ -1,5 +1,8 @@
 #pragma once
 
+#include <logging.hpp>
+#include <nlohmann/json.hpp>
+
 #include <charconv>
 #include <string_view>
 
@@ -99,7 +102,7 @@ inline int alphanumComp(const std::string_view left,
 }
 
 // A generic template type compatible with std::less that can be used on generic
-// containers (set, map, ect)
+// containers (set, map, etc.)
 template <class Type>
 struct AlphanumLess
 {
@@ -108,3 +111,34 @@ struct AlphanumLess
         return alphanumComp(left, right) < 0;
     }
 };
+
+// Compare JSON objects based on "Id" value which is expected to be a string
+inline bool alphanumCompByIdString(const nlohmann::json& left,
+                                   const nlohmann::json& right)
+{
+    if (left == nullptr || right == nullptr)
+    {
+        BMCWEB_LOG_ERROR
+            << "alphanumCompByIdString() received nullptr as an input";
+        return false;
+    }
+
+    if (!left.is_object() || !right.is_object())
+    {
+        BMCWEB_LOG_ERROR
+            << "alphanumCompByIdString() invalid input (not a JSON object)";
+        return false;
+    }
+
+    const auto* leftPtr = left["Id"].get_ptr<const std::string*>();
+    const auto* rightPtr = right["Id"].get_ptr<const std::string*>();
+
+    if (leftPtr == nullptr || rightPtr == nullptr)
+    {
+        BMCWEB_LOG_ERROR
+            << "alphanumCompByIdString() couldn't get Id as a string";
+        return false;
+    }
+
+    return alphanumComp(*leftPtr, *rightPtr) < 0;
+}
