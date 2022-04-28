@@ -363,6 +363,12 @@ inline void
                 std::string(boost::algorithm::to_lower_copy(dumpType)) +
                 "/entry/";
 
+            std::sort(resp.begin(), resp.end(),
+                      [](const auto& l, const auto& r) {
+                          return AlphanumLess<std::string>()(
+                              l.first.filename(), r.first.filename());
+                      });
+
             for (auto& object : resp)
             {
                 if (object.first.str.find(dumpEntryPath) == std::string::npos)
