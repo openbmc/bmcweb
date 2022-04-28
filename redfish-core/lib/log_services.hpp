@@ -520,6 +520,13 @@ inline void
                 }
                 entriesArray.push_back(std::move(thisEntry));
             }
+
+            std::sort(entriesArray.begin(), entriesArray.end(),
+                      [](const nlohmann::json& a, const nlohmann::json& b) {
+                          return std::stoi(a["Id"].get<std::string>()) <
+                                 std::stoi(b["Id"].get<std::string>());
+                      });
+
             asyncResp->res.jsonValue["Members@odata.count"] =
                 entriesArray.size();
         },
