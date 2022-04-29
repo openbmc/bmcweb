@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "adac21ab_0480e7eb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-04-29T18:34:09Z",
+      "side": 1,
+      "message": "Any way to enforce this? Seems reasonable though ",
+      "revId": "29c0b0ed36f2bbb6a8b899eaa5a3bfed1ca60935",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
