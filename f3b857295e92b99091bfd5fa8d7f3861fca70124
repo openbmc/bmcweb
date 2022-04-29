@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "530e54d7_01ddbc81",
+        "filename": "redfish-core/lib/virtual_media.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 904,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-29T22:34:44Z",
+      "side": 1,
+      "message": "This is a lambda with no captures.  Please just make this a normal function.\n\n\nAlso, this code looks like it was taken from further down in the file.  Please separate out your code moves into a separate patch from the changes that you make to the algorithm.  That helps maintainers to review it.",
+      "range": {
+        "startLine": 877,
+        "startChar": 3,
+        "endLine": 904,
+        "endChar": 6
+      },
+      "revId": "f3b857295e92b99091bfd5fa8d7f3861fca70124",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ee143d4_2a5d92bc",
+        "filename": "redfish-core/lib/virtual_media.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 919,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-29T22:34:44Z",
+      "side": 1,
+      "message": "Please don\u0027t organize code this way, it makes it harder to test.  If you need all three of these methods, please declare each one as a BMCWEB_ROUTE.\n\nWith that said, all of these verbs look incorrect for a Redfish action.  This should be POST only I suspect.",
+      "range": {
+        "startLine": 915,
+        "startChar": 0,
+        "endLine": 919,
+        "endChar": 5
+      },
+      "revId": "f3b857295e92b99091bfd5fa8d7f3861fca70124",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cb897d0a_77d667bd",
+        "filename": "redfish-core/lib/virtual_media.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 923,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-29T22:34:44Z",
+      "side": 1,
+      "message": "Here you\u0027re applying virtual media POST permissions to patch, get, and delete, which is incorrect for all 3.",
+      "range": {
+        "startLine": 923,
+        "startChar": 45,
+        "endLine": 923,
+        "endChar": 61
+      },
+      "revId": "f3b857295e92b99091bfd5fa8d7f3861fca70124",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4606c27e_86c548be",
+        "filename": "redfish-core/lib/virtual_media.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 925,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-29T22:34:44Z",
+      "side": 1,
+      "message": "For new BMCWEB_ROUTES, we\u0027re preferring that we don\u0027t use lambdas, and instead use normal methods with std::bind_front.",
+      "range": {
+        "startLine": 925,
+        "startChar": 0,
+        "endLine": 925,
+        "endChar": 47
+      },
+      "revId": "f3b857295e92b99091bfd5fa8d7f3861fca70124",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d5907add_eb9c16c4",
+        "filename": "redfish-core/lib/virtual_media.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 949,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-29T22:34:44Z",
+      "side": 1,
+      "message": "Please don\u0027t capture req by reference (or at all).  the readJsonAction call needs to be in the scope on line 946, parse it into action params, then pass actionparams into the lambda.",
+      "range": {
+        "startLine": 949,
+        "startChar": 21,
+        "endLine": 949,
+        "endChar": 26
+      },
+      "revId": "f3b857295e92b99091bfd5fa8d7f3861fca70124",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0779b8a4_5acbc0d4",
+        "filename": "redfish-core/lib/virtual_media.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 958,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-29T22:34:44Z",
+      "side": 1,
+      "message": "This is a pretty non-trivial lambda;  Please move most of the implementation to a function that the lambda calls.\n\nNote, ideally we would use std::bind_front here and wouldn\u0027t use a lambda at all, but there\u0027s incompatibility there, so we do it, but we should ideally make lambdas as trivial as possible.",
+      "range": {
+        "startLine": 950,
+        "startChar": 33,
+        "endLine": 958,
+        "endChar": 37
+      },
+      "revId": "f3b857295e92b99091bfd5fa8d7f3861fca70124",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
