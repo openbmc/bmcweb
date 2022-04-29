@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "52f27d72_ddbc7e66",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1872,
+      "author": {
+        "id": 1000335
+      },
+      "writtenOn": "2022-04-29T02:54:42Z",
+      "side": 1,
+      "message": "Hi Ed, I updated it for the merge conflict. Is this comment can be resolved?",
+      "parentUuid": "6a16ca13_a2abf7d4",
+      "range": {
+        "startLine": 1872,
+        "startChar": 8,
+        "endLine": 1872,
+        "endChar": 46
+      },
+      "revId": "85f439a0c78e0933dffef6a8e2b16a3860dc96f3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "95a7aa67_1be38d34",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 3
