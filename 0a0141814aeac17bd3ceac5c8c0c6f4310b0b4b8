@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c3bf0ab2_d038e21b",
+        "filename": "include/openbmc_dbus_rest.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1534,
+      "author": {
+        "id": 1000163
+      },
+      "writtenOn": "2022-04-29T23:04:45Z",
+      "side": 1,
+      "message": "Since this is repeated multiple times, it might be more clear as:\n\ninline bool contentTypeIsJson(const crow::Request\u0026 req)\n{\n    std::string_view contentType \u003d req.getHeaderValue(\"content-type\");\n    return boost::starts_with(contentType, \"application/json\");\n}\n\n// and then just calling it like:\n\nif (!contentTypeIsJson(req))\n{\n    // set error\n    return;\n}",
+      "range": {
+        "startLine": 1533,
+        "startChar": 4,
+        "endLine": 1534,
+        "endChar": 61
+      },
+      "revId": "0a0141814aeac17bd3ceac5c8c0c6f4310b0b4b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d02834e_958a5422",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1000163
+      },
+      "writtenOn": "2022-04-29T23:04:45Z",
+      "side": 1,
+      "message": "this check should be before the json::parse() to prevent attempting to parse invalid data.",
+      "range": {
+        "startLine": 115,
+        "startChar": 8,
+        "endLine": 115,
+        "endChar": 60
+      },
+      "revId": "0a0141814aeac17bd3ceac5c8c0c6f4310b0b4b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f0d1489_fc2dab87",
+        "filename": "redfish-core/lib/task.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1000163
+      },
+      "writtenOn": "2022-04-29T23:04:45Z",
+      "side": 1,
+      "message": "this check should be before the json::parse() to prevent attempting to parse invalid data.",
+      "range": {
+        "startLine": 56,
+        "startChar": 12,
+        "endLine": 56,
+        "endChar": 64
+      },
+      "revId": "0a0141814aeac17bd3ceac5c8c0c6f4310b0b4b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
