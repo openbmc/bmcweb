@@ -93,6 +93,30 @@
       },
       "revId": "22bf54deca23cba52805cf71678bbd9d09406ef9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e115063c_651483a0",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-30T17:50:37Z",
+      "side": 1,
+      "message": "\u003e Since this CL doesn\u0027t use the information I store in the map, I\u0027m not sure how much that change will simplify this patchset.  Are you referring to not also setting up a D-Bus match for new satellites like Benjamin requested in his comment?\n\nCorrect\n\n\u003e  If so I can move that into a subsequent CL and just focus on breaking up the config loading code.\n\nYes.  That\u0027s the whole point of what I was asking for.  Split up the patches into a progression from simple -\u003e complex.\n\n\u003e \n\u003e Will I need to wait until that \"cache dbus data\" mechanism is added before I can store the satellite config info?\n\nNo.  In a perfect world, you\u0027d write a generic class for that, but I understand that\u0027s a bit of a daunting task, so I\u0027m not going to require it, just be thinking about it.  IMO, the ideal class would look something like\n\n\nclass DbusEventWatcher{\nDbusEventWatcher(string dbusPathPrefix, span\u003cstring\u003e interfacesToListenFor, std::function\u003cvoid(EventData)\u003e())\n}\n\nThen on construction, it would handle the get/introspect requests to determine all of the things that exist, and call the callback.\n\n\n\u003e  I\u0027m planning to use the presence of satellite config info as an indicator that Redfish Aggregation is enabled.\n\nThat seems fine to me, although I\u0027m not sure if a global enable/disable matters much.  If the array of satellite configs is 0, we\u0027ll basically do nothing, right?  We just avoid one dbus call.\n\n\u003e  Going to D-Bus every time will slow down not just aggregation operations, but also every endpoint that supports aggregation.\n\u003e  I want to double check that the future slowdown is alright for that as well.\n\n\nYep;  This needs discussed more, and we need to characterize the impact.  For the moment, I suspect that an \"enable aggregation\" compiler flag is warranted just so we can have a trap door for people to avoid the aggregation \"slowdown\" altogether, but I suspect there\u0027s a happy medium where the aggregation code just causes no slowdown if there are no satellite configs.",
+      "parentUuid": "41b8b44e_1f7879b6",
+      "range": {
+        "startLine": 79,
+        "startChar": 0,
+        "endLine": 79,
+        "endChar": 70
+      },
+      "revId": "22bf54deca23cba52805cf71678bbd9d09406ef9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
