@@ -1,0 +1,130 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5676030e_4ad2a607",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-30T18:05:58Z",
+      "side": 1,
+      "message": "Looking pretty good.",
+      "revId": "236516d1e63e83d5a430965747be8399963fe15f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "931cebff_f37a6606",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 579,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-30T18:05:58Z",
+      "side": 1,
+      "message": "We need to have a little discussion about separation of concerns here.  Right now we\u0027re just packing everything into the HttpClient class, which doesn\u0027t seem appropriate, and is making this patchset really hard to review.\n\nIMO (and yes, this is opinion, I\u0027m happy to have my mind changed) we need:\n\n1. A class for the generalized idea of an \"Http request sender\" that encapsulates a generic HTTP layer.\n2. A class for EventService, that has class #1 as a member variable\n3. A class for aggregation, that has class #1 as a member variable.\n\n\nDoes that seem reasonable in terms of how to break this problem down?",
+      "revId": "236516d1e63e83d5a430965747be8399963fe15f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6fd361f0_5a0d3d0f",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 589,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-30T18:05:58Z",
+      "side": 1,
+      "message": "Nit, when using string as a map member, it helps to denote what it is;  in this case, it\u0027s a name (I think a url piece name) mapped to a url.",
+      "range": {
+        "startLine": 589,
+        "startChar": 0,
+        "endLine": 589,
+        "endChar": 68
+      },
+      "revId": "236516d1e63e83d5a430965747be8399963fe15f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1b56519e_f1a3ad6e",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 721,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-30T18:05:58Z",
+      "side": 1,
+      "message": "hmmmmm.... this kind of assumption has burned us in the past.  underscore tends to get used A LOT in names of components.  I wonder if we could come up with a rule like, underscores in the name get % encoded, to ensure they don\u0027t conflict.  Maybe there\u0027s a better delimiter we could use like a word?\n\n\n\u003cname\u003e_remoteid_\u003cremoteid\u003e ?\n\nthen when we do the split we would search for \"_remoteid_\"  Thinking out loud a bit here.",
+      "range": {
+        "startLine": 721,
+        "startChar": 0,
+        "endLine": 721,
+        "endChar": 60
+      },
+      "revId": "236516d1e63e83d5a430965747be8399963fe15f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3693faa4_77393d20",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 729,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-30T18:05:58Z",
+      "side": 1,
+      "message": "In the dbus config for this, would it make more sense to just store this as a url?\n\nie\n\nRemoteRedfishRoot \u003d \"https://192.167.1.1:443/redfish/v1\"\n\nThen use the functions we already have (parseUrlFromPieces I think is the one) to parse it into something more specific?\n\nI\u0027m genuinely asking, what you wrote is fine, I\u0027m just curious if just having a url would prevent an explosion of parameters.  For example, in this, I forsee needing to add  encryption at some point.",
+      "range": {
+        "startLine": 729,
+        "startChar": 36,
+        "endLine": 729,
+        "endChar": 44
+      },
+      "revId": "236516d1e63e83d5a430965747be8399963fe15f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "741a6b3b_6058ae29",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 776,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-04-30T18:05:58Z",
+      "side": 1,
+      "message": "?  Can we assume http here?  Redfish the spec generally is implemented as https, although might not be in this case.",
+      "range": {
+        "startLine": 776,
+        "startChar": 0,
+        "endLine": 776,
+        "endChar": 39
+      },
+      "revId": "236516d1e63e83d5a430965747be8399963fe15f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
