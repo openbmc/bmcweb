@@ -16,16 +16,22 @@
 #pragma once
 
 #include "health.hpp"
+#include "human_sort.hpp"
 
 #include <app.hpp>
 #include <boost/algorithm/string.hpp>
 #include <dbus_utility.hpp>
+#include <http_utility.hpp>
 #include <nlohmann/json.hpp>
 #include <query.hpp>
 #include <registries/privilege_registry.hpp>
 #include <utils/collection.hpp>
 #include <utils/hex_utils.hpp>
 #include <utils/json_utils.hpp>
+
+#include <algorithm>
+#include <unordered_map>
+#include <unordered_set>
 
 namespace redfish
 {
@@ -446,11 +452,6 @@ inline void
                            const dbus::utility::DBusPropertiesMap& properties,
                            const nlohmann::json::json_pointer& jsonPtr)
 {
-    aResp->res.jsonValue[jsonPtr]["Id"] = dimmId;
-    aResp->res.jsonValue[jsonPtr]["Name"] = "DIMM Slot";
-    aResp->res.jsonValue[jsonPtr]["Status"]["State"] = "Enabled";
-    aResp->res.jsonValue[jsonPtr]["Status"]["Health"] = "OK";
-
     for (const auto& property : properties)
     {
         if (property.first == "MemoryDataWidth")
@@ -702,31 +703,13 @@ inline void
             getPersistentMemoryProperties(aResp, property, jsonPtr);
         }
     }
-}
-
-inline void getDimmDataByService(std::shared_ptr<bmcweb::AsyncResp> aResp,
-                                 const std::string& dimmId,
-                                 const std::string& service,
-                                 const std::string& objPath)
-{
-    auto health = std::make_shared<HealthPopulate>(aResp);
-    health->selfPath = objPath;
-    health->populate();
-
-    BMCWEB_LOG_DEBUG << "Get available system components.";
-    crow::connections::systemBus->async_method_call(
-        [dimmId, aResp{std::move(aResp)}](
-            const boost::system::error_code ec,
-            const dbus::utility::DBusPropertiesMap& properties) {
-        if (ec)
-        {
-            BMCWEB_LOG_DEBUG << "DBUS response error";
-            messages::internalError(aResp->res);
-            return;
-        }
-        assembleDimmProperties(dimmId, aResp, properties, ""_json_pointer);
-        },
-        service, objPath, "org.freedesktop.DBus.Properties", "GetAll", "");
+    aResp->res.jsonValue[jsonPtr]["Id"] = dimmId;
+    aResp->res.jsonValue[jsonPtr]["Name"] = "DIMM Slot";
+    aResp->res.jsonValue[jsonPtr]["Status"]["State"] = "Enabled";
+    aResp->res.jsonValue[jsonPtr]["Status"]["Health"] = "OK";
+    aResp->res.jsonValue[jsonPtr]["@odata.id"] = crow::utility::urlFromPieces(
+        "redfish", "v1", "Systems", "system", "Memory", dimmId);
+    aResp->res.jsonValue[jsonPtr]["@odata.type"] = "#Memory.v1_11_0.Memory";
 }
 
 inline void assembleDimmPartitionData(
@@ -794,85 +777,363 @@ inline void assembleDimmPartitionData(
     aResp->res.jsonValue[regionPtr].emplace_back(std::move(partition));
 }
 
-inline void getDimmPartitionData(std::shared_ptr<bmcweb::AsyncResp> aResp,
-                                 const std::string& service,
-                                 const std::string& path)
+namespace memory
 {
-    crow::connections::systemBus->async_method_call(
-        [aResp{std::move(aResp)}](
-            const boost::system::error_code ec,
-            const dbus::utility::DBusPropertiesMap& properties) {
-        if (ec)
-        {
-            BMCWEB_LOG_DEBUG << "DBUS response error";
-            messages::internalError(aResp->res);
 
+// An RAII wrapper such that we can populate partitions and health data
+// efficiently in the specialized expand handler.
+class HealthAndPartition :
+    public std::enable_shared_from_this<HealthAndPartition>
+{
+  public:
+    HealthAndPartition(const std::shared_ptr<bmcweb::AsyncResp>& responseIn,
+                       std::unordered_map<std::string, std::string>&& mapIn) :
+        asyncResponse(responseIn),
+        partitionServiceToObjectManagerPath(mapIn)
+    {}
+
+    // HealthAndPartition is move-only because we don't want to fetch
+    // health or partition data for the same AsyncReponse twice.
+    HealthAndPartition(HealthAndPartition&& other) = default;
+    HealthAndPartition& operator=(HealthAndPartition&& other) = default;
+
+    HealthAndPartition(const HealthAndPartition&) = delete;
+    HealthAndPartition& operator=(const HealthAndPartition&) = delete;
+
+    ~HealthAndPartition()
+    {
+        BMCWEB_LOG_DEBUG << "HealthAndPartition destructs";
+        populatePartitions();
+    }
+
+    void getAllPartitions()
+    {
+        BMCWEB_LOG_DEBUG << "getAllPartitions entered";
+        for (const auto& [service, objectManagerPath] :
+             partitionServiceToObjectManagerPath)
+        {
+            crow::connections::systemBus->async_method_call(
+                [self{shared_from_this()}](
+                    const boost::system::error_code ec,
+                    dbus::utility::ManagedObjectType& objects) {
+                if (ec)
+                {
+                    BMCWEB_LOG_DEBUG << "DBUS response error";
+                    messages::internalError(self->asyncResponse->res);
+                    return;
+                }
+                BMCWEB_LOG_DEBUG << "Partition objects stored";
+                self->objectsForPartition.insert(
+                    self->objectsForPartition.end(),
+                    std::make_move_iterator(objects.begin()),
+                    std::make_move_iterator(objects.end()));
+                },
+                service, objectManagerPath,
+                "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
+        }
+    }
+
+    std::shared_ptr<bmcweb::AsyncResp> asyncResponse;
+    std::shared_ptr<HealthPopulate> health;
+    std::unordered_map<std::string, nlohmann::json::json_pointer> dimmToPtr;
+
+  private:
+    void populatePartitions()
+    {
+        BMCWEB_LOG_DEBUG << "populatePartitions entered";
+        for (const auto& [objectPath, interfaces] : objectsForPartition)
+        {
+            for (const auto& [interface, properties] : interfaces)
+            {
+                if (interface ==
+                    "xyz.openbmc_project.Inventory.Item.PersistentMemory.Partition")
+                {
+                    BMCWEB_LOG_DEBUG << "Found a partition; objectPath="
+                                     << objectPath.str;
+                    // Example objectPath:
+                    // /xyz/openbmc_project/Inventory/Item/Dimm1/Partition1
+                    const std::string& dimm =
+                        objectPath.parent_path().filename();
+                    if (dimm.empty() || !dimmToPtr.contains(dimm))
+                    {
+                        continue;
+                    }
+                    assembleDimmPartitionData(asyncResponse, properties,
+                                              dimmToPtr[dimm] / "Regions");
+                }
+            }
+        }
+        auto it = asyncResponse->res.jsonValue.find("Members");
+        if (it == asyncResponse->res.jsonValue.end())
+        {
             return;
         }
-        nlohmann::json::json_pointer regionPtr = "/Regions"_json_pointer;
-        assembleDimmPartitionData(aResp, properties, regionPtr);
-        },
+        auto members = it->get_ptr<nlohmann::json::array_t*>();
+        if (members == nullptr)
+        {
+            BMCWEB_LOG_ERROR << "Members is not array?!";
+            messages::internalError(asyncResponse->res);
+        }
+        if (!json_util::sortJsonArrayByKey<std::string>("@odata.id", *members))
+        {
+            BMCWEB_LOG_ERROR << "Unable to sort the DIMM collection";
+            messages::internalError(asyncResponse->res);
+        }
+    }
+    std::unordered_map<std::string, std::string>
+        partitionServiceToObjectManagerPath;
+    dbus::utility::ManagedObjectType objectsForPartition;
+};
+} // namespace memory
 
-        service, path, "org.freedesktop.DBus.Properties", "GetAll",
-        "xyz.openbmc_project.Inventory.Item.PersistentMemory.Partition");
+inline void getAllDimmsCallback(
+    const std::shared_ptr<memory::HealthAndPartition>& healthAndPartition,
+    const std::optional<std::string>& dimmId,
+    const boost::system::error_code ec,
+    const dbus::utility::ManagedObjectType& objects)
+{
+    BMCWEB_LOG_DEBUG << "getAllDimmsCallback entered";
+    if (ec)
+    {
+        BMCWEB_LOG_DEBUG << "DBUS response error";
+        messages::internalError(healthAndPartition->asyncResponse->res);
+        return;
+    }
+    for (const auto& [objectPath, interfaces] : objects)
+    {
+        std::string thisDimmID = objectPath.filename();
+        if (thisDimmID.empty())
+        {
+            continue;
+        }
+        if (dimmId && *dimmId != thisDimmID)
+        {
+            continue;
+        }
+        bool hasDimmInterface = false;
+        for (const auto& [interface, _] : interfaces)
+        {
+            if (interface == "xyz.openbmc_project.Inventory.Item.Dimm")
+            {
+                hasDimmInterface = true;
+                break;
+            }
+        }
+        if (!hasDimmInterface)
+        {
+            continue;
+        }
+        BMCWEB_LOG_DEBUG << "Found a dimm; objectPath=" << objectPath.str;
+        nlohmann::json::json_pointer healthPtr;
+        if (!dimmId)
+        {
+            size_t index =
+                healthAndPartition->asyncResponse->res.jsonValue["Members"]
+                    .size();
+            healthPtr = "/Members"_json_pointer / index / "Status";
+            healthAndPartition->dimmToPtr[thisDimmID] =
+                "/Members"_json_pointer / index;
+        }
+        else
+        {
+            healthPtr = "/Status"_json_pointer;
+            healthAndPartition->dimmToPtr[thisDimmID] = ""_json_pointer;
+        }
+        auto dimmHealth = std::make_shared<HealthPopulate>(
+            healthAndPartition->asyncResponse, healthPtr);
+        dimmHealth->selfPath = objectPath;
+        if (healthAndPartition->health == nullptr)
+        {
+            dimmHealth->populate();
+            healthAndPartition->health = std::move(dimmHealth);
+        }
+        else
+        {
+            // if there is already a health object, append other
+            // objects to its children to avoid duplicate DBus
+            // queries
+            healthAndPartition->health->children.push_back(
+                std::move(dimmHealth));
+        }
+        for (const auto& [interface, properties] : interfaces)
+        {
+            assembleDimmProperties(
+                thisDimmID, healthAndPartition->asyncResponse, properties,
+                healthAndPartition->dimmToPtr[thisDimmID]);
+        }
+    }
+    if (!dimmId)
+    {
+        healthAndPartition->asyncResponse->res
+            .jsonValue["Members@odata.count"] =
+            healthAndPartition->asyncResponse->res.jsonValue["Members"].size();
+        return;
+    }
 }
 
-inline void getDimmData(std::shared_ptr<bmcweb::AsyncResp> aResp,
-                        const std::string& dimmId)
+inline void getAllDimms(
+    const std::shared_ptr<memory::HealthAndPartition>& healthAndPartition,
+    const std::optional<std::string>& dimmId,
+    const std::unordered_map<std::string, std::string>&
+        serviceToObjectManagerPath)
 {
-    BMCWEB_LOG_DEBUG << "Get available system dimm resources.";
+    if (!dimmId)
+    {
+        healthAndPartition->asyncResponse->res.jsonValue["Members"] =
+            nlohmann::json::array();
+        healthAndPartition->asyncResponse->res
+            .jsonValue["Members@odata.count"] = 0;
+    }
+    for (const auto& [service, objectManagerPath] : serviceToObjectManagerPath)
+    {
+        crow::connections::systemBus->async_method_call(
+            [healthAndPartition,
+             dimmId{dimmId}](const boost::system::error_code ec,
+                             dbus::utility::ManagedObjectType& objects) {
+            getAllDimmsCallback(healthAndPartition, dimmId, ec, objects);
+            },
+            service, objectManagerPath, "org.freedesktop.DBus.ObjectManager",
+            "GetManagedObjects");
+    }
+}
+
+inline void getObjectManagerPathsGivenServicesCallBack(
+    const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+    const std::optional<std::string>& dimmId,
+    const std::unordered_set<std::string>& dimmServices,
+    const std::unordered_set<std::string>& partitionServices,
+    const boost::system::error_code ec,
+    const dbus::utility::MapperGetSubTreeResponse& subtree)
+{
+    if (ec)
+    {
+        BMCWEB_LOG_DEBUG << "DBUS response error";
+        messages::internalError(aResp->res);
+        return;
+    }
+
+    BMCWEB_LOG_DEBUG << "There are " << dimmServices.size()
+                     << " services which implement the DIMM interface";
+    BMCWEB_LOG_DEBUG << "There are " << partitionServices.size()
+                     << " services which implement the Partition interface";
+
+    std::unordered_map<std::string, std::string> dimmServiceToObjectManagerPath;
+    std::unordered_map<std::string, std::string>
+        partitionServiceToObjectManagerPath;
+    for (const auto& [objectManagerPath, mapperServiceMap] : subtree)
+    {
+        for (const auto& [service, _] : mapperServiceMap)
+        {
+            if (dimmServices.contains(service))
+            {
+                dimmServiceToObjectManagerPath[service] = objectManagerPath;
+            }
+            if (partitionServices.contains(service))
+            {
+                partitionServiceToObjectManagerPath[service] =
+                    objectManagerPath;
+            }
+        }
+    }
+
+    auto healthAndPartition = std::make_shared<memory::HealthAndPartition>(
+        aResp, std::move(partitionServiceToObjectManagerPath));
+    healthAndPartition->getAllPartitions();
+    getAllDimms(healthAndPartition, dimmId, dimmServiceToObjectManagerPath);
+}
+
+inline void getObjectManagerPathsGivenServices(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::optional<std::string>& dimmId,
+    std::unordered_set<std::string>&& dimmServices,
+    std::unordered_set<std::string>&& partitionServices)
+{
     crow::connections::systemBus->async_method_call(
-        [dimmId, aResp{std::move(aResp)}](
+        [asyncResp{asyncResp}, dimmId{dimmId},
+         dimmServices{std::move(dimmServices)},
+         partitionServices{std::move(partitionServices)}](
+            const boost::system::error_code ec,
+            const dbus::utility::MapperGetSubTreeResponse& subtree) {
+        getObjectManagerPathsGivenServicesCallBack(
+            asyncResp, dimmId, dimmServices, partitionServices, ec, subtree);
+        },
+        "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetSubTree", "/", 0,
+        std::array<std::string, 1>{"org.freedesktop.DBus.ObjectManager"});
+}
+
+// If |dimmId| is set, will only keep the first matched dimmId.
+inline void getDimmData(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                        const std::optional<std::string>& dimmId)
+{
+    crow::connections::systemBus->async_method_call(
+        [asyncResp{asyncResp}, dimmId{dimmId}](
             const boost::system::error_code ec,
             const dbus::utility::MapperGetSubTreeResponse& subtree) {
         if (ec)
         {
             BMCWEB_LOG_DEBUG << "DBUS response error";
-            messages::internalError(aResp->res);
-
+            messages::internalError(asyncResp->res);
             return;
         }
-        bool found = false;
-        for (const auto& [rawPath, object] : subtree)
+        BMCWEB_LOG_DEBUG
+            << "Collect services that implement DIMM/partition interface for "
+            << dimmId.value_or("all DIMMs");
+        bool foundGivenDimm = false;
+        std::unordered_set<std::string> dimmServices;
+        std::unordered_set<std::string> partitionServices;
+        for (const auto& [path, object] : subtree)
         {
-            sdbusplus::message::object_path path(rawPath);
+            BMCWEB_LOG_DEBUG << "Object path=" << path;
+            sdbusplus::message::object_path objectPath(path);
             for (const auto& [service, interfaces] : object)
             {
-                for (const auto& interface : interfaces)
+                for (const std::string& interface : interfaces)
                 {
-                    if (interface ==
-                            "xyz.openbmc_project.Inventory.Item.Dimm" &&
-                        path.filename() == dimmId)
+                    if (interface == "xyz.openbmc_project.Inventory.Item.Dimm")
                     {
-                        getDimmDataByService(aResp, dimmId, service, rawPath);
-                        found = true;
+                        if (dimmId && objectPath.filename() != *dimmId)
+                        {
+                            continue;
+                        }
+                        BMCWEB_LOG_DEBUG << "Added DIMM services " << service;
+                        dimmServices.insert(service);
+                        foundGivenDimm = true;
                     }
 
                     // partitions are separate as there can be multiple
-                    // per
-                    // device, i.e.
+                    // per device, i.e.
                     // /xyz/openbmc_project/Inventory/Item/Dimm1/Partition1
                     // /xyz/openbmc_project/Inventory/Item/Dimm1/Partition2
                     if (interface ==
-                            "xyz.openbmc_project.Inventory.Item.PersistentMemory.Partition" &&
-                        path.parent_path().filename() == dimmId)
+                        "xyz.openbmc_project.Inventory.Item.PersistentMemory.Partition")
                     {
-                        getDimmPartitionData(aResp, service, rawPath);
+                        if (dimmId &&
+                            objectPath.parent_path().filename() != *dimmId)
+                        {
+                            continue;
+                        }
+                        BMCWEB_LOG_DEBUG << "Added Partition services "
+                                         << service;
+                        partitionServices.insert(service);
                     }
                 }
             }
+            // Fetch the first matched DIMM
+            if (dimmId && foundGivenDimm)
+            {
+                break;
+            }
         }
-        // Object not found
-        if (!found)
+        if (dimmId && !foundGivenDimm)
         {
-            messages::resourceNotFound(aResp->res, "Memory", dimmId);
+            messages::resourceNotFound(asyncResp->res, "Memory", *dimmId);
             return;
         }
-        // Set @odata only if object is found
-        aResp->res.jsonValue["@odata.type"] = "#Memory.v1_11_0.Memory";
-        aResp->res.jsonValue["@odata.id"] =
-            "/redfish/v1/Systems/system/Memory/" + dimmId;
-        return;
+        getObjectManagerPathsGivenServices(asyncResp, dimmId,
+                                           std::move(dimmServices),
+                                           std::move(partitionServices));
         },
         "xyz.openbmc_project.ObjectMapper",
         "/xyz/openbmc_project/object_mapper",
@@ -893,7 +1154,12 @@ inline void requestRoutesMemoryCollection(App& app)
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-        if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+        query_param::Query delegated;
+        query_param::QueryCapabilities capabilities = {
+            .canDelegateExpandLevel = 1,
+        };
+        if (!redfish::setUpRedfishRouteWithDelegation(app, req, asyncResp,
+                                                      delegated, capabilities))
         {
             return;
         }
@@ -903,9 +1169,19 @@ inline void requestRoutesMemoryCollection(App& app)
         asyncResp->res.jsonValue["@odata.id"] =
             "/redfish/v1/Systems/system/Memory";
 
-        collection_util::getCollectionMembers(
-            asyncResp, "/redfish/v1/Systems/system/Memory",
-            {"xyz.openbmc_project.Inventory.Item.Dimm"});
+        if (delegated.expandLevel > 0 &&
+            delegated.expandType != query_param::ExpandType::None)
+        {
+            BMCWEB_LOG_DEBUG << "Use efficient expand handler";
+            getDimmData(asyncResp, std::nullopt);
+        }
+        else
+        {
+            BMCWEB_LOG_DEBUG << "Use default expand handler";
+            collection_util::getCollectionMembers(
+                asyncResp, "/redfish/v1/Systems/system/Memory",
+                {"xyz.openbmc_project.Inventory.Item.Dimm"});
+        }
         });
 }
 
