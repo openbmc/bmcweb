@@ -22,6 +22,30 @@
       },
       "revId": "eb9af5b4d9c5d52d4d4c211c6515fa0ff4129b8c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "20f39ef0_42fe21fc",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 72
+      },
+      "lineNbr": 748,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2022-05-02T22:10:06Z",
+      "side": 1,
+      "message": "CI fails if an else statement is added *here* after a return statement in if block",
+      "parentUuid": "6acc44eb_1bbbf6cc",
+      "range": {
+        "startLine": 748,
+        "startChar": 4,
+        "endLine": 748,
+        "endChar": 6
+      },
+      "revId": "eb9af5b4d9c5d52d4d4c211c6515fa0ff4129b8c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
