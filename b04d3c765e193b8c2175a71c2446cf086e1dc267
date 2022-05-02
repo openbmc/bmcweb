@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ac7ae11b_a30ee15c",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 526,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-02T15:53:01Z",
+      "side": 1,
+      "message": "Common error #5.\n\n\nAlso please note, we already have human-facing sorting functions specifically for this purpose that are used in other collections.  Please find them and use them.",
+      "range": {
+        "startLine": 526,
+        "startChar": 33,
+        "endLine": 526,
+        "endChar": 42
+      },
+      "revId": "b04d3c765e193b8c2175a71c2446cf086e1dc267",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
