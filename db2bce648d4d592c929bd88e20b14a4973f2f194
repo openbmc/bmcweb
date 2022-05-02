@@ -34,6 +34,24 @@
       "parentUuid": "4feacb81_87c7869c",
       "revId": "db2bce648d4d592c929bd88e20b14a4973f2f194",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b8d91dc5_d3cfcf87",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-05-02T16:47:43Z",
+      "side": 1,
+      "message": "yeah, just tested this out and works fine with ServiceLabel.\n\nMy setup was missing the ServiceLabel for the Manager. Just added it and works fine like before.",
+      "parentUuid": "4b39524a_baef3ef9",
+      "revId": "db2bce648d4d592c929bd88e20b14a4973f2f194",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
