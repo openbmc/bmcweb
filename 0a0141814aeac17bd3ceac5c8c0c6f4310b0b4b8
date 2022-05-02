@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "74396cf4_cfc75ad7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-02T15:50:19Z",
+      "side": 1,
+      "message": "I\u0027ve discussed with several of the reviewers on this patchset, but to make sure that information is replicated here, because people seem to be reviewing this now:\n\n- Per owasp and best practices, the behavior this patchset is suggesting is the correct thing to do.\n- This validation has not been present for a long time (since bmcweb started).\n- Making this change has the potential to functionally break many clients that didn\u0027t specify type upfront.  The OpenBMC documentation doesn\u0027t even set the type:\nhttps://github.com/openbmc/docs/blob/master/REDFISH-cheatsheet.md\n\nBecause of the last point, this patchset is far less trivial to execute on than it would appear.  I have not seen patchsets to fix the documentation or make the required changes to OpenBMC-specific clients.  Also, at a minimum, I suspect this behavior will need to be behind an option flag for some time to allow clients to catch up.  Both of those would be required to be provided for this to be merged as a default behavior.\n\nAs far as the vulnerability side, I still haven\u0027t been provided the detailed set of steps to reproduce the security vulnerability, but my understanding is that it requires the ability for an attacker to execute arbitrary code from within the browser js context, which in practice, makes it a lesser issue, because that level of execution already gives access to credentials.  If my understanding is incorrect, please provide the steps to reproduce that don\u0027t involve compromising the browser context.\n\nMy understanding for the reasoning behind the OWASP guidelines is that not checking content-type could potentially allow injection attacks if a server parses multiple read types, and a server can read one type as another, thus bypassing the escaping rules for a given client.  Considering bmcweb does not parse any types besides json, this seems like it also mitigates the risk somewhat.\n\nI suspect this overall is something we should continue to work on, but we need to execute with thought to those that use Redfish.\n\nPlease add details of the client impact, as well as dependencies into the commit message of this patch.",
+      "revId": "0a0141814aeac17bd3ceac5c8c0c6f4310b0b4b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c3bf0ab2_d038e21b",
