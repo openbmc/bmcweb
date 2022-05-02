@@ -24,8 +24,12 @@ class RedfishAggregator
 {
   private:
     crow::HttpClient& client = crow::HttpClient::getInstance();
+    std::unique_ptr<boost::asio::deadline_timer> filterTimer;
     boost::asio::io_context& ioc =
         crow::connections::systemBus->get_io_context();
+
+    // Match signals for adding Satellite Config
+    std::unique_ptr<sdbusplus::bus::match::match> matchSatelliteSignalMonitor;
 
     // Maps a chosen alias representing a satellite BMC to a url containing
     // the information required to create a http connection to the satellite
@@ -33,10 +37,67 @@ class RedfishAggregator
 
     RedfishAggregator()
     {
+        filterTimer = std::make_unique<boost::asio::deadline_timer>(ioc);
+
+        // Setup signal matching first in case a satellite becomes available
+        // before we complete manual searching
+        registerSatelliteConfigSignal();
+
         // Search for satellite config information that's available before
         // HttpClient is initialized
         getSatelliteConfigs();
     }
+
+    // Setup a D-Bus match to add the config info for any satellites
+    // that are added or changed after bmcweb starts
+    void registerSatelliteConfigSignal()
+    {
+        // This handler will get called per each property created or updated.
+        // We want to wait until its final call and then query the D-Bus to get
+        // all of the satellite config information
+        std::function<void(sdbusplus::message::message&)> eventHandler =
+            [this](sdbusplus::message::message& message) {
+                if (message.is_method_error())
+                {
+                    BMCWEB_LOG_ERROR
+                        << "registerSatelliteConfigSignal callback method error";
+                    return;
+                }
+
+                // This implicitly cancels the timer
+                filterTimer->expires_from_now(boost::posix_time::seconds(1));
+
+                filterTimer->async_wait([this](const boost::system::error_code&
+                                                   ec) {
+                    if (ec == boost::asio::error::operation_aborted)
+                    {
+                        // We were cancelled
+                        return;
+                    }
+                    if (ec)
+                    {
+                        BMCWEB_LOG_ERROR
+                            << "registerSatelliteConfigSignal timer error";
+                        return;
+                    }
+                    // Now manually scan to get all of the new satellite config
+                    // information
+                    BMCWEB_LOG_DEBUG
+                        << "Match received for SatelliteController.  Updating satellite configs";
+                    this->getSatelliteConfigs();
+                });
+            };
+
+        BMCWEB_LOG_DEBUG << "Satellite config signal - Register";
+        std::string matchStr =
+            "type='signal',member='PropertiesChanged',"
+            "interface='org.freedesktop.DBus.Properties',"
+            "arg0namespace='xyz.openbmc_project.Configuration.SatelliteController'";
+        matchSatelliteSignalMonitor =
+            std::make_unique<sdbusplus::bus::match::match>(
+                *crow::connections::systemBus, matchStr, eventHandler);
+    }
+
     // Polls D-Bus to get all available satellite config information
     void getSatelliteConfigs()
     {
