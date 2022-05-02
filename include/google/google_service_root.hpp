@@ -1,5 +1,7 @@
 #pragma once
 
+#include "dbus_utils.hpp"
+
 #include <app.hpp>
 #include <async_resp.hpp>
 #include <error_messages.hpp>
@@ -33,35 +35,36 @@ inline void getGoogleV1(const crow::Request& /*req*/,
 
 inline void getRootOfTrustCollection(
     const crow::Request& /*req*/,
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+    const std::shared_ptr<GoogleServiceAsyncResp>& serviceResp)
 {
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp =
+        serviceResp->asyncResp;
     asyncResp->res.jsonValue["@odata.id"] = rotCollectionPrefix;
     asyncResp->res.jsonValue["@odata.type"] =
         "#RootOfTrustCollection.RootOfTrustCollection";
-    redfish::collection_util::getCollectionMembers(
+    serviceResp->rfUtils->populateCollectionMembers(
         asyncResp, rotCollectionPrefix, std::vector<const char*>{hothInterface},
         hothSearchPath);
 }
 
-// Helper struct to identify a resolved D-Bus object interface
-struct ResolvedEntity
+inline void getRootOfTrustCollectionImpl(
+    const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    std::string id;
-    std::string service;
-    std::string object;
-    const char* interface;
-};
+    auto serviceResp = std::make_shared<GoogleServiceAsyncResp>(asyncResp);
+    getRootOfTrustCollection(req, serviceResp);
+}
 
 using ResolvedEntityHandler = std::function<void(
-    const std::string&, const std::shared_ptr<bmcweb::AsyncResp>&,
+    const std::string&, const std::shared_ptr<GoogleServiceAsyncResp>&,
     const ResolvedEntity&)>;
 
-inline void resolveRoT(const std::string& command,
-                       const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                       const std::string& rotId,
-                       ResolvedEntityHandler&& entityHandler)
+inline void
+    resolveRoT(const std::string& command,
+               const std::shared_ptr<GoogleServiceAsyncResp>& serviceResp,
+               const std::string& rotId, ResolvedEntityHandler&& entityHandler)
 {
-    auto validateFunc = [command, asyncResp, rotId,
+    auto validateFunc = [command, serviceResp, rotId,
                          entityHandler{std::forward<ResolvedEntityHandler>(
                              entityHandler)}](
                             const boost::system::error_code ec,
@@ -69,7 +72,7 @@ inline void resolveRoT(const std::string& command,
                                 subtree) {
         if (ec)
         {
-            redfish::messages::internalError(asyncResp->res);
+            redfish::messages::internalError(serviceResp->asyncResp->res);
             return;
         }
         // Iterate over all retrieved ObjectPaths.
@@ -88,28 +91,31 @@ inline void resolveRoT(const std::string& command,
                                              .service = object.second[0].first,
                                              .object = object.first,
                                              .interface = hothInterface};
-            entityHandler(command, asyncResp, resolvedEntity);
+            entityHandler(command, serviceResp, resolvedEntity);
             return;
         }
 
         // Couldn't find an object with that name.  return an error
-        redfish::messages::resourceNotFound(
-            asyncResp->res, "#RootOfTrust.v1_0_0.RootOfTrust", rotId);
+        redfish::messages::resourceNotFound(serviceResp->asyncResp->res,
+                                            "#RootOfTrust.v1_0_0.RootOfTrust",
+                                            rotId);
     };
 
-    std::array<std::string, 1> hothIfaces = {hothInterface};
-    crow::connections::systemBus->async_method_call(
-        validateFunc, "xyz.openbmc_project.ObjectMapper",
-        "/xyz/openbmc_project/object_mapper",
-        "xyz.openbmc_project.ObjectMapper", "GetSubTree", hothSearchPath,
-        /*depth=*/0, hothIfaces);
+    serviceResp->objMapper->getSubTree(
+        DbusMethodAddr("xyz.openbmc_project.ObjectMapper",
+                       "/xyz/openbmc_project/object_mapper",
+                       "xyz.openbmc_project.ObjectMapper", "GetSubTree"),
+        {.depth = 0, .subtree = hothSearchPath, .interfaces = {hothInterface}},
+        validateFunc);
 }
 
 inline void populateRootOfTrustEntity(
     const std::string& /*unused*/,
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::shared_ptr<GoogleServiceAsyncResp>& serviceResp,
     const ResolvedEntity& resolvedEntity)
 {
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp =
+        serviceResp->asyncResp;
     asyncResp->res.jsonValue["@odata.type"] = "#RootOfTrust.v1_0_0.RootOfTrust";
     asyncResp->res.jsonValue["@odata.id"] =
         "/google/v1/RootOfTrustCollection/" + resolvedEntity.id;
@@ -129,19 +135,31 @@ inline void populateRootOfTrustEntity(
         "Embedded";
 }
 
-inline void getRootOfTrust(const crow::Request& /*unused*/,
-                           const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                           const std::string& param)
+inline void
+    getRootOfTrust(const crow::Request& /*unused*/,
+                   const std::shared_ptr<GoogleServiceAsyncResp>& serviceResp,
+                   const std::string& param)
 {
-    resolveRoT("" /*Empty command*/, asyncResp, param,
-               populateRootOfTrustEntity);
+    resolveRoT("", serviceResp, param, populateRootOfTrustEntity);
+}
+
+inline void
+    getRootOfTrustImpl(const crow::Request& req,
+                       const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                       const std::string& param)
+{
+    getRootOfTrust(req, std::make_shared<GoogleServiceAsyncResp>(asyncResp),
+                   param);
 }
 
 inline void
     invokeRoTCommand(const std::string& command,
-                     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                     const std::shared_ptr<GoogleServiceAsyncResp>& serviceResp,
                      const ResolvedEntity& resolvedEntity)
 {
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp =
+        serviceResp->asyncResp;
+
     auto handleFunc = [asyncResp](const boost::system::error_code ec,
                                   std::vector<uint8_t>& responseBytes) {
         if (ec)
@@ -164,26 +182,34 @@ inline void
         return;
     }
 
-    crow::connections::systemBus->async_method_call(
-        handleFunc, resolvedEntity.service, resolvedEntity.object,
-        resolvedEntity.interface, "SendHostCommand", bytes);
+    serviceResp->hothInterface->sendHostCommand(
+        DbusMethodAddr(resolvedEntity, "SendHostCommand"), bytes, handleFunc);
 }
 
-inline void sendRoTCommand(const crow::Request& request,
-                           const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                           const std::string& rotId)
+inline void
+    sendRoTCommand(const crow::Request& request,
+                   const std::shared_ptr<GoogleServiceAsyncResp>& serviceResp,
+                   const std::string& rotId)
 {
     std::string command;
-    if (!redfish::json_util::readJsonAction(request, asyncResp->res, "Command",
-                                            command))
+    if (!redfish::json_util::readJsonAction(
+            request, serviceResp->asyncResp->res, "Command", command))
     {
         BMCWEB_LOG_DEBUG << "Missing property Command.";
-        redfish::messages::actionParameterMissing(asyncResp->res, "SendCommand",
-                                                  "Command");
+        redfish::messages::actionParameterMissing(serviceResp->asyncResp->res,
+                                                  "SendCommand", "Command");
         return;
     }
+    resolveRoT(command, serviceResp, rotId, invokeRoTCommand);
+}
 
-    resolveRoT(command, asyncResp, rotId, invokeRoTCommand);
+inline void
+    sendRoTCommandImpl(const crow::Request& request,
+                       const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                       const std::string& rotId)
+{
+    sendRoTCommand(request, std::make_shared<GoogleServiceAsyncResp>(asyncResp),
+                   rotId);
 }
 
 inline void requestRoutes(App& app)
@@ -193,17 +219,17 @@ inline void requestRoutes(App& app)
 
     BMCWEB_ROUTE(app, "/google/v1/RootOfTrustCollection")
         .privileges({{"ConfigureManager"}})
-        .methods(boost::beast::http::verb::get)(getRootOfTrustCollection);
+        .methods(boost::beast::http::verb::get)(getRootOfTrustCollectionImpl);
 
     BMCWEB_ROUTE(app, "/google/v1/RootOfTrustCollection/<str>")
         .privileges({{"ConfigureManager"}})
-        .methods(boost::beast::http::verb::get)(getRootOfTrust);
+        .methods(boost::beast::http::verb::get)(getRootOfTrustImpl);
 
     BMCWEB_ROUTE(
         app,
         "/google/v1/RootOfTrustCollection/<str>/Actions/RootOfTrust.SendCommand")
         .privileges({{"ConfigureManager"}})
-        .methods(boost::beast::http::verb::post)(sendRoTCommand);
+        .methods(boost::beast::http::verb::post)(sendRoTCommandImpl);
 }
 
 } // namespace google_api
