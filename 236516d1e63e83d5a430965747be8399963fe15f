@@ -55,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b237aebd_7ac9921d",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 579,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-05-02T23:32:14Z",
+      "side": 1,
+      "message": "In this new patchset I have created a completely separate RedfishAggregator class to handle all of the aggregation features.  HttpClient is being left as is since it is generic enough to be used by both EventService and RedfishAggregator",
+      "parentUuid": "384c2426_3f3c5d58",
+      "revId": "236516d1e63e83d5a430965747be8399963fe15f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6fd361f0_5a0d3d0f",
         "filename": "http/http_client.hpp",
         "patchSetId": 12
@@ -90,6 +108,30 @@
       "side": 1,
       "message": "It\u0027s a name that\u0027s used as an aliases for a satellite BMC like \"Aggregated0\" or \"Aggregated1\".  It\u0027s a mapped to a url but really that\u0027s just used to store the basic information needed to connect to that BMC.  That name is later added as a prefix to a resource ID in the URI path of a request to that satellite.",
       "parentUuid": "6fd361f0_5a0d3d0f",
+      "range": {
+        "startLine": 589,
+        "startChar": 0,
+        "endLine": 589,
+        "endChar": 68
+      },
+      "revId": "236516d1e63e83d5a430965747be8399963fe15f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f0ab4aa_6fb29a87",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 589,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-05-02T23:32:14Z",
+      "side": 1,
+      "message": "I\u0027ve added the additional designation",
+      "parentUuid": "6f6946c5_af0079ce",
       "range": {
         "startLine": 589,
         "startChar": 0,
