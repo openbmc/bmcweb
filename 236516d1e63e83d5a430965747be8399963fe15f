@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "384c2426_3f3c5d58",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 579,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-05-02T20:09:52Z",
+      "side": 1,
+      "message": "Yeah the aggregation code is adding unnecessary bloat to HttpClient.  I think your suggestion is reasonable.  I\u0027ll make aggregation its own class in the vein of EventService.  That\u0027s going to play much better with future patches where I\u0027ll need to add aggregation specific public methods.",
+      "parentUuid": "931cebff_f37a6606",
+      "revId": "236516d1e63e83d5a430965747be8399963fe15f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6fd361f0_5a0d3d0f",
         "filename": "http/http_client.hpp",
         "patchSetId": 12
@@ -48,6 +66,30 @@
       "writtenOn": "2022-04-30T18:05:58Z",
       "side": 1,
       "message": "Nit, when using string as a map member, it helps to denote what it is;  in this case, it\u0027s a name (I think a url piece name) mapped to a url.",
+      "range": {
+        "startLine": 589,
+        "startChar": 0,
+        "endLine": 589,
+        "endChar": 68
+      },
+      "revId": "236516d1e63e83d5a430965747be8399963fe15f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6f6946c5_af0079ce",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 589,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-05-02T20:09:52Z",
+      "side": 1,
+      "message": "It\u0027s a name that\u0027s used as an aliases for a satellite BMC like \"Aggregated0\" or \"Aggregated1\".  It\u0027s a mapped to a url but really that\u0027s just used to store the basic information needed to connect to that BMC.  That name is later added as a prefix to a resource ID in the URI path of a request to that satellite.",
+      "parentUuid": "6fd361f0_5a0d3d0f",
       "range": {
         "startLine": 589,
         "startChar": 0,
@@ -83,6 +125,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c82db857_5f194136",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 721,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-05-02T20:09:52Z",
+      "side": 1,
+      "message": "In this instance the Name would be in the form of something like \"Aggregated0\", \"Aggregated1\", etc. which would serve as the prefix used in the aggregated URL.  Not allowing underscores in the prefix doesn\u0027t seem too limiting since they\u0027d still be able to be used in component names.  Using % encoding for underscores in the prefix seems like an alright compromise to me.  \n\nI like being able to assume that if aggregation is active then we\u0027ll be able to parse a URI like \"/redfish/v1/Chassis/{ChassisId}\" and assume that all text before the first underscore in \"{ChassisId}\" is actually the prefix that indicates which BMC the request is meant for (i.e. {ChassisId} \u003d\u003d \u003cName\u003e_\u003cRemoteChassisId\u003e).\n\nI think even with a word delimiter we have the same issue where we can\u0027t be sure that there wouldn\u0027t be collisions, although the likelihood would be greatly reduced.  It also makes the aggregated IDs much wordier.  I think putting some sort of restriction on what can be used as a name/prefix is the way to go.",
+      "parentUuid": "1b56519e_f1a3ad6e",
+      "range": {
+        "startLine": 721,
+        "startChar": 0,
+        "endLine": 721,
+        "endChar": 60
+      },
+      "revId": "236516d1e63e83d5a430965747be8399963fe15f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3693faa4_77393d20",
         "filename": "http/http_client.hpp",
         "patchSetId": 12
@@ -106,6 +172,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0f98d4d6_7358002d",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 729,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-05-02T20:09:52Z",
+      "side": 1,
+      "message": "I don\u0027t think it\u0027ll make too much of a difference in the end.  In addition to encryption we will need to add other fields down the line like \"user\" and \"password\" for authentication.  I\u0027m assuming we wouldn\u0027t want to squeeze all of that into a single \"RemoteRedfishRoot\" field so we\u0027d still end up with more than just two fields.  In the dbus config I like having to explicitly set each individual parameter as its own field for readability purposes.\n\nWhat if for a future change support was added for \"RemoteRedfishRoot\" so that you could use either style or a combination of the two to provide satellite information?",
+      "parentUuid": "3693faa4_77393d20",
+      "range": {
+        "startLine": 729,
+        "startChar": 36,
+        "endLine": 729,
+        "endChar": 44
+      },
+      "revId": "236516d1e63e83d5a430965747be8399963fe15f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "741a6b3b_6058ae29",
         "filename": "http/http_client.hpp",
         "patchSetId": 12
@@ -117,6 +207,30 @@
       "writtenOn": "2022-04-30T18:05:58Z",
       "side": 1,
       "message": "?  Can we assume http here?  Redfish the spec generally is implemented as https, although might not be in this case.",
+      "range": {
+        "startLine": 776,
+        "startChar": 0,
+        "endLine": 776,
+        "endChar": 39
+      },
+      "revId": "236516d1e63e83d5a430965747be8399963fe15f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d485b9c4_499134f3",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 776,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-05-02T20:09:52Z",
+      "side": 1,
+      "message": "For this patch I wanted to assume that there is no authentication and TLS required to communicate with a satellite BMC.  I\u0027m going to leave supporting those features to a future patch.\n\nSetting the scheme as http seemed like the appropriate way within boost::urls::url to denote that the config had selected no authentication.  Previously I was storing an \"authType\" field in my custom struct.",
+      "parentUuid": "741a6b3b_6058ae29",
       "range": {
         "startLine": 776,
         "startChar": 0,

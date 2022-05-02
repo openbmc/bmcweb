@@ -117,6 +117,30 @@
       },
       "revId": "22bf54deca23cba52805cf71678bbd9d09406ef9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "557ace55_3ff0ffd7",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-05-02T20:09:52Z",
+      "side": 1,
+      "message": "\u003e Yes.  That\u0027s the whole point of what I was asking for.  Split up the patches into a progression from simple -\u003e complex.\nI ended up adding the matching because at the time I wasn\u0027t sure at what point its code would overlap with the original config lookup.  I\u0027ll break the matching into a separate CL.\n\n\u003e That seems fine to me, although I\u0027m not sure if a global enable/disable matters much.  If the array of satellite configs is 0, we\u0027ll basically do nothing, right?  We just avoid one dbus call.\nThat\u0027s correct for most instances.  I believe getting collections like \"/redfish/v1/Chassis\" would require two calls: 1) the initial check to see if a request needs to be forwarded rather than handled locally and 2) a check after the collection has been pulled to see if collection information needs to be added from any satellites.\n\n\u003e I suspect there\u0027s a happy medium where the aggregation code just causes no slowdown if there are no satellite configs.\nThat comes into play in this future patch that\u0027s a WIP as of right now (https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/53310).  I\u0027ll have a method that uses unordered_map satelliteInfo.empty() in some form as an initial check to determine if we need to go through the aggregation flow.  That should avoid the slowdown since we won\u0027t have to make any D-Bus reads.",
+      "parentUuid": "e115063c_651483a0",
+      "range": {
+        "startLine": 79,
+        "startChar": 0,
+        "endLine": 79,
+        "endChar": 70
+      },
+      "revId": "22bf54deca23cba52805cf71678bbd9d09406ef9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
