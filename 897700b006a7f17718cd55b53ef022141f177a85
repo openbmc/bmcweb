@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ff47ad9_014280d9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-05-02T06:52:52Z",
+      "side": 1,
+      "message": "Thanks for reviewing!",
+      "parentUuid": "b22c5e46_cbfe87a5",
+      "revId": "897700b006a7f17718cd55b53ef022141f177a85",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f0d64813_479a3e24",
@@ -41,6 +59,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "68c1bbaf_d60cb471",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 528,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-05-02T06:52:52Z",
+      "side": 1,
+      "message": "It\u0027s subtle but the reason this change is in this patchset is that fault log doesn\u0027t have an AdditionalDataURI in this current implementation, and AdditionalDataSizeBytes is supposed to describe the size of the data referenced by AdditionalDataURI, so I think it would be strange to have AdditionalDataSizeBytes without AdditionalDataURI. (Fault log AdditionalDataURI will be added in the future, but just not in this current version of the code.) While I could still break out the change, this changeset would then depend on the new changeset -- so I\u0027d prefer not to.",
+      "parentUuid": "f0d64813_479a3e24",
+      "range": {
+        "startLine": 524,
+        "startChar": 0,
+        "endLine": 528,
+        "endChar": 0
+      },
+      "revId": "897700b006a7f17718cd55b53ef022141f177a85",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4c8e8ed7_082af044",
@@ -54,6 +96,30 @@
       "writtenOn": "2022-04-27T20:11:18Z",
       "side": 1,
       "message": "Should this also be a different CL? seems like a cleanup unrelated to faultlog",
+      "range": {
+        "startLine": 532,
+        "startChar": 12,
+        "endLine": 536,
+        "endChar": 25
+      },
+      "revId": "897700b006a7f17718cd55b53ef022141f177a85",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "26c00597_653d99b7",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 536,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-05-02T06:52:52Z",
+      "side": 1,
+      "message": "Sure, opened review at https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/53355. The original motivation was that we\u0027d like fault log entries to be sorted chronologically (by the monotonically increasing Id) when outputting the entries collection, but it seems to me that sorting would probably be nice for all dump types.",
+      "parentUuid": "4c8e8ed7_082af044",
       "range": {
         "startLine": 532,
         "startChar": 12,
