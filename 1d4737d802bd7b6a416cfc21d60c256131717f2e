@@ -1,0 +1,389 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e7b50867_ee059792",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 34
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-05-03T01:22:43Z",
+      "side": 1,
+      "message": "I dislike the change from a clear state machine, to some logic that is more difficult to follow.\nI understand it is important for the pool, but it would be great if you could clean up the state flow.\n\nI don\u0027t like friend classes either. \n\nBut we do what we must.",
+      "revId": "1d4737d802bd7b6a416cfc21d60c256131717f2e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "56c205dc_6fa6f52e",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-05-03T01:22:43Z",
+      "side": 1,
+      "message": "How were these figures selected.\nJust a quick statement on how they were picked could be very useful.\n\nThey will have different performance implications on different platforms. If they cause a performance issue users will want to tune them.",
+      "range": {
+        "startLine": 37,
+        "startChar": 18,
+        "endLine": 37,
+        "endChar": 29
+      },
+      "revId": "1d4737d802bd7b6a416cfc21d60c256131717f2e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ab2c274_f153f3df",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-05-03T01:22:43Z",
+      "side": 1,
+      "message": "remove, never entered.",
+      "range": {
+        "startLine": 51,
+        "startChar": 0,
+        "endLine": 51,
+        "endChar": 19
+      },
+      "revId": "1d4737d802bd7b6a416cfc21d60c256131717f2e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1c71f189_3b40ff82",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-05-03T01:22:43Z",
+      "side": 1,
+      "message": "std::chrono::seconds, rather then converting the std::chrono::seconds when used.",
+      "range": {
+        "startLine": 67,
+        "startChar": 4,
+        "endLine": 67,
+        "endChar": 12
+      },
+      "revId": "1d4737d802bd7b6a416cfc21d60c256131717f2e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba75f2c2_bd1efa0e",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-05-03T01:22:43Z",
+      "side": 1,
+      "message": "Nit, you enter this state but never check it that you are in this state.\nIt is okay but not great. You left a state (to enter this one), and that is a legitimate way to use states.",
+      "range": {
+        "startLine": 117,
+        "startChar": 20,
+        "endLine": 117,
+        "endChar": 59
+      },
+      "revId": "1d4737d802bd7b6a416cfc21d60c256131717f2e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "59ea1f16_8edb70db",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-05-03T01:22:43Z",
+      "side": 1,
+      "message": "Nit, you enter this state but never check it that you are in this state.\nIt is okay but not great. You left a state (to enter this one), and that is a legitimate way to use states.",
+      "range": {
+        "startLine": 133,
+        "startChar": 0,
+        "endLine": 133,
+        "endChar": 45
+      },
+      "revId": "1d4737d802bd7b6a416cfc21d60c256131717f2e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ec0937a_aa4bda7c",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-05-03T01:22:43Z",
+      "side": 1,
+      "message": "Nit, you enter this state but never check it that you are in this state.\nIt is okay but not great. You left a state (to enter this one), and that is a legitimate way to use states.",
+      "range": {
+        "startLine": 151,
+        "startChar": 0,
+        "endLine": 151,
+        "endChar": 59
+      },
+      "revId": "1d4737d802bd7b6a416cfc21d60c256131717f2e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ae0ef27c_0d457753",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-05-03T01:22:43Z",
+      "side": 1,
+      "message": "Nit, you enter this state but never check it that you are in this state.\nIt is okay but not great. You left a state (to enter this one), and that is a legitimate way to use states.",
+      "range": {
+        "startLine": 159,
+        "startChar": 0,
+        "endLine": 159,
+        "endChar": 51
+      },
+      "revId": "1d4737d802bd7b6a416cfc21d60c256131717f2e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1638a96c_0d244377",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-05-03T01:22:43Z",
+      "side": 1,
+      "message": "Nit, you enter this state but never check it that you are in this state.\nIt is okay but not great. You left a state (to enter this one), and that is a legitimate way to use states.",
+      "range": {
+        "startLine": 166,
+        "startChar": 0,
+        "endLine": 166,
+        "endChar": 42
+      },
+      "revId": "1d4737d802bd7b6a416cfc21d60c256131717f2e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "49377a5d_ae3451b2",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-05-03T01:22:43Z",
+      "side": 1,
+      "message": "Nit, you enter this state but never check it that you are in this state.\nIt is okay but not great. You left a state (to enter this one), and that is a legitimate way to use states.",
+      "range": {
+        "startLine": 183,
+        "startChar": 0,
+        "endLine": 183,
+        "endChar": 56
+      },
+      "revId": "1d4737d802bd7b6a416cfc21d60c256131717f2e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1880f526_344488e3",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-05-03T01:22:43Z",
+      "side": 1,
+      "message": "Nit, you enter this state but never check it that you are in this state.\nIt is okay but not great. You left a state (to enter this one), and that is a legitimate way to use states.",
+      "range": {
+        "startLine": 209,
+        "startChar": 45,
+        "endLine": 209,
+        "endChar": 55
+      },
+      "revId": "1d4737d802bd7b6a416cfc21d60c256131717f2e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eabfc374_1f943da5",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 306,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-05-03T01:22:43Z",
+      "side": 1,
+      "message": "Nit, you enter this state but never check it that you are in this state.\nIt is okay but not great. You left a state (to enter this one), and that is a legitimate way to use states.",
+      "range": {
+        "startLine": 306,
+        "startChar": 0,
+        "endLine": 306,
+        "endChar": 43
+      },
+      "revId": "1d4737d802bd7b6a416cfc21d60c256131717f2e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d8bb9ebc_e67163cb",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-05-03T01:22:43Z",
+      "side": 1,
+      "message": "Nit, you enter this state but never check it that you are in this state.\nIt is okay but not great. You left a state (to enter this one), and that is a legitimate way to use states.",
+      "range": {
+        "startLine": 349,
+        "startChar": 0,
+        "endLine": 349,
+        "endChar": 37
+      },
+      "revId": "1d4737d802bd7b6a416cfc21d60c256131717f2e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e0fe794_ba7a7da1",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-05-03T01:22:43Z",
+      "side": 1,
+      "message": "Connection Pool should get it\u0027s own file. \nbecause this file already long, and this is natural break.",
+      "range": {
+        "startLine": 370,
+        "startChar": 0,
+        "endLine": 370,
+        "endChar": 20
+      },
+      "revId": "1d4737d802bd7b6a416cfc21d60c256131717f2e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "52c686f8_bf468be5",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 385,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-05-03T01:22:43Z",
+      "side": 1,
+      "message": "gross, No action required.",
+      "range": {
+        "startLine": 385,
+        "startChar": 4,
+        "endLine": 385,
+        "endChar": 10
+      },
+      "revId": "1d4737d802bd7b6a416cfc21d60c256131717f2e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4144130b_26730e9b",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 462,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-05-03T01:22:43Z",
+      "side": 1,
+      "message": "Nit, you enter this state but never check it that you are in this state.\nIt is okay but not great. You left a state (to enter this one), and that is a legitimate way to use states.",
+      "range": {
+        "startLine": 462,
+        "startChar": 0,
+        "endLine": 462,
+        "endChar": 53
+      },
+      "revId": "1d4737d802bd7b6a416cfc21d60c256131717f2e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4d2da8dc_e0790842",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 549,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-05-03T01:22:43Z",
+      "side": 1,
+      "message": "which ioc does this setup? \n1)ConnectionPool\n2)the friend in HttpClient or your \n3) Both ?",
+      "range": {
+        "startLine": 549,
+        "startChar": 8,
+        "endLine": 549,
+        "endChar": 11
+      },
+      "revId": "1d4737d802bd7b6a416cfc21d60c256131717f2e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
