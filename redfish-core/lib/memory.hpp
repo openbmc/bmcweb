@@ -465,8 +465,8 @@ inline void getDimmDataByService(std::shared_ptr<bmcweb::AsyncResp> aResp,
                 }
                 else if (property.first == "MemorySizeInKB")
                 {
-                    const uint32_t* memorySize =
-                        std::get_if<uint32_t>(&property.second);
+                    const size_t* memorySize =
+                        std::get_if<size_t>(&property.second);
                     if (memorySize == nullptr)
                     {
                         // Important property not in desired type
