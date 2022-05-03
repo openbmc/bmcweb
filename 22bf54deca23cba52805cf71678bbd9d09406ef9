@@ -141,6 +141,30 @@
       },
       "revId": "22bf54deca23cba52805cf71678bbd9d09406ef9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "43c7248a_d069f5af",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-05-03T01:06:38Z",
+      "side": 1,
+      "message": "\u003e That\u0027s correct for most instances\nActually you will have to make the two checks on every resource that\u0027s located on the aggregating BMC, not just the collection endpoints.  That\u0027s because any URIs in that response will need to be modified so that the \"main_\" prefix is added.",
+      "parentUuid": "557ace55_3ff0ffd7",
+      "range": {
+        "startLine": 79,
+        "startChar": 0,
+        "endLine": 79,
+        "endChar": 70
+      },
+      "revId": "22bf54deca23cba52805cf71678bbd9d09406ef9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
