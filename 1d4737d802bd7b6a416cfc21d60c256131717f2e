@@ -35,6 +35,42 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "48baaee9_17840c62",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 34
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-05-03T20:57:05Z",
+      "side": 1,
+      "message": "No worries, it didn\u0027t sound negative.  I appreciate any and all feedback :D",
+      "parentUuid": "d528361c_65fc50c2",
+      "revId": "1d4737d802bd7b6a416cfc21d60c256131717f2e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5d211b77_5801fcf4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 34
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-05-03T20:57:05Z",
+      "side": 1,
+      "message": "Yeah the pool combined with queued requests and a retry policy makes it pretty ugly.  The same flow from before is there if you squint a bit.  I just replaced the handleConnState() calls with directly calling the next method in the chain and then the end behavior is handled the the callback.  \n\nUsing callbacks is ultimately what I came up with to handle having singular connection objects that are part of a pool with queued messages.  It also plays nice (I think) with future Redfish Aggregation plans where I will need to do additional processing on received responses.  Do you have some particular suggestions for spot it could be cleaned up?  I\u0027m game to try, but I don\u0027t see where to clean up the overall flow.",
+      "parentUuid": "e7b50867_ee059792",
+      "revId": "1d4737d802bd7b6a416cfc21d60c256131717f2e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "56c205dc_6fa6f52e",
@@ -48,6 +84,30 @@
       "writtenOn": "2022-05-03T01:22:43Z",
       "side": 1,
       "message": "How were these figures selected.\nJust a quick statement on how they were picked could be very useful.\n\nThey will have different performance implications on different platforms. If they cause a performance issue users will want to tune them.",
+      "range": {
+        "startLine": 37,
+        "startChar": 18,
+        "endLine": 37,
+        "endChar": 29
+      },
+      "revId": "1d4737d802bd7b6a416cfc21d60c256131717f2e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e30b18ee_9efacca0",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-05-03T20:57:05Z",
+      "side": 1,
+      "message": "That was from discussion with Ed in which he said I needed to set a low max pool size and that not even Chrome opened more than 4 connections.  To allow user tuning I\u0027m assuming you mean via a compiler flag?",
+      "parentUuid": "56c205dc_6fa6f52e",
       "range": {
         "startLine": 37,
         "startChar": 18,
@@ -334,6 +394,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "9dfcaffc_679a0b3c",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-05-03T20:57:05Z",
+      "side": 1,
+      "message": "Does that include ConnectionInfo as well since they\u0027re pretty tightly coupled?",
+      "parentUuid": "8e0fe794_ba7a7da1",
+      "range": {
+        "startLine": 370,
+        "startChar": 0,
+        "endLine": 370,
+        "endChar": 20
+      },
+      "revId": "1d4737d802bd7b6a416cfc21d60c256131717f2e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "52c686f8_bf468be5",
@@ -393,6 +477,30 @@
       "writtenOn": "2022-05-03T01:22:43Z",
       "side": 1,
       "message": "which ioc does this setup? \n1)ConnectionPool\n2)the friend in HttpClient or your \n3) Both ?",
+      "range": {
+        "startLine": 549,
+        "startChar": 8,
+        "endLine": 549,
+        "endChar": 11
+      },
+      "revId": "1d4737d802bd7b6a416cfc21d60c256131717f2e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8553cbdd_c5aa7d63",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 549,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-05-03T20:57:05Z",
+      "side": 1,
+      "message": "That sets up the ioc in each connection pool contained by HttpClient.  It\u0027s later used to create each individual connection (ConnectionInfo) within the pool.",
+      "parentUuid": "4d2da8dc_e0790842",
       "range": {
         "startLine": 549,
         "startChar": 8,
