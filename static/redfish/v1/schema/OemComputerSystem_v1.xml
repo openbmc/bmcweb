@@ -49,6 +49,15 @@
                 </Property>
             </ComplexType>
 
+            <ComplexType Name="ComputerSystem" BaseType="ComputerSystem">
+                <Annotation Term="SafeMode" Bool="false" />
+                <Property Name="SafeMode" Type="Edm.Boolean" Nullable="false">
+                  <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+                  <Annotation Term="OData.Description" String="An indication of whether safe mode is enabled."/>
+                  <Annotation Term="OData.LongDescription" String="The value of this property shall indicate if safe mode is enabled."/>
+                </Property>
+            </ComplexType>
+
             <EnumType Name="FirmwareProvisioningStatus">
                 <Member Name="NotProvisioned">
                     <Annotation Term="OData.Description" String="Platform firmware is not provisioned."/>
