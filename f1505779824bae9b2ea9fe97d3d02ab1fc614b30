@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "40a20d44_7e41c246",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-05-04T18:34:40Z",
+      "side": 1,
+      "message": "\u003c *** /redfish/v1/Chassis/\u003cOther_Chassis\u003e/Drives\n\u003c        Type (DriveCollection.DriveCollection), GET SUCCESS (time: 0:00:00.110320)\n\u003c Members: Mandatory prop does not exist\n\u003c         FAIL...\n\u003c \nSo, I will not add the drive, if there are no drives on the chassis.\n\nand I forgot the @odata.type in my drives repose. corrected. now\n\nThe RF Validator is alright in my book\n",
+      "revId": "f1505779824bae9b2ea9fe97d3d02ab1fc614b30",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
