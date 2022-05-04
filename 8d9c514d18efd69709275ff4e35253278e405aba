@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "450d67b8_b46a74ea",
+        "filename": "Redfish.md",
+        "patchSetId": 50
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1000998
+      },
+      "writtenOn": "2022-05-04T22:00:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "adee1ac9_d1915ecd",
+      "revId": "8d9c514d18efd69709275ff4e35253278e405aba",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2446341d_5ce750e1",
@@ -31,6 +49,30 @@
       "writtenOn": "2022-05-02T16:26:46Z",
       "side": 1,
       "message": "This call can be unsafe if that index doesn\u0027t exist.  Generally we try to create the entire entry, then push_back in a single call, but it looks like we can\u0027t do this here, so in this case, this needs a range check to ensure this index exists before indexing into the array.  This is done in general for safety in case someone has cleared the Assemblies struct between callbacks for example.",
+      "range": {
+        "startLine": 70,
+        "startChar": 51,
+        "endLine": 70,
+        "endChar": 56
+      },
+      "revId": "8d9c514d18efd69709275ff4e35253278e405aba",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f77b705c_8c03cb28",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1000998
+      },
+      "writtenOn": "2022-05-04T22:00:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2446341d_5ce750e1",
       "range": {
         "startLine": 70,
         "startChar": 51,
@@ -58,6 +100,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac6b3483_73c893b2",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1000998
+      },
+      "writtenOn": "2022-05-04T22:00:09Z",
+      "side": 1,
+      "message": "That doesn\u0027t work since GetObject returns all the interfaces in each service that has a matching interface.",
+      "parentUuid": "2d361d24_fd2f64fb",
+      "revId": "8d9c514d18efd69709275ff4e35253278e405aba",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "56ece07f_ce9a888e",
@@ -81,6 +141,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c2688f5c_e1ed9733",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1000998
+      },
+      "writtenOn": "2022-05-04T22:00:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "56ece07f_ce9a888e",
+      "range": {
+        "startLine": 159,
+        "startChar": 12,
+        "endLine": 159,
+        "endChar": 40
+      },
+      "revId": "8d9c514d18efd69709275ff4e35253278e405aba",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6ebafc5e_93e8bc33",
@@ -94,6 +178,30 @@
       "writtenOn": "2022-05-02T16:26:46Z",
       "side": 1,
       "message": "A quick gander at the specification shows that the Assembly schema sets the AutoExpandReferences flag, which I don\u0027t think this implements.  It seems odd that this would pass the validator as written.\n\n\n\nnit, Please move this above where power and thermal schemas are done, so all the NavigationReferences are done in the same place.",
+      "range": {
+        "startLine": 412,
+        "startChar": 0,
+        "endLine": 417,
+        "endChar": 53
+      },
+      "revId": "8d9c514d18efd69709275ff4e35253278e405aba",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7002b727_92aa81cd",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 417,
+      "author": {
+        "id": 1000998
+      },
+      "writtenOn": "2022-05-04T22:00:09Z",
+      "side": 1,
+      "message": "Confirmed that the validator does in fact pass (thanks for reminding me to run it). \n\nIIUC, the AutoExpandReferences flag is present on pretty much any navigation property, and only indicates that the reference is expanded (not the referred resource). Were you thinking of the AutoExpand on the \"Assemblies\" property? That is handled correctly.",
+      "parentUuid": "6ebafc5e_93e8bc33",
       "range": {
         "startLine": 412,
         "startChar": 0,
