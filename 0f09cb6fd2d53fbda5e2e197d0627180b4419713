@@ -182,6 +182,30 @@
       },
       "revId": "0f09cb6fd2d53fbda5e2e197d0627180b4419713",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "34e65ab2_bfd06e3c",
+        "filename": "redfish-core/include/utils/chassis_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000998
+      },
+      "writtenOn": "2022-05-04T21:57:43Z",
+      "side": 1,
+      "message": "On second thought, it is cleaner to move the error handling out from here.",
+      "parentUuid": "a4af260d_ab1fd065",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 52
+      },
+      "revId": "0f09cb6fd2d53fbda5e2e197d0627180b4419713",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
