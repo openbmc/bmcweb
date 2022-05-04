@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba58a2bc_3c967cf7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-05-04T01:49:34Z",
+      "side": 1,
+      "message": "\nvalidator new error:\n\n\u003c *** /redfish/v1/Chassis/AgoraV2/Drives\n\u003c        Type (DriveCollection.DriveCollection), GET SUCCESS (time: 0:00:00.114668)\n\u003c This complex object Object should be a dictionary or None, but it\u0027s of type \u003cclass \u0027str\u0027\u003e...\n\u003c Members: EntityType val is null/absent, not testing...\n\u003c         FAIL...\n\u003c Members#0 is expected to be an object containing @odata.id\n\u003c",
+      "revId": "0a11e75a7ecc8045cc8dd662caa420a6c68e8f12",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
