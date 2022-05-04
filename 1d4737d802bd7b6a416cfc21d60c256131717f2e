@@ -120,6 +120,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2c977f29_1e701a98",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-05-04T18:15:15Z",
+      "side": 1,
+      "message": "Some bmc\u0027s have 4 GB of ram and Dual-core Cortex-R, ARM Cortex A7.\nAnd some have 256 mB of ram, and some much older ARM9.\n\nThere is a wide spread of systems running this software, but you have to set actual values for application performance. \n\nYou can add a comment saying \n\"pool size was set based on reviewing other implementations of application software\". That sounds better then chrome does it this way.\n\nFor maxRequestQueueSize, I would want to the average size of a message, so I could take a guess at the total size used. (Or just add worst case which is 409.6 kilobytes)\n\nAnd I don\u0027t really care about \"httpReadBodyLimit\" as long as it throws appropriately.",
+      "parentUuid": "e30b18ee_9efacca0",
+      "range": {
+        "startLine": 37,
+        "startChar": 18,
+        "endLine": 37,
+        "endChar": 29
+      },
+      "revId": "1d4737d802bd7b6a416cfc21d60c256131717f2e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3ab2c274_f153f3df",
         "filename": "http/http_client.hpp",
         "patchSetId": 34
@@ -420,6 +444,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "bec392a3_f0db2394",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-05-04T18:15:15Z",
+      "side": 1,
+      "message": "I would want ConnectionInfo and ConnectionPool in different translation units. I don\u0027t think there is any build performance increase (with smaller translations) b/c of bmcweb\u0027s linking. The file is only 650 lines, so it is fine to keep it. I prefer file less the 1,000 lines. \n\nI will back down, and say 650 lines is good.",
+      "parentUuid": "9dfcaffc_679a0b3c",
+      "range": {
+        "startLine": 370,
+        "startChar": 0,
+        "endLine": 370,
+        "endChar": 20
+      },
+      "revId": "1d4737d802bd7b6a416cfc21d60c256131717f2e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "52c686f8_bf468be5",
         "filename": "http/http_client.hpp",
         "patchSetId": 34
@@ -501,6 +549,30 @@
       "side": 1,
       "message": "That sets up the ioc in each connection pool contained by HttpClient.  It\u0027s later used to create each individual connection (ConnectionInfo) within the pool.",
       "parentUuid": "4d2da8dc_e0790842",
+      "range": {
+        "startLine": 549,
+        "startChar": 8,
+        "endLine": 549,
+        "endChar": 11
+      },
+      "revId": "1d4737d802bd7b6a416cfc21d60c256131717f2e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1821ef87_b8d644a6",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 549,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-05-04T18:15:15Z",
+      "side": 1,
+      "message": "I spent like 10 minutes trying to find what happens if you use a friend class to that has members with the same name, and I could not find anything conclusive. \n\nI trust you. But it would make everyone\u0027s life better if they had different names",
+      "parentUuid": "8553cbdd_c5aa7d63",
       "range": {
         "startLine": 549,
         "startChar": 8,
