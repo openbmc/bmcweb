@@ -1966,25 +1966,48 @@ inline void getPowerMode(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
                 return;
             }
             // Valid Power Mode object found, now read the current value
-            sdbusplus::asio::getProperty<std::string>(
-                *crow::connections::systemBus, service, path,
-                "xyz.openbmc_project.Control.Power.Mode", "PowerMode",
+            crow::connections::systemBus->async_method_call(
                 [aResp](const boost::system::error_code ec,
-                        const std::string& pmode) {
+                        ipsPropertiesType& properties) {
                     if (ec)
                     {
-                        BMCWEB_LOG_DEBUG
-                            << "DBUS response error on PowerMode Get: " << ec;
-                        messages::internalError(aResp->res);
+                        // Service not available, no error, return no data
+                        BMCWEB_LOG_DEBUG << "Service not available on Power "
+                                            "Mode properties Get: "
+                                         << ec;
                         return;
                     }
 
-                    aResp->res.jsonValue["PowerMode@Redfish.AllowableValues"] =
-                        {"Static", "MaximumPerformance", "PowerSaving"};
+                    BMCWEB_LOG_DEBUG << "Got " << properties.size()
+                                     << " wdt prop.";
 
-                    BMCWEB_LOG_DEBUG << "Current power mode: " << pmode;
-                    translatePowerMode(aResp, pmode);
-                });
+                    for (const auto& property : properties)
+                    {
+                        BMCWEB_LOG_DEBUG << "prop=" << property.first;
+                        if (property.first == "SafeMode")
+                        {
+                            const bool* state =
+                                std::get_if<bool>(&property.second);
+
+                            aResp->res.jsonValue["SafeMode"][property.first] =
+                                *state;
+
+                            BMCWEB_LOG_DEBUG << "Current safe mode: " << *state;
+                        }
+                        else if (property.first == "PowerMode")
+                        {
+                            aResp->res.jsonValue
+                                ["PowerMode@Redfish.AllowableValues"] = {
+                                "Static", "MaximumPerformance", "PowerSaving"};
+
+                            BMCWEB_LOG_DEBUG << "Current power mode: " << *s;
+
+                            translatePowerMode(aResp, *s);
+                        }
+                    }
+                },
+                service, path, "org.freedesktop.DBus.Properties", "GetAll",
+                "xyz.openbmc_project.Control.Power.Mode");
         },
         "xyz.openbmc_project.ObjectMapper",
         "/xyz/openbmc_project/object_mapper",
