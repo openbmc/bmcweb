@@ -46,6 +46,30 @@
       },
       "revId": "6ca4bd0f089e0748f15581318e1a40885353e0ab",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a5f1f315_e07e3143",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-04T19:16:14Z",
+      "side": 1,
+      "message": "\u003e because I wrote some spaghetti code.\n\u003e \n\n:)\n\n\u003e anyway, need to fix the daemon that expose empty version, but I also think that it should not cause this to fail when it is not actually being used in bmcweb (or should it?)\n\nAs a rule, if the dbus interfaces are violated, as they were in this case because Version is not allowed to be empty, bmcweb should return 500 so the user knows something went wrong upwind, and the returned resource might not be correct.  Silently squashing the error has led to subtle bugs in the past.",
+      "parentUuid": "d2a6290f_74362714",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 27
+      },
+      "revId": "6ca4bd0f089e0748f15581318e1a40885353e0ab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
