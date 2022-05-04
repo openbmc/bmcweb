@@ -16,6 +16,24 @@
       "message": "ugg. gerrit should do a better compare than this",
       "revId": "f898d83cca3e6c114c1a6d277ea43f6337db87ad",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "231db1dd_f9e1a875",
+        "filename": "include/openbmc_dbus_rest.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 2328,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-04T22:16:07Z",
+      "side": 1,
+      "message": "Agreed.  I broke lambda into a method out into its own patch, which fixes the diff, and drops like 50 lines of code just from not having to wrap in crazy ways.\n\nShould be pretty reviewable now.",
+      "parentUuid": "3dbaa94d_78bfac4e",
+      "revId": "f898d83cca3e6c114c1a6d277ea43f6337db87ad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
