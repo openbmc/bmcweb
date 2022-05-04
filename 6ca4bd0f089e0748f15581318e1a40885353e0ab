@@ -22,6 +22,30 @@
       },
       "revId": "6ca4bd0f089e0748f15581318e1a40885353e0ab",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d2a6290f_74362714",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-05-04T16:38:07Z",
+      "side": 1,
+      "message": "because I wrote some spaghetti code.\n\nanyway, need to fix the daemon that expose empty version, but I also think that it should not cause this to fail when it is not actually being used in bmcweb (or should it?)",
+      "parentUuid": "19109912_bbaedb3f",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 27
+      },
+      "revId": "6ca4bd0f089e0748f15581318e1a40885353e0ab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
