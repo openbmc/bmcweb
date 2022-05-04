@@ -143,6 +143,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "88d7bbdd_854a0532",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 58
+      },
+      "lineNbr": 760,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2022-05-04T07:34:05Z",
+      "side": 1,
+      "message": "Latest PS (PS73) is uploaded based on the discord discussion",
+      "parentUuid": "cbfd45a6_f773144b",
+      "range": {
+        "startLine": 760,
+        "startChar": 0,
+        "endLine": 760,
+        "endChar": 35
+      },
+      "revId": "b7ffc971f824b9f5388ae9c804971cdcdd795a84",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4020f2ea_0a2679cf",
