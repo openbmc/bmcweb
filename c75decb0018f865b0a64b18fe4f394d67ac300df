@@ -22,6 +22,30 @@
       },
       "revId": "c75decb0018f865b0a64b18fe4f394d67ac300df",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eb277be4_5bc7f817",
+        "filename": "include/google/dbus_utils.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1001386
+      },
+      "writtenOn": "2022-05-05T16:56:13Z",
+      "side": 1,
+      "message": "The dbus interface takes int for some reason. Keeping it that way for now.",
+      "parentUuid": "84316e94_b749080b",
+      "range": {
+        "startLine": 52,
+        "startChar": 4,
+        "endLine": 52,
+        "endChar": 7
+      },
+      "revId": "c75decb0018f865b0a64b18fe4f394d67ac300df",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

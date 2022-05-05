@@ -58,6 +58,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0717abe5_61f1cfc6",
+        "filename": "include/google/dbus_utils.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1001386
+      },
+      "writtenOn": "2022-05-05T16:56:13Z",
+      "side": 1,
+      "message": "As discussed offline, since we are blocked on this, I\u0027ve split the test logic into a separate PR. \nI would revisit the approach later this month.",
+      "parentUuid": "f7ec1019_3e355b68",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 11
+      },
+      "revId": "3f6dc44eeec470f44660d68c0aa6fde94fa2b1c4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1c49fbd4_587d3f4c",
@@ -236,6 +260,30 @@
       "side": 1,
       "message": "We are creating a static const object here. Not invoking a method. \nSame as other object creations below?",
       "parentUuid": "a27341d1_b6ea0240",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 78
+      },
+      "revId": "3f6dc44eeec470f44660d68c0aa6fde94fa2b1c4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3e00f33d_b6fd0293",
+        "filename": "include/google/google_service_root.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1001386
+      },
+      "writtenOn": "2022-05-05T16:56:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d696db46_d9f83f59",
       "range": {
         "startLine": 37,
         "startChar": 0,
