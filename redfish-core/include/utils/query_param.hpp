@@ -389,18 +389,19 @@ inline void findNavigationReferencesRecursive(
     // Loop the object and look for links
     for (auto& element : *obj)
     {
-        if (!inLinks)
+        bool localInLinks = inLinks;
+        if (!localInLinks)
         {
             // Check if this is a links node
-            inLinks = element.first == "Links";
+            localInLinks = element.first == "Links";
         }
         // Only traverse the parts of the tree the user asked for
         // Per section 7.3 of the redfish specification
-        if (inLinks && eType == ExpandType::NotLinks)
+        if (localInLinks && eType == ExpandType::NotLinks)
         {
             continue;
         }
-        if (!inLinks && eType == ExpandType::Links)
+        if (!localInLinks && eType == ExpandType::Links)
         {
             continue;
         }
@@ -408,7 +409,7 @@ inline void findNavigationReferencesRecursive(
         BMCWEB_LOG_DEBUG << "Traversing response at " << newPtr;
 
         findNavigationReferencesRecursive(eType, element.second, newPtr,
-                                          inLinks, out);
+                                          localInLinks, out);
     }
 }
 

@@ -302,4 +302,12 @@ TEST(QueryParams, FindNavigationReferencesLink)
     EXPECT_TRUE(findNavigationReferences(ExpandType::NotLinks, singleLinkNode,
                                          json::json_pointer(""))
                     .empty());
+
+    json multiTreeNodes =
+        R"({"Links": {"@odata.id": "/links"}, "Foo" : {"@odata.id": "/foobar"}})"_json;
+    // Should still find Foo
+    EXPECT_THAT(findNavigationReferences(ExpandType::NotLinks, multiTreeNodes,
+                                         json::json_pointer("")),
+                UnorderedElementsAre(redfish::query_param::ExpandNode{
+                    json::json_pointer("/Foo"), "/foobar"}));
 }
