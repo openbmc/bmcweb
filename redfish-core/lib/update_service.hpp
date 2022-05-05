@@ -681,7 +681,7 @@ inline void
                 if (targets.size() != 1)
                 {
                     messages::propertyValueFormatError(asyncResp->res,
-                                                       "Targets", "");
+                                                       "Targets", targets);
                     return;
                 }
                 if (targets[0] != "/redfish/v1/Managers/bmc")
@@ -847,35 +847,18 @@ inline void requestRoutesUpdateService(App& app)
         BMCWEB_LOG_DEBUG("doPatch...");
 
         std::optional<nlohmann::json> pushUriOptions;
-        if (!json_util::readJsonPatch(req, asyncResp->res, "HttpPushUriOptions",
-                                      pushUriOptions))
+        std::optional<std::string> applyTime;
+        if (!json_util::readJsonPatch(
+                req, asyncResp->res,
+                "HttpPushUriOptions/HttpPushUriApplyTime/ApplyTime",
+                pushUriOptions))
         {
             return;
         }
 
-        if (pushUriOptions)
+        if (applyTime)
         {
-            std::optional<nlohmann::json> pushUriApplyTime;
-            if (!json_util::readJson(*pushUriOptions, asyncResp->res,
-                                     "HttpPushUriApplyTime", pushUriApplyTime))
-            {
-                return;
-            }
-
-            if (pushUriApplyTime)
-            {
-                std::optional<std::string> applyTime;
-                if (!json_util::readJson(*pushUriApplyTime, asyncResp->res,
-                                         "ApplyTime", applyTime))
-                {
-                    return;
-                }
-
-                if (applyTime)
-                {
-                    setApplyTime(asyncResp, *applyTime);
-                }
-            }
+            setApplyTime(asyncResp, *applyTime);
         }
     });
 
