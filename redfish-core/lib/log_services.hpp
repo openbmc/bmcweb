@@ -1596,8 +1596,8 @@ inline void requestRoutesDBusEventLogEntry(App& app)
                     if (filePath != nullptr)
                     {
                         asyncResp->res.jsonValue["AdditionalDataURI"] =
-                            "/redfish/v1/Systems/system/LogServices/EventLog/attachment/" +
-                            std::to_string(*id);
+                            "/redfish/v1/Systems/system/LogServices/EventLog/Entries/" +
+                            std::to_string(*id) + "/attachment";
                     }
                 },
                 "xyz.openbmc_project.Logging",
