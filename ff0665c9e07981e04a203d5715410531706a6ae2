@@ -101,6 +101,23 @@
       "message": "Looks good to me. Backend changes need to get in first",
       "revId": "ff0665c9e07981e04a203d5715410531706a6ae2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "40a376cf_8c8aebd4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2022-05-05T06:53:06Z",
+      "side": 1,
+      "message": "The schema https://redfish.dmtf.org/schemas/v1/EthernetInterface.v1_8_0.json deprecates \"Stateful\" and              \"Stateless\" values. Any strong reasons for implementing the deprecated changes in this commit?\n\nRedfish PATCH data to enable/disable the Stateless IPv6 should be \u0027{\"StatelessAddressAutoConfig”:{\"IPv6AutoConfigEnabled\": true}}\u0027. I think its good to use this instead of the previous values\n",
+      "revId": "ff0665c9e07981e04a203d5715410531706a6ae2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
