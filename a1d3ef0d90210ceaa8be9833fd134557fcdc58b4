@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e6bc96c0_c47047c7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000460
+      },
+      "writtenOn": "2022-05-05T11:23:35Z",
+      "side": 1,
+      "message": "The reason for async backend is that nbd device backend sometimes stalls for some reason. This caused dbus transaction timeout and that\u0027s why dbus api has changed. But this is just a corner case when user does more actions one after another (actually revealed during automated functional tests).\nI think redfish tasks are quite heavy and not essential at the moment. But I will take a look if some code could be used/borrowed. For full tasks implementation - this could be done later on, when actual need will rise. This very change is essential to make VM part work with service being upstreamed now.",
+      "parentUuid": "2f1bf4da_d449aaff",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 41
+      },
+      "revId": "a1d3ef0d90210ceaa8be9833fd134557fcdc58b4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8b6735a7_23b906e4",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
@@ -37,6 +61,30 @@
       "writtenOn": "2022-04-29T22:46:22Z",
       "side": 1,
       "message": "A little more details would be good here.  \"Manually\" doesn\u0027t really describe the test.  Did you mount/unmount things?  Did you require patches to any other daemons?",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 8
+      },
+      "revId": "a1d3ef0d90210ceaa8be9833fd134557fcdc58b4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f860a7b_80282286",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000460
+      },
+      "writtenOn": "2022-05-05T11:23:35Z",
+      "side": 1,
+      "message": "Ok, I will elaborate a little with next commit",
+      "parentUuid": "8b6735a7_23b906e4",
       "range": {
         "startLine": 17,
         "startChar": 0,
