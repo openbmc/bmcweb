@@ -672,22 +672,31 @@ inline void
                 std::vector<std::string> targets;
                 nlohmann::json content =
                     nlohmann::json::parse(formpart.content);
-                if (!json_util::readJson(content, asyncResp->res, "Targets",
-                                         targets, "@Redfish.OperationApplyTime",
-                                         applyTime))
+                nlohmann::json::object_t* obj =
+                    content.get_ptr<nlohmann::json::object_t*>();
+                if (obj == nullptr)
+                {
+                    messages::propertyValueFormatError(asyncResp->res, targets,
+                                                       "UpdateParameters");
+                    return;
+                }
+
+                if (!json_util::readJsonObj(
+                        *obj, asyncResp->res, "Targets", targets,
+                        "@Redfish.OperationApplyTime", applyTime))
                 {
                     return;
                 }
                 if (targets.size() != 1)
                 {
-                    messages::propertyValueFormatError(asyncResp->res,
-                                                       "Targets", "");
+                    messages::propertyValueFormatError(asyncResp->res, targets,
+                                                       "Targets");
                     return;
                 }
                 if (targets[0] != "/redfish/v1/Managers/bmc")
                 {
-                    messages::propertyValueNotInList(asyncResp->res,
-                                                     "Targets/0", targets[0]);
+                    messages::propertyValueNotInList(asyncResp->res, targets[0],
+                                                     "Targets/0");
                     return;
                 }
                 targetFound = true;
@@ -846,36 +855,17 @@ inline void requestRoutesUpdateService(App& app)
         }
         BMCWEB_LOG_DEBUG("doPatch...");
 
-        std::optional<nlohmann::json> pushUriOptions;
-        if (!json_util::readJsonPatch(req, asyncResp->res, "HttpPushUriOptions",
-                                      pushUriOptions))
+        std::optional<std::string> applyTime;
+        if (!json_util::readJsonPatch(
+                req, asyncResp->res,
+                "HttpPushUriOptions/HttpPushUriApplyTime/ApplyTime", applyTime))
         {
             return;
         }
 
-        if (pushUriOptions)
+        if (applyTime)
         {
-            std::optional<nlohmann::json> pushUriApplyTime;
-            if (!json_util::readJson(*pushUriOptions, asyncResp->res,
-                                     "HttpPushUriApplyTime", pushUriApplyTime))
-            {
-                return;
-            }
-
-            if (pushUriApplyTime)
-            {
-                std::optional<std::string> applyTime;
-                if (!json_util::readJson(*pushUriApplyTime, asyncResp->res,
-                                         "ApplyTime", applyTime))
-                {
-                    return;
-                }
-
-                if (applyTime)
-                {
-                    setApplyTime(asyncResp, *applyTime);
-                }
-            }
+            setApplyTime(asyncResp, *applyTime);
         }
     });
 
