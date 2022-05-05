@@ -16,6 +16,23 @@
       "message": "Thanks for looking this over",
       "revId": "dd728758a563d42497af3bdcd9c4e5d968ccf306",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "efbaecea_531987a4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-05T21:03:40Z",
+      "side": 1,
+      "message": "\u003e Patch Set 12:\n\u003e \n\u003e (1 comment)\n\u003e \n\u003e This change is ready for review.\n\nTalked with John earlier today.  This change isn\u0027t ready for review yet, he\u0027s going to rework some stuff and push a new patch.",
+      "revId": "dd728758a563d42497af3bdcd9c4e5d968ccf306",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
