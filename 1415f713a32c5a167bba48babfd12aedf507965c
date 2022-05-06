@@ -60,6 +60,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c6584031_c310235e",
+        "filename": "include/google/dbus_utils.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-05-06T20:22:47Z",
+      "side": 1,
+      "message": "Fair enough. \n\nI think these wrappers are the way forward. It gives the level of indirection we would need to unit test the responses. But I can see how that is a bigger discussion, and not alighted with this features timeline.",
+      "parentUuid": "68922fcc_63142df1",
+      "range": {
+        "startLine": 14,
+        "startChar": 1,
+        "endLine": 148,
+        "endChar": 2
+      },
+      "revId": "1415f713a32c5a167bba48babfd12aedf507965c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3eeb1427_08e01b47",
         "filename": "include/google/google_service_root.hpp",
         "patchSetId": 21
@@ -76,6 +100,29 @@
         "startChar": 0,
         "endLine": 26,
         "endChar": 78
+      },
+      "revId": "1415f713a32c5a167bba48babfd12aedf507965c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f822bb83_ff5bf8e0",
+        "filename": "include/google/google_service_root.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-05-06T20:22:47Z",
+      "side": 1,
+      "message": "personally don\u0027t like auto for type that are unclear, but is probably okay here because this is a \nvoid (const crow::Request\u0026, const std::shared_ptr\u003cGoogleServiceAsyncResp\u003e\u0026, const std::string\u0026, std::function\u003cvoid( const crow::Request\u0026, const std::shared_ptr\u003cGoogleServiceAsyncResp\u003e\u0026, const ResolvedEntity\u0026)\u003e)\nso auto is fine.\n\nHave you thought about putting this function inline, (line 105, in the getSubTree). But is up to you",
+      "range": {
+        "startLine": 70,
+        "startChar": 4,
+        "endLine": 70,
+        "endChar": 8
       },
       "revId": "1415f713a32c5a167bba48babfd12aedf507965c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
@@ -122,6 +169,29 @@
         "startChar": 0,
         "endLine": 171,
         "endChar": 56
+      },
+      "revId": "1415f713a32c5a167bba48babfd12aedf507965c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "efa9e170_fe15d188",
+        "filename": "include/google/google_service_root.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-05-06T20:22:47Z",
+      "side": 1,
+      "message": "same thought you might want to inline this handleFunc code, for readability. But it is up to you.",
+      "range": {
+        "startLine": 178,
+        "startChar": 66,
+        "endLine": 178,
+        "endChar": 76
       },
       "revId": "1415f713a32c5a167bba48babfd12aedf507965c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
