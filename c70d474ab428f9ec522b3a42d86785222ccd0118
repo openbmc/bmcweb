@@ -22,6 +22,30 @@
       },
       "revId": "c70d474ab428f9ec522b3a42d86785222ccd0118",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d67197f_09d39de1",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 771,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-05-06T22:14:43Z",
+      "side": 1,
+      "message": "I hear you, and I changed it to dbus::utility::MapperGetObject type.\n\nBut the old form was very common, it was used several times in this very file.\n\nsee: \nhttps://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/53325/16..18/redfish-core/lib/chassis.hpp#240\n\nI am fine with the change. I will keep it dbus::utility::MapperGetObject.",
+      "parentUuid": "e50f0e1a_33ce7bef",
+      "range": {
+        "startLine": 770,
+        "startChar": 16,
+        "endLine": 771,
+        "endChar": 70
+      },
+      "revId": "c70d474ab428f9ec522b3a42d86785222ccd0118",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
