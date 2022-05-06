@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b1dcea3e_f8145cbc",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 807,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-05-06T18:15:57Z",
+      "side": 1,
+      "message": "get rid of ct, and use resp.size()",
+      "range": {
+        "startLine": 807,
+        "startChar": 25,
+        "endLine": 807,
+        "endChar": 35
+      },
+      "revId": "6edc524bb862762576940de17ec03a41c6aaf29d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
