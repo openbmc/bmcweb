@@ -3,6 +3,46 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d90f0024_5bd3451c",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 494,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-06T22:31:37Z",
+      "side": 1,
+      "message": "Presumably these whitespace changes aren\u0027t something you intended?",
+      "range": {
+        "startLine": 493,
+        "startChar": 2,
+        "endLine": 494,
+        "endChar": 21
+      },
+      "revId": "c70d474ab428f9ec522b3a42d86785222ccd0118",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "61ed3162_3a8c5a71",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 638,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-06T22:31:37Z",
+      "side": 1,
+      "message": "same here.",
+      "revId": "c70d474ab428f9ec522b3a42d86785222ccd0118",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e50f0e1a_33ce7bef",
         "filename": "redfish-core/lib/chassis.hpp",
         "patchSetId": 16
@@ -43,6 +83,93 @@
         "startChar": 16,
         "endLine": 771,
         "endChar": 70
+      },
+      "revId": "c70d474ab428f9ec522b3a42d86785222ccd0118",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c7c20b92_41155d69",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 771,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-06T22:31:37Z",
+      "side": 1,
+      "message": "Yeah, we\u0027re not consistent on all counts;  At this level the consistency matters less.  It matters a lot more in the async_method call, because the difference between a const, const reference, or vector vs map ends up generating a lot more template code.",
+      "parentUuid": "8d67197f_09d39de1",
+      "range": {
+        "startLine": 770,
+        "startChar": 16,
+        "endLine": 771,
+        "endChar": 70
+      },
+      "revId": "c70d474ab428f9ec522b3a42d86785222ccd0118",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2f6c2c65_443249c2",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 814,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-06T22:31:37Z",
+      "side": 1,
+      "message": "Please sort this list using the AlphaNum class (examples elsewhere) just to be consistent.  Ideally, if we can find a way to use getCollectionMembers, it will handle that for you.",
+      "revId": "c70d474ab428f9ec522b3a42d86785222ccd0118",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b31766b_9dee6677",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 816,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-06T22:31:37Z",
+      "side": 1,
+      "message": "odata.count is not described as a string, it\u0027s a number.  Service validator should\u0027ve caught this.",
+      "range": {
+        "startLine": 816,
+        "startChar": 33,
+        "endLine": 816,
+        "endChar": 42
+      },
+      "revId": "c70d474ab428f9ec522b3a42d86785222ccd0118",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "352e2058_329fd79d",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 823,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-06T22:31:37Z",
+      "side": 1,
+      "message": "This is basically the same code as getCollectionMembers (minus a couple bugs).  It\u0027s a slightly weird case because this is autoexpand, so the existing function doesn\u0027t work perfectly, but is it something we could use?",
+      "range": {
+        "startLine": 819,
+        "startChar": 0,
+        "endLine": 823,
+        "endChar": 57
       },
       "revId": "c70d474ab428f9ec522b3a42d86785222ccd0118",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
