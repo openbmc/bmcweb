@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "07930844_f826a6e2",
+        "filename": "redfish-core/include/utils/query_param_test.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-05-06T22:21:50Z",
+      "side": 1,
+      "message": "The spec said $top and $skip only apply to source collections.\n\nService should return\n\n\"\nThe HTTP 400 Bad Request status code with the QueryNotSupportedOnResource message from the Base Message Registry for any supported query parameters that apply only to resource collections but are used on singular resources. This includes query parameters such as $filter, $top, $skip, and only.\n\"",
+      "range": {
+        "startLine": 155,
+        "startChar": 49,
+        "endLine": 155,
+        "endChar": 63
+      },
+      "revId": "7a6a2e974176e601002d0569930e6c17791af7de",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
