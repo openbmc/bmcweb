@@ -71,6 +71,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ec5371eb_456d55c7",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 579,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-06T17:59:41Z",
+      "side": 1,
+      "message": "Excellent.",
+      "parentUuid": "b237aebd_7ac9921d",
+      "revId": "236516d1e63e83d5a430965747be8399963fe15f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6fd361f0_5a0d3d0f",
@@ -191,6 +209,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "26c14b12_2d0efe9c",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 721,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-06T17:59:41Z",
+      "side": 1,
+      "message": "The issue your idea imposes is that now we need to add prefixes to every ID, so we can differentiate between \"is on the bmc\" and \"is aggregated\".\n\nChanging the IDs is difficult because of things like:\nhttps://github.com/openbmc/webui-vue/issues/43\n\nThat client implementations tend to do.  If we can avoid changing the existing IDs, I\u0027d really like to, and the existing IDs contain underscores;  If we had a fixed string, like \"aggregated\" at the front, that might work, then we just tell people they can\u0027t call a device \"aggregated\" which seems reasonable.",
+      "parentUuid": "c82db857_5f194136",
+      "range": {
+        "startLine": 721,
+        "startChar": 0,
+        "endLine": 721,
+        "endChar": 60
+      },
+      "revId": "236516d1e63e83d5a430965747be8399963fe15f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3693faa4_77393d20",
         "filename": "http/http_client.hpp",
         "patchSetId": 12
@@ -226,6 +268,30 @@
       "side": 1,
       "message": "I don\u0027t think it\u0027ll make too much of a difference in the end.  In addition to encryption we will need to add other fields down the line like \"user\" and \"password\" for authentication.  I\u0027m assuming we wouldn\u0027t want to squeeze all of that into a single \"RemoteRedfishRoot\" field so we\u0027d still end up with more than just two fields.  In the dbus config I like having to explicitly set each individual parameter as its own field for readability purposes.\n\nWhat if for a future change support was added for \"RemoteRedfishRoot\" so that you could use either style or a combination of the two to provide satellite information?",
       "parentUuid": "3693faa4_77393d20",
+      "range": {
+        "startLine": 729,
+        "startChar": 36,
+        "endLine": 729,
+        "endChar": 44
+      },
+      "revId": "236516d1e63e83d5a430965747be8399963fe15f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5d972328_1698daf4",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 729,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-06T17:59:41Z",
+      "side": 1,
+      "message": "\u003e I don\u0027t think it\u0027ll make too much of a difference in the end.  In addition to encryption we will need to add other fields down the line like \"user\" and \"password\" for authentication.  I\u0027m assuming we wouldn\u0027t want to squeeze all of that into a single \"RemoteRedfishRoot\" field so we\u0027d still end up with more than just two fields.\n\nusername and password, probably not.\n\n\u003e  In the dbus config I like having to explicitly set each individual parameter as its own field for readability purposes.\n\nSure, like I said, I\u0027m ok with it, it just makes it different than say, event service, which takes a full uri.\n\n\u003e \n\u003e What if for a future change support was added for \"RemoteRedfishRoot\" so that you could use either style or a combination of the two to provide satellite information?\n\nI\u0027d much rather be strict in what we accept for one form or the other.  Having multiple ways to declare configs is a recipe for behavior that\u0027s inconsistent.  Even in the URI model we have in EventService we\u0027ve found that there\u0027s differences in behavior.\n\nI\u0027m fine with this as-is.",
+      "parentUuid": "0f98d4d6_7358002d",
       "range": {
         "startLine": 729,
         "startChar": 36,
@@ -273,6 +339,30 @@
       "side": 1,
       "message": "For this patch I wanted to assume that there is no authentication and TLS required to communicate with a satellite BMC.  I\u0027m going to leave supporting those features to a future patch.\n\nSetting the scheme as http seemed like the appropriate way within boost::urls::url to denote that the config had selected no authentication.  Previously I was storing an \"authType\" field in my custom struct.",
       "parentUuid": "741a6b3b_6058ae29",
+      "range": {
+        "startLine": 776,
+        "startChar": 0,
+        "endLine": 776,
+        "endChar": 39
+      },
+      "revId": "236516d1e63e83d5a430965747be8399963fe15f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f44120e_b5576082",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 776,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-06T17:59:41Z",
+      "side": 1,
+      "message": "\u003e For this patch I wanted to assume that there is no authentication and TLS required to communicate with a satellite BMC.  I\u0027m going to leave supporting those features to a future patch.\n\nCan you make mention of that in your commit message?  I think it\u0027s fine, the only thing I worry about is http being the \"default\" if no encryption property is specified, but I suspect that will come in short order.  FWIW, \"encryption\" should be a required parameter at some point.\n\n\u003e \n\u003e Setting the scheme as http seemed like the appropriate way within boost::urls::url to denote that the config had selected no authentication.  Previously I was storing an \"authType\" field in my custom struct.\n\nI\u0027m assuming you meant \"encryption\", not \"authentication\" here, but yes, I think you got the URI behavior right.",
+      "parentUuid": "d485b9c4_499134f3",
       "range": {
         "startLine": 776,
         "startChar": 0,

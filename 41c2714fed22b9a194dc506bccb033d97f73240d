@@ -94,6 +94,30 @@
       },
       "revId": "41c2714fed22b9a194dc506bccb033d97f73240d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aa8cd2f9_6b2a35ce",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 675,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-06T17:59:41Z",
+      "side": 1,
+      "message": "Listing ALL satellite controllers on the system, yes, I would expect it to be DEBUG level logging, not INFO, with that said, we\u0027re not very careful about this, and most logging is disabled most of the time, so I\u0027m not going to make a big deal of this;",
+      "parentUuid": "443c386d_fa7ab790",
+      "range": {
+        "startLine": 675,
+        "startChar": 28,
+        "endLine": 675,
+        "endChar": 44
+      },
+      "revId": "41c2714fed22b9a194dc506bccb033d97f73240d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

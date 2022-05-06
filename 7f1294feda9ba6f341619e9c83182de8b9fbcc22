@@ -22,6 +22,30 @@
       },
       "revId": "7f1294feda9ba6f341619e9c83182de8b9fbcc22",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f74cef68_8e7607cb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 17
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-06T17:59:41Z",
+      "side": 1,
+      "message": "\u003e I would personally prefer keeping the satellite configuration in a user writable place like bmcweb_persistent_data.json\n\nnope.  bmcweb_persistent_data.json is not meant to be user writable, and does not change per platform.  By design it should be able to be erased entirely and bmcweb should still largely function.\n\n\u003e as entity-manager json may not be writable at runtime.\n\nI\u0027m not quite following this statement.  If entity-manager isn\u0027t available, then there\u0027s no way to know about possible entities that support redfish, and therefore this feature would essentially not be useful, so I\u0027m not following the above statement.\n\n\u003e This might be implemented in future.\n\u003e \n\u003e Current implementation looks good to me.",
+      "parentUuid": "92482a1a_b1e902e2",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 53
+      },
+      "revId": "7f1294feda9ba6f341619e9c83182de8b9fbcc22",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
