@@ -492,6 +492,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ca42a9c9_9606ae5d",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-06T19:16:52Z",
+      "side": 1,
+      "message": "\u003e This function only gets called when we want to retry a request that previously failed \n\nI missed that subtlety the first time around;  Fine as-is.",
+      "parentUuid": "dc6f1815_aef3d877",
+      "range": {
+        "startLine": 334,
+        "startChar": 12,
+        "endLine": 334,
+        "endChar": 47
+      },
+      "revId": "b61ba6f3154203ee2ec27df956c849e4111b6718",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "072067ba_69251c1a",
