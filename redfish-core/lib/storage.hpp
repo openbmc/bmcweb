@@ -463,6 +463,20 @@ inline void
                 }
                 asyncResp->res.jsonValue["Protocol"] = *proto;
             }
+            else if (propertyName == "PredictedMediaLifeLeftPercent")
+            {
+                const uint8_t* lifeLeft =
+                    std::get_if<uint8_t>(&property.second);
+                if (lifeLeft == nullptr)
+                {
+                    BMCWEB_LOG_ERROR
+                        << "Illegal property: PredictedMediaLifeLeftPercent";
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                asyncResp->res.jsonValue["PredictedMediaLifeLeftPercent"] =
+                    *lifeLeft;
+            }
         }
         });
 }
