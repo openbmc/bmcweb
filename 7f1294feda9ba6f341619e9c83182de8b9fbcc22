@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "92482a1a_b1e902e2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 17
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-05-06T02:01:12Z",
+      "side": 1,
+      "message": "I would personally prefer keeping the satellite configuration in a user writable place like bmcweb_persistent_data.json as entity-manager json may not be writable at runtime. This might be implemented in future.\n\nCurrent implementation looks good to me.",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 53
+      },
+      "revId": "7f1294feda9ba6f341619e9c83182de8b9fbcc22",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
