@@ -16,6 +16,161 @@
       "message": "Friendly ping.",
       "revId": "1415f713a32c5a167bba48babfd12aedf507965c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3ff7cad3_a276b141",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 21
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-06T20:14:41Z",
+      "side": 1,
+      "message": "Pretty minor changes needed, then this should be good to go.",
+      "revId": "1415f713a32c5a167bba48babfd12aedf507965c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "68922fcc_63142df1",
+        "filename": "include/google/dbus_utils.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-06T20:14:41Z",
+      "side": 1,
+      "message": "This patch is still inventing a bunch of wrappers around generic things, which, while probably useful, deserves a discussion around how we generically access dbus, and include the other people writing handlers.  Lets do this using the existing primitives, and we can see which of these patterns work in the next patchset.",
+      "range": {
+        "startLine": 14,
+        "startChar": 1,
+        "endLine": 148,
+        "endChar": 2
+      },
+      "revId": "1415f713a32c5a167bba48babfd12aedf507965c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3eeb1427_08e01b47",
+        "filename": "include/google/google_service_root.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-06T20:14:41Z",
+      "side": 1,
+      "message": "Per cpp core guidelines (the coding standard we use) please don\u0027t forward declare methods like this.  Either rearrange your code so it\u0027s not required, or the put the prototypes in a common header that all users can rely on.",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 78
+      },
+      "revId": "1415f713a32c5a167bba48babfd12aedf507965c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e825699_fc6f7ded",
+        "filename": "include/google/google_service_root.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-06T20:14:41Z",
+      "side": 1,
+      "message": "Needs a range check. possible nullptr dreference if object.second.size() is 0.",
+      "range": {
+        "startLine": 93,
+        "startChar": 69,
+        "endLine": 93,
+        "endChar": 72
+      },
+      "revId": "1415f713a32c5a167bba48babfd12aedf507965c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6fbc6b50_564a8720",
+        "filename": "include/google/google_service_root.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-06T20:14:41Z",
+      "side": 1,
+      "message": "it seems really odd we have an array of bytes, and we wouldn\u0027t just return it as an array[number].  With that said, I know that was discussed, and if this is the conclusion you came to, that\u0027s fine.\n\nFWIW, we have helper functions for this, given that boost::algorithm::hex drags a bunch of locale stuff with it that we don\u0027t want.\n\nIf this really needs to be a hex \"string\" instead of an array, that\u0027s fine, but we should be using the intToHexString method we do elsewhere to avoid duplicating binary code. (yes, in this case it will require a loop given that things are already a string.",
+      "range": {
+        "startLine": 170,
+        "startChar": 0,
+        "endLine": 171,
+        "endChar": 56
+      },
+      "revId": "1415f713a32c5a167bba48babfd12aedf507965c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "230091ad_612500f4",
+        "filename": "include/google/google_service_root.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-06T20:14:41Z",
+      "side": 1,
+      "message": "no need to wrap in lambdas for any of these.  should just be:\n\n    BMCWEB_ROUTE(app, \"/google/v1/RootOfTrustCollection/\u003cstr\u003e\")\n        .privileges({{\"ConfigureManager\"}})\n        .methods(boost::beast::http::verb::get)(\n                getRootOfTrust\n            );\n\n\nYou can construct the GoogleServiceAsyncResp as the first line of your code in those methods.",
+      "range": {
+        "startLine": 202,
+        "startChar": 0,
+        "endLine": 203,
+        "endChar": 69
+      },
+      "revId": "1415f713a32c5a167bba48babfd12aedf507965c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e671987c_13aaef2b",
+        "filename": "static/google/v1/schema/RootOfTrust_v1.xml",
+        "patchSetId": 21
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-06T20:14:41Z",
+      "side": 1,
+      "message": "These come for free by inheriting from Resource, right?",
+      "range": {
+        "startLine": 51,
+        "startChar": 0,
+        "endLine": 54,
+        "endChar": 19
+      },
+      "revId": "1415f713a32c5a167bba48babfd12aedf507965c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
