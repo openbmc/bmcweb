@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "13c001f0_2167245f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-06T23:24:23Z",
+      "side": 1,
+      "message": "I\u0027m reading through this, and there\u0027s a pretty significant change being made to the memory usage here in that now we\u0027ll have AsyncMultiRequest objects for every node of every level of the tree that we\u0027re parsing, instead of just a single one at the top that manages all the outstanding requests.  That\u0027s a bit of a concern if we every want to dump the whole tree.  6 levels deep * number of leaf nodes is a bit big to be having an AsyncMultiRequest object for every level.  Maybe I\u0027m wrong though.\n\nThe other concern is that we\u0027re constructing a query param string, just to immediately decode it, which the old code didn\u0027t do, given it operated on the Query objects directly.  That seems less efficient than what exists.  Did you look into seeing if the Query object could be used as is, instead of generating intermediate strings?",
+      "revId": "4aca086e69e214de467f5159a391669d7174e05d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
