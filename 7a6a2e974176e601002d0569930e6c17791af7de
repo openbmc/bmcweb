@@ -22,6 +22,30 @@
       },
       "revId": "7a6a2e974176e601002d0569930e6c17791af7de",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "64ca22d2_82cd487a",
+        "filename": "redfish-core/include/utils/query_param_test.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-06T22:49:31Z",
+      "side": 1,
+      "message": "\u003e The spec said $top and $skip only apply to source collections.\n\u003e \n\u003e Service should return\n\u003e \n\u003e \"\n\u003e The HTTP 400 Bad Request status code with the QueryNotSupportedOnResource message from the Base Message Registry for any supported query parameters that apply only to resource collections but are used on singular resources. This includes query parameters such as $filter, $top, $skip, and only.\n\u003e \"\n\nThat\u0027s good to know;  The implementation doesn\u0027t do that for $only either;  We don\u0027t really have any good way to know which routes are collections and which aren\u0027t until after they\u0027re done, and even then, we\u0027d have to rely on something like\n\n@odata.type.ends_with(\"Collection\"),\n\nWhich doesn\u0027t seem great.  As is, this code relies on the existence of the Members variable to determine if the thing is a collection, which seems like an ok intrinsic;   Maybe we just add a 400 QueryNotSupported on line 469 of query_param.hpp instead of returning 500?",
+      "parentUuid": "07930844_f826a6e2",
+      "range": {
+        "startLine": 155,
+        "startChar": 49,
+        "endLine": 155,
+        "endChar": 63
+      },
+      "revId": "7a6a2e974176e601002d0569930e6c17791af7de",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
