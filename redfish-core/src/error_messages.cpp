@@ -1441,7 +1441,7 @@ nlohmann::json queryNotSupportedOnResource(void)
 
 void queryNotSupportedOnResource(crow::Response& res)
 {
-    res.result(boost::beast::http::status::forbidden);
+    res.result(boost::beast::http::status::bad_request);
     addMessageToErrorJson(res.jsonValue, queryNotSupportedOnResource());
 }
 
@@ -1460,7 +1460,7 @@ nlohmann::json queryNotSupportedOnOperation(void)
 
 void queryNotSupportedOnOperation(crow::Response& res)
 {
-    res.result(boost::beast::http::status::forbidden);
+    res.result(boost::beast::http::status::bad_request);
     addMessageToErrorJson(res.jsonValue, queryNotSupportedOnOperation());
 }
 
