@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e50f0e1a_33ce7bef",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 771,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-05-06T20:25:26Z",
+      "side": 1,
+      "message": "nit, for the sake of consistency does it matter that the argument to this lambda uses a type alias from include/dbus_utility.hpp but then in the body the type is written out instead of using the equivalent aliases from the file?",
+      "range": {
+        "startLine": 770,
+        "startChar": 16,
+        "endLine": 771,
+        "endChar": 70
+      },
+      "revId": "c70d474ab428f9ec522b3a42d86785222ccd0118",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
