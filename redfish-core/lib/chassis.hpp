@@ -796,29 +796,9 @@ void chassisDriveGet(crow::App& app, const crow::Request& req,
                         {
                             return; // no drives = no failures
                         }
-                        nlohmann::json& members =
-                            asyncResp->res.jsonValue["Members"];
-                        members = nlohmann::json::array();
-
-                        std::vector<std::string> leafNames;
-                        for (const std::string& drive : resp)
-                        {
-                            sdbusplus::message::object_path path(drive);
-                            leafNames.push_back(path.filename());
-                        }
-
-                        std::sort(leafNames.begin(), leafNames.end(),
-                                  AlphanumLess<std::string>());
-
-                        for (const std::string& leafName : leafNames)
-                        {
-                            members.push_back(
-                                {{"@odata.id", "/redfish/v1/Chassis/" +
-                                                   chassisId +
-                                                   "/Drives/" += leafName}});
-                        }
-                        asyncResp->res.jsonValue["Members@odata.count"] =
-                            resp.size();
+                        collection_util::buildMembersFromPaths(
+                            resp, asyncResp,
+                            "/redfish/v1/Chassis/" + chassisId + "/Drives");
                     }); // end association lambda
             }           // end Iterate over all retrieved ObjectPaths
         },
