@@ -323,6 +323,30 @@
       },
       "revId": "c70d474ab428f9ec522b3a42d86785222ccd0118",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b53648b1_3c2967e5",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 823,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-05-09T23:21:42Z",
+      "side": 1,
+      "message": "Split getCollectionMembers, and use the iterative section. This is the clearest way to leverage getCollectionMemebers logic, in chassis.\n\nhttps://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/53592",
+      "parentUuid": "a3702e7b_0a39a4bb",
+      "range": {
+        "startLine": 819,
+        "startChar": 0,
+        "endLine": 823,
+        "endChar": 57
+      },
+      "revId": "c70d474ab428f9ec522b3a42d86785222ccd0118",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
