@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "920484f2_5102b5ca",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 563,
+      "author": {
+        "id": 1001321
+      },
+      "writtenOn": "2022-05-09T21:30:23Z",
+      "side": 1,
+      "message": "my bad, i meant query.top/skip and i misread the delagate function. No action here.",
+      "revId": "ab78c834ba4b6ab16ebcfd2cff1b438a74dfd553",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

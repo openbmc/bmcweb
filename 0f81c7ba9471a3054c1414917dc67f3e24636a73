@@ -187,6 +187,30 @@
       },
       "revId": "0f81c7ba9471a3054c1414917dc67f3e24636a73",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3a8ffc39_17c72a23",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 562,
+      "author": {
+        "id": 1001321
+      },
+      "writtenOn": "2022-05-09T21:30:23Z",
+      "side": 1,
+      "message": "I agree the erase call doesnt need an abstract. I guess it fine for now",
+      "parentUuid": "1d32650a_da7a0bdb",
+      "range": {
+        "startLine": 562,
+        "startChar": 14,
+        "endLine": 562,
+        "endChar": 18
+      },
+      "revId": "0f81c7ba9471a3054c1414917dc67f3e24636a73",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
