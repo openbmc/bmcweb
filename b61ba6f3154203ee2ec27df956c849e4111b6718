@@ -376,6 +376,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2cef9883_e4271525",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-09T16:48:00Z",
+      "side": 1,
+      "message": "\u003e never deleting connections\n\nLets be clear here.  Connections will always have to be able to be deleted.  the EventService/Aggregator configuration could change at any time, and the underlying connection objects need to be closed and deleted.  Connection classes might get to be reused in some cases, but we can\u0027t assume that any structure lasts forever.\n\n\n\u003e ConnectionInfo\u0027s data member can serve as this intermediate container.\n\nSure, that approach seems fine.",
+      "parentUuid": "7f8429c8_ced4124b",
+      "range": {
+        "startLine": 279,
+        "startChar": 0,
+        "endLine": 279,
+        "endChar": 60
+      },
+      "revId": "b61ba6f3154203ee2ec27df956c849e4111b6718",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7f98f37f_19f4f10b",
         "filename": "http/http_client.hpp",
         "patchSetId": 20
