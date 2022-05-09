@@ -34,6 +34,24 @@
       "parentUuid": "13c001f0_2167245f",
       "revId": "4aca086e69e214de467f5159a391669d7174e05d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f9ccc56_724012bb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-09T17:04:23Z",
+      "side": 1,
+      "message": "\u003e \u003e 6 levels deep * number of leaf nodes is a bit big to be having an AsyncMultiRequest object for every level.  Maybe I\u0027m wrong though.\n\u003e \n\u003e Thanks for the comment. That\u0027s a valid concern, but it\u0027s not very obvious to me whether this change introduces more memory usage. The existing algorithm captures a copy of the whole Query object, which as eliminated in this commit.\n\nBut it captures it once, not N times.\n\n\u003e This commits does create more AsyncMultiRequest objects but Given that AsyncMultiRequest only keeps two pointers as data members, it shouldn\u0027t be a big deal.\n\nGiven that that the handler also has captures, it\u0027s larger than just two pointers.\n\n\u003e Just for my knowledge, any other reasons why you are worried about it in the first place?\n\nBecause if I call $expand($levels\u003d6) on service root, it will limit the size of the response that can be given.\n\n\u003e \n\u003e I did a benchmark on real hardware.\n\u003e \n\u003e ```\n\u003e   PID  PPID USER     STAT   VSZ %VSZ CPU %CPU COMMAND\n\u003e  5887  2856 root     S     104m  10%   1   9% /tmp/bmcweb_after\n\u003e  5953  2856 root     S     104m  10%   0   9% /tmp/bmcweb_ori\n\u003e wget -qO- \u0027http://localhost:18080/redfish/v1?$expand\u003d*($levels\u003d2)\u0027\n\u003e  \n\u003e  \n\u003e  5825  2856 root     S     108m  11%   1  29% /tmp/bmcweb_after\n\u003e  5955  2856 root     S     108m  11%   1  34% /tmp/bmcweb_ori\n\u003e wget -qO- \u0027http://localhost:18080/redfish/v1?$expand\u003d*($levels\u003d3)\u0027\n\u003e  \n\u003e  \n\u003e 21747  2856 root     R     138m  14%   1  27% /tmp/bmcweb_after\n\u003e 16519  2856 root     S     138m  14%   1  25% /tmp/bmcweb_ori\n\u003e wget -qO- \u0027http://localhost:18080/redfish/v1?$expand\u003d*($levels\u003d4)\u0027\n\u003e  \n\u003e  2665  2856 root     S     178m  18%   0  19% /tmp/bmcweb_after\n\u003e 29729  2856 root     S     181m  18%   1  20% /tmp/bmcweb_ori\n\u003e wget -qO- \u0027http://localhost:18080/redfish/v1?$expand\u003d*($levels\u003d5)\u0027\n\u003e  \n\u003e  8044  2856 root     S     237m  23%   1  14% /tmp/bmcweb_after\n\u003e 13301  2856 root     R     227m  23%   0  28% /tmp/bmcweb_ori\n\u003e wget -qO- \u0027http://localhost:18080/redfish/v1?$expand\u003d*($levels\u003d6)\u0027\n\u003e ```\n\u003e I didn\u0027t see big difference on memory consumption between the two algorithms.\n\nHow are you measuring memory usage with a single wget command?  Generally if you want to measure memory usage, you would run it in a loop from multiple threads, and see where you run out of resources.\n\n\u003e \n\u003e \n\u003e \u003e The other concern is that we\u0027re constructing a query param string, just to immediately decode it, which the old code didn\u0027t do, given it operated on the Query objects directly.  That seems less efficient than what exists.  Did you look into seeing if the Query object could be used as is, instead of generating intermediate strings?\n\u003e \n\u003e This is also a valid concern. I thought about this when implementing the algorithm. One thought at that time is to keep values of expand string and select string in |Query|. And we use vector of string_view to store selected attributes. Does this help solve your concern?\n\nI don\u0027t understand your proposed solution.  Can you either post a quick patch/snippet of what you\u0027re thinking?  In Query, there is no \"expand string\" it\u0027s only a structure with enum/int members, so I\u0027m a little confused.\n\n\u003e \n\u003e Please resolve if the above looks good.",
+      "parentUuid": "069fe699_735e9a90",
+      "revId": "4aca086e69e214de467f5159a391669d7174e05d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
