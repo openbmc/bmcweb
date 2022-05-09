@@ -299,6 +299,30 @@
       },
       "revId": "c70d474ab428f9ec522b3a42d86785222ccd0118",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a3702e7b_0a39a4bb",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 823,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-05-09T21:00:39Z",
+      "side": 1,
+      "message": "In conversation with Ed, he would like to see an effort made to using getCollectionMembers",
+      "parentUuid": "3a2c2f23_14636e66",
+      "range": {
+        "startLine": 819,
+        "startChar": 0,
+        "endLine": 823,
+        "endChar": 57
+      },
+      "revId": "c70d474ab428f9ec522b3a42d86785222ccd0118",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
