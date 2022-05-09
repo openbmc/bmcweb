@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e980adf_8370a0d9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 19
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-05-09T17:22:17Z",
+      "side": 1,
+      "message": "I removed the \"The\"",
+      "parentUuid": "beb17532_f7db69e8",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 17
+      },
+      "revId": "7f81f8be791ca0a7ab5aee3859f3e5b9ea3832c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "171f4637_cfd95733",
@@ -41,6 +65,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8758faa8_7b7424f0",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 737,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-05-09T17:22:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "171f4637_cfd95733",
+      "revId": "7f81f8be791ca0a7ab5aee3859f3e5b9ea3832c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "791e1010_03662bab",
@@ -54,6 +96,30 @@
       "writtenOn": "2022-05-09T17:01:38Z",
       "side": 1,
       "message": "Should this be + instead of +\u003d?",
+      "range": {
+        "startLine": 819,
+        "startChar": 62,
+        "endLine": 819,
+        "endChar": 64
+      },
+      "revId": "7f81f8be791ca0a7ab5aee3859f3e5b9ea3832c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "90332b25_abd6b33f",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 819,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-05-09T17:22:17Z",
+      "side": 1,
+      "message": "I wanted to use \"+\", but that darn presubmit makes me use +\u003d\n\n```\nerror: string concatenation results in allocation of unnecessary temporary strings; consider using \u0027operator+\u003d\u0027 or \u0027string::append()\u0027 instead [performance-inefficient-string-concatenation,-warnings-as-errors]\n```\nhttps://jenkins.openbmc.org/job/ci-repository/42459/console",
+      "parentUuid": "791e1010_03662bab",
       "range": {
         "startLine": 819,
         "startChar": 62,
