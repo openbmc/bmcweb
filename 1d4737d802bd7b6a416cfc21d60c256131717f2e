@@ -186,6 +186,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "91fe7fa3_737b9773",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-05-09T16:33:28Z",
+      "side": 1,
+      "message": "\u003e You can add a comment saying ...\n\n\u003e Agree with John here that there could be a sentence about this in the commit message.\nI added a comment about choosing the max pool size.  In the commit I mentioned that we may want to be able to tune these max values in the future.\n\n\u003e We don\u0027t throw in bmcweb.  A server responding with a larger-than-expected payload is not an exceptional case, and needs to return an appropriate error to the caller.\nDo I need to do some additional special handling for this sort of failure in recvMessage(), or is the existing general ec check for async_read() sufficient?",
+      "parentUuid": "9a766066_91878b7c",
+      "range": {
+        "startLine": 37,
+        "startChar": 18,
+        "endLine": 37,
+        "endChar": 29
+      },
+      "revId": "1d4737d802bd7b6a416cfc21d60c256131717f2e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3ab2c274_f153f3df",
         "filename": "http/http_client.hpp",
         "patchSetId": 34
@@ -197,6 +221,30 @@
       "writtenOn": "2022-05-03T01:22:43Z",
       "side": 1,
       "message": "remove, never entered.",
+      "range": {
+        "startLine": 51,
+        "startChar": 0,
+        "endLine": 51,
+        "endChar": 19
+      },
+      "revId": "1d4737d802bd7b6a416cfc21d60c256131717f2e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "295e4149_96858f5b",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-05-09T16:33:28Z",
+      "side": 1,
+      "message": "Rather than remove it I now set it as the state at the start of recvMessage().  This mimics how sendInProgress is used at the start of sendMessage().",
+      "parentUuid": "3ab2c274_f153f3df",
       "range": {
         "startLine": 51,
         "startChar": 0,
@@ -254,6 +302,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "94dde30c_0ee63e08",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-05-09T16:33:28Z",
+      "side": 1,
+      "message": "I went ahead and changed it so that it doesn\u0027t have to be converted each time it\u0027s used.",
+      "parentUuid": "5f716289_928b3160",
+      "range": {
+        "startLine": 67,
+        "startChar": 4,
+        "endLine": 67,
+        "endChar": 12
+      },
+      "revId": "1d4737d802bd7b6a416cfc21d60c256131717f2e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "81e520f0_a7373dff",
@@ -267,6 +339,30 @@
       "writtenOn": "2022-05-06T19:16:52Z",
       "side": 1,
       "message": "I\u0027m a little confused why this would be a global?  I could see maybe having 2-3 globals, but the RetryPolicyData class is super small (two uint32s and a string, and even the string could be an enum at some point)\n\nWoudl it be better if this were just owned as a member variable by each ConnectionInfo class?",
+      "range": {
+        "startLine": 70,
+        "startChar": 0,
+        "endLine": 70,
+        "endChar": 66
+      },
+      "revId": "1d4737d802bd7b6a416cfc21d60c256131717f2e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ee23881_7e4ae882",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-05-09T16:33:28Z",
+      "side": 1,
+      "message": "My reason for that is I wanted any changes in a retry policy to be reflected in messages that are actively being sent as ones that were queued before the policy was changed.  Giving each ConnectionInfo a reference meant I wouldn\u0027t have to iterate over every connection looking for ones using the policy so that I could update their retry info.\n\nEach ConnectionPool also needs to have access to this data so that it can set the retry parameters each time it prepare a ConnectionInfo to send a message.  It seemed like a waste of memory to queue the entire retry policy with each message.  \n\nIf retry policy changes should only apply to messages sent after the change, and queueing the entire policy is not a concern, then I can move this to be a member of HttpClient and perform the retry policy lookup as part of its sendData method.",
+      "parentUuid": "81e520f0_a7373dff",
       "range": {
         "startLine": 70,
         "startChar": 0,
@@ -302,6 +398,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "657d584e_2480176e",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-05-09T16:33:28Z",
+      "side": 1,
+      "message": "I rearranged the members.  Does this look correct now?",
+      "parentUuid": "0e96c121_a390f86e",
+      "range": {
+        "startLine": 82,
+        "startChar": 0,
+        "endLine": 82,
+        "endChar": 63
+      },
+      "revId": "1d4737d802bd7b6a416cfc21d60c256131717f2e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a2a7e476_b55328a6",
         "filename": "http/http_client.hpp",
         "patchSetId": 34
@@ -313,6 +433,30 @@
       "writtenOn": "2022-05-06T19:16:52Z",
       "side": 1,
       "message": "This has some worrying consequences for lifetime, and the possibility that these change at runtime.  (what if someone deletes \"default\")  I suspect we\u0027d rather just keep a copy of these params, similar to what I mentioned above.",
+      "range": {
+        "startLine": 93,
+        "startChar": 0,
+        "endLine": 98,
+        "endChar": 76
+      },
+      "revId": "1d4737d802bd7b6a416cfc21d60c256131717f2e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "43583b70_21c74937",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-05-09T16:33:28Z",
+      "side": 1,
+      "message": "I will change these to copies if the proposal on my response to your earlier comment sounds acceptable.",
+      "parentUuid": "a2a7e476_b55328a6",
       "range": {
         "startLine": 93,
         "startChar": 0,
@@ -581,6 +725,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "45857c4f_d84bd47b",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-05-09T16:33:28Z",
+      "side": 1,
+      "message": "We will need that in the future.  I left that for the next patchset in the chain since that functionality wasn\u0027t needed by the original implementation https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/52633.",
+      "parentUuid": "1e0dbaeb_43a058b5",
+      "range": {
+        "startLine": 244,
+        "startChar": 0,
+        "endLine": 244,
+        "endChar": 73
+      },
+      "revId": "1d4737d802bd7b6a416cfc21d60c256131717f2e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "eabfc374_1f943da5",
         "filename": "http/http_client.hpp",
         "patchSetId": 34
@@ -720,6 +888,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "271813de_4e807a4d",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-05-09T16:33:28Z",
+      "side": 1,
+      "message": "In that case I would like to leave all of these in the same file for the time being.",
+      "parentUuid": "17c15bac_e609253f",
+      "range": {
+        "startLine": 370,
+        "startChar": 0,
+        "endLine": 370,
+        "endChar": 20
+      },
+      "revId": "1d4737d802bd7b6a416cfc21d60c256131717f2e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1dc94853_03bacb34",
@@ -743,6 +935,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "82673999_32450631",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 378,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-05-09T16:33:28Z",
+      "side": 1,
+      "message": "Yeah I noticed that was going to be needed as well as being able to change the verb for each request.  I make those changes in a later patch (https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/53301) just to preserve the original functionality.  For this patch I changed it so that httpHeader is now captured by value.",
+      "parentUuid": "1dc94853_03bacb34",
+      "range": {
+        "startLine": 378,
+        "startChar": 0,
+        "endLine": 378,
+        "endChar": 49
+      },
+      "revId": "1d4737d802bd7b6a416cfc21d60c256131717f2e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "98851ea3_059d72d0",
@@ -756,6 +972,30 @@
       "writtenOn": "2022-05-06T19:16:52Z",
       "side": 1,
       "message": "It looks like these 3 things are all read, pushed and popped together.  Can this just be made into a class, something like\n\n\nstruct PendingRequest {\n   std::string requestData;\n   std::function\u003c...\u003e callback;\n   string retryPolicyName;\n}\n\n\nThen these devectors collapse into one\n\ndevector\u003cPendingRequest\u003e\n\n\nWhich IMO makes the code infinitely more readable.",
+      "range": {
+        "startLine": 380,
+        "startChar": 0,
+        "endLine": 383,
+        "endChar": 65
+      },
+      "revId": "1d4737d802bd7b6a416cfc21d60c256131717f2e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "99e0b723_03bfa27d",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-05-09T16:33:28Z",
+      "side": 1,
+      "message": "Agreed, I\u0027ve made that change.",
+      "parentUuid": "98851ea3_059d72d0",
       "range": {
         "startLine": 380,
         "startChar": 0,
@@ -838,6 +1078,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "b97f64e9_b6216584",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 389,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-05-09T16:33:28Z",
+      "side": 1,
+      "message": "It just sets some properties.  setConnRetryPolicy() is similar.  I have removed the shared_ptr arguments from both.",
+      "parentUuid": "61faabfa_e2e35b9e",
+      "range": {
+        "startLine": 389,
+        "startChar": 4,
+        "endLine": 389,
+        "endChar": 66
+      },
+      "revId": "1d4737d802bd7b6a416cfc21d60c256131717f2e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "d4478000_bca267ab",
         "filename": "http/http_client.hpp",
         "patchSetId": 34
@@ -907,6 +1171,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d055cf26_8f68f026",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 470,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-05-09T16:33:28Z",
+      "side": 1,
+      "message": "I made the change to capture by weak_ptr.  Note that doing so required storing ConnectionPool shared_ptr\u0027s in HttpClient\u0027s connectionPools unordered map and slightly reworking the try_emplace() used within HttpClient.sendData().  Please let me know if there are issues with those changes.",
+      "parentUuid": "00c2608a_7876b21a",
+      "range": {
+        "startLine": 470,
+        "startChar": 19,
+        "endLine": 470,
+        "endChar": 23
+      },
+      "revId": "1d4737d802bd7b6a416cfc21d60c256131717f2e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "072ac715_64a580dd",
         "filename": "http/http_client.hpp",
         "patchSetId": 34
@@ -918,6 +1206,30 @@
       "writtenOn": "2022-05-06T19:16:52Z",
       "side": 1,
       "message": "bind_front doesn\u0027t have any effect if you\u0027re not binding anything.",
+      "range": {
+        "startLine": 486,
+        "startChar": 33,
+        "endLine": 486,
+        "endChar": 49
+      },
+      "revId": "1d4737d802bd7b6a416cfc21d60c256131717f2e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4129a375_810ec04b",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 486,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-05-09T16:33:28Z",
+      "side": 1,
+      "message": "It\u0027s been removed",
+      "parentUuid": "072ac715_64a580dd",
       "range": {
         "startLine": 486,
         "startChar": 33,
@@ -951,6 +1263,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8a5805a7_4f1516ab",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 498,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-05-09T16:33:28Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "ad74fbd7_076da0de",
+      "range": {
+        "startLine": 498,
+        "startChar": 34,
+        "endLine": 498,
+        "endChar": 48
+      },
+      "revId": "1d4737d802bd7b6a416cfc21d60c256131717f2e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ca02bef0_6f191f80",
@@ -964,6 +1300,30 @@
       "writtenOn": "2022-05-06T19:16:52Z",
       "side": 1,
       "message": "This portion of both branches looks identical.  Can we combine the logic a little?",
+      "range": {
+        "startLine": 494,
+        "startChar": 0,
+        "endLine": 499,
+        "endChar": 58
+      },
+      "revId": "1d4737d802bd7b6a416cfc21d60c256131717f2e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "574a15fe_252f105e",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 499,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-05-09T16:33:28Z",
+      "side": 1,
+      "message": "I was able to combine most of it",
+      "parentUuid": "ca02bef0_6f191f80",
       "range": {
         "startLine": 494,
         "startChar": 0,
@@ -1014,6 +1374,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ffdbe659_aaf86a68",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 511,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-05-09T16:33:28Z",
+      "side": 1,
+      "message": "I don\u0027t remember what I did, but at some point while writing the code it wouldn\u0027t compile without me using \"this-\u003e\".  I\u0027ve removed it as well as the other instances.",
+      "parentUuid": "71e61193_2aa09b82",
+      "range": {
+        "startLine": 511,
+        "startChar": 12,
+        "endLine": 511,
+        "endChar": 16
+      },
+      "revId": "1d4737d802bd7b6a416cfc21d60c256131717f2e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "937b6569_4cef7f01",
@@ -1027,6 +1411,30 @@
       "writtenOn": "2022-05-06T19:16:52Z",
       "side": 1,
       "message": "I realize that addConnection just called emplace_back, so this is guaranteed to exist in the current flow, but in general, we require that code is memory safe in each scope.  Yes, it\u0027s a little pedantic here, but there have been cases where it has helped us a lot, so I try to enforce it in all cases.\n\nSo, in terms of this block, two options here.\n\n1. Return a reference to the newly created ConnectionInfo object.  Note, that emplace_back on line 535 actually has an overload that will give you a reference to the emplaced object, so this should be pretty doable, and not add a bunch of code.\n\n2. Check the range of connections.size() to make sure it\u0027s \u003e 1 before calling back()\n\n\nI personally think #1 is better, but it\u0027s debatable.\n\nThis would also help with the fact that connections.back() is called redundantly 4 times in this code block.",
+      "range": {
+        "startLine": 512,
+        "startChar": 12,
+        "endLine": 512,
+        "endChar": 30
+      },
+      "revId": "1d4737d802bd7b6a416cfc21d60c256131717f2e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2c419f2f_14cd91a3",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 512,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-05-09T16:33:28Z",
+      "side": 1,
+      "message": "I went with the first option so now ConnectionInfo.addConnection() returns the reference to the newly emplaced object.  I now use that reference instead of repeatedly calling connections.back().",
+      "parentUuid": "937b6569_4cef7f01",
       "range": {
         "startLine": 512,
         "startChar": 12,
@@ -1060,6 +1468,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "17b2e9ee_d8a04be7",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 513,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-05-09T16:33:28Z",
+      "side": 1,
+      "message": "They have all been removed",
+      "parentUuid": "687c61ed_bcdf4a65",
+      "range": {
+        "startLine": 513,
+        "startChar": 43,
+        "endLine": 513,
+        "endChar": 62
+      },
+      "revId": "1d4737d802bd7b6a416cfc21d60c256131717f2e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d82e8948_16852019",
@@ -1073,6 +1505,30 @@
       "writtenOn": "2022-05-06T19:16:52Z",
       "side": 1,
       "message": "nit, use emplace_back for consistency.\n\n\nnon-nit, please std::move(data) to avoid making a complete copy here.",
+      "range": {
+        "startLine": 520,
+        "startChar": 29,
+        "endLine": 520,
+        "endChar": 38
+      },
+      "revId": "1d4737d802bd7b6a416cfc21d60c256131717f2e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cccd2833_4709aa9e",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 520,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-05-09T16:33:28Z",
+      "side": 1,
+      "message": "I made those changes and also added std::move() in similar spots where it is missing.  I had to modify earlier functions in the callstack whose arguments were \"const std::string\u0026\" in order to use std::move().  This was all of the way up through functions calling the Subscription class\u0027s sendEvent() method.",
+      "parentUuid": "d82e8948_16852019",
       "range": {
         "startLine": 520,
         "startChar": 29,
