@@ -269,28 +269,23 @@ inline std::optional<Query>
     return ret;
 }
 
-inline bool processOnly(crow::App& app, crow::Response& res,
+inline bool processOnly(crow::App& app, const nlohmann::json::array_t& members,
+                        crow::Response& res,
                         std::function<void(crow::Response&)>& completionHandler)
 {
     BMCWEB_LOG_DEBUG << "Processing only query param";
-    auto itMembers = res.jsonValue.find("Members");
-    if (itMembers == res.jsonValue.end())
+    if (members.size() != 1)
     {
-        messages::queryNotSupportedOnResource(res);
-        completionHandler(res);
-        return false;
-    }
-    auto itMemBegin = itMembers->begin();
-    if (itMemBegin == itMembers->end() || itMembers->size() != 1)
-    {
-        BMCWEB_LOG_DEBUG << "Members contains " << itMembers->size()
+        BMCWEB_LOG_DEBUG << "Members contains " << members.size()
                          << " element, returning full collection.";
         completionHandler(res);
-        return false;
+        return true;
     }
 
-    auto itUrl = itMemBegin->find("@odata.id");
-    if (itUrl == itMemBegin->end())
+    const nlohmann::json& firstMember = *members.begin();
+
+    auto itUrl = firstMember.find("@odata.id");
+    if (itUrl == firstMember.begin()->end())
     {
         BMCWEB_LOG_DEBUG << "No found odata.id";
         messages::internalError(res);
@@ -494,7 +489,9 @@ class MultiAsyncResp : public std::enable_shared_from_this<MultiAsyncResp>
     std::shared_ptr<bmcweb::AsyncResp> finalRes;
 };
 
-inline void processTopAndSkip(const Query& query, crow::Response& res)
+inline bool processCollectionParams(
+    const Query& query, crow::App& app, crow::Response& res,
+    std::function<void(crow::Response&)>& completionHandler)
 {
     nlohmann::json::object_t* obj =
         res.jsonValue.get_ptr<nlohmann::json::object_t*>();
@@ -502,10 +499,10 @@ inline void processTopAndSkip(const Query& query, crow::Response& res)
     {
         // Shouldn't be possible.  All responses should be objects.
         messages::internalError(res);
-        return;
+        return false;
     }
 
-    BMCWEB_LOG_DEBUG << "Handling top/skip";
+    BMCWEB_LOG_DEBUG << "Handling collection queries";
     nlohmann::json::object_t::iterator members = obj->find("Members");
     if (members == obj->end())
     {
@@ -515,7 +512,7 @@ inline void processTopAndSkip(const Query& query, crow::Response& res)
         // for any supported query parameters that apply only to resource
         // collections but are used on singular resources.
         messages::queryNotSupportedOnResource(res);
-        return;
+        return false;
     }
 
     nlohmann::json::array_t* arr =
@@ -523,16 +520,30 @@ inline void processTopAndSkip(const Query& query, crow::Response& res)
     if (arr == nullptr)
     {
         messages::internalError(res);
-        return;
+        return false;
     }
 
-    // Per section 7.3.1 of the Redfish specification, $skip is run before $top
+    // Process $only
+    if (query.isOnly)
+    {
+        processOnly(app, *arr, res, completionHandler);
+        // Only is the only thing that takes ownerhsip of the response
+        return true;
+    }
+
+    // Process $skip
+    // Per section 7.3.1 of the Redfish specification, $skip is run before
+    // $top
     // Can only skip as many values as we have
     size_t skip = std::min(arr->size(), query.skip);
     arr->erase(arr->begin(), arr->begin() + static_cast<ssize_t>(skip));
 
+    // Process $top
+    // Can only top as many values as we have
     size_t top = std::min(arr->size(), query.top);
     arr->erase(arr->begin() + static_cast<ssize_t>(top), arr->end());
+
+    return false;
 }
 
 inline void
@@ -555,15 +566,16 @@ inline void
         completionHandler(intermediateResponse);
         return;
     }
-    if (query.isOnly)
-    {
-        processOnly(app, intermediateResponse, completionHandler);
-        return;
-    }
 
-    if (query.top != std::numeric_limits<size_t>::max() || query.skip != 0)
+    // Handles only, top, and skip
+    if (query.isOnly || query.top != std::numeric_limits<size_t>::max() ||
+        query.skip != 0)
     {
-        processTopAndSkip(query, intermediateResponse);
+        if (processCollectionParams(query, app, intermediateResponse,
+                                    completionHandler))
+        {
+            return;
+        }
     }
 
     if (query.expandType != ExpandType::None)
