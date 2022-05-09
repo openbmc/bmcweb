@@ -447,6 +447,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "accfc405_582ee4d2",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-09T16:44:05Z",
+      "side": 1,
+      "message": "\u003e My reason for that is I wanted any changes in a retry policy to be reflected in messages that are actively being sent as ones that were queued before the policy was changed.\n\nThis doesn\u0027t seem like what you would want I would think?  Is there a use case where we would change the policy at runtime and that would need to propogate to existing connections?\n\n\u003e  Giving each ConnectionInfo a reference meant I wouldn\u0027t have to iterate over every connection looking for ones using the policy so that I could update their retry info.\n\nBut now you have subtle safety issues.  Generally we would model this with something like a shared_ptr, so the ownership of the policy can be shared.\n\n\u003e \n\u003e Each ConnectionPool also needs to have access to this data so that it can set the retry parameters each time it prepare a ConnectionInfo to send a message.  It seemed like a waste of memory to queue the entire retry policy with each message.\n\nSee above;  RetryPolicy as a structure is trivially small\n  \n\u003e \n\u003e If retry policy changes should only apply to messages sent after the change, and queueing the entire policy is not a concern, then I can move this to be a member of HttpClient and perform the retry policy lookup as part of its sendData method.\n\nLets poke at why a retry policy would change a little;  It\u0027s quit possible I\u0027m not seeing the use case here.",
+      "parentUuid": "7ee23881_7e4ae882",
+      "range": {
+        "startLine": 70,
+        "startChar": 0,
+        "endLine": 70,
+        "endChar": 66
+      },
+      "revId": "1d4737d802bd7b6a416cfc21d60c256131717f2e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0e96c121_a390f86e",
         "filename": "http/http_client.hpp",
         "patchSetId": 34
@@ -482,6 +506,30 @@
       "side": 1,
       "message": "I rearranged the members.  Does this look correct now?",
       "parentUuid": "0e96c121_a390f86e",
+      "range": {
+        "startLine": 82,
+        "startChar": 0,
+        "endLine": 82,
+        "endChar": 63
+      },
+      "revId": "1d4737d802bd7b6a416cfc21d60c256131717f2e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e9120b03_8f9d0709",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-09T16:44:05Z",
+      "side": 1,
+      "message": "Will take a look and comment if it\u0027s not resolved.",
+      "parentUuid": "657d584e_2480176e",
       "range": {
         "startLine": 82,
         "startChar": 0,
@@ -821,6 +869,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "81546768_69dc2e87",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-09T16:44:05Z",
+      "side": 1,
+      "message": "👍",
+      "parentUuid": "45857c4f_d84bd47b",
+      "range": {
+        "startLine": 244,
+        "startChar": 0,
+        "endLine": 244,
+        "endChar": 73
+      },
+      "revId": "1d4737d802bd7b6a416cfc21d60c256131717f2e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "eabfc374_1f943da5",
         "filename": "http/http_client.hpp",
         "patchSetId": 34
@@ -1021,6 +1093,30 @@
       "side": 1,
       "message": "Yeah I noticed that was going to be needed as well as being able to change the verb for each request.  I make those changes in a later patch (https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/53301) just to preserve the original functionality.  For this patch I changed it so that httpHeader is now captured by value.",
       "parentUuid": "1dc94853_03bacb34",
+      "range": {
+        "startLine": 378,
+        "startChar": 0,
+        "endLine": 378,
+        "endChar": 49
+      },
+      "revId": "1d4737d802bd7b6a416cfc21d60c256131717f2e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "34da75c3_12e3b89a",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 378,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-09T16:44:05Z",
+      "side": 1,
+      "message": "👍",
+      "parentUuid": "82673999_32450631",
       "range": {
         "startLine": 378,
         "startChar": 0,
@@ -1255,6 +1351,30 @@
       "side": 1,
       "message": "I made the change to capture by weak_ptr.  Note that doing so required storing ConnectionPool shared_ptr\u0027s in HttpClient\u0027s connectionPools unordered map and slightly reworking the try_emplace() used within HttpClient.sendData().  Please let me know if there are issues with those changes.",
       "parentUuid": "00c2608a_7876b21a",
+      "range": {
+        "startLine": 470,
+        "startChar": 19,
+        "endLine": 470,
+        "endChar": 23
+      },
+      "revId": "1d4737d802bd7b6a416cfc21d60c256131717f2e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dc0cc095_1547b480",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 470,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-09T16:44:05Z",
+      "side": 1,
+      "message": "Marking done;  If there are still issues I will comment on the new patch.",
+      "parentUuid": "d055cf26_8f68f026",
       "range": {
         "startLine": 470,
         "startChar": 19,
@@ -1517,6 +1637,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0f04f5f4_97e16444",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 512,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-09T16:44:05Z",
+      "side": 1,
+      "message": "👍",
+      "parentUuid": "2c419f2f_14cd91a3",
+      "range": {
+        "startLine": 512,
+        "startChar": 12,
+        "endLine": 512,
+        "endChar": 30
+      },
+      "revId": "1d4737d802bd7b6a416cfc21d60c256131717f2e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "687c61ed_bcdf4a65",
@@ -1601,6 +1745,30 @@
       "side": 1,
       "message": "I made those changes and also added std::move() in similar spots where it is missing.  I had to modify earlier functions in the callstack whose arguments were \"const std::string\u0026\" in order to use std::move().  This was all of the way up through functions calling the Subscription class\u0027s sendEvent() method.",
       "parentUuid": "d82e8948_16852019",
+      "range": {
+        "startLine": 520,
+        "startChar": 29,
+        "endLine": 520,
+        "endChar": 38
+      },
+      "revId": "1d4737d802bd7b6a416cfc21d60c256131717f2e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a49fe12d_f22b00ee",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 520,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-09T16:44:05Z",
+      "side": 1,
+      "message": "I wasn\u0027t expecting it would be that big of a change.... sorry for that, it probably could\u0027ve waited until another patchset, but it\u0027s done now, so it\u0027s all good.",
+      "parentUuid": "cccd2833_4709aa9e",
       "range": {
         "startLine": 520,
         "startChar": 29,
