@@ -88,6 +88,24 @@
       "parentUuid": "51f85883_ce34d62a",
       "revId": "4aca086e69e214de467f5159a391669d7174e05d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7fca5522_d7b1f0a7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-09T20:33:06Z",
+      "side": 1,
+      "message": "Keep in mind, you\u0027re benchmarking on a system that has 10-100X the memory bandwidth of other BMCs.  Your results might not be indicative of other bmcs, and your time is largely dominated by network, which isn\u0027t always the case.\n\n\n\u003e Do you expect parallel requests change it so this commits consumes more memory?\n\nYes, because of the way you\u0027re measuring, you\u0027re measuring at a point in time, and it\u0027s unlikely you caught the peak memory usage with your call, that\u0027s generally why we run multiple in parallel, so we\u0027re guaranteed to measure the \"peak\" usage, which per the developing guide, is what we optimize for, because if we run the bmc out of memory, it\u0027s a bad thing.\n\n\n\u003e Something like this.\n\nI\u0027m not really following how that would work.  If you already have epandLevel and expandType, what does expandStr give you?\n\n\n\u003e Or, any other ideas how to make $level\u003d2 expand query invoke efficient $level\u003d1 expand query, other than what this commit proposes?\n\nKeeping the existing \"parse the parameters once\" approach, then just make sure the delegate call can properly select sublevel handling instead of passing onto the existing handlers.",
+      "parentUuid": "074071ce_86690a10",
+      "revId": "4aca086e69e214de467f5159a391669d7174e05d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
