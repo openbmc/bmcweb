@@ -471,6 +471,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1ceecb87_c653379a",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-05-09T19:19:18Z",
+      "side": 1,
+      "message": "\u003e This doesn\u0027t seem like what you would want I would think?  Is there a use case where we would change the policy at runtime and that would need to propogate to existing connections?\n\n\u003e Lets poke at why a retry policy would change a little;  It\u0027s quit possible I\u0027m not seeing the use case here.\n\nMy reasoning is just from my own ignorance on how this feature is intended to work.  I think the only possible scenario where this could even happen would be if an existing connection is involved in a retry loop when the policy was changed.  \n\nAfter thinking about it, I think it makes more sense to not modify existing connections\u0027 retry policies whenever they change.  Presumably the retry policy would be updated before any messages are sent.  If the policy is updated then that\u0027s because the changes are needed by messages that are yet to have been sent rather than the update being an attempt to modify any existing connection\u0027s in progress retry loop.",
+      "parentUuid": "accfc405_582ee4d2",
+      "range": {
+        "startLine": 70,
+        "startChar": 0,
+        "endLine": 70,
+        "endChar": 66
+      },
+      "revId": "1d4737d802bd7b6a416cfc21d60c256131717f2e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0e96c121_a390f86e",
         "filename": "http/http_client.hpp",
         "patchSetId": 34
@@ -1793,6 +1817,30 @@
       "side": 1,
       "message": "I wasn\u0027t expecting it would be that big of a change.... sorry for that, it probably could\u0027ve waited until another patchset, but it\u0027s done now, so it\u0027s all good.",
       "parentUuid": "cccd2833_4709aa9e",
+      "range": {
+        "startLine": 520,
+        "startChar": 29,
+        "endLine": 520,
+        "endChar": 38
+      },
+      "revId": "1d4737d802bd7b6a416cfc21d60c256131717f2e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c9d9478f_cac5a342",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 520,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-05-09T19:19:18Z",
+      "side": 1,
+      "message": "No worries, the changes were straightforward so I didn\u0027t have to get too creative or anything",
+      "parentUuid": "a49fe12d_f22b00ee",
       "range": {
         "startLine": 520,
         "startChar": 29,

@@ -398,6 +398,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f1ad228_7b571810",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-05-09T19:19:18Z",
+      "side": 1,
+      "message": "\u003e Lets be clear here.  Connections will always have to be able to be deleted ...\n\nI was thinking deleted in the sense that there are not methods which directly delete a ConnectionInfo object from ConnectionPools\u0027s vector of shared_ptr\u003cConnectionInfo\u003e.  That\u0027s why in the other thread I was trying to justify setting arbitrary IDs for individual connections.\n\n\u003e Sure, that approach seems fine.\n\nCool then I\u0027ll mark this as resolved since that has been implemented and there are other comment threads specifically focused on it.",
+      "parentUuid": "2cef9883_e4271525",
+      "range": {
+        "startLine": 279,
+        "startChar": 0,
+        "endLine": 279,
+        "endChar": 60
+      },
+      "revId": "b61ba6f3154203ee2ec27df956c849e4111b6718",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7f98f37f_19f4f10b",
@@ -956,6 +980,54 @@
       "side": 1,
       "message": "I think I got it to work if you can confirm it looks correct.  I also moved this section of code into sendData().",
       "parentUuid": "040eae57_0b8b0132",
+      "range": {
+        "startLine": 476,
+        "startChar": 12,
+        "endLine": 476,
+        "endChar": 26
+      },
+      "revId": "b61ba6f3154203ee2ec27df956c849e4111b6718",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "06b8f0b4_437dc476",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 476,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-05-09T19:19:18Z",
+      "side": 1,
+      "message": "Marking resolved since this has been implemented for awhile and newer threads have been created that overlap in this area",
+      "parentUuid": "36242d63_c62294e4",
+      "range": {
+        "startLine": 451,
+        "startChar": 0,
+        "endLine": 476,
+        "endChar": 8
+      },
+      "revId": "b61ba6f3154203ee2ec27df956c849e4111b6718",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ea9ac2ec_9ab0742d",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 476,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-05-09T19:19:18Z",
+      "side": 1,
+      "message": "Marking resolved since more recent comments that overlap have not raised issues with the implementation.",
+      "parentUuid": "3e350639_5e9d5f41",
       "range": {
         "startLine": 476,
         "startChar": 12,
