@@ -52,6 +52,24 @@
       "parentUuid": "069fe699_735e9a90",
       "revId": "4aca086e69e214de467f5159a391669d7174e05d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "51f85883_ce34d62a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-05-09T18:39:55Z",
+      "side": 1,
+      "message": "\u003e How are you measuring memory usage with a single wget command?  Generally if you want to measure memory usage, you would run it in a loop from multiple threads, and see where you run out of resources.\n\nWe are comparing whether this commit increases memory usage, right? From the benchmark of a single thread, we know it does make much difference. Do you expect parallel requests change it so this commits consumes more memory?\n\nRegarding whether $expand\u003d*($levels\u003d6) will cause out of memory errors. That\u0027s not what this commit tries to solve, right? But if you need a benchmark, I can do that.\n\n\u003e I don\u0027t understand your proposed solution.  Can you either post a quick patch/snippet of what you\u0027re thinking?  In Query, there is no \"expand string\" it\u0027s only a structure with enum/int members, so I\u0027m a little confused.\n\nSomething like this.\n\n```\n// The struct stores the parsed query parameters of the default Redfish route.\nstruct Query\n{\n    // Only\n    bool isOnly \u003d false;\n    // Expand\n    uint8_t expandLevel \u003d 0;\n    ExpandType expandType \u003d ExpandType::None;\n    std::string expandStr;    \n\n    std::string selectedPropertiesStr;\n    std::vector\u003cstd::string_view\u003e selectedProperties;\n}\n```\n\nPeople might argue that it introduces duplicate information. I don\u0027t know if there\u0027s other ways if we want to include query parameters into the queries that we created in |AsyncMultiRequest|.\n\nOr, any other ideas how to make $level\u003d2 expand query invoke efficient $level\u003d1 expand query, other than what this commit proposes?",
+      "parentUuid": "4f9ccc56_724012bb",
+      "revId": "4aca086e69e214de467f5159a391669d7174e05d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
