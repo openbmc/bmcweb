@@ -14,6 +14,47 @@ namespace collection_util
  * @brief Populate the collection "Members" from a GetSubTreePaths search of
  *        inventory
  *
+ * @param[i]   object A vector of string, that are paths. The leaf node will be
+ *             made a member of response object
+ * @param[i,o] aResp  Async response object
+ * @param[in]  collectionPath  Redfish collection path which is used for the
+ *             Members Redfish Path
+ *
+ * @return void
+ */
+void buildMembersFromPaths(const std::vector<std::string>& objects,
+                           const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+                           const std::string& collectionPath)
+{
+    std::vector<std::string> pathNames;
+    for (const auto& object : objects)
+    {
+        sdbusplus::message::object_path path(object);
+        std::string leaf = path.filename();
+        if (leaf.empty())
+        {
+            continue;
+        }
+        pathNames.push_back(leaf);
+    }
+    std::sort(pathNames.begin(), pathNames.end(), AlphanumLess<std::string>());
+
+    nlohmann::json& members = aResp->res.jsonValue["Members"];
+    members = nlohmann::json::array();
+    for (const std::string& leaf : pathNames)
+    {
+        std::string newPath = collectionPath;
+        newPath += '/';
+        newPath += leaf;
+        members.push_back({{"@odata.id", std::move(newPath)}});
+    }
+    aResp->res.jsonValue["Members@odata.count"] = members.size();
+}
+
+/**
+ * @brief Populate the collection "Members" from a GetSubTreePaths search of
+ *        inventory
+ *
  * @param[i,o] aResp  Async response object
  * @param[i]   collectionPath  Redfish collection path which is used for the
  *             Members Redfish Path
@@ -46,31 +87,7 @@ inline void
                 messages::internalError(aResp->res);
                 return;
             }
-
-            std::vector<std::string> pathNames;
-            for (const auto& object : objects)
-            {
-                sdbusplus::message::object_path path(object);
-                std::string leaf = path.filename();
-                if (leaf.empty())
-                {
-                    continue;
-                }
-                pathNames.push_back(leaf);
-            }
-            std::sort(pathNames.begin(), pathNames.end(),
-                      AlphanumLess<std::string>());
-
-            nlohmann::json& members = aResp->res.jsonValue["Members"];
-            members = nlohmann::json::array();
-            for (const std::string& leaf : pathNames)
-            {
-                std::string newPath = collectionPath;
-                newPath += '/';
-                newPath += leaf;
-                members.push_back({{"@odata.id", std::move(newPath)}});
-            }
-            aResp->res.jsonValue["Members@odata.count"] = members.size();
+            buildMembersFromPaths(objects, aResp, collectionPath);
         },
         "xyz.openbmc_project.ObjectMapper",
         "/xyz/openbmc_project/object_mapper",
