@@ -41,6 +41,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4d817420_680e2f53",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-05-09T19:26:40Z",
+      "side": 1,
+      "message": "That shouldn\u0027t cause any issues.  I\u0027ve made the change.",
+      "parentUuid": "000dd393_cfa031d6",
+      "range": {
+        "startLine": 246,
+        "startChar": 0,
+        "endLine": 246,
+        "endChar": 29
+      },
+      "revId": "3645e432d98ac387dbec08ccf389dda2a586948c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "10584a29_dacf1908",
@@ -54,6 +78,30 @@
       "writtenOn": "2022-05-06T18:21:59Z",
       "side": 1,
       "message": "This is making a complete copy of the response object, I suspect you want release() instead of get() here.",
+      "range": {
+        "startLine": 247,
+        "startChar": 0,
+        "endLine": 247,
+        "endChar": 57
+      },
+      "revId": "3645e432d98ac387dbec08ccf389dda2a586948c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2b66b03b_26cd6aca",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-05-09T19:26:40Z",
+      "side": 1,
+      "message": "I made the swap to release()",
+      "parentUuid": "10584a29_dacf1908",
       "range": {
         "startLine": 247,
         "startChar": 0,
@@ -135,6 +183,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ef5e66fd_8661fb2a",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-05-09T19:26:40Z",
+      "side": 1,
+      "message": "That\u0027s a fair point, I\u0027m good with returning 502 here.  I didn\u0027t see an internalError() equivalent for a 502 so I just directly set res.result as bad_gateway.  Is that alright or is there a preferred method I should use?\n\nOn a related note, I suspect that later we\u0027ll want to directly return certain non-200 codes from the other server rather than retrying until we hit the max number of retries and return a 502.  I do this for 404 in a later patch and I\u0027m sure there will be others come up as Redfish Aggregation is implemented.",
+      "parentUuid": "797e9e64_f4f959e4",
+      "range": {
+        "startLine": 264,
+        "startChar": 0,
+        "endLine": 264,
+        "endChar": 50
+      },
+      "revId": "3645e432d98ac387dbec08ccf389dda2a586948c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2becc12e_86b3dfc8",
         "filename": "http/http_client.hpp",
         "patchSetId": 13
@@ -146,6 +218,30 @@
       "writtenOn": "2022-05-06T18:21:59Z",
       "side": 1,
       "message": "nit, please make the callback const.  we don\u0027t expect the user to be modifying response after this point.",
+      "range": {
+        "startLine": 392,
+        "startChar": 66,
+        "endLine": 392,
+        "endChar": 74
+      },
+      "revId": "3645e432d98ac387dbec08ccf389dda2a586948c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1a405856_cb4cc20c",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 392,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-05-09T19:26:40Z",
+      "side": 1,
+      "message": "I changed it so that \"Response\u0026\" is now \"const Response\u0026\" in all callback instances.  I also had to add const to Response.resultInt() so that it could still be called in the dummy callback\u0027s debug message.",
+      "parentUuid": "2becc12e_86b3dfc8",
       "range": {
         "startLine": 392,
         "startChar": 66,
@@ -179,6 +275,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a4a48c7_4fc0bfa6",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 612,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-05-09T19:26:40Z",
+      "side": 1,
+      "message": "No problem",
+      "parentUuid": "20df929b_e979912a",
+      "range": {
+        "startLine": 608,
+        "startChar": 0,
+        "endLine": 612,
+        "endChar": 10
+      },
+      "revId": "3645e432d98ac387dbec08ccf389dda2a586948c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "56c0547e_325c2f2b",
@@ -202,6 +322,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b9216263_c5bf6daf",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 620,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-05-09T19:26:40Z",
+      "side": 1,
+      "message": "Alright I\u0027ve changed the name",
+      "parentUuid": "56c0547e_325c2f2b",
+      "range": {
+        "startLine": 620,
+        "startChar": 9,
+        "endLine": 620,
+        "endChar": 17
+      },
+      "revId": "3645e432d98ac387dbec08ccf389dda2a586948c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ebe296ee_c7f05d29",
@@ -215,6 +359,30 @@
       "writtenOn": "2022-05-06T18:21:59Z",
       "side": 1,
       "message": "bind_front is redundant here, right?  There\u0027s nothing to bind?",
+      "range": {
+        "startLine": 644,
+        "startChar": 38,
+        "endLine": 644,
+        "endChar": 54
+      },
+      "revId": "3645e432d98ac387dbec08ccf389dda2a586948c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "27344c67_cb605a9c",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 644,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-05-09T19:26:40Z",
+      "side": 1,
+      "message": "I removed it",
+      "parentUuid": "ebe296ee_c7f05d29",
       "range": {
         "startLine": 644,
         "startChar": 38,
