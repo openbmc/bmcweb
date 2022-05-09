@@ -256,6 +256,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "32ba31a9_f21b8a45",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-05-09T16:43:06Z",
+      "side": 1,
+      "message": "And the comment is okay. I do wonder what this does to bmcweb performance, being that bmcweb is io bound. But that is not a question for this thread.",
+      "parentUuid": "e06cfd19_fd989a46",
+      "range": {
+        "startLine": 37,
+        "startChar": 18,
+        "endLine": 37,
+        "endChar": 29
+      },
+      "revId": "1d4737d802bd7b6a416cfc21d60c256131717f2e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3ab2c274_f153f3df",
