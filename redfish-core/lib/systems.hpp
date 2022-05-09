@@ -2971,7 +2971,9 @@ inline void requestRoutesSystems(App& app)
             getHostState(asyncResp);
             getBootProperties(asyncResp);
             getBootProgress(asyncResp);
-            getPCIeDeviceList(asyncResp, "PCIeDevices");
+            collection_util::getCollectionMemberCallback(
+                asyncResp, PCIeMemberCallback,
+                "/redfish/v1/Systems/system/PCIeDevices/");
             getHostWatchdogTimer(asyncResp);
             getPowerRestorePolicy(asyncResp);
             getAutomaticRetry(asyncResp);

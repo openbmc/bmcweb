@@ -30,48 +30,21 @@ static constexpr char const* pciePath = "/xyz/openbmc_project/PCIe";
 static constexpr char const* pcieDeviceInterface =
     "xyz.openbmc_project.PCIe.Device";
 
-static inline void
-    getPCIeDeviceList(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                      const std::string& name)
+inline const boost::system::error_code
+    PCIeMemberCallback(std::vector<std::string>& memberPaths)
 {
-    auto getPCIeMapCallback =
-        [asyncResp, name](const boost::system::error_code ec,
-                          const dbus::utility::MapperGetSubTreePathsResponse&
-                              pcieDevicePaths) {
-            if (ec)
-            {
-                BMCWEB_LOG_DEBUG << "no PCIe device paths found ec: "
-                                 << ec.message();
-                // Not an error, system just doesn't have PCIe info
-                return;
-            }
-            nlohmann::json& pcieDeviceList = asyncResp->res.jsonValue[name];
-            pcieDeviceList = nlohmann::json::array();
-            for (const std::string& pcieDevicePath : pcieDevicePaths)
-            {
-                size_t devStart = pcieDevicePath.rfind('/');
-                if (devStart == std::string::npos)
-                {
-                    continue;
-                }
-
-                std::string devName = pcieDevicePath.substr(devStart + 1);
-                if (devName.empty())
-                {
-                    continue;
-                }
-                pcieDeviceList.push_back(
-                    {{"@odata.id",
-                      "/redfish/v1/Systems/system/PCIeDevices/" + devName}});
-            }
-            asyncResp->res.jsonValue[name + "@odata.count"] =
-                pcieDeviceList.size();
-        };
+    boost::system::error_code code;
     crow::connections::systemBus->async_method_call(
-        std::move(getPCIeMapCallback), "xyz.openbmc_project.ObjectMapper",
+        [memberPaths, code](const boost::system::error_code ec,
+                            const std::vector<std::string>& objects) mutable {
+            memberPaths.assign(objects.begin(), objects.end());
+            code = ec;
+        },
+        "xyz.openbmc_project.ObjectMapper",
         "/xyz/openbmc_project/object_mapper",
         "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths",
         std::string(pciePath) + "/", 1, std::array<std::string, 0>());
+    return code;
 }
 
 inline void requestRoutesSystemPCIeDeviceCollection(App& app)
@@ -96,7 +69,10 @@ inline void requestRoutesSystemPCIeDeviceCollection(App& app)
                     {"Description", "Collection of PCIe Devices"},
                     {"Members", nlohmann::json::array()},
                     {"Members@odata.count", 0}};
-                getPCIeDeviceList(asyncResp, "Members");
+                // getPCIeDeviceList(asyncResp, "Members");
+                collection_util::getCollectionMemberCallback(
+                    asyncResp, PCIeMemberCallback,
+                    "/redfish/v1/Systems/system/PCIeDevices/");
             });
 }
 
