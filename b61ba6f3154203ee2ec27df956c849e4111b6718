@@ -446,6 +446,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "94eb16b5_e30acf84",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-05-09T21:40:27Z",
+      "side": 1,
+      "message": "Yeah I can see why we\u0027d want to be able to delete connections, but I was somewhat assuming that wasn\u0027t yet implemented since there was a \"TODO: delete subscription\" within \"waitAndRetry()\" which I carried over.\n\nShould I add deleting connections to this patch?  I would add a method that gets called whenever an EventService subscription is deleted.  It would check that subscription\u0027s hostname:port pair against those of the other subscriptions.  If there is not another subscription using the same hostname:port then I would just delete the entire corresponding ConnectionPool since it is no longer being used.",
+      "parentUuid": "58341e70_880e6f78",
+      "range": {
+        "startLine": 279,
+        "startChar": 0,
+        "endLine": 279,
+        "endChar": 60
+      },
+      "revId": "b61ba6f3154203ee2ec27df956c849e4111b6718",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7f98f37f_19f4f10b",
