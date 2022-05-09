@@ -495,6 +495,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "947b8fde_af57508a",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-09T20:40:24Z",
+      "side": 1,
+      "message": "\u003e \u003e This doesn\u0027t seem like what you would want I would think?  Is there a use case where we would change the policy at runtime and that would need to propogate to existing connections?\n\u003e \n\u003e \u003e Lets poke at why a retry policy would change a little;  It\u0027s quit possible I\u0027m not seeing the use case here.\n\u003e \n\u003e My reasoning is just from my own ignorance on how this feature is intended to work.  I think the only possible scenario where this could even happen would be if an existing connection is involved in a retry loop when the policy was changed.\n\u003e \n\u003e After thinking about it, I think it makes more sense to not modify existing connections\u0027 retry policies whenever they change.  Presumably the retry policy would be updated before any messages are sent.  If the policy is updated then that\u0027s because the changes are needed by messages that are yet to have been sent rather than the update being an attempt to modify any existing connection\u0027s in progress retry loop.\n\n\nI think it\u0027s reasonable that the retry behavior is \"locked in\" when the request is started.  If the user changes the number of retries while a request is in flight, we\u0027re already in undefined behavior land.\nshort version: +1 to what you said.",
+      "parentUuid": "1ceecb87_c653379a",
+      "range": {
+        "startLine": 70,
+        "startChar": 0,
+        "endLine": 70,
+        "endChar": 66
+      },
+      "revId": "1d4737d802bd7b6a416cfc21d60c256131717f2e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0e96c121_a390f86e",
         "filename": "http/http_client.hpp",
         "patchSetId": 34

@@ -422,6 +422,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "58341e70_880e6f78",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-09T20:40:24Z",
+      "side": 1,
+      "message": "\u003e I was thinking deleted in the sense that there are not methods which directly delete a ConnectionInfo object from ConnectionPools\u0027s vector of shared_ptr\u003cConnectionInfo\u003e.  That\u0027s why in the other thread I was trying to justify setting arbitrary IDs for individual connections.\n\nBut see that\u0027s the trick, there needs to be something that can delete the connectionInfo objects.  This is a form of memory/resource leak.  What happens if I add/remove 1 million different EventService configs?  The BMC would run out of memory.  That can be a security/safety concern.",
+      "parentUuid": "4f1ad228_7b571810",
+      "range": {
+        "startLine": 279,
+        "startChar": 0,
+        "endLine": 279,
+        "endChar": 60
+      },
+      "revId": "b61ba6f3154203ee2ec27df956c849e4111b6718",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7f98f37f_19f4f10b",
@@ -1033,6 +1057,54 @@
         "startChar": 12,
         "endLine": 476,
         "endChar": 26
+      },
+      "revId": "b61ba6f3154203ee2ec27df956c849e4111b6718",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d4d0dc9_c97105dc",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 476,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-09T20:40:24Z",
+      "side": 1,
+      "message": "👍",
+      "parentUuid": "ea9ac2ec_9ab0742d",
+      "range": {
+        "startLine": 476,
+        "startChar": 12,
+        "endLine": 476,
+        "endChar": 26
+      },
+      "revId": "b61ba6f3154203ee2ec27df956c849e4111b6718",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c36d92b1_8a5462df",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 476,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-09T20:40:24Z",
+      "side": 1,
+      "message": "👍",
+      "parentUuid": "06b8f0b4_437dc476",
+      "range": {
+        "startLine": 451,
+        "startChar": 0,
+        "endLine": 476,
+        "endChar": 8
       },
       "revId": "b61ba6f3154203ee2ec27df956c849e4111b6718",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
