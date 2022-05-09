@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6a87070d_616365e8",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 511,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-09T17:45:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "de25722a_3c073904",
+      "range": {
+        "startLine": 511,
+        "startChar": 16,
+        "endLine": 511,
+        "endChar": 20
+      },
+      "revId": "0f81c7ba9471a3054c1414917dc67f3e24636a73",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e33b6fd4_6401d169",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-05-07T06:13:02Z",
       "side": 1,
       "message": "Can you add a comment somewhere specifying why you did $skip before $top. \n\nServices shall process query parameters in this order:\n• $filter\n• $skip\n• $top\n  Apply server-side pagination\n• $expand\n• excerpt\n• $select",
+      "range": {
+        "startLine": 529,
+        "startChar": 0,
+        "endLine": 529,
+        "endChar": 52
+      },
+      "revId": "0f81c7ba9471a3054c1414917dc67f3e24636a73",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3925b51a_32c4893e",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 529,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-09T17:45:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e33b6fd4_6401d169",
       "range": {
         "startLine": 529,
         "startChar": 0,
@@ -88,6 +136,54 @@
         "startChar": 14,
         "endLine": 562,
         "endChar": 18
+      },
+      "revId": "0f81c7ba9471a3054c1414917dc67f3e24636a73",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1d32650a_da7a0bdb",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 562,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-09T17:45:38Z",
+      "side": 1,
+      "message": "\u003e suggestion: why not split $skip and $top into 2 inline functions. I know the way it is written right if only 1 condition is true the other is a no-op but the code will read simpler.\n\nDisagree that the code will be simpler.  There will be more code overall.\n\n\u003e If both conditions are true, you can trust the compiler to optimize and do obj-\u003efind(\"Members\") only once,\n\nI don\u0027t think the compiler is capable of this optimization like you described.  Even if it were, it\u0027s not something I\u0027d like to rely on, or duplicate the code for.\n\n\n\u003e since its all inline code anyway. Also if  $filter or excerpt are added later, the code will flow better.\n\nCan\u0027t say I agree with you there.  $top and $skip are very related transforms, and are basically identical code, only differing in the call to arr-\u003eerase.  Keeping them together IMO makes sense.  If we abstracted anything, we could abstract out the arr-\u003eerase calls, but that just seems like overkill to abstract one liners.",
+      "parentUuid": "45621fd8_eea8dbc5",
+      "range": {
+        "startLine": 562,
+        "startChar": 14,
+        "endLine": 562,
+        "endChar": 18
+      },
+      "revId": "0f81c7ba9471a3054c1414917dc67f3e24636a73",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6cde44e6_e86d3de9",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 562,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-09T17:45:38Z",
+      "side": 1,
+      "message": "I\u0027m not sure what you\u0027re pointing out.  Query.isOnly is changed on line 210 in this file, so no, this is not dead code that I\u0027m aware of.  Also, the line you pointed out doesn\u0027t even make mention of isOnly, so I\u0027m a little confused.  Can you clarify, which code you think is \"dead\"?",
+      "parentUuid": "a18b58f1_943e5512",
+      "range": {
+        "startLine": 562,
+        "startChar": 0,
+        "endLine": 562,
+        "endChar": 75
       },
       "revId": "0f81c7ba9471a3054c1414917dc67f3e24636a73",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
