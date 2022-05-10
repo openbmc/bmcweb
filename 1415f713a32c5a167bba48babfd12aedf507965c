@@ -82,6 +82,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "783ba33e_18d19e34",
+        "filename": "include/google/dbus_utils.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1001386
+      },
+      "writtenOn": "2022-05-10T03:52:19Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c6584031_c310235e",
+      "range": {
+        "startLine": 14,
+        "startChar": 1,
+        "endLine": 148,
+        "endChar": 2
+      },
+      "revId": "1415f713a32c5a167bba48babfd12aedf507965c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3eeb1427_08e01b47",
@@ -95,6 +119,30 @@
       "writtenOn": "2022-05-06T20:14:41Z",
       "side": 1,
       "message": "Per cpp core guidelines (the coding standard we use) please don\u0027t forward declare methods like this.  Either rearrange your code so it\u0027s not required, or the put the prototypes in a common header that all users can rely on.",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 78
+      },
+      "revId": "1415f713a32c5a167bba48babfd12aedf507965c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2a07382b_77c72ac6",
+        "filename": "include/google/google_service_root.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1001386
+      },
+      "writtenOn": "2022-05-10T03:52:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3eeb1427_08e01b47",
       "range": {
         "startLine": 23,
         "startChar": 0,
@@ -151,6 +199,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1dc1d84f_4542df41",
+        "filename": "include/google/google_service_root.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1001386
+      },
+      "writtenOn": "2022-05-10T03:52:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9e825699_fc6f7ded",
+      "range": {
+        "startLine": 93,
+        "startChar": 69,
+        "endLine": 93,
+        "endChar": 72
+      },
+      "revId": "1415f713a32c5a167bba48babfd12aedf507965c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6fbc6b50_564a8720",
@@ -164,6 +236,30 @@
       "writtenOn": "2022-05-06T20:14:41Z",
       "side": 1,
       "message": "it seems really odd we have an array of bytes, and we wouldn\u0027t just return it as an array[number].  With that said, I know that was discussed, and if this is the conclusion you came to, that\u0027s fine.\n\nFWIW, we have helper functions for this, given that boost::algorithm::hex drags a bunch of locale stuff with it that we don\u0027t want.\n\nIf this really needs to be a hex \"string\" instead of an array, that\u0027s fine, but we should be using the intToHexString method we do elsewhere to avoid duplicating binary code. (yes, in this case it will require a loop given that things are already a string.",
+      "range": {
+        "startLine": 170,
+        "startChar": 0,
+        "endLine": 171,
+        "endChar": 56
+      },
+      "revId": "1415f713a32c5a167bba48babfd12aedf507965c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3a86e50c_15a82e6c",
+        "filename": "include/google/google_service_root.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1001386
+      },
+      "writtenOn": "2022-05-10T03:52:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6fbc6b50_564a8720",
       "range": {
         "startLine": 170,
         "startChar": 0,
@@ -220,6 +316,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f321de63_183a8236",
+        "filename": "include/google/google_service_root.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1001386
+      },
+      "writtenOn": "2022-05-10T03:52:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "230091ad_612500f4",
+      "range": {
+        "startLine": 202,
+        "startChar": 0,
+        "endLine": 203,
+        "endChar": 69
+      },
+      "revId": "1415f713a32c5a167bba48babfd12aedf507965c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e671987c_13aaef2b",
@@ -233,6 +353,30 @@
       "writtenOn": "2022-05-06T20:14:41Z",
       "side": 1,
       "message": "These come for free by inheriting from Resource, right?",
+      "range": {
+        "startLine": 51,
+        "startChar": 0,
+        "endLine": 54,
+        "endChar": 19
+      },
+      "revId": "1415f713a32c5a167bba48babfd12aedf507965c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bd865cb8_a956f85b",
+        "filename": "static/google/v1/schema/RootOfTrust_v1.xml",
+        "patchSetId": 21
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1001386
+      },
+      "writtenOn": "2022-05-10T03:52:19Z",
+      "side": 1,
+      "message": "Oop. Yes. Thanks for pointing this Ed.",
+      "parentUuid": "e671987c_13aaef2b",
       "range": {
         "startLine": 51,
         "startChar": 0,
