@@ -52,6 +52,23 @@
       "parentUuid": "baac53ce_a1aa2796",
       "revId": "488a162dfe2f3aac43953f33ac5886df7d8f7a8f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "62218b54_8c74fdd5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-05-10T20:01:46Z",
+      "side": 1,
+      "message": "In general, I would support using fmt, and dropping logging",
+      "revId": "488a162dfe2f3aac43953f33ac5886df7d8f7a8f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
