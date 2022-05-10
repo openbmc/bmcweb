@@ -254,6 +254,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0abc226a_2cd8bb5e",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 816,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-05-10T21:42:28Z",
+      "side": 1,
+      "message": "The issue is fixed in the code, and a patch for the validator has been written.",
+      "parentUuid": "9ae7d488_c4aa669a",
+      "range": {
+        "startLine": 816,
+        "startChar": 33,
+        "endLine": 816,
+        "endChar": 42
+      },
+      "revId": "c70d474ab428f9ec522b3a42d86785222ccd0118",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "352e2058_329fd79d",
