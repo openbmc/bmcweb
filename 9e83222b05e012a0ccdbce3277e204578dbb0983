@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6d04018d_d2ebafd5",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1159,
+      "author": {
+        "id": 1001428
+      },
+      "writtenOn": "2022-05-10T05:33:19Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "62812583_faad85ba",
+      "range": {
+        "startLine": 1159,
+        "startChar": 36,
+        "endLine": 1159,
+        "endChar": 37
+      },
+      "revId": "9e83222b05e012a0ccdbce3277e204578dbb0983",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2408115e_16952e8e",
@@ -60,6 +84,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7ba52ac3_63c820ed",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1212,
+      "author": {
+        "id": 1001428
+      },
+      "writtenOn": "2022-05-10T05:33:19Z",
+      "side": 1,
+      "message": "I will make the changes.\nLink to phosphor changes. \nhttps://gerrit.openbmc-project.xyz/c/openbmc/phosphor-state-manager/+/53603/2",
+      "parentUuid": "85ec44bf_6b03fb2f",
+      "revId": "9e83222b05e012a0ccdbce3277e204578dbb0983",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "29454cd7_563d6a65",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 1
@@ -71,6 +113,24 @@
       "writtenOn": "2022-05-10T04:45:59Z",
       "side": 1,
       "message": "These should not be changed",
+      "revId": "9e83222b05e012a0ccdbce3277e204578dbb0983",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e6fb1021_578f88cf",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 3045,
+      "author": {
+        "id": 1001428
+      },
+      "writtenOn": "2022-05-10T05:33:19Z",
+      "side": 1,
+      "message": "I was not the one who changed this. I\u0027ll try to contact whoever did and let them know.",
+      "parentUuid": "29454cd7_563d6a65",
       "revId": "9e83222b05e012a0ccdbce3277e204578dbb0983",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
