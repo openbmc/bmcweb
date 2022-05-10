@@ -88,6 +88,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f79e6699_f3ec9f41",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-05-10T22:20:11Z",
+      "side": 1,
+      "message": "I gotcha, it\u0027s been removed.",
+      "parentUuid": "d104c95e_acf9429a",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 2
+      },
+      "revId": "7f1294feda9ba6f341619e9c83182de8b9fbcc22",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "401cf0d2_dfc8d164",
@@ -101,6 +125,30 @@
       "writtenOn": "2022-05-06T18:08:49Z",
       "side": 1,
       "message": "As written, this is essentially a cache, which in general we try to discourage, especially in the initial patchset of a feature, given that caches are very hard to invalidate properly, and the bmc memory is limited.   this patchset doesn\u0027t seem to invalidate this config at all.  Lets avoid this cache for the moment and just generate the list on the fly when we get a request;\n\nI\u0027m not totally against caching in this case, but I\u0027d like to see it done in a separate patch so we can compare/contrast the tradeoffs in complexity and performance.",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 68
+      },
+      "revId": "7f1294feda9ba6f341619e9c83182de8b9fbcc22",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c97b37e6_79b477dc",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-05-10T22:20:11Z",
+      "side": 1,
+      "message": "I understand, but I would still like to try to make the argument for including the map in this patch.\n\n1) The memory hit for this should be minor since it is only storing a boost::urls::url per satellite and the number of satellites would presumably remain small.  \n\n2) Satellite information has to be published on D-Bus in order to be added to the map. That info should only exist when the intent is to use Redfish Aggregation so you won\u0027t see the same memory increase in BMCs that are not using Redfish Aggregation.\n\n3) A D-Bus lookup will be added to the processing of every single request by BMCWeb since it will have no other way to check if Redfish Aggregation is enabled.\n\n4) For invalidation concerns, what if each time getSatelliteConfigs() is called I clear the map as the first step?  That functions already pulls all existing satellite configs from D-Bus so that would remove the ones that are no longer present.  \n\n5) The next patch (https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/53455) adds a D-Bus match so that will catch when satellite info is added or changed.",
+      "parentUuid": "401cf0d2_dfc8d164",
       "range": {
         "startLine": 32,
         "startChar": 0,
@@ -134,6 +182,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "aa424cf6_9a3d77a2",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-05-10T22:20:11Z",
+      "side": 1,
+      "message": "Thanks, I removed it.",
+      "parentUuid": "b3c511b8_cc2c79e0",
+      "range": {
+        "startLine": 64,
+        "startChar": 28,
+        "endLine": 64,
+        "endChar": 32
+      },
+      "revId": "7f1294feda9ba6f341619e9c83182de8b9fbcc22",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "da847d82_640ca7fd",
@@ -147,6 +219,30 @@
       "writtenOn": "2022-05-06T18:08:49Z",
       "side": 1,
       "message": "Can you break this content into its own method please?  as a rule we try to avoid large lambdas, and this isn\u0027t super big, but it\u0027s right on the limit.",
+      "range": {
+        "startLine": 54,
+        "startChar": 0,
+        "endLine": 79,
+        "endChar": 17
+      },
+      "revId": "7f1294feda9ba6f341619e9c83182de8b9fbcc22",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0494d72d_dbd38641",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-05-10T22:20:11Z",
+      "side": 1,
+      "message": "No problem, it\u0027s been moved.",
+      "parentUuid": "da847d82_640ca7fd",
       "range": {
         "startLine": 54,
         "startChar": 0,
@@ -193,6 +289,54 @@
       "writtenOn": "2022-05-06T18:08:49Z",
       "side": 1,
       "message": "nit, use std::move(url) here.",
+      "range": {
+        "startLine": 195,
+        "startChar": 30,
+        "endLine": 195,
+        "endChar": 33
+      },
+      "revId": "7f1294feda9ba6f341619e9c83182de8b9fbcc22",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c3571227_a97f797e",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-05-10T22:20:11Z",
+      "side": 1,
+      "message": "I modified the insertion so that now the debug message will denote when an existing config has been updated",
+      "parentUuid": "63c84ab0_dc9aafa0",
+      "range": {
+        "startLine": 195,
+        "startChar": 8,
+        "endLine": 195,
+        "endChar": 34
+      },
+      "revId": "7f1294feda9ba6f341619e9c83182de8b9fbcc22",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "777afd32_268818d5",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-05-10T22:20:11Z",
+      "side": 1,
+      "message": "I made the change",
+      "parentUuid": "5c2d2f09_2af255da",
       "range": {
         "startLine": 195,
         "startChar": 30,

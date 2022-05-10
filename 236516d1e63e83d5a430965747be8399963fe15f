@@ -233,6 +233,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "adcf8346_2f68237e",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 721,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-05-10T22:20:11Z",
+      "side": 1,
+      "message": "I noticed the hardcoded IDs and I have a later patch that works around that: https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/53310.  I haven\u0027t requested review as of posting this message because I am working through feedback on earlier patches in the chain.  \n\nBasically I perform a check before the request is actually handled.  If aggregation is enabled then I extract the prefix, delete it from the request\u0027s path, and then either forward the request to the associated satellite BMC or let the request be handled normally.\n\nThat allows the use of prefixes with IDs without having to change any of the existing paths.  The only constraint is I have to be able to extract the prefix from the ID, hence why I want to assume the prefix will not include underscores.",
+      "parentUuid": "26c14b12_2d0efe9c",
+      "range": {
+        "startLine": 721,
+        "startChar": 0,
+        "endLine": 721,
+        "endChar": 60
+      },
+      "revId": "236516d1e63e83d5a430965747be8399963fe15f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3693faa4_77393d20",
         "filename": "http/http_client.hpp",
         "patchSetId": 12
@@ -363,6 +387,30 @@
       "side": 1,
       "message": "\u003e For this patch I wanted to assume that there is no authentication and TLS required to communicate with a satellite BMC.  I\u0027m going to leave supporting those features to a future patch.\n\nCan you make mention of that in your commit message?  I think it\u0027s fine, the only thing I worry about is http being the \"default\" if no encryption property is specified, but I suspect that will come in short order.  FWIW, \"encryption\" should be a required parameter at some point.\n\n\u003e \n\u003e Setting the scheme as http seemed like the appropriate way within boost::urls::url to denote that the config had selected no authentication.  Previously I was storing an \"authType\" field in my custom struct.\n\nI\u0027m assuming you meant \"encryption\", not \"authentication\" here, but yes, I think you got the URI behavior right.",
       "parentUuid": "d485b9c4_499134f3",
+      "range": {
+        "startLine": 776,
+        "startChar": 0,
+        "endLine": 776,
+        "endChar": 39
+      },
+      "revId": "236516d1e63e83d5a430965747be8399963fe15f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0f030d87_df8646a9",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 776,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-05-10T22:20:11Z",
+      "side": 1,
+      "message": "\u003e Can you make mention of that in your commit message? \nDone\n\n\u003e I\u0027m assuming you meant \"encryption\", not \"authentication\" here\nNo I meant authentication as in a satellite BMC could require users to login.  The aggregating BMC would need a username and password to login first so that it could acquire an Auth-Token.  I don\u0027t want to add support for that as part of this patch.  Using \"http\" to denote this is at best confusing so I\u0027m open to changing the code if there\u0027s a way to separate encryption and decryption within boost::urls::url.",
+      "parentUuid": "3f44120e_b5576082",
       "range": {
         "startLine": 776,
         "startChar": 0,
