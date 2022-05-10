@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "712fdab3_b154dfd4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-05-10T21:52:13Z",
+      "side": 1,
+      "message": "This patch does \n\"/redfish/v1/Chassis/\u003cstr\u003e/Drives/\u003cstr\u003e/\"\n\nThe other patch does\n(https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/53563/3)\n\"/redfish/v1/Chassis/\u003cstr\u003e/Drives/\"",
+      "parentUuid": "462713be_53ff99ca",
+      "revId": "b4b6539ddc386cca10b8a29020ced298720619eb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5ef95003_0b75e884",
@@ -31,6 +49,30 @@
       "writtenOn": "2022-05-10T17:04:27Z",
       "side": 1,
       "message": "?????\n\nPlease use urlFromPieces, which is intended for this use case of combining url pieces, and helps avoid this error.",
+      "range": {
+        "startLine": 890,
+        "startChar": 53,
+        "endLine": 890,
+        "endChar": 55
+      },
+      "revId": "b4b6539ddc386cca10b8a29020ced298720619eb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5e1f3808_85b600cc",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 890,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-05-10T21:52:13Z",
+      "side": 1,
+      "message": "What do you think the error is? Clang give an warning if the \"+\" is used, when the +\u003d would work.\n\n```\nerror: string concatenation results in allocation of unnecessary temporary strings; consider using \u0027operator+\u003d\u0027 or \u0027string::append()\u0027 instead [performance-inefficient-string-concatenation,-warnings-as-errors]\n```\nhttps://jenkins.openbmc.org/job/ci-repository/42459/console\n\nI can use urlFromPieces.",
+      "parentUuid": "5ef95003_0b75e884",
       "range": {
         "startLine": 890,
         "startChar": 53,
@@ -64,6 +106,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "92a0e662_cb72528f",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 896,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-05-10T21:52:13Z",
+      "side": 1,
+      "message": "These calls are on different code paths.",
+      "parentUuid": "7f4359e7_a1d865d8",
+      "range": {
+        "startLine": 885,
+        "startChar": 0,
+        "endLine": 896,
+        "endChar": 44
+      },
+      "revId": "b4b6539ddc386cca10b8a29020ced298720619eb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "547ad71f_429df356",
@@ -77,6 +143,30 @@
       "writtenOn": "2022-05-10T17:04:27Z",
       "side": 1,
       "message": "Why do we need to do getSubTree twice?  We already did it on line 978?",
+      "range": {
+        "startLine": 908,
+        "startChar": 0,
+        "endLine": 911,
+        "endChar": 65
+      },
+      "revId": "b4b6539ddc386cca10b8a29020ced298720619eb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c8586bc4_19c89fa9",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 911,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-05-10T21:52:13Z",
+      "side": 1,
+      "message": "The mapper is called on the chassis\nthen it is called on drive.\n\nOn line 911 we are calling drives\non line 978 we are calling chassis",
+      "parentUuid": "547ad71f_429df356",
       "range": {
         "startLine": 908,
         "startChar": 0,
@@ -112,6 +202,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "626bd322_14f6a54e",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 915,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-05-10T21:52:13Z",
+      "side": 1,
+      "message": "\"chassisDriveGet\" is already a function name, used in the first patch.\nI will change either name, if you have a recommendation.",
+      "parentUuid": "aa37019d_7e5e580e",
+      "range": {
+        "startLine": 915,
+        "startChar": 17,
+        "endLine": 915,
+        "endChar": 21
+      },
+      "revId": "b4b6539ddc386cca10b8a29020ced298720619eb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a16c04a3_da47e936",
         "filename": "redfish-core/lib/chassis.hpp",
         "patchSetId": 3
@@ -123,6 +237,30 @@
       "writtenOn": "2022-05-10T17:04:27Z",
       "side": 1,
       "message": "Is this association name documented in phosphor-dbus-interfaces?",
+      "range": {
+        "startLine": 964,
+        "startChar": 65,
+        "endLine": 964,
+        "endChar": 70
+      },
+      "revId": "b4b6539ddc386cca10b8a29020ced298720619eb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e748e60e_3ae30314",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 964,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-05-10T21:52:13Z",
+      "side": 1,
+      "message": "No, What are the actions we need to take to document this association in pdi?",
+      "parentUuid": "a16c04a3_da47e936",
       "range": {
         "startLine": 964,
         "startChar": 65,
@@ -156,6 +294,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7d5a29b9_80a2f2fc",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 990,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-05-10T21:52:13Z",
+      "side": 1,
+      "message": "added the trailing \"/\"",
+      "parentUuid": "88d144da_cad60cb5",
+      "range": {
+        "startLine": 990,
+        "startChar": 23,
+        "endLine": 990,
+        "endChar": 62
+      },
+      "revId": "b4b6539ddc386cca10b8a29020ced298720619eb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a0fe85b3_108aef54",
@@ -169,6 +331,30 @@
       "writtenOn": "2022-05-10T17:04:27Z",
       "side": 1,
       "message": "?  This isn\u0027t an ActionInfo resource.",
+      "range": {
+        "startLine": 991,
+        "startChar": 41,
+        "endLine": 991,
+        "endChar": 54
+      },
+      "revId": "b4b6539ddc386cca10b8a29020ced298720619eb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6d1cd807_29cd9123",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 991,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-05-10T21:52:13Z",
+      "side": 1,
+      "message": "Changed to (redfish::privileges::getChassis)",
+      "parentUuid": "a0fe85b3_108aef54",
       "range": {
         "startLine": 991,
         "startChar": 41,
