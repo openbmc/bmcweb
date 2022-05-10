@@ -137,6 +137,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c06eb91a_cbd8d73b",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-05-10T01:32:30Z",
+      "side": 1,
+      "message": "Actually, is there a reason to parse the body as a json here?  I thought it was needed for AsyncResp to actually generate the response when destroyed.  However, it looks like jsonValue is only used in generating the actual response when Asyncresp\u0027s res.body() is empty and needs to be constructed from res.jsonValue.\n\nI know in the future I\u0027ll want to parse certain responses as jsons. In Redfish Aggregation I\u0027ll need to do that in order to fixup links in responses from satellite BMCs, but that\u0027s not currently needed by EventService.  Is it alright to leave this for a later patch?",
+      "parentUuid": "48edc634_5923a483",
+      "range": {
+        "startLine": 248,
+        "startChar": 21,
+        "endLine": 248,
+        "endChar": 55
+      },
+      "revId": "3645e432d98ac387dbec08ccf389dda2a586948c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9d799bfb_67cf61d7",
         "filename": "http/http_client.hpp",
         "patchSetId": 13
@@ -148,6 +172,30 @@
       "writtenOn": "2022-05-06T18:21:59Z",
       "side": 1,
       "message": "This function is called out by name as throwing an exception, and you haven\u0027t handled exceptions or errors here;  You need to set argument 3 to false, then check the resulting value against is_discarded();  If the json fails to parse, you need to return an error code to the user.",
+      "range": {
+        "startLine": 251,
+        "startChar": 24,
+        "endLine": 251,
+        "endChar": 45
+      },
+      "revId": "3645e432d98ac387dbec08ccf389dda2a586948c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "99411a3b_7f48a83a",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-05-10T01:32:30Z",
+      "side": 1,
+      "message": "My bad on missing that.  I will handle this properly, but as noted in an earlier comment I am would like to push potential json parsing of received responses to a later patch.  That parsing would only need to occur for Redfish Aggregation specific processes like link fixup rather than being performed on for all received responses.  I think in that case it would be more appropriate to move it within the callback function that would be provided by the Aggregator.",
+      "parentUuid": "9d799bfb_67cf61d7",
       "range": {
         "startLine": 251,
         "startChar": 24,
