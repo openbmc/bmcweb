@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "be6eb40a_c75b138e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-10T16:45:36Z",
+      "side": 1,
+      "message": "\u003e The reason for async backend is that nbd device backend sometimes stalls for some reason.\n\nSo, can we just fix that in the nbd backend?  It shouldn\u0027t be stalling for long periods of time, and the fact that it does implies that we need some blocking calls broken out into a separate thread/task.\n\n\u003e This caused dbus transaction timeout and that\u0027s why dbus api has changed. But this is just a corner case when user does more actions one after another (actually revealed during automated functional tests).\n\u003e I think redfish tasks are quite heavy and not essential at the moment.\n\nWhat does \"heavy\" mean in this context?  In terms of code/cpu cycles, they\u0027re basically the same as what you just implemented, they host a match expression and wait for the results.\n\n\u003e But I will take a look if some code could be used/borrowed. For full tasks implementation - this could be done later on, when actual need will rise. This very change is essential to make VM part work with service being upstreamed now.",
+      "parentUuid": "e6bc96c0_c47047c7",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 41
+      },
+      "revId": "a1d3ef0d90210ceaa8be9833fd134557fcdc58b4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8b6735a7_23b906e4",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
