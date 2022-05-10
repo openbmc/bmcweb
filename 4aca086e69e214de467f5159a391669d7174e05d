@@ -160,6 +160,24 @@
       "parentUuid": "e37cf22b_455f598f",
       "revId": "4aca086e69e214de467f5159a391669d7174e05d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7c39f6f0_a10884cc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-10T18:20:35Z",
+      "side": 1,
+      "message": "\u003e \u003e For select, wouldn\u0027t we use the parsed result?  and store as vector\u003cstring\u003e?\n\u003e \n\u003e Yes, that\u0027s what I went with in https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/53245/11. But you have concerns on regenerating the query string from the vector, right? Thus, to reduce memory usage and not to regenerate strings, I proposed \n\nThe key here is that I want to avoid parsing user strings more than once, or generating a string from a struct, just to parse it back to a struct again.\n\n\u003e \n\u003e ```\n\u003e     std::string selectedPropertiesStr;\n\u003e     std::vector\u003cstd::string_view\u003e selectedProperties;\n\u003e ```\n\u003e \n\u003e in the above comments.\n\u003e \n\u003e \u003e I don\u0027t think I understand the question;  It would select it the same way it does today?\n\u003e \n\u003e My question is that inside MultiAsyncResp, how we can invoke efficient expand handlers. I\u0027m open to see other ideas other than what this commit proposes.\n\nUse the output of the log to determine if the efficient handler has already been done?",
+      "parentUuid": "6da4551c_ece06618",
+      "revId": "4aca086e69e214de467f5159a391669d7174e05d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
