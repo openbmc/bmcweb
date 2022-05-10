@@ -124,6 +124,24 @@
       "parentUuid": "7fca5522_d7b1f0a7",
       "revId": "4aca086e69e214de467f5159a391669d7174e05d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e37cf22b_455f598f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-10T16:41:59Z",
+      "side": 1,
+      "message": "\u003e \u003e Your results might not be indicative of other bmcs, and your time is largely dominated by network, which isn\u0027t always the case. \n\u003e Why is it dominated by network? \n\nBecause you have a much faster bmc processor.\n\n\u003e \n\u003e \u003e Yes, because of the way you\u0027re measuring, you\u0027re measuring at a point in time, and it\u0027s unlikely you caught the peak memory usage with your call, that\u0027s generally why we run multiple in parallel, so we\u0027re guaranteed to measure the \"peak\" usage, which per the developing guide, is what we optimize for, because if we run the bmc out of memory, it\u0027s a bad thing.\n\u003e I am capturing the memory usage continuously (in a certain interval) and chose the \"peak\" usage.\n\u003e \n\u003e I did another benchmark where 4 threads are requesting data in parallel. Peak Mem usage is mapped out below. \n\u003e \n\u003e ```\n\u003e 25878  2856 root     R     194m  20%   1  38% /tmp/bmcweb_after       \n\u003e 19005  2856 root     R     215m  22%   1  36% /tmp/bmcweb_ori           \n\u003e ```\n\u003e \n\u003e \u003e I\u0027m not really following how that would work.  If you already have epandLevel and expandType, what does expandStr give you?\n\u003e \n\u003e You don\u0027t want to re-generate the string again, so I propose to store the original value of those query parameters if we are going to use them again. But true, for expand, the value has to change. For select, we can probably directly use the original string. \n\nFor select, wouldn\u0027t we use the parsed result?  and store as vector\u003cstring\u003e?\n\n\u003e \n\u003e \u003e Keeping the existing \"parse the parameters once\" approach, then just make sure the delegate call can properly select sublevel handling instead of passing onto the existing handlers.\n\u003e How do we \"make sure the delegate call can properly select sublevel handling\"\n\nI don\u0027t think I understand the question;  It would select it the same way it does today?",
+      "parentUuid": "96b46627_6ab3f25a",
+      "revId": "4aca086e69e214de467f5159a391669d7174e05d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
