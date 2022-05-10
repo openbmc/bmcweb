@@ -72,6 +72,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "aa37019d_7e5e580e",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 915,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-10T17:06:19Z",
+      "side": 1,
+      "message": "nit, please take the word \"Name\" out of this function.  You\u0027re getting the \"Drive\" not the name.",
+      "range": {
+        "startLine": 915,
+        "startChar": 17,
+        "endLine": 915,
+        "endChar": 21
+      },
+      "revId": "b4b6539ddc386cca10b8a29020ced298720619eb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a16c04a3_da47e936",
         "filename": "redfish-core/lib/chassis.hpp",
         "patchSetId": 3
