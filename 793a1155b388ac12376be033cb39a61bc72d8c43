@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2da60d29_7d0470ac",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001093
+      },
+      "writtenOn": "2022-05-10T19:21:57Z",
+      "side": 1,
+      "message": "Hi All,If possible could you review this latest patch set regarding multi host bmcweb.\nThanks",
+      "revId": "793a1155b388ac12376be033cb39a61bc72d8c43",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
