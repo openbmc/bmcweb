@@ -86,6 +86,24 @@
       "parentUuid": "88a41176_5272f545",
       "revId": "2a4ff20591f0369cadc3325864192f1fd71cedab",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "08fc63bd_c9a7dea8",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 3057,
+      "author": {
+        "id": 1001428
+      },
+      "writtenOn": "2022-05-10T21:17:10Z",
+      "side": 1,
+      "message": "Reverted all the changed loc(other than the additions I made) to how they should be.",
+      "parentUuid": "2b4f13ce_b5c9a4a8",
+      "revId": "2a4ff20591f0369cadc3325864192f1fd71cedab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
