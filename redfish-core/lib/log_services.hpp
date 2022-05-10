@@ -2055,11 +2055,9 @@ inline void requestRoutesBMCLogServiceCollection(App& app)
                     {{"@odata.id",
                       "/redfish/v1/Managers/bmc/LogServices/Dump"}});
 #endif
-#ifdef BMCWEB_ENABLE_REDFISH_BMC_JOURNAL
                 logServiceArray.push_back(
                     {{"@odata.id",
                       "/redfish/v1/Managers/bmc/LogServices/Journal"}});
-#endif
                 asyncResp->res.jsonValue["Members@odata.count"] =
                     logServiceArray.size();
             });
