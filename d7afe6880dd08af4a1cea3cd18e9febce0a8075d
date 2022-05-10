@@ -34,6 +34,29 @@
       "parentUuid": "a0b0ee26_833e76da",
       "revId": "d7afe6880dd08af4a1cea3cd18e9febce0a8075d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a89006ba_fa3cea0a",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 44
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-05-10T22:18:27Z",
+      "side": 1,
+      "message": "please remove commented out code.",
+      "range": {
+        "startLine": 100,
+        "startChar": 0,
+        "endLine": 104,
+        "endChar": 0
+      },
+      "revId": "d7afe6880dd08af4a1cea3cd18e9febce0a8075d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
