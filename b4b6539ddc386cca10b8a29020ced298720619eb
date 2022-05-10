@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "462713be_53ff99ca",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-10T17:14:08Z",
+      "side": 1,
+      "message": "How does this patch relate to https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/53563/3",
+      "revId": "b4b6539ddc386cca10b8a29020ced298720619eb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5ef95003_0b75e884",
