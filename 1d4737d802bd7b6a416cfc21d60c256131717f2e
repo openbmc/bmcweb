@@ -517,6 +517,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0110c8f0_ffe0cc33",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-05-10T00:55:49Z",
+      "side": 1,
+      "message": "Sounds good, I\u0027ve made the changes so that now the retry policy for a message gets set when sendData() is first called.  That entire policy is stored as part of the request queue.  Any changes to the policy only affect messages sent after the change.  The retryInfo map has also been moved from being a global to a member of HttpClient.",
+      "parentUuid": "947b8fde_af57508a",
+      "range": {
+        "startLine": 70,
+        "startChar": 0,
+        "endLine": 70,
+        "endChar": 66
+      },
+      "revId": "1d4737d802bd7b6a416cfc21d60c256131717f2e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0e96c121_a390f86e",
@@ -649,6 +673,30 @@
       "side": 1,
       "message": "👍",
       "parentUuid": "43583b70_21c74937",
+      "range": {
+        "startLine": 93,
+        "startChar": 0,
+        "endLine": 98,
+        "endChar": 76
+      },
+      "revId": "1d4737d802bd7b6a416cfc21d60c256131717f2e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5cd1f9b3_6e4c1f21",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-05-10T00:55:49Z",
+      "side": 1,
+      "message": "I\u0027ve made the changes",
+      "parentUuid": "59ab2b23_399592ee",
       "range": {
         "startLine": 93,
         "startChar": 0,
