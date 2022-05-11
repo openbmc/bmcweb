@@ -364,7 +364,7 @@ class Connection :
         {
             BMCWEB_LOG_WARNING << "Authentication failed";
             forward_unauthorized::sendUnauthorized(
-                req->url, req->getHeaderValue("User-Agent"),
+                req->url, req->getHeaderValue("X-Requested-With"),
                 req->getHeaderValue("Accept"), res);
             completeRequest(res);
             return;
