@@ -336,6 +336,30 @@
       },
       "revId": "26c3451ca2d9d210207f2519f5e557f86e33982e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c965f15f_6cbfb5ca",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 834,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-11T21:01:44Z",
+      "side": 1,
+      "message": "The key here is that which permission to use is controlled by the odata.type you\u0027re returning.",
+      "parentUuid": "149d6336_8e4382a8",
+      "range": {
+        "startLine": 834,
+        "startChar": 20,
+        "endLine": 834,
+        "endChar": 51
+      },
+      "revId": "26c3451ca2d9d210207f2519f5e557f86e33982e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
