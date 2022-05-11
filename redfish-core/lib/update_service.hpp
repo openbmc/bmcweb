@@ -537,6 +537,30 @@ inline void requestRoutesUpdateServiceActionsSimpleUpdate(App& app)
         });
 }
 
+inline void
+    handleUpdateServicePost(App& app, const crow::Request& req,
+                            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+    {
+        return;
+    }
+    BMCWEB_LOG_DEBUG << "doPost...";
+
+    // Setup callback for when new software detected
+    monitorForSoftwareAvailable(asyncResp, req, "/redfish/v1/UpdateService");
+
+    std::string filepath(
+        "/tmp/images/" +
+        boost::uuids::to_string(boost::uuids::random_generator()()));
+    BMCWEB_LOG_DEBUG << "Writing file to " << filepath;
+    std::ofstream out(filepath, std::ofstream::out | std::ofstream::binary |
+                                    std::ofstream::trunc);
+    out << req.body;
+    out.close();
+    BMCWEB_LOG_DEBUG << "file upload complete!!";
+}
+
 inline void requestRoutesUpdateService(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/UpdateService/")
@@ -693,32 +717,11 @@ inline void requestRoutesUpdateService(App& app)
                 }
             }
         });
+
     BMCWEB_ROUTE(app, "/redfish/v1/UpdateService/")
         .privileges(redfish::privileges::postUpdateService)
         .methods(boost::beast::http::verb::post)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-                if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
-                {
-                    return;
-                }
-                BMCWEB_LOG_DEBUG << "doPost...";
-
-                // Setup callback for when new software detected
-                monitorForSoftwareAvailable(asyncResp, req,
-                                            "/redfish/v1/UpdateService");
-
-                std::string filepath("/tmp/images/" +
-                                     boost::uuids::to_string(
-                                         boost::uuids::random_generator()()));
-                BMCWEB_LOG_DEBUG << "Writing file to " << filepath;
-                std::ofstream out(filepath, std::ofstream::out |
-                                                std::ofstream::binary |
-                                                std::ofstream::trunc);
-                out << req.body;
-                out.close();
-                BMCWEB_LOG_DEBUG << "file upload complete!!";
-            });
+            std::bind_front(handleUpdateServicePost, std::ref(app)));
 }
 
 inline void requestRoutesSoftwareInventoryCollection(App& app)
