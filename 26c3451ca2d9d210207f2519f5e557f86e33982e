@@ -288,6 +288,30 @@
       },
       "revId": "26c3451ca2d9d210207f2519f5e557f86e33982e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2dc9857d_d88f6281",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 834,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-05-11T20:35:09Z",
+      "side": 1,
+      "message": "right, but by that logic the existing `getDrive` should be in `getSystems` or `getStorage` which might not make sense. Let\u0027s say that `getChassis` has stricter permission than `getDriveCollection` in that I can fetch `getDriveCollection`, but not `getChassis`. In that case, the user won\u0027t even know that this Chassis-\u003eDrive exists if it try to parse the redfish tree. Chassis is not exposed, so the link to the Drive is not exposed and such. At the end of the day, it would result in what you wanted.\n\n\nAnd yeah, adding it to the closes privilege allow us more control over each resource.",
+      "parentUuid": "f887fd7f_5f2609b5",
+      "range": {
+        "startLine": 834,
+        "startChar": 20,
+        "endLine": 834,
+        "endChar": 51
+      },
+      "revId": "26c3451ca2d9d210207f2519f5e557f86e33982e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
