@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b3be89f0_3d98f981",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-05-11T23:46:16Z",
+      "side": 1,
+      "message": "Thanks, updated the commit message.",
+      "parentUuid": "b8766d9e_109f8572",
+      "range": {
+        "startLine": 9,
+        "startChar": 19,
+        "endLine": 9,
+        "endChar": 35
+      },
+      "revId": "9ffdec4179689141fca984ca6b8146434fa70aa8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ff9145c7_205408a9",
@@ -61,6 +85,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "7b034711_a9c113c0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-05-11T23:46:16Z",
+      "side": 1,
+      "message": "Updated commit message.",
+      "parentUuid": "8c3aa6cd_1b258e29",
+      "revId": "9ffdec4179689141fca984ca6b8146434fa70aa8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "ca87eaf4_6fba55c8",
         "filename": "include/human_sort.hpp",
         "patchSetId": 5
@@ -72,6 +114,30 @@
       "writtenOn": "2022-05-11T16:06:25Z",
       "side": 1,
       "message": "I\u0027d really like to keep this file free of these dependencies, as it\u0027s generic, but the code you wrote is very specific to redfish.  Can you please move that to one of the Redfish-specific utility files?\n\n\nI wrote the above comment, and all the comments on this file before I saw where it was used.  I\u0027m leaving these comments on this file just for your information in the future, but I suspect this operation can be done without this helper function at all.",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 4,
+        "endChar": 28
+      },
+      "revId": "9ffdec4179689141fca984ca6b8146434fa70aa8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "89f756c0_748db8a9",
+        "filename": "include/human_sort.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-05-11T23:46:16Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "ca87eaf4_6fba55c8",
       "range": {
         "startLine": 3,
         "startChar": 0,
@@ -107,6 +173,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "4d4631fb_8ed4f638",
+        "filename": "include/human_sort.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-05-11T23:46:16Z",
+      "side": 1,
+      "message": "No longer applicable (function removed).",
+      "parentUuid": "8546aeca_886282ce",
+      "range": {
+        "startLine": 116,
+        "startChar": 0,
+        "endLine": 116,
+        "endChar": 62
+      },
+      "revId": "9ffdec4179689141fca984ca6b8146434fa70aa8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "a2850f15_0393aed0",
         "filename": "include/human_sort.hpp",
         "patchSetId": 5
@@ -118,6 +208,30 @@
       "writtenOn": "2022-05-11T16:06:25Z",
       "side": 1,
       "message": "These are references, not pointers.  This only compiles because nlohmann::json has overloaded operator\u003d\u003d for nullptr_t, and this isn\u0027t doing what you expect.",
+      "range": {
+        "startLine": 119,
+        "startChar": 0,
+        "endLine": 119,
+        "endChar": 44
+      },
+      "revId": "9ffdec4179689141fca984ca6b8146434fa70aa8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "117d1eb2_8637b56d",
+        "filename": "include/human_sort.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-05-11T23:46:16Z",
+      "side": 1,
+      "message": "Good catch and thanks for explaining.",
+      "parentUuid": "a2850f15_0393aed0",
       "range": {
         "startLine": 119,
         "startChar": 0,
@@ -151,6 +265,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "330844e7_619c90d3",
+        "filename": "include/human_sort.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-05-11T23:46:16Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "b2ebb964_a538e68e",
+      "range": {
+        "startLine": 133,
+        "startChar": 10,
+        "endLine": 133,
+        "endChar": 14
+      },
+      "revId": "9ffdec4179689141fca984ca6b8146434fa70aa8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7b42647f_7b655821",
@@ -164,6 +302,30 @@
       "writtenOn": "2022-05-11T16:06:25Z",
       "side": 1,
       "message": "Can we do this in the same way we use this in getCollectionMembers here:\n\nhttps://github.com/openbmc/bmcweb/blob/b9d36b4791d77a47e1f3c5c4564fcdf7cc68c115/redfish-core/include/utils/collection.hpp#L61\n\nBy sorting the initial list, rather than generating the full json, then reparsing and sorting after the fact?\n\nI suspect something like\nstd::sort(resp.begin(), resp.end(), [](auto\u0026 l, auto\u0026 r){ return AlphaNumLess(l.first, r.first)};\n\nDone on line 408 would result in a lot less code.",
+      "range": {
+        "startLine": 524,
+        "startChar": 0,
+        "endLine": 525,
+        "endChar": 46
+      },
+      "revId": "9ffdec4179689141fca984ca6b8146434fa70aa8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1f18a1d9_0ec1688b",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 525,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-05-11T23:46:16Z",
+      "side": 1,
+      "message": "Good idea, thanks! Made some changes to get it to compile, PTAL.",
+      "parentUuid": "7b42647f_7b655821",
       "range": {
         "startLine": 524,
         "startChar": 0,
