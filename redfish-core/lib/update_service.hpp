@@ -693,6 +693,8 @@ inline void requestRoutesUpdateService(App& app)
                 }
             }
         });
+
+#ifdef BMCWEB_ENABLE_REDFISH_UPDATESERVICE_POST
     BMCWEB_ROUTE(app, "/redfish/v1/UpdateService/")
         .privileges(redfish::privileges::postUpdateService)
         .methods(boost::beast::http::verb::post)(
@@ -719,6 +721,7 @@ inline void requestRoutesUpdateService(App& app)
                 out.close();
                 BMCWEB_LOG_DEBUG << "file upload complete!!";
             });
+#endif
 }
 
 inline void requestRoutesSoftwareInventoryCollection(App& app)
