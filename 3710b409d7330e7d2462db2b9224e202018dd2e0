@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2c8957e8_80b141e5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-05-11T16:20:09Z",
+      "side": 1,
+      "message": "oh yeah, I just thought that\u0027s what we wanted. I have reverted to just enabling it with the meson options.\n\nIf a lot of people don\u0027t want journal log exposed on Redfish, maybe it is still best to default it to disabled?",
+      "parentUuid": "69d34172_5111e8e7",
+      "range": {
+        "startLine": 10,
+        "startChar": 10,
+        "endLine": 10,
+        "endChar": 59
+      },
+      "revId": "3710b409d7330e7d2462db2b9224e202018dd2e0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3b52ecad_a93810e5",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -37,6 +61,24 @@
       "writtenOn": "2022-05-11T15:57:52Z",
       "side": 1,
       "message": "Tested?",
+      "revId": "3710b409d7330e7d2462db2b9224e202018dd2e0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b4e80b27_4d51a63b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-05-11T16:20:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3b52ecad_a93810e5",
       "revId": "3710b409d7330e7d2462db2b9224e202018dd2e0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
