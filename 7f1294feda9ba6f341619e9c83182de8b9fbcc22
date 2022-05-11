@@ -207,6 +207,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5bae6484_6014755c",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-05-11T22:38:12Z",
+      "side": 1,
+      "message": "I\u0027ve made changes so that each time getSatelliteConfigs() is called it queries the D-Bus and creates an unordered_map of all satellite configs.  \n\nIt now takes as an argument a handler function which itself expects the map of satellite configs as an argument.  Later patches will use this handler to interact with the satellite config information in order to perform Redfish Aggregation operations.",
+      "parentUuid": "44972a73_0f441309",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 68
+      },
+      "revId": "7f1294feda9ba6f341619e9c83182de8b9fbcc22",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b3c511b8_cc2c79e0",

@@ -118,6 +118,30 @@
       },
       "revId": "41c2714fed22b9a194dc506bccb033d97f73240d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "71555bc0_1f689fa0",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 675,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-05-11T22:38:12Z",
+      "side": 1,
+      "message": "Reopening this in light of recent comments.  Please advise if this is acceptable:\n\nNow that we will be querying satellite controllers on each request I have changed these INFO messages to DEBUG messages to reduce clutter when debug logging is not enabled.",
+      "parentUuid": "aa8cd2f9_6b2a35ce",
+      "range": {
+        "startLine": 675,
+        "startChar": 28,
+        "endLine": 675,
+        "endChar": 44
+      },
+      "revId": "41c2714fed22b9a194dc506bccb033d97f73240d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
