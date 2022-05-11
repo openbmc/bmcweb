@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f39aa851_3fdc35dd",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-05-11T18:26:59Z",
+      "side": 1,
+      "message": "As discussed in patch  https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/53037, we won\u0027t cache satellite configs.  Instead we will query the D-Bus each time they are needed.  Under that flow it does not make sense to setup a D-Bus match since we won\u0027t actually store that information nor would it be immediately used when the match as found.\n\nThe patch likely won\u0027t be needed unless the decision is made to add satellite config caching.",
+      "revId": "d86048a5156705518eb1e1e911ccf4f8739dee54",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
