@@ -20,6 +20,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "282eb3a5_36b0ec9f",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-05-11T17:30:12Z",
+      "side": 1,
+      "message": "should probably have cb() make another callback instead of returning the error code.\n\nGetting ec required blocking calls and not sure if we want that.",
+      "revId": "e96d15a123472717e20d7a27e2aa3b384099eb90",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "21950066_6a351f66",
         "filename": "redfish-core/lib/pcie.hpp",
         "patchSetId": 5
@@ -31,6 +48,29 @@
       "writtenOn": "2022-05-11T04:01:36Z",
       "side": 1,
       "message": "callback gathers the results of the dbus call, and is used by the getCollectionMemberCallback to generated the members. \n\nHowever, the callback uses async_method_call, so it is two levels of callback.",
+      "revId": "e96d15a123472717e20d7a27e2aa3b384099eb90",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4a73b1e5_e8eccfe9",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-05-11T17:30:12Z",
+      "side": 1,
+      "message": "this is not blocking and code will not be return when you return it.",
+      "range": {
+        "startLine": 36,
+        "startChar": 4,
+        "endLine": 47,
+        "endChar": 16
+      },
       "revId": "e96d15a123472717e20d7a27e2aa3b384099eb90",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
