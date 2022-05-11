@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b8766d9e_109f8572",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-11T16:08:33Z",
+      "side": 1,
+      "message": "Redfish clients per the spec, aren\u0027t allowed to assume an order on these, so any client coded this way would be incorrect to the standard.  Generally when we do this kind of sort, it\u0027s to allow humans to read the files better.",
+      "range": {
+        "startLine": 9,
+        "startChar": 19,
+        "endLine": 9,
+        "endChar": 35
+      },
+      "revId": "9ffdec4179689141fca984ca6b8146434fa70aa8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ff9145c7_205408a9",
         "filename": "/COMMIT_MSG",
         "patchSetId": 5
@@ -14,6 +37,24 @@
       "writtenOn": "2022-05-11T13:45:31Z",
       "side": 1,
       "message": "How this different from default behavior?  Not in sorted?",
+      "revId": "9ffdec4179689141fca984ca6b8146434fa70aa8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8c3aa6cd_1b258e29",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-11T16:08:33Z",
+      "side": 1,
+      "message": "There is no \"default\" behavior.  The previous behavior was sorted based on whatever dbus returned.",
+      "parentUuid": "ff9145c7_205408a9",
       "revId": "9ffdec4179689141fca984ca6b8146434fa70aa8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
