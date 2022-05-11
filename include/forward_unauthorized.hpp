@@ -34,11 +34,41 @@ inline void sendUnauthorized(std::string_view url, std::string_view userAgent,
     {
         res.result(boost::beast::http::status::unauthorized);
         // only send the WWW-authenticate header if this isn't a xhr
-        // from the browser.  Most scripts, tend to not set a user-agent header.
+        // from the browser.  Most scripts tend to not set a user-agent header.
         // So key off that to know whether or not we need to suggest basic auth
+        bool isBrowser = true;
+
+        // Try to "rule out" a browser by using some common scripting utils;  In
+        // practice, this is unfortunate that we have to do this, but we don't
+        // want a www-authenticate login prompt to show up on a browser in the
+        // event of a bad request
+        for (const std::string_view agent :
+             std::to_array({"curl/", "requests/"}))
+        {
+            if (boost::starts_with(userAgent, agent))
+            {
+                isBrowser = false;
+            }
+        }
+
+        // All browsers will set a user-agent
         if (userAgent.empty())
         {
-            res.addHeader("WWW-Authenticate", "Basic");
+            isBrowser = false;
+        }
+
+        // If there's any chance this is a browser, we don't want to propose
+        // basic auth
+        if (!isBrowser)
+        {
+            // If basic auth is disabled, we shouldn't propose it as an auth
+            // option.
+            if (persistent_data::SessionStore::getInstance()
+                    .getAuthMethodsConfig()
+                    .basic)
+            {
+                res.addHeader("WWW-Authenticate", "Basic");
+            }
         }
     }
 }
