@@ -161,6 +161,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f0c1d745_4c535ea5",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-11T16:32:01Z",
+      "side": 1,
+      "message": "1. \"small number of satellites\" is not guaranteed.  As this patch is written, I can instantiate 3 million satellite controllers, and therefore cause safety concerns.\n\n2. This is the same argument for basically any dbus property, and in the past the argument has been made that we don\u0027t want to take global init-memory hits for things that we don\u0027t use, and even if we did, we would want to manage it globally for all dbus objects.  In practice, the existing dbus mechanisms have been fast enough that there wasn\u0027t a lot of reason to take on the complexities of a cache, and in the cases we\u0027ve done that, we\u0027ve end up reverting it (search for UserCache in the history) because it\u0027s non-trivial to cache dbus resources.\n\n3. Yep.  \"check dbus for every request\" is how basically every handler in bmcweb works today.  Doing it this way at first is more of a mechanism for proving the need for the complexity of a cache, and keeping this patchset small, rather than being a permanent thing.\n\n\n4/5. That question is better answered in another patch;  What you suggested probably needs some match expressions to add/remove elements as we\u0027ve done elsewhere, but that code is non-trivial.\n\n\n\n\nTo be clear, I\u0027m not saying we don\u0027t need to do this in the end, but in terms of incremental progress, and keeping the patches additive, I\u0027d like to start with a synchronous version first, because we have a lot of experience with that pattern, and that way, when we add that cache, we can say \"in real use cases, this makes requests X% faster\" so that the complexity is justified, or, if we hit similar cases like we have in the past, where adding the cache only added \u003c2% performance improvement, we\u0027ve saved the complexity.",
+      "parentUuid": "c97b37e6_79b477dc",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 68
+      },
+      "revId": "7f1294feda9ba6f341619e9c83182de8b9fbcc22",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b3c511b8_cc2c79e0",
         "filename": "redfish-core/include/redfish_aggregator.hpp",
         "patchSetId": 17
@@ -342,6 +366,30 @@
         "startChar": 30,
         "endLine": 195,
         "endChar": 33
+      },
+      "revId": "7f1294feda9ba6f341619e9c83182de8b9fbcc22",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0039ce95_93c43d1c",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-11T16:32:01Z",
+      "side": 1,
+      "message": "👍",
+      "parentUuid": "c3571227_a97f797e",
+      "range": {
+        "startLine": 195,
+        "startChar": 8,
+        "endLine": 195,
+        "endChar": 34
       },
       "revId": "7f1294feda9ba6f341619e9c83182de8b9fbcc22",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
