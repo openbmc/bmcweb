@@ -29,6 +29,8 @@ namespace redfish
         return false;
     }
 
+    res.addHeader("OData-Version", "4.0");
+
     std::optional<query_param::Query> queryOpt =
         query_param::parseParameters(req.urlView.params(), res);
     if (queryOpt == std::nullopt)
