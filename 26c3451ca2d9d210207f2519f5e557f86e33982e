@@ -89,6 +89,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cfde4241_513ab206",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 831,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-05-11T17:19:29Z",
+      "side": 1,
+      "message": "actually, this is a collection, so maybe a new getDriveCollectrion",
+      "parentUuid": "f9c6af7d_3519810d",
+      "revId": "26c3451ca2d9d210207f2519f5e557f86e33982e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "02ee3f43_a7b8a4fc",
         "filename": "redfish-core/lib/chassis.hpp",
         "patchSetId": 22
