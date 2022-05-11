@@ -581,6 +581,15 @@ inline void requestRoutesUpdateService(App& app)
                 "Service for Software Update";
             asyncResp->res.jsonValue["Name"] = "Update Service";
 
+#ifdef BMCWEB_ENABLE_REDFISH_UPDATESERVICE_OLD_POST_URL
+            // See note about later on in this file about why this is neccesary
+            // This is "Wrong" per the standard, but is done temporarily to
+            // avoid noise in failing tests as people transition to having this
+            // option disabled
+            asyncResp->res.addHeader(boost::beast::http::field::allow,
+                                     "GET, PATCH, HEAD");
+#endif
+
             asyncResp->res.jsonValue["HttpPushUri"] =
                 "/redfish/v1/UpdateService/update";
 
