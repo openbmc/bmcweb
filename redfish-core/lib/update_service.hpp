@@ -580,8 +580,10 @@ inline void requestRoutesUpdateService(App& app)
             asyncResp->res.jsonValue["Description"] =
                 "Service for Software Update";
             asyncResp->res.jsonValue["Name"] = "Update Service";
+
             asyncResp->res.jsonValue["HttpPushUri"] =
-                "/redfish/v1/UpdateService";
+                "/redfish/v1/UpdateService/update";
+
             // UpdateService cannot be disabled
             asyncResp->res.jsonValue["ServiceEnabled"] = true;
             asyncResp->res.jsonValue["FirmwareInventory"]["@odata.id"] =
@@ -718,7 +720,30 @@ inline void requestRoutesUpdateService(App& app)
             }
         });
 
+// The "old" behavior of the update service URI causes redfish-service validator
+// failures when the Allow header is supported, given that in the spec,
+// UpdateService does not allow POST.  in openbmc, we unfortunately reused that
+// resource as our HttpPushUri as well.  A number of services, including the
+// openbmc tests, and documentation have hardcoded that erroneous API, instead
+// of relying on HttpPushUri as the spec requires.  This option will exist
+// temporarily to allow the old behavior until Q4 2022, at which time it will be
+// removed.
+#ifdef BMCWEB_ENABLE_REDFISH_UPDATESERVICE_OLD_POST_URL
     BMCWEB_ROUTE(app, "/redfish/v1/UpdateService/")
+        .privileges(redfish::privileges::postUpdateService)
+        .methods(
+            boost::beast::http::verb::
+                post)([&app](
+                          const crow::Request& req,
+                          const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+            asyncResp->res.addHeader(
+                boost::beast::http::field::warning,
+                "299 - \"POST to /redfish/v1/UpdateService is deprecated. Use "
+                "the value contained within HttpPushUri.\"");
+            handleUpdateServicePost(app, req, res);
+        });
+#endif
+    BMCWEB_ROUTE(app, "/redfish/v1/UpdateService/update/")
         .privileges(redfish::privileges::postUpdateService)
         .methods(boost::beast::http::verb::post)(
             std::bind_front(handleUpdateServicePost, std::ref(app)));
