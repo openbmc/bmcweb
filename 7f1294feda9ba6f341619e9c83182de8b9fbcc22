@@ -185,6 +185,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "44972a73_0f441309",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-05-11T18:13:17Z",
+      "side": 1,
+      "message": "Understood, thank you for indulging me haha and no I didn\u0027t think you were arguing against ever doing it.  I\u0027ll make the changes to enable repeated lookups in future patches.\n\nAs part of this I might remove the patch I mentioned which is adding a D-Bus signal match (https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/53455) from this patch chain.  I don\u0027t think it\u0027ll have much use unless satellite config caching is added.  I\u0027ll leave that discussion though to its own patch.",
+      "parentUuid": "f0c1d745_4c535ea5",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 68
+      },
+      "revId": "7f1294feda9ba6f341619e9c83182de8b9fbcc22",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b3c511b8_cc2c79e0",
         "filename": "redfish-core/include/redfish_aggregator.hpp",
         "patchSetId": 17
