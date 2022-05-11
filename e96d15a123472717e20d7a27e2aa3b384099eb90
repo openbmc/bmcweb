@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cafa1982_fbf51187",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-05-11T04:01:36Z",
+      "side": 1,
+      "message": "\"In any moment of decision, the best thing you can do is the right thing, \nthe next best thing is the wrong thing, \nand the worst thing you can do is nothing.\"",
+      "revId": "e96d15a123472717e20d7a27e2aa3b384099eb90",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "21950066_6a351f66",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-05-11T04:01:36Z",
+      "side": 1,
+      "message": "callback gathers the results of the dbus call, and is used by the getCollectionMemberCallback to generated the members. \n\nHowever, the callback uses async_method_call, so it is two levels of callback.",
+      "revId": "e96d15a123472717e20d7a27e2aa3b384099eb90",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
