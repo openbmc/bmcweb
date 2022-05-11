@@ -48,6 +48,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "987fcb66_db330b51",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-11T18:26:05Z",
+      "side": 1,
+      "message": "I don\u0027t think it\u0027s \"a lot\", most running openbmc run it in \"open\" mode, but the number that do \"applicance\" mode is non-zero.  I think enabling it by default should be fine, but given the option already exists, I don\u0027t think we should remove it.",
+      "parentUuid": "2c8957e8_80b141e5",
+      "range": {
+        "startLine": 10,
+        "startChar": 10,
+        "endLine": 10,
+        "endChar": 59
+      },
+      "revId": "3710b409d7330e7d2462db2b9224e202018dd2e0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3b52ecad_a93810e5",

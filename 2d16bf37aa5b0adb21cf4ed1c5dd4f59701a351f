@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "29702653_0618e74f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-11T18:26:05Z",
+      "side": 1,
+      "message": "LGTM.  Leaving open for a bit to see if there are any opinions here, but it seems in line with what we do elsewhere:  Enable everything we can, and let users opt out of it.",
+      "revId": "2d16bf37aa5b0adb21cf4ed1c5dd4f59701a351f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
