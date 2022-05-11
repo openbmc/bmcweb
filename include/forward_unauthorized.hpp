@@ -8,7 +8,8 @@ namespace forward_unauthorized
 
 static bool hasWebuiRoute = false;
 
-inline void sendUnauthorized(std::string_view url, std::string_view userAgent,
+inline void sendUnauthorized(std::string_view url,
+                             std::string_view xRequestedWith,
                              std::string_view accept, crow::Response& res)
 {
     // If it's a browser connecting, don't send the HTTP authenticate
@@ -33,12 +34,18 @@ inline void sendUnauthorized(std::string_view url, std::string_view userAgent,
     else
     {
         res.result(boost::beast::http::status::unauthorized);
-        // only send the WWW-authenticate header if this isn't a xhr
-        // from the browser.  Most scripts, tend to not set a user-agent header.
-        // So key off that to know whether or not we need to suggest basic auth
-        if (userAgent.empty())
+
+        // XHR requests from a browser will set the X-Requested-With header when
+        // doing their requests, even though they might not be requesting html.
+        if (!xRequestedWith.empty())
         {
-            res.addHeader("WWW-Authenticate", "Basic");
+            // Only propose basic auth as an option if it's enabled.
+            if (persistent_data::SessionStore::getInstance()
+                    .getAuthMethodsConfig()
+                    .basic)
+            {
+                res.addHeader("WWW-Authenticate", "Basic");
+            }
         }
     }
 }
