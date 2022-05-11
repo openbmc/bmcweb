@@ -214,6 +214,17 @@ option(
 )
 
 option(
+    'redfish-post-to-old-updateservice',
+    type: 'feature',
+    value: 'enabled',
+    description: '''Allows POST to /redfish/v1/UpdateService, counter to
+                    the redfish specification.  Option provided to allow
+                    potential users to move away from using this endpoint.
+                    Option will be removed Q4 2022.'''
+)
+
+
+option(
     'https_port',
     type: 'integer',
     min: 1,
