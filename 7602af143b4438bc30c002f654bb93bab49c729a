@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d3cb9aeb_d1e4f817",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 1001048
+      },
+      "writtenOn": "2022-05-12T09:46:24Z",
+      "side": 1,
+      "message": "nit : better to make this function as const if treated at getter function ..?",
+      "revId": "7602af143b4438bc30c002f654bb93bab49c729a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3e9e2d61_c51a5b0f",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 1001048
+      },
+      "writtenOn": "2022-05-12T09:46:24Z",
+      "side": 1,
+      "message": "same as line number 277",
+      "revId": "7602af143b4438bc30c002f654bb93bab49c729a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
