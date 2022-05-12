@@ -227,6 +227,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4f9120c7_3e1daf73",
+        "filename": "redfish-core/lib/virtual_media.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 919,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-12T15:42:06Z",
+      "side": 1,
+      "message": "\u003e Seems like this piece of code it to \"hide\" implementation of InsertMedia action in \"proxy\" mode from user. For user the response for non existing node should be \"not found\", but we get \"method not allowed\" instead.\n\u003e That\u0027s because there is implementation for \"legacy\" part. And \"method not allowed\" there is actually correct (and assured by implementation)\n\u003e \n\u003e For proxy we pretend that this node does not exist at all. \n\u003e \n\u003e I will make them all defined one by one without confusing foor loop, but it will look quite odd.\n\n\nI\u0027m really not following.  Can you please move the handling of this 404/403 condition to another patch, with an explanation of why its needed, and we can go from there?\n\n\"Method not allowed\" generally applies to a URI class handler, and if you\u0027re getting the wrong code, it generally means that the implementation wasn\u0027t specific enough when it registered handlers.\n\nAlso, FWIW, the specification is not very strict in this regard, given that actually seeing this behavior would require a user to ignore the redfish tree and write urls themselves, so as a general rule, I prefer to avoid complexity in that regard.  If we\u0027re going to go to those lengths to make sure method not allowed versus not found are correct, I\u0027d like to at least understand the rules we\u0027re following, ideally with some changes to the error code section of the developing guide, and some examples of why the distinction in error codes is important to a user.\n\nLike I said, lets split out this portion of the change into another patch, and we can continue from there.",
+      "parentUuid": "fa1ca91d_2074b129",
+      "range": {
+        "startLine": 915,
+        "startChar": 0,
+        "endLine": 919,
+        "endChar": 5
+      },
+      "revId": "f3b857295e92b99091bfd5fa8d7f3861fca70124",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cb897d0a_77d667bd",
         "filename": "redfish-core/lib/virtual_media.hpp",
         "patchSetId": 1
