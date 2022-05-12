@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "494ea968_27928be4",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 720,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-05-12T03:04:27Z",
+      "side": 1,
+      "message": "Saw this above too. White space changes. This clang-format doing this?",
+      "revId": "ec65d3b0b442ae836a851ed1dd8f61deb4e32f84",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
