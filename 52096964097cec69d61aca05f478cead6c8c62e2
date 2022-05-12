@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "765f02a4_78557fd6",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 435,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-05-12T17:16:38Z",
+      "side": 1,
+      "message": "string::empty() returns a boolean. I might misunderstand your comment but empty() doesn\u0027t work IIUC.\n\nI did a bit of research and found that returning a c string is not as efficient as calling the constructor of std::string.",
+      "parentUuid": "377fc1b3_704ee497",
+      "revId": "52096964097cec69d61aca05f478cead6c8c62e2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "451dcbb8_6e60d716",
@@ -35,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d2006631_5c25edaa",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 441,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-05-12T17:16:38Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "451dcbb8_6e60d716",
+      "revId": "52096964097cec69d61aca05f478cead6c8c62e2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a4aa12bb_29ce0f20",
@@ -48,6 +84,24 @@
       "writtenOn": "2022-05-12T09:51:17Z",
       "side": 1,
       "message": "same as line number 435",
+      "revId": "52096964097cec69d61aca05f478cead6c8c62e2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e875ba46_1361c56e",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 452,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-05-12T17:16:38Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a4aa12bb_29ce0f20",
       "revId": "52096964097cec69d61aca05f478cead6c8c62e2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
