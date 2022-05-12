@@ -142,6 +142,30 @@
       },
       "revId": "41c2714fed22b9a194dc506bccb033d97f73240d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f207d0d0_0cac09e0",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 675,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-12T16:13:54Z",
+      "side": 1,
+      "message": "Either one is fine.  FWIW, in bmcweb, logging is generally either enabled or disabled, with no in between that\u0027s explicitly selectable without patching a line of code in webserver_main, and in general, I haven\u0027t seen anyone actually do that.\n\nJust make sure that you\u0027re disabling logging anytime you do any sort of performance testing, and we should be fine.",
+      "parentUuid": "71555bc0_1f689fa0",
+      "range": {
+        "startLine": 675,
+        "startChar": 28,
+        "endLine": 675,
+        "endChar": 44
+      },
+      "revId": "41c2714fed22b9a194dc506bccb033d97f73240d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
