@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8ee3992d_4f8e06e5",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 583,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-12T15:28:34Z",
+      "side": 1,
+      "message": "My original thinking is that I wasn\u0027t sure if the \"fake out allow header\" patch would work, but it seems to, so that being the case, I like your idea better.\n\nACK",
+      "parentUuid": "c85593e2_a02a7faa",
+      "revId": "f242e4e5f8ae0f0645026d8d34b37433a9a76fc9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3f419aca_0b615148",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 2
@@ -49,6 +67,24 @@
       "side": 1,
       "message": "I agree. We can add new, correct url without any compilation flag.\n\nAbout the old one. Can we keep it behind compilation flag and add ResourceDeprecated to response to indicate that users should switch to different resource? Otherwise many users will be unaware that this will be soon removed.",
       "parentUuid": "3f419aca_0b615148",
+      "revId": "f242e4e5f8ae0f0645026d8d34b37433a9a76fc9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5cce0cf2_4b0a94e2",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 740,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-12T15:28:34Z",
+      "side": 1,
+      "message": "Ack.  I didn\u0027t think we could have both enabled with the way allow headers work, but it looks like the fake out patch will work in all cases, so it should be possible.\n\nAs far as returning ResourceDeprecated, that too could break clients.  Given that in this case we\u0027re talking about clients that explicitly ignored the spec, it\u0027s quite possible they ignored the error handling specs as well.\n\nI\u0027m open to opinions here, but if we go the ResourceDeprecated route, I\u0027d like to do it a little later.\n\nAlso, FWIW, this URI is not a \"resource\", which is part of the problem here, and why it has an HttpPUshUri property in the tree.",
+      "parentUuid": "116c9ea5_144f899d",
       "revId": "f242e4e5f8ae0f0645026d8d34b37433a9a76fc9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
