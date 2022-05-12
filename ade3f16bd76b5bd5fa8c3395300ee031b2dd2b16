@@ -444,6 +444,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "da03a3e8_26616080",
+        "filename": "include/google/google_service_root.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-12T16:35:02Z",
+      "side": 1,
+      "message": "Sorry to key on this, but either:\n\nA. we\u0027re following the odata/redfish resource spec, in which case description I believe is required by the schemas as they\u0027re written in this patch.\nB. We don\u0027t have a need to follow the odata spec, so the schema definitions can be removed to save the complexity of writing them, and having them be incorrect/not followed.\n\nI\u0027m fine with either approach, but a middle ground of \"we write odata schemas, but them don\u0027t follow them\" I don\u0027t think is in our best interest here, as it largely defeats the purpose of writing down the schema in the first place.",
+      "parentUuid": "63ca42ec_73987968",
+      "range": {
+        "startLine": 88,
+        "startChar": 42,
+        "endLine": 88,
+        "endChar": 46
+      },
+      "revId": "ade3f16bd76b5bd5fa8c3395300ee031b2dd2b16",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9b08ad3f_7570591d",
         "filename": "include/google/google_service_root.hpp",
         "patchSetId": 1
@@ -621,6 +645,30 @@
       "side": 1,
       "message": "Hex encoding is also not super friendly for parsing in our usecases but it helps us with\na) debugging things faster\nb) achieve parity with how we currently represent things on the gsys methods.\n\nOpting for hex, because the strings are also not very large. ~100 bytes.",
       "parentUuid": "4ca61456_43902534",
+      "range": {
+        "startLine": 112,
+        "startChar": 16,
+        "endLine": 112,
+        "endChar": 27
+      },
+      "revId": "ade3f16bd76b5bd5fa8c3395300ee031b2dd2b16",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "99be5fbd_4663d69c",
+        "filename": "include/google/google_service_root.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-12T16:35:02Z",
+      "side": 1,
+      "message": "Sure, fine as is.",
+      "parentUuid": "882682f0_76c5ea06",
       "range": {
         "startLine": 112,
         "startChar": 16,
