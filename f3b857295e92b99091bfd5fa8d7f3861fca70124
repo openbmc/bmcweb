@@ -203,6 +203,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fa1ca91d_2074b129",
+        "filename": "redfish-core/lib/virtual_media.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 919,
+      "author": {
+        "id": 1000460
+      },
+      "writtenOn": "2022-05-12T13:03:11Z",
+      "side": 1,
+      "message": "Seems like this piece of code it to \"hide\" implementation of InsertMedia action in \"proxy\" mode from user. For user the response for non existing node should be \"not found\", but we get \"method not allowed\" instead. That\u0027s because there is implementation for \"legacy\" part. And \"method not allowed\" there is actually correct (and assured by implementation)\n\nFor proxy we pretend that this node does not exist at all. \n\nI will make them all defined one by one without confusing foor loop, but it will look quite odd.",
+      "parentUuid": "dd1f0fbe_d08492f3",
+      "range": {
+        "startLine": 915,
+        "startChar": 0,
+        "endLine": 919,
+        "endChar": 5
+      },
+      "revId": "f3b857295e92b99091bfd5fa8d7f3861fca70124",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cb897d0a_77d667bd",
         "filename": "redfish-core/lib/virtual_media.hpp",
         "patchSetId": 1
