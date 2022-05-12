@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b5387b0e_ae6317f7",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-05-12T16:42:32Z",
+      "side": 1,
+      "message": "Yeah that should be fine. I now just construct the http:Request in ConnectionPool.sendData().  If a connection is available then that request is moved to the connection, otherwise it gets moved to the queue of pending requests.",
+      "parentUuid": "9c56e53a_6193111c",
+      "revId": "bba0e0de8e2e84103817735a77feaa30e327481c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ea9e35e8_229407a2",
@@ -31,6 +49,30 @@
       "writtenOn": "2022-05-02T17:08:56Z",
       "side": 1,
       "message": "Both of these are copies of potentially large objects.  I suspect you want to std::move these.",
+      "range": {
+        "startLine": 414,
+        "startChar": 0,
+        "endLine": 415,
+        "endChar": 42
+      },
+      "revId": "bba0e0de8e2e84103817735a77feaa30e327481c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bcbb8989_b67c95c9",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 415,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-05-12T16:42:32Z",
+      "side": 1,
+      "message": "I\u0027ve made the change",
+      "parentUuid": "ea9e35e8_229407a2",
       "range": {
         "startLine": 414,
         "startChar": 0,
