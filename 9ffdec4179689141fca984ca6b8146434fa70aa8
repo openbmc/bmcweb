@@ -139,6 +139,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "26314eb4_e47fa23a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-12T15:33:20Z",
+      "side": 1,
+      "message": "The sort order is undefined (ie, whatever order is returned on dbus).  It\u0027s not surprising that you two got different behavior.",
+      "parentUuid": "8dfc9812_8551278c",
+      "revId": "9ffdec4179689141fca984ca6b8146434fa70aa8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "ca87eaf4_6fba55c8",
         "filename": "include/human_sort.hpp",
         "patchSetId": 5

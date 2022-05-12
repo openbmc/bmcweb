@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d9fae7dd_e8349332",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-12T15:33:20Z",
+      "side": 1,
+      "message": "Two pretty nitpicky comments, but LGTM",
+      "revId": "0b2bb07b3e0e1924843fe7f6ddfdbd293ed72e19",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c51325df_7a88d5c4",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 409,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-12T15:33:20Z",
+      "side": 1,
+      "message": "Please make these const auto\u0026",
+      "range": {
+        "startLine": 409,
+        "startChar": 51,
+        "endLine": 409,
+        "endChar": 55
+      },
+      "revId": "0b2bb07b3e0e1924843fe7f6ddfdbd293ed72e19",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "67748d17_e5900b5e",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 410,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-12T15:33:20Z",
+      "side": 1,
+      "message": "nit, please use alphaNumLess here, as that\u0027s the operation you\u0027re doing (a less compare).",
+      "range": {
+        "startLine": 410,
+        "startChar": 44,
+        "endLine": 410,
+        "endChar": 52
+      },
+      "revId": "0b2bb07b3e0e1924843fe7f6ddfdbd293ed72e19",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
