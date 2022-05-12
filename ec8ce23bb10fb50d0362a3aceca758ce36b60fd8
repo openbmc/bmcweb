@@ -33,6 +33,24 @@
       "message": "This seems reasonable for now",
       "revId": "ec8ce23bb10fb50d0362a3aceca758ce36b60fd8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d9cd4d9e_86087f9f",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 589,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-12T16:03:31Z",
+      "side": 1,
+      "message": "FWIW, I really don\u0027t like it, but hopefully we can get off of it soon.",
+      "parentUuid": "1d207c3c_70d65d45",
+      "revId": "ec8ce23bb10fb50d0362a3aceca758ce36b60fd8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
