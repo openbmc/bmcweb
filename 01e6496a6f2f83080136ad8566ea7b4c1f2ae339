@@ -16,6 +16,24 @@
       "message": "Everything from this point on are fixes to remove the commit error I made.",
       "revId": "01e6496a6f2f83080136ad8566ea7b4c1f2ae339",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "de28333a_e839c2e0",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 1212,
+      "author": {
+        "id": 1001428
+      },
+      "writtenOn": "2022-05-12T01:03:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e51fa25d_916013e5",
+      "revId": "01e6496a6f2f83080136ad8566ea7b4c1f2ae339",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
