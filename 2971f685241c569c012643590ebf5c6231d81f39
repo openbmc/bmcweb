@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "236474d6_a28b95ac",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1001048
+      },
+      "writtenOn": "2022-05-12T09:33:52Z",
+      "side": 1,
+      "message": "Can you add more details about this commit i.e what was the issue and how it fixed.",
+      "revId": "2971f685241c569c012643590ebf5c6231d81f39",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
