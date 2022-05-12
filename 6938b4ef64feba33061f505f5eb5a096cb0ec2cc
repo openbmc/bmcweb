@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b62ed3fd_2ce00f7c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-12T17:27:48Z",
+      "side": 1,
+      "message": "One super minor thing on copying payloads, then this looks good to go.",
+      "revId": "6938b4ef64feba33061f505f5eb5a096cb0ec2cc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "438180e6_8e6f16af",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-12T17:27:48Z",
+      "side": 1,
+      "message": "As written, this is making a complete copy of the request, which, given its size, we ideally shouldn\u0027t.  Can we accept this by \u0026\u0026, then use std::move on line 82?",
+      "range": {
+        "startLine": 79,
+        "startChar": 13,
+        "endLine": 79,
+        "endChar": 75
+      },
+      "revId": "6938b4ef64feba33061f505f5eb5a096cb0ec2cc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

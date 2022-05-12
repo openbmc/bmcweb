@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3caa55ef_e2df7d5e",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-12T17:27:48Z",
+      "side": 1,
+      "message": "Looks like you went with the boost::messages::request version of that, which is fine, and solves the problem I pointed out.",
+      "parentUuid": "b5387b0e_ae6317f7",
+      "revId": "bba0e0de8e2e84103817735a77feaa30e327481c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ea9e35e8_229407a2",
