@@ -16,6 +16,24 @@
       "message": "Saw this above too. White space changes. This clang-format doing this?",
       "revId": "ec65d3b0b442ae836a851ed1dd8f61deb4e32f84",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1d6b3f73_c4637f73",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 720,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-12T16:02:45Z",
+      "side": 1,
+      "message": "I probably did it with copy/pasting around.  I do think whitespace between these declarations is better, but it\u0027s probably not worth its own patch to do.",
+      "parentUuid": "494ea968_27928be4",
+      "revId": "ec65d3b0b442ae836a851ed1dd8f61deb4e32f84",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
