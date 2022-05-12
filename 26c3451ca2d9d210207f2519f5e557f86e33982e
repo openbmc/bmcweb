@@ -168,6 +168,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e72bc75c_54442a14",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 818,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-05-12T03:28:49Z",
+      "side": 1,
+      "message": "The patchset you commented on constructs a string in another line?\n\nBut I will switch to urlFromPieces.",
+      "parentUuid": "a12d6e20_0ba30d89",
+      "range": {
+        "startLine": 818,
+        "startChar": 62,
+        "endLine": 818,
+        "endChar": 64
+      },
+      "revId": "26c3451ca2d9d210207f2519f5e557f86e33982e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f9c6af7d_3519810d",
         "filename": "redfish-core/lib/chassis.hpp",
         "patchSetId": 22
@@ -215,6 +239,24 @@
       "side": 1,
       "message": "\u003e shouldn\u0027t this be part of ..\n\nI don\u0027t think so the url is /redfish/v1/Chassis/\u003cChassisName\u003e/Drives/ only returns a list of drives that are in the chassis in question.\nThere is some shared logic, but most of that logic is in the getCollectionMembers logic, which can be unified across several places. And there is work in progress to do that.\n\n\u003e actually, this is a collection, so maybe a new getDriveCollectrion\nI assume this is for the comment below, and yes.",
       "parentUuid": "cfde4241_513ab206",
+      "revId": "26c3451ca2d9d210207f2519f5e557f86e33982e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba03a385_b88200ca",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 831,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-05-12T03:28:49Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "69473839_e4436075",
       "revId": "26c3451ca2d9d210207f2519f5e557f86e33982e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -352,6 +394,30 @@
       "side": 1,
       "message": "The key here is that which permission to use is controlled by the odata.type you\u0027re returning.",
       "parentUuid": "149d6336_8e4382a8",
+      "range": {
+        "startLine": 834,
+        "startChar": 20,
+        "endLine": 834,
+        "endChar": 51
+      },
+      "revId": "26c3451ca2d9d210207f2519f5e557f86e33982e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3e3aa92f_a8c25383",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 834,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-05-12T03:28:49Z",
+      "side": 1,
+      "message": "I never thought the permissions where very serious. How many people are using them?\n\nThat is interesting to think about. The behavior described by Willy is what I would want a system to do. However, the current patters (permission based on returned odata.type) is consistent.",
+      "parentUuid": "c965f15f_6cbfb5ca",
       "range": {
         "startLine": 834,
         "startChar": 20,
