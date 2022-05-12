@@ -33,6 +33,41 @@
       "message": "@gunnar @sunitha\n\nCan you guys take a look at how this got missed for this long?  Is this code still used?  The only way I can see this as having been missed is if the test harness and clients were hardcoding URLs, which, if they are, we need to get sorted out quickly as a pattern.\n\nPatchset LGTM",
       "revId": "2971f685241c569c012643590ebf5c6231d81f39",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a4a9b810_c2673092",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-05-12T20:59:58Z",
+      "side": 1,
+      "message": "I think this got missed because for some reason we had this correct in our downstream code.\n\nI went and looked at the GUI and it appears to have done this correctly so still thought this should have been reported so idk. 🤷 \nhttps://github.com/openbmc/webui-vue/search?q\u003dAdditionalDataURI\n\nThe test code doesn\u0027t appears not to use: \nhttps://github.com/openbmc/openbmc-test-automation/search?q\u003dAdditionalDataURI\nhttps://github.com/openbmc/openbmc-test-automation/search?q\u003dattachment\n\nSo I don\u0027t see any clients hardcoding..",
+      "parentUuid": "136fd51f_e59b3980",
+      "revId": "2971f685241c569c012643590ebf5c6231d81f39",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5e6923b5_7f090809",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1589,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-05-12T20:59:58Z",
+      "side": 1,
+      "message": "The route is right, just the link... \"/redfish/v1/Systems/system/LogServices/EventLog/Entries/\u003cstr\u003e/attachment\"",
+      "revId": "2971f685241c569c012643590ebf5c6231d81f39",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
