@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fe998ca3_6d183bb9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 22
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-12T15:59:52Z",
+      "side": 1,
+      "message": "Please wrap your commit message 50/72, as the developing guide asks.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 25
+      },
+      "revId": "5c5e5b2bef0148bb0fc7c466f189ad0461c8e8aa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "25548502_6df8d9d5",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 1158,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-12T15:59:52Z",
+      "side": 1,
+      "message": "Please don\u0027t hardcode a specific service name.  Use the mapper as we do elsewhere.",
+      "range": {
+        "startLine": 1158,
+        "startChar": 48,
+        "endLine": 1158,
+        "endChar": 78
+      },
+      "revId": "5c5e5b2bef0148bb0fc7c466f189ad0461c8e8aa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
