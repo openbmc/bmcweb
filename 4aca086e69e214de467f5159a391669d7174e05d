@@ -232,6 +232,24 @@
       "parentUuid": "3a93c8f4_54487a63",
       "revId": "4aca086e69e214de467f5159a391669d7174e05d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "86a6e6fb_9212f210",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-05-13T17:11:45Z",
+      "side": 1,
+      "message": "Sure. It is something like this\n\n```\nfor i in {1..4};\ndo\n  echo \"thread $i\"\n  wget -qO- \u0027http://localhost:18080/redfish/v1?$expand\u003d*($levels\u003d6)\u0027 \u003e \"/tmp/$i.log\" \u0026\ndone\n \nfor i in {1..1000};\ndo\n  top -b -n 1 | grep bmcweb \u003e\u003e /tmp/bmcweb_ori.log\n  sleep 1\ndone\n```\n\nThen in the log of \"top\", I just picked the peak. Do you want this script go into the script directory?",
+      "parentUuid": "d207b49f_39d89269",
+      "revId": "4aca086e69e214de467f5159a391669d7174e05d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
