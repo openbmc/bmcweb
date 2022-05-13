@@ -214,6 +214,24 @@
       "parentUuid": "e72768cf_29405501",
       "revId": "4aca086e69e214de467f5159a391669d7174e05d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d207b49f_39d89269",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-05-13T08:49:21Z",
+      "side": 1,
+      "message": "Can you post your script which measures memory usage? Maybe uploading your script will move this review forward. It would also allow others to perform same test on different HW.",
+      "parentUuid": "3a93c8f4_54487a63",
+      "revId": "4aca086e69e214de467f5159a391669d7174e05d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
