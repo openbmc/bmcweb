@@ -124,7 +124,7 @@ struct Response
         stringResponse->body() += std::string(bodyPart);
     }
 
-    void end()
+    std::string getEtag() const
     {
         // Only set etag if this request succeeded
         if (result() == boost::beast::http::status::ok)
@@ -134,8 +134,18 @@ struct Response
             {
                 size_t hashval = std::hash<nlohmann::json>{}(jsonValue);
                 std::string hexVal = "\"" + intToHexString(hashval, 8) + "\"";
-                addHeader(boost::beast::http::field::etag, hexVal);
+                return hexVal;
             }
+        }
+        return "";
+    }
+
+    void end()
+    {
+        std::string etag = getEtag();
+        if (!etag.empty())
+        {
+            addHeader(boost::beast::http::field::etag, etag);
         }
         if (completed)
         {
