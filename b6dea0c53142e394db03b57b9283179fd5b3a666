@@ -201,6 +201,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f5d68d9_44dc680e",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2022-05-13T15:20:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "129728d4_e803f9f8",
+      "range": {
+        "startLine": 201,
+        "startChar": 0,
+        "endLine": 216,
+        "endChar": 5
+      },
+      "revId": "b6dea0c53142e394db03b57b9283179fd5b3a666",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "58307a8c_fd407a93",
@@ -389,6 +413,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bf2b3368_ed53361c",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2022-05-13T15:20:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "28a6ea0e_7e7f5ef9",
+      "range": {
+        "startLine": 266,
+        "startChar": 0,
+        "endLine": 266,
+        "endChar": 65
+      },
+      "revId": "b6dea0c53142e394db03b57b9283179fd5b3a666",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ae0e8fb2_7889bfcc",
@@ -402,6 +450,30 @@
       "writtenOn": "2022-03-11T17:29:30Z",
       "side": 1,
       "message": "Can this return any errors that we would expect?  User account disabled?  something like that?",
+      "range": {
+        "startLine": 275,
+        "startChar": 0,
+        "endLine": 275,
+        "endChar": 56
+      },
+      "revId": "b6dea0c53142e394db03b57b9283179fd5b3a666",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c277a6aa_67863cd4",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2022-05-13T15:20:56Z",
+      "side": 1,
+      "message": "Do we have an error message which describes the account disable or something like that?",
+      "parentUuid": "ae0e8fb2_7889bfcc",
       "range": {
         "startLine": 275,
         "startChar": 0,
