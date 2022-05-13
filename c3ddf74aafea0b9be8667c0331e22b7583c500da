@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "45de828e_e94b8f58",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 420,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-05-13T17:30:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "396294e0_8000bdbd",
+      "range": {
+        "startLine": 420,
+        "startChar": 4,
+        "endLine": 420,
+        "endChar": 34
+      },
+      "revId": "c3ddf74aafea0b9be8667c0331e22b7583c500da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "971e59de_9f3b9e6c",
@@ -82,6 +106,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "de5d2e7f_6aabe40d",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 481,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-05-13T17:30:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0c1e5b05_1d8d332a",
+      "range": {
+        "startLine": 481,
+        "startChar": 4,
+        "endLine": 481,
+        "endChar": 55
+      },
+      "revId": "c3ddf74aafea0b9be8667c0331e22b7583c500da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "48043f40_e83e7c73",
@@ -99,6 +147,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c4f85249_d9d279a5",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 496,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-05-13T17:30:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "48043f40_e83e7c73",
+      "revId": "c3ddf74aafea0b9be8667c0331e22b7583c500da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0748a115_0db2e08d",
@@ -112,6 +178,30 @@
       "writtenOn": "2022-05-13T08:42:50Z",
       "side": 1,
       "message": "const std::string subQuery \u003d node.uri \u003d queryStr;",
+      "range": {
+        "startLine": 499,
+        "startChar": 57,
+        "endLine": 499,
+        "endChar": 76
+      },
+      "revId": "c3ddf74aafea0b9be8667c0331e22b7583c500da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a2e1f050_1cf36b4b",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 499,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-05-13T17:30:22Z",
+      "side": 1,
+      "message": "Done\n\nActually my understanding on this is that (node.uri + queryStr) in the Log print statement doesn\u0027t compile at all when we turn off logs, is that correct?",
+      "parentUuid": "0748a115_0db2e08d",
       "range": {
         "startLine": 499,
         "startChar": 57,
@@ -145,6 +235,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dc1669ca_ad71f04c",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 614,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-05-13T17:30:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b350c73e_1bb71395",
+      "range": {
+        "startLine": 614,
+        "startChar": 7,
+        "endLine": 614,
+        "endChar": 33
+      },
+      "revId": "c3ddf74aafea0b9be8667c0331e22b7583c500da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "94304348_2efc6d26",
@@ -158,6 +272,30 @@
       "writtenOn": "2022-05-13T08:42:50Z",
       "side": 1,
       "message": "Use more descriptive name. I would like to know what kind of output emptyQueryString provides. For example NoSubQeuryWhenQueryIsEmpty",
+      "range": {
+        "startLine": 114,
+        "startChar": 27,
+        "endLine": 114,
+        "endChar": 43
+      },
+      "revId": "c3ddf74aafea0b9be8667c0331e22b7583c500da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b99e8d61_9dfa0dd9",
+        "filename": "redfish-core/include/utils/query_param_test.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-05-13T17:30:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "94304348_2efc6d26",
       "range": {
         "startLine": 114,
         "startChar": 27,
@@ -191,6 +329,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f5c07f3_7d0d63d6",
+        "filename": "redfish-core/include/utils/query_param_test.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-05-13T17:30:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9789ba84_a7c56193",
+      "range": {
+        "startLine": 119,
+        "startChar": 27,
+        "endLine": 119,
+        "endChar": 37
+      },
+      "revId": "c3ddf74aafea0b9be8667c0331e22b7583c500da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8fdb9fc0_dde03847",
@@ -204,6 +366,30 @@
       "writtenOn": "2022-05-13T08:42:50Z",
       "side": 1,
       "message": "If negative test cases are well named this one may be good enough. Still it would be nice to have well named tests which explains conditions that needs to be fulfilled to return output.",
+      "range": {
+        "startLine": 132,
+        "startChar": 27,
+        "endLine": 132,
+        "endChar": 43
+      },
+      "revId": "c3ddf74aafea0b9be8667c0331e22b7583c500da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f7e351c0_bce5e1a6",
+        "filename": "redfish-core/include/utils/query_param_test.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-05-13T17:30:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8fdb9fc0_dde03847",
       "range": {
         "startLine": 132,
         "startChar": 27,
