@@ -808,24 +808,57 @@ inline int assignBootParameters(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
  */
 inline void getBootProgress(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
 {
-    sdbusplus::asio::getProperty<std::string>(
-        *crow::connections::systemBus, "xyz.openbmc_project.State.Host",
-        "/xyz/openbmc_project/state/host0",
-        "xyz.openbmc_project.State.Boot.Progress", "BootProgress",
+    // Get BootProgress object path:
+    crow::connections::systemBus->async_method_call(
         [aResp](const boost::system::error_code ec,
-                const std::string& bootProgressStr) {
+                const dbus::utility::MapperGetObject& objI) {
         if (ec)
         {
-            // BootProgress is an optional object so just do nothing if
-            // not found
+            BMCWEB_LOG_ERROR << "DBUS response error on Boot.Progress." << ec;
+            // BootProgress is an optional object so do nothing if
+            // not found.
             return;
         }
-
+        if (objI.empty())
+        {
+            // listed above BootProgress is optional
+            return;
+        }
+        if (objI.size() > 1)
+        {
+            // More than one BootProgress path should not be found.
+            BMCWEB_LOG_ERROR
+                << "Found more than 1 system D-Bus Boot.Progress objects: "
+                << objI.size();
+            return;
+        }
+        // Valid Boot Progress obj found. Reading values.
+        sdbusplus::asio::getProperty<std::string>(
+            *crow::connections::systemBus, "xyz.openbmc_project.State.Host",
+            "/xyz/openbmc_project/state/host0",
+            "xyz.openbmc_project.State.Boot.Progress", "BootProgress",
+            [aResp](const boost::system::error_code ec,
+                    const std::string& bootProgressStr) {
+            if (ec)
+            {
+                // BootProgress is an optional object but since path
+                // was found report failed get.
+                BMCWEB_LOG_ERROR
+                    << "Found Boot.Progress service, but could not Get value"
+                    << ec;
+                messages::internalError(aResp->res);
+                return;
+            }
         BMCWEB_LOG_DEBUG << "Boot Progress: " << bootProgressStr;
-
         aResp->res.jsonValue["BootProgress"]["LastState"] =
             dbusToRfBootProgress(bootProgressStr);
         });
+        },
+        "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetObject",
+        "/xyz/openbmc_project/state/host0",
+        std::array<const char*, 1>{"xyz.openbmc_project.State.Boot.Progress"});
 }
 
 /**
