@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "396294e0_8000bdbd",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 420,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-05-13T08:42:50Z",
+      "side": 1,
+      "message": "Always prefer self commenting code over comments when possible. Comments are getting old quickly and often are not accurate.\n\nconst nlohmann::json::json_pointer root \u003d nlohmann::json::json_pointer(\"\");\nfindNavigationReferencesRecursive(\n        eType, jsonResponse, root, false, ret);",
+      "range": {
+        "startLine": 420,
+        "startChar": 4,
+        "endLine": 420,
+        "endChar": 34
+      },
+      "revId": "c3ddf74aafea0b9be8667c0331e22b7583c500da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "971e59de_9f3b9e6c",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 5
@@ -14,6 +37,161 @@
       "writtenOn": "2022-05-13T05:04:17Z",
       "side": 1,
       "message": "Wanted to understand why you replace  \"\"  to { } here ?",
+      "revId": "c3ddf74aafea0b9be8667c0331e22b7583c500da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0c1e5b05_1d8d332a",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 481,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-05-13T08:42:50Z",
+      "side": 1,
+      "message": "Your comment is not accurate. Mentioned funtion just placesResult you can see it from the name and code. But there is comment that it places subQueries which sometimes is not true, because it can be used for other purposes as well.\n\nConsider removing this comment.",
+      "range": {
+        "startLine": 481,
+        "startChar": 4,
+        "endLine": 481,
+        "endChar": 55
+      },
+      "revId": "c3ddf74aafea0b9be8667c0331e22b7583c500da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "48043f40_e83e7c73",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 496,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-05-13T08:42:50Z",
+      "side": 1,
+      "message": "const std::string queryStr \u003d ...;",
+      "revId": "c3ddf74aafea0b9be8667c0331e22b7583c500da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0748a115_0db2e08d",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 499,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-05-13T08:42:50Z",
+      "side": 1,
+      "message": "const std::string subQuery \u003d node.uri \u003d queryStr;",
+      "range": {
+        "startLine": 499,
+        "startChar": 57,
+        "endLine": 499,
+        "endChar": 76
+      },
+      "revId": "c3ddf74aafea0b9be8667c0331e22b7583c500da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b350c73e_1bb71395",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 614,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-05-13T08:42:50Z",
+      "side": 1,
+      "message": "You can delete this comment: multi-\u003estartQuest is quite obvious.",
+      "range": {
+        "startLine": 614,
+        "startChar": 7,
+        "endLine": 614,
+        "endChar": 33
+      },
+      "revId": "c3ddf74aafea0b9be8667c0331e22b7583c500da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "94304348_2efc6d26",
+        "filename": "redfish-core/include/utils/query_param_test.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-05-13T08:42:50Z",
+      "side": 1,
+      "message": "Use more descriptive name. I would like to know what kind of output emptyQueryString provides. For example NoSubQeuryWhenQueryIsEmpty",
+      "range": {
+        "startLine": 114,
+        "startChar": 27,
+        "endLine": 114,
+        "endChar": 43
+      },
+      "revId": "c3ddf74aafea0b9be8667c0331e22b7583c500da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9789ba84_a7c56193",
+        "filename": "redfish-core/include/utils/query_param_test.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-05-13T08:42:50Z",
+      "side": 1,
+      "message": "Same here. Make your test name explain why there are no subQueries in cases bellow. When possible each test name should describe functionality of your function. After reading test name I would like to know when your function return no sub queries. Consider test names short form of documentation.",
+      "range": {
+        "startLine": 119,
+        "startChar": 27,
+        "endLine": 119,
+        "endChar": 37
+      },
+      "revId": "c3ddf74aafea0b9be8667c0331e22b7583c500da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8fdb9fc0_dde03847",
+        "filename": "redfish-core/include/utils/query_param_test.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-05-13T08:42:50Z",
+      "side": 1,
+      "message": "If negative test cases are well named this one may be good enough. Still it would be nice to have well named tests which explains conditions that needs to be fulfilled to return output.",
+      "range": {
+        "startLine": 132,
+        "startChar": 27,
+        "endLine": 132,
+        "endChar": 43
+      },
       "revId": "c3ddf74aafea0b9be8667c0331e22b7583c500da",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
