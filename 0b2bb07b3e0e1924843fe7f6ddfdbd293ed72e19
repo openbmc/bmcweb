@@ -41,6 +41,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0b471612_4cd4ad73",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 409,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-05-13T00:13:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c51325df_7a88d5c4",
+      "range": {
+        "startLine": 409,
+        "startChar": 51,
+        "endLine": 409,
+        "endChar": 55
+      },
+      "revId": "0b2bb07b3e0e1924843fe7f6ddfdbd293ed72e19",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "67748d17_e5900b5e",
@@ -54,6 +78,30 @@
       "writtenOn": "2022-05-12T15:33:20Z",
       "side": 1,
       "message": "nit, please use alphaNumLess here, as that\u0027s the operation you\u0027re doing (a less compare).",
+      "range": {
+        "startLine": 410,
+        "startChar": 44,
+        "endLine": 410,
+        "endChar": 52
+      },
+      "revId": "0b2bb07b3e0e1924843fe7f6ddfdbd293ed72e19",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "45981062_3ced0e9e",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 410,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-05-13T00:13:01Z",
+      "side": 1,
+      "message": "Fixed.\n\nAlso tried \"std::sort(resp.begin(), resp.end(), AlphanumLess\u003cstd::string\u003e());\" but it failed to compile:\n\nnote: candidate: \u0027bool AlphanumLess\u003cType\u003e::operator()(const Type\u0026, const Type\u0026) const [with Type \u003d std::__cxx11::basic_string\u003cchar\u003e]\u0027\n|   106 |     bool operator()(const Type\u0026 left, const Type\u0026 right) const\n|       |          ^~~~~~~~\n| ../../../../../../workspace/sources/bmcweb/include/human_sort.hpp:106:33: note:   no known conversion for argument 1 from \u0027std::pair\u003csdbusplus::message::details::string_path_wrapper, [long list of types here]\u0027 to \u0027const std::__cxx11::basic_string\u003cchar\u003e\u0026\u0027",
+      "parentUuid": "67748d17_e5900b5e",
       "range": {
         "startLine": 410,
         "startChar": 44,
