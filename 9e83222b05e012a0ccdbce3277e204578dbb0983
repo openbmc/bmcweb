@@ -67,6 +67,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f6334eea_981b6f84",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1172,
+      "author": {
+        "id": 1001428
+      },
+      "writtenOn": "2022-05-13T08:13:12Z",
+      "side": 1,
+      "message": "A check was added in both getAutomatiRetry() and setautomaticRetryAttempts() to ensure the value can only be read/set if the auto reboot policy is enabled.",
+      "parentUuid": "2408115e_16952e8e",
+      "revId": "9e83222b05e012a0ccdbce3277e204578dbb0983",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "85ec44bf_6b03fb2f",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 1
