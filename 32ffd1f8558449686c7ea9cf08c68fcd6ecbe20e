@@ -152,6 +152,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5b6a7b47_559b3805",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2022-05-13T17:33:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2318e3d1_428af59d",
+      "range": {
+        "startLine": 133,
+        "startChar": 12,
+        "endLine": 133,
+        "endChar": 13
+      },
+      "revId": "32ffd1f8558449686c7ea9cf08c68fcd6ecbe20e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "196550d5_36250421",
@@ -165,6 +189,30 @@
       "writtenOn": "2022-04-06T00:55:25Z",
       "side": 1,
       "message": "Please invert this check to save vertical space.",
+      "range": {
+        "startLine": 145,
+        "startChar": 0,
+        "endLine": 146,
+        "endChar": 9
+      },
+      "revId": "32ffd1f8558449686c7ea9cf08c68fcd6ecbe20e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2f58d537_63f76cd1",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2022-05-13T17:33:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "196550d5_36250421",
       "range": {
         "startLine": 145,
         "startChar": 0,
