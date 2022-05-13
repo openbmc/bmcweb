@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9394e40c_4a6c6608",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 696,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-05-13T00:28:15Z",
+      "side": 1,
+      "message": "Will change to set AdditionalDataSizeBytes inside each branch.\n\nYes in the future there will be a branch for dumpType\u003d\"FaultLog\", just not in this initial commit as it would be empty for now.\n\nI just wanted to avoid outputting AdditionalDataSizeBytes (previously in line 665) for Fault Log without a corresponding AdditionalDataURI (which we aren\u0027t ready to populate for Fault Log yet).",
+      "parentUuid": "fd2dc1a2_ddca41a9",
+      "range": {
+        "startLine": 696,
+        "startChar": 0,
+        "endLine": 696,
+        "endChar": 75
+      },
+      "revId": "593a36efe904090709031787d5142f2f0d0905ed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ba6628ee_49275459",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 3
@@ -37,6 +61,30 @@
       "writtenOn": "2022-05-02T16:02:08Z",
       "side": 1,
       "message": "This is the wrong error code for \"no-op\".  Method not supported would be the http code we should use, not success.\n\nAlso, shouldn\u0027t we be doing this on line 800?",
+      "range": {
+        "startLine": 863,
+        "startChar": 0,
+        "endLine": 865,
+        "endChar": 42
+      },
+      "revId": "593a36efe904090709031787d5142f2f0d0905ed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0664efc6_16a87ebf",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 865,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-05-13T00:28:15Z",
+      "side": 1,
+      "message": "Will change to HTTP 405 (method_not_allowed).\n\nAnd I\u0027ll move the response creation to line 800 and remove the action parameter checking for FaultLog in line 842.",
+      "parentUuid": "ba6628ee_49275459",
       "range": {
         "startLine": 863,
         "startChar": 0,
