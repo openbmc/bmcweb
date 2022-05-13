@@ -1825,15 +1825,10 @@ inline void
         "xyz.openbmc_project.Object.Delete", "Delete");
 }
 
-inline void
-    handleAccountPatch(App& app, const crow::Request& req,
-                       const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                       const std::string& username)
+inline void doAccountModify(const crow::Request& req,
+                            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                            const std::string& username)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
-    {
-        return;
-    }
 #ifdef BMCWEB_INSECURE_DISABLE_AUTHENTICATION
     // If authentication is disabled, there are no user accounts
     messages::resourceNotFound(
@@ -1915,6 +1910,57 @@ inline void
         "xyz.openbmc_project.User.Manager", "/xyz/openbmc_project/user",
         "xyz.openbmc_project.User.Manager", "RenameUser", username,
         *newUserName);
+}
+
+inline void
+    whenAccountGetDone(std::string_view ifMatch, const crow::Request& req,
+                       const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                       const std::string& username,
+                       crow::Response& accountGetResp)
+{
+    std::string etag = accountGetResp.getEtag();
+    if (ifMatch != etag)
+    {
+        // Resource has been modified while request has been going, reject with
+        // 412
+        messages::preconditionFailed(asyncResp->res);
+        return;
+    }
+    doAccountModify(req, asyncResp, username);
+}
+
+inline void
+    checkAccountEtag(App& app, std::string_view ifMatch,
+                     const crow::Request& req,
+                     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                     const std::string& username)
+{
+    std::shared_ptr<bmcweb::AsyncResp> getReq =
+        std::make_shared<bmcweb::AsyncResp>();
+    asyncResp->res.setCompleteRequestHandler(
+        std::bind_front(whenAccountGetDone, std::string(ifMatch), std::ref(req),
+                        asyncResp, username));
+    handleAccountGet(app, req, getReq, username);
+}
+
+inline void
+    handleAccountPatch(App& app, const crow::Request& req,
+                       const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                       const std::string& username)
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+
+    std::string_view ifMatch =
+        req.getHeaderValue(boost::beast::http::field::if_match);
+    if (!ifMatch.empty())
+    {
+        checkAccountEtag(app, ifMatch, req, asyncResp, username);
+        return;
+    }
+    doAccountModify(req, asyncResp, username);
 }
 
 inline void requestAccountServiceRoutes(App& app)
