@@ -104,6 +104,30 @@
       },
       "revId": "5c5e5b2bef0148bb0fc7c466f189ad0461c8e8aa",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "674aece0_9f93acb6",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 1158,
+      "author": {
+        "id": 1001428
+      },
+      "writtenOn": "2022-05-13T08:14:30Z",
+      "side": 1,
+      "message": "The object mapper was implemented in both getAutomatiRetry() and setautomaticRetryAttempts(). \n\nThe get function I will be reworking as well since I believe that if the wrapping of the mapper that I did I did in the set function is correct then I can rework that function accordingly as well since it still has the hard coded paths.",
+      "parentUuid": "25548502_6df8d9d5",
+      "range": {
+        "startLine": 1158,
+        "startChar": 48,
+        "endLine": 1158,
+        "endChar": 78
+      },
+      "revId": "5c5e5b2bef0148bb0fc7c466f189ad0461c8e8aa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
