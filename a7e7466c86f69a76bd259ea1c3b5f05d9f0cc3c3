@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cd451d2d_b3bbe09c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-05-14T17:11:18Z",
+      "side": 1,
+      "message": "Please specify the services besides xyz.openbmc_project.Settings that also implements this interface. This might be better to be added in your commit message.",
+      "revId": "a7e7466c86f69a76bd259ea1c3b5f05d9f0cc3c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
