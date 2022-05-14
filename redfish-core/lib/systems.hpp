@@ -856,34 +856,73 @@ inline void getBootProgress(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
 
 inline void getBootOverrideType(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
 {
-    sdbusplus::asio::getProperty<std::string>(
-        *crow::connections::systemBus, "xyz.openbmc_project.Settings",
-        "/xyz/openbmc_project/control/host0/boot",
-        "xyz.openbmc_project.Control.Boot.Type", "BootType",
+    crow::connections::systemBus->async_method_call(
         [aResp](const boost::system::error_code ec,
-                const std::string& bootType) {
+                const dubs::utility::MapperGetSubTreeResponse subtree) {
             if (ec)
             {
-                // not an error, don't have to have the interface
+                // not an error, just don't have interface.
+                BMCWEB_LOG_DEBUG << "D-bus is missing interface." << ec;
                 return;
             }
-
-            BMCWEB_LOG_DEBUG << "Boot type: " << bootType;
-
-            aResp->res
-                .jsonValue["Boot"]
-                          ["BootSourceOverrideMode@Redfish.AllowableValues"] = {
-                "Legacy", "UEFI"};
-
-            auto rfType = dbusToRfBootType(bootType);
-            if (rfType.empty())
+            if (subtree.empty())
             {
+                // optional interface
+                BMCWEB_LOG_DEBUG << "D-bus is missing interface." << ec;
+                return;
+            }
+            if (subtree.size() > 1)
+            {
+                BMCWEB_LOG_DEBUG
+                    << "DBUS response has more than 1 reported path to interface."
+                    << subtree.size();
+                // throw an error
                 messages::internalError(aResp->res);
                 return;
             }
+            if (subtree[0].first.empty() ||
+                subtree[0].second.size() != 1)
+            {
+                BMCWEB_LOG_DEBUG
+                    << "Boot.Type mapper error!";
+                messages::internalError(aResp->res);
+                return;
+            }
+            const std::string& path = subtree[0].first;
+            const std::string& serv = subtree[0].second.begin()->first;
 
-            aResp->res.jsonValue["Boot"]["BootSourceOverrideMode"] = rfType;
+            // Valid RebootAttempts found, read the value
+            sdbusplus::asio::getProperty<std::string>(
+                *crow::connections::systemBus, serv, path,
+                "xyz.openbmc_project.Boot.Type", "BootType",
+                [aResp](const boost::system::error_code ec1,
+                        const std::string& bootType) {
+                    if (ec)
+                    {
+                        // not an error, don't have interface
+                        return;
+                    }
+                    BMCWEB_LOG_DEBUG << "Boot type: " << bootType;
+
+                    aresp->res.jsonValue
+                        ["Boot"]
+                        ["BootSourceOverrideMode@Redfish.AllowableValues"] = {
+                        "Legacy", "UEFI"};
+
+                    auto rfType = dbusToRfBootType(bootType);
+                    if (rfType.empty())
+                    {
+                        messages::internalError(aResp->res);
+                        return;
+                    }
+
+                    aResp->res.jsonValue["Boot"]["BootSourceOverrideMode"] = rfType;
         });
+   
+       },
+       "xyz.openbmc_project.ObjectMapper", "xyz/openbmc_project/Object_mapper",
+       "xyz/.openbmc_project.ObjectMapper", "GetSubTree", "/", int32_t(0),
+       std::array<const char*, 1>{ "xyz.openbmc_project.Control.Boot.Type"});
 }
 
 /**
