@@ -131,6 +131,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f52befa3_3bfe8729",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2022-05-14T19:39:26Z",
+      "side": 1,
+      "message": "I tested looks like it is still working. user able to access Web-UI",
+      "parentUuid": "e58fa8da_541a94fe",
+      "range": {
+        "startLine": 129,
+        "startChar": 1,
+        "endLine": 129,
+        "endChar": 27
+      },
+      "revId": "32ffd1f8558449686c7ea9cf08c68fcd6ecbe20e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2318e3d1_428af59d",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 11
