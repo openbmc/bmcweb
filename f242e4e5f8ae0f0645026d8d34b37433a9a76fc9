@@ -105,6 +105,24 @@
       "parentUuid": "5cce0cf2_4b0a94e2",
       "revId": "f242e4e5f8ae0f0645026d8d34b37433a9a76fc9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f2d9bf00_daae7698",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 740,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-16T16:56:58Z",
+      "side": 1,
+      "message": "I don\u0027t think most implementations actually parse the error messages to look at whether they\u0027re a warning or an error.",
+      "parentUuid": "3bc150b9_29b8c291",
+      "revId": "f242e4e5f8ae0f0645026d8d34b37433a9a76fc9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
