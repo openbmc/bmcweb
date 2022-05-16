@@ -2965,8 +2965,11 @@ inline void requestRoutesSystems(App& app)
             getMainChassisId(
                 asyncResp, [](const std::string& chassisId,
                               const std::shared_ptr<bmcweb::AsyncResp>& aRsp) {
-                    aRsp->res.jsonValue["Links"]["Chassis"]["@odata.id"] =
-                        "/redfish/v1/Chassis/" + chassisId;
+                    nlohmann::json::array_t chassisArray;
+                    nlohmann::json& chassis = chassisArray.emplace_back();
+                    chassis["@odata.id"] = "/redfish/v1/Chassis/" + chassisId;
+                    aRsp->res.jsonValue["Links"]["Chassis"] =
+                        std::move(chassisArray);
                 });
 
             getLocationIndicatorActive(asyncResp);
