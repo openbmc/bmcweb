@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7aa4ba3d_aa1cb985",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-16T19:02:38Z",
+      "side": 1,
+      "message": "This doesn\u0027t seem right;  Can you elaborate on why this would be?  EthernetInterface represents a physical NIC, for which said adapter could have multiple VLans, as the Redfish APIs present.  If the DBus APIs choose to go that route, that\u0027s fine, but that means that Redfish EthernetInterface and dbus EthernetInterface are no longer 1:1, which seems like something we should resolve in code.",
+      "range": {
+        "startLine": 11,
+        "startChar": 21,
+        "endLine": 12,
+        "endChar": 31
+      },
+      "revId": "8921e88651658f3cd211483c127c47b42966751b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
