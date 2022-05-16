@@ -251,6 +251,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c80ab972_6f2d865b",
+        "filename": "redfish-core/lib/virtual_media.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 919,
+      "author": {
+        "id": 1000460
+      },
+      "writtenOn": "2022-05-16T14:55:04Z",
+      "side": 1,
+      "message": "Ok, seems appropriate to separate this piece of code.",
+      "parentUuid": "4f9120c7_3e1daf73",
+      "range": {
+        "startLine": 915,
+        "startChar": 0,
+        "endLine": 919,
+        "endChar": 5
+      },
+      "revId": "f3b857295e92b99091bfd5fa8d7f3861fca70124",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cb897d0a_77d667bd",
         "filename": "redfish-core/lib/virtual_media.hpp",
         "patchSetId": 1

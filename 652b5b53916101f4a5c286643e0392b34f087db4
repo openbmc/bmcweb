@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "db2d0e7f_5bdc0af1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000460
+      },
+      "writtenOn": "2022-05-16T14:55:04Z",
+      "side": 1,
+      "message": "I will replace these shortcuts with full url paths. This should make this clearer.\n\nWhat kind of tests? Some unit tests? Or curl snippets to call Redfish endpoints?",
+      "parentUuid": "986ccf06_26ec8bdf",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 43
+      },
+      "revId": "652b5b53916101f4a5c286643e0392b34f087db4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e20234a7_960f04df",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
@@ -37,6 +61,24 @@
       "writtenOn": "2022-05-12T15:42:06Z",
       "side": 1,
       "message": "Not sure what this means.",
+      "revId": "652b5b53916101f4a5c286643e0392b34f087db4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1b4ec57d_d8fc99d7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000460
+      },
+      "writtenOn": "2022-05-16T14:55:04Z",
+      "side": 1,
+      "message": "I have tested all success paths (proxy mode, legacy cifs/https).",
+      "parentUuid": "e20234a7_960f04df",
       "revId": "652b5b53916101f4a5c286643e0392b34f087db4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -71,6 +113,24 @@
       "writtenOn": "2022-05-12T15:42:06Z",
       "side": 1,
       "message": "What backend are you testing with?",
+      "revId": "652b5b53916101f4a5c286643e0392b34f087db4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "428bcb18_e4362c35",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000460
+      },
+      "writtenOn": "2022-05-16T14:55:04Z",
+      "side": 1,
+      "message": "Service/backend is beeing upstreamed in jsnbd repository.  I have described the status in the post on OpenBMC group.",
+      "parentUuid": "1b182936_9c9b4ccc",
       "revId": "652b5b53916101f4a5c286643e0392b34f087db4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
