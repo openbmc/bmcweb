@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "99fc6c90_b1d59dd7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-05-16T23:35:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7d8e406b_41f7973d",
+      "revId": "a839d6eed4aa7c2b3be4b98c8b33fc250192ff35",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "59fcb2fe_14cfab09",
@@ -31,6 +49,24 @@
       "writtenOn": "2022-05-16T02:52:24Z",
       "side": 1,
       "message": "Can we mention the memory consumption in the tested section? Can you mention a bit about the size of the Redfish tree tested? The BMC you tested on?",
+      "revId": "a839d6eed4aa7c2b3be4b98c8b33fc250192ff35",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8b3b6ee3_a54ea746",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-05-16T23:35:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "59fcb2fe_14cfab09",
       "revId": "a839d6eed4aa7c2b3be4b98c8b33fc250192ff35",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
