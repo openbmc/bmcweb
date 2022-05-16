@@ -470,6 +470,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e8219772_f06e1ac3",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 392,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-05-16T23:16:40Z",
+      "side": 1,
+      "message": "I\u0027m reopening this due to removing the parsing from recvMessage().\n\nIn the callback the user might want to use std::move() to load res.stringResponse into an AsyncResp object or nlohmann::json::parse() to create a json.  Neither of those are usable with a \"const Response\".  Can I remove const to enable those operations or will that callback need to create a duplicate copy that can then be operated on?",
+      "parentUuid": "e73f2a85_5fd3e415",
+      "range": {
+        "startLine": 392,
+        "startChar": 66,
+        "endLine": 392,
+        "endChar": 74
+      },
+      "revId": "3645e432d98ac387dbec08ccf389dda2a586948c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "20df929b_e979912a",
         "filename": "http/http_client.hpp",
         "patchSetId": 13
