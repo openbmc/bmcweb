@@ -928,7 +928,7 @@ inline void requestRoutesSystemLogServiceCollection(App& app)
             logServiceArray.push_back(std::move(eventLog));
 #ifdef BMCWEB_ENABLE_REDFISH_DUMP_LOG
             nlohmann::json::object_t dumpLog;
-            eventLog["@odata.id"] =
+            dumpLog["@odata.id"] =
                 "/redfish/v1/Systems/system/LogServices/Dump";
             logServiceArray.push_back(std::move(dumpLog));
 #endif
