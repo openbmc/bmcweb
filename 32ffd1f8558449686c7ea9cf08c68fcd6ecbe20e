@@ -155,6 +155,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bfadf1a6_c7a86535",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-16T16:39:07Z",
+      "side": 1,
+      "message": "Disable the webui group, but leave the redfish group enabled.  As the code is written, the user will still be able to log in.",
+      "parentUuid": "f52befa3_3bfe8729",
+      "range": {
+        "startLine": 129,
+        "startChar": 1,
+        "endLine": 129,
+        "endChar": 27
+      },
+      "revId": "32ffd1f8558449686c7ea9cf08c68fcd6ecbe20e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2318e3d1_428af59d",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 11
