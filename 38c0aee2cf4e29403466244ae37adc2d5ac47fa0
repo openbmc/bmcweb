@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "57ee7e66_9ff4bbdb",
+        "filename": "CLIENTS.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1001321
+      },
+      "writtenOn": "2022-05-16T21:39:50Z",
+      "side": 1,
+      "message": "An example client (which implements a lightweight HTTP(S) server?).",
+      "range": {
+        "startLine": 64,
+        "startChar": 34,
+        "endLine": 64,
+        "endChar": 35
+      },
+      "revId": "38c0aee2cf4e29403466244ae37adc2d5ac47fa0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
