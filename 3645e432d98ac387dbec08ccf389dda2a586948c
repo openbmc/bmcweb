@@ -183,6 +183,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "86cae446_85cff06f",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-05-16T20:15:53Z",
+      "side": 1,
+      "message": "Sounds good, I have removed this json parsing and will leave it to a future patch.",
+      "parentUuid": "03d5b0f2_6556f271",
+      "range": {
+        "startLine": 248,
+        "startChar": 21,
+        "endLine": 248,
+        "endChar": 55
+      },
+      "revId": "3645e432d98ac387dbec08ccf389dda2a586948c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9d799bfb_67cf61d7",
@@ -254,6 +278,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d8fddc1e_7c0fa949",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-05-16T20:15:53Z",
+      "side": 1,
+      "message": "I\u0027ve removed the parsing from this patch",
+      "parentUuid": "f4205cd1_35ef4b63",
+      "range": {
+        "startLine": 251,
+        "startChar": 24,
+        "endLine": 251,
+        "endChar": 45
+      },
+      "revId": "3645e432d98ac387dbec08ccf389dda2a586948c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "797e9e64_f4f959e4",
@@ -315,6 +363,30 @@
       "side": 1,
       "message": "\u003e That\u0027s a fair point, I\u0027m good with returning 502 here.  I didn\u0027t see an internalError() equivalent for a 502 so I just directly set res.result as bad_gateway.  Is that alright or is there a preferred method I should use?\n\nThe one that looks right to me is OperationFailed.  The description for it is:\n\n\"Indicates that one of the internal operations necessary to complete the request failed.  Examples of this are when an internal service provider is unable to complete the request, such as in aggregation or RDE.\"\n\nWhich sounds like exactly what we\u0027re trying to do here.\n\n\u003e \n\u003e On a related note, I suspect that later we\u0027ll want to directly return certain non-200 codes from the other server rather than retrying until we hit the max number of retries and return a 502.  I do this for 404 in a later patch and I\u0027m sure there will be others come up as Redfish Aggregation is implemented.\n\n\nAgreed, we\u0027ll want to eventually forward errors from the aggregated instance, that\u0027s why my original comment is important, so we can differentiate between \"The server we were talking to returned 500\" and \"the server we\u0027re talking to timed out\"",
       "parentUuid": "ef5e66fd_8661fb2a",
+      "range": {
+        "startLine": 264,
+        "startChar": 0,
+        "endLine": 264,
+        "endChar": 50
+      },
+      "revId": "3645e432d98ac387dbec08ccf389dda2a586948c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2020bbaf_8473401e",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-05-16T20:15:53Z",
+      "side": 1,
+      "message": "\u003e The one that looks right to me is OperationFailed\n\nI couldn\u0027t just call redfish::messages::operationFailed() since that would also set the error code as a 500, and overwriting the 500 with 502 seemed redundant.  I also couldn\u0027t individually set the result and message here because addMessageToErrorJson() is static.\n\nInstead I added a new function to \"redfish-core/include/error_messages.hpp\" and \"redfish-core/src/error_messages.cpp\" which combines the 502 result with the OperationFailed message.",
+      "parentUuid": "f295b7a6_89c93e09",
       "range": {
         "startLine": 264,
         "startChar": 0,
