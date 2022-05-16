@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cc9bfedd_70db1517",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-16T17:00:53Z",
+      "side": 1,
+      "message": "Please answer why this is needed in your commit message.\n\nMy expectation is that end-client handlers shouldn\u0027t need access to the ping/pong handlers, given that that level of the socket should be abstracted away, and the defaults should work for all cases.\n\nWith that said, clearly you have some use cases that require this, so lets get a much larger commit message put together about what those might be.",
+      "revId": "2670688f6d85abdd27c982f7ced07f9a62e18cc0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a0041322_cd44810d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-16T17:00:53Z",
+      "side": 1,
+      "message": "\u003e Patch Set 3:\n\u003e \n\u003e Just to document, this was discussed on discord.  this patch causes:\n\u003e \n\u003e onclose to get called twice.\n\u003e ping and pong handlers to get exposed to code that should be abstracted away from it.\n\u003e \n\u003e \n\u003e As another concern, we need to better understand why the socket isn\u0027t shutting down, that\u0027s largely the core of the problem, and leaves resources around if we have to wait for the socket to timeout before we\u0027re freeing that connection.\n\nPlease answer maintainer questions about this patch.  Pushing new patches without addressing or discussing the existing causes uncertainty about whether or not the issues have been fixed.",
+      "revId": "2670688f6d85abdd27c982f7ced07f9a62e18cc0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
