@@ -977,13 +977,6 @@ inline void
         // in a different system state.
         messages::resourceInStandby(resp->res);
     }
-    else if (strcmp(dbusError->name,
-                    "xyz.openbmc_project.Common.Device.Error.WriteFailure") ==
-             0)
-    {
-        // Service tried to change the config, but it failed.
-        messages::operationFailed(resp->res);
-    }
     else
     {
         messages::internalError(resp->res);
