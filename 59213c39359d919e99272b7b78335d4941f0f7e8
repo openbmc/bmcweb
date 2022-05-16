@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6826454a_d66e17ee",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 895,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-16T18:33:32Z",
+      "side": 1,
+      "message": "I suspect this should be using GetObject, because the old code verified that the path was /xyz/openbmc_project/state/host0.  I would expect this to do the same, to avoid cases where other paths get used accidentally.",
+      "range": {
+        "startLine": 895,
+        "startChar": 44,
+        "endLine": 895,
+        "endChar": 60
+      },
+      "revId": "59213c39359d919e99272b7b78335d4941f0f7e8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
