@@ -1,6 +1,74 @@
+# Below lists the current bmcweb maintainers.  bmcweb is used in a number of
+# different contexts, and is one of the few nearly-universally used core
+# components in OpenBMC.  As such, given the severe consequences of mistakes
+# made within the codebase, maintainers on this list are expected to:
+# - Have a solid understanding of the bmcweb core code, and how it's used.
+#
+# - Have access to at least one upstream platform to test relevant patchsets.
+#
+# - Help to manage the orderly merging of patchsets onto master through review.
+# It is expected that bmcweb maintainers participate on a majority of code
+# reviews, and although maintainers may work with each other to segment the
+# responsibilities into sub-parts the codebase, it is expected that maintainers
+# should be capable of reviewing all code in all modules if the need arises.
+#
+# - Provide help in testing and triage of cross-platform issues that arise as a
+# result of merging new features.
+#
+# - Have an in-depth understanding of the Redfish standard, its constraints in
+# how it interacts with OpenBMC, and how the bmcweb implementation compares to
+# other Redfish instances and how changes effect compatibility with other
+# Redfish services compatibility.
+#
+# - Be capable of, and have a track record of posing questions, clarifications,
+# and specification changes to [DMTF](https://www.dmtf.org/standards/redfish)
+# for resources implemented within the Redfish standard.  bmcweb maintainers
+# regularly attend the Redfish specification meetings to have a handle on
+# "intent" behind Redfish APIs.  In many cases, the role of the maintainer
+# requires knowing when a Redfish resource is underspecified, and direct people
+# to the standard before their changes can be accepted.
+#
+# - Have an understanding of, and track record of executing the various test
+# harnesses that bmcweb needs to pass, listed in CLIENTS.md, and at least a
+# rudimentary understanding of their requirements, and limitations.
+#
+# - Have an understanding of DBus and the specific implementations of sdbusplus
+# APIs that bmcweb uses, and their limitations in versioning, consistency, and
+# general implementation completeness.
+#
+# - Join and answer questions of the #bmcweb-and-redfish channel within
+# discord.
+#
+# - Join and answer architecture queries posed to the mailing list concerning
+# bmcweb.
+#
+# - Be capable of responding to CVE queries forwarded from the
+# [openbmc-security-response-team]
+# (https://github.com/openbmc/docs/blob/master/security/obmc-security-response-team.md).
+# Considering that in most implementations of the OpenBMC security model,
+# bmcweb is the primary attacker/client facing application on the network, it
+# is expected that a number of potential CVEs will be posted, for which bmcweb
+# forms a component of the alleged attack.  Maintainers should be prepared to
+# respond to such requests in the timeframe required by the CVE process, and
+# ideally should have a track record of doing it in the past.
+#
+# - Understand the webui variants (webui-vue and phosphor-webui) that bmcweb
+# can optionally host, its use cases, and how they differ from "normal" client
+# based use cases, as well as an understanding of hosting web services in
+# general.
+#
+# If you believe you meet the qualifications for the above, please open a
+# patchset, adding your name to the list below, documenting some evidence of
+# the above requirements being met, and the existing maintainers will happily
+# add you to the list.
+
 owners:
 - ed@tanous.net
 - gmills@linux.vnet.ibm.com
+
+
+# The below specifies a list of reviewers and interested parties that should be
+# included on code reviews to stay informed of progress.
 
 reviewers:
 - krzysztof.grobelny@intel.com
