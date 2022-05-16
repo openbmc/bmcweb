@@ -466,6 +466,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f02cfcab_ac9530c5",
+        "filename": "include/google/google_service_root.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1001386
+      },
+      "writtenOn": "2022-05-16T18:12:38Z",
+      "side": 1,
+      "message": "That\u0027s fair. I added the description now.",
+      "parentUuid": "da03a3e8_26616080",
+      "range": {
+        "startLine": 88,
+        "startChar": 42,
+        "endLine": 88,
+        "endChar": 46
+      },
+      "revId": "ade3f16bd76b5bd5fa8c3395300ee031b2dd2b16",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9b08ad3f_7570591d",

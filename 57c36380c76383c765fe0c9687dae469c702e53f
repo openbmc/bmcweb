@@ -75,6 +75,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5536adce_642979dd",
+        "filename": "include/google/google_service_root.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1001386
+      },
+      "writtenOn": "2022-05-16T18:12:38Z",
+      "side": 1,
+      "message": "Removed.",
+      "parentUuid": "6c8614d2_62b9e08e",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 3,
+        "endChar": 32
+      },
+      "revId": "57c36380c76383c765fe0c9687dae469c702e53f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7b76cde2_dddb6fc0",
@@ -88,6 +112,30 @@
       "writtenOn": "2022-05-12T16:35:02Z",
       "side": 1,
       "message": "Please don\u0027t capture the Request object by reference in an async callback.  This causes lifetime issues if the connection is dropped while a dbus request is in flight.\n\nThis looks like it is only captured so it can be passed to ResolvedEntityHandler, which then consequently doesn\u0027t use it, so I suspect that that passing can be removed entirely.",
+      "range": {
+        "startLine": 66,
+        "startChar": 26,
+        "endLine": 66,
+        "endChar": 29
+      },
+      "revId": "57c36380c76383c765fe0c9687dae469c702e53f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5e0a9bd1_ba65ffd7",
+        "filename": "include/google/google_service_root.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1001386
+      },
+      "writtenOn": "2022-05-16T18:12:38Z",
+      "side": 1,
+      "message": "Ah, but request is used in case of the invokeRoTCommand handler to read the json command.\n\nI changed the ResolvedEntityHandler to pass in a \"command\" instead of capturing the request and it will be empty on the /RootOfTrust/{Id} request.\n\nThat works for now without causing lifetime management issues of the request.\nLMKWYT.",
+      "parentUuid": "7b76cde2_dddb6fc0",
       "range": {
         "startLine": 66,
         "startChar": 26,
@@ -134,6 +182,30 @@
       "writtenOn": "2022-05-12T16:35:02Z",
       "side": 1,
       "message": "Looks duplicated with line 1?  Does this file parse as valid xml?",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 38
+      },
+      "revId": "57c36380c76383c765fe0c9687dae469c702e53f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e67d9c9c_37814f9b",
+        "filename": "static/google/v1/schema/RootOfTrust_v1.xml",
+        "patchSetId": 29
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1001386
+      },
+      "writtenOn": "2022-05-16T18:12:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da0cdaa7_fb8b83ad",
       "range": {
         "startLine": 13,
         "startChar": 0,
