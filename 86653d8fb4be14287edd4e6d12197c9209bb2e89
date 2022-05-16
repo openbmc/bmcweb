@@ -142,6 +142,30 @@
       },
       "revId": "86653d8fb4be14287edd4e6d12197c9209bb2e89",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "54da8758_275289fd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-16T19:03:49Z",
+      "side": 1,
+      "message": "To repeat.  Please quote the relevant portions of the specification in your commit message.  I see no links nor quotes to the redfish specification in your commit message.",
+      "parentUuid": "cbe11098_b289ff05",
+      "range": {
+        "startLine": 9,
+        "startChar": 49,
+        "endLine": 10,
+        "endChar": 26
+      },
+      "revId": "86653d8fb4be14287edd4e6d12197c9209bb2e89",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
