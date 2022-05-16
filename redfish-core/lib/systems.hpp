@@ -1169,6 +1169,133 @@ inline void getAutomaticRetry(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
 }
 
 /**
+ * @brief Sets automaticRety (AttemptsLeft)
+ *
+ * @param[in] aResp   Shared pointer for generating response message.
+ * @param[in] automaticRetryConfig  "AutomaticRetryConfig" from request.
+ *
+ *@return None.
+ */
+inline void
+    setAutomaticRetryAttempts(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+                              const uint32_t& attemptsLeft)
+{
+    BMCWEB_LOG_DEBUG << "Set Automatic Retry Attempts.";
+
+    crow::connections::systemBus->async_method_call(
+        [aResp,
+         attemptsLeft](const boost::system::error_code ec,
+                       dbus::utility::MapperGetSubTreeResponse& subtree) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG
+                    << "DBUS response error on RebootPolicy GetSubTree" << ec;
+                messages::internalError(aResp->res);
+                return;
+            }
+            if (subtree.empty())
+            {
+                messages::propertyValueNotInList(aResp->res, "RebootPolicy",
+                                                 "AutomaticRetryAttempts");
+                return;
+            }
+
+            // There needs to be two paths
+            if (subtree.size() < 3)
+            {
+                BMCWEB_LOG_DEBUG
+                    << "DBUS response did not report 2 paths, three are needed"
+                    << "RebootAttempts and RebootPolicy.";
+                messages::internalError(aResp->res);
+                return;
+            }
+            if (subtree.size() > 3)
+            {
+                BMCWEB_LOG_DEBUG
+                    << "DBUS response gave more than the 2 required paths"
+                    << subtree.size();
+                // throw am internal error and return
+                messages::internalError(aResp->res);
+                return;
+            }
+            if (subtree[0].first.empty() || subtree[0].second.size() != 1 ||
+                subtree[2].first.empty() || subtree[2].second.size() != 1)
+            {
+                BMCWEB_LOG_DEBUG << "BOOT.Policy mapper error!";
+                messages::internalError(aResp->res);
+                return;
+            }
+            const std::string& policyPath = subtree[0].first;
+            const std::string& policyServ = subtree[0].second.begin()->first;
+            const std::string& attemptPath = subtree[2].first;
+            const std::string& attemptServ = subtree[2].second.begin()->first;
+            if (policyServ.empty())
+            {
+                BMCWEB_LOG_DEBUG << "BOOT.Policy service mapper error!";
+                messages::internalError(aResp->res);
+                return;
+            }
+            sdbusplus::asio::getProperty<bool>(
+                *crow::connections::systemBus, policyServ, policyPath,
+                "xyz.openbmc_project.Control.Boot.RebootPolicy", "AutoReboot",
+                [aResp, attemptsLeft, attemptPath,
+                 attemptServ](const boost::system::error_code ec2,
+                              bool autoRebootEnabled) {
+                    if (ec2)
+                    {
+                        BMCWEB_LOG_DEBUG
+                            << "DBUS response error in Boot.Policy Get" << ec2;
+                        messages::internalError(aResp->res);
+                        return;
+                    }
+                    if (autoRebootEnabled)
+                    {
+                        if (attemptServ.empty())
+                        {
+                            BMCWEB_LOG_DEBUG
+                                << "BOOT.Policy service mapper error!";
+                            messages::internalError(aResp->res);
+                            return;
+                        }
+                        // AutomaticReboots are enabled. RebootAttempts can be
+                        // set.
+                        crow::connections::systemBus->async_method_call(
+                            [aResp](const boost::system::error_code ec3) {
+                                if (ec3)
+                                {
+                                    BMCWEB_LOG_DEBUG
+                                        << "DBUS response error: Set AutomaticRebootAttempts"
+                                        << ec3;
+                                    messages::internalError(aResp->res);
+                                    return;
+                                }
+
+                                BMCWEB_LOG_DEBUG
+                                    << "Set AutomaticRebootAttempts done.";
+                            },
+                            attemptServ, attemptPath,
+                            "org.freedesktop.Dbus.Properties", "Set",
+                            "xyz.openbmc_project.Control.Boot.RebootAttempts",
+                            "RetryAttempts",
+                            std::variant<uint32_t>(attemptsLeft));
+                    }
+                    else
+                    {
+                        BMCWEB_LOG_DEBUG
+                            << "Failed to set AutomaticRebbotAttempts. AutomaticReboot"
+                            << "is not enabled";
+                    }
+                });
+        },
+
+        "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetSubTree", "/", int32_t(0),
+        std::array<const char*, 2>{
+            "xyz.openbmc_project.Control.Boot.RebootPolicy",
+            "xyz.openbmc_project.Control.Boot.RebootAttempts"});
+}
+/**
  * @brief Retrieves power restore policy over DBUS.
  *
  * @param[in] aResp     Shared pointer for generating response message.
