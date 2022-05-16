@@ -889,7 +889,7 @@ nlohmann::json operationFailed(void)
 
 void operationFailed(crow::Response& res)
 {
-    res.result(boost::beast::http::status::internal_server_error);
+    res.result(boost::beast::http::status::bad_gateway);
     addMessageToErrorJson(res.jsonValue, operationFailed());
 }
 
