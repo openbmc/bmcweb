@@ -16,6 +16,24 @@
       "message": "See it now: https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/52022/8/redfish-core/lib/log_services.hpp#925",
       "revId": "e7ca7af9fb1033dffc50bd383eb648869ac0caa4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9974137a_5d812084",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 931,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-16T17:03:36Z",
+      "side": 1,
+      "message": "Yep.  I\u0027m just happy the tests can catch it.  That\u0027s an improvement.",
+      "parentUuid": "a1cd079c_1b623fdb",
+      "revId": "e7ca7af9fb1033dffc50bd383eb648869ac0caa4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
