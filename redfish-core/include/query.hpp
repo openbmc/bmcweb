@@ -48,8 +48,8 @@ namespace redfish
     res.setCompleteRequestHandler(
         [&app, handler(std::move(handler)),
          query{*queryOpt}](crow::Response& res) mutable {
-            processAllParams(app, query, handler, res);
-        });
+        processAllParams(app, query, handler, res);
+    });
     return true;
 }
 

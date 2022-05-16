@@ -190,12 +190,12 @@ struct HealthPopulate : std::enable_shared_from_this<HealthPopulate>
         crow::connections::systemBus->async_method_call(
             [self](const boost::system::error_code ec,
                    const dbus::utility::MapperGetSubTreePathsResponse& resp) {
-                if (ec || resp.size() != 1)
-                {
-                    // no global item, or too many
-                    return;
-                }
-                self->globalInventoryPath = resp[0];
+            if (ec || resp.size() != 1)
+            {
+                // no global item, or too many
+                return;
+            }
+            self->globalInventoryPath = resp[0];
             },
             "xyz.openbmc_project.ObjectMapper",
             "/xyz/openbmc_project/object_mapper",
@@ -210,22 +210,21 @@ struct HealthPopulate : std::enable_shared_from_this<HealthPopulate>
         crow::connections::systemBus->async_method_call(
             [self](const boost::system::error_code ec,
                    const dbus::utility::ManagedObjectType& resp) {
-                if (ec)
+            if (ec)
+            {
+                return;
+            }
+            self->statuses = resp;
+            for (auto it = self->statuses.begin(); it != self->statuses.end();)
+            {
+                if (boost::ends_with(it->first.str, "critical") ||
+                    boost::ends_with(it->first.str, "warning"))
                 {
-                    return;
+                    it++;
+                    continue;
                 }
-                self->statuses = resp;
-                for (auto it = self->statuses.begin();
-                     it != self->statuses.end();)
-                {
-                    if (boost::ends_with(it->first.str, "critical") ||
-                        boost::ends_with(it->first.str, "warning"))
-                    {
-                        it++;
-                        continue;
-                    }
-                    it = self->statuses.erase(it);
-                }
+                it = self->statuses.erase(it);
+            }
             },
             "xyz.openbmc_project.ObjectMapper", "/",
             "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
