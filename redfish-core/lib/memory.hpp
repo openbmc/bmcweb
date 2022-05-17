@@ -18,6 +18,7 @@
 #include "health.hpp"
 
 #include <app.hpp>
+#include <boost/algorithm/string.hpp>
 #include <dbus_utility.hpp>
 #include <query.hpp>
 #include <registries/privilege_registry.hpp>
@@ -795,6 +796,21 @@ inline void getDimmPartitionData(std::shared_ptr<bmcweb::AsyncResp> aResp,
         "xyz.openbmc_project.Inventory.Item.PersistentMemory.Partition");
 }
 
+inline bool pathContainsDimmId(const std::string& path,
+                               const std::string& dimmId)
+{
+    sdbusplus::message::object_path objectPath(path);
+    while (objectPath != "/")
+    {
+        if (objectPath.filename() == dimmId)
+        {
+            return true;
+        }
+        objectPath = objectPath.parent_path();
+    }
+    return false;
+}
+
 inline void getDimmData(std::shared_ptr<bmcweb::AsyncResp> aResp,
                         const std::string& dimmId)
 {
@@ -815,7 +831,7 @@ inline void getDimmData(std::shared_ptr<bmcweb::AsyncResp> aResp,
         {
             if (path.find(dimmId) != std::string::npos)
             {
-                for (const auto& [service, interfaces] : object)
+                if (pathContainsDimmId(path, dimmId))
                 {
                     for (const auto& interface : interfaces)
                     {
