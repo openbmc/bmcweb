@@ -48,6 +48,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "303297a2_ee0753ff",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 17
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-05-17T08:54:28Z",
+      "side": 1,
+      "message": "I\u0027ve not made it clear in my comments. The redfish spec allows the aggregation source being changed at runtime. As far as I know, entity-manager does not support updating the content of system.json at runtime. Some values of the config, like the hostname/IP, need to be user-editable in real use cases.\n\nMy opinion of using bmcweb_persistent_data.json is because eventservice also saves its configuration there. There might be some better ways to store the redfish aggregation config.",
+      "parentUuid": "f74cef68_8e7607cb",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 53
+      },
+      "revId": "7f1294feda9ba6f341619e9c83182de8b9fbcc22",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "a7135e00_f5d7d61d",
