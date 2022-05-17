@@ -1,5 +1,7 @@
 [Unit]
 Description=Start bmcweb server
+StartLimitIntervalSec=30
+StartLimitBurst=4
 
 Wants=network.target
 After=network.target
