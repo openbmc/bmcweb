@@ -22,6 +22,7 @@
 #include <boost/container/flat_set.hpp>
 #include <dbus_singleton.hpp>
 #include <dbus_utility.hpp>
+#include <nlohmann/json.hpp>
 
 #include <variant>
 
@@ -31,13 +32,22 @@ namespace redfish
 struct HealthPopulate : std::enable_shared_from_this<HealthPopulate>
 {
     HealthPopulate(const std::shared_ptr<bmcweb::AsyncResp>& asyncRespIn) :
-        asyncResp(asyncRespIn), jsonStatus(asyncResp->res.jsonValue["Status"])
+        asyncResp(asyncRespIn), jsonStatus(&asyncResp->res.jsonValue["Status"])
     {}
 
     HealthPopulate(const std::shared_ptr<bmcweb::AsyncResp>& asyncRespIn,
                    nlohmann::json& status) :
         asyncResp(asyncRespIn),
-        jsonStatus(status)
+        jsonStatus(&status)
+    {}
+
+    // The input ptr will be evaluate just in time. This is pretty useful when
+    // the address of the status JSON might change, for example, elements in an
+    // array
+    HealthPopulate(const std::shared_ptr<bmcweb::AsyncResp>& asyncRespIn,
+                   nlohmann::json::json_pointer ptr) :
+        asyncResp(asyncRespIn),
+        statusPtr(ptr)
     {}
 
     HealthPopulate(const HealthPopulate&) = delete;
@@ -47,17 +57,28 @@ struct HealthPopulate : std::enable_shared_from_this<HealthPopulate>
 
     ~HealthPopulate()
     {
-        nlohmann::json& health = jsonStatus["Health"];
-        nlohmann::json& rollup = jsonStatus["HealthRollup"];
-
-        health = "OK";
-        rollup = "OK";
-
         for (const std::shared_ptr<HealthPopulate>& healthChild : children)
         {
             healthChild->globalInventoryPath = globalInventoryPath;
             healthChild->statuses = statuses;
         }
+
+        if (statusPtr != std::nullopt &&
+            asyncResp->res.jsonValue.contains(*statusPtr))
+        {
+            jsonStatus = &asyncResp->res.jsonValue[*statusPtr];
+        }
+
+        if (jsonStatus == nullptr)
+        {
+            return;
+        }
+
+        nlohmann::json& health = (*jsonStatus)["Health"];
+        nlohmann::json& rollup = (*jsonStatus)["HealthRollup"];
+
+        health = "OK";
+        rollup = "OK";
 
         for (const auto& [path, interfaces] : statuses)
         {
@@ -232,7 +253,12 @@ struct HealthPopulate : std::enable_shared_from_this<HealthPopulate>
     }
 
     std::shared_ptr<bmcweb::AsyncResp> asyncResp;
-    nlohmann::json& jsonStatus;
+
+    // Set |jsonStatus| to nullptr if the main |HealthPopulate| is just to do
+    // populate
+    nlohmann::json* jsonStatus = nullptr;
+    // If set, will populate the health status into |asyncResp_json[statusPtr]|
+    std::optional<nlohmann::json::json_pointer> statusPtr;
 
     // we store pointers to other HealthPopulate items so we can update their
     // members and reduce dbus calls. As we hold a shared_ptr to them, they get
