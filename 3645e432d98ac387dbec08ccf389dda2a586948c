@@ -397,6 +397,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fe3effe5_0e4169c2",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-17T16:11:59Z",
+      "side": 1,
+      "message": "\u003e \u003e The one that looks right to me is OperationFailed\n\u003e \n\u003e I couldn\u0027t just call redfish::messages::operationFailed() since that would also set the error code as a 500, and overwriting the 500 with 502 seemed redundant.  I also couldn\u0027t individually set the result and message here because addMessageToErrorJson() is static.\n\nWe should change the code to return 502.  500 is \"wrong\".  There is literally only once use, in processor.hpp, and that use of it is arguably incorrect.  Lets just change it.\n\n\u003e \n\u003e Instead I added a new function to \"redfish-core/include/error_messages.hpp\" and \"redfish-core/src/error_messages.cpp\" which combines the 502 result with the OperationFailed message.\n\nI have a patch fixing that here: https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/53758\n\nJust use the existing OperationFailed, and once that patch merges, the code will be correct.",
+      "parentUuid": "2020bbaf_8473401e",
+      "range": {
+        "startLine": 264,
+        "startChar": 0,
+        "endLine": 264,
+        "endChar": 50
+      },
+      "revId": "3645e432d98ac387dbec08ccf389dda2a586948c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2becc12e_86b3dfc8",
@@ -482,6 +506,30 @@
       "side": 1,
       "message": "I\u0027m reopening this due to removing the parsing from recvMessage().\n\nIn the callback the user might want to use std::move() to load res.stringResponse into an AsyncResp object or nlohmann::json::parse() to create a json.  Neither of those are usable with a \"const Response\".  Can I remove const to enable those operations or will that callback need to create a duplicate copy that can then be operated on?",
       "parentUuid": "e73f2a85_5fd3e415",
+      "range": {
+        "startLine": 392,
+        "startChar": 66,
+        "endLine": 392,
+        "endChar": 74
+      },
+      "revId": "3645e432d98ac387dbec08ccf389dda2a586948c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c5de007f_c8814429",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 392,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-17T16:11:59Z",
+      "side": 1,
+      "message": "OOOO, good point.  Fine as is.",
+      "parentUuid": "e8219772_f06e1ac3",
       "range": {
         "startLine": 392,
         "startChar": 66,
