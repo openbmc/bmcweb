@@ -248,10 +248,13 @@ inline void requestRoutesStorage(App& app)
                     // be resized, as json::array uses vector underneath and we
                     // need references to its members that won't change
                     size_t count = 0;
+                    // Pointer based on |asyncResp->res.jsonValue|
+                    nlohmann::json::json_pointer rootPtr =
+                        "/StorageControllers"_json_pointer;
                     for (const auto& [path, interfaceDict] : subtree)
                     {
                         auto subHealth = std::make_shared<HealthPopulate>(
-                            asyncResp, root[count]["Status"]);
+                            asyncResp, rootPtr / count / "Status");
                         subHealth->inventory.emplace_back(path);
                         health->inventory.emplace_back(path);
                         health->children.emplace_back(subHealth);
