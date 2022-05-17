@@ -269,10 +269,10 @@ inline void
                 }
 
                 auto memoryHealth = std::make_shared<HealthPopulate>(
-                    aResp, aResp->res.jsonValue["MemorySummary"]["Status"]);
+                    aResp, "/MemorySummary/Status"_json_pointer);
 
                 auto cpuHealth = std::make_shared<HealthPopulate>(
-                    aResp, aResp->res.jsonValue["ProcessorSummary"]["Status"]);
+                    aResp, "/ProcessorSummary/Status"_json_pointer);
 
                 systemHealth->children.emplace_back(memoryHealth);
                 systemHealth->children.emplace_back(cpuHealth);
