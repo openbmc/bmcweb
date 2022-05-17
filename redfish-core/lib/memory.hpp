@@ -819,7 +819,7 @@ inline void getDimmData(std::shared_ptr<bmcweb::AsyncResp> aResp,
             bool found = false;
             for (const auto& [path, object] : subtree)
             {
-                if (path.find(dimmId) != std::string::npos)
+                if (dimmId == sdbusplus::message::object_path(path).filename())
                 {
                     for (const auto& [service, interfaces] : object)
                     {
