@@ -72,6 +72,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "8dd63c28_84012fc1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 17
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-17T16:56:04Z",
+      "side": 1,
+      "message": "\u003e I\u0027ve not made it clear in my comments. The redfish spec allows the aggregation source being changed at runtime. As far as I know, entity-manager does not support updating the content of system.json at runtime.\n\nIt does support that, both via probe statements, and via direct manipulation of the parameters via SetProperty.\n\n\u003e Some values of the config, like the hostname/IP, need to be user-editable in real use cases.\n\nWe should talk through what that really means;  I suspect the parameters themselves aren\u0027t really changeable, but a user might want to add another aggregation source.\n\n\u003e \n\u003e My opinion of using bmcweb_persistent_data.json is because eventservice also saves its configuration there.\n\nThat is a different use case, because EventService has no dependence on what hardware is in the system, so bmcweb can keep that as an internal detail.\n\n\u003e There might be some better ways to store the redfish aggregation config.\n\nI suspect if we ever support truly runtime, user driven aggregation configs, we\u0027ll likely need the data in two places, given that entity-manager has to be hardware backed, and bmcweb is explicitly not hardware backed.  We\u0027ll duplicate a little parsing code, which isn\u0027t great, but the lifecycles will at least be correct.",
+      "parentUuid": "303297a2_ee0753ff",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 53
+      },
+      "revId": "7f1294feda9ba6f341619e9c83182de8b9fbcc22",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "a7135e00_f5d7d61d",
