@@ -801,6 +801,25 @@ inline void getDimmPartitionData(std::shared_ptr<bmcweb::AsyncResp> aResp,
         "xyz.openbmc_project.Inventory.Item.PersistentMemory.Partition");
 }
 
+// Fixes potential errors resulting from imprecise matching.
+// dimmId are in the format of "dimm0", "dimm1", etc.
+// Using a string::find would result in "dimm1" to be matched with "dimm10",
+// "dimm11", etc. This function prevents this problem from happening.
+inline bool containsDimmId(const std::string& dimmId, const std::string& path)
+{
+    size_t idx = path.find(dimmId);
+    if (idx == std::string::npos)
+        return false;
+    size_t idxOnePast = idx + dimmId.size(); // look 1 character past dimmId
+    if (idxOnePast < path.size())
+    {
+        const char c = path[idxOnePast];
+        if (c >= '0' && c <= '9')
+            return false; // the dimmId is imprecisely matched
+    }
+    return true;
+}
+
 inline void getDimmData(std::shared_ptr<bmcweb::AsyncResp> aResp,
                         const std::string& dimmId)
 {
@@ -819,7 +838,7 @@ inline void getDimmData(std::shared_ptr<bmcweb::AsyncResp> aResp,
             bool found = false;
             for (const auto& [path, object] : subtree)
             {
-                if (path.find(dimmId) != std::string::npos)
+                if (containsDimmId(dimmId, path))
                 {
                     for (const auto& [service, interfaces] : object)
                     {
