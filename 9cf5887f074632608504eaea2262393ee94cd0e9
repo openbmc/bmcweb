@@ -95,6 +95,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cb3767de_00c64122",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-17T19:32:51Z",
+      "side": 1,
+      "message": "I\u0027m surprised the code checker allowed this, but checking if a uint is \u003e 0 results in a noop.  Remove that condition.",
+      "range": {
+        "startLine": 140,
+        "startChar": 42,
+        "endLine": 140,
+        "endChar": 57
+      },
+      "revId": "9cf5887f074632608504eaea2262393ee94cd0e9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "29000435_d09634f6",
         "filename": "redfish-core/include/redfish_aggregator.hpp",
         "patchSetId": 28
