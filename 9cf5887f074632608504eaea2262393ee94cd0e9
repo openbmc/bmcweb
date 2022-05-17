@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b37d408b_419edbc4",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-17T17:40:47Z",
+      "side": 1,
+      "message": "Please don\u0027t hold this reference as a member like this.  It won\u0027t have problems in your usage, but in many cases code can change and could invalidate this reference.  Please just opt to call getInstance() in the cases where you need it.",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 63
+      },
+      "revId": "9cf5887f074632608504eaea2262393ee94cd0e9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "454e01e9_df5ef7cd",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-17T17:40:47Z",
+      "side": 1,
+      "message": "Doesn\u0027t look used?",
+      "range": {
+        "startLine": 12,
+        "startChar": 1,
+        "endLine": 13,
+        "endChar": 55
+      },
+      "revId": "9cf5887f074632608504eaea2262393ee94cd0e9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "03cc9151_06820355",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-17T17:40:47Z",
+      "side": 1,
+      "message": "Please make this a real static function.  The lambda here doesn\u0027t add a lot.",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 10
+      },
+      "revId": "9cf5887f074632608504eaea2262393ee94cd0e9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e075303b_6c3ac9a7",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-17T17:40:47Z",
+      "side": 1,
+      "message": "nit, please use std::numeric_limits\u003cuint16_t\u003e::max() to avoid the magic number.",
+      "range": {
+        "startLine": 140,
+        "startChar": 32,
+        "endLine": 140,
+        "endChar": 37
+      },
+      "revId": "9cf5887f074632608504eaea2262393ee94cd0e9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29000435_d09634f6",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-17T17:40:47Z",
+      "side": 1,
+      "message": "Nit, we use CamelCase on these generally, so this should be None.",
+      "range": {
+        "startLine": 159,
+        "startChar": 33,
+        "endLine": 159,
+        "endChar": 37
+      },
+      "revId": "9cf5887f074632608504eaea2262393ee94cd0e9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f8df8eeb_3c9b465c",
+        "filename": "src/webserver_main.cpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-17T17:40:47Z",
+      "side": 1,
+      "message": "The aggregation stuff is probably big enough that its worthy of its own configure option, so users can opt out of the complexity and security stuff it entails.",
+      "range": {
+        "startLine": 96,
+        "startChar": 0,
+        "endLine": 97,
+        "endChar": 46
+      },
+      "revId": "9cf5887f074632608504eaea2262393ee94cd0e9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
