@@ -16,6 +16,24 @@
       "message": "As is, I think this just seems very IBM-specific. Really what you want is support for an arbitrary number of consoles in bmcweb right? I don\u0027t see why the functionality should mention things like \"hypervisor\".",
       "revId": "af205a04ba12f10bd54264999a824abc137ae84e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "afc195bd_e640ef8b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 19
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-18T18:39:08Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "8d347b50_4f4cba5d",
+      "revId": "af205a04ba12f10bd54264999a824abc137ae84e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
