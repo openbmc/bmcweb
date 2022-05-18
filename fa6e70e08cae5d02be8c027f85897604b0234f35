@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c8f1178e_75956f69",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-05-18T23:13:08Z",
+      "side": 1,
+      "message": "Delete this",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 16
+      },
+      "revId": "fa6e70e08cae5d02be8c027f85897604b0234f35",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3026ff2d_bc8eb079",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 399,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-05-18T23:13:08Z",
+      "side": 1,
+      "message": "Setting this patch as WIP until I address the following concern:\n\nPer offline discussions with Ed, I should not be adding hooks to this file.  I should look towards the setUpRedfishRoute() functions in redfish-core/include/query.hpp instead.",
+      "range": {
+        "startLine": 390,
+        "startChar": 0,
+        "endLine": 399,
+        "endChar": 77
+      },
+      "revId": "fa6e70e08cae5d02be8c027f85897604b0234f35",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
