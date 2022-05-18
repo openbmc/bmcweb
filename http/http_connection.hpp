@@ -454,6 +454,13 @@ class Connection :
         }
         if (res.body().empty() && !res.jsonValue.empty())
         {
+            // We need to fix links in a non-collection URI if Redfish
+            // Aggregation is enabled
+            if (!res.aggregationPrefix.empty())
+            {
+                redfish::addPrefixes(res.jsonValue, res.aggregationPrefix);
+            }
+
             if (http_helpers::requestPrefersHtml(req->getHeaderValue("Accept")))
             {
                 prettyPrintJson(res);
