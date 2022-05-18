@@ -14,6 +14,123 @@ enum class Result
     NoLocalHandle
 };
 
+static void addPrefixToItem(nlohmann::json& item, std::string_view prefix)
+{
+    std::string* strValue = item.get_ptr<std::string*>();
+    if (strValue == nullptr)
+    {
+        BMCWEB_LOG_CRITICAL << "Field wasn't a string????";
+        return;
+    }
+    // Make sure the value is a properly formatted URI
+    auto parsed = boost::urls::parse_relative_ref(*strValue);
+    if (!parsed)
+    {
+        BMCWEB_LOG_CRITICAL << "Couldn't parse URI from resource " << *strValue;
+        return;
+    }
+
+    boost::urls::url_view thisUrl = *parsed;
+
+    // We don't need to add prefixes to these URIs since
+    // /redfish/v1/UpdateService/ itself is not a collection
+    // /redfish/v1/UpdateService/FirmwareInventory
+    // /redfish/v1/UpdateService/SoftwareInventory
+    if (crow::utility::readUrlSegments(thisUrl, "redfish", "v1",
+                                       "UpdateService", "FirmwareInventory") ||
+        crow::utility::readUrlSegments(thisUrl, "redfish", "v1",
+                                       "UpdateService", "SoftwareInventory"))
+    {
+        BMCWEB_LOG_DEBUG << "Skipping UpdateService URI prefix fixing";
+        return;
+    }
+
+    // We also need to aggregate FirmwareInventory and
+    // SoftwareInventory so add an extra offset
+    // /redfish/v1/UpdateService/FirmwareInventory/<id>
+    // /redfish/v1/UpdateService/SoftwareInventory/<id>
+    std::string collectionName;
+    std::string softwareItem;
+    if (crow::utility::readUrlSegments(
+            thisUrl, "redfish", "v1", "UpdateService", std::ref(collectionName),
+            std::ref(softwareItem), crow::utility::OrMorePaths()))
+    {
+        softwareItem.insert(0, "_");
+        softwareItem.insert(0, prefix);
+        item = crow::utility::replaceUrlSegment(thisUrl, 4, softwareItem);
+    }
+
+    // A collection URI that ends with "/" such as
+    // "/redfish/v1/Chassis/" will have 4 segments so we need to
+    // make sure we don't try to add a prefix to an empty segment
+    if (crow::utility::readUrlSegments(
+            thisUrl, "redfish", "v1", std::ref(collectionName),
+            std::ref(softwareItem), crow::utility::OrMorePaths()))
+    {
+        softwareItem.insert(0, "_");
+        softwareItem.insert(0, prefix);
+        item = crow::utility::replaceUrlSegment(thisUrl, 3, softwareItem);
+    }
+}
+
+// We need to attempt to update all URIs under Actions
+static void addPrefixesToActions(nlohmann::json& json, std::string_view prefix)
+{
+    nlohmann::json::object_t* object =
+        json.get_ptr<nlohmann::json::object_t*>();
+    if (object != nullptr)
+    {
+        for (std::pair<const std::string, nlohmann::json>& item : *object)
+        {
+            std::string* strValue = item.second.get_ptr<std::string*>();
+            if (strValue != nullptr)
+            {
+                addPrefixToItem(item.second, prefix);
+            }
+            else
+            {
+                addPrefixesToActions(item.second, prefix);
+            }
+        }
+    }
+}
+
+// Search the json for all URIs and add the supplied prefix if the URI is for
+// and aggregated resource.
+static void addPrefixes(nlohmann::json& json, std::string_view prefix)
+{
+    nlohmann::json::object_t* object =
+        json.get_ptr<nlohmann::json::object_t*>();
+    if (object != nullptr)
+    {
+        for (std::pair<const std::string, nlohmann::json>& item : *object)
+        {
+            if (item.first == "Actions")
+            {
+                addPrefixesToActions(item.second, prefix);
+                continue;
+            }
+
+            if ((item.first == "@odata.id") ||
+                (item.first.ends_with("URI")))
+            {
+                addPrefixToItem(item.second, prefix);
+            }
+            // Recusively parse the rest of the json
+            addPrefixes(item.second, prefix);
+        }
+        return;
+    }
+    nlohmann::json::array_t* array = json.get_ptr<nlohmann::json::array_t*>();
+    if (array != nullptr)
+    {
+        for (nlohmann::json& item : *array)
+        {
+            addPrefixes(item, prefix);
+        }
+    }
+}
+
 class RedfishAggregator
 {
   private:
@@ -364,7 +481,7 @@ class RedfishAggregator
         targetURI.erase(pos, prefix.size() + 1);
 
         std::function<void(crow::Response&)> cb =
-            std::bind_front(processResponse, asyncResp);
+            std::bind_front(processResponse, prefix, asyncResp);
 
         std::string data = thisReq.req.body();
         crow::HttpClient::getInstance().sendDataWithCallback(
@@ -376,7 +493,8 @@ class RedfishAggregator
     // Processes the response returned by a satellite BMC and loads its
     // contents into asyncResp
     static void
-        processResponse(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+        processResponse(std::string_view prefix,
+                        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                         crow::Response& resp)
     {
         // No processing needed if the request wasn't successful
@@ -406,6 +524,10 @@ class RedfishAggregator
             // our response rather than just straight overwriting them if our
             // local handling was successful (i.e. would return a 200).
 
+            addPrefixes(jsonVal, prefix);
+
+            BMCWEB_LOG_DEBUG << "Added prefix to parsed satellite response";
+
             asyncResp->res.stringResponse.emplace(
                 boost::beast::http::response<
                     boost::beast::http::string_body>{});
@@ -413,8 +535,6 @@ class RedfishAggregator
             asyncResp->res.jsonValue = std::move(jsonVal);
 
             BMCWEB_LOG_DEBUG << "Finished writing asyncResp";
-            // TODO: Need to fix the URIs in the response so that they include
-            // the prefix
         }
         else
         {
