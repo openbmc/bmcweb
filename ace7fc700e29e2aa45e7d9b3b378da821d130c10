@@ -22,6 +22,30 @@
       },
       "revId": "ace7fc700e29e2aa45e7d9b3b378da821d130c10",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d4369253_d559049a",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 986,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-18T23:36:32Z",
+      "side": 0,
+      "message": "We do.  The else handler on the line below called messages::internalError() which sets 500 on the request.",
+      "parentUuid": "2be6e2e4_04ab3e9f",
+      "range": {
+        "startLine": 980,
+        "startChar": 0,
+        "endLine": 986,
+        "endChar": 5
+      },
+      "revId": "ace7fc700e29e2aa45e7d9b3b378da821d130c10",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
