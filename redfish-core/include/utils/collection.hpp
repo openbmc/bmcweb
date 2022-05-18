@@ -73,6 +73,13 @@ inline void
                 members.push_back(std::move(member));
             }
             aResp->res.jsonValue["Members@odata.count"] = members.size();
+
+            // Now include the prefix if Redfish Aggregation is enabled and this
+            // is a supported collection
+            if (aResp->res.aggregationCollection)
+            {
+                redfish::addPrefixes(aResp->res.jsonValue, "main");
+            }
         },
         "xyz.openbmc_project.ObjectMapper",
         "/xyz/openbmc_project/object_mapper",
