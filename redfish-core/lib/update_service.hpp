@@ -741,49 +741,17 @@ inline void requestRoutesSoftwareInventoryCollection(App& app)
         asyncResp->res.jsonValue["@odata.id"] =
             "/redfish/v1/UpdateService/FirmwareInventory";
         asyncResp->res.jsonValue["Name"] = "Software Inventory Collection";
+        const std::vector<const char*> iface = {
+            "xyz.openbmc_project.Software.Version"};
 
-        crow::connections::systemBus->async_method_call(
-            [asyncResp](
-                const boost::system::error_code ec,
-                const dbus::utility::MapperGetSubTreeResponse& subtree) {
-            if (ec)
-            {
-                messages::internalError(asyncResp->res);
-                return;
-            }
-            asyncResp->res.jsonValue["Members"] = nlohmann::json::array();
-            asyncResp->res.jsonValue["Members@odata.count"] = 0;
-
-            for (const auto& obj : subtree)
-            {
-                sdbusplus::message::object_path path(obj.first);
-                std::string swId = path.filename();
-                if (swId.empty())
-                {
-                    messages::internalError(asyncResp->res);
-                    BMCWEB_LOG_DEBUG << "Can't parse firmware ID!!";
-                    return;
-                }
-
-                nlohmann::json& members = asyncResp->res.jsonValue["Members"];
-                nlohmann::json::object_t member;
-                member["@odata.id"] =
-                    "/redfish/v1/UpdateService/FirmwareInventory/" + swId;
-                members.push_back(std::move(member));
-                asyncResp->res.jsonValue["Members@odata.count"] =
-                    members.size();
-            }
-            },
-            // Note that only firmware levels associated with a device
-            // are stored under /xyz/openbmc_project/software therefore
-            // to ensure only real FirmwareInventory items are returned,
-            // this full object path must be used here as input to
-            // mapper
-            "xyz.openbmc_project.ObjectMapper",
-            "/xyz/openbmc_project/object_mapper",
-            "xyz.openbmc_project.ObjectMapper", "GetSubTree",
-            "/xyz/openbmc_project/software", static_cast<int32_t>(0),
-            std::array<const char*, 1>{"xyz.openbmc_project.Software.Version"});
+        redfish::collection_util::getCollectionMembers(
+            asyncResp, "/redfish/v1/UpdateService/FirmwareInventory/", iface,
+            "/xyz/openbmc_project/software");
+        // Note that only firmware levels associated with a device
+        // are stored under /xyz/openbmc_project/software therefore
+        // to ensure only real FirmwareInventory items are returned,
+        // this full object path must be used here as input to
+        // mapper
         });
 }
 /* Fill related item links (i.e. bmc, bios) in for inventory */
