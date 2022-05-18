@@ -2341,7 +2341,16 @@ inline void requestRoutesManagerCollection(App& app)
                 asyncResp->res.jsonValue["Members@odata.count"] = 1;
                 nlohmann::json::array_t members;
                 nlohmann::json& bmc = members.emplace_back();
-                bmc["@odata.id"] = "/redfish/v1/Managers/bmc";
+
+                // We need to add the prefix if Redfish Aggregation is enabled
+                if (asyncResp->res.aggregationCollection)
+                {
+                    bmc["@odata.id"] = "/redfish/v1/Managers/main_bmc";
+                }
+                else
+                {
+                    bmc["@odata.id"] = "/redfish/v1/Managers/bmc";
+                }
                 asyncResp->res.jsonValue["Members"] = std::move(members);
             });
 }
