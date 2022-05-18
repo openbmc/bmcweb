@@ -3174,45 +3174,6 @@ inline void handleComputerSystemHead(
         "</redfish/v1/JsonSchemas/ComputerSystem/ComputerSystem.json>; rel=describedby");
 }
 
-inline void afterPortRequest(
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const boost::system::error_code& ec,
-    const std::vector<std::tuple<std::string, std::string, bool>>& socketData)
-{
-    if (ec)
-    {
-        BMCWEB_LOG_ERROR("DBUS response error {}", ec);
-        messages::internalError(asyncResp->res);
-        return;
-    }
-    for (const auto& data : socketData)
-    {
-        const std::string& socketPath = get<0>(data);
-        const std::string& protocolName = get<1>(data);
-        bool isProtocolEnabled = get<2>(data);
-        nlohmann::json& dataJson = asyncResp->res.jsonValue["SerialConsole"];
-        dataJson[protocolName]["ServiceEnabled"] = isProtocolEnabled;
-        // need to retrieve port number for
-        // obmc-console-ssh service
-        if (protocolName == "SSH")
-        {
-            getPortNumber(socketPath, [asyncResp, protocolName](
-                                          const boost::system::error_code& ec1,
-                                          int portNumber) {
-                if (ec1)
-                {
-                    BMCWEB_LOG_ERROR("DBUS response error {}", ec1);
-                    messages::internalError(asyncResp->res);
-                    return;
-                }
-                nlohmann::json& dataJson1 =
-                    asyncResp->res.jsonValue["SerialConsole"];
-                dataJson1[protocolName]["Port"] = portNumber;
-            });
-        }
-    }
-}
-
 inline void
     handleComputerSystemGet(crow::App& app, const crow::Request& req,
                             const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
