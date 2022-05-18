@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2be6e2e4_04ab3e9f",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 986,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-05-18T23:03:17Z",
+      "side": 0,
+      "message": "The commit states this should be a 500 error.  Shouldn\u0027t we return that instead of completely removing the check?",
+      "range": {
+        "startLine": 980,
+        "startChar": 0,
+        "endLine": 986,
+        "endChar": 5
+      },
+      "revId": "ace7fc700e29e2aa45e7d9b3b378da821d130c10",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
