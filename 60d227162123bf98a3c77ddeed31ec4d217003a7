@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca1cc809_7aba6d1c",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1001087
+      },
+      "writtenOn": "2022-05-18T23:49:51Z",
+      "side": 1,
+      "message": "nit: it might be better if this is moved above line 87 so that we can still keep the related comment right above the if statement.",
+      "revId": "60d227162123bf98a3c77ddeed31ec4d217003a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
