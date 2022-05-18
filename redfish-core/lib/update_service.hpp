@@ -22,6 +22,7 @@
 #include <query.hpp>
 #include <registries/privilege_registry.hpp>
 #include <sdbusplus/asio/property.hpp>
+#include <utils/collection.hpp>
 #include <utils/fw_utils.hpp>
 
 namespace redfish
@@ -725,66 +726,32 @@ inline void requestRoutesSoftwareInventoryCollection(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/UpdateService/FirmwareInventory/")
         .privileges(redfish::privileges::getSoftwareInventoryCollection)
-        .methods(boost::beast::http::verb::get)([&app](const crow::Request& req,
-                                                       const std::shared_ptr<
-                                                           bmcweb::AsyncResp>&
-                                                           asyncResp) {
-            if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
-            {
-                return;
-            }
-            asyncResp->res.jsonValue["@odata.type"] =
-                "#SoftwareInventoryCollection.SoftwareInventoryCollection";
-            asyncResp->res.jsonValue["@odata.id"] =
-                "/redfish/v1/UpdateService/FirmwareInventory";
-            asyncResp->res.jsonValue["Name"] = "Software Inventory Collection";
+        .methods(boost::beast::http::verb::get)(
+            [&app](const crow::Request& req,
+                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+                if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+                {
+                    return;
+                }
+                asyncResp->res.jsonValue["@odata.type"] =
+                    "#SoftwareInventoryCollection.SoftwareInventoryCollection";
+                asyncResp->res.jsonValue["@odata.id"] =
+                    "/redfish/v1/UpdateService/FirmwareInventory";
+                asyncResp->res.jsonValue["Name"] =
+                    "Software Inventory Collection";
 
-            crow::connections::systemBus->async_method_call(
-                [asyncResp](
-                    const boost::system::error_code ec,
-                    const dbus::utility::MapperGetSubTreeResponse& subtree) {
-                    if (ec)
-                    {
-                        messages::internalError(asyncResp->res);
-                        return;
-                    }
-                    asyncResp->res.jsonValue["Members"] =
-                        nlohmann::json::array();
-                    asyncResp->res.jsonValue["Members@odata.count"] = 0;
+                const std::vector<const char*> iface = {
+                    "xyz.openbmc_project.Software.Version"};
 
-                    for (const auto& obj : subtree)
-                    {
-                        sdbusplus::message::object_path path(obj.first);
-                        std::string swId = path.filename();
-                        if (swId.empty())
-                        {
-                            messages::internalError(asyncResp->res);
-                            BMCWEB_LOG_DEBUG << "Can't parse firmware ID!!";
-                            return;
-                        }
-
-                        nlohmann::json& members =
-                            asyncResp->res.jsonValue["Members"];
-                        members.push_back(
-                            {{"@odata.id",
-                              "/redfish/v1/UpdateService/FirmwareInventory/" +
-                                  swId}});
-                        asyncResp->res.jsonValue["Members@odata.count"] =
-                            members.size();
-                    }
-                },
+                redfish::collection_util::getCollectionMembers(
+                    asyncResp, "/redfish/v1/UpdateService/FirmwareInventory/",
+                    iface, "/xyz/openbmc_project/software");
                 // Note that only firmware levels associated with a device
                 // are stored under /xyz/openbmc_project/software therefore
                 // to ensure only real FirmwareInventory items are returned,
                 // this full object path must be used here as input to
                 // mapper
-                "xyz.openbmc_project.ObjectMapper",
-                "/xyz/openbmc_project/object_mapper",
-                "xyz.openbmc_project.ObjectMapper", "GetSubTree",
-                "/xyz/openbmc_project/software", static_cast<int32_t>(0),
-                std::array<const char*, 1>{
-                    "xyz.openbmc_project.Software.Version"});
-        });
+            });
 }
 /* Fill related item links (i.e. bmc, bios) in for inventory */
 inline static void
