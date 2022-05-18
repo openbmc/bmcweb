@@ -89,7 +89,8 @@ inline void
     // then the ConfigureSelf privilege does not apply.  In that
     // case, perform the authority check again without the user's
     // ConfigureSelf privilege.
-    if (session->username != req.session->username)
+    if (req.session != nullptr && !session->username.empty() &&
+        session->username != req.session->username)
     {
         Privileges effectiveUserPrivileges =
             redfish::getUserPrivileges(req.userRole);
