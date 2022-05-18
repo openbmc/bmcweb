@@ -118,38 +118,6 @@ void getEthernetIfaceData(CallbackFunc&& callback)
     });
 }
 
-inline void afterNetworkPortRequest(
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const boost::system::error_code& ec,
-    const std::vector<std::tuple<std::string, std::string, bool>>& socketData)
-{
-    if (ec)
-    {
-        messages::internalError(asyncResp->res);
-        return;
-    }
-    for (const auto& data : socketData)
-    {
-        const std::string& socketPath = get<0>(data);
-        const std::string& protocolName = get<1>(data);
-        bool isProtocolEnabled = get<2>(data);
-
-        asyncResp->res.jsonValue[protocolName]["ProtocolEnabled"] =
-            isProtocolEnabled;
-        asyncResp->res.jsonValue[protocolName]["Port"] = nullptr;
-        getPortNumber(socketPath, [asyncResp, protocolName](
-                                      const boost::system::error_code& ec2,
-                                      int portNumber) {
-            if (ec2)
-            {
-                messages::internalError(asyncResp->res);
-                return;
-            }
-            asyncResp->res.jsonValue[protocolName]["Port"] = portNumber;
-        });
-    }
-}
-
 inline void getNetworkData(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                            const crow::Request& req)
 {
