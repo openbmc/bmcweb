@@ -320,6 +320,16 @@ class RedfishAggregator : public std::enable_shared_from_this<RedfishAggregator>
                     return;
                 }
 
+                // If this is actually supported resource collection then we
+                // need to denote that the links needs to be fixed
+                const std::regex collectionRegex(
+                    "/redfish/v1/(Chassis|Managers|Systems|Fabrics|ComponentIntegrity)/?");
+                if (std::regex_match(targetURI, collectionRegex))
+                {
+                    BMCWEB_LOG_DEBUG << "Request is for aggregated collection";
+                    asyncResp->res.aggregationCollection = true;
+                }
+
                 // The request is meant for a valid URI that is not
                 // aggregated so we can proceed as normal, no need to
                 // remove a URI prefix

@@ -30,6 +30,10 @@ struct Response
     // Used to fixup URIs in response if Redfish Aggregation is enabled
     std::string aggregationPrefix;
 
+    // Denotes that this response contains a resource collection and the prefix
+    // "main_" needs to be added to the URIs
+    bool aggregationCollection = false;
+
     void addHeader(const std::string_view key, const std::string_view value)
     {
         stringResponse->set(key, value);
@@ -62,6 +66,7 @@ struct Response
         r.stringResponse.emplace(response_type{});
         jsonValue = std::move(r.jsonValue);
         aggregationPrefix = std::move(r.aggregationPrefix);
+        aggregationCollection = r.aggregationCollection;
         completed = r.completed;
         completeRequestHandler = std::move(r.completeRequestHandler);
         isAliveHelper = std::move(r.isAliveHelper);
@@ -122,6 +127,7 @@ struct Response
         jsonValue.clear();
         aggregationPrefix.erase();
         completed = false;
+        aggregationCollection = false;
     }
 
     void write(std::string_view bodyPart)

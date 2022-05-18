@@ -2677,15 +2677,37 @@ inline void requestRoutesSystemsCollection(App& app)
                             asyncResp->res.jsonValue["Members@odata.count"];
 
                         nlohmann::json::object_t system;
-                        system["@odata.id"] = "/redfish/v1/Systems/system";
+
+                        // We need to add the prefix if Redfish Aggregation is
+                        // enabled
+                        if (asyncResp->res.aggregationCollection)
+                        {
+                            system["@odata.id"] =
+                                "/redfish/v1/Systems/main_system";
+                        }
+                        else
+                        {
+                            system["@odata.id"] = "/redfish/v1/Systems/system";
+                        }
                         ifaceArray.push_back(std::move(system));
                         count = ifaceArray.size();
                         if (!ec)
                         {
                             BMCWEB_LOG_DEBUG << "Hypervisor is available";
                             nlohmann::json::object_t hypervisor;
-                            hypervisor["@odata.id"] =
-                                "/redfish/v1/Systems/hypervisor";
+
+                            // We need to add the prefix if Redfish Aggregation
+                            // is enabled
+                            if (asyncResp->res.aggregationCollection)
+                            {
+                                hypervisor["@odata.id"] =
+                                    "/redfish/v1/Systems/main_hypervisor";
+                            }
+                            else
+                            {
+                                hypervisor["@odata.id"] =
+                                    "/redfish/v1/Systems/hypervisor";
+                            }
                             ifaceArray.push_back(std::move(hypervisor));
                             count = ifaceArray.size();
                         }
