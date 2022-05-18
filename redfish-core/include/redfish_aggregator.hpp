@@ -8,6 +8,47 @@
 namespace redfish
 {
 
+// Search the json for all URIs and add the supplied prefix if the URI is for
+// and aggregated resource.
+static void addPrefixes(nlohmann::json& json, const std::string& prefix)
+{
+    for (auto& item : json.items())
+    {
+        if (item.value().is_string())
+        {
+            std::string itemVal = item.value();
+
+            // Make sure the value is a properly formatted URI
+            auto parsed = boost::urls::parse_relative_ref(itemVal);
+            if (!parsed)
+            {
+                continue;
+            }
+
+            boost::urls::url thisURL(*parsed);
+            auto segments = thisURL.segments();
+
+            // A collection URI that ends with "/" such as
+            // "/redfish/v1/Chassis/" will have 4 segments so we need to make
+            // sure we don't try to add a prefix to an empty segment
+            if ((segments.size() >= 4) && (!segments[3].empty()))
+            {
+                // The "+ 4" is to account for each "/" in the path
+                size_t offset = segments[0].size() + segments[1].size() +
+                                segments[2].size() + 4;
+
+                itemVal.insert(offset, prefix + "_");
+                json[item.key()] = std::move(itemVal);
+            }
+        }
+        else if (item.value().is_structured())
+        {
+            // Keep parsing the rest of the json
+            addPrefixes(item.value(), prefix);
+        }
+    }
+}
+
 class RedfishAggregator
 {
   private:
@@ -345,7 +386,7 @@ class RedfishAggregator
         targetURI.erase(pos, prefix.size() + 1);
 
         std::function<void(crow::Response&)> cb =
-            std::bind_front(processResponse, asyncResp);
+            std::bind_front(processResponse, prefix, asyncResp);
 
         std::string data = boost::lexical_cast<std::string>(thisReq.req.body());
         crow::HttpClient::getInstance().sendDataWithCallback(
@@ -357,7 +398,8 @@ class RedfishAggregator
     // Processes the response returned by a satellite BMC and loads its
     // contents into asyncResp
     static void
-        processResponse(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+        processResponse(const std::string& prefix,
+                        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                         crow::Response& resp)
     {
         // No processing needed if the request wasn't successful
@@ -388,6 +430,10 @@ class RedfishAggregator
             // overwriting them if our local handling was successful (i.e.
             // would return a 200).
 
+            addPrefixes(jsonVal, prefix);
+
+            BMCWEB_LOG_DEBUG << "Added prefix to parsed satellite response";
+
             // The aggregating BMC should have also handled this request and
             // returned a 404.  We need to overwrite that.
             asyncResp->res.stringResponse.emplace(
@@ -397,8 +443,6 @@ class RedfishAggregator
             asyncResp->res.jsonValue = std::move(jsonVal);
 
             BMCWEB_LOG_DEBUG << "Finished overwriting asyncResp";
-            // TODO: Need to fix the URIs in the response so that they include
-            // the prefix
         }
         else
         {
@@ -446,5 +490,4 @@ class RedfishAggregator
             std::bind_front(aggregateAndHandle, localReq, asyncResp));
     }
 };
-
 } // namespace redfish
