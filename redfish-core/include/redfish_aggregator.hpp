@@ -262,6 +262,10 @@ class RedfishAggregator : public std::enable_shared_from_this<RedfishAggregator>
                 boost::split(ids, fields[4], boost::is_any_of("_"));
                 BMCWEB_LOG_DEBUG << "Extracted prefix is \"" << ids[0] << "\"";
 
+                // Set the prefix in asyncResp so the links can later be cleaned
+                // up
+                asyncResp->res.aggregationPrefix = ids[0];
+
                 // Is request meant for the aggregating BMC?
                 if (ids[0] == "main")
                 {
@@ -459,5 +463,44 @@ class RedfishAggregator : public std::enable_shared_from_this<RedfishAggregator>
         getSatelliteConfigs(std::move(cb));
     }
 };
+
+// Search the json for all "@odata.id" keys and add the prefix to the URIs
+// which are their associated values.
+void addPrefixes(nlohmann::json& json, const std::string& prefix)
+{
+    for (auto& item : json.items())
+    {
+        // TODOME: Check to make sure none of these functions throw
+        // exceptions
+
+        // URIs we need to fix will appear as the value for "@odata.id" keys
+        if (item.key() == "@odata.id")
+        {
+            std::string tmpVal = json["@odata.id"];
+            // Only modify the URI if it's associated with an aggregated
+            // resource
+            const std::regex urlRegex(
+                "/redfish/v1/(Chassis|Managers|Systems|Fabrics|ComponentIntegrity)/.+");
+            if (std::regex_match(tmpVal, urlRegex))
+            {
+                std::vector<std::string> fields;
+                boost::split(fields, tmpVal, boost::is_any_of("/"));
+
+                // The resource type will be in fields[3]
+                // Add the prefix to the ID and separate it with an
+                // underscore
+                size_t pos = ("/redfish/v1/" + fields[3] + "/").length();
+                tmpVal.insert(pos, prefix + "_");
+                json["@odata.id"] = tmpVal;
+            }
+            continue;
+        }
+
+        if (item.value().is_structured())
+        {
+            addPrefixes(item.value(), prefix);
+        }
+    }
+}
 
 } // namespace redfish

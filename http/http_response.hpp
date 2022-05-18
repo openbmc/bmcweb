@@ -27,6 +27,9 @@ struct Response
 
     nlohmann::json jsonValue;
 
+    // Used to fixup URIs in response if Redfish Aggregation is enabled
+    std::string aggregationPrefix;
+
     void addHeader(const std::string_view key, const std::string_view value)
     {
         stringResponse->set(key, value);
@@ -58,6 +61,7 @@ struct Response
         stringResponse = std::move(r.stringResponse);
         r.stringResponse.emplace(response_type{});
         jsonValue = std::move(r.jsonValue);
+        aggregationPrefix = std::move(r.aggregationPrefix);
         completed = r.completed;
         completeRequestHandler = std::move(r.completeRequestHandler);
         isAliveHelper = std::move(r.isAliveHelper);
@@ -116,6 +120,7 @@ struct Response
         BMCWEB_LOG_DEBUG << this << " Clearing response containers";
         stringResponse.emplace(response_type{});
         jsonValue.clear();
+        aggregationPrefix.erase();
         completed = false;
     }
 
