@@ -672,6 +672,36 @@ inline bool readUrlSegments(const boost::urls::url_view& urlView,
     return details::readUrlSegments(urlView, {std::forward<Args>(args)...});
 }
 
+inline boost::urls::url replaceUrlSegment(const boost::urls::url_view& urlView,
+                                          const uint replaceLoc,
+                                          const std::string_view newSegment)
+{
+    const boost::urls::segments_view& urlSegments = urlView.segments();
+    boost::urls::url url("/");
+
+    if (!urlSegments.is_absolute())
+    {
+        return url;
+    }
+
+    boost::urls::segments_view::iterator it = urlSegments.begin();
+    boost::urls::segments_view::iterator end = urlSegments.end();
+
+    for (uint idx = 0; it != end; it++, idx++)
+    {
+        if (idx == replaceLoc)
+        {
+            url.segments().push_back(newSegment);
+        }
+        else
+        {
+            url.segments().push_back(*it);
+        }
+    }
+
+    return url;
+}
+
 inline std::string setProtocolDefaults(const boost::urls::url_view& url)
 {
     if (url.scheme() == "https")
