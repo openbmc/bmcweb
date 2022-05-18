@@ -37,6 +37,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b9285c76_7c25c797",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-05-18T17:53:55Z",
+      "side": 1,
+      "message": "Do you have further commits about how you link sub-resources (e.g., Memory, CPU) to a certain system?",
+      "revId": "793a1155b388ac12376be033cb39a61bc72d8c43",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c12c7df0_803a6f80",
         "filename": "redfish-core/include/utils/collection.hpp",
         "patchSetId": 13
