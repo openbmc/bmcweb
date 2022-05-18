@@ -14,6 +14,84 @@ enum class Result
     NoLocalHandle
 };
 
+// Search the json for all URIs and add the supplied prefix if the URI is for
+// and aggregated resource.
+static void addPrefixes(nlohmann::json& json, const std::string& prefix)
+{
+    for (auto& item : json.items())
+    {
+        if (item.value().is_string())
+        {
+            std::string itemVal = item.value();
+
+            // Make sure the value is a properly formatted URI
+            auto parsed = boost::urls::parse_relative_ref(itemVal);
+            if (!parsed)
+            {
+                continue;
+            }
+
+            boost::urls::url thisURL(*parsed);
+            auto segments = thisURL.segments();
+
+            // We don't need to add prefixes to these URIs since
+            // /redfish/v1/UpdateService/ itself is not a collection
+            // /redfish/v1/UpdateService/FirmwareInventory
+            // /redfish/v1/UpdateService/SoftwareInventory
+            if (((segments.size() == 5) && (segments[4].empty())) ||
+                ((segments.size() == 4) && (!segments[3].empty())))
+            {
+                std::string seg2(segments[2]);
+                std::string seg3(segments[3]);
+                if ((seg2 == "UpdateService") &&
+                    ((seg3 == "FirmwareInventory") ||
+                     (seg3 == "SoftwareInventory")))
+                {
+                    BMCWEB_LOG_DEBUG
+                        << "Skipping UpdateService URI prefix fixing";
+                    continue;
+                }
+            }
+
+            // A collection URI that ends with "/" such as
+            // "/redfish/v1/Chassis/" will have 4 segments so we need to make
+            // sure we don't try to add a prefix to an empty segment
+            if ((segments.size() >= 4) && (!segments[3].empty()))
+            {
+                // The "+ 4" is to account for each "/" in the path
+                size_t offset = segments[0].size() + segments[1].size() +
+                                segments[2].size() + 4;
+
+                // We also need to aggregate FirmwareInventory and
+                // SoftwareInventory so add an extra offset
+                // /redfish/v1/UpdateService/FirmwareInventory/<id>
+                // /redfish/v1/UpdateService/SoftwareInventory/<id>
+                if ((segments.size() >= 5) && (!segments[4].empty()))
+                {
+                    std::string seg2(segments[2]);
+                    std::string seg3(segments[3]);
+                    if ((seg2 == "UpdateService") &&
+                        ((seg3 == "FirmwareInventory") ||
+                         (seg3 == "SoftwareInventory")))
+                    {
+                        BMCWEB_LOG_DEBUG
+                            << "Fixing up aggregated URI under UpdateService";
+                        offset += segments[3].size() + 1;
+                    }
+                }
+
+                itemVal.insert(offset, prefix + "_");
+                json[item.key()] = std::move(itemVal);
+            }
+        }
+        else if (item.value().is_structured())
+        {
+            // Keep parsing the rest of the json
+            addPrefixes(item.value(), prefix);
+        }
+    }
+}
+
 class RedfishAggregator
 {
   private:
@@ -363,7 +441,7 @@ class RedfishAggregator
         targetURI.erase(pos, prefix.size() + 1);
 
         std::function<void(crow::Response&)> cb =
-            std::bind_front(processResponse, asyncResp);
+            std::bind_front(processResponse, prefix, asyncResp);
 
         std::string data = boost::lexical_cast<std::string>(thisReq.req.body());
         crow::HttpClient::getInstance().sendDataWithCallback(
@@ -375,7 +453,8 @@ class RedfishAggregator
     // Processes the response returned by a satellite BMC and loads its
     // contents into asyncResp
     static void
-        processResponse(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+        processResponse(const std::string& prefix,
+                        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                         crow::Response& resp)
     {
         // No processing needed if the request wasn't successful
@@ -405,6 +484,10 @@ class RedfishAggregator
             // our response rather than just straight overwriting them if our
             // local handling was successful (i.e. would return a 200).
 
+            addPrefixes(jsonVal, prefix);
+
+            BMCWEB_LOG_DEBUG << "Added prefix to parsed satellite response";
+
             asyncResp->res.stringResponse.emplace(
                 boost::beast::http::response<
                     boost::beast::http::string_body>{});
@@ -412,8 +495,6 @@ class RedfishAggregator
             asyncResp->res.jsonValue = std::move(jsonVal);
 
             BMCWEB_LOG_DEBUG << "Finished writing asyncResp";
-            // TODO: Need to fix the URIs in the response so that they include
-            // the prefix
         }
         else
         {
@@ -561,5 +642,4 @@ class RedfishAggregator
         return Result::LocalHandle;
     }
 };
-
 } // namespace redfish
