@@ -5,9 +5,49 @@
 #include <error_messages.hpp>
 #include <http_client.hpp>
 #include <http_connection.hpp>
+#include <regex>
 
 namespace redfish
 {
+
+// Search the json for all "@odata.id" keys and add the prefix to the URIs
+// which are their associated values.
+static void addPrefixes(nlohmann::json& json, const std::string& prefix)
+{
+    for (auto& item : json.items())
+    {
+        // TODOME: Check to make sure none of these functions throw
+        // exceptions
+
+        // URIs we need to fix will appear as the value for "@odata.id" keys
+        if (item.key() == "@odata.id")
+        {
+            std::string tmpVal = json["@odata.id"];
+            // Only modify the URI if it's associated with an aggregated
+            // resource
+            const std::regex urlRegex(
+                "/redfish/v1/(Chassis|Managers|Systems|Fabrics|ComponentIntegrity)/.+");
+            if (std::regex_match(tmpVal, urlRegex))
+            {
+                std::vector<std::string> fields;
+                boost::split(fields, tmpVal, boost::is_any_of("/"));
+
+                // The resource type will be in fields[3]
+                // Add the prefix to the ID and separate it with an
+                // underscore
+                size_t pos = ("/redfish/v1/" + fields[3] + "/").length();
+                tmpVal.insert(pos, prefix + "_");
+                json["@odata.id"] = tmpVal;
+            }
+            continue;
+        }
+
+        if (item.value().is_structured())
+        {
+            addPrefixes(item.value(), prefix);
+        }
+    }
+}
 
 class RedfishAggregator
 {
@@ -373,7 +413,7 @@ class RedfishAggregator
         targetURI.erase(pos, prefix.size() + 1);
 
         std::function<void(crow::Response&)> cb =
-            std::bind_front(processResponse, asyncResp);
+            std::bind_front(processResponse, prefix, asyncResp);
 
         std::string data = boost::lexical_cast<std::string>(thisReq.req.body());
         crow::HttpClient::getInstance().sendDataWithCallback(
@@ -385,7 +425,8 @@ class RedfishAggregator
     // Processes the response returned by a satellite BMC and loads its
     // contents into asyncResp
     static void
-        processResponse(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+        processResponse(const std::string prefix,
+                        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                         crow::Response& resp)
     {
         // No processing needed if the request wasn't successful
@@ -417,6 +458,12 @@ class RedfishAggregator
             // satellite responses to our response rather than just straight
             // overwriting them if our local handling was successful (i.e.
             // would return a 200).
+
+            // Now we need to add the prefix to the URIs contained in the
+            // response.
+            addPrefixes(jsonVal, prefix);
+
+            BMCWEB_LOG_DEBUG << "Added prefix to parsed satellite response";
 
             // The aggregating BMC should have also handled this request and
             // returned a 404.  We need to overwrite that.
@@ -477,5 +524,4 @@ class RedfishAggregator
         getSatelliteConfigs(std::move(cb));
     }
 };
-
 } // namespace redfish
