@@ -68,6 +68,30 @@
       },
       "revId": "40bb01c2a13147b8837ccfd29dc0c93c2d9d4786",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "edee13b9_91731967",
+        "filename": "OWNERS",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-18T18:16:47Z",
+      "side": 1,
+      "message": "A lot of the above that I\u0027ve written is relatively quantifiable (changes to redfish standard, access to a test system, reviewing code, providing support), but I don\u0027t think providing any numbers for those kinds of things at this stage would be productive, nor do we have infrastructure to even measure them at this moment.\n\nYou do bring up patches and features, but maintainership has very little to do with patch submissions or features contributed, and you\u0027ll notice none of these requirements say \"have contributed major features\" or \"writes a lot of patchsets\".  \n In practice, yes, maintainers do write quite a few patchsets in executing their duties, but that\u0027s not a primary method for consideration to be a maintainer, maintaining software is a lot more about testing and reviewing than it is about adding new code, and that\u0027s what this was hoping to convey.",
+      "parentUuid": "22314c13_648f3f23",
+      "range": {
+        "startLine": 52,
+        "startChar": 30,
+        "endLine": 52,
+        "endChar": 44
+      },
+      "revId": "40bb01c2a13147b8837ccfd29dc0c93c2d9d4786",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
