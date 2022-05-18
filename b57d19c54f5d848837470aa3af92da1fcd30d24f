@@ -126,6 +126,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d29f668a_95c70123",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 981,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-05-18T05:59:48Z",
+      "side": 1,
+      "message": "right, but why continue loop through the chassis when we don\u0027t need to. If there are two chassis with the same name and both are valid, there will be race condition on which info get set.",
+      "parentUuid": "23e155ee_3c27b6c2",
+      "revId": "b57d19c54f5d848837470aa3af92da1fcd30d24f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5186b4eb_a0a027dd",
         "filename": "redfish-core/lib/chassis.hpp",
         "patchSetId": 4
