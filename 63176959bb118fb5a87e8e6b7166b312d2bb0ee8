@@ -22,6 +22,30 @@
       },
       "revId": "63176959bb118fb5a87e8e6b7166b312d2bb0ee8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c115c109_31d25b74",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 486,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-05-18T01:39:44Z",
+      "side": 1,
+      "message": "What do you mean by that?\nThis is a very standard usage of BMCWEB_ROUTE.",
+      "parentUuid": "4330a269_64e7ec88",
+      "range": {
+        "startLine": 486,
+        "startChar": 4,
+        "endLine": 486,
+        "endChar": 75
+      },
+      "revId": "63176959bb118fb5a87e8e6b7166b312d2bb0ee8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

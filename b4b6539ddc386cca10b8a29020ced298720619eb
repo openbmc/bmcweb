@@ -297,6 +297,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8ceba069_f38f8359",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 964,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-05-18T01:39:44Z",
+      "side": 1,
+      "message": "That was very helpful.\n\nreview created:\nhttps://gerrit.openbmc-project.xyz/c/openbmc/phosphor-dbus-interfaces/+/53676",
+      "parentUuid": "e77628ad_8d2e74a5",
+      "range": {
+        "startLine": 964,
+        "startChar": 65,
+        "endLine": 964,
+        "endChar": 70
+      },
+      "revId": "b4b6539ddc386cca10b8a29020ced298720619eb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "88d144da_cad60cb5",
         "filename": "redfish-core/lib/chassis.hpp",
         "patchSetId": 3
