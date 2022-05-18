@@ -89,6 +89,7 @@ inline void
     // then the ConfigureSelf privilege does not apply.  In that
     // case, perform the authority check again without the user's
     // ConfigureSelf privilege.
+#ifndef BMCWEB_INSECURE_DISABLE_AUTHENTICATION
     if (session->username != req.session->username)
     {
         Privileges effectiveUserPrivileges =
@@ -100,6 +101,7 @@ inline void
             return;
         }
     }
+#endif
 
     persistent_data::SessionStore::getInstance().removeSession(session);
     messages::success(asyncResp->res);
