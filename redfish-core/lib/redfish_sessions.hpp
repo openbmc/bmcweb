@@ -84,6 +84,7 @@ inline void
         return;
     }
 
+#ifndef BMCWEB_INSECURE_DISABLE_AUTHENTICATION
     // Perform a proper ConfigureSelf authority check.  If a
     // session is being used to DELETE some other user's session,
     // then the ConfigureSelf privilege does not apply.  In that
@@ -100,6 +101,7 @@ inline void
             return;
         }
     }
+#endif
 
     persistent_data::SessionStore::getInstance().removeSession(session);
     messages::success(asyncResp->res);
