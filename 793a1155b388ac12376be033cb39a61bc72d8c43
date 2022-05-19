@@ -48,6 +48,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "5fdca945_d17cc7c5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-19T19:15:59Z",
+      "side": 1,
+      "message": "\u003emy idea is also to keeping single naming scheme by having the single host system with name system0 or host0.\nAnyway as we have to migrate step by step we could keep the \n\"system\" name for single host for this time being.\n\nThis means we have to maintain two different sets of trees, \"system\" and \"system0/host0\" for which it\u0027s going to cause a lot of complexity.  Lets keep system0/host0 defined as \"system\" at a redfish level and follow the path I laid out, unless I\u0027m over complicating it, but I\u0027ve looked at it a bit in https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/53816 so i suspect this is a better way, and keeps most code consistent, and we can have a consistent rule in the meantime.",
+      "parentUuid": "5a85211b_ed24d91c",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 27
+      },
+      "revId": "793a1155b388ac12376be033cb39a61bc72d8c43",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "2da60d29_7d0470ac",
