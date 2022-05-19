@@ -16,6 +16,24 @@
       "message": "don\u0027t we need to give a proper message to the user if there is no drive. Has it been taken care of already, if at all I missed.",
       "revId": "41e5441a3fbdeda0cda7b064d7bddc184e7ae453",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e1b25f89_f01d6525",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 797,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-05-19T17:00:42Z",
+      "side": 1,
+      "message": "If there are no drives, I would expect the too see\n```\nwget -qO- http://localhost:80/redfish/v1/Chassis/DC_SCM_noDrives/Drives\n{\n  \"@odata.id\": \"/redfish/v1/Chassis/DC_SCM_noDrives/Drives\",\n  \"@odata.type\": \"#DriveCollection.DriveCollection\",\n}\n```\nand the code above, should give us that result. \n\nhttps://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/53325/25/redfish-core/lib/chassis.hpp#782\n\nWhat would your expect to see?",
+      "parentUuid": "9b509626_e44a1faa",
+      "revId": "41e5441a3fbdeda0cda7b064d7bddc184e7ae453",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
