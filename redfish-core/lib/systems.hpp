@@ -2828,13 +2828,20 @@ inline void requestRoutesSystems(App& app)
     /**
      * Functions triggers appropriate requests on DBus
      */
-    BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/")
+    BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/")
         .privileges(redfish::privileges::getComputerSystem)
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                   const std::string& systemName) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
+            return;
+        }
+
+        if (systemName != "system")
+        {
+            messages::resourceNotFound(asyncResp->res, "", "");
             return;
         }
         asyncResp->res.jsonValue["@odata.type"] =
@@ -2953,13 +2960,19 @@ inline void requestRoutesSystems(App& app)
         getIdlePowerSaver(asyncResp);
         });
 
-    BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/")
+    BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/")
         .privileges(redfish::privileges::patchComputerSystem)
         .methods(boost::beast::http::verb::patch)(
             [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                   const std::string& systemName) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
+            return;
+        }
+        if (systemName != "system")
+        {
+            messages::resourceNotFound(asyncResp->res, "", "");
             return;
         }
         std::optional<bool> locationIndicatorActive;
@@ -2981,28 +2994,28 @@ inline void requestRoutesSystems(App& app)
         std::optional<uint64_t> ipsExitTime;
 
         // clang-format off
-        if (!json_util::readJsonPatch(
-                req, asyncResp->res,
-                "IndicatorLED", indicatorLed,
-                "LocationIndicatorActive", locationIndicatorActive,
-                "AssetTag", assetTag,
-                "PowerRestorePolicy", powerRestorePolicy,
-                "PowerMode", powerMode,
-                "HostWatchdogTimer/FunctionEnabled", wdtEnable,
-                "HostWatchdogTimer/TimeoutAction", wdtTimeOutAction,
-                "Boot/BootSourceOverrideTarget", bootSource,
-                "Boot/BootSourceOverrideMode", bootType,
-                "Boot/BootSourceOverrideEnabled", bootEnable,
-                "Boot/AutomaticRetryConfig", bootAutomaticRetry,
-                "Boot/TrustedModuleRequiredToBoot", bootTrustedModuleRequired,
-                "IdlePowerSaver/Enabled", ipsEnable,
-                "IdlePowerSaver/EnterUtilizationPercent", ipsEnterUtil,
-                "IdlePowerSaver/EnterDwellTimeSeconds", ipsEnterTime,
-                "IdlePowerSaver/ExitUtilizationPercent", ipsExitUtil,
-                "IdlePowerSaver/ExitDwellTimeSeconds", ipsExitTime))
-        {
-            return;
-        }
+                if (!json_util::readJsonPatch(
+                        req, asyncResp->res,
+                        "IndicatorLED", indicatorLed,
+                        "LocationIndicatorActive", locationIndicatorActive,
+                        "AssetTag", assetTag,
+                        "PowerRestorePolicy", powerRestorePolicy,
+                        "PowerMode", powerMode,
+                        "HostWatchdogTimer/FunctionEnabled", wdtEnable,
+                        "HostWatchdogTimer/TimeoutAction", wdtTimeOutAction,
+                        "Boot/BootSourceOverrideTarget", bootSource,
+                        "Boot/BootSourceOverrideMode", bootType,
+                        "Boot/BootSourceOverrideEnabled", bootEnable,
+                        "Boot/AutomaticRetryConfig", bootAutomaticRetry,
+                        "Boot/TrustedModuleRequiredToBoot", bootTrustedModuleRequired,
+                        "IdlePowerSaver/Enabled", ipsEnable,
+                        "IdlePowerSaver/EnterUtilizationPercent", ipsEnterUtil,
+                        "IdlePowerSaver/EnterDwellTimeSeconds", ipsEnterTime,
+                        "IdlePowerSaver/ExitUtilizationPercent", ipsExitUtil,
+                        "IdlePowerSaver/ExitDwellTimeSeconds", ipsExitTime))
+                {
+                    return;
+                }
         // clang-format on
 
         asyncResp->res.result(boost::beast::http::status::no_content);
@@ -3075,13 +3088,19 @@ inline void requestRoutesSystemResetActionInfo(App& app)
     /**
      * Functions triggers appropriate requests on DBus
      */
-    BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/ResetActionInfo/")
+    BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/ResetActionInfo/")
         .privileges(redfish::privileges::getActionInfo)
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                   const std::string& systemName) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
+            return;
+        }
+        if (systemName != "system")
+        {
+            messages::resourceNotFound(asyncResp->res, "", "");
             return;
         }
 
