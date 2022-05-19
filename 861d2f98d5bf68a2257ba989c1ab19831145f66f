@@ -36,6 +36,23 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cccf98a1_630cfaab",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001322
+      },
+      "writtenOn": "2022-05-19T15:00:31Z",
+      "side": 1,
+      "message": "I misunderstood. My bad.",
+      "revId": "861d2f98d5bf68a2257ba989c1ab19831145f66f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f1771fb8_db7deed3",
@@ -67,6 +84,24 @@
       "side": 1,
       "message": "I\u0027m not sure what you\u0027re asking me to change.  The below does list the bmcweb maintainers (at the end of this file).  Maintainer responsibilities are listed later.",
       "parentUuid": "f1771fb8_db7deed3",
+      "revId": "861d2f98d5bf68a2257ba989c1ab19831145f66f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "319eef06_1fc33d95",
+        "filename": "OWNERS",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1001322
+      },
+      "writtenOn": "2022-05-19T15:00:31Z",
+      "side": 1,
+      "message": "\u003e I\u0027m not sure what you\u0027re asking me to change.  The below does list the bmcweb maintainers (at the end of this file).  Maintainer responsibilities are listed later.\n\nMy bad. I misunderstood.",
+      "parentUuid": "a7c5169b_1e39547a",
       "revId": "861d2f98d5bf68a2257ba989c1ab19831145f66f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
