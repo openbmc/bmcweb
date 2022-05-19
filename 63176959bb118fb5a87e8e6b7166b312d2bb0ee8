@@ -70,6 +70,30 @@
       },
       "revId": "63176959bb118fb5a87e8e6b7166b312d2bb0ee8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ab2bf06_b4a239bf",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 486,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-05-19T05:56:39Z",
+      "side": 1,
+      "message": "This is what I expect, you can get the same info by doing:\n```\n/redfish/v1/Systems/system/Storage/1/Drives/wltu_drive\n```\nand\n```\n/redfish/v1/Chassis/wltu_chassis/Drives/wltu_drive/\"\n```\n\nTechnical not the same endpoint, but yeah, the same information. This is compliant with redfish.",
+      "parentUuid": "59a79530_f3454519",
+      "range": {
+        "startLine": 486,
+        "startChar": 4,
+        "endLine": 486,
+        "endChar": 75
+      },
+      "revId": "63176959bb118fb5a87e8e6b7166b312d2bb0ee8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

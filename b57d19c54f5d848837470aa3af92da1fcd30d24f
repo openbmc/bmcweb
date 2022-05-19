@@ -91,6 +91,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4ad8b4c8_c0d23fa6",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 910,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-05-19T05:56:39Z",
+      "side": 1,
+      "message": "Does synced mean rebased?\n\nWhen you make links to a GH repository, please use a canonical url. Your URL uses what ever is on the master branch, which will soon change. The hot-key for canonical urls is \u0027y\u0027\n\nI can refractor is code to save a couple lines..... Done",
+      "parentUuid": "215310a2_dbad0146",
+      "range": {
+        "startLine": 907,
+        "startChar": 0,
+        "endLine": 910,
+        "endChar": 76
+      },
+      "revId": "b57d19c54f5d848837470aa3af92da1fcd30d24f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2553a3a7_6d388ca6",
         "filename": "redfish-core/lib/chassis.hpp",
         "patchSetId": 4
@@ -138,6 +162,24 @@
       "side": 1,
       "message": "right, but why continue loop through the chassis when we don\u0027t need to. If there are two chassis with the same name and both are valid, there will be race condition on which info get set.",
       "parentUuid": "23e155ee_3c27b6c2",
+      "revId": "b57d19c54f5d848837470aa3af92da1fcd30d24f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fe7387b3_1e243fa4",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 981,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-05-19T05:56:39Z",
+      "side": 1,
+      "message": "I added the break on patchset 5, so only the first matching chttps://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/53563/5/redfish-core/lib/storage.hpp#723\n\n\nWe can talk more about what would happen if I did not add the break if you want? \n(It is unclear to me if it would race)",
+      "parentUuid": "d29f668a_95c70123",
       "revId": "b57d19c54f5d848837470aa3af92da1fcd30d24f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -209,6 +251,24 @@
       "side": 1,
       "message": "that should have been pointed to `requestRoutesDrive`. Anyway, they are both registering for Drives.",
       "parentUuid": "aee9144a_425a8c7c",
+      "revId": "b57d19c54f5d848837470aa3af92da1fcd30d24f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8b325147_d40d0395",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 993,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-05-19T05:56:39Z",
+      "side": 1,
+      "message": "Please explain why you think this function should be in requestRoutesDrive, and not in it\u0027s own requestRoute? You might be right, but it is not obvious to me. \n\nHaving more requestRoutes increases the configuration granularity. (makes it easier exclude specific handlers)  \n\n\nProbably your link was good at some point in the past. Please use canonical URLS, with the GH hotkey \"y\"",
+      "parentUuid": "cd43c8ec_c44c7cf1",
       "revId": "b57d19c54f5d848837470aa3af92da1fcd30d24f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
