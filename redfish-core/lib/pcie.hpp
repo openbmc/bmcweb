@@ -79,13 +79,19 @@ inline void requestRoutesSystemPCIeDeviceCollection(App& app)
     /**
      * Functions triggers appropriate requests on DBus
      */
-    BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/PCIeDevices/")
+    BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/PCIeDevices/")
         .privileges(redfish::privileges::getPCIeDeviceCollection)
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                   const std::string& systemName) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
+            return;
+        }
+        if (systemName != "system")
+        {
+            messages::resourceNotFound(asyncResp->res, "", "");
             return;
         }
 
@@ -142,16 +148,22 @@ inline std::optional<std::string>
 
 inline void requestRoutesSystemPCIeDevice(App& app)
 {
-    BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/PCIeDevices/<str>/")
+    BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/PCIeDevices/<str>/")
         .privileges(redfish::privileges::getPCIeDevice)
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                   const std::string& device) {
+                   const std::string& systemName, const std::string& device) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
         }
+        if (systemName != "system")
+        {
+            messages::resourceNotFound(asyncResp->res, "", "");
+            return;
+        }
+
         auto getPCIeDeviceCallback =
             [asyncResp, device](
                 const boost::system::error_code ec,
