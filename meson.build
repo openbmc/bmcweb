@@ -255,13 +255,11 @@ if not sdbusplus.found()
 endif
 bmcweb_dependencies += sdbusplus
 
-if get_option('rest').enabled()
-  tinyxml = dependency('tinyxml2',
-      default_options: ['tests=false'],
-      include_type: 'system',
-  )
-  bmcweb_dependencies += tinyxml
-endif
+tinyxml = dependency('tinyxml2',
+    default_options: ['tests=false'],
+    include_type: 'system',
+)
+bmcweb_dependencies += tinyxml
 
 systemd = dependency('systemd')
 zlib = dependency('zlib')
