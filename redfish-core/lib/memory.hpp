@@ -868,15 +868,23 @@ inline void requestRoutesMemoryCollection(App& app)
     /**
      * Functions triggers appropriate requests on DBus
      */
-    BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/Memory/")
+    BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/Memory/")
         .privileges(redfish::privileges::getMemoryCollection)
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                   const std::string& systemName) {
                 if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
                 {
                     return;
                 }
+
+                if (systemName != "system")
+                {
+                    messages::resourceNotFound(asyncResp->res, "", "");
+                    return;
+                }
+
                 asyncResp->res.jsonValue["@odata.type"] =
                     "#MemoryCollection.MemoryCollection";
                 asyncResp->res.jsonValue["Name"] = "Memory Module Collection";
@@ -894,14 +902,19 @@ inline void requestRoutesMemory(App& app)
     /**
      * Functions triggers appropriate requests on DBus
      */
-    BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/Memory/<str>/")
+    BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/Memory/<str>/")
         .privileges(redfish::privileges::getMemory)
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                   const std::string& dimmId) {
+                   const std::string& systemName, const std::string& dimmId) {
                 if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
                 {
+                    return;
+                }
+                if (systemName != "system")
+                {
+                    messages::resourceNotFound(asyncResp->res, "", "");
                     return;
                 }
                 asyncResp->res.jsonValue["@odata.type"] =

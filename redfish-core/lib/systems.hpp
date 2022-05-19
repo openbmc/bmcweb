@@ -2860,14 +2860,21 @@ inline void requestRoutesSystems(App& app)
     /**
      * Functions triggers appropriate requests on DBus
      */
-    BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/")
+    BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/")
         .privileges(redfish::privileges::getComputerSystem)
-        .methods(boost::beast::http::verb::get)([&app](const crow::Request& req,
-                                                       const std::shared_ptr<
-                                                           bmcweb::AsyncResp>&
-                                                           asyncResp) {
+        .methods(
+            boost::beast::http::verb::
+                get)([&app](const crow::Request& req,
+                            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                            const std::string& systemName) {
             if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
             {
+                return;
+            }
+
+            if (systemName != "system")
+            {
+                messages::resourceNotFound(asyncResp->res, "", "");
                 return;
             }
             asyncResp->res.jsonValue["@odata.type"] =
@@ -2992,13 +2999,19 @@ inline void requestRoutesSystems(App& app)
             getIdlePowerSaver(asyncResp);
         });
 
-    BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/")
+    BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/")
         .privileges(redfish::privileges::patchComputerSystem)
         .methods(boost::beast::http::verb::patch)(
             [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                   const std::string& systemName) {
                 if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
                 {
+                    return;
+                }
+                if (systemName != "system")
+                {
+                    messages::resourceNotFound(asyncResp->res, "", "");
                     return;
                 }
                 std::optional<bool> locationIndicatorActive;
@@ -3117,13 +3130,19 @@ inline void requestRoutesSystemResetActionInfo(App& app)
     /**
      * Functions triggers appropriate requests on DBus
      */
-    BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/ResetActionInfo/")
+    BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/ResetActionInfo/")
         .privileges(redfish::privileges::getActionInfo)
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                   const std::string& systemName) {
                 if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
                 {
+                    return;
+                }
+                if (systemName != "system")
+                {
+                    messages::resourceNotFound(asyncResp->res, "", "");
                     return;
                 }
 
