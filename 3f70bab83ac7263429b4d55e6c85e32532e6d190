@@ -50,6 +50,80 @@
       "message": "Can someone please +2?",
       "revId": "3f70bab83ac7263429b4d55e6c85e32532e6d190",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "446aad44_7ce3b836",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 31
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001322
+      },
+      "writtenOn": "2022-05-19T10:50:31Z",
+      "side": 1,
+      "message": "request changes on Line 38",
+      "revId": "3f70bab83ac7263429b4d55e6c85e32532e6d190",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a80859e_c43d098e",
+        "filename": "include/google/google_service_root.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1001322
+      },
+      "writtenOn": "2022-05-19T10:50:31Z",
+      "side": 1,
+      "message": "shouldn\u0027t it be throwing 404 error?",
+      "revId": "3f70bab83ac7263429b4d55e6c85e32532e6d190",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bb7a8995_f5b48b2d",
+        "filename": "redfish-core/include/utils/hex_utils.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1001322
+      },
+      "writtenOn": "2022-05-19T10:50:31Z",
+      "side": 1,
+      "message": "same as comment on Line 38.",
+      "range": {
+        "startLine": 36,
+        "startChar": 7,
+        "endLine": 36,
+        "endChar": 14
+      },
+      "revId": "3f70bab83ac7263429b4d55e6c85e32532e6d190",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "35e20ffe_5a75d7f3",
+        "filename": "redfish-core/include/utils/hex_utils.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1001322
+      },
+      "writtenOn": "2022-05-19T10:50:31Z",
+      "side": 1,
+      "message": "it is recommended to use size_t or ssize_t for things that are sizes, counts, etc.\nRefer - https://github.com/openbmc/docs/blob/master/cpp-style-and-conventions.md#misc-guidelines",
+      "revId": "3f70bab83ac7263429b4d55e6c85e32532e6d190",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
