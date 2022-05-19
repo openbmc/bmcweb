@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a85211b_ed24d91c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1001093
+      },
+      "writtenOn": "2022-05-19T18:12:25Z",
+      "side": 1,
+      "message": "\u003e I\u0027m not really interested in maintaining the complexity that this entails of keeping two different naming schemes long term.  It means that for EVERY computersystem route (of which there are many), we\u0027ll need to determine if we\u0027re in single system mode, or double system mode, and for people implementing Redfish code on a single system (which are the majority) it\u0027s highly likely that they break the multi-host case, especially as we go deep into the tree (ie /redfish/v1/Systems/systemN/LogServices/EventLog/Entries/entryN.  If I\u0027m overestimating the complexity here, please let me know.  Realistically, interface-wise, a single system should look the same as having a single node in a multi-node system. \n\u003e \nmy idea is also to keeping single naming scheme by having the single host system with name system0 or host0.\nAnyway as we have to migrate step by step we could keep the \n\"system\" name for single host for this time being.\n\n\u003e What I\u0027d like to see is an analysis of the existing dbus and filesystem paths for host control that are used within the ComputerSystem tree;  Most of them are going to be called \"xyz/openbmc_project/hostN\" and given that Redfish generally uses the last part of that path as the control, we should be able to just change /redfish/v1/Systems/system to /redfish/v1/Systems/hostN without a problem in the long term.  In the short term, I suspect the best strategy would be to simply string replace \"host0\" with \"system\", so that \"system\" always represents the first node, and for any subsequent paths in the tree, \"system\" will be correct (at least in redfish terms) for both multi-node, and non-multi-node, with \"system\" (ie node0) just supporting more features than the rest of the nodes in the interim.\n\nIn my understanding Computer system tree is divided in the following two subparts:\n\n1.Inventory items such as processors,RAM,storage,BIOS etc\n\nThese items are populated by probing the common inventory interfaces\nsuch as xyz.openbmc_project.Inventory.Item.Dimm,\nxyz.openbmc_project.Inventory.Item.Cpu etc.\n\nMy understanding is to gather the inventory item info at is redfish level\nprobing with these common inventory interfaces and filter the results based on host number. \n\nPopulating the inventory item details under the respective dbus inventory \npath should be done separately and it is not within the scope of redfish.\n\n2.Host Power control and host state components\n\nalmost all of the dbus object system paths associated with host control are having the same prefix \"xyz/openbmc_project/hostN\" as you have mentioned.\n\nso this gerrit patch implemented host number based dbus object path in the \"systems.hpp\" and we have verified the applicable host control actions in our platform.\n\n\u003e \n\u003e From my perspective this accomplishes:\n\u003e 1. A reasonably self-contained initial patchset where we can add multi-host support without breaking most of the tree, or having routes that are totally invalid and return 500 on multi-node systems.\n\u003e 2. A transition path to where individual nodes can be made \"multi host aware\" over time, and we can track our progress toward that goal with a simple\n\u003e \n\u003e grep BMCWEB_ROUTE(\"/redfish/v1/Systems/system\n\u003e \n\u003e As long as that call returns routes, this feature is still not done, and we still have routes we need to migrate to be multi-node aware (ie \"redfish/v1/Systems/\u003cstr\u003e\")\n\u003e \n\u003e 3. Once all the routes have been migrated, we can simply remove the code that replaces host0 with \"system\", the IDs will change, and the tree will still be correct.\n\u003e \n\u003e The above is what I have in my mind for a progressing path of this feature, and lets multiple people participate without getting in eachothers way.\n\nI think this change is in line with your proposal as well. I also think doing initial changes in systems.hpp is right start. If any specific change or deviation needed in the code, please let me know I will correct them.",
+      "parentUuid": "8975e012_e84f98d2",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 27
+      },
+      "revId": "793a1155b388ac12376be033cb39a61bc72d8c43",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "2da60d29_7d0470ac",
@@ -71,6 +95,42 @@
       "writtenOn": "2022-05-18T17:53:55Z",
       "side": 1,
       "message": "Do you have further commits about how you link sub-resources (e.g., Memory, CPU) to a certain system?",
+      "revId": "793a1155b388ac12376be033cb39a61bc72d8c43",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c25efca_30bfe7d0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001093
+      },
+      "writtenOn": "2022-05-19T18:12:25Z",
+      "side": 1,
+      "message": "at least for now only the probing with interfaces part of these inventory items are updated in the systems.hpp file.",
+      "parentUuid": "b9285c76_7c25c797",
+      "revId": "793a1155b388ac12376be033cb39a61bc72d8c43",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3e6e2b6f_23c6f48a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001093
+      },
+      "writtenOn": "2022-05-19T18:12:25Z",
+      "side": 1,
+      "message": "The systems.hpp file has the discovery part, which discovers and populates computer systems. so this is the initial patch to propose this new change. If this proposal is approved other places using the hardcoded url will be also changed in the later patches.",
+      "parentUuid": "3894a7bf_32437013",
       "revId": "793a1155b388ac12376be033cb39a61bc72d8c43",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
