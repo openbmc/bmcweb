@@ -12,10 +12,16 @@ namespace redfish
  */
 inline void
     handleBiosServiceGet(crow::App& app, const crow::Request& req,
-                         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+                         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                         const std::string& systemName)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
     {
+        return;
+    }
+    if (systemName != "system")
+    {
+        messages::resourceNotFound(asyncResp->res, "", "");
         return;
     }
     asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1/Systems/system/Bios";
@@ -33,7 +39,7 @@ inline void
 
 inline void requestRoutesBiosService(App& app)
 {
-    BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/Bios/")
+    BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/Bios/")
         .privileges(redfish::privileges::getBios)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handleBiosServiceGet, std::ref(app)));
@@ -48,12 +54,20 @@ inline void requestRoutesBiosService(App& app)
  */
 inline void
     handleBiosResetPost(crow::App& app, const crow::Request& req,
-                        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+                        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                        const std::string& systemName)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
+
+    if (systemName != "system")
+    {
+        messages::resourceNotFound(asyncResp->res, "", "");
+        return;
+    }
+
     crow::connections::systemBus->async_method_call(
         [asyncResp](const boost::system::error_code ec) {
         if (ec)
@@ -69,7 +83,7 @@ inline void
 
 inline void requestRoutesBiosReset(App& app)
 {
-    BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/Bios/Actions/Bios.ResetBios/")
+    BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/Bios/Actions/Bios.ResetBios/")
         .privileges(redfish::privileges::postBios)
         .methods(boost::beast::http::verb::post)(
             std::bind_front(handleBiosResetPost, std::ref(app)));
