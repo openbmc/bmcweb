@@ -148,6 +148,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "cfa32315_3c4a9c10",
+        "filename": "include/google/google_service_root.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-19T20:07:26Z",
+      "side": 1,
+      "message": "\u003e Ah, but request is used in case of the invokeRoTCommand handler to read the json command.\n\u003e \n\u003e I changed the ResolvedEntityHandler to pass in a \"command\" instead of capturing the request and it will be empty on the /RootOfTrust/{Id} request.\n\nYep, this is the correct way to do it.\n\n\u003e \n\u003e That works for now without causing lifetime management issues of the request.\n\u003e LMKWYT.",
+      "parentUuid": "5e0a9bd1_ba65ffd7",
+      "range": {
+        "startLine": 66,
+        "startChar": 26,
+        "endLine": 66,
+        "endChar": 29
+      },
+      "revId": "57c36380c76383c765fe0c9687dae469c702e53f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "3cb73eb2_d9dcefe7",
         "filename": "redfish-core/include/utils/hex_utils.hpp",
         "patchSetId": 29
