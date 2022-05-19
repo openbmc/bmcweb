@@ -86,6 +86,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f0b03b12_3dd890b6",
+        "filename": "include/google/google_service_root.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1001386
+      },
+      "writtenOn": "2022-05-19T19:11:59Z",
+      "side": 1,
+      "message": "resourceNotFound is 404.",
+      "parentUuid": "5a80859e_c43d098e",
+      "revId": "3f70bab83ac7263429b4d55e6c85e32532e6d190",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bb7a8995_f5b48b2d",
@@ -109,6 +127,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2b5d5ff9_fa016845",
+        "filename": "redfish-core/include/utils/hex_utils.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1001386
+      },
+      "writtenOn": "2022-05-19T19:11:59Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "bb7a8995_f5b48b2d",
+      "range": {
+        "startLine": 36,
+        "startChar": 7,
+        "endLine": 36,
+        "endChar": 14
+      },
+      "revId": "3f70bab83ac7263429b4d55e6c85e32532e6d190",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "35e20ffe_5a75d7f3",
@@ -122,6 +164,24 @@
       "writtenOn": "2022-05-19T10:50:31Z",
       "side": 1,
       "message": "it is recommended to use size_t or ssize_t for things that are sizes, counts, etc.\nRefer - https://github.com/openbmc/docs/blob/master/cpp-style-and-conventions.md#misc-guidelines",
+      "revId": "3f70bab83ac7263429b4d55e6c85e32532e6d190",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b19898a0_cfbd1fab",
+        "filename": "redfish-core/include/utils/hex_utils.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1001386
+      },
+      "writtenOn": "2022-05-19T19:11:59Z",
+      "side": 1,
+      "message": "We are dealing with nibbles here. uint8_t is the better representation for this instead of size_t, IMO.\n\nFWIW, bytesToHexString also uses uint8_t to represent bytes.",
+      "parentUuid": "35e20ffe_5a75d7f3",
       "revId": "3f70bab83ac7263429b4d55e6c85e32532e6d190",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
