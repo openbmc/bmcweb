@@ -114,15 +114,22 @@ inline void requestRoutesManagerResetAction(App& app)
      * OpenBMC supports ResetType "GracefulRestart" and "ForceRestart".
      */
 
-    BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/Actions/Manager.Reset/")
+    BMCWEB_ROUTE(app, "/redfish/v1/Managers/<str>/Actions/Manager.Reset/")
         .privileges(redfish::privileges::postManager)
         .methods(boost::beast::http::verb::post)(
             [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                   const std::string& manager) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
         }
+        if (manager != "bmc")
+        {
+            messages::resourceNotFound(asyncResp->res, "", "");
+            return;
+        }
+
         BMCWEB_LOG_DEBUG << "Post Manager Reset.";
 
         std::string resetType;
@@ -174,15 +181,22 @@ inline void requestRoutesManagerResetToDefaultsAction(App& app)
      */
 
     BMCWEB_ROUTE(app,
-                 "/redfish/v1/Managers/bmc/Actions/Manager.ResetToDefaults/")
+                 "/redfish/v1/Managers/<str>/Actions/Manager.ResetToDefaults/")
         .privileges(redfish::privileges::postManager)
         .methods(boost::beast::http::verb::post)(
             [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                   const std::string& manager) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
         }
+        if (manager != "bmc")
+        {
+            messages::resourceNotFound(asyncResp->res, "", "");
+            return;
+        }
+
         BMCWEB_LOG_DEBUG << "Post ResetToDefaults.";
 
         std::string resetType;
@@ -235,13 +249,19 @@ inline void requestRoutesManagerResetActionInfo(App& app)
      * Functions triggers appropriate requests on DBus
      */
 
-    BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/ResetActionInfo/")
+    BMCWEB_ROUTE(app, "/redfish/v1/Managers/<str>/ResetActionInfo/")
         .privileges(redfish::privileges::getActionInfo)
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                   const std::string& manager) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
+            return;
+        }
+        if (manager != "bmc")
+        {
+            messages::resourceNotFound(asyncResp->res, "", "");
             return;
         }
 
@@ -1917,15 +1937,22 @@ inline void requestRoutesManager(App& app)
 {
     std::string uuid = persistent_data::getConfig().systemUuid;
 
-    BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/")
+    BMCWEB_ROUTE(app, "/redfish/v1/Managers/<str>/")
         .privileges(redfish::privileges::getManager)
         .methods(boost::beast::http::verb::get)(
             [&app, uuid](const crow::Request& req,
-                         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+                         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                         const std::string& managerName) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
         }
+        if (managerName != "bmc")
+        {
+            messages::resourceNotFound(asyncResp->res, "", "");
+            return;
+        }
+
         asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1/Managers/bmc";
         asyncResp->res.jsonValue["@odata.type"] = "#Manager.v1_14_0.Manager";
         asyncResp->res.jsonValue["Id"] = "bmc";
@@ -2190,15 +2217,22 @@ inline void requestRoutesManager(App& app)
                 "xyz.openbmc_project.Inventory.Item.Bmc"});
         });
 
-    BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/")
+    BMCWEB_ROUTE(app, "/redfish/v1/Managers/<str>/")
         .privileges(redfish::privileges::patchManager)
         .methods(boost::beast::http::verb::patch)(
             [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                   const std::string& manager) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
         }
+        if (manager != "bmc")
+        {
+            messages::resourceNotFound(asyncResp->res, "", "");
+            return;
+        }
+
         std::optional<nlohmann::json> oem;
         std::optional<nlohmann::json> links;
         std::optional<std::string> datetime;

@@ -28,15 +28,22 @@ namespace redfish
 {
 inline void requestRoutesStorageCollection(App& app)
 {
-    BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/Storage/")
+    BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/Storage/")
         .privileges(redfish::privileges::getStorageCollection)
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                   const std::string& systemName) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
         }
+        if (systemName != "system")
+        {
+            messages::resourceNotFound(asyncResp->res, "", "");
+            return;
+        }
+
         asyncResp->res.jsonValue["@odata.type"] =
             "#StorageCollection.StorageCollection";
         asyncResp->res.jsonValue["@odata.id"] =
@@ -499,16 +506,22 @@ static void addAllDriveInfo(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 
 inline void requestRoutesDrive(App& app)
 {
-    BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/Storage/1/Drives/<str>/")
+    BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/Storage/1/Drives/<str>/")
         .privileges(redfish::privileges::getDrive)
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                   const std::string& driveId) {
+                   const std::string& systemName, const std::string& driveId) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
         }
+        if (systemName != "system")
+        {
+            messages::resourceNotFound(asyncResp->res, "", "");
+            return;
+        }
+
         crow::connections::systemBus->async_method_call(
             [asyncResp,
              driveId](const boost::system::error_code ec,
