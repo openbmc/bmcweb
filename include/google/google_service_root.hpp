@@ -2,6 +2,7 @@
 
 #include <app.hpp>
 #include <async_resp.hpp>
+#include <dbus_utility.hpp>
 #include <error_messages.hpp>
 #include <nlohmann/json.hpp>
 #include <utils/collection.hpp>
@@ -65,7 +66,7 @@ inline void resolveRoT(const std::string& command,
                          entityHandler{std::forward<ResolvedEntityHandler>(
                              entityHandler)}](
                             const boost::system::error_code ec,
-                            const crow::openbmc_mapper::GetSubTreeType&
+                            const dbus::utility::MapperGetSubTreeResponse&
                                 subtree) {
         if (ec)
         {
