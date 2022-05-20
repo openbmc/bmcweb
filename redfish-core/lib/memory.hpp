@@ -709,6 +709,70 @@ inline void getDimmDataByService(std::shared_ptr<bmcweb::AsyncResp> aResp,
         service, objPath, "org.freedesktop.DBus.Properties", "GetAll", "");
 }
 
+inline void assembleDimmPartitionData(
+    const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+    const dbus::utility::DBusPropertiesMap& properties)
+{
+    nlohmann::json& partition =
+        aResp->res.jsonValue["Regions"].emplace_back(nlohmann::json::object());
+    for (const auto& [key, val] : properties)
+    {
+        if (key == "MemoryClassification")
+        {
+            const std::string* value = std::get_if<std::string>(&val);
+            if (value == nullptr)
+            {
+                messages::internalError(aResp->res);
+                return;
+            }
+            partition[key] = *value;
+        }
+        else if (key == "OffsetInKiB")
+        {
+            const uint64_t* value = std::get_if<uint64_t>(&val);
+            if (value == nullptr)
+            {
+                messages::internalError(aResp->res);
+                return;
+            }
+
+            partition["OffsetMiB"] = (*value >> 10);
+        }
+        else if (key == "PartitionId")
+        {
+            const std::string* value = std::get_if<std::string>(&val);
+            if (value == nullptr)
+            {
+                messages::internalError(aResp->res);
+                return;
+            }
+            partition["RegionId"] = *value;
+        }
+
+        else if (key == "PassphraseState")
+        {
+            const bool* value = std::get_if<bool>(&val);
+            if (value == nullptr)
+            {
+                messages::internalError(aResp->res);
+                return;
+            }
+            partition["PassphraseEnabled"] = *value;
+        }
+        else if (key == "SizeInKiB")
+        {
+            const uint64_t* value = std::get_if<uint64_t>(&val);
+            if (value == nullptr)
+            {
+                messages::internalError(aResp->res);
+                BMCWEB_LOG_DEBUG << "Invalid property type for SizeInKiB";
+                return;
+            }
+            partition["SizeMiB"] = (*value >> 10);
+        }
+    }
+}
+
 inline void getDimmPartitionData(std::shared_ptr<bmcweb::AsyncResp> aResp,
                                  const std::string& service,
                                  const std::string& path)
@@ -724,67 +788,7 @@ inline void getDimmPartitionData(std::shared_ptr<bmcweb::AsyncResp> aResp,
 
                 return;
             }
-
-            nlohmann::json& partition =
-                aResp->res.jsonValue["Regions"].emplace_back(
-                    nlohmann::json::object());
-            for (const auto& [key, val] : properties)
-            {
-                if (key == "MemoryClassification")
-                {
-                    const std::string* value = std::get_if<std::string>(&val);
-                    if (value == nullptr)
-                    {
-                        messages::internalError(aResp->res);
-                        return;
-                    }
-                    partition[key] = *value;
-                }
-                else if (key == "OffsetInKiB")
-                {
-                    const uint64_t* value = std::get_if<uint64_t>(&val);
-                    if (value == nullptr)
-                    {
-                        messages::internalError(aResp->res);
-                        return;
-                    }
-
-                    partition["OffsetMiB"] = (*value >> 10);
-                }
-                else if (key == "PartitionId")
-                {
-                    const std::string* value = std::get_if<std::string>(&val);
-                    if (value == nullptr)
-                    {
-                        messages::internalError(aResp->res);
-                        return;
-                    }
-                    partition["RegionId"] = *value;
-                }
-
-                else if (key == "PassphraseState")
-                {
-                    const bool* value = std::get_if<bool>(&val);
-                    if (value == nullptr)
-                    {
-                        messages::internalError(aResp->res);
-                        return;
-                    }
-                    partition["PassphraseEnabled"] = *value;
-                }
-                else if (key == "SizeInKiB")
-                {
-                    const uint64_t* value = std::get_if<uint64_t>(&val);
-                    if (value == nullptr)
-                    {
-                        messages::internalError(aResp->res);
-                        BMCWEB_LOG_DEBUG
-                            << "Invalid property type for SizeInKiB";
-                        return;
-                    }
-                    partition["SizeMiB"] = (*value >> 10);
-                }
-            }
+            assembleDimmPartitionData(aResp, properties);
         },
 
         service, path, "org.freedesktop.DBus.Properties", "GetAll",
