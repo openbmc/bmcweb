@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0ce4e05b_652a4a22",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-05-20T02:23:21Z",
+      "side": 1,
+      "message": "No problem, it\u0027s been removed.",
+      "parentUuid": "b37d408b_419edbc4",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 63
+      },
+      "revId": "9cf5887f074632608504eaea2262393ee94cd0e9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "454e01e9_df5ef7cd",
@@ -47,6 +71,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bd7cc39f_0a95fa73",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-05-20T02:23:21Z",
+      "side": 1,
+      "message": "That was likely a holdover from where I split this class from HttpClient.  It\u0027s been removed.",
+      "parentUuid": "454e01e9_df5ef7cd",
+      "range": {
+        "startLine": 12,
+        "startChar": 1,
+        "endLine": 13,
+        "endChar": 55
+      },
+      "revId": "9cf5887f074632608504eaea2262393ee94cd0e9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "03cc9151_06820355",
@@ -60,6 +108,30 @@
       "writtenOn": "2022-05-17T17:40:47Z",
       "side": 1,
       "message": "Please make this a real static function.  The lambda here doesn\u0027t add a lot.",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 10
+      },
+      "revId": "9cf5887f074632608504eaea2262393ee94cd0e9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d24ee1ea_1a2705a3",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-05-20T02:23:21Z",
+      "side": 1,
+      "message": "I made the switch",
+      "parentUuid": "03cc9151_06820355",
       "range": {
         "startLine": 16,
         "startChar": 0,
@@ -116,6 +188,54 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6a4e1674_b638ec44",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-05-20T02:23:21Z",
+      "side": 1,
+      "message": "Some initial quick Googling showed that 0 was not a valid Port number so that\u0027s why I was checking for 0 as an invalid value.  I looked into it further and it seems 0 is in fact a valid port number so I\u0027ve removed this check.",
+      "parentUuid": "cb3767de_00c64122",
+      "range": {
+        "startLine": 140,
+        "startChar": 42,
+        "endLine": 140,
+        "endChar": 57
+      },
+      "revId": "9cf5887f074632608504eaea2262393ee94cd0e9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "06dad9e4_77f08e3a",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-05-20T02:23:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e075303b_6c3ac9a7",
+      "range": {
+        "startLine": 140,
+        "startChar": 32,
+        "endLine": 140,
+        "endChar": 37
+      },
+      "revId": "9cf5887f074632608504eaea2262393ee94cd0e9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "29000435_d09634f6",
@@ -139,6 +259,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "29a777a7_bc56ef5c",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-05-20T02:23:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "29000435_d09634f6",
+      "range": {
+        "startLine": 159,
+        "startChar": 33,
+        "endLine": 159,
+        "endChar": 37
+      },
+      "revId": "9cf5887f074632608504eaea2262393ee94cd0e9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f8df8eeb_3c9b465c",
@@ -152,6 +296,30 @@
       "writtenOn": "2022-05-17T17:40:47Z",
       "side": 1,
       "message": "The aggregation stuff is probably big enough that its worthy of its own configure option, so users can opt out of the complexity and security stuff it entails.",
+      "range": {
+        "startLine": 96,
+        "startChar": 0,
+        "endLine": 97,
+        "endChar": 46
+      },
+      "revId": "9cf5887f074632608504eaea2262393ee94cd0e9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f1616c6_b159e53e",
+        "filename": "src/webserver_main.cpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-05-20T02:23:21Z",
+      "side": 1,
+      "message": "I added a compiler option to enable Redfish Aggregation.  I marked it as insecure and disabled it by default.",
+      "parentUuid": "f8df8eeb_3c9b465c",
       "range": {
         "startLine": 96,
         "startChar": 0,
