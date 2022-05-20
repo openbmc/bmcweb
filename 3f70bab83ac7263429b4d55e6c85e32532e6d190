@@ -184,6 +184,52 @@
       "parentUuid": "35e20ffe_5a75d7f3",
       "revId": "3f70bab83ac7263429b4d55e6c85e32532e6d190",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f2e6442a_f3ba3c7a",
+        "filename": "redfish-core/include/utils/hex_utils.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-20T01:59:36Z",
+      "side": 1,
+      "message": "should we support both possible capitalization of hex here?  It\u0027s a subtle compatibility thing between versions, but it\u0027s probably worth defining how we parse this very explicitly.",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 5
+      },
+      "revId": "3f70bab83ac7263429b4d55e6c85e32532e6d190",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f79a45eb_cd789633",
+        "filename": "redfish-core/ut/hex_utils_test.cpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-20T01:59:36Z",
+      "side": 1,
+      "message": "nit, std::numeric_limits\u003cuint8_t\u003e::max() is the more modern way to do this.",
+      "range": {
+        "startLine": 34,
+        "startChar": 25,
+        "endLine": 34,
+        "endChar": 33
+      },
+      "revId": "3f70bab83ac7263429b4d55e6c85e32532e6d190",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
