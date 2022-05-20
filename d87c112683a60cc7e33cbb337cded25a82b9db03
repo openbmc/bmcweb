@@ -94,6 +94,30 @@
       },
       "revId": "d87c112683a60cc7e33cbb337cded25a82b9db03",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "34304fca_b90abb48",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1001423
+      },
+      "writtenOn": "2022-05-20T07:47:51Z",
+      "side": 1,
+      "message": "I have updated to the commit message.",
+      "parentUuid": "1ca63d07_28c58691",
+      "range": {
+        "startLine": 81,
+        "startChar": 0,
+        "endLine": 81,
+        "endChar": 27
+      },
+      "revId": "d87c112683a60cc7e33cbb337cded25a82b9db03",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
