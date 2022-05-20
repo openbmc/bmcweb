@@ -46,6 +46,30 @@
       },
       "revId": "d87c112683a60cc7e33cbb337cded25a82b9db03",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "91ff1817_6cf69eb3",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-05-20T02:45:03Z",
+      "side": 1,
+      "message": "I don\u0027t see a way for session-\u003eusername to be null, and session not be null.\n\nI would guess req.session is null, based on https://github.com/openbmc/bmcweb/blob/b9d36b4791d77a47e1f3c5c4564fcdf7cc68c115/http/http_connection.hpp#L581\nwhen BMCWEB_INSECURE_DISABLE_AUTHENTICATION is not defined.",
+      "parentUuid": "8292bd60_d0fef916",
+      "range": {
+        "startLine": 81,
+        "startChar": 0,
+        "endLine": 81,
+        "endChar": 27
+      },
+      "revId": "d87c112683a60cc7e33cbb337cded25a82b9db03",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
