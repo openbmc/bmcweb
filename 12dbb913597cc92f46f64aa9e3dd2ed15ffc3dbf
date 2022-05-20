@@ -16,6 +16,24 @@
       "message": "probs,\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/53505\n\nBut I think we should know why this change is needed to before we make it.",
       "revId": "12dbb913597cc92f46f64aa9e3dd2ed15ffc3dbf",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dbcdce1c_69fa1026",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001217
+      },
+      "writtenOn": "2022-05-20T19:19:02Z",
+      "side": 1,
+      "message": "From Ed\u0027s remarks on chat, basically within Yocto/Bitbake the `tinyxml2` is always included. I guess I\u0027m the first person to actually care if this repo can be built using Meson alone, and so I\u0027m hitting this issue.\n\nSince bitbake was always providing `tinyxml2` the conditional in the build file didn\u0027t really matter but with rest disabled by default, on a system without `tinyxml2`, Meson will not build.",
+      "parentUuid": "d256c50c_e0d56682",
+      "revId": "12dbb913597cc92f46f64aa9e3dd2ed15ffc3dbf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
