@@ -34,6 +34,368 @@
       "parentUuid": "8d347b50_4f4cba5d",
       "revId": "af205a04ba12f10bd54264999a824abc137ae84e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a422e2da_091efabe",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-22T17:19:01Z",
+      "side": 1,
+      "message": "I suspect we don\u0027t need a global scoped shared_ptr.  If this is global scope, there\u0027s no need to share ownership in the way you\u0027ve used it.",
+      "range": {
+        "startLine": 10,
+        "startChar": 12,
+        "endLine": 10,
+        "endChar": 22
+      },
+      "revId": "af205a04ba12f10bd54264999a824abc137ae84e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "28886bdf_81cb6813",
+        "filename": "include/obmc_hypervisor.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-22T17:19:01Z",
+      "side": 1,
+      "message": "Please put this abstracting the websocket class into its own patch, then we can add the hypervisor stuff as a subsequent patch.",
+      "revId": "af205a04ba12f10bd54264999a824abc137ae84e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ecebc94d_3af524dd",
+        "filename": "include/obmc_hypervisor.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-22T17:19:01Z",
+      "side": 1,
+      "message": "looks like a typo?  not sure what \"hyep\" is.",
+      "range": {
+        "startLine": 11,
+        "startChar": 50,
+        "endLine": 11,
+        "endChar": 54
+      },
+      "revId": "af205a04ba12f10bd54264999a824abc137ae84e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9232bb71_32ec4daf",
+        "filename": "include/obmc_hypervisor.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-22T17:19:01Z",
+      "side": 1,
+      "message": "This is going to add this hypervisor route for all systems, including systems that don\u0027t have a hypervisor.  I\u0027m fairly certain that\u0027s not what you intended.",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 34
+      },
+      "revId": "af205a04ba12f10bd54264999a824abc137ae84e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4c74821b_57b21a55",
+        "filename": "include/obmc_hypervisor.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-22T17:19:01Z",
+      "side": 1,
+      "message": "\"console1\" is not specific enough of a URI for this use case, there are lots of consoles, if we\u0027re creating a whole new section of code, it needs to be in a new name, although I suspect we need to come up with a naming policy, which we can work through when your patch is split up.",
+      "range": {
+        "startLine": 15,
+        "startChar": 24,
+        "endLine": 15,
+        "endChar": 32
+      },
+      "revId": "af205a04ba12f10bd54264999a824abc137ae84e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d76e2ca2_8f644bb5",
+        "filename": "include/obmc_hypervisor.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-22T17:19:01Z",
+      "side": 1,
+      "message": "This logic looks incorrect  addConnection() needs to be called in both cases.  As-written, I\u0027m not sure how this passed any testing, maybe there\u0027s a subtle race?",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 13
+      },
+      "revId": "af205a04ba12f10bd54264999a824abc137ae84e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "80f029ed_c7de7850",
+        "filename": "include/obmc_hypervisor.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-22T17:19:01Z",
+      "side": 1,
+      "message": "This doesn\u0027t look needed?  conn is used on line 37.",
+      "range": {
+        "startLine": 34,
+        "startChar": 20,
+        "endLine": 34,
+        "endChar": 36
+      },
+      "revId": "af205a04ba12f10bd54264999a824abc137ae84e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2736d7d7_4af84a7d",
+        "filename": "include/obmc_hypervisor.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-22T17:19:01Z",
+      "side": 1,
+      "message": "Please handle the \"if (hyepWebsocket \u003d\u003d nullptr)\" in its own branch, and if that happens, we should be logging an internal error.",
+      "range": {
+        "startLine": 37,
+        "startChar": 16,
+        "endLine": 37,
+        "endChar": 29
+      },
+      "revId": "af205a04ba12f10bd54264999a824abc137ae84e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca361127_8bd3c47b",
+        "filename": "include/obmc_hypervisor.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-22T17:19:01Z",
+      "side": 1,
+      "message": "This is a bug.  If multiple clients are connected, this will close the unix socket when the first one disconnects.",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 71
+      },
+      "revId": "af205a04ba12f10bd54264999a824abc137ae84e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1ed4b6ad_2bea67b1",
+        "filename": "include/obmc_websocket.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-22T17:19:01Z",
+      "side": 1,
+      "message": "Please mark this class with the final specifier.",
+      "range": {
+        "startLine": 16,
+        "startChar": 30,
+        "endLine": 16,
+        "endChar": 53
+      },
+      "revId": "af205a04ba12f10bd54264999a824abc137ae84e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "011f8b39_ad80f793",
+        "filename": "include/obmc_websocket.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-22T17:19:01Z",
+      "side": 1,
+      "message": "In modern code, please accept these kinds of things by string_view.",
+      "range": {
+        "startLine": 19,
+        "startChar": 26,
+        "endLine": 19,
+        "endChar": 39
+      },
+      "revId": "af205a04ba12f10bd54264999a824abc137ae84e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2301efcc_9fb8ec87",
+        "filename": "include/obmc_websocket.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-22T17:19:01Z",
+      "side": 1,
+      "message": "Doesn\u0027t need inline when it\u0027s part of a class.  This is true for the rest of these implementations below.  Please fix all of them.",
+      "range": {
+        "startLine": 19,
+        "startChar": 4,
+        "endLine": 19,
+        "endChar": 10
+      },
+      "revId": "af205a04ba12f10bd54264999a824abc137ae84e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a3419e2_371f315a",
+        "filename": "include/obmc_websocket.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-22T17:19:01Z",
+      "side": 1,
+      "message": "Now that this is generic, and now that obmc-console supports multiple client I suspect this pattern doesn\u0027t hold as well anymore.  Should we have a unix socket per websocket, which moves a lot of the complexity of managing buffers into obmc-console, where it arguably should belong?",
+      "range": {
+        "startLine": 105,
+        "startChar": 0,
+        "endLine": 110,
+        "endChar": 25
+      },
+      "revId": "af205a04ba12f10bd54264999a824abc137ae84e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4bf8629d_3864ef42",
+        "filename": "include/obmc_websocket.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-22T17:19:01Z",
+      "side": 1,
+      "message": "this-\u003e is redundant.",
+      "range": {
+        "startLine": 116,
+        "startChar": 8,
+        "endLine": 116,
+        "endChar": 12
+      },
+      "revId": "af205a04ba12f10bd54264999a824abc137ae84e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a49f53d0_309fd7b1",
+        "filename": "include/obmc_websocket.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-22T17:19:01Z",
+      "side": 1,
+      "message": "Why is this a unique_ptr?  It seems like it should be taken by value?",
+      "range": {
+        "startLine": 146,
+        "startChar": 9,
+        "endLine": 146,
+        "endChar": 19
+      },
+      "revId": "af205a04ba12f10bd54264999a824abc137ae84e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "da0046f1_469117ed",
+        "filename": "meson.build",
+        "patchSetId": 19
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-22T17:19:01Z",
+      "side": 1,
+      "message": "I suspect we need to rethink how these options are done, given that there\u0027s untold reasons that people would need a serial port, and having a configure option for each possible use case is going to lead to a lot of complexity.",
+      "range": {
+        "startLine": 67,
+        "startChar": 0,
+        "endLine": 67,
+        "endChar": 96
+      },
+      "revId": "af205a04ba12f10bd54264999a824abc137ae84e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
