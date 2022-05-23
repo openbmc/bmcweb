@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fc8dc75b_0f31f130",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001322
+      },
+      "writtenOn": "2022-05-23T12:32:26Z",
+      "side": 1,
+      "message": "how do we make sure ethData is valid ? Don\u0027t we perform any check on it?",
+      "revId": "6b6de86b4d08ab199eba94da7fb01867f2b42757",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0cd8e05d_fbe0181d",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 2173,
+      "author": {
+        "id": 1001322
+      },
+      "writtenOn": "2022-05-23T12:32:26Z",
+      "side": 1,
+      "message": "how do we make sure ethData is valid ? Don\u0027t we perform any check on it?",
+      "revId": "6b6de86b4d08ab199eba94da7fb01867f2b42757",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
