@@ -18,6 +18,23 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b5b7aacb_2784feb9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001322
+      },
+      "writtenOn": "2022-05-23T12:37:57Z",
+      "side": 1,
+      "message": "thanks",
+      "revId": "6b6de86b4d08ab199eba94da7fb01867f2b42757",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0cd8e05d_fbe0181d",
@@ -49,6 +66,24 @@
       "side": 1,
       "message": "In getEthernetIfaceData(), `bool success` argument in the callback funtion indicates if there is any error occurred. ethData is only valid when success is true, that is cheked in Line 2173.",
       "parentUuid": "0cd8e05d_fbe0181d",
+      "revId": "6b6de86b4d08ab199eba94da7fb01867f2b42757",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1948a159_910730a6",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 2173,
+      "author": {
+        "id": 1001322
+      },
+      "writtenOn": "2022-05-23T12:37:57Z",
+      "side": 1,
+      "message": "that makes sense, thanks!",
+      "parentUuid": "4b588dab_eb4d34d2",
       "revId": "6b6de86b4d08ab199eba94da7fb01867f2b42757",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
