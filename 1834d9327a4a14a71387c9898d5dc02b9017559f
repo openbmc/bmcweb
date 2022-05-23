@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6519113c_cb30539b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 17
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-23T20:35:53Z",
+      "side": 1,
+      "message": "Made one super innocent style change (constructing a request in place instead of with operator\u003d) on your last commit.",
+      "revId": "1834d9327a4a14a71387c9898d5dc02b9017559f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
