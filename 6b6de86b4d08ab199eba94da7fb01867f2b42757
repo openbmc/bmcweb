@@ -33,6 +33,24 @@
       "message": "how do we make sure ethData is valid ? Don\u0027t we perform any check on it?",
       "revId": "6b6de86b4d08ab199eba94da7fb01867f2b42757",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4b588dab_eb4d34d2",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 2173,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-05-23T12:36:22Z",
+      "side": 1,
+      "message": "In getEthernetIfaceData(), `bool success` argument in the callback funtion indicates if there is any error occurred. ethData is only valid when success is true, that is cheked in Line 2173.",
+      "parentUuid": "0cd8e05d_fbe0181d",
+      "revId": "6b6de86b4d08ab199eba94da7fb01867f2b42757",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
