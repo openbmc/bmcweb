@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "718d5345_a80bae75",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-23T16:00:43Z",
+      "side": 1,
+      "message": "Please call out what changes you would expect to see to the redfish tree in your commit message.  Do we now no longer have the ability to list more than 1 vlan?  It isn\u0027t clear to me from the code or the commit message.  Also, please call out if you expect any user facing impacts here.  Admittedly, vlan is a pretty low-use feature, (and was clearly broken for a while, so it\u0027s likely nobody is using it) so I\u0027m not that worried about compatibility here, but I would like to understand potential impacts.",
+      "range": {
+        "startLine": 20,
+        "startChar": 12,
+        "endLine": 21,
+        "endChar": 34
+      },
+      "revId": "88922810c215698beba4a748f8c978682d4df1f7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
