@@ -91,6 +91,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "272c6bb3_088058ea",
+        "filename": "redfish-core/include/utils/location_utils.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-05-23T16:17:11Z",
+      "side": 1,
+      "message": "Can you create the change to phosphor-dbus-interface and we can discuss it there?",
+      "parentUuid": "1a308112_1c0ab081",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 73
+      },
+      "revId": "50331a623905ce77d014c51f767aaa8251649fe3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "99126845_a51a61a3",
         "filename": "redfish-core/include/utils/location_utils.hpp",
         "patchSetId": 16
