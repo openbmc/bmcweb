@@ -67,6 +67,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1a308112_1c0ab081",
+        "filename": "redfish-core/include/utils/location_utils.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1001193
+      },
+      "writtenOn": "2022-05-23T08:07:56Z",
+      "side": 1,
+      "message": "If those doesn\u0027t make senses, we probably should add them as different interfaces. Something like \"xyz.openbmc_project.Inventory.Location.Bay\"?",
+      "parentUuid": "270379b5_9494f9a5",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 73
+      },
+      "revId": "50331a623905ce77d014c51f767aaa8251649fe3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "99126845_a51a61a3",
         "filename": "redfish-core/include/utils/location_utils.hpp",
         "patchSetId": 16
