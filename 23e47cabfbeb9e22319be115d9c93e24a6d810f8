@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "41475cd6_cbb9331d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 30
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-05-23T18:24:05Z",
+      "side": 1,
+      "message": "👍",
+      "parentUuid": "ac9eac1a_cd604d1b",
+      "revId": "23e47cabfbeb9e22319be115d9c93e24a6d810f8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "12c2eb34_425bac7f",
@@ -31,6 +49,30 @@
       "writtenOn": "2022-05-22T17:47:31Z",
       "side": 1,
       "message": "Doesn\u0027t need the \"insecure\" option I don\u0027t think.  We generally reserve that name for \"we know that this breaks security guidelines, so users should opt into it.\"  I don\u0027t know of any such case for aggregation, so lets leave it not under insecure for the moment.",
+      "range": {
+        "startLine": 72,
+        "startChar": 3,
+        "endLine": 72,
+        "endChar": 11
+      },
+      "revId": "23e47cabfbeb9e22319be115d9c93e24a6d810f8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "235ceca7_ab68290e",
+        "filename": "meson.build",
+        "patchSetId": 30
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-05-23T18:24:05Z",
+      "side": 1,
+      "message": "I gotcha.  In that respect I also don\u0027t think it needs \"insecure\".  I\u0027ve removed it.",
+      "parentUuid": "12c2eb34_425bac7f",
       "range": {
         "startLine": 72,
         "startChar": 3,
