@@ -83,6 +83,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a32c4874_ebd0ffc3",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 890,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-05-24T18:20:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5e1f3808_85b600cc",
+      "range": {
+        "startLine": 890,
+        "startChar": 53,
+        "endLine": 890,
+        "endChar": 55
+      },
+      "revId": "b4b6539ddc386cca10b8a29020ced298720619eb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7f4359e7_a1d865d8",
@@ -224,6 +248,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "43b03dc8_3a4989bc",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 915,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-05-24T18:20:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "626bd322_14f6a54e",
+      "range": {
+        "startLine": 915,
+        "startChar": 17,
+        "endLine": 915,
+        "endChar": 21
+      },
+      "revId": "b4b6539ddc386cca10b8a29020ced298720619eb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a16c04a3_da47e936",
@@ -309,6 +357,30 @@
       "side": 1,
       "message": "That was very helpful.\n\nreview created:\nhttps://gerrit.openbmc-project.xyz/c/openbmc/phosphor-dbus-interfaces/+/53676",
       "parentUuid": "e77628ad_8d2e74a5",
+      "range": {
+        "startLine": 964,
+        "startChar": 65,
+        "endLine": 964,
+        "endChar": 70
+      },
+      "revId": "b4b6539ddc386cca10b8a29020ced298720619eb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f0f7e23e_5ad2dd36",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 964,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-05-24T18:20:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8ceba069_f38f8359",
       "range": {
         "startLine": 964,
         "startChar": 65,

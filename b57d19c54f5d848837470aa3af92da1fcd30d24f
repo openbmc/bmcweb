@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "29443b2e_f0f1eecd",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 839,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-05-24T18:20:41Z",
+      "side": 1,
+      "message": "I am using a chunk of that function now",
+      "parentUuid": "c5c8ba5f_e9dc5fdb",
+      "revId": "b57d19c54f5d848837470aa3af92da1fcd30d24f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "be97defc_66bc2853",
@@ -127,6 +145,30 @@
       "side": 1,
       "message": "yeah, I am not sure what else it could mean in this context.\n\n--\n\nthanks.\n\n---\n\nI meant that we can combine the handler. I guess it is the same discussion in https://gerrit.openbmc.org/c/openbmc/bmcweb/+/53563/4..8/redfish-core/lib/chassis.hpp#b993.",
       "parentUuid": "4ad8b4c8_c0d23fa6",
+      "range": {
+        "startLine": 907,
+        "startChar": 0,
+        "endLine": 910,
+        "endChar": 76
+      },
+      "revId": "b57d19c54f5d848837470aa3af92da1fcd30d24f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "91a1e6b2_839b50c8",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 910,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-05-24T18:20:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "29a8a11a_9e7a87b1",
       "range": {
         "startLine": 907,
         "startChar": 0,
@@ -311,6 +353,24 @@
       "side": 1,
       "message": "I just thought that they will always be enabled anyway, so no reason to make it separate / configurable. But its whatever.",
       "parentUuid": "8b325147_d40d0395",
+      "revId": "b57d19c54f5d848837470aa3af92da1fcd30d24f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "94fd299f_40f9ede7",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 993,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-05-24T18:20:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "219e3064_b10add91",
       "revId": "b57d19c54f5d848837470aa3af92da1fcd30d24f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
