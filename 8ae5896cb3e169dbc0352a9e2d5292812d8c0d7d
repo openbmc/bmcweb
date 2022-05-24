@@ -49,6 +49,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bad80ecd_0605d81f",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 807,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-05-24T21:23:33Z",
+      "side": 1,
+      "message": "I thought Sui is trying to solve the existing error (#12) here.",
+      "parentUuid": "c8df6433_5deadb0a",
+      "range": {
+        "startLine": 807,
+        "startChar": 0,
+        "endLine": 807,
+        "endChar": 35
+      },
+      "revId": "8ae5896cb3e169dbc0352a9e2d5292812d8c0d7d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cd8c2204_1343ad1e",
         "filename": "redfish-core/lib/memory.hpp",
         "patchSetId": 4
