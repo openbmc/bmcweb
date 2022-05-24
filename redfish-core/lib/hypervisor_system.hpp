@@ -519,7 +519,7 @@ inline void setDHCPEnabled(const std::string& ifaceId,
                            const bool& ipv4DHCPEnabled,
                            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    const std::string dhcp = getDhcpEnabledEnumeration(ipv4DHCPEnabled, false);
+    const std::string dhcp = getDhcpEnabledEnumeration(ipv4DHCPEnabled, false, false);
     crow::connections::systemBus->async_method_call(
         [asyncResp](const boost::system::error_code& ec) {
         if (ec)
