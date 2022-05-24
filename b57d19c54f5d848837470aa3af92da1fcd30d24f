@@ -115,6 +115,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "29a8a11a_9e7a87b1",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 910,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-05-24T17:20:13Z",
+      "side": 1,
+      "message": "yeah, I am not sure what else it could mean in this context.\n\n--\n\nthanks.\n\n---\n\nI meant that we can combine the handler. I guess it is the same discussion in https://gerrit.openbmc.org/c/openbmc/bmcweb/+/53563/4..8/redfish-core/lib/chassis.hpp#b993.",
+      "parentUuid": "4ad8b4c8_c0d23fa6",
+      "range": {
+        "startLine": 907,
+        "startChar": 0,
+        "endLine": 910,
+        "endChar": 76
+      },
+      "revId": "b57d19c54f5d848837470aa3af92da1fcd30d24f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2553a3a7_6d388ca6",
         "filename": "redfish-core/lib/chassis.hpp",
         "patchSetId": 4
@@ -269,6 +293,24 @@
       "side": 1,
       "message": "Please explain why you think this function should be in requestRoutesDrive, and not in it\u0027s own requestRoute? You might be right, but it is not obvious to me. \n\nHaving more requestRoutes increases the configuration granularity. (makes it easier exclude specific handlers)  \n\n\nProbably your link was good at some point in the past. Please use canonical URLS, with the GH hotkey \"y\"",
       "parentUuid": "cd43c8ec_c44c7cf1",
+      "revId": "b57d19c54f5d848837470aa3af92da1fcd30d24f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "219e3064_b10add91",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 993,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-05-24T17:20:13Z",
+      "side": 1,
+      "message": "I just thought that they will always be enabled anyway, so no reason to make it separate / configurable. But its whatever.",
+      "parentUuid": "8b325147_d40d0395",
       "revId": "b57d19c54f5d848837470aa3af92da1fcd30d24f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
