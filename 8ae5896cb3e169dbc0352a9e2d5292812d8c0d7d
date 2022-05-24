@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "da3e4e3e_478f985a",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 804,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-05-24T21:21:44Z",
+      "side": 1,
+      "message": "Should we use association to link Partition and DIMMs instead?",
+      "range": {
+        "startLine": 804,
+        "startChar": 12,
+        "endLine": 804,
+        "endChar": 30
+      },
+      "revId": "8ae5896cb3e169dbc0352a9e2d5292812d8c0d7d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c8df6433_5deadb0a",
         "filename": "redfish-core/lib/memory.hpp",
         "patchSetId": 4
