@@ -535,6 +535,7 @@ Fields common to all schemas
 - MACAddress
 - NameServers
 - SpeedMbps
+- StatelessAddressAutoConfig
 - StaticNameServers
 - Status
 - VLAN/VLANEnable
