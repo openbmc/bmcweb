@@ -216,6 +216,7 @@ class RedfishService
         requestRoutesTriggerCollection(app);
         requestRoutesTrigger(app);
 
+        // Note, this must be the last route registered
         requestRoutesRedfish(app);
     }
 };
