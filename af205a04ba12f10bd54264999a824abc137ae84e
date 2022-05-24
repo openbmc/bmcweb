@@ -61,6 +61,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cedee67b_56d58608",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 19
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-05-24T11:35:52Z",
+      "side": 1,
+      "message": "+1. It would be better to separate it into two patches, one for the mutliple console backend support (the console websocket class), another for the hypervisor console implementation.",
+      "parentUuid": "afc195bd_e640ef8b",
+      "revId": "af205a04ba12f10bd54264999a824abc137ae84e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a422e2da_091efabe",
         "filename": "include/obmc_console.hpp",
         "patchSetId": 19
@@ -77,6 +95,29 @@
         "startChar": 12,
         "endLine": 10,
         "endChar": 22
+      },
+      "revId": "af205a04ba12f10bd54264999a824abc137ae84e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5033e1be_edcf0102",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-05-24T11:35:52Z",
+      "side": 1,
+      "message": "I suggest using the full `consoleWebSocket` as the name as cons can stand for many things like connections.",
+      "range": {
+        "startLine": 10,
+        "startChar": 50,
+        "endLine": 10,
+        "endChar": 54
       },
       "revId": "af205a04ba12f10bd54264999a824abc137ae84e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
@@ -255,6 +296,29 @@
         "startChar": 0,
         "endLine": 37,
         "endChar": 71
+      },
+      "revId": "af205a04ba12f10bd54264999a824abc137ae84e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6848148a_54fa3538",
+        "filename": "include/obmc_websocket.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-05-24T11:35:52Z",
+      "side": 1,
+      "message": "The naming should be more specific I think, there are other services using Websocket in bmcweb like KVM, virtual media.",
+      "range": {
+        "startLine": 13,
+        "startChar": 10,
+        "endLine": 13,
+        "endChar": 24
       },
       "revId": "af205a04ba12f10bd54264999a824abc137ae84e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
