@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "df89cf61_fe322936",
         "filename": "include/vm_websocket.hpp",
@@ -14,10 +15,10 @@
       "side": 1,
       "message": "The document lists packets upto 2^25 or 32 MB. \n1. Where does the 128kB limit come from?\n2. Where does the 4 responses come from?\n\nBoth of these seem to be related to the implementation, possibly in the spawned nbd-proxy ?\n(not saying they are wrong just trying to understand)",
       "revId": "d6510a09ada8decb28af8aae7be8337ed29a12ea",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "dabe62c6_d1f07ae0",
         "filename": "include/vm_websocket.hpp",
@@ -32,10 +33,10 @@
       "message": "1. Where does 128KB limit come from?\n- You might be right, the limitation seems to be a buffer size allocated in nbd-proxy https://github.com/openbmc/jsnbd/blob/master/nbd-proxy.c#L76 , but I didn\u0027t look into it.  However, we also found an issue in nbd-proxy splice system call yesterday, still investigating in this.\n\n2. Where does the 4 responses come from?\n- The original discussion is in Github: https://github.com/openbmc/bmcweb/issues/203, and 4 times buffer size is a sweet spot we found.",
       "parentUuid": "df89cf61_fe322936",
       "revId": "d6510a09ada8decb28af8aae7be8337ed29a12ea",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "cb47fe44_77c94037",
         "filename": "include/vm_websocket.hpp",
@@ -50,10 +51,10 @@
       "message": "I just found out https://github.com/openbmc/bmcweb/blob/master/http/websocket.hpp#L75 here has allocate another 128KB+16Byte buffer... 😓",
       "parentUuid": "dabe62c6_d1f07ae0",
       "revId": "d6510a09ada8decb28af8aae7be8337ed29a12ea",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "8e2efd7a_c8f3c762",
         "filename": "include/vm_websocket.hpp",
@@ -68,10 +69,10 @@
       "message": "Ok, thanks for the pointers, it helped a lot.\n\nAfter looking at nbd-proxy, the kernel drivers/block/nbd.c, the kernel usb/gadget/functions/f_mass_storage.c and common-storage.h, I think this 128MB nbd request grouping is likely due the default size of the host sending to the \"scsi\" stack usb device and not an intentional buffer sizing or grouping.   Changing the queue tuning of the host may change the request boundaries.  (I\u0027m just scanning code; I don\u0027t have a system to trace.)\n\nJustification:  The usb gadget uses FSG_BUFSIZE\u003d16384 byte chunks, the request is whatever the host gave, the nbd takes the request, transmists an iov_iter to the network with the 16 byte header and then however many data chunks the network stack will take (with sizing).\n\nThe stack then seems to be nbd-client to unix socket to nbd-proxy to stdin/stdout pipes to this vm_websocket (with a static session) to Beast buffers to boost:asio to openssl and then over the network.\n\nThe fundamental problem is that the code tries to push too much in the flat buffer, and errors out instead of applying backpressure.\n\nHowever, everything is a stream once it goes through the nbd to socket code, and stays a stream until its parsed in the nbd server, which is the javascript code.\n\nIt might be the buffer you identified (Line 75) is larger than the flat buffer, \n\nBut it could also be that the buffer is not big enough for the websocket headers.  \n\nI have only skimmed websockets rfc but it appears to have variable size packet sizes, this code is just sending binary messages.  The TLS spec allows upto 2^14 bytes per TLS packet.  Both layers require knowing the size of data to be transmitted before transmitting a frame, and have hints to find that more data is immenent and the packet can grow.\n\nI will also note when reaching the end of the flat buffer it waits until its sent then shifts back; it\u0027s not a circular buffer stream.  Increasing the size of the buffer may increase the memmove overhead.",
       "parentUuid": "cb47fe44_77c94037",
       "revId": "d6510a09ada8decb28af8aae7be8337ed29a12ea",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "699326a0_23faa511",
         "filename": "include/vm_websocket.hpp",
@@ -86,10 +87,10 @@
       "message": "\u003e Ok, thanks for the pointers, it helped a lot.\n\u003e \n\u003e After looking at nbd-proxy, the kernel drivers/block/nbd.c, the kernel usb/gadget/functions/f_mass_storage.c and common-storage.h, I think this 128MB nbd request grouping is likely due the default size of the host sending to the \"scsi\" stack usb device and not an intentional buffer sizing or grouping.   Changing the queue tuning of the host may change the request boundaries.  (I\u0027m just scanning code; I don\u0027t have a system to trace.)\n\u003e \n\u003e Justification:  The usb gadget uses FSG_BUFSIZE\u003d16384 byte chunks, the request is whatever the host gave, the nbd takes the request, transmists an iov_iter to the network with the 16 byte header and then however many data chunks the network stack will take (with sizing).\n\u003e \n\u003e The stack then seems to be nbd-client to unix socket to nbd-proxy to stdin/stdout pipes to this vm_websocket (with a static session) to Beast buffers to boost:asio to openssl and then over the network.\n\u003e \n\u003e The fundamental problem is that the code tries to push too much in the flat buffer, and errors out instead of applying backpressure.\n\n+1\n\n\u003e \n\u003e However, everything is a stream once it goes through the nbd to socket code, and stays a stream until its parsed in the nbd server, which is the javascript code.\n\u003e \n\u003e It might be the buffer you identified (Line 75) is larger than the flat buffer, \n\u003e \n\u003e But it could also be that the buffer is not big enough for the websocket headers.  \n\u003e \n\u003e I have only skimmed websockets rfc but it appears to have variable size packet sizes, this code is just sending binary messages.  The TLS spec allows upto 2^14 bytes per TLS packet.  Both layers require knowing the size of data to be transmitted before transmitting a frame, and have hints to find that more data is immenent and the packet can grow.\n\u003e \n\u003e I will also note when reaching the end of the flat buffer it waits until its sent then shifts back; it\u0027s not a circular buffer stream.  Increasing the size of the buffer may increase the memmove overhead.\n\nI suspect multi_buffer would avoid the memmove overhead if that\u0027s a concern, but it didn\u0027t exist at the time this code was originally written.  Flat_buffer was mostly chosen because the assumption was that we would send one chunk at a time and clear the buffer each loop, but that\u0027s not what the VM implementation chose to do.",
       "parentUuid": "8e2efd7a_c8f3c762",
       "revId": "d6510a09ada8decb28af8aae7be8337ed29a12ea",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "51b7eb0b_11810b4e",
         "filename": "include/vm_websocket.hpp",
@@ -104,10 +105,10 @@
       "message": "\u003e \u003e \n\u003e \u003e I will also note when reaching the end of the flat buffer it waits until its sent then shifts back; it\u0027s not a circular buffer stream.  Increasing the size of the buffer may increase the memmove overhead.\n\u003e \n\u003e I suspect multi_buffer would avoid the memmove overhead if that\u0027s a concern, but it didn\u0027t exist at the time this code was originally written.  Flat_buffer was mostly chosen because the assumption was that we would send one chunk at a time and clear the buffer each loop, but that\u0027s not what the VM implementation chose to do.\n\nThe kernel implementation generates a set of transaction tags and that dermines the number of outstanding commands.  From what I can tell it will negotiate a sector size from 512 to PAGE_SIZE and then transfer any number of sectors per request (upto 65536 sectors or UINT_MAX bytes, whichever is less).\n\nI can review multi_buffer at a later time to see if it looks suitable, otherwise we may need to block reading until the transfer to the writer has completed.  I think ignoring the read is preferable to the extreme memory demand to buffer the speed matching and preferable to blocking all activity until the write completes.",
       "parentUuid": "699326a0_23faa511",
       "revId": "d6510a09ada8decb28af8aae7be8337ed29a12ea",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "304c17db_b2d99cbc",
         "filename": "include/vm_websocket.hpp",
@@ -122,10 +123,10 @@
       "message": "Agree. That could explain why I couldn\u0027t find a reasonable value for the buffer size, and I always got fail here or there. I have seen nbd-proxy using splice() to avoid user space copy, does boost asio has similar mechanism?",
       "parentUuid": "51b7eb0b_11810b4e",
       "revId": "d6510a09ada8decb28af8aae7be8337ed29a12ea",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "c346a937_4c8cc15d",
         "filename": "include/vm_websocket.hpp",
@@ -140,8 +141,25 @@
       "message": "The websocket layer needs to insert framing aa binary data. And splice still requires looping.   Also, while the nbd server in jsonbd doesn\u0027t care about the boundaries it\u0027s required ti use by the websocket layer in web browsers.\n\nMy quick look at boost found something about splitting asynchronous io which might be the path for this but I really have not read enough to be definitive.  (This would allow two asynchronous threads one for tx the other rx.",
       "parentUuid": "304c17db_b2d99cbc",
       "revId": "d6510a09ada8decb28af8aae7be8337ed29a12ea",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "51b69996_8467b98a",
+        "filename": "include/vm_websocket.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-24T14:34:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c346a937_4c8cc15d",
+      "revId": "d6510a09ada8decb28af8aae7be8337ed29a12ea",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
