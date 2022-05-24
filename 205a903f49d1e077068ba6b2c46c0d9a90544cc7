@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4b4faba8_2b36c2ef",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-05-24T21:19:48Z",
+      "side": 1,
+      "message": "I need to be able to track this flag per each individual response.  If it can\u0027t go here then I think the only other option would be as a member variable of AsyncResp.\n\nIf I can\u0027t put a flag in AsyncResp then I think my next options are:\n1) Perform another satellite config D-Bus lookup at the end of the endpoints to decide if I need to attempt to fix any of the links.  \n2) Modify the response\u0027s completion handler so that it fixes the links before calling the original completion handler function.",
+      "parentUuid": "f1baf953_8a4b2ee9",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 0
+      },
+      "revId": "205a903f49d1e077068ba6b2c46c0d9a90544cc7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8d186732_94080906",
         "filename": "redfish-core/include/redfish_aggregator.hpp",
         "patchSetId": 1
@@ -66,6 +90,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c1793a31_081d8c7a",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-05-24T21:19:48Z",
+      "side": 1,
+      "message": "\u003e This isn\u0027t a complete listing of every collection type in the system, and isn\u0027t a list that I\u0027m interested in maintaining over time. \nI was not trying to implement all collections, just a subset of the form \"/redfish/v1/\u003cCollectionName\u003e/\".  If I need to support each collection type then couldn\u0027t I assume that any \"/redfish/v1/\u003cstr\u003e/\u003cstr\u003e\" is an aggregated resource and then any \"/redfish/v1/\u003cstr\u003e\" is a collection?\n\n\u003e Rely on some intrinsic, like the fact that the \"Members\" property exists and is an array, liked we do in other places.\nThis might be tricky because a collection could exist on the satellite and not on the host. The \"Members\" property would exist, but none of the entries would belong to the aggregating BMC.  We would need to make sure that the code does not accidentally add \"main_\" to collection objects that are actually located on a satellite.",
+      "parentUuid": "8d186732_94080906",
+      "range": {
+        "startLine": 321,
+        "startChar": 0,
+        "endLine": 324,
+        "endChar": 91
+      },
+      "revId": "205a903f49d1e077068ba6b2c46c0d9a90544cc7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "53117f1a_4240f90a",
         "filename": "redfish-core/lib/managers.hpp",
         "patchSetId": 1
@@ -77,6 +125,30 @@
       "writtenOn": "2022-05-24T14:46:11Z",
       "side": 1,
       "message": "Changing this URI is going to break a lot of stuff.  Technically it\u0027s allowed in the spec, but people hardcoding this over time have lead to a mediocre situation.  Could we just prefix the aggregated resources with an ID that denotes them as aggregated, and leave the existing routes alone?  I suspect that will get this patch merged faster.",
+      "range": {
+        "startLine": 2348,
+        "startChar": 0,
+        "endLine": 2348,
+        "endChar": 71
+      },
+      "revId": "205a903f49d1e077068ba6b2c46c0d9a90544cc7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "12e216e3_0c06173a",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2348,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-05-24T21:19:48Z",
+      "side": 1,
+      "message": "The original intention was that the routing code would remove the prefix before it ever gets passed to the handler.  That would have left the existing routes intact.  Unfortunately, there is not currently an appropriate location to hook the handler.\n\nThis is now moot following Discord discussion beginning here: https://discord.com/channels/775381525260664832/855566794994221117/978720524140183622.  The plan is to forgo using \"main_\" to denote local IDs for the time being.",
+      "parentUuid": "53117f1a_4240f90a",
       "range": {
         "startLine": 2348,
         "startChar": 0,
