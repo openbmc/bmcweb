@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c146b547_63c29227",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-05-24T16:56:55Z",
+      "side": 1,
+      "message": "\u003e Is this true in the aggregation case?\nYes, because the aggregating BMC only knows if a request is meant for a satellite, not whether the requested resource exists on that satellite.  \n\n\u003e In theory we shouldn\u0027t be seeing 404 anywhere?\nIn theory a user should not request a 404, but it could happen due to something like typos while making manual queries.  If it does happen then the aggregator should just return the 404 from the satellite right away.  Otherwise we would exhaust the retry policy and return a 502.",
+      "parentUuid": "499c91e3_19c48443",
+      "range": {
+        "startLine": 246,
+        "startChar": 0,
+        "endLine": 246,
+        "endChar": 61
+      },
+      "revId": "2437afcc5653c51bfc40f7bb47fee8eab4e2c736",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2e5ef60d_7ad3f2e1",
         "filename": "http/http_client.hpp",
         "patchSetId": 27
@@ -37,6 +61,30 @@
       "writtenOn": "2022-05-24T14:49:59Z",
       "side": 1,
       "message": "Not quite following this.  I\u0027m assuming you\u0027re essentially doing the same thing as.\n\nconn-\u003ecallback \u003d nullptr;\n\nconsidering that tmp isn\u0027t used anywhere.  If we\u0027re needing to do this, we have some lifetime ownership issues that need sorted.  I suspect callback needs to own this connection by weak_ptr, not shared_ptr?",
+      "range": {
+        "startLine": 453,
+        "startChar": 0,
+        "endLine": 456,
+        "endChar": 52
+      },
+      "revId": "2437afcc5653c51bfc40f7bb47fee8eab4e2c736",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ed201d46_9f30675f",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 456,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-05-24T16:56:55Z",
+      "side": 1,
+      "message": "Yes, I should have used nullptr for that.  I\u0027ll try using weak_ptr and see if that can solves the lifetime issue.",
+      "parentUuid": "2e5ef60d_7ad3f2e1",
       "range": {
         "startLine": 453,
         "startChar": 0,
