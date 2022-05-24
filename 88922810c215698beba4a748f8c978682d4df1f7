@@ -22,6 +22,30 @@
       },
       "revId": "88922810c215698beba4a748f8c978682d4df1f7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4ced17e9_90106079",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-05-24T03:57:48Z",
+      "side": 1,
+      "message": "In fact, nothing will be changed on the Redfish side. It still has the ability to list VLAN multiple VLAN interfaces.\n\nAs I said in the commit message, OpenBMC uses a virtual interface to represent a VLAN, as well as Redfish. Both VLAN and physical interface are interfaces that can have at most 1 VLAN ID assigned.\n\nThe ability to associate VLAN interface with physical interface always uses the interface name, no matter before or after this patch. On Dbus, interfaces are also listed in a \"plain\" way like\n/\u003cservice\u003e/eth0\n/\u003cservice\u003e/eth0_100\n/\u003cservice\u003e/eth0_200\n/\u003cservice\u003e/eth1\nThe format is \u003cparentInterfaceName\u003e_\u003cvlanId\u003e\n\nI updated commit message to point out it has no impact on the redfish response. It\u0027s just a code optimization.",
+      "parentUuid": "718d5345_a80bae75",
+      "range": {
+        "startLine": 20,
+        "startChar": 12,
+        "endLine": 21,
+        "endChar": 34
+      },
+      "revId": "88922810c215698beba4a748f8c978682d4df1f7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
