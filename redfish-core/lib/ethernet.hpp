@@ -86,6 +86,7 @@ struct EthernetInterfaceData
     bool hostNameEnabled;
     bool linkUp;
     bool nicEnabled;
+    bool ipv6AcceptRa;
     std::string dhcpEnabled;
     std::string operatingMode;
     std::string hostName;
@@ -136,7 +137,8 @@ inline bool translateDhcpEnabledToBool(const std::string& inputDHCP,
              "xyz.openbmc_project.Network.EthernetInterface.DHCPConf.both"));
 }
 
-inline std::string getDhcpEnabledEnumeration(bool isIPv4, bool isIPv6)
+inline std::string getDhcpEnabledEnumeration(const bool& isIPv4,
+                                             const bool& isIPv6)
 {
     if (isIPv4 && isIPv6)
     {
@@ -275,6 +277,15 @@ inline bool extractEthernetInterfaceData(
                             if (nicEnabled != nullptr)
                             {
                                 ethData.nicEnabled = *nicEnabled;
+                            }
+                        }
+                        else if (propertyPair.first == "IPv6AcceptRA")
+                        {
+                            const bool* ipv6AcceptRa =
+                                std::get_if<bool>(&propertyPair.second);
+                            if (ipv6AcceptRa != nullptr)
+                            {
+                                ethData.ipv6AcceptRa = *ipv6AcceptRa;
                             }
                         }
                         else if (propertyPair.first == "Nameservers")
@@ -1096,6 +1107,27 @@ inline void setDHCPv4Config(const std::string& propertyName, const bool& value,
         dbus::utility::DbusVariantType{value});
 }
 
+inline void handleSLAACAutoConfigPatch(
+    const std::string& ifaceId, const bool& ipv6AutoConfigEnabled,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+{
+    crow::connections::systemBus->async_method_call(
+        [asyncResp](const boost::system::error_code& ec) {
+        if (ec)
+        {
+            BMCWEB_LOG_ERROR << "D-Bus responses error: " << ec;
+            messages::internalError(asyncResp->res);
+            return;
+        }
+        messages::success(asyncResp->res);
+        },
+        "xyz.openbmc_project.Network",
+        "/xyz/openbmc_project/network/" + ifaceId,
+        "org.freedesktop.DBus.Properties", "Set",
+        "xyz.openbmc_project.Network.EthernetInterface", "IPv6AcceptRA",
+        dbus::utility::DbusVariantType{ipv6AutoConfigEnabled});
+}
+
 inline void handleDHCPPatch(const std::string& ifaceId,
                             const EthernetInterfaceData& ethData,
                             const DHCPParameters& v4dhcpParms,
@@ -1111,8 +1143,7 @@ inline void handleDHCPPatch(const std::string& ifaceId,
     bool nextv6DHCPState{};
     if (v6dhcpParms.dhcpv6OperatingMode)
     {
-        if ((*v6dhcpParms.dhcpv6OperatingMode != "Stateful") &&
-            (*v6dhcpParms.dhcpv6OperatingMode != "Stateless") &&
+        if ((*v6dhcpParms.dhcpv6OperatingMode != "Enabled") &&
             (*v6dhcpParms.dhcpv6OperatingMode != "Disabled"))
         {
             messages::propertyValueFormatError(asyncResp->res,
@@ -1120,7 +1151,7 @@ inline void handleDHCPPatch(const std::string& ifaceId,
                                                "OperatingMode");
             return;
         }
-        nextv6DHCPState = (*v6dhcpParms.dhcpv6OperatingMode == "Stateful");
+        nextv6DHCPState = (*v6dhcpParms.dhcpv6OperatingMode == "Enabled");
     }
     else
     {
@@ -1614,11 +1645,13 @@ inline void
     jsonResponse["DHCPv4"]["UseDomainName"] = ethData.hostNameEnabled;
 
     jsonResponse["DHCPv6"]["OperatingMode"] =
-        translateDhcpEnabledToBool(ethData.dhcpEnabled, false) ? "Stateful"
+        translateDhcpEnabledToBool(ethData.dhcpEnabled, false) ? "Enabled"
                                                                : "Disabled";
     jsonResponse["DHCPv6"]["UseNTPServers"] = ethData.ntpEnabled;
     jsonResponse["DHCPv6"]["UseDNSServers"] = ethData.dnsEnabled;
     jsonResponse["DHCPv6"]["UseDomainName"] = ethData.hostNameEnabled;
+    jsonResponse["StatelessAddressAutoConfig"]["IPv6AutoConfigEnabled"] =
+        ethData.ipv6AcceptRa;
 
     if (!ethData.hostName.empty())
     {
@@ -1980,6 +2013,8 @@ inline void requestEthernetInterfacesRoutes(App& app)
         std::optional<std::vector<std::string>> staticNameServers;
         std::optional<nlohmann::json> dhcpv4;
         std::optional<nlohmann::json> dhcpv6;
+        std::optional<nlohmann::json> statelessAddressAutoConfig;
+        std::optional<bool> ipv6AutoConfigEnabled;
         std::optional<bool> interfaceEnabled;
         std::optional<size_t> mtuSize;
         DHCPParameters v4dhcpParms;
@@ -1991,6 +2026,7 @@ inline void requestEthernetInterfacesRoutes(App& app)
                 macAddress, "StaticNameServers", staticNameServers,
                 "IPv6DefaultGateway", ipv6DefaultGateway, "IPv6StaticAddresses",
                 ipv6StaticAddresses, "DHCPv4", dhcpv4, "DHCPv6", dhcpv6,
+                "StatelessAddressAutoConfig", statelessAddressAutoConfig,
                 "MTUSize", mtuSize, "InterfaceEnabled", interfaceEnabled))
         {
             return;
@@ -2020,6 +2056,15 @@ inline void requestEthernetInterfacesRoutes(App& app)
             }
         }
 
+        if (statelessAddressAutoConfig)
+        {
+            if (!json_util::readJson(*statelessAddressAutoConfig,
+                                     asyncResp->res, "IPv6AutoConfigEnabled",
+                                     ipv6AutoConfigEnabled))
+            {
+                return;
+            }
+        }
         // Get single eth interface data, and call the below callback
         // for JSON preparation
         getEthernetIfaceData(
@@ -2031,7 +2076,8 @@ inline void requestEthernetInterfacesRoutes(App& app)
              ipv6StaticAddresses = std::move(ipv6StaticAddresses),
              staticNameServers = std::move(staticNameServers),
              dhcpv4 = std::move(dhcpv4), dhcpv6 = std::move(dhcpv6), mtuSize,
-             v4dhcpParms = std::move(v4dhcpParms),
+             statelessAddressAutoConfig = std::move(statelessAddressAutoConfig),
+             ipv6AutoConfigEnabled, v4dhcpParms = std::move(v4dhcpParms),
              v6dhcpParms = std::move(v6dhcpParms), interfaceEnabled](
                 const bool& success, const EthernetInterfaceData& ethData,
                 const std::vector<IPv4AddressData>& ipv4Data,
@@ -2055,6 +2101,12 @@ inline void requestEthernetInterfacesRoutes(App& app)
             if (hostname)
             {
                 handleHostnamePatch(*hostname, asyncResp);
+            }
+
+            if (statelessAddressAutoConfig)
+            {
+                handleSLAACAutoConfigPatch(ifaceId, *ipv6AutoConfigEnabled,
+                                           asyncResp);
             }
 
             if (fqdn)
