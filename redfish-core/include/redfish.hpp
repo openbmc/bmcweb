@@ -34,6 +34,7 @@
 #include "../lib/power.hpp"
 #include "../lib/processor.hpp"
 #include "../lib/redfish_sessions.hpp"
+#include "../lib/redfish_v1.hpp"
 #include "../lib/roles.hpp"
 #include "../lib/sensors.hpp"
 #include "../lib/service_root.hpp"
@@ -212,6 +213,8 @@ class RedfishService
         requestRoutesMetricReport(app);
         requestRoutesTriggerCollection(app);
         requestRoutesTrigger(app);
+
+        requestRoutesRedfishV1(app);
     }
 };
 
