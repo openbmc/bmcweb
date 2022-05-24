@@ -22,6 +22,30 @@
       },
       "revId": "4d39cceec9059087432481450f3273c945188ac4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "36340589_27ab125f",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-05-24T04:40:29Z",
+      "side": 1,
+      "message": "nvm, I re-read Ed\u0027s comment",
+      "parentUuid": "220368a5_59fd5ada",
+      "range": {
+        "startLine": 81,
+        "startChar": 0,
+        "endLine": 81,
+        "endChar": 27
+      },
+      "revId": "4d39cceec9059087432481450f3273c945188ac4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
