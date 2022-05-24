@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "220368a5_59fd5ada",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-05-24T03:08:49Z",
+      "side": 1,
+      "message": "I was expecting \n```\n    if (session \u003d\u003d nullptr || req.session \u003d\u003d nullptr )\n```\n\nor maybe if you wanted to be extra safe, \n```\n    if (session \u003d\u003d nullptr ||  \n         session-\u003eusername \u003d\u003d nullptr || \n         req.session \u003d\u003d nullptr )\n```\n\nThat way, you still server the resourceNotFound",
+      "range": {
+        "startLine": 81,
+        "startChar": 0,
+        "endLine": 81,
+        "endChar": 27
+      },
+      "revId": "4d39cceec9059087432481450f3273c945188ac4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
