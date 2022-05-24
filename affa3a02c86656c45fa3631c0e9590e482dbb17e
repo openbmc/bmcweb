@@ -34,6 +34,24 @@
       "parentUuid": "e307802e_7fbd3a8b",
       "revId": "affa3a02c86656c45fa3631c0e9590e482dbb17e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9de10987_e0eaeb4c",
+        "filename": "redfish-core/lib/redfish_v1.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-24T22:42:21Z",
+      "side": 1,
+      "message": "Removed the V1",
+      "parentUuid": "3be1d4e8_54ced6fa",
+      "revId": "affa3a02c86656c45fa3631c0e9590e482dbb17e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
