@@ -16,6 +16,24 @@
       "message": "As mentioned in a previous comment, I agree I don\u0027t think this should be in chassis.hpp",
       "revId": "e64238f888071a7a23c2542651093fa5a1363f0f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6d25712d_f14542bd",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 848,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-05-24T22:06:05Z",
+      "side": 1,
+      "message": "done. \n\nThanks for looking this over.",
+      "parentUuid": "6e82e70f_c49d0eba",
+      "revId": "e64238f888071a7a23c2542651093fa5a1363f0f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
