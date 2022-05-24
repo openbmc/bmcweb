@@ -1,0 +1,303 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2ebf2e3d_f5a81b6d",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 851,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-24T15:04:57Z",
+      "side": 1,
+      "message": "This is relying on undefined behavior, taking a reference to an rvalue.  Please don\u0027t use a default parameter for this (ideally updateFile wouldn\u0027t use one either)",
+      "range": {
+        "startLine": 851,
+        "startChar": 65,
+        "endLine": 851,
+        "endChar": 70
+      },
+      "revId": "c180337e72cff1fb6b82093f071af562b12e8fb1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "03212f4d_7ac393ea",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-24T15:04:57Z",
+      "side": 1,
+      "message": "Please don\u0027t use brace initialization for new code.  Please look at the current json style, which relies on operator[]",
+      "range": {
+        "startLine": 53,
+        "startChar": 31,
+        "endLine": 55,
+        "endChar": 33
+      },
+      "revId": "c180337e72cff1fb6b82093f071af562b12e8fb1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1cd95042_21024f4d",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-24T15:04:57Z",
+      "side": 1,
+      "message": "Please use the appropriate helper methods for this.",
+      "range": {
+        "startLine": 57,
+        "startChar": 0,
+        "endLine": 57,
+        "endChar": 55
+      },
+      "revId": "c180337e72cff1fb6b82093f071af562b12e8fb1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c9511054_36fc476c",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-24T15:04:57Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this be internalError or 404 if this doesn\u0027t exist?",
+      "range": {
+        "startLine": 66,
+        "startChar": 0,
+        "endLine": 66,
+        "endChar": 28
+      },
+      "revId": "c180337e72cff1fb6b82093f071af562b12e8fb1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6eaf45fb_2742da4a",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-24T15:04:57Z",
+      "side": 1,
+      "message": "Please abstract this lambda to a method.",
+      "range": {
+        "startLine": 80,
+        "startChar": 0,
+        "endLine": 80,
+        "endChar": 33
+      },
+      "revId": "c180337e72cff1fb6b82093f071af562b12e8fb1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "56829915_b5198371",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-24T15:04:57Z",
+      "side": 1,
+      "message": "Please use boost::urls::url for this.  urlEncode is on its way toward being removed.",
+      "range": {
+        "startLine": 205,
+        "startChar": 39,
+        "endLine": 205,
+        "endChar": 48
+      },
+      "revId": "c180337e72cff1fb6b82093f071af562b12e8fb1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0521ca24_8662a625",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-24T15:04:57Z",
+      "side": 1,
+      "message": "Please use the appropriate url construction methods for this.",
+      "range": {
+        "startLine": 304,
+        "startChar": 0,
+        "endLine": 304,
+        "endChar": 67
+      },
+      "revId": "c180337e72cff1fb6b82093f071af562b12e8fb1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "de83f299_6811323a",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 490,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-24T15:04:57Z",
+      "side": 1,
+      "message": "Please don\u0027t capture references like this, it is unsafe to do in this way if the json object gets modified in between the callback and here.",
+      "range": {
+        "startLine": 490,
+        "startChar": 22,
+        "endLine": 490,
+        "endChar": 33
+      },
+      "revId": "c180337e72cff1fb6b82093f071af562b12e8fb1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e6ac50fe_d60a97c8",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 491,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-24T15:04:57Z",
+      "side": 1,
+      "message": "Please extract the content of this lambda to a method.",
+      "range": {
+        "startLine": 491,
+        "startChar": 0,
+        "endLine": 491,
+        "endChar": 76
+      },
+      "revId": "c180337e72cff1fb6b82093f071af562b12e8fb1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "11743f56_1e0bd4ec",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 618,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-24T15:04:57Z",
+      "side": 1,
+      "message": "Please avoid doing this comparison twice.  This code can be simplified.",
+      "range": {
+        "startLine": 618,
+        "startChar": 0,
+        "endLine": 618,
+        "endChar": 42
+      },
+      "revId": "c180337e72cff1fb6b82093f071af562b12e8fb1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ee1d7d93_ad11e396",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 798,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-24T15:04:57Z",
+      "side": 1,
+      "message": "Why do we need to check if a client already exists?",
+      "range": {
+        "startLine": 798,
+        "startChar": 0,
+        "endLine": 798,
+        "endChar": 58
+      },
+      "revId": "c180337e72cff1fb6b82093f071af562b12e8fb1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e1d28153_db5b88ec",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 832,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-24T15:04:57Z",
+      "side": 1,
+      "message": "1.  This is identical to the code on line 845.\n2. this isnt necessary, just use param on line 833",
+      "range": {
+        "startLine": 832,
+        "startChar": 0,
+        "endLine": 832,
+        "endChar": 50
+      },
+      "revId": "c180337e72cff1fb6b82093f071af562b12e8fb1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e158f77c_e50030e9",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 985,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-24T15:04:57Z",
+      "side": 1,
+      "message": "nit, this can be simplified with remove_prefix(4)",
+      "range": {
+        "startLine": 985,
+        "startChar": 20,
+        "endLine": 985,
+        "endChar": 50
+      },
+      "revId": "c180337e72cff1fb6b82093f071af562b12e8fb1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
