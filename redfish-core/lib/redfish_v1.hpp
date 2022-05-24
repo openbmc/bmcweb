@@ -19,10 +19,11 @@ inline void redfishGet(App& app, const crow::Request& req,
     asyncResp->res.jsonValue["v1"] = "/redfish/v1/";
 }
 
-inline void requestRoutes(App& app)
+inline void requestRoutesRedfishV1(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/")
         .methods(boost::beast::http::verb::get)(
             std::bind_front(redfishGet, std::ref(app)));
 }
+
 } // namespace redfish
