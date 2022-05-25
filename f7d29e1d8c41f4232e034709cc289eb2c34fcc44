@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b141a169_31f880b0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-05-25T00:21:16Z",
+      "side": 1,
+      "message": "I\u0027m in favor of making this change.  \n\nRedfish aggregation is another in-development feature that would greatly benefit from not having hard coded IDs.  The hard coded IDs are preventing adding prefixes to URIs to explicitly denote when a request is meant for the aggregating BMC.  Those prefixes would also prevent possible collisions between local and satellite resources.",
+      "revId": "f7d29e1d8c41f4232e034709cc289eb2c34fcc44",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
