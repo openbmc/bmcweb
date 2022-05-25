@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9e72a157_9861e03f",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 804,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-05-25T00:12:24Z",
+      "side": 1,
+      "message": "I don\u0027t have a full context about the physical devices, but what I meant here is in the original code, if there is a Partition Object whose path contains the specific DIMM, it will be considered as \"Partitions\" property of that DIMM.\n\nSo, does a partition object\u0027s path also end with the same dimm ID?",
+      "parentUuid": "8037d7c7_111274b5",
+      "range": {
+        "startLine": 804,
+        "startChar": 12,
+        "endLine": 804,
+        "endChar": 30
+      },
+      "revId": "8ae5896cb3e169dbc0352a9e2d5292812d8c0d7d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c8df6433_5deadb0a",
         "filename": "redfish-core/lib/memory.hpp",
         "patchSetId": 4
