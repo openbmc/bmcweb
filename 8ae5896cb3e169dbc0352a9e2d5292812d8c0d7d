@@ -74,6 +74,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7ba3c806_6cf84393",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 804,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2022-05-25T03:06:40Z",
+      "side": 1,
+      "message": "For the following variables:\n\n1. dimmId passed in to this function\n2. the DIMM ID in a `PersistentMemory`\u0027s partition\u0027s object path\n3. the DIMM ID in a `Inventory.Item.Dimm`\u0027s object path\n4. the LocationCode property of a Dimm inventory\n\nI believe 1, 2, 3 must match while 4 don\u0027t have to agree with the top 3. Because 4 can be set in the SMBIOS, plus DIMM is a form factor, it doesn\u0027t matter if the memory stick is volatile or non-volatile, or a hybrid of volatile or non-volatile. Or in other words, a DIMM is a property of the socket, not the content in it.\n\nThe particular system I\u0027m testing on does not have any PersistentMemory devices. If I find any exceptions of what I claimed above I\u0027ll update here.",
+      "parentUuid": "9e72a157_9861e03f",
+      "range": {
+        "startLine": 804,
+        "startChar": 12,
+        "endLine": 804,
+        "endChar": 30
+      },
+      "revId": "8ae5896cb3e169dbc0352a9e2d5292812d8c0d7d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c8df6433_5deadb0a",
         "filename": "redfish-core/lib/memory.hpp",
         "patchSetId": 4
