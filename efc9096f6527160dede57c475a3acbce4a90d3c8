@@ -38,6 +38,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1ee13cd7_57c18439",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 46
+      },
+      "lineNbr": 1118,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-05-25T16:55:29Z",
+      "side": 1,
+      "message": "Now the function becomes very large, could you move these codes to a separate function so that this callback lambda can be very short.",
+      "range": {
+        "startLine": 1118,
+        "startChar": 10,
+        "endLine": 1118,
+        "endChar": 32
+      },
+      "revId": "efc9096f6527160dede57c475a3acbce4a90d3c8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "506b5eeb_66fa2693",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 46
