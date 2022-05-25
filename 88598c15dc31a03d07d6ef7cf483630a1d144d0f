@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b8f2ea97_c3c6d03a",
+        "filename": "redfish-core/lib/health.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-25T16:48:29Z",
+      "side": 1,
+      "message": "nit, this comment isn\u0027t very helpful when attached to the constructor, and the lifetime issue can be seen from the code.",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 12
+      },
+      "revId": "88598c15dc31a03d07d6ef7cf483630a1d144d0f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d4981528_e1b3b266",
+        "filename": "redfish-core/lib/health.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-25T16:48:29Z",
+      "side": 1,
+      "message": "Why did this code need to move?",
+      "range": {
+        "startLine": 66,
+        "startChar": 3,
+        "endLine": 71,
+        "endChar": 22
+      },
+      "revId": "88598c15dc31a03d07d6ef7cf483630a1d144d0f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
