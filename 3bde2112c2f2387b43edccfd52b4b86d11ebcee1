@@ -16,6 +16,24 @@
       "message": "This is a trivial change",
       "revId": "3bde2112c2f2387b43edccfd52b4b86d11ebcee1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b5f355a2_1f4964fb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-25T22:08:53Z",
+      "side": 1,
+      "message": "It is trivial in the sense that it\u0027s just moving code.\n\nIt is not trivial in that it doesn\u0027t need tested.  Which is looks like you\u0027ve done, so that\u0027s good.",
+      "parentUuid": "b9e18d11_b78d2572",
+      "revId": "3bde2112c2f2387b43edccfd52b4b86d11ebcee1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
