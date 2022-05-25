@@ -33,6 +33,24 @@
       "message": "I suspect you didn\u0027t mean to delete this, and looking at it, makes this code no longer match the schema.  I would\u0027ve expected your testing with the redfish service validator that you stated in your commit message to catch this;  Can you please triage why your testing didn\u0027t catch this, and get a bug filed with the service validator github for whatever the issue is?",
       "revId": "3bde2112c2f2387b43edccfd52b4b86d11ebcee1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "462fc507_c8951fde",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 879,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-05-25T23:54:15Z",
+      "side": 0,
+      "message": "https://gerrit.openbmc.org/c/openbmc/bmcweb/+/53824/9\n\nYeah, it gets added here. Maybe I messed up the testing with these nested changes. Let me fix it and run the validator again against this commit only.",
+      "parentUuid": "3ea82d45_56f0fe24",
+      "revId": "3bde2112c2f2387b43edccfd52b4b86d11ebcee1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
