@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "06dd1b5b_0c72cef0",
+        "filename": "include/google/dbus_utils.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-05-25T17:23:04Z",
+      "side": 1,
+      "message": "why do we use \"const char *\" here?\n\nIf possible, we prefer C++ types.",
+      "range": {
+        "startLine": 25,
+        "startChar": 4,
+        "endLine": 25,
+        "endChar": 15
+      },
+      "revId": "639f5512fe74c91b45ffb18ab6c8a964860185b7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b65387bf_92e36c42",
+        "filename": "include/google/dbus_utils.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-05-25T17:23:04Z",
+      "side": 1,
+      "message": "What\u0027s the reason of using shared_ptr all the time? Does it has to be shared?\n\nIIUC, AsyncResp is using shared_ptr since we have to extend its lifecycle when doing async calls",
+      "range": {
+        "startLine": 131,
+        "startChar": 19,
+        "endLine": 131,
+        "endChar": 29
+      },
+      "revId": "639f5512fe74c91b45ffb18ab6c8a964860185b7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
