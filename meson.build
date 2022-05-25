@@ -356,9 +356,29 @@ configure_file(input : 'pam-webserver',
                install_dir: '/etc/pam.d',
                install : true)
 
-install_subdir('static', install_dir : 'share/www', strip_directory : true)
 
-# Source files
+static_files = [
+  'google',
+  'styles',
+  'DMTF_Redfish_logo_2017.svg',
+  'redfish.css',
+  'redfish/$metadata',
+  'redfish/odata',
+  'redfish/schema',
+]
+
+if get_option('redfish-schemas') == 'both'
+  static_files += 'redfish/JsonSchemas'
+  add_project_arguments('-DBMCWEB_ENABLE_REDFISH_JSON_SCHEMAS', language:'cpp')
+endif
+
+foreach static_filename: static_files
+  install_subdir(
+    'static/' + static_filename,
+    install_dir : 'share/www/' + static_filename,
+    strip_directory : true
+  )
+endforeach
 
 srcfiles_bmcweb = [
   'redfish-core/src/error_messages.cpp',
