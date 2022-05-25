@@ -247,5 +247,15 @@ TEST(Router, ParameterTagging)
               crow::black_magic::getParameterTag("<uint><double><int>"));
 }
 
+TEST(URL, JsonEncoding)
+{
+    using nlohmann::json;
+    boost::urls::url url("/foo");
+    EXPECT_EQ(json(url), "/foo");
+
+    std::string urlString = "/foo";
+    EXPECT_EQ(json(boost::urls::url_view(urlString)), "/foo");
+}
+
 } // namespace
 } // namespace crow::utility
