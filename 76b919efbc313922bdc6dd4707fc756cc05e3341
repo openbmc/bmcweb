@@ -81,6 +81,30 @@
       },
       "revId": "76b919efbc313922bdc6dd4707fc756cc05e3341",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cda5e1cd_df803c5c",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 840,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-25T16:52:50Z",
+      "side": 1,
+      "message": "/xyz/openbmc_project/Inventory/Item/Dimm1/Partition1\n\nIs there a daemon that exposes this?  I don\u0027t think there is, and for some reason I thought it was /xyz/openbmc_project/Inventory/Item/Partition1.",
+      "parentUuid": "b73fbb7f_3276a4b9",
+      "range": {
+        "startLine": 839,
+        "startChar": 28,
+        "endLine": 840,
+        "endChar": 83
+      },
+      "revId": "76b919efbc313922bdc6dd4707fc756cc05e3341",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

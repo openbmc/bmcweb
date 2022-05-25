@@ -122,6 +122,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1f0d062e_0437cdef",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 804,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-25T16:52:50Z",
+      "side": 1,
+      "message": "I\u0027m quite confused...... This changeset is literally just fixing a bug, in the recommended way;  I\u0027m not sure what this has to do with associations at all, or why we\u0027re talking about persistent memory (ie nvdimm).\n\nArguably, listing a PersistentMemory.Partition object as a \"Dimm\" is incorrect, but I don\u0027t think has any effect on this patchset, or I\u0027m really missing something.",
+      "parentUuid": "dd96ba64_6505043a",
+      "range": {
+        "startLine": 804,
+        "startChar": 12,
+        "endLine": 804,
+        "endChar": 30
+      },
+      "revId": "8ae5896cb3e169dbc0352a9e2d5292812d8c0d7d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c8df6433_5deadb0a",
         "filename": "redfish-core/lib/memory.hpp",
         "patchSetId": 4
