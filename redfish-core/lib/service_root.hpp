@@ -44,8 +44,10 @@ inline void
     asyncResp->res.jsonValue["AccountService"]["@odata.id"] =
         "/redfish/v1/AccountService";
     asyncResp->res.jsonValue["Chassis"]["@odata.id"] = "/redfish/v1/Chassis";
+#ifdef BMCWEB_ENABLE_REDFISH_JSON_SCHEMAS
     asyncResp->res.jsonValue["JsonSchemas"]["@odata.id"] =
         "/redfish/v1/JsonSchemas";
+#endif
     asyncResp->res.jsonValue["Managers"]["@odata.id"] = "/redfish/v1/Managers";
     asyncResp->res.jsonValue["SessionService"]["@odata.id"] =
         "/redfish/v1/SessionService";

@@ -104,6 +104,7 @@ inline void requestRoutes(App& app)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(redfishGet, std::ref(app)));
 
+#ifdef BMCWEB_ENABLE_REDFISH_SCHEMAS
     BMCWEB_ROUTE(app, "/redfish/v1/JsonSchemas/<str>/")
         .methods(boost::beast::http::verb::get)(
             std::bind_front(jsonSchemaGet, std::ref(app)));
@@ -111,6 +112,7 @@ inline void requestRoutes(App& app)
     BMCWEB_ROUTE(app, "/redfish/v1/JsonSchemas/")
         .methods(boost::beast::http::verb::get)(
             std::bind_front(jsonSchemaIndexGet, std::ref(app)));
+#endif
 }
 
 } // namespace redfish
