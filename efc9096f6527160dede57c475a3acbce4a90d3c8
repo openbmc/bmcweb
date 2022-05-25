@@ -38,6 +38,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "506b5eeb_66fa2693",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 46
+      },
+      "lineNbr": 1123,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-05-25T14:11:32Z",
+      "side": 1,
+      "message": "Please simply ignore the case that mapper cannot find any object. It\u0027s possible for a system having no service providing the interface.",
+      "revId": "efc9096f6527160dede57c475a3acbce4a90d3c8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e93d9c43_a214ee43",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 46
@@ -67,6 +84,24 @@
       "side": 1,
       "message": "I was told to use the mapper. So I can do two things.\n1. I can just hard code the paths for this getProperty(attempt paths)\n2. I can parse the subtree for the correct service/path.\nWhich would you prefer I do?",
       "parentUuid": "e93d9c43_a214ee43",
+      "revId": "efc9096f6527160dede57c475a3acbce4a90d3c8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e79514a4_6a2ad75a",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 46
+      },
+      "lineNbr": 1137,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-05-25T14:11:32Z",
+      "side": 1,
+      "message": "My suggestion is separating getting RebootPolicy/RebootAttempts into two functions, and hardcode using subtree[0] like getTrustedModuleRequiredToBoot() in the same file does. The 3rd parameter of GetSubTree (interfaces) is an OR condition, and dbus object containg either 1 of the 2 interfaces. In this case, subtree[0] may not always the one have the Policy interface, same applies to subtree[2].\n\nSince you are only going to add getting RebootAttempts in this patch, I think you only need to add the function to get it with mapper. No need to touch the exising RebootPolicy.",
+      "parentUuid": "0ad559bf_a62e6530",
       "revId": "efc9096f6527160dede57c475a3acbce4a90d3c8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
