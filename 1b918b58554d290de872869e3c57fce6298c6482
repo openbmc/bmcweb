@@ -63,6 +63,30 @@
       },
       "revId": "1b918b58554d290de872869e3c57fce6298c6482",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b53a841d_a537b595",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-05-25T23:59:08Z",
+      "side": 1,
+      "message": "But I can use a JSON pointer instead.",
+      "parentUuid": "706a3b20_91a49ada",
+      "range": {
+        "startLine": 168,
+        "startChar": 0,
+        "endLine": 168,
+        "endChar": 64
+      },
+      "revId": "1b918b58554d290de872869e3c57fce6298c6482",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
