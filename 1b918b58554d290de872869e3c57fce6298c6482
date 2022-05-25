@@ -39,6 +39,30 @@
       },
       "revId": "1b918b58554d290de872869e3c57fce6298c6482",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "706a3b20_91a49ada",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-05-25T23:58:44Z",
+      "side": 1,
+      "message": "Hmm, is adding a comment saying \"Callers should guarantee the reference outlives the function call\" enough?\n\nThese two functions don\u0027t create async calls. They just manipulates a JSON and codes run synchronously. So it\u0027s unlikely to have lifecycle issues like the HealthPopulate object which runs asynchronously.",
+      "parentUuid": "d6b631c2_c41431e7",
+      "range": {
+        "startLine": 168,
+        "startChar": 0,
+        "endLine": 168,
+        "endChar": 64
+      },
+      "revId": "1b918b58554d290de872869e3c57fce6298c6482",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
