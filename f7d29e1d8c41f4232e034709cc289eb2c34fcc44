@@ -51,6 +51,24 @@
       "parentUuid": "a3e61ea4_2753bfd4",
       "revId": "f7d29e1d8c41f4232e034709cc289eb2c34fcc44",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "293d17f9_66800b4a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001093
+      },
+      "writtenOn": "2022-05-25T15:02:59Z",
+      "side": 1,
+      "message": "yeah got it and agreed.There are no redfish route handling calls (/redfish/v1/Systems/\u003cstr\u003e) on the fwupdate service file. so it is not needed here.",
+      "parentUuid": "4e96ea57_84a74bc3",
+      "revId": "f7d29e1d8c41f4232e034709cc289eb2c34fcc44",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
