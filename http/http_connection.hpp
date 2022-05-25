@@ -1,7 +1,7 @@
 #pragma once
 #include "bmcweb_config.h"
 
-#include "authorization.hpp"
+#include "authentication.hpp"
 #include "http_response.hpp"
 #include "http_utility.hpp"
 #include "logging.hpp"
@@ -356,7 +356,7 @@ class Connection :
             return;
         }
 #ifndef BMCWEB_INSECURE_DISABLE_AUTHENTICATION
-        if (!crow::authorization::isOnAllowlist(req->url, req->method()) &&
+        if (!crow::authentication::isOnAllowlist(req->url, req->method()) &&
             thisReq.session == nullptr)
         {
             BMCWEB_LOG_WARNING << "Authentication failed";
@@ -435,7 +435,7 @@ class Connection :
 
         addSecurityHeaders(*req, res);
 
-        crow::authorization::cleanupTempSession(*req);
+        crow::authentication::cleanupTempSession(*req);
 
         if (!isAlive())
         {

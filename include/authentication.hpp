@@ -18,7 +18,7 @@
 namespace crow
 {
 
-namespace authorization
+namespace authentication
 {
 
 static void cleanupTempSession(Request& req)
@@ -311,5 +311,5 @@ static std::shared_ptr<persistent_data::UserSession>
     return nullptr;
 }
 
-} // namespace authorization
+} // namespace authentication
 } // namespace crow
