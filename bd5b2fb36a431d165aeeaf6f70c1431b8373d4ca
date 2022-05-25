@@ -20,6 +20,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e1274c12_dba9346c",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 1735,
+      "author": {
+        "id": 1000278
+      },
+      "writtenOn": "2022-05-25T19:32:34Z",
+      "side": 1,
+      "message": "This does not appear to follow the Redfish schema.\nThese items should be populated below a VLANNetworkInterfaceCollection.\n\nThese changes don\u0027t appear to belong to parseInterfaceData, but belong to parseVlanInterfaceData.\n\nThe vlanId needs to be std::vector in order to correctly enumerate all of the possible VLAN entries that may exist.\n\nAny LAN entry in parseInterfaceData is, by definition, Physical. Any collected from parseVLANInteraceData is Virtual.",
+      "revId": "bd5b2fb36a431d165aeeaf6f70c1431b8373d4ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "723ad4c0_8fc8b2e0",
         "filename": "redfish-core/lib/ethernet.hpp",
         "patchSetId": 11

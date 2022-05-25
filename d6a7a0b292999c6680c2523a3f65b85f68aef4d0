@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ee8abfe_c2c1d80a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000278
+      },
+      "writtenOn": "2022-05-25T19:32:34Z",
+      "side": 1,
+      "message": "This change looks like it needs some additional work to make it compliant to the Redfish schema.",
+      "revId": "d6a7a0b292999c6680c2523a3f65b85f68aef4d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
