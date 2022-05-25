@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ddfc6e12_c39235f8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000278
+      },
+      "writtenOn": "2022-05-25T20:31:14Z",
+      "side": 1,
+      "message": "I may not be understanding all of the changes being made, and how they interlock. Here are some observations with regard to the changes.\n\nBTW, have you run the Redfish Service Validator across this? If I\u0027m correct about the VLANs -\u003e VLAN change the validator might have found that for you.",
+      "revId": "94338089a28025152806ce28a38eea29002a18f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b9df483f_1291fe7a",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 1808,
+      "author": {
+        "id": 1000278
+      },
+      "writtenOn": "2022-05-25T20:31:14Z",
+      "side": 1,
+      "message": "Shouldn\u0027t \"/VLANs/\" be \"/VLAN/\"? Pretty much globally in this schema?",
+      "revId": "94338089a28025152806ce28a38eea29002a18f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d819bbe0_acdf995f",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 1811,
+      "author": {
+        "id": 1000278
+      },
+      "writtenOn": "2022-05-25T20:31:14Z",
+      "side": 1,
+      "message": "This doesn\u0027t make much sense to me. VLANEnable is a R/W element. It seems like the Redfish user will want to *write* this element with an true/false to enable/disable the VLAN independently of the NIC.\n\nDoes it make sense to make ethData contain a vlanSet containing an ID and Enable state for a list of VLANs?\n\nI\u0027m uncertain if you also qualify this with nicEnabled too. In some ways that seems superflous because the physical NIC being disabled will take this down too.",
+      "revId": "94338089a28025152806ce28a38eea29002a18f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bdbad12f_7ba7c611",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 1812,
+      "author": {
+        "id": 1000278
+      },
+      "writtenOn": "2022-05-25T20:31:14Z",
+      "side": 1,
+      "message": "Is this \u0027if\u0027 clause necessary? The caller has already confirmed ethData.vlanId is non-null.\nIn addition, isn\u0027t vlanId the same as ifaceId in this instance?\nThe two terms appear to be synonymous to me.",
+      "revId": "94338089a28025152806ce28a38eea29002a18f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a70d2017_af4ed7b5",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 1814,
+      "author": {
+        "id": 1000278
+      },
+      "writtenOn": "2022-05-25T20:31:14Z",
+      "side": 1,
+      "message": "The NIC may have more than one VLAN. There needs to be a mechanism for iterating over all of the VLANs in the collection.",
+      "revId": "94338089a28025152806ce28a38eea29002a18f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f675b5fd_98e378f9",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 2132,
+      "author": {
+        "id": 1000278
+      },
+      "writtenOn": "2022-05-25T20:31:14Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this be \"/VLAN/\"?\nEthernetInterfaces/eth0/VLAN/17   For example?\n\nVLANs is the collection\nVLAN is the element",
+      "revId": "94338089a28025152806ce28a38eea29002a18f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f8edeabe_b6d073d4",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 2193,
+      "author": {
+        "id": 1000278
+      },
+      "writtenOn": "2022-05-25T20:31:14Z",
+      "side": 1,
+      "message": "IMO *vlanEnable is the value to be returned for the ethx/VLAN/vlanId GET action.",
+      "revId": "94338089a28025152806ce28a38eea29002a18f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
