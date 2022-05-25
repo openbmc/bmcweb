@@ -22,6 +22,30 @@
       },
       "revId": "e548de085b197a2daf2b7ae0e32f09e403fc97dc",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "571f83fe_1677e3f5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 17
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1001428
+      },
+      "writtenOn": "2022-05-25T13:59:38Z",
+      "side": 1,
+      "message": "Should it have the same change ID as the getAutomaticRetry commit that goes along with this? If I used --amend wouldn\u0027t it have made them the same commit?",
+      "parentUuid": "93c2d16a_8384bc4a",
+      "range": {
+        "startLine": 56,
+        "startChar": 11,
+        "endLine": 56,
+        "endChar": 52
+      },
+      "revId": "e548de085b197a2daf2b7ae0e32f09e403fc97dc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
