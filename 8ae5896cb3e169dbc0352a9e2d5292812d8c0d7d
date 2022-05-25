@@ -194,6 +194,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8ee7b8bc_3fc9b34b",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 804,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-25T19:15:24Z",
+      "side": 1,
+      "message": "\u003e If we know the existing Partition codes and comments are wrong, then we can delete them, right? Deleting partition codes also makes my change\n\nNot generally how that works.  It might be \"wrong\" internally, but give the correct response to the user.  There\u0027s an argument that might be made that OpenBMC doesn\u0027t have anything that implements these interfaces, but that\u0027s a different concern.\n\n\u003e Oh I see, the question is for a path like \"/xyz/openbmc_project/Inventory/Item/Dimm1/Partition1\", `filename()` can only return \"Partition1\".\n\n\nBut returning Partition1 seems like the right response here?  The mapper queried all partitions, we want to enumerate Partition1, not dimm1.",
+      "parentUuid": "e2dbdaa2_dcb6cb2d",
+      "range": {
+        "startLine": 804,
+        "startChar": 12,
+        "endLine": 804,
+        "endChar": 30
+      },
+      "revId": "8ae5896cb3e169dbc0352a9e2d5292812d8c0d7d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c8df6433_5deadb0a",
         "filename": "redfish-core/lib/memory.hpp",
         "patchSetId": 4
