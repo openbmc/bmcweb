@@ -105,6 +105,30 @@
       },
       "revId": "dd7b68e1e78c8aa71cf521171dbeed325be94b4d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "89f61fa7_3241b45e",
+        "filename": "redfish-core/lib/health.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-05-25T23:50:25Z",
+      "side": 1,
+      "message": "Okay, our gap is that \" thought [] will throw an exception if it can\u0027t be resolved by reading https://json.nlohmann.me/api/basic_json/operator%5B%5D/#exception-safety\n\n```\nThe function can throw the following exceptions:\nThrows parse_error.106 if an array index in the passed JSON pointer ptr begins with \u00270\u0027.\nThrows parse_error.109 if an array index in the passed JSON pointer ptr is not a number.\nThrows out_of_range.402 if the array index \u0027-\u0027 is used in the passed JSON pointer ptr for the const version.\nThrows out_of_range.404 if the JSON pointer ptr can not be resolved.\n```\n\nI quickly tested it just now. You are right, it creates an object if the key doesn\u0027t exist. It even extends the array the index is out of boundary. \n\n```\n  \"test_list\": [\n    1.0,\n    \"test\",\n    null,\n    null,\n    null,\n    null,\n    null,\n    null,\n    null,\n    null,\n    \"123\"\n  ],\n```",
+      "parentUuid": "40c0b1b4_7379d80f",
+      "range": {
+        "startLine": 61,
+        "startChar": 0,
+        "endLine": 64,
+        "endChar": 9
+      },
+      "revId": "dd7b68e1e78c8aa71cf521171dbeed325be94b4d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
