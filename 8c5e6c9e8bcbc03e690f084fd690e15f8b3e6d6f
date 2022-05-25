@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e71df4ea_29a4f6e0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-05-25T01:55:45Z",
+      "side": 1,
+      "message": "https://redfishforum.com/thread/655/vlanenable-property-vlannetworkinterface\n\nHad a discussion in Redfish forum, the behavior I\u0027m going to implement is correct.",
+      "revId": "8c5e6c9e8bcbc03e690f084fd690e15f8b3e6d6f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
