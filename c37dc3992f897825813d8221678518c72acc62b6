@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6625b2cb_0cfc74fd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 45
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001428
+      },
+      "writtenOn": "2022-05-25T02:06:03Z",
+      "side": 1,
+      "message": "This patch is now working and tested.\n",
+      "revId": "c37dc3992f897825813d8221678518c72acc62b6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

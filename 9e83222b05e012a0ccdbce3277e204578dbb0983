@@ -83,6 +83,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "567ed0b2_053a8b6e",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1172,
+      "author": {
+        "id": 1001428
+      },
+      "writtenOn": "2022-05-25T02:06:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f6334eea_981b6f84",
+      "revId": "9e83222b05e012a0ccdbce3277e204578dbb0983",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "85ec44bf_6b03fb2f",
@@ -114,6 +132,24 @@
       "side": 1,
       "message": "I will make the changes.\nLink to phosphor changes. \nhttps://gerrit.openbmc-project.xyz/c/openbmc/phosphor-state-manager/+/53603/2",
       "parentUuid": "85ec44bf_6b03fb2f",
+      "revId": "9e83222b05e012a0ccdbce3277e204578dbb0983",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bd4431ad_2aefda27",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1212,
+      "author": {
+        "id": 1001428
+      },
+      "writtenOn": "2022-05-25T02:06:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7ba52ac3_63c820ed",
       "revId": "9e83222b05e012a0ccdbce3277e204578dbb0983",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
