@@ -390,6 +390,7 @@ srcfiles_unittest = [
   'include/ut/openbmc_dbus_rest_test.cpp',
   'redfish-core/include/utils/query_param_test.cpp',
   'redfish-core/lib/ut/service_root_test.cpp',
+  'redfish-core/lib/ut/redfish_v1_test.cpp',
   'redfish-core/ut/configfile_test.cpp',
   'redfish-core/ut/hex_utils_test.cpp',
   'redfish-core/ut/json_utils_test.cpp',
