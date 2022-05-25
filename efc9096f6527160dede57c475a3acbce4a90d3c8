@@ -61,6 +61,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "df451c3a_9b399680",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 46
+      },
+      "lineNbr": 1118,
+      "author": {
+        "id": 1001428
+      },
+      "writtenOn": "2022-05-25T17:59:20Z",
+      "side": 1,
+      "message": "yes, I will separate the retrieval of the reboot policy from the reboot attempts into separate functions.",
+      "parentUuid": "1ee13cd7_57c18439",
+      "range": {
+        "startLine": 1118,
+        "startChar": 10,
+        "endLine": 1118,
+        "endChar": 32
+      },
+      "revId": "efc9096f6527160dede57c475a3acbce4a90d3c8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "506b5eeb_66fa2693",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 46
@@ -72,6 +96,24 @@
       "writtenOn": "2022-05-25T14:11:32Z",
       "side": 1,
       "message": "Please simply ignore the case that mapper cannot find any object. It\u0027s possible for a system having no service providing the interface.",
+      "revId": "efc9096f6527160dede57c475a3acbce4a90d3c8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ec2276d0_88253738",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 46
+      },
+      "lineNbr": 1123,
+      "author": {
+        "id": 1001428
+      },
+      "writtenOn": "2022-05-25T17:59:20Z",
+      "side": 1,
+      "message": "Since I am reverting to the original I\u0027m thinking the subtree here will be removed entirely.",
+      "parentUuid": "506b5eeb_66fa2693",
       "revId": "efc9096f6527160dede57c475a3acbce4a90d3c8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
