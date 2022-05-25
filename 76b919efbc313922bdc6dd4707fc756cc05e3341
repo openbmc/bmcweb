@@ -16,6 +16,47 @@
       "message": "LGTM.  Leaving open for a day or two to see if this has any ill effects, but I can\u0027t imagine it does.",
       "revId": "76b919efbc313922bdc6dd4707fc756cc05e3341",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9502512b_278f3177",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-05-25T16:17:48Z",
+      "side": 1,
+      "message": "Please see my another comment.",
+      "parentUuid": "1b8c9d5e_4f5f8eff",
+      "revId": "76b919efbc313922bdc6dd4707fc756cc05e3341",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0866901e_30a99916",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 840,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-05-25T16:17:48Z",
+      "side": 1,
+      "message": "Existing codes can handle this case:\n\n3 objects\n\n/xyz/openbmc_project/Inventory/Item/Dimm1\n/xyz/openbmc_project/Inventory/Item/Dimm1/Partition1\n/xyz/openbmc_project/Inventory/Item/Dimm1/Partition2\n\nThen Partition1 and Partition2 will be parsed as an attribute of Dimm1.\n\nBut your change assumes that the Dimm interface and the Partition interface are all implemented by a single object. This doesn\u0027t seem right, since how can you handle multiple partitions now?",
+      "range": {
+        "startLine": 839,
+        "startChar": 28,
+        "endLine": 840,
+        "endChar": 83
+      },
+      "revId": "76b919efbc313922bdc6dd4707fc756cc05e3341",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
