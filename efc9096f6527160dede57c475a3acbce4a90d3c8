@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "811500cb_e9159a55",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 46
+      },
+      "lineNbr": 1115,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-05-25T04:47:53Z",
+      "side": 1,
+      "message": "You should throw an error response here.",
+      "revId": "efc9096f6527160dede57c475a3acbce4a90d3c8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e93d9c43_a214ee43",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 46
+      },
+      "lineNbr": 1137,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-05-25T04:47:53Z",
+      "side": 1,
+      "message": "Please do not hardcode subtree index here, nobody can make sure subtree[2] is what you really want.",
+      "revId": "efc9096f6527160dede57c475a3acbce4a90d3c8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
