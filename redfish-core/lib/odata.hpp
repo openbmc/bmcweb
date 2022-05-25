@@ -49,8 +49,11 @@ inline void redfishOdataGet(const crow::Request& /*req*/,
 
 inline void requestRoutesOdata(App& app)
 {
-    BMCWEB_ROUTE(app, "/redfish/v1/odata/")
-        .methods(boost::beast::http::verb::get)(redfishOdataGet);
+    if constexpr (BMCWEB_REDFISH_CSDL)
+    {
+        BMCWEB_ROUTE(app, "/redfish/v1/odata/")
+            .methods(boost::beast::http::verb::get)(redfishOdataGet);
+    }
 }
 
 } // namespace redfish

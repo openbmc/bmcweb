@@ -23,6 +23,8 @@ feature_options = [
     'redfish-aggregation',
     'redfish-allow-deprecated-power-thermal',
     'redfish-bmc-journal',
+    'redfish-csdl',
+    'redfish-jsonschema',
     'redfish-cpu-log',
     'redfish-dbus-log',
     'redfish-dump-log',

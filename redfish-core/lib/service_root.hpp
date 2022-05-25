@@ -68,8 +68,11 @@ inline void handleServiceRootGetImpl(
             "/redfish/v1/AggregationService";
     }
     asyncResp->res.jsonValue["Chassis"]["@odata.id"] = "/redfish/v1/Chassis";
-    asyncResp->res.jsonValue["JsonSchemas"]["@odata.id"] =
-        "/redfish/v1/JsonSchemas";
+    if constexpr (BMCWEB_REDFISH_JSONSCHEMA)
+    {
+        asyncResp->res.jsonValue["JsonSchemas"]["@odata.id"] =
+            "/redfish/v1/JsonSchemas";
+    }
     asyncResp->res.jsonValue["Managers"]["@odata.id"] = "/redfish/v1/Managers";
     asyncResp->res.jsonValue["SessionService"]["@odata.id"] =
         "/redfish/v1/SessionService";

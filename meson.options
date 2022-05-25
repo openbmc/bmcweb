@@ -344,6 +344,22 @@ option(
     description: 'Allows this BMC to aggregate resources from satellite BMCs',
 )
 
+# BMCWEB_REDFISH_CSDL
+option(
+    'redfish-csdl',
+    type: 'feature',
+    value: 'enabled',
+    description: 'Allows the BMC to host the Redfish CSDL schemas locally',
+)
+
+# BMCWEB_REDFISH_JSONSCHEMA
+option(
+    'redfish-jsonschema',
+    type: 'feature',
+    value: 'enabled',
+    description: 'Allows the BMC to host the Redfish JSON schemas locally',
+)
+
 # BMCWEB_HYPERVISOR_COMPUTER_SYSTEM
 option(
     'hypervisor-computer-system',
