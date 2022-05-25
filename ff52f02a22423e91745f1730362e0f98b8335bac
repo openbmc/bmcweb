@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "09fe136c_4539fefc",
+        "filename": "redfish-core/lib/hypervisor_system.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-05-25T17:17:54Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 175,
+        "startChar": 25,
+        "endLine": 175,
+        "endChar": 29
+      },
+      "revId": "ff52f02a22423e91745f1730362e0f98b8335bac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eb538b15_973a88c0",
+        "filename": "redfish-core/lib/hypervisor_system.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-05-25T17:17:54Z",
+      "side": 1,
+      "message": "const? Seems to me property does not change.",
+      "range": {
+        "startLine": 265,
+        "startChar": 25,
+        "endLine": 265,
+        "endChar": 29
+      },
+      "revId": "ff52f02a22423e91745f1730362e0f98b8335bac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
