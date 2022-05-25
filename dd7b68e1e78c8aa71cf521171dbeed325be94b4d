@@ -16,6 +16,29 @@
       "message": "Not sure I would call this Trivial but I see other testing later so I am okay here",
       "revId": "dd7b68e1e78c8aa71cf521171dbeed325be94b4d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "97d2a7f9_1ff54017",
+        "filename": "redfish-core/lib/health.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-25T20:33:35Z",
+      "side": 1,
+      "message": "Why is this branch needed now?  This is duplicating the map lookup, so we at a minimum we want to avoid that (you\u0027ll notice there are no other uses of nlohmann::json::contains for this reason) but I\u0027m not really following how this could be needed in a way that isn\u0027t a bug?",
+      "range": {
+        "startLine": 61,
+        "startChar": 0,
+        "endLine": 64,
+        "endChar": 9
+      },
+      "revId": "dd7b68e1e78c8aa71cf521171dbeed325be94b4d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

@@ -93,6 +93,30 @@
       },
       "revId": "88598c15dc31a03d07d6ef7cf483630a1d144d0f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "37b0c183_c57bc099",
+        "filename": "redfish-core/lib/health.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-25T20:33:35Z",
+      "side": 1,
+      "message": "I\u0027m also not following why we have to check for the existence.  There should only be one source of health for a given object.",
+      "parentUuid": "358cabd4_6a085f3d",
+      "range": {
+        "startLine": 66,
+        "startChar": 3,
+        "endLine": 71,
+        "endChar": 22
+      },
+      "revId": "88598c15dc31a03d07d6ef7cf483630a1d144d0f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
