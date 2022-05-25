@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "93c2d16a_8384bc4a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 17
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-05-25T13:46:20Z",
+      "side": 1,
+      "message": "Please do not change the Change-ID for the same patch. This is used for tracking the patch history in gerrit. `git commit --amend` is a useful command to put your current change into last commit.",
+      "range": {
+        "startLine": 56,
+        "startChar": 11,
+        "endLine": 56,
+        "endChar": 52
+      },
+      "revId": "e548de085b197a2daf2b7ae0e32f09e403fc97dc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
