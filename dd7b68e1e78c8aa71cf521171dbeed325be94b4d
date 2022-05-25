@@ -81,6 +81,30 @@
       },
       "revId": "dd7b68e1e78c8aa71cf521171dbeed325be94b4d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "40c0b1b4_7379d80f",
+        "filename": "redfish-core/lib/health.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-25T22:04:57Z",
+      "side": 1,
+      "message": "\u003e |statusPtr| is taken from the second constructor, there is no check in constructor wether the pointer is legal or not. Is it safe to trust callers?\n\nI\u0027m not quite following how a caller could call a safety issue here.  Can you expand on what you mean?\n\noperator[] creates an element if it doesn\u0027t already exist, so there\u0027s no way that (I think) any value could cause a safety issue here.  If this were a vector, you would be right to check this.\n\n\u003e \n\u003e Previously we don\u0027t this check since it takes a reference.",
+      "parentUuid": "f38b874c_dc93893f",
+      "range": {
+        "startLine": 61,
+        "startChar": 0,
+        "endLine": 64,
+        "endChar": 9
+      },
+      "revId": "dd7b68e1e78c8aa71cf521171dbeed325be94b4d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
