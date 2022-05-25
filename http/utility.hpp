@@ -6,6 +6,7 @@
 #include <boost/callable_traits.hpp>
 #include <boost/date_time/posix_time/posix_time.hpp>
 #include <boost/url/url.hpp>
+#include <nlohmann/json.hpp>
 
 #include <array>
 #include <chrono>
@@ -781,3 +782,24 @@ inline bool validateAndSplitUrl(std::string_view destUrl, std::string& urlProto,
 
 } // namespace utility
 } // namespace crow
+
+namespace nlohmann
+{
+template <>
+struct adl_serializer<boost::urls::url>
+{
+    static void to_json(json& j, const boost::urls::url& url)
+    {
+        j = url.string();
+    }
+};
+
+template <>
+struct adl_serializer<boost::urls::url_view>
+{
+    static void to_json(json& j, const boost::urls::url_view& url)
+    {
+        j = url.string();
+    }
+};
+} // namespace nlohmann
