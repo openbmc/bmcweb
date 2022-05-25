@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1b8c9d5e_4f5f8eff",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-25T14:57:18Z",
+      "side": 1,
+      "message": "LGTM.  Leaving open for a day or two to see if this has any ill effects, but I can\u0027t imagine it does.",
+      "revId": "76b919efbc313922bdc6dd4707fc756cc05e3341",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
