@@ -11,6 +11,17 @@ import xml.etree.ElementTree as ET
 
 VERSION = "DSP8010_2021.4"
 
+WARNING = '''/****************************************************************
+ *                 READ THIS WARNING FIRST
+ * This is an auto-generated header which contains definitions
+ * for Redfish DMTF defined schemas.
+ * DO NOT modify this registry outside of running the
+ * update_schemas.py script.  The definitions contained within
+ * this file are owned by DMTF.  Any modifications to these files
+ * should be first pushed to the relevant registry in the DMTF
+ * github organization.
+ ***************************************************************/'''
+
 # To use a new schema, add to list and rerun tool
 include_list = [
     'AccountService',
@@ -127,8 +138,14 @@ r = requests.get(
 
 r.raise_for_status()
 
+
 static_path = os.path.realpath(os.path.join(SCRIPT_DIR, "..", "static",
                                             "redfish", "v1"))
+
+
+cpp_path = os.path.realpath(os.path.join(SCRIPT_DIR, "..", "redfish-core",
+                                         "include"))
+
 
 schema_path = os.path.join(static_path, "schema")
 json_schema_path = os.path.join(static_path, "JsonSchemas")
@@ -291,51 +308,27 @@ for schema, version in schema_files.items():
     zip_filepath = os.path.join("json-schema", basename)
     schemadir = os.path.join(json_schema_path, schema)
     os.makedirs(schemadir)
-    location_json = OrderedDict()
-    location_json["Language"] = "en"
-    location_json["PublicationUri"] = (
-        "http://redfish.dmtf.org/schemas/v1/" + schema + ".json")
-    location_json["Uri"] = (
-        "/redfish/v1/JsonSchemas/" + schema + "/" + schema + ".json")
 
-    index_json = OrderedDict()
-    index_json["@odata.context"] = \
-        "/redfish/v1/$metadata#JsonSchemaFile.JsonSchemaFile"
-    index_json["@odata.id"] = "/redfish/v1/JsonSchemas/" + schema
-    index_json["@odata.type"] = "#JsonSchemaFile.v1_0_2.JsonSchemaFile"
-    index_json["Name"] = schema + " Schema File"
-    index_json["Schema"] = "#" + schema + "." + schema
-    index_json["Description"] = schema + " Schema File Location"
-    index_json["Id"] = schema
-    index_json["Languages"] = ["en"]
-    index_json["Languages@odata.count"] = 1
-    index_json["Location"] = [location_json]
-    index_json["Location@odata.count"] = 1
-
-    with open(os.path.join(schemadir, "index.json"), 'w') as schema_file:
-        json.dump(index_json, schema_file, indent=4)
     with open(os.path.join(schemadir, schema + ".json"), 'wb') as schema_file:
         schema_file.write(zip_ref.read(zip_filepath).replace(b'\r\n', b'\n'))
 
-with open(os.path.join(json_schema_path, "index.json"), 'w') as index_file:
-    members = [{"@odata.id": "/redfish/v1/JsonSchemas/" + schema}
-               for schema in schema_files]
+with open(os.path.join(cpp_path, "schemas.hpp"), 'w') as hpp_file:
+    hpp_file.write(
+        "#pragma once\n"
+        "{WARNING}\n"
+        "// clang-format off\n"
+        "\n"
+        "namespace redfish\n"
+        "{{\n"
+        "    constexpr std::array schemas {{\n"
+        .format(
+            WARNING=WARNING))
+    for schema_file in schema_files:
+        hpp_file.write("        \"{}\",\n".format(schema_file))
 
-    members.sort(key=lambda x: x["@odata.id"])
-
-    indexData = OrderedDict()
-
-    indexData["@odata.id"] = "/redfish/v1/JsonSchemas"
-    indexData["@odata.context"] = ("/redfish/v1/$metadata"
-                                   "#JsonSchemaFileCollection."
-                                   "JsonSchemaFileCollection")
-    indexData["@odata.type"] = ("#JsonSchemaFileCollection."
-                                "JsonSchemaFileCollection")
-    indexData["Name"] = "JsonSchemaFile Collection"
-    indexData["Description"] = "Collection of JsonSchemaFiles"
-    indexData["Members@odata.count"] = len(schema_files)
-    indexData["Members"] = members
-
-    json.dump(indexData, index_file, indent=2)
+    hpp_file.write(
+        "    };\n"
+        "}\n"
+    )
 
 zip_ref.close()
