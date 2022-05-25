@@ -1905,8 +1905,10 @@ inline void requestEthernetInterfacesRoutes(App& app)
                             return;
                         }
 
+                        // Keep using the v1.6.0 schema here as the "VLANs"
+                        // property deprecated in v1.7.0 is still used.
                         asyncResp->res.jsonValue["@odata.type"] =
-                            "#EthernetInterface.v1_4_1.EthernetInterface";
+                            "#EthernetInterface.v1_6_0.EthernetInterface";
                         asyncResp->res.jsonValue["Name"] =
                             "Manager Ethernet Interface";
                         asyncResp->res.jsonValue["Description"] =
