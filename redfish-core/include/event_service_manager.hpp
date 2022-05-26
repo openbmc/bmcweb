@@ -406,25 +406,24 @@ class Subscription : public persistent_data::UserSubscription
 
     bool sendTestEventLog()
     {
-        nlohmann::json logEntryArray;
-        logEntryArray.push_back({});
-        nlohmann::json& logEntryJson = logEntryArray.back();
+        nlohmann::json::array_t logEntryArray;
+        nlohmann::json& logEntryJson = logEntryArray.emplace_back();
 
-        logEntryJson = {
-            {"EventId", "TestID"},
-            {"EventType", "Event"},
-            {"Severity", "OK"},
-            {"Message", "Generated test event"},
-            {"MessageId", "OpenBMC.0.2.TestEventLog"},
-            {"MessageArgs", nlohmann::json::array()},
-            {"EventTimestamp", crow::utility::getDateTimeOffsetNow().first},
-            {"Context", customText}};
+        logEntryJson["EventId"] = "TestID";
+        logEntryJson["EventType"] = "Event";
+        logEntryJson["Severity"] = "OK";
+        logEntryJson["Message"] = "Generated test event";
+        logEntryJson["MessageId"] = "OpenBMC.0.2.TestEventLog";
+        logEntryJson["MessageArgs"] = nlohmann::json::array();
+        logEntryJson["EventTimestamp"] =
+            crow::utility::getDateTimeOffsetNow().first;
+        logEntryJson["Context"] = customText;
 
         nlohmann::json msg;
         msg["@odata.type"] = eventType;
         msg["Id"] = std::to_string(eventSeqNum);
         msg["Name"] = "Event Log";
-        msg["Events"] = logEntryArray;
+        msg["Events"] = std::move(logEntryArray);
 
         std::string strMsg =
             msg.dump(2, ' ', true, nlohmann::json::error_handler_t::replace);
@@ -435,7 +434,7 @@ class Subscription : public persistent_data::UserSubscription
     void filterAndSendEventLogs(
         const std::vector<EventLogObjectsType>& eventRecords)
     {
-        nlohmann::json logEntryArray;
+        nlohmann::json::array_t logEntryArray;
         for (const EventLogObjectsType& logEntry : eventRecords)
         {
             const std::string& idStr = std::get<0>(logEntry);
@@ -472,8 +471,7 @@ class Subscription : public persistent_data::UserSubscription
             std::vector<std::string_view> messageArgsView(messageArgs.begin(),
                                                           messageArgs.end());
 
-            logEntryArray.push_back({});
-            nlohmann::json& bmcLogEntry = logEntryArray.back();
+            nlohmann::json& bmcLogEntry = logEntryArray.emplace_back();
             if (event_log::formatEventLogEntry(idStr, messageID,
                                                messageArgsView, timestamp,
                                                customText, bmcLogEntry) != 0)
@@ -493,7 +491,7 @@ class Subscription : public persistent_data::UserSubscription
         msg["@odata.type"] = eventType;
         msg["Id"] = std::to_string(eventSeqNum);
         msg["Name"] = "Event Log";
-        msg["Events"] = logEntryArray;
+        msg["Events"] = std::move(logEntryArray);
 
         std::string strMsg =
             msg.dump(2, ' ', true, nlohmann::json::error_handler_t::replace);
@@ -980,8 +978,8 @@ class EventServiceManager
         return true;
     }
 
-    void sendEvent(const nlohmann::json& eventMessageIn,
-                   const std::string& origin, const std::string& resType)
+    void sendEvent(nlohmann::json&& eventMessage, const std::string& origin,
+                   const std::string& resType)
     {
         if (!serviceEnabled || (noOfEventLogSubscribers == 0U))
         {
@@ -989,21 +987,24 @@ class EventServiceManager
             return;
         }
         nlohmann::json eventRecord = nlohmann::json::array();
-        nlohmann::json eventMessage = eventMessageIn;
         // MemberId is 0 : since we are sending one event record.
         uint64_t memberId = 0;
 
-        nlohmann::json event = {
-            {"EventId", eventId},
-            {"MemberId", memberId},
-            {"EventTimestamp", crow::utility::getDateTimeOffsetNow().first},
-            {"OriginOfCondition", origin}};
-        for (nlohmann::json::iterator it = event.begin(); it != event.end();
-             ++it)
-        {
-            eventMessage[it.key()] = it.value();
-        }
+        eventMessage["EventId"] = eventId;
+        eventMessage["MemberId"] = memberId;
+        eventMessage["EventTimestamp"] =
+            crow::utility::getDateTimeOffsetNow().first;
+        eventMessage["OriginOfCondition"] = origin;
         eventRecord.push_back(eventMessage);
+
+        nlohmann::json msgJson;
+        msgJson["@odata.type"] = eventType;
+        msgJson["Name"] = "Event Log";
+        msgJson["Id"] = eventId;
+        msgJson["Events"] = std::move(eventRecord);
+
+        std::string strMsg = msgJson.dump(
+            2, ' ', true, nlohmann::json::error_handler_t::replace);
 
         for (const auto& it : this->subscriptionsMap)
         {
@@ -1031,15 +1032,8 @@ class EventServiceManager
             }
             if (isSubscribed)
             {
-                nlohmann::json msgJson = {{"@odata.type", eventType},
-                                          {"Name", "Event Log"},
-                                          {"Id", eventId},
-                                          {"Events", eventRecord}};
-
-                std::string strMsg = msgJson.dump(
-                    2, ' ', true, nlohmann::json::error_handler_t::replace);
                 entry->sendEvent(strMsg);
-                eventId++; // increament the eventId
+                eventId++; // increment the eventId
             }
             else
             {
@@ -1051,16 +1045,16 @@ class EventServiceManager
     {
         for (const auto& it : this->subscriptionsMap)
         {
-            std::shared_ptr<Subscription> entry = it.second;
-            nlohmann::json msgJson = {
-                {"Timestamp", crow::utility::getDateTimeOffsetNow().first},
-                {"OriginOfCondition", "/ibm/v1/HMC/BroadcastService"},
-                {"Name", "Broadcast Message"},
-                {"Message", broadcastMsg}};
+            Subscription& entry = *it.second;
+            nlohmann::json msgJson;
+            msgJson["Timestamp"] = crow::utility::getDateTimeOffsetNow().first;
+            msgJson["OriginOfCondition"] = "/ibm/v1/HMC/BroadcastService";
+            msgJson["Name"] = "Broadcast Message";
+            msgJson["Message"] = broadcastMsg;
 
             std::string strMsg = msgJson.dump(
                 2, ' ', true, nlohmann::json::error_handler_t::replace);
-            entry->sendEvent(strMsg);
+            entry.sendEvent(strMsg);
         }
     }
 
