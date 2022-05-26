@@ -46,6 +46,30 @@
       },
       "revId": "38c0aee2cf4e29403466244ae37adc2d5ac47fa0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "71447f3d_c97aa9c2",
+        "filename": "CLIENTS.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1001321
+      },
+      "writtenOn": "2022-05-26T20:15:54Z",
+      "side": 1,
+      "message": "Sorry, yes it would be good to clarify the capabilities needed by the client",
+      "parentUuid": "2e57743e_82418e25",
+      "range": {
+        "startLine": 64,
+        "startChar": 34,
+        "endLine": 64,
+        "endChar": 35
+      },
+      "revId": "38c0aee2cf4e29403466244ae37adc2d5ac47fa0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
