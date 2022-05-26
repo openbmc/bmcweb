@@ -172,8 +172,8 @@ inline void userErrorMessageHandler(
     if (strcmp(errorMessage,
                "xyz.openbmc_project.User.Common.Error.UserNameExists") == 0)
     {
-        messages::resourceAlreadyExists(asyncResp->res, "ManagerAccount",
-                                        "UserName", newUser);
+        messages::resourceAlreadyExists(
+            asyncResp->res, schemas::managerAccountType, "UserName", newUser);
     }
     else if (strcmp(errorMessage, "xyz.openbmc_project.User.Common.Error."
                                   "UserNameDoesNotExist") == 0)
