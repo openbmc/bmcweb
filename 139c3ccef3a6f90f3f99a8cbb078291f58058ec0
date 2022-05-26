@@ -33,6 +33,24 @@
       "message": "I didn\u0027t some tests on my HW and I don\u0027t see any change in CPU or memory usage. I noticed that overall execution time for requests with expand with level \u003e 3 there is significant improvement.",
       "revId": "139c3ccef3a6f90f3f99a8cbb078291f58058ec0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "09dc7efb_4fe9d7de",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-05-26T17:19:29Z",
+      "side": 1,
+      "message": "Thanks, Krzysztof!",
+      "parentUuid": "11adca4d_ed0e9f83",
+      "revId": "139c3ccef3a6f90f3f99a8cbb078291f58058ec0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
