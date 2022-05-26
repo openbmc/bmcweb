@@ -15,6 +15,8 @@
 */
 #pragma once
 
+#include "schemas.hpp"
+
 #include <bmcweb_config.h>
 
 #include <app.hpp>
@@ -47,8 +49,7 @@ inline void handleServiceRootGetImpl(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     std::string uuid = persistent_data::getConfig().systemUuid;
-    asyncResp->res.jsonValue["@odata.type"] =
-        "#ServiceRoot.v1_11_0.ServiceRoot";
+    asyncResp->res.jsonValue["@odata.type"] = schemas::serviceRoot;
     asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1";
     asyncResp->res.jsonValue["Id"] = "RootService";
     asyncResp->res.jsonValue["Name"] = "Root Service";
