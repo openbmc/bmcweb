@@ -23,6 +23,7 @@
 #include "../lib/ethernet.hpp"
 #include "../lib/event_service.hpp"
 #include "../lib/hypervisor_system.hpp"
+#include "../lib/license_service.hpp"
 #include "../lib/log_services.hpp"
 #include "../lib/managers.hpp"
 #include "../lib/memory.hpp"
@@ -212,6 +213,8 @@ class RedfishService
         requestRoutesMetricReport(app);
         requestRoutesTriggerCollection(app);
         requestRoutesTrigger(app);
+
+        requestLicenseServiceRoutes(app);
     }
 };
 
