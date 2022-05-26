@@ -55,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7fa75d80_311924e0",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 1735,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-05-26T01:43:35Z",
+      "side": 1,
+      "message": "Missing something at the end of first paragraph, Why I implement the new schema as long as keeping the deprecated has mentioned in another comment.\n\nHaving vlan virtual interfaces exposed in EthernetInterface is to support configuring the virtual interfaces like IP address mentioned in https://github.com/openbmc/bmcweb/issues/79",
+      "parentUuid": "7a7818cd_a71c5ac3",
+      "revId": "bd5b2fb36a431d165aeeaf6f70c1431b8373d4ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "723ad4c0_8fc8b2e0",
         "filename": "redfish-core/lib/ethernet.hpp",
         "patchSetId": 11
