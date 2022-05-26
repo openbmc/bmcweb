@@ -66,7 +66,6 @@ def update_registries(files):
             registry.write(
                 "const Header header = {{\n"
                 '    "{json_dict[@Redfish.Copyright]}",\n'
-                '    "{json_dict[@odata.type]}",\n'
                 '    "{json_dict[Id]}",\n'
                 '    "{json_dict[Name]}",\n'
                 '    "{json_dict[Language]}",\n'
