@@ -17,6 +17,8 @@
 
 #include "bmcweb_config.h"
 
+#include "schemas.hpp"
+
 #include <app.hpp>
 #include <dbus_utility.hpp>
 #include <query.hpp>
@@ -370,7 +372,7 @@ static void monitorForSoftwareAvailable(
                             "Image version already exists");
 
                         redfish::messages::resourceAlreadyExists(
-                            asyncResp->res, "UpdateService", "Version",
+                            asyncResp->res, schemas::updateService, "Version",
                             "uploaded version");
                     }
                     else if (
