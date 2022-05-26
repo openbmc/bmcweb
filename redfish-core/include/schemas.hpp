@@ -9,131 +9,566 @@
  * should be first pushed to the relevant registry in the DMTF
  * github organization.
  ***************************************************************/
+#include <schema_common.hpp>
+
+#include <array>
 // clang-format off
 
 namespace redfish
 {
-    inline constexpr std::array schemas {
+    constexpr SchemaVersion accountServiceType{
         "AccountService",
-        "ActionInfo",
-        "Assembly",
-        "AttributeRegistry",
-        "Bios",
-        "Cable",
-        "Certificate",
-        "CertificateLocations",
-        "CertificateService",
-        "Chassis",
-        "ComputerSystem",
-        "Drive",
-        "EthernetInterface",
-        "Event",
-        "EventDestination",
-        "EventService",
-        "IPAddresses",
-        "JsonSchemaFile",
-        "LogEntry",
-        "LogService",
-        "Manager",
-        "ManagerAccount",
-        "ManagerDiagnosticData",
-        "ManagerNetworkProtocol",
-        "Memory",
-        "Message",
-        "MessageRegistry",
-        "MessageRegistryFile",
-        "MetricDefinition",
-        "MetricReport",
-        "MetricReportDefinition",
-        "odata",
-        "OperatingConfig",
-        "PCIeDevice",
-        "PCIeFunction",
-        "PhysicalContext",
-        "Power",
-        "Privileges",
-        "Processor",
-        "redfish-error",
-        "redfish-payload-annotations",
-        "redfish-schema",
-        "Redundancy",
-        "Resource",
-        "Role",
-        "Sensor",
-        "ServiceRoot",
-        "Session",
-        "SessionService",
-        "Settings",
-        "SoftwareInventory",
-        "Storage",
-        "StorageController",
-        "Task",
-        "TaskService",
-        "TelemetryService",
-        "Thermal",
-        "Triggers",
-        "UpdateService",
-        "VirtualMedia",
-        "VLanNetworkInterface",
+        "v1_10_0"
     };
 
-    constexpr const char* accountServiceType = "#AccountService.v1_10_0.AccountService";
-    constexpr const char* actionInfoType = "#ActionInfo.v1_2_0.ActionInfo";
-    constexpr const char* assemblyType = "#Assembly.v1_3_0.Assembly";
-    constexpr const char* attributeRegistryType = "#AttributeRegistry.v1_3_6.AttributeRegistry";
-    constexpr const char* biosType = "#Bios.v1_2_0.Bios";
-    constexpr const char* cableType = "#Cable.v1_2_0.Cable";
-    constexpr const char* certificateType = "#Certificate.v1_5_0.Certificate";
-    constexpr const char* certificateLocationsType = "#CertificateLocations.v1_0_2.CertificateLocations";
-    constexpr const char* certificateServiceType = "#CertificateService.v1_0_4.CertificateService";
-    constexpr const char* chassisType = "#Chassis.v1_19_0.Chassis";
-    constexpr const char* computerSystemType = "#ComputerSystem.v1_17_0.ComputerSystem";
-    constexpr const char* driveType = "#Drive.v1_14_0.Drive";
-    constexpr const char* ethernetInterfaceType = "#EthernetInterface.v1_8_0.EthernetInterface";
-    constexpr const char* eventType = "#Event.v1_7_0.Event";
-    constexpr const char* eventDestinationType = "#EventDestination.v1_11_2.EventDestination";
-    constexpr const char* eventServiceType = "#EventService.v1_7_2.EventService";
-    constexpr const char* iPAddressesType = "#IPAddresses.v1_1_3.IPAddresses";
-    constexpr const char* jsonSchemaFileType = "#JsonSchemaFile.v1_1_4.JsonSchemaFile";
-    constexpr const char* logEntryType = "#LogEntry.v1_11_0.LogEntry";
-    constexpr const char* logServiceType = "#LogService.v1_3_0.LogService";
-    constexpr const char* managerType = "#Manager.v1_14_0.Manager";
-    constexpr const char* managerAccountType = "#ManagerAccount.v1_8_1.ManagerAccount";
-    constexpr const char* managerDiagnosticDataType = "#ManagerDiagnosticData.v1_0_0.ManagerDiagnosticData";
-    constexpr const char* managerNetworkProtocolType = "#ManagerNetworkProtocol.v1_8_0.ManagerNetworkProtocol";
-    constexpr const char* memoryType = "#Memory.v1_14_0.Memory";
-    constexpr const char* messageType = "#Message.v1_1_2.Message";
-    constexpr const char* messageRegistryType = "#MessageRegistry.v1_5_0.MessageRegistry";
-    constexpr const char* messageRegistryFileType = "#MessageRegistryFile.v1_1_3.MessageRegistryFile";
-    constexpr const char* metricDefinitionType = "#MetricDefinition.v1_2_1.MetricDefinition";
-    constexpr const char* metricReportType = "#MetricReport.v1_4_2.MetricReport";
-    constexpr const char* metricReportDefinitionType = "#MetricReportDefinition.v1_4_1.MetricReportDefinition";
-    constexpr const char* operatingConfigType = "#OperatingConfig.v1_0_2.OperatingConfig";
-    constexpr const char* pCIeDeviceType = "#PCIeDevice.v1_9_0.PCIeDevice";
-    constexpr const char* pCIeFunctionType = "#PCIeFunction.v1_3_0.PCIeFunction";
-    constexpr const char* powerType = "#Power.v1_7_1.Power";
-    constexpr const char* privilegesType = "#Privileges.v1_0_5.Privileges";
-    constexpr const char* processorType = "#Processor.v1_14_0.Processor";
-    constexpr const char* redfishErrorType = "#RedfishError.v1_0_1.RedfishError";
-    constexpr const char* redfishExtensionsType = "#RedfishExtensions.v1_0_0.RedfishExtensions";
-    constexpr const char* validationType = "#Validation.v1_0_0.Validation";
-    constexpr const char* redundancyType = "#Redundancy.v1_4_0.Redundancy";
-    constexpr const char* resourceType = "#Resource.v1_14_0.Resource";
-    constexpr const char* roleType = "#Role.v1_3_1.Role";
-    constexpr const char* sensorType = "#Sensor.v1_5_0.Sensor";
-    constexpr const char* serviceRootType = "#ServiceRoot.v1_13_0.ServiceRoot";
-    constexpr const char* sessionType = "#Session.v1_3_0.Session";
-    constexpr const char* sessionServiceType = "#SessionService.v1_1_8.SessionService";
-    constexpr const char* settingsType = "#Settings.v1_3_4.Settings";
-    constexpr const char* softwareInventoryType = "#SoftwareInventory.v1_6_0.SoftwareInventory";
-    constexpr const char* storageType = "#Storage.v1_12_0.Storage";
-    constexpr const char* storageControllerType = "#StorageController.v1_5_0.StorageController";
-    constexpr const char* taskType = "#Task.v1_5_1.Task";
-    constexpr const char* taskServiceType = "#TaskService.v1_2_0.TaskService";
-    constexpr const char* telemetryServiceType = "#TelemetryService.v1_3_1.TelemetryService";
-    constexpr const char* thermalType = "#Thermal.v1_7_1.Thermal";
-    constexpr const char* triggersType = "#Triggers.v1_2_0.Triggers";
-    constexpr const char* updateServiceType = "#UpdateService.v1_11_0.UpdateService";
-    constexpr const char* virtualMediaType = "#VirtualMedia.v1_5_1.VirtualMedia";
-    constexpr const char* vLanNetworkInterfaceType = "#VLanNetworkInterface.v1_3_0.VLanNetworkInterface";
+    constexpr SchemaVersion actionInfoType{
+        "ActionInfo",
+        "v1_2_0"
+    };
+
+    constexpr SchemaVersion assemblyType{
+        "Assembly",
+        "v1_3_0"
+    };
+
+    constexpr SchemaVersion attributeRegistryType{
+        "AttributeRegistry",
+        "v1_3_6"
+    };
+
+    constexpr SchemaVersion biosType{
+        "Bios",
+        "v1_2_0"
+    };
+
+    constexpr SchemaVersion cableType{
+        "Cable",
+        "v1_2_0"
+    };
+
+    constexpr SchemaVersion cableCollectionType{
+        "CableCollection",
+        ""
+    };
+
+    constexpr SchemaVersion certificateType{
+        "Certificate",
+        "v1_5_0"
+    };
+
+    constexpr SchemaVersion certificateCollectionType{
+        "CertificateCollection",
+        ""
+    };
+
+    constexpr SchemaVersion certificateLocationsType{
+        "CertificateLocations",
+        "v1_0_2"
+    };
+
+    constexpr SchemaVersion certificateServiceType{
+        "CertificateService",
+        "v1_0_4"
+    };
+
+    constexpr SchemaVersion chassisType{
+        "Chassis",
+        "v1_19_0"
+    };
+
+    constexpr SchemaVersion chassisCollectionType{
+        "ChassisCollection",
+        ""
+    };
+
+    constexpr SchemaVersion computerSystemType{
+        "ComputerSystem",
+        "v1_17_0"
+    };
+
+    constexpr SchemaVersion computerSystemCollectionType{
+        "ComputerSystemCollection",
+        ""
+    };
+
+    constexpr SchemaVersion driveType{
+        "Drive",
+        "v1_14_0"
+    };
+
+    constexpr SchemaVersion driveCollectionType{
+        "DriveCollection",
+        ""
+    };
+
+    constexpr SchemaVersion ethernetInterfaceType{
+        "EthernetInterface",
+        "v1_8_0"
+    };
+
+    constexpr SchemaVersion ethernetInterfaceCollectionType{
+        "EthernetInterfaceCollection",
+        ""
+    };
+
+    constexpr SchemaVersion eventType{
+        "Event",
+        "v1_7_0"
+    };
+
+    constexpr SchemaVersion eventDestinationType{
+        "EventDestination",
+        "v1_11_2"
+    };
+
+    constexpr SchemaVersion eventDestinationCollectionType{
+        "EventDestinationCollection",
+        ""
+    };
+
+    constexpr SchemaVersion eventServiceType{
+        "EventService",
+        "v1_7_2"
+    };
+
+    constexpr SchemaVersion iPAddressesType{
+        "IPAddresses",
+        "v1_1_3"
+    };
+
+    constexpr SchemaVersion jsonSchemaFileType{
+        "JsonSchemaFile",
+        "v1_1_4"
+    };
+
+    constexpr SchemaVersion jsonSchemaFileCollectionType{
+        "JsonSchemaFileCollection",
+        ""
+    };
+
+    constexpr SchemaVersion logEntryType{
+        "LogEntry",
+        "v1_11_0"
+    };
+
+    constexpr SchemaVersion logEntryCollectionType{
+        "LogEntryCollection",
+        ""
+    };
+
+    constexpr SchemaVersion logServiceType{
+        "LogService",
+        "v1_3_0"
+    };
+
+    constexpr SchemaVersion logServiceCollectionType{
+        "LogServiceCollection",
+        ""
+    };
+
+    constexpr SchemaVersion managerType{
+        "Manager",
+        "v1_14_0"
+    };
+
+    constexpr SchemaVersion managerAccountType{
+        "ManagerAccount",
+        "v1_8_1"
+    };
+
+    constexpr SchemaVersion managerAccountCollectionType{
+        "ManagerAccountCollection",
+        ""
+    };
+
+    constexpr SchemaVersion managerCollectionType{
+        "ManagerCollection",
+        ""
+    };
+
+    constexpr SchemaVersion managerDiagnosticDataType{
+        "ManagerDiagnosticData",
+        "v1_0_0"
+    };
+
+    constexpr SchemaVersion managerNetworkProtocolType{
+        "ManagerNetworkProtocol",
+        "v1_8_0"
+    };
+
+    constexpr SchemaVersion memoryType{
+        "Memory",
+        "v1_14_0"
+    };
+
+    constexpr SchemaVersion memoryCollectionType{
+        "MemoryCollection",
+        ""
+    };
+
+    constexpr SchemaVersion messageType{
+        "Message",
+        "v1_1_2"
+    };
+
+    constexpr SchemaVersion messageRegistryType{
+        "MessageRegistry",
+        "v1_5_0"
+    };
+
+    constexpr SchemaVersion messageRegistryCollectionType{
+        "MessageRegistryCollection",
+        ""
+    };
+
+    constexpr SchemaVersion messageRegistryFileType{
+        "MessageRegistryFile",
+        "v1_1_3"
+    };
+
+    constexpr SchemaVersion messageRegistryFileCollectionType{
+        "MessageRegistryFileCollection",
+        ""
+    };
+
+    constexpr SchemaVersion metricDefinitionType{
+        "MetricDefinition",
+        "v1_2_1"
+    };
+
+    constexpr SchemaVersion metricDefinitionCollectionType{
+        "MetricDefinitionCollection",
+        ""
+    };
+
+    constexpr SchemaVersion metricReportType{
+        "MetricReport",
+        "v1_4_2"
+    };
+
+    constexpr SchemaVersion metricReportCollectionType{
+        "MetricReportCollection",
+        ""
+    };
+
+    constexpr SchemaVersion metricReportDefinitionType{
+        "MetricReportDefinition",
+        "v1_4_1"
+    };
+
+    constexpr SchemaVersion metricReportDefinitionCollectionType{
+        "MetricReportDefinitionCollection",
+        ""
+    };
+
+    constexpr SchemaVersion operatingConfigType{
+        "OperatingConfig",
+        "v1_0_2"
+    };
+
+    constexpr SchemaVersion operatingConfigCollectionType{
+        "OperatingConfigCollection",
+        ""
+    };
+
+    constexpr SchemaVersion pCIeDeviceType{
+        "PCIeDevice",
+        "v1_9_0"
+    };
+
+    constexpr SchemaVersion pCIeDeviceCollectionType{
+        "PCIeDeviceCollection",
+        ""
+    };
+
+    constexpr SchemaVersion pCIeFunctionType{
+        "PCIeFunction",
+        "v1_3_0"
+    };
+
+    constexpr SchemaVersion pCIeFunctionCollectionType{
+        "PCIeFunctionCollection",
+        ""
+    };
+
+    constexpr SchemaVersion physicalContextType{
+        "PhysicalContext",
+        ""
+    };
+
+    constexpr SchemaVersion powerType{
+        "Power",
+        "v1_7_1"
+    };
+
+    constexpr SchemaVersion privilegesType{
+        "Privileges",
+        "v1_0_5"
+    };
+
+    constexpr SchemaVersion processorType{
+        "Processor",
+        "v1_14_0"
+    };
+
+    constexpr SchemaVersion processorCollectionType{
+        "ProcessorCollection",
+        ""
+    };
+
+    constexpr SchemaVersion redfishErrorType{
+        "RedfishError",
+        "v1_0_1"
+    };
+
+    constexpr SchemaVersion redfishExtensionsType{
+        "RedfishExtensions",
+        "v1_0_0"
+    };
+
+    constexpr SchemaVersion validationType{
+        "Validation",
+        "v1_0_0"
+    };
+
+    constexpr SchemaVersion redundancyType{
+        "Redundancy",
+        "v1_4_0"
+    };
+
+    constexpr SchemaVersion resourceType{
+        "Resource",
+        "v1_14_0"
+    };
+
+    constexpr SchemaVersion roleType{
+        "Role",
+        "v1_3_1"
+    };
+
+    constexpr SchemaVersion roleCollectionType{
+        "RoleCollection",
+        ""
+    };
+
+    constexpr SchemaVersion sensorType{
+        "Sensor",
+        "v1_5_0"
+    };
+
+    constexpr SchemaVersion sensorCollectionType{
+        "SensorCollection",
+        ""
+    };
+
+    constexpr SchemaVersion serviceRootType{
+        "ServiceRoot",
+        "v1_13_0"
+    };
+
+    constexpr SchemaVersion sessionType{
+        "Session",
+        "v1_3_0"
+    };
+
+    constexpr SchemaVersion sessionCollectionType{
+        "SessionCollection",
+        ""
+    };
+
+    constexpr SchemaVersion sessionServiceType{
+        "SessionService",
+        "v1_1_8"
+    };
+
+    constexpr SchemaVersion settingsType{
+        "Settings",
+        "v1_3_4"
+    };
+
+    constexpr SchemaVersion softwareInventoryType{
+        "SoftwareInventory",
+        "v1_6_0"
+    };
+
+    constexpr SchemaVersion softwareInventoryCollectionType{
+        "SoftwareInventoryCollection",
+        ""
+    };
+
+    constexpr SchemaVersion storageType{
+        "Storage",
+        "v1_12_0"
+    };
+
+    constexpr SchemaVersion storageCollectionType{
+        "StorageCollection",
+        ""
+    };
+
+    constexpr SchemaVersion storageControllerType{
+        "StorageController",
+        "v1_5_0"
+    };
+
+    constexpr SchemaVersion storageControllerCollectionType{
+        "StorageControllerCollection",
+        ""
+    };
+
+    constexpr SchemaVersion taskType{
+        "Task",
+        "v1_5_1"
+    };
+
+    constexpr SchemaVersion taskCollectionType{
+        "TaskCollection",
+        ""
+    };
+
+    constexpr SchemaVersion taskServiceType{
+        "TaskService",
+        "v1_2_0"
+    };
+
+    constexpr SchemaVersion telemetryServiceType{
+        "TelemetryService",
+        "v1_3_1"
+    };
+
+    constexpr SchemaVersion thermalType{
+        "Thermal",
+        "v1_7_1"
+    };
+
+    constexpr SchemaVersion triggersType{
+        "Triggers",
+        "v1_2_0"
+    };
+
+    constexpr SchemaVersion triggersCollectionType{
+        "TriggersCollection",
+        ""
+    };
+
+    constexpr SchemaVersion updateServiceType{
+        "UpdateService",
+        "v1_11_0"
+    };
+
+    constexpr SchemaVersion virtualMediaType{
+        "VirtualMedia",
+        "v1_5_1"
+    };
+
+    constexpr SchemaVersion virtualMediaCollectionType{
+        "VirtualMediaCollection",
+        ""
+    };
+
+    constexpr SchemaVersion vLanNetworkInterfaceType{
+        "VLanNetworkInterface",
+        "v1_3_0"
+    };
+
+    constexpr SchemaVersion vLanNetworkInterfaceCollectionType{
+        "VLanNetworkInterfaceCollection",
+        ""
+    };
+
+    constexpr const std::array<const SchemaVersion*, 92> schemas {
+        &accountServiceType,
+        &actionInfoType,
+        &assemblyType,
+        &attributeRegistryType,
+        &biosType,
+        &cableType,
+        &cableCollectionType,
+        &certificateType,
+        &certificateCollectionType,
+        &certificateLocationsType,
+        &certificateServiceType,
+        &chassisType,
+        &chassisCollectionType,
+        &computerSystemType,
+        &computerSystemCollectionType,
+        &driveType,
+        &driveCollectionType,
+        &ethernetInterfaceType,
+        &ethernetInterfaceCollectionType,
+        &eventType,
+        &eventDestinationType,
+        &eventDestinationCollectionType,
+        &eventServiceType,
+        &iPAddressesType,
+        &jsonSchemaFileType,
+        &jsonSchemaFileCollectionType,
+        &logEntryType,
+        &logEntryCollectionType,
+        &logServiceType,
+        &logServiceCollectionType,
+        &managerType,
+        &managerAccountType,
+        &managerAccountCollectionType,
+        &managerCollectionType,
+        &managerDiagnosticDataType,
+        &managerNetworkProtocolType,
+        &memoryType,
+        &memoryCollectionType,
+        &messageType,
+        &messageRegistryType,
+        &messageRegistryCollectionType,
+        &messageRegistryFileType,
+        &messageRegistryFileCollectionType,
+        &metricDefinitionType,
+        &metricDefinitionCollectionType,
+        &metricReportType,
+        &metricReportCollectionType,
+        &metricReportDefinitionType,
+        &metricReportDefinitionCollectionType,
+        &operatingConfigType,
+        &operatingConfigCollectionType,
+        &pCIeDeviceType,
+        &pCIeDeviceCollectionType,
+        &pCIeFunctionType,
+        &pCIeFunctionCollectionType,
+        &physicalContextType,
+        &powerType,
+        &privilegesType,
+        &processorType,
+        &processorCollectionType,
+        &redfishErrorType,
+        &redfishExtensionsType,
+        &validationType,
+        &redundancyType,
+        &resourceType,
+        &roleType,
+        &roleCollectionType,
+        &sensorType,
+        &sensorCollectionType,
+        &serviceRootType,
+        &sessionType,
+        &sessionCollectionType,
+        &sessionServiceType,
+        &settingsType,
+        &softwareInventoryType,
+        &softwareInventoryCollectionType,
+        &storageType,
+        &storageCollectionType,
+        &storageControllerType,
+        &storageControllerCollectionType,
+        &taskType,
+        &taskCollectionType,
+        &taskServiceType,
+        &telemetryServiceType,
+        &thermalType,
+        &triggersType,
+        &triggersCollectionType,
+        &updateServiceType,
+        &virtualMediaType,
+        &virtualMediaCollectionType,
+        &vLanNetworkInterfaceType,
+        &vLanNetworkInterfaceCollectionType,
+    };
+
 }

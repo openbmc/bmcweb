@@ -230,7 +230,8 @@ static std::shared_ptr<persistent_data::UserSession>
     {
         if (url == "/redfish/v1" || url == "/redfish/v1/" ||
             url == "/redfish" || url == "/redfish/" ||
-            url == "/redfish/v1/odata" || url == "/redfish/v1/odata/")
+            url == "/redfish/v1/odata" || url == "/redfish/v1/odata/" ||
+            url == "/redfish/v1/$metadata" || url == "/redfish/v1/$metadata/")
         {
             return true;
         }
