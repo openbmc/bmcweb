@@ -24,6 +24,7 @@
 #include <dbus_utility.hpp>
 #include <query.hpp>
 #include <registries/privilege_registry.hpp>
+#include <schemas.hpp>
 #include <sdbusplus/asio/property.hpp>
 #include <sdbusplus/message/native_types.hpp>
 #include <sdbusplus/utility/dedup_variant.hpp>
@@ -1158,8 +1159,7 @@ inline void requestRoutesOperatingConfig(App& app)
                         }
 
                         nlohmann::json& json = asyncResp->res.jsonValue;
-                        json["@odata.type"] =
-                            "#OperatingConfig.v1_0_0.OperatingConfig";
+                        json["@odata.type"] = operatingConfigType;
                         json["@odata.id"] = reqUrl;
                         json["Name"] = "Processor Profile";
                         json["Id"] = configName;
@@ -1227,8 +1227,7 @@ inline void requestRoutesProcessor(App& app)
                 {
                     return;
                 }
-                asyncResp->res.jsonValue["@odata.type"] =
-                    "#Processor.v1_11_0.Processor";
+                asyncResp->res.jsonValue["@odata.type"] = processorType;
                 asyncResp->res.jsonValue["@odata.id"] =
                     "/redfish/v1/Systems/system/Processors/" + processorId;
 

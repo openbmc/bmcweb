@@ -23,6 +23,7 @@
 #include <dbus_utility.hpp>
 #include <query.hpp>
 #include <registries/privilege_registry.hpp>
+#include <schemas.hpp>
 #include <sdbusplus/asio/property.hpp>
 #include <utils/json_utils.hpp>
 #include <utils/stl_utils.hpp>
@@ -108,8 +109,7 @@ void getEthernetIfaceData(CallbackFunc&& callback)
 inline void getNetworkData(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                            const crow::Request& req)
 {
-    asyncResp->res.jsonValue["@odata.type"] =
-        "#ManagerNetworkProtocol.v1_5_0.ManagerNetworkProtocol";
+    asyncResp->res.jsonValue["@odata.type"] = managerNetworkProtocolType;
     asyncResp->res.jsonValue["@odata.id"] =
         "/redfish/v1/Managers/bmc/NetworkProtocol";
     asyncResp->res.jsonValue["Id"] = "NetworkProtocol";

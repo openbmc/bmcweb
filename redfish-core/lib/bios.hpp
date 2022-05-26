@@ -3,6 +3,7 @@
 #include <app.hpp>
 #include <query.hpp>
 #include <registries/privilege_registry.hpp>
+#include <schemas.hpp>
 #include <utils/fw_utils.hpp>
 
 namespace redfish
@@ -19,7 +20,7 @@ inline void
         return;
     }
     asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1/Systems/system/Bios";
-    asyncResp->res.jsonValue["@odata.type"] = "#Bios.v1_1_0.Bios";
+    asyncResp->res.jsonValue["@odata.type"] = biosType;
     asyncResp->res.jsonValue["Name"] = "BIOS Configuration";
     asyncResp->res.jsonValue["Description"] = "BIOS Configuration Service";
     asyncResp->res.jsonValue["Id"] = "BIOS";

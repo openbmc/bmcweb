@@ -23,7 +23,7 @@ namespace messages
 inline nlohmann::json taskAborted(const std::string& arg1)
 {
     return nlohmann::json{
-        {"@odata.type", "#Message.v1_0_0.Message"},
+        {"@odata.type", messageType},
         {"MessageId", "TaskEvent.1.0.1.TaskAborted"},
         {"Message", "The task with id " + arg1 + " has been aborted."},
         {"MessageArgs", {arg1}},
@@ -34,7 +34,7 @@ inline nlohmann::json taskAborted(const std::string& arg1)
 inline nlohmann::json taskCancelled(const std::string& arg1)
 {
     return nlohmann::json{
-        {"@odata.type", "#Message.v1_0_0.Message"},
+        {"@odata.type", messageType},
         {"MessageId", "TaskEvent.1.0.1.TaskCancelled"},
         {"Message", "The task with id " + arg1 + " has been cancelled."},
         {"MessageArgs", {arg1}},
@@ -45,7 +45,7 @@ inline nlohmann::json taskCancelled(const std::string& arg1)
 inline nlohmann::json taskCompletedOK(const std::string& arg1)
 {
     return nlohmann::json{
-        {"@odata.type", "#Message.v1_0_0.Message"},
+        {"@odata.type", messageType},
         {"MessageId", "TaskEvent.1.0.1.TaskCompletedOK"},
         {"Message", "The task with id " + arg1 + " has Completed."},
         {"MessageArgs", {arg1}},
@@ -55,7 +55,7 @@ inline nlohmann::json taskCompletedOK(const std::string& arg1)
 
 inline nlohmann::json taskCompletedWarning(const std::string& arg1)
 {
-    return nlohmann::json{{"@odata.type", "#Message.v1_0_0.Message"},
+    return nlohmann::json{{"@odata.type", messageType},
                           {"MessageId", "TaskEvent.1.0.1.TaskCompletedWarning"},
                           {"Message", "The task with id " + arg1 +
                                           " has completed with warnings."},
@@ -67,7 +67,7 @@ inline nlohmann::json taskCompletedWarning(const std::string& arg1)
 inline nlohmann::json taskPaused(const std::string& arg1)
 {
     return nlohmann::json{
-        {"@odata.type", "#Message.v1_0_0.Message"},
+        {"@odata.type", messageType},
         {"MessageId", "TaskEvent.1.0.1.TaskPaused"},
         {"Message", "The task with id " + arg1 + " has been paused."},
         {"MessageArgs", {arg1}},
@@ -79,7 +79,7 @@ inline nlohmann::json taskProgressChanged(const std::string& arg1,
                                           const size_t arg2)
 {
     return nlohmann::json{
-        {"@odata.type", "#Message.v1_0_0.Message"},
+        {"@odata.type", messageType},
         {"MessageId", "TaskEvent.1.0.1.TaskProgressChanged"},
         {"Message", "The task with id " + arg1 + " has changed to progress " +
                         std::to_string(arg2) + " percent complete."},
@@ -91,7 +91,7 @@ inline nlohmann::json taskProgressChanged(const std::string& arg1,
 inline nlohmann::json taskRemoved(const std::string& arg1)
 {
     return nlohmann::json{
-        {"@odata.type", "#Message.v1_0_0.Message"},
+        {"@odata.type", messageType},
         {"MessageId", "TaskEvent.1.0.1.TaskRemoved"},
         {"Message", "The task with id " + arg1 + " has been removed."},
         {"MessageArgs", {arg1}},
@@ -102,7 +102,7 @@ inline nlohmann::json taskRemoved(const std::string& arg1)
 inline nlohmann::json taskResumed(const std::string& arg1)
 {
     return nlohmann::json{
-        {"@odata.type", "#Message.v1_0_0.Message"},
+        {"@odata.type", messageType},
         {"MessageId", "TaskEvent.1.0.1.TaskResumed"},
         {"Message", "The task with id " + arg1 + " has been resumed."},
         {"MessageArgs", {arg1}},
@@ -113,7 +113,7 @@ inline nlohmann::json taskResumed(const std::string& arg1)
 inline nlohmann::json taskStarted(const std::string& arg1)
 {
     return nlohmann::json{
-        {"@odata.type", "#Message.v1_0_0.Message"},
+        {"@odata.type", messageType},
         {"MessageId", "TaskEvent.1.0.1.TaskStarted"},
         {"Message", "The task with id " + arg1 + " has started."},
         {"MessageArgs", {arg1}},

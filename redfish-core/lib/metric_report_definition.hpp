@@ -9,6 +9,7 @@
 #include <dbus_utility.hpp>
 #include <query.hpp>
 #include <registries/privilege_registry.hpp>
+#include <schemas.hpp>
 
 #include <tuple>
 #include <variant>
@@ -31,8 +32,7 @@ inline void
                          const std::string& id,
                          const dbus::utility::DBusPropertiesMap& ret)
 {
-    asyncResp->res.jsonValue["@odata.type"] =
-        "#MetricReportDefinition.v1_3_0.MetricReportDefinition";
+    asyncResp->res.jsonValue["@odata.type"] = metricReportDefinitionType;
     asyncResp->res.jsonValue["@odata.id"] =
         crow::utility::urlFromPieces("redfish", "v1", "TelemetryService",
                                      "MetricReportDefinitions", id)

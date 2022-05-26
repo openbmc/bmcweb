@@ -22,6 +22,7 @@
 #include <boost/url/url_view.hpp>
 #include <query.hpp>
 #include <registries/privilege_registry.hpp>
+#include <schemas.hpp>
 #include <utils/json_utils.hpp>
 
 namespace redfish
@@ -155,14 +156,13 @@ inline nlohmann::json vmItemTemplate(const std::string& name,
     id += resName;
     item["@odata.id"] = std::move(id);
 
-    item["@odata.type"] = "#VirtualMedia.v1_3_0.VirtualMedia";
+    item["@odata.type"] = virtualMediaType;
     item["Name"] = "Virtual Removable Media";
     item["Id"] = resName;
     item["WriteProtected"] = true;
     item["MediaTypes"] = {"CD", "USBStick"};
     item["TransferMethod"] = "Stream";
-    item["Oem"]["OpenBMC"]["@odata.type"] =
-        "#OemVirtualMedia.v1_0_0.VirtualMedia";
+    item["Oem"]["OpenBMC"]["@odata.type"] = "#OemVirtualMedia.v1_0_0.VirtualMedia";
 
     return item;
 }
@@ -281,8 +281,7 @@ inline void getVmData(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
                 return;
             }
 
-            messages::resourceNotFound(
-                aResp->res, "#VirtualMedia.v1_3_0.VirtualMedia", resName);
+            messages::resourceNotFound(aResp->res, virtualMediaType, resName);
         },
         service, "/xyz/openbmc_project/VirtualMedia",
         "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");

@@ -36,6 +36,7 @@
 #include <error_messages.hpp>
 #include <query.hpp>
 #include <registries/privilege_registry.hpp>
+#include <schemas.hpp>
 
 #include <charconv>
 #include <filesystem>
@@ -456,7 +457,7 @@ inline void
                     continue;
                 }
 
-                thisEntry["@odata.type"] = "#LogEntry.v1_8_0.LogEntry";
+                thisEntry["@odata.type"] = logEntryType;
                 thisEntry["@odata.id"] = dumpPath + entryID;
                 thisEntry["Id"] = entryID;
                 thisEntry["EntryType"] = "Event";
@@ -616,8 +617,7 @@ inline void
                     return;
                 }
 
-                asyncResp->res.jsonValue["@odata.type"] =
-                    "#LogEntry.v1_8_0.LogEntry";
+                asyncResp->res.jsonValue["@odata.type"] = logEntryType;
                 asyncResp->res.jsonValue["@odata.id"] = dumpPath + entryID;
                 asyncResp->res.jsonValue["Id"] = entryID;
                 asyncResp->res.jsonValue["EntryType"] = "Event";
@@ -995,8 +995,7 @@ inline void requestRoutesEventLogService(App& app)
             }
             asyncResp->res.jsonValue["@odata.id"] =
                 "/redfish/v1/Systems/system/LogServices/EventLog";
-            asyncResp->res.jsonValue["@odata.type"] =
-                "#LogService.v1_1_0.LogService";
+            asyncResp->res.jsonValue["@odata.type"] = logServiceType;
             asyncResp->res.jsonValue["Name"] = "Event Log Service";
             asyncResp->res.jsonValue["Description"] =
                 "System Event Log Service";
@@ -1143,7 +1142,7 @@ static int fillEventLogEntryJson(const std::string& logEntryID,
 
     // Fill in the log entry with the gathered data
     logEntryJson = {
-        {"@odata.type", "#LogEntry.v1_8_0.LogEntry"},
+        {"@odata.type", logEntryType},
         {"@odata.id",
          "/redfish/v1/Systems/system/LogServices/EventLog/Entries/" +
              logEntryID},
@@ -1447,7 +1446,7 @@ inline void requestRoutesDBusEventLogEntryCollection(App& app)
                         }
                         entriesArray.push_back({});
                         nlohmann::json& thisEntry = entriesArray.back();
-                        thisEntry["@odata.type"] = "#LogEntry.v1_8_0.LogEntry";
+                        thisEntry["@odata.type"] = logEntryType;
                         thisEntry["@odata.id"] =
                             "/redfish/v1/Systems/system/LogServices/EventLog/Entries/" +
                             std::to_string(*id);
@@ -1577,8 +1576,7 @@ inline void requestRoutesDBusEventLogEntry(App& app)
                         messages::internalError(asyncResp->res);
                         return;
                     }
-                    asyncResp->res.jsonValue["@odata.type"] =
-                        "#LogEntry.v1_8_0.LogEntry";
+                    asyncResp->res.jsonValue["@odata.type"] = logEntryType;
                     asyncResp->res.jsonValue["@odata.id"] =
                         "/redfish/v1/Systems/system/LogServices/EventLog/Entries/" +
                         std::to_string(*id);
@@ -1858,7 +1856,7 @@ inline void fillHostLoggerEntryJson(const std::string& logEntryID,
 {
     // Fill in the log entry with the gathered data.
     logEntryJson = {
-        {"@odata.type", "#LogEntry.v1_4_0.LogEntry"},
+        {"@odata.type", logEntryType},
         {"@odata.id",
          "/redfish/v1/Systems/system/LogServices/HostLogger/Entries/" +
              logEntryID},
@@ -1883,8 +1881,7 @@ inline void requestRoutesSystemHostLogger(App& app)
                 }
                 asyncResp->res.jsonValue["@odata.id"] =
                     "/redfish/v1/Systems/system/LogServices/HostLogger";
-                asyncResp->res.jsonValue["@odata.type"] =
-                    "#LogService.v1_1_0.LogService";
+                asyncResp->res.jsonValue["@odata.type"] = logServiceType;
                 asyncResp->res.jsonValue["Name"] = "Host Logger Service";
                 asyncResp->res.jsonValue["Description"] = "Host Logger Service";
                 asyncResp->res.jsonValue["Id"] = "HostLogger";
@@ -2084,8 +2081,7 @@ inline void requestRoutesBMCJournalLogService(App& app)
                 {
                     return;
                 }
-                asyncResp->res.jsonValue["@odata.type"] =
-                    "#LogService.v1_1_0.LogService";
+                asyncResp->res.jsonValue["@odata.type"] = logServiceType;
                 asyncResp->res.jsonValue["@odata.id"] =
                     "/redfish/v1/Managers/bmc/LogServices/Journal";
                 asyncResp->res.jsonValue["Name"] =
@@ -2153,7 +2149,7 @@ static int fillBMCJournalLogEntryJson(const std::string& bmcJournalLogEntryID,
 
     // Fill in the log entry with the gathered data
     bmcJournalLogEntryJson = {
-        {"@odata.type", "#LogEntry.v1_8_0.LogEntry"},
+        {"@odata.type", logEntryType},
         {"@odata.id", "/redfish/v1/Managers/bmc/LogServices/Journal/Entries/" +
                           bmcJournalLogEntryID},
         {"Name", "BMC Journal Entry"},
@@ -2344,8 +2340,7 @@ inline void requestRoutesBMCDumpService(App& app)
             }
             asyncResp->res.jsonValue["@odata.id"] =
                 "/redfish/v1/Managers/bmc/LogServices/Dump";
-            asyncResp->res.jsonValue["@odata.type"] =
-                "#LogService.v1_2_0.LogService";
+            asyncResp->res.jsonValue["@odata.type"] = logServiceType;
             asyncResp->res.jsonValue["Name"] = "Dump LogService";
             asyncResp->res.jsonValue["Description"] = "BMC Dump LogService";
             asyncResp->res.jsonValue["Id"] = "Dump";
@@ -2475,8 +2470,7 @@ inline void requestRoutesSystemDumpService(App& app)
             }
             asyncResp->res.jsonValue["@odata.id"] =
                 "/redfish/v1/Systems/system/LogServices/Dump";
-            asyncResp->res.jsonValue["@odata.type"] =
-                "#LogService.v1_2_0.LogService";
+            asyncResp->res.jsonValue["@odata.type"] = logServiceType;
             asyncResp->res.jsonValue["Name"] = "Dump LogService";
             asyncResp->res.jsonValue["Description"] = "System Dump LogService";
             asyncResp->res.jsonValue["Id"] = "Dump";
@@ -2615,8 +2609,7 @@ inline void requestRoutesCrashdumpService(App& app)
             // SubRoute
             asyncResp->res.jsonValue["@odata.id"] =
                 "/redfish/v1/Systems/system/LogServices/Crashdump";
-            asyncResp->res.jsonValue["@odata.type"] =
-                "#LogService.v1_2_0.LogService";
+            asyncResp->res.jsonValue["@odata.type"] = logServiceType;
             asyncResp->res.jsonValue["Name"] = "Open BMC Oem Crashdump Service";
             asyncResp->res.jsonValue["Description"] = "Oem Crashdump Service";
             asyncResp->res.jsonValue["Id"] = "Oem Crashdump";
@@ -2711,7 +2704,7 @@ static void
                 "/redfish/v1/Systems/system/LogServices/Crashdump/Entries/" +
                 logID + "/" + filename;
             nlohmann::json logEntry = {
-                {"@odata.type", "#LogEntry.v1_7_0.LogEntry"},
+                {"@odata.type", logEntryType},
                 {"@odata.id",
                  "/redfish/v1/Systems/system/LogServices/Crashdump/Entries/" +
                      logID},
@@ -3124,8 +3117,7 @@ inline void requestRoutesPostCodesLogService(App& app)
 
             asyncResp->res.jsonValue["@odata.id"] =
                 "/redfish/v1/Systems/system/LogServices/PostCodes";
-            asyncResp->res.jsonValue["@odata.type"] =
-                "#LogService.v1_1_0.LogService";
+            asyncResp->res.jsonValue["@odata.type"] = logServiceType;
             asyncResp->res.jsonValue["Name"] = "POST Code Log Service";
             asyncResp->res.jsonValue["Description"] = "POST Code Log Service";
             asyncResp->res.jsonValue["Id"] = "BIOS POST Code Log";
@@ -3288,7 +3280,7 @@ static void fillPostCodeEntry(
         logEntryArray.push_back({});
         nlohmann::json& bmcLogEntry = logEntryArray.back();
         bmcLogEntry = {
-            {"@odata.type", "#LogEntry.v1_8_0.LogEntry"},
+            {"@odata.type", logEntryType},
             {"@odata.id",
              "/redfish/v1/Systems/system/LogServices/PostCodes/Entries/" +
                  postcodeEntryID},
@@ -3606,8 +3598,7 @@ inline void requestRoutesPostCodesEntry(App& app)
                                      << targetID;
                 }
 
-                asyncResp->res.jsonValue["@odata.type"] =
-                    "#LogEntry.v1_4_0.LogEntry";
+                asyncResp->res.jsonValue["@odata.type"] = logEntryType;
                 asyncResp->res.jsonValue["@odata.id"] =
                     "/redfish/v1/Systems/system/LogServices/PostCodes/Entries";
                 asyncResp->res.jsonValue["Name"] = "BIOS POST Code Log Entries";

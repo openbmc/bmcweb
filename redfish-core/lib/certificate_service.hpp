@@ -7,6 +7,7 @@
 #include <dbus_utility.hpp>
 #include <query.hpp>
 #include <registries/privilege_registry.hpp>
+#include <schemas.hpp>
 
 namespace redfish
 {
@@ -55,8 +56,7 @@ inline void requestRoutesCertificateService(App& app)
                 return;
             }
 
-            asyncResp->res.jsonValue["@odata.type"] =
-                "#CertificateService.v1_0_0.CertificateService";
+            asyncResp->res.jsonValue["@odata.type"] = certificateServiceType;
             asyncResp->res.jsonValue["@odata.id"] =
                 "/redfish/v1/CertificateService";
             asyncResp->res.jsonValue["Id"] = "CertificateService";
@@ -594,8 +594,7 @@ static void getCertificateProperties(
                 return;
             }
             asyncResp->res.jsonValue["@odata.id"] = certURL;
-            asyncResp->res.jsonValue["@odata.type"] =
-                "#Certificate.v1_0_0.Certificate";
+            asyncResp->res.jsonValue["@odata.type"] = certificateType;
             asyncResp->res.jsonValue["Id"] = std::to_string(certId);
             asyncResp->res.jsonValue["Name"] = name;
             asyncResp->res.jsonValue["Description"] = name;
@@ -1020,8 +1019,7 @@ inline void requestRoutesCertificateLocations(App& app)
             }
             asyncResp->res.jsonValue["@odata.id"] =
                 "/redfish/v1/CertificateService/CertificateLocations";
-            asyncResp->res.jsonValue["@odata.type"] =
-                "#CertificateLocations.v1_0_0.CertificateLocations";
+            asyncResp->res.jsonValue["@odata.type"] = certificateLocationsType;
             asyncResp->res.jsonValue["Name"] = "Certificate Locations";
             asyncResp->res.jsonValue["Id"] = "CertificateLocations";
             asyncResp->res.jsonValue["Description"] =

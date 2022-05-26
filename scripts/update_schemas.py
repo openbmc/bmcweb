@@ -3,7 +3,7 @@ import requests
 import zipfile
 from io import BytesIO
 import os
-from collections import OrderedDict
+from collections import OrderedDict, defaultdict
 import shutil
 import json
 
@@ -175,6 +175,8 @@ if not os.path.exists(schema_path):
 if not os.path.exists(json_schema_path):
     os.makedirs(json_schema_path)
 
+schema_versions = defaultdict(list)
+
 with open(metadata_index_path, 'w') as metadata_index:
 
     metadata_index.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n")
@@ -212,6 +214,9 @@ with open(metadata_index_path, 'w') as metadata_index:
                         for data_child in edmx_child:
                             if data_child.tag == edm + "Schema":
                                 namespace = data_child.attrib["Namespace"]
+
+                                subname = namespace.split(".", 1)
+                                schema_versions[subname[0]].append("".join(subname[1:]))
                                 if namespace.startswith("RedfishExtensions"):
                                     metadata_index.write(
                                         "        "
@@ -326,7 +331,27 @@ with open(os.path.join(cpp_path, "schemas.hpp"), 'w') as hpp_file:
         hpp_file.write("        \"{}\",\n".format(schema_file))
 
     hpp_file.write(
-        "    };\n"
+        "    };"
+        "\n"
+        "\n"
+    )
+
+    for schema_namespace, versions in schema_versions.items():
+        varname = schema_namespace[0].lower() + schema_namespace[1:] + "Type"
+        newest_version = versions[-1]
+        if not newest_version:
+            continue
+        #Event.v1_4_0.Event
+        hpp_file.write(
+            "    constexpr const char* {} = \"#{}.{}.{}\";\n".format(
+                varname,
+                schema_namespace,
+                versions[-1],
+                schema_namespace
+            )
+        )
+
+    hpp_file.write(
         "}\n"
     )
 

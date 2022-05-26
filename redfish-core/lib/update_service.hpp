@@ -21,6 +21,7 @@
 #include <dbus_utility.hpp>
 #include <query.hpp>
 #include <registries/privilege_registry.hpp>
+#include <schemas.hpp>
 #include <sdbusplus/asio/property.hpp>
 #include <utils/fw_utils.hpp>
 
@@ -573,8 +574,7 @@ inline void requestRoutesUpdateService(App& app)
             {
                 return;
             }
-            asyncResp->res.jsonValue["@odata.type"] =
-                "#UpdateService.v1_5_0.UpdateService";
+            asyncResp->res.jsonValue["@odata.type"] = updateServiceType;
             asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1/UpdateService";
             asyncResp->res.jsonValue["Id"] = "UpdateService";
             asyncResp->res.jsonValue["Description"] =
@@ -990,7 +990,7 @@ inline void requestRoutesSoftwareInventory(App& app)
                         return;
                     }
                     asyncResp->res.jsonValue["@odata.type"] =
-                        "#SoftwareInventory.v1_1_0.SoftwareInventory";
+                        softwareInventoryType;
                     asyncResp->res.jsonValue["Name"] = "Software Inventory";
                     asyncResp->res.jsonValue["Status"]["HealthRollup"] = "OK";
 

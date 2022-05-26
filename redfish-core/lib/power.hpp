@@ -22,6 +22,7 @@
 #include <dbus_utility.hpp>
 #include <query.hpp>
 #include <registries/privilege_registry.hpp>
+#include <schemas.hpp>
 
 namespace redfish
 {
@@ -216,8 +217,7 @@ inline void requestRoutesPower(App& app)
                             // Mandatory properties odata.id and MemberId
                             // A warning without a odata.type
                             nlohmann::json::object_t powerControl;
-                            powerControl["@odata.type"] =
-                                "#Power.v1_0_0.PowerControl";
+                            powerControl["@odata.type"] = powerType;
                             powerControl["@odata.id"] =
                                 "/redfish/v1/Chassis/" +
                                 sensorAsyncResp->chassisId +
