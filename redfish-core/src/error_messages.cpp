@@ -14,6 +14,9 @@
 // limitations under the License.
 */
 #include "error_messages.hpp"
+#include "http_response.hpp"
+#include "registries/base_message_registry.hpp"
+#include "schemas.hpp"
 
 #include "http_response.hpp"
 #include "logging.hpp"
