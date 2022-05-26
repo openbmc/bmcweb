@@ -22,6 +22,30 @@
       },
       "revId": "153d28ddfa4c5bcf1c3b0168fbbf3a0cb8db575a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dd8eb008_05f3c089",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 730,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-05-26T17:17:09Z",
+      "side": 1,
+      "message": "Ack.\n\nActually in this function, all internal error follows with a return, so we are good. But I still changed it to use jsonPtr.",
+      "parentUuid": "44ba8490_d372c221",
+      "range": {
+        "startLine": 730,
+        "startChar": 12,
+        "endLine": 730,
+        "endChar": 37
+      },
+      "revId": "153d28ddfa4c5bcf1c3b0168fbbf3a0cb8db575a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
