@@ -34,7 +34,6 @@ namespace redfish::registries
 struct Header
 {
     const char* copyright;
-    const char* type;
     const char* id;
     const char* name;
     const char* language;

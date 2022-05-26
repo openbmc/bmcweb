@@ -20,6 +20,7 @@
 #include "registries/openbmc_message_registry.hpp"
 #include "registries/resource_event_message_registry.hpp"
 #include "registries/task_event_message_registry.hpp"
+#include "schemas.hpp"
 
 #include <app.hpp>
 #include <query.hpp>
@@ -202,12 +203,13 @@ inline void handleMessageRegistryGet(
 
     if (registry != registryMatch)
     {
-        messages::resourceNotFound(asyncResp->res, header->type, registryMatch);
+        messages::resourceNotFound(asyncResp->res, schemas::messageType,
+                                   registryMatch);
         return;
     }
 
     asyncResp->res.jsonValue["@Redfish.Copyright"] = header->copyright;
-    asyncResp->res.jsonValue["@odata.type"] = header->type;
+    asyncResp->res.jsonValue["@odata.type"] = schemas::messageRegistryType;
     asyncResp->res.jsonValue["Id"] = header->id;
     asyncResp->res.jsonValue["Name"] = header->name;
     asyncResp->res.jsonValue["Language"] = header->language;
