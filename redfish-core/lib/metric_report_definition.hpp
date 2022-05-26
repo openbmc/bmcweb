@@ -289,7 +289,7 @@ class AddReport
             if (ec == boost::system::errc::file_exists)
             {
                 messages::resourceAlreadyExists(
-                    aResp->res, "MetricReportDefinition", "Id", name);
+                    aResp->res, schemas::metricReportDefinition, "Id", name);
                 return;
             }
             if (ec == boost::system::errc::too_many_files_open)
