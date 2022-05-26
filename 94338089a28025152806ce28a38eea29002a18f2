@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1e9f5685_e567e172",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 1808,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-05-26T01:24:07Z",
+      "side": 1,
+      "message": "It\u0027s VLANs here, bmcweb is still implementing the deprecated VLanNetworkInterface schema, the VLANs is a link to VLanNetworkInterface collection.\n\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/52951\nSome background disscussion is here.\n\n\u003e A limitation is that latest schema does not provide a proper way to create VLANs. I had a discussion in redfish from at https://redfishforum.com/thread/619/proper-create-using-ethernetinterface-schema\n\u003e \n\u003e My proposal is to keep using the deprecated VLanNetworkInterface for creating/deleting VLANs, while also exposes the VLAN interfaces under /​redfish/​v1/​Managers/​bmc/​EthernetInterfaces/​ for configuring them. This workaround will be here until redfish spec reached a solution, after that, remove the VLANs property. This patchset is the first stage of moving to the new way.",
+      "parentUuid": "b9df483f_1291fe7a",
+      "revId": "94338089a28025152806ce28a38eea29002a18f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d819bbe0_acdf995f",
         "filename": "redfish-core/lib/ethernet.hpp",
         "patchSetId": 12
@@ -48,6 +66,24 @@
       "writtenOn": "2022-05-25T20:31:14Z",
       "side": 1,
       "message": "This doesn\u0027t make much sense to me. VLANEnable is a R/W element. It seems like the Redfish user will want to *write* this element with an true/false to enable/disable the VLAN independently of the NIC.\n\nDoes it make sense to make ethData contain a vlanSet containing an ID and Enable state for a list of VLANs?\n\nI\u0027m uncertain if you also qualify this with nicEnabled too. In some ways that seems superflous because the physical NIC being disabled will take this down too.",
+      "revId": "94338089a28025152806ce28a38eea29002a18f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "320b418a_02f610d0",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 1811,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-05-26T01:24:07Z",
+      "side": 1,
+      "message": "In phosphor-networkd, VLAN is a virtual interface that have it\u0027s own DBus properties, all interfaces are listed in a \"plain\" way like:\n/xyz/openbmc_project/network/eth0\n/xyz/openbmc_project/network/eth0_100\n/xyz/openbmc_project/network/eth0_200\n/xyz/openbmc_project/network/eth1\n\nVLAN virtual interfaces has its own configuration that is somewhat indepenedent from the physical NIC, including the NICEnable property.\n\n\u003e Does it make sense to make ethData contain a vlanSet containing an ID and Enable state for a list of VLANs?\n\nNo, each interface can have at most one VLAN ID. The association is done by the interface names, like eth0_100, eth0_200 are associated to eth0 in the example above.\n\nThere is a detailed discussion in my previously merged https://gerrit.openbmc.org/c/openbmc/bmcweb/+/52951 about this concern.\n\n\u003e In some ways that seems superflous because the physical NIC being disabled will take this down too.\n\nYeah disabling the physical interface will disable the related VLAN interfaces. But users may only want to disable only eth_100 but keep eth0_200 and the physical eth0 enabled.",
+      "parentUuid": "d819bbe0_acdf995f",
       "revId": "94338089a28025152806ce28a38eea29002a18f2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -71,6 +107,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "923d76f8_6074c900",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 1812,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-05-26T01:24:07Z",
+      "side": 1,
+      "message": "I think this function is unnecessary as it only fills some json property, I will make another patch to remove it.",
+      "parentUuid": "bdbad12f_7ba7c611",
+      "revId": "94338089a28025152806ce28a38eea29002a18f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a70d2017_af4ed7b5",
         "filename": "redfish-core/lib/ethernet.hpp",
         "patchSetId": 12
@@ -82,6 +136,24 @@
       "writtenOn": "2022-05-25T20:31:14Z",
       "side": 1,
       "message": "The NIC may have more than one VLAN. There needs to be a mechanism for iterating over all of the VLANs in the collection.",
+      "revId": "94338089a28025152806ce28a38eea29002a18f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9fe609a9_3fd0cd80",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 1814,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-05-26T01:24:07Z",
+      "side": 1,
+      "message": "This implements the Redfish VLanNetworkInterface schema, each resourece only have 1 VLAN ID. For multiple VLAN ID, the iteration is done when getting the collection at /​redfish/​v1/​Managers/​{ManagerId}/​EthernetInterfaces/​{EthernetInterfaceId}/​VLANs/.",
+      "parentUuid": "a70d2017_af4ed7b5",
       "revId": "94338089a28025152806ce28a38eea29002a18f2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -105,6 +177,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5e147035_bed67a47",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 2132,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-05-26T01:24:07Z",
+      "side": 1,
+      "message": "Schema is /​redfish/​v1/​Managers/​{ManagerId}/​EthernetInterfaces/​{EthernetInterfaceId}/​VLANs/​{VLanNetworkInterfaceId}. If VLAN, that just a property, no more url handlers.",
+      "parentUuid": "f675b5fd_98e378f9",
+      "revId": "94338089a28025152806ce28a38eea29002a18f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f8edeabe_b6d073d4",
         "filename": "redfish-core/lib/ethernet.hpp",
         "patchSetId": 12
@@ -116,6 +206,24 @@
       "writtenOn": "2022-05-25T20:31:14Z",
       "side": 1,
       "message": "IMO *vlanEnable is the value to be returned for the ethx/VLAN/vlanId GET action.",
+      "revId": "94338089a28025152806ce28a38eea29002a18f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e5ab870d_6240d89f",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 2193,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-05-26T01:24:07Z",
+      "side": 1,
+      "message": "The get handler is also changed.",
+      "parentUuid": "f8edeabe_b6d073d4",
       "revId": "94338089a28025152806ce28a38eea29002a18f2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
