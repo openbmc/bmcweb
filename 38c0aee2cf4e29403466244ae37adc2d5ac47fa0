@@ -94,6 +94,30 @@
       },
       "revId": "38c0aee2cf4e29403466244ae37adc2d5ac47fa0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2e0d3eac_83505bf2",
+        "filename": "CLIENTS.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1001321
+      },
+      "writtenOn": "2022-05-26T20:42:04Z",
+      "side": 1,
+      "message": "I hear you and what you said makes sense for design details of the client.  I guess the question is, If I were to write a new Listener from scratch can i design it without needing a lightweight server or to receive any events from BMCWeb its a must have dependency?",
+      "parentUuid": "c2c3ebca_23111c8c",
+      "range": {
+        "startLine": 64,
+        "startChar": 34,
+        "endLine": 64,
+        "endChar": 35
+      },
+      "revId": "38c0aee2cf4e29403466244ae37adc2d5ac47fa0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
