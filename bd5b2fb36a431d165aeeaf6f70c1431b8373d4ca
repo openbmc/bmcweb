@@ -134,6 +134,30 @@
       },
       "revId": "bd5b2fb36a431d165aeeaf6f70c1431b8373d4ca",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "54e4768d_7a4427ee",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 1915,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-05-26T17:46:22Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "282c5cac_554d0d3a",
+      "range": {
+        "startLine": 1915,
+        "startChar": 48,
+        "endLine": 1915,
+        "endChar": 57
+      },
+      "revId": "bd5b2fb36a431d165aeeaf6f70c1431b8373d4ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
