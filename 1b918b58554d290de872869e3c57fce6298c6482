@@ -111,6 +111,30 @@
       },
       "revId": "1b918b58554d290de872869e3c57fce6298c6482",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b24dc80d_5639f1b0",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-26T00:20:45Z",
+      "side": 1,
+      "message": "because the json object itself is modified as part of the messages::internalError calls.\n\n\u003e Hmm, is adding a comment saying \"Callers should guarantee the reference outlives the function call\" enough?\n\nNo, as written, I\u0027m pretty sure this code will seg fault if it hits an InternalError call, then tries to parse a value after that.\n\n\n\u003e But I can use a JSON pointer instead.\nThat would be one approach, although a little bit overkill in this case.  MIght be better to make dimmPropToHex just return the value and load it directly without a reference at all?",
+      "parentUuid": "47d5cc75_b39cb19d",
+      "range": {
+        "startLine": 168,
+        "startChar": 0,
+        "endLine": 168,
+        "endChar": 64
+      },
+      "revId": "1b918b58554d290de872869e3c57fce6298c6482",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
