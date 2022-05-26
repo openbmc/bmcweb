@@ -1596,5 +1596,29 @@ const static auto& postZoneCollection = privilegeSetConfigureComponents;
 const static auto& putZoneCollection = privilegeSetConfigureComponents;
 const static auto& deleteZoneCollection = privilegeSetConfigureComponents;
 
+// LicenseService
+const static auto& getLicenseService = privilegeSetLogin;
+const static auto& headLicenseService = privilegeSetLogin;
+const static auto& patchLicenseService = privilegeSetConfigureComponents;
+const static auto& putLicenseService = privilegeSetConfigureComponents;
+const static auto& deleteLicenseService = privilegeSetConfigureComponents;
+const static auto& postLicenseService = privilegeSetConfigureComponents;
+
+// LicenseCollection
+const static auto& getLicenseCollection = privilegeSetLogin;
+const static auto& headLicenseCollection = privilegeSetLogin;
+const static auto& patchLicenseCollection = privilegeSetConfigureComponents;
+const static auto& putLicenseCollection = privilegeSetConfigureComponents;
+const static auto& deleteLicenseCollection = privilegeSetConfigureComponents;
+const static auto& postLicenseCollection = privilegeSetConfigureComponents;
+
+// License
+const static auto& getLicense = privilegeSetLogin;
+const static auto& headLicense = privilegeSetLogin;
+const static auto& patchLicense = privilegeSetConfigureComponents;
+const static auto& putLicense = privilegeSetConfigureComponents;
+const static auto& deleteLicense = privilegeSetConfigureComponents;
+const static auto& postLicense = privilegeSetConfigureComponents;
+
 } // namespace redfish::privileges
 // clang-format on
