@@ -223,6 +223,8 @@ if not os.path.exists(json_schema_path):
 
 csdl_filenames = []
 json_schema_files = defaultdict(list)
+schema_versions = defaultdict(list)
+
 
 for zip_file in zip_ref.infolist():
     if zip_file.is_dir():
@@ -251,117 +253,31 @@ json_schema_files = OrderedDict(
 )
 
 csdl_filenames.sort(key=SchemaVersion)
-with open(metadata_index_path, "w") as metadata_index:
-    metadata_index.write('<?xml version="1.0" encoding="UTF-8"?>\n')
-    metadata_index.write(
-        "<edmx:Edmx xmlns:edmx="
-        '"http://docs.oasis-open.org/odata/ns/edmx"'
-        ' Version="4.0">\n'
-    )
+for filename in csdl_filenames:
+    # filename looks like Zone_v1.xml
+    with open(os.path.join(schema_path, filename), "wb") as schema_out:
+        content = zip_ref.read(os.path.join("csdl", filename))
+        content = content.replace(b"\r\n", b"\n")
 
-    for filename in csdl_filenames:
-        # filename looks like Zone_v1.xml
-        with open(os.path.join(schema_path, filename), "wb") as schema_out:
-            content = zip_ref.read(os.path.join("csdl", filename))
-            content = content.replace(b"\r\n", b"\n")
+        schema_out.write(content)
 
-            schema_out.write(content)
+        filenamesplit = filename.split("_")
+        if filenamesplit[0] not in include_list:
+            continue
+        xml_root = ET.fromstring(content)
+        edmx = "{http://docs.oasis-open.org/odata/ns/edmx}"
+        edm = "{http://docs.oasis-open.org/odata/ns/edm}"
+        for edmx_child in xml_root:
+            if edmx_child.tag == edmx + "DataServices":
+                for data_child in edmx_child:
+                    if data_child.tag == edm + "Schema":
+                        namespace = data_child.attrib["Namespace"]
 
-            filenamesplit = filename.split("_")
-            if filenamesplit[0] not in include_list:
-                continue
-            metadata_index.write(
-                '    <edmx:Reference Uri="/redfish/v1/schema/'
-                + filename
-                + '">\n'
-            )
+                        subname = namespace.split(".", 1)
+                        version = "".join(subname[1:])
 
-            xml_root = ET.fromstring(content)
-            edmx = "{http://docs.oasis-open.org/odata/ns/edmx}"
-            edm = "{http://docs.oasis-open.org/odata/ns/edm}"
-            for edmx_child in xml_root:
-                if edmx_child.tag == edmx + "DataServices":
-                    for data_child in edmx_child:
-                        if data_child.tag == edm + "Schema":
-                            namespace = data_child.attrib["Namespace"]
-                            if namespace.startswith("RedfishExtensions"):
-                                metadata_index.write(
-                                    '        <edmx:Include Namespace="'
-                                    + namespace
-                                    + '"  Alias="Redfish"/>\n'
-                                )
-
-                            else:
-                                metadata_index.write(
-                                    '        <edmx:Include Namespace="'
-                                    + namespace
-                                    + '"/>\n'
-                                )
-            metadata_index.write("    </edmx:Reference>\n")
-
-    metadata_index.write(
-        "    <edmx:DataServices>\n"
-        "        <Schema "
-        'xmlns="http://docs.oasis-open.org/odata/ns/edm" '
-        'Namespace="Service">\n'
-        '            <EntityContainer Name="Service" '
-        'Extends="ServiceRoot.v1_0_0.ServiceContainer"/>\n'
-        "        </Schema>\n"
-        "    </edmx:DataServices>\n"
-    )
-    # TODO:Issue#32 There's a bug in the script that currently deletes this
-    # schema (because it's an OEM schema). Because it's the only six, and we
-    # don't update schemas very often, we just manually fix it. Need a
-    # permanent fix to the script.
-    metadata_index.write(
-        '    <edmx:Reference Uri="/redfish/v1/schema/OemManager_v1.xml">\n'
-    )
-    metadata_index.write('        <edmx:Include Namespace="OemManager"/>\n')
-    metadata_index.write("    </edmx:Reference>\n")
-
-    metadata_index.write(
-        '    <edmx:Reference Uri="'
-        '/redfish/v1/schema/OemComputerSystem_v1.xml">\n'
-    )
-    metadata_index.write(
-        '        <edmx:Include Namespace="OemComputerSystem"/>\n'
-    )
-    metadata_index.write("    </edmx:Reference>\n")
-
-    metadata_index.write(
-        '    <edmx:Reference Uri="'
-        '/redfish/v1/schema/OemVirtualMedia_v1.xml">\n'
-    )
-    metadata_index.write(
-        '        <edmx:Include Namespace="OemVirtualMedia"/>\n'
-    )
-    metadata_index.write(
-        '        <edmx:Include Namespace="OemVirtualMedia.v1_0_0"/>\n'
-    )
-    metadata_index.write("    </edmx:Reference>\n")
-
-    metadata_index.write(
-        '    <edmx:Reference Uri="'
-        '/redfish/v1/schema/OemAccountService_v1.xml">\n'
-    )
-    metadata_index.write(
-        '        <edmx:Include Namespace="OemAccountService"/>\n'
-    )
-    metadata_index.write(
-        '        <edmx:Include Namespace="OemAccountService.v1_0_0"/>\n'
-    )
-    metadata_index.write("    </edmx:Reference>\n")
-
-    metadata_index.write(
-        '    <edmx:Reference Uri="/redfish/v1/schema/OemSession_v1.xml">\n'
-    )
-    metadata_index.write('        <edmx:Include Namespace="OemSession"/>\n')
-    metadata_index.write(
-        '        <edmx:Include Namespace="OemSession.v1_0_0"/>\n'
-    )
-    metadata_index.write("    </edmx:Reference>\n")
-
-    metadata_index.write("</edmx:Edmx>\n")
+                        if subname[0] in include_list:
+                            schema_versions[subname[0]].append(version)
 
 
 for schema, version in json_schema_files.items():
@@ -375,16 +291,39 @@ for schema, version in json_schema_files.items():
 with open(os.path.join(cpp_path, "schemas.hpp"), "w") as hpp_file:
     hpp_file.write(
         "#pragma once\n"
-        "{WARNING}\n"
+        f"{WARNING}\n"
         "// clang-format off\n"
         "#include <array>\n"
+        "#include <schema_common.hpp>\n"
         "\n"
-        "namespace redfish\n"
-        "{{\n"
-        "    constexpr std::array schemas {{\n".format(WARNING=WARNING)
+        "namespace redfish::schemas\n"
+        "{\n"
     )
-    for schema_file in json_schema_files:
-        hpp_file.write('        "{}",\n'.format(schema_file))
+
+    for schema_namespace, versions in schema_versions.items():
+        varname = schema_namespace[0].lower() + schema_namespace[1:]
+
+        newest_version = versions[-1][1:].split("_")
+        if newest_version[0] == "":
+            newest_version = [0, 0, 0]
+        print(f"neweest_version={newest_version}")
+        hpp_file.write(
+            f"    constexpr SchemaVersion {varname}{{\n"
+            f'        "{schema_namespace}",\n'
+            f"        {newest_version[0]},\n"
+            f"        {newest_version[1]},\n"
+            f"        {newest_version[2]}\n"
+            "    };\n\n"
+        )
+
+    hpp_file.write(
+        "    constexpr const std::array<"
+        f"const SchemaVersion, {len(schema_versions)}> schemas {{\n"
+    )
+
+    for schema_namespace, versions in schema_versions.items():
+        varname = schema_namespace[0].lower() + schema_namespace[1:]
+        hpp_file.write(f"        {varname},\n")
 
     hpp_file.write("    };\n}\n")
 
