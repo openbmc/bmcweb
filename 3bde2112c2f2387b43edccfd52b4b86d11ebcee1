@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd649d20_35780a3d",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-05-26T17:06:49Z",
+      "side": 0,
+      "message": "Done. Now we always get the JSON from the shared AsyncResponse.",
+      "parentUuid": "fd34c286_da668e0d",
+      "revId": "3bde2112c2f2387b43edccfd52b4b86d11ebcee1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3ea82d45_56f0fe24",
@@ -49,6 +67,24 @@
       "side": 0,
       "message": "https://gerrit.openbmc.org/c/openbmc/bmcweb/+/53824/9\n\nYeah, it gets added here. Maybe I messed up the testing with these nested changes. Let me fix it and run the validator again against this commit only.",
       "parentUuid": "3ea82d45_56f0fe24",
+      "revId": "3bde2112c2f2387b43edccfd52b4b86d11ebcee1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "68ad5951_e24dba0b",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 879,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-05-26T17:06:49Z",
+      "side": 0,
+      "message": "Done. Fixed and reran the validator.",
+      "parentUuid": "462fc507_c8951fde",
       "revId": "3bde2112c2f2387b43edccfd52b4b86d11ebcee1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
