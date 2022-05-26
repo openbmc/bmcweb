@@ -212,6 +212,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0c59884f_e60bae51",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 499,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-05-26T08:17:00Z",
+      "side": 1,
+      "message": "Yes, it should be optimized out by compiler.",
+      "parentUuid": "a2e1f050_1cf36b4b",
+      "range": {
+        "startLine": 499,
+        "startChar": 57,
+        "endLine": 499,
+        "endChar": 76
+      },
+      "revId": "c3ddf74aafea0b9be8667c0331e22b7583c500da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b350c73e_1bb71395",
