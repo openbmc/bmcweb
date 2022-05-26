@@ -129,6 +129,30 @@
       },
       "revId": "dd7b68e1e78c8aa71cf521171dbeed325be94b4d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e2874f5_e470ca21",
+        "filename": "redfish-core/lib/health.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-26T00:22:51Z",
+      "side": 1,
+      "message": "Yep, you got it.  Ideally we\u0027d do https://gerrit.openbmc.org/c/openbmc/bmcweb/+/52570\n\nto avoid the exception possibility entirely, but I haven\u0027t had a chance to clean that up.",
+      "parentUuid": "89f61fa7_3241b45e",
+      "range": {
+        "startLine": 61,
+        "startChar": 0,
+        "endLine": 64,
+        "endChar": 9
+      },
+      "revId": "dd7b68e1e78c8aa71cf521171dbeed325be94b4d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
