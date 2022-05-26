@@ -7,6 +7,7 @@
 #include <dbus_utility.hpp>
 #include <query.hpp>
 #include <registries/privilege_registry.hpp>
+#include <schemas.hpp>
 #include <sdbusplus/asio/property.hpp>
 
 namespace redfish
@@ -42,7 +43,7 @@ inline nlohmann::json toMetricValues(const Readings& readings)
 inline bool fillReport(nlohmann::json& json, const std::string& id,
                        const TimestampReadings& timestampReadings)
 {
-    json["@odata.type"] = "#MetricReport.v1_3_0.MetricReport";
+    json["@odata.type"] = metricReportType;
     json["@odata.id"] =
         crow::utility::urlFromPieces("redfish", "v1", "TelemetryService",
                                      "MetricReports", id)

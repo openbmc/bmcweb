@@ -24,6 +24,7 @@
 #include <app.hpp>
 #include <query.hpp>
 #include <registries/privilege_registry.hpp>
+#include <schemas.hpp>
 
 namespace redfish
 {
@@ -99,16 +100,14 @@ inline void handleMessageRoutesMessageRegistryFileGet(
     }
     else
     {
-        messages::resourceNotFound(
-            asyncResp->res, "#MessageRegistryFile.v1_1_0.MessageRegistryFile",
-            registry);
+        messages::resourceNotFound(asyncResp->res, messageRegistryFileType,
+                                   registry);
         return;
     }
 
     asyncResp->res.jsonValue["@odata.id"] =
         "/redfish/v1/Registries/" + registry;
-    asyncResp->res.jsonValue["@odata.type"] =
-        "#MessageRegistryFile.v1_1_0.MessageRegistryFile";
+    asyncResp->res.jsonValue["@odata.type"] = messageRegistryFileType;
     asyncResp->res.jsonValue["Name"] = registry + " Message Registry File";
     asyncResp->res.jsonValue["Description"] =
         dmtf + registry + " Message Registry File Location";
@@ -185,20 +184,20 @@ inline void handleMessageRegistryGet(
     }
     else
     {
-        messages::resourceNotFound(
-            asyncResp->res, "#MessageRegistryFile.v1_1_0.MessageRegistryFile",
-            registry);
+        messages::resourceNotFound(asyncResp->res, messageRegistryType,
+                                   registry);
         return;
     }
 
     if (registry != registryMatch)
     {
-        messages::resourceNotFound(asyncResp->res, header->type, registryMatch);
+        messages::resourceNotFound(asyncResp->res, messageRegistryType,
+                                   registryMatch);
         return;
     }
 
     asyncResp->res.jsonValue["@Redfish.Copyright"] = header->copyright;
-    asyncResp->res.jsonValue["@odata.type"] = header->type;
+    asyncResp->res.jsonValue["@odata.type"] = messageRegistryType;
     asyncResp->res.jsonValue["Id"] = header->id;
     asyncResp->res.jsonValue["Name"] = header->name;
     asyncResp->res.jsonValue["Language"] = header->language;

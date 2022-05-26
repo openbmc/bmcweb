@@ -7,6 +7,7 @@
 #include <error_messages.hpp>
 #include <query.hpp>
 #include <registries/privilege_registry.hpp>
+#include <schemas.hpp>
 #include <sdbusplus/asio/property.hpp>
 #include <utils/json_utils.hpp>
 
@@ -751,7 +752,7 @@ inline void requestRoutesHypervisorSystems(App& app)
                         BMCWEB_LOG_DEBUG << "Hypervisor is available";
 
                         asyncResp->res.jsonValue["@odata.type"] =
-                            "#ComputerSystem.v1_6_0.ComputerSystem";
+                            computerSystemType;
                         asyncResp->res.jsonValue["@odata.id"] =
                             "/redfish/v1/Systems/hypervisor";
                         asyncResp->res.jsonValue["Description"] = "Hypervisor";
@@ -863,7 +864,7 @@ inline void requestRoutesHypervisorSystems(App& app)
                         return;
                     }
                     asyncResp->res.jsonValue["@odata.type"] =
-                        "#EthernetInterface.v1_5_1.EthernetInterface";
+                        ethernetInterfaceType;
                     asyncResp->res.jsonValue["Name"] =
                         "Hypervisor Ethernet Interface";
                     asyncResp->res.jsonValue["Description"] =
@@ -1038,7 +1039,7 @@ inline void requestRoutesHypervisorSystems(App& app)
                         // for other operations
 
                         asyncResp->res.jsonValue["@odata.type"] =
-                            "#ActionInfo.v1_1_2.ActionInfo";
+                            actionInfoType;
                         asyncResp->res.jsonValue["@odata.id"] =
                             "/redfish/v1/Systems/hypervisor/ResetActionInfo";
                         asyncResp->res.jsonValue["Name"] = "Reset Action Info";

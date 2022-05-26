@@ -21,6 +21,7 @@
 #include <dbus_utility.hpp>
 #include <query.hpp>
 #include <registries/privilege_registry.hpp>
+#include <schemas.hpp>
 #include <task_messages.hpp>
 
 #include <chrono>
@@ -141,7 +142,7 @@ struct TaskData : std::enable_shared_from_this<TaskData>
             std::string uri = "/redfish/v1/TaskService/Tasks/" + strIdx;
 
             res.jsonValue["@odata.id"] = uri;
-            res.jsonValue["@odata.type"] = "#Task.v1_4_3.Task";
+            res.jsonValue["@odata.type"] = taskType;
             res.jsonValue["Id"] = strIdx;
             res.jsonValue["TaskState"] = state;
             res.jsonValue["TaskStatus"] = status;
@@ -394,7 +395,7 @@ inline void requestRoutesTask(App& app)
 
                 std::shared_ptr<task::TaskData>& ptr = *find;
 
-                asyncResp->res.jsonValue["@odata.type"] = "#Task.v1_4_3.Task";
+                asyncResp->res.jsonValue["@odata.type"] = taskType;
                 asyncResp->res.jsonValue["Id"] = strParam;
                 asyncResp->res.jsonValue["Name"] = "Task " + strParam;
                 asyncResp->res.jsonValue["TaskState"] = ptr->state;
@@ -479,8 +480,7 @@ inline void requestRoutesTaskService(App& app)
                 {
                     return;
                 }
-                asyncResp->res.jsonValue["@odata.type"] =
-                    "#TaskService.v1_1_4.TaskService";
+                asyncResp->res.jsonValue["@odata.type"] = taskServiceType;
                 asyncResp->res.jsonValue["@odata.id"] =
                     "/redfish/v1/TaskService";
                 asyncResp->res.jsonValue["Name"] = "Task Service";

@@ -17,7 +17,6 @@ namespace redfish::registries::base
 {
 const Header header = {
     "Copyright 2014-2021 DMTF. All rights reserved.",
-    "#MessageRegistry.v1_4_0.MessageRegistry",
     "Base.1.11.0",
     "Base Message Registry",
     "en",

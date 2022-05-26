@@ -26,6 +26,7 @@
 #include <boost/container/flat_map.hpp>
 #include <dbus_utility.hpp>
 #include <registries/privilege_registry.hpp>
+#include <schemas.hpp>
 #include <sdbusplus/asio/property.hpp>
 #include <utils/fw_utils.hpp>
 #include <utils/json_utils.hpp>
@@ -2870,8 +2871,7 @@ inline void requestRoutesSystems(App& app)
             {
                 return;
             }
-            asyncResp->res.jsonValue["@odata.type"] =
-                "#ComputerSystem.v1_16_0.ComputerSystem";
+            asyncResp->res.jsonValue["@odata.type"] = computerSystemType;
             asyncResp->res.jsonValue["Name"] = "system";
             asyncResp->res.jsonValue["Id"] = "system";
             asyncResp->res.jsonValue["SystemType"] = "Physical";
@@ -3129,8 +3129,7 @@ inline void requestRoutesSystemResetActionInfo(App& app)
 
                 asyncResp->res.jsonValue["@odata.id"] =
                     "/redfish/v1/Systems/system/ResetActionInfo";
-                asyncResp->res.jsonValue["@odata.type"] =
-                    "#ActionInfo.v1_1_2.ActionInfo";
+                asyncResp->res.jsonValue["@odata.type"] = actionInfoType;
                 asyncResp->res.jsonValue["Name"] = "Reset Action Info";
                 asyncResp->res.jsonValue["Id"] = "ResetActionInfo";
                 asyncResp->res.jsonValue["Parameters"]["Name"] = "ResetType";

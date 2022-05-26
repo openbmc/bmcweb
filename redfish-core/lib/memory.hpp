@@ -894,8 +894,7 @@ inline void requestRoutesMemory(App& app)
                 {
                     return;
                 }
-                asyncResp->res.jsonValue["@odata.type"] =
-                    "#Memory.v1_11_0.Memory";
+                asyncResp->res.jsonValue["@odata.type"] = memoryType;
                 asyncResp->res.jsonValue["@odata.id"] =
                     "/redfish/v1/Systems/system/Memory/" + dimmId;
 

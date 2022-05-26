@@ -22,6 +22,7 @@
 #include <persistent_data.hpp>
 #include <query.hpp>
 #include <registries/privilege_registry.hpp>
+#include <schemas.hpp>
 #include <sdbusplus/asio/property.hpp>
 #include <utils/json_utils.hpp>
 
@@ -123,15 +124,14 @@ inline void userErrorMessageHandler(
     if (strcmp(errorMessage,
                "xyz.openbmc_project.User.Common.Error.UserNameExists") == 0)
     {
-        messages::resourceAlreadyExists(asyncResp->res,
-                                        "#ManagerAccount.v1_4_0.ManagerAccount",
+        messages::resourceAlreadyExists(asyncResp->res, managerAccountType,
                                         "UserName", newUser);
     }
     else if (strcmp(errorMessage, "xyz.openbmc_project.User.Common.Error."
                                   "UserNameDoesNotExist") == 0)
     {
-        messages::resourceNotFound(
-            asyncResp->res, "#ManagerAccount.v1_4_0.ManagerAccount", username);
+        messages::resourceNotFound(asyncResp->res, managerAccountType,
+                                   username);
     }
     else if ((strcmp(errorMessage,
                      "xyz.openbmc_project.Common.Error.InvalidArgument") ==
@@ -1142,9 +1142,8 @@ inline void updateUserProperties(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
          asyncResp{std::move(asyncResp)}](int rc) {
             if (rc <= 0)
             {
-                messages::resourceNotFound(
-                    asyncResp->res, "#ManagerAccount.v1_4_0.ManagerAccount",
-                    username);
+                messages::resourceNotFound(asyncResp->res, managerAccountType,
+                                           username);
                 return;
             }
 
@@ -1154,9 +1153,8 @@ inline void updateUserProperties(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
 
                 if (retval == PAM_USER_UNKNOWN)
                 {
-                    messages::resourceNotFound(
-                        asyncResp->res, "#ManagerAccount.v1_4_0.ManagerAccount",
-                        username);
+                    messages::resourceNotFound(asyncResp->res,
+                                               managerAccountType, username);
                 }
                 else if (retval == PAM_AUTHTOK_ERR)
                 {
@@ -1721,8 +1719,7 @@ inline void requestAccountServiceRoutes(App& app)
             }
 #ifdef BMCWEB_INSECURE_DISABLE_AUTHENTICATION
             // If authentication is disabled, there are no user accounts
-            messages::resourceNotFound(asyncResp->res,
-                                       "#ManagerAccount.v1_4_0.ManagerAccount",
+            messages::resourceNotFound(asyncResp->res, managerAccountType,
                                        accountName);
             return;
 
@@ -1777,7 +1774,7 @@ inline void requestAccountServiceRoutes(App& app)
                     }
 
                     asyncResp->res.jsonValue["@odata.type"] =
-                        "#ManagerAccount.v1_4_0.ManagerAccount";
+                        managerAccountType;
                     asyncResp->res.jsonValue["Name"] = "User Account";
                     asyncResp->res.jsonValue["Description"] = "User Account";
                     asyncResp->res.jsonValue["Password"] = nullptr;
@@ -1897,9 +1894,8 @@ inline void requestAccountServiceRoutes(App& app)
                 }
 #ifdef BMCWEB_INSECURE_DISABLE_AUTHENTICATION
                 // If authentication is disabled, there are no user accounts
-                messages::resourceNotFound(
-                    asyncResp->res, "#ManagerAccount.v1_4_0.ManagerAccount",
-                    username);
+                messages::resourceNotFound(asyncResp->res, managerAccountType,
+                                           username);
                 return;
 
 #endif // BMCWEB_INSECURE_DISABLE_AUTHENTICATION
@@ -1994,9 +1990,8 @@ inline void requestAccountServiceRoutes(App& app)
 
 #ifdef BMCWEB_INSECURE_DISABLE_AUTHENTICATION
                 // If authentication is disabled, there are no user accounts
-                messages::resourceNotFound(
-                    asyncResp->res, "#ManagerAccount.v1_4_0.ManagerAccount",
-                    username);
+                messages::resourceNotFound(asyncResp->res, managerAccountType,
+                                           username);
                 return;
 
 #endif // BMCWEB_INSECURE_DISABLE_AUTHENTICATION
@@ -2009,9 +2004,7 @@ inline void requestAccountServiceRoutes(App& app)
                         if (ec)
                         {
                             messages::resourceNotFound(
-                                asyncResp->res,
-                                "#ManagerAccount.v1_4_0.ManagerAccount",
-                                username);
+                                asyncResp->res, managerAccountType, username);
                             return;
                         }
 

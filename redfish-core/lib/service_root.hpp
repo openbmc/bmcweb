@@ -24,6 +24,7 @@
 #include <persistent_data.hpp>
 #include <query.hpp>
 #include <registries/privilege_registry.hpp>
+#include <schemas.hpp>
 #include <utils/systemd_utils.hpp>
 
 namespace redfish
@@ -33,8 +34,7 @@ inline void
     handleServiceRootGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     std::string uuid = persistent_data::getConfig().systemUuid;
-    asyncResp->res.jsonValue["@odata.type"] =
-        "#ServiceRoot.v1_11_0.ServiceRoot";
+    asyncResp->res.jsonValue["@odata.type"] = serviceRootType;
     asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1";
     asyncResp->res.jsonValue["Id"] = "RootService";
     asyncResp->res.jsonValue["Name"] = "Root Service";
