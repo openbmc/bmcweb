@@ -53,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d199b32b_ed100ecf",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 1808,
+      "author": {
+        "id": 1000278
+      },
+      "writtenOn": "2022-05-26T14:03:52Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "1e9f5685_e567e172",
+      "revId": "94338089a28025152806ce28a38eea29002a18f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d819bbe0_acdf995f",
@@ -84,6 +102,24 @@
       "side": 1,
       "message": "In phosphor-networkd, VLAN is a virtual interface that have it\u0027s own DBus properties, all interfaces are listed in a \"plain\" way like:\n/xyz/openbmc_project/network/eth0\n/xyz/openbmc_project/network/eth0_100\n/xyz/openbmc_project/network/eth0_200\n/xyz/openbmc_project/network/eth1\n\nVLAN virtual interfaces has its own configuration that is somewhat indepenedent from the physical NIC, including the NICEnable property.\n\n\u003e Does it make sense to make ethData contain a vlanSet containing an ID and Enable state for a list of VLANs?\n\nNo, each interface can have at most one VLAN ID. The association is done by the interface names, like eth0_100, eth0_200 are associated to eth0 in the example above.\n\nThere is a detailed discussion in my previously merged https://gerrit.openbmc.org/c/openbmc/bmcweb/+/52951 about this concern.\n\n\u003e In some ways that seems superflous because the physical NIC being disabled will take this down too.\n\nYeah disabling the physical interface will disable the related VLAN interfaces. But users may only want to disable only eth_100 but keep eth0_200 and the physical eth0 enabled.",
       "parentUuid": "d819bbe0_acdf995f",
+      "revId": "94338089a28025152806ce28a38eea29002a18f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b6c242c4_330b87e7",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 1811,
+      "author": {
+        "id": 1000278
+      },
+      "writtenOn": "2022-05-26T14:03:52Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "320b418a_02f610d0",
       "revId": "94338089a28025152806ce28a38eea29002a18f2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -123,6 +159,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "89172ba7_1650fd03",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 1812,
+      "author": {
+        "id": 1000278
+      },
+      "writtenOn": "2022-05-26T14:03:52Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "923d76f8_6074c900",
+      "revId": "94338089a28025152806ce28a38eea29002a18f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a70d2017_af4ed7b5",
@@ -158,6 +212,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bb0d8302_dce4860c",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 1814,
+      "author": {
+        "id": 1000278
+      },
+      "writtenOn": "2022-05-26T14:03:52Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "9fe609a9_3fd0cd80",
+      "revId": "94338089a28025152806ce28a38eea29002a18f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f675b5fd_98e378f9",
@@ -189,6 +261,24 @@
       "side": 1,
       "message": "Schema is /​redfish/​v1/​Managers/​{ManagerId}/​EthernetInterfaces/​{EthernetInterfaceId}/​VLANs/​{VLanNetworkInterfaceId}. If VLAN, that just a property, no more url handlers.",
       "parentUuid": "f675b5fd_98e378f9",
+      "revId": "94338089a28025152806ce28a38eea29002a18f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bc5c5744_8a19784b",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 2132,
+      "author": {
+        "id": 1000278
+      },
+      "writtenOn": "2022-05-26T14:03:52Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "5e147035_bed67a47",
       "revId": "94338089a28025152806ce28a38eea29002a18f2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -242,6 +332,24 @@
       "side": 1,
       "message": "It\u0027s from readJsonPatch() above.",
       "parentUuid": "e5ab870d_6240d89f",
+      "revId": "94338089a28025152806ce28a38eea29002a18f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "564a87fe_33a9ee50",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 2193,
+      "author": {
+        "id": 1000278
+      },
+      "writtenOn": "2022-05-26T14:03:52Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "ee6461f1_a15c3ed8",
       "revId": "94338089a28025152806ce28a38eea29002a18f2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
