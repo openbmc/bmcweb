@@ -24,6 +24,7 @@
 #include <dbus_utility.hpp>
 #include <query.hpp>
 #include <registries/privilege_registry.hpp>
+#include <schemas.hpp>
 #include <sdbusplus/asio/property.hpp>
 #include <utils/json_utils.hpp>
 #include <utils/query_param.hpp>
@@ -585,12 +586,12 @@ void getChassis(const std::shared_ptr<SensorsAsyncResp>& sensorsAsyncResp,
         if (chassisSubNode == sensors::node::power)
         {
             sensorsAsyncResp->asyncResp->res.jsonValue["@odata.type"] =
-                "#Power.v1_5_2.Power";
+                powerType;
         }
         else if (chassisSubNode == sensors::node::thermal)
         {
             sensorsAsyncResp->asyncResp->res.jsonValue["@odata.type"] =
-                "#Thermal.v1_4_0.Thermal";
+                thermalType;
             sensorsAsyncResp->asyncResp->res.jsonValue["Fans"] =
                 nlohmann::json::array();
             sensorsAsyncResp->asyncResp->res.jsonValue["Temperatures"] =
@@ -933,7 +934,7 @@ inline void objectInterfacesToJson(
     nlohmann::json::json_pointer unit("/Reading");
     if (sensorsAsyncResp->chassisSubNode == sensors::node::sensors)
     {
-        sensorJson["@odata.type"] = "#Sensor.v1_0_0.Sensor";
+        sensorJson["@odata.type"] = sensorType;
 
         const std::string& readingType = sensors::toReadingType(sensorType);
         if (readingType.empty())
@@ -960,7 +961,7 @@ inline void objectInterfacesToJson(
     else if (sensorType == "temperature")
     {
         unit = "/ReadingCelsius"_json_pointer;
-        sensorJson["@odata.type"] = "#Thermal.v1_3_0.Temperature";
+        sensorJson["@odata.type"] = thermalType;
         // TODO(ed) Documentation says that path should be type fan_tach,
         // implementation seems to implement fan
     }
@@ -968,7 +969,7 @@ inline void objectInterfacesToJson(
     {
         unit = "/Reading"_json_pointer;
         sensorJson["ReadingUnits"] = "RPM";
-        sensorJson["@odata.type"] = "#Thermal.v1_3_0.Fan";
+        sensorJson["@odata.type"] = thermalType;
         setLedState(sensorJson, inventoryItem);
         forceToInt = true;
     }
@@ -976,14 +977,14 @@ inline void objectInterfacesToJson(
     {
         unit = "/Reading"_json_pointer;
         sensorJson["ReadingUnits"] = "Percent";
-        sensorJson["@odata.type"] = "#Thermal.v1_3_0.Fan";
+        sensorJson["@odata.type"] = thermalType;
         setLedState(sensorJson, inventoryItem);
         forceToInt = true;
     }
     else if (sensorType == "voltage")
     {
         unit = "/ReadingVolts"_json_pointer;
-        sensorJson["@odata.type"] = "#Power.v1_0_0.Voltage";
+        sensorJson["@odata.type"] = powerType;
     }
     else if (sensorType == "power")
     {
@@ -992,7 +993,7 @@ inline void objectInterfacesToJson(
 
         if (sensorName == "total_power")
         {
-            sensorJson["@odata.type"] = "#Power.v1_0_0.PowerControl";
+            sensorJson["@odata.type"] = powerType;
             // Put multiple "sensors" into a single PowerControl, so have
             // generic names for MemberId and Name. Follows Redfish mockup.
             sensorJson["MemberId"] = "0";
@@ -1317,8 +1318,7 @@ inline void populateFanRedundancy(
                                     sensorsAsyncResp->chassisSubNode +
                                     "#/Redundancy/" +
                                     std::to_string(jResp.size());
-                                redundancy["@odata.type"] =
-                                    "#Redundancy.v1_3_2.Redundancy";
+                                redundancy["@odata.type"] = redundancyType;
                                 redundancy["MinNumNeeded"] = minNumNeeded;
                                 redundancy["MemberId"] = name;
                                 redundancy["Mode"] = "N+m";

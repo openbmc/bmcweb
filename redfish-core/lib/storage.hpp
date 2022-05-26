@@ -22,6 +22,7 @@
 #include <dbus_utility.hpp>
 #include <query.hpp>
 #include <registries/privilege_registry.hpp>
+#include <schemas.hpp>
 #include <sdbusplus/asio/property.hpp>
 
 namespace redfish
@@ -63,7 +64,7 @@ inline void requestRoutesStorage(App& app)
             {
                 return;
             }
-            asyncResp->res.jsonValue["@odata.type"] = "#Storage.v1_7_1.Storage";
+            asyncResp->res.jsonValue["@odata.type"] = storageType;
             asyncResp->res.jsonValue["@odata.id"] =
                 "/redfish/v1/Systems/system/Storage/1";
             asyncResp->res.jsonValue["Name"] = "Storage";
@@ -164,8 +165,7 @@ inline void requestRoutesStorage(App& app)
 
                         std::string id = path.substr(lastPos + 1);
 
-                        storageController["@odata.type"] =
-                            "#Storage.v1_7_0.StorageController";
+                        storageController["@odata.type"] = storageType;
                         storageController["@odata.id"] =
                             "/redfish/v1/Systems/system/Storage/1#/StorageControllers/" +
                             std::to_string(index);
@@ -531,8 +531,7 @@ inline void requestRoutesDrive(App& app)
                         std::pair<std::string, std::vector<std::string>>>&
                         connectionNames = drive->second;
 
-                    asyncResp->res.jsonValue["@odata.type"] =
-                        "#Drive.v1_7_0.Drive";
+                    asyncResp->res.jsonValue["@odata.type"] = driveType;
                     asyncResp->res.jsonValue["@odata.id"] =
                         "/redfish/v1/Systems/system/Storage/1/Drives/" +
                         driveId;

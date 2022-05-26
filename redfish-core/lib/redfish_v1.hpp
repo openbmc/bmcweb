@@ -71,7 +71,7 @@ inline void jsonSchemaGet(App& app, const crow::Request& req,
         "/redfish/v1/$metadata#JsonSchemaFile.JsonSchemaFile";
     json["@odata.id"] =
         crow::utility::urlFromPieces("redfish", "v1", "JsonSchemas", schema);
-    json["@odata.type"] = "#JsonSchemaFile.v1_0_2.JsonSchemaFile";
+    json["@odata.type"] = jsonSchemaFileType;
     json["Name"] = schema + " Schema File";
     json["Description"] = schema + " Schema File Location";
     json["Id"] = schema;

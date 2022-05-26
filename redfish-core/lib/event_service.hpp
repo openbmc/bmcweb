@@ -22,6 +22,7 @@
 #include <logging.hpp>
 #include <query.hpp>
 #include <registries/privilege_registry.hpp>
+#include <schemas.hpp>
 
 #include <span>
 
@@ -59,8 +60,7 @@ inline void requestRoutesEventService(App& app)
             }
 
             asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1/EventService";
-            asyncResp->res.jsonValue["@odata.type"] =
-                "#EventService.v1_5_0.EventService";
+            asyncResp->res.jsonValue["@odata.type"] = eventServiceType;
             asyncResp->res.jsonValue["Id"] = "EventService";
             asyncResp->res.jsonValue["Name"] = "Event Service";
             asyncResp->res.jsonValue["Subscriptions"]["@odata.id"] =
@@ -513,8 +513,7 @@ inline void requestRoutesEventDestination(App& app)
                 }
                 const std::string& id = param;
 
-                asyncResp->res.jsonValue["@odata.type"] =
-                    "#EventDestination.v1_7_0.EventDestination";
+                asyncResp->res.jsonValue["@odata.type"] = eventDestinationType;
                 asyncResp->res.jsonValue["Protocol"] = "Redfish";
                 asyncResp->res.jsonValue["@odata.id"] =
                     "/redfish/v1/EventService/Subscriptions/" + id;
