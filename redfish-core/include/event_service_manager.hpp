@@ -19,6 +19,7 @@
 #include "registries/base_message_registry.hpp"
 #include "registries/openbmc_message_registry.hpp"
 #include "registries/task_event_message_registry.hpp"
+#include "schemas.hpp"
 #include "utility.hpp"
 
 #include <sys/inotify.h>
@@ -427,7 +428,7 @@ class Subscription : public persistent_data::UserSubscription
         logEntryJson["Context"] = customText;
 
         nlohmann::json msg;
-        msg["@odata.type"] = "#Event.v1_4_0.Event";
+        msg["@odata.type"] = schemas::event;
         msg["Id"] = std::to_string(eventSeqNum);
         msg["Name"] = "Event Log";
         msg["Events"] = logEntryArray;
@@ -496,7 +497,7 @@ class Subscription : public persistent_data::UserSubscription
         }
 
         nlohmann::json msg;
-        msg["@odata.type"] = "#Event.v1_4_0.Event";
+        msg["@odata.type"] = schemas::event;
         msg["Id"] = std::to_string(eventSeqNum);
         msg["Name"] = "Event Log";
         msg["Events"] = logEntryArray;
@@ -1058,7 +1059,7 @@ class EventServiceManager
             {
                 nlohmann::json msgJson;
 
-                msgJson["@odata.type"] = "#Event.v1_4_0.Event";
+                msgJson["@odata.type"] = schemas::event;
                 msgJson["Name"] = "Event Log";
                 msgJson["Id"] = eventId;
                 msgJson["Events"] = eventRecord;

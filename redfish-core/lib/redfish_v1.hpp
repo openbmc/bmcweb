@@ -23,6 +23,41 @@ inline void redfishGet(App& app, const crow::Request& req,
     asyncResp->res.jsonValue["v1"] = "/redfish/v1/";
 }
 
+inline void metadataGet(const crow::Request& /*req*/,
+                        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+{
+    asyncResp->res.addHeader(boost::beast::http::field::content_type,
+                             "application/xml");
+
+    // Note, because this is not technically a part of the redfish json tree, we
+    // do not call setUpRedfishRoute on it
+    std::string& body = asyncResp->res.body();
+    body += "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
+    body +=
+        "<edmx:Edmx xmlns:edmx=\"http://docs.oasis-open.org/odata/ns/edmx\" Version=\"4.0\">\n";
+
+    for (const SchemaVersion& schema : schemas::schemas)
+    {
+        if (!schema.includeInMetadata){
+          continue;
+        }
+        body += "<edmx:Reference Uri=\"/redfish/v1/schema/";
+        body += schema.name;
+        body += "_v1.xml\">\n";
+
+        body += "    <edmx:Include Namespace=\"";
+        body += schema.namespaceString();
+        body += '"';
+        if (schema.name == "RedfishExtensions")
+        {
+            body += " Alias=\"Redfish\"";
+        }
+        body += "/>\n";
+        body += "</edmx:Reference>\n";
+    }
+    body += "</edmx:Edmx>";
+}
+
 inline void redfish404(App& app, const crow::Request& req,
                        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                        const std::string& path)
@@ -84,15 +119,15 @@ inline void
     json["Name"] = "JsonSchemaFile Collection";
     json["Description"] = "Collection of JsonSchemaFiles";
     nlohmann::json::array_t members;
-    for (const std::string_view schema : schemas)
+    for (const SchemaVersion& schema : schemas::schemas)
     {
         nlohmann::json::object_t member;
         member["@odata.id"] = crow::utility::urlFromPieces(
-            "redfish", "v1", "JsonSchemas", schema);
+            "redfish", "v1", "JsonSchemas", schema.name);
         members.push_back(std::move(member));
     }
     json["Members"] = std::move(members);
-    json["Members@odata.count"] = schemas.size();
+    json["Members@odata.count"] = schemas::schemas.size();
 }
 
 inline void jsonSchemaGet(App& app, const crow::Request& req,
@@ -104,7 +139,10 @@ inline void jsonSchemaGet(App& app, const crow::Request& req,
         return;
     }
 
-    if (std::find(schemas.begin(), schemas.end(), schema) == schemas.end())
+    if (std::find_if(schemas::schemas.begin(), schemas::schemas.end(),
+                     [&schema](const SchemaVersion& toCheck) {
+        return toCheck.name == schema;
+        }) == schemas::schemas.end())
     {
         messages::resourceNotFound(asyncResp->res, "JsonSchemaFile", schema);
         return;
@@ -115,7 +153,7 @@ inline void jsonSchemaGet(App& app, const crow::Request& req,
         "/redfish/v1/$metadata#JsonSchemaFile.JsonSchemaFile";
     json["@odata.id"] =
         crow::utility::urlFromPieces("redfish", "v1", "JsonSchemas", schema);
-    json["@odata.type"] = "#JsonSchemaFile.v1_0_2.JsonSchemaFile";
+    json["@odata.type"] = schemas::jsonSchemaFile;
     json["Name"] = schema + " Schema File";
     json["Description"] = schema + " Schema File Location";
     json["Id"] = schema;
@@ -147,6 +185,9 @@ inline void requestRoutesRedfish(App& app)
     BMCWEB_ROUTE(app, "/redfish/")
         .methods(boost::beast::http::verb::get)(
             std::bind_front(redfishGet, std::ref(app)));
+
+    BMCWEB_ROUTE(app, "/redfish/v1/$metadata")
+        .methods(boost::beast::http::verb::get)(metadataGet);
 
     BMCWEB_ROUTE(app, "/redfish/v1/JsonSchemas/<str>/")
         .privileges(redfish::privileges::getJsonSchemaFileCollection)
