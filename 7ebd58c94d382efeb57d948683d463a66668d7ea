@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "49a91155_bc70d239",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 18
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000278
+      },
+      "writtenOn": "2022-05-26T13:57:08Z",
+      "side": 1,
+      "message": "It\u0027s no wonder there\u0027s some confusion.",
+      "revId": "7ebd58c94d382efeb57d948683d463a66668d7ea",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
