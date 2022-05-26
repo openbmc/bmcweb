@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7a7818cd_a71c5ac3",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 1735,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-05-26T01:39:59Z",
+      "side": 1,
+      "message": "It follows the schema. VLanNetworkInterface 1.3.0 says \"This schema has been deprecated in favor of using individual EthernetInterface resources to show VLAN information.\" (Why I implement the new schema as long as keeping the deprecated \n\nThe \"EthernetDeviceType\" property added in EthernetInterface v1.6 indicates the interface is a physical or vitural interface.\n\n\u003e \"Virtual\": \"This value shall indicate a network device function has multiple VLANs and is representing one of them as a virtual Ethernet interface.  The NetworkDeviceFunction property within Links shall contain the locator for the parent network device function.\"\n\nhttps://redfish.dmtf.org/schemas/v1/EthernetInterface.v1_6_4.json",
+      "parentUuid": "e1274c12_dba9346c",
+      "revId": "bd5b2fb36a431d165aeeaf6f70c1431b8373d4ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "723ad4c0_8fc8b2e0",
         "filename": "redfish-core/lib/ethernet.hpp",
         "patchSetId": 11

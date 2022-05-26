@@ -16,6 +16,24 @@
       "message": "This change looks like it needs some additional work to make it compliant to the Redfish schema.",
       "revId": "d6a7a0b292999c6680c2523a3f65b85f68aef4d0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7b6c2cd5_2f0a843c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-05-26T01:39:59Z",
+      "side": 1,
+      "message": "This is Redfish schema compliant, I had a discussion in Redfish forum at https://redfishforum.com/thread/619/proper-create-using-ethernetinterface-schema\n\nHere I implements what I proposes in that theread, keep using the deprecated VLanNetworkInterface for creating/deleting VLANs, while also exposes the VLAN interfaces under /​redfish/​v1/​Managers/​bmc/​EthernetInterfaces/​ for configuring them. This workaround will be here until redfish spec reached a solution, after that, remove the VLANs property.",
+      "parentUuid": "3ee8abfe_c2c1d80a",
+      "revId": "d6a7a0b292999c6680c2523a3f65b85f68aef4d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
