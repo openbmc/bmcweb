@@ -1796,23 +1796,6 @@ inline void parseInterfaceData(
     }
 }
 
-inline void parseInterfaceData(nlohmann::json& jsonResponse,
-                               const std::string& parentIfaceId,
-                               const std::string& ifaceId,
-                               const EthernetInterfaceData& ethData)
-{
-    // Fill out obvious data...
-    jsonResponse["Id"] = ifaceId;
-    jsonResponse["@odata.id"] = "/redfish/v1/Managers/bmc/EthernetInterfaces/" +
-                                parentIfaceId + "/VLANs/" + ifaceId;
-
-    jsonResponse["VLANEnable"] = true;
-    if (ethData.vlanId)
-    {
-        jsonResponse["VLANId"] = *ethData.vlanId;
-    }
-}
-
 inline bool verifyNames(const std::string& parent, const std::string& iface)
 {
     return boost::starts_with(iface, parent + "_");
@@ -2092,8 +2075,13 @@ inline void requestEthernetInterfacesRoutes(App& app)
                       const boost::container::flat_set<IPv6AddressData>&) {
             if (success && ethData.vlanId)
             {
-                parseInterfaceData(asyncResp->res.jsonValue, parentIfaceId,
-                                   ifaceId, ethData);
+                asyncResp->res.jsonValue["Id"] = ifaceId;
+                asyncResp->res.jsonValue["@odata.id"] =
+                    "/redfish/v1/Managers/bmc/EthernetInterfaces/" +
+                    parentIfaceId + "/VLANs/" + ifaceId;
+
+                asyncResp->res.jsonValue["VLANEnable"] = true;
+                asyncResp->res.jsonValue["VLANId"] = *ethData.vlanId;
             }
             else
             {
