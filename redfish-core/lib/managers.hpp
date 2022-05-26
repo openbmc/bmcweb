@@ -24,6 +24,7 @@
 #include <dbus_utility.hpp>
 #include <query.hpp>
 #include <registries/privilege_registry.hpp>
+#include <schemas.hpp>
 #include <utils/fw_utils.hpp>
 #include <utils/systemd_utils.hpp>
 
@@ -243,8 +244,7 @@ inline void requestRoutesManagerResetActionInfo(App& app)
                     return;
                 }
 
-                asyncResp->res.jsonValue["@odata.type"] =
-                    "#ActionInfo.v1_1_2.ActionInfo";
+                asyncResp->res.jsonValue["@odata.type"] = actionInfoType;
                 asyncResp->res.jsonValue["@odata.id"] =
                     "/redfish/v1/Managers/bmc/ResetActionInfo";
                 asyncResp->res.jsonValue["Name"] = "Reset Action Info";
@@ -1983,8 +1983,7 @@ inline void requestRoutesManager(App& app)
                 return;
             }
             asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1/Managers/bmc";
-            asyncResp->res.jsonValue["@odata.type"] =
-                "#Manager.v1_11_0.Manager";
+            asyncResp->res.jsonValue["@odata.type"] = managerType;
             asyncResp->res.jsonValue["Id"] = "bmc";
             asyncResp->res.jsonValue["Name"] = "OpenBmc Manager";
             asyncResp->res.jsonValue["Description"] =

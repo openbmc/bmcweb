@@ -22,6 +22,7 @@
 #include <http/utility.hpp>
 #include <query.hpp>
 #include <registries/privilege_registry.hpp>
+#include <schemas.hpp>
 
 namespace redfish
 {
@@ -33,7 +34,7 @@ inline void fillSessionObject(crow::Response& res,
     res.jsonValue["UserName"] = session.username;
     res.jsonValue["@odata.id"] =
         "/redfish/v1/SessionService/Sessions/" + session.uniqueId;
-    res.jsonValue["@odata.type"] = "#Session.v1_3_0.Session";
+    res.jsonValue["@odata.type"] = sessionType;
     res.jsonValue["Name"] = "User Session";
     res.jsonValue["Description"] = "Manager User Session";
     res.jsonValue["ClientOriginIPAddress"] = session.clientIp;
@@ -237,8 +238,7 @@ inline void
     {
         return;
     }
-    asyncResp->res.jsonValue["@odata.type"] =
-        "#SessionService.v1_0_2.SessionService";
+    asyncResp->res.jsonValue["@odata.type"] = sessionServiceType;
     asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1/SessionService/";
     asyncResp->res.jsonValue["Name"] = "Session Service";
     asyncResp->res.jsonValue["Id"] = "SessionService";

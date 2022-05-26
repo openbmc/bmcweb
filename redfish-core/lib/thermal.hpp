@@ -20,6 +20,7 @@
 #include <app.hpp>
 #include <query.hpp>
 #include <registries/privilege_registry.hpp>
+#include <schemas.hpp>
 
 namespace redfish
 {

@@ -421,7 +421,7 @@ class Subscription : public persistent_data::UserSubscription
             {"Context", customText}};
 
         nlohmann::json msg;
-        msg["@odata.type"] = "#Event.v1_4_0.Event";
+        msg["@odata.type"] = eventType;
         msg["Id"] = std::to_string(eventSeqNum);
         msg["Name"] = "Event Log";
         msg["Events"] = logEntryArray;
@@ -490,7 +490,7 @@ class Subscription : public persistent_data::UserSubscription
         }
 
         nlohmann::json msg;
-        msg["@odata.type"] = "#Event.v1_4_0.Event";
+        msg["@odata.type"] = eventType;
         msg["Id"] = std::to_string(eventSeqNum);
         msg["Name"] = "Event Log";
         msg["Events"] = logEntryArray;
@@ -1031,11 +1031,10 @@ class EventServiceManager
             }
             if (isSubscribed)
             {
-                nlohmann::json msgJson = {
-                    {"@odata.type", "#Event.v1_4_0.Event"},
-                    {"Name", "Event Log"},
-                    {"Id", eventId},
-                    {"Events", eventRecord}};
+                nlohmann::json msgJson = {{"@odata.type", eventType},
+                                          {"Name", "Event Log"},
+                                          {"Id", eventId},
+                                          {"Events", eventRecord}};
 
                 std::string strMsg = msgJson.dump(
                     2, ' ', true, nlohmann::json::error_handler_t::replace);

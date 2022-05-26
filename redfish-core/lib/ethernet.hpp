@@ -22,6 +22,7 @@
 #include <error_messages.hpp>
 #include <query.hpp>
 #include <registries/privilege_registry.hpp>
+#include <schemas.hpp>
 #include <utils/json_utils.hpp>
 
 #include <optional>
@@ -1906,7 +1907,7 @@ inline void requestEthernetInterfacesRoutes(App& app)
                         }
 
                         asyncResp->res.jsonValue["@odata.type"] =
-                            "#EthernetInterface.v1_4_1.EthernetInterface";
+                            ethernetInterfaceType;
                         asyncResp->res.jsonValue["Name"] =
                             "Manager Ethernet Interface";
                         asyncResp->res.jsonValue["Description"] =
@@ -2091,7 +2092,7 @@ inline void requestEthernetInterfacesRoutes(App& app)
                     return;
                 }
                 asyncResp->res.jsonValue["@odata.type"] =
-                    "#VLanNetworkInterface.v1_1_0.VLanNetworkInterface";
+                    vLanNetworkInterfaceType;
                 asyncResp->res.jsonValue["Name"] = "VLAN Network Interface";
 
                 if (!verifyNames(parentIfaceId, ifaceId))

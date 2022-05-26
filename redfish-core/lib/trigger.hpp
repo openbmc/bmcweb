@@ -6,6 +6,7 @@
 #include <app.hpp>
 #include <query.hpp>
 #include <registries/privilege_registry.hpp>
+#include <schemas.hpp>
 
 #include <tuple>
 #include <variant>
@@ -217,7 +218,7 @@ inline bool fillTrigger(
         return false;
     }
 
-    json["@odata.type"] = "#Triggers.v1_2_0.Triggers";
+    json["@odata.type"] = triggersType;
     json["@odata.id"] = crow::utility::urlFromPieces(
                             "redfish", "v1", "TelemetryService", "Triggers", id)
                             .string();

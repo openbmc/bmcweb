@@ -6,6 +6,7 @@
 #include <dbus_utility.hpp>
 #include <query.hpp>
 #include <registries/privilege_registry.hpp>
+#include <schemas.hpp>
 
 namespace redfish
 {
@@ -18,8 +19,7 @@ inline void handleTelemetryServiceGet(
     {
         return;
     }
-    asyncResp->res.jsonValue["@odata.type"] =
-        "#TelemetryService.v1_2_1.TelemetryService";
+    asyncResp->res.jsonValue["@odata.type"] = telemetryServiceType;
     asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1/TelemetryService";
     asyncResp->res.jsonValue["Id"] = "TelemetryService";
     asyncResp->res.jsonValue["Name"] = "Telemetry Service";

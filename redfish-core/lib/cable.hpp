@@ -1,6 +1,7 @@
 #pragma once
 #include <dbus_utility.hpp>
 #include <query.hpp>
+#include <schemas.hpp>
 #include <utils/json_utils.hpp>
 
 namespace redfish
@@ -118,8 +119,8 @@ inline void requestRoutesCable(App& app)
                                   subtree) {
                         if (ec.value() == EBADR)
                         {
-                            messages::resourceNotFound(
-                                asyncResp->res, "#Cable.v1_0_0.Cable", cableId);
+                            messages::resourceNotFound(asyncResp->res,
+                                                       cableType, cableId);
                             return;
                         }
 
@@ -138,8 +139,7 @@ inline void requestRoutesCable(App& app)
                                 continue;
                             }
 
-                            asyncResp->res.jsonValue["@odata.type"] =
-                                "#Cable.v1_0_0.Cable";
+                            asyncResp->res.jsonValue["@odata.type"] = cableType;
                             asyncResp->res.jsonValue["@odata.id"] =
                                 "/redfish/v1/Cables/" + cableId;
                             asyncResp->res.jsonValue["Id"] = cableId;

@@ -22,6 +22,7 @@
 #include <boost/container/flat_set.hpp>
 #include <dbus_singleton.hpp>
 #include <dbus_utility.hpp>
+#include <schemas.hpp>
 
 #include <variant>
 

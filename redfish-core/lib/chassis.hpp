@@ -22,6 +22,7 @@
 #include <dbus_utility.hpp>
 #include <query.hpp>
 #include <registries/privilege_registry.hpp>
+#include <schemas.hpp>
 #include <sdbusplus/asio/property.hpp>
 #include <utils/collection.hpp>
 
@@ -276,8 +277,7 @@ inline void requestRoutesChassis(App& app)
                             continue;
                         }
 
-                        asyncResp->res.jsonValue["@odata.type"] =
-                            "#Chassis.v1_16_0.Chassis";
+                        asyncResp->res.jsonValue["@odata.type"] = chassisType;
                         asyncResp->res.jsonValue["@odata.id"] =
                             "/redfish/v1/Chassis/" + chassisId;
                         asyncResp->res.jsonValue["Name"] = "Chassis Collection";
@@ -444,8 +444,8 @@ inline void requestRoutesChassis(App& app)
                     }
 
                     // Couldn't find an object with that name.  return an error
-                    messages::resourceNotFound(
-                        asyncResp->res, "#Chassis.v1_16_0.Chassis", chassisId);
+                    messages::resourceNotFound(asyncResp->res, chassisType,
+                                               chassisId);
                 },
                 "xyz.openbmc_project.ObjectMapper",
                 "/xyz/openbmc_project/object_mapper",
@@ -579,8 +579,8 @@ inline void requestRoutesChassis(App& app)
                         return;
                     }
 
-                    messages::resourceNotFound(
-                        asyncResp->res, "#Chassis.v1_14_0.Chassis", chassisId);
+                    messages::resourceNotFound(asyncResp->res, chassisType,
+                                               chassisId);
                 },
                 "xyz.openbmc_project.ObjectMapper",
                 "/xyz/openbmc_project/object_mapper",
@@ -708,8 +708,7 @@ inline void requestRoutesChassisResetActionInfo(App& app)
                 {
                     return;
                 }
-                asyncResp->res.jsonValue["@odata.type"] =
-                    "#ActionInfo.v1_1_2.ActionInfo";
+                asyncResp->res.jsonValue["@odata.type"] = actionInfoType;
                 asyncResp->res.jsonValue["@odata.id"] =
                     "/redfish/v1/Chassis/" + chassisId + "/ResetActionInfo";
                 asyncResp->res.jsonValue["Name"] = "Reset Action Info";
