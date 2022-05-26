@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cbeb7532_15c257ac",
+        "filename": "http/http_stream.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2022-05-26T08:47:21Z",
+      "side": 1,
+      "message": "The dump file I have is close to 1 MB. When I try to download this file I observe following sequence. \n\u003e we read first chunk of around 183KB data from the unix socket. \n\u003e we write the same to http socket here and the ec that we get here is http:5 (need_buffer?). We close the connection on any ec and the dump download terminates with out full file download. \nHave you faced this issue ?\n\nI tried to solve it by continue to call the (handlerFunc)(); when we have http:5 and this is the sequence I have \n\u003e we read the next chunk from the unix socket and write on the http socket. This continue till we read all content from unix and write to http. \n\u003e The file seem to be downloaded completely but there is corruption (additional dat) in the file.\n\nThe file contains HTTP response and headers in between and the tar utility is not able to extract the file. \n\nWhen we do  async_write multiple times with bufferResponse, the HTTP response code and headers are going out every time and landing in the file contents of the output file. When we are streaming http body, we need send header only once and send chunks of body multiple times. \nWith the above implementation this is not working as expected.",
+      "range": {
+        "startLine": 120,
+        "startChar": 20,
+        "endLine": 120,
+        "endChar": 22
+      },
+      "revId": "0f10678136d8b1e7844a8b9d47e1370524c165d4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
