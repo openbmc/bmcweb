@@ -26,7 +26,7 @@ void assertServiceRootGet(crow::Response& res)
 {
     nlohmann::json& json = res.jsonValue;
     EXPECT_EQ(json["@odata.id"], "/redfish/v1");
-    EXPECT_EQ(json["@odata.type"], "#ServiceRoot.v1_11_0.ServiceRoot");
+    EXPECT_EQ(json["@odata.type"], "#ServiceRoot.v1_14_0.ServiceRoot");
 
     EXPECT_EQ(json["AccountService"]["@odata.id"],
               "/redfish/v1/AccountService");
