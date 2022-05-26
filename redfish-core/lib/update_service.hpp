@@ -387,7 +387,7 @@ static void monitorForSoftwareAvailable(
 
                             redfish::messages::resourceAlreadyExists(
                                 asyncResp->res,
-                                "UpdateService.v1_5_0.UpdateService", "Version",
+                                updateServiceType, "Version",
                                 "uploaded version");
                         }
                         else if (
