@@ -142,6 +142,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "245d17a4_8d63803b",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 46
+      },
+      "lineNbr": 1123,
+      "author": {
+        "id": 1001428
+      },
+      "writtenOn": "2022-05-26T21:08:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ec2276d0_88253738",
+      "revId": "efc9096f6527160dede57c475a3acbce4a90d3c8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e93d9c43_a214ee43",
@@ -209,6 +227,24 @@
       "side": 1,
       "message": "I\u0027m thinking I will restore this function back to the original,and modify it to retrieve AttemptsLeft/RetryAttempts in a seperate function call if autoreboot is enabled. This will allow the hardcoding of subtree[0] since they are hosted by the same service/path.\nMy original concern was altering the behavior of the original implementation, but since \"autoreboot\" may be disabled it doesn\u0027t really matter if the value of RetryAttempts is reported.",
       "parentUuid": "e79514a4_6a2ad75a",
+      "revId": "efc9096f6527160dede57c475a3acbce4a90d3c8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f040d2f_9aa06642",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 46
+      },
+      "lineNbr": 1137,
+      "author": {
+        "id": 1001428
+      },
+      "writtenOn": "2022-05-26T21:08:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9499e47b_c785bb23",
       "revId": "efc9096f6527160dede57c475a3acbce4a90d3c8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
