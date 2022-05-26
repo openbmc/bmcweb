@@ -22,6 +22,30 @@
       },
       "revId": "cca51c6ce048cc4540c5353507d56ec07ba60fd4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "85dff25f_f00518e9",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1911,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-26T20:29:26Z",
+      "side": 1,
+      "message": "We\u0027re not consistent today;  I\u0027m trying to make us more consistent here: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/54033",
+      "parentUuid": "9f42157b_68278340",
+      "range": {
+        "startLine": 1911,
+        "startChar": 48,
+        "endLine": 1911,
+        "endChar": 54
+      },
+      "revId": "cca51c6ce048cc4540c5353507d56ec07ba60fd4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
