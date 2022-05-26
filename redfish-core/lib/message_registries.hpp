@@ -191,7 +191,8 @@ inline void handleMessageRegistryGet(
 
     if (registry != registryMatch)
     {
-        messages::resourceNotFound(asyncResp->res, messageRegistryType, registryMatch);
+        messages::resourceNotFound(asyncResp->res, messageRegistryType,
+                                   registryMatch);
         return;
     }
 

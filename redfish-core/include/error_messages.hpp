@@ -19,6 +19,7 @@
 #include <boost/url/urls.hpp>
 #include <nlohmann/json.hpp>
 #include <source_location.hpp>
+#include <schemas.hpp>
 
 #include <string>
 
@@ -181,11 +182,11 @@ void serviceTemporarilyUnavailable(crow::Response& res, std::string_view arg1);
  * @param[in] arg3 Parameter of message that will replace %3 in its body.
  *
  * @returns Message ResourceAlreadyExists formatted to JSON */
-nlohmann::json resourceAlreadyExists(std::string_view arg1,
+nlohmann::json resourceAlreadyExists(const SchemaVersion& arg1,
                                      std::string_view arg2,
                                      std::string_view arg3);
 
-void resourceAlreadyExists(crow::Response& res, std::string_view arg1,
+void resourceAlreadyExists(crow::Response& res, const SchemaVersion&  arg1,
                            std::string_view arg2, std::string_view arg3);
 
 /**
@@ -550,6 +551,11 @@ void propertyValueTypeError(crow::Response& res, std::string_view arg1,
 nlohmann::json resourceNotFound(std::string_view arg1, std::string_view arg2);
 
 void resourceNotFound(crow::Response& res, std::string_view arg1,
+                      std::string_view arg2);
+
+nlohmann::json resourceNotFound(const SchemaVersion& arg1, std::string_view arg2);
+
+void resourceNotFound(crow::Response& res, const SchemaVersion& arg1,
                       std::string_view arg2);
 
 /**

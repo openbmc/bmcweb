@@ -372,15 +372,16 @@ void serviceTemporarilyUnavailable(crow::Response& res, std::string_view arg1)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json resourceAlreadyExists(std::string_view arg1,
+nlohmann::json resourceAlreadyExists(const SchemaVersion& arg1,
                                      std::string_view arg2,
                                      std::string_view arg3)
 {
+    std::string arg1Str = arg1.toString();
     return getLog(redfish::registries::base::Index::resourceAlreadyExists,
-                  std::to_array({arg1, arg2, arg3}));
+                  std::to_array({std::string_view(arg1Str), arg2, arg3}));
 }
 
-void resourceAlreadyExists(crow::Response& res, std::string_view arg1,
+void resourceAlreadyExists(crow::Response& res, const SchemaVersion& arg1,
                            std::string_view arg2, std::string_view arg3)
 {
     res.result(boost::beast::http::status::bad_request);
@@ -948,6 +949,21 @@ nlohmann::json resourceNotFound(std::string_view arg1, std::string_view arg2)
 }
 
 void resourceNotFound(crow::Response& res, std::string_view arg1,
+                      std::string_view arg2)
+{
+    res.result(boost::beast::http::status::not_found);
+    addMessageToErrorJson(res.jsonValue, resourceNotFound(arg1, arg2));
+}
+
+nlohmann::json resourceNotFound(const SchemaVersion& arg1,
+                                std::string_view arg2)
+{
+    const std::string arg1Str = arg1.toString();
+    return getLog(redfish::registries::base::Index::resourceNotFound,
+                  std::to_array({std::string_view(arg1Str), arg2}));
+}
+
+void resourceNotFound(crow::Response& res, const SchemaVersion& arg1,
                       std::string_view arg2)
 {
     res.result(boost::beast::http::status::not_found);
