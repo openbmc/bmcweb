@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5497cac2_aebda950",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-05-26T01:34:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c8f1178e_75956f69",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 16
+      },
+      "revId": "fa6e70e08cae5d02be8c027f85897604b0234f35",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3026ff2d_bc8eb079",
