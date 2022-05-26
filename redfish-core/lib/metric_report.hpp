@@ -23,18 +23,17 @@ using Readings =
     std::vector<std::tuple<std::string, std::string, double, uint64_t>>;
 using TimestampReadings = std::tuple<uint64_t, Readings>;
 
-inline nlohmann::json toMetricValues(const Readings& readings)
+inline nlohmann::json::array_t toMetricValues(const Readings& readings)
 {
-    nlohmann::json metricValues = nlohmann::json::array_t();
+    nlohmann::json::array_t metricValues;
 
     for (const auto& [id, metadata, sensorValue, timestamp] : readings)
     {
-        metricValues.push_back({
-            {"MetricId", id},
-            {"MetricProperty", metadata},
-            {"MetricValue", std::to_string(sensorValue)},
-            {"Timestamp", crow::utility::getDateTimeUintMs(timestamp)},
-        });
+        nlohmann::json& value = metricValues.emplace_back();
+        value["MetricId"] = id;
+        value["MetricProperty"] = metadata;
+        value["MetricValue"] = std::to_string(sensorValue);
+        value["Timestamp"] = crow::utility::getDateTimeUintMs(timestamp);
     }
 
     return metricValues;
