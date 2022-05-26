@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "44ba8490_d372c221",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 730,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-05-26T17:09:13Z",
+      "side": 1,
+      "message": "Okay, here we have problems, too.\n\nMy hardware doesn\u0027t have Partition data, but let me fix it and use my mock data to test.",
+      "range": {
+        "startLine": 730,
+        "startChar": 12,
+        "endLine": 730,
+        "endChar": 37
+      },
+      "revId": "153d28ddfa4c5bcf1c3b0168fbbf3a0cb8db575a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
