@@ -359,7 +359,7 @@ class Connection :
             completeRequest(res);
             return;
         }
-#ifndef BMCWEB_INSECURE_DISABLE_AUTHENTICATION
+#ifndef BMCWEB_INSECURE_DISABLE_AUTHX
         if (!crow::authentication::isOnAllowlist(req->url, req->method()) &&
             thisReq.session == nullptr)
         {
@@ -370,7 +370,7 @@ class Connection :
             completeRequest(res);
             return;
         }
-#endif // BMCWEB_INSECURE_DISABLE_AUTHENTICATION
+#endif // BMCWEB_INSECURE_DISABLE_AUTHX
         auto asyncResp = std::make_shared<bmcweb::AsyncResp>();
         BMCWEB_LOG_DEBUG << "Setting completion handler";
         asyncResp->res.setCompleteRequestHandler(
@@ -579,7 +579,7 @@ class Connection :
                     BMCWEB_LOG_DEBUG << "Unable to get client IP";
                 }
                 sessionIsFromTransport = false;
-#ifndef BMCWEB_INSECURE_DISABLE_AUTHENTICATION
+#ifndef BMCWEB_INSECURE_DISABLE_AUTHX
                 boost::beast::http::verb method = parser->get().method();
                 userSession = crow::authentication::authenticate(
                     ip, res, method, parser->get().base(), userSession);
@@ -600,7 +600,7 @@ class Connection :
 
                     BMCWEB_LOG_DEBUG << "Starting quick deadline";
                 }
-#endif // BMCWEB_INSECURE_DISABLE_AUTHENTICATION
+#endif // BMCWEB_INSECURE_DISABLE_AUTHX
 
                 doRead();
             });

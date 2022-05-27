@@ -1719,14 +1719,14 @@ inline void requestAccountServiceRoutes(App& app)
             {
                 return;
             }
-#ifdef BMCWEB_INSECURE_DISABLE_AUTHENTICATION
+#ifdef BMCWEB_INSECURE_DISABLE_AUTHX
             // If authentication is disabled, there are no user accounts
             messages::resourceNotFound(asyncResp->res,
                                        "#ManagerAccount.v1_4_0.ManagerAccount",
                                        accountName);
             return;
 
-#endif // BMCWEB_INSECURE_DISABLE_AUTHENTICATION
+#endif // BMCWEB_INSECURE_DISABLE_AUTHX
             if (req.session == nullptr)
             {
                 messages::internalError(asyncResp->res);
@@ -1895,14 +1895,14 @@ inline void requestAccountServiceRoutes(App& app)
                 {
                     return;
                 }
-#ifdef BMCWEB_INSECURE_DISABLE_AUTHENTICATION
+#ifdef BMCWEB_INSECURE_DISABLE_AUTHX
                 // If authentication is disabled, there are no user accounts
                 messages::resourceNotFound(
                     asyncResp->res, "#ManagerAccount.v1_4_0.ManagerAccount",
                     username);
                 return;
 
-#endif // BMCWEB_INSECURE_DISABLE_AUTHENTICATION
+#endif // BMCWEB_INSECURE_DISABLE_AUTHX
                 std::optional<std::string> newUserName;
                 std::optional<std::string> password;
                 std::optional<bool> enabled;
@@ -1992,14 +1992,14 @@ inline void requestAccountServiceRoutes(App& app)
                     return;
                 }
 
-#ifdef BMCWEB_INSECURE_DISABLE_AUTHENTICATION
+#ifdef BMCWEB_INSECURE_DISABLE_AUTHX
                 // If authentication is disabled, there are no user accounts
                 messages::resourceNotFound(
                     asyncResp->res, "#ManagerAccount.v1_4_0.ManagerAccount",
                     username);
                 return;
 
-#endif // BMCWEB_INSECURE_DISABLE_AUTHENTICATION
+#endif // BMCWEB_INSECURE_DISABLE_AUTHX
                 sdbusplus::message::object_path tempObjPath(rootUserDbusPath);
                 tempObjPath /= username;
                 const std::string userPath(tempObjPath);
