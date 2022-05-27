@@ -56,6 +56,30 @@
       },
       "revId": "33b4291a4b16b921a0a1e703c69b5a3b5ca1864e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a3b8708d_dae2bef9",
+        "filename": "http/utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 789,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-27T19:32:20Z",
+      "side": 1,
+      "message": "\u003e These two template specialization will automatically be applied?\n\n\nCorrect, it relies on argument dependent lookup, which as a pattern I don\u0027t really like, because it confuses people, but there aren\u0027t a lot of other options for force nlohmann to not encode this incorrectly.\n\n\u003e \n\u003e IIUC we need to explicitly include this header, right?\n\nYes.  Open to other options if there\u0027s a better way to solve this.",
+      "parentUuid": "93915c75_4370e5fc",
+      "range": {
+        "startLine": 789,
+        "startChar": 7,
+        "endLine": 789,
+        "endChar": 21
+      },
+      "revId": "33b4291a4b16b921a0a1e703c69b5a3b5ca1864e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
