@@ -74,6 +74,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "214045dc_325b7341",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-05-27T19:19:09Z",
+      "side": 1,
+      "message": "I don\u0027t want to use the flag option because there will likely be other error codes that need to be handled differently based on the application.  I will abstract the retry logic instead.\n\nI can add a callback to the retry policy which expects a response code and returns a bool based on if the value was acceptable.  The callback for EventService\u0027s policy would perform the existing check that considers 2XX as a success.  The callback for Aggregation\u0027s policy would consider 2XX and 404 as a success.\n\nI\u0027ll split this into its own patch while I\u0027m at it.",
+      "parentUuid": "a05b4574_3fe09f48",
+      "range": {
+        "startLine": 246,
+        "startChar": 0,
+        "endLine": 246,
+        "endChar": 61
+      },
+      "revId": "2437afcc5653c51bfc40f7bb47fee8eab4e2c736",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2e5ef60d_7ad3f2e1",
         "filename": "http/http_client.hpp",
         "patchSetId": 27
