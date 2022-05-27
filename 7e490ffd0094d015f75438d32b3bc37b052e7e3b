@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ffc885c6_df57795b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-05-27T16:17:19Z",
+      "side": 1,
+      "message": "Added Sunitha ",
+      "revId": "7e490ffd0094d015f75438d32b3bc37b052e7e3b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c5825c8a_4b76ff64",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 2105,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-05-27T16:17:19Z",
+      "side": 1,
+      "message": "This is slightly different behavior, before it left it off if it was empty.",
+      "revId": "7e490ffd0094d015f75438d32b3bc37b052e7e3b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
