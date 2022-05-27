@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "504aceca_4e59ef7e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-27T18:07:29Z",
+      "side": 1,
+      "message": "sure, we can all it authx if you\u0027d like.",
+      "parentUuid": "d2e9b645_57336e0a",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 52
+      },
+      "revId": "e95bf4d637c372768b762b72704341ed747e0c1b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b187cbd4_370341c0",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
@@ -85,6 +109,30 @@
       "side": 1,
       "message": "Yeah, I didn\u0027t rename meson options but just macros, which is supposed to be hidden by meson.\n\nThe reason why I made this change is that I will have a follow up patch which attempts to enable \"authz\" without \"authn\". On top of my head, it will be an another insecure option (\"insecure-delegate-authn-keep-authz\"). The use case is our gRPC wrapper, which does all the authn work. The gRPC codes will then tell bmcweb the \"Redfish role\" of the authenticated user.",
       "parentUuid": "b187cbd4_370341c0",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 27
+      },
+      "revId": "e95bf4d637c372768b762b72704341ed747e0c1b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5650d2ae_1b428c4a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-27T18:07:29Z",
+      "side": 1,
+      "message": "\u003e Yeah, I didn\u0027t rename meson options but just macros, which is supposed to be hidden by meson.\n\nGot it, you\u0027re right, I was confused and thought you changed the meson option.\n\n\u003e \n\u003e The reason why I made this change is that I will have a follow up patch which attempts to enable \"authz\" without \"authn\". On top of my head, it will be an another insecure option (\"insecure-delegate-authn-keep-authz\"). The use case is our gRPC wrapper, which does all the authn work. The gRPC codes will then tell bmcweb the \"Redfish role\" of the authenticated user.\n\nWe already have mechanisms for passing the username of the authenticated user, which mtls already does.  grpc in upstream needs a design doc, but for the moment, the mtls code already handles this, so I\u0027m not really following the design constraints here.",
+      "parentUuid": "369fedd3_8d499b52",
       "range": {
         "startLine": 9,
         "startChar": 0,
