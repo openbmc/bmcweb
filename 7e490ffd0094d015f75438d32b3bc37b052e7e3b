@@ -79,6 +79,48 @@
       },
       "revId": "7e490ffd0094d015f75438d32b3bc37b052e7e3b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "af0a5bea_8c3656d2",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 2105,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-05-27T18:08:15Z",
+      "side": 1,
+      "message": "Previously it overloads parseInterfaceData to populate these properties (another one is for EthernetInterface), but there is no siginificent way to differentiate them.\n\nIMO, having these simple properties directly in the request handler is more readable than calling that overload. This lambda is a part of the GET handler.",
+      "parentUuid": "b723af45_87b10ec8",
+      "range": {
+        "startLine": 2098,
+        "startChar": 0,
+        "endLine": 2105,
+        "endChar": 48
+      },
+      "revId": "7e490ffd0094d015f75438d32b3bc37b052e7e3b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a7929f4_5086142d",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 2105,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-05-27T18:08:15Z",
+      "side": 1,
+      "message": "Checking if ethData.vlanId is not nullopt is not needed here as it already checked at line 2096.",
+      "parentUuid": "c5825c8a_4b76ff64",
+      "revId": "7e490ffd0094d015f75438d32b3bc37b052e7e3b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
