@@ -143,6 +143,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "de814891_6a26fd1d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-05-27T18:11:08Z",
+      "side": 1,
+      "message": "Ack.\n\nDiscussed in Discord. But gRPC or authn delegation is out of scope of this change",
+      "parentUuid": "369fedd3_8d499b52",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 27
+      },
+      "revId": "e95bf4d637c372768b762b72704341ed747e0c1b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "11f6c7d1_efc11588",
