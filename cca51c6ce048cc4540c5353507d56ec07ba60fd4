@@ -96,6 +96,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "d0a126b2_23f34f71",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-05-27T18:08:04Z",
+      "side": 1,
+      "message": "\u003e We typically only bump to the version we need, not the latest\n\nMay I ask where is this rule specified? I searched through the Redfish spec and cannot find it.\n\n\u003e Assuming we bump to the lowest version we need, that means we bump to 1.6.0, correct? \n\nDone\n\n\u003e Is there a discussion with DMTF that I can reference somewhere? \n\nhttps://redfishforum.com/thread/619/proper-create-using-ethernetinterface-schema",
+      "parentUuid": "10946243_69f1b784",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 55
+      },
+      "revId": "cca51c6ce048cc4540c5353507d56ec07ba60fd4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "c662eb9e_fd493bf3",
@@ -198,6 +222,30 @@
       "side": 1,
       "message": "\u003e Neat stuff in 54033. I am fine if this goes first though.\n\nAgreed.\n\n\u003e I thought we typically bump all the places that use this schema. \n\u003e So every place we use ComputerSystem should be the same (although looking through the code, not necessarily true.)\n\nwe\u0027re inconsistent about bumping all places.  In theory, if we weren\u0027t duplicating code, we\u0027d only be constructing an object of a particular type in one spot, but that\u0027s been far from reality, especially in the hypervisor_system case.",
       "parentUuid": "eff34148_caead13f",
+      "range": {
+        "startLine": 1911,
+        "startChar": 48,
+        "endLine": 1911,
+        "endChar": 54
+      },
+      "revId": "cca51c6ce048cc4540c5353507d56ec07ba60fd4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "11e1aca8_ac51103d",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1911,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-05-27T18:08:04Z",
+      "side": 1,
+      "message": "#54033 is great.\n\nFor now, shall we also bump it for hypervisor_system?",
+      "parentUuid": "6407c90a_3b0d8d78",
       "range": {
         "startLine": 1911,
         "startChar": 48,
