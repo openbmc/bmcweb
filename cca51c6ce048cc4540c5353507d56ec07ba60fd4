@@ -72,6 +72,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "10946243_69f1b784",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-27T16:45:23Z",
+      "side": 1,
+      "message": "\u003e We typically only bump to the version we need, not the latest (this is direction we got from Redfish)\n\nI thought we always just went to latest.....  Interesting that Redfish would take that opinion, I\u0027m not sure why, but I guess they know more than I do so I\u0027m fine with that 😊\n\n\u003e So bumping to 1.6.0 or 1.6.4 seems reasonable to me since the property we need is in 1.6.0\n\u003e \n\u003e                 \"EthernetInterfaceType\": {\n\u003e                     \"anyOf\": [\n\u003e                         {\n\u003e                             \"$ref\": \"#/definitions/EthernetDeviceType\"\n\u003e                         },\n\u003e                         {\n\u003e                             \"type\": \"null\"\n\u003e                         }\n\u003e                     ],\n\u003e                     \"description\": \"The type of interface.\",\n\u003e                     \"longDescription\": \"This property shall contain the type of interface.\",\n\u003e                     \"readonly\": true,\n\u003e                     \"versionAdded\": \"v1_6_0\"\n\u003e                 },\n\u003e \n\u003e The discussion around VLAN seems like it could be separate\n\nAssuming we bump to the lowest version we need, that means we bump to 1.6.0, correct?  By any rule, I don\u0027t think 1.6.4 is right.\n\n\n\u003e Redfish does not provide a good way for creating/deleting VLAN after \"VLANs\" property is deprecated after 1.7.0,\n\nIs there a discussion with DMTF that I can reference somewhere?  It doesn\u0027t sound reasonable that they deprecated a property without having some new property/mechanism to take its place, and i\u0027d like to understand their rationale there.\n\nIn terms of this patch, sure, we can get it merged if we change to 1.6.0",
+      "parentUuid": "b2193c8d_6c3a97ca",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 55
+      },
+      "revId": "cca51c6ce048cc4540c5353507d56ec07ba60fd4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "c662eb9e_fd493bf3",
@@ -150,6 +174,30 @@
       "side": 1,
       "message": "Neat stuff in 54033. I am fine if this goes first though.\nI thought we typically bump all the places that use this schema. \nSo every place we use ComputerSystem should be the same (although looking through the code, not necessarily true.)",
       "parentUuid": "85dff25f_f00518e9",
+      "range": {
+        "startLine": 1911,
+        "startChar": 48,
+        "endLine": 1911,
+        "endChar": 54
+      },
+      "revId": "cca51c6ce048cc4540c5353507d56ec07ba60fd4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6407c90a_3b0d8d78",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1911,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-27T16:45:23Z",
+      "side": 1,
+      "message": "\u003e Neat stuff in 54033. I am fine if this goes first though.\n\nAgreed.\n\n\u003e I thought we typically bump all the places that use this schema. \n\u003e So every place we use ComputerSystem should be the same (although looking through the code, not necessarily true.)\n\nwe\u0027re inconsistent about bumping all places.  In theory, if we weren\u0027t duplicating code, we\u0027d only be constructing an object of a particular type in one spot, but that\u0027s been far from reality, especially in the hypervisor_system case.",
+      "parentUuid": "eff34148_caead13f",
       "range": {
         "startLine": 1911,
         "startChar": 48,
