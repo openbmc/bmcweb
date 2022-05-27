@@ -41,6 +41,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "87240caa_efffc1d5",
+        "filename": "Redfish.md",
+        "patchSetId": 28
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-05-27T00:26:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fc4d0f0a_1400af99",
+      "range": {
+        "startLine": 149,
+        "startChar": 2,
+        "endLine": 149,
+        "endChar": 9
+      },
+      "revId": "919fb744f3beed7a6a6823c8aa6f5eefe87bb09a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5ea8eaa9_28e31452",
@@ -54,6 +78,30 @@
       "writtenOn": "2022-05-25T17:05:01Z",
       "side": 1,
       "message": "nit This",
+      "range": {
+        "startLine": 150,
+        "startChar": 1,
+        "endLine": 150,
+        "endChar": 2
+      },
+      "revId": "919fb744f3beed7a6a6823c8aa6f5eefe87bb09a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e0a7d8dc_a20c8f16",
+        "filename": "Redfish.md",
+        "patchSetId": 28
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-05-27T00:26:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5ea8eaa9_28e31452",
       "range": {
         "startLine": 150,
         "startChar": 1,
@@ -89,6 +137,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "926ad0dd_038601e4",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 633,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-05-27T00:26:14Z",
+      "side": 1,
+      "message": "This has been brought up early in the review:\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/53325/16..28/redfish-core/lib/chassis.hpp#b771\n\nI was unable to find a matching type. \nhttps://github.com/openbmc/bmcweb/blob/b9d36b4791d77a47e1f3c5c4564fcdf7cc68c115/include/dbus_utility.hpp#L58-L83\nWe can add a type if we want, let me know what you want to do.",
+      "parentUuid": "cb933b39_3c351c9f",
+      "range": {
+        "startLine": 631,
+        "startChar": 23,
+        "endLine": 633,
+        "endChar": 77
+      },
+      "revId": "919fb744f3beed7a6a6823c8aa6f5eefe87bb09a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a5e09084_7f2bf5f8",
         "filename": "redfish-core/lib/storage.hpp",
         "patchSetId": 28
@@ -100,6 +172,30 @@
       "writtenOn": "2022-05-25T17:05:01Z",
       "side": 1,
       "message": "I believe this line can be omitted",
+      "range": {
+        "startLine": 671,
+        "startChar": 24,
+        "endLine": 671,
+        "endChar": 58
+      },
+      "revId": "919fb744f3beed7a6a6823c8aa6f5eefe87bb09a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "27c6a5ab_d75b475c",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 671,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-05-27T00:26:14Z",
+      "side": 1,
+      "message": "everytime we create a member list, we use this construction. \n https://github.com/openbmc/bmcweb/blob/45ca1b868e47978a4d2e8ebb680cb384e804c97e/redfish-core/lib/update_service.hpp#L752\nhttps://github.com/openbmc/bmcweb/blob/45ca1b868e47978a4d2e8ebb680cb384e804c97e/redfish-core/lib/virtual_media.hpp#L188\nhttps://github.com/openbmc/bmcweb/blob/45ca1b868e47978a4d2e8ebb680cb384e804c97e/redfish-core/lib/redfish_sessions.hpp#L113\nhttps://github.com/openbmc/bmcweb/blob/45ca1b868e47978a4d2e8ebb680cb384e804c97e/redfish-core/lib/managers.hpp#L570\nhttps://github.com/openbmc/bmcweb/blob/61b83d0cce255cf98d6a2bbe6924307b69742959/redfish-core/lib/storage.hpp#L78\nhttps://github.com/openbmc/bmcweb/blob/90d2d1e887e68c70f8e5923eb69c3c9356dae547/redfish-core/lib/pcie.hpp#L49\nhttps://github.com/openbmc/bmcweb/blob/3d768a165183dd8cf7e485ac67ab7270845d5f87/redfish-core/lib/certificate_service.hpp#L877\n\nBut after reading some documentation it might not be necessary.\nI am going test this again to make sure I can remove it.",
+      "parentUuid": "a5e09084_7f2bf5f8",
       "range": {
         "startLine": 671,
         "startChar": 24,
@@ -133,6 +229,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2a2ad912_9f92e441",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 683,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-05-27T00:26:14Z",
+      "side": 1,
+      "message": "Done.\n\nEd told me auto was best used when the type is explicit. ie, on the same line or line above.",
+      "parentUuid": "3f853a5e_80c59836",
+      "range": {
+        "startLine": 683,
+        "startChar": 35,
+        "endLine": 683,
+        "endChar": 46
+      },
+      "revId": "919fb744f3beed7a6a6823c8aa6f5eefe87bb09a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e0c3b2d2_afdc8f7f",
@@ -156,6 +276,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "73658d3d_3574f422",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 692,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-05-27T00:26:14Z",
+      "side": 1,
+      "message": "done",
+      "parentUuid": "e0c3b2d2_afdc8f7f",
+      "range": {
+        "startLine": 692,
+        "startChar": 24,
+        "endLine": 692,
+        "endChar": 26
+      },
+      "revId": "919fb744f3beed7a6a6823c8aa6f5eefe87bb09a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ae85d28d_5c92ef93",
@@ -169,6 +313,30 @@
       "writtenOn": "2022-05-25T17:05:01Z",
       "side": 1,
       "message": "interfaces is not referenced anywhere else, consider omit the variable creation?",
+      "range": {
+        "startLine": 697,
+        "startChar": 45,
+        "endLine": 697,
+        "endChar": 55
+      },
+      "revId": "919fb744f3beed7a6a6823c8aa6f5eefe87bb09a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3a7d9b41_4ddbf2aa",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 697,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-05-27T00:26:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ae85d28d_5c92ef93",
       "range": {
         "startLine": 697,
         "startChar": 45,
