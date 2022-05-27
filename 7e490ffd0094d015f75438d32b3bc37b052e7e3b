@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "100dcb7b_f38cf699",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-27T16:50:39Z",
+      "side": 1,
+      "message": "? Moving functions into a lambda has generally been regarded as having worse readability, not better.  Can you elaborate on this a little more for why this is desired?",
+      "range": {
+        "startLine": 10,
+        "startChar": 47,
+        "endLine": 10,
+        "endChar": 65
+      },
+      "revId": "7e490ffd0094d015f75438d32b3bc37b052e7e3b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "ffc885c6_df57795b",
