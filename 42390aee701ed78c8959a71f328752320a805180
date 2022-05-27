@@ -16,6 +16,24 @@
       "message": "Because the validator and such rely on the XML ?\nOr the validator first looks at https://www.dmtf.org/sites/default/files/standards/documents/DSP8010.zip, then will try locally (e.g. if you are offline or OEM schemas)?\n\nhttps://github.com/DMTF/Redfish-Service-Validator/blob/02d35b75dcbbe6ca3dad3093dd67ee0308195286/schema_pack.py#L13",
       "revId": "42390aee701ed78c8959a71f328752320a805180",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cea668fd_e3bcb28a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-27T16:33:47Z",
+      "side": 1,
+      "message": "\u003e Because the validator and such rely on the XML ?\n\nCorrect.  Redfish service validator relies entirely on xml.\n\n\u003e Or the validator first looks at https://www.dmtf.org/sites/default/files/standards/documents/DSP8010.zip, then will try locally (e.g. if you are offline or OEM schemas)?\n\u003e \n\u003e https://github.com/DMTF/Redfish-Service-Validator/blob/02d35b75dcbbe6ca3dad3093dd67ee0308195286/schema_pack.py#L13\n\n\nIn the end, my goal is to have a mode where we generate the indexes, but all of the indexes just point to the web at DMTFs website (ie https://redfish.dmtf.org/redfish/schema_index)\n\nThis would mean that bmcs that don\u0027t have that much space wouldn\u0027t have to install anything bug OEM schemas, but would still be able to run the validator/other tooling, so long as the tooling has internet access.",
+      "parentUuid": "9e5187cf_89e758c5",
+      "revId": "42390aee701ed78c8959a71f328752320a805180",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
