@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "004f456f_d0375a55",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-27T19:29:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6cb68619_ab75e5a4",
+      "range": {
+        "startLine": 32,
+        "startChar": 1,
+        "endLine": 32,
+        "endChar": 5
+      },
+      "revId": "21ce53389d716b62ebbed0f4858648a23c9f761f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5460b6c3_8004516a",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-05-27T19:05:41Z",
       "side": 1,
       "message": "Is this unit-testable?",
+      "range": {
+        "startLine": 111,
+        "startChar": 35,
+        "endLine": 111,
+        "endChar": 46
+      },
+      "revId": "21ce53389d716b62ebbed0f4858648a23c9f761f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7494bc91_f1b3b605",
+        "filename": "redfish-core/lib/redfish_v1.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-27T19:29:30Z",
+      "side": 1,
+      "message": "We don\u0027t really have great patterns for unit testing individual handlers.  There\u0027s one example in the codebase, so it is possible, but it\u0027s not something we enforce universally at this point.\n\nI\u0027m not quite sure how we\u0027d unit test compile-time generation of things, and in theory all of this is covered by the service validator for schema problem, so there is some testing of this already.",
+      "parentUuid": "5460b6c3_8004516a",
       "range": {
         "startLine": 111,
         "startChar": 35,
