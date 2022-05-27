@@ -176,6 +176,24 @@
       "message": "Two \"\\n\" here.",
       "revId": "38c0aee2cf4e29403466244ae37adc2d5ac47fa0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d9625c79_8fc7875e",
+        "filename": "CLIENTS.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-27T19:03:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "56cfc6e7_6581fa68",
+      "revId": "38c0aee2cf4e29403466244ae37adc2d5ac47fa0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
