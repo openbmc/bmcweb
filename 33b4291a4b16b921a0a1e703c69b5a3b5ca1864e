@@ -33,6 +33,29 @@
       "message": "nit: what about\n\n```\nstd::string urlString \u003d \"/foo\";\nEXPECT_EQ(json(boost::urls::url(urlString)), urlString);\nEXPECT_EQ(json(boost::urls::url_view(urlString)), urlString);\n```",
       "revId": "33b4291a4b16b921a0a1e703c69b5a3b5ca1864e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "93915c75_4370e5fc",
+        "filename": "http/utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 789,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-05-27T19:15:37Z",
+      "side": 1,
+      "message": "These two template specialization will automatically be applied?\n\nIIUC we need to explicitly include this header, right?",
+      "range": {
+        "startLine": 789,
+        "startChar": 7,
+        "endLine": 789,
+        "endChar": 21
+      },
+      "revId": "33b4291a4b16b921a0a1e703c69b5a3b5ca1864e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
