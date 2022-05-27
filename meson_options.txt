@@ -264,8 +264,8 @@ option(
     'insecure-disable-auth',
     type: 'feature',
     value: 'disabled',
-    description: '''Disable authentication on all ports. Should be set to false
-                    for production systems'''
+    description: '''Disable authentication and authoriztion on all ports.
+                    Should be set to false for production systems.'''
 )
 
 option(
