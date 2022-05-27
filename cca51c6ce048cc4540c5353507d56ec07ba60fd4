@@ -50,6 +50,47 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b2193c8d_6c3a97ca",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-05-27T16:10:19Z",
+      "side": 1,
+      "message": "We typically only bump to the version we need, not the latest (this is direction we got from Redfish)\nSo bumping to 1.6.0 or 1.6.4 seems reasonable to me since the property we need is in 1.6.0\n\n                \"EthernetInterfaceType\": {\n                    \"anyOf\": [\n                        {\n                            \"$ref\": \"#/definitions/EthernetDeviceType\"\n                        },\n                        {\n                            \"type\": \"null\"\n                        }\n                    ],\n                    \"description\": \"The type of interface.\",\n                    \"longDescription\": \"This property shall contain the type of interface.\",\n                    \"readonly\": true,\n                    \"versionAdded\": \"v1_6_0\"\n                },\n\nThe discussion around VLAN seems like it could be separate",
+      "parentUuid": "544d2fb2_0ad30c76",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 55
+      },
+      "revId": "cca51c6ce048cc4540c5353507d56ec07ba60fd4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c662eb9e_fd493bf3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-05-27T16:10:19Z",
+      "side": 1,
+      "message": "I think this should go when the property that implements this property goes ",
+      "revId": "cca51c6ce048cc4540c5353507d56ec07ba60fd4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9f42157b_68278340",
         "filename": "redfish-core/lib/ethernet.hpp",
         "patchSetId": 3
@@ -85,6 +126,30 @@
       "side": 1,
       "message": "We\u0027re not consistent today;  I\u0027m trying to make us more consistent here: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/54033",
       "parentUuid": "9f42157b_68278340",
+      "range": {
+        "startLine": 1911,
+        "startChar": 48,
+        "endLine": 1911,
+        "endChar": 54
+      },
+      "revId": "cca51c6ce048cc4540c5353507d56ec07ba60fd4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eff34148_caead13f",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1911,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-05-27T16:10:19Z",
+      "side": 1,
+      "message": "Neat stuff in 54033. I am fine if this goes first though.\nI thought we typically bump all the places that use this schema. \nSo every place we use ComputerSystem should be the same (although looking through the code, not necessarily true.)",
+      "parentUuid": "85dff25f_f00518e9",
       "range": {
         "startLine": 1911,
         "startChar": 48,
