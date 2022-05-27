@@ -34,6 +34,23 @@
       "parentUuid": "cfc56434_33e7735f",
       "revId": "1a1d5d6d06458f23e0c86aceda1c807c7553217a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f8509ce_5daf6358",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-27T18:09:14Z",
+      "side": 1,
+      "message": "Trivial change, seems correct per COMMON_ERRORS.md.  Merging quickly.\n\nAs always, happy to discuss.",
+      "revId": "1a1d5d6d06458f23e0c86aceda1c807c7553217a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
