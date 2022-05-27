@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "544d2fb2_0ad30c76",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-05-27T01:20:45Z",
+      "side": 1,
+      "message": "Redfish does not provide a good way for creating/deleting VLAN after \"VLANs\" property is deprecated after 1.7.0, we still need that property, so it cannot be bumped to newer versions.\n\nBelow is a previous discussion at https://gerrit.openbmc.org/c/openbmc/bmcweb/+/52951\n\n\u003e A limitation is that latest schema does not provide a proper way to create VLANs. I had a discussion in redfish from at https://redfishforum.com/thread/619/proper-create-using-ethernetinterface-schema\n\u003e \n\u003e My proposal is to keep using the deprecated VLanNetworkInterface for creating/deleting VLANs, while also exposes the VLAN interfaces under /​redfish/​v1/​Managers/​bmc/​EthernetInterfaces/​ for configuring them. This workaround will be here until redfish spec reached a solution, after that, remove the VLANs property. This patchset is the first stage of moving to the new way.",
+      "parentUuid": "42043db2_730ee2d0",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 55
+      },
+      "revId": "cca51c6ce048cc4540c5353507d56ec07ba60fd4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9f42157b_68278340",
         "filename": "redfish-core/lib/ethernet.hpp",
         "patchSetId": 3
