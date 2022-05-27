@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1566a069_317e5c81",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-27T16:57:17Z",
+      "side": 1,
+      "message": "nit, generally authorization/authentication get written shorthand as AUTHX or AUTH.  If we were going to continue this change as-is, we\u0027d probably opt for the shorter version of the macro.",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 52
+      },
+      "revId": "e95bf4d637c372768b762b72704341ed747e0c1b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b187cbd4_370341c0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-27T16:57:17Z",
+      "side": 1,
+      "message": "As a general rule, I try not to rename configure options, because that breaks downstream patches for people (including ours).\n\nA lack of authentication implies a lack of authorization (if you can\u0027t authenticate, how do you authorize?) so I\u0027m not sure that this change is constructive.\n\nIf we really wanted to improve this, we could update the description of the option to be more clear, but I\u0027d really like to avoid changing the option name itself just for the sake of the option string itself being different, because the option is implicitly API.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 27
+      },
+      "revId": "e95bf4d637c372768b762b72704341ed747e0c1b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "11f6c7d1_efc11588",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-27T16:57:17Z",
+      "side": 1,
+      "message": "This can probably be omitted.  As a generally rule, grepping the code is not really an appropriate test, even though it might help you develop, a developer should be testing the code paths they changed to within the limits of what\u0027s reasonable.",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 62
+      },
+      "revId": "e95bf4d637c372768b762b72704341ed747e0c1b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
