@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a05b4574_3fe09f48",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-27T18:41:16Z",
+      "side": 1,
+      "message": "\u003e \u003e Is this true in the aggregation case?\n\u003e Yes, because the aggregating BMC only knows if a request is meant for a satellite, not whether the requested resource exists on that satellite.  \n\u003e \n\u003e \u003e In theory we shouldn\u0027t be seeing 404 anywhere?\n\u003e In theory a user should not request a 404, but it could happen due to something like typos while making manual queries.  If it does happen then the aggregator should just return the 404 from the satellite right away.  Otherwise we would exhaust the retry policy and return a 502.\n\n\nDamn, this is another good reason we probably need to abstract the retry logic for each client.  EventService can\u0027t continue if it got 404, and should continue to retry.  Alternatively, we could add a flag to the retry policy to say if 404 is acceptable, but that kind of starts to get hacky.\n\nI\u0027m fine with either solution, but as written, pretty sure this breaks retry behavior on EventService.",
+      "parentUuid": "c146b547_63c29227",
+      "range": {
+        "startLine": 246,
+        "startChar": 0,
+        "endLine": 246,
+        "endChar": 61
+      },
+      "revId": "2437afcc5653c51bfc40f7bb47fee8eab4e2c736",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2e5ef60d_7ad3f2e1",
         "filename": "http/http_client.hpp",
         "patchSetId": 27
@@ -85,6 +109,30 @@
       "side": 1,
       "message": "Yes, I should have used nullptr for that.  I\u0027ll try using weak_ptr and see if that can solves the lifetime issue.",
       "parentUuid": "2e5ef60d_7ad3f2e1",
+      "range": {
+        "startLine": 453,
+        "startChar": 0,
+        "endLine": 456,
+        "endChar": 52
+      },
+      "revId": "2437afcc5653c51bfc40f7bb47fee8eab4e2c736",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2393f1be_acae1ff2",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 456,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-27T18:41:16Z",
+      "side": 1,
+      "message": "👍",
+      "parentUuid": "ed201d46_9f30675f",
       "range": {
         "startLine": 453,
         "startChar": 0,
