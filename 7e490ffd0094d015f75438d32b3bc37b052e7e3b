@@ -33,6 +33,29 @@
       "message": "This is slightly different behavior, before it left it off if it was empty.",
       "revId": "7e490ffd0094d015f75438d32b3bc37b052e7e3b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b723af45_87b10ec8",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 2105,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-27T16:48:50Z",
+      "side": 1,
+      "message": "Why did we inline this code block into a lambda?  That seems worse than it was before.",
+      "range": {
+        "startLine": 2098,
+        "startChar": 0,
+        "endLine": 2105,
+        "endChar": 48
+      },
+      "revId": "7e490ffd0094d015f75438d32b3bc37b052e7e3b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
