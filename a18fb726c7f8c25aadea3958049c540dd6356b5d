@@ -594,6 +594,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "825a15c0_09235a2c",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 41
+      },
+      "lineNbr": 372,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-05-27T18:06:35Z",
+      "side": 1,
+      "message": "This is still up for discussion here: \nhttps://gerrit.openbmc.org/c/openbmc/phosphor-dbus-interfaces/+/46806\nand \nhttps://gerrit.openbmc.org/c/openbmc/docs/+/41468",
+      "parentUuid": "4450890e_e23f80e4",
+      "range": {
+        "startLine": 372,
+        "startChar": 0,
+        "endLine": 372,
+        "endChar": 66
+      },
+      "revId": "a18fb726c7f8c25aadea3958049c540dd6356b5d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "430f777f_a2853fd9",
         "filename": "redfish-core/lib/assembly.hpp",
         "patchSetId": 41
