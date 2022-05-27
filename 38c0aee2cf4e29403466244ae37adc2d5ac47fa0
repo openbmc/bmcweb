@@ -118,6 +118,30 @@
       },
       "revId": "38c0aee2cf4e29403466244ae37adc2d5ac47fa0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6cfbd64c_3bf6c79a",
+        "filename": "CLIENTS.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-27T16:39:10Z",
+      "side": 1,
+      "message": "\u003e I hear you and what you said makes sense for design details of the client.  I guess the question is, If I were to write a new Listener from scratch can i design it without needing a lightweight server or to receive any events from BMCWeb its a must have dependency?\n\nI\u0027m not really understanding what the question has to do with this patch or the line of the code in question, which is documenting Redfish-Event-Listener.  Writing something \"from scratch\" would depend on how the person wants to design it.  One could design it to reuse an existing server, or to implement its own server internally, there\u0027s lots of possibilities.\nBut to repeat, I\u0027m not sure what that has to do with this patch.",
+      "parentUuid": "2e0d3eac_83505bf2",
+      "range": {
+        "startLine": 64,
+        "startChar": 34,
+        "endLine": 64,
+        "endChar": 35
+      },
+      "revId": "38c0aee2cf4e29403466244ae37adc2d5ac47fa0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
