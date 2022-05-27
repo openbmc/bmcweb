@@ -845,7 +845,12 @@ inline void getDimmData(std::shared_ptr<bmcweb::AsyncResp> aResp,
             if (!found)
             {
                 messages::resourceNotFound(aResp->res, "Memory", dimmId);
+                return;
             }
+            // Set @odata only if object is found
+            aResp->res.jsonValue["@odata.type"] = "#Memory.v1_11_0.Memory";
+            aResp->res.jsonValue["@odata.id"] =
+                "/redfish/v1/Systems/system/Memory/" + dimmId;
             return;
         },
         "xyz.openbmc_project.ObjectMapper",
@@ -898,11 +903,6 @@ inline void requestRoutesMemory(App& app)
                 {
                     return;
                 }
-                asyncResp->res.jsonValue["@odata.type"] =
-                    "#Memory.v1_11_0.Memory";
-                asyncResp->res.jsonValue["@odata.id"] =
-                    "/redfish/v1/Systems/system/Memory/" + dimmId;
-
                 getDimmData(asyncResp, dimmId);
             });
 }
