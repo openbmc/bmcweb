@@ -218,6 +218,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f2a29c31_40a0b996",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 804,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-05-27T22:42:01Z",
+      "side": 1,
+      "message": "But we want Partition1 and Partition2 to be part of the properties of dimm1.\n\n\n```\n{\n    \"@odata.id\": \"/redfish/v1/Systems/system/Memory/dimm1\",\n    \"@odata.type\": \"#Memory.v1_11_0.Memory\",\n    \"Regions\": [\n        { \n            // from partition1\n            \"MemoryClassification\": \"Volatile\",\n            \"OffsetMiB\": 0,\n            \"PassphraseEnabled\": false,\n            \"RegionId\": \"\",\n            \"SizeMiB\": 1024\n        },\n        { \n            // from partition2\n            \"MemoryClassification\": \"Volatile\",\n            \"OffsetMiB\": 0,\n            \"PassphraseEnabled\": false,\n            \"RegionId\": \"\",\n            \"SizeMiB\": 1024\n        }\n    ],\n}\n```",
+      "parentUuid": "8ee7b8bc_3fc9b34b",
+      "range": {
+        "startLine": 804,
+        "startChar": 12,
+        "endLine": 804,
+        "endChar": 30
+      },
+      "revId": "8ae5896cb3e169dbc0352a9e2d5292812d8c0d7d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c8df6433_5deadb0a",
         "filename": "redfish-core/lib/memory.hpp",
         "patchSetId": 4
