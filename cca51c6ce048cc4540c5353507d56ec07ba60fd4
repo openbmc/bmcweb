@@ -122,6 +122,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "0f80b86a_b2ba0eb3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-27T23:08:55Z",
+      "side": 1,
+      "message": "\u003e \u003e We typically only bump to the version we need, not the latest\n\u003e \n\u003e May I ask where is this rule specified? I searched through the Redfish spec and cannot find it.\n\nIt\u0027s not documented in the Redfish standard, because it\u0027s an implementation-defined decision (ie it\u0027s up to bmcweb maintainers)\n\nFWIW, I\u0027m not sure even the maintainers are consistent on it, I\u0027ve always thought the rule was \"upgrade to the newest version\", but clearly I had that wrong.\n\n\u003e \n\u003e \u003e Assuming we bump to the lowest version we need, that means we bump to 1.6.0, correct? \n\u003e \n\u003e Done\n\u003e \n\u003e \u003e Is there a discussion with DMTF that I can reference somewhere? \n\u003e \n\u003e https://redfishforum.com/thread/619/proper-create-using-ethernetinterface-schema\n\n\nThanks",
+      "parentUuid": "d0a126b2_23f34f71",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 55
+      },
+      "revId": "cca51c6ce048cc4540c5353507d56ec07ba60fd4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "c662eb9e_fd493bf3",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 3
@@ -246,6 +270,30 @@
       "side": 1,
       "message": "#54033 is great.\n\nFor now, shall we also bump it for hypervisor_system?",
       "parentUuid": "6407c90a_3b0d8d78",
+      "range": {
+        "startLine": 1911,
+        "startChar": 48,
+        "endLine": 1911,
+        "endChar": 54
+      },
+      "revId": "cca51c6ce048cc4540c5353507d56ec07ba60fd4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5fa42926_c6e74bd6",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1911,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-27T23:08:55Z",
+      "side": 1,
+      "message": "probably should.",
+      "parentUuid": "11e1aca8_ac51103d",
       "range": {
         "startLine": 1911,
         "startChar": 48,
