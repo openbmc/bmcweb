@@ -615,7 +615,7 @@ class HttpClient
     {
         BMCWEB_LOG_DEBUG << "Response handled with return code: "
                          << std::to_string(res.resultInt());
-    };
+    }
 
   public:
     HttpClient(const HttpClient&) = delete;

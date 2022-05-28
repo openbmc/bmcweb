@@ -151,7 +151,7 @@ inline void handleSessionCollectionMembersGet(
     asyncResp->res.jsonValue = getSessionCollectionMembers();
 }
 
-void handleSessionCollectionPost(
+inline void handleSessionCollectionPost(
     crow::App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
