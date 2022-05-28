@@ -280,7 +280,7 @@ TEST(QueryParams, GetExpandType)
 namespace redfish::query_param
 {
 // NOLINTNEXTLINE(readability-identifier-naming)
-void PrintTo(const ExpandNode& value, ::std::ostream* os)
+static void PrintTo(const ExpandNode& value, ::std::ostream* os)
 {
     *os << "ExpandNode: " << value.location << " " << value.uri;
 }

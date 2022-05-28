@@ -48,12 +48,12 @@ static constexpr std::string_view thermal = "Thermal";
 // clang-format off
 namespace dbus
 {
-auto powerPaths = std::to_array<std::string_view>({
+static auto powerPaths = std::to_array<std::string_view>({
     "/xyz/openbmc_project/sensors/voltage",
     "/xyz/openbmc_project/sensors/power"
 });
 
-auto sensorPaths = std::to_array<std::string_view>({
+static auto sensorPaths = std::to_array<std::string_view>({
     "/xyz/openbmc_project/sensors/power",
     "/xyz/openbmc_project/sensors/current",
     "/xyz/openbmc_project/sensors/airflow",
@@ -69,7 +69,7 @@ auto sensorPaths = std::to_array<std::string_view>({
     "/xyz/openbmc_project/sensors/utilization"
 });
 
-auto thermalPaths = std::to_array<std::string_view>({
+static auto thermalPaths = std::to_array<std::string_view>({
     "/xyz/openbmc_project/sensors/fan_tach",
     "/xyz/openbmc_project/sensors/temperature",
     "/xyz/openbmc_project/sensors/fan_pwm"
@@ -3055,7 +3055,7 @@ inline void requestRoutesSensorCollection(App& app)
                 BMCWEB_LOG_DEBUG
                     << "SensorCollection doGet exit via efficient expand handler";
                 return;
-            };
+            }
 
             // if there's no efficient expand available, we use the default
             // Query Parameters route
