@@ -838,9 +838,9 @@ inline void doMountVmLegacy(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
  *
  * All BMC state properties will be retrieved before sending reset request.
  */
-inline void doVmAction(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                       const std::string& service, const std::string& name,
-                       bool legacy)
+inline void doEjectAction(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                          const std::string& service, const std::string& name,
+                          bool legacy)
 {
 
     // Legacy mount requires parameter with image
@@ -1021,8 +1021,8 @@ void vmEjectActionPostHandler(
                 auto mode = parseObjectPathAndGetMode(object.first, resName);
                 if (mode)
                 {
-                    doVmAction(asyncResp, service, resName,
-                               *mode == legacyMode);
+                    doEjectAction(asyncResp, service, resName,
+                                  *mode == legacyMode);
 
                     return;
                 }
