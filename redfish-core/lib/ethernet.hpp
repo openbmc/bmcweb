@@ -65,6 +65,7 @@ struct IPv6AddressData
     std::string address;
     std::string origin;
     uint8_t prefixLength;
+    bool isActive;
 
     bool operator<(const IPv6AddressData& obj) const
     {
