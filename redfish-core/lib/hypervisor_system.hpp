@@ -153,7 +153,8 @@ inline bool extractHypervisorInterfaceData(
     const std::string& ethIfaceId,
     const dbus::utility::ManagedObjectType& dbusData,
     EthernetInterfaceData& ethData,
-    boost::container::flat_set<IPv4AddressData>& ipv4Config)
+    boost::container::flat_set<IPv4AddressData>& ipv4Config,
+    boost::container::flat_set<IPv6AddressData>& ipv6Config)
 {
     bool idFound = false;
     for (const auto& objpath : dbusData)
@@ -162,71 +163,111 @@ inline bool extractHypervisorInterfaceData(
         {
             std::pair<boost::container::flat_set<IPv4AddressData>::iterator,
                       bool>
-                it = ipv4Config.insert(IPv4AddressData{});
+                v4Itr = ipv4Config.insert(IPv4AddressData{});
 
-            IPv4AddressData& ipv4Address = *it.first;
-            if (objpath.first == "/xyz/openbmc_project/network/hypervisor/" +
-                                     ethIfaceId + "/ipv4/addr0")
+            std::pair<boost::container::flat_set<IPv6AddressData>::iterator,
+                      bool>
+                v6Itr = ipv6Config.insert(IPv6AddressData{});
+
+            IPv4AddressData& ipv4Address = *v4Itr.first;
+            IPv6AddressData& ipv6Address = *v6Itr.first;
+
+            for (std::string protocol : {"ipv4", "ipv6"})
             {
-                idFound = true;
-                if (interface.first == "xyz.openbmc_project.Network.IP")
+                if (objpath.first ==
+                    "/xyz/openbmc_project/network/hypervisor/" + ethIfaceId +
+                        "/" + protocol + "/addr0")
                 {
-
-                    for (const auto& property : interface.second)
+                    idFound = true;
+                    if (interface.first == "xyz.openbmc_project.Network.IP")
                     {
-                        if (property.first == "Address")
+
+                        for (const auto& property : interface.second)
                         {
-                            const std::string* address =
-                                std::get_if<std::string>(&property.second);
-                            if (address != nullptr)
+                            if (property.first == "Address")
                             {
-                                ipv4Address.address = *address;
+                                const std::string* address =
+                                    std::get_if<std::string>(&property.second);
+                                if (address != nullptr)
+                                {
+                                    if (protocol == "ipv4")
+                                    {
+                                        ipv4Address.address = *address;
+                                    }
+                                    else if (protocol == "ipv6")
+                                    {
+                                        ipv6Address.address = *address;
+                                    }
+                                }
                             }
-                        }
-                        else if (property.first == "PrefixLength")
-                        {
-                            const uint8_t* mask =
-                                std::get_if<uint8_t>(&property.second);
-                            if (mask != nullptr)
+                            else if (property.first == "PrefixLength")
                             {
-                                ipv4Address.netmask = getNetmask(*mask);
+                                const uint8_t* mask =
+                                    std::get_if<uint8_t>(&property.second);
+                                if (mask != nullptr)
+                                {
+                                    if (protocol == "ipv4")
+                                    {
+                                        ipv4Address.netmask = getNetmask(*mask);
+                                    }
+                                    else if (protocol == "ipv6")
+                                    {
+                                        ipv6Address.prefixLength = *mask;
+                                    }
+                                }
                             }
-                        }
-                        else if (property.first == "Gateway")
-                        {
-                            const std::string* gateway =
-                                std::get_if<std::string>(&property.second);
-                            if (gateway != nullptr)
+                            else if (property.first == "Gateway")
                             {
-                                ipv4Address.gateway = *gateway;
+                                const std::string* gateway =
+                                    std::get_if<std::string>(&property.second);
+                                if (gateway != nullptr)
+                                {
+                                    if (protocol == "ipv4")
+                                    {
+                                        ipv4Address.gateway = *gateway;
+                                    }
+                                    else if (protocol == "ipv6")
+                                    {
+                                        ipv6Address.gateway = *gateway;
+                                    }
+                                }
                             }
-                        }
-                        else
-                        {
-                            BMCWEB_LOG_ERROR
-                                << "Got extra property: " << property.first
-                                << " on the " << objpath.first.str << " object";
+                            else
+                            {
+                                BMCWEB_LOG_ERROR
+                                    << "Got extra property: " << property.first
+                                    << " on the " << objpath.first.str
+                                    << " object";
+                            }
                         }
                     }
-                }
-                else if (interface.first == "xyz.openbmc_project.Object.Enable")
-                {
-                    for (const auto& property : interface.second)
+                    else if (interface.first ==
+                             "xyz.openbmc_project.Object.Enable")
                     {
-                        if (property.first == "Enabled")
+                        for (const auto& property : interface.second)
                         {
-                            const bool* enabled =
-                                std::get_if<bool>(&property.second);
-                            if (enabled != nullptr)
+                            if (property.first == "Enabled")
                             {
-                                ipv4Address.isActive = *enabled;
+                                const bool* enabled =
+                                    std::get_if<bool>(&property.second);
+                                if (enabled != nullptr)
+                                {
+                                    if (protocol == "ipv4")
+                                    {
+                                        ipv4Address.isActive = *enabled;
+                                    }
+                                    else if (protocol == "ipv6")
+                                    {
+                                        ipv6Address.isActive = *enabled;
+                                    }
+                                }
                             }
                         }
                     }
                 }
             }
-            else if (objpath.first ==
-                     "/xyz/openbmc_project/network/hypervisor/" + ethIfaceId)
+            if (objpath.first ==
+                "/xyz/openbmc_project/network/hypervisor/" + ethIfaceId)
             {
                 if (interface.first ==
                     "xyz.openbmc_project.Network.EthernetInterface")
@@ -249,6 +290,36 @@ inline bool extractHypervisorInterfaceData(
                                 else
                                 {
                                     ipv4Address.origin = "DHCP";
+                                }
+
+                                if (!translateDHCPEnabledToBool(*dhcpEnabled,
+                                                                false))
+                                {
+                                    ipv6Address.origin = "Static";
+                                }
+                                else
+                                {
+                                    ipv6Address.origin = "DHCP";
+                                }
+                            }
+                        }
+                        else if (property.first == "DefaultGateway6")
+                        {
+                            const std::string* defaultGateway6 =
+                                std::get_if<std::string>(&property.second);
+                            if (defaultGateway6 != nullptr)
+                            {
+                                std::string defaultGateway6Str =
+                                    *defaultGateway6;
+                                if (defaultGateway6Str.empty())
+                                {
+                                    ethData.ipv6_default_gateway =
+                                        "0:0:0:0:0:0:0:0";
+                                }
+                                else
+                                {
+                                    ethData.ipv6_default_gateway =
+                                        defaultGateway6Str;
                                 }
                             }
                         }
@@ -299,20 +370,21 @@ void getHypervisorIfaceData(const std::string& ethIfaceId,
             const dbus::utility::ManagedObjectType& resp) {
             EthernetInterfaceData ethData{};
             boost::container::flat_set<IPv4AddressData> ipv4Data;
+            boost::container::flat_set<IPv6AddressData> ipv6Data;
             if (error)
             {
-                callback(false, ethData, ipv4Data);
+                callback(false, ethData, ipv4Data, ipv6Data);
                 return;
             }
 
-            bool found = extractHypervisorInterfaceData(ethIfaceId, resp,
-                                                        ethData, ipv4Data);
+            bool found = extractHypervisorInterfaceData(
+                ethIfaceId, resp, ethData, ipv4Data, ipv6Data);
 
             if (!found)
             {
                 BMCWEB_LOG_DEBUG << "Hypervisor Interface not found";
             }
-            callback(found, ethData, ipv4Data);
+            callback(found, ethData, ipv4Data, ipv6Data);
         },
         "xyz.openbmc_project.Network.Hypervisor",
         "/xyz/openbmc_project/network/hypervisor",
@@ -422,7 +494,8 @@ inline void
 inline void parseInterfaceData(
     nlohmann::json& jsonResponse, const std::string& ifaceId,
     const EthernetInterfaceData& ethData,
-    const boost::container::flat_set<IPv4AddressData>& ipv4Data)
+    const boost::container::flat_set<IPv4AddressData>& ipv4Data,
+    const boost::container::flat_set<IPv6AddressData>& ipv6Data)
 {
     jsonResponse["Id"] = ifaceId;
     jsonResponse["@odata.id"] =
@@ -431,13 +504,17 @@ inline void parseInterfaceData(
     jsonResponse["DHCPv4"]["DHCPEnabled"] =
         translateDhcpEnabledToBool(ethData.dhcpEnabled, true);
 
+    jsonResponse["DHCPv6"]["OperatingMode"] =
+        translateDHCPEnabledToBool(ethData.DHCPEnabled, false) ? "Stateful"
+                                                               : "Disabled";
     nlohmann::json& ipv4Array = jsonResponse["IPv4Addresses"];
     nlohmann::json& ipv4StaticArray = jsonResponse["IPv4StaticAddresses"];
     ipv4Array = nlohmann::json::array();
     ipv4StaticArray = nlohmann::json::array();
+    bool ipv4IsActive = false;
     for (const auto& ipv4Config : ipv4Data)
     {
-        jsonResponse["InterfaceEnabled"] = ipv4Config.isActive;
+        ipv4IsActive = ipv4Config.isActive;
         nlohmann::json::object_t ipv4;
         ipv4["AddressOrigin"] = ipv4Config.origin;
         ipv4["SubnetMask"] = ipv4Config.netmask;
@@ -449,6 +526,43 @@ inline void parseInterfaceData(
         }
         ipv4Array.push_back(std::move(ipv4));
     }
+
+    std::string ipv6GatewayStr = ethData.ipv6_default_gateway;
+    if (ipv6GatewayStr.empty())
+    {
+        ipv6GatewayStr = "0:0:0:0:0:0:0:0";
+    }
+
+    jsonResponse["IPv6DefaultGateway"] = ipv6GatewayStr;
+
+    nlohmann::json& ipv6Array = jsonResponse["IPv6Addresses"];
+    nlohmann::json& ipv6StaticArray = jsonResponse["IPv6StaticAddresses"];
+    ipv6Array = nlohmann::json::array();
+    ipv6StaticArray = nlohmann::json::array();
+    nlohmann::json& ipv6AddrPolicyTable =
+        jsonResponse["IPv6AddressPolicyTable"];
+    ipv6AddrPolicyTable = nlohmann::json::array();
+    bool ipv6IsActive = false;
+
+    for (auto& ipv6Config : ipv6Data)
+    {
+        ipv6IsActive = ipv6Config.isActive;
+        ipv6Array.push_back({{"Address", ipv6Config.address},
+                             {"PrefixLength", ipv6Config.prefixLength},
+                             {"AddressOrigin", ipv6Config.origin},
+                             {"AddressState", nullptr}});
+        if (ipv6Config.origin == "Static")
+        {
+            ipv6StaticArray.push_back(
+                {{"Address", ipv6Config.address},
+                 {"PrefixLength", ipv6Config.prefixLength},
+                 {"AddressOrigin", ipv6Config.origin},
+                 {"AddressState", nullptr}});
+        }
+    }
+
+    jsonResponse["InterfaceEnabled"] =
+        ipv4IsActive ? true : (ipv6IsActive ? true : false);
 }
 
 inline void setDHCPEnabled(const std::string& ifaceId,
@@ -738,21 +852,22 @@ inline void requestRoutesHypervisorSystems(App& app)
     BMCWEB_ROUTE(app,
                  "/redfish/v1/Systems/hypervisor/EthernetInterfaces/<str>/")
         .privileges(redfish::privileges::getEthernetInterface)
-        .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                   const std::string& id) {
-                if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
-                {
-                    return;
-                }
-                getHypervisorIfaceData(id, [asyncResp,
-                                            ifaceId{std::string(id)}](
-                                               const bool& success,
-                                               const EthernetInterfaceData&
-                                                   ethData,
-                                               const boost::container::flat_set<
-                                                   IPv4AddressData>& ipv4Data) {
+        .methods(
+            boost::beast::http::verb::
+                get)([&app](const crow::Request& req,
+                            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                            const std::string& id) {
+            if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+            {
+                return;
+            }
+            getHypervisorIfaceData(
+                id,
+                [asyncResp, ifaceId{std::string(id)}](
+                    const bool& success, const EthernetInterfaceData& ethData,
+                    const boost::container::flat_set<IPv4AddressData>& ipv4Data,
+                    const boost::container::flat_set<IPv6AddressData>&
+                        ipv6Data) {
                     if (!success)
                     {
                         messages::resourceNotFound(
@@ -766,9 +881,9 @@ inline void requestRoutesHypervisorSystems(App& app)
                     asyncResp->res.jsonValue["Description"] =
                         "Hypervisor's Virtual Management Ethernet Interface";
                     parseInterfaceData(asyncResp->res.jsonValue, ifaceId,
-                                       ethData, ipv4Data);
+                                       ethData, ipv4Data, ipv6Data);
                 });
-            });
+        });
 
     BMCWEB_ROUTE(app,
                  "/redfish/v1/Systems/hypervisor/EthernetInterfaces/<str>/")
@@ -818,7 +933,8 @@ inline void requestRoutesHypervisorSystems(App& app)
                  ipv4StaticAddresses = std::move(ipv4StaticAddresses),
                  ipv4DHCPEnabled, dhcpv4 = std::move(dhcpv4)](
                     const bool& success, const EthernetInterfaceData& ethData,
-                    const boost::container::flat_set<IPv4AddressData>&) {
+                    const boost::container::flat_set<IPv4AddressData>&,
+                    const boost::container::flat_set<IPv6AddressData>&) {
                     if (!success)
                     {
                         messages::resourceNotFound(
