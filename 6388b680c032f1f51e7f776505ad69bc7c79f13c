@@ -22,6 +22,30 @@
       },
       "revId": "6388b680c032f1f51e7f776505ad69bc7c79f13c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e244de05_a89f625e",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 2103,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-05-30T05:17:37Z",
+      "side": 1,
+      "message": "Yes the vlanId is checked in Line 2096. Only VLAN interfaces have ethData.vlanId, for physical interfaces, it is std::nullopt. This ensures only VLAN interfaces are listed here, and, of course, VLAN interfaces are VLANEnabled.",
+      "parentUuid": "d43d2aee_9ed64b93",
+      "range": {
+        "startLine": 2103,
+        "startChar": 28,
+        "endLine": 2103,
+        "endChar": 74
+      },
+      "revId": "6388b680c032f1f51e7f776505ad69bc7c79f13c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
