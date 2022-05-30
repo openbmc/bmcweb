@@ -16,6 +16,24 @@
       "message": "Need to check for the invalid input errors here and send appropriate response code to the client. It should not be 500 always",
       "revId": "da4efee921ead1bbaf2a4cad26b692aebb49c687",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "036e4303_d1635e45",
+        "filename": "redfish-core/lib/hypervisor_system.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 378,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2022-05-30T17:17:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5437d125_8be4a751",
+      "revId": "da4efee921ead1bbaf2a4cad26b692aebb49c687",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

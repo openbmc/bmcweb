@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a217245b_ccd5ad7a",
+        "filename": "redfish-core/lib/hypervisor_system.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2022-05-30T17:17:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "09fe136c_4539fefc",
+      "range": {
+        "startLine": 175,
+        "startChar": 25,
+        "endLine": 175,
+        "endChar": 29
+      },
+      "revId": "ff52f02a22423e91745f1730362e0f98b8335bac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "eb538b15_973a88c0",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-05-25T17:17:54Z",
       "side": 1,
       "message": "const? Seems to me property does not change.",
+      "range": {
+        "startLine": 265,
+        "startChar": 25,
+        "endLine": 265,
+        "endChar": 29
+      },
+      "revId": "ff52f02a22423e91745f1730362e0f98b8335bac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e616267d_236a72da",
+        "filename": "redfish-core/lib/hypervisor_system.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2022-05-30T17:17:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eb538b15_973a88c0",
       "range": {
         "startLine": 265,
         "startChar": 25,
