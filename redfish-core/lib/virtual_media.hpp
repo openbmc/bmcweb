@@ -281,6 +281,7 @@ inline nlohmann::json vmItemTemplate(const std::string& name,
     item["@odata.id"] = std::move(id);
 
     item["@odata.type"] = "#VirtualMedia.v1_3_0.VirtualMedia";
+    item["ConnectedVia"] = "NotConnected";
     item["Name"] = "Virtual Removable Media";
     item["Id"] = resName;
     item["WriteProtected"] = true;
