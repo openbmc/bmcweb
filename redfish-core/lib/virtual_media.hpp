@@ -28,18 +28,75 @@
 namespace redfish
 {
 
+const char* legacyMode = "Legacy";
+const char* proxyMode = "Proxy";
+
+using CheckItemHandler = std::function<bool(
+    const std::string& service, const std::shared_ptr<bmcweb::AsyncResp>&,
+    std::pair<sdbusplus::message::object_path,
+              dbus::utility::DBusInteracesMap>&)>;
+
+void findAndParseObject(const std::string& service, const std::string& resName,
+                        const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+                        CheckItemHandler&& handler)
+{
+    crow::connections::systemBus->async_method_call(
+        [service, resName, aResp,
+         handler](const boost::system::error_code ec,
+                  dbus::utility::ManagedObjectType& subtree) {
+        if (ec)
+        {
+            BMCWEB_LOG_DEBUG << "DBUS response error";
+
+            return;
+        }
+
+        for (auto& item : subtree)
+        {
+            std::string thispath = item.first.filename();
+            if (thispath.empty())
+            {
+                continue;
+            }
+
+            if (thispath != resName)
+            {
+                continue;
+            }
+
+            auto mode = item.first.parent_path();
+            auto type = mode.parent_path();
+            if (mode.filename().empty() || type.filename().empty())
+            {
+                continue;
+            }
+
+            if (type.filename() != "VirtualMedia")
+            {
+                continue;
+            }
+
+            if (handler(service, aResp, item))
+            {
+                return;
+            }
+        }
+
+        BMCWEB_LOG_DEBUG << "Parent item not found";
+        aResp->res.result(boost::beast::http::status::not_found);
+        },
+        service, "/xyz/openbmc_project/VirtualMedia",
+        "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
+}
+
 /**
  * @brief Function parses getManagedObject response, finds item, makes generic
  *        validation and invokes callback handler on this item.
  *
  */
-void findItemAndRunHandler(
-    const std::shared_ptr<bmcweb::AsyncResp>& aResp, const std::string& name,
-    const std::string& resName,
-    std::function<bool(const std::string& service,
-                       const std::shared_ptr<bmcweb::AsyncResp>&,
-                       std::pair<sdbusplus::message::object_path,
-                                 dbus::utility::DBusInteracesMap>&)>&& handler)
+void findItemAndRunHandler(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+                           const std::string& name, const std::string& resName,
+                           CheckItemHandler&& handler)
 {
     if (name != "bmc")
     {
@@ -71,53 +128,7 @@ void findItemAndRunHandler(
         std::string service = getObjectType.begin()->first;
         BMCWEB_LOG_DEBUG << "GetObjectType: " << service;
 
-        crow::connections::systemBus->async_method_call(
-            [service, resName, aResp,
-             handler](const boost::system::error_code ec,
-                      dbus::utility::ManagedObjectType& subtree) {
-            if (ec)
-            {
-                BMCWEB_LOG_DEBUG << "DBUS response error";
-
-                return;
-            }
-
-            for (auto& item : subtree)
-            {
-                std::string thispath = item.first.filename();
-                if (thispath.empty())
-                {
-                    continue;
-                }
-
-                if (thispath != resName)
-                {
-                    continue;
-                }
-
-                auto mode = item.first.parent_path();
-                auto type = mode.parent_path();
-                if (mode.filename().empty() || type.filename().empty())
-                {
-                    continue;
-                }
-
-                if (type.filename() != "VirtualMedia")
-                {
-                    continue;
-                }
-
-                if (handler(service, aResp, item))
-                {
-                    return;
-                }
-            }
-
-            BMCWEB_LOG_DEBUG << "Parent item not found";
-            aResp->res.result(boost::beast::http::status::not_found);
-            },
-            service, "/xyz/openbmc_project/VirtualMedia",
-            "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
+        findAndParseObject(service, resName, aResp, std::move(handler));
         },
         "xyz.openbmc_project.ObjectMapper",
         "/xyz/openbmc_project/object_mapper",
@@ -859,6 +870,35 @@ inline void doVmAction(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     }
 }
 
+bool insertMediaCheckMode([[maybe_unused]] const std::string& service,
+                          const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+                          std::pair<sdbusplus::message::object_path,
+                                    dbus::utility::DBusInteracesMap>& item)
+{
+    auto mode = item.first.parent_path();
+    auto type = mode.parent_path();
+    // Check if dbus path is Legacy type
+    if (mode.filename() == legacyMode)
+    {
+        BMCWEB_LOG_DEBUG << "InsertMedia only allowed "
+                            "with POST method "
+                            "in legacy mode";
+        aResp->res.result(boost::beast::http::status::method_not_allowed);
+
+        return true;
+    }
+    // Check if dbus path is Proxy type
+    if (mode.filename() == proxyMode)
+    {
+        BMCWEB_LOG_DEBUG << "InsertMedia not "
+                            "allowed in proxy mode";
+        aResp->res.result(boost::beast::http::status::not_found);
+
+        return true;
+    }
+    return false;
+}
+
 struct InsertMediaActionParams
 {
     std::string imageUrl;
@@ -872,42 +912,14 @@ struct InsertMediaActionParams
 
 inline void requestNBDVirtualMediaRoutes(App& app)
 {
-    auto handler = []([[maybe_unused]] const std::string& service,
-                      const std::shared_ptr<bmcweb::AsyncResp>& aResp,
-                      std::pair<sdbusplus::message::object_path,
-                                dbus::utility::DBusInteracesMap>& item) {
-        auto mode = item.first.parent_path();
-        auto type = mode.parent_path();
-        // Check if dbus path is Legacy type
-        if (mode.filename() == "Legacy")
-        {
-            BMCWEB_LOG_DEBUG << "InsertMedia only allowed "
-                                "with POST method "
-                                "in legacy mode";
-            aResp->res.result(boost::beast::http::status::method_not_allowed);
-
-            return true;
-        }
-        // Check if dbus path is Proxy type
-        if (mode.filename() == "Proxy")
-        {
-            // Not possible in proxy mode
-            BMCWEB_LOG_DEBUG << "InsertMedia not "
-                                "allowed in proxy mode";
-            aResp->res.result(boost::beast::http::status::not_found);
-
-            return true;
-        }
-        return false;
-    };
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/<str>/VirtualMedia/<str>/Actions/"
                       "VirtualMedia.InsertMedia")
         .privileges(redfish::privileges::getVirtualMedia)
         .methods(boost::beast::http::verb::get)(
-            [handler]([[maybe_unused]] const crow::Request& req,
-                      const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                      const std::string& name, const std::string& resName) {
-        findItemAndRunHandler(asyncResp, name, resName, std::move(handler));
+            []([[maybe_unused]] const crow::Request& req,
+               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const std::string& name, const std::string& resName) {
+        findItemAndRunHandler(asyncResp, name, resName, insertMediaCheckMode);
         });
 
     BMCWEB_ROUTE(
