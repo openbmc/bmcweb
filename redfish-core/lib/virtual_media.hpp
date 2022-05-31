@@ -1129,6 +1129,33 @@ inline void requestNBDVirtualMediaRoutes(App& app)
         findItemAndRunHandler(asyncResp, name, resName, insertMediaCheckMode);
         });
 
+    BMCWEB_ROUTE(app, "/redfish/v1/Managers/<str>/VirtualMedia/<str>/Actions/"
+                      "VirtualMedia.InsertMedia")
+        .privileges(redfish::privileges::patchVirtualMedia)
+        .methods(boost::beast::http::verb::patch)(
+            []([[maybe_unused]] const crow::Request& req,
+               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const std::string& name, const std::string& resName) {
+        findItemAndRunHandler(asyncResp, name, resName, insertMediaCheckMode);
+        });
+    BMCWEB_ROUTE(app, "/redfish/v1/Managers/<str>/VirtualMedia/<str>/Actions/"
+                      "VirtualMedia.InsertMedia")
+        .privileges(redfish::privileges::putVirtualMedia)
+        .methods(boost::beast::http::verb::put)(
+            []([[maybe_unused]] const crow::Request& req,
+               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const std::string& name, const std::string& resName) {
+        findItemAndRunHandler(asyncResp, name, resName, insertMediaCheckMode);
+        });
+    BMCWEB_ROUTE(app, "/redfish/v1/Managers/<str>/VirtualMedia/<str>/Actions/"
+                      "VirtualMedia.InsertMedia")
+        .privileges(redfish::privileges::deleteVirtualMedia)
+        .methods(boost::beast::http::verb::delete_)(
+            []([[maybe_unused]] const crow::Request& req,
+               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const std::string& name, const std::string& resName) {
+        findItemAndRunHandler(asyncResp, name, resName, insertMediaCheckMode);
+        });
     BMCWEB_ROUTE(
         app,
         "/redfish/v1/Managers/<str>/VirtualMedia/<str>/Actions/VirtualMedia.InsertMedia")
