@@ -68,6 +68,30 @@
       },
       "revId": "4adc37cf5a3a2c75d57e6fa10a6364df8ccba17f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bdc52152_14bd8e78",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 2697,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-31T15:56:06Z",
+      "side": 1,
+      "message": "Does this code even compile with the option enabled?",
+      "parentUuid": "aa1b6dc9_7641c285",
+      "range": {
+        "startLine": 2665,
+        "startChar": 0,
+        "endLine": 2697,
+        "endChar": 32
+      },
+      "revId": "4adc37cf5a3a2c75d57e6fa10a6364df8ccba17f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
