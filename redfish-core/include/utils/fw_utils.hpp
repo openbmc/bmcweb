@@ -46,199 +46,183 @@ inline void
         [aResp, fwVersionPurpose, activeVersionPropName,
          populateLinkToImages](const boost::system::error_code ec,
                                const std::vector<std::string>& functionalFw) {
-            BMCWEB_LOG_DEBUG << "populateFirmwareInformation enter";
-            if (ec)
+        BMCWEB_LOG_DEBUG << "populateFirmwareInformation enter";
+        if (ec)
+        {
+            BMCWEB_LOG_ERROR << "error_code = " << ec;
+            BMCWEB_LOG_ERROR << "error msg = " << ec.message();
+            messages::internalError(aResp->res);
+            return;
+        }
+
+        if (functionalFw.empty())
+        {
+            // Could keep going and try to populate SoftwareImages but
+            // something is seriously wrong, so just fail
+            BMCWEB_LOG_ERROR << "Zero functional software in system";
+            messages::internalError(aResp->res);
+            return;
+        }
+
+        std::vector<std::string> functionalFwIds;
+        // example functionalFw:
+        // v as 2 "/xyz/openbmc_project/software/ace821ef"
+        //        "/xyz/openbmc_project/software/230fb078"
+        for (const auto& fw : functionalFw)
+        {
+            sdbusplus::message::object_path path(fw);
+            std::string leaf = path.filename();
+            if (leaf.empty())
             {
-                BMCWEB_LOG_ERROR << "error_code = " << ec;
-                BMCWEB_LOG_ERROR << "error msg = " << ec.message();
+                continue;
+            }
+
+            functionalFwIds.push_back(leaf);
+        }
+
+        crow::connections::systemBus->async_method_call(
+            [aResp, fwVersionPurpose, activeVersionPropName,
+             populateLinkToImages, functionalFwIds](
+                const boost::system::error_code ec2,
+                const dbus::utility::MapperGetSubTreeResponse& subtree) {
+            if (ec2)
+            {
+                BMCWEB_LOG_ERROR << "error_code = " << ec2;
+                BMCWEB_LOG_ERROR << "error msg = " << ec2.message();
                 messages::internalError(aResp->res);
                 return;
             }
 
-            if (functionalFw.empty())
-            {
-                // Could keep going and try to populate SoftwareImages but
-                // something is seriously wrong, so just fail
-                BMCWEB_LOG_ERROR << "Zero functional software in system";
-                messages::internalError(aResp->res);
-                return;
-            }
+            BMCWEB_LOG_DEBUG << "Found " << subtree.size() << " images";
 
-            std::vector<std::string> functionalFwIds;
-            // example functionalFw:
-            // v as 2 "/xyz/openbmc_project/software/ace821ef"
-            //        "/xyz/openbmc_project/software/230fb078"
-            for (const auto& fw : functionalFw)
+            for (const std::pair<std::string,
+                                 std::vector<std::pair<
+                                     std::string, std::vector<std::string>>>>&
+                     obj : subtree)
             {
-                sdbusplus::message::object_path path(fw);
-                std::string leaf = path.filename();
-                if (leaf.empty())
+
+                sdbusplus::message::object_path path(obj.first);
+                std::string swId = path.filename();
+                if (swId.empty())
                 {
-                    continue;
+                    messages::internalError(aResp->res);
+                    BMCWEB_LOG_ERROR << "Invalid firmware ID";
+
+                    return;
                 }
 
-                functionalFwIds.push_back(leaf);
-            }
+                bool runningImage = false;
+                // Look at Ids from
+                // /xyz/openbmc_project/software/functional
+                // to determine if this is a running image
+                if (std::find(functionalFwIds.begin(), functionalFwIds.end(),
+                              swId) != functionalFwIds.end())
+                {
+                    runningImage = true;
+                }
 
-            crow::connections::systemBus->async_method_call(
-                [aResp, fwVersionPurpose, activeVersionPropName,
-                 populateLinkToImages, functionalFwIds](
-                    const boost::system::error_code ec2,
-                    const dbus::utility::MapperGetSubTreeResponse& subtree) {
-                    if (ec2)
+                // Now grab its version info
+                crow::connections::systemBus->async_method_call(
+                    [aResp, swId, runningImage, fwVersionPurpose,
+                     activeVersionPropName, populateLinkToImages](
+                        const boost::system::error_code ec3,
+                        const dbus::utility::DBusPropertiesMap&
+                            propertiesList) {
+                    if (ec3)
                     {
-                        BMCWEB_LOG_ERROR << "error_code = " << ec2;
-                        BMCWEB_LOG_ERROR << "error msg = " << ec2.message();
+                        BMCWEB_LOG_ERROR << "error_code = " << ec3;
+                        BMCWEB_LOG_ERROR << "error msg = " << ec3.message();
                         messages::internalError(aResp->res);
                         return;
                     }
-
-                    BMCWEB_LOG_DEBUG << "Found " << subtree.size() << " images";
-
-                    for (const std::pair<
-                             std::string,
-                             std::vector<std::pair<
-                                 std::string, std::vector<std::string>>>>& obj :
-                         subtree)
+                    // example propertiesList
+                    // a{sv} 2 "Version" s
+                    // "IBM-witherspoon-OP9-v2.0.10-2.22" "Purpose"
+                    // s
+                    // "xyz.openbmc_project.Software.Version.VersionPurpose.Host"
+                    std::string version;
+                    std::string swInvPurpose;
+                    for (const auto& propertyPair : propertiesList)
                     {
-
-                        sdbusplus::message::object_path path(obj.first);
-                        std::string swId = path.filename();
-                        if (swId.empty())
+                        if (propertyPair.first == "Purpose")
                         {
-                            messages::internalError(aResp->res);
-                            BMCWEB_LOG_ERROR << "Invalid firmware ID";
-
-                            return;
+                            const std::string* purpose =
+                                std::get_if<std::string>(&propertyPair.second);
+                            if (purpose == nullptr)
+                            {
+                                messages::internalError(aResp->res);
+                                return;
+                            }
+                            swInvPurpose = *purpose;
                         }
-
-                        bool runningImage = false;
-                        // Look at Ids from
-                        // /xyz/openbmc_project/software/functional
-                        // to determine if this is a running image
-                        if (std::find(functionalFwIds.begin(),
-                                      functionalFwIds.end(),
-                                      swId) != functionalFwIds.end())
+                        if (propertyPair.first == "Version")
                         {
-                            runningImage = true;
+                            const std::string* versionPtr =
+                                std::get_if<std::string>(&propertyPair.second);
+                            if (versionPtr == nullptr)
+                            {
+                                messages::internalError(aResp->res);
+                                return;
+                            }
+                            version = *versionPtr;
                         }
+                    }
 
-                        // Now grab its version info
-                        crow::connections::systemBus->async_method_call(
-                            [aResp, swId, runningImage, fwVersionPurpose,
-                             activeVersionPropName, populateLinkToImages](
-                                const boost::system::error_code ec3,
-                                const dbus::utility::DBusPropertiesMap&
-                                    propertiesList) {
-                                if (ec3)
-                                {
-                                    BMCWEB_LOG_ERROR << "error_code = " << ec3;
-                                    BMCWEB_LOG_ERROR << "error msg = "
-                                                     << ec3.message();
-                                    messages::internalError(aResp->res);
-                                    return;
-                                }
-                                // example propertiesList
-                                // a{sv} 2 "Version" s
-                                // "IBM-witherspoon-OP9-v2.0.10-2.22" "Purpose"
-                                // s
-                                // "xyz.openbmc_project.Software.Version.VersionPurpose.Host"
-                                std::string version;
-                                std::string swInvPurpose;
-                                for (const auto& propertyPair : propertiesList)
-                                {
-                                    if (propertyPair.first == "Purpose")
-                                    {
-                                        const std::string* purpose =
-                                            std::get_if<std::string>(
-                                                &propertyPair.second);
-                                        if (purpose == nullptr)
-                                        {
-                                            messages::internalError(aResp->res);
-                                            return;
-                                        }
-                                        swInvPurpose = *purpose;
-                                    }
-                                    if (propertyPair.first == "Version")
-                                    {
-                                        const std::string* versionPtr =
-                                            std::get_if<std::string>(
-                                                &propertyPair.second);
-                                        if (versionPtr == nullptr)
-                                        {
-                                            messages::internalError(aResp->res);
-                                            return;
-                                        }
-                                        version = *versionPtr;
-                                    }
-                                }
+                    BMCWEB_LOG_DEBUG << "Image ID: " << swId;
+                    BMCWEB_LOG_DEBUG << "Image purpose: " << swInvPurpose;
+                    BMCWEB_LOG_DEBUG << "Running image: " << runningImage;
 
-                                BMCWEB_LOG_DEBUG << "Image ID: " << swId;
-                                BMCWEB_LOG_DEBUG << "Image purpose: "
-                                                 << swInvPurpose;
-                                BMCWEB_LOG_DEBUG << "Running image: "
-                                                 << runningImage;
+                    if (version.empty())
+                    {
+                        messages::internalError(aResp->res);
+                        return;
+                    }
+                    if (swInvPurpose != fwVersionPurpose)
+                    {
+                        // Not purpose we're looking for
+                        return;
+                    }
 
-                                if (version.empty())
-                                {
-                                    messages::internalError(aResp->res);
-                                    return;
-                                }
-                                if (swInvPurpose != fwVersionPurpose)
-                                {
-                                    // Not purpose we're looking for
-                                    return;
-                                }
+                    if (populateLinkToImages)
+                    {
+                        nlohmann::json& softwareImageMembers =
+                            aResp->res.jsonValue["Links"]["SoftwareImages"];
+                        // Firmware images are at
+                        // /redfish/v1/UpdateService/FirmwareInventory/<Id>
+                        // e.g. .../FirmwareInventory/82d3ec86
+                        softwareImageMembers.push_back(
+                            {{"@odata.id", "/redfish/v1/UpdateService/"
+                                           "FirmwareInventory/" +
+                                               swId}});
+                        aResp->res
+                            .jsonValue["Links"]["SoftwareImages@odata.count"] =
+                            softwareImageMembers.size();
 
-                                if (populateLinkToImages)
-                                {
-                                    nlohmann::json& softwareImageMembers =
-                                        aResp->res.jsonValue["Links"]
-                                                            ["SoftwareImages"];
-                                    // Firmware images are at
-                                    // /redfish/v1/UpdateService/FirmwareInventory/<Id>
-                                    // e.g. .../FirmwareInventory/82d3ec86
-                                    softwareImageMembers.push_back(
-                                        {{"@odata.id",
-                                          "/redfish/v1/UpdateService/"
-                                          "FirmwareInventory/" +
-                                              swId}});
-                                    aResp->res.jsonValue
-                                        ["Links"]
-                                        ["SoftwareImages@odata.count"] =
-                                        softwareImageMembers.size();
-
-                                    if (runningImage)
-                                    {
-                                        // Create the link to the running image
-                                        aResp->res
-                                            .jsonValue["Links"]
-                                                      ["ActiveSoftwareImage"] =
-                                            {{"@odata.id",
-                                              "/redfish/v1/UpdateService/"
+                        if (runningImage)
+                        {
+                            // Create the link to the running image
+                            aResp->res
+                                .jsonValue["Links"]["ActiveSoftwareImage"] = {
+                                {"@odata.id", "/redfish/v1/UpdateService/"
                                               "FirmwareInventory/" +
                                                   swId}};
-                                    }
-                                }
-                                if (!activeVersionPropName.empty() &&
-                                    runningImage)
-                                {
-                                    aResp->res
-                                        .jsonValue[activeVersionPropName] =
-                                        version;
-                                }
-                            },
-                            obj.second[0].first, obj.first,
-                            "org.freedesktop.DBus.Properties", "GetAll",
-                            "xyz.openbmc_project.Software.Version");
+                        }
                     }
-                },
-                "xyz.openbmc_project.ObjectMapper",
-                "/xyz/openbmc_project/object_mapper",
-                "xyz.openbmc_project.ObjectMapper", "GetSubTree",
-                "/xyz/openbmc_project/software", static_cast<int32_t>(0),
-                std::array<const char*, 1>{
-                    "xyz.openbmc_project.Software.Version"});
+                    if (!activeVersionPropName.empty() && runningImage)
+                    {
+                        aResp->res.jsonValue[activeVersionPropName] = version;
+                    }
+                    },
+                    obj.second[0].first, obj.first,
+                    "org.freedesktop.DBus.Properties", "GetAll",
+                    "xyz.openbmc_project.Software.Version");
+            }
+            },
+            "xyz.openbmc_project.ObjectMapper",
+            "/xyz/openbmc_project/object_mapper",
+            "xyz.openbmc_project.ObjectMapper", "GetSubTree",
+            "/xyz/openbmc_project/software", static_cast<int32_t>(0),
+            std::array<const char*, 1>{"xyz.openbmc_project.Software.Version"});
         });
 }
 
@@ -317,33 +301,32 @@ inline void getFwStatus(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         [asyncResp,
          swId](const boost::system::error_code errorCode,
                const dbus::utility::DBusPropertiesMap& propertiesList) {
-            if (errorCode)
+        if (errorCode)
+        {
+            // not all fwtypes are updateable, this is ok
+            asyncResp->res.jsonValue["Status"]["State"] = "Enabled";
+            return;
+        }
+        const std::string* swInvActivation = nullptr;
+        for (const auto& property : propertiesList)
+        {
+            if (property.first == "Activation")
             {
-                // not all fwtypes are updateable, this is ok
-                asyncResp->res.jsonValue["Status"]["State"] = "Enabled";
-                return;
+                swInvActivation = std::get_if<std::string>(&property.second);
             }
-            const std::string* swInvActivation = nullptr;
-            for (const auto& property : propertiesList)
-            {
-                if (property.first == "Activation")
-                {
-                    swInvActivation =
-                        std::get_if<std::string>(&property.second);
-                }
-            }
+        }
 
-            if (swInvActivation == nullptr)
-            {
-                BMCWEB_LOG_DEBUG << "wrong types for property\"Activation\"!";
-                messages::internalError(asyncResp->res);
-                return;
-            }
-            BMCWEB_LOG_DEBUG << "getFwStatus: Activation " << *swInvActivation;
-            asyncResp->res.jsonValue["Status"]["State"] =
-                getRedfishFWState(*swInvActivation);
-            asyncResp->res.jsonValue["Status"]["Health"] =
-                getRedfishFWHealth(*swInvActivation);
+        if (swInvActivation == nullptr)
+        {
+            BMCWEB_LOG_DEBUG << "wrong types for property\"Activation\"!";
+            messages::internalError(asyncResp->res);
+            return;
+        }
+        BMCWEB_LOG_DEBUG << "getFwStatus: Activation " << *swInvActivation;
+        asyncResp->res.jsonValue["Status"]["State"] =
+            getRedfishFWState(*swInvActivation);
+        asyncResp->res.jsonValue["Status"]["Health"] =
+            getRedfishFWHealth(*swInvActivation);
         },
         dbusSvc, "/xyz/openbmc_project/software/" + *swId,
         "org.freedesktop.DBus.Properties", "GetAll",
@@ -370,22 +353,22 @@ inline void
         "xyz.openbmc_project.Association", "endpoints",
         [asyncResp, fwId](const boost::system::error_code ec,
                           const std::vector<std::string>& objPaths) {
-            if (ec)
-            {
-                BMCWEB_LOG_DEBUG << " error_code = " << ec
-                                 << " error msg =  " << ec.message();
-                // System can exist with no updateable firmware,
-                // so don't throw error here.
-                return;
-            }
-            std::string reqFwObjPath = "/xyz/openbmc_project/software/" + *fwId;
+        if (ec)
+        {
+            BMCWEB_LOG_DEBUG << " error_code = " << ec
+                             << " error msg =  " << ec.message();
+            // System can exist with no updateable firmware,
+            // so don't throw error here.
+            return;
+        }
+        std::string reqFwObjPath = "/xyz/openbmc_project/software/" + *fwId;
 
-            if (std::find(objPaths.begin(), objPaths.end(), reqFwObjPath) !=
-                objPaths.end())
-            {
-                asyncResp->res.jsonValue["Updateable"] = true;
-                return;
-            }
+        if (std::find(objPaths.begin(), objPaths.end(), reqFwObjPath) !=
+            objPaths.end())
+        {
+            asyncResp->res.jsonValue["Updateable"] = true;
+            return;
+        }
         });
 }
 

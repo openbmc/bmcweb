@@ -698,13 +698,13 @@ inline void getDimmDataByService(std::shared_ptr<bmcweb::AsyncResp> aResp,
         [dimmId, aResp{std::move(aResp)}](
             const boost::system::error_code ec,
             const dbus::utility::DBusPropertiesMap& properties) {
-            if (ec)
-            {
-                BMCWEB_LOG_DEBUG << "DBUS response error";
-                messages::internalError(aResp->res);
-                return;
-            }
-            assembleDimmProperties(dimmId, aResp, properties);
+        if (ec)
+        {
+            BMCWEB_LOG_DEBUG << "DBUS response error";
+            messages::internalError(aResp->res);
+            return;
+        }
+        assembleDimmProperties(dimmId, aResp, properties);
         },
         service, objPath, "org.freedesktop.DBus.Properties", "GetAll", "");
 }
@@ -781,14 +781,14 @@ inline void getDimmPartitionData(std::shared_ptr<bmcweb::AsyncResp> aResp,
         [aResp{std::move(aResp)}](
             const boost::system::error_code ec,
             const dbus::utility::DBusPropertiesMap& properties) {
-            if (ec)
-            {
-                BMCWEB_LOG_DEBUG << "DBUS response error";
-                messages::internalError(aResp->res);
+        if (ec)
+        {
+            BMCWEB_LOG_DEBUG << "DBUS response error";
+            messages::internalError(aResp->res);
 
-                return;
-            }
-            assembleDimmPartitionData(aResp, properties);
+            return;
+        }
+        assembleDimmPartitionData(aResp, properties);
         },
 
         service, path, "org.freedesktop.DBus.Properties", "GetAll",
@@ -803,55 +803,54 @@ inline void getDimmData(std::shared_ptr<bmcweb::AsyncResp> aResp,
         [dimmId, aResp{std::move(aResp)}](
             const boost::system::error_code ec,
             const dbus::utility::MapperGetSubTreeResponse& subtree) {
-            if (ec)
-            {
-                BMCWEB_LOG_DEBUG << "DBUS response error";
-                messages::internalError(aResp->res);
+        if (ec)
+        {
+            BMCWEB_LOG_DEBUG << "DBUS response error";
+            messages::internalError(aResp->res);
 
-                return;
-            }
-            bool found = false;
-            for (const auto& [path, object] : subtree)
+            return;
+        }
+        bool found = false;
+        for (const auto& [path, object] : subtree)
+        {
+            if (path.find(dimmId) != std::string::npos)
             {
-                if (path.find(dimmId) != std::string::npos)
+                for (const auto& [service, interfaces] : object)
                 {
-                    for (const auto& [service, interfaces] : object)
+                    for (const auto& interface : interfaces)
                     {
-                        for (const auto& interface : interfaces)
+                        if (interface ==
+                            "xyz.openbmc_project.Inventory.Item.Dimm")
                         {
-                            if (interface ==
-                                "xyz.openbmc_project.Inventory.Item.Dimm")
-                            {
-                                getDimmDataByService(aResp, dimmId, service,
-                                                     path);
-                                found = true;
-                            }
+                            getDimmDataByService(aResp, dimmId, service, path);
+                            found = true;
+                        }
 
-                            // partitions are separate as there can be multiple
-                            // per
-                            // device, i.e.
-                            // /xyz/openbmc_project/Inventory/Item/Dimm1/Partition1
-                            // /xyz/openbmc_project/Inventory/Item/Dimm1/Partition2
-                            if (interface ==
-                                "xyz.openbmc_project.Inventory.Item.PersistentMemory.Partition")
-                            {
-                                getDimmPartitionData(aResp, service, path);
-                            }
+                        // partitions are separate as there can be multiple
+                        // per
+                        // device, i.e.
+                        // /xyz/openbmc_project/Inventory/Item/Dimm1/Partition1
+                        // /xyz/openbmc_project/Inventory/Item/Dimm1/Partition2
+                        if (interface ==
+                            "xyz.openbmc_project.Inventory.Item.PersistentMemory.Partition")
+                        {
+                            getDimmPartitionData(aResp, service, path);
                         }
                     }
                 }
             }
-            // Object not found
-            if (!found)
-            {
-                messages::resourceNotFound(aResp->res, "Memory", dimmId);
-                return;
-            }
-            // Set @odata only if object is found
-            aResp->res.jsonValue["@odata.type"] = "#Memory.v1_11_0.Memory";
-            aResp->res.jsonValue["@odata.id"] =
-                "/redfish/v1/Systems/system/Memory/" + dimmId;
+        }
+        // Object not found
+        if (!found)
+        {
+            messages::resourceNotFound(aResp->res, "Memory", dimmId);
             return;
+        }
+        // Set @odata only if object is found
+        aResp->res.jsonValue["@odata.type"] = "#Memory.v1_11_0.Memory";
+        aResp->res.jsonValue["@odata.id"] =
+            "/redfish/v1/Systems/system/Memory/" + dimmId;
+        return;
         },
         "xyz.openbmc_project.ObjectMapper",
         "/xyz/openbmc_project/object_mapper",
@@ -872,20 +871,20 @@ inline void requestRoutesMemoryCollection(App& app)
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-                if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
-                {
-                    return;
-                }
-                asyncResp->res.jsonValue["@odata.type"] =
-                    "#MemoryCollection.MemoryCollection";
-                asyncResp->res.jsonValue["Name"] = "Memory Module Collection";
-                asyncResp->res.jsonValue["@odata.id"] =
-                    "/redfish/v1/Systems/system/Memory";
+        if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+        {
+            return;
+        }
+        asyncResp->res.jsonValue["@odata.type"] =
+            "#MemoryCollection.MemoryCollection";
+        asyncResp->res.jsonValue["Name"] = "Memory Module Collection";
+        asyncResp->res.jsonValue["@odata.id"] =
+            "/redfish/v1/Systems/system/Memory";
 
-                collection_util::getCollectionMembers(
-                    asyncResp, "/redfish/v1/Systems/system/Memory",
-                    {"xyz.openbmc_project.Inventory.Item.Dimm"});
-            });
+        collection_util::getCollectionMembers(
+            asyncResp, "/redfish/v1/Systems/system/Memory",
+            {"xyz.openbmc_project.Inventory.Item.Dimm"});
+        });
 }
 
 inline void requestRoutesMemory(App& app)
@@ -899,12 +898,12 @@ inline void requestRoutesMemory(App& app)
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                    const std::string& dimmId) {
-                if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
-                {
-                    return;
-                }
-                getDimmData(asyncResp, dimmId);
-            });
+        if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+        {
+            return;
+        }
+        getDimmData(asyncResp, dimmId);
+        });
 }
 
 } // namespace redfish
