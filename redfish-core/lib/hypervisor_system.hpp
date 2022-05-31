@@ -418,20 +418,21 @@ inline void
 }
 
 /**
- * @brief Creates a static IPv4 entry
+ * @brief Creates a static IPv4/6 entry
  *
- * @param[in] ifaceId      Id of interface upon which to create the IPv4 entry
- * @param[in] prefixLength IPv4 prefix syntax for the subnet mask
- * @param[in] gateway      IPv4 address of this interfaces gateway
- * @param[in] address      IPv4 address to assign to this interface
+ * @param[in] ifaceId      Id of interface upon which to create the IPv4/6 entry
+ * @param[in] prefixLength IPv4/6 prefix length
+ * @param[in] gateway      IPv4/6 address of this interfaces gateway
+ * @param[in] address      IPv4/6 address to assign to this interface
  * @param[io] asyncResp    Response object that will be returned to client
  *
  * @return None
  */
 inline void
-    createHypervisorIPv4(const std::string& ifaceId, const uint8_t prefixLength,
-                         const std::string& gateway, const std::string& address,
-                         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+    createHypervisorIP(const std::string& ifaceId, const uint8_t prefixLength,
+                       const std::string& gateway, const std::string& address,
+                       const std::string& protocol,
+                       const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     crow::connections::systemBus->async_method_call(
         [asyncResp, prefixLength, gateway,
@@ -439,7 +440,7 @@ inline void
             if (ec)
             {
                 BMCWEB_LOG_DEBUG
-                    << "createHypervisorIPv4 failed: ec: " << ec.message()
+                    << "createHypervisorIP failed: ec: " << ec.message()
                     << " ec.value= " << ec.value();
                 if (ec == boost::system::errc::invalid_argument)
                 {
@@ -463,13 +464,12 @@ inline void
         },
         "xyz.openbmc_project.Network.Hypervisor",
         "/xyz/openbmc_project/network/hypervisor/" + ifaceId,
-        "xyz.openbmc_project.Network.IP.Create", "IP",
-        "xyz.openbmc_project.Network.IP.Protocol.IPv4", address, prefixLength,
-        gateway);
+        "xyz.openbmc_project.Network.IP.Create", "IP", protocol, address,
+        prefixLength, gateway);
 }
 
 /**
- * @brief Deletes given IPv4 interface
+ * @brief Deletes given IPv4/6 interface
  *
  * @param[in] ifaceId     Id of interface whose IP should be deleted
  * @param[io] asyncResp   Response object that will be returned to client
@@ -477,8 +477,8 @@ inline void
  * @return None
  */
 inline void
-    deleteHypervisorIPv4(const std::string& ifaceId,
-                         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+    deleteHypervisorIP(const std::string& ifaceId, const std::string& protocol,
+                       const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     crow::connections::systemBus->async_method_call(
         [asyncResp, ifaceId](const boost::system::error_code ec) {
@@ -495,7 +495,8 @@ inline void
                 "EthernetInterface");
         },
         "xyz.openbmc_project.Network.Hypervisor",
-        "/xyz/openbmc_project/network/hypervisor/" + ifaceId + "/ipv4/addr0",
+        "/xyz/openbmc_project/network/hypervisor/" + ifaceId + "/" + protocol +
+            "/addr0",
         "xyz.openbmc_project.Object.Delete", "Delete");
 }
 
@@ -573,6 +574,34 @@ inline void parseInterfaceData(
         ipv4IsActive ? true : (ipv6IsActive ? true : false);
 }
 
+inline void setIpv6DhcpOperatingMode(
+    const std::string& ifaceId, const std::string& operatingMode,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+{
+    std::string ipv6DHCP;
+    if ((operatingMode == "Stateful") || (operatingMode == "Stateless"))
+    {
+        ipv6DHCP = "xyz.openbmc_project.Network.EthernetInterface.DHCPConf.v6";
+    }
+    else if (operatingMode == "Disabled")
+    {
+        ipv6DHCP =
+            "xyz.openbmc_project.Network.EthernetInterface.DHCPConf.none";
+    }
+    crow::connections::systemBus->async_method_call(
+        [asyncResp](const boost::system::error_code ec) {
+            if (ec)
+            {
+                messages::internalError(asyncResp->res);
+                return;
+            }
+        },
+        "xyz.openbmc_project.Network.Hypervisor",
+        "/xyz/openbmc_project/network/hypervisor/" + ifaceId,
+        "org.freedesktop.DBus.Properties", "Set",
+        "xyz.openbmc_project.Network.EthernetInterface", "DHCPEnabled",
+        std::variant<std::string>(ipv6DHCP));
+}
 inline void setDHCPEnabled(const std::string& ifaceId,
                            const bool& ipv4DHCPEnabled,
                            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
@@ -718,8 +747,9 @@ inline void handleHypervisorIPv4StaticPatch(
             << "; gateway: " << *gateway
             << "; prefix length: " << static_cast<int64_t>(prefixLength);
 
-        createHypervisorIPv4(ifaceId, prefixLength, *gateway, *address,
-                             asyncResp);
+        createHypervisorIP(ifaceId, prefixLength, *gateway, *address,
+                           "xyz.openbmc_project.Network.IP.Protocol.IPv4",
+                           asyncResp);
         // Set the DHCPEnabled to false since the Static IPv4 is set
         setDHCPEnabled(ifaceId, false, asyncResp);
     }
@@ -727,7 +757,91 @@ inline void handleHypervisorIPv4StaticPatch(
     {
         if (thisJson.is_null())
         {
-            deleteHypervisorIPv4(ifaceId, asyncResp);
+            deleteHypervisorIP(ifaceId, "ipv4", asyncResp);
+        }
+    }
+}
+
+inline void handleHypervisorIPv6StaticPatch(
+    const crow::Request& req, const std::string& ifaceId,
+    const nlohmann::json& input,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+{
+    if ((!input.is_array()) || input.empty())
+    {
+        messages::propertyValueTypeError(asyncResp->res, input.dump(),
+                                         "IPv6StaticAddresses");
+        return;
+    }
+
+    // Hypervisor considers the first IP address in the array list
+    // as the Hypervisor's virtual management interface supports single IPv4
+    // address
+    const nlohmann::json& thisJson = input[0];
+
+    // For the error string
+    std::string pathString = "IPv6StaticAddresses/1";
+
+    if (!thisJson.is_null() && !thisJson.empty())
+    {
+        std::optional<std::string> address;
+        std::optional<uint8_t> prefixLen;
+        std::optional<std::string> gateway;
+        nlohmann::json thisJsonCopy = thisJson;
+        if (!json_util::readJson(thisJsonCopy, asyncResp->res, "Address",
+                                 address, "PrefixLength", prefixLen, "Gateway",
+                                 gateway))
+        {
+            messages::propertyValueFormatError(
+                asyncResp->res,
+                thisJson.dump(2, ' ', true,
+                              nlohmann::json::error_handler_t::replace),
+                pathString);
+            return;
+        }
+
+        bool errorInEntry = false;
+        if (!address)
+        {
+            messages::propertyMissing(asyncResp->res, pathString + "/Address");
+            errorInEntry = true;
+        }
+
+        if (!gateway)
+        {
+            // Since gateway is optional, replace it with default value
+            *gateway = "::";
+        }
+
+        if (!prefixLen)
+        {
+            messages::propertyMissing(asyncResp->res,
+                                      pathString + "/PrefixLength");
+            errorInEntry = true;
+        }
+
+        if (errorInEntry)
+        {
+            return;
+        }
+
+        BMCWEB_LOG_ERROR
+            << "INFO: Static ip configuration request from client: "
+            << req.session->clientIp << " - ip: " << *address
+            << ";gateway: " << *gateway
+            << "; prefix length: " << static_cast<int64_t>(*prefixLen);
+
+        createHypervisorIP(ifaceId, *prefixLen, *gateway, *address,
+                           "xyz.openbmc_project.Network.IP.Protocol.IPv6",
+                           asyncResp);
+        // Set the DHCPEnabled to false since the Static IPv4 is set
+        setIpv6DhcpOperatingMode(ifaceId, "Disabled", asyncResp);
+    }
+    else
+    {
+        if (thisJson.is_null())
+        {
+            deleteHypervisorIP(ifaceId, "ipv6", asyncResp);
         }
     }
 }
@@ -908,14 +1022,18 @@ inline void requestRoutesHypervisorSystems(App& app)
             }
             std::optional<std::string> hostName;
             std::optional<std::vector<nlohmann::json>> ipv4StaticAddresses;
+            std::optional<std::vector<nlohmann::json>> ipv6StaticAddresses;
             std::optional<nlohmann::json> ipv4Addresses;
             std::optional<nlohmann::json> dhcpv4;
+            std::optional<nlohmann::json> dhcpv6;
             std::optional<bool> ipv4DHCPEnabled;
+            std::optional<std::string> ipv6OperatingMode;
 
-            if (!json_util::readJsonPatch(req, asyncResp->res, "HostName",
-                                          hostName, "IPv4StaticAddresses",
-                                          ipv4StaticAddresses, "IPv4Addresses",
-                                          ipv4Addresses, "DHCPv4", dhcpv4))
+            if (!json_util::readJsonPatch(
+                    req, asyncResp->res, "HostName", hostName,
+                    "IPv4StaticAddresses", ipv4StaticAddresses,
+                    "IPv6StaticAddresses", ipv6StaticAddresses, "IPv4Addresses",
+                    ipv4Addresses, "DHCPv4", dhcpv4, "DHCPv6", dhcpv6))
             {
                 return;
             }
@@ -935,11 +1053,22 @@ inline void requestRoutesHypervisorSystems(App& app)
                 }
             }
 
+            if (dhcpv6)
+            {
+                if (!json_util::readJson(*dhcpv6, asyncResp->res,
+                                         "OperatingMode", ipv6OperatingMode))
+                {
+                    return;
+                }
+            }
+
             getHypervisorIfaceData(
                 ifaceId,
                 [req, asyncResp, ifaceId, hostName = std::move(hostName),
                  ipv4StaticAddresses = std::move(ipv4StaticAddresses),
-                 ipv4DHCPEnabled, dhcpv4 = std::move(dhcpv4)](
+                 ipv6StaticAddresses = std::move(ipv6StaticAddresses),
+                 ipv4DHCPEnabled, dhcpv4 = std::move(dhcpv4),
+                 dhcpv6 = std::move(dhcpv6), ipv6OperatingMode](
                     const bool& success, const EthernetInterfaceData& ethData,
                     const boost::container::flat_set<IPv4AddressData>&,
                     const boost::container::flat_set<IPv6AddressData>&) {
@@ -997,6 +1126,54 @@ inline void requestRoutesHypervisorSystems(App& app)
                         handleHypervisorIPv4StaticPatch(req, ifaceId,
                                                         ipv4Static, asyncResp);
                     }
+
+                    if (ipv6StaticAddresses)
+                    {
+                        const nlohmann::json& ipv6Static = *ipv6StaticAddresses;
+                        if (ipv6Static.begin() == ipv6Static.end())
+                        {
+                            messages::propertyValueTypeError(
+                                asyncResp->res,
+                                ipv6Static.dump(
+                                    2, ' ', true,
+                                    nlohmann::json::error_handler_t::replace),
+                                "IPv6StaticAddresses");
+                            return;
+                        }
+
+                        // One and only one hypervisor instance supported
+                        if (ipv6Static.size() != 1)
+                        {
+                            messages::propertyValueFormatError(
+                                asyncResp->res,
+                                ipv6Static.dump(
+                                    2, ' ', true,
+                                    nlohmann::json::error_handler_t::replace),
+                                "IPv6StaticAddresses");
+                            return;
+                        }
+
+                        const nlohmann::json& ipv6Json = ipv6Static[0];
+                        // Check if the param is 'null'. If its null, it means
+                        // that user wants to delete the IP address. Deleting
+                        // the IP address is allowed only if its statically
+                        // configured. Deleting the address originated from DHCP
+                        // is not allowed.
+                        if ((ipv6Json.is_null()) &&
+                            (translateDHCPEnabledToBool(ethData.DHCPEnabled,
+                                                        false)))
+                        {
+                            BMCWEB_LOG_ERROR
+                                << "Failed to delete on ipv6StaticAddresses "
+                                   "as the interface is DHCP enabled";
+                            messages::propertyValueConflict(
+                                asyncResp->res, "IPv6StaticAddresses",
+                                "DHCPEnabled");
+                            return;
+                        }
+                        handleHypervisorIPv6StaticPatch(req, ifaceId,
+                                                        ipv6Static, asyncResp);
+                    }
                     if (hostName)
                     {
                         handleHostnamePatch(*hostName, asyncResp);
@@ -1004,6 +1181,11 @@ inline void requestRoutesHypervisorSystems(App& app)
                     if (dhcpv4)
                     {
                         setDHCPEnabled(ifaceId, *ipv4DHCPEnabled, asyncResp);
+                    }
+                    if (dhcpv6)
+                    {
+                        setIpv6DhcpOperatingMode(ifaceId, *ipv6OperatingMode,
+                                                 asyncResp);
                     }
                 });
             asyncResp->res.result(boost::beast::http::status::accepted);
