@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b8edd03e_401559c8",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1233,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2022-05-31T04:03:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a33e3a8_209997ed",
+      "range": {
+        "startLine": 1233,
+        "startChar": 8,
+        "endLine": 1233,
+        "endChar": 25
+      },
+      "revId": "6a1fe44be85f51f9990d07fd43d9194db325c1d9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "16c52b1e_5ae9e536",
@@ -47,6 +71,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "42e6bb11_bc95e9ca",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1250,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2022-05-31T04:03:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "16c52b1e_5ae9e536",
+      "range": {
+        "startLine": 1250,
+        "startChar": 8,
+        "endLine": 1250,
+        "endChar": 25
+      },
+      "revId": "6a1fe44be85f51f9990d07fd43d9194db325c1d9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "57d266c5_1b4f4d9e",
@@ -60,6 +108,30 @@
       "writtenOn": "2022-05-30T07:40:44Z",
       "side": 1,
       "message": "Lets make this 1.6.0\n\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/54011 is bumping the version to 1.6.0. (Since the 1.8.0 has some limitations for the VLAN feature)\n\nVersion 1.6.0 supports this property and that should be ok for this commit as well.",
+      "range": {
+        "startLine": 1985,
+        "startChar": 48,
+        "endLine": 1985,
+        "endChar": 55
+      },
+      "revId": "6a1fe44be85f51f9990d07fd43d9194db325c1d9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b95f17b2_59528ad3",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1985,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2022-05-31T04:03:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "57d266c5_1b4f4d9e",
       "range": {
         "startLine": 1985,
         "startChar": 48,
