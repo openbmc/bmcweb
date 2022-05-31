@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8c770000_98b776e7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-05-31T16:35:00Z",
+      "side": 1,
+      "message": "I\u0027m sure we\u0027ll have to revisit this in the near future, and decide whether we want to implement a deprecated property, but in terms of this patch, which is just updating the schema versions, it seems fine.\n\nLGTM",
+      "revId": "c979a25fadad67b8a4302cc39b935afb43959052",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
