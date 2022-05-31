@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3cdc5ff1_d60a2b51",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2022-05-31T04:55:35Z",
+      "side": 1,
+      "message": "Please remove all the response data. Only the command to test the changes is good enough.",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 72
+      },
+      "revId": "4be03eec137096d423ad8a42f44b61ead1e9076c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ec12f74b_e6ff9995",
+        "filename": "redfish-core/lib/hypervisor_system.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2022-05-31T04:55:35Z",
+      "side": 1,
+      "message": "this can go into the if block at line 285",
+      "range": {
+        "startLine": 295,
+        "startChar": 0,
+        "endLine": 303,
+        "endChar": 33
+      },
+      "revId": "4be03eec137096d423ad8a42f44b61ead1e9076c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4a556aa6_2306127b",
+        "filename": "redfish-core/lib/hypervisor_system.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 560,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2022-05-31T04:55:35Z",
+      "side": 1,
+      "message": "This is optional property. nullptr is an invalid value for this. Lets not display the address state.",
+      "range": {
+        "startLine": 560,
+        "startChar": 17,
+        "endLine": 560,
+        "endChar": 42
+      },
+      "revId": "4be03eec137096d423ad8a42f44b61ead1e9076c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
