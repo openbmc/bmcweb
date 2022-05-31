@@ -219,23 +219,20 @@ inline RcGetLockList Lock::getLockList(const ListOfSessionIds& listSessionId)
 inline RcReleaseLockApi Lock::releaseLock(const ListOfTransactionIds& p,
                                           const SessionFlags& ids)
 {
-
     bool status = validateRids(p);
 
     if (!status)
     {
         // Validation of rids failed
-        BMCWEB_LOG_DEBUG << "Not a Valid request id";
+        BMCWEB_LOG_ERROR << "releaseLock: Contains invalid request id";
         return std::make_pair(false, status);
     }
     // Validation passed, check if all the locks are owned by the
     // requesting HMC
     auto status2 = isItMyLock(p, ids);
-    if (status2.first)
+    if (!status2.first)
     {
-        // The current hmc owns all the locks, so we can release
-        // them
-        releaseLock(p);
+        return std::make_pair(false, status2);
     }
     return std::make_pair(true, status2);
 }
@@ -273,25 +270,6 @@ inline RcAcquireLock Lock::acquireLock(const LockRequests& lockRequestStructure)
 
     BMCWEB_LOG_DEBUG << "Done with checking conflict with the locktable";
     return std::make_pair(false, conflict);
-}
-
-inline void Lock::releaseLock(const ListOfTransactionIds& refRids)
-{
-    for (const auto& id : refRids)
-    {
-        if (lockTable.erase(id) != 0U)
-        {
-            BMCWEB_LOG_DEBUG << "Removing the locks with transaction ID : "
-                             << id;
-        }
-
-        else
-        {
-            BMCWEB_LOG_DEBUG << "Removing the locks from the lock table "
-                                "failed, transaction ID: "
-                             << id;
-        }
-    }
 }
 
 inline void Lock::releaseLock(const std::string& sessionId)
@@ -338,6 +316,18 @@ inline RcRelaseLock Lock::isItMyLock(const ListOfTransactionIds& refRids,
         {
             // It is owned by the currently request hmc
             BMCWEB_LOG_DEBUG << "Lock is owned  by the current hmc";
+            // remove the lock
+            if (lockTable.erase(id) != 0U)
+            {
+                BMCWEB_LOG_DEBUG << "Removing the locks with transaction ID : "
+                                 << id;
+            }
+            else
+            {
+                BMCWEB_LOG_ERROR << "Removing the locks from the lock table "
+                                    "failed, transaction ID: "
+                                 << id;
+            }
         }
         else
         {
@@ -361,7 +351,8 @@ inline bool Lock::validateRids(const ListOfTransactionIds& refRids)
         }
         else
         {
-            BMCWEB_LOG_DEBUG << "At least 1 inValid Request id";
+            BMCWEB_LOG_ERROR << "validateRids: At least 1 inValid Request id: "
+                             << id;
             return false;
         }
     }
