@@ -22,6 +22,30 @@
       },
       "revId": "0f10678136d8b1e7844a8b9d47e1370524c165d4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e9bb7bed_8a7b562b",
+        "filename": "http/http_stream.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2022-05-31T10:26:24Z",
+      "side": 1,
+      "message": "Latest patch I have updated to use buffer body to try few tests.  I think that\u0027s the reason you see issue with dumps of ~200KB dumps.\nPlease use patch set 12 which uses Dynamic_buffer body, it should work to offload dump irrespective of size",
+      "parentUuid": "cbeb7532_15c257ac",
+      "range": {
+        "startLine": 120,
+        "startChar": 20,
+        "endLine": 120,
+        "endChar": 22
+      },
+      "revId": "0f10678136d8b1e7844a8b9d47e1370524c165d4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
