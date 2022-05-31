@@ -34,45 +34,44 @@ inline void handleTelemetryServiceGet(
     crow::connections::systemBus->async_method_call(
         [asyncResp](const boost::system::error_code ec,
                     const dbus::utility::DBusPropertiesMap& ret) {
-            if (ec == boost::system::errc::host_unreachable)
-            {
-                asyncResp->res.jsonValue["Status"]["State"] = "Absent";
-                return;
-            }
-            if (ec)
-            {
-                BMCWEB_LOG_ERROR << "respHandler DBus error " << ec;
-                messages::internalError(asyncResp->res);
-                return;
-            }
+        if (ec == boost::system::errc::host_unreachable)
+        {
+            asyncResp->res.jsonValue["Status"]["State"] = "Absent";
+            return;
+        }
+        if (ec)
+        {
+            BMCWEB_LOG_ERROR << "respHandler DBus error " << ec;
+            messages::internalError(asyncResp->res);
+            return;
+        }
 
-            asyncResp->res.jsonValue["Status"]["State"] = "Enabled";
+        asyncResp->res.jsonValue["Status"]["State"] = "Enabled";
 
-            const size_t* maxReports = nullptr;
-            const uint64_t* minInterval = nullptr;
-            for (const auto& [key, var] : ret)
+        const size_t* maxReports = nullptr;
+        const uint64_t* minInterval = nullptr;
+        for (const auto& [key, var] : ret)
+        {
+            if (key == "MaxReports")
             {
-                if (key == "MaxReports")
-                {
-                    maxReports = std::get_if<size_t>(&var);
-                }
-                else if (key == "MinInterval")
-                {
-                    minInterval = std::get_if<uint64_t>(&var);
-                }
+                maxReports = std::get_if<size_t>(&var);
             }
-            if (maxReports == nullptr || minInterval == nullptr)
+            else if (key == "MinInterval")
             {
-                BMCWEB_LOG_ERROR
-                    << "Property type mismatch or property is missing";
-                messages::internalError(asyncResp->res);
-                return;
+                minInterval = std::get_if<uint64_t>(&var);
             }
+        }
+        if (maxReports == nullptr || minInterval == nullptr)
+        {
+            BMCWEB_LOG_ERROR << "Property type mismatch or property is missing";
+            messages::internalError(asyncResp->res);
+            return;
+        }
 
-            asyncResp->res.jsonValue["MaxReports"] = *maxReports;
-            asyncResp->res.jsonValue["MinCollectionInterval"] =
-                time_utils::toDurationString(std::chrono::milliseconds(
-                    static_cast<time_t>(*minInterval)));
+        asyncResp->res.jsonValue["MaxReports"] = *maxReports;
+        asyncResp->res.jsonValue["MinCollectionInterval"] =
+            time_utils::toDurationString(
+                std::chrono::milliseconds(static_cast<time_t>(*minInterval)));
         },
         telemetry::service, "/xyz/openbmc_project/Telemetry/Reports",
         "org.freedesktop.DBus.Properties", "GetAll",
