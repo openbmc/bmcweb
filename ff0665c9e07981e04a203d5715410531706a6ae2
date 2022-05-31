@@ -154,6 +154,24 @@
       "parentUuid": "1b4c3037_584374b8",
       "revId": "ff0665c9e07981e04a203d5715410531706a6ae2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f64aef9a_5e39f83d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-05-31T07:24:45Z",
+      "side": 1,
+      "message": "Though VLAN will currently stay on 1.6.0, but once Redfish spec implemented the schema for creating VLANs using EthernetInterface, I will submit stage-2 patches to use the new schema. At that time, it would be 1.8.0+. So if we merge this patch, it will only exist in a period of time.\n\nThe Redfish spec says\n\u003e The control between \u0027stateful\u0027 and \u0027stateless\u0027 is managed by the DHCP server and not the client.\n\nI think this is right. Most situations this is configured in router.",
+      "parentUuid": "6c56905c_fd09e526",
+      "revId": "ff0665c9e07981e04a203d5715410531706a6ae2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
