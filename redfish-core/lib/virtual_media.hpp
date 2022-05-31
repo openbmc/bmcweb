@@ -475,19 +475,27 @@ inline std::string
     return imageUri;
 }
 
+struct InsertMediaActionParams
+{
+    std::string imageUrl;
+    std::optional<std::string> userName;
+    std::optional<std::string> password;
+    std::optional<std::string> transferMethod;
+    std::optional<std::string> transferProtocolType;
+    std::optional<bool> writeProtected = true;
+    std::optional<bool> inserted;
+};
+
 /**
  * @brief Function validate parameters of insert media request.
  *
  */
-inline bool
-    validateParams(crow::Response& res, std::string& imageUrl,
-                   const std::optional<bool>& inserted,
-                   const std::optional<std::string>& transferMethod,
-                   const std::optional<std::string>& transferProtocolType)
+inline bool validateParams(crow::Response& res,
+                           InsertMediaActionParams& actionParams)
 {
     BMCWEB_LOG_DEBUG << "Validation started";
     // required param imageUrl must not be empty
-    if (imageUrl.empty())
+    if (actionParams.imageUrl.empty())
     {
         BMCWEB_LOG_ERROR << "Request action parameter Image is empty.";
 
@@ -497,7 +505,7 @@ inline bool
     }
 
     // optional param inserted must be true
-    if ((inserted != std::nullopt) && !*inserted)
+    if ((actionParams.inserted != std::nullopt) && !*actionParams.inserted)
     {
         BMCWEB_LOG_ERROR
             << "Request action optional parameter Inserted must be true.";
@@ -508,7 +516,8 @@ inline bool
     }
 
     // optional param transferMethod must be stream
-    if ((transferMethod != std::nullopt) && (*transferMethod != "Stream"))
+    if ((actionParams.transferMethod != std::nullopt) &&
+        (*actionParams.transferMethod != "Stream"))
     {
         BMCWEB_LOG_ERROR << "Request action optional parameter "
                             "TransferMethod must be Stream.";
@@ -519,7 +528,7 @@ inline bool
         return false;
     }
     boost::urls::result<boost::urls::url_view> url =
-        boost::urls::parse_uri(boost::string_view(imageUrl));
+        boost::urls::parse_uri(boost::string_view(actionParams.imageUrl));
     if (!url)
     {
         messages::resourceAtUriInUnknownFormat(res, *url);
@@ -529,7 +538,7 @@ inline bool
         getTransferProtocolFromUri(*url);
 
     std::optional<TransferProtocol> paramTransferProtocolType =
-        getTransferProtocolFromParam(transferProtocolType);
+        getTransferProtocolFromParam(actionParams.transferProtocolType);
 
     // ImageUrl does not contain valid protocol type
     if (*uriTransferProtocolType == TransferProtocol::invalid)
@@ -550,8 +559,8 @@ inline bool
                             "must be provided with value from list: "
                             "(CIFS, HTTPS).";
 
-        messages::propertyValueNotInList(res, *transferProtocolType,
-                                         "TransferProtocolType");
+        messages::propertyValueNotInList(
+            res, *actionParams.transferProtocolType, "TransferProtocolType");
         return false;
     }
 
@@ -580,9 +589,9 @@ inline bool
                                 "same protocol type as protocol type "
                                 "provided with param imageUrl.";
 
-            messages::actionParameterValueTypeError(res, *transferProtocolType,
-                                                    "TransferProtocolType",
-                                                    "InsertMedia");
+            messages::actionParameterValueTypeError(
+                res, *actionParams.transferProtocolType, "TransferProtocolType",
+                "InsertMedia");
 
             return false;
         }
@@ -591,8 +600,8 @@ inline bool
     // validation passed add protocol to URI if needed
     if (uriTransferProtocolType == std::nullopt)
     {
-        imageUrl =
-            getUriWithTransferProtocol(imageUrl, *paramTransferProtocolType);
+        actionParams.imageUrl = getUriWithTransferProtocol(
+            actionParams.imageUrl, *paramTransferProtocolType);
     }
 
     return true;
@@ -756,7 +765,7 @@ class Pipe
 inline void doMountVmLegacy(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                             const std::string& service, const std::string& name,
                             const std::string& imageUrl, const bool rw,
-                            std::string&& userName, std::string&& password)
+                            std::string& userName, std::string& password)
 {
     using SecurePipe = Pipe<CredentialsProvider::SecureBuffer>;
     constexpr const size_t secretLimit = 1024;
@@ -895,17 +904,6 @@ bool insertMediaCheckMode([[maybe_unused]] const std::string& service,
     return false;
 }
 
-struct InsertMediaActionParams
-{
-    std::string imageUrl;
-    std::optional<std::string> userName;
-    std::optional<std::string> password;
-    std::optional<std::string> transferMethod;
-    std::optional<std::string> transferProtocolType;
-    std::optional<bool> writeProtected = true;
-    std::optional<bool> inserted;
-};
-
 void vmInsertActionPostHandler(
     crow::App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -916,13 +914,31 @@ void vmInsertActionPostHandler(
         return;
     }
 
+    std::optional<InsertMediaActionParams> actionParams =
+        InsertMediaActionParams();
+
+    // Read obligatory parameters (url of image)
+    if (!json_util::readJsonAction(
+            req, asyncResp->res, "Image", actionParams->imageUrl,
+            "WriteProtected", actionParams->writeProtected, "UserName",
+            actionParams->userName, "Password", actionParams->password,
+            "Inserted", actionParams->inserted, "TransferMethod",
+            actionParams->transferMethod, "TransferProtocolType",
+            actionParams->transferProtocolType))
+    {
+        BMCWEB_LOG_DEBUG << "FAIL: Image: " << actionParams->imageUrl;
+
+        actionParams = std::nullopt;
+    }
+
     // handle legacy mode (parse parameters and start action) for proxy mode
     // return 404.
     auto handler =
-        [&req, resName](const std::string& service,
-                        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                        std::pair<sdbusplus::message::object_path,
-                                  dbus::utility::DBusInteracesMap>& item) {
+        [actionParams,
+         resName](const std::string& service,
+                  const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                  std::pair<sdbusplus::message::object_path,
+                            dbus::utility::DBusInteracesMap>& item) mutable {
         auto mode = parseObjectPathAndGetMode(item.first, resName);
 
         if (*mode == proxyMode)
@@ -936,39 +952,25 @@ void vmInsertActionPostHandler(
             return true;
         }
 
-        InsertMediaActionParams actionParams;
-
-        // Read obligatory parameters (url of image)
-        if (!json_util::readJsonAction(
-                req, asyncResp->res, "Image", actionParams.imageUrl,
-                "WriteProtected", actionParams.writeProtected, "UserName",
-                actionParams.userName, "Password", actionParams.password,
-                "Inserted", actionParams.inserted, "TransferMethod",
-                actionParams.transferMethod, "TransferProtocolType",
-                actionParams.transferProtocolType))
+        if (!actionParams)
         {
-            BMCWEB_LOG_DEBUG << "Image is not provided";
+            BMCWEB_LOG_DEBUG << "ActionParams can't be empty for legacy mode";
             return true;
         }
 
-        bool paramsValid = validateParams(
-            asyncResp->res, actionParams.imageUrl, actionParams.inserted,
-            actionParams.transferMethod, actionParams.transferProtocolType);
-
-        if (!paramsValid)
+        if (!validateParams(asyncResp->res, *actionParams))
         {
             return true;
         }
 
         // manager is irrelevant for VirtualMedia dbus calls
-        doMountVmLegacy(asyncResp, service, resName, actionParams.imageUrl,
-                        !(*actionParams.writeProtected),
-                        std::move(*actionParams.userName),
-                        std::move(*actionParams.password));
+        doMountVmLegacy(asyncResp, service, resName, actionParams->imageUrl,
+                        !(*actionParams->writeProtected),
+                        *actionParams->userName, *actionParams->password);
 
         return true;
     };
-    findItemAndRunHandler(asyncResp, name, resName, handler);
+    findItemAndRunHandler(asyncResp, name, resName, std::move(handler));
 }
 
 void vmEjectActionPostHandler(
