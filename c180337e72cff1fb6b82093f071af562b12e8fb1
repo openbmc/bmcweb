@@ -449,6 +449,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6fd1091c_328abdae",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 618,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2022-06-01T08:36:47Z",
+      "side": 1,
+      "message": "This is for better reading. I can also put it to line 798, but it\u0027s not as easy to read as this.",
+      "parentUuid": "11743f56_1e0bd4ec",
+      "range": {
+        "startLine": 618,
+        "startChar": 0,
+        "endLine": 618,
+        "endChar": 42
+      },
+      "revId": "c180337e72cff1fb6b82093f071af562b12e8fb1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ee1d7d93_ad11e396",
         "filename": "redfish-core/lib/event_service.hpp",
         "patchSetId": 43
