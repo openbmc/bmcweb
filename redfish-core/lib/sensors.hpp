@@ -929,7 +929,7 @@ inline void objectInterfacesToJson(
     nlohmann::json::json_pointer unit("/Reading");
     if (sensorsAsyncResp->chassisSubNode == sensors::node::sensors)
     {
-        sensorJson["@odata.type"] = "#Sensor.v1_0_0.Sensor";
+        sensorJson["@odata.type"] = "#Sensor.v1_2_0.Sensor";
 
         const std::string& readingType = sensors::toReadingType(sensorType);
         if (readingType.empty())
