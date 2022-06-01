@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "528f95f7_4ede517f",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-01T01:00:42Z",
+      "side": 1,
+      "message": "This can be a separate change which can be merged soon.",
+      "range": {
+        "startLine": 347,
+        "startChar": 8,
+        "endLine": 347,
+        "endChar": 61
+      },
+      "revId": "186684afd687e2cc6d0f885d8d258df47f76f956",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a7c809f_816195dc",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 491,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-01T01:00:42Z",
+      "side": 1,
+      "message": "This seems can be a separate fix as well.",
+      "range": {
+        "startLine": 487,
+        "startChar": 16,
+        "endLine": 491,
+        "endChar": 0
+      },
+      "revId": "186684afd687e2cc6d0f885d8d258df47f76f956",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "47405320_e32a34e0",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 659,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-01T01:00:42Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 659,
+        "startChar": 20,
+        "endLine": 659,
+        "endChar": 29
+      },
+      "revId": "186684afd687e2cc6d0f885d8d258df47f76f956",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
