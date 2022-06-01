@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c9d63591_2582396d",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 851,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-01T21:02:00Z",
+      "side": 1,
+      "message": "\u003e As we discussed earlier, we need to pass a parameter here:\n\u003e https://gerrit.openbmc.org/c/openbmc/bmcweb/+/38599/30/redfish-core/lib/event_service.hpp#220\n\u003e In order to be compatible with other places where this function is called, this parameter needs a default value.\n\nPlease don\u0027t use a default parameter, as I mentioned, the way you\u0027ve done it here is undefined behavior.  Just set that parameter in all places this method is used.",
+      "parentUuid": "4b1f099c_1609b2a0",
+      "range": {
+        "startLine": 851,
+        "startChar": 65,
+        "endLine": 851,
+        "endChar": 70
+      },
+      "revId": "c180337e72cff1fb6b82093f071af562b12e8fb1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "03212f4d_7ac393ea",
         "filename": "redfish-core/lib/event_service.hpp",
         "patchSetId": 43
@@ -132,6 +156,30 @@
       "side": 1,
       "message": "Sorry, what should I do? I see the same in other files",
       "parentUuid": "1cd95042_21024f4d",
+      "range": {
+        "startLine": 57,
+        "startChar": 0,
+        "endLine": 57,
+        "endChar": 55
+      },
+      "revId": "c180337e72cff1fb6b82093f071af562b12e8fb1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b61eb4e9_663a4252",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-01T21:02:00Z",
+      "side": 1,
+      "message": "urlFromPieces.",
+      "parentUuid": "f8ff6db1_aa36aa9a",
       "range": {
         "startLine": 57,
         "startChar": 0,
@@ -238,6 +286,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "643cb3ae_dcc3fc7c",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-01T21:02:00Z",
+      "side": 1,
+      "message": "Because it makes what should be a simple section of code multiple pages of code, and indents in rough ways.",
+      "parentUuid": "adc0d9b1_9988c901",
+      "range": {
+        "startLine": 80,
+        "startChar": 0,
+        "endLine": 80,
+        "endChar": 33
+      },
+      "revId": "c180337e72cff1fb6b82093f071af562b12e8fb1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "56829915_b5198371",
         "filename": "redfish-core/lib/event_service.hpp",
         "patchSetId": 43
@@ -332,6 +404,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c3a391f9_25c625e4",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-01T21:02:00Z",
+      "side": 1,
+      "message": "urlFromPieces.  Yes, there are counter examples, but urlFromPieces escapes properly, string concatenation does not.",
+      "parentUuid": "03688eae_0d89a792",
+      "range": {
+        "startLine": 304,
+        "startChar": 0,
+        "endLine": 304,
+        "endChar": 67
+      },
+      "revId": "c180337e72cff1fb6b82093f071af562b12e8fb1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "de83f299_6811323a",
         "filename": "redfish-core/lib/event_service.hpp",
         "patchSetId": 43
@@ -379,6 +475,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4680cdb9_239d3955",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 490,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-01T21:02:00Z",
+      "side": 1,
+      "message": "You are free to modify it, you just need to redo the lookup from within the lambda.  References are invalidated if the underlying object changes.",
+      "parentUuid": "44928bc5_e3ff69b0",
+      "range": {
+        "startLine": 490,
+        "startChar": 22,
+        "endLine": 490,
+        "endChar": 33
+      },
+      "revId": "c180337e72cff1fb6b82093f071af562b12e8fb1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e6ac50fe_d60a97c8",
         "filename": "redfish-core/lib/event_service.hpp",
         "patchSetId": 43
@@ -414,6 +534,30 @@
       "side": 1,
       "message": "How to extract the content of this lambda to a method? There is already a method in this lambda.",
       "parentUuid": "e6ac50fe_d60a97c8",
+      "range": {
+        "startLine": 491,
+        "startChar": 0,
+        "endLine": 491,
+        "endChar": 76
+      },
+      "revId": "c180337e72cff1fb6b82093f071af562b12e8fb1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b2850227_c217ece7",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 491,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-01T21:02:00Z",
+      "side": 1,
+      "message": "Take the content of this lambda from if(ec) to the end.\n\nMove that into a method.\n\nCall that method from where this code once was.",
+      "parentUuid": "190e8b34_f947abdd",
       "range": {
         "startLine": 491,
         "startChar": 0,
@@ -555,6 +699,30 @@
       "side": 1,
       "message": "No,it is necessary. We need call getSnmpTrapClient before line 837.",
       "parentUuid": "e1d28153_db5b88ec",
+      "range": {
+        "startLine": 832,
+        "startChar": 0,
+        "endLine": 832,
+        "endChar": 50
+      },
+      "revId": "c180337e72cff1fb6b82093f071af562b12e8fb1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "61aa0ec2_f8cc50bd",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 832,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-01T21:02:00Z",
+      "side": 1,
+      "message": "\"param\" and \"id\" are references to the same object of the same type.  You don\u0027t need two references to it with different names.\n\nThe line on 844 only exists in that nonsensical way because of migrations that have been done in the past.\n\n\u003e No,it is necessary. We need call getSnmpTrapClient before line 837.\n\nI made no comments about getSnmpTrapClient.  My comment was isolated to line 831.",
+      "parentUuid": "4b7fcdf8_04a38c2d",
       "range": {
         "startLine": 832,
         "startChar": 0,
