@@ -69,6 +69,23 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "07cc30be_835b9314",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-01T01:15:33Z",
+      "side": 1,
+      "message": "LGTM. Left a comment. Need to fix commit message. Otherwise changes are reasonable.",
+      "revId": "6f0f17e83e85ac3b51e2fee54839401cf807843f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cd6312b9_0b3f8a0a",
