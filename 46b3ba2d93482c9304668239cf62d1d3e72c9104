@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "c7281fbd_51428b57",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-01T16:04:06Z",
+      "side": 1,
+      "message": "See discussion here\n\nhttps://gerrit.openbmc.org/c/openbmc/openbmc-build-scripts/+/51391",
+      "parentUuid": "85ab8b3d_eed09793",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 6
+      },
+      "revId": "46b3ba2d93482c9304668239cf62d1d3e72c9104",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "e9b19957_e51a3399",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 2
