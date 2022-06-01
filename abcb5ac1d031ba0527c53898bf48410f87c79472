@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "35d2a9b4_5ab0c0e1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-01T22:58:27Z",
+      "side": 1,
+      "message": "This wasn\u0027t quite what I had in mind, but it does seem to work, and be pretty clean so I\u0027m fine with it.  Just for FYI, I had imagined a retry mechanism similar to how asio does it, with something like\n\ninline void afterSendThing(ThingResponse\u0026 res){\n\n    if (res.failed){\n        retries--;\n        async_send_thing(afterSendThing);\n        return;\n    }\n    \n    /// SUCCESS!\n}\n\nasync_send_thing(afterSendThing);\n\n\n\n\n\nBut a callback like you did it seems reasonable, lets see if we can make it a little less complex, and this should be fine.",
+      "revId": "abcb5ac1d031ba0527c53898bf48410f87c79472",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ff65664a_3c7ffaab",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 708,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-01T22:58:27Z",
+      "side": 1,
+      "message": "Couple comments on this api:\n\n1. Now that we can inject them, do they need to have a \"name\" at all in this API?  Could retryPolicyName be completely removed?\n2. Should we work retryAttempts and retryTimeoutInterval into the callback itself?  I\u0027m thinking it could be something returned, kinda like:\n\n\nenum class Retry {\n   Continue;\n   Complete;\n   Error;\n}\n\nstruct RetryInfo {\n   Retry retry;\n   std::chrono::seconds retryAfter;\n   size_t attemptsRemaining \u003d 5;\n}\n\ninline handleRetry(RetryInfo\u0026 retry, response\u0026 res){\n     if ((respCode \u003c 200) || (respCode \u003e\u003d 300))\n    {\n       \n       return Retry::error;\n    }\n    \n    return Retry::Complete\n}\n\n\n\n\nThis could allow clients to do things like handle http retry-after headers as the spec requests, by parsing them and setting the retryAfter correctly.\n\n\n\n\nIt\u0027s quite possible I\u0027m overthinking the above, and it\u0027s certainly something we can evolve over time, but something to think about.",
+      "revId": "abcb5ac1d031ba0527c53898bf48410f87c79472",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
