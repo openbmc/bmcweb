@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "854bac60_2e1faf33",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-01T20:49:56Z",
+      "side": 1,
+      "message": "PTAL. This is also a \"trivial\" change.",
+      "revId": "eff54a7c8d3dfa0902728a1485c8fab4552094f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
