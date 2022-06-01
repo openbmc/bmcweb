@@ -680,14 +680,14 @@ inline void requestRoutesChassisResetActionInfo(App& app)
         asyncResp->res.jsonValue["Name"] = "Reset Action Info";
 
         asyncResp->res.jsonValue["Id"] = "ResetActionInfo";
-        nlohmann::json::object_t parameters;
-        parameters["Name"] = "ResetType";
-        parameters["Required"] = true;
-        parameters["DataType"] = "String";
+        nlohmann::json::object_t parameter;
+        parameter["Name"] = "ResetType";
+        parameter["Required"] = true;
+        parameter["DataType"] = "String";
         nlohmann::json::array_t allowed;
         allowed.push_back("PowerCycle");
-        parameters["AllowableValues"] = std::move(allowed);
-        asyncResp->res.jsonValue["Parameters"] = std::move(parameters);
+        parameter["AllowableValues"] = std::move(allowed);
+        asyncResp->res.jsonValue["Parameters"].push_back(parameter);
         });
 }
 
