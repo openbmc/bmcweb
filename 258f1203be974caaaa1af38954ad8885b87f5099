@@ -1,0 +1,159 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f7ef473_6525e314",
+        "filename": "Redfish.md",
+        "patchSetId": 32
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-01T19:58:58Z",
+      "side": 1,
+      "message": "dependent",
+      "range": {
+        "startLine": 150,
+        "startChar": 9,
+        "endLine": 150,
+        "endChar": 18
+      },
+      "revId": "258f1203be974caaaa1af38954ad8885b87f5099",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "706ec285_7fae3fae",
+        "filename": "Redfish.md",
+        "patchSetId": 32
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-01T19:58:58Z",
+      "side": 1,
+      "message": "What is the association named?",
+      "range": {
+        "startLine": 151,
+        "startChar": 0,
+        "endLine": 151,
+        "endChar": 17
+      },
+      "revId": "258f1203be974caaaa1af38954ad8885b87f5099",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "286ae3ca_8a6e9e1b",
+        "filename": "redfish-core/include/redfish.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-01T19:58:58Z",
+      "side": 1,
+      "message": "In the naming convention here, this shouldn\u0027t include the HTTP verb.",
+      "range": {
+        "startLine": 87,
+        "startChar": 33,
+        "endLine": 87,
+        "endChar": 36
+      },
+      "revId": "258f1203be974caaaa1af38954ad8885b87f5099",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b830dd7e_6d4113e2",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-01T19:58:58Z",
+      "side": 1,
+      "message": "nit, i\u0027m trying to get rid of brace initialization of nlohmann objects.\n\nthis should be\n\nnlohmann::json::ojbect_t reference;\nreference[\"odata.id\"] \u003d urlFromPieces(\"redfish\", \"v1\", \"Chassis\", chassisId, \"Drives\");\nasyncResp-\u003eres.jsonValue[\"Drives\"] \u003d std::move(reference);\n\n\n\nFWIW, I need to write a helper function for navigation references, but that is yet to be done.",
+      "range": {
+        "startLine": 298,
+        "startChar": 0,
+        "endLine": 301,
+        "endChar": 23
+      },
+      "revId": "258f1203be974caaaa1af38954ad8885b87f5099",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5bcdb1a1_3fada830",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 621,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-01T19:58:58Z",
+      "side": 1,
+      "message": "same as above, brace initialization.",
+      "revId": "258f1203be974caaaa1af38954ad8885b87f5099",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0ba1b623_544a6036",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 623,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-01T19:58:58Z",
+      "side": 1,
+      "message": "You use urlFromPieces down below, I suspect you need to use it here as well.",
+      "range": {
+        "startLine": 623,
+        "startChar": 30,
+        "endLine": 623,
+        "endChar": 76
+      },
+      "revId": "258f1203be974caaaa1af38954ad8885b87f5099",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6a77c448_482e0240",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 654,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-01T19:58:58Z",
+      "side": 1,
+      "message": "I\u0027m looking at this, and I\u0027m not sure how this could\u0027ve passed the service validator.  DriveCollection::Members is a Collection(Drive.Drive)\n\nhttps://redfish.dmtf.org/schemas/DriveCollection_v1.xml\n\nWhich is an array of NavigationReferences, not an array of strings.  Can you please take a look at your test results, and try to make sense of why the validator is passing this?",
+      "range": {
+        "startLine": 650,
+        "startChar": 0,
+        "endLine": 654,
+        "endChar": 39
+      },
+      "revId": "258f1203be974caaaa1af38954ad8885b87f5099",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
