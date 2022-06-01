@@ -537,7 +537,8 @@ class Subscription : public persistent_data::UserSubscription
                            const uint32_t retryTimeoutInterval)
     {
         crow::HttpClient::getInstance().setRetryConfig(
-            retryAttempts, retryTimeoutInterval, retryPolicyName);
+            retryAttempts, retryTimeoutInterval, retryRespHandler,
+            retryPolicyName);
     }
 
     void updateRetryPolicy()
@@ -559,6 +560,23 @@ class Subscription : public persistent_data::UserSubscription
     std::string uriProto;
     std::shared_ptr<crow::ServerSentEvents> sseConn = nullptr;
     std::string retryPolicyName = "SubscriptionEvent";
+
+    // Check used to indicate what response codes are valid as part of our retry
+    // policy.  2XX is considered acceptable
+    static boost::system::error_code retryRespHandler(unsigned int respCode)
+    {
+        BMCWEB_LOG_DEBUG
+            << "Checking response code validity for SubscriptionEvent";
+        if ((respCode < 200) || (respCode >= 300))
+        {
+            return boost::system::errc::make_error_code(
+                boost::system::errc::result_out_of_range);
+        }
+
+        // Return 0 if the response code is valid
+        return boost::system::errc::make_error_code(
+            boost::system::errc::success);
+    };
 };
 
 class EventServiceManager
