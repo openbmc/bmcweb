@@ -2991,6 +2991,85 @@ inline void getChassisCallback(
         entriesArray.size();
     BMCWEB_LOG_DEBUG << "getChassisCallback exit";
 }
+
+inline void handleSensorGet(App& app, const crow::Request& req,
+                            const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+                            const std::string& chassisId,
+                            const std::string& sensorName)
+{
+    if (!redfish::setUpRedfishRoute(app, req, aResp->res))
+    {
+        return;
+    }
+    BMCWEB_LOG_DEBUG << "Sensor doGet enter";
+    std::shared_ptr<SensorsAsyncResp> asyncResp =
+        std::make_shared<SensorsAsyncResp>(aResp, chassisId,
+                                           std::span<std::string_view>(),
+                                           sensors::node::sensors);
+
+    const std::array<const char*, 1> interfaces = {
+        "xyz.openbmc_project.Sensor.Value"};
+
+    // Get a list of all of the sensors that implement Sensor.Value
+    // and get the path and service name associated with the sensor
+    crow::connections::systemBus->async_method_call(
+        [asyncResp,
+         sensorName](const boost::system::error_code ec,
+                     const ::dbus::utility::MapperGetSubTreeResponse& subtree) {
+        BMCWEB_LOG_DEBUG << "respHandler1 enter";
+        if (ec)
+        {
+            messages::internalError(asyncResp->asyncResp->res);
+            BMCWEB_LOG_ERROR << "Sensor getSensorPaths resp_handler: "
+                             << "Dbus error " << ec;
+            return;
+        }
+
+        ::dbus::utility::MapperGetSubTreeResponse::const_iterator it =
+            std::find_if(
+                subtree.begin(), subtree.end(),
+                [sensorName](
+                    const std::pair<
+                        std::string,
+                        std::vector<std::pair<
+                            std::string, std::vector<std::string>>>>& object) {
+            sdbusplus::message::object_path path(object.first);
+            std::string name = path.filename();
+            if (name.empty())
+            {
+                BMCWEB_LOG_ERROR << "Invalid sensor path: " << object.first;
+                return false;
+            }
+
+            return name == sensorName;
+                });
+
+        if (it == subtree.end())
+        {
+            BMCWEB_LOG_ERROR << "Could not find path for sensor: "
+                             << sensorName;
+            messages::resourceNotFound(asyncResp->asyncResp->res, "Sensor",
+                                       sensorName);
+            return;
+        }
+        std::string_view sensorPath = (*it).first;
+        BMCWEB_LOG_DEBUG << "Found sensor path for sensor '" << sensorName
+                         << "': " << sensorPath;
+
+        const std::shared_ptr<boost::container::flat_set<std::string>>
+            sensorList =
+                std::make_shared<boost::container::flat_set<std::string>>();
+
+        sensorList->emplace(sensorPath);
+        processSensorList(asyncResp, sensorList);
+        BMCWEB_LOG_DEBUG << "respHandler1 exit";
+        },
+        "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetSubTree",
+        "/xyz/openbmc_project/sensors", 2, interfaces);
+}
+
 } // namespace sensors
 
 inline void requestRoutesSensorCollection(App& app)
@@ -3044,83 +3123,7 @@ inline void requestRoutesSensor(App& app)
     BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/Sensors/<str>/")
         .privileges(redfish::privileges::getSensor)
         .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& aResp,
-                   const std::string& chassisId,
-                   const std::string& sensorName) {
-        if (!redfish::setUpRedfishRoute(app, req, aResp->res))
-        {
-            return;
-        }
-        BMCWEB_LOG_DEBUG << "Sensor doGet enter";
-        std::shared_ptr<SensorsAsyncResp> asyncResp =
-            std::make_shared<SensorsAsyncResp>(aResp, chassisId,
-                                               std::span<std::string_view>(),
-                                               sensors::node::sensors);
-
-        const std::array<const char*, 1> interfaces = {
-            "xyz.openbmc_project.Sensor.Value"};
-
-        // Get a list of all of the sensors that implement Sensor.Value
-        // and get the path and service name associated with the sensor
-        crow::connections::systemBus->async_method_call(
-            [asyncResp, sensorName](
-                const boost::system::error_code ec,
-                const dbus::utility::MapperGetSubTreeResponse& subtree) {
-            BMCWEB_LOG_DEBUG << "respHandler1 enter";
-            if (ec)
-            {
-                messages::internalError(asyncResp->asyncResp->res);
-                BMCWEB_LOG_ERROR << "Sensor getSensorPaths resp_handler: "
-                                 << "Dbus error " << ec;
-                return;
-            }
-
-            dbus::utility::MapperGetSubTreeResponse::const_iterator it =
-                std::find_if(
-                    subtree.begin(), subtree.end(),
-                    [sensorName](
-                        const std::pair<
-                            std::string,
-                            std::vector<std::pair<std::string,
-                                                  std::vector<std::string>>>>&
-                            object) {
-                sdbusplus::message::object_path path(object.first);
-                std::string name = path.filename();
-                if (name.empty())
-                {
-                    BMCWEB_LOG_ERROR << "Invalid sensor path: " << object.first;
-                    return false;
-                }
-
-                return name == sensorName;
-                    });
-
-            if (it == subtree.end())
-            {
-                BMCWEB_LOG_ERROR << "Could not find path for sensor: "
-                                 << sensorName;
-                messages::resourceNotFound(asyncResp->asyncResp->res, "Sensor",
-                                           sensorName);
-                return;
-            }
-            std::string_view sensorPath = (*it).first;
-            BMCWEB_LOG_DEBUG << "Found sensor path for sensor '" << sensorName
-                             << "': " << sensorPath;
-
-            const std::shared_ptr<boost::container::flat_set<std::string>>
-                sensorList =
-                    std::make_shared<boost::container::flat_set<std::string>>();
-
-            sensorList->emplace(sensorPath);
-            processSensorList(asyncResp, sensorList);
-            BMCWEB_LOG_DEBUG << "respHandler1 exit";
-            },
-            "xyz.openbmc_project.ObjectMapper",
-            "/xyz/openbmc_project/object_mapper",
-            "xyz.openbmc_project.ObjectMapper", "GetSubTree",
-            "/xyz/openbmc_project/sensors", 2, interfaces);
-        });
+            std::bind_front(sensors::handleSensorGet, std::ref(app)));
 }
 
 } // namespace redfish
