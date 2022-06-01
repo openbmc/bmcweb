@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "17fc7408_4a2bb3af",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 62
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-01T04:02:52Z",
+      "side": 1,
+      "message": "Could we mark comments that\u0027s obsolete as resolved?",
+      "revId": "cf42d08cf182ca3ee78aa62aafa47d9dd919a16f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
