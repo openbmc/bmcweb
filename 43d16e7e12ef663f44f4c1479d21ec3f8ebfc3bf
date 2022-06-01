@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2641aea7_e4325e8d",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2996,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-01T18:13:24Z",
+      "side": 1,
+      "message": "This isn\u0027t \"requestRoutes\" anymore.  The naming convention we\u0027ve used for these is \"handle\u003cSchemaName\u003e\u003cHttp verb\u003e\"\n\nSo in this case it would be \"handleSensorCollectionGet\"",
+      "range": {
+        "startLine": 2996,
+        "startChar": 23,
+        "endLine": 2996,
+        "endChar": 28
+      },
+      "revId": "43d16e7e12ef663f44f4c1479d21ec3f8ebfc3bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
