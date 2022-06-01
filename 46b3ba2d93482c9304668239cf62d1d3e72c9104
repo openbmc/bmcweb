@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "85ab8b3d_eed09793",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-01T04:11:58Z",
+      "side": 1,
+      "message": "Is there a way to test clang in CI?",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 6
+      },
+      "revId": "46b3ba2d93482c9304668239cf62d1d3e72c9104",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e9b19957_e51a3399",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-01T04:11:58Z",
+      "side": 1,
+      "message": "LGTM. All are reasonable fixes.",
+      "revId": "46b3ba2d93482c9304668239cf62d1d3e72c9104",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
