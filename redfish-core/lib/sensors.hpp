@@ -323,6 +323,7 @@ class InventoryItem
     bool isPresent = true;
     bool isFunctional = true;
     bool isPowerSupply = false;
+    std::vector<std::string> relatedItemIds;
     int powerSupplyEfficiencyPercent = -1;
     std::string manufacturer;
     std::string model;
@@ -801,6 +802,18 @@ inline void setLedState(nlohmann::json& sensorJson,
     }
 }
 
+nlohmann::json getRelatedItemJson(const InventoryItem& inventoryItem)
+{
+    nlohmann::json::array_t relatedItems;
+    for (const std::string& id : inventoryItem.relatedItemIds)
+    {
+        nlohmann::json::object_t obj;
+        obj["@odata.id"] = id;
+        relatedItems.emplace_back(std::move(obj));
+    }
+    return relatedItems;
+}
+
 /**
  * @brief Builds a json sensor representation of a sensor.
  * @param sensorName  The name of the sensor to be built
@@ -889,6 +902,11 @@ inline void objectInterfacesToJson(
         else
         {
             sensorJson["ReadingUnits"] = readingUnits;
+        }
+
+        if (inventoryItem != nullptr && !inventoryItem->relatedItemIds.empty())
+        {
+            sensorJson["RelatedItem"] = getRelatedItemJson(*inventoryItem);
         }
     }
     else if (sensorType == "temperature")
@@ -1495,6 +1513,15 @@ inline void storeInventoryItemData(
                 }
             }
         }
+
+        if (interface == "xyz.openbmc_project.Inventory.Item.Cpu")
+        {
+            inventoryItem.relatedItemIds.emplace_back(
+                crow::utility::urlFromPieces("redfish", "v1", "Systems",
+                                             "system", "Processors",
+                                             inventoryItem.name)
+                    .string());
+        }
     }
 }
 
@@ -1637,11 +1664,13 @@ static void getInventoryItemsConnections(
     BMCWEB_LOG_DEBUG << "getInventoryItemsConnections enter";
 
     const std::string path = "/xyz/openbmc_project/inventory";
-    const std::array<std::string, 4> interfaces = {
+    constexpr auto interfaces = std::to_array({
         "xyz.openbmc_project.Inventory.Item",
         "xyz.openbmc_project.Inventory.Item.PowerSupply",
         "xyz.openbmc_project.Inventory.Decorator.Asset",
-        "xyz.openbmc_project.State.Decorator.OperationalStatus"};
+        "xyz.openbmc_project.State.Decorator.OperationalStatus",
+        "xyz.openbmc_project.Inventory.Item.Cpu",
+    });
 
     // Response handler for parsing output from GetSubTree
     auto respHandler =
