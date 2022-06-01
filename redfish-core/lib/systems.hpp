@@ -3083,18 +3083,21 @@ inline void requestRoutesSystemResetActionInfo(App& app)
             "#ActionInfo.v1_1_2.ActionInfo";
         asyncResp->res.jsonValue["Name"] = "Reset Action Info";
         asyncResp->res.jsonValue["Id"] = "ResetActionInfo";
-        asyncResp->res.jsonValue["Parameters"]["Name"] = "ResetType";
-        asyncResp->res.jsonValue["Parameters"]["Required"] = true;
-        asyncResp->res.jsonValue["Parameters"]["DataType"] = "String";
-        asyncResp->res.jsonValue["Parameters"]["AllowableValues"] = {
-            "On",
-            "ForceOff",
-            "ForceOn",
-            "ForceRestart",
-            "GracefulRestart",
-            "GracefulShutdown",
-            "PowerCycle",
-            "Nmi"};
+
+        nlohmann::json::object_t parameter;
+        parameter["Name"] = "ResetType";
+        parameter["Required"] = true;
+        parameter["DataType"] = "String";
+        parameter["AllowableValues"] = {"On",
+                                        "ForceOff",
+                                        "ForceOn",
+                                        "ForceRestart",
+                                        "GracefulRestart",
+                                        "GracefulShutdown",
+                                        "PowerCycle",
+                                        "Nmi"};
+
+        asyncResp->res.jsonValue["Parameters"].push_back(std::move(parameter));
         });
 }
 } // namespace redfish
