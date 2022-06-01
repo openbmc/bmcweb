@@ -8,10 +8,35 @@ namespace redfish
 class RedfishAggregator
 {
   private:
+    const std::string retryPolicyName = "RedfishAggregation";
+    const uint32_t retryAttempts = 5;
+    const uint32_t retryTimeoutInterval = 0;
+
     RedfishAggregator()
     {
         getSatelliteConfigs(constructorCallback);
+
+        // Setup the retry policy to be used by Redfish Aggregation
+        crow::HttpClient::getInstance().setRetryConfig(
+            retryAttempts, retryTimeoutInterval, aggregationRetryHandler,
+            retryPolicyName);
     }
+
+    static inline boost::system::error_code
+        aggregationRetryHandler(unsigned int respCode)
+    {
+        // As a default, assume 200X is alright.
+        // We don't need to retry on a 404
+        if ((respCode < 200) || ((respCode >= 300) && (respCode != 404)))
+        {
+            return boost::system::errc::make_error_code(
+                boost::system::errc::result_out_of_range);
+        }
+
+        // Return 0 if the response code is valid
+        return boost::system::errc::make_error_code(
+            boost::system::errc::success);
+    };
 
     // Dummy callback used by the Constructor so that it can report the number
     // of satellite configs when the class is first created
