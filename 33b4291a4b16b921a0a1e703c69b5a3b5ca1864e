@@ -126,6 +126,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1f0e0bf0_d769c5e1",
+        "filename": "http/ut/utility_test.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-01T21:15:08Z",
+      "side": 1,
+      "message": "url_view contructor takes reference to urlString\n\njson constructor takes reference to url_view\n\nurlString reference destroyed, because it was an rvalue\n\nEXPECT_EQ takes reference to json object.\n\n\n\nI only really know this because I coded it up the way you suggested at first, and the code seg faulted.  It\u0027s very non-trivial to see in code review.",
+      "parentUuid": "cbc648c4_c0897d27",
+      "revId": "33b4291a4b16b921a0a1e703c69b5a3b5ca1864e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "93915c75_4370e5fc",
         "filename": "http/utility.hpp",
         "patchSetId": 3
