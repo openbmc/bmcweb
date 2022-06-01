@@ -86,6 +86,30 @@
       },
       "revId": "eff54a7c8d3dfa0902728a1485c8fab4552094f5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e209dbc8_61babc21",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 812,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-01T22:36:26Z",
+      "side": 1,
+      "message": "Your code before was functionally correct, it was just difficult to read, and was doing a method call, an object construction, an operator/ object construction, a map lookup, a size() check, and a decrement all on one line.",
+      "parentUuid": "1942e8d9_6b53fbdb",
+      "range": {
+        "startLine": 811,
+        "startChar": 13,
+        "endLine": 812,
+        "endChar": 60
+      },
+      "revId": "eff54a7c8d3dfa0902728a1485c8fab4552094f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
