@@ -55,6 +55,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2793b532_7f105dd4",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 73
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-01T04:08:55Z",
+      "side": 1,
+      "message": "We prefer enum class if possible.   \n\nDid a quick search on the codebase, https://github.com/openbmc/bmcweb/search?l\u003dC%2B%2B\u0026p\u003d2\u0026q\u003denum\n\nSeems all codes are using enum class.",
+      "range": {
+        "startLine": 60,
+        "startChar": 5,
+        "endLine": 60,
+        "endChar": 25
+      },
+      "revId": "96419a824001c6bd094f0f13afc0b01fdbb73ad1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bdb136d3_666a7fc1",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 73
@@ -71,6 +94,29 @@
         "startChar": 22,
         "endLine": 688,
         "endChar": 30
+      },
+      "revId": "96419a824001c6bd094f0f13afc0b01fdbb73ad1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "27ae2848_eb014905",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 73
+      },
+      "lineNbr": 769,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-01T04:08:55Z",
+      "side": 1,
+      "message": "nit: seems dumpId is not referenced outside the lambda in later codes, if you are moving |dumpEntryPath|, why not |dumpId| as well?",
+      "range": {
+        "startLine": 769,
+        "startChar": 16,
+        "endLine": 769,
+        "endChar": 22
       },
       "revId": "96419a824001c6bd094f0f13afc0b01fdbb73ad1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
