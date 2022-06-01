@@ -161,6 +161,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a4d2a4f6_4b06fcdf",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 633,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-01T19:50:17Z",
+      "side": 1,
+      "message": "MapperGetSubTreeResponse isn\u0027t what you\u0027re looking for?",
+      "parentUuid": "926ad0dd_038601e4",
+      "range": {
+        "startLine": 631,
+        "startChar": 23,
+        "endLine": 633,
+        "endChar": 77
+      },
+      "revId": "919fb744f3beed7a6a6823c8aa6f5eefe87bb09a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a5e09084_7f2bf5f8",
         "filename": "redfish-core/lib/storage.hpp",
         "patchSetId": 28
@@ -230,6 +254,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e96a894d_6ec07c1f",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 671,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-01T19:50:17Z",
+      "side": 1,
+      "message": "This line is required for cases where \"resp\" is empty, which in this case debatably can\u0027t happen, but we try to be consistent about it because it has lead to bugs in the past.\n\nFWIW, in new code, I think the ideally pattern we would follow is something like\n\nnlohmann::json::array_t members;\n\nfor (a : resp){\n   foo.emplace_back(...);\n}\nasyncResp-\u003eres.jsonValue[\"Members\"] \u003d std::move(members);\n\n\n\nWe don\u0027t follow that pattern very often, but I find it the most \"obviously correct\" version of how to write that code.",
+      "parentUuid": "19cd4295_86e56f07",
+      "range": {
+        "startLine": 671,
+        "startChar": 24,
+        "endLine": 671,
+        "endChar": 58
+      },
+      "revId": "919fb744f3beed7a6a6823c8aa6f5eefe87bb09a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3f853a5e_80c59836",
@@ -267,6 +315,30 @@
       "side": 1,
       "message": "Done.\n\nEd told me auto was best used when the type is explicit. ie, on the same line or line above.",
       "parentUuid": "3f853a5e_80c59836",
+      "range": {
+        "startLine": 683,
+        "startChar": 35,
+        "endLine": 683,
+        "endChar": 46
+      },
+      "revId": "919fb744f3beed7a6a6823c8aa6f5eefe87bb09a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d6f0f376_44983e0b",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 683,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-01T19:50:17Z",
+      "side": 1,
+      "message": "As a general rule, bmcweb doesn\u0027t use auto, except in the most obvious of cases.  Having explicit types helps in code review when the types change.",
+      "parentUuid": "2a2ad912_9f92e441",
       "range": {
         "startLine": 683,
         "startChar": 35,
