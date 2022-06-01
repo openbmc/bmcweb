@@ -48,6 +48,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee42fdc7_84eaa673",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 696,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-06-01T02:43:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9394e40c_4a6c6608",
+      "range": {
+        "startLine": 696,
+        "startChar": 0,
+        "endLine": 696,
+        "endChar": 75
+      },
+      "revId": "593a36efe904090709031787d5142f2f0d0905ed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ba6628ee_49275459",
@@ -95,6 +119,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c0f6389c_7560f82c",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 865,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-06-01T02:43:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0664efc6_16a87ebf",
+      "range": {
+        "startLine": 863,
+        "startChar": 0,
+        "endLine": 865,
+        "endChar": 42
+      },
+      "revId": "593a36efe904090709031787d5142f2f0d0905ed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ff924e32_0887c0e4",
@@ -108,6 +156,30 @@
       "writtenOn": "2022-05-02T16:02:08Z",
       "side": 1,
       "message": "This needs a dbus check to see if the FaultLog interfaces exist, like we do elsewhere.  I realize that the existing dump did it with a compile option, but we can\u0027t reuse the same option flag, given that there will be systems with dump support and not faultlog support, and vice version.  current best practice is to rely on mapper lookups for resources on dbus, so that\u0027s what we should do here.  take a look at the getCollectionMembers() method for examples of how we do the mapper lookup and create collections.\n\nIdeally at the same time you would clean up the \"Dump\" endpoint to also use mapper lookups, but obviously that\u0027s not required.",
+      "range": {
+        "startLine": 2136,
+        "startChar": 0,
+        "endLine": 2138,
+        "endChar": 73
+      },
+      "revId": "593a36efe904090709031787d5142f2f0d0905ed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "051f0409_efb28513",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2138,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-06-01T02:43:51Z",
+      "side": 1,
+      "message": "Working on it for the next patch",
+      "parentUuid": "ff924e32_0887c0e4",
       "range": {
         "startLine": 2136,
         "startChar": 0,
@@ -141,6 +213,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "52024cd0_ae7ed174",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2550,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-06-01T02:43:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aba3a304_7812cbc5",
+      "range": {
+        "startLine": 2550,
+        "startChar": 0,
+        "endLine": 2550,
+        "endChar": 73
+      },
+      "revId": "593a36efe904090709031787d5142f2f0d0905ed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "036d97fb_1371bee3",
@@ -154,6 +250,24 @@
       "writtenOn": "2022-05-02T16:02:08Z",
       "side": 1,
       "message": "Most of the code in the block above looks copied from the other dump handlers.  Is there a way we can avoid copying the code here and have a more generic route?",
+      "revId": "593a36efe904090709031787d5142f2f0d0905ed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "90f36523_37a2de00",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2674,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-06-01T02:43:51Z",
+      "side": 1,
+      "message": "Done, merged with the \"requestRoutesBMCDump\" functions",
+      "parentUuid": "036d97fb_1371bee3",
       "revId": "593a36efe904090709031787d5142f2f0d0905ed",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
