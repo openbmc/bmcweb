@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "88dfe1e2_92c0b721",
+        "filename": "redfish-core/lib/power_subsystem.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2022-06-01T09:15:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "46de6947_410da23b",
+      "range": {
+        "startLine": 31,
+        "startChar": 21,
+        "endLine": 31,
+        "endChar": 31
+      },
+      "revId": "20a6c677cb05970f5b8c8d4af9b4df4937bc6d32",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "81a2fc08_48dc6a00",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-06-01T04:01:26Z",
       "side": 1,
       "message": "Does this route need to be integrated into the RedfishRoute?\n\nhttps://github.com/openbmc/bmcweb/blob/565dfb6f9a87e15fa707e6b2c89222c4419e7491/redfish-core/lib/hypervisor_system.hpp",
+      "range": {
+        "startLine": 38,
+        "startChar": 21,
+        "endLine": 38,
+        "endChar": 33
+      },
+      "revId": "20a6c677cb05970f5b8c8d4af9b4df4937bc6d32",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd7becba_c15d4025",
+        "filename": "redfish-core/lib/power_subsystem.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2022-06-01T09:15:59Z",
+      "side": 1,
+      "message": "I don\u0027t think we need to do that. This is just to verify that the chassisID in the request.",
+      "parentUuid": "81a2fc08_48dc6a00",
       "range": {
         "startLine": 38,
         "startChar": 21,
@@ -70,6 +118,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "34af79ba_d79061f2",
+        "filename": "redfish-core/lib/power_subsystem.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2022-06-01T09:15:59Z",
+      "side": 1,
+      "message": "I see that a is not used much in bmcweb I will not consider using it for the time being. Thank you.",
+      "parentUuid": "1df05fde_3ece013b",
+      "range": {
+        "startLine": 35,
+        "startChar": 12,
+        "endLine": 54,
+        "endChar": 14
+      },
+      "revId": "20a6c677cb05970f5b8c8d4af9b4df4937bc6d32",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "38fbaad8_c2204943",
@@ -83,6 +155,30 @@
       "writtenOn": "2022-06-01T04:01:26Z",
       "side": 1,
       "message": "Why do we fail silently here? What will the client get in this case?",
+      "range": {
+        "startLine": 24,
+        "startChar": 20,
+        "endLine": 24,
+        "endChar": 26
+      },
+      "revId": "20a6c677cb05970f5b8c8d4af9b4df4937bc6d32",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "288caae2_fbf9f218",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2022-06-01T09:15:59Z",
+      "side": 1,
+      "message": "This was discussed and determined before.\nWhen there is no such interface on the D-BUS. We should not return internalError",
+      "parentUuid": "38fbaad8_c2204943",
       "range": {
         "startLine": 24,
         "startChar": 20,
