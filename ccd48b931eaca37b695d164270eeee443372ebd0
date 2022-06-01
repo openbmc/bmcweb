@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "faeeba2a_849eb46e",
         "filename": "redfish-core/lib/power_supply.hpp",
@@ -20,10 +21,10 @@
         "endChar": 59
       },
       "revId": "ccd48b931eaca37b695d164270eeee443372ebd0",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "aedcca94_f07d7554",
         "filename": "redfish-core/lib/power_supply.hpp",
@@ -44,10 +45,10 @@
         "endChar": 59
       },
       "revId": "ccd48b931eaca37b695d164270eeee443372ebd0",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "802d4481_7497a08f",
         "filename": "redfish-core/lib/power_supply.hpp",
@@ -68,10 +69,10 @@
         "endChar": 59
       },
       "revId": "ccd48b931eaca37b695d164270eeee443372ebd0",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "72e13465_426f84c7",
         "filename": "redfish-core/lib/power_supply.hpp",
@@ -91,10 +92,10 @@
         "endChar": 42
       },
       "revId": "ccd48b931eaca37b695d164270eeee443372ebd0",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "7efafe8f_1556cb76",
         "filename": "redfish-core/lib/power_supply.hpp",
@@ -115,10 +116,34 @@
         "endChar": 42
       },
       "revId": "ccd48b931eaca37b695d164270eeee443372ebd0",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "229e04b8_1f7132d9",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2022-06-01T03:33:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7efafe8f_1556cb76",
+      "range": {
+        "startLine": 192,
+        "startChar": 41,
+        "endLine": 192,
+        "endChar": 42
+      },
+      "revId": "ccd48b931eaca37b695d164270eeee443372ebd0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "a3905b36_1ab0f8ce",
         "filename": "redfish-core/lib/power_supply.hpp",
@@ -138,10 +163,10 @@
         "endChar": 27
       },
       "revId": "ccd48b931eaca37b695d164270eeee443372ebd0",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "07bed784_f9e8f278",
         "filename": "redfish-core/lib/power_supply.hpp",
@@ -162,10 +187,10 @@
         "endChar": 27
       },
       "revId": "ccd48b931eaca37b695d164270eeee443372ebd0",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "2009b97e_058e470a",
         "filename": "redfish-core/lib/power_supply.hpp",
@@ -186,10 +211,10 @@
         "endChar": 27
       },
       "revId": "ccd48b931eaca37b695d164270eeee443372ebd0",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "7eeb6dbb_8b35798d",
         "filename": "redfish-core/lib/power_supply.hpp",
@@ -209,10 +234,10 @@
         "endChar": 73
       },
       "revId": "ccd48b931eaca37b695d164270eeee443372ebd0",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "3cb3fb18_91eede94",
         "filename": "redfish-core/lib/power_supply.hpp",
@@ -233,10 +258,10 @@
         "endChar": 73
       },
       "revId": "ccd48b931eaca37b695d164270eeee443372ebd0",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "6ab1f039_92beb9f2",
         "filename": "redfish-core/lib/power_supply.hpp",
@@ -256,10 +281,10 @@
         "endChar": 68
       },
       "revId": "ccd48b931eaca37b695d164270eeee443372ebd0",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "8464073c_b81aefa5",
         "filename": "redfish-core/lib/power_supply.hpp",
@@ -280,10 +305,10 @@
         "endChar": 68
       },
       "revId": "ccd48b931eaca37b695d164270eeee443372ebd0",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "11f63e4f_361eefa2",
         "filename": "redfish-core/lib/power_supply.hpp",
@@ -303,10 +328,10 @@
         "endChar": 35
       },
       "revId": "ccd48b931eaca37b695d164270eeee443372ebd0",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "6bb46118_79ac5a92",
         "filename": "redfish-core/lib/power_supply.hpp",
@@ -327,10 +352,10 @@
         "endChar": 35
       },
       "revId": "ccd48b931eaca37b695d164270eeee443372ebd0",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "8a87cdf5_754f5c77",
         "filename": "redfish-core/lib/power_supply.hpp",
@@ -344,10 +369,10 @@
       "side": 1,
       "message": "This utility function looks a little odd.  I would expect to just look for the interfaces directly, not try to find if the name exists THEN go search for the interfaces.  Said another way, this can be reduced to a single mapper call.",
       "revId": "ccd48b931eaca37b695d164270eeee443372ebd0",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "a85f2619_a5d885fb",
         "filename": "redfish-core/lib/power_supply.hpp",
@@ -362,10 +387,28 @@
       "message": "In patchset7, I used this function to get the chassisID from the powersupply association. Find the powersupply whose ChassisID and PowerSupplyID match the input parameters, and then pass the valid PowerSupply path and service to the next step.",
       "parentUuid": "8a87cdf5_754f5c77",
       "revId": "ccd48b931eaca37b695d164270eeee443372ebd0",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "044c500b_e25aebef",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2022-06-01T03:33:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a85f2619_a5d885fb",
+      "revId": "ccd48b931eaca37b695d164270eeee443372ebd0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "9937154b_03a41865",
         "filename": "redfish-core/lib/power_supply.hpp",
@@ -385,10 +428,10 @@
         "endChar": 60
       },
       "revId": "ccd48b931eaca37b695d164270eeee443372ebd0",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "11930055_53be9766",
         "filename": "redfish-core/lib/power_supply.hpp",
@@ -409,8 +452,31 @@
         "endChar": 60
       },
       "revId": "ccd48b931eaca37b695d164270eeee443372ebd0",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb76ea8d_cfeb27ca",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2022-06-01T03:33:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "11930055_53be9766",
+      "range": {
+        "startLine": 341,
+        "startChar": 45,
+        "endLine": 341,
+        "endChar": 60
+      },
+      "revId": "ccd48b931eaca37b695d164270eeee443372ebd0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

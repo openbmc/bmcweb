@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "39b2b553_a723f82f",
         "filename": "/COMMIT_MSG",
@@ -20,10 +21,10 @@
         "endChar": 68
       },
       "revId": "0e0adfbce5af557864de4a256bfc20ac950719fa",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "7bf919af_f2788d7d",
         "filename": "/COMMIT_MSG",
@@ -44,10 +45,10 @@
         "endChar": 68
       },
       "revId": "0e0adfbce5af557864de4a256bfc20ac950719fa",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "9f6bfed1_137e7a9d",
         "filename": "/COMMIT_MSG",
@@ -68,10 +69,10 @@
         "endChar": 68
       },
       "revId": "0e0adfbce5af557864de4a256bfc20ac950719fa",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "232a0b90_f7fada2f",
         "filename": "redfish-core/lib/power_supply.hpp",
@@ -85,10 +86,10 @@
       "side": 1,
       "message": "if (value \u003d\u003d nullptr)\n  {\n     messages::internalError(aResp-\u003eres);\n      return;\n   }\n   assemblyData[propertyName] \u003d *value;\n\nIs preferred",
       "revId": "0e0adfbce5af557864de4a256bfc20ac950719fa",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "bbcfac3d_229228e8",
         "filename": "redfish-core/lib/power_supply.hpp",
@@ -103,10 +104,10 @@
       "message": "Done",
       "parentUuid": "232a0b90_f7fada2f",
       "revId": "0e0adfbce5af557864de4a256bfc20ac950719fa",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "67829aba_bc782fa9",
         "filename": "redfish-core/lib/power_supply.hpp",
@@ -120,10 +121,10 @@
       "side": 1,
       "message": "If the power supply doesn\u0027t implement the OperationalStatus interface, it would hit line 94 and return an internalFailure to the request?  I wonder instead if it should just set the health to OK since it doesn\u0027t know it isn\u0027t OK.",
       "revId": "0e0adfbce5af557864de4a256bfc20ac950719fa",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "bf9f551f_1ba9b8a3",
         "filename": "redfish-core/lib/power_supply.hpp",
@@ -138,10 +139,10 @@
       "message": "hmm.. why is it default Critical ?.. If something is not known, then it has to be [OK]. If an error is found later, then the PS code would set the OperationalStatus and that should result in PS health to be set to Critical.",
       "parentUuid": "67829aba_bc782fa9",
       "revId": "0e0adfbce5af557864de4a256bfc20ac950719fa",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "3a4ff998_b69927ee",
         "filename": "redfish-core/lib/power_supply.hpp",
@@ -156,10 +157,10 @@
       "message": "Done， Set the default value to \"OK\".",
       "parentUuid": "bf9f551f_1ba9b8a3",
       "revId": "0e0adfbce5af557864de4a256bfc20ac950719fa",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "b1ea6fd7_9793f45e",
         "filename": "redfish-core/lib/power_supply.hpp",
@@ -173,10 +174,10 @@
       "side": 1,
       "message": "Is the effiencyRating an optional property?  If so, then just don\u0027t need to add it if the interface isn\u0027t there?",
       "revId": "0e0adfbce5af557864de4a256bfc20ac950719fa",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "ab154332_4f3156da",
         "filename": "redfish-core/lib/power_supply.hpp",
@@ -191,10 +192,10 @@
       "message": "Done, I\u0027ve removed the \"internalError\".",
       "parentUuid": "b1ea6fd7_9793f45e",
       "revId": "0e0adfbce5af557864de4a256bfc20ac950719fa",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "e1471396_633eb4eb",
         "filename": "redfish-core/lib/power_supply.hpp",
@@ -208,10 +209,10 @@
       "side": 1,
       "message": "if (value \u003d\u003d nullptr)\n  {\n     messages::internalError(aResp-\u003eres);\n      return;\n   }\n....\n\nIs preferred",
       "revId": "0e0adfbce5af557864de4a256bfc20ac950719fa",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "507f2142_32486c7b",
         "filename": "redfish-core/lib/power_supply.hpp",
@@ -226,10 +227,10 @@
       "message": "Done",
       "parentUuid": "e1471396_633eb4eb",
       "revId": "0e0adfbce5af557864de4a256bfc20ac950719fa",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "eff8cc01_5bf76d3d",
         "filename": "redfish-core/lib/power_supply.hpp",
@@ -243,10 +244,10 @@
       "side": 1,
       "message": "This is a different way to do this. Why set the 404, then clear it? Why not only set the 404 if we can\u0027t find the powersupply.",
       "revId": "0e0adfbce5af557864de4a256bfc20ac950719fa",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "61679e25_1de95045",
         "filename": "redfish-core/lib/power_supply.hpp",
@@ -261,10 +262,28 @@
       "message": "Because it\u0027s inside a lambda, so we can\u0027t break the for{}(line 313).\nSo we can\u0027t set the 404 after \"for{}\" has ended.",
       "parentUuid": "eff8cc01_5bf76d3d",
       "revId": "0e0adfbce5af557864de4a256bfc20ac950719fa",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "697739b3_38ef0c2c",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2022-06-01T03:33:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "61679e25_1de95045",
+      "revId": "0e0adfbce5af557864de4a256bfc20ac950719fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "bee3443b_d1fb0595",
         "filename": "redfish-core/lib/power_supply.hpp",
@@ -284,10 +303,10 @@
         "endChar": 67
       },
       "revId": "0e0adfbce5af557864de4a256bfc20ac950719fa",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "9067e315_8df1f631",
         "filename": "redfish-core/lib/power_supply.hpp",
@@ -308,8 +327,31 @@
         "endChar": 67
       },
       "revId": "0e0adfbce5af557864de4a256bfc20ac950719fa",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c8e1329b_5d64d1d6",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 535,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2022-06-01T03:33:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9067e315_8df1f631",
+      "range": {
+        "startLine": 534,
+        "startChar": 16,
+        "endLine": 535,
+        "endChar": 67
+      },
+      "revId": "0e0adfbce5af557864de4a256bfc20ac950719fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
