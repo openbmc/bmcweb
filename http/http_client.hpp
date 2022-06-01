@@ -60,6 +60,21 @@ enum class ConnState
     retry
 };
 
+static inline boost::system::error_code
+    defaultRetryHandler(unsigned int respCode)
+{
+    // As a default, assume 200X is alright
+    BMCWEB_LOG_DEBUG << "Using default check for response code validity";
+    if ((respCode < 200) || (respCode >= 300))
+    {
+        return boost::system::errc::make_error_code(
+            boost::system::errc::result_out_of_range);
+    }
+
+    // Return 0 if the response code is valid
+    return boost::system::errc::make_error_code(boost::system::errc::success);
+};
+
 // We need to allow retry information to be set before a message has been sent
 // and a connection pool has been created
 struct RetryPolicyData
@@ -67,7 +82,8 @@ struct RetryPolicyData
     uint32_t maxRetryAttempts = 5;
     std::chrono::seconds retryIntervalSecs = std::chrono::seconds(0);
     std::string retryPolicyAction = "TerminateAfterRetries";
-    std::string name;
+    std::function<boost::system::error_code(unsigned int respCode)>
+        invalidResp = defaultRetryHandler;
 };
 
 struct PendingRequest
@@ -231,13 +247,14 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
             BMCWEB_LOG_DEBUG << "recvMessage() Header Response Code: "
                              << respCode;
 
-            // 2XX response is considered to be successful
-            if ((respCode < 200) || (respCode >= 300))
+            // Make sure the received response code is valid as defined by
+            // the associated retry policy
+            if (self->retryPolicy.invalidResp(respCode))
             {
                 // The listener failed to receive the Sent-Event
-                BMCWEB_LOG_ERROR << "recvMessage() Listener Failed to "
-                                    "receive Sent-Event. Header Response Code: "
-                                 << respCode;
+                BMCWEB_LOG_ERROR
+                    << "recvMessage() Listener Failed to "
+                       "receive Sent-Event. Header Response Code: " << respCode;
                 self->state = ConnState::recvFailed;
                 self->waitAndRetry();
                 return;
@@ -414,9 +431,7 @@ class ConnectionPool : public std::enable_shared_from_this<ConnectionPool>
 
         BMCWEB_LOG_DEBUG << "Setting properties for connection " << conn.host
                          << ":" << std::to_string(conn.port)
-                         << ", id: " << std::to_string(conn.connId)
-                         << ", retry policy is \"" << conn.retryPolicy.name
-                         << "\"";
+                         << ", id: " << std::to_string(conn.connId);
 
         // We can remove the request from the queue at this point
         requestQueue.pop_front();
@@ -427,9 +442,7 @@ class ConnectionPool : public std::enable_shared_from_this<ConnectionPool>
                                    const RetryPolicyData& retryPolicy)
     {
         BMCWEB_LOG_DEBUG << destIP << ":" << std::to_string(destPort)
-                         << ", id: " << std::to_string(conn.connId)
-                         << " using retry policy \"" << retryPolicy.name
-                         << "\"";
+                         << ", id: " << std::to_string(conn.connId);
 
         conn.retryPolicy = retryPolicy;
     }
@@ -678,7 +691,6 @@ class HttpClient
         {
             BMCWEB_LOG_DEBUG << "Creating retry policy \"" << retryPolicyName
                              << "\" with default values";
-            policy.first->second.name = retryPolicyName;
         }
 
         // Send the data using either the existing connection pool or the newly
@@ -687,9 +699,11 @@ class HttpClient
                                        policy.first->second, resHandler);
     }
 
-    void setRetryConfig(const uint32_t retryAttempts,
-                        const uint32_t retryTimeoutInterval,
-                        const std::string& retryPolicyName)
+    void setRetryConfig(
+        const uint32_t retryAttempts, const uint32_t retryTimeoutInterval,
+        const std::function<boost::system::error_code(unsigned int respCode)>&
+            invalidResp,
+        const std::string& retryPolicyName)
     {
         // We need to create the retry policy if one does not already exist for
         // the given retryPolicyName
@@ -698,7 +712,6 @@ class HttpClient
         {
             BMCWEB_LOG_DEBUG << "setRetryConfig(): Creating new retry policy \""
                              << retryPolicyName << "\"";
-            result.first->second.name = retryPolicyName;
         }
         else
         {
@@ -709,11 +722,56 @@ class HttpClient
         result.first->second.maxRetryAttempts = retryAttempts;
         result.first->second.retryIntervalSecs =
             std::chrono::seconds(retryTimeoutInterval);
+        result.first->second.invalidResp = invalidResp;
     }
 
     void setRetryPolicy(const std::string& retryPolicy,
                         const std::string& retryPolicyName)
     {
+        // Updates the retry policy associated with retryPolicy to instead be
+        // associated with retryPolicyName.  If one does not already exist,
+        // then one is created for retryPolicyName using default values.
+
+        if (retryInfo.erase(retryPolicyName))
+        {
+            BMCWEB_LOG_DEBUG << "Retry policy already exists for \""
+                             << retryPolicyName << "\", deleting it";
+        }
+
+
+        auto node = retryInfo.extract(retryPolicy);
+        if (node.empty())
+        {
+            // Policy did not already exist so associate it with having default
+            // values
+            BMCWEB_LOG_DEBUG << "No existing retry policy for \""
+                             << retryPolicy
+                             << "\", assuming default policy values";
+            node = std::pair<retryPolicyName, RetryPolicyData()>;
+        }
+        else
+        {
+            node.key() = retryPolicyName;
+        }
+
+//        auto result = retryInfo.insert_or_assign(node);
+//        if (result.second)
+        if (retryInfo.erase(retryPolicyName))
+        {
+            BMCWEB_LOG_DEBUG << "Retry policy already exists for "
+                             << retryPolicyName
+                             << "\", overwriting with policy for \""
+                             << retryPolicy << "\"";
+        }
+        else
+        {
+            BMCWEB_LOG_DEBUG << "Retry policy \"" << retryPolicy
+                             << "\" renamed as \"" << retryPolicyName << "\"";
+        }
+
+        retryInfo.insert(std::move(node));
+
+        /*
         // We need to create the retry policy if one does not already exist for
         // the given retryPolicyName
         auto result = retryInfo.try_emplace(retryPolicyName);
@@ -730,6 +788,7 @@ class HttpClient
         }
 
         result.first->second.retryPolicyAction = retryPolicy;
+        */
     }
 };
 } // namespace crow
