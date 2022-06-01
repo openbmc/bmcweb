@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "42bbd7bb_7816e7ef",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-01T19:20:27Z",
+      "side": 1,
+      "message": "This (moving functions to inline) is a refactoring  that\u0027s been happening for some time now and was discussed heavily on the first commit.  As always, happy to discuss, but merging this quickly to get it off the list.",
+      "revId": "e6bd846d38bf7bb565b3f6a9aa8236543feb59f4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
