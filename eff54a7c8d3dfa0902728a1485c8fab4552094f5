@@ -62,6 +62,30 @@
       },
       "revId": "eff54a7c8d3dfa0902728a1485c8fab4552094f5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1942e8d9_6b53fbdb",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 812,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-01T22:10:58Z",
+      "side": 1,
+      "message": "I can move it to a separate line.\n\nBut for my knowledge: if assembleDimmPartitionData is async and the function returns, yes, I understand we will have a problem. But given that assembleDimmPartitionData returns before the temporary pointer gets destroyed, we are good here, right?",
+      "parentUuid": "e9a9a66a_76d03de8",
+      "range": {
+        "startLine": 811,
+        "startChar": 13,
+        "endLine": 812,
+        "endChar": 60
+      },
+      "revId": "eff54a7c8d3dfa0902728a1485c8fab4552094f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
