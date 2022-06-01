@@ -144,6 +144,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6bcd4645_cfd7357a",
+        "filename": "http/ut/utility_test.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-01T21:47:14Z",
+      "side": 1,
+      "message": "I also tested and it worked fine. I ran it for 10+ times and all pass.\n\n\u003e url_view contructor takes reference to urlString\nYes, I understand this part.\n\n\u003e json constructor takes reference to url_view\n\u003e urlString reference destroyed, because it was an rvalue\nThis is something I don\u0027t understand. I believe Json gets a copy to the string buffer.\n```\nstatic void to_json(json\u0026 j, const boost::urls::url_view\u0026 url)\n{\n  j \u003d url.string();\n}\n```\nI tested this\n```\njson j \u003d boost::urls::url_view(urlString);\nstd::cerr \u003c\u003c j.dump(2);\n```\nIt runs fine.",
+      "parentUuid": "1f0e0bf0_d769c5e1",
+      "revId": "33b4291a4b16b921a0a1e703c69b5a3b5ca1864e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "93915c75_4370e5fc",
         "filename": "http/utility.hpp",
         "patchSetId": 3
