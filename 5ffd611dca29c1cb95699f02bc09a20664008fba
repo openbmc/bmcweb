@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "f32e8b9e_b7d79ac7",
         "filename": "redfish-core/include/redfish.hpp",
@@ -14,10 +15,10 @@
       "side": 1,
       "message": "behind the BMCWEB_NEW_POWERSUBSYSTEM_THERMALSUBSYSTEM flag",
       "revId": "5ffd611dca29c1cb95699f02bc09a20664008fba",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "a873b205_f4d431d3",
         "filename": "redfish-core/include/redfish.hpp",
@@ -32,10 +33,10 @@
       "message": "Done",
       "parentUuid": "f32e8b9e_b7d79ac7",
       "revId": "5ffd611dca29c1cb95699f02bc09a20664008fba",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "8b9185fe_a7cfa7fd",
         "filename": "redfish-core/include/registries/privilege_registry.hpp",
@@ -49,10 +50,28 @@
       "side": 1,
       "message": "No PowerSubsystem, PowerSupply, PowerSupplyCollection here: https://redfish.dmtf.org/registries/Redfish_1.1.0_PrivilegeRegistry.json\n\nI opened the following Redfish issue for adding: 4759\n\nThe problem is, next time someone runs parse_registries.py since this is auto-generated these would not show up.\n\nI think a better choice would just be the privilege inline with a TODO (like patch 20 + a TODO). I\u0027ll leave it up to you. Maybe Ed has a suggestion. \n\nSorry for leading you a bit down the wrong path here, I am really surprised Redfish did not have the Privileges for these defined.",
       "revId": "5ffd611dca29c1cb95699f02bc09a20664008fba",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "b3f62fde_57a95e46",
+        "filename": "redfish-core/include/registries/privilege_registry.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 999,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-01T04:01:26Z",
+      "side": 1,
+      "message": "I believe today we have the registry\n\nhttps://redfish.dmtf.org/registries/Redfish_1.3.0_PrivilegeRegistry.json",
+      "parentUuid": "8b9185fe_a7cfa7fd",
+      "revId": "5ffd611dca29c1cb95699f02bc09a20664008fba",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "4e1c651b_6b153e86",
         "filename": "redfish-core/lib/power_supply.hpp",
@@ -66,10 +85,10 @@
       "side": 1,
       "message": "Can we also add the LocationCode to the Location complex? The location can be obtaned from the following D-Bus interface:\n\nhttps://github.com/openbmc/phosphor-dbus-interfaces/blob/master/yaml/xyz/openbmc_project/Inventory/Decorator/LocationCode.interface.yaml",
       "revId": "5ffd611dca29c1cb95699f02bc09a20664008fba",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "a881c67a_ec49d2bb",
         "filename": "redfish-core/lib/power_supply.hpp",
@@ -84,8 +103,7 @@
       "message": "Done",
       "parentUuid": "4e1c651b_6b153e86",
       "revId": "5ffd611dca29c1cb95699f02bc09a20664008fba",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
