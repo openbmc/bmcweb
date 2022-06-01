@@ -108,6 +108,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cbc648c4_c0897d27",
+        "filename": "http/ut/utility_test.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-01T21:12:14Z",
+      "side": 1,
+      "message": "I don\u0027t get it. Which part has multiple layers of rvalue?\n\n```\nstd::string urlString \u003d \"/foo\";\nEXPECT_EQ(json(boost::urls::url_view(urlString)), \"/foo\");\n```\n\nExisting codes do this.\nI don\u0027t think changing it to `EXPECT_EQ(json(boost::urls::url_view(urlString)), urlString);` makes a difference",
+      "parentUuid": "a14fe6e6_98170b9b",
+      "revId": "33b4291a4b16b921a0a1e703c69b5a3b5ca1864e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "93915c75_4370e5fc",
         "filename": "http/utility.hpp",
         "patchSetId": 3
