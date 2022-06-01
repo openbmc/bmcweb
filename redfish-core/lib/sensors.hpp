@@ -2992,6 +2992,47 @@ inline void getChassisCallback(
     BMCWEB_LOG_DEBUG << "getChassisCallback exit";
 }
 
+inline void requestRoutesSensorCollectionMain(
+    App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+    const std::string& chassisId)
+{
+    query_param::QueryCapabilities capabilities = {
+        .canDelegateExpandLevel = 1,
+    };
+    query_param::Query delegatedQuery;
+    if (!redfish::setUpRedfishRouteWithDelegation(app, req, aResp->res,
+                                                  delegatedQuery, capabilities))
+    {
+        return;
+    }
+
+    if (delegatedQuery.expandType != query_param::ExpandType::None)
+    {
+        // we perform efficient expand.
+        auto asyncResp = std::make_shared<SensorsAsyncResp>(
+            aResp, chassisId, sensors::dbus::sensorPaths,
+            sensors::node::sensors,
+            /*efficientExpand=*/true);
+        getChassisData(asyncResp);
+
+        BMCWEB_LOG_DEBUG
+            << "SensorCollection doGet exit via efficient expand handler";
+        return;
+    };
+
+    // if there's no efficient expand available, we use the default
+    // Query Parameters route
+    auto asyncResp = std::make_shared<SensorsAsyncResp>(
+        aResp, chassisId, sensors::dbus::sensorPaths, sensors::node::sensors);
+
+    // We get all sensors as hyperlinkes in the chassis (this
+    // implies we reply on the default query parameters handler)
+    getChassis(asyncResp,
+               std::bind_front(sensors::getChassisCallback, asyncResp));
+    BMCWEB_LOG_DEBUG << "SensorCollection doGet exit";
+}
+
 inline void
     requestRoutesSensorMain(App& app, const crow::Request& req,
                             const std::shared_ptr<bmcweb::AsyncResp>& aResp,
@@ -3077,46 +3118,8 @@ inline void requestRoutesSensorCollection(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/Sensors/")
         .privileges(redfish::privileges::getSensorCollection)
-        .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& aResp,
-                   const std::string& chassisId) {
-        query_param::QueryCapabilities capabilities = {
-            .canDelegateExpandLevel = 1,
-        };
-        query_param::Query delegatedQuery;
-        if (!redfish::setUpRedfishRouteWithDelegation(
-                app, req, aResp->res, delegatedQuery, capabilities))
-        {
-            return;
-        }
-
-        if (delegatedQuery.expandType != query_param::ExpandType::None)
-        {
-            // we perform efficient expand.
-            auto asyncResp = std::make_shared<SensorsAsyncResp>(
-                aResp, chassisId, sensors::dbus::sensorPaths,
-                sensors::node::sensors,
-                /*efficientExpand=*/true);
-            getChassisData(asyncResp);
-
-            BMCWEB_LOG_DEBUG
-                << "SensorCollection doGet exit via efficient expand handler";
-            return;
-        };
-
-        // if there's no efficient expand available, we use the default
-        // Query Parameters route
-        auto asyncResp = std::make_shared<SensorsAsyncResp>(
-            aResp, chassisId, sensors::dbus::sensorPaths,
-            sensors::node::sensors);
-
-        // We get all sensors as hyperlinkes in the chassis (this
-        // implies we reply on the default query parameters handler)
-        getChassis(asyncResp,
-                   std::bind_front(sensors::getChassisCallback, asyncResp));
-        BMCWEB_LOG_DEBUG << "SensorCollection doGet exit";
-        });
+        .methods(boost::beast::http::verb::get)(std::bind_front(
+            sensors::requestRoutesSensorCollectionMain, std::ref(app)));
 }
 
 inline void requestRoutesSensor(App& app)
