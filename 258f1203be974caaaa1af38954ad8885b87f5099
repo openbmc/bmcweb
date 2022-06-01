@@ -95,6 +95,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "41869896_32c1e69e",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 592,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-01T20:05:44Z",
+      "side": 1,
+      "message": "Looks like this route has an instance of common error 11.",
+      "revId": "258f1203be974caaaa1af38954ad8885b87f5099",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5bcdb1a1_3fada830",
         "filename": "redfish-core/lib/storage.hpp",
         "patchSetId": 32
@@ -151,6 +168,53 @@
         "startChar": 0,
         "endLine": 654,
         "endChar": 39
+      },
+      "revId": "258f1203be974caaaa1af38954ad8885b87f5099",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "13996c82_222f6989",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 654,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-01T20:05:44Z",
+      "side": 1,
+      "message": "Also, the url /redfish/v1/Chassis/\u003cstr\u003e/Drives/\u003cstr\u003e/ doesn\u0027t look registered in this patchset.  Please mention that the next patchset is also required to make this pass.",
+      "parentUuid": "6a77c448_482e0240",
+      "range": {
+        "startLine": 650,
+        "startChar": 0,
+        "endLine": 654,
+        "endChar": 39
+      },
+      "revId": "258f1203be974caaaa1af38954ad8885b87f5099",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3c58bf4e_9929dabd",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 675,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-01T20:05:44Z",
+      "side": 1,
+      "message": "nit, in the naming convention this would be \"chassisDriveCollectionGet\"",
+      "range": {
+        "startLine": 675,
+        "startChar": 28,
+        "endLine": 675,
+        "endChar": 43
       },
       "revId": "258f1203be974caaaa1af38954ad8885b87f5099",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"

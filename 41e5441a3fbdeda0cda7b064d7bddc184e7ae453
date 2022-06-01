@@ -70,6 +70,24 @@
       "parentUuid": "df238576_a0be647c",
       "revId": "41e5441a3fbdeda0cda7b064d7bddc184e7ae453",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3de9ba05_2862fa4d",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 797,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-01T20:05:44Z",
+      "side": 1,
+      "message": "I think this still has an issue.  There\u0027s two options here:\n1. If the chassis has no drives, omit the DriveCollection.  IN this case, a query to the DriveCollection for that Chassis should return 404.\n\n2. If the chassis has no drives, always include a link to a DriveCollection, and in the cases where it\u0027s not present, will return an empty collection.\n\nYou seem to have done done a hybrid, where Chassis returns a link only if the drives are present, but DriveCollection doesn\u0027t return 404.  That needs resolved still I think.",
+      "parentUuid": "84861005_e6b0f66c",
+      "revId": "41e5441a3fbdeda0cda7b064d7bddc184e7ae453",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
