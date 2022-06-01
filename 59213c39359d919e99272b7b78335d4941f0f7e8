@@ -46,6 +46,30 @@
       },
       "revId": "59213c39359d919e99272b7b78335d4941f0f7e8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8bbe4763_db3c6ab5",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 895,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-01T19:27:42Z",
+      "side": 1,
+      "message": "If you\u0027re only retrieving one known path, you use GetObject.  If you\u0027re retrieving multiple paths, you use GetSubTree.",
+      "parentUuid": "0945bff5_b519d21d",
+      "range": {
+        "startLine": 895,
+        "startChar": 44,
+        "endLine": 895,
+        "endChar": 60
+      },
+      "revId": "59213c39359d919e99272b7b78335d4941f0f7e8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
