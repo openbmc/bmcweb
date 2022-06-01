@@ -93,6 +93,30 @@
       },
       "revId": "21ce53389d716b62ebbed0f4858648a23c9f761f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f7fd2a9e_e5e47803",
+        "filename": "redfish-core/lib/redfish_v1.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-01T23:44:40Z",
+      "side": 1,
+      "message": "Added some unit tests;  It required breaking up the methods in some awkward ways, because we don\u0027t yet have a reasonable way to construct an App object in tests (nor should we) but in the context of this patch, it\u0027s done.",
+      "parentUuid": "7494bc91_f1b3b605",
+      "range": {
+        "startLine": 111,
+        "startChar": 35,
+        "endLine": 111,
+        "endChar": 46
+      },
+      "revId": "21ce53389d716b62ebbed0f4858648a23c9f761f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
