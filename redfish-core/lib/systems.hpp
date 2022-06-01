@@ -3083,18 +3083,26 @@ inline void requestRoutesSystemResetActionInfo(App& app)
             "#ActionInfo.v1_1_2.ActionInfo";
         asyncResp->res.jsonValue["Name"] = "Reset Action Info";
         asyncResp->res.jsonValue["Id"] = "ResetActionInfo";
-        asyncResp->res.jsonValue["Parameters"]["Name"] = "ResetType";
-        asyncResp->res.jsonValue["Parameters"]["Required"] = true;
-        asyncResp->res.jsonValue["Parameters"]["DataType"] = "String";
-        asyncResp->res.jsonValue["Parameters"]["AllowableValues"] = {
-            "On",
-            "ForceOff",
-            "ForceOn",
-            "ForceRestart",
-            "GracefulRestart",
-            "GracefulShutdown",
-            "PowerCycle",
-            "Nmi"};
+
+        nlohmann::json::array_t parameters;
+        nlohmann::json::object_t parameter;
+
+        parameter["Name"] = "ResetType";
+        parameter["Required"] = true;
+        parameter["DataType"] = "String";
+        nlohmann::json::array_t allowableValues;
+        allowableValues.emplace_back("On");
+        allowableValues.emplace_back("ForceOff");
+        allowableValues.emplace_back("ForceOn");
+        allowableValues.emplace_back("ForceRestart");
+        allowableValues.emplace_back("GracefulRestart");
+        allowableValues.emplace_back("GracefulShutdown");
+        allowableValues.emplace_back("PowerCycle");
+        allowableValues.emplace_back("Nmi");
+        parameter["AllowableValues"] = std::move(allowableValues);
+        parameters.emplace_back(std::move(parameter));
+
+        asyncResp->res.jsonValue["Parameters"] = std::move(parameters);
         });
 }
 } // namespace redfish
