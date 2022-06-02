@@ -406,16 +406,16 @@ inline void requestRoutesNetworkProtocol(App& app)
         std::optional<bool> sshEnabled;
 
         // clang-format off
-            if (!json_util::readJsonPatch(
-                    req, asyncResp->res,
-                    "HostName", newHostName,
-                    "NTP/NTPServers", ntpServers,
-                    "NTP/ProtocolEnabled", ntpEnabled,
-                    "IPMI/ProtocolEnabled", ipmiEnabled,
-                    "SSH/ProtocolEnabled", sshEnabled))
-            {
-                return;
-            }
+        if (!json_util::readJsonPatch(
+                req, asyncResp->res,
+                "HostName", newHostName,
+                "NTP/NTPServers", ntpServers,
+                "NTP/ProtocolEnabled", ntpEnabled,
+                "IPMI/ProtocolEnabled", ipmiEnabled,
+                "SSH/ProtocolEnabled", sshEnabled))
+        {
+            return;
+        }
         // clang-format on
 
         asyncResp->res.result(boost::beast::http::status::no_content);

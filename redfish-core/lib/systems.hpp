@@ -2973,28 +2973,28 @@ inline void requestRoutesSystems(App& app)
         std::optional<uint64_t> ipsExitTime;
 
         // clang-format off
-                if (!json_util::readJsonPatch(
-                        req, asyncResp->res,
-                        "IndicatorLED", indicatorLed,
-                        "LocationIndicatorActive", locationIndicatorActive,
-                        "AssetTag", assetTag,
-                        "PowerRestorePolicy", powerRestorePolicy,
-                        "PowerMode", powerMode,
-                        "HostWatchdogTimer/FunctionEnabled", wdtEnable,
-                        "HostWatchdogTimer/TimeoutAction", wdtTimeOutAction,
-                        "Boot/BootSourceOverrideTarget", bootSource,
-                        "Boot/BootSourceOverrideMode", bootType,
-                        "Boot/BootSourceOverrideEnabled", bootEnable,
-                        "Boot/AutomaticRetryConfig", bootAutomaticRetry,
-                        "Boot/TrustedModuleRequiredToBoot", bootTrustedModuleRequired,
-                        "IdlePowerSaver/Enabled", ipsEnable,
-                        "IdlePowerSaver/EnterUtilizationPercent", ipsEnterUtil,
-                        "IdlePowerSaver/EnterDwellTimeSeconds", ipsEnterTime,
-                        "IdlePowerSaver/ExitUtilizationPercent", ipsExitUtil,
-                        "IdlePowerSaver/ExitDwellTimeSeconds", ipsExitTime))
-                {
-                    return;
-                }
+        if (!json_util::readJsonPatch(
+                req, asyncResp->res,
+                "IndicatorLED", indicatorLed,
+                "LocationIndicatorActive", locationIndicatorActive,
+                "AssetTag", assetTag,
+                "PowerRestorePolicy", powerRestorePolicy,
+                "PowerMode", powerMode,
+                "HostWatchdogTimer/FunctionEnabled", wdtEnable,
+                "HostWatchdogTimer/TimeoutAction", wdtTimeOutAction,
+                "Boot/BootSourceOverrideTarget", bootSource,
+                "Boot/BootSourceOverrideMode", bootType,
+                "Boot/BootSourceOverrideEnabled", bootEnable,
+                "Boot/AutomaticRetryConfig", bootAutomaticRetry,
+                "Boot/TrustedModuleRequiredToBoot", bootTrustedModuleRequired,
+                "IdlePowerSaver/Enabled", ipsEnable,
+                "IdlePowerSaver/EnterUtilizationPercent", ipsEnterUtil,
+                "IdlePowerSaver/EnterDwellTimeSeconds", ipsEnterTime,
+                "IdlePowerSaver/ExitUtilizationPercent", ipsExitUtil,
+                "IdlePowerSaver/ExitDwellTimeSeconds", ipsExitTime))
+        {
+            return;
+        }
         // clang-format on
 
         asyncResp->res.result(boost::beast::http::status::no_content);
