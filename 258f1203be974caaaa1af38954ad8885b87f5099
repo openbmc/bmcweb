@@ -119,6 +119,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "73f088e4_4af30bb9",
+        "filename": "Redfish.md",
+        "patchSetId": 32
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-06-02T23:43:23Z",
+      "side": 1,
+      "message": "I added the name proposed in the PDI change \"Drives\", and added a link to the change. \nhttps://gerrit.openbmc.org/c/openbmc/phosphor-dbus-interfaces/+/53676",
+      "parentUuid": "1b5a6048_13256612",
+      "range": {
+        "startLine": 151,
+        "startChar": 0,
+        "endLine": 151,
+        "endChar": 17
+      },
+      "revId": "258f1203be974caaaa1af38954ad8885b87f5099",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "286ae3ca_8a6e9e1b",
@@ -286,6 +310,24 @@
       "side": 1,
       "message": "\u003e if an incoming request were to ask the mapper for chassis,  and the mapper produced  an error (either in the mapper or a the dbus level), I would expect 500. And that is what the code on 593 to 597 should do.\n\nUnfortunately, your expectation here is incorrect with the coding standard, and what\u0027s documented in common error #11.  The mapper will return an error if no entries exist.\n\n\u003e \n\u003e If the chassis is not found (but there were no errors), I would expect a 404.\n\nThe easiest way to test for this is to just drop a bad ID into your url;  it should return 404.  The code you had I\u0027m pretty sure would not, because the mapper returns an error on non-existence.",
       "parentUuid": "32a1b925_1dfe2f6c",
+      "revId": "258f1203be974caaaa1af38954ad8885b87f5099",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "42a0e142_261dd4d4",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 592,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-06-02T23:43:23Z",
+      "side": 1,
+      "message": "Okay, I added a case that will check the ec, and if it is not found returns 404, otherwise 500.",
+      "parentUuid": "750241ea_4d9a12d3",
       "revId": "258f1203be974caaaa1af38954ad8885b87f5099",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },

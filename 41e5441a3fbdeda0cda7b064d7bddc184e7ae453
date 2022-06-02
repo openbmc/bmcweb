@@ -124,6 +124,24 @@
       "parentUuid": "de6bb48b_ebc1b9e8",
       "revId": "41e5441a3fbdeda0cda7b064d7bddc184e7ae453",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fa3bf499_0605505b",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 797,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-06-02T23:43:23Z",
+      "side": 1,
+      "message": "okay, I changed it for option 2, empty collection.",
+      "parentUuid": "75ddf877_d8b50795",
+      "revId": "41e5441a3fbdeda0cda7b064d7bddc184e7ae453",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
