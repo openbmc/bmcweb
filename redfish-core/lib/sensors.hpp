@@ -3019,7 +3019,7 @@ inline void
         BMCWEB_LOG_DEBUG
             << "SensorCollection doGet exit via efficient expand handler";
         return;
-    };
+    }
 
     // if there's no efficient expand available, we use the default
     // Query Parameters route
