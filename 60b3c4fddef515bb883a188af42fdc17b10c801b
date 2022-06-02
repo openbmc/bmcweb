@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dc92514f_78b475bd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-02T16:11:09Z",
+      "side": 1,
+      "message": "Haven\u0027t reviewed the full patchset yet, but can we start with a patchset that implements the non-recursive portions of the select specification, that are clear and well defined first?  I think that would be a good way to break this up, and given that the recursive select stuff is still under discussion in DMTF, it doesn\u0027t seem like something we should check into master until that discussion concluses.\n\nSound reasonable?",
+      "revId": "60b3c4fddef515bb883a188af42fdc17b10c801b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b57b727a_4555ed70",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-02T16:11:09Z",
+      "side": 1,
+      "message": "is that required in the spec?",
+      "range": {
+        "startLine": 264,
+        "startChar": 0,
+        "endLine": 264,
+        "endChar": 66
+      },
+      "revId": "60b3c4fddef515bb883a188af42fdc17b10c801b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
