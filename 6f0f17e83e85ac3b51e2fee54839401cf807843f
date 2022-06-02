@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0cd0ec65_c5b5e333",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2022-06-02T06:27:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "76fed16a_930a4ab4",
+      "revId": "6f0f17e83e85ac3b51e2fee54839401cf807843f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "95013361_39788990",
@@ -31,6 +49,24 @@
       "writtenOn": "2022-06-01T00:56:19Z",
       "side": 1,
       "message": "Why lump all these together?",
+      "revId": "6f0f17e83e85ac3b51e2fee54839401cf807843f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "32d666be_2185faec",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2022-06-02T06:27:59Z",
+      "side": 1,
+      "message": "Added file close() for cleanup which was missing earlier. Single line changes only. So pushed them together",
+      "parentUuid": "95013361_39788990",
       "revId": "6f0f17e83e85ac3b51e2fee54839401cf807843f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -52,6 +88,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c7834bcb_83d4af72",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2022-06-02T06:27:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f804975a_150f99d7",
+      "revId": "6f0f17e83e85ac3b51e2fee54839401cf807843f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b0753acd_6043ec84",
@@ -65,6 +119,24 @@
       "writtenOn": "2022-06-01T00:56:19Z",
       "side": 1,
       "message": "Can you add a bit more on how this 25MB was reached?",
+      "revId": "6f0f17e83e85ac3b51e2fee54839401cf807843f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a8681155_1ef6c82e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2022-06-02T06:27:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b0753acd_6043ec84",
       "revId": "6f0f17e83e85ac3b51e2fee54839401cf807843f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -99,6 +171,30 @@
       "writtenOn": "2022-06-01T01:14:53Z",
       "side": 1,
       "message": "Can this be from the |maxSaveareaDirSize| variable so we don\u0027t keep two copies?",
+      "range": {
+        "startLine": 193,
+        "startChar": 44,
+        "endLine": 193,
+        "endChar": 48
+      },
+      "revId": "6f0f17e83e85ac3b51e2fee54839401cf807843f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0068a3f7_c9e074cb",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2022-06-02T06:27:59Z",
+      "side": 1,
+      "message": "Ack. Will do in the later commits where i will be using this max limit at more places",
+      "parentUuid": "cd6312b9_0b3f8a0a",
       "range": {
         "startLine": 193,
         "startChar": 44,
