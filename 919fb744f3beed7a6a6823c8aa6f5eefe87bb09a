@@ -185,6 +185,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4b4964c4_5b02e55f",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 633,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-06-02T02:54:57Z",
+      "side": 1,
+      "message": "No,\n\nMapperGetSubTreeResponse is \n```\nstd::vector\u003cstd::pair\u003cstd::string, MapperServiceMap\u003e\u003e;\n```\n\nBut I need a \n```\nstd::pair\u003cstd::string,std::vector\u003cstd::pair\u003c                                    std::string, std::vector\u003cstd::string\u003e\u003e\u003e\u003e\n```\n\nthe subtree variable (that is being iterated on) is indeed a MapperGetSubTreeResponse\n\nLet me know what your thoughts are.",
+      "parentUuid": "a4d2a4f6_4b06fcdf",
+      "range": {
+        "startLine": 631,
+        "startChar": 23,
+        "endLine": 633,
+        "endChar": 77
+      },
+      "revId": "919fb744f3beed7a6a6823c8aa6f5eefe87bb09a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a5e09084_7f2bf5f8",
         "filename": "redfish-core/lib/storage.hpp",
         "patchSetId": 28

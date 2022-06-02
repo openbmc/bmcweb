@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7cf0b70c_d564f443",
+        "filename": "Redfish.md",
+        "patchSetId": 32
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-06-02T02:54:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3f7ef473_6525e314",
+      "range": {
+        "startLine": 150,
+        "startChar": 9,
+        "endLine": 150,
+        "endChar": 18
+      },
+      "revId": "258f1203be974caaaa1af38954ad8885b87f5099",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "706ec285_7fae3fae",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-06-01T19:58:58Z",
       "side": 1,
       "message": "What is the association named?",
+      "range": {
+        "startLine": 151,
+        "startChar": 0,
+        "endLine": 151,
+        "endChar": 17
+      },
+      "revId": "258f1203be974caaaa1af38954ad8885b87f5099",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bc9671ae_c7fb57b8",
+        "filename": "Redfish.md",
+        "patchSetId": 32
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-06-02T02:54:57Z",
+      "side": 1,
+      "message": "I don\u0027t understand the question? I did not setup the association, I am only leveraging it here. What are you expecting?",
+      "parentUuid": "706ec285_7fae3fae",
       "range": {
         "startLine": 151,
         "startChar": 0,
@@ -70,6 +118,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5fc58268_ed43285e",
+        "filename": "redfish-core/include/redfish.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-06-02T02:54:57Z",
+      "side": 1,
+      "message": "done",
+      "parentUuid": "286ae3ca_8a6e9e1b",
+      "range": {
+        "startLine": 87,
+        "startChar": 33,
+        "endLine": 87,
+        "endChar": 36
+      },
+      "revId": "258f1203be974caaaa1af38954ad8885b87f5099",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b830dd7e_6d4113e2",
@@ -83,6 +155,30 @@
       "writtenOn": "2022-06-01T19:58:58Z",
       "side": 1,
       "message": "nit, i\u0027m trying to get rid of brace initialization of nlohmann objects.\n\nthis should be\n\nnlohmann::json::ojbect_t reference;\nreference[\"odata.id\"] \u003d urlFromPieces(\"redfish\", \"v1\", \"Chassis\", chassisId, \"Drives\");\nasyncResp-\u003eres.jsonValue[\"Drives\"] \u003d std::move(reference);\n\n\n\nFWIW, I need to write a helper function for navigation references, but that is yet to be done.",
+      "range": {
+        "startLine": 298,
+        "startChar": 0,
+        "endLine": 301,
+        "endChar": 23
+      },
+      "revId": "258f1203be974caaaa1af38954ad8885b87f5099",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2a290b4d_ed755c61",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-06-02T02:54:57Z",
+      "side": 1,
+      "message": "done, the form I use here is used many times in this file.",
+      "parentUuid": "b830dd7e_6d4113e2",
       "range": {
         "startLine": 298,
         "startChar": 0,
@@ -112,6 +208,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "32a1b925_1dfe2f6c",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 592,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-06-02T02:54:57Z",
+      "side": 1,
+      "message": "if an incoming request were to ask the mapper for chassis,  and the mapper produced  an error (either in the mapper or a the dbus level), I would expect 500. And that is what the code on 593 to 597 should do.\n\nIf the chassis is not found (but there were no errors), I would expect a 404.",
+      "parentUuid": "41869896_32c1e69e",
+      "revId": "258f1203be974caaaa1af38954ad8885b87f5099",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5bcdb1a1_3fada830",
         "filename": "redfish-core/lib/storage.hpp",
         "patchSetId": 32
@@ -123,6 +237,24 @@
       "writtenOn": "2022-06-01T19:58:58Z",
       "side": 1,
       "message": "same as above, brace initialization.",
+      "revId": "258f1203be974caaaa1af38954ad8885b87f5099",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "803e61eb_9eb7127e",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 621,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-06-02T02:54:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5bcdb1a1_3fada830",
       "revId": "258f1203be974caaaa1af38954ad8885b87f5099",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -140,6 +272,30 @@
       "writtenOn": "2022-06-01T19:58:58Z",
       "side": 1,
       "message": "You use urlFromPieces down below, I suspect you need to use it here as well.",
+      "range": {
+        "startLine": 623,
+        "startChar": 30,
+        "endLine": 623,
+        "endChar": 76
+      },
+      "revId": "258f1203be974caaaa1af38954ad8885b87f5099",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "30d5a984_e8f078a9",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 623,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-06-02T02:54:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0ba1b623_544a6036",
       "range": {
         "startLine": 623,
         "startChar": 30,
@@ -197,6 +353,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "aef0b5d2_fc32e1f2",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 654,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-06-02T02:54:57Z",
+      "side": 1,
+      "message": "I bet I ran the validator when it looked like this\n```\n{{\"@odata.id\", \"/redfish/v1/Chassis/\" +                                               \n    chassisId +\n    \"/Drives/\" +\u003d leafName}});\n ```\n adding the \"@odata.id\", back",
+      "parentUuid": "13996c82_222f6989",
+      "range": {
+        "startLine": 650,
+        "startChar": 0,
+        "endLine": 654,
+        "endChar": 39
+      },
+      "revId": "258f1203be974caaaa1af38954ad8885b87f5099",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3c58bf4e_9929dabd",
@@ -210,6 +390,30 @@
       "writtenOn": "2022-06-01T20:05:44Z",
       "side": 1,
       "message": "nit, in the naming convention this would be \"chassisDriveCollectionGet\"",
+      "range": {
+        "startLine": 675,
+        "startChar": 28,
+        "endLine": 675,
+        "endChar": 43
+      },
+      "revId": "258f1203be974caaaa1af38954ad8885b87f5099",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "176f2937_bc68d09d",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 675,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-06-02T02:54:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3c58bf4e_9929dabd",
       "range": {
         "startLine": 675,
         "startChar": 28,

@@ -88,6 +88,24 @@
       "parentUuid": "84861005_e6b0f66c",
       "revId": "41e5441a3fbdeda0cda7b064d7bddc184e7ae453",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "de6bb48b_ebc1b9e8",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 797,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-06-02T02:54:57Z",
+      "side": 1,
+      "message": "Is there a standard way this is handled in bmcweb, empty collection vs 404.\nI don\u0027t have a strong stance.\n\nI set it to 404 because I suspect that is the typciall way empty collections are handled.",
+      "parentUuid": "3de9ba05_2862fa4d",
+      "revId": "41e5441a3fbdeda0cda7b064d7bddc184e7ae453",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
