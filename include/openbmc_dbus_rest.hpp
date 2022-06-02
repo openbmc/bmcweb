@@ -1425,8 +1425,7 @@ inline void findActionOnInterface(
                                 argumentNode->NextSiblingElement("arg");
                         }
 
-                        nlohmann::json::const_iterator argIt =
-                            transaction->arguments.begin();
+                        auto argIt = transaction->arguments.begin();
 
                         argumentNode = methodNode->FirstChildElement("arg");
 
@@ -1836,7 +1835,7 @@ inline void handlePut(const crow::Request& req,
         return;
     }
 
-    nlohmann::json::const_iterator propertyIt = requestDbusData.find("data");
+    auto propertyIt = requestDbusData.find("data");
     if (propertyIt == requestDbusData.end())
     {
         setErrorResponse(asyncResp->res,
