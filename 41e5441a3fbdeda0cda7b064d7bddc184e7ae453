@@ -106,6 +106,24 @@
       "parentUuid": "3de9ba05_2862fa4d",
       "revId": "41e5441a3fbdeda0cda7b064d7bddc184e7ae453",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "75ddf877_d8b50795",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 797,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-02T15:24:38Z",
+      "side": 1,
+      "message": "Unfortunately, there are two \"standard\" ways, the two I listed above.  If you\u0027re interested, this is something we could certainly make consistent, then have a rule for, but at the moment, both 1 and 2 are acceptable.\n\nFWIW, my preference is for 2, because it doesn\u0027t require us to lookup the association twice (once for the chassis and once for the DriveCollection) but that\u0027s a minor preference.",
+      "parentUuid": "de6bb48b_ebc1b9e8",
+      "revId": "41e5441a3fbdeda0cda7b064d7bddc184e7ae453",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

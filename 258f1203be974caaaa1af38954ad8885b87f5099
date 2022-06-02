@@ -189,6 +189,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d25f04d6_d4b7e34b",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-02T15:24:38Z",
+      "side": 1,
+      "message": "I did a quick scan and didn\u0027t see any brace initialization;  Can you point one or two of them out?  Maybe I\u0027m just blind.\n\nYes, there are quite a few instances of using string concatenation for building urls;  We\u0027re working on them.",
+      "parentUuid": "2a290b4d_ed755c61",
+      "range": {
+        "startLine": 298,
+        "startChar": 0,
+        "endLine": 301,
+        "endChar": 23
+      },
+      "revId": "258f1203be974caaaa1af38954ad8885b87f5099",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "41869896_32c1e69e",
@@ -220,6 +244,24 @@
       "side": 1,
       "message": "if an incoming request were to ask the mapper for chassis,  and the mapper produced  an error (either in the mapper or a the dbus level), I would expect 500. And that is what the code on 593 to 597 should do.\n\nIf the chassis is not found (but there were no errors), I would expect a 404.",
       "parentUuid": "41869896_32c1e69e",
+      "revId": "258f1203be974caaaa1af38954ad8885b87f5099",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "750241ea_4d9a12d3",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 592,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-02T15:24:38Z",
+      "side": 1,
+      "message": "\u003e if an incoming request were to ask the mapper for chassis,  and the mapper produced  an error (either in the mapper or a the dbus level), I would expect 500. And that is what the code on 593 to 597 should do.\n\nUnfortunately, your expectation here is incorrect with the coding standard, and what\u0027s documented in common error #11.  The mapper will return an error if no entries exist.\n\n\u003e \n\u003e If the chassis is not found (but there were no errors), I would expect a 404.\n\nThe easiest way to test for this is to just drop a bad ID into your url;  it should return 404.  The code you had I\u0027m pretty sure would not, because the mapper returns an error on non-existence.",
+      "parentUuid": "32a1b925_1dfe2f6c",
       "revId": "258f1203be974caaaa1af38954ad8885b87f5099",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
