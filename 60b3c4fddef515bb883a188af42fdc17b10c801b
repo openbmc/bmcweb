@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "81d3fa3e_23bab502",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-02T18:40:38Z",
+      "side": 1,
+      "message": "Sure, that seems like a reasonable first step.",
+      "parentUuid": "6929d4af_6ac901a6",
+      "revId": "60b3c4fddef515bb883a188af42fdc17b10c801b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b57b727a_4555ed70",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 11
@@ -73,6 +91,30 @@
       "side": 1,
       "message": "No. I didn\u0027t find it in the Spec. Here I am worrying about clients send weird header values, e.g., extremely large strings.",
       "parentUuid": "b57b727a_4555ed70",
+      "range": {
+        "startLine": 264,
+        "startChar": 0,
+        "endLine": 264,
+        "endChar": 66
+      },
+      "revId": "60b3c4fddef515bb883a188af42fdc17b10c801b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a85785a4_12bd0fe1",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-02T18:40:38Z",
+      "side": 1,
+      "message": "Ah, that\u0027s a good point, we probably should impose some limits on it in terms of number of keys.\n\nThis is parsing the uri, which is already enforced by the connection to be no larger than 8k, so in theory that\u0027s the longest string we\u0027ll have here, but if it\u0027s 8k worth of \",,,,,,,,,,,,,,,\" then that might be an issue we should handle?  Worth thinking about at the very least.",
+      "parentUuid": "17d2d1d6_ca9d1342",
       "range": {
         "startLine": 264,
         "startChar": 0,
