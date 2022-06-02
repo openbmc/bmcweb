@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6929d4af_6ac901a6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-02T18:37:19Z",
+      "side": 1,
+      "message": "Sure.\n\nAre we okay with return errors (e.g., not supported) first if $select are combined with $expand?",
+      "parentUuid": "dc92514f_78b475bd",
+      "revId": "60b3c4fddef515bb883a188af42fdc17b10c801b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b57b727a_4555ed70",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 11
@@ -31,6 +49,30 @@
       "writtenOn": "2022-06-02T16:11:09Z",
       "side": 1,
       "message": "is that required in the spec?",
+      "range": {
+        "startLine": 264,
+        "startChar": 0,
+        "endLine": 264,
+        "endChar": 66
+      },
+      "revId": "60b3c4fddef515bb883a188af42fdc17b10c801b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "17d2d1d6_ca9d1342",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-02T18:37:19Z",
+      "side": 1,
+      "message": "No. I didn\u0027t find it in the Spec. Here I am worrying about clients send weird header values, e.g., extremely large strings.",
+      "parentUuid": "b57b727a_4555ed70",
       "range": {
         "startLine": 264,
         "startChar": 0,
