@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d95e84fa_5e5c3404",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000733
+      },
+      "writtenOn": "2022-06-02T19:48:50Z",
+      "side": 1,
+      "message": "Clarity nit: s/x-requested-for/X-Requested-With/?",
+      "revId": "28304f3e9ce7d15018e52115968d347a643a4c96",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2108e963_43f5bde9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000733
+      },
+      "writtenOn": "2022-06-02T19:48:50Z",
+      "side": 1,
+      "message": "I unfortunately don\u0027t have enough knowledge of HTTP/web security mechanisms to evaluate this properly, but from the description of the testing done it sounds like it works as it should...",
+      "revId": "28304f3e9ce7d15018e52115968d347a643a4c96",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
