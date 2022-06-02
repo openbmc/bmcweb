@@ -208,8 +208,8 @@ TEST_F(LockTest, MultiRequestWithoutConflictduetoDifferentSegmentLength)
     // two different kind of resources
     std::get<4>(request[0])[0].second = 3;
     const LockRequests& t = request;
-    // Return No Conflict
-    ASSERT_EQ(0, lockManager.isConflictRequest(t));
+    // Return Conflict
+    ASSERT_EQ(1, lockManager.isConflictRequest(t));
 }
 
 TEST_F(LockTest, MultiRequestWithoutConflictduetoReadLocktype)

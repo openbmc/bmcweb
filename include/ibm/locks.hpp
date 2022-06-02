@@ -550,6 +550,22 @@ inline bool Lock::isConflictRecord(const LockRequest& refLockRecord1,
         return false;
     }
 
+    // If there is a WriteLock and both resourceIds are exactly same
+    // then return conflict
+    BMCWEB_LOG_DEBUG << "resourceId from refLockRecord1: "
+                     << std::get<3>(refLockRecord1);
+    BMCWEB_LOG_DEBUG << "resourceId from refLockRecord2: "
+                     << std::get<3>(refLockRecord2);
+    if ((boost::equals(std::get<2>(refLockRecord1), "Write") ||
+         boost::equals(std::get<2>(refLockRecord2), "Write")) &&
+        ((std::get<3>(refLockRecord1)) == (std::get<3>(refLockRecord2))))
+    {
+        BMCWEB_LOG_ERROR << "One of the record is WriteLock and resourceId are "
+                            "idential"
+                         << std::get<3>(refLockRecord1) << " . Return conflict";
+        return true;
+    }
+
     uint32_t i = 0;
     for (const auto& p : std::get<4>(refLockRecord1))
     {
@@ -572,6 +588,9 @@ inline bool Lock::isConflictRecord(const LockRequest& refLockRecord1,
              boost::equals(std::get<4>(refLockRecord2)[i].first, "LockSame")) &&
             (p.second == std::get<4>(refLockRecord2)[i].second))
         {
+            BMCWEB_LOG_DEBUG
+                << "Either of the Comparing locks are trying to LockSame "
+                   "resources under the current resource level";
             return true;
         }
 
