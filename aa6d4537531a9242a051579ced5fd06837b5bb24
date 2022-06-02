@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "32690cac_a53bca14",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-02T15:55:37Z",
+      "side": 1,
+      "message": "As always, happy to discuss, but this is whitespace.",
+      "revId": "aa6d4537531a9242a051579ced5fd06837b5bb24",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
