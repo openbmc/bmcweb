@@ -33,6 +33,24 @@
       "message": "Couple comments on this api:\n\n1. Now that we can inject them, do they need to have a \"name\" at all in this API?  Could retryPolicyName be completely removed?\n2. Should we work retryAttempts and retryTimeoutInterval into the callback itself?  I\u0027m thinking it could be something returned, kinda like:\n\n\nenum class Retry {\n   Continue;\n   Complete;\n   Error;\n}\n\nstruct RetryInfo {\n   Retry retry;\n   std::chrono::seconds retryAfter;\n   size_t attemptsRemaining \u003d 5;\n}\n\ninline handleRetry(RetryInfo\u0026 retry, response\u0026 res){\n     if ((respCode \u003c 200) || (respCode \u003e\u003d 300))\n    {\n       \n       return Retry::error;\n    }\n    \n    return Retry::Complete\n}\n\n\n\n\nThis could allow clients to do things like handle http retry-after headers as the spec requests, by parsing them and setting the retryAfter correctly.\n\n\n\n\nIt\u0027s quite possible I\u0027m overthinking the above, and it\u0027s certainly something we can evolve over time, but something to think about.",
       "revId": "abcb5ac1d031ba0527c53898bf48410f87c79472",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "50f64ee0_627c6954",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 708,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-06-02T17:39:52Z",
+      "side": 1,
+      "message": "\u003e 1. Now that we can inject them, do they need to have a \"name\" at all in this API?  Could retryPolicyName be completely removed?\nI think we need to keep the name for reporting purposes. Each individual connection receives a copy of the RetryInfo struct as part of the message sending process.  \"retryPolicyName\" is the only way to indicate which retry policy is being used.\n\n\u003e 2. Should we work retryAttempts and retryTimeoutInterval into the callback itself?\nI think at that point we\u0027d be really getting into duplicating work within each retry policy.  Each policy should use those values in the same way.\n\nWe also attempt to retry if any stage of sending a message fails.  This change would break out retries on response code failures while leaving the other retry logic in place.\n\n\u003e This could allow clients to do things like handle http retry-after headers as the spec requests, by parsing them and setting the retryAfter correctly.\nI think this would be more appropriate to be handled within recvMessage() so that different policies can handle those situations as well.  I\u0027d much rather add a bool to the retry policy to enable/disable additional features like that.",
+      "parentUuid": "ff65664a_3c7ffaab",
+      "revId": "abcb5ac1d031ba0527c53898bf48410f87c79472",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
