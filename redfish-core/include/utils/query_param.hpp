@@ -423,32 +423,39 @@ inline std::vector<ExpandNode>
 }
 
 // Formats a query parameter string for the sub-query.
+// Returns std::nullopt on failures.
 // This function shall handle $select when it is added.
 // There is no need to handle parameters that's not campatible with $expand,
 // e.g., $only, since this function will only be called in side $expand handlers
-inline std::string formatQueryForExpand(const Query& query)
+inline std::optional<std::string> formatQueryForExpand(const Query& query)
 {
     // query.expandLevel<=1: no need to do subqueries
     if (query.expandLevel <= 1)
     {
-        return {};
+        return "";
     }
     std::string str = "?$expand=";
+    bool queryTypeExpected = false;
     switch (query.expandType)
     {
         case ExpandType::None:
-            return {};
+            return "";
         case ExpandType::Links:
+            queryTypeExpected = true;
             str += '~';
             break;
         case ExpandType::NotLinks:
+            queryTypeExpected = true;
             str += '.';
             break;
         case ExpandType::Both:
+            queryTypeExpected = true;
             str += '*';
             break;
-        default:
-            return {};
+    }
+    if (!queryTypeExpected)
+    {
+        return std::nullopt;
     }
     str += "($levels=";
     str += std::to_string(query.expandLevel - 1);
@@ -491,10 +498,15 @@ class MultiAsyncResp : public std::enable_shared_from_this<MultiAsyncResp>
         std::vector<ExpandNode> nodes =
             findNavigationReferences(query.expandType, finalRes->res.jsonValue);
         BMCWEB_LOG_DEBUG << nodes.size() << " nodes to traverse";
-        const std::string queryStr = formatQueryForExpand(query);
+        const std::optional<std::string> queryStr = formatQueryForExpand(query);
+        if (!queryStr)
+        {
+            messages::internalError(finalRes->res);
+            return;
+        }
         for (const ExpandNode& node : nodes)
         {
-            const std::string subQuery = node.uri + queryStr;
+            const std::string subQuery = node.uri + *queryStr;
             BMCWEB_LOG_DEBUG << "URL of subquery:  " << subQuery;
             std::error_code ec;
             crow::Request newReq({boost::beast::http::verb::get, subQuery, 11},
