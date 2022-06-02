@@ -16,6 +16,24 @@
       "message": "Should we consider moving these test files into their own directory named \u0027tests\u0027? \nSeveral other repos in openbmc seem to follow this format such as telemetry, dbus-sensors, etc...",
       "revId": "71f2db758154e3a0e1b5dbd4698f5dddd31c10c0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "39d940ab_d854b5c0",
+        "filename": "meson.build",
+        "patchSetId": 9
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-02T20:58:04Z",
+      "side": 0,
+      "message": "We could discuss it.  FWIW, I generally prefer that the tests sit next to the file they\u0027re testing, so it\u0027s obvious where the unit tests should go, but we don\u0027t necessarily follow that rule either.\n\nIn the context of this patchset, we should continue to do what exists, but I\u0027m happy to discuss moving things around in another patchset if it\u0027s something you\u0027re interested in exploring.",
+      "parentUuid": "d0974059_dbe8f2e6",
+      "revId": "71f2db758154e3a0e1b5dbd4698f5dddd31c10c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
