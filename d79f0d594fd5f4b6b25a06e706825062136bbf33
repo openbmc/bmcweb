@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a0ae6497_8512edf9",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 396,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-02T15:57:13Z",
+      "side": 1,
+      "message": "Please make this accept by string_view, then the std::string construction on line 455 will not be required.",
+      "range": {
+        "startLine": 396,
+        "startChar": 43,
+        "endLine": 396,
+        "endChar": 61
+      },
+      "revId": "d79f0d594fd5f4b6b25a06e706825062136bbf33",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
