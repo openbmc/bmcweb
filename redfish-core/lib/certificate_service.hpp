@@ -12,21 +12,22 @@ namespace redfish
 {
 namespace certs
 {
-constexpr char const* httpsObjectPath =
-    "/xyz/openbmc_project/certs/server/https";
 constexpr char const* certInstallIntf = "xyz.openbmc_project.Certs.Install";
 constexpr char const* certReplaceIntf = "xyz.openbmc_project.Certs.Replace";
 constexpr char const* objDeleteIntf = "xyz.openbmc_project.Object.Delete";
 constexpr char const* certPropIntf = "xyz.openbmc_project.Certs.Certificate";
 constexpr char const* dbusPropIntf = "org.freedesktop.DBus.Properties";
 constexpr char const* dbusObjManagerIntf = "org.freedesktop.DBus.ObjectManager";
-constexpr char const* ldapObjectPath = "/xyz/openbmc_project/certs/client/ldap";
 constexpr char const* httpsServiceName =
     "xyz.openbmc_project.Certs.Manager.Server.Https";
 constexpr char const* ldapServiceName =
     "xyz.openbmc_project.Certs.Manager.Client.Ldap";
 constexpr char const* authorityServiceName =
     "xyz.openbmc_project.Certs.Manager.Authority.Ldap";
+constexpr char const* baseObjectPath = "/xyz/openbmc_project/certs";
+constexpr char const* httpsObjectPath =
+    "/xyz/openbmc_project/certs/server/https";
+constexpr char const* ldapObjectPath = "/xyz/openbmc_project/certs/client/ldap";
 constexpr char const* authorityObjectPath =
     "/xyz/openbmc_project/certs/authority/ldap";
 } // namespace certs
@@ -936,46 +937,68 @@ inline void requestRoutesHTTPSCertificateCollection(App& app)
 } // requestRoutesHTTPSCertificateCollection
 
 /**
- * @brief Retrieve the certificates installed list and append to the
- * response
+ * @brief Retrieve the installed certificate list
  *
  * @param[in] asyncResp Shared pointer to the response message
- * @param[in] certURL  Path of the certificate object
- * @param[in] path  Path of the D-Bus service object
  * @return None
  */
 inline void
-    getCertificateLocations(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                            const std::string& certURL, const std::string& path,
-                            const std::string& service)
+    getCertificateLocations(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    BMCWEB_LOG_DEBUG << "getCertificateLocations URI=" << certURL
-                     << " Path=" << path << " service= " << service;
     crow::connections::systemBus->async_method_call(
-        [asyncResp, certURL](const boost::system::error_code ec,
-                             const dbus::utility::ManagedObjectType& certs) {
+        [asyncResp](
+            const boost::system::error_code ec,
+            const dbus::utility::MapperGetSubTreePathsResponse& certPaths) {
         if (ec)
         {
-            BMCWEB_LOG_WARNING << "Certificate collection query failed: " << ec
-                               << ", skipping " << certURL;
+            BMCWEB_LOG_ERROR << "Certificate collection query failed: " << ec;
+            messages::internalError(asyncResp->res);
             return;
         }
+
         nlohmann::json& links =
             asyncResp->res.jsonValue["Links"]["Certificates"];
-        for (const auto& cert : certs)
+        links = nlohmann::json::array();
+        for (const auto& certPath : certPaths)
         {
-            long id = getIDFromURL(cert.first.str);
-            if (id >= 0)
+            sdbusplus::message::object_path objPath(certPath);
+            std::string certId = objPath.filename();
+            boost::urls::url certURL;
+            if (objPath.parent_path() == certs::httpsObjectPath)
             {
-                nlohmann::json::object_t link;
-                link["@odata.id"] = certURL + std::to_string(id);
-                links.push_back(std::move(link));
+                certURL = crow::utility::urlFromPieces(
+                    "redfish", "v1", "Managers", "bmc", "NetworkProtocol",
+                    "HTTPS", "Certificates", certId);
             }
+            else if (objPath.parent_path() == certs::ldapObjectPath)
+            {
+                certURL = crow::utility::urlFromPieces("redfish", "v1",
+                                                       "AccountService", "LDAP",
+                                                       "Certificates", certId);
+            }
+            else if (objPath.parent_path() == certs::authorityObjectPath)
+            {
+                certURL = crow::utility::urlFromPieces(
+                    "redfish", "v1", "Managers", "bmc", "Truststore",
+                    "Certificates", certId);
+            }
+            else
+            {
+                continue;
+            }
+            nlohmann::json::object_t link;
+            link["@odata.id"] = certURL;
+            links.push_back(std::move(link));
         }
+
         asyncResp->res.jsonValue["Links"]["Certificates@odata.count"] =
             links.size();
         },
-        service, path, certs::dbusObjManagerIntf, "GetManagedObjects");
+        "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths",
+        certs::baseObjectPath, 0,
+        std::array<const char*, 1>{certs::certPropIntf});
 }
 
 /**
@@ -1003,19 +1026,7 @@ inline void requestRoutesCertificateLocations(App& app)
             "Defines a resource that an administrator can use in order to "
             "locate all certificates installed on a given service";
 
-        nlohmann::json& links =
-            asyncResp->res.jsonValue["Links"]["Certificates"];
-        links = nlohmann::json::array();
-        getCertificateLocations(
-            asyncResp,
-            "/redfish/v1/Managers/bmc/NetworkProtocol/HTTPS/Certificates/",
-            certs::httpsObjectPath, certs::httpsServiceName);
-        getCertificateLocations(asyncResp,
-                                "/redfish/v1/AccountService/LDAP/Certificates/",
-                                certs::ldapObjectPath, certs::ldapServiceName);
-        getCertificateLocations(
-            asyncResp, "/redfish/v1/Managers/bmc/Truststore/Certificates/",
-            certs::authorityObjectPath, certs::authorityServiceName);
+        getCertificateLocations(asyncResp);
         });
 }
 // requestRoutesCertificateLocations
