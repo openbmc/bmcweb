@@ -15,6 +15,8 @@
 */
 #pragma once
 
+#include "utility.hpp"
+
 #include <account_service.hpp>
 #include <app.hpp>
 #include <boost/process/async_pipe.hpp>
@@ -268,15 +270,18 @@ inline void getVmData(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
             if (mode.filename() == "Legacy")
             {
                 aResp->res.jsonValue["Actions"]["#VirtualMedia.InsertMedia"]
-                                    ["target"] =
-                    actionsId + "/VirtualMedia.InsertMedia";
+                                    ["target"] = crow::utility::urlFromPieces(
+                    "redfish", "v1", "Managers", name, "VirtualMedia", resName,
+                    "Actions", "VirtualMedia.InsertMedia");
             }
 
             vmParseInterfaceObject(item.second, aResp);
 
             aResp->res
                 .jsonValue["Actions"]["#VirtualMedia.EjectMedia"]["target"] =
-                actionsId + "/VirtualMedia.EjectMedia";
+                crow::utility::urlFromPieces("redfish", "v1", "Managers", name,
+                                             "VirtualMedia", resName, "Actions",
+                                             "VirtualMedia.EjectMedia");
 
             return;
         }
