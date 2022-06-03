@@ -1,0 +1,659 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4d4833e6_b3a75369",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-03T23:59:41Z",
+      "side": 1,
+      "message": "Hey Arun, glad to have you contributing.  It looks like you need to get added to the Intel CLA.  I believe Terry Duncan maintains it these days (or should at least be able to point you to the right person).\n\nThat will get you a CI run, which should find a lot of the quick issues that CI can find.\n\nGiven that this is implementing a generic thing (Licenses) that is going to need to work across CPU and component vendors, this is probably the kind of thing that needs a design doc so we can get the implementation in place and the interfaces nailed down.  Ideally we would\u0027ve done that before we wrote so much implementation, but no big deal, we\u0027ll work it out in the end.\n\n\nBased on the looks of it, this code was written a while ago, as I see a lot of the current best practices seem to be missed or were copied from old code.  In many cases I\u0027ve pointed out only one instance, but there are multiple that need fixed, so please work through your code and fix all of them.\n\n\nAs an overall theme, this patchset needs to be using the mapper to find these license objects.  Calling a single daemon locks bmcweb into ONLY supporting CPU licenses, or maintaining a list of every possible daemon that can implement a license, so for that reason, we rely on the mapper to maintain a list of deamons for us, so please plan on porting your code to use that.\n\n\nIf you have any questions and want faster response times, Gunnar, Krzysztof, and myself are all active on discord (as are a bunch of other bmcweb users), and can help you out.\n\nAgain, glad to have you contributing!",
+      "revId": "8ed7b7351627b871b9ea64781be5d57fb0941e4e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "52167c93_e30321eb",
+        "filename": "redfish-core/lib/license_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-03T23:59:41Z",
+      "side": 1,
+      "message": "Please don\u0027t hardcode service names for things that are distributed across the project.  use the mapper to look them up, or, if the intent is for this service to handle all licenses for all projects, please make that clear when you push the design docs for this.",
+      "range": {
+        "startLine": 22,
+        "startChar": 25,
+        "endLine": 22,
+        "endChar": 36
+      },
+      "revId": "8ed7b7351627b871b9ea64781be5d57fb0941e4e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e8cc6adc_7f4e6daa",
+        "filename": "redfish-core/lib/license_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-03T23:59:41Z",
+      "side": 1,
+      "message": "I really suspect this helper method is already covered by some combination of the boost::urls::url object, or pulling the \"name\" from the router string.  We do this exact same conversion other places without needing this helper function, so please try to use those as an example.  If this is truly required, Please explain in your commit message why, and how it differs from the existing.",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 0
+      },
+      "revId": "8ed7b7351627b871b9ea64781be5d57fb0941e4e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4e87d590_0df86749",
+        "filename": "redfish-core/lib/license_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-03T23:59:41Z",
+      "side": 1,
+      "message": "nit, else is redundant here.",
+      "range": {
+        "startLine": 55,
+        "startChar": 4,
+        "endLine": 55,
+        "endChar": 8
+      },
+      "revId": "8ed7b7351627b871b9ea64781be5d57fb0941e4e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c34c511e_065b57d2",
+        "filename": "redfish-core/lib/license_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-03T23:59:41Z",
+      "side": 1,
+      "message": "if you expect 1 device, and there\u0027s 0 or \u003e 1, you need to handle that error appropriately.",
+      "range": {
+        "startLine": 57,
+        "startChar": 0,
+        "endLine": 57,
+        "endChar": 37
+      },
+      "revId": "8ed7b7351627b871b9ea64781be5d57fb0941e4e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "077670fc_bc06a5da",
+        "filename": "redfish-core/lib/license_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-03T23:59:41Z",
+      "side": 1,
+      "message": "else is redundant here.",
+      "range": {
+        "startLine": 69,
+        "startChar": 12,
+        "endLine": 69,
+        "endChar": 16
+      },
+      "revId": "8ed7b7351627b871b9ea64781be5d57fb0941e4e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f60ff6e8_ac1d5ec2",
+        "filename": "redfish-core/lib/license_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-03T23:59:41Z",
+      "side": 1,
+      "message": "Please don\u0027t capture references like this in async handlers. They cause lifetime issues, as pointers are invalidated anytime the calling object is modified.  We have hit this bug a lot.",
+      "range": {
+        "startLine": 97,
+        "startChar": 21,
+        "endLine": 97,
+        "endChar": 28
+      },
+      "revId": "8ed7b7351627b871b9ea64781be5d57fb0941e4e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b6f64473_0e49f790",
+        "filename": "redfish-core/lib/license_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-03T23:59:41Z",
+      "side": 1,
+      "message": "Please:\n1. avoid nlohmann brace construction\n2. use the urlFromPieces to ensure that your urls are escaped properly.\n3. deduplicate your branches.  They are largely identical except for \"ProvisionLicense\" or \"DyanmicLicense\".  I suspect that could just be the value of \"method\" and remove a lot of the complication here.",
+      "range": {
+        "startLine": 108,
+        "startChar": 0,
+        "endLine": 112,
+        "endChar": 17
+      },
+      "revId": "8ed7b7351627b871b9ea64781be5d57fb0941e4e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d4ca8c98_0ba19176",
+        "filename": "redfish-core/lib/license_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 443,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-03T23:59:41Z",
+      "side": 1,
+      "message": "Because of the aggregation work, we are trying to remove all brace initialization of jsonValue from this.  Please look around at other examples of the style that\u0027s currently on master using operator[], and replicate it here.",
+      "revId": "8ed7b7351627b871b9ea64781be5d57fb0941e4e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bca450bc_be960961",
+        "filename": "redfish-core/lib/license_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 449,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-03T23:59:41Z",
+      "side": 1,
+      "message": "This seems like an odd thing to hardcode, and I\u0027m not sure it\u0027s right, please take a look and advise.",
+      "range": {
+        "startLine": 449,
+        "startChar": 0,
+        "endLine": 449,
+        "endChar": 57
+      },
+      "revId": "8ed7b7351627b871b9ea64781be5d57fb0941e4e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c057997e_34f380db",
+        "filename": "redfish-core/lib/license_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 452,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-03T23:59:41Z",
+      "side": 1,
+      "message": "another example of brace initialization of nlohaman objects.",
+      "range": {
+        "startLine": 452,
+        "startChar": 55,
+        "endLine": 452,
+        "endChar": 56
+      },
+      "revId": "8ed7b7351627b871b9ea64781be5d57fb0941e4e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a6aeee71_fe09cf30",
+        "filename": "redfish-core/lib/license_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 470,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-03T23:59:41Z",
+      "side": 1,
+      "message": "Please follow the naming convention we have for callbacks like this elsewhere.",
+      "range": {
+        "startLine": 470,
+        "startChar": 32,
+        "endLine": 470,
+        "endChar": 71
+      },
+      "revId": "8ed7b7351627b871b9ea64781be5d57fb0941e4e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6ce81aee_4d4c4164",
+        "filename": "redfish-core/lib/license_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 484,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-03T23:59:41Z",
+      "side": 1,
+      "message": "Considering this is trying to make use of oem stuff, we\u0027ll need to figure out how to map that to dbus in an agnostic way.",
+      "range": {
+        "startLine": 484,
+        "startChar": 0,
+        "endLine": 484,
+        "endChar": 57
+      },
+      "revId": "8ed7b7351627b871b9ea64781be5d57fb0941e4e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e65efcc0_76ed2083",
+        "filename": "redfish-core/lib/license_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 489,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-03T23:59:41Z",
+      "side": 1,
+      "message": "Please parse this using the mulit-level support in readJsonPatch\n\nIe, this should be\n\n\"Links/AuthorizationScope\" I think.",
+      "range": {
+        "startLine": 489,
+        "startChar": 58,
+        "endLine": 489,
+        "endChar": 63
+      },
+      "revId": "8ed7b7351627b871b9ea64781be5d57fb0941e4e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6e6594d3_fc519cd9",
+        "filename": "redfish-core/lib/license_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 495,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-03T23:59:41Z",
+      "side": 1,
+      "message": "This isn\u0027t really a correct type check.  for example linksObject could be uint64_t, which would also be incorrect.\n\nplease just use the built-in handling in readJson, which handles these types of safety issues (and lots more) for you directly.",
+      "range": {
+        "startLine": 495,
+        "startChar": 0,
+        "endLine": 495,
+        "endChar": 66
+      },
+      "revId": "8ed7b7351627b871b9ea64781be5d57fb0941e4e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2718ae22_d6f5d8a2",
+        "filename": "redfish-core/lib/license_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 509,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-03T23:59:41Z",
+      "side": 1,
+      "message": "This is kind of an odd check, considering that we read this in, then do nothing with the parameter?",
+      "range": {
+        "startLine": 507,
+        "startChar": 0,
+        "endLine": 509,
+        "endChar": 17
+      },
+      "revId": "8ed7b7351627b871b9ea64781be5d57fb0941e4e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6c701c63_45f4bf2c",
+        "filename": "redfish-core/lib/license_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 527,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-03T23:59:41Z",
+      "side": 1,
+      "message": "We\u0027ll have to discuss that in the PDI review.  I suspect this isn\u0027t something we\u0027re going to want to hardcode in the front end, given that anything (including things like nvdimms that intel cares about) can have a license string, and we don\u0027t want to maintain a \"everything that could be licensed\" list here.",
+      "range": {
+        "startLine": 525,
+        "startChar": 0,
+        "endLine": 527,
+        "endChar": 62
+      },
+      "revId": "8ed7b7351627b871b9ea64781be5d57fb0941e4e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "77f11920_be995b33",
+        "filename": "redfish-core/lib/license_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 529,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-03T23:59:41Z",
+      "side": 1,
+      "message": "Please don\u0027t parse urls with regex.  We have dedicated structures (boost::urls::url) for parsing urls in a way that is consistent with escaping rules.",
+      "range": {
+        "startLine": 525,
+        "startChar": 0,
+        "endLine": 529,
+        "endChar": 71
+      },
+      "revId": "8ed7b7351627b871b9ea64781be5d57fb0941e4e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b44abf35_7eb37193",
+        "filename": "redfish-core/lib/license_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 530,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-03T23:59:41Z",
+      "side": 1,
+      "message": "Again, please prefer to invert this check and return early (although with url parsing, it might not be neccesary anymore.",
+      "range": {
+        "startLine": 530,
+        "startChar": 0,
+        "endLine": 530,
+        "endChar": 66
+      },
+      "revId": "8ed7b7351627b871b9ea64781be5d57fb0941e4e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "258617a2_97edf042",
+        "filename": "redfish-core/lib/license_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 539,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-03T23:59:41Z",
+      "side": 1,
+      "message": "This is just renaming a variable?  Doesn\u0027t seem neccesary?",
+      "range": {
+        "startLine": 539,
+        "startChar": 0,
+        "endLine": 539,
+        "endChar": 63
+      },
+      "revId": "8ed7b7351627b871b9ea64781be5d57fb0941e4e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4c22efa9_7480b1c2",
+        "filename": "redfish-core/lib/license_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 552,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-03T23:59:41Z",
+      "side": 1,
+      "message": "You\u0027re mixing schemas here.  earlier in this file you treated Links as an object, here you\u0027re treting it as an array.  I don\u0027t remember which is correct in the standard, but one of them is wrong.",
+      "range": {
+        "startLine": 552,
+        "startChar": 31,
+        "endLine": 552,
+        "endChar": 32
+      },
+      "revId": "8ed7b7351627b871b9ea64781be5d57fb0941e4e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e4f9a7d7_379ca8c9",
+        "filename": "redfish-core/lib/license_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 566,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-03T23:59:41Z",
+      "side": 1,
+      "message": "Lots of stuff to fix here, and on every other BMCWEB_ROUTE declaration:\n\n1. Please use the privilege registry declarations for LicenseCollection.  If they don\u0027t yet exist in the base privilege registry, please work with DMTF to get them added.  Both Gunnar and I are on the DMTF and attend the meeting regularly, so if you show up or file PR with them, ping CC both of us and we\u0027re happy to help get your changes through.\n\n2. You seem to have missed the \"setupRedfishRoute()\" call that we now require for redfish tree changes to make sure query params work properly.  Please add that to all of your requests (take a look at any other example in the tree).\n\n\n3. You\u0027ve written most of these as lambdas, which we\u0027ve been transitioning our existing lambdas to direct function calls with std::bind_front.  Please take a look elsewhere for examples of this.\n\n\nPlease make all 3 changes to every BMCWEB_ROUTE invocation in this patchset.",
+      "range": {
+        "startLine": 561,
+        "startChar": 1,
+        "endLine": 566,
+        "endChar": 42
+      },
+      "revId": "8ed7b7351627b871b9ea64781be5d57fb0941e4e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e6b30c6e_7f4275d4",
+        "filename": "redfish-core/lib/license_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 571,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-03T23:59:41Z",
+      "side": 1,
+      "message": "This check is not required, and is actually guaranteed by the router to never happen.  Even if it does, it generally causes no functional issues if it\u0027s empty.",
+      "range": {
+        "startLine": 567,
+        "startChar": 0,
+        "endLine": 571,
+        "endChar": 17
+      },
+      "revId": "8ed7b7351627b871b9ea64781be5d57fb0941e4e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "279eb18e_0a61807d",
+        "filename": "redfish-core/lib/license_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 576,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-03T23:59:41Z",
+      "side": 1,
+      "message": "Please invert this check and return early on errors.",
+      "range": {
+        "startLine": 574,
+        "startChar": 0,
+        "endLine": 576,
+        "endChar": 17
+      },
+      "revId": "8ed7b7351627b871b9ea64781be5d57fb0941e4e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "57a7f529_e1f5dcd8",
+        "filename": "redfish-core/lib/license_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 579,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-03T23:59:41Z",
+      "side": 1,
+      "message": "Please don\u0027t capture req by reference, as it causes lifetime issues on async calls if the connection drops while a request handling is in process.  Parse out the fields you need, and pass those by value to your callback.",
+      "range": {
+        "startLine": 579,
+        "startChar": 25,
+        "endLine": 579,
+        "endChar": 29
+      },
+      "revId": "8ed7b7351627b871b9ea64781be5d57fb0941e4e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a0aa54c8_622e88aa",
+        "filename": "redfish-core/lib/license_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 596,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-03T23:59:41Z",
+      "side": 1,
+      "message": "common error #12.  Please read and understand COMMON_ERRORS.md",
+      "range": {
+        "startLine": 596,
+        "startChar": 48,
+        "endLine": 596,
+        "endChar": 57
+      },
+      "revId": "8ed7b7351627b871b9ea64781be5d57fb0941e4e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f5f951a4_2a183fd1",
+        "filename": "redfish-core/lib/license_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 613,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-03T23:59:41Z",
+      "side": 1,
+      "message": "what is sdsi, and why do we put is as part of the lookup path?",
+      "range": {
+        "startLine": 613,
+        "startChar": 46,
+        "endLine": 613,
+        "endChar": 50
+      },
+      "revId": "8ed7b7351627b871b9ea64781be5d57fb0941e4e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "11f5709a_df6f49a8",
+        "filename": "redfish-core/lib/license_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 614,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-03T23:59:41Z",
+      "side": 1,
+      "message": "nit, const char* please to avoid the std::string construction.",
+      "range": {
+        "startLine": 614,
+        "startChar": 35,
+        "endLine": 614,
+        "endChar": 52
+      },
+      "revId": "8ed7b7351627b871b9ea64781be5d57fb0941e4e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f5af8f82_1f190313",
+        "filename": "redfish-core/lib/license_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 615,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-03T23:59:41Z",
+      "side": 1,
+      "message": "please link the phosphor-dbus-interfaces review for this.  I suspect this naming is overly specific, and is going to be requested to be more abstracted, but lets talk about that in the right review.",
+      "range": {
+        "startLine": 615,
+        "startChar": 29,
+        "endLine": 615,
+        "endChar": 66
+      },
+      "revId": "8ed7b7351627b871b9ea64781be5d57fb0941e4e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
