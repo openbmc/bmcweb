@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b83e839_116f5277",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-06-03T20:00:45Z",
+      "side": 1,
+      "message": "Some of this tracing looks like logging when the client sends a bad_request? Why do we need? The return message to the client should be detailed enough to know why it was a bad request.",
+      "revId": "b8a777142c97676d2d728ebbf236aab795093a81",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "24c34804_f1d2dfd0",
+        "filename": "include/ibm/locks.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-06-03T20:00:45Z",
+      "side": 1,
+      "message": "Why an ERROR here?",
+      "revId": "b8a777142c97676d2d728ebbf236aab795093a81",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
