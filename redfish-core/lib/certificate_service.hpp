@@ -556,6 +556,75 @@ static void updateCertIssuerOrSubject(nlohmann::json& out,
 }
 
 /**
+ * @brief Retrieve the installed certificate list
+ *
+ * @param[in] asyncResp Shared pointer to the response message
+ * @param[in] basePath DBus object path to search
+ * @param[in] listPtr Json pointer to the list in asyncResp
+ * @param[in] countPtr Json pointer to the count in asyncResp
+ * @return None
+ */
+static void
+    getCertificateList(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                       const std::string& basePath,
+                       const nlohmann::json::json_pointer& listPtr,
+                       const nlohmann::json::json_pointer& countPtr)
+{
+    crow::connections::systemBus->async_method_call(
+        [asyncResp, listPtr, countPtr](
+            const boost::system::error_code ec,
+            const dbus::utility::MapperGetSubTreePathsResponse& certPaths) {
+        if (ec)
+        {
+            BMCWEB_LOG_ERROR << "Certificate collection query failed: " << ec;
+            messages::internalError(asyncResp->res);
+            return;
+        }
+
+        nlohmann::json& links = asyncResp->res.jsonValue[listPtr];
+        links = nlohmann::json::array();
+        for (const auto& certPath : certPaths)
+        {
+            sdbusplus::message::object_path objPath(certPath);
+            std::string certId = objPath.filename();
+            boost::urls::url certURL;
+            if (objPath.parent_path() == certs::httpsObjectPath)
+            {
+                certURL = crow::utility::urlFromPieces(
+                    "redfish", "v1", "Managers", "bmc", "NetworkProtocol",
+                    "HTTPS", "Certificates", certId);
+            }
+            else if (objPath.parent_path() == certs::ldapObjectPath)
+            {
+                certURL = crow::utility::urlFromPieces("redfish", "v1",
+                                                       "AccountService", "LDAP",
+                                                       "Certificates", certId);
+            }
+            else if (objPath.parent_path() == certs::authorityObjectPath)
+            {
+                certURL = crow::utility::urlFromPieces(
+                    "redfish", "v1", "Managers", "bmc", "Truststore",
+                    "Certificates", certId);
+            }
+            else
+            {
+                continue;
+            }
+
+            nlohmann::json::object_t link;
+            link["@odata.id"] = certURL;
+            links.push_back(std::move(link));
+        }
+
+        asyncResp->res.jsonValue[countPtr] = links.size();
+        },
+        "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths", basePath, 0,
+        std::array<const char*, 1>{certs::certPropIntf});
+}
+
+/**
  * @brief Retrieve the certificates properties and append to the response
  * message
  *
@@ -850,33 +919,9 @@ inline void requestRoutesHTTPSCertificateCollection(App& app)
         asyncResp->res.jsonValue["Description"] =
             "A Collection of HTTPS certificate instances";
 
-        crow::connections::systemBus->async_method_call(
-            [asyncResp](const boost::system::error_code ec,
-                        const dbus::utility::ManagedObjectType& certs) {
-            if (ec)
-            {
-                BMCWEB_LOG_ERROR << "DBUS response error: " << ec;
-                messages::internalError(asyncResp->res);
-                return;
-            }
-            nlohmann::json& members = asyncResp->res.jsonValue["Members"];
-            members = nlohmann::json::array();
-            for (const auto& cert : certs)
-            {
-                long id = getIDFromURL(cert.first.str);
-                if (id >= 0)
-                {
-                    nlohmann::json::object_t member;
-                    member["@odata.id"] =
-                        "/redfish/v1/Managers/bmc/NetworkProtocol/HTTPS/Certificates/" +
-                        std::to_string(id);
-                    members.push_back(std::move(member));
-                }
-            }
-            asyncResp->res.jsonValue["Members@odata.count"] = members.size();
-            },
-            certs::httpsServiceName, certs::httpsObjectPath,
-            certs::dbusObjManagerIntf, "GetManagedObjects");
+        getCertificateList(asyncResp, certs::httpsObjectPath,
+                           "/Members"_json_pointer,
+                           "/Members@odata.count"_json_pointer);
         });
 
     BMCWEB_ROUTE(app,
@@ -937,71 +982,6 @@ inline void requestRoutesHTTPSCertificateCollection(App& app)
 } // requestRoutesHTTPSCertificateCollection
 
 /**
- * @brief Retrieve the installed certificate list
- *
- * @param[in] asyncResp Shared pointer to the response message
- * @return None
- */
-inline void
-    getCertificateLocations(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
-{
-    crow::connections::systemBus->async_method_call(
-        [asyncResp](
-            const boost::system::error_code ec,
-            const dbus::utility::MapperGetSubTreePathsResponse& certPaths) {
-        if (ec)
-        {
-            BMCWEB_LOG_ERROR << "Certificate collection query failed: " << ec;
-            messages::internalError(asyncResp->res);
-            return;
-        }
-
-        nlohmann::json& links =
-            asyncResp->res.jsonValue["Links"]["Certificates"];
-        links = nlohmann::json::array();
-        for (const auto& certPath : certPaths)
-        {
-            sdbusplus::message::object_path objPath(certPath);
-            std::string certId = objPath.filename();
-            boost::urls::url certURL;
-            if (objPath.parent_path() == certs::httpsObjectPath)
-            {
-                certURL = crow::utility::urlFromPieces(
-                    "redfish", "v1", "Managers", "bmc", "NetworkProtocol",
-                    "HTTPS", "Certificates", certId);
-            }
-            else if (objPath.parent_path() == certs::ldapObjectPath)
-            {
-                certURL = crow::utility::urlFromPieces("redfish", "v1",
-                                                       "AccountService", "LDAP",
-                                                       "Certificates", certId);
-            }
-            else if (objPath.parent_path() == certs::authorityObjectPath)
-            {
-                certURL = crow::utility::urlFromPieces(
-                    "redfish", "v1", "Managers", "bmc", "Truststore",
-                    "Certificates", certId);
-            }
-            else
-            {
-                continue;
-            }
-            nlohmann::json::object_t link;
-            link["@odata.id"] = certURL;
-            links.push_back(std::move(link));
-        }
-
-        asyncResp->res.jsonValue["Links"]["Certificates@odata.count"] =
-            links.size();
-        },
-        "xyz.openbmc_project.ObjectMapper",
-        "/xyz/openbmc_project/object_mapper",
-        "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths",
-        certs::baseObjectPath, 0,
-        std::array<const char*, 1>{certs::certPropIntf});
-}
-
-/**
  * The certificate location schema defines a resource that an administrator
  * can use in order to locate all certificates installed on a given service.
  */
@@ -1026,7 +1006,9 @@ inline void requestRoutesCertificateLocations(App& app)
             "Defines a resource that an administrator can use in order to "
             "locate all certificates installed on a given service";
 
-        getCertificateLocations(asyncResp);
+        getCertificateList(asyncResp, certs::baseObjectPath,
+                           "/Links/Certificates"_json_pointer,
+                           "/Links/Certificates@odata.count"_json_pointer);
         });
 }
 // requestRoutesCertificateLocations
@@ -1054,35 +1036,9 @@ inline void requestRoutesLDAPCertificateCollection(App& app)
         asyncResp->res.jsonValue["Description"] =
             "A Collection of LDAP certificate instances";
 
-        crow::connections::systemBus->async_method_call(
-            [asyncResp](const boost::system::error_code ec,
-                        const dbus::utility::ManagedObjectType& certs) {
-            nlohmann::json& members = asyncResp->res.jsonValue["Members"];
-            nlohmann::json& count =
-                asyncResp->res.jsonValue["Members@odata.count"];
-            members = nlohmann::json::array();
-            count = 0;
-            if (ec)
-            {
-                BMCWEB_LOG_WARNING << "LDAP certificate query failed: " << ec;
-                return;
-            }
-            for (const auto& cert : certs)
-            {
-                long id = getIDFromURL(cert.first.str);
-                if (id >= 0)
-                {
-                    nlohmann::json::object_t member;
-                    member["@odata.id"] =
-                        "/redfish/v1/AccountService/LDAP/Certificates/" +
-                        std::to_string(id);
-                    members.push_back(std::move(member));
-                }
-            }
-            count = members.size();
-            },
-            certs::ldapServiceName, certs::ldapObjectPath,
-            certs::dbusObjManagerIntf, "GetManagedObjects");
+        getCertificateList(asyncResp, certs::ldapObjectPath,
+                           "/Members"_json_pointer,
+                           "/Members@odata.count"_json_pointer);
         });
 
     BMCWEB_ROUTE(app, "/redfish/v1/AccountService/LDAP/Certificates/")
@@ -1192,33 +1148,9 @@ inline void requestRoutesTrustStoreCertificateCollection(App& app)
         asyncResp->res.jsonValue["Description"] =
             "A Collection of TrustStore certificate instances";
 
-        crow::connections::systemBus->async_method_call(
-            [asyncResp](const boost::system::error_code ec,
-                        const dbus::utility::ManagedObjectType& certs) {
-            if (ec)
-            {
-                BMCWEB_LOG_ERROR << "DBUS response error: " << ec;
-                messages::internalError(asyncResp->res);
-                return;
-            }
-            nlohmann::json& members = asyncResp->res.jsonValue["Members"];
-            members = nlohmann::json::array();
-            for (const auto& cert : certs)
-            {
-                long id = getIDFromURL(cert.first.str);
-                if (id >= 0)
-                {
-                    nlohmann::json::object_t member;
-                    member["@odata.id"] =
-                        "/redfish/v1/Managers/bmc/Truststore/Certificates/" +
-                        std::to_string(id);
-                    members.push_back(std::move(member));
-                }
-            }
-            asyncResp->res.jsonValue["Members@odata.count"] = members.size();
-            },
-            certs::authorityServiceName, certs::authorityObjectPath,
-            certs::dbusObjManagerIntf, "GetManagedObjects");
+        getCertificateList(asyncResp, certs::authorityObjectPath,
+                           "/Members"_json_pointer,
+                           "/Members@odata.count"_json_pointer);
         });
 
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/Truststore/Certificates/")
