@@ -132,6 +132,14 @@ inline void
                     {
                         BMCWEB_LOG_ERROR << "error_code = " << ec3;
                         BMCWEB_LOG_ERROR << "error msg = " << ec3.message();
+                        // Have seen the code update app delete the D-Bus
+                        // object, during code update, between the call to
+                        // mapper and here. Just leave these properties off if
+                        // resource not found.
+                        if (ec3.value() == EBADR)
+                        {
+                            return;
+                        }
                         messages::internalError(aResp->res);
                         return;
                     }
