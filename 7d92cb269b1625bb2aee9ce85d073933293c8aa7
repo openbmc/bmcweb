@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e68e43a3_5ae072aa",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-03T22:03:46Z",
+      "side": 1,
+      "message": "This was discussed heavily on discord.  As a general design pattern, this is probably something that needs applied more generally across the tree.\n\nLGTM",
+      "revId": "7d92cb269b1625bb2aee9ce85d073933293c8aa7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
