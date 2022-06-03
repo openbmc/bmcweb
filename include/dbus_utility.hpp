@@ -29,29 +29,65 @@ namespace utility
 
 // clang-format off
 using DbusVariantType = std::variant<
-    std::vector<std::tuple<std::string, std::string, std::string>>,
-    std::vector<std::string>,
-    std::vector<double>,
-    std::string,
+    bool,
+    uint8_t,
+    int16_t,
+    uint16_t,
+    int32_t,
+    uint32_t,
     int64_t,
     uint64_t,
     double,
-    int32_t,
-    uint32_t,
-    int16_t,
-    uint16_t,
-    uint8_t,
-    bool,
+    std::string,
     sdbusplus::message::unix_fd,
-    std::vector<uint32_t>,
-    std::vector<uint16_t>,
     sdbusplus::message::object_path,
-    std::tuple<uint64_t, std::vector<std::tuple<std::string, std::string, double, uint64_t>>>,
-    std::vector<std::tuple<std::string, std::string>>,
-    std::vector<std::tuple<uint32_t, std::vector<uint32_t>>>,
-    std::vector<std::tuple<uint32_t, size_t>>,
-    std::vector<std::tuple<sdbusplus::message::object_path, std::string,
-                           std::string, std::string>>
+    std::vector<uint16_t>,
+    std::vector<uint32_t>,
+    std::vector<double>,
+    std::vector<std::string>,
+    std::vector<
+        std::tuple<
+            std::string,
+            std::string,
+            std::string
+        >
+    >,
+    std::vector<
+        std::tuple<
+            std::string,
+            std::string
+        >
+    >,
+    std::vector<
+        std::tuple<
+            uint32_t,
+            std::vector<uint32_t>
+        >
+    >,
+    std::vector<
+        std::tuple<
+            uint32_t,
+            size_t
+        >
+    >,
+    std::vector<
+        std::tuple<
+            sdbusplus::message::object_path,
+            std::string,
+            std::string, std::string
+        >
+    >,
+    std::tuple<
+        uint64_t,
+        std::vector<
+            std::tuple<
+                std::string,
+                std::string,
+                double,
+                uint64_t
+            >
+        >
+    >
  >;
 
 // clang-format on

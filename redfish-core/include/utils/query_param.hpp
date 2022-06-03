@@ -447,8 +447,6 @@ inline std::string formatQueryForExpand(const Query& query)
         case ExpandType::Both:
             str += '*';
             break;
-        default:
-            return {};
     }
     str += "($levels=";
     str += std::to_string(query.expandLevel - 1);
