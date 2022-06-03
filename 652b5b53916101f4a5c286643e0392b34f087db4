@@ -48,6 +48,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f14c38e9_07f8a8d1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-03T16:13:28Z",
+      "side": 1,
+      "message": "All of the above, but again, ideally.  We don\u0027t have tests now, so it\u0027s not the biggest of deals.",
+      "parentUuid": "db2d0e7f_5bdc0af1",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 43
+      },
+      "revId": "652b5b53916101f4a5c286643e0392b34f087db4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e20234a7_960f04df",
@@ -79,6 +103,24 @@
       "side": 1,
       "message": "I have tested all success paths (proxy mode, legacy cifs/https).",
       "parentUuid": "e20234a7_960f04df",
+      "revId": "652b5b53916101f4a5c286643e0392b34f087db4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c12c71aa_1fd6ea84",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-03T16:13:28Z",
+      "side": 1,
+      "message": "If the image mounted successfully, then say that.  \"Checked main functionality\" isn\u0027t a great description of the result.",
+      "parentUuid": "1b4ec57d_d8fc99d7",
       "revId": "652b5b53916101f4a5c286643e0392b34f087db4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -131,6 +173,24 @@
       "side": 1,
       "message": "Service/backend is beeing upstreamed in jsnbd repository.  I have described the status in the post on OpenBMC group.",
       "parentUuid": "1b182936_9c9b4ccc",
+      "revId": "652b5b53916101f4a5c286643e0392b34f087db4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "51d28164_11ba0c34",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-03T16:13:28Z",
+      "side": 1,
+      "message": "Can you link the patchset please?",
+      "parentUuid": "428bcb18_e4362c35",
       "revId": "652b5b53916101f4a5c286643e0392b34f087db4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }

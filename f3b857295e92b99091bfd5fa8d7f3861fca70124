@@ -72,6 +72,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1b8be9a5_900f6087",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-03T16:13:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2a9affdd_b2a31f54",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 24
+      },
+      "revId": "f3b857295e92b99091bfd5fa8d7f3861fca70124",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "605c55fb_7273097d",
@@ -144,6 +168,30 @@
       "side": 1,
       "message": "there is a lot of similar code. Will try to catch as many as I can.",
       "parentUuid": "530e54d7_01ddbc81",
+      "range": {
+        "startLine": 877,
+        "startChar": 3,
+        "endLine": 904,
+        "endChar": 6
+      },
+      "revId": "f3b857295e92b99091bfd5fa8d7f3861fca70124",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f37812db_d22a0361",
+        "filename": "redfish-core/lib/virtual_media.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 904,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-03T16:13:28Z",
+      "side": 1,
+      "message": "This still doesn\u0027t look fixed.  \"handler\" is still a non-trivial lambda with no captures  The naming convention for this new method would be \"handleVirutalMediaGet\" or something to that effect.",
+      "parentUuid": "d60577ad_262c0d68",
       "range": {
         "startLine": 877,
         "startChar": 3,

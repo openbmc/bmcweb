@@ -1,0 +1,205 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2e8653ef_e1087ec8",
+        "filename": "redfish-core/lib/virtual_media.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 875,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-03T16:13:28Z",
+      "side": 1,
+      "message": "This parameter appears to be actually unused.  maybe_unused is reserved for when there are code paths/compiler options that _might_ make it unused.\n\nIt looks like this parameter can just be totally removed.",
+      "range": {
+        "startLine": 875,
+        "startChar": 23,
+        "endLine": 875,
+        "endChar": 66
+      },
+      "revId": "c2bb4a8423c17c3da93814c224265b2c7dbfeedc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1743a99e_c306cf75",
+        "filename": "redfish-core/lib/virtual_media.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 878,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-03T16:13:28Z",
+      "side": 1,
+      "message": "Nit, please just pass this as two parameters instead of a pair.",
+      "range": {
+        "startLine": 877,
+        "startChar": 22,
+        "endLine": 878,
+        "endChar": 70
+      },
+      "revId": "c2bb4a8423c17c3da93814c224265b2c7dbfeedc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2993e7a4_cceda939",
+        "filename": "redfish-core/lib/virtual_media.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 879,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-03T16:13:28Z",
+      "side": 1,
+      "message": "Please don\u0027t use auto for theses.  It obfuscates the type.\n\nAlso, parent_path() can fail, and needs to be checked for empty string.",
+      "range": {
+        "startLine": 879,
+        "startChar": 8,
+        "endLine": 879,
+        "endChar": 12
+      },
+      "revId": "c2bb4a8423c17c3da93814c224265b2c7dbfeedc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7de3101d_0d039123",
+        "filename": "redfish-core/lib/virtual_media.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 882,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-03T16:13:28Z",
+      "side": 1,
+      "message": "Please do this conversion once.  As-written this check is duplicated between here and line 892",
+      "range": {
+        "startLine": 882,
+        "startChar": 12,
+        "endLine": 882,
+        "endChar": 27
+      },
+      "revId": "c2bb4a8423c17c3da93814c224265b2c7dbfeedc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ddb8641f_7e4864ff",
+        "filename": "redfish-core/lib/virtual_media.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 887,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-03T16:13:28Z",
+      "side": 1,
+      "message": "As you\u0027ve registered these routes, this is going to cause the router to return the wrong Allow header.  This probably needs more thought.  I suspect that method_not_allowed isn\u0027t the right return code to be using.  Maybe conflict?\n\n\nAlso, these should be using redfish::messages, given that they are redfish actions.",
+      "range": {
+        "startLine": 887,
+        "startChar": 0,
+        "endLine": 887,
+        "endChar": 78
+      },
+      "revId": "c2bb4a8423c17c3da93814c224265b2c7dbfeedc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "61bbe473_22dd9e85",
+        "filename": "redfish-core/lib/virtual_media.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 906,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-03T16:13:28Z",
+      "side": 1,
+      "message": "Redfish actions generally don\u0027t respond to GET, only POST.  not clear why we would register a handler like this.",
+      "range": {
+        "startLine": 906,
+        "startChar": 17,
+        "endLine": 906,
+        "endChar": 46
+      },
+      "revId": "c2bb4a8423c17c3da93814c224265b2c7dbfeedc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4328f15f_119db776",
+        "filename": "redfish-core/lib/virtual_media.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 924,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-03T16:13:28Z",
+      "side": 1,
+      "message": "Please include this boilerplate redfish routing in your handler.  It is now required.",
+      "range": {
+        "startLine": 921,
+        "startChar": 0,
+        "endLine": 924,
+        "endChar": 9
+      },
+      "revId": "c2bb4a8423c17c3da93814c224265b2c7dbfeedc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e70205c4_812ea85d",
+        "filename": "redfish-core/lib/virtual_media.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 929,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-03T16:13:28Z",
+      "side": 1,
+      "message": "Please don\u0027t capture Request by reference.  It is unsafe to do so, as the Request object can be destroyed later if the connection drops while the request is in progress.  Common error #8 in the documentation explains why this is an issue.",
+      "range": {
+        "startLine": 929,
+        "startChar": 13,
+        "endLine": 929,
+        "endChar": 17
+      },
+      "revId": "c2bb4a8423c17c3da93814c224265b2c7dbfeedc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "72022c49_f06f9f09",
+        "filename": "redfish-core/lib/virtual_media.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 949,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-03T16:13:28Z",
+      "side": 1,
+      "message": "The old code was better here.  Parameter parsing should be done at the first scope in a handler, to avoid capturing Request by reference as you\u0027ve had to do above.  The old code was more correct in this regard.",
+      "revId": "c2bb4a8423c17c3da93814c224265b2c7dbfeedc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
