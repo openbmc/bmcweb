@@ -58,6 +58,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "008f13e3_dfc3c91b",
+        "filename": "Redfish.md",
+        "patchSetId": 35
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-06-03T17:38:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "68da0f11_e1c00419",
+      "range": {
+        "startLine": 151,
+        "startChar": 51,
+        "endLine": 151,
+        "endChar": 57
+      },
+      "revId": "49bc5dd4cde9597763591a3f63e2c3585b89fb8d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8e955a7c_3e71605f",
