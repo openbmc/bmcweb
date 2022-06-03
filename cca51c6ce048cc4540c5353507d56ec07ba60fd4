@@ -199,6 +199,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "30c9ff26_004eb79a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2022-06-03T08:27:27Z",
+      "side": 1,
+      "message": "Is DMTF working to get that VLAN related features to work good with future versions of the schema ? We have a feature which required version 1.8.0 (for IPv6 DHCP)\nSeems like this is a deadlock situation.",
+      "parentUuid": "4a99f52b_e46d1aa3",
+      "revId": "cca51c6ce048cc4540c5353507d56ec07ba60fd4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9f42157b_68278340",
         "filename": "redfish-core/lib/ethernet.hpp",
         "patchSetId": 3
