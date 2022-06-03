@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "9bbc3b5e_60ead64e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-03T22:14:13Z",
+      "side": 1,
+      "message": "\u003e But why is this showing now? The validator should use the version of schema we define right? \nhttps://github.com/DMTF/Redfish-Service-Validator/issues/497\nThere\u0027s bug on Validator.\nI pasted my test results in Discord. BMCWeb before and after this change both pass.\n\n\u003e  do we need to move to ActionInfo.v1_2_0 ?\nWe don\u0027t need to. But I am fine with bumping it in a separate change.",
+      "parentUuid": "ce0a4031_f1061b32",
+      "revId": "b7647a7164904359c51bda2c2622fc00d8087f0d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "3dfd618c_1f0688b2",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 3
