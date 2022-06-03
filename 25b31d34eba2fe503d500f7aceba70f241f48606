@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "833a0b2c_6fd710af",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2022-06-03T08:28:43Z",
+      "side": 1,
+      "message": "Changes look good to me. Lets hold this until the schema version is finalized (VLAN feature has a clash)",
+      "revId": "25b31d34eba2fe503d500f7aceba70f241f48606",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
