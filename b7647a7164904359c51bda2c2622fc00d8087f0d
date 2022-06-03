@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce0a4031_f1061b32",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-06-03T20:21:55Z",
+      "side": 1,
+      "message": "But why is this showing now? The validator should use the version of schema we define right? \nAnd do we need to move to ActionInfo.v1_2_0 ?",
+      "revId": "b7647a7164904359c51bda2c2622fc00d8087f0d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "3dfd618c_1f0688b2",
