@@ -255,12 +255,14 @@ inline void requestRoutes(App& app)
 {
     BMCWEB_ROUTE(app, "/nbd/<str>")
         .websocket()
-        .onopen([](crow::websocket::Connection& conn) {
+        .onopen([](crow::websocket::Connection& conn,
+                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
             BMCWEB_LOG_DEBUG << "nbd-proxy.onopen(" << &conn << ")";
 
             auto getUserInfoHandler =
-                [&conn](const boost::system::error_code ec,
-                        const dbus::utility::DBusPropertiesMap& userInfo) {
+                [&conn,
+                 asyncResp](const boost::system::error_code ec,
+                            const dbus::utility::DBusPropertiesMap& userInfo) {
             if (ec)
             {
                 BMCWEB_LOG_ERROR << "GetUserInfo failed...";
@@ -302,8 +304,9 @@ inline void requestRoutes(App& app)
             }
 
             auto openHandler =
-                [&conn](const boost::system::error_code ec,
-                        const dbus::utility::ManagedObjectType& objects) {
+                [&conn,
+                 asyncResp](const boost::system::error_code ec,
+                            const dbus::utility::ManagedObjectType& objects) {
                 const std::string* socketValue = nullptr;
                 const std::string* endpointValue = nullptr;
                 const std::string* endpointObjectPath = nullptr;
