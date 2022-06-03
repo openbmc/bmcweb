@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "10d25c56_9b33e91d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 19
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2022-06-03T08:47:24Z",
+      "side": 1,
+      "message": "Need to also handle \"org.freedesktop.DBus.Error.NoReply\" error from dbus and return serviceTemporarilyUnavailable",
+      "revId": "b5b8e3f57f836ddfa7728e3be4251b25dee709f6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
