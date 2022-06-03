@@ -16,6 +16,155 @@
       "message": "Thanks for looking over",
       "revId": "49bc5dd4cde9597763591a3f63e2c3585b89fb8d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ba530d9_ff43db08",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 35
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-06-03T00:34:27Z",
+      "side": 1,
+      "message": "Spoke with Ed, to make this list of issues.",
+      "revId": "49bc5dd4cde9597763591a3f63e2c3585b89fb8d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "68da0f11_e1c00419",
+        "filename": "Redfish.md",
+        "patchSetId": 35
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-06-03T00:34:27Z",
+      "side": 1,
+      "message": "change to \"chassis\u003c-\u003edrive\", and remove gerrit review",
+      "range": {
+        "startLine": 151,
+        "startChar": 51,
+        "endLine": 151,
+        "endChar": 57
+      },
+      "revId": "49bc5dd4cde9597763591a3f63e2c3585b89fb8d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e955a7c_3e71605f",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 601,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-06-03T00:34:27Z",
+      "side": 1,
+      "message": "nit: remove else",
+      "range": {
+        "startLine": 601,
+        "startChar": 12,
+        "endLine": 601,
+        "endChar": 16
+      },
+      "revId": "49bc5dd4cde9597763591a3f63e2c3585b89fb8d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "afe8ec55_55e9f757",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 630,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-06-03T00:34:27Z",
+      "side": 1,
+      "message": "fix the brace initialization",
+      "revId": "49bc5dd4cde9597763591a3f63e2c3585b89fb8d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8747a3b3_3f9171ea",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 647,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-06-03T00:34:27Z",
+      "side": 1,
+      "message": "add\n```\nmembers \u003d nlohmann::json::array_t();\n```",
+      "range": {
+        "startLine": 647,
+        "startChar": 32,
+        "endLine": 647,
+        "endChar": 39
+      },
+      "revId": "49bc5dd4cde9597763591a3f63e2c3585b89fb8d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9c187b4e_c274dc01",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 662,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-06-03T00:34:27Z",
+      "side": 1,
+      "message": "fix the brace initialization",
+      "range": {
+        "startLine": 662,
+        "startChar": 24,
+        "endLine": 662,
+        "endChar": 25
+      },
+      "revId": "49bc5dd4cde9597763591a3f63e2c3585b89fb8d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "52432a0a_0399bec2",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 666,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-06-03T00:34:27Z",
+      "side": 1,
+      "message": "not needed after (https://gerrit.openbmc.org/c/openbmc/bmcweb/+/54022)",
+      "range": {
+        "startLine": 666,
+        "startChar": 42,
+        "endLine": 666,
+        "endChar": 47
+      },
+      "revId": "49bc5dd4cde9597763591a3f63e2c3585b89fb8d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
