@@ -81,6 +81,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e76ea185_23b93803",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 601,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-06-03T17:38:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8e955a7c_3e71605f",
+      "range": {
+        "startLine": 601,
+        "startChar": 12,
+        "endLine": 601,
+        "endChar": 16
+      },
+      "revId": "49bc5dd4cde9597763591a3f63e2c3585b89fb8d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "afe8ec55_55e9f757",
@@ -98,6 +122,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b3708ce1_83a5b1f2",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 630,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-06-03T17:38:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "afe8ec55_55e9f757",
+      "revId": "49bc5dd4cde9597763591a3f63e2c3585b89fb8d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8747a3b3_3f9171ea",
@@ -111,6 +153,30 @@
       "writtenOn": "2022-06-03T00:34:27Z",
       "side": 1,
       "message": "add\n```\nmembers \u003d nlohmann::json::array_t();\n```",
+      "range": {
+        "startLine": 647,
+        "startChar": 32,
+        "endLine": 647,
+        "endChar": 39
+      },
+      "revId": "49bc5dd4cde9597763591a3f63e2c3585b89fb8d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f60bed23_7b9cafd5",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 647,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-06-03T17:38:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8747a3b3_3f9171ea",
       "range": {
         "startLine": 647,
         "startChar": 32,
@@ -144,6 +210,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "96a14e10_b25ea7ea",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 662,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-06-03T17:38:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9c187b4e_c274dc01",
+      "range": {
+        "startLine": 662,
+        "startChar": 24,
+        "endLine": 662,
+        "endChar": 25
+      },
+      "revId": "49bc5dd4cde9597763591a3f63e2c3585b89fb8d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "52432a0a_0399bec2",
@@ -157,6 +247,30 @@
       "writtenOn": "2022-06-03T00:34:27Z",
       "side": 1,
       "message": "not needed after (https://gerrit.openbmc.org/c/openbmc/bmcweb/+/54022)",
+      "range": {
+        "startLine": 666,
+        "startChar": 42,
+        "endLine": 666,
+        "endChar": 47
+      },
+      "revId": "49bc5dd4cde9597763591a3f63e2c3585b89fb8d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c361e67b_f0b336f7",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 666,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-06-03T17:38:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "52432a0a_0399bec2",
       "range": {
         "startLine": 666,
         "startChar": 42,
