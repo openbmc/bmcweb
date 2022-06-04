@@ -54,6 +54,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "e7dd221e_5e0e24ca",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-04T00:04:21Z",
+      "side": 1,
+      "message": "The fact that we can get two different responses that both pass kinda means that we can\u0027t really trust validator results (clearly it\u0027s broken if it\u0027s passing two different structs).  I suspect there\u0027s a glitch in the Complex type handling, which I\u0027ve actually hit before long ago.\n\nAs far as upgrading the schema, why would we want to upgrade it?  I thought the policy was \"upgrade when needed\"",
+      "parentUuid": "9bbc3b5e_60ead64e",
+      "revId": "b7647a7164904359c51bda2c2622fc00d8087f0d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "3dfd618c_1f0688b2",
