@@ -470,9 +470,9 @@ class MultiAsyncResp : public std::enable_shared_from_this<MultiAsyncResp>
     // allows callers to attach sub-responses within the json tree that need
     // to be executed and filled into their appropriate locations.  This
     // class manages the final "merge" of the json resources.
-    MultiAsyncResp(crow::App& app,
+    MultiAsyncResp(crow::App& appIn,
                    std::shared_ptr<bmcweb::AsyncResp> finalResIn) :
-        app(app),
+        app(appIn),
         finalRes(std::move(finalResIn))
     {}
 

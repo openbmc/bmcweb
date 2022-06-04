@@ -92,11 +92,11 @@ struct PendingRequest
     std::function<void(bool, uint32_t, Response&)> callback;
     RetryPolicyData retryPolicy;
     PendingRequest(
-        boost::beast::http::request<boost::beast::http::string_body>&& req,
-        const std::function<void(bool, uint32_t, Response&)>& callback,
-        const RetryPolicyData& retryPolicy) :
-        req(std::move(req)),
-        callback(callback), retryPolicy(retryPolicy)
+        boost::beast::http::request<boost::beast::http::string_body>&& reqIn,
+        const std::function<void(bool, uint32_t, Response&)>& callbackIn,
+        const RetryPolicyData& retryPolicyIn) :
+        req(std::move(reqIn)),
+        callback(callbackIn), retryPolicy(retryPolicyIn)
     {}
 };
 
@@ -393,11 +393,12 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
     }
 
   public:
-    explicit ConnectionInfo(boost::asio::io_context& ioc, const std::string& id,
-                            const std::string& destIP, const uint16_t destPort,
-                            const unsigned int connId) :
-        subId(id),
-        host(destIP), port(destPort), connId(connId), conn(ioc), timer(ioc)
+    explicit ConnectionInfo(boost::asio::io_context& ioc,
+                            const std::string& idIn, const std::string& destIP,
+                            const uint16_t destPort,
+                            const unsigned int connIdIn) :
+        subId(idIn),
+        host(destIP), port(destPort), connId(connIdIn), conn(ioc), timer(ioc)
     {}
 };
 
@@ -597,11 +598,12 @@ class ConnectionPool : public std::enable_shared_from_this<ConnectionPool>
     }
 
   public:
-    explicit ConnectionPool(boost::asio::io_context& ioc, const std::string& id,
-                            const std::string& destIP,
-                            const uint16_t destPort) :
-        ioc(ioc),
-        id(id), destIP(destIP), destPort(destPort)
+    explicit ConnectionPool(boost::asio::io_context& iocIn,
+                            const std::string& idIn,
+                            const std::string& destIPIn,
+                            const uint16_t destPortIn) :
+        ioc(iocIn),
+        id(idIn), destIP(destIPIn), destPort(destPortIn)
     {
         std::string clientKey = destIP + ":" + std::to_string(destPort);
         BMCWEB_LOG_DEBUG << "Initializing connection pool for " << destIP << ":"

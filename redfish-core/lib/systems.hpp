@@ -1254,11 +1254,11 @@ inline void getTrustedModuleRequiredToBoot(
         sdbusplus::asio::getProperty<bool>(
             *crow::connections::systemBus, serv, path,
             "xyz.openbmc_project.Control.TPM.Policy", "TPMEnable",
-            [aResp](const boost::system::error_code ec, bool tpmRequired) {
-            if (ec)
+            [aResp](const boost::system::error_code ec2, bool tpmRequired) {
+            if (ec2)
             {
                 BMCWEB_LOG_DEBUG << "D-BUS response error on TPM.Policy Get"
-                                 << ec;
+                                 << ec2;
                 messages::internalError(aResp->res);
                 return;
             }
@@ -1344,12 +1344,12 @@ inline void setTrustedModuleRequiredToBoot(
 
         // Valid TPM Enable object found, now setting the value
         crow::connections::systemBus->async_method_call(
-            [aResp](const boost::system::error_code ec) {
-            if (ec)
+            [aResp](const boost::system::error_code ec2) {
+            if (ec2)
             {
                 BMCWEB_LOG_DEBUG
                     << "DBUS response error: Set TrustedModuleRequiredToBoot"
-                    << ec;
+                    << ec2;
                 messages::internalError(aResp->res);
                 return;
             }
@@ -1476,10 +1476,10 @@ inline void setBootEnable(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
     BMCWEB_LOG_DEBUG << "DBUS boot override enable: " << bootOverrideEnable;
 
     crow::connections::systemBus->async_method_call(
-        [aResp](const boost::system::error_code ec) {
-        if (ec)
+        [aResp](const boost::system::error_code ec2) {
+        if (ec2)
         {
-            BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+            BMCWEB_LOG_DEBUG << "DBUS response error " << ec2;
             messages::internalError(aResp->res);
             return;
         }
@@ -1950,12 +1950,12 @@ inline void getPowerMode(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
         sdbusplus::asio::getProperty<std::string>(
             *crow::connections::systemBus, service, path,
             "xyz.openbmc_project.Control.Power.Mode", "PowerMode",
-            [aResp](const boost::system::error_code ec,
+            [aResp](const boost::system::error_code ec2,
                     const std::string& pmode) {
-            if (ec)
+            if (ec2)
             {
                 BMCWEB_LOG_DEBUG << "DBUS response error on PowerMode Get: "
-                                 << ec;
+                                 << ec2;
                 messages::internalError(aResp->res);
                 return;
             }
@@ -2077,8 +2077,8 @@ inline void setPowerMode(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
 
         // Set the Power Mode property
         crow::connections::systemBus->async_method_call(
-            [aResp](const boost::system::error_code ec) {
-            if (ec)
+            [aResp](const boost::system::error_code ec2) {
+            if (ec2)
             {
                 messages::internalError(aResp->res);
                 return;
@@ -2427,12 +2427,12 @@ inline void getIdlePowerSaver(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
 
         // Valid IdlePowerSaver object found, now read the current values
         crow::connections::systemBus->async_method_call(
-            [aResp](const boost::system::error_code ec,
+            [aResp](const boost::system::error_code ec2,
                     ipsPropertiesType& properties) {
-            if (ec)
+            if (ec2)
             {
                 BMCWEB_LOG_ERROR
-                    << "DBUS response error on IdlePowerSaver GetAll: " << ec;
+                    << "DBUS response error on IdlePowerSaver GetAll: " << ec2;
                 messages::internalError(aResp->res);
                 return;
             }
@@ -2530,10 +2530,10 @@ inline void setIdlePowerSaver(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
         if (ipsEnable)
         {
             crow::connections::systemBus->async_method_call(
-                [aResp](const boost::system::error_code ec) {
-                if (ec)
+                [aResp](const boost::system::error_code ec2) {
+                if (ec2)
                 {
-                    BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+                    BMCWEB_LOG_DEBUG << "DBUS response error " << ec2;
                     messages::internalError(aResp->res);
                     return;
                 }
@@ -2545,10 +2545,10 @@ inline void setIdlePowerSaver(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
         if (ipsEnterUtil)
         {
             crow::connections::systemBus->async_method_call(
-                [aResp](const boost::system::error_code ec) {
-                if (ec)
+                [aResp](const boost::system::error_code ec2) {
+                if (ec2)
                 {
-                    BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+                    BMCWEB_LOG_DEBUG << "DBUS response error " << ec2;
                     messages::internalError(aResp->res);
                     return;
                 }
@@ -2563,10 +2563,10 @@ inline void setIdlePowerSaver(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
             // Convert from seconds into milliseconds for DBus
             const uint64_t timeMilliseconds = *ipsEnterTime * 1000;
             crow::connections::systemBus->async_method_call(
-                [aResp](const boost::system::error_code ec) {
-                if (ec)
+                [aResp](const boost::system::error_code ec2) {
+                if (ec2)
                 {
-                    BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+                    BMCWEB_LOG_DEBUG << "DBUS response error " << ec2;
                     messages::internalError(aResp->res);
                     return;
                 }
@@ -2579,10 +2579,10 @@ inline void setIdlePowerSaver(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
         if (ipsExitUtil)
         {
             crow::connections::systemBus->async_method_call(
-                [aResp](const boost::system::error_code ec) {
-                if (ec)
+                [aResp](const boost::system::error_code ec2) {
+                if (ec2)
                 {
-                    BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+                    BMCWEB_LOG_DEBUG << "DBUS response error " << ec2;
                     messages::internalError(aResp->res);
                     return;
                 }
@@ -2597,10 +2597,10 @@ inline void setIdlePowerSaver(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
             // Convert from seconds into milliseconds for DBus
             const uint64_t timeMilliseconds = *ipsExitTime * 1000;
             crow::connections::systemBus->async_method_call(
-                [aResp](const boost::system::error_code ec) {
-                if (ec)
+                [aResp](const boost::system::error_code ec2) {
+                if (ec2)
                 {
-                    BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+                    BMCWEB_LOG_DEBUG << "DBUS response error " << ec2;
                     messages::internalError(aResp->res);
                     return;
                 }
@@ -2644,7 +2644,7 @@ inline void requestRoutesSystemsCollection(App& app)
             *crow::connections::systemBus, "xyz.openbmc_project.Settings",
             "/xyz/openbmc_project/network/hypervisor",
             "xyz.openbmc_project.Network.SystemConfiguration", "HostName",
-            [asyncResp](const boost::system::error_code ec,
+            [asyncResp](const boost::system::error_code ec2,
                         const std::string& /*hostName*/) {
             nlohmann::json& ifaceArray = asyncResp->res.jsonValue["Members"];
             ifaceArray = nlohmann::json::array();
@@ -2654,7 +2654,7 @@ inline void requestRoutesSystemsCollection(App& app)
             system["@odata.id"] = "/redfish/v1/Systems/system";
             ifaceArray.push_back(std::move(system));
             count = ifaceArray.size();
-            if (!ec)
+            if (!ec2)
             {
                 BMCWEB_LOG_DEBUG << "Hypervisor is available";
                 nlohmann::json::object_t hypervisor;

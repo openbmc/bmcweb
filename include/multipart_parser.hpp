@@ -198,7 +198,7 @@ class MultipartParser
                         // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
                         c = buffer[i];
                     }
-                    processPartData(prevIndex, index, buffer, i, c, state);
+                    processPartData(prevIndex, buffer, i, c);
                     break;
                 case State::END:
                     break;
@@ -244,8 +244,8 @@ class MultipartParser
         }
     }
 
-    void processPartData(size_t& prevIndex, size_t& index, const char* buffer,
-                         size_t& i, char c, State& state)
+    void processPartData(size_t& prevIndex, const char* buffer, size_t& i,
+                         char c)
     {
         prevIndex = index;
 
