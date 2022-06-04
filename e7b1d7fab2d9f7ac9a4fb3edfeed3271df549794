@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f66689e2_c59adaf5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 37
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-04T00:17:23Z",
+      "side": 1,
+      "message": "One last thing.  Then this should be good to go.",
+      "revId": "e7b1d7fab2d9f7ac9a4fb3edfeed3271df549794",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "301af1a9_7e39ce73",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 37
+      },
+      "lineNbr": 668,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-04T00:17:23Z",
+      "side": 1,
+      "message": "I\u0027m almost certain this isn\u0027t what you intended to write.  This:\n\n1. Creates a new object in the root of the response (not in members)\n2. places the url into the root object (overriding @odata.id)\n3. then pushes a COPY of this root object onto members.\n\n\n\nI\u0027m pretty sure you meant:\n\nnlohmann::json::object_t member;\nmember[\"@odata.id\"] \u003d crow::utility::urlFromPieces(...);\nmembers.push_back(std::move(member));\n\n\n\nI would\u0027ve expected this to fail the validator, but oh well, probably did weird stuff in a way that didn\u0027t fail.",
+      "range": {
+        "startLine": 662,
+        "startChar": 0,
+        "endLine": 668,
+        "endChar": 48
+      },
+      "revId": "e7b1d7fab2d9f7ac9a4fb3edfeed3271df549794",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
