@@ -54,10 +54,10 @@ inline std::string getTransferProtocolTypeFromUri(const std::string& imageUri)
  * @brief Read all known properties from VM object interfaces
  */
 inline void
-    vmParseInterfaceObject(const dbus::utility::DBusInteracesMap& interface,
+    vmParseInterfaceObject(const dbus::utility::DBusInteracesMap& interfaces,
                            const std::shared_ptr<bmcweb::AsyncResp>& aResp)
 {
-    for (const auto& [interface, values] : interface)
+    for (const auto& [interface, values] : interfaces)
     {
         if (interface == "xyz.openbmc_project.VirtualMedia.MountPoint")
         {
@@ -595,8 +595,8 @@ class Pipe
   public:
     using unix_fd = sdbusplus::message::unix_fd;
 
-    Pipe(boost::asio::io_context& io, Buffer&& buffer) :
-        impl(io), buffer{std::move(buffer)}
+    Pipe(boost::asio::io_context& io, Buffer&& bufferIn) :
+        impl(io), buffer{std::move(bufferIn)}
     {}
 
     ~Pipe()
@@ -830,9 +830,9 @@ inline void handleManagersVirtualMediaActionInsertPost(
 
         crow::connections::systemBus->async_method_call(
             [service, resName, actionParams,
-             asyncResp](const boost::system::error_code ec,
+             asyncResp](const boost::system::error_code ec2,
                         dbus::utility::ManagedObjectType& subtree) mutable {
-            if (ec)
+            if (ec2)
             {
                 BMCWEB_LOG_DEBUG << "DBUS response error";
 
@@ -915,11 +915,11 @@ inline void handleManagersVirtualMediaActionEject(
 
     crow::connections::systemBus->async_method_call(
         [asyncResp,
-         resName](const boost::system::error_code ec,
+         resName](const boost::system::error_code ec2,
                   const dbus::utility::MapperGetObject& getObjectType) {
-        if (ec)
+        if (ec2)
         {
-            BMCWEB_LOG_ERROR << "ObjectMapper::GetObject call failed: " << ec;
+            BMCWEB_LOG_ERROR << "ObjectMapper::GetObject call failed: " << ec2;
             messages::internalError(asyncResp->res);
 
             return;

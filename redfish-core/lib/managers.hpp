@@ -1871,8 +1871,8 @@ inline void
         // An addition could be a Redfish Setting like
         // ActiveSoftwareImageApplyTime and support OnReset
         crow::connections::systemBus->async_method_call(
-            [aResp](const boost::system::error_code ec) {
-            if (ec)
+            [aResp](const boost::system::error_code ec2) {
+            if (ec2)
             {
                 BMCWEB_LOG_DEBUG << "D-Bus response error setting.";
                 messages::internalError(aResp->res);
@@ -2061,9 +2061,9 @@ inline void requestRoutesManager(App& app)
                             const std::shared_ptr<bmcweb::AsyncResp>& aRsp) {
             aRsp->res.jsonValue["Links"]["ManagerForChassis@odata.count"] = 1;
             nlohmann::json::array_t managerForChassis;
-            nlohmann::json::object_t manager;
-            manager["@odata.id"] = "/redfish/v1/Chassis/" + chassisId;
-            managerForChassis.push_back(std::move(manager));
+            nlohmann::json::object_t managerObj;
+            managerObj["@odata.id"] = "/redfish/v1/Chassis/" + chassisId;
+            managerForChassis.push_back(std::move(managerObj));
             aRsp->res.jsonValue["Links"]["ManagerForChassis"] =
                 std::move(managerForChassis);
             aRsp->res.jsonValue["Links"]["ManagerInChassis"]["@odata.id"] =
@@ -2133,10 +2133,10 @@ inline void requestRoutesManager(App& app)
                     "xyz.openbmc_project.Inventory.Decorator.Asset")
                 {
                     crow::connections::systemBus->async_method_call(
-                        [asyncResp](const boost::system::error_code ec,
+                        [asyncResp](const boost::system::error_code ec2,
                                     const dbus::utility::DBusPropertiesMap&
                                         propertiesList) {
-                        if (ec)
+                        if (ec2)
                         {
                             BMCWEB_LOG_DEBUG << "Can't get bmc asset!";
                             return;

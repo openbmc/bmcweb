@@ -2168,9 +2168,9 @@ inline void
                 const char* ifaceName = interface->Attribute("name");
                 if (ifaceName != nullptr)
                 {
-                    nlohmann::json::object_t interface;
-                    interface["name"] = ifaceName;
-                    interfacesArray.push_back(std::move(interface));
+                    nlohmann::json::object_t interfaceObj;
+                    interfaceObj["name"] = ifaceName;
+                    interfacesArray.push_back(std::move(interfaceObj));
                 }
 
                 interface = interface->NextSiblingElement("interface");
