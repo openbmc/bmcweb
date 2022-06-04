@@ -581,13 +581,13 @@ inline void getCpuConfigData(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
                     "xyz.openbmc_project.Inventory.Item.Cpu."
                     "OperatingConfig",
                     "BaseSpeedPrioritySettings",
-                    [aResp](const boost::system::error_code ec,
+                    [aResp](const boost::system::error_code ec2,
                             const BaseSpeedPrioritySettingsProperty&
                                 baseSpeedList) {
-                    if (ec)
+                    if (ec2)
                     {
                         BMCWEB_LOG_WARNING << "D-Bus Property Get error: "
-                                           << ec;
+                                           << ec2;
                         messages::internalError(aResp->res);
                         return;
                     }
@@ -731,7 +731,7 @@ inline void getProcessorObject(const std::shared_ptr<bmcweb::AsyncResp>& resp,
             // matching objects. Assume all interfaces we want to process
             // must be on the same object path.
 
-            handler(resp, processorId, objectPath, serviceMap);
+            handler(objectPath, serviceMap);
             return;
         }
         messages::resourceNotFound(resp->res, "Processor", processorId);
@@ -1218,7 +1218,9 @@ inline void requestRoutesProcessor(App& app)
         asyncResp->res.jsonValue["@odata.id"] =
             "/redfish/v1/Systems/system/Processors/" + processorId;
 
-        getProcessorObject(asyncResp, processorId, getProcessorData);
+        getProcessorObject(
+            asyncResp, processorId,
+            std::bind_front(getProcessorData, asyncResp, processorId));
         });
 
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/Processors/<str>/")
@@ -1249,17 +1251,10 @@ inline void requestRoutesProcessor(App& app)
             }
             // Check for 404 and find matching D-Bus object, then run
             // property patch handlers if that all succeeds.
-            getProcessorObject(
-                asyncResp, processorId,
-                [appliedConfigUri = std::move(appliedConfigUri)](
-                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                    const std::string& processorId,
-                    const std::string& objectPath,
-                    const dbus::utility::MapperServiceMap& serviceMap) {
-                patchAppliedOperatingConfig(asyncResp, processorId,
-                                            appliedConfigUri, objectPath,
-                                            serviceMap);
-                });
+            getProcessorObject(asyncResp, processorId,
+                               std::bind_front(patchAppliedOperatingConfig,
+                                               asyncResp, processorId,
+                                               appliedConfigUri));
         }
         });
 }

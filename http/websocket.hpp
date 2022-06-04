@@ -70,18 +70,18 @@ class ConnectionImpl : public Connection
   public:
     ConnectionImpl(
         const crow::Request& reqIn, Adaptor adaptorIn,
-        std::function<void(Connection&)> openHandler,
+        std::function<void(Connection&)> openHandlerIn,
         std::function<void(Connection&, const std::string&, bool)>
-            messageHandler,
-        std::function<void(Connection&, const std::string&)> closeHandler,
-        std::function<void(Connection&)> errorHandler) :
+            messageHandlerIn,
+        std::function<void(Connection&, const std::string&)> closeHandlerIn,
+        std::function<void(Connection&)> errorHandlerIn) :
         Connection(reqIn, reqIn.session == nullptr ? std::string{}
                                                    : reqIn.session->username),
         ws(std::move(adaptorIn)), inBuffer(inString, 131088),
-        openHandler(std::move(openHandler)),
-        messageHandler(std::move(messageHandler)),
-        closeHandler(std::move(closeHandler)),
-        errorHandler(std::move(errorHandler)), session(reqIn.session)
+        openHandler(std::move(openHandlerIn)),
+        messageHandler(std::move(messageHandlerIn)),
+        closeHandler(std::move(closeHandlerIn)),
+        errorHandler(std::move(errorHandlerIn)), session(reqIn.session)
     {
         /* Turn on the timeouts on websocket stream to server role */
         ws.set_option(boost::beast::websocket::stream_base::timeout::suggested(

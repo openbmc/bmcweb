@@ -141,10 +141,10 @@ static void
                             {
                                 if (property.first == "Activation")
                                 {
-                                    const std::string* state =
+                                    const std::string* activationState =
                                         std::get_if<std::string>(
                                             &property.second);
-                                    if (state == nullptr)
+                                    if (activationState == nullptr)
                                     {
                                         taskData->messages.emplace_back(
                                             messages::internalError());
@@ -201,10 +201,10 @@ static void
                             {
                                 if (property.first == "Progress")
                                 {
-                                    const std::string* progress =
+                                    const std::string* progressStr =
                                         std::get_if<std::string>(
                                             &property.second);
-                                    if (progress == nullptr)
+                                    if (progressStr == nullptr)
                                     {
                                         taskData->messages.emplace_back(
                                             messages::internalError());

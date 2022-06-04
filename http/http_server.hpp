@@ -30,34 +30,34 @@ class Server
   public:
     Server(Handler* handlerIn,
            std::unique_ptr<boost::asio::ip::tcp::acceptor>&& acceptorIn,
-           std::shared_ptr<boost::asio::ssl::context> adaptorCtx,
+           std::shared_ptr<boost::asio::ssl::context> adaptorCtxIn,
            std::shared_ptr<boost::asio::io_context> io =
                std::make_shared<boost::asio::io_context>()) :
         ioService(std::move(io)),
         acceptor(std::move(acceptorIn)),
         signals(*ioService, SIGINT, SIGTERM, SIGHUP), handler(handlerIn),
-        adaptorCtx(std::move(adaptorCtx))
+        adaptorCtx(std::move(adaptorCtxIn))
     {}
 
     Server(Handler* handlerIn, const std::string& bindaddr, uint16_t port,
-           const std::shared_ptr<boost::asio::ssl::context>& adaptorCtx,
+           const std::shared_ptr<boost::asio::ssl::context>& adaptorCtxIn,
            const std::shared_ptr<boost::asio::io_context>& io =
                std::make_shared<boost::asio::io_context>()) :
         Server(handlerIn,
                std::make_unique<boost::asio::ip::tcp::acceptor>(
                    *io, boost::asio::ip::tcp::endpoint(
                             boost::asio::ip::make_address(bindaddr), port)),
-               adaptorCtx, io)
+               adaptorCtxIn, io)
     {}
 
     Server(Handler* handlerIn, int existingSocket,
-           const std::shared_ptr<boost::asio::ssl::context>& adaptorCtx,
+           const std::shared_ptr<boost::asio::ssl::context>& adaptorCtxIn,
            const std::shared_ptr<boost::asio::io_context>& io =
                std::make_shared<boost::asio::io_context>()) :
         Server(handlerIn,
                std::make_unique<boost::asio::ip::tcp::acceptor>(
                    *io, boost::asio::ip::tcp::v6(), existingSocket),
-               adaptorCtx, io)
+               adaptorCtxIn, io)
     {}
 
     void updateDateStr()

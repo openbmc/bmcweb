@@ -115,11 +115,11 @@ inline void requestRoutesMetricReport(App& app)
             sdbusplus::asio::getProperty<telemetry::TimestampReadings>(
                 *crow::connections::systemBus, telemetry::service, reportPath,
                 telemetry::reportInterface, "Readings",
-                [asyncResp, id](const boost::system::error_code ec,
+                [asyncResp, id](const boost::system::error_code ec2,
                                 const telemetry::TimestampReadings& ret) {
-                if (ec)
+                if (ec2)
                 {
-                    BMCWEB_LOG_ERROR << "respHandler DBus error " << ec;
+                    BMCWEB_LOG_ERROR << "respHandler DBus error " << ec2;
                     messages::internalError(asyncResp->res);
                     return;
                 }

@@ -151,10 +151,10 @@ class Connection :
             }
 
             // Check if certificate is OK
-            int error = X509_STORE_CTX_get_error(cts);
-            if (error != X509_V_OK)
+            int ctxError = X509_STORE_CTX_get_error(cts);
+            if (ctxError != X509_V_OK)
             {
-                BMCWEB_LOG_INFO << this << " Last TLS error is: " << error;
+                BMCWEB_LOG_INFO << this << " Last TLS error is: " << ctxError;
                 return true;
             }
             // Check that we have reached final certificate in chain
