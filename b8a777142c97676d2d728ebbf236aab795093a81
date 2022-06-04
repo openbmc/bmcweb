@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8272ca21_673e909d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2022-06-04T06:22:16Z",
+      "side": 1,
+      "message": "Yes. This is needed to get the traces as part of BMC dump, for BMC side debug. Client may log the error return code. But that will be part of client side data.",
+      "parentUuid": "2b83e839_116f5277",
+      "revId": "b8a777142c97676d2d728ebbf236aab795093a81",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "24c34804_f1d2dfd0",
@@ -31,6 +49,24 @@
       "writtenOn": "2022-06-03T20:00:45Z",
       "side": 1,
       "message": "Why an ERROR here?",
+      "revId": "b8a777142c97676d2d728ebbf236aab795093a81",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e0492f01_990f0508",
+        "filename": "include/ibm/locks.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2022-06-04T06:22:16Z",
+      "side": 1,
+      "message": "When the release lock is sent with a invalid request id - that means that client is sending invalid data. We need a trace added to the journal to log the same.",
+      "parentUuid": "24c34804_f1d2dfd0",
       "revId": "b8a777142c97676d2d728ebbf236aab795093a81",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
