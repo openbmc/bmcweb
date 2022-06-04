@@ -190,35 +190,35 @@ class SensorsAsyncResp
         const std::string dbusPath;
     };
 
-    SensorsAsyncResp(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    SensorsAsyncResp(const std::shared_ptr<bmcweb::AsyncResp>& asyncRespIn,
                      const std::string& chassisIdIn,
                      std::span<std::string_view> typesIn,
                      std::string_view subNode) :
-        asyncResp(asyncResp),
+        asyncResp(asyncRespIn),
         chassisId(chassisIdIn), types(typesIn), chassisSubNode(subNode),
         efficientExpand(false)
     {}
 
     // Store extra data about sensor mapping and return it in callback
-    SensorsAsyncResp(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    SensorsAsyncResp(const std::shared_ptr<bmcweb::AsyncResp>& asyncRespIn,
                      const std::string& chassisIdIn,
                      std::span<std::string_view> typesIn,
                      std::string_view subNode,
                      DataCompleteCb&& creationComplete) :
-        asyncResp(asyncResp),
+        asyncResp(asyncRespIn),
         chassisId(chassisIdIn), types(typesIn), chassisSubNode(subNode),
         efficientExpand(false), metadata{std::vector<SensorData>()},
         dataComplete{std::move(creationComplete)}
     {}
 
     // sensor collections expand
-    SensorsAsyncResp(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    SensorsAsyncResp(const std::shared_ptr<bmcweb::AsyncResp>& asyncRespIn,
                      const std::string& chassisIdIn,
                      const std::span<std::string_view> typesIn,
-                     const std::string_view& subNode, bool efficientExpand) :
-        asyncResp(asyncResp),
+                     const std::string_view& subNode, bool efficientExpandIn) :
+        asyncResp(asyncRespIn),
         chassisId(chassisIdIn), types(typesIn), chassisSubNode(subNode),
-        efficientExpand(efficientExpand)
+        efficientExpand(efficientExpandIn)
     {}
 
     ~SensorsAsyncResp()
@@ -1255,8 +1255,8 @@ inline void populateFanRedundancy(
                         sensorsAsyncResp->asyncResp->res.jsonValue["Fans"];
                     for (const std::string& item : *collection)
                     {
-                        sdbusplus::message::object_path path(item);
-                        std::string itemName = path.filename();
+                        sdbusplus::message::object_path itemPath(item);
+                        std::string itemName = itemPath.filename();
                         if (itemName.empty())
                         {
                             continue;
@@ -1272,11 +1272,11 @@ inline void populateFanRedundancy(
                             });
                         if (schemaItem != fanRedfish.end())
                         {
-                            nlohmann::json::object_t collection;
-                            collection["@odata.id"] =
+                            nlohmann::json::object_t collectionId;
+                            collectionId["@odata.id"] =
                                 (*schemaItem)["@odata.id"];
                             redfishCollection.emplace_back(
-                                std::move(collection));
+                                std::move(collectionId));
                         }
                         else
                         {

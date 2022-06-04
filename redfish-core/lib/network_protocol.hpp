@@ -194,9 +194,9 @@ inline void getNetworkData(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
             asyncResp->res.jsonValue[protocolName]["ProtocolEnabled"] =
                 isProtocolEnabled;
             getPortNumber(socketPath, [asyncResp, protocolName](
-                                          const boost::system::error_code ec,
+                                          const boost::system::error_code ec2,
                                           int portNumber) {
-                if (ec)
+                if (ec2)
                 {
                     messages::internalError(asyncResp->res);
                     return;
@@ -272,8 +272,8 @@ inline void
                     }
 
                     crow::connections::systemBus->async_method_call(
-                        [asyncResp](const boost::system::error_code ec) {
-                        if (ec)
+                        [asyncResp](const boost::system::error_code ec2) {
+                        if (ec2)
                         {
                             messages::internalError(asyncResp->res);
                             return;
