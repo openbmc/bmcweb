@@ -217,6 +217,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8a127e7f_b33d6a0b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-06-04T05:28:32Z",
+      "side": 1,
+      "message": "May I ask which DHCPv6 property requires 1.8.0? OperatingMode？\n\nRedfish maintainers says they are still working on with the VLAN schema https://redfishforum.com/thread/619/proper-create-using-ethernetinterface-schema",
+      "parentUuid": "30c9ff26_004eb79a",
+      "revId": "cca51c6ce048cc4540c5353507d56ec07ba60fd4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9f42157b_68278340",
         "filename": "redfish-core/lib/ethernet.hpp",
         "patchSetId": 3
