@@ -165,6 +165,7 @@ if (cxx.get_id() == 'gcc' and cxx.version().version_compare('>8.0'))
      '-Wunused-parameter',
      '-Wnull-dereference',
      '-Wdouble-promotion',
+     '-Wshadow',
      '-Wno-psabi',
      ]),
     language:'cpp')

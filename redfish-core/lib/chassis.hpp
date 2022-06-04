@@ -319,9 +319,9 @@ inline void requestRoutesChassis(App& app)
                         *crow::connections::systemBus, connectionName, path,
                         assetTagInterface, "AssetTag",
                         [asyncResp, chassisId(std::string(chassisId))](
-                            const boost::system::error_code ec,
+                            const boost::system::error_code ec2,
                             const std::string& property) {
-                        if (ec)
+                        if (ec2)
                         {
                             BMCWEB_LOG_DEBUG
                                 << "DBus response error for AssetTag";
@@ -615,11 +615,11 @@ inline void
         }
 
         crow::connections::systemBus->async_method_call(
-            [asyncResp](const boost::system::error_code ec) {
+            [asyncResp](const boost::system::error_code ec2) {
             // Use "Set" method to set the property value.
-            if (ec)
+            if (ec2)
             {
-                BMCWEB_LOG_DEBUG << "[Set] Bad D-Bus request error: " << ec;
+                BMCWEB_LOG_DEBUG << "[Set] Bad D-Bus request error: " << ec2;
                 messages::internalError(asyncResp->res);
                 return;
             }
