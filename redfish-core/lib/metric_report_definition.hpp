@@ -95,10 +95,11 @@ inline void
     }
 
     nlohmann::json metrics = nlohmann::json::array();
-    for (const auto& [sensorPath, operationType, id, metadata] : *readingParams)
+    for (const auto& [sensorPath, operationType, metricId, metadata] :
+         *readingParams)
     {
         metrics.push_back({
-            {"MetricId", id},
+            {"MetricId", metricId},
             {"MetricProperties", {metadata}},
         });
     }
@@ -253,8 +254,8 @@ class AddReport
 {
   public:
     AddReport(AddReportArgs argsIn,
-              const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) :
-        asyncResp(asyncResp),
+              const std::shared_ptr<bmcweb::AsyncResp>& asyncRespIn) :
+        asyncResp(asyncRespIn),
         args{std::move(argsIn)}
     {}
     ~AddReport()

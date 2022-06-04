@@ -184,7 +184,7 @@ inline void
                     // Redfish properties with same name and a
                     // string value
                     const std::string& propertyName = property.first;
-                    nlohmann::json& object =
+                    nlohmann::json& controller =
                         asyncResp->res.jsonValue["StorageControllers"][index];
                     if ((propertyName == "PartNumber") ||
                         (propertyName == "SerialNumber") ||
@@ -199,7 +199,7 @@ inline void
                             messages::internalError(asyncResp->res);
                             return;
                         }
-                        object[propertyName] = *value;
+                        controller[propertyName] = *value;
                     }
                 }
                 },
@@ -658,8 +658,8 @@ void chassisDriveCollectionGet(
                 std::vector<std::string> leafNames;
                 for (const auto& drive : resp)
                 {
-                    sdbusplus::message::object_path path(drive);
-                    leafNames.push_back(path.filename());
+                    sdbusplus::message::object_path drivePath(drive);
+                    leafNames.push_back(drivePath.filename());
                 }
 
                 std::sort(leafNames.begin(), leafNames.end(),

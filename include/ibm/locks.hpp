@@ -439,19 +439,19 @@ inline bool Lock::isValidLockRequest(const LockRequest& refLockRecord)
 inline Rc Lock::isConflictWithTable(const LockRequests& refLockRequestStructure)
 {
 
-    uint32_t transactionId = 0;
+    uint32_t thisTransactionId = 0;
 
     if (lockTable.empty())
     {
-        transactionId = generateTransactionId();
-        BMCWEB_LOG_DEBUG << transactionId;
+        thisTransactionId = generateTransactionId();
+        BMCWEB_LOG_DEBUG << thisTransactionId;
         // Lock table is empty, so we are safe to add the lockrecords
         // as there will be no conflict
         BMCWEB_LOG_DEBUG << "Lock table is empty, so adding the lockrecords";
         lockTable.emplace(std::pair<uint32_t, LockRequests>(
-            transactionId, refLockRequestStructure));
+            thisTransactionId, refLockRequestStructure));
 
-        return std::make_pair(false, transactionId);
+        return std::make_pair(false, thisTransactionId);
     }
     BMCWEB_LOG_DEBUG
         << "Lock table is not empty, check for conflict with lock table";
@@ -597,7 +597,7 @@ inline bool Lock::isConflictRecord(const LockRequest& refLockRecord1,
 
         // compare segment data
 
-        for (uint32_t i = 0; i < p.second; i++)
+        for (uint32_t j = 0; j < p.second; j++)
         {
             // if the segment data is different, then the locks is on a
             // different resource so no conflict between the lock
@@ -610,7 +610,7 @@ inline bool Lock::isConflictRecord(const LockRequest& refLockRecord1,
             if (!(checkByte(
                     boost::endian::endian_reverse(std::get<3>(refLockRecord1)),
                     boost::endian::endian_reverse(std::get<3>(refLockRecord2)),
-                    i)))
+                    j)))
             {
                 return false;
             }
