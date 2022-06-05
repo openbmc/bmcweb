@@ -5,6 +5,8 @@
 #include "http_request.hpp"
 #include "routing.hpp"
 
+#include <nlohmann/json.hpp>
+
 #include <charconv>
 #include <string>
 #include <string_view>
@@ -568,8 +570,44 @@ inline void processTopAndSkip(const Query& query, crow::Response& res)
     arr->erase(arr->begin() + static_cast<ssize_t>(top), arr->end());
 }
 
+inline void handleAutoExpandResource(const Query& delegated,
+                                     const nlohmann::json& json, Query& query)
+{
+    if (delegated.expandLevel == 0 && query.expandLevel > 0 &&
+        query.expandType != ExpandType::None)
+    {
+        auto* response = json.get_ptr<const nlohmann::json::object_t*>();
+        if (response == nullptr)
+        {
+            return;
+        }
+        auto membersIter = response->find("Members");
+        if (membersIter == response->end())
+        {
+            return;
+        }
+        bool expanded = false;
+        for (const auto& member : membersIter->second)
+        {
+            if (member.size() > 1)
+            {
+                expanded = true;
+                break;
+            }
+        }
+        if (expanded)
+        {
+            query.expandLevel--;
+            if (query.expandLevel == 0)
+            {
+                query.expandType = ExpandType::None;
+            }
+        }
+    }
+}
+
 inline void
-    processAllParams(crow::App& app, const Query& query,
+    processAllParams(crow::App& app, Query& query, const Query& delegated,
                      std::function<void(crow::Response&)>& completionHandler,
                      crow::Response& intermediateResponse)
 {
@@ -599,7 +637,8 @@ inline void
         processTopAndSkip(query, intermediateResponse);
     }
 
-    if (query.expandType != ExpandType::None)
+    handleAutoExpandResource(delegated, intermediateResponse.jsonValue, query);
+    if (query.expandLevel > 0 && query.expandType != ExpandType::None)
     {
         BMCWEB_LOG_DEBUG << "Executing expand query";
         // TODO(ed) this is a copy of the response object.  Admittedly,
