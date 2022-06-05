@@ -146,6 +146,72 @@ TEST(FormatQueryForExpand, DelegatedSubQueriesHaveSameTypeAndOneLessLevels)
               "?$expand=.($levels=1)");
 }
 
+TEST(HandleAutoExpand, NoopIfResponseNotResourceCollection)
+{
+    Query query = {
+        .expandLevel = 3,
+        .expandType = ExpandType::Both,
+    };
+    Query before = query;
+    handleAutoExpandResource(Query{}, nlohmann::json{}, query);
+    EXPECT_EQ(query.expandLevel, before.expandLevel);
+    EXPECT_EQ(query.expandType, before.expandType);
+}
+
+TEST(HandleAutoExpand, NoopIfDelegated)
+{
+    Query query = {
+        .expandLevel = 3,
+        .expandType = ExpandType::Both,
+    };
+    Query before = query;
+    handleAutoExpandResource(
+        Query{.expandLevel = 1, .expandType = ExpandType::Both},
+        nlohmann::json{}, query);
+    EXPECT_EQ(query.expandLevel, before.expandLevel);
+    EXPECT_EQ(query.expandType, before.expandType);
+}
+
+TEST(HandleAutoExpand, NoopIfNotExpand)
+{
+    Query query = {
+        .expandLevel = 0,
+        .expandType = ExpandType::None,
+    };
+    Query before = query;
+    handleAutoExpandResource(Query{}, nlohmann::json{}, query);
+    EXPECT_EQ(query.expandLevel, before.expandLevel);
+    EXPECT_EQ(query.expandType, before.expandType);
+}
+
+TEST(HandleAutoExpand, NoopIfNotAutoExpand)
+{
+    Query query = {
+        .expandLevel = 2,
+        .expandType = ExpandType::Both,
+    };
+    Query before = query;
+    nlohmann::json notExpandedResponse =
+        R"({"Members" : [{"@odata.id" : "123"}]})"_json;
+    handleAutoExpandResource(Query{}, notExpandedResponse, query);
+    EXPECT_EQ(query.expandLevel, before.expandLevel);
+    EXPECT_EQ(query.expandType, before.expandType);
+}
+
+TEST(HandleAutoExpand, DecreaseLevelByOneIfAutoExpand)
+{
+    Query query = {
+        .expandLevel = 2,
+        .expandType = ExpandType::Both,
+    };
+    Query before = query;
+    nlohmann::json expandedResponse =
+        R"({"Members" : [{"@odata.id" : "123", "foo": "bar"}]})"_json;
+    handleAutoExpandResource(Query{}, expandedResponse, query);
+    EXPECT_EQ(query.expandLevel, before.expandLevel - 1);
+    EXPECT_EQ(query.expandType, before.expandType);
+}
+
 } // namespace
 } // namespace redfish::query_param
 
