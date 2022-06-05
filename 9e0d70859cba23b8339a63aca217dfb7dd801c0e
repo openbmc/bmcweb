@@ -240,6 +240,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "85520831_0979a83a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2022-06-05T11:59:43Z",
+      "side": 1,
+      "message": "DMTF is not yet released the new schemas for this. Networkd commit is +2ed already. Submitting that will break the bmcweb - as the existing property is changed to read-only. \nRebased this commit - to get this going until we have the right schema. There is only change to the dbus property that we are writing to. No changes to the existing redfish commands.",
+      "parentUuid": "e6e1b36b_c399fd8a",
+      "range": {
+        "startLine": 12,
+        "startChar": 4,
+        "endLine": 13,
+        "endChar": 26
+      },
+      "revId": "9e0d70859cba23b8339a63aca217dfb7dd801c0e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5bf09429_93f79525",
