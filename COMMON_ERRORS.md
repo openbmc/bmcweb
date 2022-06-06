@@ -279,3 +279,32 @@ especially when relying on user-driven data.
 The above methods tend to be misused to accept user data and parse various
 fields from it.  In practice, there tends to be better, purpose built methods
 for removing just the field you need.
+
+### 13. Complete replacement of the response object
+
+```
+void getMembers(crow::Response& res){
+  res.jsonValue = {{"Value", 2}};
+}
+```
+
+In many cases, bmcweb is doing multiple async actions in parallel, and
+orthogonal keys within the Response object might be filled in from another
+task.  Completely replacing the json object can lead to convoluted situations
+where the output of the response is dependent on the _order_ of the asynchronous
+actions completing, which cannot be guaranteed, and has many time caused bugs.
+
+```
+void getMembers(crow::Response& res){
+  res.jsonValue["Value"] = 2;
+}
+```
+
+As an added benefit, this code is also more efficient, as it avoids the
+intermediate object construction and the move, and as a result, produces smaller
+binaries.
+
+Note, another form of this error involves calling nlohmann::json::reset(), to
+clear an object that's already been filled in.  This has the potential to clear
+correct data that was already filled in from other sources.
+
