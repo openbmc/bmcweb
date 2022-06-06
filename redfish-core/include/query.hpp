@@ -12,7 +12,8 @@ namespace redfish
 // handled by redfish-core/lib codes, then default query parameter handler won't
 // process these parameters.
 [[nodiscard]] inline bool setUpRedfishRouteWithDelegation(
-    crow::App& app, const crow::Request& req, crow::Response& res,
+    crow::App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     query_param::Query& delegated,
     const query_param::QueryCapabilities& queryCapabilities)
 {
@@ -25,14 +26,14 @@ namespace redfish
     std::string_view odataHeader = req.getHeaderValue("OData-Version");
     if (!odataHeader.empty() && odataHeader != "4.0")
     {
-        messages::preconditionFailed(res);
+        messages::preconditionFailed(asyncResp->res);
         return false;
     }
 
-    res.addHeader("OData-Version", "4.0");
+    asyncResp->res.addHeader("OData-Version", "4.0");
 
     std::optional<query_param::Query> queryOpt =
-        query_param::parseParameters(req.urlView.params(), res);
+        query_param::parseParameters(req.urlView.params(), asyncResp->res);
     if (queryOpt == std::nullopt)
     {
         return false;
@@ -46,8 +47,8 @@ namespace redfish
 
     delegated = query_param::delegate(queryCapabilities, *queryOpt);
     std::function<void(crow::Response&)> handler =
-        res.releaseCompleteRequestHandler();
-    res.setCompleteRequestHandler(
+        asyncResp->res.releaseCompleteRequestHandler();
+    asyncResp->res.setCompleteRequestHandler(
         [&app, handler(std::move(handler)),
          query{*queryOpt}](crow::Response& res) mutable {
         processAllParams(app, query, handler, res);
@@ -56,13 +57,13 @@ namespace redfish
 }
 
 // Sets up the Redfish Route. All parameters are handled by the default handler.
-[[nodiscard]] inline bool setUpRedfishRoute(crow::App& app,
-                                            const crow::Request& req,
-                                            crow::Response& res)
+[[nodiscard]] inline bool
+    setUpRedfishRoute(crow::App& app, const crow::Request& req,
+                      const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     // This route |delegated| is never used
     query_param::Query delegated;
-    return setUpRedfishRouteWithDelegation(app, req, res, delegated,
+    return setUpRedfishRouteWithDelegation(app, req, asyncResp, delegated,
                                            query_param::QueryCapabilities{});
 }
 } // namespace redfish
