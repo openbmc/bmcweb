@@ -51,6 +51,24 @@
       "parentUuid": "ff65664a_3c7ffaab",
       "revId": "abcb5ac1d031ba0527c53898bf48410f87c79472",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ab901752_3c943ee1",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 708,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-06T19:10:16Z",
+      "side": 1,
+      "message": "\u003e \u003e 1. Now that we can inject them, do they need to have a \"name\" at all in this API?  Could retryPolicyName be completely removed?\n\u003e I think we need to keep the name for reporting purposes. Each individual connection receives a copy of the RetryInfo struct as part of the message sending process.  \"retryPolicyName\" is the only way to indicate which retry policy is being used.\n\nBut why would we need to report it?  There\u0027s no API that actually uses the name, except maybe logging?  Or is there something that needs to report the name per-request?\n\n\u003e \n\u003e \u003e 2. Should we work retryAttempts and retryTimeoutInterval into the callback itself?\n\u003e I think at that point we\u0027d be really getting into duplicating work within each retry policy.  Each policy should use those values in the same way.\n\u003e \n\u003e We also attempt to retry if any stage of sending a message fails.  This change would break out retries on response code failures while leaving the other retry logic in place.\n\nThat\u0027s a good point.  ACK.\n\n\u003e \n\u003e \u003e This could allow clients to do things like handle http retry-after headers as the spec requests, by parsing them and setting the retryAfter correctly.\n\u003e I think this would be more appropriate to be handled within recvMessage() so that different policies can handle those situations as well.  I\u0027d much rather add a bool to the retry policy to enable/disable additional features like that.",
+      "parentUuid": "50f64ee0_627c6954",
+      "revId": "abcb5ac1d031ba0527c53898bf48410f87c79472",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
