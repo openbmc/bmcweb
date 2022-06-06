@@ -20,6 +20,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "033e4229_f31dc6b2",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 954,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-06T21:19:15Z",
+      "side": 1,
+      "message": "The previous message seems more informative to me.",
+      "range": {
+        "startLine": 954,
+        "startChar": 38,
+        "endLine": 954,
+        "endChar": 46
+      },
+      "revId": "0c09cc01501f311c1e7110f4b4c71459599b2d94",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f3c6ff6c_233cbf14",
         "filename": "redfish-core/lib/certificate_service.hpp",
         "patchSetId": 1
