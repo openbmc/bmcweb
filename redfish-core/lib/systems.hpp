@@ -2623,7 +2623,7 @@ inline void requestRoutesSystemsCollection(App& app)
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-        if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+        if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
         }
@@ -2698,7 +2698,7 @@ inline void requestRoutesSystemActionsReset(App& app)
         .methods(boost::beast::http::verb::post)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-        if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+        if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
         }
@@ -2825,7 +2825,7 @@ inline void requestRoutesSystems(App& app)
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-        if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+        if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
         }
@@ -2950,7 +2950,7 @@ inline void requestRoutesSystems(App& app)
         .methods(boost::beast::http::verb::patch)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-        if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+        if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
         }
@@ -3072,7 +3072,7 @@ inline void requestRoutesSystemResetActionInfo(App& app)
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-        if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+        if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
         }
