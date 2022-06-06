@@ -3001,7 +3001,7 @@ inline void
         .canDelegateExpandLevel = 1,
     };
     query_param::Query delegatedQuery;
-    if (!redfish::setUpRedfishRouteWithDelegation(app, req, aResp->res,
+    if (!redfish::setUpRedfishRouteWithDelegation(app, req, aResp,
                                                   delegatedQuery, capabilities))
     {
         return;
@@ -3038,7 +3038,7 @@ inline void handleSensorGet(App& app, const crow::Request& req,
                             const std::string& chassisId,
                             const std::string& sensorName)
 {
-    if (!redfish::setUpRedfishRoute(app, req, aResp->res))
+    if (!redfish::setUpRedfishRoute(app, req, aResp))
     {
         return;
     }

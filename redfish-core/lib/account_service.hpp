@@ -1247,7 +1247,7 @@ inline void requestAccountServiceRoutes(App& app)
             [&app](
                 const crow::Request& req,
                 const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) -> void {
-                if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+                if (!redfish::setUpRedfishRoute(app, req, asyncResp))
                 {
                     return;
                 }
@@ -1365,7 +1365,7 @@ inline void requestAccountServiceRoutes(App& app)
             [&app](
                 const crow::Request& req,
                 const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) -> void {
-                if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+                if (!redfish::setUpRedfishRoute(app, req, asyncResp))
                 {
                     return;
                 }
@@ -1487,7 +1487,7 @@ inline void requestAccountServiceRoutes(App& app)
             [&app](
                 const crow::Request& req,
                 const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) -> void {
-                if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+                if (!redfish::setUpRedfishRoute(app, req, asyncResp))
                 {
                     return;
                 }
@@ -1566,7 +1566,7 @@ inline void requestAccountServiceRoutes(App& app)
             [&app](
                 const crow::Request& req,
                 const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) -> void {
-                if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+                if (!redfish::setUpRedfishRoute(app, req, asyncResp))
                 {
                     return;
                 }
@@ -1682,7 +1682,7 @@ inline void requestAccountServiceRoutes(App& app)
             [&app]([[maybe_unused]] const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                    const std::string& accountName) -> void {
-                if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+                if (!redfish::setUpRedfishRoute(app, req, asyncResp))
                 {
                     return;
                 }
@@ -1848,7 +1848,7 @@ inline void requestAccountServiceRoutes(App& app)
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                    const std::string& username) -> void {
-                if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+                if (!redfish::setUpRedfishRoute(app, req, asyncResp))
                 {
                     return;
                 }
@@ -1944,7 +1944,7 @@ inline void requestAccountServiceRoutes(App& app)
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                    const std::string& username) -> void {
-                if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+                if (!redfish::setUpRedfishRoute(app, req, asyncResp))
                 {
                     return;
                 }
