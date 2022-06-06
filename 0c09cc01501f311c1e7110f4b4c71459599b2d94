@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "03529d8b_a333b3bd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-06T18:31:57Z",
+      "side": 1,
+      "message": "Glad to see others are interested in cleaning this up;  I had a patchset here:\n\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/47220\n\nTo start cleaning this up in a more generalized sense.  Could please help to review it?",
+      "revId": "0c09cc01501f311c1e7110f4b4c71459599b2d94",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f3c6ff6c_233cbf14",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 964,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-06T18:31:57Z",
+      "side": 1,
+      "message": "These appear to be urls.  Please use the boost::urls::url object for handing urls and to avoid common error #12",
+      "range": {
+        "startLine": 964,
+        "startChar": 12,
+        "endLine": 964,
+        "endChar": 23
+      },
+      "revId": "0c09cc01501f311c1e7110f4b4c71459599b2d94",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ecc9c7c3_f66b7388",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 979,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-06T18:31:57Z",
+      "side": 1,
+      "message": "Please prefer to just do\n\n\nif (certUrl.empty()){\n  continue;\n}\n\n\nAs it saves horizontal space.",
+      "range": {
+        "startLine": 979,
+        "startChar": 11,
+        "endLine": 979,
+        "endChar": 33
+      },
+      "revId": "0c09cc01501f311c1e7110f4b4c71459599b2d94",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
