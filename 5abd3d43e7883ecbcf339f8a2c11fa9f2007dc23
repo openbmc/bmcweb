@@ -67,6 +67,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "373df534_b9848f1a",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-06T17:07:29Z",
+      "side": 1,
+      "message": "\"Reports\" at this level is coming from dbus.\n\n\u003e It is not an url, it is relative path, which should always be \"TelemetryService/{SomeID}\",\n\nFrom a dbus perspective, that\u0027s not true, and we shouldn\u0027t be verifying it in bmcweb.  That amounts to business logic.\n\n\nCorrect, object_path doesn\u0027t support relative paths.\n\n\n\u003e So in summary, we have relative path-like string. It is not an url and not an object_path. What do you suggest to parse it properly?\n\nWhy is the interface defined this way?  We pulled this string from dbus, which should never be sending a relative dbus path.",
+      "parentUuid": "b2cbd688_7a062938",
+      "range": {
+        "startLine": 149,
+        "startChar": 0,
+        "endLine": 149,
+        "endChar": 53
+      },
+      "revId": "5abd3d43e7883ecbcf339f8a2c11fa9f2007dc23",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2e92eb35_fb7004c0",
         "filename": "redfish-core/lib/trigger.hpp",
         "patchSetId": 10
