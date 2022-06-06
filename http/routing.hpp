@@ -30,7 +30,7 @@ namespace crow
 class BaseRule
 {
   public:
-    BaseRule(const std::string& thisRule) : rule(thisRule)
+    explicit BaseRule(const std::string& thisRule) : rule(thisRule)
     {}
 
     virtual ~BaseRule() = default;
@@ -224,7 +224,7 @@ struct Wrapped
     template <typename Req, typename... Args>
     struct ReqHandlerWrapper
     {
-        ReqHandlerWrapper(Func fIn) : f(std::move(fIn))
+        explicit ReqHandlerWrapper(Func fIn) : f(std::move(fIn))
         {}
 
         void operator()(const Request& req,
@@ -328,7 +328,7 @@ class WebSocketRule : public BaseRule
     using self_t = WebSocketRule;
 
   public:
-    WebSocketRule(const std::string& ruleIn) : BaseRule(ruleIn)
+    explicit WebSocketRule(const std::string& ruleIn) : BaseRule(ruleIn)
     {}
 
     void validate() override
@@ -467,7 +467,7 @@ struct RuleParameterTraits
 class DynamicRule : public BaseRule, public RuleParameterTraits<DynamicRule>
 {
   public:
-    DynamicRule(const std::string& ruleIn) : BaseRule(ruleIn)
+    explicit DynamicRule(const std::string& ruleIn) : BaseRule(ruleIn)
     {}
 
     void validate() override
@@ -545,7 +545,7 @@ class TaggedRule :
   public:
     using self_t = TaggedRule<Args...>;
 
-    TaggedRule(const std::string& ruleIn) : BaseRule(ruleIn)
+    explicit TaggedRule(const std::string& ruleIn) : BaseRule(ruleIn)
     {}
 
     void validate() override
