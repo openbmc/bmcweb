@@ -333,6 +333,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3d851cc9_9b2ea509",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2550,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-06-06T18:51:53Z",
+      "side": 1,
+      "message": "From chat:\n\n---\nEd:\n\"you tried to use bind_front on an async_method_call?\nI probably wasn\u0027t clear enough in my message;  We shouldn\u0027t use lambdas in BMCWEB_ROUTE declarations.\nideally we shouldn\u0027t use them in async_metho_call either, but there\u0027s an incompatibility that we haven\u0027t been able to sort out.\nIe: https://github.com/boostorg/callable_traits/issues/192\"\n\nClaire:\nAhh okay. Please ignore Patchset 13 then and just look at Patchset 14 which uses a lambda as usual.",
+      "parentUuid": "01c653fb_bfe74dc5",
+      "range": {
+        "startLine": 2550,
+        "startChar": 0,
+        "endLine": 2550,
+        "endChar": 73
+      },
+      "revId": "593a36efe904090709031787d5142f2f0d0905ed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "036d97fb_1371bee3",
