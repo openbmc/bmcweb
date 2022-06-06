@@ -33,6 +33,24 @@
       "message": "Glad to see this stuff being moved forward;  Can we talk a little bit about the long term plans here?  Having this kind of code that directly manipulates the filesystem in bmcweb breaks the OpenBMC architecture in kind of unfortunate ways.  Per the other handlers, the business logic for this should be going into its own daemon and schema, which IBM can maintain, and bmcweb can just call the dbus interface to like we would anything else, which would remove me from most of the management console lock code reviews, and let ibm implement their business logic however they wanted 😊\n\nCan we discuss timeframes on when/how that changeover can happen?  Considering that we\u0027re doing non-trivial business logic updates in this patch series, it seems like a good time to put together a long term plan for this code.",
       "revId": "013a0ba48b93f671ad939adeae3eee3a64657ed9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ae6dfef2_f60df620",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2022-06-06T05:19:56Z",
+      "side": 1,
+      "message": "Sure. I would need Gunnar also to share his views. There is no dbus calls in this ibm_management_console use-cases. This is completely within bmcweb. We have the compiler flag since day 1. If there is any other better way to branch this out at upstream master, we can do that",
+      "parentUuid": "d250a064_3781c404",
+      "revId": "013a0ba48b93f671ad939adeae3eee3a64657ed9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
