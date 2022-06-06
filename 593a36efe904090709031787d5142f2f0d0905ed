@@ -190,6 +190,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f127f9c_b473b703",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2138,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-06-06T18:22:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "051f0409_efb28513",
+      "range": {
+        "startLine": 2136,
+        "startChar": 0,
+        "endLine": 2138,
+        "endChar": 73
+      },
+      "revId": "593a36efe904090709031787d5142f2f0d0905ed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "aba3a304_7812cbc5",
@@ -227,6 +251,30 @@
       "side": 1,
       "message": "Done",
       "parentUuid": "aba3a304_7812cbc5",
+      "range": {
+        "startLine": 2550,
+        "startChar": 0,
+        "endLine": 2550,
+        "endChar": 73
+      },
+      "revId": "593a36efe904090709031787d5142f2f0d0905ed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8b940502_f15f0810",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2550,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-06-06T18:22:09Z",
+      "side": 1,
+      "message": "I tried to use std::bind_front in Patchset 13 and it built okay here in the bmcweb repo, but when I tried building it as part of ___ (adding changes using \"devtool modify bmcweb\") the build failed. Do you have a suggestion on how to fix Patchset 13, or is it ok to use a lambda as shown in Patchset 14? (Compare Patchset 13 \u003c-\u003e 14).",
+      "parentUuid": "52024cd0_ae7ed174",
       "range": {
         "startLine": 2550,
         "startChar": 0,
