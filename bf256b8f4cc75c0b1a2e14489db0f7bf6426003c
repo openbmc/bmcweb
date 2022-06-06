@@ -54,6 +54,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "89ef93dc_2863972b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-06T19:57:36Z",
+      "side": 1,
+      "message": "\u003e Does clang make an explicit suggestion on how to change this?\nNo\n\n\u003e What you ended up doing I didn\u0027t see suggested on any of the forums that I read on this issue.  Can you cross link (in your commit message) where we got this pattern from?\nhttps://abseil.io/tips/147",
+      "parentUuid": "2220218e_df657f61",
+      "revId": "bf256b8f4cc75c0b1a2e14489db0f7bf6426003c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "355f7a2f_9712e46f",
