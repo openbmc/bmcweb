@@ -946,19 +946,14 @@ inline void requestRoutesHTTPSCertificateCollection(App& app)
                 messages::internalError(asyncResp->res);
                 return;
             }
-            long certId = getIDFromURL(objectPath);
-            if (certId < 0)
-            {
-                BMCWEB_LOG_ERROR << "Invalid objectPath value" << objectPath;
-                messages::internalError(asyncResp->res);
-                return;
-            }
+
+            sdbusplus::message::object_path path(objectPath);
             std::string certURL =
                 "/redfish/v1/Managers/bmc/NetworkProtocol/HTTPS/Certificates/" +
-                std::to_string(certId);
-            getCertificateProperties(
-                asyncResp, objectPath, certs::httpsServiceName,
-                std::to_string(certId), certURL, "HTTPS Certificate");
+                path.filename();
+            getCertificateProperties(asyncResp, objectPath,
+                                     certs::httpsServiceName, path.filename(),
+                                     certURL, "HTTPS Certificate");
             BMCWEB_LOG_DEBUG << "HTTPS certificate install file="
                              << certFile->getCertFilePath();
             },
@@ -1057,19 +1052,14 @@ inline void requestRoutesLDAPCertificateCollection(App& app)
                 messages::internalError(asyncResp->res);
                 return;
             }
-            long certId = getIDFromURL(objectPath);
-            if (certId < 0)
-            {
-                BMCWEB_LOG_ERROR << "Invalid objectPath value" << objectPath;
-                messages::internalError(asyncResp->res);
-                return;
-            }
+
+            sdbusplus::message::object_path path(objectPath);
             std::string certURL =
                 "/redfish/v1/AccountService/LDAP/Certificates/" +
-                std::to_string(certId);
-            getCertificateProperties(
-                asyncResp, objectPath, certs::ldapServiceName,
-                std::to_string(certId), certURL, "LDAP Certificate");
+                path.filename();
+            getCertificateProperties(asyncResp, objectPath,
+                                     certs::ldapServiceName, path.filename(),
+                                     certURL, "LDAP Certificate");
             BMCWEB_LOG_DEBUG << "LDAP certificate install file="
                              << certFile->getCertFilePath();
             },
@@ -1161,20 +1151,14 @@ inline void requestRoutesTrustStoreCertificateCollection(App& app)
                 messages::internalError(asyncResp->res);
                 return;
             }
-            long certId = getIDFromURL(objectPath);
-            if (certId < 0)
-            {
-                BMCWEB_LOG_ERROR << "Invalid objectPath value" << objectPath;
-                messages::internalError(asyncResp->res);
-                return;
-            }
+
+            sdbusplus::message::object_path path(objectPath);
             std::string certURL =
                 "/redfish/v1/Managers/bmc/Truststore/Certificates/" +
-                std::to_string(certId);
-
+                path.filename();
             getCertificateProperties(
                 asyncResp, objectPath, certs::authorityServiceName,
-                std::to_string(certId), certURL, "TrustStore Certificate");
+                path.filename(), certURL, "TrustStore Certificate");
             BMCWEB_LOG_DEBUG << "TrustStore certificate install file="
                              << certFile->getCertFilePath();
             },
