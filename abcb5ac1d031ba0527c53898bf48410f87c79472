@@ -69,6 +69,24 @@
       "parentUuid": "50f64ee0_627c6954",
       "revId": "abcb5ac1d031ba0527c53898bf48410f87c79472",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "512a2b9c_11a5e3ac",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 708,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-06-06T19:30:50Z",
+      "side": 1,
+      "message": "\u003e \u003e \u003e 1. Now that we can inject them, do they need to have a \"name\" at all in this API?  Could retryPolicyName be completely removed?\n\u003e \u003e I think we need to keep the name for reporting purposes. Each individual connection receives a copy of the RetryInfo struct as part of the message sending process.  \"retryPolicyName\" is the only way to indicate which retry policy is being used.\n\u003e But why would we need to report it?  There\u0027s no API that actually uses the name, except maybe logging?  Or is there something that needs to report the name per-request?\nIt\u0027s purely for logging purposes.  I thought it would be useful to know for sure which retry policy is being used by a given message.\n\n\u003e \u003e \u003e This could allow clients to do things like handle http retry-after headers as the spec requests, by parsing them and setting the retryAfter correctly.\n\u003e \u003e I think this would be more appropriate to be handled within recvMessage() so that different policies can handle those situations as well.  I\u0027d much rather add a bool to the retry policy to enable/disable additional features like that.\n\u003e \nYou quoted these lines without comment.  Did you accidentally leave off the intended message?",
+      "parentUuid": "ab901752_3c943ee1",
+      "revId": "abcb5ac1d031ba0527c53898bf48410f87c79472",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
