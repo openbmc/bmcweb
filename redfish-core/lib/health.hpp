@@ -31,8 +31,10 @@ namespace redfish
 struct HealthPopulate : std::enable_shared_from_this<HealthPopulate>
 {
     // By default populate status to "/Status" of |asyncResp->res.jsonValue|.
-    HealthPopulate(const std::shared_ptr<bmcweb::AsyncResp>& asyncRespIn) :
-        asyncResp(asyncRespIn), statusPtr("/Status")
+    explicit HealthPopulate(
+        const std::shared_ptr<bmcweb::AsyncResp>& asyncRespIn) :
+        asyncResp(asyncRespIn),
+        statusPtr("/Status")
     {}
 
     // Takes a JSON pointer rather than a reference. This is pretty useful when

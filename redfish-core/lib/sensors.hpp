@@ -307,7 +307,7 @@ enum class LedState
 class InventoryItem
 {
   public:
-    InventoryItem(const std::string& objPath) : objectPath(objPath)
+    explicit InventoryItem(const std::string& objPath) : objectPath(objPath)
     {
         // Set inventory item name to last node of object path
         sdbusplus::message::object_path path(objectPath);

@@ -155,7 +155,7 @@ class CertificateFile
     CertificateFile& operator=(const CertificateFile&) = delete;
     CertificateFile(CertificateFile&&) = delete;
     CertificateFile& operator=(CertificateFile&&) = delete;
-    CertificateFile(const std::string& certString)
+    explicit CertificateFile(const std::string& certString)
     {
         std::array<char, 18> dirTemplate = {'/', 't', 'm', 'p', '/', 'C',
                                             'e', 'r', 't', 's', '.', 'X',

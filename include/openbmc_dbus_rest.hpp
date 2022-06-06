@@ -436,7 +436,7 @@ inline void getObjectAndEnumerate(
 // Structure for storing data on an in progress action
 struct InProgressActionData
 {
-    InProgressActionData(crow::Response& resIn) : res(resIn)
+    explicit InProgressActionData(crow::Response& resIn) : res(resIn)
     {}
     ~InProgressActionData()
     {
@@ -1781,7 +1781,7 @@ inline void handleGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 
 struct AsyncPutRequest
 {
-    AsyncPutRequest(const std::shared_ptr<bmcweb::AsyncResp>& resIn) :
+    explicit AsyncPutRequest(const std::shared_ptr<bmcweb::AsyncResp>& resIn) :
         asyncResp(resIn)
     {}
     ~AsyncPutRequest()
