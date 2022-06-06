@@ -62,7 +62,7 @@ class RedfishService
      *
      * @param[in] app   Crow app on which Redfish will initialize
      */
-    RedfishService(App& app)
+    explicit RedfishService(App& app)
     {
         requestAccountServiceRoutes(app);
         requestRoutesRoles(app);

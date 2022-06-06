@@ -256,7 +256,8 @@ class ServerSentEvents : public std::enable_shared_from_this<ServerSentEvents>
     ServerSentEvents(ServerSentEvents&&) = delete;
     ServerSentEvents& operator=(ServerSentEvents&&) = delete;
 
-    ServerSentEvents(const std::shared_ptr<boost::beast::tcp_stream>& adaptor) :
+    explicit ServerSentEvents(
+        const std::shared_ptr<boost::beast::tcp_stream>& adaptor) :
         sseConn(adaptor)
     {
         startSSE();
