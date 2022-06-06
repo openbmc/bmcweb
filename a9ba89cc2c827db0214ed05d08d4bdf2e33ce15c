@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c9bbc948_767677e5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-06T20:40:32Z",
+      "side": 1,
+      "message": "I took a skim of this, and I think it\u0027s making some bad assumptions about autoexpand, and how the \"Resource\" object in redfish works in general.\n\n1. This patchset assumes that only Redfish-defined collections (with a Members variable) can be auto expanded.  There are in fact two definitions, \"AutoExpand\" and \"AutoExpandReferences\" which are different, and have different behavior in the response, but expand needs to account for both.\n2. The expand requirements apply the same to an entire parent resource.  It is perfectly legal for a resource to have an both an auto expanded resource and a non auto expanded resource within the same tree, so I suspect this behavior needs to be handled as part of walking the resource tree per property.\n3. Handling of \"complex\" type objects is different in terms of auto expand, and needs handled in concert with the \"links\".\n\n\nAlso, FWIW, I don\u0027t know if the standard has specific wording around how the expand parameter works in this case.  It\u0027s probably worth getting some wording into the standard to this effect.",
+      "revId": "a9ba89cc2c827db0214ed05d08d4bdf2e33ce15c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
