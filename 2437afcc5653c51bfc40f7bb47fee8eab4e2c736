@@ -120,6 +120,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "eab21ef3_4bbe862d",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-06-06T20:44:28Z",
+      "side": 1,
+      "message": "\u003e Slight nit, please use std::error_code or boost::system::error_code (debatable which is more correct, we have both) instead of bool so that we can post specific failure types to the client (dns resolution failure, connect failure, tls failure, ect) and add to them over time.\nSounds good.  I opted for the latter to be consistent with the rest of the file.  That change is now covered by an earlier patch in the chain: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/54161",
+      "parentUuid": "19eb97d7_2d3a224c",
+      "range": {
+        "startLine": 246,
+        "startChar": 0,
+        "endLine": 246,
+        "endChar": 61
+      },
+      "revId": "2437afcc5653c51bfc40f7bb47fee8eab4e2c736",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2e5ef60d_7ad3f2e1",
