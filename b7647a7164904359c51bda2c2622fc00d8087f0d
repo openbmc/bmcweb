@@ -74,6 +74,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "bff7df4f_6e46ccbc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-06T23:15:10Z",
+      "side": 1,
+      "message": "Ack. Yes, no need to update the schema version.",
+      "parentUuid": "e7dd221e_5e0e24ca",
+      "revId": "b7647a7164904359c51bda2c2622fc00d8087f0d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "3dfd618c_1f0688b2",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 3
