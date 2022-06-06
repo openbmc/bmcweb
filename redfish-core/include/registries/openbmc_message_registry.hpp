@@ -62,12 +62,12 @@ namespace redfish::registries::openbmc
 const Header header = {
     "Copyright 2022 OpenBMC. All rights reserved.",
     "#MessageRegistry.v1_4_0.MessageRegistry",
-    "OpenBMC.0.4.0",
+    "OpenBMC.0.4.1",
     "OpenBMC Message Registry",
     "en",
     "This registry defines the base messages for OpenBMC.",
     "OpenBMC",
-    "0.4.0",
+    "0.4.1",
     "OpenBMC",
 };
 constexpr std::array registry = {
@@ -167,6 +167,26 @@ constexpr std::array registry = {
                      "OK",
                      0,
                      {},
+                     "None.",
+                 }},
+    MessageEntry{"AttestationPanicReason",
+                 {
+                     "Indicates the reason for platform attestation panic.",
+                     "Attestation failure",
+                     "Warning",
+                     0,
+                     {},
+                     "None.",
+                 }},
+    MessageEntry{"AttestationError",
+                 {
+                     "Indicates platform encountered attestation failure.",
+                     "Platform attestation error due to %1.",
+                     "Critical",
+                     1,
+                     {
+                         "string",
+                     },
                      "None.",
                  }},
 
@@ -2209,6 +2229,15 @@ constexpr std::array registry = {
                  {
                      "Indicates that an SSB Thermal trip has been asserted.",
                      "SSB Thermal trip.",
+                     "Critical",
+                     0,
+                     {},
+                     "None.",
+                 }},
+    MessageEntry{"SPDMError",
+                 {
+                     "Indicates that SPDM protocol error has been encountered.",
+                     "SPDM protocol error",
                      "Critical",
                      0,
                      {},
