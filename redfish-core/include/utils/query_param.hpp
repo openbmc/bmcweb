@@ -569,7 +569,7 @@ inline void processTopAndSkip(const Query& query, crow::Response& res)
 }
 
 inline void
-    processAllParams(crow::App& app, const Query query,
+    processAllParams(crow::App& app, const Query& query,
                      std::function<void(crow::Response&)>& completionHandler,
                      crow::Response& intermediateResponse)
 {
