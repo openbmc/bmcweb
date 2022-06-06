@@ -1053,7 +1053,7 @@ inline void requestRoutesOperatingConfigCollection(App& app)
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                    const std::string& cpuName) {
-        if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+        if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
         }
@@ -1117,7 +1117,7 @@ inline void requestRoutesOperatingConfig(App& app)
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                    const std::string& cpuName, const std::string& configName) {
-        if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+        if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
         }
@@ -1179,7 +1179,7 @@ inline void requestRoutesProcessorCollection(App& app)
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-        if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+        if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
         }
@@ -1209,7 +1209,7 @@ inline void requestRoutesProcessor(App& app)
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                    const std::string& processorId) {
-        if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+        if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
         }
@@ -1227,7 +1227,7 @@ inline void requestRoutesProcessor(App& app)
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                    const std::string& processorId) {
-        if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+        if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
         }
