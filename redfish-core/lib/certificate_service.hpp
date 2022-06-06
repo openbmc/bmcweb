@@ -875,29 +875,21 @@ inline void requestRoutesHTTPSCertificate(App& app)
             boost::beast::http::verb::
                 get)([&app](const crow::Request& req,
                             const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                            const std::string& param) -> void {
+                            const std::string& id) -> void {
             if (!redfish::setUpRedfishRoute(app, req, asyncResp))
             {
                 return;
             }
-            if (param.empty())
-            {
-                messages::internalError(asyncResp->res);
-                return;
-            }
-            long id = getIDFromURL(req.url);
 
-            BMCWEB_LOG_DEBUG << "HTTPSCertificate::doGet ID="
-                             << std::to_string(id);
+            BMCWEB_LOG_DEBUG << "HTTPS Certificate ID=" << id;
             std::string certURL =
                 "/redfish/v1/Managers/bmc/NetworkProtocol/HTTPS/Certificates/" +
-                std::to_string(id);
-            std::string objectPath = certs::httpsObjectPath;
-            objectPath += "/";
-            objectPath += std::to_string(id);
-            getCertificateProperties(
-                asyncResp, objectPath, certs::httpsServiceName,
-                std::to_string(id), certURL, "HTTPS Certificate");
+                id;
+            sdbusplus::message::object_path path(certs::httpsObjectPath);
+            path /= id;
+            getCertificateProperties(asyncResp, path.str,
+                                     certs::httpsServiceName, id, certURL,
+                                     "HTTPS Certificate");
         });
 }
 
@@ -966,19 +958,14 @@ inline void requestRoutesHTTPSCertificateCollection(App& app)
                 messages::internalError(asyncResp->res);
                 return;
             }
-            long certId = getIDFromURL(objectPath);
-            if (certId < 0)
-            {
-                BMCWEB_LOG_ERROR << "Invalid objectPath value" << objectPath;
-                messages::internalError(asyncResp->res);
-                return;
-            }
+
+            sdbusplus::message::object_path path(objectPath);
             std::string certURL =
                 "/redfish/v1/Managers/bmc/NetworkProtocol/HTTPS/Certificates/" +
-                std::to_string(certId);
-            getCertificateProperties(
-                asyncResp, objectPath, certs::httpsServiceName,
-                std::to_string(certId), certURL, "HTTPS Certificate");
+                path.filename();
+            getCertificateProperties(asyncResp, objectPath,
+                                     certs::httpsServiceName, path.filename(),
+                                     certURL, "HTTPS Certificate");
             BMCWEB_LOG_DEBUG << "HTTPS certificate install file="
                              << certFile->getCertFilePath();
             },
@@ -1077,19 +1064,14 @@ inline void requestRoutesLDAPCertificateCollection(App& app)
                 messages::internalError(asyncResp->res);
                 return;
             }
-            long certId = getIDFromURL(objectPath);
-            if (certId < 0)
-            {
-                BMCWEB_LOG_ERROR << "Invalid objectPath value" << objectPath;
-                messages::internalError(asyncResp->res);
-                return;
-            }
+
+            sdbusplus::message::object_path path(objectPath);
             std::string certURL =
                 "/redfish/v1/AccountService/LDAP/Certificates/" +
-                std::to_string(certId);
-            getCertificateProperties(
-                asyncResp, objectPath, certs::ldapServiceName,
-                std::to_string(certId), certURL, "LDAP Certificate");
+                path.filename();
+            getCertificateProperties(asyncResp, objectPath,
+                                     certs::ldapServiceName, path.filename(),
+                                     certURL, "LDAP Certificate");
             BMCWEB_LOG_DEBUG << "LDAP certificate install file="
                              << certFile->getCertFilePath();
             },
@@ -1109,27 +1091,19 @@ inline void requestRoutesLDAPCertificate(App& app)
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                   const std::string&) {
+                   const std::string& id) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
         }
-        long id = getIDFromURL(req.url);
-        if (id < 0)
-        {
-            BMCWEB_LOG_ERROR << "Invalid url value" << req.url;
-            messages::internalError(asyncResp->res);
-            return;
-        }
-        BMCWEB_LOG_DEBUG << "LDAP Certificate ID=" << std::to_string(id);
-        std::string certURL = "/redfish/v1/AccountService/LDAP/Certificates/" +
-                              std::to_string(id);
-        std::string objectPath = certs::ldapObjectPath;
-        objectPath += "/";
-        objectPath += std::to_string(id);
-        getCertificateProperties(asyncResp, objectPath, certs::ldapServiceName,
-                                 std::to_string(id), certURL,
-                                 "LDAP Certificate");
+
+        BMCWEB_LOG_DEBUG << "LDAP Certificate ID=" << id;
+        std::string certURL =
+            "/redfish/v1/AccountService/LDAP/Certificates/" + id;
+        sdbusplus::message::object_path path(certs::ldapObjectPath);
+        path /= id;
+        getCertificateProperties(asyncResp, path.str, certs::ldapServiceName,
+                                 id, certURL, "LDAP Certificate");
         });
 } // requestRoutesLDAPCertificate
 /**
@@ -1189,20 +1163,14 @@ inline void requestRoutesTrustStoreCertificateCollection(App& app)
                 messages::internalError(asyncResp->res);
                 return;
             }
-            long certId = getIDFromURL(objectPath);
-            if (certId < 0)
-            {
-                BMCWEB_LOG_ERROR << "Invalid objectPath value" << objectPath;
-                messages::internalError(asyncResp->res);
-                return;
-            }
+
+            sdbusplus::message::object_path path(objectPath);
             std::string certURL =
                 "/redfish/v1/Managers/bmc/Truststore/Certificates/" +
-                std::to_string(certId);
-
+                path.filename();
             getCertificateProperties(
                 asyncResp, objectPath, certs::authorityServiceName,
-                std::to_string(certId), certURL, "TrustStore Certificate");
+                path.filename(), certURL, "TrustStore Certificate");
             BMCWEB_LOG_DEBUG << "TrustStore certificate install file="
                              << certFile->getCertFilePath();
             },
@@ -1222,29 +1190,20 @@ inline void requestRoutesTrustStoreCertificate(App& app)
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                   const std::string&) {
+                   const std::string& id) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
         }
-        long id = getIDFromURL(req.url);
-        if (id < 0)
-        {
-            BMCWEB_LOG_ERROR << "Invalid url value" << req.url;
-            messages::internalError(asyncResp->res);
-            return;
-        }
-        BMCWEB_LOG_DEBUG << "TrustStoreCertificate::doGet ID="
-                         << std::to_string(id);
+
+        BMCWEB_LOG_DEBUG << "Truststore Certificate ID=" << id;
         std::string certURL =
-            "/redfish/v1/Managers/bmc/Truststore/Certificates/" +
-            std::to_string(id);
-        std::string objectPath = certs::authorityObjectPath;
-        objectPath += "/";
-        objectPath += std::to_string(id);
-        getCertificateProperties(
-            asyncResp, objectPath, certs::authorityServiceName,
-            std::to_string(id), certURL, "TrustStore Certificate");
+            "/redfish/v1/Managers/bmc/Truststore/Certificates/" + id;
+        sdbusplus::message::object_path path(certs::authorityObjectPath);
+        path /= id;
+        getCertificateProperties(asyncResp, path.str,
+                                 certs::authorityServiceName, id, certURL,
+                                 "TrustStore Certificate");
         });
 
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/Truststore/Certificates/<str>/")
@@ -1252,45 +1211,28 @@ inline void requestRoutesTrustStoreCertificate(App& app)
         .methods(boost::beast::http::verb::delete_)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                   const std::string& param) {
+                   const std::string& id) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
         }
-        if (param.empty())
-        {
-            messages::internalError(asyncResp->res);
-            return;
-        }
 
-        long id = getIDFromURL(req.url);
-        if (id < 0)
-        {
-            BMCWEB_LOG_ERROR << "Invalid url value: " << req.url;
-            messages::resourceNotFound(asyncResp->res, "TrustStore Certificate",
-                                       std::string(req.url));
-            return;
-        }
-        BMCWEB_LOG_DEBUG << "TrustStoreCertificate::doDelete ID="
-                         << std::to_string(id);
-        std::string certPath = certs::authorityObjectPath;
-        certPath += "/";
-        certPath += std::to_string(id);
+        BMCWEB_LOG_DEBUG << "Delete TrustStore Certificate ID=" << id;
+        sdbusplus::message::object_path path(certs::authorityObjectPath);
+        path /= id;
 
         crow::connections::systemBus->async_method_call(
             [asyncResp, id](const boost::system::error_code ec) {
             if (ec)
             {
                 messages::resourceNotFound(asyncResp->res,
-                                           "TrustStore Certificate",
-                                           std::to_string(id));
+                                           "TrustStore Certificate", id);
                 return;
             }
             BMCWEB_LOG_INFO << "Certificate deleted";
             asyncResp->res.result(boost::beast::http::status::no_content);
             },
-            certs::authorityServiceName, certPath, certs::objDeleteIntf,
-            "Delete");
+            certs::authorityServiceName, path, certs::objDeleteIntf, "Delete");
         });
 } // requestRoutesTrustStoreCertificate
 } // namespace redfish
