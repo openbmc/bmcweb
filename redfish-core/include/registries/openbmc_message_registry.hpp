@@ -128,6 +128,27 @@ constexpr std::array registry = {
                      {},
                      "None.",
                  }},
+    MessageEntry{"AttestationPanicReason",
+                 {
+                     "Indicates the reason for platform attestation panic.",
+                     "Attestation failure",
+                     "Warning",
+                     0,
+                     {},
+                     "None.",
+                 }},
+    MessageEntry{
+        "AttestationResiliencyError",
+        {
+            "Indicates platform encountered attestation resilience error.",
+            "Platform attestation resiliency error. Error reason: %1.",
+            "Critical",
+            1,
+            {
+                "string",
+            },
+            "None.",
+        }},
 
     MessageEntry{"BIOSAttributesChanged",
                  {
@@ -334,6 +355,18 @@ constexpr std::array registry = {
                      },
                      "None.",
                  }},
+    MessageEntry{
+        "CombinedCPLDFirmwareResiliencyError",
+        {
+            "Indicates CPU/SCM/Debug CPLD firmware encountered resilience error.",
+            "CPU/SCM/Debug CPLD firmware resiliency error. Error reason: %1.",
+            "Critical",
+            1,
+            {
+                "string",
+            },
+            "None.",
+        }},
     MessageEntry{"CPUError",
                  {
                      "Indicates that a CPU Error occurred of "
@@ -2168,6 +2201,15 @@ constexpr std::array registry = {
                  {
                      "Indicates that an SSB Thermal trip has been asserted.",
                      "SSB Thermal trip.",
+                     "Critical",
+                     0,
+                     {},
+                     "None.",
+                 }},
+    MessageEntry{"SPDMError",
+                 {
+                     "Indicates that SPDM protocol error encountered.",
+                     "SPDM protocol error",
                      "Critical",
                      0,
                      {},
