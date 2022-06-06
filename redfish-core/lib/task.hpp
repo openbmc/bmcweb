@@ -39,7 +39,7 @@ constexpr bool completed = true;
 
 struct Payload
 {
-    Payload(const crow::Request& req) :
+    explicit Payload(const crow::Request& req) :
         targetUri(req.url), httpOperation(req.methodString()),
         httpHeaders(nlohmann::json::array())
 

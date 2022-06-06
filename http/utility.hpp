@@ -655,7 +655,8 @@ class UrlSegmentMatcherVisitor
         return std::string_view(segment.data(), segment.size()) == expected;
     }
 
-    UrlSegmentMatcherVisitor(const boost::urls::string_value& segmentIn) :
+    explicit UrlSegmentMatcherVisitor(
+        const boost::urls::string_value& segmentIn) :
         segment(segmentIn)
     {}
 

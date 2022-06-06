@@ -1168,7 +1168,8 @@ inline CreatePIDRet createPidInterface(
 struct GetPIDValues : std::enable_shared_from_this<GetPIDValues>
 {
 
-    GetPIDValues(const std::shared_ptr<bmcweb::AsyncResp>& asyncRespIn) :
+    explicit GetPIDValues(
+        const std::shared_ptr<bmcweb::AsyncResp>& asyncRespIn) :
         asyncResp(asyncRespIn)
 
     {}
