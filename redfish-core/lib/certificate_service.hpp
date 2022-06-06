@@ -49,7 +49,7 @@ inline void requestRoutesCertificateService(App& app)
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-        if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+        if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
         }
@@ -251,7 +251,7 @@ inline void requestRoutesCertificateActionGenerateCSR(App& app)
         .methods(boost::beast::http::verb::post)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-        if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+        if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
         }
@@ -672,7 +672,7 @@ inline void requestRoutesCertificateActionsReplaceCertificate(App& app)
         .methods(boost::beast::http::verb::post)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-        if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+        if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
         }
@@ -800,7 +800,7 @@ inline void requestRoutesHTTPSCertificate(App& app)
                 get)([&app](const crow::Request& req,
                             const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                             const std::string& param) -> void {
-            if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+            if (!redfish::setUpRedfishRoute(app, req, asyncResp))
             {
                 return;
             }
@@ -836,7 +836,7 @@ inline void requestRoutesHTTPSCertificateCollection(App& app)
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-        if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+        if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
         }
@@ -884,7 +884,7 @@ inline void requestRoutesHTTPSCertificateCollection(App& app)
         .methods(boost::beast::http::verb::post)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-        if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+        if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
         }
@@ -989,7 +989,7 @@ inline void requestRoutesCertificateLocations(App& app)
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-        if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+        if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
         }
@@ -1030,7 +1030,7 @@ inline void requestRoutesLDAPCertificateCollection(App& app)
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-        if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+        if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
         }
@@ -1079,7 +1079,7 @@ inline void requestRoutesLDAPCertificateCollection(App& app)
         .methods(boost::beast::http::verb::post)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-        if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+        if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
         }
@@ -1137,7 +1137,7 @@ inline void requestRoutesLDAPCertificate(App& app)
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                    const std::string&) {
-        if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+        if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
         }
@@ -1168,7 +1168,7 @@ inline void requestRoutesTrustStoreCertificateCollection(App& app)
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-        if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+        if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
         }
@@ -1215,7 +1215,7 @@ inline void requestRoutesTrustStoreCertificateCollection(App& app)
         .methods(boost::beast::http::verb::post)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-        if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+        if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
         }
@@ -1273,7 +1273,7 @@ inline void requestRoutesTrustStoreCertificate(App& app)
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                    const std::string&) {
-        if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+        if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
         }
@@ -1303,7 +1303,7 @@ inline void requestRoutesTrustStoreCertificate(App& app)
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                    const std::string& param) {
-        if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+        if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
         }

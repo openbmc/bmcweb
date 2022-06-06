@@ -121,7 +121,7 @@ inline void requestRoutesPower(App& app)
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                    const std::string& chassisName) {
-        if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+        if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
         }
@@ -308,7 +308,7 @@ inline void requestRoutesPower(App& app)
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                    const std::string& chassisName) {
-        if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+        if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
         }

@@ -729,7 +729,7 @@ inline void requestRoutesHypervisorSystems(App& app)
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-        if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+        if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
         }
@@ -779,7 +779,7 @@ inline void requestRoutesHypervisorSystems(App& app)
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-        if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+        if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
         }
@@ -837,7 +837,7 @@ inline void requestRoutesHypervisorSystems(App& app)
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                    const std::string& id) {
-        if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+        if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
         }
@@ -869,7 +869,7 @@ inline void requestRoutesHypervisorSystems(App& app)
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                    const std::string& ifaceId) {
-        if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+        if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
         }
@@ -985,7 +985,7 @@ inline void requestRoutesHypervisorSystems(App& app)
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-        if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+        if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
         }
@@ -1051,7 +1051,7 @@ inline void requestRoutesHypervisorSystems(App& app)
         .methods(boost::beast::http::verb::post)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-        if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+        if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
         }
