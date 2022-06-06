@@ -240,6 +240,11 @@ inline void requestRoutes(App& app)
             asyncResp->res.jsonValue["message"] = "200 OK";
             asyncResp->res.jsonValue["status"] = "ok";
 
+            asyncResp->res.addHeader("Set-Cookie",
+                                     "SESSION="
+                                     "; SameSite=Strict; Secure; HttpOnly; "
+                                     "expires=Thu, 01 Jan 1970 00:00:00 GMT");
+
             persistent_data::SessionStore::getInstance().removeSession(session);
         }
         });
