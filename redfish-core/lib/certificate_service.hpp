@@ -1215,45 +1215,28 @@ inline void requestRoutesTrustStoreCertificate(App& app)
         .methods(boost::beast::http::verb::delete_)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                   const std::string& param) {
+                   const std::string& id) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
         {
             return;
         }
-        if (param.empty())
-        {
-            messages::internalError(asyncResp->res);
-            return;
-        }
 
-        long id = getIDFromURL(req.url);
-        if (id < 0)
-        {
-            BMCWEB_LOG_ERROR << "Invalid url value: " << req.url;
-            messages::resourceNotFound(asyncResp->res, "TrustStore Certificate",
-                                       std::string(req.url));
-            return;
-        }
-        BMCWEB_LOG_DEBUG << "TrustStoreCertificate::doDelete ID="
-                         << std::to_string(id);
-        std::string certPath = certs::authorityObjectPath;
-        certPath += "/";
-        certPath += std::to_string(id);
+        BMCWEB_LOG_DEBUG << "Delete TrustStore Certificate ID=" << id;
+        sdbusplus::message::object_path path(certs::authorityObjectPath);
+        path /= id;
 
         crow::connections::systemBus->async_method_call(
             [asyncResp, id](const boost::system::error_code ec) {
             if (ec)
             {
                 messages::resourceNotFound(asyncResp->res,
-                                           "TrustStore Certificate",
-                                           std::to_string(id));
+                                           "TrustStore Certificate", id);
                 return;
             }
             BMCWEB_LOG_INFO << "Certificate deleted";
             asyncResp->res.result(boost::beast::http::status::no_content);
             },
-            certs::authorityServiceName, certPath, certs::objDeleteIntf,
-            "Delete");
+            certs::authorityServiceName, path, certs::objDeleteIntf, "Delete");
         });
 } // requestRoutesTrustStoreCertificate
 } // namespace redfish
