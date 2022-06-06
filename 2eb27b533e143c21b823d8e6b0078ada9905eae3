@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8a04ed23_d6c362bb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-06T23:25:50Z",
+      "side": 1,
+      "message": "Adding a new entry into .clang-tidy which is also a common practice. LGTM.",
+      "revId": "2eb27b533e143c21b823d8e6b0078ada9905eae3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
