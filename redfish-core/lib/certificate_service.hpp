@@ -637,8 +637,9 @@ static void
  */
 static void getCertificateProperties(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::string& objectPath, const std::string& service, long certId,
-    const std::string& certURL, const std::string& name)
+    const std::string& objectPath, const std::string& service,
+    const std::string& certId, const std::string& certURL,
+    const std::string& name)
 {
     BMCWEB_LOG_DEBUG << "getCertificateProperties Path=" << objectPath
                      << " certId=" << certId << " certURl=" << certURL;
@@ -649,14 +650,13 @@ static void getCertificateProperties(
         if (ec)
         {
             BMCWEB_LOG_ERROR << "DBUS response error: " << ec;
-            messages::resourceNotFound(asyncResp->res, name,
-                                       std::to_string(certId));
+            messages::resourceNotFound(asyncResp->res, name, certId);
             return;
         }
         asyncResp->res.jsonValue["@odata.id"] = certURL;
         asyncResp->res.jsonValue["@odata.type"] =
             "#Certificate.v1_0_0.Certificate";
-        asyncResp->res.jsonValue["Id"] = std::to_string(certId);
+        asyncResp->res.jsonValue["Id"] = certId;
         asyncResp->res.jsonValue["Name"] = name;
         asyncResp->res.jsonValue["Description"] = name;
         for (const auto& property : properties)
@@ -844,8 +844,8 @@ inline void requestRoutesCertificateActionsReplaceCertificate(App& app)
                 messages::internalError(asyncResp->res);
                 return;
             }
-            getCertificateProperties(asyncResp, objectPath, service, id,
-                                     certURI, name);
+            getCertificateProperties(asyncResp, objectPath, service,
+                                     std::to_string(id), certURI, name);
             BMCWEB_LOG_DEBUG << "HTTPS certificate install file="
                              << certFile->getCertFilePath();
             },
@@ -889,9 +889,9 @@ inline void requestRoutesHTTPSCertificate(App& app)
             std::string objectPath = certs::httpsObjectPath;
             objectPath += "/";
             objectPath += std::to_string(id);
-            getCertificateProperties(asyncResp, objectPath,
-                                     certs::httpsServiceName, id, certURL,
-                                     "HTTPS Certificate");
+            getCertificateProperties(
+                asyncResp, objectPath, certs::httpsServiceName,
+                std::to_string(id), certURL, "HTTPS Certificate");
         });
 }
 
@@ -970,9 +970,9 @@ inline void requestRoutesHTTPSCertificateCollection(App& app)
             std::string certURL =
                 "/redfish/v1/Managers/bmc/NetworkProtocol/HTTPS/Certificates/" +
                 std::to_string(certId);
-            getCertificateProperties(asyncResp, objectPath,
-                                     certs::httpsServiceName, certId, certURL,
-                                     "HTTPS Certificate");
+            getCertificateProperties(
+                asyncResp, objectPath, certs::httpsServiceName,
+                std::to_string(certId), certURL, "HTTPS Certificate");
             BMCWEB_LOG_DEBUG << "HTTPS certificate install file="
                              << certFile->getCertFilePath();
             },
@@ -1081,9 +1081,9 @@ inline void requestRoutesLDAPCertificateCollection(App& app)
             std::string certURL =
                 "/redfish/v1/AccountService/LDAP/Certificates/" +
                 std::to_string(certId);
-            getCertificateProperties(asyncResp, objectPath,
-                                     certs::ldapServiceName, certId, certURL,
-                                     "LDAP Certificate");
+            getCertificateProperties(
+                asyncResp, objectPath, certs::ldapServiceName,
+                std::to_string(certId), certURL, "LDAP Certificate");
             BMCWEB_LOG_DEBUG << "LDAP certificate install file="
                              << certFile->getCertFilePath();
             },
@@ -1122,7 +1122,8 @@ inline void requestRoutesLDAPCertificate(App& app)
         objectPath += "/";
         objectPath += std::to_string(id);
         getCertificateProperties(asyncResp, objectPath, certs::ldapServiceName,
-                                 id, certURL, "LDAP Certificate");
+                                 std::to_string(id), certURL,
+                                 "LDAP Certificate");
         });
 } // requestRoutesLDAPCertificate
 /**
@@ -1193,9 +1194,9 @@ inline void requestRoutesTrustStoreCertificateCollection(App& app)
                 "/redfish/v1/Managers/bmc/Truststore/Certificates/" +
                 std::to_string(certId);
 
-            getCertificateProperties(asyncResp, objectPath,
-                                     certs::authorityServiceName, certId,
-                                     certURL, "TrustStore Certificate");
+            getCertificateProperties(
+                asyncResp, objectPath, certs::authorityServiceName,
+                std::to_string(certId), certURL, "TrustStore Certificate");
             BMCWEB_LOG_DEBUG << "TrustStore certificate install file="
                              << certFile->getCertFilePath();
             },
@@ -1235,9 +1236,9 @@ inline void requestRoutesTrustStoreCertificate(App& app)
         std::string objectPath = certs::authorityObjectPath;
         objectPath += "/";
         objectPath += std::to_string(id);
-        getCertificateProperties(asyncResp, objectPath,
-                                 certs::authorityServiceName, id, certURL,
-                                 "TrustStore Certificate");
+        getCertificateProperties(
+            asyncResp, objectPath, certs::authorityServiceName,
+            std::to_string(id), certURL, "TrustStore Certificate");
         });
 
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/Truststore/Certificates/<str>/")
