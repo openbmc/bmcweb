@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "50734ebf_8f8690ba",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-06T18:19:10Z",
+      "side": 1,
+      "message": "This issue has been opened for a month now, multiple pings to discord in the webui channel got no response.  As the guy who originally wrote this code, I\u0027m pretty sure this solution is correct, and seems to test out ok for the use cases I\u0027m aware of, and makes us actually pass the redfish compliance tests.\n\nAs always, happy to discuss, but considering this is largely an implementation deal (even if it\u0027s non trivial) I think getting this on master and getting it better tested is the right approach.  Merging.",
+      "revId": "99f4333305071d6d64baf4ca3605d83c710827b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
