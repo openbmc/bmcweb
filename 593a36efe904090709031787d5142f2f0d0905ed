@@ -311,6 +311,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "01c653fb_bfe74dc5",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2550,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-06-06T18:37:56Z",
+      "side": 1,
+      "message": "Oops, the incomplete comment got posted. Here\u0027s what I meant to say:\n\n\"I tried to use std::bind_front in Patchset 13 and it built okay here in the bmcweb repo, but when I tried building it as part of obmc-phosphor-image via \"bitbake bmcweb\" or \"bitbake obmc-phosphor-image\" (after adding the changes using \"devtool modify bmcweb\"), the build failed. Do you have a suggestion on how to fix Patchset 13, or is it ok to use a lambda as shown in Patchset 14? (Compare Patchset 13 \u003c-\u003e 14).\"\n\nSo basically even though Patchset 13 (using std::bind_front) passed CI here, I couldn\u0027t get it to build in the obmc-phosphor-image. I\u0027ll message you the build error log separately. Patchset 14 (using lambda) passed CI here and builds successfully in obmc-phosphor-image.",
+      "parentUuid": "cd78482b_e080b37e",
+      "range": {
+        "startLine": 2550,
+        "startChar": 0,
+        "endLine": 2550,
+        "endChar": 73
+      },
+      "revId": "593a36efe904090709031787d5142f2f0d0905ed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "036d97fb_1371bee3",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 3
