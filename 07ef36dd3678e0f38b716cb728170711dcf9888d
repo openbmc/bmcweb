@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c41e5c03_bb7211ec",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-06T16:38:08Z",
+      "side": 1,
+      "message": "Ravi, can you add more details than just +1 to your review?  In general, just a +1 doesn\u0027t inform much about whether you:\nCode reviewed the change.\nTested the change.\nRan service validators against the change.\nVerified the change against the standard.\n\nConsidering there are outstanding discussions above that I don\u0027t see any replies from you on, it\u0027s not clear if you just disagree with the assessment that this needs changes in the standard, or if you believe that this change should just be merged as-is.  Please add details.",
+      "revId": "07ef36dd3678e0f38b716cb728170711dcf9888d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
