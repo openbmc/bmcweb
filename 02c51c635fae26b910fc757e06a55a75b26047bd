@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "8799ca90_38a8847b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-06-07T22:06:21Z",
+      "side": 1,
+      "message": "It\u0027s been added",
+      "parentUuid": "d583683e_3d9f6a4a",
+      "revId": "02c51c635fae26b910fc757e06a55a75b26047bd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "df9d18a8_c0f0db83",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 5
@@ -48,6 +66,30 @@
       "writtenOn": "2022-06-06T23:23:56Z",
       "side": 1,
       "message": "does this function need to be static inline?",
+      "range": {
+        "startLine": 63,
+        "startChar": 33,
+        "endLine": 63,
+        "endChar": 52
+      },
+      "revId": "02c51c635fae26b910fc757e06a55a75b26047bd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c2b2afea_216ba9fd",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-06-07T22:06:21Z",
+      "side": 1,
+      "message": "I\u0027ve changed it to static inline.",
+      "parentUuid": "0d6f3512_bb84fc1e",
       "range": {
         "startLine": 63,
         "startChar": 33,
