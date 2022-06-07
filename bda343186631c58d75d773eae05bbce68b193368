@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "b34b4eab_feb3a8d5",
         "filename": "redfish-core/lib/log_services.hpp",
@@ -20,10 +21,10 @@
         "endChar": 23
       },
       "revId": "bda343186631c58d75d773eae05bbce68b193368",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "0c487ff5_dadcad83",
         "filename": "redfish-core/lib/log_services.hpp",
@@ -44,10 +45,10 @@
         "endChar": 23
       },
       "revId": "bda343186631c58d75d773eae05bbce68b193368",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "195fa107_247a05f4",
         "filename": "redfish-core/lib/log_services.hpp",
@@ -61,10 +62,10 @@
       "side": 1,
       "message": "NotAllowed to resourceInStandby seems like an odd mapping",
       "revId": "bda343186631c58d75d773eae05bbce68b193368",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "023b1b09_d9e32a51",
         "filename": "redfish-core/lib/log_services.hpp",
@@ -79,10 +80,10 @@
       "message": "This was the error (NotAllowed) that is returned by the backend when the host is powered off.\n\nBut the error that is returned to the client (resourceInStandby) is quite relevant to the host powered off scenario.",
       "parentUuid": "195fa107_247a05f4",
       "revId": "bda343186631c58d75d773eae05bbce68b193368",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "a972a73b_0fe7e199",
         "filename": "redfish-core/lib/log_services.hpp",
@@ -97,10 +98,28 @@
       "message": "https://github.com/DMTF/Redfish/issues/4850 has the DMTF recommendations for this kind of use-cases \nresourceInStandby seems OK for this case",
       "parentUuid": "023b1b09_d9e32a51",
       "revId": "bda343186631c58d75d773eae05bbce68b193368",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "d5278c11_9fe81120",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 917,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2022-06-07T08:01:39Z",
+      "side": 1,
+      "message": "Need to handle xyz.openbmc_project.Common.Error.Unavailable -\u003e resourceInUse",
+      "parentUuid": "a972a73b_0fe7e199",
+      "revId": "bda343186631c58d75d773eae05bbce68b193368",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "923ca07d_90083eef",
         "filename": "redfish-core/lib/log_services.hpp",
@@ -114,10 +133,10 @@
       "side": 1,
       "message": "But you have NotAllowed above",
       "revId": "bda343186631c58d75d773eae05bbce68b193368",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "1e6e75f6_86847d73",
         "filename": "redfish-core/lib/log_services.hpp",
@@ -132,10 +151,10 @@
       "message": "I will remove it",
       "parentUuid": "923ca07d_90083eef",
       "revId": "bda343186631c58d75d773eae05bbce68b193368",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "12683430_b9ee2c07",
         "filename": "redfish-core/lib/log_services.hpp",
@@ -155,10 +174,10 @@
         "endChar": 42
       },
       "revId": "bda343186631c58d75d773eae05bbce68b193368",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "d9b3ed16_60b76ab6",
         "filename": "redfish-core/lib/log_services.hpp",
@@ -179,10 +198,10 @@
         "endChar": 42
       },
       "revId": "bda343186631c58d75d773eae05bbce68b193368",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "3b932236_29c143d0",
         "filename": "redfish-core/lib/log_services.hpp",
@@ -203,10 +222,10 @@
         "endChar": 42
       },
       "revId": "bda343186631c58d75d773eae05bbce68b193368",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "b5041d1a_5a58fbd9",
         "filename": "redfish-core/lib/log_services.hpp",
@@ -227,10 +246,10 @@
         "endChar": 42
       },
       "revId": "bda343186631c58d75d773eae05bbce68b193368",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "fb7b1740_488e41f7",
         "filename": "redfish-core/lib/log_services.hpp",
@@ -251,8 +270,7 @@
         "endChar": 42
       },
       "revId": "bda343186631c58d75d773eae05bbce68b193368",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
