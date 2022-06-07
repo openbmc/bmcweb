@@ -16,6 +16,24 @@
       "message": "Do we have this documented somewhere? \nI thought we were still having discussions about associations in inventory",
       "revId": "b71f868a720414722e8a296faaecc86a12b80851",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a111302d_8dd74a51",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000998
+      },
+      "writtenOn": "2022-06-07T22:23:00Z",
+      "side": 1,
+      "message": "The association is similar to the ones documented here (it even mentions CPUs specifically): https://github.com/openbmc/docs/blob/master/architecture/sensor-architecture.md#association-type-2-linking-a-low-level-hardware-item-to-its-sensors, though I guess that document is for phosphor-hwmon not dbus-sensors. It does say they have about the same DBus interfaces though.",
+      "parentUuid": "f74a7dff_7b34f1ae",
+      "revId": "b71f868a720414722e8a296faaecc86a12b80851",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
