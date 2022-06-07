@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6dfd76c6_6a164c81",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 833,
+      "author": {
+        "id": 1001428
+      },
+      "writtenOn": "2022-06-07T16:28:48Z",
+      "side": 1,
+      "message": "Sorry, I was using a downstream bmcweb to build my image so MapperGetObject was not implemented. I added it to the dbus_utility.hpp and have been trying to test it on Simics. \nOnce Simis decides to boot I should have this tested.",
+      "parentUuid": "c2e1ce19_a4f58e9b",
+      "revId": "69aad95304f26631b942d44562ac2514b437d562",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3badc94f_9d2a1468",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 16
@@ -31,6 +49,30 @@
       "writtenOn": "2022-06-01T19:29:46Z",
       "side": 1,
       "message": "I think this already got fixed on master.  Please rebase and most of this should go away.",
+      "range": {
+        "startLine": 3015,
+        "startChar": 9,
+        "endLine": 3019,
+        "endChar": 48
+      },
+      "revId": "69aad95304f26631b942d44562ac2514b437d562",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a4b7fec_f0580428",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 3019,
+      "author": {
+        "id": 1001428
+      },
+      "writtenOn": "2022-06-07T16:28:48Z",
+      "side": 1,
+      "message": "I rebased with master and this stuff was still there 😕",
+      "parentUuid": "3badc94f_9d2a1468",
       "range": {
         "startLine": 3015,
         "startChar": 9,
