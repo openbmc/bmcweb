@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "54089ca9_28dcdeb1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-06-07T01:43:37Z",
+      "side": 1,
+      "message": "I only grabbed the first two lines because the actual object was \n\n                \"SoftwareImages\": {\n                    \"description\": \"The images that are associated with this manager.\",\n                    \"items\": {\n                        \"$ref\": \"http://redfish.dmtf.org/schemas/v1/SoftwareInventory.json#/definitions/SoftwareInventory\"\n                    },\n                    \"longDescription\": \"This property shall contain an array of links to resource of type SoftwareInventory that represent the firmware images that apply to this manager.\",\n                    \"readonly\": true,\n                    \"type\": \"array\",\n                    \"versionAdded\": \"v1_6_0\"\n                },\n\nI tried to make that more clear with a ....",
+      "parentUuid": "1e604ab9_e64536c4",
+      "revId": "7d92cb269b1625bb2aee9ce85d073933293c8aa7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "e68e43a3_5ae072aa",
