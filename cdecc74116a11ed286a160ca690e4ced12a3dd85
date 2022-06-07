@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb7844c8_29eab9fc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000998
+      },
+      "writtenOn": "2022-06-07T22:49:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "40513ee2_255e5d64",
+      "revId": "cdecc74116a11ed286a160ca690e4ced12a3dd85",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "531a2fb9_a9d1e61e",
@@ -31,6 +49,24 @@
       "writtenOn": "2022-06-03T20:10:04Z",
       "side": 1,
       "message": "Why bump? What property ?",
+      "revId": "cdecc74116a11ed286a160ca690e4ced12a3dd85",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bb3e8be0_a227a64b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000998
+      },
+      "writtenOn": "2022-06-07T22:49:33Z",
+      "side": 1,
+      "message": "Updated description.",
+      "parentUuid": "531a2fb9_a9d1e61e",
       "revId": "cdecc74116a11ed286a160ca690e4ced12a3dd85",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
