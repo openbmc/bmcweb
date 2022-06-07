@@ -104,6 +104,24 @@
       "message": "+1\nIBM namespace, is domain of the IBM",
       "revId": "013a0ba48b93f671ad939adeae3eee3a64657ed9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4e51abfb_2240f5c5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-06-07T19:39:20Z",
+      "side": 1,
+      "message": "I was the one that suggested we need to make sure it is a realistic timeframe and we can meet it and we ended up at 12 -18 months. I know Sunitha\u0027s team is going to work on this here soon so I would call it \"medium priority\". I think that timeframe is more realistic than a timeframe like end of the year. \n\n\u003e Just wait until we get the architecture corrected, then merge the business logic updates when the IBM daemon is complete?\n\nCould we merge these business logic changes for now? We can add an issue or a TODO in the code or both saying this is changing by the dates Sunitha mentioned.\n\nI think not accepting anymore business logic as we close in on that date is reasonable. I think commenting out the option with a notice to remove if we pass that date is also reasonable. \nhttps://github.com/openbmc/bmcweb/blob/master/meson_options.txt#L174\nI think there is options if we don\u0027t address this. Would like a reasonable amount of time to address this though.",
+      "parentUuid": "21689a69_74443fa9",
+      "revId": "013a0ba48b93f671ad939adeae3eee3a64657ed9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
