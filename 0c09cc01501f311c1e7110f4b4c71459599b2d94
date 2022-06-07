@@ -100,6 +100,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cb06d99a_2ca20458",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 964,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-06-07T14:58:53Z",
+      "side": 1,
+      "message": "The certURL here is what bmcweb returns to the client, not a user input value. I think it\u0027s safe to simply concatenate the url string here.",
+      "parentUuid": "f3c6ff6c_233cbf14",
+      "range": {
+        "startLine": 964,
+        "startChar": 12,
+        "endLine": 964,
+        "endChar": 23
+      },
+      "revId": "0c09cc01501f311c1e7110f4b4c71459599b2d94",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ecc9c7c3_f66b7388",
         "filename": "redfish-core/lib/certificate_service.hpp",
         "patchSetId": 1
