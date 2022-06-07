@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "36843d9d_534be3fc",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 691,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-06-07T02:58:55Z",
+      "side": 1,
+      "message": "For parsing the URL here, I think it would be better to use the readUrlSegments introduced in https://github.com/openbmc/bmcweb/commit/ca1600c10f43648ce90f84a2a712c6ebd043dded\n\nIt both validates the URL and extracts the ID.",
+      "range": {
+        "startLine": 691,
+        "startChar": 12,
+        "endLine": 691,
+        "endChar": 66
+      },
+      "revId": "d7046c7305cece39b32b7eca220e7c15440f710e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
