@@ -16,6 +16,23 @@
       "message": "Adding a new entry into .clang-tidy which is also a common practice. LGTM.",
       "revId": "2eb27b533e143c21b823d8e6b0078ada9905eae3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "af7efcbe_ef6613de",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-06-07T18:31:10Z",
+      "side": 1,
+      "message": "It looks as if this change will merge conflict 105 changes?",
+      "revId": "2eb27b533e143c21b823d8e6b0078ada9905eae3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
