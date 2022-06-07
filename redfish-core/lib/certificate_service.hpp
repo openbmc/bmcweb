@@ -1,8 +1,6 @@
 #pragma once
 
 #include <app.hpp>
-#include <boost/convert.hpp>
-#include <boost/convert/strtol.hpp>
 #include <boost/system/linux_error.hpp>
 #include <dbus_utility.hpp>
 #include <query.hpp>
@@ -85,30 +83,6 @@ inline void requestRoutesCertificateService(App& app)
              "/redfish/v1/CertificateService/Actions/CertificateService.GenerateCSR"}};
         });
 } // requestRoutesCertificateService
-
-/**
- * @brief Find the ID specified in the URL
- * Finds the numbers specified after the last "/" in the URL and returns.
- * @param[in] path URL
- * @return -1 on failure and number on success
- */
-inline long getIDFromURL(const std::string_view url)
-{
-    std::size_t found = url.rfind('/');
-    if (found == std::string::npos)
-    {
-        return -1;
-    }
-
-    if ((found + 1) < url.length())
-    {
-        std::string_view str = url.substr(found + 1);
-
-        return boost::convert<long>(str, boost::cnv::strtol()).value_or(-1);
-    }
-
-    return -1;
-}
 
 inline std::string getCertificateFromReqBody(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -781,41 +755,42 @@ inline void requestRoutesCertificateActionsReplaceCertificate(App& app)
             return;
         }
 
-        BMCWEB_LOG_INFO << "Certificate URI to replace" << certURI;
-        long id = getIDFromURL(certURI);
-        if (id < 0)
+        BMCWEB_LOG_INFO << "Certificate URI to replace: " << certURI;
+        auto parsed = boost::urls::parse_relative_ref(certURI);
+        if (!parsed)
         {
             messages::actionParameterValueFormatError(asyncResp->res, certURI,
                                                       "CertificateUri",
                                                       "ReplaceCertificate");
             return;
         }
+
+        std::string id;
         std::string objectPath;
         std::string name;
         std::string service;
-        if (boost::starts_with(
-                certURI,
-                "/redfish/v1/Managers/bmc/NetworkProtocol/HTTPS/Certificates/"))
+        if (crow::utility::readUrlSegments(*parsed, "redfish", "v1", "Managers",
+                                           "bmc", "NetworkProtocol", "HTTPS",
+                                           "Certificates", std::ref(id)))
         {
-            objectPath =
-                std::string(certs::httpsObjectPath) + "/" + std::to_string(id);
+            objectPath = std::string(certs::httpsObjectPath) + "/" + id;
             name = "HTTPS certificate";
             service = certs::httpsServiceName;
         }
-        else if (boost::starts_with(
-                     certURI, "/redfish/v1/AccountService/LDAP/Certificates/"))
+
+        else if (crow::utility::readUrlSegments(*parsed, "redfish", "v1",
+                                                "AccountService", "LDAP",
+                                                "Certificates", std::ref(id)))
         {
-            objectPath =
-                std::string(certs::ldapObjectPath) + "/" + std::to_string(id);
+            objectPath = std::string(certs::ldapObjectPath) + "/" + id;
             name = "LDAP certificate";
             service = certs::ldapServiceName;
         }
-        else if (boost::starts_with(
-                     certURI,
-                     "/redfish/v1/Managers/bmc/Truststore/Certificates/"))
+        else if (crow::utility::readUrlSegments(*parsed, "redfish", "v1",
+                                                "Managers", "bmc", "Truststore",
+                                                "Certificates", std::ref(id)))
         {
-            objectPath = std::string(certs::authorityObjectPath) + "/" +
-                         std::to_string(id);
+            objectPath = std::string(certs::authorityObjectPath) + "/" + id;
             name = "TrustStore certificate";
             service = certs::authorityServiceName;
         }
@@ -837,15 +812,14 @@ inline void requestRoutesCertificateActionsReplaceCertificate(App& app)
                 if (ec.value() ==
                     boost::system::linux_error::bad_request_descriptor)
                 {
-                    messages::resourceNotFound(asyncResp->res, name,
-                                               std::to_string(id));
+                    messages::resourceNotFound(asyncResp->res, name, id);
                     return;
                 }
                 messages::internalError(asyncResp->res);
                 return;
             }
-            getCertificateProperties(asyncResp, objectPath, service,
-                                     std::to_string(id), certURI, name);
+            getCertificateProperties(asyncResp, objectPath, service, id,
+                                     certURI, name);
             BMCWEB_LOG_DEBUG << "HTTPS certificate install file="
                              << certFile->getCertFilePath();
             },
