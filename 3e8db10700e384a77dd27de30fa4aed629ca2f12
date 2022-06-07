@@ -111,6 +111,29 @@
       "message": "LGTM",
       "revId": "3e8db10700e384a77dd27de30fa4aed629ca2f12",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d0376a15_fbc7b353",
+        "filename": "COMMON_ERRORS.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-06-07T21:10:25Z",
+      "side": 1,
+      "message": "nit, I think the current form is fine so feel free to disregard this suggestion.\n\nI\u0027d prefer to see a transition between the last sentence and this code snippet to explicitly indicate that this is the preferred implementation rather than another example of what not to do.",
+      "range": {
+        "startLine": 295,
+        "startChar": 0,
+        "endLine": 300,
+        "endChar": 1
+      },
+      "revId": "3e8db10700e384a77dd27de30fa4aed629ca2f12",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
