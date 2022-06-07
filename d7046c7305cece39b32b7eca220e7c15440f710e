@@ -46,6 +46,30 @@
       },
       "revId": "d7046c7305cece39b32b7eca220e7c15440f710e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "91ec67b8_8a85317e",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 691,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-07T03:41:01Z",
+      "side": 1,
+      "message": "Agreed, this code was written before readUrlSegments existed.",
+      "parentUuid": "055a4ff3_a533f7ab",
+      "range": {
+        "startLine": 691,
+        "startChar": 12,
+        "endLine": 691,
+        "endChar": 66
+      },
+      "revId": "d7046c7305cece39b32b7eca220e7c15440f710e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
