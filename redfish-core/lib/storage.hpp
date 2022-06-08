@@ -401,6 +401,8 @@ inline void
             // this interface isn't required
             return;
         }
+        const std::string* encryptionStatus = nullptr;
+        const bool* isLocked = nullptr;
         for (const std::pair<std::string, dbus::utility::DbusVariantType>&
                  property : propertiesList)
         {
@@ -467,6 +469,60 @@ inline void
                 }
                 asyncResp->res.jsonValue["Protocol"] = *proto;
             }
+            else if (propertyName == "PredictedMediaLifeLeftPercent")
+            {
+                const uint8_t* lifeLeft =
+                    std::get_if<uint8_t>(&property.second);
+                if (lifeLeft == nullptr)
+                {
+                    BMCWEB_LOG_ERROR
+                        << "Illegal property: PredictedMediaLifeLeftPercent";
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                // 255 means reading the value is not supported
+                if (*lifeLeft != 255)
+                {
+                    asyncResp->res.jsonValue["PredictedMediaLifeLeftPercent"] =
+                        *lifeLeft;
+                }
+            }
+            else if (propertyName == "EncryptionStatus")
+            {
+                encryptionStatus = std::get_if<std::string>(&property.second);
+                if (encryptionStatus == nullptr)
+                {
+                    BMCWEB_LOG_ERROR << "Illegal property: EncryptionStatus";
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+            }
+            else if (propertyName == "Locked")
+            {
+                isLocked = std::get_if<bool>(&property.second);
+                if (isLocked == nullptr)
+                {
+                    BMCWEB_LOG_ERROR << "Illegal property: Locked";
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+            }
+        }
+        if (*encryptionStatus ==
+            "xyz.openbmc_project.Drive.DriveEncryptionState.Encrypted")
+        {
+            if (*isLocked)
+            {
+                asyncResp->res.jsonValue["EncryptionStatus"] = "Locked";
+            }
+            else
+            {
+                asyncResp->res.jsonValue["EncryptionStatus"] = "Unlocked";
+            }
+        }
+        else
+        {
+            asyncResp->res.jsonValue["EncryptionStatus"] = "Unencrypted";
         }
         });
 }
