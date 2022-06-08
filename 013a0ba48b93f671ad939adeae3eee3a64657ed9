@@ -140,6 +140,24 @@
       "parentUuid": "4e51abfb_2240f5c5",
       "revId": "013a0ba48b93f671ad939adeae3eee3a64657ed9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "41da3665_df4d1dca",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2022-06-08T07:23:13Z",
+      "side": 1,
+      "message": "\u003e There\u0027s things like the an RAII object needing to explicitly call close that I don\u0027t understand, but because it\u0027s in a user facing application, i kind of do need to understand it if it\u0027s truly a problem we need to fix elsewhere (I really suspect it\u0027s not)\n\nI can continue investigating to find that \u0027elsewhere\u0027. Probably we could not recreate the original issue and this change really was not the \u0027fix\u0027? But i don\u0027t see any harm in calling these file APIs explicitly. I can move these back to the old code if you strongly feel that there could be issues if i call the close() explicitly. \n\n\u003e I kind of assumed this management console stuff was dead, given that I haven\u0027t seen many updates to it\n\nThese APIs are used by IBM systems, and we had not pushed any code upstream recently due to other priority work-items.\n\n\u003e we can make progress toward a better end solution\n\nThe use-cases in this file does not have any dbus interactions. They are contained within the bmcweb only. So there will be no dbus change in future for this.\n\nI can see there is https://github.com/openbmc/bmcweb/blob/master/meson_options.txt#L181 google-api compiler flag implementing /google/v1 at https://github.com/openbmc/bmcweb/blob/master/include/google/google_service_root.hpp. I will check more on what is different in that api implementations.",
+      "parentUuid": "5d33f0ba_4615d785",
+      "revId": "013a0ba48b93f671ad939adeae3eee3a64657ed9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
