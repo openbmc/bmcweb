@@ -101,6 +101,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e92e63b5_5a06ccc3",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 73
+      },
+      "lineNbr": 714,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-06-08T18:20:42Z",
+      "side": 1,
+      "message": "Can we add a comment on why we are looking at Size ? E.g. Take a sentence from the explanation in the thread in discord and add it here",
+      "revId": "96419a824001c6bd094f0f13afc0b01fdbb73ad1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "27ae2848_eb014905",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 73
