@@ -401,6 +401,8 @@ inline void
             // this interface isn't required
             return;
         }
+        const std::string* encryptionStatus = nullptr;
+        const bool* isLocked = nullptr;
         for (const std::pair<std::string, dbus::utility::DbusVariantType>&
                  property : propertiesList)
         {
@@ -485,6 +487,55 @@ inline void
                         *lifeLeft;
                 }
             }
+            else if (propertyName == "EncryptionStatus")
+            {
+                encryptionStatus = std::get_if<std::string>(&property.second);
+                if (encryptionStatus == nullptr)
+                {
+                    BMCWEB_LOG_ERROR << "Illegal property: EncryptionStatus";
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+            }
+            else if (propertyName == "Locked")
+            {
+                isLocked = std::get_if<bool>(&property.second);
+                if (isLocked == nullptr)
+                {
+                    BMCWEB_LOG_ERROR << "Illegal property: Locked";
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+            }
+        }
+
+        if (encryptionStatus == nullptr || isLocked == nullptr ||
+            *encryptionStatus ==
+                "xyz.openbmc_project.Drive.DriveEncryptionState.Unknown")
+        {
+            asyncResp->res.jsonValue["EncryptionStatus"] = "Unknown";
+            return;
+        }
+        if (*encryptionStatus !=
+            "xyz.openbmc_project.Drive.DriveEncryptionState.Encrypted")
+        {
+            //"The drive is not currently encrypted."
+            asyncResp->res.jsonValue["EncryptionStatus"] = "Unencrypted";
+            return;
+        }
+        if (*isLocked)
+        {
+            //"The drive is currently encrypted and the data is not
+            // accessible to the user."
+            asyncResp->res.jsonValue["EncryptionStatus"] = "Locked";
+            return;
+        }
+        if (!*isLocked)
+        {
+            // "The drive is currently encrypted but the data is accessible
+            // to the user in unencrypted form."
+            asyncResp->res.jsonValue["EncryptionStatus"] = "Unlocked";
+            return;
         }
         });
 }
