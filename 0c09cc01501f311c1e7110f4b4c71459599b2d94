@@ -148,6 +148,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1aeb0581_14cefc65",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 964,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-06-08T03:01:47Z",
+      "side": 1,
+      "message": "They were strings before this change. But how heavy is boost::urls::url really.\n \nBut I don\u0027t have strong feelings either way.",
+      "parentUuid": "cb06d99a_2ca20458",
+      "range": {
+        "startLine": 964,
+        "startChar": 12,
+        "endLine": 964,
+        "endChar": 23
+      },
+      "revId": "0c09cc01501f311c1e7110f4b4c71459599b2d94",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ecc9c7c3_f66b7388",
         "filename": "redfish-core/lib/certificate_service.hpp",
         "patchSetId": 1
