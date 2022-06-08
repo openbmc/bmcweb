@@ -397,6 +397,10 @@ inline void
             // this interface isn't required
             return;
         }
+        const std::string* encryptionStatus = nullptr;
+        // "xyz.openbmc_project.Drive.DriveEncryptionState.Unknown";
+        const std::string* lockState = nullptr;
+        // "xyz.openbmc_project.Drive.DriveLockState.Unknown";
         for (const std::pair<std::string, dbus::utility::DbusVariantType>&
                  property : propertiesList)
         {
@@ -477,6 +481,47 @@ inline void
                 asyncResp->res.jsonValue["PredictedMediaLifeLeftPercent"] =
                     *lifeLeft;
             }
+            else if (propertyName == "EncryptionStatus")
+            {
+                encryptionStatus = std::get_if<std::string>(&property.second);
+                if (encryptionStatus == nullptr)
+                {
+                    BMCWEB_LOG_ERROR << "Illegal property: EncryptionStatus";
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+            }
+            else if (propertyName == "Locked")
+            {
+                lockState = std::get_if<std::string>(&property.second);
+                if (lockState == nullptr)
+                {
+                    BMCWEB_LOG_ERROR << "Illegal property: EncryptionStatus";
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+            }
+        }
+        if (*encryptionStatus ==
+            "xyz.openbmc_project.Drive.DriveEncryptionState.Encrypted")
+        {
+            if (*lockState == "xyz.openbmc_project.Drive.DriveLockState.Locked")
+            {
+                asyncResp->res.jsonValue["EncryptionStatus"] = "Locked";
+            }
+            else if (*lockState ==
+                     "xyz.openbmc_project.Drive.DriveEncryptionState.Unlocked")
+            {
+                asyncResp->res.jsonValue["EncryptionStatus"] = "Unlocked";
+            }
+            else
+            {
+                asyncResp->res.jsonValue["EncryptionStatus"] = "Foreign";
+            }
+        }
+        else
+        {
+            asyncResp->res.jsonValue["EncryptionStatus"] = "Unencrypted";
         }
         });
 }
