@@ -689,6 +689,7 @@ the other.
 #### /redfish/v1/Systems/system/Storage/{StorageId}/Drive/{DriveId}/
 ##### Storage
 - CapacityBytes
+- EncryptionStatus
 - Links
 - Status
 
