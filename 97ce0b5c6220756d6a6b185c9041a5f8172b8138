@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1b3a922b_0419a6ef",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 805,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-08T17:02:41Z",
+      "side": 1,
+      "message": "We don\u0027t do case insensitive compares anywhere else, and if we do, we should use something intended for that, like icompare.\n\nI suspect this needs to be removed.\n\nI\u0027ve made this change (untested)\n\nCan you guys make sure this works, then I think this patch can merge.",
+      "range": {
+        "startLine": 805,
+        "startChar": 30,
+        "endLine": 805,
+        "endChar": 43
+      },
+      "revId": "97ce0b5c6220756d6a6b185c9041a5f8172b8138",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
