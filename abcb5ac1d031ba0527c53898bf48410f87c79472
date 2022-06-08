@@ -105,6 +105,24 @@
       "parentUuid": "512a2b9c_11a5e3ac",
       "revId": "abcb5ac1d031ba0527c53898bf48410f87c79472",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3d8c8da8_09bdb878",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 708,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-06-08T16:20:01Z",
+      "side": 1,
+      "message": "\u003e Considering that we\u0027re going to be executing code for each retry policy, I\u0027d prefer we just log the retry policy in the callback itself (which includes the line number) and simplify this API.\n\nMy concern with leaving the logging to the callback is the callback only gets called if we receive a response.  There are earlier operations that can fail which would result in a retry (resolve fail, send fail, etc.).  I lean towards being able to report the specific retry policy each time it\u0027s used.\n\nThat being said, I\u0027m all for simplifying the code.  I\u0027m guessing the vast majority of retry events will be triggered by incorrect response codes.  I\u0027m alright with making the change if you think it\u0027s alright that there are some edge cases where we will retry without logging the retry policy in use.",
+      "parentUuid": "368aad97_ae89ea68",
+      "revId": "abcb5ac1d031ba0527c53898bf48410f87c79472",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
