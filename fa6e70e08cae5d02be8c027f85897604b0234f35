@@ -69,6 +69,30 @@
       },
       "revId": "fa6e70e08cae5d02be8c027f85897604b0234f35",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e889664d_0e405897",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 399,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-06-08T18:21:33Z",
+      "side": 1,
+      "message": "The new approach is to add the aggregation check to setUpRedfishRouteWithDelegation() since that is ultimately called by all endpoints.  The aggregating BMC will handle all requests including those that are meant for a satellite BMC.  The paths in those requests should be unrecognized and result in setting AsyncResp to return a 404.\n\nAt the same time, an async check is being performed to determine if the request should be forwarded to a satellite BMC.  It is assumed that in those scenarios the local BMC will have set AsyncResp to return a 404.  We will overwrite AsyncResp with the resulting response returned from the satellite BMC.  \n\nBecause of the async check, we won\u0027t be able to require \"main_\" to denote local BMC resources.  There is a chance of a collision if the ID of a local BMC resource includes the prefix associated with a satellite BMC (such as \"aggregated0_\").  In practice this is unlikely.  Discussions around this point took place in the Discord (https://discord.com/channels/775381525260664832/855566794994221117/978728928728457256)\n\nNote that collection requests will only return local resources.  I\u0027ll leave correctly adding the collection requests to a subsequent patch.",
+      "parentUuid": "3026ff2d_bc8eb079",
+      "range": {
+        "startLine": 390,
+        "startChar": 0,
+        "endLine": 399,
+        "endChar": 77
+      },
+      "revId": "fa6e70e08cae5d02be8c027f85897604b0234f35",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
