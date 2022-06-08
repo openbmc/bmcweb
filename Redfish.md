@@ -876,6 +876,7 @@ other.
 #### Storage
 
 - CapacityBytes
+- EncryptionStatus
 - Links
 - Status
 
