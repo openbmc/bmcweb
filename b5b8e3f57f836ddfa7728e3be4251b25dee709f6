@@ -16,6 +16,86 @@
       "message": "Need to also handle \"org.freedesktop.DBus.Error.NoReply\" error from dbus and return serviceTemporarilyUnavailable",
       "revId": "b5b8e3f57f836ddfa7728e3be4251b25dee709f6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "228f200b_7429e38f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 19
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-06-08T02:37:23Z",
+      "side": 1,
+      "message": "This looks close. ",
+      "revId": "b5b8e3f57f836ddfa7728e3be4251b25dee709f6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "93e79ad4_547ed562",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 906,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-06-08T02:37:23Z",
+      "side": 1,
+      "message": "I am more used to seeing error handling on the `boost::system::error_code ec` rather then the sdbusplus::message::message.get_error()\n\nI worry we will want to standardize error handling at some point. But this is fine for now.",
+      "range": {
+        "startLine": 906,
+        "startChar": 52,
+        "endLine": 906,
+        "endChar": 61
+      },
+      "revId": "b5b8e3f57f836ddfa7728e3be4251b25dee709f6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "073e43b8_2c4317bf",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 920,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-06-08T02:37:23Z",
+      "side": 1,
+      "message": "nit: I don\u0027t know if that is the only reason, we would see \n \"xyz.openbmc_project.Common.Error.NotAllowed\"",
+      "range": {
+        "startLine": 920,
+        "startChar": 23,
+        "endLine": 920,
+        "endChar": 60
+      },
+      "revId": "b5b8e3f57f836ddfa7728e3be4251b25dee709f6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "65089924_99b47fe2",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 2261,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-06-08T02:37:23Z",
+      "side": 1,
+      "message": "nit: get rid of extra space",
+      "revId": "b5b8e3f57f836ddfa7728e3be4251b25dee709f6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
