@@ -16,6 +16,23 @@
       "message": "I did a quick skim (didn\u0027t review the whole thing because it doesn\u0027t build).  This is starting to come together.  For the amount of effort, I do really wish it was a more net negative in total lines of code (only -200 with 2000 lines changed) but considering that this gives more consistency, I do think it\u0027s a good thing overall",
       "revId": "27714ad834aef6e8ea0b360b68c6bd9fa1815460",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a0e747d6_c52ad323",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-08T15:25:37Z",
+      "side": 1,
+      "message": "Is this still being worked?  I know the sdbusplus patches merged, but this has been idle for a bit.  Next step should be to get it rebased (see discord for a set of commands to make the clang-format changes automatically), and it should be pretty close to ready.",
+      "revId": "27714ad834aef6e8ea0b360b68c6bd9fa1815460",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
