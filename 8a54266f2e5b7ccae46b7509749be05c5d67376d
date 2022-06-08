@@ -60,6 +60,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ee87fa53_0a52c057",
+        "filename": "OWNERS",
+        "patchSetId": 4
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-06-08T01:47:29Z",
+      "side": 1,
+      "message": "I read it as \"use case\", but maybe that is not right, and clarification would be helpful.",
+      "parentUuid": "e69e3fb4_e6799527",
+      "range": {
+        "startLine": 5,
+        "startChar": 54,
+        "endLine": 5,
+        "endChar": 69
+      },
+      "revId": "8a54266f2e5b7ccae46b7509749be05c5d67376d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "82330c21_65d16ab8",
         "filename": "OWNERS",
         "patchSetId": 4
@@ -77,6 +101,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c21560c6_ebb249c3",
+        "filename": "OWNERS",
+        "patchSetId": 4
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-06-08T01:47:29Z",
+      "side": 1,
+      "message": "+1 for https://www.dmtf.org/standards/redfish",
+      "parentUuid": "82330c21_65d16ab8",
+      "revId": "8a54266f2e5b7ccae46b7509749be05c5d67376d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "688ad143_5004ae2f",
         "filename": "OWNERS",
         "patchSetId": 4
@@ -88,6 +130,24 @@
       "writtenOn": "2022-06-07T04:22:00Z",
       "side": 1,
       "message": "This sentence ends.. I think you are missing some words. \n\nIn many cases, the role of the maintainer is",
+      "revId": "8a54266f2e5b7ccae46b7509749be05c5d67376d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "98e6226d_345da176",
+        "filename": "OWNERS",
+        "patchSetId": 4
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-06-08T01:47:29Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "688ad143_5004ae2f",
       "revId": "8a54266f2e5b7ccae46b7509749be05c5d67376d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
