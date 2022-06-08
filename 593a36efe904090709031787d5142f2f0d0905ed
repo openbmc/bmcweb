@@ -390,6 +390,24 @@
       "parentUuid": "036d97fb_1371bee3",
       "revId": "593a36efe904090709031787d5142f2f0d0905ed",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2449a8c2_0236c621",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2674,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-06-08T22:21:03Z",
+      "side": 1,
+      "message": "Just realized that the current patchset\u0027s way of merging FaultLog handling with the \"requestRoutesBMCDump\" functions breaks /redfish/v1/Managers/bmc/LogServices/Journal.\n\nEssentially the problem is that the route\nBMCWEB_ROUTE(app, \"/redfish/v1/Managers/bmc/LogServices/\u003cstr\u003e/\")\nwould match not only with dumps\n(\"/redfish/v1/Managers/bmc/LogServices/Dump\" and\n/redfish/v1/Managers/bmc/LogServices/FaultLog\")\nbut also with the journal (/redfish/v1/Managers/bmc/LogServices/Journal)\n\nWorking on another patchset.",
+      "parentUuid": "90f36523_37a2de00",
+      "revId": "593a36efe904090709031787d5142f2f0d0905ed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
