@@ -78,6 +78,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8d3f683b_64e00081",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 73
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-08T19:19:25Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "2793b532_7f105dd4",
+      "range": {
+        "startLine": 60,
+        "startChar": 5,
+        "endLine": 60,
+        "endChar": 25
+      },
+      "revId": "96419a824001c6bd094f0f13afc0b01fdbb73ad1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bdb136d3_666a7fc1",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 73
@@ -94,6 +118,99 @@
         "startChar": 22,
         "endLine": 688,
         "endChar": 30
+      },
+      "revId": "96419a824001c6bd094f0f13afc0b01fdbb73ad1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f97ca657_5a46673e",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 73
+      },
+      "lineNbr": 688,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-08T19:19:25Z",
+      "side": 1,
+      "message": "Please use the common data structures for this (which aren\u0027t flat_map)",
+      "parentUuid": "bdb136d3_666a7fc1",
+      "range": {
+        "startLine": 688,
+        "startChar": 22,
+        "endLine": 688,
+        "endChar": 30
+      },
+      "revId": "96419a824001c6bd094f0f13afc0b01fdbb73ad1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "be9b3955_4cf05b98",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 73
+      },
+      "lineNbr": 691,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-08T19:19:25Z",
+      "side": 1,
+      "message": "This will need to be turned into a loop when the last thing is done.",
+      "range": {
+        "startLine": 691,
+        "startChar": 0,
+        "endLine": 691,
+        "endChar": 38
+      },
+      "revId": "96419a824001c6bd094f0f13afc0b01fdbb73ad1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cf0d5eab_03062ac7",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 73
+      },
+      "lineNbr": 701,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-08T19:19:25Z",
+      "side": 1,
+      "message": "Common error #12",
+      "range": {
+        "startLine": 701,
+        "startChar": 0,
+        "endLine": 701,
+        "endChar": 49
+      },
+      "revId": "96419a824001c6bd094f0f13afc0b01fdbb73ad1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e9218bcd_e9ce8838",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 73
+      },
+      "lineNbr": 711,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-08T19:19:25Z",
+      "side": 1,
+      "message": "Please abstract this enum conversion into its own function like we do elsewhere.",
+      "range": {
+        "startLine": 701,
+        "startChar": 0,
+        "endLine": 711,
+        "endChar": 38
       },
       "revId": "96419a824001c6bd094f0f13afc0b01fdbb73ad1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
@@ -118,6 +235,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d82a56df_9d4a21e4",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 73
+      },
+      "lineNbr": 726,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-08T19:19:25Z",
+      "side": 1,
+      "message": "??????  If EITHER property is not found, the dbus deamon has broken the API, and we should return InternalError() to the user.",
+      "range": {
+        "startLine": 726,
+        "startChar": 4,
+        "endLine": 726,
+        "endChar": 74
+      },
+      "revId": "96419a824001c6bd094f0f13afc0b01fdbb73ad1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e5275bbf_91d1fc98",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 73
+      },
+      "lineNbr": 751,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-08T19:19:25Z",
+      "side": 1,
+      "message": "This case is already handled by your check on line 760, and can be removed from this branch.",
+      "range": {
+        "startLine": 751,
+        "startChar": 8,
+        "endLine": 751,
+        "endChar": 25
+      },
+      "revId": "96419a824001c6bd094f0f13afc0b01fdbb73ad1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "27ae2848_eb014905",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 73
@@ -129,6 +292,30 @@
       "writtenOn": "2022-06-01T04:08:55Z",
       "side": 1,
       "message": "nit: seems dumpId is not referenced outside the lambda in later codes, if you are moving |dumpEntryPath|, why not |dumpId| as well?",
+      "range": {
+        "startLine": 769,
+        "startChar": 16,
+        "endLine": 769,
+        "endChar": 22
+      },
+      "revId": "96419a824001c6bd094f0f13afc0b01fdbb73ad1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c64164d_8a6c138e",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 73
+      },
+      "lineNbr": 769,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-08T19:19:25Z",
+      "side": 1,
+      "message": "DumpId this isn\u0027t a move.  This should just be passed by copy, as the old code did.\n\nIf you really want to do a move, that\u0027s fine, but we should at least be consistent about either moving or not.",
+      "parentUuid": "27ae2848_eb014905",
       "range": {
         "startLine": 769,
         "startChar": 16,
