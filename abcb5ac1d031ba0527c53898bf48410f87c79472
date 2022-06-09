@@ -141,6 +141,24 @@
       "parentUuid": "3d8c8da8_09bdb878",
       "revId": "abcb5ac1d031ba0527c53898bf48410f87c79472",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4bbad4d5_84c29b5b",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 708,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-06-09T19:46:40Z",
+      "side": 1,
+      "message": "A retry event can occur from doResolve(), doConnect(), sendMessage(), and recvMessage().  waitAndRetry() is what\u0027s called for a retry event and overall it\u0027s called in 5 locations.  The retry handler only gets called in recvMessage().  If we rely on the handler to log important retry information, then that won\u0027t provide total coverage to all retry events.\n\nMistake on my end, I thought waitAndRetry() was logging the policy name.  I think arguably it should.  Right now the name is logged when a connection is configured to send a new message so you would have to work backwards if a retry is not triggered by an invalid response code since that is the only other location it is logged (https://gerrit.openbmc.org/c/openbmc/bmcweb/+/54161/8/http/http_client.hpp#259).\n\nI understand what the ask is.  Basically want I\u0027m wanting to hear if it\u0027s alright that there are 5 different reasons for triggering a retry, but it\u0027s only in one of those where we need to log what retry policy is actually being used.",
+      "parentUuid": "76682066_74031049",
+      "revId": "abcb5ac1d031ba0527c53898bf48410f87c79472",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
