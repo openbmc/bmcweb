@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "acc447d6_d9279683",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 122
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-09T23:32:44Z",
+      "side": 1,
+      "message": "Broke out the schema changes into their own patch, and started working on getting this cleaned up.  The latest patch I pushed resolves some of the issues, duplication, and abstraction problems and applies some of the current best practices.  Still work to be done here.",
+      "revId": "cb3611d43ab876d7ffaf958a6a2bbaf9eff9c394",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
