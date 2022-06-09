@@ -22,6 +22,30 @@
       },
       "revId": "97ce0b5c6220756d6a6b185c9041a5f8172b8138",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4884e25c_1680aa32",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 805,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2022-06-09T09:15:29Z",
+      "side": 1,
+      "message": "I examined the object names returned on my test system, the Item.Dimm objects are all owned by the smbios-mdr2 daemon. This daemon constructs the object names by concatenating `dimmPath` and the number, and dimmPath is all lowercase. (https://github.com/openbmc/smbios-mdr/blob/e4ea37716d0d282ef664d5a70979274fe40e7c8b/src/mdrv2.cpp#L445)\n\nBased on this, removing the \"to_lower_copy\" should work.",
+      "parentUuid": "1b3a922b_0419a6ef",
+      "range": {
+        "startLine": 805,
+        "startChar": 30,
+        "endLine": 805,
+        "endChar": 43
+      },
+      "revId": "97ce0b5c6220756d6a6b185c9041a5f8172b8138",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
