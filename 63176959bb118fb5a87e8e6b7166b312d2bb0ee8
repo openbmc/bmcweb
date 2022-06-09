@@ -166,6 +166,30 @@
       },
       "revId": "63176959bb118fb5a87e8e6b7166b312d2bb0ee8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6387e4a5_ee70be1e",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 486,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-06-09T19:24:05Z",
+      "side": 1,
+      "message": "Can you please review the JBOF mockup published by DMTF linked below:\n(https://redfish.dmtf.org/redfish/mockups/v1/1159)\n\nThere are two ways to navigate to the same drive, in the published use case. \nThe same drive is linked in \"chassis/1/Drives\" and and\"Storage/NVMeof\"\n\nLet me know your thoughts",
+      "parentUuid": "f4320f12_4c0c1655",
+      "range": {
+        "startLine": 486,
+        "startChar": 4,
+        "endLine": 486,
+        "endChar": 75
+      },
+      "revId": "63176959bb118fb5a87e8e6b7166b312d2bb0ee8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
