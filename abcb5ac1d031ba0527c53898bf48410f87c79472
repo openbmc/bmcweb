@@ -159,6 +159,24 @@
       "parentUuid": "76682066_74031049",
       "revId": "abcb5ac1d031ba0527c53898bf48410f87c79472",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3624e203_e03e223a",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 708,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-09T19:58:07Z",
+      "side": 1,
+      "message": "My feelings here aren\u0027t that strong.  I was just aiming for simpler APIs, and trying to avoid adding API complexity for what amounts to just logging of \"here\u0027s the policy we\u0027re trying\".\n\n@carson, if in your judgement, we should keep that parameter, I\u0027m ok with that.\n\n\n\n\u003e  The retry handler only gets called in recvMessage().  If we rely on the handler to log important retry information, then that won\u0027t provide total coverage to all retry events.\n\n\nAt the risk of digging the rabbit hole further (which, if you want, feel free to completely ignore in the context of this patch), I would argue the logging is best put in the 5 different callers, because they\u0027re the ones in the failure branch, executing in the failing context.  At least, that makes sense in in head.  I\u0027m fine with whatever here, it\u0027s logging, and the API isn\u0027t THAT complex, we can improve it over time.",
+      "parentUuid": "4bbad4d5_84c29b5b",
+      "revId": "abcb5ac1d031ba0527c53898bf48410f87c79472",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
