@@ -292,6 +292,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "907d6cb9_5bbbad4c",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 964,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-06-09T06:36:18Z",
+      "side": 1,
+      "message": "\u003e My general policy here is \"When dealing with urls, use the url objects\", which is documented in common errors.  If your opinion differs, can you please help to document in COMMON_ERRORS.md what you think the policy should be, and we can go from there?  Given that this is a url, and the above statements, it isn\u0027t clear where we should draw the line.\n\nI did some further investigation. boost::url mainly focuses on parsing URLs instead of creating URLs. The modifier can only replace the whole path with set_path(), which I think is not suitable for building the URL here.\n\nAnother problem is that crow\u0027s route parameter does not decode automatically, if there is a route /\u003cstr\u003e, the parameter will be \"%3f1\" instead of \"?1\" when accessing /%3f1. If encoding is wanted, then such decoding must be implemented as well.\n\nFor now, I think it should be developer\u0027s responsibily to ensure the dbus filename is url-compliant when mapping it directly to a url.\n\nOr we can add a filename_raw() method to sdbusplus to return the undecoded filename directly. This will solve the url issue as the supported characters in dbus path is a subset of url.\n\n\u003e Instead if we go with \"cert_object_url.parent() \u003d\u003d httpsObjectPath\", we can avoid this error.\n\nDone",
+      "parentUuid": "f7730dcd_4225928d",
+      "range": {
+        "startLine": 964,
+        "startChar": 12,
+        "endLine": 964,
+        "endChar": 23
+      },
+      "revId": "0c09cc01501f311c1e7110f4b4c71459599b2d94",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ecc9c7c3_f66b7388",
         "filename": "redfish-core/lib/certificate_service.hpp",
         "patchSetId": 1
