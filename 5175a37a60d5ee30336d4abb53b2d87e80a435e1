@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0bf3f2fd_f9b7a4b2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 56
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000233
+      },
+      "writtenOn": "2022-06-09T20:41:16Z",
+      "side": 1,
+      "message": "Not sure why the CI failed, and the logs expired now so you\u0027ll likely have to rebase and try again",
+      "revId": "5175a37a60d5ee30336d4abb53b2d87e80a435e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
