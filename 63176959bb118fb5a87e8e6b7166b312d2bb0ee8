@@ -190,6 +190,30 @@
       },
       "revId": "63176959bb118fb5a87e8e6b7166b312d2bb0ee8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "827f43f7_4d072c09",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 486,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-09T19:53:07Z",
+      "side": 1,
+      "message": "We should ask DMTF, just looking at that mockup makes me think it\u0027s incorrect, because Storage::Drives is a Collection(Drive) with AutoExpandReferences set, but the mockup in question doesn\u0027t auto expand the drives query.",
+      "parentUuid": "6387e4a5_ee70be1e",
+      "range": {
+        "startLine": 486,
+        "startChar": 4,
+        "endLine": 486,
+        "endChar": 75
+      },
+      "revId": "63176959bb118fb5a87e8e6b7166b312d2bb0ee8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
