@@ -1,0 +1,316 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/PCIeSlots.v1_5_0.json",
+    "$ref": "#/definitions/PCIeSlots",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2021 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "Actions": {
+            "additionalProperties": false,
+            "description": "The available actions for this Resource.",
+            "longDescription": "This type shall contain the available actions for this Resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Oem": {
+                    "$ref": "#/definitions/OemActions",
+                    "description": "The available OEM-specific actions for this Resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this Resource."
+                }
+            },
+            "type": "object"
+        },
+        "OemActions": {
+            "additionalProperties": true,
+            "description": "The available OEM-specific actions for this Resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this Resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {},
+            "type": "object"
+        },
+        "PCIeLinks": {
+            "additionalProperties": false,
+            "description": "The links to other Resources that are related to this Resource.",
+            "longDescription": "The Redfish Specification-described type shall contain links to Resources related to but not subordinate to this Resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties contained in this object shall conform to the Redfish Specification-described requirements."
+                },
+                "PCIeDevice": {
+                    "description": "An array of links to the PCIe devices contained in this slot.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/PCIeDevice.json#/definitions/PCIeDevice"
+                    },
+                    "longDescription": "This property shall contain an array of links to the Resources of the PCIeDevice type with which this physical slot is associated.  If the Status.State of this slot is `Absent`, this property shall not appear in the Resource.",
+                    "readonly": true,
+                    "type": "array"
+                },
+                "PCIeDevice@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "Processors": {
+                    "description": "An array of links to the processors that are directly connected or directly bridged to this PCIe slot.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Processor.json#/definitions/Processor"
+                    },
+                    "longDescription": "This property shall contain an array of links to resources of type Processor that represent processors that are directly connected or directly bridged to this PCIe slot.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_5_0"
+                },
+                "Processors@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                }
+            },
+            "type": "object"
+        },
+        "PCIeSlot": {
+            "additionalProperties": false,
+            "description": "This type defines information for a PCIe slot.",
+            "longDescription": "These properties shall contain the definition for a PCIe Slot for a Redfish implementation.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "HotPluggable": {
+                    "description": "An indication of whether this PCIe slot supports hotplug.",
+                    "longDescription": "This property shall contain indicating whether this PCIe slot supports hotplug.",
+                    "readonly": true,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                },
+                "Lanes": {
+                    "description": "The number of PCIe lanes supported by this slot.",
+                    "longDescription": "This property shall contain the maximum number of PCIe lanes supported by the slot.",
+                    "maximum": 32,
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "Links": {
+                    "$ref": "#/definitions/PCIeLinks",
+                    "description": "The links to other Resources that are related to this Resource.",
+                    "longDescription": "The Redfish Specification-described type shall contain links to Resources related to but not subordinate to this Resource."
+                },
+                "Location": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Location",
+                    "description": "The location of the PCIe slot.",
+                    "longDescription": "This property shall contain part location information, including a ServiceLabel of the associated PCIe Slot."
+                },
+                "LocationIndicatorActive": {
+                    "description": "An indicator allowing an operator to physically locate this resource.",
+                    "longDescription": "This property shall contain the state of the indicator used to physically identify or locate this resource.  A write to this property shall update the value of IndicatorLED in this resource, if supported, to reflect the implementation of the locating function.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_4_0"
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties contained in this object shall conform to the Redfish Specification-described requirements."
+                },
+                "PCIeType": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/PCIeDevice.json#/definitions/PCIeTypes"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The PCIe specification supported by this slot.",
+                    "longDescription": "This property shall contain the maximum PCIe specification that this slot supports.",
+                    "readonly": true
+                },
+                "SlotType": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/SlotTypes"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The PCIe slot type for this slot.",
+                    "longDescription": "This property shall contain the slot type as specified by the PCIe specification.",
+                    "readonly": true
+                },
+                "Status": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
+                    "description": "The status and health of the Resource and its subordinate or dependent Resources.",
+                    "longDescription": "This property shall contain any status or health properties of the Resource."
+                }
+            },
+            "type": "object"
+        },
+        "PCIeSlots": {
+            "additionalProperties": false,
+            "description": "The PCIeSlots schema describes PCIe slot properties.",
+            "longDescription": "This Resource shall represent a set of PCIe slot information for a Redfish implementation.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "@odata.context": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/context"
+                },
+                "@odata.etag": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/etag"
+                },
+                "@odata.id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/id"
+                },
+                "@odata.type": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/type"
+                },
+                "Actions": {
+                    "$ref": "#/definitions/Actions",
+                    "description": "The available actions for this Resource.",
+                    "longDescription": "This property shall contain the available actions for this Resource."
+                },
+                "Description": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Description"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "readonly": true
+                },
+                "Id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
+                    "readonly": true
+                },
+                "Name": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
+                    "readonly": true
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties that this object contains shall conform to the Redfish Specification-described requirements."
+                },
+                "Slots": {
+                    "description": "An array of PCI Slot information.",
+                    "items": {
+                        "$ref": "#/definitions/PCIeSlot"
+                    },
+                    "longDescription": "This array shall contain an entry for each PCIe slot, including empty slots (with no device or card installed).",
+                    "type": "array"
+                }
+            },
+            "required": [
+                "@odata.id",
+                "@odata.type",
+                "Id",
+                "Name"
+            ],
+            "type": "object"
+        },
+        "SlotTypes": {
+            "enum": [
+                "FullLength",
+                "HalfLength",
+                "LowProfile",
+                "Mini",
+                "M2",
+                "OEM",
+                "OCP3Small",
+                "OCP3Large",
+                "U2"
+            ],
+            "enumDescriptions": {
+                "FullLength": "Full-Length PCIe slot.",
+                "HalfLength": "Half-Length PCIe slot.",
+                "LowProfile": "Low-Profile or Slim PCIe slot.",
+                "M2": "PCIe M.2 slot.",
+                "Mini": "Mini PCIe slot.",
+                "OCP3Large": "Open Compute Project 3.0 large form factor slot.",
+                "OCP3Small": "Open Compute Project 3.0 small form factor slot.",
+                "OEM": "An OEM-specific slot.",
+                "U2": "U.2 / SFF-8639 slot or bay."
+            },
+            "enumVersionAdded": {
+                "OCP3Large": "v1_2_0",
+                "OCP3Small": "v1_2_0",
+                "U2": "v1_3_0"
+            },
+            "type": "string"
+        }
+    },
+    "owningEntity": "DMTF",
+    "release": "2021.3",
+    "title": "#PCIeSlots.v1_5_0.PCIeSlots"
+}
