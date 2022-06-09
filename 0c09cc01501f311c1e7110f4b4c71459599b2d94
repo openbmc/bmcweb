@@ -220,6 +220,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a89a3ee9_cf5342e2",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 964,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-06-09T02:23:55Z",
+      "side": 1,
+      "message": "Hmmm, according the bus spec path requirements is unlikely\n```Each element must only contain the ASCII characters \"[A-Z][a-z][0-9]_\"```\n\nI understand that is not the point, the potential escape issue should be addressed. \n\nAnd boost::url does looks light wight, I would recommend using it here.",
+      "parentUuid": "1fb25466_1261e3ab",
+      "range": {
+        "startLine": 964,
+        "startChar": 12,
+        "endLine": 964,
+        "endChar": 23
+      },
+      "revId": "0c09cc01501f311c1e7110f4b4c71459599b2d94",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ecc9c7c3_f66b7388",
         "filename": "redfish-core/lib/certificate_service.hpp",
         "patchSetId": 1
