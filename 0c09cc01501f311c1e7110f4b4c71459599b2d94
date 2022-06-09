@@ -268,6 +268,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f7730dcd_4225928d",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 964,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-09T04:41:12Z",
+      "side": 1,
+      "message": "Wait, I thought the reason for using URL objects but not string manipulation is that we might get wrong in some cases. \n\nFor example, if some day we have additional objects like `/xyz/openbmc_project/certs/server/https/cert1/metadata`, it will still pass this \"starts_with\" check. \n\nInstead if we go with \"cert_object_url.parent() \u003d\u003d httpsObjectPath\", we can avoid this error.",
+      "parentUuid": "67d74f63_72b79e02",
+      "range": {
+        "startLine": 964,
+        "startChar": 12,
+        "endLine": 964,
+        "endChar": 23
+      },
+      "revId": "0c09cc01501f311c1e7110f4b4c71459599b2d94",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ecc9c7c3_f66b7388",
         "filename": "redfish-core/lib/certificate_service.hpp",
         "patchSetId": 1
