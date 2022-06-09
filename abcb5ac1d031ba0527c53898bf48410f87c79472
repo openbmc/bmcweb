@@ -123,6 +123,24 @@
       "parentUuid": "368aad97_ae89ea68",
       "revId": "abcb5ac1d031ba0527c53898bf48410f87c79472",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "76682066_74031049",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 708,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-06-09T03:30:04Z",
+      "side": 1,
+      "message": "Ed wants you to log in the retry handler, so if you are retying it should log.\n\nFor example please add a log statement  right here, (https://gerrit.openbmc.org/c/openbmc/bmcweb/+/54161/8/redfish-core/include/event_service_manager.hpp#567) It will print the linen number when it is reached.\n\nThen you can remove name from the interface.",
+      "parentUuid": "3d8c8da8_09bdb878",
+      "revId": "abcb5ac1d031ba0527c53898bf48410f87c79472",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

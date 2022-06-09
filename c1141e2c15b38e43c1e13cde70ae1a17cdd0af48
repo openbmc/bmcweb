@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3fe7c880_71ab92dd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-06-09T03:30:04Z",
+      "side": 1,
+      "message": "nit: We know this is for bmcweb.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 6
+      },
+      "revId": "c1141e2c15b38e43c1e13cde70ae1a17cdd0af48",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "59f85276_5ec97015",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-06-09T03:30:04Z",
+      "side": 1,
+      "message": "nit: return",
+      "range": {
+        "startLine": 12,
+        "startChar": 24,
+        "endLine": 12,
+        "endChar": 25
+      },
+      "revId": "c1141e2c15b38e43c1e13cde70ae1a17cdd0af48",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce76aaf6_434ea21c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-06-09T03:30:04Z",
+      "side": 1,
+      "message": "nit: response code",
+      "range": {
+        "startLine": 12,
+        "startChar": 58,
+        "endLine": 12,
+        "endChar": 62
+      },
+      "revId": "c1141e2c15b38e43c1e13cde70ae1a17cdd0af48",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9d171a06_ffda0da7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-06-09T03:30:04Z",
+      "side": 1,
+      "message": "The strategy is okay. I suspect the in the future we will want to retry off of more signals then only the response code. But this work is a good step.\n\nThe handler is just a map of http code, to error codes. \n",
+      "revId": "c1141e2c15b38e43c1e13cde70ae1a17cdd0af48",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "88d4d20c_c3043f0f",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 566,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-06-09T03:30:04Z",
+      "side": 1,
+      "message": "This looks to be the same logic as the default hanlder. \nCan you use a default argument in setRetryConfig() so you don\u0027t have to copy this code.",
+      "range": {
+        "startLine": 566,
+        "startChar": 37,
+        "endLine": 566,
+        "endChar": 53
+      },
+      "revId": "c1141e2c15b38e43c1e13cde70ae1a17cdd0af48",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "430c9677_d6b7e46a",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-06-09T03:30:04Z",
+      "side": 1,
+      "message": "Why not inline?",
+      "range": {
+        "startLine": 25,
+        "startChar": 4,
+        "endLine": 25,
+        "endChar": 10
+      },
+      "revId": "c1141e2c15b38e43c1e13cde70ae1a17cdd0af48",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
