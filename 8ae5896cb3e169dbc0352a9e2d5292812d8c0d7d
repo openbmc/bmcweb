@@ -240,6 +240,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "77bce673_62797db8",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 804,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-10T00:52:17Z",
+      "side": 1,
+      "message": "Done\n\nPlease take a look at the patch I pushed",
+      "parentUuid": "f2a29c31_40a0b996",
+      "range": {
+        "startLine": 804,
+        "startChar": 12,
+        "endLine": 804,
+        "endChar": 30
+      },
+      "revId": "8ae5896cb3e169dbc0352a9e2d5292812d8c0d7d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c8df6433_5deadb0a",
