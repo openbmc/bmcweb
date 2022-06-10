@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "be30be1f_d53e1291",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 835,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-10T00:27:24Z",
+      "side": 1,
+      "message": "Is there any convention on this comment style?",
+      "range": {
+        "startLine": 835,
+        "startChar": 2,
+        "endLine": 835,
+        "endChar": 16
+      },
+      "revId": "094eac52f544c3b13d0db725d0d63e8d8391f34f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
