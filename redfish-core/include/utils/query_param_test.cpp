@@ -12,6 +12,9 @@ namespace redfish::query_param
 namespace
 {
 
+using ::testing::Eq;
+using ::testing::UnorderedElementsAre;
+
 TEST(Delegate, OnlyPositive)
 {
     Query query{
@@ -144,6 +147,132 @@ TEST(FormatQueryForExpand, DelegatedSubQueriesHaveSameTypeAndOneLessLevels)
     EXPECT_EQ(formatQueryForExpand(
                   Query{.expandLevel = 2, .expandType = ExpandType::NotLinks}),
               "?$expand=.($levels=1)");
+}
+
+TEST(GetSelectParam, EmptyValueReturnsError)
+{
+    Query query;
+    EXPECT_FALSE(getSelectParam("", query));
+}
+
+TEST(GetSelectParam, EmptyPropertyReturnsError)
+{
+    Query query;
+    EXPECT_FALSE(getSelectParam(",", query));
+    EXPECT_FALSE(getSelectParam(",,", query));
+}
+
+TEST(GetSelectParam, InvalidPathPropertyReturnsError)
+{
+    Query query;
+    EXPECT_FALSE(getSelectParam("\0,\0", query));
+    EXPECT_FALSE(getSelectParam("%%%", query));
+}
+
+TEST(GetSelectParam, PropertyReturnsOk)
+{
+    Query query;
+    EXPECT_TRUE(getSelectParam("foo", query));
+    EXPECT_THAT(query.selectedProperties, UnorderedElementsAre(Eq("/foo")));
+    EXPECT_TRUE(getSelectParam("foo/bar,bar/123", query));
+    EXPECT_THAT(query.selectedProperties,
+                UnorderedElementsAre(Eq("/foo/bar"), Eq("/bar/123")));
+}
+
+TEST(RecursiveSelect, ExpectedKeysAreSelectInSimpleObject)
+{
+    std::vector<std::string> shouldSelect = {"/select_me"};
+    nlohmann::json root = R"({"select_me" : "foo", "omit_me" : "bar"})"_json;
+    nlohmann::json expected = R"({"select_me" : "foo"})"_json;
+    performSelect(root, shouldSelect);
+    EXPECT_EQ(root, expected);
+}
+
+TEST(RecursiveSelect, ExpectedKeysAreSelectInNestedObject)
+{
+    std::vector<std::string> shouldSelect = {
+        "/select_me", "/prefix0/explicit_select_me", "/prefix1"};
+    nlohmann::json root = R"(
+{
+  "select_me":[
+    "foo"
+  ],
+  "omit_me":"bar",
+  "prefix0":{
+    "explicit_select_me":"123",
+    "omit_me":"456"
+  },
+  "prefix1":[
+    {
+      "implicit_select_me":"123"
+    },
+    {
+      "implicit_select_me":"456"
+    }
+  ]
+}
+)"_json;
+    nlohmann::json expected = R"(
+{
+  "select_me":[
+    "foo"
+  ],
+  "prefix0":{
+    "explicit_select_me":"123"
+  },
+  "prefix1":[
+    {
+      "implicit_select_me":"123"
+    },
+    {
+      "implicit_select_me":"456"
+    }
+  ]
+}
+)"_json;
+    performSelect(root, shouldSelect);
+    EXPECT_EQ(root, expected);
+}
+
+TEST(RecursiveSelect, OdataPropertiesAreSelected)
+{
+    nlohmann::json root = R"(
+{
+  "omit_me":"bar",
+  "@odata.id":1,
+  "@odata.type":2,
+  "@odata.context":3,
+  "@odata.etag":4,
+  "prefix1":{
+    "omit_me":"bar",
+    "@odata.id":1
+  },
+  "prefix2":[
+    {
+      "omit_me":"bar",
+      "@odata.id":1
+    }
+  ]
+}
+)"_json;
+    nlohmann::json expected = R"(
+{
+  "@odata.id":1,
+  "@odata.type":2,
+  "@odata.context":3,
+  "@odata.etag":4,
+  "prefix1":{
+    "@odata.id":1
+  },
+  "prefix2":[
+    {
+      "@odata.id":1
+    }
+  ]
+}
+)"_json;
+    performSelect(root, {});
+    EXPECT_EQ(root, expected);
 }
 
 } // namespace
