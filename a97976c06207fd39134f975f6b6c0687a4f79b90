@@ -102,6 +102,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "39e07704_8d4d2ed3",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-10T22:21:15Z",
+      "side": 1,
+      "message": "for other examples:\n\nis $select\u003d\"\\0\" allowed?\nwhat about $select\u003d\"\\x24\"?",
+      "parentUuid": "febfbaf4_c3bc9410",
+      "revId": "a97976c06207fd39134f975f6b6c0687a4f79b90",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ffc3cc88_28557fa0",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 5
