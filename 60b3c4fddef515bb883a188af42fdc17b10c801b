@@ -54,6 +54,23 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "404847cb_36bf8339",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-10T00:23:21Z",
+      "side": 1,
+      "message": "Split part of the codes into https://gerrit.openbmc.org/c/openbmc/bmcweb/+/54457",
+      "revId": "60b3c4fddef515bb883a188af42fdc17b10c801b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b57b727a_4555ed70",
