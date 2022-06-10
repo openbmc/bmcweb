@@ -1,0 +1,182 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7341bd3f_375ac272",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-10T20:41:47Z",
+      "side": 1,
+      "message": "nit, generally we don\u0027t do \u003d {} for objects that default construct with no arguments.  can be removed.",
+      "range": {
+        "startLine": 48,
+        "startChar": 47,
+        "endLine": 48,
+        "endChar": 52
+      },
+      "revId": "a97976c06207fd39134f975f6b6c0687a4f79b90",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29b54272_b5c0dfa5",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-10T20:41:47Z",
+      "side": 1,
+      "message": "nit, this is a little subtle that delegated.selectedProperties is empty, so swapping will result in an empty query.selectedProperties\n\nwould it be more clear if we just did\n\ndelegated.selectedProperties \u003d std::move(query.selectedProperties);\nquery.selectedProperties.clear();\n\nJust so it\u0027s more obvious what\u0027s going on?",
+      "range": {
+        "startLine": 112,
+        "startChar": 7,
+        "endLine": 112,
+        "endChar": 74
+      },
+      "revId": "a97976c06207fd39134f975f6b6c0687a4f79b90",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "547d190e_cc9a8a77",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-10T20:41:47Z",
+      "side": 1,
+      "message": "What are the escaping rules on $select properties?\n\nis \"\\,\" a valid property name?",
+      "revId": "a97976c06207fd39134f975f6b6c0687a4f79b90",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ffc3cc88_28557fa0",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 622,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-10T20:41:47Z",
+      "side": 1,
+      "message": "Does redfish allow $select on arrays?  I\u0027ve never seen that before.  That seems odd, given that an array would be a collection, so $filter would be used, right?",
+      "range": {
+        "startLine": 621,
+        "startChar": 0,
+        "endLine": 622,
+        "endChar": 59
+      },
+      "revId": "a97976c06207fd39134f975f6b6c0687a4f79b90",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2190d3f7_4745de55",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 645,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-10T20:41:47Z",
+      "side": 1,
+      "message": "This looks like it will give the wrong result if message objects are added when select is used.  I suspect we need to add more keys to this list.  Take a look at how the messages:: namespace works, we\u0027ll need to allow all messages through.",
+      "range": {
+        "startLine": 645,
+        "startChar": 0,
+        "endLine": 645,
+        "endChar": 69
+      },
+      "revId": "a97976c06207fd39134f975f6b6c0687a4f79b90",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f19c0fa6_dfce885f",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 670,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-10T20:41:47Z",
+      "side": 1,
+      "message": "in theory a select with nothing in it is invalid right?  We probably don\u0027t need an optimization for this case, I would expect it to return a query error earlier.",
+      "range": {
+        "startLine": 667,
+        "startChar": 0,
+        "endLine": 670,
+        "endChar": 5
+      },
+      "revId": "a97976c06207fd39134f975f6b6c0687a4f79b90",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f3116985_78f03220",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 671,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-10T20:41:47Z",
+      "side": 1,
+      "message": "In terms of algorithms, this is making a complete copy of the data set, and several copies of each key in the dataset.  In general in bmcweb, we try to avoid complete replacement of the json object, as it has lead to subtle bugs in the past with async operations.\n\ncould we just, as part of recursiveSelect, do something like\n\n\nrecursiveSelect(json, selectList){\n\n    auto key \u003d json.begin();\n    while(key !\u003d json.end()){\n       if (key.first in selectLIst){\n          recursiveSelect(key.second, selectList);\n          continue;\n          key++;\n       }\n       \n       key \u003d json.erase(key);\n    }\n}\n\nI think this also greatly simplifies the \"parentSelected\" behavior.",
+      "range": {
+        "startLine": 671,
+        "startChar": 0,
+        "endLine": 671,
+        "endChar": 29
+      },
+      "revId": "a97976c06207fd39134f975f6b6c0687a4f79b90",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d58e68d9_17f55409",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 730,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-10T20:41:47Z",
+      "side": 1,
+      "message": "We should be using a redfish message for this.",
+      "range": {
+        "startLine": 729,
+        "startChar": 12,
+        "endLine": 730,
+        "endChar": 61
+      },
+      "revId": "a97976c06207fd39134f975f6b6c0687a4f79b90",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
