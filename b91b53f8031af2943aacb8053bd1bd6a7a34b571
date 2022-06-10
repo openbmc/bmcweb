@@ -71,6 +71,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "95e6b901_fb808cd1",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 110
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-10T19:06:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f9d909a3_8cfaaf6c",
+      "range": {
+        "startLine": 69,
+        "startChar": 0,
+        "endLine": 72,
+        "endChar": 5
+      },
+      "revId": "b91b53f8031af2943aacb8053bd1bd6a7a34b571",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3e7ea104_a99a4ebb",
@@ -189,6 +213,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f01cf4e8_107cf4bc",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 110
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-10T19:06:07Z",
+      "side": 1,
+      "message": "Yep, that makes sense now that the code is simpler.\n\nDone",
+      "parentUuid": "04c8e0c6_371bcd14",
+      "range": {
+        "startLine": 270,
+        "startChar": 0,
+        "endLine": 272,
+        "endChar": 75
+      },
+      "revId": "b91b53f8031af2943aacb8053bd1bd6a7a34b571",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f3b00758_1f241650",
@@ -250,6 +298,30 @@
       "side": 1,
       "message": "Actually now that I look at this, shouldn\u0027t we follow the sensors pattern and just make a single dbus call to get the all-pcie-slots (or whatever we are naming the slot-\u003echassis association) rather than iterating on all the slots in the system?",
       "parentUuid": "a4cc12bc_d7099e98",
+      "range": {
+        "startLine": 275,
+        "startChar": 37,
+        "endLine": 275,
+        "endChar": 44
+      },
+      "revId": "b91b53f8031af2943aacb8053bd1bd6a7a34b571",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ce164ec6_abef992e",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 110
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-10T19:06:07Z",
+      "side": 1,
+      "message": "Kinda Done.  The code is now very different, so closing this comment as resolved.",
+      "parentUuid": "9912509e_20c5fada",
       "range": {
         "startLine": 275,
         "startChar": 37,

@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "22153c6f_e7e8c573",
         "filename": "redfish-core/lib/pcie_slots.hpp",
@@ -20,10 +21,34 @@
         "endChar": 60
       },
       "revId": "9984ac3312062852e25293b471c977ef5e3b77ca",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "02400900_1bdbfe40",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 99
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-10T19:06:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "22153c6f_e7e8c573",
+      "range": {
+        "startLine": 172,
+        "startChar": 24,
+        "endLine": 172,
+        "endChar": 60
+      },
+      "revId": "9984ac3312062852e25293b471c977ef5e3b77ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "a6beb9c7_2f4320e4",
         "filename": "redfish-core/lib/pcie_slots.hpp",
@@ -43,10 +68,34 @@
         "endChar": 75
       },
       "revId": "9984ac3312062852e25293b471c977ef5e3b77ca",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "104babf9_902b7f10",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 99
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-10T19:06:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a6beb9c7_2f4320e4",
+      "range": {
+        "startLine": 177,
+        "startChar": 0,
+        "endLine": 177,
+        "endChar": 75
+      },
+      "revId": "9984ac3312062852e25293b471c977ef5e3b77ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "66908a8d_e88806b7",
         "filename": "redfish-core/lib/pcie_slots.hpp",
@@ -60,10 +109,28 @@
       "side": 1,
       "message": "We\u0027re 8ish scopes deep here.  This code needs abstracted and separated.",
       "revId": "9984ac3312062852e25293b471c977ef5e3b77ca",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7d0f9369_033c6f78",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 99
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-10T19:06:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "66908a8d_e88806b7",
+      "revId": "9984ac3312062852e25293b471c977ef5e3b77ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "6626877e_a9369b7d",
         "filename": "redfish-core/lib/pcie_slots.hpp",
@@ -83,8 +150,31 @@
         "endChar": 44
       },
       "revId": "9984ac3312062852e25293b471c977ef5e3b77ca",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6fdfbe84_7fd534a8",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 99
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-10T19:06:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6626877e_a9369b7d",
+      "range": {
+        "startLine": 274,
+        "startChar": 37,
+        "endLine": 274,
+        "endChar": 44
+      },
+      "revId": "9984ac3312062852e25293b471c977ef5e3b77ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

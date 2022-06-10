@@ -268,6 +268,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f2c4dc8_d286e076",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-10T19:06:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "72241f65_05561e8c",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 1
+      },
+      "revId": "5b5ee7eb995f81fc86092ab3ab6d3b3b9a1a7ffa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d00aea69_e53b30c0",
