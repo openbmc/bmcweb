@@ -84,6 +84,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "febfbaf4_c3bc9410",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-10T22:10:54Z",
+      "side": 1,
+      "message": "this goes beyond validation.  if I did\n\n$select\u003d\"\\,\"\nThat I think is valid?\n$select\u003d\",\"\nThat is invalid.\n\nwe should read through the odata spec and understand what the naming limitations are so we can at least detect the base escape case.",
+      "parentUuid": "c84bc434_601adcc1",
+      "revId": "a97976c06207fd39134f975f6b6c0687a4f79b90",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ffc3cc88_28557fa0",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 5
@@ -119,6 +137,30 @@
       "side": 1,
       "message": "This branch is needed because of the current algorithm goes to every leaf of the JSON tree.\n\nNo. I didn\u0027t see array can be selected in the spec.\n\nAnd yes, \"select\" arrays should be $filter.",
       "parentUuid": "ffc3cc88_28557fa0",
+      "range": {
+        "startLine": 621,
+        "startChar": 0,
+        "endLine": 622,
+        "endChar": 59
+      },
+      "revId": "a97976c06207fd39134f975f6b6c0687a4f79b90",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2e3499be_f0cbbf0c",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 622,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-10T22:10:54Z",
+      "side": 1,
+      "message": "Oh, I see, so we need to select at every level, and an array might have a sublevel.  Ok.\n\nDo we have guidance on how select works for autoexpand resources?",
+      "parentUuid": "e11abe62_704b7888",
       "range": {
         "startLine": 621,
         "startChar": 0,
@@ -178,6 +220,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "26626ebe_198175f7",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 645,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-10T22:10:54Z",
+      "side": 1,
+      "message": "\u003e You mean all error messages should be just selected?\nThat\u0027s one thing, there are others.  We need to determine the rules.  It might be if there\u0027s an @ in the key name?  but we need to research the specs and understand.\n\n\nYes.  not all messages are fatal.",
+      "parentUuid": "91a04741_bd660a78",
+      "range": {
+        "startLine": 645,
+        "startChar": 0,
+        "endLine": 645,
+        "endChar": 69
+      },
+      "revId": "a97976c06207fd39134f975f6b6c0687a4f79b90",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f19c0fa6_dfce885f",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 5
@@ -213,6 +279,30 @@
       "side": 1,
       "message": "I believe what you mentioned here is a different thing. This branch handles that after $select, the result JSON becomes empty. And yeah, it can be just removed. \n\nAnd I can add a branch in the parsing part to error out when $select value is empty.",
       "parentUuid": "f19c0fa6_dfce885f",
+      "range": {
+        "startLine": 667,
+        "startChar": 0,
+        "endLine": 670,
+        "endChar": 5
+      },
+      "revId": "a97976c06207fd39134f975f6b6c0687a4f79b90",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "16ead850_f914f698",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 670,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-10T22:10:54Z",
+      "side": 1,
+      "message": "I think you\u0027ve seen my concern.  I\u0027m going to resolve, and we\u0027ll reopen this if it\u0027s still an issue.",
+      "parentUuid": "445e11e4_15eebb11",
       "range": {
         "startLine": 667,
         "startChar": 0,
@@ -272,6 +362,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3d7a21cf_8d36fab0",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 671,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-10T22:10:54Z",
+      "side": 1,
+      "message": "\u003e This doesn\u0027t work when selected properties are nested keys, for example, \"Parameters/AllowableValues\". We still need to do recursion and traverse to the leaves.\n\nI\u0027m not following why this doesn\u0027t work.  Sure, I didn\u0027t handle the split on the key to do that matching and construct the new allowlist.  That would look nearly identical to the code in readJson, so it seems like it should be doable.\n\n\u003e \n\u003e \u003e this is making a complete copy of the data set, and several copies of each key in the dataset\n\u003e \n\u003e Only $selected keys are copied. And only $selected values are copied.\n\nYep, but they\u0027re still copied and reconstructed.\n\n\u003e \n\u003e Let me think whether erase while doing recursion is possible\n\nCool.  Let me know if you need help.",
+      "parentUuid": "a1319eac_8e21edfe",
+      "range": {
+        "startLine": 671,
+        "startChar": 0,
+        "endLine": 671,
+        "endChar": 29
+      },
+      "revId": "a97976c06207fd39134f975f6b6c0687a4f79b90",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d58e68d9_17f55409",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 5
@@ -307,6 +421,30 @@
       "side": 1,
       "message": "Right, that\u0027s what I wanted to do until I didn\u0027t find a not implemented message in https://github.com/openbmc/bmcweb/blob/24861a286eb148fcec22afecffb73b596752700f/redfish-core/include/error_messages.hpp",
       "parentUuid": "d58e68d9_17f55409",
+      "range": {
+        "startLine": 729,
+        "startChar": 12,
+        "endLine": 730,
+        "endChar": 61
+      },
+      "revId": "a97976c06207fd39134f975f6b6c0687a4f79b90",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce6dec89_49622a01",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 730,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-10T22:10:54Z",
+      "side": 1,
+      "message": "that file is losely based on the Base registry, which is defined by DMTF.  FWIW, I think this shouldn\u0027t use not_implemented, it should do queryParameterValueFormatError, given that it\u0027s a combination of query params that\u0027s not available (and isn\u0027t really defined by the standard yet).",
+      "parentUuid": "c02c095d_c303a5b5",
       "range": {
         "startLine": 729,
         "startChar": 12,
