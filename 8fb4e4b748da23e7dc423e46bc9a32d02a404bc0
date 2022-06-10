@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e002cb1e_49470807",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-10T16:00:22Z",
+      "side": 1,
+      "message": "Lots more description needed here.  At a minimum, given that \"Operator\" privilege is intended to have access to the system, hence the word operator, it\u0027s not clear why we\u0027d deny them access to the KVM, given that is part of the interfaces for operating the system.\n\nLets start by getting a description of what you\u0027re trying to accomplish from a security perspecive, then we can go about figuring out what to do.",
+      "revId": "8fb4e4b748da23e7dc423e46bc9a32d02a404bc0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
