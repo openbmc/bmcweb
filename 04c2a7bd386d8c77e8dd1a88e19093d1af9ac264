@@ -16,6 +16,23 @@
       "message": "Leaving open for a little bit to see if anyone has a comment, but LGTM",
       "revId": "04c2a7bd386d8c77e8dd1a88e19093d1af9ac264",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c77e145e_fab02b20",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000235
+      },
+      "writtenOn": "2022-06-10T21:45:32Z",
+      "side": 1,
+      "message": "I see some holes in the design, but I believe they are not worth fixing.\n\n1. Note the cookie is created only for logins with looksLikePhosphorRest-style data: {\"data\":[\"someuser\":\"thepassword\"].  But during logout, the cookie is re-created as an expired cookie - regardless of if the cookie was created in the first place.  For example, if you login with a non-looksLikePhosphorRest-style data, you will not get a cookie at login, but an expired cookie will appear when you log out.\n\n2. If you login with looksLikePhosphorRest-style data, and log out via the Redfish session service (DELETE /redfish/v1/SessionService/Sessions/\u003csessionid\u003e), then your cookie will not be expired at logout.  But of course the Web GUI app does not use the session service to log out.\n\nOverall, this patch seems a bit sketchy, but if its purpose it to help ensure the Web App\u0027s session cookies are deleted during logout, then I approve.",
+      "revId": "04c2a7bd386d8c77e8dd1a88e19093d1af9ac264",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
