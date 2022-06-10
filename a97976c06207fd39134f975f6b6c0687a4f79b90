@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f9161fb_82ddeeb2",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-10T23:41:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7341bd3f_375ac272",
+      "range": {
+        "startLine": 48,
+        "startChar": 47,
+        "endLine": 48,
+        "endChar": 52
+      },
+      "revId": "a97976c06207fd39134f975f6b6c0687a4f79b90",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "29b54272_b5c0dfa5",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-06-10T20:41:47Z",
       "side": 1,
       "message": "nit, this is a little subtle that delegated.selectedProperties is empty, so swapping will result in an empty query.selectedProperties\n\nwould it be more clear if we just did\n\ndelegated.selectedProperties \u003d std::move(query.selectedProperties);\nquery.selectedProperties.clear();\n\nJust so it\u0027s more obvious what\u0027s going on?",
+      "range": {
+        "startLine": 112,
+        "startChar": 7,
+        "endLine": 112,
+        "endChar": 74
+      },
+      "revId": "a97976c06207fd39134f975f6b6c0687a4f79b90",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "19a031cd_cbf5f7eb",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-10T23:41:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "29b54272_b5c0dfa5",
       "range": {
         "startLine": 112,
         "startChar": 7,
@@ -179,6 +227,30 @@
       "side": 1,
       "message": "Oh, I see, so we need to select at every level, and an array might have a sublevel.  Ok.\n\nDo we have guidance on how select works for autoexpand resources?",
       "parentUuid": "e11abe62_704b7888",
+      "range": {
+        "startLine": 621,
+        "startChar": 0,
+        "endLine": 622,
+        "endChar": 59
+      },
+      "revId": "a97976c06207fd39134f975f6b6c0687a4f79b90",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6dc8d483_6fa13827",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 622,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-10T23:41:21Z",
+      "side": 1,
+      "message": "\u003e Do we have guidance on how select works for autoexpand resources?\n\nMy understanding is that this is the same as $expand + $select, which is unclear. In this commit, AutoExpand is not errored out. And expanded objects can be selected using nested keys.\n\nI can ask this question in the DMTF discussion.",
+      "parentUuid": "2e3499be_f0cbbf0c",
       "range": {
         "startLine": 621,
         "startChar": 0,
@@ -402,6 +474,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "740e23e8_fe7acc94",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 671,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-10T23:41:21Z",
+      "side": 1,
+      "message": "Please take a look at what I have now",
+      "parentUuid": "3d7a21cf_8d36fab0",
+      "range": {
+        "startLine": 671,
+        "startChar": 0,
+        "endLine": 671,
+        "endChar": 29
+      },
+      "revId": "a97976c06207fd39134f975f6b6c0687a4f79b90",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d58e68d9_17f55409",
@@ -463,6 +559,30 @@
       "side": 1,
       "message": "that file is losely based on the Base registry, which is defined by DMTF.  FWIW, I think this shouldn\u0027t use not_implemented, it should do queryParameterValueFormatError, given that it\u0027s a combination of query params that\u0027s not available (and isn\u0027t really defined by the standard yet).",
       "parentUuid": "c02c095d_c303a5b5",
+      "range": {
+        "startLine": 729,
+        "startChar": 12,
+        "endLine": 730,
+        "endChar": 61
+      },
+      "revId": "a97976c06207fd39134f975f6b6c0687a4f79b90",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4b9db72f_522c7b89",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 730,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-10T23:41:21Z",
+      "side": 1,
+      "message": "I changed to queryParameterValueFormatError and moved them into the parse function.",
+      "parentUuid": "ce6dec89_49622a01",
       "range": {
         "startLine": 729,
         "startChar": 12,
