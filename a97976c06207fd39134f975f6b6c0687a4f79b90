@@ -216,6 +216,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "91a6d498_cc352b5d",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-10T23:52:19Z",
+      "side": 1,
+      "message": "I didn\u0027t find anything in odata spec regarding this \n\nhttp://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#_Toc31358942. \n\nWhat\u0027s your suggestion?",
+      "parentUuid": "39e07704_8d4d2ed3",
+      "revId": "a97976c06207fd39134f975f6b6c0687a4f79b90",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ffc3cc88_28557fa0",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 5
