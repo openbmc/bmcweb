@@ -50,6 +50,29 @@
       "message": "Missing redfish.md docs changes?",
       "revId": "7e3398e71219048b10bb9268d9c77f8577b3ee2b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4244d054_51758d7f",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 466,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-10T20:47:16Z",
+      "side": 1,
+      "message": "in the PDI review for this, is there any way for this property to be \"unknown\"?  Generally we handle that by omitting the property if it is in the \"unknown\" state.",
+      "range": {
+        "startLine": 466,
+        "startChar": 0,
+        "endLine": 466,
+        "endChar": 69
+      },
+      "revId": "7e3398e71219048b10bb9268d9c77f8577b3ee2b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
