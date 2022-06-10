@@ -66,6 +66,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c84bc434_601adcc1",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-10T21:59:30Z",
+      "side": 1,
+      "message": "I didn\u0027t find any words in the spec talking about validating the properties",
+      "parentUuid": "547d190e_cc9a8a77",
+      "revId": "a97976c06207fd39134f975f6b6c0687a4f79b90",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ffc3cc88_28557fa0",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 5
@@ -77,6 +95,30 @@
       "writtenOn": "2022-06-10T20:41:47Z",
       "side": 1,
       "message": "Does redfish allow $select on arrays?  I\u0027ve never seen that before.  That seems odd, given that an array would be a collection, so $filter would be used, right?",
+      "range": {
+        "startLine": 621,
+        "startChar": 0,
+        "endLine": 622,
+        "endChar": 59
+      },
+      "revId": "a97976c06207fd39134f975f6b6c0687a4f79b90",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e11abe62_704b7888",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 622,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-10T21:59:30Z",
+      "side": 1,
+      "message": "This branch is needed because of the current algorithm goes to every leaf of the JSON tree.\n\nNo. I didn\u0027t see array can be selected in the spec.\n\nAnd yes, \"select\" arrays should be $filter.",
+      "parentUuid": "ffc3cc88_28557fa0",
       "range": {
         "startLine": 621,
         "startChar": 0,
@@ -112,6 +154,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "91a04741_bd660a78",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 645,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-10T21:59:30Z",
+      "side": 1,
+      "message": "You mean all error messages should be just selected?\n\nI thought we won\u0027t execute Query parameters if the response is not OK. Is there a case where there are messages with OK response code?",
+      "parentUuid": "2190d3f7_4745de55",
+      "range": {
+        "startLine": 645,
+        "startChar": 0,
+        "endLine": 645,
+        "endChar": 69
+      },
+      "revId": "a97976c06207fd39134f975f6b6c0687a4f79b90",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f19c0fa6_dfce885f",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 5
@@ -123,6 +189,30 @@
       "writtenOn": "2022-06-10T20:41:47Z",
       "side": 1,
       "message": "in theory a select with nothing in it is invalid right?  We probably don\u0027t need an optimization for this case, I would expect it to return a query error earlier.",
+      "range": {
+        "startLine": 667,
+        "startChar": 0,
+        "endLine": 670,
+        "endChar": 5
+      },
+      "revId": "a97976c06207fd39134f975f6b6c0687a4f79b90",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "445e11e4_15eebb11",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 670,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-10T21:59:30Z",
+      "side": 1,
+      "message": "I believe what you mentioned here is a different thing. This branch handles that after $select, the result JSON becomes empty. And yeah, it can be just removed. \n\nAnd I can add a branch in the parsing part to error out when $select value is empty.",
+      "parentUuid": "f19c0fa6_dfce885f",
       "range": {
         "startLine": 667,
         "startChar": 0,
@@ -158,6 +248,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a1319eac_8e21edfe",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 671,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-10T21:59:30Z",
+      "side": 1,
+      "message": "This doesn\u0027t work when selected properties are nested keys, for example, \"Parameters/AllowableValues\". We still need to do recursion and traverse to the leaves.\n\n\u003e this is making a complete copy of the data set, and several copies of each key in the dataset\n\nOnly $selected keys are copied. And only $selected values are copied.\n\nLet me think whether erase while doing recursion is possible",
+      "parentUuid": "f3116985_78f03220",
+      "range": {
+        "startLine": 671,
+        "startChar": 0,
+        "endLine": 671,
+        "endChar": 29
+      },
+      "revId": "a97976c06207fd39134f975f6b6c0687a4f79b90",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d58e68d9_17f55409",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 5
@@ -169,6 +283,30 @@
       "writtenOn": "2022-06-10T20:41:47Z",
       "side": 1,
       "message": "We should be using a redfish message for this.",
+      "range": {
+        "startLine": 729,
+        "startChar": 12,
+        "endLine": 730,
+        "endChar": 61
+      },
+      "revId": "a97976c06207fd39134f975f6b6c0687a4f79b90",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c02c095d_c303a5b5",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 730,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-10T21:59:30Z",
+      "side": 1,
+      "message": "Right, that\u0027s what I wanted to do until I didn\u0027t find a not implemented message in https://github.com/openbmc/bmcweb/blob/24861a286eb148fcec22afecffb73b596752700f/redfish-core/include/error_messages.hpp",
+      "parentUuid": "d58e68d9_17f55409",
       "range": {
         "startLine": 729,
         "startChar": 12,
