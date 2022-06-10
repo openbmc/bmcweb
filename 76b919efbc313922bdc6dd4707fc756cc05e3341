@@ -153,6 +153,30 @@
       },
       "revId": "76b919efbc313922bdc6dd4707fc756cc05e3341",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dfbf2299_d5caedb0",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 840,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-10T00:40:08Z",
+      "side": 1,
+      "message": "Checked with Ed offline. There\u0027s a backend daemon. \n\nAnd the object path is /xyz/openbmc_project/Inventory/Item/DimmX/PartitionY",
+      "parentUuid": "ea6a8548_8da0d3b8",
+      "range": {
+        "startLine": 839,
+        "startChar": 28,
+        "endLine": 840,
+        "endChar": 83
+      },
+      "revId": "76b919efbc313922bdc6dd4707fc756cc05e3341",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
