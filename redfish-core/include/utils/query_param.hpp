@@ -6,6 +6,7 @@
 #include "error_messages.hpp"
 #include "http_request.hpp"
 #include "http_response.hpp"
+#include "human_sort.hpp"
 #include "logging.hpp"
 
 #include <sys/types.h>
@@ -78,7 +79,7 @@ struct Query
     std::optional<size_t> top = std::nullopt;
 
     // Select
-    std::unordered_set<std::string> selectedProperties = {};
+    std::vector<std::string> selectedProperties = {};
 };
 
 // The struct defines how resource handlers in redfish-core/lib/ can handle
@@ -271,38 +272,36 @@ inline bool isSelectedPropertyAllowed(std::string_view property)
 // https://docs.oasis-open.org/odata/odata/v4.01/os/abnf/odata-abnf-construction-rules.txt
 inline bool getSelectParam(std::string_view value, Query& query)
 {
-    std::vector<std::string> properties;
-    boost::split(properties, value, boost::is_any_of(","));
-    if (properties.empty())
+    boost::split(query.selectedProperties, value, boost::is_any_of(","));
+    if (query.selectedProperties.empty())
     {
         return false;
     }
     // These a magic number, but with it it's less likely that this code
     // introduces CVE; e.g., too large properties crash the service.
     constexpr int maxNumProperties = 10;
-    if (properties.size() > maxNumProperties)
+    if (query.selectedProperties.size() > maxNumProperties)
     {
         return false;
     }
-    for (std::string& property : properties)
+    for (const std::string& property : query.selectedProperties)
     {
         if (!isSelectedPropertyAllowed(property))
         {
             return false;
         }
-        property.insert(property.begin(), '/');
     }
-    query.selectedProperties = {std::make_move_iterator(properties.begin()),
-                                std::make_move_iterator(properties.end())};
     // Per the Redfish spec section 7.3.3, the service shall select certain
     // properties as if $select was omitted.
     constexpr std::array<std::string_view, 5> reservedProperties = {
-        "/@odata.id", "/@odata.type", "/@odata.context", "/@odata.etag",
-        "/error"};
-    for (auto const& str : reservedProperties)
-    {
-        query.selectedProperties.emplace(std::string(str));
-    }
+        "@odata.id", "@odata.type", "@odata.context", "@odata.etag", "error"};
+    query.selectedProperties.insert(query.selectedProperties.begin(),
+                                    reservedProperties.begin(),
+                                    reservedProperties.end());
+
+    std::sort(query.selectedProperties.begin(), query.selectedProperties.end(),
+              AlphanumLess<std::string>());
+
     return true;
 }
 
@@ -722,104 +721,56 @@ inline void processTopAndSkip(const Query& query, crow::Response& res)
 // Given a JSON subtree |currRoot|, and its JSON pointer |currRootPtr| to the
 // |root| JSON in the async response, this function erases leaves whose keys are
 // not in the |shouldSelect| set.
-// |shouldSelect| contains all the properties that needs to be selected.
-inline void recursiveSelect(
-    nlohmann::json& currRoot, const nlohmann::json::json_pointer& currRootPtr,
-    const std::unordered_set<std::string>& intermediatePaths,
-    const std::unordered_set<std::string>& properties, nlohmann::json& root)
+// |shouldSelect| contains all the properties that needs to be selected.  List
+// must be sorted.
+inline void performSelect(nlohmann::json& currRoot,
+                          const std::vector<std::string>& properties)
 {
     nlohmann::json::object_t* object =
         currRoot.get_ptr<nlohmann::json::object_t*>();
     if (object != nullptr)
     {
-        BMCWEB_LOG_DEBUG << "Current JSON is an object: " << currRootPtr;
-        auto it = currRoot.begin();
-        while (it != currRoot.end())
+        auto propertyIt = properties.begin();
+        auto it = object->begin();
+        while (it != object->end())
         {
-            auto nextIt = std::next(it);
-            nlohmann::json::json_pointer childPtr = currRootPtr / it.key();
-            BMCWEB_LOG_DEBUG << "childPtr=" << childPtr;
-            if (properties.contains(childPtr))
+            bool includeWholeObject = false;
+            std::vector<std::string> depthProperties;
+            while (propertyIt != properties.end())
             {
-                it = nextIt;
+                std::size_t index = propertyIt->find('/');
+                std::string_view filename = std::string_view(*propertyIt).substr(0, index);
+                if (filename != it->first)
+                {
+                    break;
+                }
+                if (index == std::string::npos)
+                {
+                    includeWholeObject = true;
+                }
+                std::string remaining = propertyIt->substr(index + 1);
+                depthProperties.emplace_back(remaining);
+                propertyIt++;
+            }
+            if (includeWholeObject)
+            {
+                it++;
                 continue;
             }
-            if (intermediatePaths.contains(childPtr))
+            // Only need to recurse if there are properties to select
+            if (!depthProperties.empty())
             {
-                BMCWEB_LOG_DEBUG << "Recursively select: " << childPtr;
-                recursiveSelect(*it, childPtr, intermediatePaths, properties,
-                                root);
-                it = nextIt;
+                BMCWEB_LOG_DEBUG << "Recursively select: " << it->first;
+                performSelect(it->second, depthProperties);
+                it++;
                 continue;
             }
-            BMCWEB_LOG_DEBUG << childPtr << " is getting removed!";
-            it = currRoot.erase(it);
+
+            BMCWEB_LOG_DEBUG << it->first << " is getting removed!";
+            it = object->erase(it);
         }
         return;
     }
-    nlohmann::json::array_t* array =
-        currRoot.get_ptr<nlohmann::json::array_t*>();
-    if (array != nullptr)
-    {
-        BMCWEB_LOG_DEBUG << "Current JSON is an array: " << currRootPtr;
-        if (properties.contains(currRootPtr))
-        {
-            return;
-        }
-        root[currRootPtr.parent_pointer()].erase(currRootPtr.back());
-        BMCWEB_LOG_DEBUG << currRootPtr << " is getting removed!";
-        return;
-    }
-    BMCWEB_LOG_DEBUG << "Current JSON is a property value: " << currRootPtr;
-}
-
-inline std::unordered_set<std::string>
-    getIntermediatePaths(const std::unordered_set<std::string>& properties)
-{
-    std::unordered_set<std::string> res;
-    std::vector<std::string> segments;
-
-    for (auto const& property : properties)
-    {
-        // Omit the root "/" and split all other segments
-        boost::split(segments, property.substr(1), boost::is_any_of("/"));
-        std::string path;
-        if (!segments.empty())
-        {
-            segments.pop_back();
-        }
-        for (auto const& segment : segments)
-        {
-            path += '/';
-            path += segment;
-            res.insert(path);
-        }
-    }
-    return res;
-}
-
-inline void performSelect(nlohmann::json& root,
-                          const std::unordered_set<std::string>& properties)
-{
-    std::unordered_set<std::string> intermediatePaths =
-        getIntermediatePaths(properties);
-    recursiveSelect(root, nlohmann::json::json_pointer(""), intermediatePaths,
-                    properties, root);
-}
-
-// The current implementation of $select still has the following TODOs due to
-//  ambiguity and/or complexity.
-// 1. select properties in array of objects;
-// https://github.com/DMTF/Redfish/issues/5188 was created for clarification.
-// 2. combined with $expand; https://github.com/DMTF/Redfish/issues/5058 was
-// created for clarification.
-// 2. respect the full odata spec; e.g., deduplication, namespace, star (*),
-// etc.
-inline void processSelect(crow::Response& intermediateResponse,
-                          const std::unordered_set<std::string>& shouldSelect)
-{
-    BMCWEB_LOG_DEBUG << "Process $select quary parameter";
-    performSelect(intermediateResponse.jsonValue, shouldSelect);
 }
 
 inline void
@@ -872,7 +823,7 @@ inline void
     // to process
     if (!query.selectedProperties.empty())
     {
-        processSelect(intermediateResponse, query.selectedProperties);
+        performSelect(intermediateResponse.jsonValue, query.selectedProperties);
     }
 
     completionHandler(intermediateResponse);
