@@ -34,6 +34,23 @@
       "parentUuid": "f211cfa5_a15fcc7f",
       "revId": "119fdb429171d54b8dd3b4738b67ce23a3c9fae3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4679c7ef_f58a9447",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 124
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-06-10T19:31:02Z",
+      "side": 1,
+      "message": "CI fail\n\n../redfish-core/include/../lib/pcie_slots.hpp:237:40: error: \u0027pcieSlotPath\u0027 in capture list does not name a variable [clang-diagnostic-error]\n                [asyncResp, chassisID, pcieSlotPath, connectionName](\n                                       ^\n../redfish-core/include/../lib/pcie_slots.hpp:237:54: error: \u0027connectionName\u0027 in capture list does not name a variable [clang-diagnostic-error]\n                [asyncResp, chassisID, pcieSlotPath, connectionName](\n                                                     ^\n../redfish-core/include/../lib/pcie_slots.hpp:240:63: error: reference to local binding \u0027pcieSlotPath\u0027 declared in enclosing function \u0027redfish::onMapperSubtreeDone\u0027 [clang-diagnostic-error]\n                onMapperAssociationDone(asyncResp, chassisID, pcieSlotPath,",
+      "revId": "119fdb429171d54b8dd3b4738b67ce23a3c9fae3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
