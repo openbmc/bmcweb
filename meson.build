@@ -399,6 +399,7 @@ srcfiles_unittest = [
   'redfish-core/ut/stl_utils_test.cpp',
   'redfish-core/ut/time_utils_test.cpp',
   'src/crow_getroutes_test.cpp',
+  'src/kvm_websocket_test.cpp',
 ]
 
 if(get_option('tests').enabled())
