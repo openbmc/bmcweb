@@ -10,30 +10,41 @@
 
 #include <sys/types.h>
 
+#include <boost/algorithm/string/classification.hpp>
+#include <boost/algorithm/string/split.hpp>
 #include <boost/beast/http/message.hpp> // IWYU pragma: keep
 #include <boost/beast/http/status.hpp>
 #include <boost/beast/http/verb.hpp>
+#include <boost/url/error.hpp>
 #include <boost/url/params_view.hpp>
 #include <boost/url/string.hpp>
 #include <nlohmann/json.hpp>
 
 #include <algorithm>
+#include <array>
+#include <cctype>
 #include <charconv>
 #include <cstdint>
 #include <functional>
+#include <iterator>
 #include <limits>
 #include <map>
 #include <memory>
 #include <optional>
+#include <span>
 #include <string>
 #include <string_view>
 #include <system_error>
+#include <unordered_set>
 #include <utility>
 #include <vector>
 
 // IWYU pragma: no_include <boost/url/impl/params_view.hpp>
 // IWYU pragma: no_include <boost/beast/http/impl/message.hpp>
 // IWYU pragma: no_include <boost/intrusive/detail/list_iterator.hpp>
+// IWYU pragma: no_include <boost/algorithm/string/detail/classification.hpp>
+// IWYU pragma: no_include <boost/iterator/iterator_facade.hpp>
+// IWYU pragma: no_include <boost/type_index/type_index_facade.hpp>
 // IWYU pragma: no_include <stdint.h>
 
 namespace redfish
@@ -63,7 +74,11 @@ struct Query
     std::optional<size_t> skip = std::nullopt;
 
     // Top
+
     std::optional<size_t> top = std::nullopt;
+
+    // Select
+    std::unordered_set<std::string> selectedProperties = {};
 };
 
 // The struct defines how resource handlers in redfish-core/lib/ can handle
@@ -75,6 +90,7 @@ struct QueryCapabilities
     bool canDelegateTop = false;
     bool canDelegateSkip = false;
     uint8_t canDelegateExpandLevel = 0;
+    bool canDelegateSelect = false;
 };
 
 // Delegates query parameters according to the given |queryCapabilities|
@@ -120,6 +136,14 @@ inline Query delegate(const QueryCapabilities& queryCapabilities, Query& query)
     {
         delegated.skip = query.skip;
         query.skip = 0;
+    }
+
+    // delegate select
+    if (!query.selectedProperties.empty() &&
+        queryCapabilities.canDelegateSelect)
+    {
+        delegated.selectedProperties = std::move(query.selectedProperties);
+        query.selectedProperties.clear();
     }
     return delegated;
 }
@@ -216,6 +240,72 @@ inline QueryError getTopParam(std::string_view value, Query& query)
     return QueryError::Ok;
 }
 
+// Validates the property in the $select parameter. Every character is among
+// [a-zA-Z0-9\/#@_.] (taken from Redfish spec, section 9.6 Properties)
+inline bool isSelectedPropertyAllowed(std::string_view property)
+{
+    // These a magic number, but with it it's less likely that this code
+    // introduces CVE; e.g., too large properties crash the service.
+    constexpr int maxPropertyLength = 60;
+    if (property.empty() || property.size() > maxPropertyLength)
+    {
+        return false;
+    }
+    for (char ch : property)
+    {
+        if (std::isalnum(static_cast<unsigned char>(ch)) == 0 && ch != '/' &&
+            ch != '#' && ch != '@' && ch != '.')
+        {
+            return false;
+        }
+    }
+    return true;
+}
+
+// Parses and validates the $select parameter.
+// As per OData URL Conventions and Redfish Spec, the $select values shall be
+// comma separated Resource Path
+// Ref:
+// 1. https://datatracker.ietf.org/doc/html/rfc3986#section-3.3
+// 2.
+// https://docs.oasis-open.org/odata/odata/v4.01/os/abnf/odata-abnf-construction-rules.txt
+inline bool getSelectParam(std::string_view value, Query& query)
+{
+    std::vector<std::string> properties;
+    boost::split(properties, value, boost::is_any_of(","));
+    if (properties.empty())
+    {
+        return false;
+    }
+    // These a magic number, but with it it's less likely that this code
+    // introduces CVE; e.g., too large properties crash the service.
+    constexpr int maxNumProperties = 10;
+    if (properties.size() > maxNumProperties)
+    {
+        return false;
+    }
+    for (std::string& property : properties)
+    {
+        if (!isSelectedPropertyAllowed(property))
+        {
+            return false;
+        }
+        property.insert(property.begin(), '/');
+    }
+    query.selectedProperties = {std::make_move_iterator(properties.begin()),
+                                std::make_move_iterator(properties.end())};
+    // Per the Redfish spec section 7.3.3, the service shall select certain
+    // properties as if $select was omitted.
+    constexpr std::array<std::string_view, 5> reservedProperties = {
+        "/@odata.id", "/@odata.type", "/@odata.context", "/@odata.etag",
+        "/error"};
+    for (auto const& str : reservedProperties)
+    {
+        query.selectedProperties.insert(std::string(str));
+    }
+    return true;
+}
+
 inline std::optional<Query>
     parseParameters(const boost::urls::params_view& urlParams,
                     crow::Response& res)
@@ -274,6 +364,13 @@ inline std::optional<Query>
                 return std::nullopt;
             }
         }
+        else if (key == "$select")
+        {
+            if (!getSelectParam(value, ret))
+            {
+                messages::queryParameterValueFormatError(res, value, key);
+            }
+        }
         else
         {
             // Intentionally ignore other errors Redfish spec, 7.3.1
@@ -289,6 +386,12 @@ inline std::optional<Query>
             // "Shall ignore unknown or unsupported query parameters that do
             // not begin with $ ."
         }
+    }
+
+    if (ret.expandType != ExpandType::None && !ret.selectedProperties.empty())
+    {
+        messages::queryCombinationInvalid(res);
+        return std::nullopt;
     }
 
     return ret;
@@ -615,6 +718,101 @@ inline void processTopAndSkip(const Query& query, crow::Response& res)
     }
 }
 
+// Given a JSON subtree |currRoot|, and its JSON pointer |currRootPtr| to the
+// |root| JSON in the async response, this function erases leaves whose keys are
+// not in the |shouldSelect| set.
+// |shouldSelect| contains all the properties that needs to be selected.
+inline void recursiveSelect(
+    nlohmann::json& currRoot, const nlohmann::json::json_pointer& currRootPtr,
+    const std::unordered_set<std::string>& intermediatePaths,
+    const std::unordered_set<std::string>& properties, nlohmann::json& root)
+{
+    nlohmann::json::object_t* object =
+        currRoot.get_ptr<nlohmann::json::object_t*>();
+    if (object != nullptr)
+    {
+        BMCWEB_LOG_DEBUG << "Current JSON is an object: " << currRootPtr;
+        auto it = currRoot.begin();
+        while (it != currRoot.end())
+        {
+            auto nextIt = std::next(it);
+            nlohmann::json::json_pointer childPtr = currRootPtr / it.key();
+            BMCWEB_LOG_DEBUG << "childPtr=" << childPtr;
+            if (properties.contains(childPtr))
+            {
+                it = nextIt;
+                continue;
+            }
+            if (intermediatePaths.contains(childPtr))
+            {
+                BMCWEB_LOG_DEBUG << "Recursively select: " << childPtr;
+                recursiveSelect(*it, childPtr, intermediatePaths, properties,
+                                root);
+                it = nextIt;
+                continue;
+            }
+            BMCWEB_LOG_DEBUG << childPtr << " is getting removed!";
+            it = currRoot.erase(it);
+        }
+        return;
+    }
+    nlohmann::json::array_t* array =
+        currRoot.get_ptr<nlohmann::json::array_t*>();
+    if (array != nullptr)
+    {
+        BMCWEB_LOG_DEBUG << "Current JSON is an array: " << currRootPtr;
+        if (properties.contains(currRootPtr))
+        {
+            return;
+        }
+        root[currRootPtr.parent_pointer()].erase(currRootPtr.back());
+        BMCWEB_LOG_DEBUG << currRootPtr << " is getting removed!";
+        return;
+    }
+    BMCWEB_LOG_DEBUG << "Current JSON is a property value: " << currRootPtr;
+}
+
+inline std::unordered_set<std::string>
+    getIntermediatePaths(const std::unordered_set<std::string>& properties)
+{
+    std::unordered_set<std::string> res;
+    std::vector<std::string> segments;
+
+    for (auto const& property : properties)
+    {
+        // Omit the root "/" and split all other segments
+        boost::split(segments, property.substr(1), boost::is_any_of("/"));
+        std::string path;
+        if (!segments.empty())
+        {
+            segments.pop_back();
+        }
+        for (auto const& segment : segments)
+        {
+            path += '/';
+            path += segment;
+            res.insert(path);
+        }
+    }
+    return res;
+}
+
+inline void performSelect(nlohmann::json& root,
+                          const std::unordered_set<std::string>& properties)
+{
+    std::unordered_set<std::string> intermediatePaths =
+        getIntermediatePaths(properties);
+    recursiveSelect(root, nlohmann::json::json_pointer(""), intermediatePaths,
+                    properties, root);
+}
+
+inline void processSelect(crow::Response& intermediateResponse,
+                          const std::unordered_set<std::string>& shouldSelect)
+{
+    BMCWEB_LOG_DEBUG << "Process $select quary parameter";
+    performSelect(intermediateResponse.jsonValue, shouldSelect);
+}
+
 inline void
     processAllParams(crow::App& app, const Query& query,
                      std::function<void(crow::Response&)>& completionHandler,
@@ -660,6 +858,14 @@ inline void
         multi->startQuery(query);
         return;
     }
+
+    // According to Redfish Spec Section 7.3.1, $select is the last parameter to
+    // to process
+    if (!query.selectedProperties.empty())
+    {
+        processSelect(intermediateResponse, query.selectedProperties);
+    }
+
     completionHandler(intermediateResponse);
 }
 
