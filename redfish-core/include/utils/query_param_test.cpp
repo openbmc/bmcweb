@@ -215,22 +215,14 @@ TEST(GetSelectParam, PropertyReturnsOk)
     Query query;
     ASSERT_TRUE(getSelectParam("foo/bar,bar", query));
     EXPECT_THAT(query.selectedProperties,
-                UnorderedElementsAre(Eq("/foo/bar"), Eq("/bar"),
-                                     Eq("/@odata.id"), Eq("/@odata.type"),
-                                     Eq("/@odata.context"), Eq("/@odata.etag"),
-                                     Eq("/error")));
-}
-
-TEST(GetIntermediatePaths, AllIntermediatePathsAreReturned)
-{
-    std::unordered_set<std::string> properties = {"/foo/bar/213"};
-    EXPECT_THAT(getIntermediatePaths(properties),
-                UnorderedElementsAre(Eq("/foo/bar"), Eq("/foo")));
+                UnorderedElementsAre(Eq("foo/bar"), Eq("bar"), Eq("@odata.id"),
+                                     Eq("@odata.type"), Eq("@odata.context"),
+                                     Eq("@odata.etag"), Eq("error")));
 }
 
 TEST(RecursiveSelect, ExpectedKeysAreSelectInSimpleObject)
 {
-    std::unordered_set<std::string> shouldSelect = {"/select_me"};
+    std::vector<std::string> shouldSelect = {"select_me"};
     nlohmann::json root = R"({"select_me" : "foo", "omit_me" : "bar"})"_json;
     nlohmann::json expected = R"({"select_me" : "foo"})"_json;
     performSelect(root, shouldSelect);
@@ -239,8 +231,8 @@ TEST(RecursiveSelect, ExpectedKeysAreSelectInSimpleObject)
 
 TEST(RecursiveSelect, ExpectedKeysAreSelectInNestedObject)
 {
-    std::unordered_set<std::string> shouldSelect = {
-        "/select_me", "/prefix0/explicit_select_me", "/prefix1", "/prefix2"};
+    std::vector<std::string> shouldSelect = {"prefix0/explicit_select_me",
+                                             "prefix1", "prefix2", "select_me"};
     nlohmann::json root = R"(
 {
   "select_me":[
