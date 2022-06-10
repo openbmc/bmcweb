@@ -48,6 +48,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c08a2ebb_5e3e1e40",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-10T23:43:38Z",
+      "side": 1,
+      "message": "Oh, right, I now remember why I add this.\n\n```\n../redfish-core/include/utils/query_param_test.cpp:122:73: error: missing initializer for member ‘redfish::query_param::Query::selectedProperties’ [-Werror\u003dmissing-field-initializers]\n  122 |                   Query{.expandLevel \u003d 1, .expandType \u003d ExpandType::Both}),\n      |\n```\n\nIf without explicit initialization, compiler will complain about missing field initializers.",
+      "parentUuid": "5f9161fb_82ddeeb2",
+      "range": {
+        "startLine": 48,
+        "startChar": 47,
+        "endLine": 48,
+        "endChar": 52
+      },
+      "revId": "a97976c06207fd39134f975f6b6c0687a4f79b90",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "29b54272_b5c0dfa5",
