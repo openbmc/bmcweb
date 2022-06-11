@@ -23,6 +23,7 @@
 #include <query.hpp>
 #include <registries/privilege_registry.hpp>
 #include <sdbusplus/asio/property.hpp>
+#include <utils/location_utils.hpp>
 
 namespace redfish
 {
@@ -467,6 +468,17 @@ inline void
         });
 }
 
+inline void
+    getDriveLocationCode(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                         const std::string& connectionName,
+                         const std::string& path)
+{
+    asyncResp->res.jsonValue["Location"]["PartLocation"]["LocationType"] =
+        "Embedded";
+    location_util::getLocationCode(asyncResp, connectionName, path,
+                                   "/Location"_json_pointer);
+}
+
 void addAllDriveInfo(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                      const std::string& connectionName, const std::string& path,
                      const std::vector<std::string>& interfaces)
@@ -488,6 +500,11 @@ void addAllDriveInfo(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         else if (interface == "xyz.openbmc_project.Inventory.Item.Drive")
         {
             getDriveItemProperties(asyncResp, connectionName, path);
+        }
+        else if (interface ==
+                 "xyz.openbmc_project.Inventory.Decorator.LocationCode")
+        {
+            getDriveLocationCode(asyncResp, connectionName, path);
         }
     }
 }
