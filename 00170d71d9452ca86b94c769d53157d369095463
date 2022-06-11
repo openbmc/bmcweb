@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "16255f29_2cdc46f1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-06-11T04:38:47Z",
+      "side": 1,
+      "message": "Not ready for review.\nThe location_utils is useful, thank you.",
+      "revId": "00170d71d9452ca86b94c769d53157d369095463",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
