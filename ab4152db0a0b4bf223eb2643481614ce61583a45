@@ -111,6 +111,30 @@
       },
       "revId": "ab4152db0a0b4bf223eb2643481614ce61583a45",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "28e9083c_460c8c4f",
+        "filename": "src/crow_getroutes_test.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-12T22:02:41Z",
+      "side": 1,
+      "message": "In that case, don\u0027t just quietly change the test to do something else, as it\u0027s surprising to users, and somewhat defeats the purpose of enabling the unit test if there is behavior that\u0027s incorrect.  Comment out the one assertion with a note that the behavior looks incorrect, and someone should look into it.\n\nFWIW, this means that these tests probably should\u0027ve been left on (I don\u0027t recall why they were disabled, but they seem to have found an issue.)",
+      "parentUuid": "f951d62d_45f99cfb",
+      "range": {
+        "startLine": 39,
+        "startChar": 24,
+        "endLine": 39,
+        "endChar": 27
+      },
+      "revId": "ab4152db0a0b4bf223eb2643481614ce61583a45",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
