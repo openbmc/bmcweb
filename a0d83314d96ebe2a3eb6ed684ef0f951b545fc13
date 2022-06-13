@@ -70,6 +70,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "57c65441_3d2265f4",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 41
+      },
+      "lineNbr": 1130,
+      "author": {
+        "id": 1001428
+      },
+      "writtenOn": "2022-06-13T19:08:18Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "2dba5825_a39d80fe",
+      "revId": "a0d83314d96ebe2a3eb6ed684ef0f951b545fc13",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c2f3ffb8_9227666c",
@@ -171,6 +189,24 @@
       "side": 1,
       "message": "I guess my reasoning was that we don\u0027t want to be setting a property that is not used, but ultimately if the property is disabled, it does not matter what these values are set to. Will change.",
       "parentUuid": "20e3a04a_34839d06",
+      "revId": "a0d83314d96ebe2a3eb6ed684ef0f951b545fc13",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3c40633c_af1da33f",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 41
+      },
+      "lineNbr": 1238,
+      "author": {
+        "id": 1001428
+      },
+      "writtenOn": "2022-06-13T19:08:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d4f649e1_7bd6f9e5",
       "revId": "a0d83314d96ebe2a3eb6ed684ef0f951b545fc13",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
