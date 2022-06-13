@@ -16,6 +16,24 @@
       "message": "lets get the test passing in one commit, then rename the file in another.  Doing them both in one patchset makes this difficult to review.",
       "revId": "fcb9dd0184acb09a01caab1f30d1be7a3416e17e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cbee443b_562b88be",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-13T19:55:14Z",
+      "side": 1,
+      "message": "Makes sense, will do.",
+      "parentUuid": "58ae31dd_4a068fb5",
+      "revId": "fcb9dd0184acb09a01caab1f30d1be7a3416e17e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
