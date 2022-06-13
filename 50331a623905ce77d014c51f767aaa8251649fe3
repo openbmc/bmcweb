@@ -139,6 +139,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f3ba3630_755b29be",
+        "filename": "redfish-core/include/utils/location_utils.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-13T20:18:45Z",
+      "side": 1,
+      "message": "The linked patchset doesn\u0027t build.....  Did you expect it to?",
+      "parentUuid": "d38f0306_b8e940ad",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 73
+      },
+      "revId": "50331a623905ce77d014c51f767aaa8251649fe3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "99126845_a51a61a3",
         "filename": "redfish-core/include/utils/location_utils.hpp",
         "patchSetId": 16
