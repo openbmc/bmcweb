@@ -1,17 +1,25 @@
-#include <app.hpp>
+#include "app.hpp"
 
 #include "gmock/gmock.h"
 #include "gtest/gtest.h"
 
-using namespace crow;
-using namespace std;
+namespace crow
+{
+namespace
+{
+
+using ::testing::ElementsAre;
+using ::testing::Eq;
+using ::testing::IsEmpty;
+using ::testing::Pointee;
+using ::testing::UnorderedElementsAre;
 
 TEST(GetRoutes, TestEmptyRoutes)
 {
     App app;
     app.validate();
 
-    EXPECT_THAT(app.getRoutes(), testing::IsEmpty());
+    EXPECT_THAT(app.getRoutes(), IsEmpty());
 }
 
 // Tests that static urls are correctly passed
@@ -24,7 +32,7 @@ TEST(GetRoutes, TestOneRoute)
     // TODO: "/" doesn't get reported in |getRoutes| today. Uncomment this once
     // it is fixed
     // EXPECT_THAT(app.getRoutes(),
-    // testing::ElementsAre(testing::Pointee(std::string("/"))));
+    // testing::ElementsAre(Pointee(Eq("/"))));
 }
 
 // Tests that static urls are correctly passed
@@ -42,11 +50,10 @@ TEST(GetRoutes, TestlotsOfRoutes)
 
     // TODO: "/" doesn't get reported in |getRoutes| today. Uncomment this once
     // it is fixed
-    EXPECT_THAT(app.getRoutes(), testing::UnorderedElementsAre(
-                                     // testing::Pointee(std::string("/")),
-                                     testing::Pointee(std::string("/foo")),
-                                     testing::Pointee(std::string("/bar")),
-                                     testing::Pointee(std::string("/baz")),
-                                     testing::Pointee(std::string("/boo")),
-                                     testing::Pointee(std::string("/moo"))));
+    EXPECT_THAT(app.getRoutes(), UnorderedElementsAre(
+                                     // Pointee(Eq("/")),
+                                     Pointee(Eq("/foo")), Pointee(Eq("/bar")),
+                                     Pointee(Eq("/baz")), Pointee(Eq("/boo")),
+                                     Pointee(Eq("/moo"))));
+}
 }
