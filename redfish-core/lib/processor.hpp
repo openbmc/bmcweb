@@ -131,7 +131,7 @@ inline void getCpuDataByInterface(
             {
                 const std::string* value =
                     std::get_if<std::string>(&property.second);
-                if (value != nullptr)
+                if (value != nullptr && !value->empty())
                 {
                     aResp->res.jsonValue["Socket"] = *value;
                 }
@@ -317,7 +317,7 @@ inline void getCpuAssetData(std::shared_ptr<bmcweb::AsyncResp> aResp,
 
                 const std::string* mfg =
                     std::get_if<std::string>(&property.second);
-                if (mfg != nullptr)
+                if (mfg != nullptr && !mfg->empty())
                 {
                     aResp->res.jsonValue["Manufacturer"] = *mfg;
 
@@ -338,25 +338,19 @@ inline void getCpuAssetData(std::shared_ptr<bmcweb::AsyncResp> aResp,
             {
                 const std::string* partNumber =
                     std::get_if<std::string>(&property.second);
-
-                if (partNumber == nullptr)
+                if (partNumber != nullptr && !partNumber->empty())
                 {
-                    messages::internalError(aResp->res);
-                    return;
+                    aResp->res.jsonValue["PartNumber"] = *partNumber;
                 }
-                aResp->res.jsonValue["PartNumber"] = *partNumber;
             }
             else if (property.first == "SparePartNumber")
             {
                 const std::string* sparePartNumber =
                     std::get_if<std::string>(&property.second);
-
-                if (sparePartNumber == nullptr)
+                if (sparePartNumber != nullptr && !sparePartNumber->empty())
                 {
-                    messages::internalError(aResp->res);
-                    return;
+                    aResp->res.jsonValue["SparePartNumber"] = *sparePartNumber;
                 }
-                aResp->res.jsonValue["SparePartNumber"] = *sparePartNumber;
             }
         }
         },
@@ -387,7 +381,7 @@ inline void getCpuRevisionData(std::shared_ptr<bmcweb::AsyncResp> aResp,
             {
                 const std::string* ver =
                     std::get_if<std::string>(&property.second);
-                if (ver != nullptr)
+                if (ver != nullptr && !ver->empty())
                 {
                     aResp->res.jsonValue["Version"] = *ver;
                 }
