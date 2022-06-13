@@ -37,6 +37,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6f6465e5_03d37501",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 47
+      },
+      "lineNbr": 1119,
+      "author": {
+        "id": 1001428
+      },
+      "writtenOn": "2022-06-13T21:06:37Z",
+      "side": 1,
+      "message": "I\u0027m thinking throwing an error here is ideal since something is wrong if I find more than the two properties. Not sure if I should return false here though (since that would cause an error and leave function even if the properties are present just scattered).\nI can implement some logic with a counter to guarantee both properties are read.",
+      "revId": "1e22d4eeea63e2b3b64e2b62413814ea48a95fff",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5b4a43bd_68e07053",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 47
