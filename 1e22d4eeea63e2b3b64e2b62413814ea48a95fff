@@ -52,6 +52,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3b9f676e_d0b3337b",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 47
+      },
+      "lineNbr": 1119,
+      "author": {
+        "id": 1001428
+      },
+      "writtenOn": "2022-06-13T21:19:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "55488c66_853ec3d5",
+      "revId": "1e22d4eeea63e2b3b64e2b62413814ea48a95fff",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5b4a43bd_68e07053",
@@ -65,6 +83,24 @@
       "writtenOn": "2022-06-13T21:05:21Z",
       "side": 1,
       "message": "Nitpick: Above Debug makes sense but here BMCWEB_LOG_ERROR probably makes more sense, anytime you are returning an internal error I would think you would want BMCWEB_LOG_ERROR.",
+      "revId": "1e22d4eeea63e2b3b64e2b62413814ea48a95fff",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d0010fd4_e1702b7c",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 47
+      },
+      "lineNbr": 1151,
+      "author": {
+        "id": 1001428
+      },
+      "writtenOn": "2022-06-13T21:19:45Z",
+      "side": 1,
+      "message": "Yep, changed. I might\u0027ve added the \"DEBUG\" when debugging so it would show up in the journal. Did this a couple weeks ago so the opposite may be true.",
+      "parentUuid": "5b4a43bd_68e07053",
       "revId": "1e22d4eeea63e2b3b64e2b62413814ea48a95fff",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -86,6 +122,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "17995159_72f75e7f",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 47
+      },
+      "lineNbr": 1184,
+      "author": {
+        "id": 1001428
+      },
+      "writtenOn": "2022-06-13T21:19:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f6b30974_e69331f5",
+      "revId": "1e22d4eeea63e2b3b64e2b62413814ea48a95fff",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4c81c726_a103feca",
@@ -103,6 +157,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1e94cc1e_9d8f7d18",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 47
+      },
+      "lineNbr": 1277,
+      "author": {
+        "id": 1001428
+      },
+      "writtenOn": "2022-06-13T21:19:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4c81c726_a103feca",
+      "revId": "1e22d4eeea63e2b3b64e2b62413814ea48a95fff",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "56c05e5e_8ac7c4e7",
@@ -116,6 +188,24 @@
       "writtenOn": "2022-06-13T21:05:21Z",
       "side": 1,
       "message": "nitpick ec2 ? since above is the 1st. Oh well.",
+      "revId": "1e22d4eeea63e2b3b64e2b62413814ea48a95fff",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "52c8d592_2134f2c0",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 47
+      },
+      "lineNbr": 1304,
+      "author": {
+        "id": 1001428
+      },
+      "writtenOn": "2022-06-13T21:19:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "56c05e5e_8ac7c4e7",
       "revId": "1e22d4eeea63e2b3b64e2b62413814ea48a95fff",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
