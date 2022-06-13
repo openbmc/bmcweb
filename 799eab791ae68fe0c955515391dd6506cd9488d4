@@ -22,6 +22,30 @@
       },
       "revId": "799eab791ae68fe0c955515391dd6506cd9488d4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "715f79ae_aa6ce412",
+        "filename": "src/openbmc_jtag_rest_test.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-13T22:54:45Z",
+      "side": 0,
+      "message": "It might be just a typo. \n\n```\ni         {si}      b\n\ninteger    map      boolean\n```\n\nIn no case it will get \"aa{si}\" from \"i{si}b\"",
+      "parentUuid": "3efeb8ea_3315e4d0",
+      "range": {
+        "startLine": 51,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 55
+      },
+      "revId": "799eab791ae68fe0c955515391dd6506cd9488d4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
