@@ -91,6 +91,26 @@ inline void
                     const dbus::utility::DBusPropertiesMap& properties) {
                 fillCableProperties(asyncResp->res, ec, properties);
                 });
+
+            sdbusplus::asio::getProperty<std::string>(
+                *crow::connections::systemBus, service, cableObjectPath,
+                "xyz.openbmc_project.Inventory.Decorator.Asset", "PartNumber",
+                [asyncResp](const boost::system::error_code ec,
+                            const std::string& property) {
+                if (ec.value() == EBADR)
+                {
+                    // PartNumber is optional, ignore the failure if it doesn't
+                    // exist.
+                    return;
+                }
+                if (ec)
+                {
+                    BMCWEB_LOG_DEBUG << "DBus response error for PartNumber";
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                asyncResp->res.jsonValue["PartNumber"] = property;
+                });
         }
     }
 }
