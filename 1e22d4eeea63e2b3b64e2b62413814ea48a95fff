@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c6b1a60f_0c8140c6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 47
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-06-13T21:05:21Z",
+      "side": 1,
+      "message": "Looks good, the one comment I think needs addressed is if this isn\u0027t on D-Bus but the user set.. Need to return like a NotFound ",
+      "revId": "1e22d4eeea63e2b3b64e2b62413814ea48a95fff",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "55488c66_853ec3d5",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 47
+      },
+      "lineNbr": 1119,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-06-13T21:05:21Z",
+      "side": 1,
+      "message": "Nitpick: If we throwing an internal error, I would think this should be BMCWEB_LOG_ERROR",
+      "revId": "1e22d4eeea63e2b3b64e2b62413814ea48a95fff",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5b4a43bd_68e07053",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 47
+      },
+      "lineNbr": 1151,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-06-13T21:05:21Z",
+      "side": 1,
+      "message": "Nitpick: Above Debug makes sense but here BMCWEB_LOG_ERROR probably makes more sense, anytime you are returning an internal error I would think you would want BMCWEB_LOG_ERROR.",
+      "revId": "1e22d4eeea63e2b3b64e2b62413814ea48a95fff",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f6b30974_e69331f5",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 47
+      },
+      "lineNbr": 1184,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-06-13T21:05:21Z",
+      "side": 1,
+      "message": "ec2? like you do below?",
+      "revId": "1e22d4eeea63e2b3b64e2b62413814ea48a95fff",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4c81c726_a103feca",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 47
+      },
+      "lineNbr": 1277,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-06-13T21:05:21Z",
+      "side": 1,
+      "message": "Opps, this is the Set (on the GET it makes sense to leave off) so I think this has to be something back to the user to let them know it is unsupported\nhttps://github.com/openbmc/bmcweb/blob/3215e700d225fd56bcf036d2095e7157bd38f03a/redfish-core/lib/systems.hpp#L2038\nuses \n        if (subtree.empty())\n        {\n            // This is an optional D-Bus object, but user attempted to patch\n            messages::resourceNotFound(aResp-\u003eres, \"ComputerSystem\",\n                                       \"PowerMode\");\n            return;\n        }\nwhich I think resourceNotFound makes sense\n\nTPM used propertyValueNotInList: \nhttps://github.com/openbmc/bmcweb/blob/3215e700d225fd56bcf036d2095e7157bd38f03a/redfish-core/lib/systems.hpp#L1302\n\n       if (subtree.empty())\n        {\n            messages::propertyValueNotInList(aResp-\u003eres, \"ComputerSystem\",\n                                             \"TrustedModuleRequiredToBoot\");\n            return;\n        }\n\nwhich i don\u0027t think makes as much sense",
+      "revId": "1e22d4eeea63e2b3b64e2b62413814ea48a95fff",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "56c05e5e_8ac7c4e7",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 47
+      },
+      "lineNbr": 1304,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-06-13T21:05:21Z",
+      "side": 1,
+      "message": "nitpick ec2 ? since above is the 1st. Oh well.",
+      "revId": "1e22d4eeea63e2b3b64e2b62413814ea48a95fff",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
