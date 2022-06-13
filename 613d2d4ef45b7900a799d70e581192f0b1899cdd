@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "35555137_f9ac78db",
         "filename": "/COMMIT_MSG",
@@ -14,10 +15,10 @@
       "side": 1,
       "message": "Please follow https://chris.beams.io/posts/git-commit/\n\n    Separate subject from body with a blank line\n    Limit the subject line to 50 characters\n    Capitalize the subject line\n    Do not end the subject line with a period\n    Use the imperative mood in the subject line\n    Wrap the body at 72 characters\n    Use the body to explain what and why vs. how",
       "revId": "613d2d4ef45b7900a799d70e581192f0b1899cdd",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "a357afc6_86173501",
         "filename": "/COMMIT_MSG",
@@ -31,10 +32,10 @@
       "side": 1,
       "message": "Redfish Validator ?",
       "revId": "613d2d4ef45b7900a799d70e581192f0b1899cdd",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "c09e8e2f_22cfc2c0",
         "filename": "redfish-core/lib/hypervisor_system.hpp",
@@ -48,10 +49,10 @@
       "side": 1,
       "message": "huh? Why..?",
       "revId": "613d2d4ef45b7900a799d70e581192f0b1899cdd",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "93d4c511_685a1e46",
         "filename": "redfish-core/lib/hypervisor_system.hpp",
@@ -66,10 +67,10 @@
       "message": "forgot to remove this method.\nthis is not needed at all here",
       "parentUuid": "c09e8e2f_22cfc2c0",
       "revId": "613d2d4ef45b7900a799d70e581192f0b1899cdd",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "99563819_522caa92",
         "filename": "redfish-core/lib/hypervisor_system.hpp",
@@ -83,10 +84,10 @@
       "side": 1,
       "message": "This shouldnt be the case right? It should either be returning null and validation should be done in the caller method or it must be throwing an error?",
       "revId": "613d2d4ef45b7900a799d70e581192f0b1899cdd",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "5e32dba9_587e7543",
         "filename": "redfish-core/lib/hypervisor_system.hpp",
@@ -101,10 +102,10 @@
       "message": "this method is not used, removing",
       "parentUuid": "99563819_522caa92",
       "revId": "613d2d4ef45b7900a799d70e581192f0b1899cdd",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "ca7a0a83_a36e3f3b",
         "filename": "redfish-core/lib/hypervisor_system.hpp",
@@ -118,10 +119,10 @@
       "side": 1,
       "message": "Typically this is the reverse \nif (enabled \u003d\u003d nullptr)\ninternalError ;\n\nSame below and above",
       "revId": "613d2d4ef45b7900a799d70e581192f0b1899cdd",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "5a027eed_f4a52859",
         "filename": "redfish-core/lib/hypervisor_system.hpp",
@@ -136,10 +137,10 @@
       "message": "we have followed same in multiple places.\ncan you please explain me wrong doing this way.",
       "parentUuid": "ca7a0a83_a36e3f3b",
       "revId": "613d2d4ef45b7900a799d70e581192f0b1899cdd",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "0e4b3acd_fad23012",
         "filename": "redfish-core/lib/hypervisor_system.hpp",
@@ -154,10 +155,28 @@
       "message": "There are two reasons:\n\n1. When you do as Gunnar suggests it often allows to return early and reduce code indentation which saves horizontal space.\n2. Almost all other places in bmcweb follows this pattern to return early, it\u0027s easier to read because code which does same thing will look the same.",
       "parentUuid": "5a027eed_f4a52859",
       "revId": "613d2d4ef45b7900a799d70e581192f0b1899cdd",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "497e4d07_6251c2f9",
+        "filename": "redfish-core/lib/hypervisor_system.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2022-06-13T11:22:32Z",
+      "side": 1,
+      "message": "This needs to be addressed to return internal server error to the user.",
+      "parentUuid": "0e4b3acd_fad23012",
+      "revId": "613d2d4ef45b7900a799d70e581192f0b1899cdd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "0a15ac9a_c6c236a8",
         "filename": "redfish-core/lib/hypervisor_system.hpp",
@@ -177,10 +196,10 @@
         "endChar": 17
       },
       "revId": "613d2d4ef45b7900a799d70e581192f0b1899cdd",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "9ef4116d_8ea4a889",
         "filename": "redfish-core/lib/hypervisor_system.hpp",
@@ -201,8 +220,7 @@
         "endChar": 17
       },
       "revId": "613d2d4ef45b7900a799d70e581192f0b1899cdd",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
