@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f8408d18_e3446f7a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-13T19:39:14Z",
+      "side": 1,
+      "message": "This test was disabled",
+      "revId": "799eab791ae68fe0c955515391dd6506cd9488d4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6dccbac5_f76f1844",
+        "filename": "src/kvm_websocket_test.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-13T19:39:14Z",
+      "side": 1,
+      "message": "The old code was correct here.  The problem is that to run this test these days would require mocking out the kvm server, which we don\u0027t have a way to do yet, given that it\u0027s on a unix socket.  If you wanted to look into it, you could, but as-written, I\u0027m not sure how this test would even work to verify behavior.",
+      "range": {
+        "startLine": 128,
+        "startChar": 0,
+        "endLine": 130,
+        "endChar": 40
+      },
+      "revId": "799eab791ae68fe0c955515391dd6506cd9488d4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
