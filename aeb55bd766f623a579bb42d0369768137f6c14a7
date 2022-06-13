@@ -16,6 +16,23 @@
       "message": "LGTM for schema updates",
       "revId": "aeb55bd766f623a579bb42d0369768137f6c14a7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3fb5b0f5_bb8d6b2c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-13T16:14:39Z",
+      "side": 1,
+      "message": "This is pretty trivial schema additions, and has been in review in the other patchset for some time.\n\nAs always, happy to discuss, but I\u0027m quite sure nobody will take issue with this or review it further, merging.",
+      "revId": "aeb55bd766f623a579bb42d0369768137f6c14a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
