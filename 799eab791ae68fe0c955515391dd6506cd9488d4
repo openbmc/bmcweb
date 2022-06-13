@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ab298319_164d0c10",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-13T19:53:23Z",
+      "side": 1,
+      "message": "Right, I found there are test codes that are not enabled at all in the source tree. The list of patches I was doing is to enable them again.",
+      "parentUuid": "f8408d18_e3446f7a",
+      "revId": "799eab791ae68fe0c955515391dd6506cd9488d4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6dccbac5_f76f1844",
@@ -31,6 +49,30 @@
       "writtenOn": "2022-06-13T19:39:14Z",
       "side": 1,
       "message": "The old code was correct here.  The problem is that to run this test these days would require mocking out the kvm server, which we don\u0027t have a way to do yet, given that it\u0027s on a unix socket.  If you wanted to look into it, you could, but as-written, I\u0027m not sure how this test would even work to verify behavior.",
+      "range": {
+        "startLine": 128,
+        "startChar": 0,
+        "endLine": 130,
+        "endChar": 40
+      },
+      "revId": "799eab791ae68fe0c955515391dd6506cd9488d4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f5a04cc9_bb746593",
+        "filename": "src/kvm_websocket_test.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-13T19:53:23Z",
+      "side": 1,
+      "message": "Oh, I might misunderstood this test. I thought it doesn\u0027t require the KVM socket port. \n\nOn my workstation, I am getting a connection error here https://github.com/openbmc/bmcweb/blob/002d39b4a7a5ed7166e2acad84e0943c3def9492/include/kvm_websocket.hpp#L30,\n\nbut the test here still works.",
+      "parentUuid": "6dccbac5_f76f1844",
       "range": {
         "startLine": 128,
         "startChar": 0,
