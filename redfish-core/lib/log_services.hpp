@@ -485,14 +485,9 @@ inline void
 }
 
 inline void
-    getDumpEntryById(crow::App& app, const crow::Request& req,
-                     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    getDumpEntryById(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                      const std::string& entryID, const std::string& dumpType)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
-    {
-        return;
-    }
     std::string dumpPath;
     if (dumpType == "BMC")
     {
@@ -2347,8 +2342,7 @@ inline void requestRoutesBMCDumpEntry(App& app)
         {
             return;
         }
-
-        getDumpEntryById(app, req, asyncResp, param, "BMC");
+        getDumpEntryById(asyncResp, param, "BMC");
         });
     BMCWEB_ROUTE(app,
                  "/redfish/v1/Managers/bmc/LogServices/Dump/Entries/<str>/")
@@ -2473,7 +2467,11 @@ inline void requestRoutesSystemDumpEntry(App& app)
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                    const std::string& param) {
-        getDumpEntryById(app, req, asyncResp, param, "System");
+        if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+        {
+            return;
+        }
+        getDumpEntryById(asyncResp, param, "System");
         });
 
     BMCWEB_ROUTE(app,
