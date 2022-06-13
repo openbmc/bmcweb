@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3efeb8ea_3315e4d0",
+        "filename": "src/openbmc_jtag_rest_test.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-13T20:05:21Z",
+      "side": 0,
+      "message": "@mspinler.  Do you remember the history here?  This test case does look a little odd, but I\u0027m not sure I remember what the arg splitting rules were.",
+      "range": {
+        "startLine": 51,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 55
+      },
+      "revId": "799eab791ae68fe0c955515391dd6506cd9488d4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
