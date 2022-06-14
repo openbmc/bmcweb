@@ -618,7 +618,7 @@ static void
 static void getCertificateProperties(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& objectPath, const std::string& service,
-    const std::string& certId, const std::string& certURL,
+    const std::string& certId, const boost::urls::url& certURL,
     const std::string& name)
 {
     BMCWEB_LOG_DEBUG << "getCertificateProperties Path=" << objectPath
@@ -704,7 +704,8 @@ static void getCertificateProperties(
                 }
             }
         }
-        asyncResp->res.addHeader("Location", certURL);
+        asyncResp->res.addHeader(
+            "Location", std::string_view(certURL.data(), certURL.size()));
         },
         service, objectPath, certs::dbusPropIntf, "GetAll",
         certs::certPropIntf);
@@ -815,7 +816,7 @@ inline void requestRoutesCertificateActionsReplaceCertificate(App& app)
         std::shared_ptr<CertificateFile> certFile =
             std::make_shared<CertificateFile>(certificate);
         crow::connections::systemBus->async_method_call(
-            [asyncResp, certFile, objectPath, service, certURI, id,
+            [asyncResp, certFile, objectPath, service, url{*parsedUrl}, id,
              name](const boost::system::error_code ec) {
             if (ec)
             {
@@ -829,8 +830,8 @@ inline void requestRoutesCertificateActionsReplaceCertificate(App& app)
                 messages::internalError(asyncResp->res);
                 return;
             }
-            getCertificateProperties(asyncResp, objectPath, service, id,
-                                     certURI, name);
+            getCertificateProperties(asyncResp, objectPath, service, id, url,
+                                     name);
             BMCWEB_LOG_DEBUG << "HTTPS certificate install file="
                              << certFile->getCertFilePath();
             },
@@ -850,26 +851,25 @@ inline void requestRoutesHTTPSCertificate(App& app)
         app,
         "/redfish/v1/Managers/bmc/NetworkProtocol/HTTPS/Certificates/<str>/")
         .privileges(redfish::privileges::getCertificate)
-        .methods(
-            boost::beast::http::verb::
-                get)([&app](const crow::Request& req,
-                            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                            const std::string& id) -> void {
-            if (!redfish::setUpRedfishRoute(app, req, asyncResp))
-            {
-                return;
-            }
+        .methods(boost::beast::http::verb::get)(
+            [&app](const crow::Request& req,
+                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                   const std::string& id) -> void {
+                if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+                {
+                    return;
+                }
 
-            BMCWEB_LOG_DEBUG << "HTTPS Certificate ID=" << id;
-            std::string certURL =
-                "/redfish/v1/Managers/bmc/NetworkProtocol/HTTPS/Certificates/" +
-                id;
-            sdbusplus::message::object_path path(certs::httpsObjectPath);
-            path /= id;
-            getCertificateProperties(asyncResp, path.str,
-                                     certs::httpsServiceName, id, certURL,
-                                     "HTTPS Certificate");
-        });
+                BMCWEB_LOG_DEBUG << "HTTPS Certificate ID=" << id;
+                const boost::urls::url certURL = crow::utility::urlFromPieces(
+                    "redfish", "v1", "Managers", "bmc", "NetworkProtocol",
+                    "HTTPS", "Certificates", id);
+                sdbusplus::message::object_path path(certs::httpsObjectPath);
+                path /= id;
+                getCertificateProperties(asyncResp, path.str,
+                                         certs::httpsServiceName, id, certURL,
+                                         "HTTPS Certificate");
+            });
 }
 
 /**
@@ -939,9 +939,9 @@ inline void requestRoutesHTTPSCertificateCollection(App& app)
             }
 
             sdbusplus::message::object_path path(objectPath);
-            std::string certURL =
-                "/redfish/v1/Managers/bmc/NetworkProtocol/HTTPS/Certificates/" +
-                path.filename();
+            const boost::urls::url certURL = crow::utility::urlFromPieces(
+                "redfish", "v1", "Managers", "bmc", "NetworkProtocol", "HTTPS",
+                "Certificates", path.filename());
             getCertificateProperties(asyncResp, objectPath,
                                      certs::httpsServiceName, path.filename(),
                                      certURL, "HTTPS Certificate");
@@ -1045,9 +1045,9 @@ inline void requestRoutesLDAPCertificateCollection(App& app)
             }
 
             sdbusplus::message::object_path path(objectPath);
-            std::string certURL =
-                "/redfish/v1/AccountService/LDAP/Certificates/" +
-                path.filename();
+            const boost::urls::url certURL = crow::utility::urlFromPieces(
+                "redfish", "v1", "AccountService", "LDAP", "Certificates",
+                path.filename());
             getCertificateProperties(asyncResp, objectPath,
                                      certs::ldapServiceName, path.filename(),
                                      certURL, "LDAP Certificate");
@@ -1077,8 +1077,8 @@ inline void requestRoutesLDAPCertificate(App& app)
         }
 
         BMCWEB_LOG_DEBUG << "LDAP Certificate ID=" << id;
-        std::string certURL =
-            "/redfish/v1/AccountService/LDAP/Certificates/" + id;
+        const boost::urls::url certURL = crow::utility::urlFromPieces(
+            "redfish", "v1", "AccountService", "LDAP", "Certificates", id);
         sdbusplus::message::object_path path(certs::ldapObjectPath);
         path /= id;
         getCertificateProperties(asyncResp, path.str, certs::ldapServiceName,
@@ -1144,9 +1144,9 @@ inline void requestRoutesTrustStoreCertificateCollection(App& app)
             }
 
             sdbusplus::message::object_path path(objectPath);
-            std::string certURL =
-                "/redfish/v1/Managers/bmc/Truststore/Certificates/" +
-                path.filename();
+            const boost::urls::url certURL = crow::utility::urlFromPieces(
+                "redfish", "v1", "Managers", "bmc", "Truststore",
+                "Certificates", path.filename());
             getCertificateProperties(
                 asyncResp, objectPath, certs::authorityServiceName,
                 path.filename(), certURL, "TrustStore Certificate");
@@ -1176,8 +1176,9 @@ inline void requestRoutesTrustStoreCertificate(App& app)
         }
 
         BMCWEB_LOG_DEBUG << "Truststore Certificate ID=" << id;
-        std::string certURL =
-            "/redfish/v1/Managers/bmc/Truststore/Certificates/" + id;
+        auto certURL =
+            crow::utility::urlFromPieces("redfish", "v1", "Managers", "bmc",
+                                         "Truststore", "Certificates", id);
         sdbusplus::message::object_path path(certs::authorityObjectPath);
         path /= id;
         getCertificateProperties(asyncResp, path.str,
