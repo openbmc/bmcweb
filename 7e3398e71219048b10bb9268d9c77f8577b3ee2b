@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9adbf672_19580936",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-06-14T03:14:47Z",
+      "side": 1,
+      "message": "added",
+      "parentUuid": "4cf8d025_588793e1",
+      "revId": "7e3398e71219048b10bb9268d9c77f8577b3ee2b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a480e7a2_8bd4c7e3",
@@ -31,6 +49,24 @@
       "writtenOn": "2022-06-10T20:43:27Z",
       "side": 1,
       "message": "Please actually write a commit message. It doesn\u0027t need to be extensive, but the above comments basically fall under the common theme of this commit not having anything but a title.",
+      "revId": "7e3398e71219048b10bb9268d9c77f8577b3ee2b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b06aab7_0b2fc427",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-06-14T03:14:47Z",
+      "side": 1,
+      "message": "I will pad out a commit message if you really think that would be helpful.",
+      "parentUuid": "a480e7a2_8bd4c7e3",
       "revId": "7e3398e71219048b10bb9268d9c77f8577b3ee2b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -54,6 +90,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3110697d_77a0fbf9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-06-14T03:14:47Z",
+      "side": 1,
+      "message": "Maybe, the URI that I am updating does not appear in the redfish.md.\n\n\"/redfish/v1/Systems/system/Storage/1/Drives/\u003cstr\u003e\"\n\nWe can add it in this change, or make a new change, or neither. My work here is 18 lines long.",
+      "parentUuid": "7593b087_b34f22a3",
+      "revId": "7e3398e71219048b10bb9268d9c77f8577b3ee2b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4244d054_51758d7f",
         "filename": "redfish-core/lib/storage.hpp",
         "patchSetId": 4
@@ -65,6 +119,30 @@
       "writtenOn": "2022-06-10T20:47:16Z",
       "side": 1,
       "message": "in the PDI review for this, is there any way for this property to be \"unknown\"?  Generally we handle that by omitting the property if it is in the \"unknown\" state.",
+      "range": {
+        "startLine": 466,
+        "startChar": 0,
+        "endLine": 466,
+        "endChar": 69
+      },
+      "revId": "7e3398e71219048b10bb9268d9c77f8577b3ee2b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "76dc23fc_1086072c",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 466,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-06-14T03:14:47Z",
+      "side": 1,
+      "message": "done. 255 is the value for unsupported.",
+      "parentUuid": "4244d054_51758d7f",
       "range": {
         "startLine": 466,
         "startChar": 0,
