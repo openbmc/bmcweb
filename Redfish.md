@@ -690,6 +690,14 @@ the other.
 - Drives@odata.count
 - Status
 
+#### /redfish/v1/Systems/system/Storage/{StorageId}/Drive/{DriveId}/
+##### Storage
+- Id
+- Name
+- Status
+- Links
+- CapacityBytes
+
 #### /redfish/v1/TaskService/
 ##### TaskService
 - CompletedTaskOverWritePolicy
