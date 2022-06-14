@@ -416,7 +416,7 @@ inline bool
         boost::urls::parse_uri(boost::string_view(imageUrl));
     if (!url)
     {
-        messages::resourceAtUriInUnknownFormat(res, *url);
+        messages::resourceAtUriInUnknownFormat(res, {});
         return {};
     }
     std::optional<TransferProtocol> uriTransferProtocolType =
