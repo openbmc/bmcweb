@@ -27,8 +27,8 @@
 #include <dbus_utility.hpp>
 #include <registries/privilege_registry.hpp>
 #include <sdbusplus/asio/property.hpp>
-#include <utils/fw_utils.hpp>
 #include <utils/json_utils.hpp>
+#include <utils/sw_utils.hpp>
 
 #include <variant>
 
@@ -466,8 +466,8 @@ inline void
                             }
 
                             // Grab the bios version
-                            fw_util::populateFirmwareInformation(
-                                aResp, fw_util::biosPurpose, "BiosVersion",
+                            sw_util::populateSoftwareInformation(
+                                aResp, sw_util::biosPurpose, "BiosVersion",
                                 false);
                             },
                             connection.first, path,
