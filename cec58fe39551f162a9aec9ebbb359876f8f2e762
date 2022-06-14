@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6dbe0e4a_7ea6f362",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-14T23:34:26Z",
+      "side": 1,
+      "message": "Trivial change.  As always, happy to discuss, but I can\u0027t imagine anyone has an issue with this.",
+      "revId": "cec58fe39551f162a9aec9ebbb359876f8f2e762",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
