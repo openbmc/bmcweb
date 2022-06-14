@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9094cf3d_63d65355",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-06-14T00:27:08Z",
+      "side": 1,
+      "message": "Found this issue while rebasing https://gerrit.openbmc.org/c/openbmc/bmcweb/+/52693 since the new unit test cases that call getDumpEntryById() started to fail after the rebase (due to calling setUpRedfishRoute() from within getDumpEntryById()).",
+      "revId": "2460a335c3f06a324d6d5f40869ba589e9a9bbe5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
