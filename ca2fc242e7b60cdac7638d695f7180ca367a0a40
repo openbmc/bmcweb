@@ -16,6 +16,24 @@
       "message": "do you think we need to log the error here also?",
       "revId": "ca2fc242e7b60cdac7638d695f7180ca367a0a40",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bf42ea21_24669577",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 63
+      },
+      "lineNbr": 1190,
+      "author": {
+        "id": 1001428
+      },
+      "writtenOn": "2022-06-14T15:26:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a16ea4bb_aee867d8",
+      "revId": "ca2fc242e7b60cdac7638d695f7180ca367a0a40",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
