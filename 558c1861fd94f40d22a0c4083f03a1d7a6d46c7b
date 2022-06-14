@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a71aaf37_96ea7bed",
+        "filename": "Redfish.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 677,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-14T20:57:10Z",
+      "side": 1,
+      "message": "Seems correct by reading \n\n$ wget -qO- http://localhost:80/redfish/v1/Chassis/DC_SCM/Drives/mmcblk0\n{\n  \"@odata.context\": \"/redfish/v1/$metadata#Drive.Drive\",\n  \"@odata.id\": \"/redfish/v1/Chassis/Drives/mmcblk0\",\n  \"@odata.type\": \"#Drive.v1_7_0.Drive\",\n  \"CapacityBytes\": 15634268160,\n  \"EncryptionStatus\": \"Unencrypted\",\n  \"Id\": \"mmcblk0\",\n  \"Links\": {\n    \"Chassis\": \"Enabled\"\n  },\n  \"Name\": \"mmcblk0\",\n  \"PredictedMediaLifeLeftPercent\": 100,\n  \"Status\": {\n    \"State\": \"Enabled\"\n  }\n}",
+      "revId": "558c1861fd94f40d22a0c4083f03a1d7a6d46c7b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b835f080_45d8cbf5",
+        "filename": "Redfish.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 683,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-14T20:57:10Z",
+      "side": 1,
+      "message": "What\u0027s the convention when updating attributes in this doc? Shall we include all possible attributes?",
+      "range": {
+        "startLine": 683,
+        "startChar": 2,
+        "endLine": 683,
+        "endChar": 15
+      },
+      "revId": "558c1861fd94f40d22a0c4083f03a1d7a6d46c7b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
