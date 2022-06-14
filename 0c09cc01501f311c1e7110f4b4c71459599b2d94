@@ -314,6 +314,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c9d4ff7b_c93a8a6d",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 964,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-06-14T12:09:21Z",
+      "side": 1,
+      "message": "Okay I\u0027ve found crow::utility::urlFromPieces, going to use this. Done.",
+      "parentUuid": "907d6cb9_5bbbad4c",
+      "range": {
+        "startLine": 964,
+        "startChar": 12,
+        "endLine": 964,
+        "endChar": 23
+      },
+      "revId": "0c09cc01501f311c1e7110f4b4c71459599b2d94",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ecc9c7c3_f66b7388",
