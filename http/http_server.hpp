@@ -202,9 +202,6 @@ class Server
 
     Handler* handler;
 
-#ifdef BMCWEB_ENABLE_SSL
-    bool useSsl{false};
-#endif
     std::shared_ptr<boost::asio::ssl::context> adaptorCtx;
 };
 } // namespace crow
