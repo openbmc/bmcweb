@@ -90,6 +90,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d6b7d9c6_2f141a4c",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 889,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-06-14T23:38:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "855bd704_9bd8bda1",
+      "revId": "d2a139093b135fb804eca7534dbc299f36f8d092",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "377ff6f9_4a206e54",
@@ -121,6 +139,24 @@
       "side": 1,
       "message": "Actually, this should be propertyMissing instead.",
       "parentUuid": "377ff6f9_4a206e54",
+      "revId": "d2a139093b135fb804eca7534dbc299f36f8d092",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "db598c86_60f5682d",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 895,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-06-14T23:38:57Z",
+      "side": 1,
+      "message": "moved to internalError instead.",
+      "parentUuid": "204a10c5_674e1f74",
       "revId": "d2a139093b135fb804eca7534dbc299f36f8d092",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -186,6 +222,30 @@
       "side": 1,
       "message": "arguably they should both be \"software\" so we can reuse this on software inventory, but the getFwStatus existed before.  I don\u0027t have a strong opinion here, but if gunnar really wants it, I\u0027m happy to wait for something renaming this method.",
       "parentUuid": "6b7b62a9_4ed6a56a",
+      "range": {
+        "startLine": 966,
+        "startChar": 45,
+        "endLine": 966,
+        "endChar": 56
+      },
+      "revId": "d2a139093b135fb804eca7534dbc299f36f8d092",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ab21cf64_be7e1a38",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 966,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-06-14T23:38:57Z",
+      "side": 1,
+      "message": "Rename it in https://gerrit.openbmc.org/c/openbmc/bmcweb/+/54577",
+      "parentUuid": "e12a253c_d022a2c5",
       "range": {
         "startLine": 966,
         "startChar": 45,

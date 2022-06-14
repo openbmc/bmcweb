@@ -67,6 +67,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fdbc4bda_15fddb42",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 842,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-06-14T23:38:57Z",
+      "side": 1,
+      "message": "What is the issue that you are referring to? I added this to make sure the Purpose interface are only valid/supported in phosphor-dbus-interface and just listed out all of the ones that is available now.\n\nhttps://github.com/openbmc/phosphor-dbus-interfaces/blob/388b58f9a878f45b8ec243152cac5eb44ec90ced/yaml/xyz/openbmc_project/Software/Version.interface.yaml#L21\n\nDo you have any context on the questions that you listed? I thought having multiple hosts won\u0027t matter in this case? The Software Purpose seems independent of the machine configuration.\n\n\n---\n\nI am not sure which VR work we are referring to.",
+      "parentUuid": "24d71639_2ba08828",
+      "revId": "a58a73d86c887a6c322fda537dd5e07696a74f43",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c6122c9e_b5e27161",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 16
@@ -90,6 +108,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1631be03_dc0b8314",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 845,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-06-14T23:38:57Z",
+      "side": 1,
+      "message": "Moving most of the move in https://gerrit.openbmc.org/c/openbmc/bmcweb/+/54578",
+      "parentUuid": "c6122c9e_b5e27161",
+      "range": {
+        "startLine": 845,
+        "startChar": 0,
+        "endLine": 845,
+        "endChar": 75
+      },
+      "revId": "a58a73d86c887a6c322fda537dd5e07696a74f43",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e6b9741a_70ff482c",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 16
@@ -101,6 +143,30 @@
       "writtenOn": "2022-04-25T02:37:05Z",
       "side": 1,
       "message": "all of these need to be internalError().  The user did not supply Purpose, so we shouldn\u0027t be telling them they supplied it incorrectly.",
+      "range": {
+        "startLine": 872,
+        "startChar": 0,
+        "endLine": 872,
+        "endChar": 76
+      },
+      "revId": "a58a73d86c887a6c322fda537dd5e07696a74f43",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f0769d24_d21e88e9",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 872,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-06-14T23:38:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e6b9741a_70ff482c",
       "range": {
         "startLine": 872,
         "startChar": 0,
@@ -141,6 +207,30 @@
       "writtenOn": "2022-04-25T02:37:05Z",
       "side": 1,
       "message": "FWIW, we tend to not throw internal errors on missing properties (yes, there are counter examples) because dbus interfaces aren\u0027t versioned, and have removed/renamed fields in the past.",
+      "range": {
+        "startLine": 913,
+        "startChar": 0,
+        "endLine": 924,
+        "endChar": 13
+      },
+      "revId": "a58a73d86c887a6c322fda537dd5e07696a74f43",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d0d6f79e_cd935897",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 924,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-06-14T23:38:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "439afc19_017e9263",
       "range": {
         "startLine": 913,
         "startChar": 0,
