@@ -1,0 +1,159 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f2630f73_0e9da7d3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-06-14T22:36:25Z",
+      "side": 1,
+      "message": "Spoke with Ed, and found some more items to change",
+      "revId": "97f6c7242e6416e9f6217c4101f830fcee36746e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "44414a87_e9b3921a",
+        "filename": "Redfish.md",
+        "patchSetId": 14
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-06-14T22:36:25Z",
+      "side": 1,
+      "message": "fix wrapping",
+      "range": {
+        "startLine": 158,
+        "startChar": 51,
+        "endLine": 158,
+        "endChar": 55
+      },
+      "revId": "97f6c7242e6416e9f6217c4101f830fcee36746e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a45618d3_03adadd3",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 747,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-06-14T22:36:25Z",
+      "side": 1,
+      "message": "no more odata context",
+      "range": {
+        "startLine": 747,
+        "startChar": 0,
+        "endLine": 747,
+        "endChar": 60
+      },
+      "revId": "97f6c7242e6416e9f6217c4101f830fcee36746e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "41017d88_08616a50",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 755,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-06-14T22:36:25Z",
+      "side": 1,
+      "message": "Probably \"Drive\" not the same as ID",
+      "range": {
+        "startLine": 755,
+        "startChar": 49,
+        "endLine": 755,
+        "endChar": 58
+      },
+      "revId": "97f6c7242e6416e9f6217c4101f830fcee36746e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d12e84f6_2cde0a30",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 762,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-06-14T22:36:25Z",
+      "side": 1,
+      "message": "linkChassisNav",
+      "range": {
+        "startLine": 762,
+        "startChar": 64,
+        "endLine": 762,
+        "endChar": 71
+      },
+      "revId": "97f6c7242e6416e9f6217c4101f830fcee36746e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e20ea6ee_a8e0c4fc",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 775,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-06-14T22:36:25Z",
+      "side": 1,
+      "message": "handleChassisDriveGet",
+      "range": {
+        "startLine": 775,
+        "startChar": 5,
+        "endLine": 775,
+        "endChar": 24
+      },
+      "revId": "97f6c7242e6416e9f6217c4101f830fcee36746e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "70264d90_9f72d012",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 823,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-06-14T22:36:25Z",
+      "side": 1,
+      "message": "maybe association is backwards",
+      "range": {
+        "startLine": 823,
+        "startChar": 51,
+        "endLine": 823,
+        "endChar": 67
+      },
+      "revId": "97f6c7242e6416e9f6217c4101f830fcee36746e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
