@@ -9,44 +9,44 @@
 
 namespace redfish
 {
-namespace fw_util
+namespace sw_util
 {
-/* @brief String that indicates a bios firmware instance */
+/* @brief String that indicates a bios software instance */
 constexpr const char* biosPurpose =
     "xyz.openbmc_project.Software.Version.VersionPurpose.Host";
 
-/* @brief String that indicates a BMC firmware instance */
+/* @brief String that indicates a BMC software instance */
 constexpr const char* bmcPurpose =
     "xyz.openbmc_project.Software.Version.VersionPurpose.BMC";
 
 /**
- * @brief Populate the running firmware version and image links
+ * @brief Populate the running software version and image links
  *
  * @param[i,o] aResp             Async response object
- * @param[i]   fwVersionPurpose  Indicates what target to look for
+ * @param[i]   swVersionPurpose  Indicates what target to look for
  * @param[i]   activeVersionPropName  Index in aResp->res.jsonValue to write
- * the running firmware version to
+ * the running software version to
  * @param[i]   populateLinkToImages  Populate aResp->res "Links"
- * "ActiveSoftwareImage" with a link to the running firmware image and
- * "SoftwareImages" with a link to the all its firmware images
+ * "ActiveSoftwareImage" with a link to the running software image and
+ * "SoftwareImages" with a link to the all its software images
  *
  * @return void
  */
 inline void
-    populateFirmwareInformation(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
-                                const std::string& fwVersionPurpose,
+    populateSoftwareInformation(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+                                const std::string& swVersionPurpose,
                                 const std::string& activeVersionPropName,
                                 const bool populateLinkToImages)
 {
-    // Used later to determine running (known on Redfish as active) FW images
+    // Used later to determine running (known on Redfish as active) Sw images
     sdbusplus::asio::getProperty<std::vector<std::string>>(
         *crow::connections::systemBus, "xyz.openbmc_project.ObjectMapper",
         "/xyz/openbmc_project/software/functional",
         "xyz.openbmc_project.Association", "endpoints",
-        [aResp, fwVersionPurpose, activeVersionPropName,
+        [aResp, swVersionPurpose, activeVersionPropName,
          populateLinkToImages](const boost::system::error_code ec,
-                               const std::vector<std::string>& functionalFw) {
-        BMCWEB_LOG_DEBUG << "populateFirmwareInformation enter";
+                               const std::vector<std::string>& functionalSw) {
+        BMCWEB_LOG_DEBUG << "populateSoftwareInformation enter";
         if (ec)
         {
             BMCWEB_LOG_ERROR << "error_code = " << ec;
@@ -55,7 +55,7 @@ inline void
             return;
         }
 
-        if (functionalFw.empty())
+        if (functionalSw.empty())
         {
             // Could keep going and try to populate SoftwareImages but
             // something is seriously wrong, so just fail
@@ -64,25 +64,25 @@ inline void
             return;
         }
 
-        std::vector<std::string> functionalFwIds;
-        // example functionalFw:
+        std::vector<std::string> functionalSwIds;
+        // example functionalSw:
         // v as 2 "/xyz/openbmc_project/software/ace821ef"
         //        "/xyz/openbmc_project/software/230fb078"
-        for (const auto& fw : functionalFw)
+        for (const auto& sw : functionalSw)
         {
-            sdbusplus::message::object_path path(fw);
+            sdbusplus::message::object_path path(sw);
             std::string leaf = path.filename();
             if (leaf.empty())
             {
                 continue;
             }
 
-            functionalFwIds.push_back(leaf);
+            functionalSwIds.push_back(leaf);
         }
 
         crow::connections::systemBus->async_method_call(
-            [aResp, fwVersionPurpose, activeVersionPropName,
-             populateLinkToImages, functionalFwIds](
+            [aResp, swVersionPurpose, activeVersionPropName,
+             populateLinkToImages, functionalSwIds](
                 const boost::system::error_code ec2,
                 const dbus::utility::MapperGetSubTreeResponse& subtree) {
             if (ec2)
@@ -106,7 +106,7 @@ inline void
                 if (swId.empty())
                 {
                     messages::internalError(aResp->res);
-                    BMCWEB_LOG_ERROR << "Invalid firmware ID";
+                    BMCWEB_LOG_ERROR << "Invalid software ID";
 
                     return;
                 }
@@ -115,15 +115,15 @@ inline void
                 // Look at Ids from
                 // /xyz/openbmc_project/software/functional
                 // to determine if this is a running image
-                if (std::find(functionalFwIds.begin(), functionalFwIds.end(),
-                              swId) != functionalFwIds.end())
+                if (std::find(functionalSwIds.begin(), functionalSwIds.end(),
+                              swId) != functionalSwIds.end())
                 {
                     runningImage = true;
                 }
 
                 // Now grab its version info
                 crow::connections::systemBus->async_method_call(
-                    [aResp, swId, runningImage, fwVersionPurpose,
+                    [aResp, swId, runningImage, swVersionPurpose,
                      activeVersionPropName, populateLinkToImages](
                         const boost::system::error_code ec3,
                         const dbus::utility::DBusPropertiesMap&
@@ -185,7 +185,7 @@ inline void
                         messages::internalError(aResp->res);
                         return;
                     }
-                    if (swInvPurpose != fwVersionPurpose)
+                    if (swInvPurpose != swVersionPurpose)
                     {
                         // Not purpose we're looking for
                         return;
@@ -235,55 +235,55 @@ inline void
 }
 
 /**
- * @brief Translate input fwState to Redfish state
+ * @brief Translate input swState to Redfish state
  *
  * This function will return the corresponding Redfish state
  *
- * @param[i]   fwState  The OpenBMC firmware state
+ * @param[i]   swState  The OpenBMC software state
  *
  * @return The corresponding Redfish state
  */
-inline std::string getRedfishFWState(const std::string& fwState)
+inline std::string getRedfishSwState(const std::string& swState)
 {
-    if (fwState == "xyz.openbmc_project.Software.Activation.Activations.Active")
+    if (swState == "xyz.openbmc_project.Software.Activation.Activations.Active")
     {
         return "Enabled";
     }
-    if (fwState == "xyz.openbmc_project.Software.Activation."
+    if (swState == "xyz.openbmc_project.Software.Activation."
                    "Activations.Activating")
     {
         return "Updating";
     }
-    if (fwState == "xyz.openbmc_project.Software.Activation."
+    if (swState == "xyz.openbmc_project.Software.Activation."
                    "Activations.StandbySpare")
     {
         return "StandbySpare";
     }
-    BMCWEB_LOG_DEBUG << "Default fw state " << fwState << " to Disabled";
+    BMCWEB_LOG_DEBUG << "Default sw state " << swState << " to Disabled";
     return "Disabled";
 }
 
 /**
- * @brief Translate input fwState to Redfish health state
+ * @brief Translate input swState to Redfish health state
  *
  * This function will return the corresponding Redfish health state
  *
- * @param[i]   fwState  The OpenBMC firmware state
+ * @param[i]   swState  The OpenBMC software state
  *
  * @return The corresponding Redfish health state
  */
-inline std::string getRedfishFWHealth(const std::string& fwState)
+inline std::string getRedfishSwHealth(const std::string& swState)
 {
-    if ((fwState ==
+    if ((swState ==
          "xyz.openbmc_project.Software.Activation.Activations.Active") ||
-        (fwState == "xyz.openbmc_project.Software.Activation.Activations."
+        (swState == "xyz.openbmc_project.Software.Activation.Activations."
                     "Activating") ||
-        (fwState ==
+        (swState ==
          "xyz.openbmc_project.Software.Activation.Activations.Ready"))
     {
         return "OK";
     }
-    BMCWEB_LOG_DEBUG << "FW state " << fwState << " to Warning";
+    BMCWEB_LOG_DEBUG << "Sw state " << swState << " to Warning";
     return "Warning";
 }
 
@@ -291,7 +291,7 @@ inline std::string getRedfishFWHealth(const std::string& fwState)
  * @brief Put status of input swId into json response
  *
  * This function will put the appropriate Redfish state of the input
- * firmware id to ["Status"]["State"] within the json response
+ * software id to ["Status"]["State"] within the json response
  *
  * @param[i,o] aResp    Async response object
  * @param[i]   swId     The software ID to get status for
@@ -299,11 +299,11 @@ inline std::string getRedfishFWHealth(const std::string& fwState)
  *
  * @return void
  */
-inline void getFwStatus(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+inline void getSwStatus(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                         const std::shared_ptr<std::string>& swId,
                         const std::string& dbusSvc)
 {
-    BMCWEB_LOG_DEBUG << "getFwStatus: swId " << *swId << " svc " << dbusSvc;
+    BMCWEB_LOG_DEBUG << "getSwStatus: swId " << *swId << " svc " << dbusSvc;
 
     crow::connections::systemBus->async_method_call(
         [asyncResp,
@@ -311,7 +311,7 @@ inline void getFwStatus(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                const dbus::utility::DBusPropertiesMap& propertiesList) {
         if (errorCode)
         {
-            // not all fwtypes are updateable, this is ok
+            // not all swtypes are updateable, this is ok
             asyncResp->res.jsonValue["Status"]["State"] = "Enabled";
             return;
         }
@@ -330,11 +330,11 @@ inline void getFwStatus(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
             messages::internalError(asyncResp->res);
             return;
         }
-        BMCWEB_LOG_DEBUG << "getFwStatus: Activation " << *swInvActivation;
+        BMCWEB_LOG_DEBUG << "getSwStatus: Activation " << *swInvActivation;
         asyncResp->res.jsonValue["Status"]["State"] =
-            getRedfishFWState(*swInvActivation);
+            getRedfishSwState(*swInvActivation);
         asyncResp->res.jsonValue["Status"]["Health"] =
-            getRedfishFWHealth(*swInvActivation);
+            getRedfishSwHealth(*swInvActivation);
         },
         dbusSvc, "/xyz/openbmc_project/software/" + *swId,
         "org.freedesktop.DBus.Properties", "GetAll",
@@ -344,41 +344,41 @@ inline void getFwStatus(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 /**
  * @brief Updates programmable status of input swId into json response
  *
- * This function checks whether firmware inventory component
- * can be programmable or not and fill's the "Updateable"
+ * This function checks whether software inventory component
+ * can be programmable or not and fill's the "Updatable"
  * Property.
  *
  * @param[i,o] asyncResp  Async response object
- * @param[i]   fwId       The firmware ID
+ * @param[i]   swId       The software ID
  */
 inline void
-    getFwUpdateableStatus(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                          const std::shared_ptr<std::string>& fwId)
+    getSwUpdatableStatus(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                         const std::shared_ptr<std::string>& swId)
 {
     sdbusplus::asio::getProperty<std::vector<std::string>>(
         *crow::connections::systemBus, "xyz.openbmc_project.ObjectMapper",
         "/xyz/openbmc_project/software/updateable",
         "xyz.openbmc_project.Association", "endpoints",
-        [asyncResp, fwId](const boost::system::error_code ec,
+        [asyncResp, swId](const boost::system::error_code ec,
                           const std::vector<std::string>& objPaths) {
         if (ec)
         {
             BMCWEB_LOG_DEBUG << " error_code = " << ec
                              << " error msg =  " << ec.message();
-            // System can exist with no updateable firmware,
+            // System can exist with no updateable software,
             // so don't throw error here.
             return;
         }
-        std::string reqFwObjPath = "/xyz/openbmc_project/software/" + *fwId;
+        std::string reqSwObjPath = "/xyz/openbmc_project/software/" + *swId;
 
-        if (std::find(objPaths.begin(), objPaths.end(), reqFwObjPath) !=
+        if (std::find(objPaths.begin(), objPaths.end(), reqSwObjPath) !=
             objPaths.end())
         {
-            asyncResp->res.jsonValue["Updateable"] = true;
+            asyncResp->res.jsonValue["Updatable"] = true;
             return;
         }
         });
 }
 
-} // namespace fw_util
+} // namespace sw_util
 } // namespace redfish

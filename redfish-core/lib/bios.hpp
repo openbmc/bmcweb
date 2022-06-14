@@ -3,7 +3,7 @@
 #include <app.hpp>
 #include <query.hpp>
 #include <registries/privilege_registry.hpp>
-#include <utils/fw_utils.hpp>
+#include <utils/sw_utils.hpp>
 
 namespace redfish
 {
@@ -27,7 +27,7 @@ inline void
         {"target", "/redfish/v1/Systems/system/Bios/Actions/Bios.ResetBios"}};
 
     // Get the ActiveSoftwareImage and SoftwareImages
-    fw_util::populateFirmwareInformation(asyncResp, fw_util::biosPurpose, "",
+    sw_util::populateSoftwareInformation(asyncResp, sw_util::biosPurpose, "",
                                          true);
 }
 
