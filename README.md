@@ -1,66 +1,80 @@
 # OpenBMC webserver #
 
-This component attempts to be a "do everything" embedded webserver for openbmc.
+This component attempts to be a "do everything" embedded webserver for OpenBMC.
 
 
-## Capabilities ##
-At this time, the webserver implements a few interfaces:
-+ Authentication middleware that supports cookie and token based authentication, as well as CSRF prevention backed by linux PAM authentication credentials.
-+ An (incomplete) attempt at replicating phosphor-dbus-rest interfaces in C++.  Right now, a few of the endpoint definitions work as expected, but there is still a lot of work to be done.  The portions of the interface that are functional are designed to work correctly for phosphor-webui, but may not yet be complete.
-+ Replication of the rest-dbus backend interfaces to allow bmc debug to logged in users.
-+ An initial attempt at a read-only redfish interface.  Currently the redfish interface targets ServiceRoot, SessionService, AccountService, Roles, and ManagersService.  Some functionality here has been shimmed to make development possible.  For example, there exists only a single user role.
-+ SSL key generation at runtime.  See the configuration section for details.
-+ Static file hosting.  Currently, static files are hosted from the fixed location at /usr/share/www.  This is intended to allow loose coupling with yocto projects, and allow overriding static files at build time.
-+ Dbus-monitor over websocket.  A generic endpoint that allows UIs to open a websocket and register for notification of events to avoid polling in single page applications.  (this interface may be modified in the future due to security concerns.
+## Features ##
+The webserver implements a few distinct interfaces:
++ DBus event websocket.  Allows registering on changes to specific dbus paths,
+  properties, and will send an even from the websocket if those filters are
+  matched.
++ OpenBMC DBus REST api.  Allows direct, low interference, high fidelity access
+  to dbus and the objects it represents.
++ Serial: A serial websocket for interacting with the host serial console
+  through websockets
++ Redfish: A protocol compliant, (Redfish.md)[DBus to Redfish translator].
++ KVM: A websocket based implementation of the RFB (VNC) frame server protocol
+  intended to mate to webui-vue to provide a complete KVM implementation.
+
+## Protocols ##
+bmcweb supports at a protocol level supports http and https.  TLS is
+accomplished through OpenSSL.
+
+## AuthX ##
+### Authentication ###
+Bmcweb supports multiple authentication protocols:
++ Basic authentication per RFC7617
++ Session authentication through webui-vue
++ XToken based authentication conformant to Redfish DSP0266
++ Mutual TLS authentication based on OpenSSL
+
+Each of these types of authentication is able to be enabled or disabled both via
+runtime policy changes (through the relevant Redfish APIs) or via configure time
+options.  All authentication mechanisms supporting username/password are routed
+to libpam, to allow for customization in implementations.
+
+### Authorization ###
+All authorization in bmcweb is determined at routing time, and per route, and
+conform to the Redfish PrivilegeRegistry.
+
+*Note: Non-Redfish functions are mapped to the closest equivalent Redfish
+privilege level.
 
 ## Configuration
 
-BMCWeb is configured by setting `-D` flags that correspond to options
-in `bmcweb/meson_options.txt` and then compiling.  For example, `meson
-<builddir> -Dkvm=disabled ...` followed by `ninja` in build directory.
-The option names become C++ preprocessor symbols that control which code
-is compiled into the program.
+bmcweb is configured per the
+[meson build files](https://mesonbuild.com/Build-options.html) Available options
+are documented in meson_options.txt
 
-### Compile bmcweb with default options:
+## Compile bmcweb with default options:
 ```ascii
 meson builddir
 ninja -C builddir
 ```
-### Compile bmcweb with yocto defaults:
-```ascii
-meson builddir -Dbuildtype=minsize -Db_lto=true -Dtests=disabled
-ninja -C buildir
-```
+
 If any of the dependencies are not found on the host system during
-configuration, meson automatically gets them via its wrap dependencies
+configuration, meson will automatically download them via its wrap dependencies
 mentioned in `bmcweb/subprojects`.
 
-### Enable/Disable meson wrap feature
+## Debug logging
+bmcweb by default is compiled with runtime logging disabled, as a performance
+consideration.  To enable it in a standalone build, add the
 ```ascii
-meson builddir -Dwrap_mode=nofallback
-ninja -C builddir
+-Dlogging='enabled'
 ```
-### Enable debug traces
-```ascii
-meson builddir -Dbuildtype=debug
-ninja -C builddir
+option to your configure flags.  If building within Yocto, add the following to your local.conf.
+```bash
+EXTRA_OEMESON:pn-bmcweb:append = "-Dbmcweb-logging='enabled'"
 ```
-### Generate test coverage report:
-```ascii
-meson builddir -Db_coverage=true -Dtests=enabled
-ninja -C builddir test
-ninja -C builddir coverage
-```
-When BMCWeb starts running, it reads persistent configuration data
-(such as UUID and session data) from a local file.  If this is not
-usable, it generates a new configuration.
 
+## Use of persistent data
+bmcweb relies on some on-system data for storage of persistent data that is
+internal to the process.  Details on the exact data stored and when it is
+read/written can seen from the persistent_data namespace.
+
+## TLS Certificate generation
 When BMCWeb SSL support is enabled and a usable certificate is not
-found, it will generate a self-sign a certificate before launching the
-server.  The keys are generated by the `secp384r1` algorithm.  The
-certificate
- - is issued by `C=US, O=OpenBMC, CN=testhost`,
- - is valid for 10 years,
- - has a random serial number, and
- - is signed using the `SHA-256` algorithm.
+found, it will generate a self-signed a certificate before launching the
+server.  Please see the bmcweb source code for details on the parameters this
+certificate is built with.
 
