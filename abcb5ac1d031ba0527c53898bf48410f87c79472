@@ -177,6 +177,24 @@
       "parentUuid": "4bbad4d5_84c29b5b",
       "revId": "abcb5ac1d031ba0527c53898bf48410f87c79472",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "944e678d_4b6c754c",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 708,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-06-14T17:17:06Z",
+      "side": 1,
+      "message": "I\u0027ve gone back and forth on this and I\u0027m going to remove \"name\" to simplify the API for the time being.  Leaving it in would arguably not provide much more of a benefit in its current state.\n\nA better option would probably be like what you\u0027re describing of putting the logging in the different callers.  That\u0027s going to require more changes than I want to undertake on this patch.  For now I think simplifying the API is the way to go in order to ease the implementation of any future changes.",
+      "parentUuid": "3624e203_e03e223a",
+      "revId": "abcb5ac1d031ba0527c53898bf48410f87c79472",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
