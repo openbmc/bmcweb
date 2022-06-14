@@ -24,7 +24,7 @@
 #include <dbus_utility.hpp>
 #include <query.hpp>
 #include <registries/privilege_registry.hpp>
-#include <utils/fw_utils.hpp>
+#include <utils/sw_utils.hpp>
 #include <utils/systemd_utils.hpp>
 
 #include <cstdint>
@@ -2048,7 +2048,7 @@ inline void requestRoutesManager(App& app)
         health->isManagersHealth = true;
         health->populate();
 
-        fw_util::populateFirmwareInformation(asyncResp, fw_util::bmcPurpose,
+        sw_util::populateSoftwareInformation(asyncResp, sw_util::bmcPurpose,
                                              "FirmwareVersion", true);
 
         managerGetLastResetTime(asyncResp);
