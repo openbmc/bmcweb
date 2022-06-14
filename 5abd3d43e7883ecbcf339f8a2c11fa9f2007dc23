@@ -163,6 +163,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "af56b64f_d23ce2e8",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1001026
+      },
+      "writtenOn": "2022-06-14T13:13:17Z",
+      "side": 1,
+      "message": "👍",
+      "parentUuid": "90e47f7b_e94d1e9b",
+      "range": {
+        "startLine": 149,
+        "startChar": 0,
+        "endLine": 149,
+        "endChar": 53
+      },
+      "revId": "5abd3d43e7883ecbcf339f8a2c11fa9f2007dc23",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2e92eb35_fb7004c0",
         "filename": "redfish-core/lib/trigger.hpp",
         "patchSetId": 10

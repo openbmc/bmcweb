@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "75a0448f_ac45f87e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001026
+      },
+      "writtenOn": "2022-06-14T13:13:17Z",
+      "side": 1,
+      "message": "Took me a little longer than I expected, but I needed time to make sure that changing Telemetry dbus api won\u0027t break anything. Found 1 very minor issue, so I am including fix for it in this commit too. Commit message was modified to reflect changes.",
+      "revId": "816660f8b95de4deb301cd03df88a263f1297a68",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
