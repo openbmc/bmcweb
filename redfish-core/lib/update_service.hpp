@@ -22,7 +22,7 @@
 #include <query.hpp>
 #include <registries/privilege_registry.hpp>
 #include <sdbusplus/asio/property.hpp>
-#include <utils/fw_utils.hpp>
+#include <utils/sw_utils.hpp>
 
 namespace redfish
 {
@@ -794,7 +794,7 @@ inline static void
     getRelatedItems(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
                     const std::string& purpose)
 {
-    if (purpose == fw_util::bmcPurpose)
+    if (purpose == sw_util::bmcPurpose)
     {
         nlohmann::json& relatedItem = aResp->res.jsonValue["RelatedItem"];
         nlohmann::json::object_t item;
@@ -802,7 +802,7 @@ inline static void
         relatedItem.push_back(std::move(item));
         aResp->res.jsonValue["RelatedItem@odata.count"] = relatedItem.size();
     }
-    else if (purpose == fw_util::biosPurpose)
+    else if (purpose == sw_util::biosPurpose)
     {
         nlohmann::json& relatedItem = aResp->res.jsonValue["RelatedItem"];
         nlohmann::json::object_t item;
@@ -863,7 +863,7 @@ inline void requestRoutesSoftwareInventory(App& app)
                 }
 
                 found = true;
-                fw_util::getFwStatus(asyncResp, swId, obj.second[0].first);
+                sw_util::getSwStatus(asyncResp, swId, obj.second[0].first);
 
                 crow::connections::systemBus->async_method_call(
                     [asyncResp, swId](const boost::system::error_code errorCode,
@@ -950,7 +950,7 @@ inline void requestRoutesSoftwareInventory(App& app)
             asyncResp->res.jsonValue["Status"]["HealthRollup"] = "OK";
 
             asyncResp->res.jsonValue["Updateable"] = false;
-            fw_util::getFwUpdateableStatus(asyncResp, swId);
+            sw_util::getSwUpdatableStatus(asyncResp, swId);
             },
             "xyz.openbmc_project.ObjectMapper",
             "/xyz/openbmc_project/object_mapper",
