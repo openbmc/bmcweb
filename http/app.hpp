@@ -8,6 +8,13 @@
 #include "routing.hpp"
 #include "utility.hpp"
 
+#include <boost/asio/io_context.hpp>
+#include <boost/asio/ip/tcp.hpp>
+#ifdef BMCWEB_ENABLE_SSL
+#include <boost/asio/ssl/context.hpp>
+#include <boost/beast/ssl/ssl_stream.hpp>
+#endif
+
 #include <chrono>
 #include <cstdint>
 #include <functional>
