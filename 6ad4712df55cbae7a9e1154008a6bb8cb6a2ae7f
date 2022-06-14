@@ -41,6 +41,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "191197e4_fe865795",
+        "filename": "README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-14T22:54:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "be6559a3_bc9e6b3c",
+      "range": {
+        "startLine": 9,
+        "startChar": 31,
+        "endLine": 9,
+        "endChar": 35
+      },
+      "revId": "6ad4712df55cbae7a9e1154008a6bb8cb6a2ae7f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0cd94e90_ebe2533a",
@@ -54,6 +78,30 @@
       "writtenOn": "2022-06-14T03:13:11Z",
       "side": 1,
       "message": "nit: match",
+      "range": {
+        "startLine": 9,
+        "startChar": 72,
+        "endLine": 10,
+        "endChar": 10
+      },
+      "revId": "6ad4712df55cbae7a9e1154008a6bb8cb6a2ae7f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "59384432_41cd22c9",
+        "filename": "README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-14T22:54:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0cd94e90_ebe2533a",
       "range": {
         "startLine": 9,
         "startChar": 72,
@@ -87,6 +135,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ed61be1a_110e9bf9",
+        "filename": "README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-14T22:54:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "280e2d91_433de82c",
+      "range": {
+        "startLine": 14,
+        "startChar": 19,
+        "endLine": 14,
+        "endChar": 20
+      },
+      "revId": "6ad4712df55cbae7a9e1154008a6bb8cb6a2ae7f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "aed585ad_0e9b4366",
@@ -100,6 +172,30 @@
       "writtenOn": "2022-06-14T03:13:11Z",
       "side": 1,
       "message": "nit: remove",
+      "range": {
+        "startLine": 20,
+        "startChar": 36,
+        "endLine": 20,
+        "endChar": 44
+      },
+      "revId": "6ad4712df55cbae7a9e1154008a6bb8cb6a2ae7f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "04e8a57b_efabad2d",
+        "filename": "README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-14T22:54:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aed585ad_0e9b4366",
       "range": {
         "startLine": 20,
         "startChar": 36,
@@ -146,6 +242,30 @@
       "writtenOn": "2022-06-14T03:13:11Z",
       "side": 1,
       "message": "nit: lower case for consistency. \nOR\nSlight preference for Capital titles, \"Debug Logging\",  \"TLS Certificate Generation\"",
+      "range": {
+        "startLine": 75,
+        "startChar": 7,
+        "endLine": 75,
+        "endChar": 8
+      },
+      "revId": "6ad4712df55cbae7a9e1154008a6bb8cb6a2ae7f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e3c14c8_38f0a198",
+        "filename": "README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-14T22:54:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b9ecb95b_225ad3f6",
       "range": {
         "startLine": 75,
         "startChar": 7,
