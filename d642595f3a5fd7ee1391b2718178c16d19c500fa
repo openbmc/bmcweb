@@ -51,6 +51,24 @@
       "message": "LGTM\nDuplicate of \nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/54595",
       "revId": "d642595f3a5fd7ee1391b2718178c16d19c500fa",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a990ab1_2483f6df",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-06-15T17:41:07Z",
+      "side": 1,
+      "message": "Thanks, I\u0027m still confused though, from the link it looks like it was based on the master branch, just not at the latest tip.",
+      "parentUuid": "fbe39c2e_28c013fc",
+      "revId": "d642595f3a5fd7ee1391b2718178c16d19c500fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
