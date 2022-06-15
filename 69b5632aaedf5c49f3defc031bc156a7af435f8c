@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bccc40d0_790ff36b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-06-15T01:38:03Z",
+      "side": 1,
+      "message": "You are just moving this code around to reduce the indention level.\nSo feel free to ignore my nits. Hopefully my concerns are addressed later in the patch set.",
+      "revId": "69b5632aaedf5c49f3defc031bc156a7af435f8c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "619b3c29_9b3f6355",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 841,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-06-15T01:38:03Z",
+      "side": 1,
+      "message": "nit: else if",
+      "range": {
+        "startLine": 841,
+        "startChar": 12,
+        "endLine": 841,
+        "endChar": 14
+      },
+      "revId": "69b5632aaedf5c49f3defc031bc156a7af435f8c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a92981fc_e0db9cff",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 876,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-06-15T01:38:03Z",
+      "side": 1,
+      "message": "nit:\nIs there a better way to process this software inventory?",
+      "range": {
+        "startLine": 876,
+        "startChar": 8,
+        "endLine": 876,
+        "endChar": 15
+      },
+      "revId": "69b5632aaedf5c49f3defc031bc156a7af435f8c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
