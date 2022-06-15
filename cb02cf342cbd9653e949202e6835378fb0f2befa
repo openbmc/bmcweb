@@ -70,6 +70,24 @@
       "parentUuid": "2262d088_f8e24277",
       "revId": "cb02cf342cbd9653e949202e6835378fb0f2befa",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "08c33468_394cc212",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-06-15T21:23:07Z",
+      "side": 1,
+      "message": "\u003e It takes extra time to set up the redfish validator.\n\nYou deploy bmcweb to hardware or qemu and when you are testing with curl/wget, you kick off the validator? The first time you set it up, sure it takes some time to set up but after that isn\u0027t it just a matter of pointing it at whatever system you are testing on?\n\nIdeally we would run it as part of bmcweb CI but going to take some effort to do that",
+      "parentUuid": "a921bced_a8a35187",
+      "revId": "cb02cf342cbd9653e949202e6835378fb0f2befa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
