@@ -27,7 +27,7 @@ inline void redfish404(App& app, const crow::Request& req,
 
     // If we fall to this route, we didn't have a more specific route, so return
     // 404
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
