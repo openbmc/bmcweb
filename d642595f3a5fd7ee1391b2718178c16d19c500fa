@@ -16,6 +16,24 @@
       "message": "Just wondering, how did you find \"the commit is not based on master\"?",
       "revId": "d642595f3a5fd7ee1391b2718178c16d19c500fa",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fbe39c2e_28c013fc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-15T17:12:40Z",
+      "side": 1,
+      "message": "https://gerrit.openbmc.org/plugins/gitiles/openbmc/bmcweb/+log/95b530b117b5d7d40e638b456a40474848d7dff0",
+      "parentUuid": "5fb39564_78f531bf",
+      "revId": "d642595f3a5fd7ee1391b2718178c16d19c500fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
