@@ -632,8 +632,8 @@ void chassisDriveCollectionGet(
             asyncResp->res.jsonValue["@odata.type"] =
                 "#DriveCollection.DriveCollection";
             asyncResp->res.jsonValue["@odata.id"] =
-                crow::utility::urlFromPieces("redfish", "v1",
-                                             "Chassis" + chassisId + "Drives");
+                crow::utility::urlFromPieces("redfish", "v1", "Chassis",
+                                             chassisId, "Drives");
             asyncResp->res.jsonValue["Name"] = "Drive Collection";
 
             // Association lambda
