@@ -16,6 +16,23 @@
       "message": "Any more comments?",
       "revId": "b169e950a1e6256038da305c19645c8c1e5b2388",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aad2d40e_a12f11ea",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-15T00:05:59Z",
+      "side": 1,
+      "message": "bump. Once this is in. I can update https://gerrit.openbmc.org/c/openbmc/bmcweb/+/53824/9",
+      "revId": "b169e950a1e6256038da305c19645c8c1e5b2388",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
