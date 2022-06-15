@@ -50,6 +50,24 @@
       "message": "I did not have build problems, and neither did the CI.\nI would like to understand how you are building.",
       "revId": "3eea9923ac30ea82dde0bf87067bb47c98c7a496",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "76ee22ff_00aa3f85",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-15T17:48:38Z",
+      "side": 1,
+      "message": "It\u0027s two conflicting patches.  Your patch got caught up with Carsons patch.",
+      "parentUuid": "98fbd832_7441ddbd",
+      "revId": "3eea9923ac30ea82dde0bf87067bb47c98c7a496",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
