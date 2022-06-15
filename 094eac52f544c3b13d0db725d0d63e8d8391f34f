@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0b07024c_5d86109a",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 764,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-06-15T00:14:11Z",
+      "side": 1,
+      "message": "It is only a 70 line lamdba, I would be fine with keeping it.",
+      "parentUuid": "88cfaafb_e11681cd",
+      "range": {
+        "startLine": 717,
+        "startChar": 12,
+        "endLine": 764,
+        "endChar": 65
+      },
+      "revId": "094eac52f544c3b13d0db725d0d63e8d8391f34f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "be30be1f_d53e1291",
         "filename": "redfish-core/lib/storage.hpp",
         "patchSetId": 13
@@ -37,6 +61,54 @@
       "writtenOn": "2022-06-10T00:27:24Z",
       "side": 1,
       "message": "Is there any convention on this comment style?",
+      "range": {
+        "startLine": 835,
+        "startChar": 2,
+        "endLine": 835,
+        "endChar": 16
+      },
+      "revId": "094eac52f544c3b13d0db725d0d63e8d8391f34f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c44db453_29dd710c",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 835,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-06-15T00:14:11Z",
+      "side": 1,
+      "message": "I will take it out. I like it but it is not standard, and difficult to maintain",
+      "parentUuid": "be30be1f_d53e1291",
+      "range": {
+        "startLine": 835,
+        "startChar": 2,
+        "endLine": 835,
+        "endChar": 16
+      },
+      "revId": "094eac52f544c3b13d0db725d0d63e8d8391f34f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9f7ea4b6_f871165e",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 835,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-06-15T00:14:11Z",
+      "side": 1,
+      "message": "I removed them",
+      "parentUuid": "be30be1f_d53e1291",
       "range": {
         "startLine": 835,
         "startChar": 2,
