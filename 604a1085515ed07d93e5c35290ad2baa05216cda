@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c1cceee8_05e5abbc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 21
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-06-15T07:00:58Z",
+      "side": 1,
+      "message": "Rebased and applied fix from https://gerrit.openbmc.org/c/openbmc/bmcweb/+/54591",
+      "revId": "604a1085515ed07d93e5c35290ad2baa05216cda",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
