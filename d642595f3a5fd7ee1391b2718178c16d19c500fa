@@ -34,6 +34,23 @@
       "parentUuid": "5fb39564_78f531bf",
       "revId": "d642595f3a5fd7ee1391b2718178c16d19c500fa",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8165f7cb_215f78d9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-06-15T17:23:24Z",
+      "side": 1,
+      "message": "LGTM\nDuplicate of \nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/54595",
+      "revId": "d642595f3a5fd7ee1391b2718178c16d19c500fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
