@@ -33,6 +33,23 @@
       "message": "bump. Once this is in. I can update https://gerrit.openbmc.org/c/openbmc/bmcweb/+/53824/9",
       "revId": "b169e950a1e6256038da305c19645c8c1e5b2388",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1af0cb01_22c06fd1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-15T00:36:37Z",
+      "side": 1,
+      "message": "Was kinda hoping the intel folks would help to review this, but I guess we can merge it.",
+      "revId": "b169e950a1e6256038da305c19645c8c1e5b2388",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
