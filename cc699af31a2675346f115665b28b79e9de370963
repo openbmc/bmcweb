@@ -16,6 +16,24 @@
       "message": "I made a couple minor tweaks to some json typing information, this should be good to merge.",
       "revId": "cc699af31a2675346f115665b28b79e9de370963",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "92b93d2e_d11ad8b4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 17
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001026
+      },
+      "writtenOn": "2022-06-15T08:39:23Z",
+      "side": 1,
+      "message": "LGTM",
+      "parentUuid": "b77b785b_254c123c",
+      "revId": "cc699af31a2675346f115665b28b79e9de370963",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
