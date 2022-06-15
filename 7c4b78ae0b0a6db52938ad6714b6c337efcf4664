@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5b7c35d2_f93b6c23",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-06-15T21:27:22Z",
+      "side": 1,
+      "message": "I don\u0027t see how the validator breaks so I guess I am fine if it isn\u0027t ran but IMO always best we run the validator; we have had the validator break a lot ",
+      "revId": "7c4b78ae0b0a6db52938ad6714b6c337efcf4664",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2ca02aac_21a1e6a5",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 482,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-06-15T21:27:22Z",
+      "side": 1,
+      "message": "This is a bit surprising but documented in PDI https://github.com/openbmc/phosphor-dbus-interfaces/blob/0f97c461bd0dd7486b29cc07cb721f7b9f94256e/yaml/xyz/openbmc_project/Inventory/Item/Drive.interface.yaml#L37",
+      "revId": "7c4b78ae0b0a6db52938ad6714b6c337efcf4664",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
