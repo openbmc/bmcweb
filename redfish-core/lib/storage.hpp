@@ -537,8 +537,8 @@ inline void requestRoutesDrive(App& app)
             }
 
             const std::string& path = drive->first;
-            const std::vector<std::pair<std::string, std::vector<std::string>>>&
-                connectionNames = drive->second;
+            const dbus::utility::MapperServiceMap& connectionNames =
+                drive->second;
 
             asyncResp->res.jsonValue["@odata.type"] = "#Drive.v1_7_0.Drive";
             asyncResp->res.jsonValue["@odata.id"] =
@@ -612,15 +612,8 @@ void chassisDriveCollectionGet(
         }
 
         // Iterate over all retrieved ObjectPaths.
-        for (const std::pair<
-                 std::string,
-                 std::vector<std::pair<std::string, std::vector<std::string>>>>&
-                 object : subtree)
+        for (const auto& [path, connectionNames] : subtree)
         {
-            const std::string& path = object.first;
-            const dbus::utility::MapperGetObject& connectionNames =
-                object.second;
-
             sdbusplus::message::object_path objPath(path);
             if (objPath.filename() != chassisId)
             {
@@ -710,15 +703,8 @@ void buildDrive(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     }
 
     // Iterate over all retrieved ObjectPaths.
-    for (const std::pair<
-             std::string,
-             std::vector<std::pair<std::string, std::vector<std::string>>>>&
-             object : subtree)
+    for (const auto& [path, connectionNames] : subtree)
     {
-        const std::string& path = object.first;
-        const std::vector<std::pair<std::string, std::vector<std::string>>>&
-            connectionNames = object.second;
-
         sdbusplus::message::object_path objPath(path);
         if (objPath.filename() != driveName)
         {
@@ -806,15 +792,8 @@ void handleChassisDriveGet(crow::App& app, const crow::Request& req,
         }
 
         // Iterate over all retrieved ObjectPaths.
-        for (const std::pair<
-                 std::string,
-                 std::vector<std::pair<std::string, std::vector<std::string>>>>&
-                 object : subtree)
+        for (const auto& [path, connectionNames] : subtree)
         {
-            const std::string& path = object.first;
-            const std::vector<std::pair<std::string, std::vector<std::string>>>&
-                connectionNames = object.second;
-
             sdbusplus::message::object_path objPath(path);
             if (objPath.filename() != chassisId)
             {
