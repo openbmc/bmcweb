@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ad700967_22090a23",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-06-15T16:58:26Z",
+      "side": 1,
+      "message": "We follow https://cbea.ms/git-commit/ for commit msgs. \"Wrap the body at 72 characters\"",
+      "revId": "87666e01364d93dce5b4e988dffe5084622aab51",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
