@@ -67,6 +67,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bd91fc43_43ad4961",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 711,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-15T05:16:49Z",
+      "side": 1,
+      "message": "I thought we can use type alias. \n\nPTAL: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/54592",
+      "parentUuid": "c53f7c25_f33d8702",
+      "range": {
+        "startLine": 709,
+        "startChar": 15,
+        "endLine": 711,
+        "endChar": 75
+      },
+      "revId": "95b530b117b5d7d40e638b456a40474848d7dff0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bf6e161e_9eddff35",
         "filename": "redfish-core/lib/storage.hpp",
         "patchSetId": 16
