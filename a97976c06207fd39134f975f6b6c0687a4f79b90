@@ -250,6 +250,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b998633f_74dba0ea",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-15T01:10:32Z",
+      "side": 1,
+      "message": "I did some research and added some basic validation. Please take a look at the |queryCapabilities| function.",
+      "parentUuid": "848ebd0b_a4d41a2c",
+      "revId": "a97976c06207fd39134f975f6b6c0687a4f79b90",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ffc3cc88_28557fa0",
