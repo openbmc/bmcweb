@@ -46,6 +46,30 @@
       },
       "revId": "af82cbcf5661fef072b6650bda10daeedca3fb3b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3e332c9a_a94a53d2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-06-16T03:50:00Z",
+      "side": 1,
+      "message": "There are 4 clauses \n1 dependent  \"As bmcweb grows in popularity and scope\"\n\n2 independent \" it\u0027s important that we be able to spread out the\nload amongst more maintainers\"\n\n3 independent  \"make sure that we\u0027re including community members\"\n\n4 dependent \"still keeping the core principles that made\nbmcweb attract so many users intact\".\n\nIt can be refactored into 2 sentence with an independent clause in each, or in technical writing enumerate bullets. \ne.g\n\n\"As bmcweb grows in popularity and scope, it\u0027s important that we:\n    - spread out the load amongst more maintainers\n    - include community members\n    - keep the core principles of bmcweb\n\"\n\n\nOr keep it the way it is, I don\u0027t care that much.",
+      "parentUuid": "9347edb4_cc2e4ba5",
+      "range": {
+        "startLine": 12,
+        "startChar": 31,
+        "endLine": 12,
+        "endChar": 34
+      },
+      "revId": "af82cbcf5661fef072b6650bda10daeedca3fb3b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
