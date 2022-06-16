@@ -112,6 +112,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e5fc964d_84b6050c",
+        "filename": "OWNERS",
+        "patchSetId": 5
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-16T16:09:25Z",
+      "side": 1,
+      "message": "\u003e nit: How its going to assessed?\n\u003e I believe, Its via his/her code reviews comments which are done in last \"x\" time frame. I believe, Its worth stating that( Believe common ground rule for any one for getting maintainer access).\n\nThis document doesn\u0027t talk about assessment at all.  A future document could, but I\u0027d like to keep this document scoped on the responsibilities themselves.  Presumably this item would be assessed by the existing maintainers, at least that\u0027s how it has operated in the past.\n\nCode review is covered on item 3 (ie orderly merging of patches).",
+      "parentUuid": "eb54c238_3b093867",
+      "range": {
+        "startLine": 5,
+        "startChar": 4,
+        "endLine": 5,
+        "endChar": 74
+      },
+      "revId": "af82cbcf5661fef072b6650bda10daeedca3fb3b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6b784a0b_f543057a",
@@ -135,6 +159,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dcad90aa_799ec96b",
+        "filename": "OWNERS",
+        "patchSetId": 5
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-16T16:09:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6b784a0b_f543057a",
+      "range": {
+        "startLine": 50,
+        "startChar": 4,
+        "endLine": 52,
+        "endChar": 18
+      },
+      "revId": "af82cbcf5661fef072b6650bda10daeedca3fb3b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "03306996_1dda138d",
@@ -148,6 +196,24 @@
       "writtenOn": "2022-06-16T15:52:02Z",
       "side": 1,
       "message": "I think having good understanding of overall DTMF redfish is also one of pre-requisite for maintaining bmcweb. I think we can add that point.",
+      "revId": "af82cbcf5661fef072b6650bda10daeedca3fb3b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "55c4c4d7_80930c74",
+        "filename": "OWNERS",
+        "patchSetId": 5
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-16T16:09:25Z",
+      "side": 1,
+      "message": "Added as item #4",
+      "parentUuid": "03306996_1dda138d",
       "revId": "af82cbcf5661fef072b6650bda10daeedca3fb3b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
