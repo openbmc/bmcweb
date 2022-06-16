@@ -33,6 +33,24 @@
       "message": "This is a bit surprising but documented in PDI https://github.com/openbmc/phosphor-dbus-interfaces/blob/0f97c461bd0dd7486b29cc07cb721f7b9f94256e/yaml/xyz/openbmc_project/Inventory/Item/Drive.interface.yaml#L37",
       "revId": "7c4b78ae0b0a6db52938ad6714b6c337efcf4664",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3cfcd43b_d990e723",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 482,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-06-16T04:02:11Z",
+      "side": 1,
+      "message": "yeah, It was explicitly recommended during the PDI review.\n\nhttps://gerrit.openbmc.org/c/openbmc/phosphor-dbus-interfaces/+/47657/5..10/yaml/xyz/openbmc_project/Inventory/Item/Drive.interface.yaml#b31",
+      "parentUuid": "2ca02aac_21a1e6a5",
+      "revId": "7c4b78ae0b0a6db52938ad6714b6c337efcf4664",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
