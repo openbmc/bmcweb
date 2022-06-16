@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e4b65e2c_6ef52395",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-06-16T04:45:16Z",
+      "side": 1,
+      "message": "It is only a partial review, I am not familiar enough with the json, so recursive section took longer then I thought.",
+      "revId": "e15322e72b77c1b9d54a2a4573f6b23b73db8d94",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9de4a59c_b5bf5c7b",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-06-16T04:45:16Z",
+      "side": 1,
+      "message": "do you need this?\n\n```\n[](char c) { return c\u003d\u003d\u0027,\u0027;}\n```\nmight be better",
+      "range": {
+        "startLine": 221,
+        "startChar": 50,
+        "endLine": 221,
+        "endChar": 66
+      },
+      "revId": "e15322e72b77c1b9d54a2a4573f6b23b73db8d94",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "be7a8098_11ddae85",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-06-16T04:45:16Z",
+      "side": 1,
+      "message": "nit:\nThere are two statements (lines), in this \"if\" condition, and I dis-prefer it",
+      "range": {
+        "startLine": 268,
+        "startChar": 55,
+        "endLine": 268,
+        "endChar": 56
+      },
+      "revId": "e15322e72b77c1b9d54a2a4573f6b23b73db8d94",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dd4cf246_f55f2523",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 679,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-06-16T04:45:16Z",
+      "side": 1,
+      "message": "Is it a safe assumption, that all non-array and non-objects are properties.\n(It probably is, but it is not clear to me)",
+      "range": {
+        "startLine": 679,
+        "startChar": 26,
+        "endLine": 679,
+        "endChar": 58
+      },
+      "revId": "e15322e72b77c1b9d54a2a4573f6b23b73db8d94",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
