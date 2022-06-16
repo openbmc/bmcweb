@@ -529,6 +529,13 @@ class Subscription : public persistent_data::UserSubscription
             return;
         }
 
+        // Context is set by user during Event subscription and it must be
+        // set for MetricReport response.
+        if (!customText.empty())
+        {
+            msg["Context"] = customText;
+        }
+
         std::string strMsg =
             msg.dump(2, ' ', true, nlohmann::json::error_handler_t::replace);
         this->sendEvent(strMsg);
