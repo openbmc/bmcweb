@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "5d280ac6_e222b943",
         "filename": "/COMMIT_MSG",
@@ -14,10 +15,10 @@
       "side": 1,
       "message": "It also makes Request\u0026 req non-const for no reason that I can see or understand.  Please mention that here along with the reasoning.",
       "revId": "0381b192f6840e609e256fa2c2a8b4851de112b3",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "6ca65ff6_034a8e5c",
         "filename": "/COMMIT_MSG",
@@ -32,10 +33,10 @@
       "message": "Ooh yes.. i missed that. will add it here",
       "parentUuid": "5d280ac6_e222b943",
       "revId": "0381b192f6840e609e256fa2c2a8b4851de112b3",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "d4aece11_809bc2d9",
         "filename": "http/app.hpp",
@@ -55,10 +56,10 @@
         "endChar": 36
       },
       "revId": "0381b192f6840e609e256fa2c2a8b4851de112b3",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "f6cdd446_dd786ace",
         "filename": "http/app.hpp",
@@ -79,10 +80,10 @@
         "endChar": 36
       },
       "revId": "0381b192f6840e609e256fa2c2a8b4851de112b3",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "a8da5f7d_b2269672",
         "filename": "http/routing.hpp",
@@ -102,10 +103,34 @@
         "endChar": 17
       },
       "revId": "0381b192f6840e609e256fa2c2a8b4851de112b3",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "2dcdf38b_fcccf168",
+        "filename": "http/routing.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1210,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-06-16T12:13:50Z",
+      "side": 1,
+      "message": "Yeah, till the d-bus call finishes, authorization check completes inside call back, Its alive.\n\nAs said below, May be caching the user data locally to bmcweb will improve the performance and reduce the connection keep alive issue. But this commit adds authorization check for upgrade routes and  bring both (normal \u0026 upgrade) routes on to same page.",
+      "parentUuid": "a8da5f7d_b2269672",
+      "range": {
+        "startLine": 1210,
+        "startChar": 14,
+        "endLine": 1210,
+        "endChar": 17
+      },
+      "revId": "0381b192f6840e609e256fa2c2a8b4851de112b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "89eb4211_93de121c",
         "filename": "http/routing.hpp",
@@ -125,10 +150,10 @@
         "endChar": 0
       },
       "revId": "0381b192f6840e609e256fa2c2a8b4851de112b3",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "883184d0_701c4ed9",
         "filename": "http/routing.hpp",
@@ -149,10 +174,34 @@
         "endChar": 0
       },
       "revId": "0381b192f6840e609e256fa2c2a8b4851de112b3",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "fee19bd9_b4268422",
+        "filename": "http/routing.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1312,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-06-16T12:13:50Z",
+      "side": 1,
+      "message": "Dheeraj, We can  move all this common code to single API and use it both places.",
+      "parentUuid": "883184d0_701c4ed9",
+      "range": {
+        "startLine": 1211,
+        "startChar": 0,
+        "endLine": 1312,
+        "endChar": 0
+      },
+      "revId": "0381b192f6840e609e256fa2c2a8b4851de112b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "3e512f65_a67e2f3d",
         "filename": "http/routing.hpp",
@@ -172,10 +221,10 @@
         "endChar": 35
       },
       "revId": "0381b192f6840e609e256fa2c2a8b4851de112b3",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "66feb4da_bb090852",
         "filename": "http/routing.hpp",
@@ -196,8 +245,31 @@
         "endChar": 35
       },
       "revId": "0381b192f6840e609e256fa2c2a8b4851de112b3",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e99d36b6_bd08acab",
+        "filename": "http/routing.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1346,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-06-16T12:13:50Z",
+      "side": 1,
+      "message": "Yeah Agree with Ed, This is blocking call and will impact the overall performance. \n\nBut this d-bus call is made only when establishing websocket connection ( one time). So this won\u0027t introduce much latency. Also Same problem exist even for Normal route handler() (https://github.com/openbmc/bmcweb/blob/master/http/routing.hpp#L1405-L1407).\n\nI believe this can be avoided by caching the information on bmcweb side. So I think we can do it as separate commit to address generic issue.",
+      "parentUuid": "66feb4da_bb090852",
+      "range": {
+        "startLine": 1344,
+        "startChar": 0,
+        "endLine": 1346,
+        "endChar": 35
+      },
+      "revId": "0381b192f6840e609e256fa2c2a8b4851de112b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
