@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f6c58a6e_14c7567a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-06-16T16:34:27Z",
+      "side": 1,
+      "message": "urlFromPieces joins strings, and puts a \"/\" between the pieces. But I concatenated several pieces, when I should have had all my pieces as separate args. \n\n\nbefore: (note the missing \"/\")\n/redfish/v1/ChassisDC-SCMDrives\n\nAfter:\n/redfish/v1/Chassis/DC-SCM/Drives",
+      "parentUuid": "cb238a79_67b51fdb",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 13
+      },
+      "revId": "14bd7d9a82aa5302d57ff5ca29e933148ddff330",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a30bc74c_77eb9a5a",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-06-16T04:47:42Z",
       "side": 1,
       "message": "As someone who\u0027s not too familiar with this piece of code, I think it may help the reader to just add something like:\n\nBefore:\n/redfish/v1/Chassis1/Drives\nAfter:\n/redfish/v1/Chassis/1/Drives\n\n(not knowing what chassisId is and how urlFromPieces work",
+      "range": {
+        "startLine": 13,
+        "startChar": 49,
+        "endLine": 15,
+        "endChar": 0
+      },
+      "revId": "14bd7d9a82aa5302d57ff5ca29e933148ddff330",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6a46f10a_188e2b46",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-06-16T16:34:27Z",
+      "side": 1,
+      "message": "duplicate to above.",
+      "parentUuid": "a30bc74c_77eb9a5a",
       "range": {
         "startLine": 13,
         "startChar": 49,
