@@ -69,6 +69,24 @@
       "parentUuid": "d06dde99_931e76be",
       "revId": "2450ca51d4adaffb8f8e44a74a718b530b09061f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "44864932_a2089125",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-06-16T11:07:34Z",
+      "side": 1,
+      "message": "Ed, I added a comment in commit message explaining the need and use cases. Can you check and see if if looks fine.",
+      "parentUuid": "16dc7cbb_68f0b362",
+      "revId": "2450ca51d4adaffb8f8e44a74a718b530b09061f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

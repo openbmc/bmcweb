@@ -16,6 +16,24 @@
       "message": "This patchset was idle long enough that I\u0027ve forgotten all context for it.\n\nLets start with updating this commit message to \"why is this necessary\" ideally with cases of user-facing behavior that this improves.  From my perspective, websocket routes don\u0027t really have good reasons where they need to \"fail\" at a response level, and can quite easily fail once the connection is already open.  With that said, I\u0027m open to the possibility that this could be needed, so I\u0027m curious what user facing feature this would allow for.\n\nThe code that this was originally patching has changed a bit since originally written, so I suspect some of the initial reasoning behind this might not be present anymore, but lets walk through it in the commit message text.",
       "revId": "d13a70d44e562031562063ede23690b697e6c6b0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f68ce0b0_46aa20f5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-06-16T11:07:34Z",
+      "side": 1,
+      "message": "Apologies for late response on this. Commit message will be modified to reflect the actual changes. Meanwhile, Let me clarify the intent of this patch.\n\nThis patch is pass the response object to down handlers for upgraded routes ( Note: For normal routes, its already done https://github.com/openbmc/bmcweb/blob/master/http/http_connection.hpp#L391) and handle error scenarios. This change is needed for below use cases.\n\n- To add Authorization to all upgrade routes. Today for upgrade routes( Websocket or SSE etc.) we have only authentication, no authorization check. Normal requests its done in handle() (https://github.com/openbmc/bmcweb/blob/master/http/routing.hpp#L1304-L1407) for upgrade routes its not there (Ex: /kvm/0/  or /vm/0/0 or /nbd/\u003c\u003e or SSE etc..). So passing asyncResp object will let us allow to adding authorization for upgrade routes. This commit is baby step to towards it.  Adding authorization check for upgrade routes is done at https://gerrit.openbmc.org/c/openbmc/bmcweb/+/46991\n\n - Some of the upgrade routes may have some extra validation checks (Example: OEM implementation may block KVM session if its crosses x number, Or some OEM check before establishing communication etc..). So passing asyncRes to upgrade start() will allow making few more verification and return response to user. This is extra change added by Abhishek Patel. When i checked that code, i thought can\u0027t it be done before creating new connection? Yes, It can be but that requires considerable amount of design changes for all upgrade routes. Passing asyncRes is easy method in doing that ( or may be starting step for it).\n\n\nDheeraj, Can you update commit message accordingly.  Also refresh the patch to latest master which has merge conflicts.",
+      "parentUuid": "fad2b8bd_ed261779",
+      "revId": "d13a70d44e562031562063ede23690b697e6c6b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
