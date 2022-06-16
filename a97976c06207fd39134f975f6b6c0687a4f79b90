@@ -484,6 +484,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9f14b8d0_12c83d30",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 645,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-16T16:12:06Z",
+      "side": 1,
+      "message": "It doesn\u0027t mention other @ properties.\n\n\nThey\u0027re not @ properties, they\u0027re messages, for example, when errors occur, or there are warnings.  If you\u0027d like them to clarify the spec in that regard, we can discuss it in a meeting, but considering that messages sit outside the redfish schemas, it seems that they should not be effected by select.\n\n\"error\" is one type of these keys.",
+      "parentUuid": "c5fac59a_510b2703",
+      "range": {
+        "startLine": 645,
+        "startChar": 0,
+        "endLine": 645,
+        "endChar": 69
+      },
+      "revId": "a97976c06207fd39134f975f6b6c0687a4f79b90",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f19c0fa6_dfce885f",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 5
