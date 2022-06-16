@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cb238a79_67b51fdb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000388
+      },
+      "writtenOn": "2022-06-16T04:47:42Z",
+      "side": 1,
+      "message": "As someone who\u0027s not too familiar with this function - could you give a simple example perhaps?\n\nBefore:\n/redfish/v1/Chassis1/Drives\n\nAfter\n/redfish/v1/Chassis/1/Drives\n\n(I\u0027m not sure shat chassisId looks like and if this is how urlFromPieces work)",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 13
+      },
+      "revId": "14bd7d9a82aa5302d57ff5ca29e933148ddff330",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a30bc74c_77eb9a5a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000388
+      },
+      "writtenOn": "2022-06-16T04:47:42Z",
+      "side": 1,
+      "message": "As someone who\u0027s not too familiar with this piece of code, I think it may help the reader to just add something like:\n\nBefore:\n/redfish/v1/Chassis1/Drives\nAfter:\n/redfish/v1/Chassis/1/Drives\n\n(not knowing what chassisId is and how urlFromPieces work",
+      "range": {
+        "startLine": 13,
+        "startChar": 49,
+        "endLine": 15,
+        "endChar": 0
+      },
+      "revId": "14bd7d9a82aa5302d57ff5ca29e933148ddff330",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
