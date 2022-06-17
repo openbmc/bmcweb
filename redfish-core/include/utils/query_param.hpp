@@ -3,13 +3,16 @@
 #include "async_resp.hpp"
 #include "error_messages.hpp"
 #include "http_request.hpp"
+#include "logging.hpp"
 #include "routing.hpp"
 
 #include <charconv>
+#include <cstring>
 #include <string>
 #include <string_view>
 #include <utility>
 #include <vector>
+#include <fstream>
 
 namespace redfish
 {
@@ -319,6 +322,70 @@ inline bool processOnly(crow::App& app, const nlohmann::json::array_t& members,
     return true;
 }
 
+inline void processFileResources(crow::Response& intermediateResponse,
+                                  std::string_view target)
+{
+    BMCWEB_LOG_DEBUG << "FSR Target " << target;
+    BMCWEB_LOG_DEBUG << "FSR intermediateResponse.resultInt() "
+        << intermediateResponse.resultInt();
+
+    if (intermediateResponse.resultInt() == 404)
+    {
+        BMCWEB_LOG_DEBUG << "FSR 404";
+    }
+
+    // Assemble path
+    std::filesystem::path path("/run/bmcweb");
+    BMCWEB_LOG_DEBUG << "FSR Path " << path.c_str();
+    path += target;
+    BMCWEB_LOG_DEBUG << "FSR Path " << path.c_str();
+    path.append("index.json");
+    BMCWEB_LOG_DEBUG << "FSR Path " << path.c_str();
+    BMCWEB_LOG_DEBUG << "FSR Filename? " << path.has_filename();
+    
+    std::ifstream input;
+    input.open(path);
+
+    if (!input)
+    {
+        int err = errno;
+        BMCWEB_LOG_ERROR << "FSR Error opening " << path
+                         << " input: " << strerror(err);
+        return;
+    }
+
+    // Must supply 3rd argument to avoid throwing exceptions
+    nlohmann::json j = nlohmann::json::parse(input, nullptr, false);
+
+    input.close();
+
+    // Must be good, or if not, must be at EOF, to deem file I/O successful
+    if (!(input.good()))
+    {
+        if (!(input.eof()))
+        {
+            int err = errno;
+            BMCWEB_LOG_ERROR << "FSR Error closing " << path
+                             << " input: " << strerror(err);
+            return;
+        }
+    }
+
+    // Even if file I/O successful, content must be a valid JSON dictionary
+    if (j.is_discarded())
+    {
+        BMCWEB_LOG_ERROR << "FSR Input " << path << " not valid JSON";
+        return;
+    }
+    if (!(j.is_object()))
+    {
+        BMCWEB_LOG_ERROR << "FSR Input " << path << " not JSON dictionary";
+        return;
+    }
+
+    intermediateResponse.jsonValue.update(j);
+}
+
 struct ExpandNode
 {
     nlohmann::json::json_pointer location;
@@ -549,7 +616,8 @@ inline bool processCollectionParams(
 inline void
     processAllParams(crow::App& app, const Query query,
                      std::function<void(crow::Response&)>& completionHandler,
-                     crow::Response& intermediateResponse)
+                     crow::Response& intermediateResponse,
+                     std::string_view target)
 {
     if (!completionHandler)
     {
@@ -593,6 +661,13 @@ inline void
         multi->onEnd(query, nlohmann::json::json_pointer(""), asyncResp->res);
         return;
     }
+
+    // At this point the results of the query are ready to send, the handler
+    // has had a chance to populate the response and/or any errors have been
+    // processed. Now we can see if any JSON has been stored for this URI via 
+    // the External Storer feature (IE stored on disk my a prior POST).
+    processFileResources(intermediateResponse, target);
+    
     completionHandler(intermediateResponse);
 }
 
