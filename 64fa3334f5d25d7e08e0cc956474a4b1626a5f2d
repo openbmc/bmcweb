@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0ba4f029_8d585ba3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-17T19:01:09Z",
+      "side": 1,
+      "message": "I believe this patch is correct as per https://github.com/openbmc/bmcweb/blob/10f270b41dee295f90dccac091883b94b82dd0d9/static/redfish/v1/schema/MetricReport_v1.xml ",
+      "revId": "64fa3334f5d25d7e08e0cc956474a4b1626a5f2d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
