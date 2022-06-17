@@ -48,6 +48,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "43f069e5_f65bfecc",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 917,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-17T22:38:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4606666f_517eee61",
+      "range": {
+        "startLine": 917,
+        "startChar": 20,
+        "endLine": 917,
+        "endChar": 38
+      },
+      "revId": "edbff7082a940d495b441db953d0964e0818d0e7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "97d1c4ee_522891c5",
@@ -61,6 +85,30 @@
       "writtenOn": "2022-06-17T20:14:36Z",
       "side": 1,
       "message": "use contains() like how you did with unordered_set?",
+      "range": {
+        "startLine": 919,
+        "startChar": 20,
+        "endLine": 919,
+        "endChar": 64
+      },
+      "revId": "edbff7082a940d495b441db953d0964e0818d0e7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "07967bdf_19fe235e",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 919,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-17T22:38:21Z",
+      "side": 1,
+      "message": "Done. Nice, C++20.",
+      "parentUuid": "97d1c4ee_522891c5",
       "range": {
         "startLine": 919,
         "startChar": 20,
@@ -94,6 +142,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e62e8d41_1725f8d7",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 938,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-17T22:38:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ac5d714a_1c9e3899",
+      "range": {
+        "startLine": 938,
+        "startChar": 4,
+        "endLine": 938,
+        "endChar": 37
+      },
+      "revId": "edbff7082a940d495b441db953d0964e0818d0e7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "60bf198a_17579be8",
@@ -107,6 +179,30 @@
       "writtenOn": "2022-06-17T20:14:36Z",
       "side": 1,
       "message": "can\u0027t we declare this outside of the  for loops and then at the end.\n\n```\nmemoryAsyncResp-\u003easyncResponse-\u003eres.jsonValue[\"Members@odata.count\"] \u003d members.size();\n```\n?",
+      "range": {
+        "startLine": 956,
+        "startChar": 16,
+        "endLine": 957,
+        "endChar": 77
+      },
+      "revId": "edbff7082a940d495b441db953d0964e0818d0e7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3f1e9aca_ea4c81b6",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 957,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-17T22:38:21Z",
+      "side": 1,
+      "message": "We can.",
+      "parentUuid": "60bf198a_17579be8",
       "range": {
         "startLine": 956,
         "startChar": 16,
@@ -140,6 +236,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c9164b89_f3725f79",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 1003,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-17T22:38:21Z",
+      "side": 1,
+      "message": "No. async_method_call can\u0027t take bind_front today.",
+      "parentUuid": "16ee6f64_73ccbf61",
+      "range": {
+        "startLine": 1000,
+        "startChar": 12,
+        "endLine": 1003,
+        "endChar": 13
+      },
+      "revId": "edbff7082a940d495b441db953d0964e0818d0e7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4eef73e6_325ab300",
@@ -153,6 +273,30 @@
       "writtenOn": "2022-06-17T20:14:36Z",
       "side": 1,
       "message": "If we are going to make a copy here since the dimmServices will go out of scope, can\u0027t we just copy dimmServices in the first place?\n\nSame with partitionServices\n\n----\n\nWait, this function is not async so the data in dimmServices won\u0027t go out os scope. How come we need to copy here?",
+      "range": {
+        "startLine": 1023,
+        "startChar": 0,
+        "endLine": 1024,
+        "endChar": 72
+      },
+      "revId": "edbff7082a940d495b441db953d0964e0818d0e7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac4c9afc_61e05d84",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 1024,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-17T22:38:21Z",
+      "side": 1,
+      "message": "I guess I somehow messed it up during rebase. This is not needed.",
+      "parentUuid": "4eef73e6_325ab300",
       "range": {
         "startLine": 1023,
         "startChar": 0,
