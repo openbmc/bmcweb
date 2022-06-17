@@ -16,6 +16,24 @@
       "message": "The test passed on my machine. We can Get Pcieslots:",
       "revId": "aa08a1d6bb811dbfbddbe51ef0ab17d33315ace4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "055ed8e9_2e5187ad",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 130
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2022-06-17T09:11:37Z",
+      "side": 1,
+      "message": "Test result:\ncurl -k -H \"X-Auth-Token: $token\" -X GET https://${bmc}/redfish/v1/Chassis/chassis/PCIeSlots\n{\n  \"@odata.id\": \"/redfish/v1/Chassis/chassis/PCIeSlots\",\n  \"@odata.type\": \"#PCIeSlots.v1_4_1.PCIeSlots\",\n  \"Id\": \"1\",\n  \"Name\": \"PCIe Slot Information\",\n  \"Slots\": [\n    {\n      \"HotPluggable\": false,\n      \"Lanes\": 0,\n      \"PCIeType\": false,\n      \"SlotType\": \"\"\n    },\n    {\n      \"HotPluggable\": false,\n      \"Lanes\": 0,\n      \"PCIeType\": false,\n      \"SlotType\": \"\"\n    }\n  ]\n}",
+      "parentUuid": "0817e5f9_4bb7ba90",
+      "revId": "aa08a1d6bb811dbfbddbe51ef0ab17d33315ace4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
