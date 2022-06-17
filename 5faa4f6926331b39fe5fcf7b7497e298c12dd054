@@ -46,6 +46,30 @@
       },
       "revId": "5faa4f6926331b39fe5fcf7b7497e298c12dd054",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b138c200_43b55a7a",
+        "filename": "include/ut/openbmc_dbus_rest_test.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-17T19:55:38Z",
+      "side": 1,
+      "message": "Oh, just fixed. Yes, just forgot to delete.",
+      "parentUuid": "c64cd1eb_b33f6ad7",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 0
+      },
+      "revId": "5faa4f6926331b39fe5fcf7b7497e298c12dd054",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
