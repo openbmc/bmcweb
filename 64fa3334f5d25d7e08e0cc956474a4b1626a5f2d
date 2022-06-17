@@ -16,6 +16,69 @@
       "message": "I believe this patch is correct as per https://github.com/openbmc/bmcweb/blob/10f270b41dee295f90dccac091883b94b82dd0d9/static/redfish/v1/schema/MetricReport_v1.xml ",
       "revId": "64fa3334f5d25d7e08e0cc956474a4b1626a5f2d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7aac346e_f1b263bb",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 531,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-17T21:07:51Z",
+      "side": 1,
+      "message": "Considering this is part of the resport, should this go in the function called fillReport?",
+      "revId": "64fa3334f5d25d7e08e0cc956474a4b1626a5f2d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ca312cc_e31b0c9c",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 532,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-17T21:07:51Z",
+      "side": 1,
+      "message": "nit, capitalize MetricReports",
+      "range": {
+        "startLine": 532,
+        "startChar": 18,
+        "endLine": 532,
+        "endChar": 20
+      },
+      "revId": "64fa3334f5d25d7e08e0cc956474a4b1626a5f2d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "85739052_7defd9ea",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 535,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-17T21:07:51Z",
+      "side": 1,
+      "message": "isn\u0027t the MetricReport context different from the Subscription Context?  Presumably we want the Context from the MetricReportDefinition, not from the Subscription?",
+      "range": {
+        "startLine": 535,
+        "startChar": 0,
+        "endLine": 535,
+        "endChar": 40
+      },
+      "revId": "64fa3334f5d25d7e08e0cc956474a4b1626a5f2d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
