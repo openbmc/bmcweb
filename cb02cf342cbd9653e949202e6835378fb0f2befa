@@ -124,6 +124,24 @@
       "parentUuid": "b34098e9_7f1369a0",
       "revId": "cb02cf342cbd9653e949202e6835378fb0f2befa",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b5b8a00_ce634b6e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-17T19:49:01Z",
+      "side": 1,
+      "message": "That\u0027s what I do when I don\u0027t have the backend. I create several mock objects so only that resource is populated. Then I run validator against it.",
+      "parentUuid": "4ffa4682_ab6f2908",
+      "revId": "cb02cf342cbd9653e949202e6835378fb0f2befa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
