@@ -87,6 +87,24 @@
       "parentUuid": "7fff72bb_e1603f84",
       "revId": "b2fac5853a8aef444e63ec877de3d10c69bc5d9e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d7fe1f59_07395817",
+        "filename": "redfish-core/include/utils/chassis_utils.hpp",
+        "patchSetId": 118
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-17T14:51:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0995cc84_93c54468",
+      "revId": "b2fac5853a8aef444e63ec877de3d10c69bc5d9e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
