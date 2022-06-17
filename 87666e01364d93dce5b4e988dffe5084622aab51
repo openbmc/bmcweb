@@ -38,6 +38,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b183c070_c6d7b5a1",
+        "filename": "redfish-core/lib/virtual_media.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 419,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-17T15:24:54Z",
+      "side": 1,
+      "message": "this should be imageUrl, not just construct an empty string.",
+      "range": {
+        "startLine": 419,
+        "startChar": 52,
+        "endLine": 419,
+        "endChar": 54
+      },
+      "revId": "87666e01364d93dce5b4e988dffe5084622aab51",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "52cab7e0_80d17bbf",
         "filename": "redfish-core/lib/virtual_media.hpp",
         "patchSetId": 2
@@ -73,6 +96,30 @@
       "side": 1,
       "message": "Removing this check won\u0027t help, as it will cause segfault to occur in the first available place where invalid url object is dereferenced (which would be getTransferProtocolFromUri() call). I\u0027m going to discuss the case of moving URI validation logic into Virtual Media service with code owner, and get back here once we establish a solution for that.",
       "parentUuid": "52cab7e0_80d17bbf",
+      "range": {
+        "startLine": 415,
+        "startChar": 0,
+        "endLine": 421,
+        "endChar": 5
+      },
+      "revId": "87666e01364d93dce5b4e988dffe5084622aab51",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eb4953f5_0ac1e6f4",
+        "filename": "redfish-core/lib/virtual_media.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 421,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-17T15:24:54Z",
+      "side": 1,
+      "message": "Ah, good point.  I didn\u0027t see it getting used there.",
+      "parentUuid": "0958738b_84b25c68",
       "range": {
         "startLine": 415,
         "startChar": 0,
