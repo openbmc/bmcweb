@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b8c664d8_3338b079",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1001329
+      },
+      "writtenOn": "2022-06-17T11:00:23Z",
+      "side": 1,
+      "message": "Sure, I\u0027ll correct that when pushing review fixes.",
+      "parentUuid": "ad700967_22090a23",
+      "revId": "87666e01364d93dce5b4e988dffe5084622aab51",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "52cab7e0_80d17bbf",
         "filename": "redfish-core/lib/virtual_media.hpp",
         "patchSetId": 2
@@ -31,6 +49,30 @@
       "writtenOn": "2022-06-15T18:04:12Z",
       "side": 1,
       "message": "I suspect we should just completely remove this check.  We\u0027re not using the url object here, and this logic should arguably go in the virtual media daemon.",
+      "range": {
+        "startLine": 415,
+        "startChar": 0,
+        "endLine": 421,
+        "endChar": 5
+      },
+      "revId": "87666e01364d93dce5b4e988dffe5084622aab51",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0958738b_84b25c68",
+        "filename": "redfish-core/lib/virtual_media.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 421,
+      "author": {
+        "id": 1001329
+      },
+      "writtenOn": "2022-06-17T11:00:23Z",
+      "side": 1,
+      "message": "Removing this check won\u0027t help, as it will cause segfault to occur in the first available place where invalid url object is dereferenced (which would be getTransferProtocolFromUri() call). I\u0027m going to discuss the case of moving URI validation logic into Virtual Media service with code owner, and get back here once we establish a solution for that.",
+      "parentUuid": "52cab7e0_80d17bbf",
       "range": {
         "startLine": 415,
         "startChar": 0,
