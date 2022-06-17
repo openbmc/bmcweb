@@ -816,15 +816,6 @@ inline void getDimmPartitionData(std::shared_ptr<bmcweb::AsyncResp> aResp,
         "xyz.openbmc_project.Inventory.Item.PersistentMemory.Partition");
 }
 
-inline bool pathContainsDimmId(const std::string& path, std::string_view dimmId)
-{
-    sdbusplus::message::object_path objectPath(path);
-    // for /xyz/openbmc_project/Inventory/Item/Dimm1/Partition1 or
-    // /xyz/openbmc_project/Inventory/Item/Dimm1
-    return !dimmId.empty() && (objectPath.filename() == dimmId ||
-                               objectPath.parent_path().filename() == dimmId);
-}
-
 inline void getDimmData(std::shared_ptr<bmcweb::AsyncResp> aResp,
                         const std::string& dimmId)
 {
@@ -841,31 +832,31 @@ inline void getDimmData(std::shared_ptr<bmcweb::AsyncResp> aResp,
             return;
         }
         bool found = false;
-        for (const auto& [path, object] : subtree)
+        for (const auto& [rawPath, object] : subtree)
         {
-            if (pathContainsDimmId(path, dimmId))
+            sdbusplus::message::object_path path(rawPath);
+            for (const auto& [service, interfaces] : object)
             {
-                for (const auto& [service, interfaces] : object)
+                for (const auto& interface : interfaces)
                 {
-                    for (const auto& interface : interfaces)
+                    if (interface ==
+                            "xyz.openbmc_project.Inventory.Item.Dimm" &&
+                        path.filename() == dimmId)
                     {
-                        if (interface ==
-                            "xyz.openbmc_project.Inventory.Item.Dimm")
-                        {
-                            getDimmDataByService(aResp, dimmId, service, path);
-                            found = true;
-                        }
+                        getDimmDataByService(aResp, dimmId, service, rawPath);
+                        found = true;
+                    }
 
-                        // partitions are separate as there can be multiple
-                        // per
-                        // device, i.e.
-                        // /xyz/openbmc_project/Inventory/Item/Dimm1/Partition1
-                        // /xyz/openbmc_project/Inventory/Item/Dimm1/Partition2
-                        if (interface ==
-                            "xyz.openbmc_project.Inventory.Item.PersistentMemory.Partition")
-                        {
-                            getDimmPartitionData(aResp, service, path);
-                        }
+                    // partitions are separate as there can be multiple
+                    // per
+                    // device, i.e.
+                    // /xyz/openbmc_project/Inventory/Item/Dimm1/Partition1
+                    // /xyz/openbmc_project/Inventory/Item/Dimm1/Partition2
+                    if (interface ==
+                            "xyz.openbmc_project.Inventory.Item.PersistentMemory.Partition" &&
+                        path.parent_path().filename() == dimmId)
+                    {
+                        getDimmPartitionData(aResp, service, rawPath);
                     }
                 }
             }
