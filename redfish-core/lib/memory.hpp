@@ -30,6 +30,10 @@
 namespace redfish
 {
 
+constexpr const char* partitionInterface =
+    "xyz.openbmc_project.Inventory.Item.PersistentMemory.Partition";
+constexpr const char* dimmInterface = "xyz.openbmc_project.Inventory.Item.Dimm";
+
 inline std::string translateMemoryTypeToRedfish(const std::string& memoryType)
 {
     if (memoryType == "xyz.openbmc_project.Inventory.Item.Dimm.DeviceType.DDR")
@@ -813,7 +817,7 @@ inline void getDimmPartitionData(std::shared_ptr<bmcweb::AsyncResp> aResp,
         },
 
         service, path, "org.freedesktop.DBus.Properties", "GetAll",
-        "xyz.openbmc_project.Inventory.Item.PersistentMemory.Partition");
+        partitionInterface);
 }
 
 inline void getDimmData(std::shared_ptr<bmcweb::AsyncResp> aResp,
@@ -839,9 +843,7 @@ inline void getDimmData(std::shared_ptr<bmcweb::AsyncResp> aResp,
             {
                 for (const auto& interface : interfaces)
                 {
-                    if (interface ==
-                            "xyz.openbmc_project.Inventory.Item.Dimm" &&
-                        path.filename() == dimmId)
+                    if (interface == dimmInterface && path.filename() == dimmId)
                     {
                         getDimmDataByService(aResp, dimmId, service, rawPath);
                         found = true;
@@ -852,8 +854,7 @@ inline void getDimmData(std::shared_ptr<bmcweb::AsyncResp> aResp,
                     // device, i.e.
                     // /xyz/openbmc_project/Inventory/Item/Dimm1/Partition1
                     // /xyz/openbmc_project/Inventory/Item/Dimm1/Partition2
-                    if (interface ==
-                            "xyz.openbmc_project.Inventory.Item.PersistentMemory.Partition" &&
+                    if (interface == partitionInterface &&
                         path.parent_path().filename() == dimmId)
                     {
                         getDimmPartitionData(aResp, service, rawPath);
@@ -877,9 +878,7 @@ inline void getDimmData(std::shared_ptr<bmcweb::AsyncResp> aResp,
         "/xyz/openbmc_project/object_mapper",
         "xyz.openbmc_project.ObjectMapper", "GetSubTree",
         "/xyz/openbmc_project/inventory", 0,
-        std::array<const char*, 2>{
-            "xyz.openbmc_project.Inventory.Item.Dimm",
-            "xyz.openbmc_project.Inventory.Item.PersistentMemory.Partition"});
+        std::array<const char*, 2>{dimmInterface, partitionInterface});
 }
 
 inline void requestRoutesMemoryCollection(App& app)
@@ -903,8 +902,7 @@ inline void requestRoutesMemoryCollection(App& app)
             "/redfish/v1/Systems/system/Memory";
 
         collection_util::getCollectionMembers(
-            asyncResp, "/redfish/v1/Systems/system/Memory",
-            {"xyz.openbmc_project.Inventory.Item.Dimm"});
+            asyncResp, "/redfish/v1/Systems/system/Memory", {dimmInterface});
         });
 }
 
