@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "35588ec3_d1d4949c",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 917,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-06-17T20:14:36Z",
+      "side": 1,
+      "message": "nit: const\u0026 std::string\u0026 instead? just for consistency.",
+      "range": {
+        "startLine": 917,
+        "startChar": 20,
+        "endLine": 917,
+        "endChar": 38
+      },
+      "revId": "edbff7082a940d495b441db953d0964e0818d0e7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "97d1c4ee_522891c5",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 919,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-06-17T20:14:36Z",
+      "side": 1,
+      "message": "use contains() like how you did with unordered_set?",
+      "range": {
+        "startLine": 919,
+        "startChar": 20,
+        "endLine": 919,
+        "endChar": 64
+      },
+      "revId": "edbff7082a940d495b441db953d0964e0818d0e7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ac5d714a_1c9e3899",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 938,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-06-17T20:14:36Z",
+      "side": 1,
+      "message": "const reference instead?",
+      "range": {
+        "startLine": 938,
+        "startChar": 4,
+        "endLine": 938,
+        "endChar": 37
+      },
+      "revId": "edbff7082a940d495b441db953d0964e0818d0e7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "60bf198a_17579be8",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 957,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-06-17T20:14:36Z",
+      "side": 1,
+      "message": "can\u0027t we declare this outside of the  for loops and then at the end.\n\n```\nmemoryAsyncResp-\u003easyncResponse-\u003eres.jsonValue[\"Members@odata.count\"] \u003d members.size();\n```\n?",
+      "range": {
+        "startLine": 956,
+        "startChar": 16,
+        "endLine": 957,
+        "endChar": 77
+      },
+      "revId": "edbff7082a940d495b441db953d0964e0818d0e7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "16ee6f64_73ccbf61",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 1003,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-06-17T20:14:36Z",
+      "side": 1,
+      "message": "does std::bind_front not work here?\n\nI know it doesn\u0027t work in some cases.",
+      "range": {
+        "startLine": 1000,
+        "startChar": 12,
+        "endLine": 1003,
+        "endChar": 13
+      },
+      "revId": "edbff7082a940d495b441db953d0964e0818d0e7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4eef73e6_325ab300",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 1024,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-06-17T20:14:36Z",
+      "side": 1,
+      "message": "If we are going to make a copy here since the dimmServices will go out of scope, can\u0027t we just copy dimmServices in the first place?\n\nSame with partitionServices\n\n----\n\nWait, this function is not async so the data in dimmServices won\u0027t go out os scope. How come we need to copy here?",
+      "range": {
+        "startLine": 1023,
+        "startChar": 0,
+        "endLine": 1024,
+        "endChar": 72
+      },
+      "revId": "edbff7082a940d495b441db953d0964e0818d0e7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
