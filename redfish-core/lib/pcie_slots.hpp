@@ -260,7 +260,7 @@ inline void handlePCIeSlotCollectionGet(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& chassisID)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp->res))
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
