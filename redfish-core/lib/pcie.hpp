@@ -129,8 +129,9 @@ inline std::optional<std::string>
     {
         return "Gen5";
     }
-    if (generationInUse ==
-        "xyz.openbmc_project.Inventory.Item.PCIeSlot.Generations.Unknown")
+    if (generationInUse.empty() ||
+        generationInUse ==
+            "xyz.openbmc_project.Inventory.Item.PCIeSlot.Generations.Unknown")
     {
         return "";
     }

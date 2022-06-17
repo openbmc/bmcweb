@@ -274,15 +274,6 @@ PowerControl Voltages PowerSupplies Redundancy
 - MinNumNeeded
 - MaxNumSupported
 
-#### /redfish/v1/Chassis/{ChassisId}/PCIeSlots/
-- Members
-
-#### /redfish/v1/Chassis/{ChassisId}/PCIeSlots/{SlotName}
-- HotPluggable
-- Lanes
-- PCIeType
-- SlotType
-
 #### /redfish/v1/EventService/
 ##### EventService
 - Actions
