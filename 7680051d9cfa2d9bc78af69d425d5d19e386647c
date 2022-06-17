@@ -39,6 +39,30 @@
       },
       "revId": "7680051d9cfa2d9bc78af69d425d5d19e386647c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b685d96e_523beef4",
+        "filename": "src/openbmc_jtag_rest_test.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-17T19:54:23Z",
+      "side": 1,
+      "message": "Based my understanding, dbusArgSplit splits the type string into self contained individual types. For this case, \n\n```\ni        {si}   b\nINT32    DICT   BOOLEAN\n```\n\nshould just be \"i\", \"{si}\", \"b\". In no ways it can get to \"b\", \"aa{si}\". It seems to me a typo given the previous test case is \"aa{si}b\"",
+      "parentUuid": "a79f5c61_035b38c3",
+      "range": {
+        "startLine": 52,
+        "startChar": 39,
+        "endLine": 52,
+        "endChar": 55
+      },
+      "revId": "7680051d9cfa2d9bc78af69d425d5d19e386647c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
