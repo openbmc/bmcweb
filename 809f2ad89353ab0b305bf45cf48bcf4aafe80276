@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9248fb26_82a2f28d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-17T19:21:36Z",
+      "side": 1,
+      "message": "As-written, this patchset causes validator failures on systems that don\u0027t have PCIeSlots defined.\n\nA previous patch, somewhat handled this.\n\nTo get this patch onto master, we need to decide between:\n\nAll chassis expose a PCIeSlotsCollection link, then the collection itself exposes an empty collection\n\nChassis without PCIeSlots do not expose a PCIeSlotsCollection link, and a request to an empty collection returns 404.\n\n\nLets use this review to discuss, or if someone else would like to own it, lets discuss there.",
+      "revId": "809f2ad89353ab0b305bf45cf48bcf4aafe80276",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
