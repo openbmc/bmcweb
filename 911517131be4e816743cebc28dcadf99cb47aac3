@@ -39,6 +39,76 @@
       },
       "revId": "911517131be4e816743cebc28dcadf99cb47aac3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dd61f02d_e2dfca29",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 405,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-18T19:13:12Z",
+      "side": 1,
+      "message": "Unfortunately we can\u0027t use a boolean here, because there are 3 states:\n\n1. True\n2. False\n3. Parameter not received\n\nin terms of patterns, a pointer seems to be the best answer we have so far for solving the three states.",
+      "parentUuid": "ec6a3429_44198be7",
+      "range": {
+        "startLine": 405,
+        "startChar": 20,
+        "endLine": 405,
+        "endChar": 28
+      },
+      "revId": "911517131be4e816743cebc28dcadf99cb47aac3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "310f8b32_70b60af2",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 511,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-18T19:13:12Z",
+      "side": 1,
+      "message": "possible nullptr dereference.  Per the coding standard, please make sure to check pointers for validity before dererencing them, similar to:\n\nif (encryptionStatus \u003d\u003d nullptr){\n\n   messsages::internalError(...);\n   return;\n}",
+      "range": {
+        "startLine": 511,
+        "startChar": 13,
+        "endLine": 511,
+        "endChar": 29
+      },
+      "revId": "911517131be4e816743cebc28dcadf99cb47aac3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2258f104_391e89d2",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 514,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-18T19:13:12Z",
+      "side": 1,
+      "message": "possible nullptr dereference here.  If the branch on line 500 never returns true, this will dereference nullptr.",
+      "range": {
+        "startLine": 514,
+        "startChar": 17,
+        "endLine": 514,
+        "endChar": 25
+      },
+      "revId": "911517131be4e816743cebc28dcadf99cb47aac3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
