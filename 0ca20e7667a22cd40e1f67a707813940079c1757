@@ -190,6 +190,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "dbf0e677_c2c7db99",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-18T19:43:03Z",
+      "side": 1,
+      "message": "\u003e The inheritance way is how I wish I could have done it from the start. Unfortunately, all the methods in sdbusplus::asio::connection are non-virtual, so MockSdbusConnection can\u0027t override them.\n\nComposition is still an \n\n\u003e \n\u003e I was messing around with it today and I can\u0027t really get around this issue without going in and creating an interface for sdbusplus::asio::connection.\n\nConsidering we only explicitly call the name sdbusplus::asio::connection in one place (where we declare the global and where we init it in main) we should be able to invent a new interface pointer there, right?\n\n\u003e I\u0027m also not a huge fan of the templating within log_services.hpp, but I think it\u0027s unavoidable without significant changes to sdbusplus::asio::connection (and anything that uses it).\n\nOpenBMC has control over sdbusplus::asio::connection, so if we do need to make significant changes, we certainly can.\n\n\u003e \n\u003e I\u0027d appreciate any suggestions though!\n\nHave you attempted a composition based approach?  When I played around with it earlier, it seemed to work.",
+      "parentUuid": "65a035d0_faff9abc",
+      "range": {
+        "startLine": 371,
+        "startChar": 0,
+        "endLine": 371,
+        "endChar": 25
+      },
+      "revId": "0ca20e7667a22cd40e1f67a707813940079c1757",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8add00c9_125354d7",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 12
