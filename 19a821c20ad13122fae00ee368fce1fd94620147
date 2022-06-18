@@ -1,0 +1,411 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f70320b7_82f5f219",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 24
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-18T19:35:31Z",
+      "side": 1,
+      "message": "Lots of pretty minor comments.  Ping me on discord if you need any help, then this should be good to go.\n\nAt some point, we need to discuss how to make this more generic, given that any number of log types might be produced, and we can\u0027t continue this trend of just hardcoding every possible log name.",
+      "revId": "19a821c20ad13122fae00ee368fce1fd94620147",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "74affb99_3d96eba6",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-18T19:35:31Z",
+      "side": 1,
+      "message": "In the future, please avoid renaming variables in the same patch in which you\u0027re changing behavior;  It makes things more difficult for the reviewer.  With that said, this seems straightforward, so I was able to work through it.",
+      "range": {
+        "startLine": 358,
+        "startChar": 16,
+        "endLine": 358,
+        "endChar": 27
+      },
+      "revId": "19a821c20ad13122fae00ee368fce1fd94620147",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d7a8dbe_3bec7700",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 359,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-18T19:35:31Z",
+      "side": 1,
+      "message": "As we do elsewhere, Please structure this as:\n\nstd::string entriesPath \u003d getDumpEntriesPath(dumpType);\nif (entriesPath.empty){\n  ...\n}",
+      "range": {
+        "startLine": 358,
+        "startChar": 0,
+        "endLine": 359,
+        "endChar": 61
+      },
+      "revId": "19a821c20ad13122fae00ee368fce1fd94620147",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c156538f_1a9248de",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 507,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-18T19:35:31Z",
+      "side": 1,
+      "message": "Smae as above.",
+      "revId": "19a821c20ad13122fae00ee368fce1fd94620147",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b3a5b72e_6be5ee3c",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 726,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-18T19:35:31Z",
+      "side": 1,
+      "message": "If you want to return method not allowed, simply don\u0027t register the route for the POST handler for that URI.  The bmcweb core will then handle this error for you.",
+      "range": {
+        "startLine": 726,
+        "startChar": 19,
+        "endLine": 726,
+        "endChar": 20
+      },
+      "revId": "19a821c20ad13122fae00ee368fce1fd94620147",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0ecb7fea_75efe918",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 738,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-18T19:35:31Z",
+      "side": 1,
+      "message": "Same as above, please just init the variable to the value, and do the check in the branch.",
+      "range": {
+        "startLine": 738,
+        "startChar": 9,
+        "endLine": 738,
+        "endChar": 49
+      },
+      "revId": "19a821c20ad13122fae00ee368fce1fd94620147",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "036c699f_069cce76",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 1991,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-18T19:35:31Z",
+      "side": 1,
+      "message": "nit, the naming convention for this would be handleManagersBmcLogServiceCollectionGet.\n\nin generic terms handle\u003cRoute From ServiceRoot\u003e\u003cTypeReturned\u003e\u003cHttpVerb\u003e\n\nIt looks like this patch comes up with a different pattern for naming.  Please fix all of the naming for consistency.",
+      "range": {
+        "startLine": 1991,
+        "startChar": 12,
+        "endLine": 1991,
+        "endChar": 38
+      },
+      "revId": "19a821c20ad13122fae00ee368fce1fd94620147",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7f56c9aa_e9b2b1ba",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 2024,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-18T19:35:31Z",
+      "side": 1,
+      "message": "nit, this is right on the border of too complex to be putting in a lambda.  I will leave it up to you if you want to move it to a normal function, but anything else added in this context will for sure require it.",
+      "revId": "19a821c20ad13122fae00ee368fce1fd94620147",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f1550ae8_f9d39fdb",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 2035,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-18T19:35:31Z",
+      "side": 1,
+      "message": "As we do elsewhere, please set this to nlohmann::json::array_t to handle the case where there are no logs present, we will still return the correct type.\n\nas-written, this will break users that don\u0027t have either log types enabled on dbus.",
+      "revId": "19a821c20ad13122fae00ee368fce1fd94620147",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3d201fc7_a10e934e",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 2038,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-18T19:35:31Z",
+      "side": 1,
+      "message": "Note, at some point in the future, we need to move these LogServices to JUST relying on the dbus path, so that we\u0027re not hardcoding specific paths in bmcweb, and people like yourself can add logs at will.\n\nJust FYI, no action needed in this patchset.",
+      "range": {
+        "startLine": 2038,
+        "startChar": 51,
+        "endLine": 2038,
+        "endChar": 54
+      },
+      "revId": "19a821c20ad13122fae00ee368fce1fd94620147",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eb090937_78229d07",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 2333,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-18T19:35:31Z",
+      "side": 1,
+      "message": "As a matter of being consistent, please just duplicate this in each of the route handlers, so that when we get better patterns, this is less effort to move.",
+      "range": {
+        "startLine": 2328,
+        "startChar": 0,
+        "endLine": 2333,
+        "endChar": 0
+      },
+      "revId": "19a821c20ad13122fae00ee368fce1fd94620147",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3153608d_a93a6983",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 2334,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-18T19:35:31Z",
+      "side": 1,
+      "message": "Aren\u0027t there 3 types of dumps?  And isn\u0027t this check essentially performed elsewhere when we try to map paths?  Could we just rely on the later checks?",
+      "range": {
+        "startLine": 2334,
+        "startChar": 0,
+        "endLine": 2334,
+        "endChar": 55
+      },
+      "revId": "19a821c20ad13122fae00ee368fce1fd94620147",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5e37633c_d9e58b57",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 2349,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-18T19:35:31Z",
+      "side": 1,
+      "message": "Please explitly set this in the other two branches that use this to make it clear which types use which.",
+      "range": {
+        "startLine": 2349,
+        "startChar": 0,
+        "endLine": 2349,
+        "endChar": 50
+      },
+      "revId": "19a821c20ad13122fae00ee368fce1fd94620147",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d18c2c1c_1537caa5",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 2358,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-18T19:35:31Z",
+      "side": 1,
+      "message": "Should we be setting the overwrite policy at all in this case?  Hard to say which is better, just omitting it or setting unknown.",
+      "range": {
+        "startLine": 2358,
+        "startChar": 0,
+        "endLine": 2358,
+        "endChar": 36
+      },
+      "revId": "19a821c20ad13122fae00ee368fce1fd94620147",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f111a90f_e71bdd63",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 2376,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-18T19:35:31Z",
+      "side": 1,
+      "message": "This looks incorrect for the FaultLog case?  I\u0027m a little surprised the redfish service validator didn\u0027t flag this.  Can you double check that you\u0027re getting a passing result on your system?",
+      "range": {
+        "startLine": 2376,
+        "startChar": 38,
+        "endLine": 2376,
+        "endChar": 42
+      },
+      "revId": "19a821c20ad13122fae00ee368fce1fd94620147",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8b2d5dda_27c009ec",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 2380,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-18T19:35:31Z",
+      "side": 1,
+      "message": "For FaultLog, is it the right thing to be returning the BMC time, when the faults were generated from the host?",
+      "range": {
+        "startLine": 2380,
+        "startChar": 23,
+        "endLine": 2380,
+        "endChar": 43
+      },
+      "revId": "19a821c20ad13122fae00ee368fce1fd94620147",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f18ce545_4269504c",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 2391,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-18T19:35:31Z",
+      "side": 1,
+      "message": "Please don\u0027t brace construct nlohmann objects.  It bloats binary sizes, and is slower.  I recently got this documented as common error #13.  Please read the recommendations under the COMMON_ERRORS.md doc, and do as it suggests.",
+      "range": {
+        "startLine": 2385,
+        "startChar": 7,
+        "endLine": 2391,
+        "endChar": 21
+      },
+      "revId": "19a821c20ad13122fae00ee368fce1fd94620147",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "948a9da4_4ac3d5e0",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 2419,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-18T19:35:31Z",
+      "side": 1,
+      "message": "Please use urlFromPieces, which escapes values properly.  I realize that it\u0027s unlikely these values will need escaping, but consistency helps us to avoid bugs.",
+      "range": {
+        "startLine": 2419,
+        "startChar": 0,
+        "endLine": 2419,
+        "endChar": 72
+      },
+      "revId": "19a821c20ad13122fae00ee368fce1fd94620147",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0ed81e7a_08133bd6",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 2553,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-18T19:35:31Z",
+      "side": 1,
+      "message": "nit, can you move this to line 2537 so that we\u0027re registering\n\n/FaultLog\n/FaultLog/Entries\n/FaultLog/Entries/\u003cstr\u003e\n/FaultLog/Actions/....\nect\n\nHaving decending order like that helps readers.",
+      "revId": "19a821c20ad13122fae00ee368fce1fd94620147",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
