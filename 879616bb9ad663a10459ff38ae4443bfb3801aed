@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ab04a7d6_a0a5eeee",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-19T18:17:55Z",
+      "side": 1,
+      "message": "This needs more explaination.  The pattern here appears to be an old pattern that we used a long time ago (still used in sensors) but a pattern that we stopped using because it was very difficult to get correct, and relies on destructor behavior, which can cause issues on shutdown if a request is in flight when we receive SIGTERM.\n\nA little more details here would be good.",
+      "range": {
+        "startLine": 10,
+        "startChar": 9,
+        "endLine": 11,
+        "endChar": 18
+      },
+      "revId": "879616bb9ad663a10459ff38ae4443bfb3801aed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "da480782_e732339d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-19T18:17:55Z",
+      "side": 1,
+      "message": "What system did you test with that had a non ECC RDIMM.....   Was this tested on a real system?  It\u0027s possible there\u0027s another bug somewhere.",
+      "range": {
+        "startLine": 36,
+        "startChar": 32,
+        "endLine": 36,
+        "endChar": 37
+      },
+      "revId": "879616bb9ad663a10459ff38ae4443bfb3801aed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "68503d77_9d336103",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-19T18:17:55Z",
+      "side": 1,
+      "message": "As you can see in your test results, the order is incorrect here.  In the non-efficient handler, dimm0 would\u0027ve come before dimm1.  Using the generic functions (getCollectionMembers) doesn\u0027t have this bug.  I suspect that you need to adapt your code to still use getCollectionMembers, but then call your efficient expand handlers when complete.",
+      "range": {
+        "startLine": 49,
+        "startChar": 60,
+        "endLine": 49,
+        "endChar": 65
+      },
+      "revId": "879616bb9ad663a10459ff38ae4443bfb3801aed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "51f4a800_67bea296",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 836,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-19T18:17:55Z",
+      "side": 1,
+      "message": "As a pattern, having a per-schema defined AsyncResponse object is generally not a pattern we want to promote.  We still use it in the sensors case because nobody has ported it back, but I\u0027m not sure we want it here.  Generally the pattern is to capture AsyncResp, and append objects to the response object as required.",
+      "range": {
+        "startLine": 836,
+        "startChar": 6,
+        "endLine": 836,
+        "endChar": 25
+      },
+      "revId": "879616bb9ad663a10459ff38ae4443bfb3801aed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5bce3f05_21a0155a",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 1222,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-19T18:17:55Z",
+      "side": 1,
+      "message": "nit, typo.",
+      "range": {
+        "startLine": 1222,
+        "startChar": 54,
+        "endLine": 1222,
+        "endChar": 61
+      },
+      "revId": "879616bb9ad663a10459ff38ae4443bfb3801aed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e8ef91d_e4a9fcd1",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 1223,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-19T18:17:55Z",
+      "side": 1,
+      "message": "Is there a reason none of the old code could be used in this case?  We\u0027re adding 300 lines of new things just for this case, and duplicating a lot of the dbus -\u003e json code, which has caused some bugs.",
+      "range": {
+        "startLine": 1223,
+        "startChar": 12,
+        "endLine": 1223,
+        "endChar": 31
+      },
+      "revId": "879616bb9ad663a10459ff38ae4443bfb3801aed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b133525_8d5db88a",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 1227,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-19T18:17:55Z",
+      "side": 1,
+      "message": "nit, typo.",
+      "range": {
+        "startLine": 1227,
+        "startChar": 52,
+        "endLine": 1227,
+        "endChar": 59
+      },
+      "revId": "879616bb9ad663a10459ff38ae4443bfb3801aed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
