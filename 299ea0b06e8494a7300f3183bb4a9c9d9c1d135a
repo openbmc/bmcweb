@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a0386bcb_31a83030",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-19T03:58:52Z",
+      "side": 1,
+      "message": "There\u0027s no strong typing here.  async_method_call is a template that accepts any variety of inputs, and more than once changes like this have caused issues.  Please test as the developing guide asks for.",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 62
+      },
+      "revId": "299ea0b06e8494a7300f3183bb4a9c9d9c1d135a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d38c6cc6_cb104952",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 528,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-19T03:58:52Z",
+      "side": 1,
+      "message": "Does this type need changed as well to\n\ndbus::utility::MapperServiceMap::value_type",
+      "range": {
+        "startLine": 525,
+        "startChar": 20,
+        "endLine": 528,
+        "endChar": 68
+      },
+      "revId": "299ea0b06e8494a7300f3183bb4a9c9d9c1d135a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
