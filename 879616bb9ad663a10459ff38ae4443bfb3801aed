@@ -70,6 +70,23 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "45516432_70098c9f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-19T18:20:34Z",
+      "side": 1,
+      "message": "I didn\u0027t make it all the way through this patchset yet.",
+      "revId": "879616bb9ad663a10459ff38ae4443bfb3801aed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "51f4a800_67bea296",
@@ -88,6 +105,98 @@
         "startChar": 6,
         "endLine": 836,
         "endChar": 25
+      },
+      "revId": "879616bb9ad663a10459ff38ae4443bfb3801aed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "da554ff1_4066622e",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 858,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-19T18:20:34Z",
+      "side": 1,
+      "message": "nit, typo.",
+      "range": {
+        "startLine": 858,
+        "startChar": 49,
+        "endLine": 858,
+        "endChar": 58
+      },
+      "revId": "879616bb9ad663a10459ff38ae4443bfb3801aed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "06d9c1b2_fc5a69c0",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 959,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-19T18:20:34Z",
+      "side": 1,
+      "message": "common error 13",
+      "range": {
+        "startLine": 959,
+        "startChar": 21,
+        "endLine": 959,
+        "endChar": 22
+      },
+      "revId": "879616bb9ad663a10459ff38ae4443bfb3801aed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce2c8b19_9b99c9de",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 960,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-19T18:20:34Z",
+      "side": 1,
+      "message": "please use urlFromPieces for constructing this url",
+      "range": {
+        "startLine": 960,
+        "startChar": 39,
+        "endLine": 960,
+        "endChar": 60
+      },
+      "revId": "879616bb9ad663a10459ff38ae4443bfb3801aed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6140efc8_588b0432",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 966,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-19T18:20:34Z",
+      "side": 1,
+      "message": "Please don\u0027t duplicate this call (you duplicate it 3 times in this function).  Also, this function can fail, in which case you need to handle the error.",
+      "range": {
+        "startLine": 966,
+        "startChar": 53,
+        "endLine": 966,
+        "endChar": 64
       },
       "revId": "879616bb9ad663a10459ff38ae4443bfb3801aed",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
