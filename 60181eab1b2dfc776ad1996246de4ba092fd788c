@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1f168a6d_e756d69b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-19T18:28:42Z",
+      "side": 1,
+      "message": "Couple very minor things, then this looks good.",
+      "revId": "60181eab1b2dfc776ad1996246de4ba092fd788c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8026c03d_f829f86f",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 759,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-19T18:28:42Z",
+      "side": 1,
+      "message": "Please put the type here to aid the user.",
+      "range": {
+        "startLine": 759,
+        "startChar": 8,
+        "endLine": 759,
+        "endChar": 12
+      },
+      "revId": "60181eab1b2dfc776ad1996246de4ba092fd788c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e7faf7e1_f4e22246",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 776,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-19T18:28:42Z",
+      "side": 1,
+      "message": "I realize this was incorrect before, so up to you if you want to fix it in this patchset, but this should be using sdbusplus::message::object_path",
+      "range": {
+        "startLine": 776,
+        "startChar": 0,
+        "endLine": 776,
+        "endChar": 72
+      },
+      "revId": "60181eab1b2dfc776ad1996246de4ba092fd788c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
