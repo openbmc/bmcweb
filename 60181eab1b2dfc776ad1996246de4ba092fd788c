@@ -41,6 +41,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a87f406c_5f761a4a",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 759,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-06-20T04:21:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8026c03d_f829f86f",
+      "range": {
+        "startLine": 759,
+        "startChar": 8,
+        "endLine": 759,
+        "endChar": 12
+      },
+      "revId": "60181eab1b2dfc776ad1996246de4ba092fd788c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e7faf7e1_f4e22246",
@@ -54,6 +78,30 @@
       "writtenOn": "2022-06-19T18:28:42Z",
       "side": 1,
       "message": "I realize this was incorrect before, so up to you if you want to fix it in this patchset, but this should be using sdbusplus::message::object_path",
+      "range": {
+        "startLine": 776,
+        "startChar": 0,
+        "endLine": 776,
+        "endChar": 72
+      },
+      "revId": "60181eab1b2dfc776ad1996246de4ba092fd788c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd1688cb_3877425b",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 776,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-06-20T04:21:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e7faf7e1_f4e22246",
       "range": {
         "startLine": 776,
         "startChar": 0,
