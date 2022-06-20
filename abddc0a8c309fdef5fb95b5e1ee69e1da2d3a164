@@ -105,6 +105,24 @@
       "parentUuid": "1e0e3704_be1f23ea",
       "revId": "abddc0a8c309fdef5fb95b5e1ee69e1da2d3a164",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0ef9c920_df63937c",
+        "filename": "include/obmc_hypervisor.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2022-06-20T16:43:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1e0e3704_be1f23ea",
+      "revId": "abddc0a8c309fdef5fb95b5e1ee69e1da2d3a164",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
