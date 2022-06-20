@@ -374,7 +374,7 @@ inline void
         if (std::find(objPaths.begin(), objPaths.end(), reqSwObjPath) !=
             objPaths.end())
         {
-            asyncResp->res.jsonValue["Updatable"] = true;
+            asyncResp->res.jsonValue["Updateable"] = true;
             return;
         }
         });
