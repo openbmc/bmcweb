@@ -41,6 +41,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2adc8653_e20f63e2",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 965,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-06-20T04:21:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9d46eb7d_a88987a7",
+      "range": {
+        "startLine": 965,
+        "startChar": 24,
+        "endLine": 965,
+        "endChar": 30
+      },
+      "revId": "295be608f4fa6725730bb2924cfba101cb400365",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7c3f4773_bded6b90",
@@ -54,6 +78,30 @@
       "writtenOn": "2022-06-19T18:30:58Z",
       "side": 1,
       "message": "nit, we try to use emplace_back everywhere.",
+      "range": {
+        "startLine": 991,
+        "startChar": 18,
+        "endLine": 991,
+        "endChar": 27
+      },
+      "revId": "295be608f4fa6725730bb2924cfba101cb400365",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2440ebfb_d9ce30bf",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 991,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-06-20T04:21:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7c3f4773_bded6b90",
       "range": {
         "startLine": 991,
         "startChar": 18,
