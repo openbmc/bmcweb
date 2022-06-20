@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a5253a1e_00638872",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1001489
+      },
+      "writtenOn": "2022-06-20T11:51:37Z",
+      "side": 1,
+      "message": "Fixed commit msg formatting to 52/70",
+      "parentUuid": "3ec5c169_0eb89e04",
+      "revId": "fced3bcc368e479c4c5758700fedf5b009f94141",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6d6ec276_bb41a9d9",
         "filename": "http/routing.hpp",
         "patchSetId": 1
@@ -43,6 +61,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1843d8a0_f3715ce4",
+        "filename": "http/routing.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 402,
+      "author": {
+        "id": 1001489
+      },
+      "writtenOn": "2022-06-20T11:51:37Z",
+      "side": 1,
+      "message": "Changed to const shared_ptr",
+      "parentUuid": "6d6ec276_bb41a9d9",
+      "range": {
+        "startLine": 402,
+        "startChar": 23,
+        "endLine": 402,
+        "endChar": 58
+      },
+      "revId": "fced3bcc368e479c4c5758700fedf5b009f94141",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "35aadffc_df16fb08",
         "filename": "http/websocket.hpp",
         "patchSetId": 1
@@ -54,6 +96,30 @@
       "writtenOn": "2022-06-06T09:00:01Z",
       "side": 1,
       "message": "Considering how every openHandler works you don\u0027t need AsyncResp object. Something smaller that executed doRead in destructor should be enogh.\n\nAlso have you tried moving doRead() after executing openHandler? I mean something like this:\n\nvoid acceptDone()\n    {\n        BMCWEB_LOG_DEBUG \u003c\u003c \"Websocket accepted connection\";\n\n        if (openHandler)\n        {\n            openHandler(*this);\n        }\n        \n        doRead();\n    }\n\nAsyncResp is not saved anywhere so it should be deleted in this scope.",
+      "range": {
+        "startLine": 202,
+        "startChar": 8,
+        "endLine": 209,
+        "endChar": 9
+      },
+      "revId": "fced3bcc368e479c4c5758700fedf5b009f94141",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "75e03044_b38f2f22",
+        "filename": "http/websocket.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1001489
+      },
+      "writtenOn": "2022-06-20T11:51:37Z",
+      "side": 1,
+      "message": "In this situation we can\u0027t move it behind openHandler because nbd_proxy works asynchronously. Moving toRead in this particular case will not fix this situation",
+      "parentUuid": "35aadffc_df16fb08",
       "range": {
         "startLine": 202,
         "startChar": 8,
