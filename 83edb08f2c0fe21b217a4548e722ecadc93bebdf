@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9cd27eaa_dea467c0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-20T04:28:32Z",
+      "side": 1,
+      "message": "I should\u0027ve caught that in code review.  LGTM.",
+      "revId": "83edb08f2c0fe21b217a4548e722ecadc93bebdf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
