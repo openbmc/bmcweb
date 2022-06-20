@@ -1,6 +1,7 @@
 #pragma once
 
 #include <human_sort.hpp>
+#include <sdbusplus/asio/property.hpp>
 
 #include <string>
 #include <vector>
@@ -78,6 +79,74 @@ inline void
         "/xyz/openbmc_project/object_mapper",
         "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths", subtree, 0,
         interfaces);
+}
+
+/**
+ * @brief Populate the collection "Members" from the Associations endpoint
+ *  path
+ *
+ * @param[i,o] aResp  Async response object
+ * @param[i]   collectionPath  Redfish collection path which is used for the
+ *             Members Redfish Path
+ * @param[in]  associationEndPointPath  Path that points to the association end
+ * point
+ *
+ * @return void
+ */
+inline void
+    getAssociatedCollectionMembers(std::shared_ptr<bmcweb::AsyncResp> aResp,
+                                   const std::string& collectionPath,
+                                   const char* associationEndPointPath)
+{
+    BMCWEB_LOG_DEBUG << "Get collection members for: " << collectionPath;
+
+    sdbusplus::asio::getProperty<std::vector<std::string>>(
+        *crow::connections::systemBus, "xyz.openbmc_project.ObjectMapper",
+        associationEndPointPath, "xyz.openbmc_project.Association", "endpoints",
+        [collectionPath, aResp{std::move(aResp)}](
+            const boost::system::error_code ec,
+            const dbus::utility::MapperGetSubTreePathsResponse& objects) {
+        if (ec == boost::system::errc::io_error)
+        {
+            aResp->res.jsonValue["Members"] = nlohmann::json::array();
+            aResp->res.jsonValue["Members@odata.count"] = 0;
+            return;
+        }
+
+        if (ec)
+        {
+            BMCWEB_LOG_DEBUG << "DBUS response error " << ec.value();
+            messages::internalError(aResp->res);
+            return;
+        }
+
+        std::vector<std::string> pathNames;
+        for (const auto& object : objects)
+        {
+            sdbusplus::message::object_path path(object);
+            std::string leaf = path.filename();
+            if (leaf.empty())
+            {
+                continue;
+            }
+            pathNames.push_back(leaf);
+        }
+        std::sort(pathNames.begin(), pathNames.end(),
+                  AlphanumLess<std::string>());
+
+        nlohmann::json& members = aResp->res.jsonValue["Members"];
+        members = nlohmann::json::array();
+        for (const std::string& leaf : pathNames)
+        {
+            std::string newPath = collectionPath;
+            newPath += '/';
+            newPath += leaf;
+            nlohmann::json::object_t member;
+            member["@odata.id"] = std::move(newPath);
+            members.push_back(std::move(member));
+        }
+        aResp->res.jsonValue["Members@odata.count"] = members.size();
+        });
 }
 
 } // namespace collection_util
