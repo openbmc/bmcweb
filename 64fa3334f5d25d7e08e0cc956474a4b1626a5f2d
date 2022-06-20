@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a4cf54c6_3c2a4d9c",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 531,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-06-20T16:22:38Z",
+      "side": 1,
+      "message": "This Context is specific to EventDestination. fillReport() follows Metric schema and fill what ever data required as per Metric Schema. Here it should append that with EventDestination schema variables and Context is one of it.",
+      "parentUuid": "7aac346e_f1b263bb",
+      "revId": "64fa3334f5d25d7e08e0cc956474a4b1626a5f2d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9ca312cc_e31b0c9c",
         "filename": "redfish-core/include/event_service_manager.hpp",
         "patchSetId": 2
@@ -71,6 +89,30 @@
       "writtenOn": "2022-06-17T21:07:51Z",
       "side": 1,
       "message": "isn\u0027t the MetricReport context different from the Subscription Context?  Presumably we want the Context from the MetricReportDefinition, not from the Subscription?",
+      "range": {
+        "startLine": 535,
+        "startChar": 0,
+        "endLine": 535,
+        "endChar": 40
+      },
+      "revId": "64fa3334f5d25d7e08e0cc956474a4b1626a5f2d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ae3a3a82_4f3fa24e",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 535,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-06-20T16:22:38Z",
+      "side": 1,
+      "message": "MetricReport - Context is different from EventDestination - Context. \n\nIf user configures MetricReport Context, That will be added inside fillReport() [Its not mandatory field and so no support today].\n\nThis context is EventDestination which is configured during subscription. So What this code does is for EventService specific.",
+      "parentUuid": "85739052_7defd9ea",
       "range": {
         "startLine": 535,
         "startChar": 0,
