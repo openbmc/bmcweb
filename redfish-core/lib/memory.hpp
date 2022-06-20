@@ -141,7 +141,7 @@ inline std::string translateMemoryTypeToRedfish(const std::string& memoryType)
 
 inline void dimmPropToHex(
     const std::shared_ptr<bmcweb::AsyncResp>& aResp, const char* key,
-    const std::pair<std::string, dbus::utility::DbusVariantType>& property,
+    const dbus::utility::DBusPropertiesMap::value_type& property,
     const nlohmann::json::json_pointer& jsonPtr)
 {
     const uint16_t* value = std::get_if<uint16_t>(&property.second);
@@ -156,7 +156,7 @@ inline void dimmPropToHex(
 
 inline void getPersistentMemoryProperties(
     const std::shared_ptr<bmcweb::AsyncResp>& aResp,
-    const std::pair<std::string, dbus::utility::DbusVariantType>& property,
+    const dbus::utility::DBusPropertiesMap::value_type& property,
     const nlohmann::json::json_pointer& jsonPtr)
 {
     if (property.first == "ModuleManufacturerID")
