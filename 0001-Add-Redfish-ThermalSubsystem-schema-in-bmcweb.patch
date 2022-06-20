@@ -1,0 +1,568 @@
+From 298cc5bd794f617969d42e7e0d3f7511565dccf3 Mon Sep 17 00:00:00 2001
+From: Xiaochao Ma <maxiaochao@inspur.com>
+Date: Tue, 2 Mar 2021 15:53:13 +0800
+Subject: [PATCH 1/2] Add Redfish ThermalSubsystem schema in bmcweb
+
+The ThermalSubsystem is a new resource in Redfish version 2020.4.
+It is a root for fans and temperatures. Fans are a new schema.
+Temperature sensors will be part of the new ThermalMetrics schema.
+
+ThermalSubsystem can co-exist with the current Thermal resource.
+You can also control compilation through flags.
+
+ThermalSubsystem is an improvement on the existing Thermal schema
+because
+1. It includes the latest properties like LocationIndicatorActive
+2. Fans and Temperatures were arrays in the old Thermal schema and
+   this was cumbersome and could hit limits of JSON arrays
+3. Large amount of static data mixed with sensor readings, which
+   hurt performance
+4. Inconsistent definitions of properties vs like Processor and
+   Memory schemas
+
+In a future commits Fans and ThermalMetrics will be added soon.
+
+Reference:
+https://www.dmtf.org/sites/default/files/standards/documents/DSP0268_2020.4.pdf
+https://redfish.dmtf.org/schemas/v1/ThermalSubsystem.v1_0_0.json
+
+Test:
+1. Validator passed.
+2. doGet method:
+~$ curl -k -H "X-Auth-Token: $token" -X GET https://${bmc}/redfish/v1/Chassis/chassis/ThermalSubsystem
+{
+  "@odata.id": "/redfish/v1/Chassis/chassis/ThermalSubsystem",
+  "@odata.type": "#ThermalSubsystem.v1_0_0.ThermalSubsystem",
+  "Id": "chassis",
+  "Name": "Thermal Subsystem for Chassis",
+  "Status": {
+    "Health": "OK",
+    "State": "Enabled"
+  }
+}
+3. A bad chassis ID:
+~$ curl -k -H "X-Auth-Token: $token" -X GET https://${bmc}/redfish/v1/Chassis/chassisSSBAD/ThermalSubsystem
+{
+  "error": {
+    "@Message.ExtendedInfo": [
+      {
+        "@odata.type": "#Message.v1_1_1.Message",
+        "Message": "The requested resource of type Chassis named chassisSSBAD was not found.",
+        "MessageArgs": [
+          "Chassis",
+          "chassisSSBAD"
+        ],
+        "MessageId": "Base.1.8.1.ResourceNotFound",
+        "MessageSeverity": "Critical",
+        "Resolution": "Provide a valid resource identifier and resubmit the request."
+      }
+    ],
+    "code": "Base.1.8.1.ResourceNotFound",
+    "message": "The requested resource of type Chassis named chassisSSBAD was not found."
+  }
+}
+
+Signed-off-by: Xiaochao Ma <maxiaochao@inspur.com>
+Change-Id: Ib19879f584304e5303f1a83d88bdd18c78a61633
+---
+ Redfish.md                                    |   5 +
+ redfish-core/include/redfish.hpp              |   4 +
+ redfish-core/lib/chassis.hpp                  |   8 +-
+ redfish-core/lib/thermal_subsystem.hpp        |  55 +++++++
+ scripts/update_schemas.py                     |   1 +
+ static/redfish/v1/$metadata/index.xml         |   4 +
+ .../ThermalSubsystem/ThermalSubsystem.json    | 153 ++++++++++++++++++
+ .../JsonSchemas/ThermalSubsystem/index.json   |  21 +++
+ static/redfish/v1/JsonSchemas/index.json      |   3 +
+ .../redfish/v1/schema/ThermalSubsystem_v1.xml | 119 ++++++++++++++
+ 10 files changed, 372 insertions(+), 1 deletion(-)
+ create mode 100644 redfish-core/lib/thermal_subsystem.hpp
+ create mode 100644 static/redfish/v1/JsonSchemas/ThermalSubsystem/ThermalSubsystem.json
+ create mode 100644 static/redfish/v1/JsonSchemas/ThermalSubsystem/index.json
+ create mode 100644 static/redfish/v1/schema/ThermalSubsystem_v1.xml
+
+diff --git a/Redfish.md b/Redfish.md
+index d301f54..48e1263 100644
+--- a/Redfish.md
++++ b/Redfish.md
+@@ -216,6 +216,11 @@ Chassis to Drives, The name of the association is "chassis<->drive")
+ - MinNumNeeded
+ - MaxNumSupported
+ 
++#### /redfish/v1/Chassis/{ChassisId}/ThermalSubsystem
++
++##### ThermalSubsystem
++- Status
++
+ #### /redfish/v1/Chassis/{ChassisId}/Power/
+ ##### Power
+ PowerControl Voltages PowerSupplies Redundancy
+diff --git a/redfish-core/include/redfish.hpp b/redfish-core/include/redfish.hpp
+index 2bf8907..12eeb24 100644
+--- a/redfish-core/include/redfish.hpp
++++ b/redfish-core/include/redfish.hpp
+@@ -44,6 +44,7 @@
+ #include "../lib/task.hpp"
+ #include "../lib/telemetry_service.hpp"
+ #include "../lib/thermal.hpp"
++#include "../lib/thermal_subsystem.hpp"
+ #include "../lib/trigger.hpp"
+ #include "../lib/update_service.hpp"
+ #include "../lib/virtual_media.hpp"
+@@ -75,6 +76,9 @@ class RedfishService
+ #ifdef BMCWEB_ALLOW_DEPRECATED_POWER_THERMAL
+         requestRoutesThermal(app);
+         requestRoutesPower(app);
++#endif
++#ifdef BMCWEB_NEW_POWERSUBSYSTEM_THERMALSUBSYSTEM
++        requestRoutesThermalSubsystem(app);
+ #endif
+         requestRoutesManagerCollection(app);
+         requestRoutesManager(app);
+diff --git a/redfish-core/lib/chassis.hpp b/redfish-core/lib/chassis.hpp
+index a04a29b..1eabf0c 100644
+--- a/redfish-core/lib/chassis.hpp
++++ b/redfish-core/lib/chassis.hpp
+@@ -678,9 +678,15 @@ inline void requestRoutesChassis(App& app)
+ #ifdef BMCWEB_ALLOW_DEPRECATED_POWER_THERMAL
+                     asyncResp->res.jsonValue["Thermal"]["@odata.id"] =
+                         "/redfish/v1/Chassis/" + chassisId + "/Thermal";
++
+                     // Power object
+                     asyncResp->res.jsonValue["Power"]["@odata.id"] =
+                         "/redfish/v1/Chassis/" + chassisId + "/Power";
++#endif
++#ifdef BMCWEB_NEW_POWERSUBSYSTEM_THERMALSUBSYSTEM
++                    asyncResp->res.jsonValue["ThermalSubsystem"] = {
++                        {"@odata.id", "/redfish/v1/Chassis/" + chassisId +
++                                          "/ThermalSubsystem"}};
+ #endif
+                     // SensorCollection
+                     asyncResp->res.jsonValue["Sensors"]["@odata.id"] =
+@@ -905,7 +911,7 @@ inline void requestRoutesChassis(App& app)
+             }
+ 
+             messages::resourceNotFound(asyncResp->res,
+-                                       "#Chassis.v1_14_0.Chassis", chassisId);
++                                       "#Chassis.v1_15_0.Chassis", chassisId);
+             },
+             "xyz.openbmc_project.ObjectMapper",
+             "/xyz/openbmc_project/object_mapper",
+diff --git a/redfish-core/lib/thermal_subsystem.hpp b/redfish-core/lib/thermal_subsystem.hpp
+new file mode 100644
+index 0000000..aa562a6
+--- /dev/null
++++ b/redfish-core/lib/thermal_subsystem.hpp
+@@ -0,0 +1,55 @@
++#pragma once
++
++#include <app.hpp>
++#include <utils/chassis_utils.hpp>
++#include <utils/json_utils.hpp>
++
++namespace redfish
++{
++
++inline void doThermalSubsystemCollection(
++    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
++    const std::string& chassisId, const std::optional<std::string>& chassisPath)
++{
++    if (!chassisPath)
++    {
++        BMCWEB_LOG_ERROR << "Not a valid chassis ID" << chassisId;
++        messages::resourceNotFound(asyncResp->res, "Chassis", chassisId);
++        return;
++    }
++    asyncResp->res.jsonValue["@odata.type"] =
++        "#ThermalSubsystem.v1_0_0.ThermalSubsystem";
++    asyncResp->res.jsonValue["Name"] = "Thermal Subsystem";
++    asyncResp->res.jsonValue["Id"] = "ThermalSubsystem";
++
++    asyncResp->res.jsonValue["@odata.id"] =
++        "/redfish/v1/Chassis/" + chassisId + "/ThermalSubsystem";
++
++    asyncResp->res.jsonValue["Status"] = {{"State", "Enabled"},
++                                          {"Health", "OK"}};
++}
++
++inline void requestRoutesThermalSubsystem(App& app)
++{
++    BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/ThermalSubsystem/")
++        .privileges({{"Login"}})
++        // TODO: Use automated PrivilegeRegistry
++        // Need to wait for Redfish to release a new registry
++        .methods(boost::beast::http::verb::get)(
++            [](const crow::Request&,
++               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
++               const std::string& param) -> void {
++                const std::string& chassisId = param;
++
++                auto getChassisPath =
++                    [asyncResp,
++                     chassisId](const std::optional<std::string>& chassisPath) {
++            doThermalSubsystemCollection(asyncResp, chassisId, chassisPath);
++                };
++
++                redfish::chassis_utils::getValidChassisID(
++                    asyncResp, chassisId, std::move(getChassisPath));
++            });
++}
++
++} // namespace redfish
+diff --git a/scripts/update_schemas.py b/scripts/update_schemas.py
+index 59998b0..c365ab4 100755
+--- a/scripts/update_schemas.py
++++ b/scripts/update_schemas.py
+@@ -98,6 +98,7 @@ include_list = [
+     'TaskService',
+     'TelemetryService',
+     'Thermal',
++    'ThermalSubsystem',
+     'Triggers',
+     'TriggersCollection',
+     'UpdateService',
+diff --git a/static/redfish/v1/$metadata/index.xml b/static/redfish/v1/$metadata/index.xml
+index 7640728..004f800 100644
+--- a/static/redfish/v1/$metadata/index.xml
++++ b/static/redfish/v1/$metadata/index.xml
+@@ -2427,6 +2427,10 @@
+         <edmx:Include Namespace="Thermal.v1_7_0"/>
+         <edmx:Include Namespace="Thermal.v1_7_1"/>
+     </edmx:Reference>
++    <edmx:Reference Uri="/redfish/v1/schema/ThermalSubsystem_v1.xml">
++        <edmx:Include Namespace="ThermalSubsystem"/>
++        <edmx:Include Namespace="ThermalSubsystem.v1_0_0"/>
++    </edmx:Reference>
+     <edmx:Reference Uri="/redfish/v1/schema/Triggers_v1.xml">
+         <edmx:Include Namespace="Triggers"/>
+         <edmx:Include Namespace="Triggers.v1_0_0"/>
+diff --git a/static/redfish/v1/JsonSchemas/ThermalSubsystem/ThermalSubsystem.json b/static/redfish/v1/JsonSchemas/ThermalSubsystem/ThermalSubsystem.json
+new file mode 100644
+index 0000000..0b22bbd
+--- /dev/null
++++ b/static/redfish/v1/JsonSchemas/ThermalSubsystem/ThermalSubsystem.json
+@@ -0,0 +1,153 @@
++{
++    "$id": "http://redfish.dmtf.org/schemas/v1/ThermalSubsystem.v1_0_0.json",
++    "$ref": "#/definitions/ThermalSubsystem",
++    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
++    "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
++    "definitions": {
++        "Actions": {
++            "additionalProperties": false,
++            "description": "The available actions for this resource.",
++            "longDescription": "This type shall contain the available actions for this resource.",
++            "patternProperties": {
++                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
++                    "description": "This property shall specify a valid odata or Redfish property.",
++                    "type": [
++                        "array",
++                        "boolean",
++                        "integer",
++                        "number",
++                        "null",
++                        "object",
++                        "string"
++                    ]
++                }
++            },
++            "properties": {
++                "Oem": {
++                    "$ref": "#/definitions/OemActions",
++                    "description": "This property contains the available OEM specific actions for this resource.",
++                    "longDescription": "This property shall contain any additional OEM actions for this resource."
++                }
++            },
++            "type": "object"
++        },
++        "OemActions": {
++            "additionalProperties": true,
++            "description": "The available OEM specific actions for this resource.",
++            "longDescription": "This type shall contain any additional OEM actions for this resource.",
++            "patternProperties": {
++                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
++                    "description": "This property shall specify a valid odata or Redfish property.",
++                    "type": [
++                        "array",
++                        "boolean",
++                        "integer",
++                        "number",
++                        "null",
++                        "object",
++                        "string"
++                    ]
++                }
++            },
++            "properties": {},
++            "type": "object"
++        },
++        "ThermalSubsystem": {
++            "additionalProperties": false,
++            "description": "This ThermalSubsystem schema contains the definition for the thermal subsystem of a chassis.",
++            "longDescription": "This resource shall represent a thermal subsystem for a Redfish implementation.",
++            "patternProperties": {
++                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
++                    "description": "This property shall specify a valid odata or Redfish property.",
++                    "type": [
++                        "array",
++                        "boolean",
++                        "integer",
++                        "number",
++                        "null",
++                        "object",
++                        "string"
++                    ]
++                }
++            },
++            "properties": {
++                "@odata.context": {
++                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/context"
++                },
++                "@odata.etag": {
++                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/etag"
++                },
++                "@odata.id": {
++                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/id"
++                },
++                "@odata.type": {
++                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/type"
++                },
++                "Actions": {
++                    "$ref": "#/definitions/Actions",
++                    "description": "The available actions for this resource.",
++                    "longDescription": "The Actions property shall contain the available actions for this resource."
++                },
++                "Description": {
++                    "anyOf": [
++                        {
++                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Description"
++                        },
++                        {
++                            "type": "null"
++                        }
++                    ],
++                    "readonly": true
++                },
++                "FanRedundancy": {
++                    "description": "The redundancy information for the groups of fans in this subsystem.",
++                    "items": {
++                        "$ref": "http://redfish.dmtf.org/schemas/v1/Redundancy.json#/definitions/RedundantGroup"
++                    },
++                    "longDescription": "This property shall contain redundancy information for the groups of fans in this subsystem.",
++                    "type": "array"
++                },
++                "Fans": {
++                    "$ref": "http://redfish.dmtf.org/schemas/v1/FanCollection.json#/definitions/FanCollection",
++                    "description": "The link to the collection of fans within this subsystem.",
++                    "longDescription": "This property shall contain a link to a resource collection of type FanCollection.",
++                    "readonly": true
++                },
++                "Id": {
++                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
++                    "readonly": true
++                },
++                "Name": {
++                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
++                    "readonly": true
++                },
++                "Oem": {
++                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
++                    "description": "The OEM extension property.",
++                    "longDescription": "This property shall contain the OEM extensions.  All values for properties that this object contains shall conform to the Redfish Specification-described requirements."
++                },
++                "Status": {
++                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
++                    "description": "The status and health of the resource and its subordinate or dependent resources.",
++                    "longDescription": "This property shall contain any status or health properties of the resource."
++                },
++                "ThermalMetrics": {
++                    "$ref": "http://redfish.dmtf.org/schemas/v1/ThermalMetrics.json#/definitions/ThermalMetrics",
++                    "description": "The link to the summary of thermal metrics for this subsystem.",
++                    "longDescription": "This property shall contain a link to a resource collection of type ThermalMetrics.",
++                    "readonly": true
++                }
++            },
++            "required": [
++                "@odata.id",
++                "@odata.type",
++                "Id",
++                "Name"
++            ],
++            "type": "object"
++        }
++    },
++    "owningEntity": "DMTF",
++    "release": "2020.4",
++    "title": "#ThermalSubsystem.v1_0_0.ThermalSubsystem"
++}
+\ No newline at end of file
+diff --git a/static/redfish/v1/JsonSchemas/ThermalSubsystem/index.json b/static/redfish/v1/JsonSchemas/ThermalSubsystem/index.json
+new file mode 100644
+index 0000000..373dc14
+--- /dev/null
++++ b/static/redfish/v1/JsonSchemas/ThermalSubsystem/index.json
+@@ -0,0 +1,21 @@
++{
++    "@odata.context": "/redfish/v1/$metadata#JsonSchemaFile.JsonSchemaFile",
++    "@odata.id": "/redfish/v1/JsonSchemas/ThermalSubsystem",
++    "@odata.type": "#JsonSchemaFile.v1_0_2.JsonSchemaFile",
++    "Name": "ThermalSubsystem Schema File",
++    "Schema": "#ThermalSubsystem.ThermalSubsystem",
++    "Description": "ThermalSubsystem Schema File Location",
++    "Id": "ThermalSubsystem",
++    "Languages": [
++        "en"
++    ],
++    "Languages@odata.count": 1,
++    "Location": [
++        {
++            "Language": "en",
++            "PublicationUri": "http://redfish.dmtf.org/schemas/v1/ThermalSubsystem.json",
++            "Uri": "/redfish/v1/JsonSchemas/ThermalSubsystem/ThermalSubsystem.json"
++        }
++    ],
++    "Location@odata.count": 1
++}
+\ No newline at end of file
+diff --git a/static/redfish/v1/JsonSchemas/index.json b/static/redfish/v1/JsonSchemas/index.json
+index 415f816..ae7f9b1 100644
+--- a/static/redfish/v1/JsonSchemas/index.json
++++ b/static/redfish/v1/JsonSchemas/index.json
+@@ -168,6 +168,9 @@
+     {
+       "@odata.id": "/redfish/v1/JsonSchemas/Thermal"
+     },
++    {
++      "@odata.id": "/redfish/v1/JsonSchemas/ThermalSubsystem"
++    },
+     {
+       "@odata.id": "/redfish/v1/JsonSchemas/Triggers"
+     },
+diff --git a/static/redfish/v1/schema/ThermalSubsystem_v1.xml b/static/redfish/v1/schema/ThermalSubsystem_v1.xml
+new file mode 100644
+index 0000000..3b9048e
+--- /dev/null
++++ b/static/redfish/v1/schema/ThermalSubsystem_v1.xml
+@@ -0,0 +1,119 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<!---->
++<!--################################################################################       -->
++<!--# Redfish Schema:  ThermalSubsystem v1.0.0                                             -->
++<!--#                                                                                      -->
++<!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
++<!--# available at http://www.dmtf.org/standards/redfish                                   -->
++<!--# Copyright 2014-2021 DMTF.                                                            -->
++<!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
++<!--################################################################################       -->
++<!---->
++<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
++
++  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Core.V1.xml">
++    <edmx:Include Namespace="Org.OData.Core.V1" Alias="OData"/>
++  </edmx:Reference>
++  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Capabilities.V1.xml">
++    <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
++  </edmx:Reference>
++  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml">
++    <edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish"/>
++    <edmx:Include Namespace="Validation.v1_0_0" Alias="Validation"/>
++  </edmx:Reference>
++  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Resource_v1.xml">
++    <edmx:Include Namespace="Resource"/>
++    <edmx:Include Namespace="Resource.v1_0_0"/>
++  </edmx:Reference>
++  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Redundancy_v1.xml">
++    <edmx:Include Namespace="Redundancy"/>
++  </edmx:Reference>
++  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/FanCollection_v1.xml">
++    <edmx:Include Namespace="FanCollection"/>
++  </edmx:Reference>
++  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/ThermalMetrics_v1.xml">
++    <edmx:Include Namespace="ThermalMetrics"/>
++  </edmx:Reference>
++
++  <edmx:DataServices>
++
++    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ThermalSubsystem">
++      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
++
++      <EntityType Name="ThermalSubsystem" BaseType="Resource.v1_0_0.Resource" Abstract="true">
++        <Annotation Term="OData.Description" String="This ThermalSubsystem schema contains the definition for the thermal subsystem of a chassis."/>
++        <Annotation Term="OData.LongDescription" String="This resource shall represent a thermal subsystem for a Redfish implementation."/>
++        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
++        <Annotation Term="Capabilities.InsertRestrictions">
++          <Record>
++            <PropertyValue Property="Insertable" Bool="false"/>
++          </Record>
++        </Annotation>
++        <Annotation Term="Capabilities.UpdateRestrictions">
++          <Record>
++            <PropertyValue Property="Updatable" Bool="false"/>
++          </Record>
++        </Annotation>
++        <Annotation Term="Capabilities.DeleteRestrictions">
++          <Record>
++            <PropertyValue Property="Deletable" Bool="false"/>
++          </Record>
++        </Annotation>
++        <Annotation Term="Redfish.Uris">
++          <Collection>
++            <String>/redfish/v1/Chassis/{ChassisId}/ThermalSubsystem</String>
++          </Collection>
++        </Annotation>
++      </EntityType>
++    </Schema>
++
++    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ThermalSubsystem.v1_0_0">
++      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
++      <Annotation Term="Redfish.Release" String="2020.4"/>
++
++      <EntityType Name="ThermalSubsystem" BaseType="ThermalSubsystem.ThermalSubsystem">
++        <Property Name="Status" Type="Resource.Status" Nullable="false">
++          <Annotation Term="OData.Description" String="The status and health of the resource and its subordinate or dependent resources."/>
++          <Annotation Term="OData.LongDescription" String="This property shall contain any status or health properties of the resource."/>
++        </Property>
++        <NavigationProperty Name="Fans" Type="FanCollection.FanCollection" Nullable="false">
++          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
++          <Annotation Term="OData.Description" String="The link to the collection of fans within this subsystem."/>
++          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type FanCollection."/>
++          <Annotation Term="OData.AutoExpandReferences"/>
++        </NavigationProperty>
++        <Property Name="FanRedundancy" Type="Collection(Redundancy.RedundantGroup)" Nullable="false">
++          <Annotation Term="OData.Description" String="The redundancy information for the groups of fans in this subsystem."/>
++          <Annotation Term="OData.LongDescription" String="This property shall contain redundancy information for the groups of fans in this subsystem."/>
++        </Property>
++        <NavigationProperty Name="ThermalMetrics" Type="ThermalMetrics.ThermalMetrics" Nullable="false">
++          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
++          <Annotation Term="OData.Description" String="The link to the summary of thermal metrics for this subsystem."/>
++          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type ThermalMetrics."/>
++          <Annotation Term="OData.AutoExpandReferences"/>
++        </NavigationProperty>
++        <Property Name="Actions" Type="ThermalSubsystem.v1_0_0.Actions" Nullable="false">
++          <Annotation Term="OData.Description" String="The available actions for this resource."/>
++          <Annotation Term="OData.LongDescription" String="The Actions property shall contain the available actions for this resource."/>
++        </Property>
++      </EntityType>
++
++      <ComplexType Name="Actions">
++        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
++        <Annotation Term="OData.Description" String="The available actions for this resource."/>
++        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
++        <Property Name="Oem" Type="ThermalSubsystem.v1_0_0.OemActions" Nullable="false">
++          <Annotation Term="OData.Description" String="This property contains the available OEM specific actions for this resource."/>
++          <Annotation Term="OData.LongDescription" String="This property shall contain any additional OEM actions for this resource."/>
++        </Property>
++      </ComplexType>
++
++      <ComplexType Name="OemActions">
++        <Annotation Term="OData.AdditionalProperties" Bool="true"/>
++        <Annotation Term="OData.Description" String="The available OEM specific actions for this resource."/>
++        <Annotation Term="OData.LongDescription" String="This type shall contain any additional OEM actions for this resource."/>
++      </ComplexType>
++    </Schema>
++
++  </edmx:DataServices>
++</edmx:Edmx>
+-- 
+2.37.0.rc0.104.g0611611a94-goog
+
