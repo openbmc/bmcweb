@@ -9,7 +9,6 @@
 #include <http_request.hpp>
 #include <http_response.hpp>
 #include <nlohmann/json.hpp>
-#include <pam_authenticate.hpp>
 #include <sessions.hpp>
 
 #include <filesystem>
