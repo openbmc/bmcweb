@@ -471,9 +471,10 @@ inline void
         });
 }
 
-void addAllDriveInfo(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                     const std::string& connectionName, const std::string& path,
-                     const std::vector<std::string>& interfaces)
+static void addAllDriveInfo(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                            const std::string& connectionName,
+                            const std::string& path,
+                            const std::vector<std::string>& interfaces)
 {
     for (const std::string& interface : interfaces)
     {
@@ -584,7 +585,7 @@ inline void requestRoutesDrive(App& app)
  * Chassis drives, this URL will show all the DriveCollection
  * information
  */
-void chassisDriveCollectionGet(
+inline void chassisDriveCollectionGet(
     crow::App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& chassisId)
@@ -696,10 +697,11 @@ inline void requestRoutesChassisDrive(App& app)
             std::bind_front(chassisDriveCollectionGet, std::ref(app)));
 }
 
-void buildDrive(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                const std::string& chassisId, const std::string& driveName,
-                const boost::system::error_code ec,
-                const dbus::utility::MapperGetSubTreeResponse& subtree)
+inline void buildDrive(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                       const std::string& chassisId,
+                       const std::string& driveName,
+                       const boost::system::error_code ec,
+                       const dbus::utility::MapperGetSubTreeResponse& subtree)
 {
 
     if (ec)
@@ -750,10 +752,11 @@ void buildDrive(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     }
 }
 
-void matchAndFillDrive(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                       const std::string& chassisId,
-                       const std::string& driveName,
-                       const std::vector<std::string>& resp)
+inline void
+    matchAndFillDrive(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                      const std::string& chassisId,
+                      const std::string& driveName,
+                      const std::vector<std::string>& resp)
 {
 
     for (const std::string& drivePath : resp)
@@ -781,10 +784,11 @@ void matchAndFillDrive(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     }
 }
 
-void handleChassisDriveGet(crow::App& app, const crow::Request& req,
-                           const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                           const std::string& chassisId,
-                           const std::string& driveName)
+inline void
+    handleChassisDriveGet(crow::App& app, const crow::Request& req,
+                          const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                          const std::string& chassisId,
+                          const std::string& driveName)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
     {
