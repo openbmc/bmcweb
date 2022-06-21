@@ -16,6 +16,24 @@
       "message": "@Zhenwei Chen\nMay I ask why you revised my commit?\nAnd there is no real optimization. Or even change it\u0027s format to the wrong one?\nAnd your reliance on my commit is wrong. If you\u0027re doing features based on this commit, you\u0027d be better off using cherry-pick.",
       "revId": "0f3142febeea404a53dc72f2637d629bbd6ed55c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d721fa98_e6620e96",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 78
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001193
+      },
+      "writtenOn": "2022-06-21T16:52:00Z",
+      "side": 1,
+      "message": "@Xiaochao Ma\n\nI was just trying to fix the merge conflict. As for the format, I just ran clang-format.",
+      "parentUuid": "0858e565_2c34f991",
+      "revId": "0f3142febeea404a53dc72f2637d629bbd6ed55c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
