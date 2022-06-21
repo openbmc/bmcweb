@@ -2,16 +2,22 @@
 
 #include "gmock/gmock.h"
 
+namespace http_helpers
+{
+namespace
+{
+
 TEST(HttpUtility, requestPrefersHtml)
 {
-    EXPECT_FALSE(
-        http_helpers::requestPrefersHtml("*/*, application/octet-stream"));
-    EXPECT_TRUE(http_helpers::isOctetAccepted("*/*, application/octet-stream"));
+    EXPECT_FALSE(requestPrefersHtml("*/*, application/octet-stream"));
+    EXPECT_TRUE(isOctetAccepted("*/*, application/octet-stream"));
 
-    EXPECT_TRUE(
-        http_helpers::requestPrefersHtml("text/html, application/json"));
-    EXPECT_FALSE(http_helpers::isOctetAccepted("text/html, application/json"));
+    EXPECT_TRUE(requestPrefersHtml("text/html, application/json"));
+    EXPECT_FALSE(isOctetAccepted("text/html, application/json"));
 
-    EXPECT_FALSE(http_helpers::requestPrefersHtml("application/json"));
-    EXPECT_FALSE(http_helpers::isOctetAccepted("application/json"));
+    EXPECT_FALSE(requestPrefersHtml("application/json"));
+    EXPECT_FALSE(isOctetAccepted("application/json"));
 }
+
+} // namespace
+} // namespace http_helpers
