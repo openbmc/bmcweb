@@ -244,10 +244,14 @@ language : 'cpp')
 # automatically during the configure step
 bmcweb_dependencies = []
 
+bmcweb_dependencies += dependency('libcrypto', required : true)
+if get_option('insecure-disable-ssl').disabled()
+  bmcweb_dependencies += dependency('libssl', required : true)
+endif
+
 pam = cxx.find_library('pam', required: true)
 atomic =  cxx.find_library('atomic', required: true)
-openssl = dependency('openssl', required : true)
-bmcweb_dependencies += [pam, atomic, openssl]
+bmcweb_dependencies += [pam, atomic]
 
 sdbusplus = dependency('sdbusplus', required : false, include_type: 'system')
 if not sdbusplus.found()
