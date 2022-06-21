@@ -48,6 +48,47 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "51da4459_679008ec",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-21T16:42:50Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "d5745fb3_5fa9aa80",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 66
+      },
+      "revId": "53991dc7ff9ba125c5bc99bfe4ca7f56f7bcbdd5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "06daae0c_f5ddb31d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-21T16:42:50Z",
+      "side": 1,
+      "message": "My questions have been answered satisfactorily.  Leaving open for a little while in case anyone else has concerns.",
+      "revId": "53991dc7ff9ba125c5bc99bfe4ca7f56f7bcbdd5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "13ba72bd_c34840f0",
@@ -79,6 +120,24 @@
       "side": 1,
       "message": "This is used for listing all certificates in the collection. The collection only contain links to URL generated based on dbus object path. I believe using GetSubTreePaths is correct here.",
       "parentUuid": "13ba72bd_c34840f0",
+      "revId": "53991dc7ff9ba125c5bc99bfe4ca7f56f7bcbdd5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1e53246b_11e13651",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 629,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-21T16:42:50Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "6b0c98eb_21502a3b",
       "revId": "53991dc7ff9ba125c5bc99bfe4ca7f56f7bcbdd5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
