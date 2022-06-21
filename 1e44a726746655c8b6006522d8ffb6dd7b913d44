@@ -63,6 +63,30 @@
       },
       "revId": "1e44a726746655c8b6006522d8ffb6dd7b913d44",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "20537e74_78394840",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-21T20:26:26Z",
+      "side": 1,
+      "message": "\u003e This file \"dbus_utility\" compiles today, only because every header that includes it happens to also include \"dbus_singleton.hpp\"\n\nSee https://gerrit.openbmc.org/c/openbmc/bmcweb/+/54760/1 for example.\n\nI believe this patch is correct. Mark as resolved. Feel free to reopen if there still needs discussion.",
+      "parentUuid": "e90230ec_218d6594",
+      "range": {
+        "startLine": 18,
+        "startChar": 10,
+        "endLine": 18,
+        "endChar": 24
+      },
+      "revId": "1e44a726746655c8b6006522d8ffb6dd7b913d44",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
