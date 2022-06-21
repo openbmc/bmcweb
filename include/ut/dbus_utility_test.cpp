@@ -1,9 +1,8 @@
-#include <boost/algorithm/string.hpp>
-#include <boost/container/flat_set.hpp>
-#include <dbus_singleton.hpp>
-#include <dbus_utility.hpp>
+#include "dbus_utility.hpp"
 
-#include "gmock/gmock.h"
+#include <string>
+
+#include <gtest/gtest.h>
 
 namespace dbus::utility
 {
