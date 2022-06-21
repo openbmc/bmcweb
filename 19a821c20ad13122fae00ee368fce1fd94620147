@@ -18,6 +18,23 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "408b8bd3_56da989a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 24
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-21T15:34:17Z",
+      "side": 1,
+      "message": "One more thing that will need addressed.  The project is currently working through multi-host support.  Is it expected that there will be one FaultLog instance for the whole platform?  Or one FaultLog instance per host processor?\n\nThat might change the URIs of this patch a little.",
+      "revId": "19a821c20ad13122fae00ee368fce1fd94620147",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "74affb99_3d96eba6",
