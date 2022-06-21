@@ -213,6 +213,30 @@
       },
       "revId": "2437afcc5653c51bfc40f7bb47fee8eab4e2c736",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "405cd5f9_407500c8",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 456,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-06-21T20:41:10Z",
+      "side": 1,
+      "message": "I\u0027m not sure if I can solve the issue by using weak_ptr.  I need the callback to own its copy of AsyncResp by shared_ptr because I need to make sure that the AsyncResp lives long enough for the callback to get called once a request is sent and a response is received.  That callback is potentially placed into a queue until the connection can take ownership of it.  \n\nIt seems like what I need to do is delete the callback (and thus the AsyncResp shared_ptr) after it gets called by the connection.  That guarantees that it stays alive only until it\u0027s used.  Without deleting the callback, it keeps AsyncResp alive even after the callback has been called.",
+      "parentUuid": "2393f1be_acae1ff2",
+      "range": {
+        "startLine": 453,
+        "startChar": 0,
+        "endLine": 456,
+        "endChar": 52
+      },
+      "revId": "2437afcc5653c51bfc40f7bb47fee8eab4e2c736",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
