@@ -22,6 +22,30 @@
       },
       "revId": "eee0013e14f94300657c82019bd7d8cec7e2dbf8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2a73d1f1_bbd47e5f",
+        "filename": "scripts/parse_registries.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2022-06-21T18:00:23Z",
+      "side": 0,
+      "message": "I ran `grep \"privilege.*registry\" http include redfish-core src static scripts subprojects -RIin`, and it doesn\u0027t seem to list particularly interesting files.",
+      "parentUuid": "065af307_2f727605",
+      "range": {
+        "startLine": 177,
+        "startChar": 21,
+        "endLine": 177,
+        "endChar": 52
+      },
+      "revId": "eee0013e14f94300657c82019bd7d8cec7e2dbf8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
