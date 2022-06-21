@@ -42,22 +42,22 @@ TEST_F(MultipartTest, TestGoodMultipartParser)
     ParserError rc = parser.parse(reqIn);
     ASSERT_EQ(rc, ParserError::PARSER_SUCCESS);
 
-    ASSERT_EQ(parser.boundary,
+    EXPECT_EQ(parser.boundary,
               "\r\n-----------------------------d74496d66958873e");
-    ASSERT_EQ(parser.mime_fields.size(), 3);
+    EXPECT_EQ(parser.mime_fields.size(), 3);
 
-    ASSERT_EQ(parser.mime_fields[0].fields.at("Content-Disposition"),
+    EXPECT_EQ(parser.mime_fields[0].fields.at("Content-Disposition"),
               "form-data; name=\"Test1\"");
-    ASSERT_EQ(parser.mime_fields[0].content,
+    EXPECT_EQ(parser.mime_fields[0].content,
               "111111111111111111111111112222222222222222222222222222222");
 
-    ASSERT_EQ(parser.mime_fields[1].fields.at("Content-Disposition"),
+    EXPECT_EQ(parser.mime_fields[1].fields.at("Content-Disposition"),
               "form-data; name=\"Test2\"");
-    ASSERT_EQ(parser.mime_fields[1].content,
+    EXPECT_EQ(parser.mime_fields[1].content,
               "{\r\n-----------------------------d74496d66958873e123456");
-    ASSERT_EQ(parser.mime_fields[2].fields.at("Content-Disposition"),
+    EXPECT_EQ(parser.mime_fields[2].fields.at("Content-Disposition"),
               "form-data; name=\"Test3\"");
-    ASSERT_EQ(parser.mime_fields[2].content, "{\r\n--------d74496d6695887}");
+    EXPECT_EQ(parser.mime_fields[2].content, "{\r\n--------d74496d6695887}");
 }
 
 TEST_F(MultipartTest, TestBadMultipartParser1)
@@ -75,9 +75,9 @@ TEST_F(MultipartTest, TestBadMultipartParser1)
     ParserError rc = parser.parse(reqIn);
     ASSERT_EQ(rc, ParserError::PARSER_SUCCESS);
 
-    ASSERT_EQ(parser.boundary,
+    EXPECT_EQ(parser.boundary,
               "\r\n-----------------------------d74496d66958873e");
-    ASSERT_EQ(parser.mime_fields.size(), 1);
+    EXPECT_EQ(parser.mime_fields.size(), 1);
 }
 
 TEST_F(MultipartTest, TestBadMultipartParser2)
@@ -95,9 +95,9 @@ TEST_F(MultipartTest, TestBadMultipartParser2)
     ParserError rc = parser.parse(reqIn);
     ASSERT_EQ(rc, ParserError::PARSER_SUCCESS);
 
-    ASSERT_EQ(parser.boundary,
+    EXPECT_EQ(parser.boundary,
               "\r\n-----------------------------d74496d66958873e");
-    ASSERT_EQ(parser.mime_fields.size(), 1);
+    EXPECT_EQ(parser.mime_fields.size(), 1);
 }
 
 TEST_F(MultipartTest, TestErrorBoundaryFormat)
@@ -115,7 +115,7 @@ TEST_F(MultipartTest, TestErrorBoundaryFormat)
                  "-----------------------------d74496d66958873e--\r\n";
 
     crow::Request reqIn(req, ec);
-    ASSERT_EQ(parser.parse(reqIn), ParserError::ERROR_BOUNDARY_FORMAT);
+    EXPECT_EQ(parser.parse(reqIn), ParserError::ERROR_BOUNDARY_FORMAT);
 }
 
 TEST_F(MultipartTest, TestErrorBoundaryCR)
@@ -133,7 +133,7 @@ TEST_F(MultipartTest, TestErrorBoundaryCR)
                  "-----------------------------d74496d66958873e--\r\n";
 
     crow::Request reqIn(req, ec);
-    ASSERT_EQ(parser.parse(reqIn), ParserError::ERROR_BOUNDARY_CR);
+    EXPECT_EQ(parser.parse(reqIn), ParserError::ERROR_BOUNDARY_CR);
 }
 
 TEST_F(MultipartTest, TestErrorBoundaryLF)
@@ -151,7 +151,7 @@ TEST_F(MultipartTest, TestErrorBoundaryLF)
                  "-----------------------------d74496d66958873e--\r\n";
 
     crow::Request reqIn(req, ec);
-    ASSERT_EQ(parser.parse(reqIn), ParserError::ERROR_BOUNDARY_LF);
+    EXPECT_EQ(parser.parse(reqIn), ParserError::ERROR_BOUNDARY_LF);
 }
 
 TEST_F(MultipartTest, TestErrorBoundaryData)
@@ -169,7 +169,7 @@ TEST_F(MultipartTest, TestErrorBoundaryData)
                  "-----------------------------d74496d66958873e--\r\n";
 
     crow::Request reqIn(req, ec);
-    ASSERT_EQ(parser.parse(reqIn), ParserError::ERROR_BOUNDARY_DATA);
+    EXPECT_EQ(parser.parse(reqIn), ParserError::ERROR_BOUNDARY_DATA);
 }
 
 TEST_F(MultipartTest, TestErrorEmptyHeader)
@@ -187,7 +187,7 @@ TEST_F(MultipartTest, TestErrorEmptyHeader)
                  "-----------------------------d74496d66958873e--\r\n";
 
     crow::Request reqIn(req, ec);
-    ASSERT_EQ(parser.parse(reqIn), ParserError::ERROR_EMPTY_HEADER);
+    EXPECT_EQ(parser.parse(reqIn), ParserError::ERROR_EMPTY_HEADER);
 }
 
 TEST_F(MultipartTest, TestErrorHeaderName)
@@ -205,7 +205,7 @@ TEST_F(MultipartTest, TestErrorHeaderName)
                  "-----------------------------d74496d66958873e--\r\n";
 
     crow::Request reqIn(req, ec);
-    ASSERT_EQ(parser.parse(reqIn), ParserError::ERROR_HEADER_NAME);
+    EXPECT_EQ(parser.parse(reqIn), ParserError::ERROR_HEADER_NAME);
 }
 
 TEST_F(MultipartTest, TestErrorHeaderValue)
@@ -223,7 +223,7 @@ TEST_F(MultipartTest, TestErrorHeaderValue)
                  "-----------------------------d74496d66958873e--\r\n";
 
     crow::Request reqIn(req, ec);
-    ASSERT_EQ(parser.parse(reqIn), ParserError::ERROR_HEADER_VALUE);
+    EXPECT_EQ(parser.parse(reqIn), ParserError::ERROR_HEADER_VALUE);
 }
 
 TEST_F(MultipartTest, TestErrorHeaderEnding)
@@ -241,6 +241,6 @@ TEST_F(MultipartTest, TestErrorHeaderEnding)
                  "-----------------------------d74496d66958873e--\r\n";
 
     crow::Request reqIn(req, ec);
-    ASSERT_EQ(parser.parse(reqIn), ParserError::ERROR_HEADER_ENDING);
+    EXPECT_EQ(parser.parse(reqIn), ParserError::ERROR_HEADER_ENDING);
 }
 } // namespace
