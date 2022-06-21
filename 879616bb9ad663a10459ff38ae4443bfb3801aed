@@ -112,6 +112,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f47771a1_085fda62",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 836,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-21T18:41:12Z",
+      "side": 1,
+      "message": "What we want is that after finishing DIMM async calls, we do several other async calls to modify the DIMM object and append some data (health, DIMM partitions).\n\nWhy is per-schema defined AsyncResponse object bad? It\u0027s not necessarily needed to be named as |XyzAsyncResponse|. It just needs to hold the original AsyncResponse and append data to its json.",
+      "parentUuid": "51f4a800_67bea296",
+      "range": {
+        "startLine": 836,
+        "startChar": 6,
+        "endLine": 836,
+        "endChar": 25
+      },
+      "revId": "879616bb9ad663a10459ff38ae4443bfb3801aed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "da554ff1_4066622e",
         "filename": "redfish-core/lib/memory.hpp",
         "patchSetId": 15
