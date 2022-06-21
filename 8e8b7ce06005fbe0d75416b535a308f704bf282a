@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e37ec90_2d010fa6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-21T15:21:01Z",
+      "side": 1,
+      "message": "The PCIeSlotCollection patches had to be reverted.  They\u0027ll need to be revisited before this series can go forward.",
+      "revId": "8e8b7ce06005fbe0d75416b535a308f704bf282a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
