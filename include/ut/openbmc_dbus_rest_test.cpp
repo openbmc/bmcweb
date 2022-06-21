@@ -1,7 +1,7 @@
-#include "include/openbmc_dbus_rest.hpp"
+#include "openbmc_dbus_rest.hpp"
 
-#include "gmock/gmock.h"
-#include "gtest/gtest.h"
+#include <gmock/gmock.h>
+#include <gtest/gtest.h>
 
 namespace crow::openbmc_mapper
 {
