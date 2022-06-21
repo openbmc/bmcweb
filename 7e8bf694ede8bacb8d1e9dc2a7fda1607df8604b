@@ -46,6 +46,30 @@
       },
       "revId": "7e8bf694ede8bacb8d1e9dc2a7fda1607df8604b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "33eb6ea1_51b45eac",
+        "filename": "http/websocket.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-21T19:47:27Z",
+      "side": 1,
+      "message": "\u003e it isn\u0027t something we\u0027re necessarily enabling on the whole project.\n\nFWIW, I\u0027ve been chasing this down in bmcweb for several years.  Almost every time I\u0027ve turned on -Wshadow it has found real functional bugs where someone set a variable in a scope that then got destroyed, where they were intending to set the higher scoped one.  If it weren\u0027t such a pain to implement in existing code, I\u0027d be an advocate for making it universal across the project, but alas, we do what we can do.\n\n\u003e  including class data members.\n\nFWIW, Emily a while back changed the standard we use to allow using prefixes on variable data members, so in theory we could, but that\u0027s not the kind of change I want to effect at this point with people already having a ton of tree-wide breaking changes recently.  At some point, it would be interesting to look at what it does and how much we could automate it with clang-tidy.\n\n\u003e My personal preference is that we use lower_snake_case\n\nFWIW, this is my preference as well, and bmcweb at one point _was_ written in lower_snake_case.  As part of becoming part of openbmc, it needed to follow the coding standard, so it was changed tree-wide, as it removed a class of argument against its inclusion in the openbmc tree at the time.\n\n\u003e  Normally there would be nothing wrong with continuing to use \u0027req\u0027 here except you\u0027ve decided to enable -Wshadow, so now you\u0027re adding extra burden and noise on yourself.\n\nFWIW, the usage here in a constructor has also caused bugs in the past in the form of:\n\nMyClass(std::string\u0026 string1):\n   classMember1(std::move(string1)), classMember2(string1)\n   \nif string1In is used instead, it\u0027s clear which variable you\u0027re referencing.  You can still write the code incorrectly, but it\u0027s more obvious that it\u0027s an issue.",
+      "parentUuid": "c24a7947_a23037e1",
+      "range": {
+        "startLine": 72,
+        "startChar": 29,
+        "endLine": 72,
+        "endChar": 34
+      },
+      "revId": "7e8bf694ede8bacb8d1e9dc2a7fda1607df8604b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
