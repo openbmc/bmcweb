@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "92f7fa2a_99524807",
+        "filename": "include/ut/dbus_utility_test.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-06-21T18:58:14Z",
+      "side": 1,
+      "message": "I dis preferred merging two test into one, I think the granularity helps some.\nBut I don\u0027t feel strongly",
+      "range": {
+        "startLine": 26,
+        "startChar": 4,
+        "endLine": 26,
+        "endChar": 8
+      },
+      "revId": "cbf07ca575a98bd1ac31d31582c712afdcb330d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
