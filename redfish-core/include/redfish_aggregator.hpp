@@ -36,7 +36,7 @@ class RedfishAggregator
         // Return 0 if the response code is valid
         return boost::system::errc::make_error_code(
             boost::system::errc::success);
-    };
+    }
 
     // Dummy callback used by the Constructor so that it can report the number
     // of satellite configs when the class is first created

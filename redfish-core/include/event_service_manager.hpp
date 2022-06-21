@@ -576,7 +576,7 @@ class Subscription : public persistent_data::UserSubscription
         // Return 0 if the response code is valid
         return boost::system::errc::make_error_code(
             boost::system::errc::success);
-    };
+    }
 };
 
 class EventServiceManager
