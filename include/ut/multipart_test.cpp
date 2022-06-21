@@ -1,14 +1,19 @@
-#include "multipart_parser.hpp"
 #include "http/http_request.hpp"
+#include "multipart_parser.hpp"
+
+#include <boost/beast/http/message.hpp>
+#include <boost/beast/http/string_body.hpp>
 
 #include <map>
 #include <system_error>
 
-#include <boost/beast/http/message.hpp>
-#include <boost/beast/http/string_body.hpp>
 #include <gtest/gtest.h>
 
-class MultipartTest : public ::testing::Test
+namespace
+{
+using ::testing::Test;
+
+class MultipartTest : public Test
 {
   public:
     boost::beast::http::request<boost::beast::http::string_body> req{};
@@ -238,3 +243,4 @@ TEST_F(MultipartTest, TestErrorHeaderEnding)
     crow::Request reqIn(req, ec);
     ASSERT_EQ(parser.parse(reqIn), ParserError::ERROR_HEADER_ENDING);
 }
+} // namespace
