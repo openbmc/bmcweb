@@ -22,6 +22,30 @@
       },
       "revId": "7e8bf694ede8bacb8d1e9dc2a7fda1607df8604b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c24a7947_a23037e1",
+        "filename": "http/websocket.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2022-06-21T18:44:53Z",
+      "side": 1,
+      "message": "-Wshadow isn\u0027t on by default anywhere nor enabled with -Wall (or even -Wpedantic).  It\u0027s obviously up to the maintainer here to decide if it should be enabled in order to reduce the trip-ups that are being encountered, but it isn\u0027t something we\u0027re necessarily enabling on the whole project.\n\n\u003e This makes me question why OpenBMC C++ guide suggests using camelCase everywhere including class data members.\n\nMy personal preference is that we use lower_snake_case because that more closely aligns with the larger C++ library community, but a long time ago we decided on camelCase (with an escape hatch for lower_snake_case in some cases).  Anyhow, we opted for not having suffixes and/or different case between all the various types/scopes because it implies a lot more importance than it actually has, makes refactoring more invasive, and [probably] adds just as much mess and noise as this sample code in the overall scheme of things.\n\nA concrete example:\n    auto foo \u003d bar();\n    \nIs bar a function or a class constructor?  Does it matter?  What if I initially make it a class but later on decide to make it a function that returns some private type (or vice-versa)?\n\nNormally there would be nothing wrong with continuing to use \u0027req\u0027 here except you\u0027ve decided to enable -Wshadow, so now you\u0027re adding extra burden and noise on yourself.",
+      "parentUuid": "e212368b_920217be",
+      "range": {
+        "startLine": 72,
+        "startChar": 29,
+        "endLine": 72,
+        "endChar": 34
+      },
+      "revId": "7e8bf694ede8bacb8d1e9dc2a7fda1607df8604b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
