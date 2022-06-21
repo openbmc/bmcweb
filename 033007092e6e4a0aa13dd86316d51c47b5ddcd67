@@ -93,6 +93,30 @@
       },
       "revId": "033007092e6e4a0aa13dd86316d51c47b5ddcd67",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa9ad83d_fe066989",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-21T17:55:09Z",
+      "side": 1,
+      "message": "The link seems not working.",
+      "parentUuid": "75eac72c_c1796d5b",
+      "range": {
+        "startLine": 305,
+        "startChar": 45,
+        "endLine": 305,
+        "endChar": 56
+      },
+      "revId": "033007092e6e4a0aa13dd86316d51c47b5ddcd67",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
