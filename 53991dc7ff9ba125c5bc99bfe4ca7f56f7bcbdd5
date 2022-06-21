@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "987eb249_8976e15c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-21T15:18:13Z",
+      "side": 1,
+      "message": "As written, isn\u0027t this going to list all certificates in all places?",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 66
+      },
+      "revId": "53991dc7ff9ba125c5bc99bfe4ca7f56f7bcbdd5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "13ba72bd_c34840f0",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 629,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-21T15:18:13Z",
+      "side": 1,
+      "message": "If we have the exact certificate path, we would generally use GetObject, not GetSubTreePaths.",
+      "revId": "53991dc7ff9ba125c5bc99bfe4ca7f56f7bcbdd5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
