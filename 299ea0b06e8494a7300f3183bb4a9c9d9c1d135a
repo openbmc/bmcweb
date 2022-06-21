@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "73899b39_d6d75810",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-21T18:00:27Z",
+      "side": 1,
+      "message": "I can run real test for sure. But why aren\u0027t there strong types?\n\nI understand the arguments in lambda function of async_method_call doesn\u0027t have strong types. But I didn\u0027t change that at all. If it works previously, it shall still work.\n\nGiven the arguments of lambda function don\u0027t change and this commit changes only types derives from these arguments, as long as code compiles, nothing changes, right?",
+      "parentUuid": "a0386bcb_31a83030",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 62
+      },
+      "revId": "299ea0b06e8494a7300f3183bb4a9c9d9c1d135a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d38c6cc6_cb104952",
         "filename": "redfish-core/lib/storage.hpp",
         "patchSetId": 3
