@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e212368b_920217be",
+        "filename": "http/websocket.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-21T18:04:24Z",
+      "side": 1,
+      "message": "This makes me question why OpenBMC C++ guide suggests using camelCase everywhere including class data members.",
+      "range": {
+        "startLine": 72,
+        "startChar": 29,
+        "endLine": 72,
+        "endChar": 34
+      },
+      "revId": "7e8bf694ede8bacb8d1e9dc2a7fda1607df8604b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
