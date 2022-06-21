@@ -101,6 +101,11 @@ foreach option_key,option_value : feature_map
         add_project_arguments(option_value,language:'cpp')
         summary(option_key,option_value, section : 'Enabled Features')
       endif
+    elif (option_key in ['basic-auth', 'cookie-auth', 'session-auth', 'xtoken-auth', 'mutual-tls-auth'])
+      if (get_option('insecure-disable-auth').disabled())
+        add_project_arguments(option_value, language:'cpp')
+        summary(option_key,option_value, section : 'Enabled Features')
+      endif
     else
       summary(option_key,option_value, section : 'Enabled Features')
       add_project_arguments(option_value,language:'cpp')
@@ -244,10 +249,13 @@ language : 'cpp')
 # automatically during the configure step
 bmcweb_dependencies = []
 
-pam = cxx.find_library('pam', required: true)
+if get_option('insecure-disable-ssl').disabled()
+  bmcweb_dependencies += cxx.find_library('pam', required: true)
+endif
+
 atomic =  cxx.find_library('atomic', required: true)
 openssl = dependency('openssl', required : true)
-bmcweb_dependencies += [pam, atomic, openssl]
+bmcweb_dependencies += [atomic, openssl]
 
 sdbusplus = dependency('sdbusplus', required : false, include_type: 'system')
 if not sdbusplus.found()
