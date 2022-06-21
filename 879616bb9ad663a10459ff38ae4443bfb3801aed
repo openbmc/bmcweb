@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "85f80e33_bd2b6e67",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-21T18:44:46Z",
+      "side": 1,
+      "message": "The pattern here refers to using GetManagedObjects to handle `$expand\u003d*($levels\u003d1)`, rather than sending a bunch of GetAllProperties which is slow.\n\nI will add that into the commit message.",
+      "parentUuid": "ab04a7d6_a0a5eeee",
+      "range": {
+        "startLine": 10,
+        "startChar": 9,
+        "endLine": 11,
+        "endChar": 18
+      },
+      "revId": "879616bb9ad663a10459ff38ae4443bfb3801aed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "da480782_e732339d",
         "filename": "/COMMIT_MSG",
         "patchSetId": 15
@@ -37,6 +61,30 @@
       "writtenOn": "2022-06-19T18:17:55Z",
       "side": 1,
       "message": "What system did you test with that had a non ECC RDIMM.....   Was this tested on a real system?  It\u0027s possible there\u0027s another bug somewhere.",
+      "range": {
+        "startLine": 36,
+        "startChar": 32,
+        "endLine": 36,
+        "endChar": 37
+      },
+      "revId": "879616bb9ad663a10459ff38ae4443bfb3801aed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "da4e9e57_86c3b609",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-21T18:44:46Z",
+      "side": 1,
+      "message": "This data is from my mock systems. Does service validator validates $expand result today? \n\nI compared the $expand\u003d. JSON before and after this change, there is no difference. \n\nI also ran service validator on real system.",
+      "parentUuid": "da480782_e732339d",
       "range": {
         "startLine": 36,
         "startChar": 32,
