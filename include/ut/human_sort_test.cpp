@@ -1,8 +1,10 @@
-#include <human_sort.hpp>
+#include "human_sort.hpp"
 
 #include <set>
+#include <string>
 
-#include "gmock/gmock.h"
+#include <gmock/gmock.h>
+#include <gtest/gtest.h>
 
 TEST(AlphaNum, NumberTests)
 {
