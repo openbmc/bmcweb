@@ -15,11 +15,17 @@
  */
 #pragma once
 
+#include "dbus_singleton.hpp"
+
 #include <sdbusplus/message.hpp>
 
+#include <array>
 #include <filesystem>
 #include <regex>
+#include <string>
+#include <tuple>
 #include <variant>
+#include <vector>
 
 namespace dbus
 {
