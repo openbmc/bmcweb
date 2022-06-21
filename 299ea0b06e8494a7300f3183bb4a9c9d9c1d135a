@@ -68,6 +68,30 @@
       },
       "revId": "299ea0b06e8494a7300f3183bb4a9c9d9c1d135a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e5fc814_572e6b46",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 615,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-21T17:56:33Z",
+      "side": 1,
+      "message": "Not for ranged based loops AFAIK.",
+      "parentUuid": "78f71312_ae77734b",
+      "range": {
+        "startLine": 615,
+        "startChar": 19,
+        "endLine": 615,
+        "endChar": 23
+      },
+      "revId": "299ea0b06e8494a7300f3183bb4a9c9d9c1d135a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
