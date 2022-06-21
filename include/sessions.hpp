@@ -11,7 +11,6 @@
 #include <boost/uuid/uuid_io.hpp>
 #include <dbus_singleton.hpp>
 #include <nlohmann/json.hpp>
-#include <pam_authenticate.hpp>
 #include <random.hpp>
 #include <sdbusplus/bus/match.hpp>
 #include <utils/ip_utils.hpp>
