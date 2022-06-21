@@ -1,6 +1,6 @@
-#include <http_utility.hpp>
+#include "http_utility.hpp"
 
-#include "gmock/gmock.h"
+#include <gtest/gtest.h>
 
 namespace http_helpers
 {
