@@ -22,6 +22,30 @@
       },
       "revId": "75be1e26953b730598396745d0084b4bf08a0cbe",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e2b51c1_d22d87a3",
+        "filename": "scripts/parse_registries.py",
+        "patchSetId": 19
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2022-06-21T17:13:47Z",
+      "side": 1,
+      "message": "Created change 54757 for the privilege registry update.",
+      "parentUuid": "bb865c77_c310ef1d",
+      "range": {
+        "startLine": 177,
+        "startChar": 31,
+        "endLine": 177,
+        "endChar": 32
+      },
+      "revId": "75be1e26953b730598396745d0084b4bf08a0cbe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
