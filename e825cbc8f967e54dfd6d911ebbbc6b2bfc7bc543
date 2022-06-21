@@ -16,6 +16,24 @@
       "message": "The advantage of doing the check here is we don\u0027t go into the 2nd and 3rd for loops unless we have the correct path. Oh well, the new way is a little easier to read.",
       "revId": "e825cbc8f967e54dfd6d911ebbbc6b2bfc7bc543",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "081c013e_da602e59",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 846,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-21T14:44:06Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "ec5d72fd_6c9f8ccf",
+      "revId": "e825cbc8f967e54dfd6d911ebbbc6b2bfc7bc543",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
