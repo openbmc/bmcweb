@@ -10,7 +10,10 @@
 #include <http_request.hpp>
 #include <http_response.hpp>
 #include <http_utility.hpp>
+
+#ifdef BMCWEB_ENABLE_BASIC_AUTHENTICATION
 #include <pam_authenticate.hpp>
+#endif
 
 #include <random>
 #include <utility>
@@ -261,15 +264,20 @@ static std::shared_ptr<persistent_data::UserSession>
 [[maybe_unused]] static std::shared_ptr<persistent_data::UserSession>
     authenticate(
         boost::asio::ip::address& ipAddress [[maybe_unused]],
-        Response& res [[maybe_unused]], boost::beast::http::verb method,
-        const boost::beast::http::header<true>& reqHeader,
+        Response& res [[maybe_unused]],
+        boost::beast::http::verb method [[maybe_unused]],
+        const boost::beast::http::header<true>& reqHeader [[maybe_unused]],
         [[maybe_unused]] const std::shared_ptr<persistent_data::UserSession>&
             session)
 {
+#ifdef BMCWEB_INSECURE_DISABLE_AUTHX
+    return nullptr;
+#else
     const persistent_data::AuthConfigMethods& authMethodsConfig =
         persistent_data::SessionStore::getInstance().getAuthMethodsConfig();
 
     std::shared_ptr<persistent_data::UserSession> sessionOut = nullptr;
+
 #ifdef BMCWEB_ENABLE_MUTUAL_TLS_AUTHENTICATION
     if (authMethodsConfig.tls)
     {
@@ -309,6 +317,7 @@ static std::shared_ptr<persistent_data::UserSession>
     }
 
     return nullptr;
+#endif
 }
 
 } // namespace authentication

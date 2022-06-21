@@ -15,7 +15,9 @@
 */
 #pragma once
 
+#ifndef BMCWEB_INSECURE_DISABLE_AUTHX
 #include "../lib/account_service.hpp"
+#endif
 #include "../lib/bios.hpp"
 #include "../lib/cable.hpp"
 #include "../lib/certificate_service.hpp"
@@ -33,7 +35,9 @@
 #include "../lib/pcie.hpp"
 #include "../lib/power.hpp"
 #include "../lib/processor.hpp"
+#ifndef BMCWEB_INSECURE_DISABLE_AUTHX
 #include "../lib/redfish_sessions.hpp"
+#endif
 #include "../lib/redfish_v1.hpp"
 #include "../lib/roles.hpp"
 #include "../lib/sensors.hpp"
@@ -45,7 +49,10 @@
 #include "../lib/thermal.hpp"
 #include "../lib/trigger.hpp"
 #include "../lib/update_service.hpp"
+
+#ifdef BMCWEB_ENABLE_VM_NBDPROXY
 #include "../lib/virtual_media.hpp"
+#endif
 
 namespace redfish
 {
@@ -64,12 +71,16 @@ class RedfishService
      */
     RedfishService(App& app)
     {
+#ifndef BMCWEB_INSECURE_DISABLE_AUTHX
         requestAccountServiceRoutes(app);
+#endif
         requestRoutesRoles(app);
         requestRoutesRoleCollection(app);
         requestRoutesServiceRoot(app);
         requestRoutesNetworkProtocol(app);
+#ifndef BMCWEB_INSECURE_DISABLE_AUTHX
         requestRoutesSession(app);
+#endif
         requestEthernetInterfacesRoutes(app);
 #ifdef BMCWEB_ALLOW_DEPRECATED_POWER_THERMAL
         requestRoutesThermal(app);
