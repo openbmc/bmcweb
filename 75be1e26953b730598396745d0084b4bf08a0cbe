@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bb865c77_c310ef1d",
+        "filename": "scripts/parse_registries.py",
+        "patchSetId": 19
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-21T15:19:30Z",
+      "side": 1,
+      "message": "Please update the privilege registry in its own commit.",
+      "range": {
+        "startLine": 177,
+        "startChar": 31,
+        "endLine": 177,
+        "endChar": 32
+      },
+      "revId": "75be1e26953b730598396745d0084b4bf08a0cbe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
