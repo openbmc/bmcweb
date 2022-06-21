@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "825aecb7_e98b403c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-21T16:47:02Z",
+      "side": 1,
+      "message": "What\u0027s the status of the pre-reqs for this?  Can this patchset merge?",
+      "revId": "376faa11d00ef90c23d5d58647953a587d267ebb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
