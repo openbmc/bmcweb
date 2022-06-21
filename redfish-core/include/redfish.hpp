@@ -24,6 +24,7 @@
 #include "../lib/event_service.hpp"
 #include "../lib/hypervisor_system.hpp"
 #include "../lib/log_services.hpp"
+#include "../lib/manager_diagnostic_data.hpp"
 #include "../lib/managers.hpp"
 #include "../lib/memory.hpp"
 #include "../lib/message_registries.hpp"
@@ -80,6 +81,7 @@ class RedfishService
         requestRoutesManagerResetAction(app);
         requestRoutesManagerResetActionInfo(app);
         requestRoutesManagerResetToDefaultsAction(app);
+        requestRoutesManagerDiagnosticData(app);
         requestRoutesChassisCollection(app);
         requestRoutesChassis(app);
         requestRoutesChassisResetAction(app);
