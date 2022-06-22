@@ -34,6 +34,24 @@
       "parentUuid": "7ba56c12_540ec397",
       "revId": "60f888c39cb956c869ef4e4e71cee99ccb3cfa9a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8920738a_07680f5b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-22T19:42:22Z",
+      "side": 1,
+      "message": "\u003e Does this hurt performance at all?\n\nI\u0027d be a little surprised if it were measurable.  FWIW, nlohmann uses std::map \"under the hood\" (which some of this code predates our usage of nlohmann::json) so if there\u0027s a performance problem with std::map, we\u0027re likely already hitting it.\n\nI\u0027m ok without in-depth performance testing, but just one curl call to SensorCollection to make sure the timing is about the same seems reasonable.  If that\u0027s going to hold this patch up, I would say merge it and fix the build, and we can measure later.  (I would measure but I\u0027m traveling and my test system at home isn\u0027t on).",
+      "parentUuid": "6b65db72_654b1c92",
+      "revId": "60f888c39cb956c869ef4e4e71cee99ccb3cfa9a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
