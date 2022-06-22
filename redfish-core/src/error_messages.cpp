@@ -1268,7 +1268,7 @@ nlohmann::json propertyUnknown(std::string_view arg1)
 void propertyUnknown(crow::Response& res, std::string_view arg1)
 {
     res.result(boost::beast::http::status::bad_request);
-    addMessageToJson(res.jsonValue, propertyUnknown(arg1), arg1);
+    addMessageToErrorJson(res.jsonValue, propertyUnknown(arg1));
 }
 
 /**
