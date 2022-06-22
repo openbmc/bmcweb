@@ -117,6 +117,30 @@
       },
       "revId": "033007092e6e4a0aa13dd86316d51c47b5ddcd67",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9601dae5_b5c3611e",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-06-22T01:40:06Z",
+      "side": 1,
+      "message": "It\u0027s just a link to one of the comments here. You can expand all and search string_view in all the page, I\u0027ve expained there.\n\nIn short, netBasePath is captured in a async_method_call(), but it immediate returns and the underlying string is destroyed when callback is called. There was a lifetime issue when using string_view.",
+      "parentUuid": "fa9ad83d_fe066989",
+      "range": {
+        "startLine": 305,
+        "startChar": 45,
+        "endLine": 305,
+        "endChar": 56
+      },
+      "revId": "033007092e6e4a0aa13dd86316d51c47b5ddcd67",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
