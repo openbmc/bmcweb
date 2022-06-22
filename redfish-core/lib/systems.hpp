@@ -930,6 +930,10 @@ inline void
         if (ec)
         {
             BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+            if (ec.value() == boost::asio::error::host_unreachable)
+            {
+                return;
+            }
             messages::internalError(aResp->res);
             return;
         }
@@ -1014,6 +1018,10 @@ inline void
         if (ec)
         {
             BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+            if (ec.value() == boost::asio::error::host_unreachable)
+            {
+                return;
+            }
             messages::internalError(aResp->res);
             return;
         }
