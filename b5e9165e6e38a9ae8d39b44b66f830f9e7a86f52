@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "182d4535_5aea1de1",
         "filename": "/COMMIT_MSG",
@@ -20,10 +21,10 @@
         "endChar": 14
       },
       "revId": "b5e9165e6e38a9ae8d39b44b66f830f9e7a86f52",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "d9b24eb6_b65196d8",
         "filename": "/COMMIT_MSG",
@@ -44,10 +45,10 @@
         "endChar": 14
       },
       "revId": "b5e9165e6e38a9ae8d39b44b66f830f9e7a86f52",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "b6e070b2_6a9987a6",
         "filename": "/COMMIT_MSG",
@@ -68,10 +69,10 @@
         "endChar": 14
       },
       "revId": "b5e9165e6e38a9ae8d39b44b66f830f9e7a86f52",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "eb65bc75_6becdc79",
         "filename": "/COMMIT_MSG",
@@ -91,10 +92,10 @@
         "endChar": 90
       },
       "revId": "b5e9165e6e38a9ae8d39b44b66f830f9e7a86f52",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "f99fe7dc_df899045",
         "filename": "/COMMIT_MSG",
@@ -115,10 +116,34 @@
         "endChar": 90
       },
       "revId": "b5e9165e6e38a9ae8d39b44b66f830f9e7a86f52",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bb7eea73_cef67ac2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 19
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2022-06-22T17:48:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f99fe7dc_df899045",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 90
+      },
+      "revId": "b5e9165e6e38a9ae8d39b44b66f830f9e7a86f52",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "7aecad9d_c96c769e",
         "filename": "/COMMIT_MSG",
@@ -132,10 +157,10 @@
       "side": 1,
       "message": "Is there a design document or anything for this interface?\n\nIs this the design?\nhttps://gerrit.openbmc-project.xyz/c/openbmc/docs/+/23420 \n\nThis has been outstanding for a long time",
       "revId": "b5e9165e6e38a9ae8d39b44b66f830f9e7a86f52",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "9439f28b_f97bbc19",
         "filename": "/COMMIT_MSG",
@@ -150,10 +175,10 @@
       "message": "yes Gunnar.\nthat\u0027s the design doc, we have updated long back with new design.",
       "parentUuid": "7aecad9d_c96c769e",
       "revId": "b5e9165e6e38a9ae8d39b44b66f830f9e7a86f52",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "250118eb_bc227eac",
         "filename": "/COMMIT_MSG",
@@ -168,10 +193,10 @@
       "message": "Can we add this to the commit? Can we get the design doc merged?",
       "parentUuid": "9439f28b_f97bbc19",
       "revId": "b5e9165e6e38a9ae8d39b44b66f830f9e7a86f52",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "0b700e31_8714b36e",
         "filename": "/COMMIT_MSG",
@@ -186,10 +211,28 @@
       "message": "sure. can you please review design doc as well",
       "parentUuid": "250118eb_bc227eac",
       "revId": "b5e9165e6e38a9ae8d39b44b66f830f9e7a86f52",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "72949751_68743ad4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 19
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2022-06-22T17:48:24Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "0b700e31_8714b36e",
+      "revId": "b5e9165e6e38a9ae8d39b44b66f830f9e7a86f52",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "f4879e88_6b712e93",
         "filename": "/COMMIT_MSG",
@@ -209,10 +252,10 @@
         "endChar": 21
       },
       "revId": "b5e9165e6e38a9ae8d39b44b66f830f9e7a86f52",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "0c74c299_a24eff84",
         "filename": "/COMMIT_MSG",
@@ -233,10 +276,34 @@
         "endChar": 21
       },
       "revId": "b5e9165e6e38a9ae8d39b44b66f830f9e7a86f52",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "73573aec_28e1f23c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 19
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2022-06-22T17:48:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0c74c299_a24eff84",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 21
+      },
+      "revId": "b5e9165e6e38a9ae8d39b44b66f830f9e7a86f52",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "71c43060_ba37a8f6",
         "filename": "/COMMIT_MSG",
@@ -250,10 +317,10 @@
       "side": 1,
       "message": "Verified.... what behavior?",
       "revId": "b5e9165e6e38a9ae8d39b44b66f830f9e7a86f52",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "dd1d60c4_e77a8877",
         "filename": "/COMMIT_MSG",
@@ -268,8 +335,25 @@
       "message": "I mean to say that I have run signCSR rest interface\nparallely from different session and it works.",
       "parentUuid": "71c43060_ba37a8f6",
       "revId": "b5e9165e6e38a9ae8d39b44b66f830f9e7a86f52",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9007cc1d_12adc740",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 19
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2022-06-22T17:48:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dd1d60c4_e77a8877",
+      "revId": "b5e9165e6e38a9ae8d39b44b66f830f9e7a86f52",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
