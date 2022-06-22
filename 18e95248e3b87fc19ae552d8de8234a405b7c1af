@@ -39,6 +39,24 @@
       "message": "I thought we moved to including all of these, then below have an #ifdef ?\n\nE.g. \n#include BMCWEB_ENABLE_VM_NBDPROXY\n...\n#ifdef BMCWEB_ENABLE_VM_NBDPROXY\n        requestNBDVirtualMediaRoutes(app);\n#endif // BMCWEB_ENABLE_VM_NBDPROXY",
       "revId": "18e95248e3b87fc19ae552d8de8234a405b7c1af",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9edcf35f_f44b82a9",
+        "filename": "redfish-core/include/redfish.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-22T04:34:07Z",
+      "side": 1,
+      "message": "That can\u0027t achieve what this commit is trying to do: when `insecure-disable-auth` is enabled, BMCWeb shouldn\u0027t depend on libssl and libpam.\n\n\"redfish_sessions.hpp\" and \"account_service.hpp\" are written in the way that it depends on libpam all the time. I didn\u0027t find other way to achieve this.",
+      "parentUuid": "00c8f6b3_6b3bafe4",
+      "revId": "18e95248e3b87fc19ae552d8de8234a405b7c1af",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
