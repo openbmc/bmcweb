@@ -46,6 +46,30 @@
       },
       "revId": "eee0013e14f94300657c82019bd7d8cec7e2dbf8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7e40307c_ae8fc749",
+        "filename": "scripts/parse_registries.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-22T14:59:31Z",
+      "side": 0,
+      "message": "No, there are not any string literals that need updated.  This is just a filename.",
+      "parentUuid": "2a73d1f1_bbd47e5f",
+      "range": {
+        "startLine": 177,
+        "startChar": 21,
+        "endLine": 177,
+        "endChar": 52
+      },
+      "revId": "eee0013e14f94300657c82019bd7d8cec7e2dbf8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
