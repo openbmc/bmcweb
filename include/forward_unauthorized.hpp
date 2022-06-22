@@ -22,31 +22,30 @@ inline void sendUnauthorized(std::string_view url,
             res.result(boost::beast::http::status::temporary_redirect);
             res.addHeader("Location",
                           "/#/login?next=" + http_helpers::urlEncode(url));
+            return
         }
-        else
-        {
-            // If we don't have a webui installed, just return a lame
-            // unauthorized body
-            res.result(boost::beast::http::status::unauthorized);
-            res.body() = "Unauthorized";
-        }
-    }
-    else
-    {
+        // If we don't have a webui installed, just return an unauthorized
+        // body
         res.result(boost::beast::http::status::unauthorized);
-
-        // XHR requests from a browser will set the X-Requested-With header when
-        // doing their requests, even though they might not be requesting html.
-        if (!xRequestedWith.empty())
-        {
-            // Only propose basic auth as an option if it's enabled.
-            if (persistent_data::SessionStore::getInstance()
-                    .getAuthMethodsConfig()
-                    .basic)
-            {
-                res.addHeader("WWW-Authenticate", "Basic");
-            }
-        }
+        res.body() = "Unauthorized";
+        return;
     }
+
+    res.result(boost::beast::http::status::unauthorized);
+
+    // XHR requests from a browser will set the X-Requested-With header when
+    // doing their requests, even though they might not be requesting html.
+    if (!xRequestedWith.empty())
+    {
+        return;
+    }
+    // if basic auth is disabled, don't propose it.
+    if (!persistent_data::SessionStore::getInstance()
+             .getAuthMethodsConfig()
+             .basic)
+    {
+        return;
+    }
+    res.addHeader("WWW-Authenticate", "Basic");
 }
 } // namespace forward_unauthorized
