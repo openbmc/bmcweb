@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "359a13f2_337d14f4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-22T15:02:11Z",
+      "side": 1,
+      "message": "Why is this desirable?  Are there systems without pam present?",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 51
+      },
+      "revId": "18e95248e3b87fc19ae552d8de8234a405b7c1af",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "df34733e_26bb5d60",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
@@ -19,6 +42,29 @@
         "startChar": 30,
         "endLine": 21,
         "endChar": 35
+      },
+      "revId": "18e95248e3b87fc19ae552d8de8234a405b7c1af",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1948bcff_84705296",
+        "filename": "meson.build",
+        "patchSetId": 2
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-22T15:02:11Z",
+      "side": 1,
+      "message": "Why is this needed?  And why does it need to be special cased for auth?",
+      "range": {
+        "startLine": 104,
+        "startChar": 0,
+        "endLine": 108,
+        "endChar": 11
       },
       "revId": "18e95248e3b87fc19ae552d8de8234a405b7c1af",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
