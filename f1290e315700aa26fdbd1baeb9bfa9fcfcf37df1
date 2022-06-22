@@ -3,6 +3,40 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "aa159e8c_eacb6d93",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-06-22T19:29:09Z",
+      "side": 1,
+      "message": "So it would be an embedded webserver that does what without D-Bus? Can you talk more about the use cases here?",
+      "revId": "f1290e315700aa26fdbd1baeb9bfa9fcfcf37df1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d6b85eb7_800e65f9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-06-22T19:29:09Z",
+      "side": 1,
+      "message": "I thought we moved the opposite way?",
+      "revId": "f1290e315700aa26fdbd1baeb9bfa9fcfcf37df1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d795331d_33b99870",
         "filename": "http/http_client.hpp",
         "patchSetId": 3
