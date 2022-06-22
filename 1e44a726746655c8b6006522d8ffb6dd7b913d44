@@ -176,6 +176,30 @@
       },
       "revId": "1e44a726746655c8b6006522d8ffb6dd7b913d44",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "85a28192_f4584599",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-22T14:42:52Z",
+      "side": 1,
+      "message": "Yes, John is correct, this is a potential issue, but as Nan point out that dbus singleton:\n\n1. Doesn\u0027t really have anything to do with this patch, which is just updating an include.\n2. Works correctly in this usage, because bmcweb is a single compile unit (at least anything that accesses the singleton is).\nThis is super old cruft that could be cleaned up, but I don\u0027t think it\u0027s right to try to clean it up in this patch, especially given that regardless of this include, the code could break anyway.\n\nSound reasonable?",
+      "parentUuid": "c60a6582_7d59ecb6",
+      "range": {
+        "startLine": 18,
+        "startChar": 10,
+        "endLine": 18,
+        "endChar": 24
+      },
+      "revId": "1e44a726746655c8b6006522d8ffb6dd7b913d44",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
