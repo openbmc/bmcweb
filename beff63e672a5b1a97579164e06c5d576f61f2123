@@ -86,6 +86,24 @@
       "message": "If this is something we\u0027re going to start doing on our unit tests (which is fine) can you make sure that this patchset covers all the cases so we\u0027re consistent about it, and we don\u0027t get new problems in future patchsets?",
       "revId": "beff63e672a5b1a97579164e06c5d576f61f2123",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c5488ad2_e92fe310",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-06-22T17:03:31Z",
+      "side": 1,
+      "message": "What type of problems are do you envision? \nThis is a very normal practices.",
+      "parentUuid": "1149b3ef_1cb0c22f",
+      "revId": "beff63e672a5b1a97579164e06c5d576f61f2123",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
