@@ -248,6 +248,30 @@
       },
       "revId": "1e44a726746655c8b6006522d8ffb6dd7b913d44",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b437cf3b_10466bd1",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-06-22T17:52:04Z",
+      "side": 1,
+      "message": "\u003e Also, this problem only exists if \"if non-main clients code includes this header, and use systemBus\".\n\nEventually this is very likely to happen. When you writer header files, assume they will be included.\n\n\u003e this commit and this commit doesn\u0027t make things worse.\n\nIt takes the compile time error away, and create a runtime error.\n\n\nBut if both you and Ed see the value, I will get out of your way.\n(Marked resolved)",
+      "parentUuid": "17d380ec_162ae883",
+      "range": {
+        "startLine": 18,
+        "startChar": 10,
+        "endLine": 18,
+        "endChar": 24
+      },
+      "revId": "1e44a726746655c8b6006522d8ffb6dd7b913d44",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
