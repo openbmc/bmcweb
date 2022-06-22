@@ -18,7 +18,6 @@
 #include <app.hpp>
 #include <boost/algorithm/string/predicate.hpp>
 #include <boost/algorithm/string/split.hpp>
-#include <boost/container/flat_map.hpp>
 #include <boost/range/algorithm/replace_copy_if.hpp>
 #include <dbus_singleton.hpp>
 #include <dbus_utility.hpp>
@@ -180,7 +179,7 @@ class SensorsAsyncResp
   public:
     using DataCompleteCb = std::function<void(
         const boost::beast::http::status status,
-        const boost::container::flat_map<std::string, std::string>& uriToDbus)>;
+        const std::map<std::string, std::string>& uriToDbus)>;
 
     struct SensorData
     {
@@ -234,7 +233,7 @@ class SensorsAsyncResp
 
         if (dataComplete && metadata)
         {
-            boost::container::flat_map<std::string, std::string> map;
+            std::map<std::string, std::string> map;
             if (asyncResp->res.result() == boost::beast::http::status::ok)
             {
                 for (auto& sensor : *metadata)
@@ -340,7 +339,7 @@ class InventoryItem
 template <typename Callback>
 void getObjectsWithConnection(
     const std::shared_ptr<SensorsAsyncResp>& sensorsAsyncResp,
-    const std::shared_ptr<boost::container::flat_set<std::string>>& sensorNames,
+    const std::shared_ptr<std::set<std::string>>& sensorNames,
     Callback&& callback)
 {
     BMCWEB_LOG_DEBUG << "getObjectsWithConnection enter";
@@ -366,11 +365,8 @@ void getObjectsWithConnection(
 
         // Make unique list of connections only for requested sensor types and
         // found in the chassis
-        boost::container::flat_set<std::string> connections;
+        std::set<std::string> connections;
         std::set<std::pair<std::string, std::string>> objectsWithConnection;
-        // Intrinsic to avoid malloc.  Most systems will have < 8 sensor
-        // producers
-        connections.reserve(8);
 
         BMCWEB_LOG_DEBUG << "sensorNames list count: " << sensorNames->size();
         for (const std::string& tsensor : *sensorNames)
@@ -414,13 +410,12 @@ void getObjectsWithConnection(
  * @param callback Callback for processing gathered connections
  */
 template <typename Callback>
-void getConnections(
-    std::shared_ptr<SensorsAsyncResp> sensorsAsyncResp,
-    const std::shared_ptr<boost::container::flat_set<std::string>> sensorNames,
-    Callback&& callback)
+void getConnections(std::shared_ptr<SensorsAsyncResp> sensorsAsyncResp,
+                    const std::shared_ptr<std::set<std::string>> sensorNames,
+                    Callback&& callback)
 {
     auto objectsWithConnectionCb =
-        [callback](const boost::container::flat_set<std::string>& connections,
+        [callback](const std::set<std::string>& connections,
                    const std::set<std::pair<std::string, std::string>>&
                    /*objectsWithConnection*/) { callback(connections); };
     getObjectsWithConnection(sensorsAsyncResp, sensorNames,
@@ -439,8 +434,7 @@ void getConnections(
 inline void reduceSensorList(
     const std::shared_ptr<SensorsAsyncResp>& sensorsAsyncResp,
     const std::vector<std::string>* allSensors,
-    const std::shared_ptr<boost::container::flat_set<std::string>>&
-        activeSensors)
+    const std::shared_ptr<std::set<std::string>>& activeSensors)
 {
     if (sensorsAsyncResp == nullptr)
     {
@@ -632,9 +626,8 @@ void getChassis(const std::shared_ptr<SensorsAsyncResp>& sensorsAsyncResp,
                     return;
                 }
             }
-            const std::shared_ptr<boost::container::flat_set<std::string>>
-                culledSensorList =
-                    std::make_shared<boost::container::flat_set<std::string>>();
+            const std::shared_ptr<std::set<std::string>> culledSensorList =
+                std::make_shared<std::set<std::string>>();
             reduceSensorList(sensorsAsyncResp, &nodeSensorList,
                              culledSensorList);
             callback(culledSensorList);
@@ -660,8 +653,7 @@ void getChassis(const std::shared_ptr<SensorsAsyncResp>& sensorsAsyncResp,
  *
  * The callback must have the following signature:
  *   @code
- *   callback(std::shared_ptr<boost::container::flat_map<std::string,
- *                std::string>> objectMgrPaths)
+ *   callback(std::shared_ptr<std::map<std::string,std::string>> objectMgrPaths)
  *   @endcode
  *
  * @param sensorsAsyncResp Pointer to object holding response data.
@@ -691,9 +683,8 @@ void getObjectManagerPaths(
         }
 
         // Loop over returned object paths
-        std::shared_ptr<boost::container::flat_map<std::string, std::string>>
-            objectMgrPaths = std::make_shared<
-                boost::container::flat_map<std::string, std::string>>();
+        std::shared_ptr<std::map<std::string, std::string>> objectMgrPaths =
+            std::make_shared<std::map<std::string, std::string>>();
         for (const std::pair<
                  std::string,
                  std::vector<std::pair<std::string, std::vector<std::string>>>>&
@@ -1187,8 +1178,8 @@ inline void populateFanRedundancy(
                 crow::connections::systemBus->async_method_call(
                     [path, sensorsAsyncResp](
                         const boost::system::error_code& err,
-                        const boost::container::flat_map<
-                            std::string, dbus::utility::DbusVariantType>& ret) {
+                        const std::map<std::string,
+                                       dbus::utility::DbusVariantType>& ret) {
                     if (err)
                     {
                         return; // don't have to have this
@@ -1595,9 +1586,8 @@ template <typename Callback>
 static void getInventoryItemsData(
     std::shared_ptr<SensorsAsyncResp> sensorsAsyncResp,
     std::shared_ptr<std::vector<InventoryItem>> inventoryItems,
-    std::shared_ptr<boost::container::flat_set<std::string>> invConnections,
-    std::shared_ptr<boost::container::flat_map<std::string, std::string>>
-        objectMgrPaths,
+    std::shared_ptr<std::set<std::string>> invConnections,
+    std::shared_ptr<std::map<std::string, std::string>> objectMgrPaths,
     Callback&& callback, size_t invConnectionsIndex = 0)
 {
     BMCWEB_LOG_DEBUG << "getInventoryItemsData enter";
@@ -1683,8 +1673,7 @@ static void getInventoryItemsData(
  *
  * The callback must have the following signature:
  *   @code
- *   callback(std::shared_ptr<boost::container::flat_set<std::string>>
- *            invConnections)
+ *   callback(std::shared_ptr<std::set<std::string>> invConnections)
  *   @endcode
  *
  * @param sensorsAsyncResp Pointer to object holding response data.
@@ -1722,9 +1711,8 @@ static void getInventoryItemsConnections(
         }
 
         // Make unique list of connections for desired inventory items
-        std::shared_ptr<boost::container::flat_set<std::string>>
-            invConnections =
-                std::make_shared<boost::container::flat_set<std::string>>();
+        std::shared_ptr<std::set<std::string>> invConnections =
+            std::make_shared<std::set<std::string>>();
         invConnections->reserve(8);
 
         // Loop through objects from GetSubTree
@@ -1783,9 +1771,8 @@ static void getInventoryItemsConnections(
 template <typename Callback>
 static void getInventoryItemAssociations(
     const std::shared_ptr<SensorsAsyncResp>& sensorsAsyncResp,
-    const std::shared_ptr<boost::container::flat_set<std::string>>& sensorNames,
-    const std::shared_ptr<boost::container::flat_map<std::string, std::string>>&
-        objectMgrPaths,
+    const std::shared_ptr<std::set<std::string>>& sensorNames,
+    const std::shared_ptr<std::map<std::string, std::string>>& objectMgrPaths,
     Callback&& callback)
 {
     BMCWEB_LOG_DEBUG << "getInventoryItemAssociations enter";
@@ -1951,8 +1938,7 @@ template <typename Callback>
 void getInventoryLedData(
     std::shared_ptr<SensorsAsyncResp> sensorsAsyncResp,
     std::shared_ptr<std::vector<InventoryItem>> inventoryItems,
-    std::shared_ptr<boost::container::flat_map<std::string, std::string>>
-        ledConnections,
+    std::shared_ptr<std::map<std::string, std::string>> ledConnections,
     Callback&& callback, size_t ledConnectionsIndex = 0)
 {
     BMCWEB_LOG_DEBUG << "getInventoryLedData enter";
@@ -2078,9 +2064,8 @@ void getInventoryLeds(
         }
 
         // Build map of LED object paths to connections
-        std::shared_ptr<boost::container::flat_map<std::string, std::string>>
-            ledConnections = std::make_shared<
-                boost::container::flat_map<std::string, std::string>>();
+        std::shared_ptr<std::map<std::string, std::string>> ledConnections =
+            std::make_shared<std::map<std::string, std::string>>();
 
         // Loop through objects from GetSubTree
         for (const std::pair<
@@ -2141,8 +2126,7 @@ template <typename Callback>
 void getPowerSupplyAttributesData(
     const std::shared_ptr<SensorsAsyncResp>& sensorsAsyncResp,
     std::shared_ptr<std::vector<InventoryItem>> inventoryItems,
-    const boost::container::flat_map<std::string, std::string>&
-        psAttributesConnections,
+    const std::map<std::string, std::string>& psAttributesConnections,
     Callback&& callback)
 {
     BMCWEB_LOG_DEBUG << "getPowerSupplyAttributesData enter";
@@ -2265,8 +2249,7 @@ void getPowerSupplyAttributes(
         // Currently we only support 1 power supply attribute, use this for
         // all the power supplies. Build map of object path to connection.
         // Assume just 1 connection and 1 path for now.
-        boost::container::flat_map<std::string, std::string>
-            psAttributesConnections;
+        std::map<std::string, std::string> psAttributesConnections;
 
         if (subtree[0].first.empty() || subtree[0].second.empty())
         {
@@ -2329,9 +2312,8 @@ void getPowerSupplyAttributes(
 template <typename Callback>
 static void getInventoryItems(
     std::shared_ptr<SensorsAsyncResp> sensorsAsyncResp,
-    const std::shared_ptr<boost::container::flat_set<std::string>> sensorNames,
-    std::shared_ptr<boost::container::flat_map<std::string, std::string>>
-        objectMgrPaths,
+    const std::shared_ptr<std::set<std::string>> sensorNames,
+    std::shared_ptr<std::map<std::string, std::string>> objectMgrPaths,
     Callback&& callback)
 {
     BMCWEB_LOG_DEBUG << "getInventoryItems enter";
@@ -2343,8 +2325,7 @@ static void getInventoryItems(
         auto getInventoryItemsConnectionsCb =
             [sensorsAsyncResp, inventoryItems, objectMgrPaths,
              callback{std::forward<const Callback>(callback)}](
-                std::shared_ptr<boost::container::flat_set<std::string>>
-                    invConnections) {
+                std::shared_ptr<std::set<std::string>> invConnections) {
             BMCWEB_LOG_DEBUG << "getInventoryItemsConnectionsCb enter";
             auto getInventoryItemsDataCb = [sensorsAsyncResp, inventoryItems,
                                             callback{std::move(callback)}]() {
@@ -2470,10 +2451,9 @@ inline nlohmann::json& getPowerSupply(nlohmann::json& powerSupplyArray,
  */
 inline void getSensorData(
     const std::shared_ptr<SensorsAsyncResp>& sensorsAsyncResp,
-    const std::shared_ptr<boost::container::flat_set<std::string>>& sensorNames,
-    const boost::container::flat_set<std::string>& connections,
-    const std::shared_ptr<boost::container::flat_map<std::string, std::string>>&
-        objectMgrPaths,
+    const std::shared_ptr<std::set<std::string>>& sensorNames,
+    const std::set<std::string>& connections,
+    const std::shared_ptr<std::map<std::string, std::string>>& objectMgrPaths,
     const std::shared_ptr<std::vector<InventoryItem>>& inventoryItems)
 {
     BMCWEB_LOG_DEBUG << "getSensorData enter";
@@ -2679,18 +2659,17 @@ inline void getSensorData(
     BMCWEB_LOG_DEBUG << "getSensorData exit";
 }
 
-inline void processSensorList(
-    const std::shared_ptr<SensorsAsyncResp>& sensorsAsyncResp,
-    const std::shared_ptr<boost::container::flat_set<std::string>>& sensorNames)
+inline void
+    processSensorList(const std::shared_ptr<SensorsAsyncResp>& sensorsAsyncResp,
+                      const std::shared_ptr<std::set<std::string>>& sensorNames)
 {
-    auto getConnectionCb =
-        [sensorsAsyncResp, sensorNames](
-            const boost::container::flat_set<std::string>& connections) {
+    auto getConnectionCb = [sensorsAsyncResp, sensorNames](
+                               const std::set<std::string>& connections) {
         BMCWEB_LOG_DEBUG << "getConnectionCb enter";
         auto getObjectManagerPathsCb =
-            [sensorsAsyncResp, sensorNames,
-             connections](const std::shared_ptr<boost::container::flat_map<
-                              std::string, std::string>>& objectMgrPaths) {
+            [sensorsAsyncResp, sensorNames, connections](
+                const std::shared_ptr<std::map<std::string, std::string>>&
+                    objectMgrPaths) {
             BMCWEB_LOG_DEBUG << "getObjectManagerPathsCb enter";
             auto getInventoryItemsCb =
                 [sensorsAsyncResp, sensorNames, connections, objectMgrPaths](
@@ -2732,8 +2711,7 @@ inline void
     BMCWEB_LOG_DEBUG << "getChassisData enter";
     auto getChassisCb =
         [sensorsAsyncResp](
-            const std::shared_ptr<boost::container::flat_set<std::string>>&
-                sensorNames) {
+            const std::shared_ptr<std::set<std::string>>& sensorNames) {
         BMCWEB_LOG_DEBUG << "getChassisCb enter";
         processSensorList(sensorsAsyncResp, sensorNames);
         BMCWEB_LOG_DEBUG << "getChassisCb exit";
@@ -2758,10 +2736,10 @@ inline void
  * @param sensorsModified  The list of sensors that were found as a result of
  *                         repeated calls to this function
  */
-inline bool findSensorNameUsingSensorPath(
-    std::string_view sensorName,
-    boost::container::flat_set<std::string>& sensorsList,
-    boost::container::flat_set<std::string>& sensorsModified)
+inline bool
+    findSensorNameUsingSensorPath(std::string_view sensorName,
+                                  std::set<std::string>& sensorsList,
+                                  std::set<std::string>& sensorsModified)
 {
     for (auto& chassisSensor : sensorsList)
     {
@@ -2828,13 +2806,11 @@ inline void setSensorsOverride(
 
     auto getChassisSensorListCb =
         [sensorAsyncResp, overrideMap](
-            const std::shared_ptr<boost::container::flat_set<std::string>>&
-                sensorsList) {
+            const std::shared_ptr<std::set<std::string>>& sensorsList) {
         // Match sensor names in the PATCH request to those managed by the
         // chassis node
-        const std::shared_ptr<boost::container::flat_set<std::string>>
-            sensorNames =
-                std::make_shared<boost::container::flat_set<std::string>>();
+        const std::shared_ptr<std::set<std::string>> sensorNames =
+            std::make_shared<std::set<std::string>>();
         for (const auto& item : overrideMap)
         {
             const auto& sensor = item.first;
@@ -2849,10 +2825,10 @@ inline void setSensorsOverride(
         }
         // Get the connection to which the memberId belongs
         auto getObjectsWithConnectionCb =
-            [sensorAsyncResp, overrideMap](
-                const boost::container::flat_set<std::string>& /*connections*/,
-                const std::set<std::pair<std::string, std::string>>&
-                    objectsWithConnection) {
+            [sensorAsyncResp,
+             overrideMap](const std::set<std::string>& /*connections*/,
+                          const std::set<std::pair<std::string, std::string>>&
+                              objectsWithConnection) {
             if (objectsWithConnection.size() != overrideMap.size())
             {
                 BMCWEB_LOG_INFO
@@ -2946,11 +2922,11 @@ inline void retrieveUriToDbusMap(const std::string& chassis,
     }
 
     auto asyncResp = std::make_shared<bmcweb::AsyncResp>();
-    auto callback =
-        [asyncResp, mapCompleteCb{std::move(mapComplete)}](
-            const boost::beast::http::status status,
-            const boost::container::flat_map<std::string, std::string>&
-                uriToDbus) { mapCompleteCb(status, uriToDbus); };
+    auto callback = [asyncResp, mapCompleteCb{std::move(mapComplete)}](
+                        const boost::beast::http::status status,
+                        const std::map<std::string, std::string>& uriToDbus) {
+        mapCompleteCb(status, uriToDbus);
+    };
 
     auto resp = std::make_shared<SensorsAsyncResp>(
         asyncResp, chassis, pathIt->second, node, std::move(callback));
@@ -2962,7 +2938,7 @@ namespace sensors
 
 inline void getChassisCallback(
     const std::shared_ptr<SensorsAsyncResp>& asyncResp,
-    const std::shared_ptr<boost::container::flat_set<std::string>>& sensorNames)
+    const std::shared_ptr<std::set<std::string>>& sensorNames)
 {
     BMCWEB_LOG_DEBUG << "getChassisCallback enter";
 
@@ -3097,9 +3073,8 @@ inline void handleSensorGet(App& app, const crow::Request& req,
         BMCWEB_LOG_DEBUG << "Found sensor path for sensor '" << sensorName
                          << "': " << sensorPath;
 
-        const std::shared_ptr<boost::container::flat_set<std::string>>
-            sensorList =
-                std::make_shared<boost::container::flat_set<std::string>>();
+        const std::shared_ptr<std::set<std::string>> sensorList =
+            std::make_shared<std::set<std::string>>();
 
         sensorList->emplace(sensorPath);
         processSensorList(asyncResp, sensorList);
