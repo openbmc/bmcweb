@@ -22,6 +22,30 @@
       },
       "revId": "9dc9214f17ccc4289e5c832be315362f7068a611",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2c69756c_5c5e42a4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-22T16:50:10Z",
+      "side": 1,
+      "message": "\u003e Both are included in openssl, which for the moment is a dependency\n\nI can help make recipe change as well so it is aware. We separated libssl and libcryto in some Google internal packages.\n\n\u003e This is going to have conflicts with the patches adding ssl to event service, considering that that will likely need to be a separate option.\n\nWhy? Will Event Service enable \u0027insecure-disable-ssl\u0027? Are there use case that BMCWeb doesn\u0027t use SSL but EventService use SSL (post style I assume)?\n\n\u003e Please document in your commit message why this is needed.\n\nDone.",
+      "parentUuid": "0d42115f_59246cba",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 32
+      },
+      "revId": "9dc9214f17ccc4289e5c832be315362f7068a611",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
