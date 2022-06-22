@@ -70,6 +70,24 @@
       "parentUuid": "49d26dc9_b7df2b50",
       "revId": "a9ba89cc2c827db0214ed05d08d4bdf2e33ce15c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c3babe61_bf3a71b2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-22T21:15:56Z",
+      "side": 1,
+      "message": "https://github.com/DMTF/Redfish/wiki/Redfish-testing-lab",
+      "parentUuid": "76e9ef40_4c139bc8",
+      "revId": "a9ba89cc2c827db0214ed05d08d4bdf2e33ce15c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
