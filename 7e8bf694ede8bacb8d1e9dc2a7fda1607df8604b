@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "df588934_dbdbf150",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-06-22T19:48:46Z",
+      "side": 1,
+      "message": "Is there any downside here other than -Wshadow could be too strict? Will flag things that could be valid? A lot of these changes make sense",
+      "revId": "7e8bf694ede8bacb8d1e9dc2a7fda1607df8604b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e212368b_920217be",
         "filename": "http/websocket.hpp",
         "patchSetId": 3
@@ -92,6 +109,40 @@
         "endLine": 72,
         "endChar": 34
       },
+      "revId": "7e8bf694ede8bacb8d1e9dc2a7fda1607df8604b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "af32224c_fb041a83",
+        "filename": "include/ibm/locks.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 563,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-06-22T19:48:46Z",
+      "side": 1,
+      "message": "File really likes its single variable naming :(",
+      "revId": "7e8bf694ede8bacb8d1e9dc2a7fda1607df8604b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0eaab022_09a7e1bf",
+        "filename": "include/ibm/locks.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 600,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-06-22T19:48:46Z",
+      "side": 1,
+      "message": "I thought clang would want something more than a single char name",
       "revId": "7e8bf694ede8bacb8d1e9dc2a7fda1607df8604b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
