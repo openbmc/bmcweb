@@ -22,6 +22,30 @@
       },
       "revId": "47cd356b673198a04d448b9288d5738687c74507",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5fa5a76e_b7ba1ef6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-22T00:02:23Z",
+      "side": 1,
+      "message": "Thanks, I am not saving memory usage or improving anything. \n\n\u003e Strings are deduplicated, at compile time\nSeems like it depends on the compiler implementation. https://stackoverflow.com/questions/52423837/is-storage-for-the-same-content-string-literals-guaranteed-to-be-the-same \n\nJust these string literals are fixed (they are two DBus interfaces) and we really shouldn\u0027t create multiple SoT.",
+      "parentUuid": "c7eae4ac_2f4b3ee3",
+      "range": {
+        "startLine": 9,
+        "startChar": 53,
+        "endLine": 10,
+        "endChar": 71
+      },
+      "revId": "47cd356b673198a04d448b9288d5738687c74507",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
