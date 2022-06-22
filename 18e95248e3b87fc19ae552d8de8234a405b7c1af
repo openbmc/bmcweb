@@ -192,6 +192,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b3140226_766e830b",
+        "filename": "meson.build",
+        "patchSetId": 2
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-22T23:33:47Z",
+      "side": 1,
+      "message": "Let me explain, today `basic-auth` (and other options) can be enabled even if  insecure-disable-auth is enabled, which doesn\u0027t make sense.\n\nWith this block I added,\n\n```\n    elif (option_key in [\u0027basic-auth\u0027, \u0027cookie-auth\u0027, \u0027session-auth\u0027, \u0027xtoken-auth\u0027, \u0027mutual-tls-auth\u0027])\n      if (get_option(\u0027insecure-disable-auth\u0027).disabled())\n        add_project_arguments(option_value, language:\u0027cpp\u0027)\n        summary(option_key,option_value, section : \u0027Enabled Features\u0027)\n      endif\n```\n\nIf we disable `insecure-disable-auth`, then all these auth options will be ignored.",
+      "parentUuid": "f6ba73c0_0d28e5ed",
+      "range": {
+        "startLine": 104,
+        "startChar": 0,
+        "endLine": 108,
+        "endChar": 11
+      },
+      "revId": "18e95248e3b87fc19ae552d8de8234a405b7c1af",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "00c8f6b3_6b3bafe4",
         "filename": "redfish-core/include/redfish.hpp",
         "patchSetId": 2
