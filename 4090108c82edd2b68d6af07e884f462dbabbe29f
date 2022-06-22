@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "870aea10_9dcf2dac",
+        "filename": "scripts/update_schemas.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1000998
+      },
+      "writtenOn": "2022-06-22T17:33:05Z",
+      "side": 1,
+      "message": "You might want to split the schema changes out and send it for review upstream. Seems like a straightforward change since ThermalSubsystem is already in the list.",
+      "revId": "4090108c82edd2b68d6af07e884f462dbabbe29f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
