@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f54b02df_f55b95f3",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 39
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 1001202
+      },
+      "writtenOn": "2022-06-22T00:21:15Z",
+      "side": 1,
+      "message": "This is missing the \u0027@\u0027 sign.",
+      "range": {
+        "startLine": 300,
+        "startChar": 31,
+        "endLine": 300,
+        "endChar": 39
+      },
+      "revId": "92903bd47b8d2e2b2e777d1ba61871a3b54fefd4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
