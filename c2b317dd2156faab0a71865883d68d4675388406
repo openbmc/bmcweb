@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a3368e85_f6202a6f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-22T18:54:24Z",
+      "side": 1,
+      "message": "In terms of overall tradeoffs, this seems reasonable.  Our usage of flat_map in the beginning of bmcweb was driven by data-driven design, and it\u0027s not clear that it gave us any measurable  advantage.\n\nit came up in the other review that in a lot of these cases we should be using unordered_set and unordered_map, for the cases where we don\u0027t care about ordering (which should be most of the time).  I wonder if we should address that here as well?  I\u0027m on the fence there.\n\nOther maintainers, any strong opinion on the above?",
+      "revId": "c2b317dd2156faab0a71865883d68d4675388406",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fcc6a1e2_6f7e80e6",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-22T18:54:24Z",
+      "side": 1,
+      "message": "nit, can this be removed?",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 8,
+        "endChar": 39
+      },
+      "revId": "c2b317dd2156faab0a71865883d68d4675388406",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4a7e4f6d_c5ad1313",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 342,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-22T18:54:24Z",
+      "side": 1,
+      "message": "Pretty sure we no longer need this overload if we\u0027re using std::map now.",
+      "range": {
+        "startLine": 338,
+        "startChar": 0,
+        "endLine": 342,
+        "endChar": 5
+      },
+      "revId": "c2b317dd2156faab0a71865883d68d4675388406",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d68e2fc5_6b903a7b",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-22T18:54:24Z",
+      "side": 1,
+      "message": "odd we needed iterator;  What function did we use from it?",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 19
+      },
+      "revId": "c2b317dd2156faab0a71865883d68d4675388406",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "53936ccd_b563ba6f",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 2146,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-22T18:54:24Z",
+      "side": 1,
+      "message": "this now need a range check.  Technically nth was wrong too, but it threw in the case the size wasn\u0027t correct, so at least there were no memory safety issues (just a throw exception and crash).",
+      "range": {
+        "startLine": 2146,
+        "startChar": 0,
+        "endLine": 2146,
+        "endChar": 46
+      },
+      "revId": "c2b317dd2156faab0a71865883d68d4675388406",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
