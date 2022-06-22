@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "9dad5b11_cbef54ee",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-22T20:34:22Z",
+      "side": 1,
+      "message": "The only downside is when we do constructor variable naming, because of our coding standards, we have to do things like name variables \"In\" which we talked about elsewhere.  It\u0027s not a great pattern, but in the ideal case we start doing m_ prefixes for member variables and the problem goes away.\n\nIn short, it\u0027s a minor annoyance in that one case, but for most cases, shadowing a variable is at least a code smell we should avoid, and has caused bugs in the past.",
+      "parentUuid": "df588934_dbdbf150",
+      "revId": "7e8bf694ede8bacb8d1e9dc2a7fda1607df8604b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "cd20e973_f5435d0e",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 3
@@ -147,6 +165,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2c557467_78c15a9f",
+        "filename": "include/ibm/locks.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 563,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-22T20:34:22Z",
+      "side": 1,
+      "message": "😐",
+      "parentUuid": "af32224c_fb041a83",
+      "revId": "7e8bf694ede8bacb8d1e9dc2a7fda1607df8604b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0eaab022_09a7e1bf",
@@ -160,6 +196,24 @@
       "writtenOn": "2022-06-22T19:48:46Z",
       "side": 1,
       "message": "I thought clang would want something more than a single char name",
+      "revId": "7e8bf694ede8bacb8d1e9dc2a7fda1607df8604b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f1208326_b7a266fe",
+        "filename": "include/ibm/locks.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 600,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-22T20:34:22Z",
+      "side": 1,
+      "message": "My patchset never merged;  It required clang-tidy-14, which... now that we have merged, we could probably get going if we rebased the patch.",
+      "parentUuid": "0eaab022_09a7e1bf",
       "revId": "7e8bf694ede8bacb8d1e9dc2a7fda1607df8604b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
