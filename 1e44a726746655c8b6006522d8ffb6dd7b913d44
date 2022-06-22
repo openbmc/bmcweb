@@ -272,6 +272,30 @@
       },
       "revId": "1e44a726746655c8b6006522d8ffb6dd7b913d44",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2b481a89_fb926dd5",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-22T19:12:34Z",
+      "side": 1,
+      "message": "\u003e After this change, if non-main clients code includes this header, it not through a compiler error.  Instead it will fail at run time.\n\nI\u0027m not quite following that statement.  Wasn\u0027t that already true before?\n\n\nFWIW, this is a valid concern, and it should be fixed.  Either Nan or I will put together a patch to fix it by adding a cpp file that implementations can link against, I just don\u0027t want to do it in this patch.",
+      "parentUuid": "b437cf3b_10466bd1",
+      "range": {
+        "startLine": 18,
+        "startChar": 10,
+        "endLine": 18,
+        "endChar": 24
+      },
+      "revId": "1e44a726746655c8b6006522d8ffb6dd7b913d44",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
