@@ -111,6 +111,30 @@
       },
       "revId": "1e44a726746655c8b6006522d8ffb6dd7b913d44",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4aed531a_b0026264",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-22T01:04:27Z",
+      "side": 1,
+      "message": "I am really confused. This header referenced a shared pointer `crow::connections::systemBus` which is declared in the dbus_singleton.hpp. Shouldn\u0027t we include that header which declares the `crow::connections::systemBus`? Otherwise, `crow::connections::systemBus` is unknown and you will get undeclared identifier, right?\n\nI thought about the issue you talked about. The |systemBus| is static and there\u0027s only a single translation unit `src_webserver_main.cpp.o`. So, there is no other copy in the main `bmcweb` binary.\n\nI also believe it is true that every translation unit (e.g., unit tests) needs to define this |systemBus|. But that\u0027s not what this commit introduces. That\u0027s what you need to do anyway. Include the header doesn\u0027t change (which is the correct thing to do as I believe) anything.",
+      "parentUuid": "2f71c56d_ffdbacd5",
+      "range": {
+        "startLine": 18,
+        "startChar": 10,
+        "endLine": 18,
+        "endChar": 24
+      },
+      "revId": "1e44a726746655c8b6006522d8ffb6dd7b913d44",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
