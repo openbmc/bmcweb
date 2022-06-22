@@ -1,0 +1,107 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "470be614_3c3936cb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 21
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-22T20:48:43Z",
+      "side": 1,
+      "message": "Glad to see this patch moving again!",
+      "revId": "c0b2f2177740234ce8075251c003f44d60d0593b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "93341215_c354492c",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-22T20:48:43Z",
+      "side": 1,
+      "message": "Please include the boilerplate setupRedfishRoute() call in your handler.\n\nAlso, when you do, please migrate this to a separate method, and using std::bind_front.  There are several examples of this already;  We do this to ensure that our error messages are useful in the event of crashes, and lambdas produce very difficult to read code, and mediocre error messages.",
+      "revId": "c0b2f2177740234ce8075251c003f44d60d0593b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "242a7d06_95b7d6b1",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-22T20:48:43Z",
+      "side": 1,
+      "message": "2 things here:\n\n1. Generally Id and Name fields are different.  Id in this case would be ManagerDiagnosticData, given that the uri for this is /bmc/ManagerDiagnosticData\n\n2. Generally the name field is human readable, so something like \"Manager Diagnostic Data\"\n\nAlso, as a matter of consistency, we should probably avoid quotes in names like this, incase a client doesn\u0027t escape properly",
+      "range": {
+        "startLine": 26,
+        "startChar": 40,
+        "endLine": 26,
+        "endChar": 45
+      },
+      "revId": "c0b2f2177740234ce8075251c003f44d60d0593b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "05ab1ba5_deac1db8",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-22T20:48:43Z",
+      "side": 1,
+      "message": "I don\u0027t see anything from this include used?",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 38
+      },
+      "revId": "c0b2f2177740234ce8075251c003f44d60d0593b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0c491698_c5edf130",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 2057,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-22T20:48:43Z",
+      "side": 1,
+      "message": "Some commentary here.  As you\u0027ve written this patch, it\u0027s going to include ManagerDiagnosticData on ALL bmcs.  That might be/is probably fine, but it\u0027s worth including in your commit message.",
+      "range": {
+        "startLine": 2057,
+        "startChar": 11,
+        "endLine": 2057,
+        "endChar": 32
+      },
+      "revId": "c0b2f2177740234ce8075251c003f44d60d0593b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
