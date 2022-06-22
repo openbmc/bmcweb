@@ -237,6 +237,30 @@
       },
       "revId": "2437afcc5653c51bfc40f7bb47fee8eab4e2c736",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "096978e7_580883f1",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 456,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-22T21:50:32Z",
+      "side": 1,
+      "message": "\u003e It seems like what I need to do is delete the callback (and thus the AsyncResp shared_ptr) after it gets called by the connection\n\nThat seems reasonable to me, and arguably something we will need to do anyway (otherwise we\u0027ll collect callback objects forever).\n\nideally we would move the callback out of the queue once it\u0027s used, so that we can just rely on raii, but that\u0027s probably not feasible.",
+      "parentUuid": "405cd5f9_407500c8",
+      "range": {
+        "startLine": 453,
+        "startChar": 0,
+        "endLine": 456,
+        "endChar": 52
+      },
+      "revId": "2437afcc5653c51bfc40f7bb47fee8eab4e2c736",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
