@@ -16,6 +16,24 @@
       "message": "We are adding a mapper call here.. \nI thought Host State manager was one of the services it was okay to call directly..?\nhttps://discord.com/channels/775381525260664832/981267481966571580/981282235191804044",
       "revId": "0d2ebb13fb12d6dd536c1d98e6e8f61287ac5c21",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "368f82f5_5e958dc9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 27
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1001428
+      },
+      "writtenOn": "2022-06-22T20:44:55Z",
+      "side": 1,
+      "message": "After reading through the thread I guess in defense of the commit it would make sense to use mapper since the existence of the property \u0027BootProgress\u0027 may or may not exist in some systems, and mapper seems to be useful in those scenarios.\nUltimately, I made this commit because I had time one day and in another commit I made for bmcweb was instructed there to use mapper calls as supposed to hard-coding service paths for re-usability when in the future there may be more than one. \n\nHowever, the mapper call is not needed because this property is hosted in state-manager and can be grabbed easily with an asio dbus call. I was never explicitly told to do this, but I do see it\u0027s potential benefits(other than the listed concerns such as race conditions with the mapper calls themselves).\n\nDiscord is shedding light on why I\u0027m running into sensor failures in the Jenkins build job.",
+      "parentUuid": "31685475_6bb3affd",
+      "revId": "0d2ebb13fb12d6dd536c1d98e6e8f61287ac5c21",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
