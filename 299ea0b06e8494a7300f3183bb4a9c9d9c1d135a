@@ -72,6 +72,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cc3bd249_34e2c0a3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-22T15:04:50Z",
+      "side": 1,
+      "message": "I guess that\u0027s a fair point, you didn\u0027t actually change the async_method_calls\n\n\nfor example, in your code, you changed to:\n\nfor (const auto\u0026 [path, connectionNames] : subtree)\n\nThere have been cases where, if \u0026 is left off the \"const auto\u0026\" it makes a copy, but you\u0027re right, there are stronger guarantees than I thought there were.",
+      "parentUuid": "566116f3_506cc9d8",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 62
+      },
+      "revId": "299ea0b06e8494a7300f3183bb4a9c9d9c1d135a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d38c6cc6_cb104952",
