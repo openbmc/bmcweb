@@ -48,6 +48,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f3cbf761_0ec7f3c0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-22T23:58:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "85f80e33_bd2b6e67",
+      "range": {
+        "startLine": 10,
+        "startChar": 9,
+        "endLine": 11,
+        "endChar": 18
+      },
+      "revId": "879616bb9ad663a10459ff38ae4443bfb3801aed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "da480782_e732339d",
@@ -314,6 +338,30 @@
       "side": 1,
       "message": "It doesn\u0027t look like https://github.com/openbmc/bmcweb/blob/master/COMMON_ERRORS.md#13-complete-replacement-of-the-response-object.\n\nIf you refer to not populating ID when an error happens, done.",
       "parentUuid": "06d9c1b2_fc5a69c0",
+      "range": {
+        "startLine": 959,
+        "startChar": 21,
+        "endLine": 959,
+        "endChar": 22
+      },
+      "revId": "879616bb9ad663a10459ff38ae4443bfb3801aed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b73fbf0e_f069236e",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 959,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-22T23:58:17Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c16d547f_a0043e01",
       "range": {
         "startLine": 959,
         "startChar": 21,
