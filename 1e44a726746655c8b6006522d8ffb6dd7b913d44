@@ -18,6 +18,23 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d34a0a0_dde5640f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-06-22T04:29:40Z",
+      "side": 1,
+      "message": "Sorry for being a stickler on this, but this is subtle issue.\nI would like to here what others think",
+      "revId": "1e44a726746655c8b6006522d8ffb6dd7b913d44",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "76e28a73_ea1bc7ae",
@@ -127,6 +144,30 @@
       "side": 1,
       "message": "I am really confused. This header referenced a shared pointer `crow::connections::systemBus` which is declared in the dbus_singleton.hpp. Shouldn\u0027t we include that header which declares the `crow::connections::systemBus`? Otherwise, `crow::connections::systemBus` is unknown and you will get undeclared identifier, right?\n\nI thought about the issue you talked about. The |systemBus| is static and there\u0027s only a single translation unit `src_webserver_main.cpp.o`. So, there is no other copy in the main `bmcweb` binary.\n\nI also believe it is true that every translation unit (e.g., unit tests) needs to define this |systemBus|. But that\u0027s not what this commit introduces. That\u0027s what you need to do anyway. Include the header doesn\u0027t change (which is the correct thing to do as I believe) anything.",
       "parentUuid": "2f71c56d_ffdbacd5",
+      "range": {
+        "startLine": 18,
+        "startChar": 10,
+        "endLine": 18,
+        "endChar": 24
+      },
+      "revId": "1e44a726746655c8b6006522d8ffb6dd7b913d44",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c60a6582_7d59ecb6",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-06-22T04:29:40Z",
+      "side": 1,
+      "message": "Is there only on translation unit?\nIf there is only one, then it is okay (enough)\n\nBut it looks like there are a couple object files? Let me take a quick look.\n\nredfish-core_src_error_messages.cpp.o\nsrc_webserver_main.cpp.o\nredfish-core_src_utils_json_utils.cpp.o  \n\nredfish-core_src_error_messages.cpp and redfish-core_src_utils_json_utils.cpp, can not include, or in anyway depend on dbus_utiliy. Because it will build with no error, but at runtime it will fail. (because at run time they will use a copy that was never initialized)\n\nI would rather have it fail at build time. Which is what would happen if this file was not included.\n\n\nMaybe we should just fix this.\nI think we can set the definition of ( shared pointer `crow::connections::systemBus`) in dbus_singleton to be extern.\nThen declare in main as a static global, and that would not have issue.\n\nI would like to here what the maintainers think about this.",
+      "parentUuid": "4aed531a_b0026264",
       "range": {
         "startLine": 18,
         "startChar": 10,
