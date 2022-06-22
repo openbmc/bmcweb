@@ -22,6 +22,30 @@
       },
       "revId": "8cb65f8ae1114accc03340f122e37dd369fa2440",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "791f7c08_b1031818",
+        "filename": ".clang-tidy",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-22T17:17:07Z",
+      "side": 0,
+      "message": "I tried replacing some of the flat maps with ways we\u0027ve done already (using flat_map\u003ckey, value, std::less\u003c\u003e, std::vector\u003e) but that didn\u0027t seem to help.",
+      "parentUuid": "0466c618_ef3d6bec",
+      "range": {
+        "startLine": 12,
+        "startChar": 19,
+        "endLine": 12,
+        "endChar": 25
+      },
+      "revId": "8cb65f8ae1114accc03340f122e37dd369fa2440",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
