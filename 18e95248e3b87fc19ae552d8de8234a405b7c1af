@@ -72,6 +72,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "647e2836_d4d8cfa2",
+        "filename": "meson.build",
+        "patchSetId": 2
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-22T16:38:43Z",
+      "side": 1,
+      "message": "I want to achieve that if \"insecure-disable-auth\" is enabled, all these individual \"auth\" option is also disabled.",
+      "parentUuid": "1948bcff_84705296",
+      "range": {
+        "startLine": 104,
+        "startChar": 0,
+        "endLine": 108,
+        "endChar": 11
+      },
+      "revId": "18e95248e3b87fc19ae552d8de8234a405b7c1af",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "00c8f6b3_6b3bafe4",
         "filename": "redfish-core/include/redfish.hpp",
         "patchSetId": 2
