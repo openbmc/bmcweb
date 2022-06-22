@@ -224,6 +224,30 @@
       },
       "revId": "1e44a726746655c8b6006522d8ffb6dd7b913d44",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "17d380ec_162ae883",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-22T17:38:00Z",
+      "side": 1,
+      "message": "\u003e After this change, if non-main clients code includes this header, it not through a compiler error.  Instead it will fail at run time.\n\nI am not aware of any live unit tests that do dbus calls. Even if there does, that uninitialized shared_ptr will be caught by CI.\n\nAlso, this problem only exists if \"if non-main clients code includes this header, and use systemBus\".\n\nWhat Ed said makes sense to me. Your concern is valid, but that\u0027s not introduced by this commit and this commit doesn\u0027t make things worse.",
+      "parentUuid": "3f338198_27ac115a",
+      "range": {
+        "startLine": 18,
+        "startChar": 10,
+        "endLine": 18,
+        "endChar": 24
+      },
+      "revId": "1e44a726746655c8b6006522d8ffb6dd7b913d44",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
