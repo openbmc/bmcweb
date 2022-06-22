@@ -1,6 +1,75 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "12ba66af_77d0a886",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 21
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-22T20:51:24Z",
+      "side": 1,
+      "message": "I think this section can be removed now.  We\u0027ve rebased to a newer version, and both of those PRs are now in the public.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 0
+      },
+      "revId": "c0b2f2177740234ce8075251c003f44d60d0593b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "417e8856_e0d61519",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 21
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-22T20:51:24Z",
+      "side": 1,
+      "message": "nit, we generally don\u0027t include the service validator invocation, as it\u0027s different for everyones systems.\n\nAlso, when you\u0027re testing, you might want to use Session auth instead of basic.  Your test will run faster if you do",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 29
+      },
+      "revId": "c0b2f2177740234ce8075251c003f44d60d0593b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c46dec21_8ce3544a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 21
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-22T20:51:24Z",
+      "side": 1,
+      "message": "Nit, no need to include the long results in your commit message, just say test passes.\n\nwith that said, it doesn\u0027t really hurt much to have it.  up to you if you want to change.",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 49,
+        "endChar": 0
+      },
+      "revId": "c0b2f2177740234ce8075251c003f44d60d0593b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "470be614_3c3936cb",
