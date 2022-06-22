@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c9d631f7_57507896",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-22T19:50:41Z",
+      "side": 1,
+      "message": "you have to install libpam-dev.  I\u0027m almost certain your docker build still has pam available.",
+      "parentUuid": "221836c0_137aa97d",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 51
+      },
+      "revId": "18e95248e3b87fc19ae552d8de8234a405b7c1af",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "df34733e_26bb5d60",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
@@ -132,6 +156,30 @@
       "side": 1,
       "message": "I want to achieve that if \"insecure-disable-auth\" is enabled, all these individual \"auth\" option is also disabled.",
       "parentUuid": "1948bcff_84705296",
+      "range": {
+        "startLine": 104,
+        "startChar": 0,
+        "endLine": 108,
+        "endChar": 11
+      },
+      "revId": "18e95248e3b87fc19ae552d8de8234a405b7c1af",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f6ba73c0_0d28e5ed",
+        "filename": "meson.build",
+        "patchSetId": 2
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-22T19:50:41Z",
+      "side": 1,
+      "message": "With what goal?  Aren\u0027t all these option flags beneath the insecure-disable-auth flags anyway?\n\nJust trying to understand the intent here;  I\u0027m a little worried about having special logic for auth, which should be easily auditable.",
+      "parentUuid": "647e2836_d4d8cfa2",
       "range": {
         "startLine": 104,
         "startChar": 0,
