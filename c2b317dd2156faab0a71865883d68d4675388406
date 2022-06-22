@@ -41,6 +41,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "534aae96_7973aa07",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-22T19:02:55Z",
+      "side": 1,
+      "message": "No, I didn\u0027t change any other headers beside sensors.\n\nIn this header, |AddReport| still has a data member of type boost flat_mao \n```\nboost::container::flat_map\u003cstd::string, std::string\u003e uriToDbus{};\n```",
+      "parentUuid": "fcc6a1e2_6f7e80e6",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 8,
+        "endChar": 39
+      },
+      "revId": "c2b317dd2156faab0a71865883d68d4675388406",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4a7e4f6d_c5ad1313",
@@ -100,6 +124,30 @@
       "writtenOn": "2022-06-22T18:54:24Z",
       "side": 1,
       "message": "this now need a range check.  Technically nth was wrong too, but it threw in the case the size wasn\u0027t correct, so at least there were no memory safety issues (just a throw exception and crash).",
+      "range": {
+        "startLine": 2146,
+        "startChar": 0,
+        "endLine": 2146,
+        "endChar": 46
+      },
+      "revId": "c2b317dd2156faab0a71865883d68d4675388406",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "87adedd9_45a817d8",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 2146,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-22T19:02:55Z",
+      "side": 1,
+      "message": "Range check is in the above.\n\n```\nif (psAttributesConnections.empty())\n```",
+      "parentUuid": "53936ccd_b563ba6f",
       "range": {
         "startLine": 2146,
         "startChar": 0,
