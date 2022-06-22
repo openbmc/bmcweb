@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ab6e3c98_8d4c9a58",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-22T17:09:52Z",
+      "side": 1,
+      "message": "This isn\u0027t quite enough.  By definition \"internal\" use cases are internal, and therefore not really something the project concerns themselves with.  Why is this change good for OpenBMC?  Why do we need to separate out libssl from libcrypto, especially when yocto doesn\u0027t make the distinction.  Is there any change in the resulting binary in this case?",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 44
+      },
+      "revId": "0b140f295906be2747a34631613c19979c601380",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
