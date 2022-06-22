@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0466c618_ef3d6bec",
+        "filename": ".clang-tidy",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-22T17:01:35Z",
+      "side": 0,
+      "message": "Have we tried std::map and std::set? If not, I can give it a try.",
+      "range": {
+        "startLine": 12,
+        "startChar": 19,
+        "endLine": 12,
+        "endChar": 25
+      },
+      "revId": "8cb65f8ae1114accc03340f122e37dd369fa2440",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
