@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9af20674_0314c466",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-22T17:33:27Z",
+      "side": 1,
+      "message": "Yes. Updated the commit message. I have even seen papers for it",
+      "parentUuid": "42ab8053_a4c295bd",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 26
+      },
+      "revId": "cbf07ca575a98bd1ac31d31582c712afdcb330d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6885914d_8cd036d6",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-06-22T14:47:30Z",
       "side": 1,
       "message": "Please remove this, or link a specific naming convention you\u0027d like to follow.  Just linking the Google results for a search term isn\u0027t the most helpful.",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 181
+      },
+      "revId": "cbf07ca575a98bd1ac31d31582c712afdcb330d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bbeb951b_b08742a5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-22T17:33:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6885914d_8cd036d6",
       "range": {
         "startLine": 15,
         "startChar": 0,
