@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b522a72d_bf141492",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-22T19:13:22Z",
+      "side": 1,
+      "message": "Done. Added a sentence in the commit msg.",
+      "parentUuid": "764b2645_b1572cb7",
+      "revId": "c2b317dd2156faab0a71865883d68d4675388406",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fcc6a1e2_6f7e80e6",
