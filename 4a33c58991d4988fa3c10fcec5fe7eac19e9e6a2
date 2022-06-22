@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ddc4580_a571cd7a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-06-22T18:04:02Z",
+      "side": 1,
+      "message": "This wasn\u0027t previously being flagged so I\u0027m cool with disabling this check for now",
+      "revId": "4a33c58991d4988fa3c10fcec5fe7eac19e9e6a2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
