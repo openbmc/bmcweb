@@ -954,7 +954,7 @@ void getEthernetIfaceList(CallbackFunc&& callback)
     crow::connections::systemBus->async_method_call(
         [callback{std::forward<CallbackFunc>(callback)}](
             const boost::system::error_code errorCode,
-            dbus::utility::ManagedObjectType& resp) {
+            dbus::utility::MapperGetSubTreePathsResponse& resp) {
         // Callback requires vector<string> to retrieve all available
         // ethernet interfaces
         boost::container::flat_set<std::string> ifaceList;
@@ -965,33 +965,25 @@ void getEthernetIfaceList(CallbackFunc&& callback)
             return;
         }
 
-        // Iterate over all retrieved ObjectPaths.
-        for (const auto& objpath : resp)
+        for (const std::string& iface : resp)
         {
-            // And all interfaces available for certain ObjectPath.
-            for (const auto& interface : objpath.second)
+            sdbusplus::message::object_path path(iface);
+            std::string name = path.filename();
+            if (name.empty())
             {
-                // If interface is
-                // xyz.openbmc_project.Network.EthernetInterface, this is
-                // what we're looking for.
-                if (interface.first ==
-                    "xyz.openbmc_project.Network.EthernetInterface")
-                {
-                    std::string ifaceId = objpath.first.filename();
-                    if (ifaceId.empty())
-                    {
-                        continue;
-                    }
-                    // and put it into output vector.
-                    ifaceList.emplace(ifaceId);
-                }
+                continue;
             }
+            ifaceList.emplace(name);
         }
         // Finally make a callback with useful data
         callback(true, ifaceList);
         },
-        "xyz.openbmc_project.Network", "/xyz/openbmc_project/network",
-        "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
+        "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths",
+        "/xyz/openbmc_project/network", 0,
+        std::array<const char*, 1>{
+            "xyz.openbmc_project.Network.EthernetInterface"});
 }
 
 inline void
