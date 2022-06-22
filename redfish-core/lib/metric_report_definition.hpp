@@ -10,6 +10,7 @@
 #include <query.hpp>
 #include <registries/privilege_registry.hpp>
 
+#include <map>
 #include <tuple>
 #include <variant>
 
@@ -335,7 +336,7 @@ class AddReport
     AddReport& operator=(const AddReport&) = delete;
     AddReport& operator=(AddReport&&) = delete;
 
-    void insert(const boost::container::flat_map<std::string, std::string>& el)
+    void insert(const std::map<std::string, std::string>& el)
     {
         uriToDbus.insert(el.begin(), el.end());
     }
@@ -403,8 +404,7 @@ inline void requestRoutesMetricReportDefinitionCollection(App& app)
                 chassis, sensorType,
                 [asyncResp, addReportReq](
                     const boost::beast::http::status status,
-                    const boost::container::flat_map<std::string, std::string>&
-                        uriToDbus) {
+                    const std::map<std::string, std::string>& uriToDbus) {
                 if (status != boost::beast::http::status::ok)
                 {
                     BMCWEB_LOG_ERROR
