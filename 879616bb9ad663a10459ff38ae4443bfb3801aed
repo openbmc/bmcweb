@@ -205,6 +205,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2531d1f9_6995afde",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 858,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-22T05:20:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da554ff1_4066622e",
+      "range": {
+        "startLine": 858,
+        "startChar": 49,
+        "endLine": 858,
+        "endChar": 58
+      },
+      "revId": "879616bb9ad663a10459ff38ae4443bfb3801aed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "06d9c1b2_fc5a69c0",
@@ -218,6 +242,30 @@
       "writtenOn": "2022-06-19T18:20:34Z",
       "side": 1,
       "message": "common error 13",
+      "range": {
+        "startLine": 959,
+        "startChar": 21,
+        "endLine": 959,
+        "endChar": 22
+      },
+      "revId": "879616bb9ad663a10459ff38ae4443bfb3801aed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c16d547f_a0043e01",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 959,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-22T05:20:22Z",
+      "side": 1,
+      "message": "It doesn\u0027t look like https://github.com/openbmc/bmcweb/blob/master/COMMON_ERRORS.md#13-complete-replacement-of-the-response-object.\n\nIf you refer to not populating ID when an error happens, done.",
+      "parentUuid": "06d9c1b2_fc5a69c0",
       "range": {
         "startLine": 959,
         "startChar": 21,
@@ -251,6 +299,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c11e2c00_6ea2c397",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 960,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-22T05:20:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ce2c8b19_9b99c9de",
+      "range": {
+        "startLine": 960,
+        "startChar": 39,
+        "endLine": 960,
+        "endChar": 60
+      },
+      "revId": "879616bb9ad663a10459ff38ae4443bfb3801aed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6140efc8_588b0432",
@@ -264,6 +336,30 @@
       "writtenOn": "2022-06-19T18:20:34Z",
       "side": 1,
       "message": "Please don\u0027t duplicate this call (you duplicate it 3 times in this function).  Also, this function can fail, in which case you need to handle the error.",
+      "range": {
+        "startLine": 966,
+        "startChar": 53,
+        "endLine": 966,
+        "endChar": 64
+      },
+      "revId": "879616bb9ad663a10459ff38ae4443bfb3801aed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "58b53d79_64211d57",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 966,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-22T05:20:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6140efc8_588b0432",
       "range": {
         "startLine": 966,
         "startChar": 53,
@@ -297,6 +393,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c5969642_4f064d9f",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 1222,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-22T05:20:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5bce3f05_21a0155a",
+      "range": {
+        "startLine": 1222,
+        "startChar": 54,
+        "endLine": 1222,
+        "endChar": 61
+      },
+      "revId": "879616bb9ad663a10459ff38ae4443bfb3801aed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8e8ef91d_e4a9fcd1",
@@ -320,6 +440,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d4804f2d_fb41cd47",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 1223,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-22T05:20:22Z",
+      "side": 1,
+      "message": "The reason why we can reuse codes in SensorCollection is that Thermal and Power are AutoExpand.\n\nMemoryCollection is not like this. Current codes only support sending GetAllProperties DBus call per DIMM. This commits add codes to use GetManagedObjects to fetch all DIMMs of the service. I have tried my best to reuse a lot of existing codes (e.g., assemble properties from dbus response). That\u0027s why I sent https://gerrit.openbmc.org/c/openbmc/bmcweb/+/53822, https://gerrit.openbmc.org/c/openbmc/bmcweb/+/53823/8, and https://gerrit.openbmc.org/c/openbmc/bmcweb/+/53944/2\n\nI also explained the main idea (use GetManagedObjects to improve performance) in the commit message.\n\nPlease reopen if you have better ideas.\n\nIf in the future more and more resources need this efficient handler. I can think of creating a general helper class (similar to today\u0027s getResourceCollection). But that\u0027s not what I want to do in this iteration.",
+      "parentUuid": "8e8ef91d_e4a9fcd1",
+      "range": {
+        "startLine": 1223,
+        "startChar": 12,
+        "endLine": 1223,
+        "endChar": 31
+      },
+      "revId": "879616bb9ad663a10459ff38ae4443bfb3801aed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3b133525_8d5db88a",
@@ -333,6 +477,30 @@
       "writtenOn": "2022-06-19T18:17:55Z",
       "side": 1,
       "message": "nit, typo.",
+      "range": {
+        "startLine": 1227,
+        "startChar": 52,
+        "endLine": 1227,
+        "endChar": 59
+      },
+      "revId": "879616bb9ad663a10459ff38ae4443bfb3801aed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "167b253a_033bc891",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 1227,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-22T05:20:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3b133525_8d5db88a",
       "range": {
         "startLine": 1227,
         "startChar": 52,
