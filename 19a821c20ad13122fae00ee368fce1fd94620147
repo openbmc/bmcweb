@@ -71,6 +71,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ec631d8c_a5a80abe",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 24
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-06-23T20:29:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "08c8ca29_885e8d1a",
+      "revId": "19a821c20ad13122fae00ee368fce1fd94620147",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "74affb99_3d96eba6",
@@ -379,6 +397,30 @@
       "side": 1,
       "message": "I think the pattern I suggested still works?  \"handleManagersBmcLogServicesDumpServiceGet\"  Doesn\u0027t mention fault log, so as a naming convention should be reusable.  Unless you\u0027re refering to log services existing in both computerSystem and manager, in which case, maybe just drop ManagersBmc?\n\n\nie handlLogServicesLogEntryCollectionGet\n\n\nThe important parts here are the \"handle\" and the verb being at the end.  The middle is subject to some level of inconsistency, which I\u0027d like to fix at some point, but we\u0027re not there yet.\n\nUse good judgement for the middle, and we\u0027ll go with whatever you come up with.",
       "parentUuid": "7010d77a_a51cff90",
+      "range": {
+        "startLine": 1991,
+        "startChar": 12,
+        "endLine": 1991,
+        "endChar": 38
+      },
+      "revId": "19a821c20ad13122fae00ee368fce1fd94620147",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e1ee1df4_0bb24136",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 1991,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-06-23T20:29:04Z",
+      "side": 1,
+      "message": "Dropped \"ManagersBmc\" from the dump handler function names. Will leave it as a future task to refactor System Dump (/redfish/v1/Systems/system/LogServices/Dump) to also call these same functions.",
+      "parentUuid": "8bd395f3_98eb2ffd",
       "range": {
         "startLine": 1991,
         "startChar": 12,
