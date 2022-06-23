@@ -68,8 +68,8 @@ static int run()
     auto io = std::make_shared<boost::asio::io_context>();
     App app(io);
 
-    crow::connections::systemBus =
-        std::make_shared<sdbusplus::asio::connection>(*io);
+    crow::connections::DBusConnection dbusConnection(io);
+    crow::connections::systemBus = dbusConnection.getSystemBus();
 
     // Static assets need to be initialized before Authorization, because auth
     // needs to build the whitelist from the static routes
@@ -150,7 +150,6 @@ static int run()
     app.run();
     io->run();
 
-    crow::connections::systemBus.reset();
     return 0;
 }
 
