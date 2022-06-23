@@ -1187,6 +1187,24 @@ inline void requestRoutesJournalEventLogEntryCollection(App& app)
             bool firstEntry = true;
             while (std::getline(logStream, logEntry))
             {
+                std::string idStr;
+                if (!getUniqueEntryID(logEntry, idStr, firstEntry))
+                {
+                    continue;
+                }
+
+                nlohmann::json bmcLogEntry;
+                if (fillEventLogEntryJson(idStr, logEntry, bmcLogEntry) != 0)
+                {
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+
+                if (bmcLogEntry.empty())
+                {
+                    continue;
+                }
+
                 entryCount++;
                 // Handle paging using skip (number of entries to skip
                 // from the start) and top (number of entries to
@@ -1197,24 +1215,12 @@ inline void requestRoutesJournalEventLogEntryCollection(App& app)
                     continue;
                 }
 
-                std::string idStr;
-                if (!getUniqueEntryID(logEntry, idStr, firstEntry))
-                {
-                    continue;
-                }
-
                 if (firstEntry)
                 {
                     firstEntry = false;
                 }
 
-                logEntryArray.push_back({});
-                nlohmann::json& bmcLogEntry = logEntryArray.back();
-                if (fillEventLogEntryJson(idStr, logEntry, bmcLogEntry) != 0)
-                {
-                    messages::internalError(asyncResp->res);
-                    return;
-                }
+                logEntryArray.push_back(bmcLogEntry);
             }
         }
         asyncResp->res.jsonValue["Members@odata.count"] = entryCount;
