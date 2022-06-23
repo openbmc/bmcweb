@@ -52,6 +52,24 @@
       "parentUuid": "fcd3ab6c_d1e6b6f8",
       "revId": "776f1b4791ebeff482ccf5152da80d6b4e8fa824",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6a4fe404_e2f6953f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-23T23:53:06Z",
+      "side": 1,
+      "message": "\u003e Thanks for the comment.\n\u003e \n\u003e \u003e I\u0027m not seeing a lot of patches where you actually took a submitter from a patchset through rework and got a +1, so that would be something that I think would help get you there is to review more code.https://gerrit.openbmc.org/q/reviewedby:nanzhoumails%2540gmail.com+project:openbmc/bmcweb+status:merged\n\u003e \n\u003e https://gerrit.openbmc.org/q/reviewer:nanzhoumails%2540gmail.com+project:openbmc/bmcweb+status:merged+-owner:nanzhoumails%2540gmail.com\n\u003e \n\u003e Please see this. The problem of your search is that I have to be one of the reviewer in the last patchset.\n\nThat\u0027s a good point.  You\u0027re right, that search did look smaller than I thought it should, and yes, you have been reviewing, no question there.  You have reviewed quite a few more than 9 patches.  Agreed.\n\n\u003e This doesn\u0027t make sense to me since I have tried comment on changes, authors replied and resolved comments by making new patchsets, then before I +1 the change again, the patch was submitted.\n\u003e \n\u003e \u003e One other thing that we should talk about is access to test systems, given most of your testing results are qemu.  Admittedly, this is difficult, given the level of secrecy that Google has, but S7106, and GBS platforms are both upstream and available.  I generally test changes on S7106 (which we have a number of systems available for that purpose) or on a wolf pass.  Qemu is generally not sufficient for testing merges given its lack of access to hardware.\n\u003e \n\u003e Most of my test results are on Google\u0027s hardware actually. What\u0027s the gap here? \"Have access to at least one upstream platform to test relevant patchsets\"?\n\nThe gap here is that google hardware has code, interfaces and patches that upstream doesn\u0027t, and many times tests done on hardware with downstream patches have caused upstream issues because we\u0027re missing features and interfaces on the upstream platforms, and break the upstream platforms.\n\n\u003e \n\u003e Do you have some pointers how I can access to those systems?\n\nThey\u0027re in boxes in the lab.  Ofer can get you one.\n\n\u003e \n\u003e \u003e it\u0027s quite possible there\u0027s a portion of the codebase we can make you maintainer of, or we can come to some agreement about what patches you +2, and what patches you let the other maintainers merge.because of their ability to test them.\n\u003e \n\u003e Sure. I don\u0027t plan to +2 any commit and just submit it.\n\nTo be clear, I wasn\u0027t saying that\u0027s what you\u0027d do.  I do think you will do your best to review.\n\n\u003e And yes, I am ok with \"what patches you +2, and what patches you let the other maintainers merge.because of their ability to test them\".\n\nI\u0027m going to have to let you take the lead here on which portions you\u0027d like to help maintain.\n\n\u003e \n\u003e \u003e so it would be good if your commit message walked through what that outlines,\n\u003e \n\u003e I have followed the outlines. Do you see any other gaps?\n\nSecurity guidelines.  Your query parameters (I take some responsibility for this as well) are still under an \"insecure\" flag, and have to be disabled by default.  Getting that feature to the point where it can be ensured that it\u0027s secure, can be enabled by default, and doesn\u0027t cause CVEs will help you gain valuable insight on:\nWhy certain limits exist to prevent the bmc crashing.\nWhat authorities we fall back to for determining those limits.\nHow potential attackers and security researchers generally try to access the BMC.\n\nCVE responses;  The next CVE that comes in, I will read you into it so you can get experience with how to respond to it as a maintainer.\n\n\n\nAt the end of the day, the most important part is \"does the community trust you?\".  Getting yourself as a listed reviewer will be a good start to that.  If you\u0027d like, feel free to put it in another patchset (which I suspect gunnar and I can merge immediately) and we can keep the discussion going here.",
+      "parentUuid": "29357111_18cc28e5",
+      "revId": "776f1b4791ebeff482ccf5152da80d6b4e8fa824",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
