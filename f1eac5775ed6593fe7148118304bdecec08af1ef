@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "430a78bc_d97edd03",
+        "filename": "include/dbus_singleton.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-23T20:12:35Z",
+      "side": 0,
+      "message": "The old one was intentionally a pointer so that it could possibly be virtualized at some point with unit tests.  Before we go and make the change to the whole tree (in a way that\u0027s going to break everyone patches) can we just keep the type the same for the moment, just move it into its own compile unit to solve the immediate problem, then once we\u0027ve determined that we have a unit testing design that doesn\u0027t require it to be a pointer, we can make all the edits to the tree?\n\nI\u0027m trying to avoid:\n1. Holding up this patch for a long time\n2. Breaking all the existing patches in review\n3. Having to change to a global non-pointer singleton, then back to a pointer when we have unit tests.\n\nI don\u0027t have a great line of sight on what we\u0027re going to do when, but I think we can make this change incrementally.",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 8,
+        "endChar": 62
+      },
+      "revId": "f1eac5775ed6593fe7148118304bdecec08af1ef",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
