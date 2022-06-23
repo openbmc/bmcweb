@@ -367,6 +367,7 @@ srcfiles_bmcweb = [
   'src/boost_asio.cpp',
   'src/boost_beast.cpp',
   'src/boost_url.cpp',
+  'src/dbus_singleton.cpp',
 ]
 
 # Generate the bmcweb executable
