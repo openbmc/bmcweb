@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5b44da95_58769226",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2022-06-23T23:07:59Z",
+      "side": 1,
+      "message": "Just some very small nits related to the code that already existed (not added by this change)\n\nAlso I think the rearranged flow (increment count only when entry is not empty) is much easier to follow.",
+      "revId": "f64928af63d042ee1f19de633a0cc8afe8f306a6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "12fb40d8_6eb14cc5",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1211,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2022-06-23T23:07:59Z",
+      "side": 1,
+      "message": "Very small nit: I think \"display)\" can be moved to the previous line",
+      "range": {
+        "startLine": 1211,
+        "startChar": 16,
+        "endLine": 1211,
+        "endChar": 27
+      },
+      "revId": "f64928af63d042ee1f19de633a0cc8afe8f306a6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "01cc7c5f_61617785",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1218,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2022-06-23T23:07:59Z",
+      "side": 1,
+      "message": "Very small nit: If I understand correctly, this \"if\" check is not needed, because regardless of the value of firstEntry, firstEntry will always be \"false\" after this statement.",
+      "range": {
+        "startLine": 1218,
+        "startChar": 20,
+        "endLine": 1218,
+        "endChar": 30
+      },
+      "revId": "f64928af63d042ee1f19de633a0cc8afe8f306a6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
