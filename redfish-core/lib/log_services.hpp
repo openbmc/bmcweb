@@ -21,6 +21,7 @@
 #include "registries.hpp"
 #include "registries/base_message_registry.hpp"
 #include "registries/openbmc_message_registry.hpp"
+#include "registries/resource_event_message_registry.hpp"
 #include "task.hpp"
 
 #include <systemd/sd-journal.h>
@@ -97,6 +98,12 @@ static const Message* getMessage(const std::string_view& messageID)
     {
         return getMessageFromRegistry(
             messageKey, std::span<const MessageEntry>(openbmc::registry));
+    }
+    if (std::string(resource_event::header.registryPrefix) == registryName)
+    {
+        return getMessageFromRegistry(
+            messageKey,
+            std::span<const MessageEntry>(resource_event::registry));
     }
     return nullptr;
 }
