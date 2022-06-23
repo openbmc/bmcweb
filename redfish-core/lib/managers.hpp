@@ -53,7 +53,7 @@ inline void
     // Create the D-Bus variant for D-Bus call.
     dbus::utility::DbusVariantType dbusPropertyValue(propertyValue);
 
-    crow::connections::systemBus->async_method_call(
+    crow::connections::DBusSingleton::systemBus().async_method_call(
         [asyncResp](const boost::system::error_code ec) {
         // Use "Set" method to set the property value.
         if (ec)
@@ -82,7 +82,7 @@ inline void
     // Create the D-Bus variant for D-Bus call.
     dbus::utility::DbusVariantType dbusPropertyValue(propertyValue);
 
-    crow::connections::systemBus->async_method_call(
+    crow::connections::DBusSingleton::systemBus().async_method_call(
         [asyncResp](const boost::system::error_code ec) {
         // Use "Set" method to set the property value.
         if (ec)
@@ -203,7 +203,7 @@ inline void requestRoutesManagerResetToDefaultsAction(App& app)
             return;
         }
 
-        crow::connections::systemBus->async_method_call(
+        crow::connections::DBusSingleton::systemBus().async_method_call(
             [asyncResp](const boost::system::error_code ec) {
             if (ec)
             {
@@ -282,7 +282,7 @@ inline void
                      const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
 
-    crow::connections::systemBus->async_method_call(
+    crow::connections::DBusSingleton::systemBus().async_method_call(
         [asyncResp, currentProfile, supportedProfiles](
             const boost::system::error_code ec,
             const dbus::utility::ManagedObjectType& managedObj) {
@@ -787,7 +787,7 @@ inline CreatePIDRet createPidInterface(
 
         BMCWEB_LOG_DEBUG << "del " << path << " " << iface << "\n";
         // delete interface
-        crow::connections::systemBus->async_method_call(
+        crow::connections::DBusSingleton::systemBus().async_method_call(
             [response, path](const boost::system::error_code ec) {
             if (ec)
             {
@@ -1178,7 +1178,7 @@ struct GetPIDValues : std::enable_shared_from_this<GetPIDValues>
         std::shared_ptr<GetPIDValues> self = shared_from_this();
 
         // get all configurations
-        crow::connections::systemBus->async_method_call(
+        crow::connections::DBusSingleton::systemBus().async_method_call(
             [self](
                 const boost::system::error_code ec,
                 const dbus::utility::MapperGetSubTreeResponse& subtreeLocal) {
@@ -1198,7 +1198,7 @@ struct GetPIDValues : std::enable_shared_from_this<GetPIDValues>
                 objectManagerIface, stepwiseConfigurationIface});
 
         // at the same time get the selected profile
-        crow::connections::systemBus->async_method_call(
+        crow::connections::DBusSingleton::systemBus().async_method_call(
             [self](
                 const boost::system::error_code ec,
                 const dbus::utility::MapperGetSubTreeResponse& subtreeLocal) {
@@ -1216,7 +1216,7 @@ struct GetPIDValues : std::enable_shared_from_this<GetPIDValues>
 
             const std::string& path = subtreeLocal[0].first;
             const std::string& owner = subtreeLocal[0].second[0].first;
-            crow::connections::systemBus->async_method_call(
+            crow::connections::DBusSingleton::systemBus().async_method_call(
                 [path, owner,
                  self](const boost::system::error_code ec2,
                        const dbus::utility::DBusPropertiesMap& resp) {
@@ -1386,7 +1386,7 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
 
         // todo(james): might make sense to do a mapper call here if this
         // interface gets more traction
-        crow::connections::systemBus->async_method_call(
+        crow::connections::DBusSingleton::systemBus().async_method_call(
             [self](const boost::system::error_code ec,
                    const dbus::utility::ManagedObjectType& mObj) {
             if (ec)
@@ -1417,7 +1417,7 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
             "GetManagedObjects");
 
         // at the same time get the profile information
-        crow::connections::systemBus->async_method_call(
+        crow::connections::DBusSingleton::systemBus().async_method_call(
             [self](const boost::system::error_code ec,
                    const dbus::utility::MapperGetSubTreeResponse& subtree) {
             if (ec || subtree.empty())
@@ -1434,7 +1434,7 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
 
             const std::string& path = subtree[0].first;
             const std::string& owner = subtree[0].second[0].first;
-            crow::connections::systemBus->async_method_call(
+            crow::connections::DBusSingleton::systemBus().async_method_call(
                 [self, path, owner](const boost::system::error_code ec2,
                                     const dbus::utility::DBusPropertiesMap& r) {
                 if (ec2)
@@ -1511,7 +1511,7 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
                 return;
             }
             currentProfile = *profile;
-            crow::connections::systemBus->async_method_call(
+            crow::connections::DBusSingleton::systemBus().async_method_call(
                 [response](const boost::system::error_code ec) {
                 if (ec)
                 {
@@ -1633,10 +1633,11 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
                 {
                     for (const auto& property : output)
                     {
-                        crow::connections::systemBus->async_method_call(
-                            [response,
-                             propertyName{std::string(property.first)}](
-                                const boost::system::error_code ec) {
+                        crow::connections::DBusSingleton::systemBus()
+                            .async_method_call(
+                                [response,
+                                 propertyName{std::string(property.first)}](
+                                    const boost::system::error_code ec) {
                             if (ec)
                             {
                                 BMCWEB_LOG_ERROR << "Error patching "
@@ -1645,10 +1646,10 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
                                 return;
                             }
                             messages::success(response->res);
-                            },
-                            "xyz.openbmc_project.EntityManager", path,
-                            "org.freedesktop.DBus.Properties", "Set", iface,
-                            property.first, property.second);
+                                },
+                                "xyz.openbmc_project.EntityManager", path,
+                                "org.freedesktop.DBus.Properties", "Set", iface,
+                                property.first, property.second);
                     }
                 }
                 else
@@ -1680,8 +1681,9 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
                         return;
                     }
 
-                    crow::connections::systemBus->async_method_call(
-                        [response](const boost::system::error_code ec) {
+                    crow::connections::DBusSingleton::systemBus()
+                        .async_method_call(
+                            [response](const boost::system::error_code ec) {
                         if (ec)
                         {
                             BMCWEB_LOG_ERROR << "Error Adding Pid Object "
@@ -1690,9 +1692,10 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
                             return;
                         }
                         messages::success(response->res);
-                        },
-                        "xyz.openbmc_project.EntityManager", chassis,
-                        "xyz.openbmc_project.AddObject", "AddObject", output);
+                            },
+                            "xyz.openbmc_project.EntityManager", chassis,
+                            "xyz.openbmc_project.AddObject", "AddObject",
+                            output);
                 }
             }
         }
@@ -1737,7 +1740,7 @@ inline void getLocation(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
     BMCWEB_LOG_DEBUG << "Get BMC manager Location data.";
 
     sdbusplus::asio::getProperty<std::string>(
-        *crow::connections::systemBus, connectionName, path,
+        crow::connections::DBusSingleton::systemBus(), connectionName, path,
         "xyz.openbmc_project.Inventory.Decorator.LocationCode", "LocationCode",
         [aResp](const boost::system::error_code ec,
                 const std::string& property) {
@@ -1760,9 +1763,9 @@ inline void
     BMCWEB_LOG_DEBUG << "Getting Manager Last Reset Time";
 
     sdbusplus::asio::getProperty<uint64_t>(
-        *crow::connections::systemBus, "xyz.openbmc_project.State.BMC",
-        "/xyz/openbmc_project/state/bmc0", "xyz.openbmc_project.State.BMC",
-        "LastRebootTime",
+        crow::connections::DBusSingleton::systemBus(),
+        "xyz.openbmc_project.State.BMC", "/xyz/openbmc_project/state/bmc0",
+        "xyz.openbmc_project.State.BMC", "LastRebootTime",
         [aResp](const boost::system::error_code ec,
                 const uint64_t lastResetTime) {
         if (ec)
@@ -1813,7 +1816,7 @@ inline void
     std::string firmwareId = runningFirmwareTarget.substr(idPos);
 
     // Make sure the image is valid before setting priority
-    crow::connections::systemBus->async_method_call(
+    crow::connections::DBusSingleton::systemBus().async_method_call(
         [aResp, firmwareId,
          runningFirmwareTarget](const boost::system::error_code ec,
                                 dbus::utility::ManagedObjectType& subtree) {
@@ -1870,7 +1873,7 @@ inline void
         // Only support Immediate
         // An addition could be a Redfish Setting like
         // ActiveSoftwareImageApplyTime and support OnReset
-        crow::connections::systemBus->async_method_call(
+        crow::connections::DBusSingleton::systemBus().async_method_call(
             [aResp](const boost::system::error_code ec) {
             if (ec)
             {
@@ -1914,7 +1917,7 @@ inline void setDateTime(std::shared_ptr<bmcweb::AsyncResp> aResp,
         posixTime = ldt.utc_time();
         boost::posix_time::time_duration dur = posixTime - epoch;
         uint64_t durMicroSecs = static_cast<uint64_t>(dur.total_microseconds());
-        crow::connections::systemBus->async_method_call(
+        crow::connections::DBusSingleton::systemBus().async_method_call(
             [aResp{std::move(aResp)}, datetime{std::move(datetime)}](
                 const boost::system::error_code ec) {
             if (ec)
@@ -2075,9 +2078,9 @@ inline void requestRoutesManager(App& app)
         if (!started)
         {
             sdbusplus::asio::getProperty<double>(
-                *crow::connections::systemBus, "org.freedesktop.systemd1",
-                "/org/freedesktop/systemd1", "org.freedesktop.systemd1.Manager",
-                "Progress",
+                crow::connections::DBusSingleton::systemBus(),
+                "org.freedesktop.systemd1", "/org/freedesktop/systemd1",
+                "org.freedesktop.systemd1.Manager", "Progress",
                 [asyncResp](const boost::system::error_code ec,
                             const double& val) {
                 if (ec)
@@ -2094,7 +2097,7 @@ inline void requestRoutesManager(App& app)
                 });
         }
 
-        crow::connections::systemBus->async_method_call(
+        crow::connections::DBusSingleton::systemBus().async_method_call(
             [asyncResp](
                 const boost::system::error_code ec,
                 const dbus::utility::MapperGetSubTreeResponse& subtree) {
@@ -2132,10 +2135,11 @@ inline void requestRoutesManager(App& app)
                 if (interfaceName ==
                     "xyz.openbmc_project.Inventory.Decorator.Asset")
                 {
-                    crow::connections::systemBus->async_method_call(
-                        [asyncResp](const boost::system::error_code ec,
-                                    const dbus::utility::DBusPropertiesMap&
-                                        propertiesList) {
+                    crow::connections::DBusSingleton::systemBus()
+                        .async_method_call(
+                            [asyncResp](const boost::system::error_code ec,
+                                        const dbus::utility::DBusPropertiesMap&
+                                            propertiesList) {
                         if (ec)
                         {
                             BMCWEB_LOG_DEBUG << "Can't get bmc asset!";
@@ -2164,10 +2168,10 @@ inline void requestRoutesManager(App& app)
                                 asyncResp->res.jsonValue[propertyName] = *value;
                             }
                         }
-                        },
-                        connectionName, path, "org.freedesktop.DBus.Properties",
-                        "GetAll",
-                        "xyz.openbmc_project.Inventory.Decorator.Asset");
+                            },
+                            connectionName, path,
+                            "org.freedesktop.DBus.Properties", "GetAll",
+                            "xyz.openbmc_project.Inventory.Decorator.Asset");
                 }
                 else if (interfaceName ==
                          "xyz.openbmc_project.Inventory.Decorator.LocationCode")

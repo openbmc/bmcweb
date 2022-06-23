@@ -52,7 +52,7 @@ inline void getProcessorUUID(std::shared_ptr<bmcweb::AsyncResp> aResp,
 {
     BMCWEB_LOG_DEBUG << "Get Processor UUID";
     sdbusplus::asio::getProperty<std::string>(
-        *crow::connections::systemBus, service, objPath,
+        crow::connections::DBusSingleton::systemBus(), service, objPath,
         "xyz.openbmc_project.Common.UUID", "UUID",
         [objPath, aResp{std::move(aResp)}](const boost::system::error_code ec,
                                            const std::string& property) {
@@ -207,7 +207,7 @@ inline void getCpuDataByService(std::shared_ptr<bmcweb::AsyncResp> aResp,
 {
     BMCWEB_LOG_DEBUG << "Get available system cpu resources by service.";
 
-    crow::connections::systemBus->async_method_call(
+    crow::connections::DBusSingleton::systemBus().async_method_call(
         [cpuId, service, objPath, aResp{std::move(aResp)}](
             const boost::system::error_code ec,
             const dbus::utility::ManagedObjectType& dbusData) {
@@ -280,7 +280,7 @@ inline void getCpuAssetData(std::shared_ptr<bmcweb::AsyncResp> aResp,
                             const std::string& objPath)
 {
     BMCWEB_LOG_DEBUG << "Get Cpu Asset Data";
-    crow::connections::systemBus->async_method_call(
+    crow::connections::DBusSingleton::systemBus().async_method_call(
         [objPath, aResp{std::move(aResp)}](
             const boost::system::error_code ec,
             const boost::container::flat_map<
@@ -369,7 +369,7 @@ inline void getCpuRevisionData(std::shared_ptr<bmcweb::AsyncResp> aResp,
                                const std::string& objPath)
 {
     BMCWEB_LOG_DEBUG << "Get Cpu Revision Data";
-    crow::connections::systemBus->async_method_call(
+    crow::connections::DBusSingleton::systemBus().async_method_call(
         [objPath, aResp{std::move(aResp)}](
             const boost::system::error_code ec,
             const boost::container::flat_map<
@@ -405,7 +405,7 @@ inline void getAcceleratorDataByService(
 {
     BMCWEB_LOG_DEBUG
         << "Get available system Accelerator resources by service.";
-    crow::connections::systemBus->async_method_call(
+    crow::connections::DBusSingleton::systemBus().async_method_call(
         [acclrtrId, aResp{std::move(aResp)}](
             const boost::system::error_code ec,
             const boost::container::flat_map<
@@ -522,7 +522,7 @@ inline void getCpuConfigData(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
     BMCWEB_LOG_INFO << "Getting CPU operating configs for " << cpuId;
 
     // First, GetAll CurrentOperatingConfig properties on the object
-    crow::connections::systemBus->async_method_call(
+    crow::connections::DBusSingleton::systemBus().async_method_call(
         [aResp, cpuId, service](
             const boost::system::error_code ec,
             const std::vector<std::pair<
@@ -577,7 +577,8 @@ inline void getCpuConfigData(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
                 // request to read the base freq core ids out of that
                 // config.
                 sdbusplus::asio::getProperty<BaseSpeedPrioritySettingsProperty>(
-                    *crow::connections::systemBus, service, dbusPath,
+                    crow::connections::DBusSingleton::systemBus(), service,
+                    dbusPath,
                     "xyz.openbmc_project.Inventory.Item.Cpu."
                     "OperatingConfig",
                     "BaseSpeedPrioritySettings",
@@ -624,7 +625,7 @@ inline void getCpuLocationCode(std::shared_ptr<bmcweb::AsyncResp> aResp,
 {
     BMCWEB_LOG_DEBUG << "Get Cpu Location Data";
     sdbusplus::asio::getProperty<std::string>(
-        *crow::connections::systemBus, service, objPath,
+        crow::connections::DBusSingleton::systemBus(), service, objPath,
         "xyz.openbmc_project.Inventory.Decorator.LocationCode", "LocationCode",
         [objPath, aResp{std::move(aResp)}](const boost::system::error_code ec,
                                            const std::string& property) {
@@ -654,7 +655,7 @@ inline void getCpuUniqueId(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
 {
     BMCWEB_LOG_DEBUG << "Get CPU UniqueIdentifier";
     sdbusplus::asio::getProperty<std::string>(
-        *crow::connections::systemBus, service, objectPath,
+        crow::connections::DBusSingleton::systemBus(), service, objectPath,
         "xyz.openbmc_project.Inventory.Decorator.UniqueIdentifier",
         "UniqueIdentifier",
         [aResp](boost::system::error_code ec, const std::string& id) {
@@ -687,7 +688,7 @@ inline void getProcessorObject(const std::shared_ptr<bmcweb::AsyncResp>& resp,
     BMCWEB_LOG_DEBUG << "Get available system processor resources.";
 
     // GetSubTree on all interfaces which provide info about a Processor
-    crow::connections::systemBus->async_method_call(
+    crow::connections::DBusSingleton::systemBus().async_method_call(
         [resp, processorId, handler = std::forward<Handler>(handler)](
             boost::system::error_code ec,
             const dbus::utility::MapperGetSubTreeResponse& subtree) mutable {
@@ -817,7 +818,7 @@ inline void
                            const std::string& service,
                            const std::string& objPath)
 {
-    crow::connections::systemBus->async_method_call(
+    crow::connections::DBusSingleton::systemBus().async_method_call(
         [aResp](const boost::system::error_code ec,
                 const OperatingConfigProperties& properties) {
         if (ec)
@@ -1033,7 +1034,7 @@ inline void patchAppliedOperatingConfig(
     BMCWEB_LOG_INFO << "Setting config to " << configPath.str;
 
     // Set the property, with handler to check error responses
-    crow::connections::systemBus->async_method_call(
+    crow::connections::DBusSingleton::systemBus().async_method_call(
         [resp, appliedConfigUri](const boost::system::error_code ec,
                                  const sdbusplus::message::message& msg) {
         handleAppliedConfigResponse(resp, appliedConfigUri, ec, msg);
@@ -1064,7 +1065,7 @@ inline void requestRoutesOperatingConfigCollection(App& app)
 
         // First find the matching CPU object so we know how to
         // constrain our search for related Config objects.
-        crow::connections::systemBus->async_method_call(
+        crow::connections::DBusSingleton::systemBus().async_method_call(
             [asyncResp, cpuName](
                 const boost::system::error_code ec,
                 const dbus::utility::MapperGetSubTreePathsResponse& objects) {
@@ -1123,7 +1124,7 @@ inline void requestRoutesOperatingConfig(App& app)
         }
         // Ask for all objects implementing OperatingConfig so we can search
         // for one with a matching name
-        crow::connections::systemBus->async_method_call(
+        crow::connections::DBusSingleton::systemBus().async_method_call(
             [asyncResp, cpuName, configName, reqUrl{req.url}](
                 boost::system::error_code ec,
                 const dbus::utility::MapperGetSubTreeResponse& subtree) {

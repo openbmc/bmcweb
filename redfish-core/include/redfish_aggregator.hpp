@@ -55,7 +55,7 @@ class RedfishAggregator
             const std::unordered_map<std::string, boost::urls::url>&)>& handler)
     {
         BMCWEB_LOG_DEBUG << "Gathering satellite configs";
-        crow::connections::systemBus->async_method_call(
+        crow::connections::DBusSingleton::systemBus().async_method_call(
             [handler](const boost::system::error_code ec,
                       const dbus::utility::ManagedObjectType& objects) {
             if (ec)

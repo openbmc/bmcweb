@@ -37,7 +37,8 @@ inline void
 {
     BMCWEB_LOG_DEBUG << "Get led groups";
     sdbusplus::asio::getProperty<bool>(
-        *crow::connections::systemBus, "xyz.openbmc_project.LED.GroupManager",
+        crow::connections::DBusSingleton::systemBus(),
+        "xyz.openbmc_project.LED.GroupManager",
         "/xyz/openbmc_project/led/groups/enclosure_identify_blink",
         "xyz.openbmc_project.Led.Group", "Asserted",
         [aResp](const boost::system::error_code ec, const bool blinking) {
@@ -59,7 +60,7 @@ inline void
         }
 
         sdbusplus::asio::getProperty<bool>(
-            *crow::connections::systemBus,
+            crow::connections::DBusSingleton::systemBus(),
             "xyz.openbmc_project.LED.GroupManager",
             "/xyz/openbmc_project/led/groups/enclosure_identify",
             "xyz.openbmc_project.Led.Group", "Asserted",
@@ -120,7 +121,7 @@ inline void
         return;
     }
 
-    crow::connections::systemBus->async_method_call(
+    crow::connections::DBusSingleton::systemBus().async_method_call(
         [aResp, ledOn, ledBlinkng](const boost::system::error_code ec) mutable {
         if (ec)
         {
@@ -132,7 +133,7 @@ inline void
                 ledOn = true;
             }
         }
-        crow::connections::systemBus->async_method_call(
+        crow::connections::DBusSingleton::systemBus().async_method_call(
             [aResp](const boost::system::error_code ec2) {
             if (ec2)
             {
@@ -167,7 +168,8 @@ inline void
 {
     BMCWEB_LOG_DEBUG << "Get LocationIndicatorActive";
     sdbusplus::asio::getProperty<bool>(
-        *crow::connections::systemBus, "xyz.openbmc_project.LED.GroupManager",
+        crow::connections::DBusSingleton::systemBus(),
+        "xyz.openbmc_project.LED.GroupManager",
         "/xyz/openbmc_project/led/groups/enclosure_identify_blink",
         "xyz.openbmc_project.Led.Group", "Asserted",
         [aResp](const boost::system::error_code ec, const bool blinking) {
@@ -189,7 +191,7 @@ inline void
         }
 
         sdbusplus::asio::getProperty<bool>(
-            *crow::connections::systemBus,
+            crow::connections::DBusSingleton::systemBus(),
             "xyz.openbmc_project.LED.GroupManager",
             "/xyz/openbmc_project/led/groups/enclosure_identify",
             "xyz.openbmc_project.Led.Group", "Asserted",
@@ -226,14 +228,14 @@ inline void
 {
     BMCWEB_LOG_DEBUG << "Set LocationIndicatorActive";
 
-    crow::connections::systemBus->async_method_call(
+    crow::connections::DBusSingleton::systemBus().async_method_call(
         [aResp, ledState](const boost::system::error_code ec) mutable {
         if (ec)
         {
             // Some systems may not have enclosure_identify_blink object so
             // lets set enclosure_identify state also if
             // enclosure_identify_blink failed
-            crow::connections::systemBus->async_method_call(
+            crow::connections::DBusSingleton::systemBus().async_method_call(
                 [aResp](const boost::system::error_code ec2) {
                 if (ec2)
                 {
