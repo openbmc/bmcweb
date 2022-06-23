@@ -34,6 +34,24 @@
       "parentUuid": "a142d765_3abdd683",
       "revId": "776f1b4791ebeff482ccf5152da80d6b4e8fa824",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29357111_18cc28e5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-23T22:59:24Z",
+      "side": 1,
+      "message": "Thanks for the comment.\n\n\u003e I\u0027m not seeing a lot of patches where you actually took a submitter from a patchset through rework and got a +1, so that would be something that I think would help get you there is to review more code.https://gerrit.openbmc.org/q/reviewedby:nanzhoumails%2540gmail.com+project:openbmc/bmcweb+status:merged\n\nhttps://gerrit.openbmc.org/q/reviewer:nanzhoumails%2540gmail.com+project:openbmc/bmcweb+status:merged+-owner:nanzhoumails%2540gmail.com\n\nPlease see this. The problem of your search is that I have to be one of the reviewer in the last patchset. This doesn\u0027t make sense to me since I have tried comment on changes, authors replied and resolved comments by making new patchsets, then before I +1 the change again, the patch was submitted.\n\n\u003e One other thing that we should talk about is access to test systems, given most of your testing results are qemu.  Admittedly, this is difficult, given the level of secrecy that Google has, but S7106, and GBS platforms are both upstream and available.  I generally test changes on S7106 (which we have a number of systems available for that purpose) or on a wolf pass.  Qemu is generally not sufficient for testing merges given its lack of access to hardware.\n\nMost of my test results are on Google\u0027s hardware actually. What\u0027s the gap here? \"Have access to at least one upstream platform to test relevant patchsets\"?\n\nDo you have some pointers how I can access to those systems?\n\n\u003e it\u0027s quite possible there\u0027s a portion of the codebase we can make you maintainer of, or we can come to some agreement about what patches you +2, and what patches you let the other maintainers merge.because of their ability to test them.\n\nSure. I don\u0027t plan to +2 any commit and just submit it. And yes, I am ok with \"what patches you +2, and what patches you let the other maintainers merge.because of their ability to test them\".\n\n\u003e so it would be good if your commit message walked through what that outlines,\n\nI have followed the outlines. Do you see any other gaps?",
+      "parentUuid": "fcd3ab6c_d1e6b6f8",
+      "revId": "776f1b4791ebeff482ccf5152da80d6b4e8fa824",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
