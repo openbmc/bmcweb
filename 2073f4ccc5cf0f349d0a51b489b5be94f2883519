@@ -139,6 +139,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "80a8dce7_cc81a935",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1196,
+      "author": {
+        "id": 1000276
+      },
+      "writtenOn": "2022-06-23T23:08:49Z",
+      "side": 1,
+      "message": "It\u0027s not too bad.  Would it be better to split it into a separate commit, or just go with this?",
+      "parentUuid": "9c98836f_c90bfd8a",
+      "range": {
+        "startLine": 1196,
+        "startChar": 15,
+        "endLine": 1196,
+        "endChar": 30
+      },
+      "revId": "2073f4ccc5cf0f349d0a51b489b5be94f2883519",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "99d00fc4_0a9fc218",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 1
