@@ -105,5 +105,5 @@ TEST(ServiceRootTest, ServiceRootConstructor)
 
     shareAsyncResp->res.setCompleteRequestHandler(assertServiceRootGet);
 
-    redfish::handleServiceRootGet(shareAsyncResp);
+    redfish::handleServiceRootGetImpl(shareAsyncResp);
 }
