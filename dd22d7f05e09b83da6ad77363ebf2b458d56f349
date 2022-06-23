@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "da132e33_29ecf23d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-06-23T19:37:48Z",
+      "side": 1,
+      "message": "Should we document this somewhere? Maybe openbmc/docs?",
+      "revId": "dd22d7f05e09b83da6ad77363ebf2b458d56f349",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
