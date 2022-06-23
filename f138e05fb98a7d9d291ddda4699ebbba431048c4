@@ -16,6 +16,24 @@
       "message": "Definitely need more in the commit msg. Why does bmcweb need this change?\n\nAlso a Tested:\n\nMaybe mark as WIP until then?",
       "revId": "f138e05fb98a7d9d291ddda4699ebbba431048c4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "22e5e5c0_b66a6dcf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-23T19:52:49Z",
+      "side": 1,
+      "message": "Yes, I didn\u0027t add reviewers yet since I was doing some testing. And yes, will add more explanation.",
+      "parentUuid": "9ae86ebf_07c07fba",
+      "revId": "f138e05fb98a7d9d291ddda4699ebbba431048c4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
