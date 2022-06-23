@@ -236,22 +236,86 @@ inline void handleNTPProtocolEnabled(
 
 inline void
     handleNTPServersPatch(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                          std::vector<std::string>& ntpServers)
+                          const std::vector<nlohmann::json>& ntpServerObjects,
+                          std::vector<std::string> currentNtpServers)
 {
-    auto iter = stl_utils::firstDuplicate(ntpServers.begin(), ntpServers.end());
-    if (iter != ntpServers.end())
+    std::vector<std::string>::iterator currentNtpServer =
+        currentNtpServers.begin();
+    for (size_t index = 0; index < ntpServerObjects.size(); index++)
     {
-        std::string pointer =
-            "NTPServers/" +
-            std::to_string(std::distance(ntpServers.begin(), iter));
-        messages::propertyValueIncorrect(asyncResp->res, pointer, *iter);
-        return;
+        const nlohmann::json& ntpServer = ntpServerObjects[index];
+        if (ntpServer.is_null())
+        {
+            // Can't delete an item that doesn't exist
+            if (currentNtpServer == currentNtpServers.end())
+            {
+                messages::propertyValueNotInList(asyncResp->res, "null",
+                                                 "NTP/NTPServers/" +
+                                                     std::to_string(index));
+
+                return;
+            }
+            currentNtpServer = currentNtpServers.erase(currentNtpServer);
+            continue;
+        }
+        const nlohmann::json::object_t* ntpServerObject =
+            ntpServer.get_ptr<const nlohmann::json::object_t*>();
+        if (ntpServerObject != nullptr)
+        {
+            if (!ntpServerObject->empty())
+            {
+                messages::propertyValueNotInList(
+                    asyncResp->res,
+                    ntpServer.dump(2, ' ', true,
+                                   nlohmann::json::error_handler_t::replace),
+                    "NTP/NTPServers/" + std::to_string(index));
+                return;
+            }
+            // Can't retain an item that doesn't exist
+            if (currentNtpServer == currentNtpServers.end())
+            {
+                messages::propertyValueOutOfRange(
+                    asyncResp->res,
+                    ntpServer.dump(2, ' ', true,
+                                   nlohmann::json::error_handler_t::replace),
+                    "NTP/NTPServers/" + std::to_string(index));
+
+                return;
+            }
+            // empty objects should leave the NtpServer unmodified
+            currentNtpServer++;
+            continue;
+        }
+
+        const std::string* ntpServerStr =
+            ntpServer.get_ptr<const std::string*>();
+        if (ntpServerStr == nullptr)
+        {
+            messages::propertyValueTypeError(
+                asyncResp->res,
+                ntpServer.dump(2, ' ', true,
+                               nlohmann::json::error_handler_t::replace),
+                "NTP/NTPServers/" + std::to_string(index));
+            return;
+        }
+        if (currentNtpServer == currentNtpServers.end())
+        {
+            // if we're at the end of the list, append to the end
+            currentNtpServers.push_back(*ntpServerStr);
+            currentNtpServer = currentNtpServers.end();
+            continue;
+        }
+        *currentNtpServer = *ntpServerStr;
+        currentNtpServer++;
     }
 
+    // Any remaining array elements should be removed
+    currentNtpServers.erase(currentNtpServer, currentNtpServers.end());
+
     crow::connections::systemBus->async_method_call(
-        [asyncResp,
-         ntpServers](boost::system::error_code ec,
-                     const dbus::utility::MapperGetSubTreeResponse& subtree) {
+        [asyncResp, currentNtpServers](
+            boost::system::error_code ec,
+            const dbus::utility::MapperGetSubTreeResponse& subtree) {
         if (ec)
         {
             BMCWEB_LOG_WARNING << "D-Bus error: " << ec << ", " << ec.message();
@@ -281,7 +345,7 @@ inline void
                         },
                         service, objectPath, "org.freedesktop.DBus.Properties",
                         "Set", interface, "NTPServers",
-                        dbus::utility::DbusVariantType{ntpServers});
+                        dbus::utility::DbusVariantType{currentNtpServers});
                 }
             }
         }
@@ -400,7 +464,7 @@ inline void requestRoutesNetworkProtocol(App& app)
             return;
         }
         std::optional<std::string> newHostName;
-        std::optional<std::vector<std::string>> ntpServers;
+        std::optional<std::vector<nlohmann::json>> ntpServerObjects;
         std::optional<bool> ntpEnabled;
         std::optional<bool> ipmiEnabled;
         std::optional<bool> sshEnabled;
@@ -409,7 +473,7 @@ inline void requestRoutesNetworkProtocol(App& app)
         if (!json_util::readJsonPatch(
                 req, asyncResp->res,
                 "HostName", newHostName,
-                "NTP/NTPServers", ntpServers,
+                "NTP/NTPServers", ntpServerObjects,
                 "NTP/ProtocolEnabled", ntpEnabled,
                 "IPMI/ProtocolEnabled", ipmiEnabled,
                 "SSH/ProtocolEnabled", sshEnabled))
@@ -429,10 +493,21 @@ inline void requestRoutesNetworkProtocol(App& app)
         {
             handleNTPProtocolEnabled(*ntpEnabled, asyncResp);
         }
-        if (ntpServers)
+        if (ntpServerObjects)
         {
-            stl_utils::removeDuplicate(*ntpServers);
-            handleNTPServersPatch(asyncResp, *ntpServers);
+            getEthernetIfaceData(
+                [asyncResp, ntpServerObjects](
+                    const bool success,
+                    std::vector<std::string>& currentNtpServers,
+                    const std::vector<std::string>& /*domainNames*/) {
+                if (!success)
+                {
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                handleNTPServersPatch(asyncResp, *ntpServerObjects,
+                                      std::move(currentNtpServers));
+            });
         }
 
         if (ipmiEnabled)
