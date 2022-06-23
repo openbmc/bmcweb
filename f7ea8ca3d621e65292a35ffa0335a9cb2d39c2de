@@ -85,6 +85,30 @@
       },
       "revId": "f7ea8ca3d621e65292a35ffa0335a9cb2d39c2de",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b3b6f1ec_6f303e4d",
+        "filename": "src/dbus_singleton.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-23T23:24:33Z",
+      "side": 1,
+      "message": "Why nullptr dereference is possible? \n\nWe should always call initialize first. Then line 23 won\u0027t be execute anymore.\n\nAnd initialize takes a reference.",
+      "parentUuid": "27fe2f24_70918c90",
+      "range": {
+        "startLine": 23,
+        "startChar": 46,
+        "endLine": 23,
+        "endChar": 47
+      },
+      "revId": "f7ea8ca3d621e65292a35ffa0335a9cb2d39c2de",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
