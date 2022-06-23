@@ -91,6 +91,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a6e89db3_8e142b66",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1196,
+      "author": {
+        "id": 1000276
+      },
+      "writtenOn": "2022-06-23T22:38:38Z",
+      "side": 1,
+      "message": "That doesn\u0027t work because fillEventLogEntryJson() is also called for single entries where res.jsonValue is passed in: https://github.com/openbmc/bmcweb/blob/master/redfish-core/lib/log_services.hpp#L1279.\n\nShould I update the single entry with a new nlohmann::json::object_t and move that into res.jsonValue?",
+      "parentUuid": "72ff6e40_0dbdd80a",
+      "range": {
+        "startLine": 1196,
+        "startChar": 15,
+        "endLine": 1196,
+        "endChar": 30
+      },
+      "revId": "2073f4ccc5cf0f349d0a51b489b5be94f2883519",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "99d00fc4_0a9fc218",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 1
