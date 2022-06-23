@@ -1,6 +1,46 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "64ee442e_e62bfd0c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-23T21:48:46Z",
+      "side": 1,
+      "message": "Couple nits, otherwise LGTM",
+      "revId": "2073f4ccc5cf0f349d0a51b489b5be94f2883519",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e6d1b1c7_1c0e69a4",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1196,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-23T21:48:46Z",
+      "side": 1,
+      "message": "super nitpick, more informational;  If you want to change it cool.  If not, it\u0027s all good.\n\nIf you have a nlohmann object that you KNOW will be an object in all cases, it\u0027s better to use nlohmann::json::object_t, which avoids a couple branches, and a couple weird cases, like you have on 1203\n\n\nnlohmann::json::empty() has branches of behavior dependent on the type.  null returns true, array checks for array empty, ect.\n\nIf you declare the actual type you need (object_t in this case, or array_t if you want an array) it generates slightly less code, and has better defined behavior.\n\n\nI\u0027m actually working on trying to make object_t the base Response type, but I\u0027m not quite there yet:\n\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/52570",
+      "range": {
+        "startLine": 1196,
+        "startChar": 15,
+        "endLine": 1196,
+        "endChar": 30
+      },
+      "revId": "2073f4ccc5cf0f349d0a51b489b5be94f2883519",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "99d00fc4_0a9fc218",
@@ -42,6 +82,29 @@
         "startChar": 30,
         "endLine": 1223,
         "endChar": 39
+      },
+      "revId": "2073f4ccc5cf0f349d0a51b489b5be94f2883519",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9410a524_6cabb20a",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1223,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-23T21:48:46Z",
+      "side": 1,
+      "message": "nit, std::move",
+      "range": {
+        "startLine": 1223,
+        "startChar": 40,
+        "endLine": 1223,
+        "endChar": 51
       },
       "revId": "2073f4ccc5cf0f349d0a51b489b5be94f2883519",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
