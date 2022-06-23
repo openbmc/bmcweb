@@ -37,9 +37,10 @@ namespace redfish
  */
 inline void getChassisState(std::shared_ptr<bmcweb::AsyncResp> aResp)
 {
-    // crow::connections::systemBus->async_method_call(
+    // crow::connections::DBusSingleton::systemBus().async_method_call(
     sdbusplus::asio::getProperty<std::string>(
-        *crow::connections::systemBus, "xyz.openbmc_project.State.Chassis",
+        crow::connections::DBusSingleton::systemBus(),
+        "xyz.openbmc_project.State.Chassis",
         "/xyz/openbmc_project/state/chassis0",
         "xyz.openbmc_project.State.Chassis", "CurrentPowerState",
         [aResp{std::move(aResp)}](const boost::system::error_code ec,
@@ -81,7 +82,7 @@ inline void getIntrusionByService(std::shared_ptr<bmcweb::AsyncResp> aResp,
     BMCWEB_LOG_DEBUG << "Get intrusion status by service \n";
 
     sdbusplus::asio::getProperty<std::string>(
-        *crow::connections::systemBus, service, objPath,
+        crow::connections::DBusSingleton::systemBus(), service, objPath,
         "xyz.openbmc_project.Chassis.Intrusion", "Status",
         [aResp{std::move(aResp)}](const boost::system::error_code ec,
                                   const std::string& value) {
@@ -103,7 +104,7 @@ inline void getIntrusionByService(std::shared_ptr<bmcweb::AsyncResp> aResp,
  */
 inline void getPhysicalSecurityData(std::shared_ptr<bmcweb::AsyncResp> aResp)
 {
-    crow::connections::systemBus->async_method_call(
+    crow::connections::DBusSingleton::systemBus().async_method_call(
         [aResp{std::move(aResp)}](
             const boost::system::error_code ec,
             const dbus::utility::MapperGetSubTreeResponse& subtree) {
@@ -164,7 +165,7 @@ inline void
                            const std::string& path)
 {
     sdbusplus::asio::getProperty<std::string>(
-        *crow::connections::systemBus, connectionName, path,
+        crow::connections::DBusSingleton::systemBus(), connectionName, path,
         "xyz.openbmc_project.Inventory.Decorator.LocationCode", "LocationCode",
         [asyncResp](const boost::system::error_code ec,
                     const std::string& property) {
@@ -185,7 +186,7 @@ inline void getChassisUUID(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                            const std::string& path)
 {
     sdbusplus::asio::getProperty<std::string>(
-        *crow::connections::systemBus, connectionName, path,
+        crow::connections::DBusSingleton::systemBus(), connectionName, path,
         "xyz.openbmc_project.Common.UUID", "UUID",
         [asyncResp](const boost::system::error_code ec,
                     const std::string& chassisUUID) {
@@ -219,7 +220,7 @@ inline void requestRoutesChassis(App& app)
             "xyz.openbmc_project.Inventory.Item.Board",
             "xyz.openbmc_project.Inventory.Item.Chassis"};
 
-        crow::connections::systemBus->async_method_call(
+        crow::connections::DBusSingleton::systemBus().async_method_call(
             [asyncResp, chassisId(std::string(chassisId))](
                 const boost::system::error_code ec,
                 const dbus::utility::MapperGetSubTreeResponse& subtree) {
@@ -248,7 +249,7 @@ inline void requestRoutesChassis(App& app)
                 auto health = std::make_shared<HealthPopulate>(asyncResp);
 
                 sdbusplus::asio::getProperty<std::vector<std::string>>(
-                    *crow::connections::systemBus,
+                    crow::connections::DBusSingleton::systemBus(),
                     "xyz.openbmc_project.ObjectMapper", path + "/all_sensors",
                     "xyz.openbmc_project.Association", "endpoints",
                     [health](const boost::system::error_code ec2,
@@ -285,7 +286,7 @@ inline void requestRoutesChassis(App& app)
                     "/redfish/v1/Systems/system/PCIeDevices";
 
                 sdbusplus::asio::getProperty<std::vector<std::string>>(
-                    *crow::connections::systemBus,
+                    crow::connections::DBusSingleton::systemBus(),
                     "xyz.openbmc_project.ObjectMapper", path + "/drive",
                     "xyz.openbmc_project.Association", "endpoints",
                     [asyncResp,
@@ -316,8 +317,8 @@ inline void requestRoutesChassis(App& app)
                               assetTagInterface) != interfaces2.end())
                 {
                     sdbusplus::asio::getProperty<std::string>(
-                        *crow::connections::systemBus, connectionName, path,
-                        assetTagInterface, "AssetTag",
+                        crow::connections::DBusSingleton::systemBus(),
+                        connectionName, path, assetTagInterface, "AssetTag",
                         [asyncResp, chassisId(std::string(chassisId))](
                             const boost::system::error_code ec,
                             const std::string& property) {
@@ -343,7 +344,7 @@ inline void requestRoutesChassis(App& app)
                     }
                 }
 
-                crow::connections::systemBus->async_method_call(
+                crow::connections::DBusSingleton::systemBus().async_method_call(
                     [asyncResp, chassisId(std::string(chassisId))](
                         const boost::system::error_code /*ec2*/,
                         const dbus::utility::DBusPropertiesMap&
@@ -487,7 +488,7 @@ inline void requestRoutesChassis(App& app)
 
         const std::string& chassisId = param;
 
-        crow::connections::systemBus->async_method_call(
+        crow::connections::DBusSingleton::systemBus().async_method_call(
             [asyncResp, chassisId, locationIndicatorActive, indicatorLed](
                 const boost::system::error_code ec,
                 const dbus::utility::MapperGetSubTreeResponse& subtree) {
@@ -586,7 +587,7 @@ inline void
         "xyz.openbmc_project.State.Chassis"};
 
     // Use mapper to get subtree paths.
-    crow::connections::systemBus->async_method_call(
+    crow::connections::DBusSingleton::systemBus().async_method_call(
         [asyncResp](
             const boost::system::error_code ec,
             const dbus::utility::MapperGetSubTreePathsResponse& chassisList) {
@@ -614,7 +615,7 @@ inline void
             objectPath = "/xyz/openbmc_project/state/chassis0";
         }
 
-        crow::connections::systemBus->async_method_call(
+        crow::connections::DBusSingleton::systemBus().async_method_call(
             [asyncResp](const boost::system::error_code ec) {
             // Use "Set" method to set the property value.
             if (ec)

@@ -175,7 +175,7 @@ inline void getVmResourceList(std::shared_ptr<bmcweb::AsyncResp> aResp,
                               const std::string& name)
 {
     BMCWEB_LOG_DEBUG << "Get available Virtual Media resources.";
-    crow::connections::systemBus->async_method_call(
+    crow::connections::DBusSingleton::systemBus().async_method_call(
         [name,
          aResp{std::move(aResp)}](const boost::system::error_code ec,
                                   dbus::utility::ManagedObjectType& subtree) {
@@ -219,7 +219,7 @@ inline void getVmData(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
 {
     BMCWEB_LOG_DEBUG << "Get Virtual Media resource data.";
 
-    crow::connections::systemBus->async_method_call(
+    crow::connections::DBusSingleton::systemBus().async_method_call(
         [resName, name,
          aResp](const boost::system::error_code ec,
                 const dbus::utility::ManagedObjectType& subtree) {
@@ -686,7 +686,8 @@ inline void doMountVmLegacy(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 
         // Open pipe
         secretPipe = std::make_shared<SecurePipe>(
-            crow::connections::systemBus->get_io_context(), std::move(secret));
+            crow::connections::DBusSingleton::systemBus().get_io_context(),
+            std::move(secret));
         unixFd = secretPipe->fd();
 
         // Pass secret over pipe
@@ -700,7 +701,7 @@ inline void doMountVmLegacy(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         });
     }
 
-    crow::connections::systemBus->async_method_call(
+    crow::connections::DBusSingleton::systemBus().async_method_call(
         [asyncResp, secretPipe](const boost::system::error_code ec,
                                 bool success) {
         if (ec)
@@ -732,7 +733,7 @@ inline void doVmAction(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     // Legacy mount requires parameter with image
     if (legacy)
     {
-        crow::connections::systemBus->async_method_call(
+        crow::connections::DBusSingleton::systemBus().async_method_call(
             [asyncResp](const boost::system::error_code ec) {
             if (ec)
             {
@@ -747,7 +748,7 @@ inline void doVmAction(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     }
     else // proxy
     {
-        crow::connections::systemBus->async_method_call(
+        crow::connections::DBusSingleton::systemBus().async_method_call(
             [asyncResp](const boost::system::error_code ec) {
             if (ec)
             {
@@ -819,7 +820,7 @@ inline void requestNBDVirtualMediaRoutes(App& app)
             return;
         }
 
-        crow::connections::systemBus->async_method_call(
+        crow::connections::DBusSingleton::systemBus().async_method_call(
             [asyncResp, actionParams, resName](
                 const boost::system::error_code ec,
                 const dbus::utility::MapperGetObject& getObjectType) mutable {
@@ -834,7 +835,7 @@ inline void requestNBDVirtualMediaRoutes(App& app)
             std::string service = getObjectType.begin()->first;
             BMCWEB_LOG_DEBUG << "GetObjectType: " << service;
 
-            crow::connections::systemBus->async_method_call(
+            crow::connections::DBusSingleton::systemBus().async_method_call(
                 [service, resName, actionParams,
                  asyncResp](const boost::system::error_code ec,
                             dbus::utility::ManagedObjectType& subtree) mutable {
@@ -923,7 +924,7 @@ inline void requestNBDVirtualMediaRoutes(App& app)
             return;
         }
 
-        crow::connections::systemBus->async_method_call(
+        crow::connections::DBusSingleton::systemBus().async_method_call(
             [asyncResp,
              resName](const boost::system::error_code ec,
                       const dbus::utility::MapperGetObject& getObjectType) {
@@ -938,7 +939,7 @@ inline void requestNBDVirtualMediaRoutes(App& app)
             std::string service = getObjectType.begin()->first;
             BMCWEB_LOG_DEBUG << "GetObjectType: " << service;
 
-            crow::connections::systemBus->async_method_call(
+            crow::connections::DBusSingleton::systemBus().async_method_call(
                 [resName, service, asyncResp{asyncResp}](
                     const boost::system::error_code ec,
                     dbus::utility::ManagedObjectType& subtree) {
@@ -1016,7 +1017,7 @@ inline void requestNBDVirtualMediaRoutes(App& app)
         asyncResp->res.jsonValue["@odata.id"] =
             "/redfish/v1/Managers/" + name + "/VirtualMedia";
 
-        crow::connections::systemBus->async_method_call(
+        crow::connections::DBusSingleton::systemBus().async_method_call(
             [asyncResp,
              name](const boost::system::error_code ec,
                    const dbus::utility::MapperGetObject& getObjectType) {
@@ -1056,7 +1057,7 @@ inline void requestNBDVirtualMediaRoutes(App& app)
             return;
         }
 
-        crow::connections::systemBus->async_method_call(
+        crow::connections::DBusSingleton::systemBus().async_method_call(
             [asyncResp, name,
              resName](const boost::system::error_code ec,
                       const dbus::utility::MapperGetObject& getObjectType) {

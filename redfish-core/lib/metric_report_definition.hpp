@@ -290,7 +290,7 @@ class AddReport
             }
         }
         const std::shared_ptr<bmcweb::AsyncResp> aResp = asyncResp;
-        crow::connections::systemBus->async_method_call(
+        crow::connections::DBusSingleton::systemBus().async_method_call(
             [aResp, name = args.name, uriToDbus = std::move(uriToDbus)](
                 const boost::system::error_code ec, const std::string&) {
             if (ec == boost::system::errc::file_exists)
@@ -432,7 +432,7 @@ inline void requestRoutesMetricReportDefinition(App& app)
             return;
         }
 
-        crow::connections::systemBus->async_method_call(
+        crow::connections::DBusSingleton::systemBus().async_method_call(
             [asyncResp,
              id](const boost::system::error_code ec,
                  const std::vector<std::pair<
@@ -473,7 +473,7 @@ inline void requestRoutesMetricReportDefinition(App& app)
 
         const std::string reportPath = telemetry::getDbusReportPath(id);
 
-        crow::connections::systemBus->async_method_call(
+        crow::connections::DBusSingleton::systemBus().async_method_call(
             [asyncResp, id](const boost::system::error_code ec) {
             /*
              * boost::system::errc and std::errc are missing value

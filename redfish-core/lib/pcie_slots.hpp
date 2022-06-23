@@ -191,7 +191,7 @@ inline void onMapperAssociationDone(
         return;
     }
 
-    crow::connections::systemBus->async_method_call(
+    crow::connections::DBusSingleton::systemBus().async_method_call(
         [asyncResp](const boost::system::error_code ec,
                     const dbus::utility::DBusPropertiesMap& propertiesList) {
         onPcieSlotGetAllDone(asyncResp, ec, propertiesList);
@@ -240,7 +240,7 @@ inline void
 
             // The association of this PCIeSlot is used to determine whether
             // it belongs to this ChassisID
-            crow::connections::systemBus->async_method_call(
+            crow::connections::DBusSingleton::systemBus().async_method_call(
                 [asyncResp, chassisID, pcieSlotPath, connectionName](
                     const boost::system::error_code ec,
                     const std::variant<std::vector<std::string>>& endpoints) {
@@ -265,7 +265,7 @@ inline void handlePCIeSlotCollectionGet(
         return;
     }
 
-    crow::connections::systemBus->async_method_call(
+    crow::connections::DBusSingleton::systemBus().async_method_call(
         [asyncResp,
          chassisID](const boost::system::error_code ec,
                     const dbus::utility::MapperGetSubTreeResponse& subtree) {

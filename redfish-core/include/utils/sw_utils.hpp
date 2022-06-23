@@ -40,7 +40,8 @@ inline void
 {
     // Used later to determine running (known on Redfish as active) Sw images
     sdbusplus::asio::getProperty<std::vector<std::string>>(
-        *crow::connections::systemBus, "xyz.openbmc_project.ObjectMapper",
+        crow::connections::DBusSingleton::systemBus(),
+        "xyz.openbmc_project.ObjectMapper",
         "/xyz/openbmc_project/software/functional",
         "xyz.openbmc_project.Association", "endpoints",
         [aResp, swVersionPurpose, activeVersionPropName,
@@ -80,7 +81,7 @@ inline void
             functionalSwIds.push_back(leaf);
         }
 
-        crow::connections::systemBus->async_method_call(
+        crow::connections::DBusSingleton::systemBus().async_method_call(
             [aResp, swVersionPurpose, activeVersionPropName,
              populateLinkToImages, functionalSwIds](
                 const boost::system::error_code ec2,
@@ -122,7 +123,7 @@ inline void
                 }
 
                 // Now grab its version info
-                crow::connections::systemBus->async_method_call(
+                crow::connections::DBusSingleton::systemBus().async_method_call(
                     [aResp, swId, runningImage, swVersionPurpose,
                      activeVersionPropName, populateLinkToImages](
                         const boost::system::error_code ec3,
@@ -305,7 +306,7 @@ inline void getSwStatus(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 {
     BMCWEB_LOG_DEBUG << "getSwStatus: swId " << *swId << " svc " << dbusSvc;
 
-    crow::connections::systemBus->async_method_call(
+    crow::connections::DBusSingleton::systemBus().async_method_call(
         [asyncResp,
          swId](const boost::system::error_code errorCode,
                const dbus::utility::DBusPropertiesMap& propertiesList) {
@@ -356,7 +357,8 @@ inline void
                          const std::shared_ptr<std::string>& swId)
 {
     sdbusplus::asio::getProperty<std::vector<std::string>>(
-        *crow::connections::systemBus, "xyz.openbmc_project.ObjectMapper",
+        crow::connections::DBusSingleton::systemBus(),
+        "xyz.openbmc_project.ObjectMapper",
         "/xyz/openbmc_project/software/updateable",
         "xyz.openbmc_project.Association", "endpoints",
         [asyncResp, swId](const boost::system::error_code ec,
