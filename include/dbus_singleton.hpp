@@ -5,7 +5,7 @@ namespace crow
 {
 namespace connections
 {
-static std::shared_ptr<sdbusplus::asio::connection> systemBus;
+extern std::shared_ptr<sdbusplus::asio::connection> systemBus;
 
 } // namespace connections
 } // namespace crow

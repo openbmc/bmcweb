@@ -166,3 +166,12 @@ int main(int /*argc*/, char** /*argv*/)
         BMCWEB_LOG_CRITICAL << "Threw exception to main";
     }
 }
+
+namespace crow
+{
+namespace connections
+{
+std::shared_ptr<sdbusplus::asio::connection> systemBus;
+
+} // namespace connections
+} // namespace crow
