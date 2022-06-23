@@ -16,6 +16,24 @@
       "message": "Welcome any comments or gaps that I can work on to make this happen",
       "revId": "776f1b4791ebeff482ccf5152da80d6b4e8fa824",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fcd3ab6c_d1e6b6f8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-23T22:08:22Z",
+      "side": 1,
+      "message": "Lets start with the first step of adding you as a reviewer in this file (which is generally the recommended first step) then we can start assigning you reviews that you can work through.\n\nI\u0027m not seeing a lot of patches where you actually took a submitter from a patchset through rework and got a +1, so that would be something that I think would help get you there is to review more code.\nhttps://gerrit.openbmc.org/q/reviewedby:nanzhoumails%2540gmail.com+project:openbmc/bmcweb+status:merged\n\nShows 9 total reviews +1ed that eventually merged, every one of which was written by google.  I\u0027d recommend starting to review patches not written by or for google to understand the breadth, or, if you only want to review google-specific code, maybe we could initially add you as a maintainer of google/v1?\n\nI have seen you in the DMTF meetings, which is great.\n\nOne other thing that we should talk about is access to test systems, given most of your testing results are qemu.  Admittedly, this is difficult, given the level of secrecy that Google has, but S7106, and GBS platforms are both upstream and available.  I generally test changes on S7106 (which we have a number of systems available for that purpose) or on a wolf pass.  Qemu is generally not sufficient for testing merges given its lack of access to hardware.\n\nI just merged the responsibility doc into the OWNERS file, so it would be good if your commit message walked through what that outlines, if you don\u0027t meet the criteria for some of it, lets have a discussion, and it\u0027s quite possible there\u0027s a portion of the codebase we can make you maintainer of, or we can come to some agreement about what patches you +2, and what patches you let the other maintainers merge.because of their ability to test them.\n\n\nGlad you\u0027re still interested.  Given that you never added yourself to the reviewers list, I was starting to wonder if you\u0027d decided this wasn\u0027t something you wanted to pursue.",
+      "parentUuid": "a142d765_3abdd683",
+      "revId": "776f1b4791ebeff482ccf5152da80d6b4e8fa824",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
