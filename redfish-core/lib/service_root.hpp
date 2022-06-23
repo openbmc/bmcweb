@@ -35,6 +35,9 @@ inline void
     std::string uuid = persistent_data::getConfig().systemUuid;
     asyncResp->res.jsonValue["@odata.type"] =
         "#ServiceRoot.v1_11_0.ServiceRoot";
+    asyncResp->res.addHeader(
+        boost::beast::http::field::link,
+        "</redfish/v1/JsonSchemas/ServiceRoot.v1_11_0.json>; rel=describedby");
     asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1";
     asyncResp->res.jsonValue["Id"] = "RootService";
     asyncResp->res.jsonValue["Name"] = "Root Service";
@@ -86,6 +89,19 @@ inline void
     protocolFeatures["DeepOperations"]["DeepPATCH"] = false;
 }
 
+void handleServiceRootHead(App& app, const crow::Request& req,
+                           const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+
+    asyncResp->res.addHeader(
+        boost::beast::http::field::link,
+        "</redfish/v1/JsonSchemas/ServiceRoot.v1_11_0.json>; rel=describedby");
+}
+
 inline void requestRoutesServiceRoot(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/")
@@ -99,6 +115,10 @@ inline void requestRoutesServiceRoot(App& app)
         }
         handleServiceRootGet(asyncResp);
         });
+    BMCWEB_ROUTE(app, "/redfish/v1/")
+        .privileges(redfish::privileges::headServiceRoot)
+        .methods(boost::beast::http::verb::head)(
+            std::bind_front(handleServiceRootHead, std::ref(app)));
 }
 
 } // namespace redfish

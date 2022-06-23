@@ -1249,12 +1249,6 @@ class Router
         {
             asyncResp->res.addHeader(boost::beast::http::field::allow,
                                      allowHeader);
-
-            // If this is a header request, we're done.
-            if (req.method() == boost::beast::http::verb::head)
-            {
-                return;
-            }
         }
 
         const std::pair<unsigned, RoutingParams>& found = trie.find(req.url);
