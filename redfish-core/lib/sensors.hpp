@@ -399,7 +399,7 @@ void getObjectsWithConnection(
         BMCWEB_LOG_DEBUG << "getObjectsWithConnection resp_handler exit";
     };
     // Make call to ObjectMapper to find all sensors objects
-    crow::connections::systemBus->async_method_call(
+    crow::connections::DBusSingleton::systemBus().async_method_call(
         std::move(respHandler), "xyz.openbmc_project.ObjectMapper",
         "/xyz/openbmc_project/object_mapper",
         "xyz.openbmc_project.ObjectMapper", "GetSubTree", path, 2, interfaces);
@@ -519,7 +519,7 @@ void getValidChassisPath(const std::shared_ptr<SensorsAsyncResp>& asyncResp,
     };
 
     // Get the Chassis Collection
-    crow::connections::systemBus->async_method_call(
+    crow::connections::DBusSingleton::systemBus().async_method_call(
         respHandler, "xyz.openbmc_project.ObjectMapper",
         "/xyz/openbmc_project/object_mapper",
         "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths",
@@ -615,8 +615,9 @@ void getChassis(const std::shared_ptr<SensorsAsyncResp>& sensorsAsyncResp,
         // Get the list of all sensors for this Chassis element
         std::string sensorPath = *chassisPath + "/all_sensors";
         sdbusplus::asio::getProperty<std::vector<std::string>>(
-            *crow::connections::systemBus, "xyz.openbmc_project.ObjectMapper",
-            sensorPath, "xyz.openbmc_project.Association", "endpoints",
+            crow::connections::DBusSingleton::systemBus(),
+            "xyz.openbmc_project.ObjectMapper", sensorPath,
+            "xyz.openbmc_project.Association", "endpoints",
             [sensorsAsyncResp,
              callback{std::forward<const Callback>(callback)}](
                 const boost::system::error_code& e,
@@ -638,7 +639,7 @@ void getChassis(const std::shared_ptr<SensorsAsyncResp>& sensorsAsyncResp,
     };
 
     // Get the Chassis Collection
-    crow::connections::systemBus->async_method_call(
+    crow::connections::DBusSingleton::systemBus().async_method_call(
         respHandler, "xyz.openbmc_project.ObjectMapper",
         "/xyz/openbmc_project/object_mapper",
         "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths",
@@ -710,7 +711,7 @@ void getObjectManagerPaths(
     };
 
     // Query mapper for all DBus object paths that implement ObjectManager
-    crow::connections::systemBus->async_method_call(
+    crow::connections::DBusSingleton::systemBus().async_method_call(
         std::move(respHandler), "xyz.openbmc_project.ObjectMapper",
         "/xyz/openbmc_project/object_mapper",
         "xyz.openbmc_project.ObjectMapper", "GetSubTree", "/", 0, interfaces);
@@ -1133,7 +1134,7 @@ inline void objectInterfacesToJson(
 inline void populateFanRedundancy(
     const std::shared_ptr<SensorsAsyncResp>& sensorsAsyncResp)
 {
-    crow::connections::systemBus->async_method_call(
+    crow::connections::DBusSingleton::systemBus().async_method_call(
         [sensorsAsyncResp](
             const boost::system::error_code ec,
             const dbus::utility::MapperGetSubTreeResponse& resp) {
@@ -1156,7 +1157,7 @@ inline void populateFanRedundancy(
 
             const std::string& owner = objDict.begin()->first;
             sdbusplus::asio::getProperty<std::vector<std::string>>(
-                *crow::connections::systemBus,
+                crow::connections::DBusSingleton::systemBus(),
                 "xyz.openbmc_project.ObjectMapper", path + "/chassis",
                 "xyz.openbmc_project.Association", "endpoints",
                 [path, owner,
@@ -1178,7 +1179,7 @@ inline void populateFanRedundancy(
                 {
                     return;
                 }
-                crow::connections::systemBus->async_method_call(
+                crow::connections::DBusSingleton::systemBus().async_method_call(
                     [path, sensorsAsyncResp](
                         const boost::system::error_code& err,
                         const std::map<std::string,
@@ -1658,7 +1659,7 @@ static void getInventoryItemsData(
                          << objectMgrPath;
 
         // Get all object paths and their interfaces for current connection
-        crow::connections::systemBus->async_method_call(
+        crow::connections::DBusSingleton::systemBus().async_method_call(
             std::move(respHandler), invConnection, objectMgrPath,
             "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
     }
@@ -1743,7 +1744,7 @@ static void getInventoryItemsConnections(
     };
 
     // Make call to ObjectMapper to find all inventory items
-    crow::connections::systemBus->async_method_call(
+    crow::connections::DBusSingleton::systemBus().async_method_call(
         std::move(respHandler), "xyz.openbmc_project.ObjectMapper",
         "/xyz/openbmc_project/object_mapper",
         "xyz.openbmc_project.ObjectMapper", "GetSubTree", path, 0, interfaces);
@@ -1901,7 +1902,7 @@ static void getInventoryItemAssociations(
                      << objectMgrPath;
 
     // Call GetManagedObjects on the ObjectMapper to get all associations
-    crow::connections::systemBus->async_method_call(
+    crow::connections::DBusSingleton::systemBus().async_method_call(
         std::move(respHandler), connection, objectMgrPath,
         "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
 
@@ -2010,8 +2011,8 @@ void getInventoryLedData(
 
         // Get the State property for the current LED
         sdbusplus::asio::getProperty<std::string>(
-            *crow::connections::systemBus, ledConnection, ledPath,
-            "xyz.openbmc_project.Led.Physical", "State",
+            crow::connections::DBusSingleton::systemBus(), ledConnection,
+            ledPath, "xyz.openbmc_project.Led.Physical", "State",
             std::move(respHandler));
     }
 
@@ -2095,7 +2096,7 @@ void getInventoryLeds(
         BMCWEB_LOG_DEBUG << "getInventoryLeds respHandler exit";
     };
     // Make call to ObjectMapper to find all inventory items
-    crow::connections::systemBus->async_method_call(
+    crow::connections::DBusSingleton::systemBus().async_method_call(
         std::move(respHandler), "xyz.openbmc_project.ObjectMapper",
         "/xyz/openbmc_project/object_mapper",
         "xyz.openbmc_project.ObjectMapper", "GetSubTree", path, 0, interfaces);
@@ -2180,9 +2181,9 @@ void getPowerSupplyAttributesData(
     // Get the DeratingFactor property for the PowerSupplyAttributes
     // Currently only property on the interface/only one we care about
     sdbusplus::asio::getProperty<uint32_t>(
-        *crow::connections::systemBus, psAttributesConnection, psAttributesPath,
-        "xyz.openbmc_project.Control.PowerSupplyAttributes", "DeratingFactor",
-        std::move(respHandler));
+        crow::connections::DBusSingleton::systemBus(), psAttributesConnection,
+        psAttributesPath, "xyz.openbmc_project.Control.PowerSupplyAttributes",
+        "DeratingFactor", std::move(respHandler));
 
     BMCWEB_LOG_DEBUG << "getPowerSupplyAttributesData exit";
 }
@@ -2282,7 +2283,7 @@ void getPowerSupplyAttributes(
         BMCWEB_LOG_DEBUG << "getPowerSupplyAttributes respHandler exit";
     };
     // Make call to ObjectMapper to find the PowerSupplyAttributes service
-    crow::connections::systemBus->async_method_call(
+    crow::connections::DBusSingleton::systemBus().async_method_call(
         std::move(respHandler), "xyz.openbmc_project.ObjectMapper",
         "/xyz/openbmc_project/object_mapper",
         "xyz.openbmc_project.ObjectMapper", "GetSubTree",
@@ -2656,7 +2657,7 @@ inline void getSensorData(
         BMCWEB_LOG_DEBUG << "ObjectManager path for " << connection << " is "
                          << objectMgrPath;
 
-        crow::connections::systemBus->async_method_call(
+        crow::connections::DBusSingleton::systemBus().async_method_call(
             getManagedObjectsCb, connection, objectMgrPath,
             "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
     }
@@ -2865,7 +2866,7 @@ inline void setSensorsOverride(
                     messages::internalError(sensorAsyncResp->asyncResp->res);
                     return;
                 }
-                crow::connections::systemBus->async_method_call(
+                crow::connections::DBusSingleton::systemBus().async_method_call(
                     [sensorAsyncResp](const boost::system::error_code ec) {
                     if (ec)
                     {
@@ -3033,7 +3034,7 @@ inline void handleSensorGet(App& app, const crow::Request& req,
 
     // Get a list of all of the sensors that implement Sensor.Value
     // and get the path and service name associated with the sensor
-    crow::connections::systemBus->async_method_call(
+    crow::connections::DBusSingleton::systemBus().async_method_call(
         [asyncResp,
          sensorName](const boost::system::error_code ec,
                      const ::dbus::utility::MapperGetSubTreeResponse& subtree) {

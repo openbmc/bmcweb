@@ -1399,7 +1399,8 @@ class EventServiceManager
                                "arg0=xyz.openbmc_project.Telemetry.Report";
 
         matchTelemetryMonitor = std::make_shared<sdbusplus::bus::match::match>(
-            *crow::connections::systemBus, matchStr, getReadingsForReport);
+            crow::connections::DBusSingleton::systemBus(), matchStr,
+            getReadingsForReport);
     }
 };
 

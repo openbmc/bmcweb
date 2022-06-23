@@ -103,7 +103,7 @@ struct NbdProxyServer : std::enable_shared_from_this<NbdProxyServer>
             }
         };
 
-        crow::connections::systemBus->async_method_call(
+        crow::connections::DBusSingleton::systemBus().async_method_call(
             std::move(mountHandler), "xyz.openbmc_project.VirtualMedia", path,
             "xyz.openbmc_project.VirtualMedia.Proxy", "Mount");
     }
@@ -138,7 +138,7 @@ struct NbdProxyServer : std::enable_shared_from_this<NbdProxyServer>
             }
         };
 
-        crow::connections::systemBus->async_method_call(
+        crow::connections::DBusSingleton::systemBus().async_method_call(
             std::move(unmountHandler), "xyz.openbmc_project.VirtualMedia", path,
             "xyz.openbmc_project.VirtualMedia.Proxy", "Unmount");
     }
@@ -386,13 +386,13 @@ inline void requestRoutes(App& app)
 
                 sessions[&conn]->run();
             };
-            crow::connections::systemBus->async_method_call(
+            crow::connections::DBusSingleton::systemBus().async_method_call(
                 std::move(openHandler), "xyz.openbmc_project.VirtualMedia",
                 "/xyz/openbmc_project/VirtualMedia",
                 "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
             };
 
-            crow::connections::systemBus->async_method_call(
+            crow::connections::DBusSingleton::systemBus().async_method_call(
                 std::move(getUserInfoHandler),
                 "xyz.openbmc_project.User.Manager", "/xyz/openbmc_project/user",
                 "xyz.openbmc_project.User.Manager", "GetUserInfo",

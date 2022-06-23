@@ -67,7 +67,7 @@ static inline void
         }
         asyncResp->res.jsonValue[name + "@odata.count"] = pcieDeviceList.size();
     };
-    crow::connections::systemBus->async_method_call(
+    crow::connections::DBusSingleton::systemBus().async_method_call(
         std::move(getPCIeMapCallback), "xyz.openbmc_project.ObjectMapper",
         "/xyz/openbmc_project/object_mapper",
         "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths",
@@ -232,7 +232,7 @@ inline void requestRoutesSystemPCIeDevice(App& app)
         };
         std::string escapedPath = std::string(pciePath) + "/" + device;
         dbus::utility::escapePathForDbus(escapedPath);
-        crow::connections::systemBus->async_method_call(
+        crow::connections::DBusSingleton::systemBus().async_method_call(
             std::move(getPCIeDeviceCallback), pcieService, escapedPath,
             "org.freedesktop.DBus.Properties", "GetAll", pcieDeviceInterface);
         });
@@ -320,7 +320,7 @@ inline void requestRoutesSystemPCIeFunctionCollection(App& app)
         };
         std::string escapedPath = std::string(pciePath) + "/" + device;
         dbus::utility::escapePathForDbus(escapedPath);
-        crow::connections::systemBus->async_method_call(
+        crow::connections::DBusSingleton::systemBus().async_method_call(
             std::move(getPCIeDeviceCallback), pcieService, escapedPath,
             "org.freedesktop.DBus.Properties", "GetAll", pcieDeviceInterface);
         });
@@ -435,7 +435,7 @@ inline void requestRoutesSystemPCIeFunction(App& app)
         };
         std::string escapedPath = std::string(pciePath) + "/" + device;
         dbus::utility::escapePathForDbus(escapedPath);
-        crow::connections::systemBus->async_method_call(
+        crow::connections::DBusSingleton::systemBus().async_method_call(
             std::move(getPCIeDeviceCallback), pcieService, escapedPath,
             "org.freedesktop.DBus.Properties", "GetAll", pcieDeviceInterface);
         });

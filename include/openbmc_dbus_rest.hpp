@@ -81,7 +81,7 @@ inline void
         transaction->res.jsonValue["objects"] = nlohmann::json::array();
     }
 
-    crow::connections::systemBus->async_method_call(
+    crow::connections::DBusSingleton::systemBus().async_method_call(
         [transaction, processName{std::string(processName)},
          objectPath{std::string(objectPath)}](
             const boost::system::error_code ec,
@@ -142,7 +142,7 @@ inline void getPropertiesForEnumerate(
     BMCWEB_LOG_DEBUG << "getPropertiesForEnumerate " << objectPath << " "
                      << service << " " << interface;
 
-    crow::connections::systemBus->async_method_call(
+    crow::connections::DBusSingleton::systemBus().async_method_call(
         [asyncResp, objectPath, service,
          interface](const boost::system::error_code ec,
                     const dbus::utility::DBusPropertiesMap& propertiesList) {
@@ -258,7 +258,7 @@ inline void getManagedObjectsForEnumerate(
     BMCWEB_LOG_DEBUG << "getManagedObjectsForEnumerate " << objectName
                      << " object_manager_path " << objectManagerPath
                      << " connection_name " << connectionName;
-    crow::connections::systemBus->async_method_call(
+    crow::connections::DBusSingleton::systemBus().async_method_call(
         [transaction, objectName,
          connectionName](const boost::system::error_code ec,
                          const dbus::utility::ManagedObjectType& objects) {
@@ -328,7 +328,7 @@ inline void findObjectManagerPathForEnumerate(
 {
     BMCWEB_LOG_DEBUG << "Finding objectmanager for path " << objectName
                      << " on connection:" << connectionName;
-    crow::connections::systemBus->async_method_call(
+    crow::connections::DBusSingleton::systemBus().async_method_call(
         [transaction, objectName, connectionName](
             const boost::system::error_code ec,
             const dbus::utility::MapperGetAncestorsResponse& objects) {
@@ -365,7 +365,7 @@ inline void findObjectManagerPathForEnumerate(
 inline void getObjectAndEnumerate(
     const std::shared_ptr<InProgressEnumerateData>& transaction)
 {
-    crow::connections::systemBus->async_method_call(
+    crow::connections::DBusSingleton::systemBus().async_method_call(
         [transaction](const boost::system::error_code ec,
                       const dbus::utility::MapperGetObject& objects) {
         if (ec)
@@ -1348,7 +1348,7 @@ inline void findActionOnInterface(
 {
     BMCWEB_LOG_DEBUG << "findActionOnInterface for connection "
                      << connectionName;
-    crow::connections::systemBus->async_method_call(
+    crow::connections::DBusSingleton::systemBus().async_method_call(
         [transaction, connectionName{std::string(connectionName)}](
             const boost::system::error_code ec,
             const std::string& introspectXml) {
@@ -1398,10 +1398,12 @@ inline void findActionOnInterface(
                                          << thisMethodName << " on interface "
                                          << thisInterfaceName;
                         sdbusplus::message::message m =
-                            crow::connections::systemBus->new_method_call(
-                                connectionName.c_str(),
-                                transaction->path.c_str(), thisInterfaceName,
-                                transaction->methodName.c_str());
+                            crow::connections::DBusSingleton::systemBus()
+                                .new_method_call(
+                                    connectionName.c_str(),
+                                    transaction->path.c_str(),
+                                    thisInterfaceName,
+                                    transaction->methodName.c_str());
 
                         tinyxml2::XMLElement* argumentNode =
                             methodNode->FirstChildElement("arg");
@@ -1459,11 +1461,11 @@ inline void findActionOnInterface(
                                 argumentNode->NextSiblingElement("arg");
                         }
 
-                        crow::connections::systemBus->async_send(
-                            m,
-                            [transaction,
-                             returnType](boost::system::error_code ec2,
-                                         sdbusplus::message::message& m2) {
+                        crow::connections::DBusSingleton::systemBus()
+                            .async_send(m,
+                                        [transaction, returnType](
+                                            boost::system::error_code ec2,
+                                            sdbusplus::message::message& m2) {
                             if (ec2)
                             {
                                 transaction->methodFailed = true;
@@ -1539,7 +1541,7 @@ inline void handleAction(const crow::Request& req,
     transaction->path = objectPath;
     transaction->methodName = methodName;
     transaction->arguments = std::move(*data);
-    crow::connections::systemBus->async_method_call(
+    crow::connections::DBusSingleton::systemBus().async_method_call(
         [transaction](
             const boost::system::error_code ec,
             const std::vector<std::pair<std::string, std::vector<std::string>>>&
@@ -1573,7 +1575,7 @@ inline void handleDelete(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 {
     BMCWEB_LOG_DEBUG << "handleDelete on path: " << objectPath;
 
-    crow::connections::systemBus->async_method_call(
+    crow::connections::DBusSingleton::systemBus().async_method_call(
         [asyncResp, objectPath](
             const boost::system::error_code ec,
             const std::vector<std::pair<std::string, std::vector<std::string>>>&
@@ -1608,7 +1610,7 @@ inline void handleDelete(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 inline void handleList(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                        const std::string& objectPath, int32_t depth = 0)
 {
-    crow::connections::systemBus->async_method_call(
+    crow::connections::DBusSingleton::systemBus().async_method_call(
         [asyncResp](
             const boost::system::error_code ec,
             const dbus::utility::MapperGetSubTreePathsResponse& objectPaths) {
@@ -1640,7 +1642,7 @@ inline void handleEnumerate(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     asyncResp->res.jsonValue["status"] = "ok";
     asyncResp->res.jsonValue["data"] = nlohmann::json::object();
 
-    crow::connections::systemBus->async_method_call(
+    crow::connections::DBusSingleton::systemBus().async_method_call(
         [objectPath, asyncResp](
             const boost::system::error_code ec,
             const dbus::utility::MapperGetSubTreeResponse& objectNames) {
@@ -1681,7 +1683,7 @@ inline void handleGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     std::shared_ptr<std::string> path =
         std::make_shared<std::string>(std::move(objectPath));
 
-    crow::connections::systemBus->async_method_call(
+    crow::connections::DBusSingleton::systemBus().async_method_call(
         [asyncResp, path,
          propertyName](const boost::system::error_code ec,
                        const dbus::utility::MapperGetObject& objectNames) {
@@ -1712,11 +1714,12 @@ inline void handleGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
             for (const std::string& interface : interfaceNames)
             {
                 sdbusplus::message::message m =
-                    crow::connections::systemBus->new_method_call(
-                        connection.first.c_str(), path->c_str(),
-                        "org.freedesktop.DBus.Properties", "GetAll");
+                    crow::connections::DBusSingleton::systemBus()
+                        .new_method_call(
+                            connection.first.c_str(), path->c_str(),
+                            "org.freedesktop.DBus.Properties", "GetAll");
                 m.append(interface);
-                crow::connections::systemBus->async_send(
+                crow::connections::DBusSingleton::systemBus().async_send(
                     m, [asyncResp, response,
                         propertyName](const boost::system::error_code ec2,
                                       sdbusplus::message::message& msg) {
@@ -1849,7 +1852,7 @@ inline void handlePut(const crow::Request& req,
     transaction->propertyName = destProperty;
     transaction->propertyValue = propertySetValue;
 
-    crow::connections::systemBus->async_method_call(
+    crow::connections::DBusSingleton::systemBus().async_method_call(
         [transaction](const boost::system::error_code ec2,
                       const dbus::utility::MapperGetObject& objectNames) {
         if (!ec2 && objectNames.empty())
@@ -1865,7 +1868,7 @@ inline void handlePut(const crow::Request& req,
         {
             const std::string& connectionName = connection.first;
 
-            crow::connections::systemBus->async_method_call(
+            crow::connections::DBusSingleton::systemBus().async_method_call(
                 [connectionName{std::string(connectionName)},
                  transaction](const boost::system::error_code ec3,
                               const std::string& introspectXml) {
@@ -1906,13 +1909,14 @@ inline void handlePut(const crow::Request& req,
                             if (argType != nullptr)
                             {
                                 sdbusplus::message::message m =
-                                    crow::connections::systemBus
-                                        ->new_method_call(
-                                            connectionName.c_str(),
-                                            transaction->objectPath.c_str(),
-                                            "org.freedesktop.DBus."
-                                            "Properties",
-                                            "Set");
+                                    crow::connections::DBusSingleton::
+                                        systemBus()
+                                            .new_method_call(
+                                                connectionName.c_str(),
+                                                transaction->objectPath.c_str(),
+                                                "org.freedesktop.DBus."
+                                                "Properties",
+                                                "Set");
                                 m.append(interfaceName,
                                          transaction->propertyName);
                                 int r = sd_bus_message_open_container(
@@ -1949,11 +1953,12 @@ inline void handlePut(const crow::Request& req,
                                         "Unexpected Error");
                                     return;
                                 }
-                                crow::connections::systemBus->async_send(
-                                    m,
-                                    [transaction](
-                                        boost::system::error_code ec,
-                                        sdbusplus::message::message& m2) {
+                                crow::connections::DBusSingleton::systemBus()
+                                    .async_send(
+                                        m,
+                                        [transaction](
+                                            boost::system::error_code ec,
+                                            sdbusplus::message::message& m2) {
                                     BMCWEB_LOG_DEBUG << "sent";
                                     if (ec)
                                     {
@@ -1977,7 +1982,7 @@ inline void handlePut(const crow::Request& req,
                                         transaction->asyncResp->res
                                             .jsonValue["data"] = nullptr;
                                     }
-                                    });
+                                        });
                             }
                         }
                         propNode = propNode->NextSiblingElement("property");
@@ -2126,7 +2131,7 @@ inline void
     }
     if (interfaceName.empty())
     {
-        crow::connections::systemBus->async_method_call(
+        crow::connections::DBusSingleton::systemBus().async_method_call(
             [asyncResp, processName,
              objectPath](const boost::system::error_code ec,
                          const std::string& introspectXml) {
@@ -2181,7 +2186,7 @@ inline void
     }
     else if (methodName.empty())
     {
-        crow::connections::systemBus->async_method_call(
+        crow::connections::DBusSingleton::systemBus().async_method_call(
             [asyncResp, processName, objectPath,
              interfaceName](const boost::system::error_code ec,
                             const std::string& introspectXml) {
@@ -2330,15 +2335,16 @@ inline void
                 if (type != nullptr && name != nullptr)
                 {
                     sdbusplus::message::message m =
-                        crow::connections::systemBus->new_method_call(
-                            processName.c_str(), objectPath.c_str(),
-                            "org.freedesktop."
-                            "DBus."
-                            "Properties",
-                            "Get");
+                        crow::connections::DBusSingleton::systemBus()
+                            .new_method_call(processName.c_str(),
+                                             objectPath.c_str(),
+                                             "org.freedesktop."
+                                             "DBus."
+                                             "Properties",
+                                             "Get");
                     m.append(interfaceName, name);
                     nlohmann::json& propertyItem = propertiesObj[name];
-                    crow::connections::systemBus->async_send(
+                    crow::connections::DBusSingleton::systemBus().async_send(
                         m, [&propertyItem,
                             asyncResp](boost::system::error_code& e,
                                        sdbusplus::message::message& msg) {
@@ -2428,7 +2434,7 @@ inline void requestRoutes(App& app)
                 }
             }
         };
-        crow::connections::systemBus->async_method_call(
+        crow::connections::DBusSingleton::systemBus().async_method_call(
             std::move(myCallback), "org.freedesktop.DBus", "/",
             "org.freedesktop.DBus", "ListNames");
         });

@@ -207,8 +207,8 @@ inline void requestRoutes(App& app)
 
                 thisSession.matches.emplace_back(
                     std::make_unique<sdbusplus::bus::match::match>(
-                        *crow::connections::systemBus, propertiesMatchString,
-                        onPropertyUpdate, &conn));
+                        crow::connections::DBusSingleton::systemBus(),
+                        propertiesMatchString, onPropertyUpdate, &conn));
             }
             else
             {
@@ -230,8 +230,8 @@ inline void requestRoutes(App& app)
                     BMCWEB_LOG_DEBUG << "Creating match " << ifaceMatchString;
                     thisSession.matches.emplace_back(
                         std::make_unique<sdbusplus::bus::match::match>(
-                            *crow::connections::systemBus, ifaceMatchString,
-                            onPropertyUpdate, &conn));
+                            crow::connections::DBusSingleton::systemBus(),
+                            ifaceMatchString, onPropertyUpdate, &conn));
                 }
             }
             objectManagerMatchString =
@@ -244,8 +244,8 @@ inline void requestRoutes(App& app)
             BMCWEB_LOG_DEBUG << "Creating match " << objectManagerMatchString;
             thisSession.matches.emplace_back(
                 std::make_unique<sdbusplus::bus::match::match>(
-                    *crow::connections::systemBus, objectManagerMatchString,
-                    onPropertyUpdate, &conn));
+                    crow::connections::DBusSingleton::systemBus(),
+                    objectManagerMatchString, onPropertyUpdate, &conn));
         }
         });
 }
