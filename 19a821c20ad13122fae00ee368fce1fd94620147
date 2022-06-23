@@ -35,6 +35,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "969093c9_4b015cff",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 24
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-06-23T04:46:15Z",
+      "side": 1,
+      "message": "We\u0027re currently leaning toward one FaultLog instance per BMC, which can support multiple host processors. (Do we assume 1 BMC per \"platform\"?)",
+      "parentUuid": "408b8bd3_56da989a",
+      "revId": "19a821c20ad13122fae00ee368fce1fd94620147",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "74affb99_3d96eba6",
@@ -48,6 +66,30 @@
       "writtenOn": "2022-06-18T19:35:31Z",
       "side": 1,
       "message": "In the future, please avoid renaming variables in the same patch in which you\u0027re changing behavior;  It makes things more difficult for the reviewer.  With that said, this seems straightforward, so I was able to work through it.",
+      "range": {
+        "startLine": 358,
+        "startChar": 16,
+        "endLine": 358,
+        "endChar": 27
+      },
+      "revId": "19a821c20ad13122fae00ee368fce1fd94620147",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e33e8d37_649d6532",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-06-23T04:46:15Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "74affb99_3d96eba6",
       "range": {
         "startLine": 358,
         "startChar": 16,
@@ -81,6 +123,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "860b9972_7dc737aa",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 359,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-06-23T04:46:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5d7a8dbe_3bec7700",
+      "range": {
+        "startLine": 358,
+        "startChar": 0,
+        "endLine": 359,
+        "endChar": 61
+      },
+      "revId": "19a821c20ad13122fae00ee368fce1fd94620147",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c156538f_1a9248de",
@@ -98,6 +164,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b88e8240_4ce05f44",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 507,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-06-23T04:46:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c156538f_1a9248de",
+      "revId": "19a821c20ad13122fae00ee368fce1fd94620147",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b3a5b72e_6be5ee3c",
@@ -111,6 +195,30 @@
       "writtenOn": "2022-06-18T19:35:31Z",
       "side": 1,
       "message": "If you want to return method not allowed, simply don\u0027t register the route for the POST handler for that URI.  The bmcweb core will then handle this error for you.",
+      "range": {
+        "startLine": 726,
+        "startChar": 19,
+        "endLine": 726,
+        "endChar": 20
+      },
+      "revId": "19a821c20ad13122fae00ee368fce1fd94620147",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a5bd7ddf_0e816339",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 726,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-06-23T04:46:15Z",
+      "side": 1,
+      "message": "I implemented your suggestion, but please note that it returns \"Not Found\" instead of \"Method Not Allowed\" -- which I think should be okay since it\u0027s consistent with what\u0027s returned for other LogServices that don\u0027t support the CollectDiagnosticData action.\n\nAlso I removed the CollectDiagnosticData action from being listed for the FaultLog LogService (/redfish/v1/Managers/bmc/LogServices/FaultLog), see getDumpEntryCollection().\n\nBy the way I kind of wanted to keep the comment (line 728-731) somewhere so readers won\u0027t wonder why support for create is \"missing\", compared to other dump types that have support. But I\u0027m not sure where would be a good place to put the comment in the code so I just moved it to the commit message.",
+      "parentUuid": "b3a5b72e_6be5ee3c",
       "range": {
         "startLine": 726,
         "startChar": 19,
@@ -144,6 +252,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4648f846_c7104ae5",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 738,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-06-23T04:46:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0ecb7fea_75efe918",
+      "range": {
+        "startLine": 738,
+        "startChar": 9,
+        "endLine": 738,
+        "endChar": 49
+      },
+      "revId": "19a821c20ad13122fae00ee368fce1fd94620147",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "036c699f_069cce76",
@@ -157,6 +289,30 @@
       "writtenOn": "2022-06-18T19:35:31Z",
       "side": 1,
       "message": "nit, the naming convention for this would be handleManagersBmcLogServiceCollectionGet.\n\nin generic terms handle\u003cRoute From ServiceRoot\u003e\u003cTypeReturned\u003e\u003cHttpVerb\u003e\n\nIt looks like this patch comes up with a different pattern for naming.  Please fix all of the naming for consistency.",
+      "range": {
+        "startLine": 1991,
+        "startChar": 12,
+        "endLine": 1991,
+        "endChar": 38
+      },
+      "revId": "19a821c20ad13122fae00ee368fce1fd94620147",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7010d77a_a51cff90",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 1991,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-06-23T04:46:15Z",
+      "side": 1,
+      "message": "Fixed, but have a question below.\n\nSome handlers are generic enough to be used for more than one route. (For example, in my latest patchset handleManagersBmcLogServicesDumpServiceGet() is able to handle both requestRoutesFaultLogDumpService() and requestRoutesBMCDumpService(), with just a difference in the dumpType parameter passed in. It could also potentially handle requestRoutesSystemDumpService() in a future refactoring.\n\nWhat do you think is best from the following options?\n\na) Rename handleManagersBmcLogServicesDumpServiceGet() to something more generic that doesn\u0027t include the route from service route, which is different for fault log vs. BMC dump, e.g.\nhandleDumpServiceGet()\n\nb) Create separate handler functions for each route, even though the function contents will be very similar, e.g.\nhandleManagersBmcLogServicesDumpServiceGet()\nhandleManagersBmcLogServicesFaultLogServiceGet()\n\nc) Something else",
+      "parentUuid": "036c699f_069cce76",
       "range": {
         "startLine": 1991,
         "startChar": 12,
@@ -184,6 +340,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e253284_f8f146fe",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 2024,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-06-23T04:46:15Z",
+      "side": 1,
+      "message": "ack",
+      "parentUuid": "7f56c9aa_e9b2b1ba",
+      "revId": "19a821c20ad13122fae00ee368fce1fd94620147",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f1550ae8_f9d39fdb",
@@ -203,6 +377,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "9e7a38cf_ac8cbd33",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 2035,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-06-23T04:46:15Z",
+      "side": 1,
+      "message": "Already handled by line 2010:\nlogServiceArray \u003d nlohmann::json::array();\n\nIf we set it again here (logServiceArrayLocal \u003d nlohmann::json::array();) it would clear out previous array contents (e.g. the Journal added in line 2013), which is not intended.\n\nAlso verified through testing that the correct type is returned (empty array) when no log types are present under /redfish/v1/Managers/bmc/LogServices/",
+      "parentUuid": "f1550ae8_f9d39fdb",
+      "revId": "19a821c20ad13122fae00ee368fce1fd94620147",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "3d201fc7_a10e934e",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 24
@@ -214,6 +406,30 @@
       "writtenOn": "2022-06-18T19:35:31Z",
       "side": 1,
       "message": "Note, at some point in the future, we need to move these LogServices to JUST relying on the dbus path, so that we\u0027re not hardcoding specific paths in bmcweb, and people like yourself can add logs at will.\n\nJust FYI, no action needed in this patchset.",
+      "range": {
+        "startLine": 2038,
+        "startChar": 51,
+        "endLine": 2038,
+        "endChar": 54
+      },
+      "revId": "19a821c20ad13122fae00ee368fce1fd94620147",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7072f163_2fa73b84",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 2038,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-06-23T04:46:15Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "3d201fc7_a10e934e",
       "range": {
         "startLine": 2038,
         "startChar": 51,
@@ -247,6 +463,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4afc6c41_c39f141b",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 2333,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-06-23T04:46:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eb090937_78229d07",
+      "range": {
+        "startLine": 2328,
+        "startChar": 0,
+        "endLine": 2333,
+        "endChar": 0
+      },
+      "revId": "19a821c20ad13122fae00ee368fce1fd94620147",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3153608d_a93a6983",
@@ -260,6 +500,30 @@
       "writtenOn": "2022-06-18T19:35:31Z",
       "side": 1,
       "message": "Aren\u0027t there 3 types of dumps?  And isn\u0027t this check essentially performed elsewhere when we try to map paths?  Could we just rely on the later checks?",
+      "range": {
+        "startLine": 2334,
+        "startChar": 0,
+        "endLine": 2334,
+        "endChar": 55
+      },
+      "revId": "19a821c20ad13122fae00ee368fce1fd94620147",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a8a4afb3_473cdddd",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 2334,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-06-23T04:46:15Z",
+      "side": 1,
+      "message": "Oh, this is leftover from when I was trying to make generic routes for the BMC dumps (for the 2 dump types under /redfish/v1/Managers/bmc/LogServices/). But I had to revert the generic routes as mentioned in one of my previous comments because the generic routes matched the journal too, which was unwanted.\n\nThe check was to see if we got one of the 2 valid BMC dump types (i.e. not the System dump or anything else). It\u0027s not really needed now that the generic routes are gone, though it could catch a goofy case where we have a bug in bmcweb code and pass in the \"System\" dumpType for a BMC dump. Anyways, removed the check.",
+      "parentUuid": "3153608d_a93a6983",
       "range": {
         "startLine": 2334,
         "startChar": 0,
@@ -293,6 +557,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "49a31233_81259d9c",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 2349,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-06-23T04:46:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5e37633c_d9e58b57",
+      "range": {
+        "startLine": 2349,
+        "startChar": 0,
+        "endLine": 2349,
+        "endChar": 50
+      },
+      "revId": "19a821c20ad13122fae00ee368fce1fd94620147",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d18c2c1c_1537caa5",
@@ -306,6 +594,30 @@
       "writtenOn": "2022-06-18T19:35:31Z",
       "side": 1,
       "message": "Should we be setting the overwrite policy at all in this case?  Hard to say which is better, just omitting it or setting unknown.",
+      "range": {
+        "startLine": 2358,
+        "startChar": 0,
+        "endLine": 2358,
+        "endChar": 36
+      },
+      "revId": "19a821c20ad13122fae00ee368fce1fd94620147",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "92adbe21_bec9249b",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 2358,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-06-23T04:46:15Z",
+      "side": 1,
+      "message": "I would say that setting it to \"Unknown\" is better as it gives a hint that the policy is likely not one of the other valid choices (\"NeverOverWrites\" / \"WrapsWhenFull\").",
+      "parentUuid": "d18c2c1c_1537caa5",
       "range": {
         "startLine": 2358,
         "startChar": 0,
@@ -339,6 +651,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "93026f05_81e8b682",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 2376,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-06-23T04:46:15Z",
+      "side": 1,
+      "message": "Fixed, thanks for catching this. I just ran Redfish Service Validator again and it still did not flag the mismatch between @odata.id and Id. It looks like the validator checks @odata.id vs. the actual URI (https://github.com/DMTF/Redfish-Service-Validator/blob/02d35b75dcbbe6ca3dad3093dd67ee0308195286/validateResource.py#L48), but it doesn\u0027t seem to check Id.\n\nBy the way, it looks like Journal also has an Id mismatch as seen in requestRoutesBMCJournalLogService()",
+      "parentUuid": "f111a90f_e71bdd63",
+      "range": {
+        "startLine": 2376,
+        "startChar": 38,
+        "endLine": 2376,
+        "endChar": 42
+      },
+      "revId": "19a821c20ad13122fae00ee368fce1fd94620147",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8b2d5dda_27c009ec",
@@ -352,6 +688,30 @@
       "writtenOn": "2022-06-18T19:35:31Z",
       "side": 1,
       "message": "For FaultLog, is it the right thing to be returning the BMC time, when the faults were generated from the host?",
+      "range": {
+        "startLine": 2380,
+        "startChar": 23,
+        "endLine": 2380,
+        "endChar": 43
+      },
+      "revId": "19a821c20ad13122fae00ee368fce1fd94620147",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bc25b79d_4d9acedf",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 2380,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-06-23T04:46:15Z",
+      "side": 1,
+      "message": "Yes, the intention is for fault log entries to use BMC time, namely the time when the fault log manager gets notified of a fault and creates a fault log entry. For faults originating from the host, the Redfish client can follow AdditionalDataURI (once it\u0027s implemented in a later patchset), to get the timestamp as recorded by the host.",
+      "parentUuid": "8b2d5dda_27c009ec",
       "range": {
         "startLine": 2380,
         "startChar": 23,
@@ -385,6 +745,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a29a9f9d_55868891",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 2391,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-06-23T04:46:15Z",
+      "side": 1,
+      "message": "Done, thanks for pointing it out. I must have copied this from other code before \"Remove brace initialization of json objects\" (commit 1476687deb1697d865b20458a0097c9ab5fd44e2) got merged.",
+      "parentUuid": "f18ce545_4269504c",
+      "range": {
+        "startLine": 2385,
+        "startChar": 7,
+        "endLine": 2391,
+        "endChar": 21
+      },
+      "revId": "19a821c20ad13122fae00ee368fce1fd94620147",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "948a9da4_4ac3d5e0",
@@ -408,6 +792,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb9e35ca_3fa0119f",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 2419,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-06-23T04:46:15Z",
+      "side": 1,
+      "message": "Acknowledged. Actually when testing this code again I realized this approach based on dumpType is incorrect for the BMC dump at /redfish/v1/Managers/bmc/LogServices/Dump whose dumpType is \"BMC\" but whose URI uses \"Dump\".  I\u0027ve refactored this into getDumpEntryCollection() and am now setting @odata.id based on entriesPath instead. I guess another way would be to use req.urlView, but we would need to chop off any query parameters.",
+      "parentUuid": "948a9da4_4ac3d5e0",
+      "range": {
+        "startLine": 2419,
+        "startChar": 0,
+        "endLine": 2419,
+        "endChar": 72
+      },
+      "revId": "19a821c20ad13122fae00ee368fce1fd94620147",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0ed81e7a_08133bd6",
@@ -421,6 +829,24 @@
       "writtenOn": "2022-06-18T19:35:31Z",
       "side": 1,
       "message": "nit, can you move this to line 2537 so that we\u0027re registering\n\n/FaultLog\n/FaultLog/Entries\n/FaultLog/Entries/\u003cstr\u003e\n/FaultLog/Actions/....\nect\n\nHaving decending order like that helps readers.",
+      "revId": "19a821c20ad13122fae00ee368fce1fd94620147",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8ba57646_176721ff",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 2553,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-06-23T04:46:15Z",
+      "side": 1,
+      "message": "Good eye -- fixed here and also for requestRoutesBMCDumpEntryCollection(). Not sure how I managed to get them out of order :)",
+      "parentUuid": "0ed81e7a_08133bd6",
       "revId": "19a821c20ad13122fae00ee368fce1fd94620147",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
