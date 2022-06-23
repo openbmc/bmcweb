@@ -46,6 +46,30 @@
       },
       "revId": "475435756e9cf7c546f02ddfe93f786ec23b63b4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a67eddb6_38fb5601",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 854,
+      "author": {
+        "id": 1000388
+      },
+      "writtenOn": "2022-06-23T16:50:59Z",
+      "side": 1,
+      "message": "Oh I\u0027m a dummy - you can see I haven\u0027t reviewed much bmcweb patches before 😢",
+      "parentUuid": "390e93ee_de29e651",
+      "range": {
+        "startLine": 853,
+        "startChar": 44,
+        "endLine": 854,
+        "endChar": 49
+      },
+      "revId": "475435756e9cf7c546f02ddfe93f786ec23b63b4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
