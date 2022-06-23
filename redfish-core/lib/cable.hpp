@@ -83,7 +83,7 @@ inline void
                 continue;
             }
 
-            crow::connections::systemBus->async_method_call(
+            crow::connections::DBusSingleton::systemBus().async_method_call(
                 [asyncResp](
                     const boost::system::error_code ec,
                     const dbus::utility::DBusPropertiesMap& properties) {
@@ -149,7 +149,7 @@ inline void requestRoutesCable(App& app)
             messages::resourceNotFound(asyncResp->res, "Cable", cableId);
         };
 
-        crow::connections::systemBus->async_method_call(
+        crow::connections::DBusSingleton::systemBus().async_method_call(
             respHandler, "xyz.openbmc_project.ObjectMapper",
             "/xyz/openbmc_project/object_mapper",
             "xyz.openbmc_project.ObjectMapper", "GetSubTree",

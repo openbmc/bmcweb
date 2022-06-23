@@ -208,7 +208,7 @@ inline void handleRoleMapPatch(
             // delete the existing object
             if (index < roleMapObjData.size())
             {
-                crow::connections::systemBus->async_method_call(
+                crow::connections::DBusSingleton::systemBus().async_method_call(
                     [asyncResp, roleMapObjData, serverType,
                      index](const boost::system::error_code ec) {
                     if (ec)
@@ -263,9 +263,10 @@ inline void handleRoleMapPatch(
                 // If "RemoteGroup" info is provided
                 if (remoteGroup)
                 {
-                    crow::connections::systemBus->async_method_call(
-                        [asyncResp, roleMapObjData, serverType, index,
-                         remoteGroup](const boost::system::error_code ec) {
+                    crow::connections::DBusSingleton::systemBus()
+                        .async_method_call(
+                            [asyncResp, roleMapObjData, serverType, index,
+                             remoteGroup](const boost::system::error_code ec) {
                         if (ec)
                         {
                             BMCWEB_LOG_ERROR << "DBUS response error: " << ec;
@@ -275,21 +276,22 @@ inline void handleRoleMapPatch(
                         asyncResp->res
                             .jsonValue[serverType]["RemoteRoleMapping"][index]
                                       ["RemoteGroup"] = *remoteGroup;
-                        },
-                        ldapDbusService, roleMapObjData[index].first,
-                        propertyInterface, "Set",
-                        "xyz.openbmc_project.User.PrivilegeMapperEntry",
-                        "GroupName",
-                        dbus::utility::DbusVariantType(
-                            std::move(*remoteGroup)));
+                            },
+                            ldapDbusService, roleMapObjData[index].first,
+                            propertyInterface, "Set",
+                            "xyz.openbmc_project.User.PrivilegeMapperEntry",
+                            "GroupName",
+                            dbus::utility::DbusVariantType(
+                                std::move(*remoteGroup)));
                 }
 
                 // If "LocalRole" info is provided
                 if (localRole)
                 {
-                    crow::connections::systemBus->async_method_call(
-                        [asyncResp, roleMapObjData, serverType, index,
-                         localRole](const boost::system::error_code ec) {
+                    crow::connections::DBusSingleton::systemBus()
+                        .async_method_call(
+                            [asyncResp, roleMapObjData, serverType, index,
+                             localRole](const boost::system::error_code ec) {
                         if (ec)
                         {
                             BMCWEB_LOG_ERROR << "DBUS response error: " << ec;
@@ -299,13 +301,13 @@ inline void handleRoleMapPatch(
                         asyncResp->res
                             .jsonValue[serverType]["RemoteRoleMapping"][index]
                                       ["LocalRole"] = *localRole;
-                        },
-                        ldapDbusService, roleMapObjData[index].first,
-                        propertyInterface, "Set",
-                        "xyz.openbmc_project.User.PrivilegeMapperEntry",
-                        "Privilege",
-                        dbus::utility::DbusVariantType(
-                            getPrivilegeFromRoleId(std::move(*localRole))));
+                            },
+                            ldapDbusService, roleMapObjData[index].first,
+                            propertyInterface, "Set",
+                            "xyz.openbmc_project.User.PrivilegeMapperEntry",
+                            "Privilege",
+                            dbus::utility::DbusVariantType(
+                                getPrivilegeFromRoleId(std::move(*localRole))));
                 }
             }
             // Create a new RoleMapping Object.
@@ -342,7 +344,7 @@ inline void handleRoleMapPatch(
                 BMCWEB_LOG_DEBUG << "Remote Group=" << *remoteGroup
                                  << ",LocalRole=" << *localRole;
 
-                crow::connections::systemBus->async_method_call(
+                crow::connections::DBusSingleton::systemBus().async_method_call(
                     [asyncResp, serverType, localRole,
                      remoteGroup](const boost::system::error_code ec) {
                     if (ec)
@@ -379,7 +381,7 @@ inline void getLDAPConfigData(const std::string& ldapType,
     const std::array<const char*, 2> interfaces = {ldapEnableInterface,
                                                    ldapConfigInterface};
 
-    crow::connections::systemBus->async_method_call(
+    crow::connections::DBusSingleton::systemBus().async_method_call(
         [callback, ldapType](const boost::system::error_code ec,
                              const dbus::utility::MapperGetObject& resp) {
         if (ec || resp.empty())
@@ -391,7 +393,7 @@ inline void getLDAPConfigData(const std::string& ldapType,
             return;
         }
         std::string service = resp.begin()->first;
-        crow::connections::systemBus->async_method_call(
+        crow::connections::DBusSingleton::systemBus().async_method_call(
             [callback,
              ldapType](const boost::system::error_code errorCode,
                        const dbus::utility::ManagedObjectType& ldapObjects) {
@@ -616,7 +618,7 @@ inline void handleServiceAddressPatch(
     const std::string& ldapServerElementName,
     const std::string& ldapConfigObject)
 {
-    crow::connections::systemBus->async_method_call(
+    crow::connections::DBusSingleton::systemBus().async_method_call(
         [asyncResp, ldapServerElementName,
          serviceAddressList](const boost::system::error_code ec) {
         if (ec)
@@ -656,7 +658,7 @@ inline void
                         const std::string& ldapServerElementName,
                         const std::string& ldapConfigObject)
 {
-    crow::connections::systemBus->async_method_call(
+    crow::connections::DBusSingleton::systemBus().async_method_call(
         [asyncResp, username,
          ldapServerElementName](const boost::system::error_code ec) {
         if (ec)
@@ -689,7 +691,7 @@ inline void
                         const std::string& ldapServerElementName,
                         const std::string& ldapConfigObject)
 {
-    crow::connections::systemBus->async_method_call(
+    crow::connections::DBusSingleton::systemBus().async_method_call(
         [asyncResp, password,
          ldapServerElementName](const boost::system::error_code ec) {
         if (ec)
@@ -723,7 +725,7 @@ inline void
                       const std::string& ldapServerElementName,
                       const std::string& ldapConfigObject)
 {
-    crow::connections::systemBus->async_method_call(
+    crow::connections::DBusSingleton::systemBus().async_method_call(
         [asyncResp, baseDNList,
          ldapServerElementName](const boost::system::error_code ec) {
         if (ec)
@@ -763,7 +765,7 @@ inline void
                             const std::string& ldapServerElementName,
                             const std::string& ldapConfigObject)
 {
-    crow::connections::systemBus->async_method_call(
+    crow::connections::DBusSingleton::systemBus().async_method_call(
         [asyncResp, userNameAttribute,
          ldapServerElementName](const boost::system::error_code ec) {
         if (ec)
@@ -798,7 +800,7 @@ inline void handleGroupNameAttrPatch(
     const std::string& ldapServerElementName,
     const std::string& ldapConfigObject)
 {
-    crow::connections::systemBus->async_method_call(
+    crow::connections::DBusSingleton::systemBus().async_method_call(
         [asyncResp, groupsAttribute,
          ldapServerElementName](const boost::system::error_code ec) {
         if (ec)
@@ -832,7 +834,7 @@ inline void handleServiceEnablePatch(
     const std::string& ldapServerElementName,
     const std::string& ldapConfigObject)
 {
-    crow::connections::systemBus->async_method_call(
+    crow::connections::DBusSingleton::systemBus().async_method_call(
         [asyncResp, serviceEnabled,
          ldapServerElementName](const boost::system::error_code ec) {
         if (ec)
@@ -1159,7 +1161,7 @@ inline void updateUserProperties(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
 
         if (enabled)
         {
-            crow::connections::systemBus->async_method_call(
+            crow::connections::DBusSingleton::systemBus().async_method_call(
                 [asyncResp](const boost::system::error_code ec) {
                 if (ec)
                 {
@@ -1190,7 +1192,7 @@ inline void updateUserProperties(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
                 priv = "";
             }
 
-            crow::connections::systemBus->async_method_call(
+            crow::connections::DBusSingleton::systemBus().async_method_call(
                 [asyncResp](const boost::system::error_code ec) {
                 if (ec)
                 {
@@ -1218,7 +1220,7 @@ inline void updateUserProperties(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
                 return;
             }
 
-            crow::connections::systemBus->async_method_call(
+            crow::connections::DBusSingleton::systemBus().async_method_call(
                 [asyncResp](const boost::system::error_code ec) {
                 if (ec)
                 {
@@ -1295,7 +1297,7 @@ inline void requestAccountServiceRoutes(App& app)
                         .jsonValue["LDAP"]["Certificates"]["@odata.id"] =
                         "/redfish/v1/AccountService/LDAP/Certificates";
                 }
-                crow::connections::systemBus->async_method_call(
+                crow::connections::DBusSingleton::systemBus().async_method_call(
                     [asyncResp](const boost::system::error_code ec,
                                 const dbus::utility::DBusPropertiesMap&
                                     propertiesList) {
@@ -1361,125 +1363,122 @@ inline void requestAccountServiceRoutes(App& app)
 
     BMCWEB_ROUTE(app, "/redfish/v1/AccountService/")
         .privileges(redfish::privileges::patchAccountService)
-        .methods(boost::beast::http::verb::patch)(
-            [&app](
-                const crow::Request& req,
-                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) -> void {
-                if (!redfish::setUpRedfishRoute(app, req, asyncResp))
-                {
-                    return;
-                }
-                std::optional<uint32_t> unlockTimeout;
-                std::optional<uint16_t> lockoutThreshold;
-                std::optional<uint8_t> minPasswordLength;
-                std::optional<uint16_t> maxPasswordLength;
-                std::optional<nlohmann::json> ldapObject;
-                std::optional<nlohmann::json> activeDirectoryObject;
-                std::optional<nlohmann::json> oemObject;
+        .methods(
+            boost::beast::http::verb::patch)([&app](const crow::Request& req,
+                                                    const std::shared_ptr<
+                                                        bmcweb::AsyncResp>&
+                                                        asyncResp) -> void {
+            if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+            {
+                return;
+            }
+            std::optional<uint32_t> unlockTimeout;
+            std::optional<uint16_t> lockoutThreshold;
+            std::optional<uint8_t> minPasswordLength;
+            std::optional<uint16_t> maxPasswordLength;
+            std::optional<nlohmann::json> ldapObject;
+            std::optional<nlohmann::json> activeDirectoryObject;
+            std::optional<nlohmann::json> oemObject;
 
-                if (!json_util::readJsonPatch(
-                        req, asyncResp->res, "AccountLockoutDuration",
-                        unlockTimeout, "AccountLockoutThreshold",
-                        lockoutThreshold, "MaxPasswordLength",
-                        maxPasswordLength, "MinPasswordLength",
-                        minPasswordLength, "LDAP", ldapObject,
-                        "ActiveDirectory", activeDirectoryObject, "Oem",
-                        oemObject))
-                {
-                    return;
-                }
+            if (!json_util::readJsonPatch(
+                    req, asyncResp->res, "AccountLockoutDuration",
+                    unlockTimeout, "AccountLockoutThreshold", lockoutThreshold,
+                    "MaxPasswordLength", maxPasswordLength, "MinPasswordLength",
+                    minPasswordLength, "LDAP", ldapObject, "ActiveDirectory",
+                    activeDirectoryObject, "Oem", oemObject))
+            {
+                return;
+            }
 
-                if (minPasswordLength)
-                {
-                    crow::connections::systemBus->async_method_call(
-                        [asyncResp](const boost::system::error_code ec) {
+            if (minPasswordLength)
+            {
+                crow::connections::DBusSingleton::systemBus().async_method_call(
+                    [asyncResp](const boost::system::error_code ec) {
                 if (ec)
                 {
                     messages::internalError(asyncResp->res);
                     return;
                 }
                 messages::success(asyncResp->res);
-                        },
-                        "xyz.openbmc_project.User.Manager",
-                        "/xyz/openbmc_project/user",
-                        "org.freedesktop.DBus.Properties", "Set",
-                        "xyz.openbmc_project.User.AccountPolicy",
-                        "MinPasswordLength",
-                        dbus::utility::DbusVariantType(*minPasswordLength));
-                }
+                    },
+                    "xyz.openbmc_project.User.Manager",
+                    "/xyz/openbmc_project/user",
+                    "org.freedesktop.DBus.Properties", "Set",
+                    "xyz.openbmc_project.User.AccountPolicy",
+                    "MinPasswordLength",
+                    dbus::utility::DbusVariantType(*minPasswordLength));
+            }
 
-                if (maxPasswordLength)
-                {
-                    messages::propertyNotWritable(asyncResp->res,
-                                                  "MaxPasswordLength");
-                }
+            if (maxPasswordLength)
+            {
+                messages::propertyNotWritable(asyncResp->res,
+                                              "MaxPasswordLength");
+            }
 
-                if (ldapObject)
-                {
-                    handleLDAPPatch(*ldapObject, asyncResp, "LDAP");
-                }
+            if (ldapObject)
+            {
+                handleLDAPPatch(*ldapObject, asyncResp, "LDAP");
+            }
 
-                if (std::optional<nlohmann::json> oemOpenBMCObject;
-                    oemObject &&
-                    json_util::readJson(*oemObject, asyncResp->res, "OpenBMC",
-                                        oemOpenBMCObject))
+            if (std::optional<nlohmann::json> oemOpenBMCObject;
+                oemObject && json_util::readJson(*oemObject, asyncResp->res,
+                                                 "OpenBMC", oemOpenBMCObject))
+            {
+                if (std::optional<nlohmann::json> authMethodsObject;
+                    oemOpenBMCObject &&
+                    json_util::readJson(*oemOpenBMCObject, asyncResp->res,
+                                        "AuthMethods", authMethodsObject))
                 {
-                    if (std::optional<nlohmann::json> authMethodsObject;
-                        oemOpenBMCObject &&
-                        json_util::readJson(*oemOpenBMCObject, asyncResp->res,
-                                            "AuthMethods", authMethodsObject))
+                    if (authMethodsObject)
                     {
-                        if (authMethodsObject)
-                        {
-                            handleAuthMethodsPatch(*authMethodsObject,
-                                                   asyncResp);
-                        }
+                        handleAuthMethodsPatch(*authMethodsObject, asyncResp);
                     }
                 }
+            }
 
-                if (activeDirectoryObject)
-                {
-                    handleLDAPPatch(*activeDirectoryObject, asyncResp,
-                                    "ActiveDirectory");
-                }
+            if (activeDirectoryObject)
+            {
+                handleLDAPPatch(*activeDirectoryObject, asyncResp,
+                                "ActiveDirectory");
+            }
 
-                if (unlockTimeout)
-                {
-                    crow::connections::systemBus->async_method_call(
-                        [asyncResp](const boost::system::error_code ec) {
+            if (unlockTimeout)
+            {
+                crow::connections::DBusSingleton::systemBus().async_method_call(
+                    [asyncResp](const boost::system::error_code ec) {
                 if (ec)
                 {
                     messages::internalError(asyncResp->res);
                     return;
                 }
                 messages::success(asyncResp->res);
-                        },
-                        "xyz.openbmc_project.User.Manager",
-                        "/xyz/openbmc_project/user",
-                        "org.freedesktop.DBus.Properties", "Set",
-                        "xyz.openbmc_project.User.AccountPolicy",
-                        "AccountUnlockTimeout",
-                        dbus::utility::DbusVariantType(*unlockTimeout));
-                }
-                if (lockoutThreshold)
-                {
-                    crow::connections::systemBus->async_method_call(
-                        [asyncResp](const boost::system::error_code ec) {
+                    },
+                    "xyz.openbmc_project.User.Manager",
+                    "/xyz/openbmc_project/user",
+                    "org.freedesktop.DBus.Properties", "Set",
+                    "xyz.openbmc_project.User.AccountPolicy",
+                    "AccountUnlockTimeout",
+                    dbus::utility::DbusVariantType(*unlockTimeout));
+            }
+            if (lockoutThreshold)
+            {
+                crow::connections::DBusSingleton::systemBus().async_method_call(
+                    [asyncResp](const boost::system::error_code ec) {
                 if (ec)
                 {
                     messages::internalError(asyncResp->res);
                     return;
                 }
                 messages::success(asyncResp->res);
-                        },
-                        "xyz.openbmc_project.User.Manager",
-                        "/xyz/openbmc_project/user",
-                        "org.freedesktop.DBus.Properties", "Set",
-                        "xyz.openbmc_project.User.AccountPolicy",
-                        "MaxLoginAttemptBeforeLockout",
-                        dbus::utility::DbusVariantType(*lockoutThreshold));
-                }
-            });
+                    },
+                    "xyz.openbmc_project.User.Manager",
+                    "/xyz/openbmc_project/user",
+                    "org.freedesktop.DBus.Properties", "Set",
+                    "xyz.openbmc_project.User.AccountPolicy",
+                    "MaxLoginAttemptBeforeLockout",
+                    dbus::utility::DbusVariantType(*lockoutThreshold));
+            }
+        });
 
     BMCWEB_ROUTE(app, "/redfish/v1/AccountService/Accounts/")
         .privileges(redfish::privileges::getManagerAccountCollection)
@@ -1508,7 +1507,7 @@ inline void requestAccountServiceRoutes(App& app)
                 {
                     thisUser = req.session->username;
                 }
-                crow::connections::systemBus->async_method_call(
+                crow::connections::DBusSingleton::systemBus().async_method_call(
                     [asyncResp, thisUser, effectiveUserPrivileges](
                         const boost::system::error_code ec,
                         const dbus::utility::ManagedObjectType& users) {
@@ -1603,7 +1602,7 @@ inline void requestAccountServiceRoutes(App& app)
 
                 // Reading AllGroups property
                 sdbusplus::asio::getProperty<std::vector<std::string>>(
-                    *crow::connections::systemBus,
+                    crow::connections::DBusSingleton::systemBus(),
                     "xyz.openbmc_project.User.Manager",
                     "/xyz/openbmc_project/user",
                     "xyz.openbmc_project.User.Manager", "AllGroups",
@@ -1623,7 +1622,7 @@ inline void requestAccountServiceRoutes(App& app)
                 return;
             }
 
-            crow::connections::systemBus->async_method_call(
+            crow::connections::DBusSingleton::systemBus().async_method_call(
                 [asyncResp, username,
                  password](const boost::system::error_code ec2,
                            sdbusplus::message::message& m) {
@@ -1645,9 +1644,10 @@ inline void requestAccountServiceRoutes(App& app)
                     tempObjPath /= username;
                     const std::string userPath(tempObjPath);
 
-                    crow::connections::systemBus->async_method_call(
-                        [asyncResp,
-                         password](const boost::system::error_code ec3) {
+                    crow::connections::DBusSingleton::systemBus()
+                        .async_method_call(
+                            [asyncResp,
+                             password](const boost::system::error_code ec3) {
                         if (ec3)
                         {
                             messages::internalError(asyncResp->res);
@@ -1657,9 +1657,9 @@ inline void requestAccountServiceRoutes(App& app)
                         // If password is invalid
                         messages::propertyValueFormatError(
                             asyncResp->res, password, "Password");
-                        },
-                        "xyz.openbmc_project.User.Manager", userPath,
-                        "xyz.openbmc_project.Object.Delete", "Delete");
+                            },
+                            "xyz.openbmc_project.User.Manager", userPath,
+                            "xyz.openbmc_project.Object.Delete", "Delete");
 
                     BMCWEB_LOG_ERROR << "pamUpdatePassword Failed";
                     return;
@@ -1719,7 +1719,7 @@ inline void requestAccountServiceRoutes(App& app)
                     }
                 }
 
-                crow::connections::systemBus->async_method_call(
+                crow::connections::DBusSingleton::systemBus().async_method_call(
                     [asyncResp, accountName](
                         const boost::system::error_code ec,
                         const dbus::utility::ManagedObjectType& users) {
@@ -1916,7 +1916,7 @@ inline void requestAccountServiceRoutes(App& app)
                                          roleId, locked);
                     return;
                 }
-                crow::connections::systemBus->async_method_call(
+                crow::connections::DBusSingleton::systemBus().async_method_call(
                     [asyncResp, username, password(std::move(password)),
                      roleId(std::move(roleId)), enabled,
                      newUser{std::string(*newUserName)},
@@ -1961,7 +1961,7 @@ inline void requestAccountServiceRoutes(App& app)
                 tempObjPath /= username;
                 const std::string userPath(tempObjPath);
 
-                crow::connections::systemBus->async_method_call(
+                crow::connections::DBusSingleton::systemBus().async_method_call(
                     [asyncResp, username](const boost::system::error_code ec) {
             if (ec)
             {

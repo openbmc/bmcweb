@@ -1301,7 +1301,7 @@ class Router
             return;
         }
 
-        crow::connections::systemBus->async_method_call(
+        crow::connections::DBusSingleton::systemBus().async_method_call(
             [&req, asyncResp, &rules, ruleIndex,
              found](const boost::system::error_code ec,
                     const dbus::utility::DBusPropertiesMap& userInfoMap) {

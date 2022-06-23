@@ -98,7 +98,7 @@ inline void resolveRoT(const std::string& command,
     };
 
     std::array<std::string, 1> hothIfaces = {hothInterface};
-    crow::connections::systemBus->async_method_call(
+    crow::connections::DBusSingleton::systemBus().async_method_call(
         validateFunc, "xyz.openbmc_project.ObjectMapper",
         "/xyz/openbmc_project/object_mapper",
         "xyz.openbmc_project.ObjectMapper", "GetSubTree", hothSearchPath,
@@ -164,7 +164,7 @@ inline void
         return;
     }
 
-    crow::connections::systemBus->async_method_call(
+    crow::connections::DBusSingleton::systemBus().async_method_call(
         handleFunc, resolvedEntity.service, resolvedEntity.object,
         resolvedEntity.interface, "SendHostCommand", bytes);
 }

@@ -618,7 +618,7 @@ class HttpClient
     std::unordered_map<std::string, std::shared_ptr<ConnectionPool>>
         connectionPools;
     boost::asio::io_context& ioc =
-        crow::connections::systemBus->get_io_context();
+        crow::connections::DBusSingleton::systemBus().get_io_context();
     std::unordered_map<std::string, RetryPolicyData> retryInfo;
     HttpClient() = default;
 

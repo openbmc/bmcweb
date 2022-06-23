@@ -31,7 +31,7 @@ inline void handleTelemetryServiceGet(
     asyncResp->res.jsonValue["Triggers"]["@odata.id"] =
         "/redfish/v1/TelemetryService/Triggers";
 
-    crow::connections::systemBus->async_method_call(
+    crow::connections::DBusSingleton::systemBus().async_method_call(
         [asyncResp](const boost::system::error_code ec,
                     const dbus::utility::DBusPropertiesMap& ret) {
         if (ec == boost::system::errc::host_unreachable)

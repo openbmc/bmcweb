@@ -53,7 +53,7 @@ void getMainChassisId(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
                       CallbackFunc&& callback)
 {
     // Find managed chassis
-    crow::connections::systemBus->async_method_call(
+    crow::connections::DBusSingleton::systemBus().async_method_call(
         [callback,
          asyncResp](const boost::system::error_code ec,
                     const dbus::utility::MapperGetSubTreeResponse& subtree) {
@@ -93,7 +93,7 @@ template <typename CallbackFunc>
 void getPortStatusAndPath(const std::string& serviceName,
                           CallbackFunc&& callback)
 {
-    crow::connections::systemBus->async_method_call(
+    crow::connections::DBusSingleton::systemBus().async_method_call(
         [serviceName, callback{std::forward<CallbackFunc>(callback)}](
             const boost::system::error_code ec,
             const std::vector<UnitStruct>& r) {
@@ -170,7 +170,8 @@ void getPortNumber(const std::string& socketPath, CallbackFunc&& callback)
 {
     sdbusplus::asio::getProperty<
         std::vector<std::tuple<std::string, std::string>>>(
-        *crow::connections::systemBus, "org.freedesktop.systemd1", socketPath,
+        crow::connections::DBusSingleton::systemBus(),
+        "org.freedesktop.systemd1", socketPath,
         "org.freedesktop.systemd1.Socket", "Listen",
         [callback{std::forward<CallbackFunc>(callback)}](
             const boost::system::error_code ec,
