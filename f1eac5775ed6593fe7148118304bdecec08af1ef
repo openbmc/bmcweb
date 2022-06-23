@@ -22,6 +22,30 @@
       },
       "revId": "f1eac5775ed6593fe7148118304bdecec08af1ef",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f57d659a_8c017c06",
+        "filename": "include/dbus_singleton.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-23T20:54:19Z",
+      "side": 0,
+      "message": "\u003e can we just keep the type the same for the moment, just move it into its own compile unit to solve the immediate problem,\n\nHow? Are you talking about extern?",
+      "parentUuid": "430a78bc_d97edd03",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 8,
+        "endChar": 62
+      },
+      "revId": "f1eac5775ed6593fe7148118304bdecec08af1ef",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
