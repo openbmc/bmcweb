@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "51172cd0_1288761b",
+        "filename": "include/dbus_singleton.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-23T23:38:19Z",
+      "side": 1,
+      "message": "\u003e aren\u0027t in the public API\n\npublic API of BMCWeb? or this class?\n\nAnyway, removed the comments.",
+      "parentUuid": "7de43b44_36b79b7d",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 55
+      },
+      "revId": "f7ea8ca3d621e65292a35ffa0335a9cb2d39c2de",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0d68ce83_eaf47ded",
         "filename": "src/dbus_singleton.cpp",
         "patchSetId": 6
