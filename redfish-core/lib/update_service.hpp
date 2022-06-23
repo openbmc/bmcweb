@@ -45,7 +45,7 @@ inline static void activateImage(const std::string& objPath,
                                  const std::string& service)
 {
     BMCWEB_LOG_DEBUG << "Activate image for " << objPath << " " << service;
-    crow::connections::systemBus->async_method_call(
+    crow::connections::DBusSingleton::systemBus().async_method_call(
         [](const boost::system::error_code errorCode) {
         if (errorCode)
         {
@@ -80,7 +80,7 @@ static void
         if (interface.first == "xyz.openbmc_project.Software.Activation")
         {
             // Retrieve service and activate
-            crow::connections::systemBus->async_method_call(
+            crow::connections::DBusSingleton::systemBus().async_method_call(
                 [objPath, asyncResp, payload(std::move(payload))](
                     const boost::system::error_code errorCode,
                     const std::vector<
@@ -305,13 +305,13 @@ static void monitorForSoftwareAvailable(
     fwUpdateInProgress = true;
 
     fwUpdateMatcher = std::make_unique<sdbusplus::bus::match::match>(
-        *crow::connections::systemBus,
+        crow::connections::DBusSingleton::systemBus(),
         "interface='org.freedesktop.DBus.ObjectManager',type='signal',"
         "member='InterfacesAdded',path='/xyz/openbmc_project/software'",
         callback);
 
     fwUpdateErrorMatcher = std::make_unique<sdbusplus::bus::match::match>(
-        *crow::connections::systemBus,
+        crow::connections::DBusSingleton::systemBus(),
         "interface='org.freedesktop.DBus.ObjectManager',type='signal',"
         "member='InterfacesAdded',"
         "path='/xyz/openbmc_project/logging'",
@@ -497,7 +497,7 @@ inline void requestRoutesUpdateServiceActionsSimpleUpdate(App& app)
         redfish::messages::success(asyncResp->res);
 
         // Call TFTP service
-        crow::connections::systemBus->async_method_call(
+        crow::connections::DBusSingleton::systemBus().async_method_call(
             [](const boost::system::error_code ec) {
             if (ec)
             {
@@ -592,7 +592,8 @@ inline void requestRoutesUpdateService(App& app)
 #endif
         // Get the current ApplyTime value
         sdbusplus::asio::getProperty<std::string>(
-            *crow::connections::systemBus, "xyz.openbmc_project.Settings",
+            crow::connections::DBusSingleton::systemBus(),
+            "xyz.openbmc_project.Settings",
             "/xyz/openbmc_project/software/apply_time",
             "xyz.openbmc_project.Software.ApplyTime", "RequestedApplyTime",
             [asyncResp](const boost::system::error_code ec,
@@ -680,8 +681,9 @@ inline void requestRoutesUpdateService(App& app)
                     }
 
                     // Set the requested image apply time value
-                    crow::connections::systemBus->async_method_call(
-                        [asyncResp](const boost::system::error_code ec) {
+                    crow::connections::DBusSingleton::systemBus()
+                        .async_method_call(
+                            [asyncResp](const boost::system::error_code ec) {
                         if (ec)
                         {
                             BMCWEB_LOG_ERROR << "D-Bus responses error: " << ec;
@@ -689,13 +691,13 @@ inline void requestRoutesUpdateService(App& app)
                             return;
                         }
                         messages::success(asyncResp->res);
-                        },
-                        "xyz.openbmc_project.Settings",
-                        "/xyz/openbmc_project/software/apply_time",
-                        "org.freedesktop.DBus.Properties", "Set",
-                        "xyz.openbmc_project.Software.ApplyTime",
-                        "RequestedApplyTime",
-                        dbus::utility::DbusVariantType{applyTimeNewVal});
+                            },
+                            "xyz.openbmc_project.Settings",
+                            "/xyz/openbmc_project/software/apply_time",
+                            "org.freedesktop.DBus.Properties", "Set",
+                            "xyz.openbmc_project.Software.ApplyTime",
+                            "RequestedApplyTime",
+                            dbus::utility::DbusVariantType{applyTimeNewVal});
                 }
             }
         }
@@ -745,7 +747,7 @@ inline void requestRoutesSoftwareInventoryCollection(App& app)
             "/redfish/v1/UpdateService/FirmwareInventory";
         asyncResp->res.jsonValue["Name"] = "Software Inventory Collection";
 
-        crow::connections::systemBus->async_method_call(
+        crow::connections::DBusSingleton::systemBus().async_method_call(
             [asyncResp](
                 const boost::system::error_code ec,
                 const dbus::utility::MapperGetSubTreeResponse& subtree) {
@@ -834,7 +836,7 @@ inline void requestRoutesSoftwareInventory(App& app)
         asyncResp->res.jsonValue["@odata.id"] =
             "/redfish/v1/UpdateService/FirmwareInventory/" + *swId;
 
-        crow::connections::systemBus->async_method_call(
+        crow::connections::DBusSingleton::systemBus().async_method_call(
             [asyncResp,
              swId](const boost::system::error_code ec,
                    const dbus::utility::MapperGetSubTreeResponse& subtree) {
@@ -865,7 +867,7 @@ inline void requestRoutesSoftwareInventory(App& app)
                 found = true;
                 sw_util::getSwStatus(asyncResp, swId, obj.second[0].first);
 
-                crow::connections::systemBus->async_method_call(
+                crow::connections::DBusSingleton::systemBus().async_method_call(
                     [asyncResp, swId](const boost::system::error_code errorCode,
                                       const dbus::utility::DBusPropertiesMap&
                                           propertiesList) {

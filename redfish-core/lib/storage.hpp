@@ -54,7 +54,7 @@ inline void requestRoutesStorageCollection(App& app)
 inline void getDrives(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                       const std::shared_ptr<HealthPopulate>& health)
 {
-    crow::connections::systemBus->async_method_call(
+    crow::connections::DBusSingleton::systemBus().async_method_call(
         [asyncResp, health](
             const boost::system::error_code ec,
             const dbus::utility::MapperGetSubTreePathsResponse& driveList) {
@@ -102,7 +102,7 @@ inline void
     getStorageControllers(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                           const std::shared_ptr<HealthPopulate>& health)
 {
-    crow::connections::systemBus->async_method_call(
+    crow::connections::DBusSingleton::systemBus().async_method_call(
         [asyncResp,
          health](const boost::system::error_code ec,
                  const dbus::utility::MapperGetSubTreeResponse& subtree) {
@@ -148,8 +148,8 @@ inline void
             storageController["Status"]["State"] = "Enabled";
 
             sdbusplus::asio::getProperty<bool>(
-                *crow::connections::systemBus, connectionName, path,
-                "xyz.openbmc_project.Inventory.Item", "Present",
+                crow::connections::DBusSingleton::systemBus(), connectionName,
+                path, "xyz.openbmc_project.Inventory.Item", "Present",
                 [asyncResp, index](const boost::system::error_code ec2,
                                    bool enabled) {
                 // this interface isn't necessary, only check it
@@ -165,7 +165,7 @@ inline void
                 }
                 });
 
-            crow::connections::systemBus->async_method_call(
+            crow::connections::DBusSingleton::systemBus().async_method_call(
                 [asyncResp, index](
                     const boost::system::error_code ec2,
                     const std::vector<
@@ -262,7 +262,7 @@ inline void getDriveAsset(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                           const std::string& connectionName,
                           const std::string& path)
 {
-    crow::connections::systemBus->async_method_call(
+    crow::connections::DBusSingleton::systemBus().async_method_call(
         [asyncResp](const boost::system::error_code ec,
                     const std::vector<
                         std::pair<std::string, dbus::utility::DbusVariantType>>&
@@ -304,7 +304,7 @@ inline void getDrivePresent(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                             const std::string& path)
 {
     sdbusplus::asio::getProperty<bool>(
-        *crow::connections::systemBus, connectionName, path,
+        crow::connections::DBusSingleton::systemBus(), connectionName, path,
         "xyz.openbmc_project.Inventory.Item", "Present",
         [asyncResp, path](const boost::system::error_code ec,
                           const bool enabled) {
@@ -327,7 +327,7 @@ inline void getDriveState(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                           const std::string& path)
 {
     sdbusplus::asio::getProperty<bool>(
-        *crow::connections::systemBus, connectionName, path,
+        crow::connections::DBusSingleton::systemBus(), connectionName, path,
         "xyz.openbmc_project.State.Drive", "Rebuilding",
         [asyncResp](const boost::system::error_code ec, const bool updating) {
         // this interface isn't necessary, only check it
@@ -390,7 +390,7 @@ inline void
                            const std::string& path)
 {
     sdbusplus::asio::getAllProperties(
-        *crow::connections::systemBus, connectionName, path,
+        crow::connections::DBusSingleton::systemBus(), connectionName, path,
         "xyz.openbmc_project.Inventory.Item.Drive",
         [asyncResp](const boost::system::error_code ec,
                     const std::vector<
@@ -509,7 +509,7 @@ inline void requestRoutesDrive(App& app)
         {
             return;
         }
-        crow::connections::systemBus->async_method_call(
+        crow::connections::DBusSingleton::systemBus().async_method_call(
             [asyncResp,
              driveId](const boost::system::error_code ec,
                       const dbus::utility::MapperGetSubTreeResponse& subtree) {
@@ -594,7 +594,7 @@ inline void chassisDriveCollectionGet(
     }
 
     // mapper call lambda
-    crow::connections::systemBus->async_method_call(
+    crow::connections::DBusSingleton::systemBus().async_method_call(
         [asyncResp,
          chassisId](const boost::system::error_code ec,
                     const dbus::utility::MapperGetSubTreeResponse& subtree) {
@@ -634,7 +634,7 @@ inline void chassisDriveCollectionGet(
 
             // Association lambda
             sdbusplus::asio::getProperty<std::vector<std::string>>(
-                *crow::connections::systemBus,
+                crow::connections::DBusSingleton::systemBus(),
                 "xyz.openbmc_project.ObjectMapper", path + "/drive",
                 "xyz.openbmc_project.Association", "endpoints",
                 [asyncResp, chassisId](const boost::system::error_code ec3,
@@ -755,7 +755,7 @@ inline void
         const std::array<const char*, 1> driveInterface = {
             "xyz.openbmc_project.Inventory.Item.Drive"};
 
-        crow::connections::systemBus->async_method_call(
+        crow::connections::DBusSingleton::systemBus().async_method_call(
             [asyncResp, chassisId, driveName](
                 const boost::system::error_code ec,
                 const dbus::utility::MapperGetSubTreeResponse& subtree) {
@@ -783,7 +783,7 @@ inline void
         "xyz.openbmc_project.Inventory.Item.Chassis"};
 
     // mapper call chassis
-    crow::connections::systemBus->async_method_call(
+    crow::connections::DBusSingleton::systemBus().async_method_call(
         [asyncResp, chassisId,
          driveName](const boost::system::error_code ec,
                     const dbus::utility::MapperGetSubTreeResponse& subtree) {
@@ -809,7 +809,7 @@ inline void
             }
 
             sdbusplus::asio::getProperty<std::vector<std::string>>(
-                *crow::connections::systemBus,
+                crow::connections::DBusSingleton::systemBus(),
                 "xyz.openbmc_project.ObjectMapper", path + "/drive",
                 "xyz.openbmc_project.Association", "endpoints",
                 [asyncResp, chassisId,

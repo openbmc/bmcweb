@@ -83,7 +83,7 @@ inline void extractNTPServersAndDomainNamesData(
 template <typename CallbackFunc>
 void getEthernetIfaceData(CallbackFunc&& callback)
 {
-    crow::connections::systemBus->async_method_call(
+    crow::connections::DBusSingleton::systemBus().async_method_call(
         [callback{std::forward<CallbackFunc>(callback)}](
             const boost::system::error_code errorCode,
             const dbus::utility::ManagedObjectType& dbusData) {
@@ -221,7 +221,7 @@ inline void handleNTPProtocolEnabled(
             "xyz.openbmc_project.Time.Synchronization.Method.Manual";
     }
 
-    crow::connections::systemBus->async_method_call(
+    crow::connections::DBusSingleton::systemBus().async_method_call(
         [asyncResp](const boost::system::error_code errorCode) {
         if (errorCode)
         {
@@ -248,7 +248,7 @@ inline void
         return;
     }
 
-    crow::connections::systemBus->async_method_call(
+    crow::connections::DBusSingleton::systemBus().async_method_call(
         [asyncResp,
          ntpServers](boost::system::error_code ec,
                      const dbus::utility::MapperGetSubTreeResponse& subtree) {
@@ -271,17 +271,19 @@ inline void
                         continue;
                     }
 
-                    crow::connections::systemBus->async_method_call(
-                        [asyncResp](const boost::system::error_code ec) {
+                    crow::connections::DBusSingleton::systemBus()
+                        .async_method_call(
+                            [asyncResp](const boost::system::error_code ec) {
                         if (ec)
                         {
                             messages::internalError(asyncResp->res);
                             return;
                         }
-                        },
-                        service, objectPath, "org.freedesktop.DBus.Properties",
-                        "Set", interface, "NTPServers",
-                        dbus::utility::DbusVariantType{ntpServers});
+                            },
+                            service, objectPath,
+                            "org.freedesktop.DBus.Properties", "Set", interface,
+                            "NTPServers",
+                            dbus::utility::DbusVariantType{ntpServers});
                 }
             }
         }
@@ -299,7 +301,7 @@ inline void
                           const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                           const std::string_view netBasePath)
 {
-    crow::connections::systemBus->async_method_call(
+    crow::connections::DBusSingleton::systemBus().async_method_call(
         [protocolEnabled, asyncResp,
          netBasePath](const boost::system::error_code ec,
                       const dbus::utility::MapperGetSubTreeResponse& subtree) {
@@ -313,7 +315,7 @@ inline void
         {
             if (boost::algorithm::starts_with(entry.first, netBasePath))
             {
-                crow::connections::systemBus->async_method_call(
+                crow::connections::DBusSingleton::systemBus().async_method_call(
                     [asyncResp](const boost::system::error_code ec2) {
                     if (ec2)
                     {
@@ -326,7 +328,7 @@ inline void
                     "xyz.openbmc_project.Control.Service.Attributes", "Running",
                     dbus::utility::DbusVariantType{protocolEnabled});
 
-                crow::connections::systemBus->async_method_call(
+                crow::connections::DBusSingleton::systemBus().async_method_call(
                     [asyncResp](const boost::system::error_code ec2) {
                     if (ec2)
                     {
@@ -365,8 +367,8 @@ inline void
     getNTPProtocolEnabled(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     sdbusplus::asio::getProperty<std::string>(
-        *crow::connections::systemBus, "xyz.openbmc_project.Settings",
-        "/xyz/openbmc_project/time/sync_method",
+        crow::connections::DBusSingleton::systemBus(),
+        "xyz.openbmc_project.Settings", "/xyz/openbmc_project/time/sync_method",
         "xyz.openbmc_project.Time.Synchronization", "TimeSyncMethod",
         [asyncResp](const boost::system::error_code errorCode,
                     const std::string& timeSyncMethod) {

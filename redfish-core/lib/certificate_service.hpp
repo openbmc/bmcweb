@@ -217,7 +217,7 @@ static void getCSR(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     BMCWEB_LOG_DEBUG << "getCSR CertObjectPath" << certObjPath
                      << " CSRObjectPath=" << csrObjPath
                      << " service=" << service;
-    crow::connections::systemBus->async_method_call(
+    crow::connections::DBusSingleton::systemBus().async_method_call(
         [asyncResp, certURI](const boost::system::error_code ec,
                              const std::string& csr) {
         if (ec)
@@ -443,7 +443,7 @@ inline void requestRoutesCertificateActionGenerateCSR(App& app)
                           "',"
                           "member='InterfacesAdded'");
         csrMatcher = std::make_unique<sdbusplus::bus::match::match>(
-            *crow::connections::systemBus, match,
+            crow::connections::DBusSingleton::systemBus(), match,
             [asyncResp, service, objectPath,
              certURI](sdbusplus::message::message& m) {
             timeout.cancel();
@@ -469,7 +469,7 @@ inline void requestRoutesCertificateActionGenerateCSR(App& app)
                 }
             }
             });
-        crow::connections::systemBus->async_method_call(
+        crow::connections::DBusSingleton::systemBus().async_method_call(
             [asyncResp](const boost::system::error_code ec,
                         const std::string&) {
             if (ec)
@@ -572,7 +572,7 @@ static void getCertificateProperties(
 {
     BMCWEB_LOG_DEBUG << "getCertificateProperties Path=" << objectPath
                      << " certId=" << certId << " certURl=" << certURL;
-    crow::connections::systemBus->async_method_call(
+    crow::connections::DBusSingleton::systemBus().async_method_call(
         [asyncResp, certURL, certId,
          name](const boost::system::error_code ec,
                const dbus::utility::DBusPropertiesMap& properties) {
@@ -758,7 +758,7 @@ inline void requestRoutesCertificateActionsReplaceCertificate(App& app)
 
         std::shared_ptr<CertificateFile> certFile =
             std::make_shared<CertificateFile>(certificate);
-        crow::connections::systemBus->async_method_call(
+        crow::connections::DBusSingleton::systemBus().async_method_call(
             [asyncResp, certFile, objectPath, service, certURI, id,
              name](const boost::system::error_code ec) {
             if (ec)
@@ -849,7 +849,7 @@ inline void requestRoutesHTTPSCertificateCollection(App& app)
         asyncResp->res.jsonValue["Description"] =
             "A Collection of HTTPS certificate instances";
 
-        crow::connections::systemBus->async_method_call(
+        crow::connections::DBusSingleton::systemBus().async_method_call(
             [asyncResp](const boost::system::error_code ec,
                         const dbus::utility::ManagedObjectType& certs) {
             if (ec)
@@ -905,7 +905,7 @@ inline void requestRoutesHTTPSCertificateCollection(App& app)
         std::shared_ptr<CertificateFile> certFile =
             std::make_shared<CertificateFile>(certFileBody);
 
-        crow::connections::systemBus->async_method_call(
+        crow::connections::DBusSingleton::systemBus().async_method_call(
             [asyncResp, certFile](const boost::system::error_code ec,
                                   const std::string& objectPath) {
             if (ec)
@@ -951,7 +951,7 @@ inline void
 {
     BMCWEB_LOG_DEBUG << "getCertificateLocations URI=" << certURL
                      << " Path=" << path << " service= " << service;
-    crow::connections::systemBus->async_method_call(
+    crow::connections::DBusSingleton::systemBus().async_method_call(
         [asyncResp, certURL](const boost::system::error_code ec,
                              const dbus::utility::ManagedObjectType& certs) {
         if (ec)
@@ -1043,7 +1043,7 @@ inline void requestRoutesLDAPCertificateCollection(App& app)
         asyncResp->res.jsonValue["Description"] =
             "A Collection of LDAP certificate instances";
 
-        crow::connections::systemBus->async_method_call(
+        crow::connections::DBusSingleton::systemBus().async_method_call(
             [asyncResp](const boost::system::error_code ec,
                         const dbus::utility::ManagedObjectType& certs) {
             nlohmann::json& members = asyncResp->res.jsonValue["Members"];
@@ -1095,7 +1095,7 @@ inline void requestRoutesLDAPCertificateCollection(App& app)
         std::shared_ptr<CertificateFile> certFile =
             std::make_shared<CertificateFile>(certFileBody);
 
-        crow::connections::systemBus->async_method_call(
+        crow::connections::DBusSingleton::systemBus().async_method_call(
             [asyncResp, certFile](const boost::system::error_code ec,
                                   const std::string& objectPath) {
             if (ec)
@@ -1181,7 +1181,7 @@ inline void requestRoutesTrustStoreCertificateCollection(App& app)
         asyncResp->res.jsonValue["Description"] =
             "A Collection of TrustStore certificate instances";
 
-        crow::connections::systemBus->async_method_call(
+        crow::connections::DBusSingleton::systemBus().async_method_call(
             [asyncResp](const boost::system::error_code ec,
                         const dbus::utility::ManagedObjectType& certs) {
             if (ec)
@@ -1230,7 +1230,7 @@ inline void requestRoutesTrustStoreCertificateCollection(App& app)
 
         std::shared_ptr<CertificateFile> certFile =
             std::make_shared<CertificateFile>(certFileBody);
-        crow::connections::systemBus->async_method_call(
+        crow::connections::DBusSingleton::systemBus().async_method_call(
             [asyncResp, certFile](const boost::system::error_code ec,
                                   const std::string& objectPath) {
             if (ec)
@@ -1327,7 +1327,7 @@ inline void requestRoutesTrustStoreCertificate(App& app)
         certPath += "/";
         certPath += std::to_string(id);
 
-        crow::connections::systemBus->async_method_call(
+        crow::connections::DBusSingleton::systemBus().async_method_call(
             [asyncResp, id](const boost::system::error_code ec) {
             if (ec)
             {
