@@ -164,14 +164,6 @@ UnpackErrorCode unpackValueWithErrorCode(nlohmann::json& jsonValue,
 
     else if constexpr (std::is_same_v<nlohmann::json, Type>)
     {
-        // Must be a complex type.  Simple types (int string etc) should be
-        // unpacked directly
-        if (!jsonValue.is_object() && !jsonValue.is_array() &&
-            !jsonValue.is_null())
-        {
-            return UnpackErrorCode::invalidType;
-        }
-
         value = std::move(jsonValue);
     }
     else
