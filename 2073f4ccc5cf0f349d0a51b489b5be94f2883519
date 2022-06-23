@@ -115,6 +115,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9c98836f_c90bfd8a",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1196,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-23T22:52:36Z",
+      "side": 1,
+      "message": "Yeah, you got it, just std::move the result into jsonValue.\n\nI wasn\u0027t excepting this to be so much of a change, so you don\u0027t have to do it if you don\u0027t want.",
+      "parentUuid": "a6e89db3_8e142b66",
+      "range": {
+        "startLine": 1196,
+        "startChar": 15,
+        "endLine": 1196,
+        "endChar": 30
+      },
+      "revId": "2073f4ccc5cf0f349d0a51b489b5be94f2883519",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "99d00fc4_0a9fc218",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 1
