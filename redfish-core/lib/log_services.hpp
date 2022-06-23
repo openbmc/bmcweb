@@ -1050,7 +1050,7 @@ inline void requestRoutesJournalEventLogClear(App& app)
 
 static int fillEventLogEntryJson(const std::string& logEntryID,
                                  const std::string& logEntry,
-                                 nlohmann::json& logEntryJson)
+                                 nlohmann::json::object_t& logEntryJson)
 {
     // The redfish log format is "<Timestamp> <MessageId>,<MessageArgs>"
     // First get the Timestamp
@@ -1196,16 +1196,6 @@ inline void requestRoutesJournalEventLogEntryCollection(App& app)
             bool firstEntry = true;
             while (std::getline(logStream, logEntry))
             {
-                entryCount++;
-                // Handle paging using skip (number of entries to skip
-                // from the start) and top (number of entries to
-                // display)
-                if (entryCount <= delegatedQuery.skip ||
-                    entryCount > delegatedQuery.skip + delegatedQuery.top)
-                {
-                    continue;
-                }
-
                 std::string idStr;
                 if (!getUniqueEntryID(logEntry, idStr, firstEntry))
                 {
@@ -1213,13 +1203,28 @@ inline void requestRoutesJournalEventLogEntryCollection(App& app)
                 }
                 firstEntry = false;
 
-                logEntryArray.push_back({});
-                nlohmann::json& bmcLogEntry = logEntryArray.back();
+                nlohmann::json::object_t bmcLogEntry;
                 if (fillEventLogEntryJson(idStr, logEntry, bmcLogEntry) != 0)
                 {
                     messages::internalError(asyncResp->res);
                     return;
                 }
+
+                if (bmcLogEntry.empty())
+                {
+                    continue;
+                }
+
+                entryCount++;
+                // Handle paging using skip (number of entries to skip from the
+                // start) and top (number of entries to display)
+                if (entryCount <= delegatedQuery.skip ||
+                    entryCount > delegatedQuery.skip + delegatedQuery.top)
+                {
+                    continue;
+                }
+
+                logEntryArray.push_back(std::move(bmcLogEntry));
             }
         }
         asyncResp->res.jsonValue["Members@odata.count"] = entryCount;
@@ -1277,12 +1282,14 @@ inline void requestRoutesJournalEventLogEntry(App& app)
 
                 if (idStr == targetID)
                 {
-                    if (fillEventLogEntryJson(idStr, logEntry,
-                                              asyncResp->res.jsonValue) != 0)
+                    nlohmann::json::object_t bmcLogEntry;
+                    if (fillEventLogEntryJson(idStr, logEntry, bmcLogEntry) !=
+                        0)
                     {
                         messages::internalError(asyncResp->res);
                         return;
                     }
+                    asyncResp->res.jsonValue = std::move(bmcLogEntry);
                     return;
                 }
             }
