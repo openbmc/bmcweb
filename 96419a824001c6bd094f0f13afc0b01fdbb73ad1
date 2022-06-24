@@ -100,6 +100,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "db72c27d_c45edd04",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 73
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2022-06-24T16:29:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8d3f683b_64e00081",
+      "range": {
+        "startLine": 60,
+        "startChar": 5,
+        "endLine": 60,
+        "endChar": 25
+      },
+      "revId": "96419a824001c6bd094f0f13afc0b01fdbb73ad1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bdb136d3_666a7fc1",
@@ -147,6 +171,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f0a4e41_ed516df9",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 73
+      },
+      "lineNbr": 688,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2022-06-24T16:29:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f97ca657_5a46673e",
+      "range": {
+        "startLine": 688,
+        "startChar": 22,
+        "endLine": 688,
+        "endChar": 30
+      },
+      "revId": "96419a824001c6bd094f0f13afc0b01fdbb73ad1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "be9b3955_4cf05b98",
@@ -160,6 +208,30 @@
       "writtenOn": "2022-06-08T19:19:25Z",
       "side": 1,
       "message": "This will need to be turned into a loop when the last thing is done.",
+      "range": {
+        "startLine": 691,
+        "startChar": 0,
+        "endLine": 691,
+        "endChar": 38
+      },
+      "revId": "96419a824001c6bd094f0f13afc0b01fdbb73ad1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dc37d757_fa0e7aaf",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 73
+      },
+      "lineNbr": 691,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2022-06-24T16:29:40Z",
+      "side": 1,
+      "message": "Am sorry, I didnt get you here.",
+      "parentUuid": "be9b3955_4cf05b98",
       "range": {
         "startLine": 691,
         "startChar": 0,
@@ -193,6 +265,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9d228802_6b8917b2",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 73
+      },
+      "lineNbr": 701,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2022-06-24T16:29:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cf0d5eab_03062ac7",
+      "range": {
+        "startLine": 701,
+        "startChar": 0,
+        "endLine": 701,
+        "endChar": 49
+      },
+      "revId": "96419a824001c6bd094f0f13afc0b01fdbb73ad1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e9218bcd_e9ce8838",
@@ -206,6 +302,30 @@
       "writtenOn": "2022-06-08T19:19:25Z",
       "side": 1,
       "message": "Please abstract this enum conversion into its own function like we do elsewhere.",
+      "range": {
+        "startLine": 701,
+        "startChar": 0,
+        "endLine": 711,
+        "endChar": 38
+      },
+      "revId": "96419a824001c6bd094f0f13afc0b01fdbb73ad1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c1e90cd8_4f4d43ca",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 73
+      },
+      "lineNbr": 711,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2022-06-24T16:29:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e9218bcd_e9ce8838",
       "range": {
         "startLine": 701,
         "startChar": 0,
@@ -258,6 +378,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "408a79bf_ad2a836b",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 73
+      },
+      "lineNbr": 726,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2022-06-24T16:29:40Z",
+      "side": 1,
+      "message": "That might not be true right\nWe would be getting properties changed signal on the dump object for not just size and status. We might also be receiving the signal for the other properties. Hence, if we get the siganl for other property change, we just return inprogress (as we didnt receive signals for signal/size)",
+      "parentUuid": "d82a56df_9d4a21e4",
+      "range": {
+        "startLine": 726,
+        "startChar": 4,
+        "endLine": 726,
+        "endChar": 74
+      },
+      "revId": "96419a824001c6bd094f0f13afc0b01fdbb73ad1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e5275bbf_91d1fc98",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 73
@@ -269,6 +413,30 @@
       "writtenOn": "2022-06-08T19:19:25Z",
       "side": 1,
       "message": "This case is already handled by your check on line 760, and can be removed from this branch.",
+      "range": {
+        "startLine": 751,
+        "startChar": 8,
+        "endLine": 751,
+        "endChar": 25
+      },
+      "revId": "96419a824001c6bd094f0f13afc0b01fdbb73ad1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0befb7fc_da7ed70e",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 73
+      },
+      "lineNbr": 751,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2022-06-24T16:29:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e5275bbf_91d1fc98",
       "range": {
         "startLine": 751,
         "startChar": 8,
@@ -316,6 +484,30 @@
       "side": 1,
       "message": "DumpId this isn\u0027t a move.  This should just be passed by copy, as the old code did.\n\nIf you really want to do a move, that\u0027s fine, but we should at least be consistent about either moving or not.",
       "parentUuid": "27ae2848_eb014905",
+      "range": {
+        "startLine": 769,
+        "startChar": 16,
+        "endLine": 769,
+        "endChar": 22
+      },
+      "revId": "96419a824001c6bd094f0f13afc0b01fdbb73ad1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "98f43443_24328e69",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 73
+      },
+      "lineNbr": 769,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2022-06-24T16:29:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5c64164d_8a6c138e",
       "range": {
         "startLine": 769,
         "startChar": 16,
