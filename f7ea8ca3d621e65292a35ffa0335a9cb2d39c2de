@@ -67,6 +67,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4771c39c_371e45f4",
+        "filename": "include/dbus_singleton.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-24T15:28:54Z",
+      "side": 1,
+      "message": "let me rephrase:  This isn\u0027t in a external-client-facing library ABI, so the \"typical usage\" is found by looking at the bmcweb code that currently uses it.\n\nIf this were in an a library ABI, yes, a typical usage would be totally reasonable.",
+      "parentUuid": "51172cd0_1288761b",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 55
+      },
+      "revId": "f7ea8ca3d621e65292a35ffa0335a9cb2d39c2de",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0d68ce83_eaf47ded",
         "filename": "src/dbus_singleton.cpp",
         "patchSetId": 6
@@ -114,6 +138,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6d626987_96cb54a4",
+        "filename": "src/dbus_singleton.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-24T15:28:54Z",
+      "side": 1,
+      "message": "Correct.  making the statement that \"io won\u0027t be referenced anymore\" isn\u0027t correct, io will be referenced quite often through sdbusplus::asio::connection.",
+      "parentUuid": "6d0ab2b8_37d6f410",
+      "range": {
+        "startLine": 21,
+        "startChar": 20,
+        "endLine": 21,
+        "endChar": 64
+      },
+      "revId": "f7ea8ca3d621e65292a35ffa0335a9cb2d39c2de",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "27fe2f24_70918c90",
         "filename": "src/dbus_singleton.cpp",
         "patchSetId": 6
@@ -149,6 +197,30 @@
       "side": 1,
       "message": "Why nullptr dereference is possible? \n\nWe should always call initialize first. Then line 23 won\u0027t be execute anymore.\n\nAnd initialize takes a reference.",
       "parentUuid": "27fe2f24_70918c90",
+      "range": {
+        "startLine": 23,
+        "startChar": 46,
+        "endLine": 23,
+        "endChar": 47
+      },
+      "revId": "f7ea8ca3d621e65292a35ffa0335a9cb2d39c2de",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "73a318a3_28721589",
+        "filename": "src/dbus_singleton.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-24T15:28:54Z",
+      "side": 1,
+      "message": "\u003e Why nullptr dereference is possible? \n\nsystembus(nullptr) would seg fault this code.\n\n\u003e \n\u003e We should always call initialize first.\n\u003e Then line 23 won\u0027t be execute anymore.\n\u003e \n\u003e And initialize takes a reference.\n\nIn general, that\u0027s not how secure coding guidelines work.  Code needs to be secure against users calling the API incorrectly.  Yes, in this case, it\u0027s not that likely someone would, but we follow the rules because nullptr dereferences are difficult to track down.",
+      "parentUuid": "b3b6f1ec_6f303e4d",
       "range": {
         "startLine": 23,
         "startChar": 46,
