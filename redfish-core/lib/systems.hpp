@@ -2668,6 +2668,8 @@ inline void doNMI(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
     constexpr char const* interfaceName =
         "xyz.openbmc_project.Control.Host.NMI";
     constexpr char const* method = "NMI";
+    constexpr char const* source =
+        "xyz.openbmc_project.Control.Host.NMI.NMISource.BMC";
 
     crow::connections::systemBus->async_method_call(
         [asyncResp](const boost::system::error_code ec) {
@@ -2679,7 +2681,8 @@ inline void doNMI(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
         }
         messages::success(asyncResp->res);
         },
-        serviceName, objectPath, interfaceName, method);
+        serviceName, objectPath, interfaceName, method,
+        dbus::utility::DbusVariantType{source});
 }
 
 /**
