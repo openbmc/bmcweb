@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "49ff2211_d6d9d523",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-24T15:37:46Z",
+      "side": 1,
+      "message": "Asmitha, George, both of you seem to have an interest in the NTPServers property.  Can you take a look at this patchset (and ideally test with your use cases) and let me know if I\u0027m on the right track?",
+      "revId": "b4de1fe2443f02c0c91defccace469091fe0d831",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
