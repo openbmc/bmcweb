@@ -115,6 +115,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "341d50d5_19f41f87",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1204,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-24T23:02:57Z",
+      "side": 1,
+      "message": "Gotcha, didn\u0027t realize it worked that way;  We haven\u0027t had c++17 for very long, and definitely predates bmcweb (bmcweb was originally written against c++11), so it\u0027s possible that there\u0027s better syntax we could be using but haven\u0027t.  Some of the difference in openbmc versus absl is that we only have 80 character widths, not 120, so almost every time we would use this, it pushes the conditional onto two lines, which is way worse to read.\n\nIn this case, it\u0027s already two lines, so maybe it\u0027s not as bad?\n\nMy opinion here isn\u0027t very strong.  If the submitter thinks it\u0027s a better pattern, I\u0027ll let him make the change, but it\u0027s not something I\u0027m going to generally enforce.",
+      "parentUuid": "a61a2766_33841dda",
+      "range": {
+        "startLine": 1204,
+        "startChar": 16,
+        "endLine": 1204,
+        "endChar": 29
+      },
+      "revId": "95e7672733624bc18e96eb33234037525d61e3a5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8094f8ab_5dc6a65c",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 2
