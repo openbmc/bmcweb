@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a251481d_7603510d",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1204,
+      "author": {
+        "id": 1000276
+      },
+      "writtenOn": "2022-06-24T22:22:33Z",
+      "side": 1,
+      "message": "I have been told in the past that that construct doesn\u0027t fit with our preferred style as it makes it less readable.  I\u0027m okay with it and am happy to change to that, but I\u0027d like to hear thoughts from others.  Thanks!",
+      "parentUuid": "35f6ec00_3de628fd",
+      "range": {
+        "startLine": 1204,
+        "startChar": 16,
+        "endLine": 1204,
+        "endChar": 29
+      },
+      "revId": "95e7672733624bc18e96eb33234037525d61e3a5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8094f8ab_5dc6a65c",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 2
