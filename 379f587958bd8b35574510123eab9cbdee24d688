@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1bfe0c0b_a83261f1",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-24T16:06:42Z",
+      "side": 1,
+      "message": "Debatably, we should be using boost::urls::url for this, and not be making the string copy, but what\u0027s there is no worse than what we have, so it\u0027s fine.",
+      "range": {
+        "startLine": 376,
+        "startChar": 0,
+        "endLine": 382,
+        "endChar": 0
+      },
+      "revId": "379f587958bd8b35574510123eab9cbdee24d688",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
