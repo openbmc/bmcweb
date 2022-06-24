@@ -1202,11 +1202,7 @@ inline void requestRoutesJournalEventLogEntryCollection(App& app)
                 {
                     continue;
                 }
-
-                if (firstEntry)
-                {
-                    firstEntry = false;
-                }
+                firstEntry = false;
 
                 logEntryArray.push_back({});
                 nlohmann::json& bmcLogEntry = logEntryArray.back();
@@ -1268,11 +1264,7 @@ inline void requestRoutesJournalEventLogEntry(App& app)
                 {
                     continue;
                 }
-
-                if (firstEntry)
-                {
-                    firstEntry = false;
-                }
+                firstEntry = false;
 
                 if (idStr == targetID)
                 {
@@ -2168,11 +2160,7 @@ inline void requestRoutesBMCJournalLogEntryCollection(App& app)
             {
                 continue;
             }
-
-            if (firstEntry)
-            {
-                firstEntry = false;
-            }
+            firstEntry = false;
 
             logEntryArray.push_back({});
             nlohmann::json& bmcJournalLogEntry = logEntryArray.back();
@@ -2245,10 +2233,7 @@ inline void requestRoutesBMCJournalLogEntry(App& app)
                 messages::internalError(asyncResp->res);
                 return;
             }
-            if (firstEntry)
-            {
-                firstEntry = false;
-            }
+            firstEntry = false;
         }
         // Confirm that the entry ID matches what was requested
         if (idStr != entryID)
