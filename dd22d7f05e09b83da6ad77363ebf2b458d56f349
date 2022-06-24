@@ -77,6 +77,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "69686d94_8aa4f65e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2022-06-24T21:49:18Z",
+      "side": 1,
+      "message": "I\u0027m amazed we even have concerns about this since the standard of \" for local includes and \u003c\u003e for non-local includes has been the case for longer than I\u0027ve been alive (and I\u0027m \"old\").\n\nAnyhow, yes, this is clearly outlined in the C++ Core Guidelines.\n\nhttps://github.com/isocpp/CppCoreGuidelines/blob/master/CppCoreGuidelines.md#sf12-prefer-the-quoted-form-of-include-for-files-relative-to-the-including-file-and-the-angle-bracket-form-everywhere-else",
+      "parentUuid": "3ef13c6c_70a954b1",
+      "revId": "dd22d7f05e09b83da6ad77363ebf2b458d56f349",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "e5fe7017_2f81c86d",
