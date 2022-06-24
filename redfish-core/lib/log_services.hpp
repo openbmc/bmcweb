@@ -1119,19 +1119,17 @@ static int fillEventLogEntryJson(const std::string& logEntryID,
     }
 
     // Fill in the log entry with the gathered data
-    logEntryJson = {
-        {"@odata.type", "#LogEntry.v1_8_0.LogEntry"},
-        {"@odata.id",
-         "/redfish/v1/Systems/system/LogServices/EventLog/Entries/" +
-             logEntryID},
-        {"Name", "System Event Log Entry"},
-        {"Id", logEntryID},
-        {"Message", std::move(msg)},
-        {"MessageId", std::move(messageID)},
-        {"MessageArgs", messageArgs},
-        {"EntryType", "Event"},
-        {"Severity", message->messageSeverity},
-        {"Created", std::move(timestamp)}};
+    logEntryJson["@odata.type"] = "#LogEntry.v1_8_0.LogEntry";
+    logEntryJson["@odata.id"] =
+        "/redfish/v1/Systems/system/LogServices/EventLog/Entries/" + logEntryID;
+    logEntryJson["Name"] = "System Event Log Entry";
+    logEntryJson["Id"] = logEntryID;
+    logEntryJson["Message"] = std::move(msg);
+    logEntryJson["MessageId"] = std::move(messageID);
+    logEntryJson["MessageArgs"] = messageArgs;
+    logEntryJson["EntryType"] = "Event";
+    logEntryJson["Severity"] = message->messageSeverity;
+    logEntryJson["Created"] = std::move(timestamp);
     return 0;
 }
 
@@ -2091,19 +2089,19 @@ static int
     }
 
     // Fill in the log entry with the gathered data
-    bmcJournalLogEntryJson = {
-        {"@odata.type", "#LogEntry.v1_8_0.LogEntry"},
-        {"@odata.id", "/redfish/v1/Managers/bmc/LogServices/Journal/Entries/" +
-                          bmcJournalLogEntryID},
-        {"Name", "BMC Journal Entry"},
-        {"Id", bmcJournalLogEntryID},
-        {"Message", std::move(message)},
-        {"EntryType", "Oem"},
-        {"Severity", severity <= 2   ? "Critical"
-                     : severity <= 4 ? "Warning"
-                                     : "OK"},
-        {"OemRecordFormat", "BMC Journal Entry"},
-        {"Created", std::move(entryTimeStr)}};
+    bmcJournalLogEntryJson["@odata.type"] = "#LogEntry.v1_8_0.LogEntry";
+    bmcJournalLogEntryJson["@odata.id"] =
+        "/redfish/v1/Managers/bmc/LogServices/Journal/Entries/" +
+        bmcJournalLogEntryID;
+    bmcJournalLogEntryJson["Name"] = "BMC Journal Entry";
+    bmcJournalLogEntryJson["Id"] = bmcJournalLogEntryID;
+    bmcJournalLogEntryJson["Message"] = std::move(message);
+    bmcJournalLogEntryJson["EntryType"] = "Oem";
+    bmcJournalLogEntryJson["Severity"] = severity <= 2   ? "Critical"
+                                         : severity <= 4 ? "Warning"
+                                                         : "OK";
+    bmcJournalLogEntryJson["OemRecordFormat"] = "BMC Journal Entry";
+    bmcJournalLogEntryJson["Created"] = std::move(entryTimeStr);
     return 0;
 }
 
@@ -2633,18 +2631,17 @@ static void
         std::string crashdumpURI =
             "/redfish/v1/Systems/system/LogServices/Crashdump/Entries/" +
             logID + "/" + filename;
-        nlohmann::json::object_t logEntry = {
-            {"@odata.type", "#LogEntry.v1_7_0.LogEntry"},
-            {"@odata.id",
-             "/redfish/v1/Systems/system/LogServices/Crashdump/Entries/" +
-                 logID},
-            {"Name", "CPU Crashdump"},
-            {"Id", logID},
-            {"EntryType", "Oem"},
-            {"AdditionalDataURI", std::move(crashdumpURI)},
-            {"DiagnosticDataType", "OEM"},
-            {"OEMDiagnosticDataType", "PECICrashdump"},
-            {"Created", std::move(timestamp)}};
+        nlohmann::json::object_t logEntry;
+        logEntry["@odata.type"] = "#LogEntry.v1_7_0.LogEntry";
+        logEntry["@odata.id"] =
+            "/redfish/v1/Systems/system/LogServices/Crashdump/Entries/" + logID;
+        logEntry["Name"] = "CPU Crashdump";
+        logEntry["Id"] = logID;
+        logEntry["EntryType"] = "Oem";
+        logEntry["AdditionalDataURI"] = std::move(crashdumpURI);
+        logEntry["DiagnosticDataType"] = "OEM";
+        logEntry["OEMDiagnosticDataType"] = "PECICrashdump";
+        logEntry["Created"] = std::move(timestamp);
 
         // If logEntryJson references an array of LogEntry resources
         // ('Members' list), then push this as a new entry, otherwise set it
@@ -3188,19 +3185,18 @@ static void fillPostCodeEntry(
         // add to AsyncResp
         logEntryArray.push_back({});
         nlohmann::json& bmcLogEntry = logEntryArray.back();
-        bmcLogEntry = {
-            {"@odata.type", "#LogEntry.v1_8_0.LogEntry"},
-            {"@odata.id",
-             "/redfish/v1/Systems/system/LogServices/PostCodes/Entries/" +
-                 postcodeEntryID},
-            {"Name", "POST Code Log Entry"},
-            {"Id", postcodeEntryID},
-            {"Message", std::move(msg)},
-            {"MessageId", "OpenBMC.0.2.BIOSPOSTCode"},
-            {"MessageArgs", std::move(messageArgs)},
-            {"EntryType", "Event"},
-            {"Severity", std::move(severity)},
-            {"Created", entryTimeStr}};
+        bmcLogEntry["@odata.type"] = "#LogEntry.v1_8_0.LogEntry";
+        bmcLogEntry["@odata.id"] =
+            "/redfish/v1/Systems/system/LogServices/PostCodes/Entries/" +
+            postcodeEntryID;
+        bmcLogEntry["Name"] = "POST Code Log Entry";
+        bmcLogEntry["Id"] = postcodeEntryID;
+        bmcLogEntry["Message"] = std::move(msg);
+        bmcLogEntry["MessageId"] = "OpenBMC.0.2.BIOSPOSTCode";
+        bmcLogEntry["MessageArgs"] = std::move(messageArgs);
+        bmcLogEntry["EntryType"] = "Event";
+        bmcLogEntry["Severity"] = std::move(severity);
+        bmcLogEntry["Created"] = entryTimeStr;
         if (!std::get<std::vector<uint8_t>>(code.second).empty())
         {
             bmcLogEntry["AdditionalDataURI"] =
