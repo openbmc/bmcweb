@@ -660,6 +660,13 @@ inline bool readUrlSegments(const boost::urls::url_view& urlView,
         }
         it++;
     }
+
+    // There will be an empty segment at the end if the URI ends with a "/"
+    // e.g. /redfish/v1/Chassis/
+    if ((it != end) && urlSegments.back().empty())
+    {
+        it++;
+    }
     return it == end;
 }
 
