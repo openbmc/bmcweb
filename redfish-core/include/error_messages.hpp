@@ -243,6 +243,21 @@ void propertyValueNotInList(crow::Response& res, std::string_view arg1,
                             std::string_view arg2);
 
 /**
+ * @brief Formats PropertyValueOutOfRange message into JSON
+ * Message body: "The value '%1' for the property %2 is not in the supported
+ * range of acceptable values."
+ *
+ * @param[in] arg1 Parameter of message that will replace %1 in its body.
+ * @param[in] arg2 Parameter of message that will replace %2 in its body.
+ *
+ * @returns Message PropertyValueExternalConflict formatted to JSON */
+nlohmann::json propertyValueOutOfRange(std::string_view arg1,
+                                       std::string_view arg2);
+
+void propertyValueOutOfRange(crow::Response& res, std::string_view arg1,
+                             std::string_view arg2);
+
+/**
  * @brief Formats ResourceAtUriInUnknownFormat message into JSON
  * Message body: "The resource at <arg1> is in a format not recognized by the
  * service."
