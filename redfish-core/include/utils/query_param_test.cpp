@@ -71,7 +71,7 @@ TEST(Delegate, TopNegative)
         .top = 42,
     };
     Query delegated = delegate(QueryCapabilities{}, query);
-    EXPECT_EQ(delegated.top, std::numeric_limits<size_t>::max());
+    EXPECT_EQ(delegated.top, maxEntriesPerPage);
     EXPECT_EQ(query.top, 42);
 }
 
@@ -84,7 +84,7 @@ TEST(Delegate, TopPositive)
         .canDelegateTop = false,
     };
     Query delegated = delegate(capabilities, query);
-    EXPECT_EQ(delegated.top, std::numeric_limits<size_t>::max());
+    EXPECT_EQ(delegated.top, maxEntriesPerPage);
     EXPECT_EQ(query.top, 42);
 }
 
