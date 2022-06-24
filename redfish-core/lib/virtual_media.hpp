@@ -357,19 +357,27 @@ inline std::string
     return imageUri;
 }
 
+struct InsertMediaActionParams
+{
+    std::string imageUrl;
+    std::optional<std::string> userName;
+    std::optional<std::string> password;
+    std::optional<std::string> transferMethod;
+    std::optional<std::string> transferProtocolType;
+    std::optional<bool> writeProtected = true;
+    std::optional<bool> inserted;
+};
+
 /**
  * @brief Function validate parameters of insert media request.
  *
  */
-inline bool
-    validateParams(crow::Response& res, std::string& imageUrl,
-                   const std::optional<bool>& inserted,
-                   const std::optional<std::string>& transferMethod,
-                   const std::optional<std::string>& transferProtocolType)
+inline bool validateParams(crow::Response& res,
+                           InsertMediaActionParams& actionParams)
 {
     BMCWEB_LOG_DEBUG << "Validation started";
     // required param imageUrl must not be empty
-    if (imageUrl.empty())
+    if (actionParams.imageUrl.empty())
     {
         BMCWEB_LOG_ERROR << "Request action parameter Image is empty.";
 
@@ -379,7 +387,7 @@ inline bool
     }
 
     // optional param inserted must be true
-    if ((inserted != std::nullopt) && !*inserted)
+    if ((actionParams.inserted != std::nullopt) && !*actionParams.inserted)
     {
         BMCWEB_LOG_ERROR
             << "Request action optional parameter Inserted must be true.";
@@ -390,7 +398,8 @@ inline bool
     }
 
     // optional param transferMethod must be stream
-    if ((transferMethod != std::nullopt) && (*transferMethod != "Stream"))
+    if ((actionParams.transferMethod != std::nullopt) &&
+        (*actionParams.transferMethod != "Stream"))
     {
         BMCWEB_LOG_ERROR << "Request action optional parameter "
                             "TransferMethod must be Stream.";
@@ -401,18 +410,18 @@ inline bool
         return false;
     }
     boost::urls::result<boost::urls::url_view> url =
-        boost::urls::parse_uri(imageUrl);
+        boost::urls::parse_uri(boost::string_view(actionParams.imageUrl));
     if (!url)
     {
-        messages::actionParameterValueFormatError(res, imageUrl, "Image",
-                                                  "InsertMedia");
+        messages::actionParameterValueFormatError(res, actionParams.imageUrl,
+                                                  "Image", "InsertMedia");
         return false;
     }
     std::optional<TransferProtocol> uriTransferProtocolType =
         getTransferProtocolFromUri(*url);
 
     std::optional<TransferProtocol> paramTransferProtocolType =
-        getTransferProtocolFromParam(transferProtocolType);
+        getTransferProtocolFromParam(actionParams.transferProtocolType);
 
     // ImageUrl does not contain valid protocol type
     if (*uriTransferProtocolType == TransferProtocol::invalid)
@@ -433,8 +442,8 @@ inline bool
                             "must be provided with value from list: "
                             "(CIFS, HTTPS).";
 
-        messages::propertyValueNotInList(res, *transferProtocolType,
-                                         "TransferProtocolType");
+        messages::propertyValueNotInList(
+            res, *actionParams.transferProtocolType, "TransferProtocolType");
         return false;
     }
 
@@ -463,20 +472,19 @@ inline bool
                                 "same protocol type as protocol type "
                                 "provided with param imageUrl.";
 
-            messages::actionParameterValueTypeError(res, *transferProtocolType,
-                                                    "TransferProtocolType",
-                                                    "InsertMedia");
+            messages::actionParameterValueTypeError(
+                res, *actionParams.transferProtocolType, "TransferProtocolType",
+                "InsertMedia");
 
             return false;
         }
     }
 
-    // validation passed
-    // add protocol to URI if needed
+    // validation passed, add protocol to URI if needed
     if (uriTransferProtocolType == std::nullopt)
     {
-        imageUrl =
-            getUriWithTransferProtocol(imageUrl, *paramTransferProtocolType);
+        actionParams.imageUrl = getUriWithTransferProtocol(
+            actionParams.imageUrl, *paramTransferProtocolType);
     }
 
     return true;
@@ -750,17 +758,6 @@ inline void doVmAction(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     }
 }
 
-struct InsertMediaActionParams
-{
-    std::string imageUrl;
-    std::optional<std::string> userName;
-    std::optional<std::string> password;
-    std::optional<std::string> transferMethod;
-    std::optional<std::string> transferProtocolType;
-    std::optional<bool> writeProtected = true;
-    std::optional<bool> inserted;
-};
-
 inline void handleManagersVirtualMediaActionInsertPost(
     crow::App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -772,7 +769,7 @@ inline void handleManagersVirtualMediaActionInsertPost(
     }
     if (name != "bmc")
     {
-        messages::resourceNotFound(asyncResp->res, "VirtualMedia.Insert",
+        messages::resourceNotFound(asyncResp->res, "VirtualMedia.InsertMedia",
                                    resName);
 
         return;
@@ -793,10 +790,7 @@ inline void handleManagersVirtualMediaActionInsertPost(
         return;
     }
 
-    bool paramsValid = validateParams(
-        asyncResp->res, actionParams.imageUrl, actionParams.inserted,
-        actionParams.transferMethod, actionParams.transferProtocolType);
-
+    bool paramsValid = validateParams(asyncResp->res, actionParams);
     if (!paramsValid)
     {
         return;
@@ -823,6 +817,7 @@ inline void handleManagersVirtualMediaActionInsertPost(
             if (ec2)
             {
                 BMCWEB_LOG_DEBUG << "DBUS response error";
+                messages::internalError(asyncResp->res);
 
                 return;
             }
@@ -922,6 +917,7 @@ inline void handleManagersVirtualMediaActionEject(
             if (ec)
             {
                 BMCWEB_LOG_DEBUG << "DBUS response error";
+                messages::internalError(asyncResp->res);
 
                 return;
             }
