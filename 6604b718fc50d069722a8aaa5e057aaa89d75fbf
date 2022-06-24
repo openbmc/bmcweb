@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "97815ae6_f5723be2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-24T16:31:21Z",
+      "side": 1,
+      "message": "Could you point me to where the overflow happens?",
+      "revId": "6604b718fc50d069722a8aaa5e057aaa89d75fbf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b6010b11_5fb33d5c",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 1
@@ -19,6 +36,29 @@
         "startChar": 24,
         "endLine": 18,
         "endChar": 41
+      },
+      "revId": "6604b718fc50d069722a8aaa5e057aaa89d75fbf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d76efab1_d7f25c79",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-24T16:31:21Z",
+      "side": 1,
+      "message": "nit: I prefer inline constexpr.",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 6
       },
       "revId": "6604b718fc50d069722a8aaa5e057aaa89d75fbf",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
