@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ea8fc988_40d909c2",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 609,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-24T15:09:58Z",
+      "side": 1,
+      "message": "this should be \u003c\u003d",
+      "range": {
+        "startLine": 609,
+        "startChar": 18,
+        "endLine": 609,
+        "endChar": 20
+      },
+      "revId": "6604b718fc50d069722a8aaa5e057aaa89d75fbf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
