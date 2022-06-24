@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4a7268ea_71d4a1ed",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1196,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-24T15:46:41Z",
+      "side": 1,
+      "message": "preface (the old code was wrong too;  If you don\u0027t want to fix it in this patch, it\u0027s fine).\n\ntechnically this can avoid the branch and just do\n\nfirstEntry \u003d false;\n\nif firstEntry is already false, it will be no-op.",
+      "range": {
+        "startLine": 1196,
+        "startChar": 0,
+        "endLine": 1196,
+        "endChar": 31
+      },
+      "revId": "137df01ee7671cee78d0c02a53748bc8368608d6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8886f051_8387d2f4",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1291,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-24T15:46:41Z",
+      "side": 1,
+      "message": "I hate to keep finding issues with this patch.....  I really don\u0027t mean to :)  Again, if you don\u0027t want to change it, it\u0027s fine, and in this case, is unlikely to cause a bug.... BUT\n\nThis is common error 13, because we\u0027re now completely replacing jsonValue.  Now.... how the heck in this case do we avoid that?  nlohmann::json has the update() method, that sets keys on the object, so maybe something like\n\nasyncResp-\u003eres.jsonValue.update(bmcLogEntry);\n\n?\n\n\nFWIW, this is not the only instance of this subtle \"bug\" in the codebase (probably not a bug on your system), and it\u0027s something that as the aggregation patches evolve will need to be addressed, so if you want to do what you have for now, I\u0027m ok with it.",
+      "range": {
+        "startLine": 1291,
+        "startChar": 35,
+        "endLine": 1291,
+        "endChar": 44
+      },
+      "revId": "137df01ee7671cee78d0c02a53748bc8368608d6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
