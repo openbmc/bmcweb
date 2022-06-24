@@ -70,6 +70,24 @@
       "parentUuid": "29357111_18cc28e5",
       "revId": "776f1b4791ebeff482ccf5152da80d6b4e8fa824",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7888229f_6583cfe8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-24T01:59:42Z",
+      "side": 1,
+      "message": "\u003e At the end of the day, the most important part is \"does the community trust you?\".  Getting yourself as a listed reviewer will be a good start to that.  If you\u0027d like, feel free to put it in another patchset (which I suspect gunnar and I can merge immediately) and we can keep the discussion going here.\n\nI have been added myself manually to many changes manually already in last few months.  https://gerrit.openbmc.org/q/project:openbmc/bmcweb+branch:master+reviewer:nanzhoumails%2540gmail.com+after:2022-3-31\n\nIt is in the artifact list. I have started this when you first brought up we need to review random upstream patches several months ago. So I already started.\n\nAnd sure, I can add myself to the reviewer list\n\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/54861\n\n\u003e They\u0027re in boxes in the lab.  Ofer can get you one.\n\nYou mean gbs machines? gbs doesn\u0027t have Redfish. Or S7106?\n\n\u003e Security guidelines.\n\nQuery Parameter is a specific question that we can take out and discuss in another thread. The standard has already defined the maximum level of expand.\n\nI have contributed to at least the design of CRL support. Though the implementation hasn\u0027t started.\n\n\u003e CVE responses;\n\nSure. Glad to help.\n\n\u003e To be clear, I wasn\u0027t saying that\u0027s what you\u0027d do.  I do think you will do your best to review.\n\u003e I\u0027m going to have to let you take the lead here on which portions you\u0027d like to help maintain.\n\nI believe I have enough understanding on Sensor Collection, Memory Collection, part of the LogService, Certificate Service, Query Parameters. I can also help any unit tests.\n\nAny thing else I can +2? But for sure I will start with +1 only and let the other maintainers +2 for the first several months.",
+      "parentUuid": "6a4fe404_e2f6953f",
+      "revId": "776f1b4791ebeff482ccf5152da80d6b4e8fa824",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
