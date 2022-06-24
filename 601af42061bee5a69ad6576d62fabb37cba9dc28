@@ -20,6 +20,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "77a48049_53b4264b",
+        "filename": "src/dbus_singleton.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-24T15:31:11Z",
+      "side": 1,
+      "message": "I suspect for the moment we don\u0027t need the DBus singleton class at all to solve the immediate problem, right?  Yes, our use of a raw pointer here isn\u0027t the best, but over time we should work with the sdbusplus maintainers to figure out what the intended pattern here is.\n\nIdeally systembus would just be an RAII object on stack declared after the io_context.... in fact, I wonder if that\u0027s what we should just do?",
+      "range": {
+        "startLine": 12,
+        "startChar": 5,
+        "endLine": 12,
+        "endChar": 18
+      },
+      "revId": "601af42061bee5a69ad6576d62fabb37cba9dc28",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cc6bfdf5_4fc5a250",
         "filename": "src/dbus_singleton.cpp",
         "patchSetId": 7
