@@ -62,6 +62,30 @@
       },
       "revId": "f64928af63d042ee1f19de633a0cc8afe8f306a6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "314ad5db_c6d59065",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1218,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-06-24T01:59:26Z",
+      "side": 1,
+      "message": "I think this is need, getUniqueEntryID() should only be called with firstEntry\u003d\u003dtrue on first entry.",
+      "parentUuid": "01cc7c5f_61617785",
+      "range": {
+        "startLine": 1218,
+        "startChar": 20,
+        "endLine": 1218,
+        "endChar": 30
+      },
+      "revId": "f64928af63d042ee1f19de633a0cc8afe8f306a6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
