@@ -16,6 +16,24 @@
       "message": "So, interesting question, do we want journald users to be able to set ResourceAdded/ResourceRemoved/ResourceModified events in EventService?  It seems odd that we\u0027d allow that considering that a user on dbus can\u0027t properly construct the Redfish URI for an item, so it seems unlikely they\u0027d be able to do it correctly.\n\n\nI\u0027m assuming this is fixing some existing behavior?  I guess I didn\u0027t even realize we had code that used these registries.",
       "revId": "83efbe416d4ae49ca934ee4e0fb64e24ac6fc8a2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a88a7f0c_f429898c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000276
+      },
+      "writtenOn": "2022-06-24T16:50:34Z",
+      "side": 1,
+      "message": "Funny story: I\u0027m not aware of any code that uses these, but we have a test case that echoes a couple of these events into the redfish log to check that they are displayed correctly.\n\nIf there is no real-world use-case for this, I will abandon and ask for the test case to use different events.",
+      "parentUuid": "9f95b279_d243a0df",
+      "revId": "83efbe416d4ae49ca934ee4e0fb64e24ac6fc8a2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
