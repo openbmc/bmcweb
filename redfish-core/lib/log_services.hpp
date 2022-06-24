@@ -1280,7 +1280,7 @@ inline void requestRoutesJournalEventLogEntry(App& app)
                         messages::internalError(asyncResp->res);
                         return;
                     }
-                    asyncResp->res.jsonValue = std::move(bmcLogEntry);
+                    asyncResp->res.jsonValue.update(bmcLogEntry);
                     return;
                 }
             }
@@ -2257,7 +2257,7 @@ inline void requestRoutesBMCJournalLogEntry(App& app)
             messages::internalError(asyncResp->res);
             return;
         }
-        asyncResp->res.jsonValue = std::move(bmcJournalLogEntry);
+        asyncResp->res.jsonValue.update(bmcJournalLogEntry);
         });
 }
 
@@ -2657,7 +2657,7 @@ static void
         }
         else
         {
-            logEntryJson = logEntry;
+            logEntryJson.update(logEntry);
         }
     };
     crow::connections::systemBus->async_method_call(
