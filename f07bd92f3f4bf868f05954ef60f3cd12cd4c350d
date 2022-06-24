@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "38b2b100_caf0685a",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2324,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-24T15:08:08Z",
+      "side": 1,
+      "message": "If both of these are required, the old code is closer to correct here, we should be using the readJson infrastructure for handling optional things.\n\nYes, the propertyMissing messages should probalby be replaced with propertyOutOfRange, but I suspect that\u0027s all thats needed.\n\nThe error cases also need to return directly.",
+      "range": {
+        "startLine": 2314,
+        "startChar": 0,
+        "endLine": 2324,
+        "endChar": 9
+      },
+      "revId": "f07bd92f3f4bf868f05954ef60f3cd12cd4c350d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5f27a32f_edb17ceb",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2325,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-24T15:08:08Z",
+      "side": 1,
+      "message": "This kind of range checking shouldn\u0027t be done directly in bmcweb.  If the dbus API supports uint32_t, then that\u0027s what we should constrain it to, as the old code did, then rely on error codes if we want to have specific error messages returned to the user.",
+      "range": {
+        "startLine": 2325,
+        "startChar": 0,
+        "endLine": 2325,
+        "endChar": 44
+      },
+      "revId": "f07bd92f3f4bf868f05954ef60f3cd12cd4c350d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f4b357f2_f8420bbc",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2334,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-24T15:08:08Z",
+      "side": 1,
+      "message": "This would generally be \"propertyValueNotInList\"",
+      "range": {
+        "startLine": 2334,
+        "startChar": 22,
+        "endLine": 2334,
+        "endChar": 44
+      },
+      "revId": "f07bd92f3f4bf868f05954ef60f3cd12cd4c350d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
