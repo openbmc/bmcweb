@@ -105,6 +105,24 @@
       "parentUuid": "b92468e9_d958661e",
       "revId": "1dc74df6590f55428ab7a3326924daa2d58299e3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cd8816b1_facd2bc3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-06-24T07:10:53Z",
+      "side": 1,
+      "message": "Sorry for late response.\n\nI agree since it only moves code from lambda to bind_front it should not break anything.",
+      "parentUuid": "658f7123_725864b0",
+      "revId": "1dc74df6590f55428ab7a3326924daa2d58299e3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
