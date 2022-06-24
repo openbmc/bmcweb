@@ -51,6 +51,24 @@
       "message": "We should also probably make the change here: https://github.com/openbmc/bmcweb/blob/master/MAINTAINERS",
       "revId": "50a26f80b51af930b79721d81ea74b1985d49195",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "61e93467_2d55bfd7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-24T18:00:23Z",
+      "side": 1,
+      "message": "I believe MAINTAINERS is deprecated.",
+      "parentUuid": "2b468d03_70a20e54",
+      "revId": "50a26f80b51af930b79721d81ea74b1985d49195",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
