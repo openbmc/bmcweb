@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4ef660c3_1b5b649f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-06-24T18:01:54Z",
+      "side": 1,
+      "message": "https://github.com/openbmc/bmcweb/blob/fdd26906ef8884977df85c915444206c8a183639/redfish-core/lib/log_services.hpp#L1204\n\nHere, having any non-zero skip with top not provided overflows",
+      "parentUuid": "97815ae6_f5723be2",
+      "revId": "6604b718fc50d069722a8aaa5e057aaa89d75fbf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b6010b11_5fb33d5c",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 1
@@ -66,6 +84,54 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b78787e7_5a7b9bc5",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-06-24T18:01:54Z",
+      "side": 1,
+      "message": "Yes all $top are checked in getTopParam()\n\nhttps://github.com/openbmc/bmcweb/blob/b66cf2a2f10aab3bd21e8be60b7fb0894d342c05/redfish-core/include/utils/query_param.hpp#L186",
+      "parentUuid": "b6010b11_5fb33d5c",
+      "range": {
+        "startLine": 18,
+        "startChar": 24,
+        "endLine": 18,
+        "endChar": 41
+      },
+      "revId": "6604b718fc50d069722a8aaa5e057aaa89d75fbf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "821f6c06_82c2b772",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-06-24T18:01:54Z",
+      "side": 1,
+      "message": "`static constexpr` is widely used in bmcweb, while `inline constexpr` not, and this line is moved from previous file. I prefer keep it here.",
+      "parentUuid": "d76efab1_d7f25c79",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 6
+      },
+      "revId": "6604b718fc50d069722a8aaa5e057aaa89d75fbf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ea8fc988_40d909c2",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 1
@@ -77,6 +143,30 @@
       "writtenOn": "2022-06-24T15:09:58Z",
       "side": 1,
       "message": "this should be \u003c\u003d",
+      "range": {
+        "startLine": 609,
+        "startChar": 18,
+        "endLine": 609,
+        "endChar": 20
+      },
+      "revId": "6604b718fc50d069722a8aaa5e057aaa89d75fbf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3ead614d_f8394260",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 609,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-06-24T18:01:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ea8fc988_40d909c2",
       "range": {
         "startLine": 609,
         "startChar": 18,
