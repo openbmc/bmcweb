@@ -65,6 +65,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2f602639_62924829",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1044,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-24T22:15:04Z",
+      "side": 1,
+      "message": "Oh, I miss-remember the guide. Yeah, it\u0027s correct here. Thanks.",
+      "parentUuid": "fd80dbf8_cc7695b1",
+      "range": {
+        "startLine": 1044,
+        "startChar": 4,
+        "endLine": 1044,
+        "endChar": 11
+      },
+      "revId": "01590c0e95ed6b944b4d532158e29e648e8c255b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "57115107_d70a5da1",
