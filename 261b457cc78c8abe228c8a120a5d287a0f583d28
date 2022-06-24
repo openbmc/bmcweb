@@ -16,6 +16,24 @@
       "message": "Oh, I forgot to mention that the host logger has the same issues as the loggers that I fixed, but I don\u0027t use it, so I couldn\u0027t test it.  Should I just apply the same changes to the host logger code without testing, or leave it for someone else?",
       "revId": "261b457cc78c8abe228c8a120a5d287a0f583d28",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "56f8f31e_854dbdaa",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-24T21:42:23Z",
+      "side": 1,
+      "message": "What\u0027s the issue you refer to? \n\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/54856/5 or this commit?",
+      "parentUuid": "72aae9cf_1ecedc20",
+      "revId": "261b457cc78c8abe228c8a120a5d287a0f583d28",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
