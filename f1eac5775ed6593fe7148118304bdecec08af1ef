@@ -93,6 +93,30 @@
       },
       "revId": "f1eac5775ed6593fe7148118304bdecec08af1ef",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "752d38f1_6e44cc27",
+        "filename": "src/webserver_main.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-06-24T01:29:39Z",
+      "side": 0,
+      "message": "question for Ed.\nI assumed our current scope (main) holds a reference to io_context. It is shared, and not moved.\nI suspect you are correct, somehow.",
+      "parentUuid": "37c4da72_7cccccd7",
+      "range": {
+        "startLine": 153,
+        "startChar": 0,
+        "endLine": 153,
+        "endChar": 41
+      },
+      "revId": "f1eac5775ed6593fe7148118304bdecec08af1ef",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
