@@ -58,6 +58,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "35280ea3_9b73b142",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 906,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2022-06-24T18:09:40Z",
+      "side": 1,
+      "message": "Yeah, standardizing this can be taken in as a new commit. Noted.",
+      "parentUuid": "93e79ad4_547ed562",
+      "range": {
+        "startLine": 906,
+        "startChar": 52,
+        "endLine": 906,
+        "endChar": 61
+      },
+      "revId": "b5b8e3f57f836ddfa7728e3be4251b25dee709f6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "073e43b8_2c4317bf",
@@ -71,6 +95,30 @@
       "writtenOn": "2022-06-08T02:37:23Z",
       "side": 1,
       "message": "nit: I don\u0027t know if that is the only reason, we would see \n \"xyz.openbmc_project.Common.Error.NotAllowed\"",
+      "range": {
+        "startLine": 920,
+        "startChar": 23,
+        "endLine": 920,
+        "endChar": 60
+      },
+      "revId": "b5b8e3f57f836ddfa7728e3be4251b25dee709f6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c2eca773_1301bf2c",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 920,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2022-06-24T18:09:40Z",
+      "side": 1,
+      "message": "Yes, there are other cases:\nFailure in opening file descriptor or any of the pldm commands fail. I should either remove this comment or add up the error scenarios. Probably i will remove this comment.",
+      "parentUuid": "073e43b8_2c4317bf",
       "range": {
         "startLine": 920,
         "startChar": 23,
