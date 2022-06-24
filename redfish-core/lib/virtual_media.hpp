@@ -364,7 +364,7 @@ inline std::string
 
 struct InsertMediaActionParams
 {
-    std::string imageUrl;
+    std::optional<std::string> imageUrl;
     std::optional<std::string> userName;
     std::optional<std::string> password;
     std::optional<std::string> transferMethod;
@@ -372,128 +372,6 @@ struct InsertMediaActionParams
     std::optional<bool> writeProtected = true;
     std::optional<bool> inserted;
 };
-
-/**
- * @brief Function validate parameters of insert media request.
- *
- */
-inline bool validateParams(crow::Response& res,
-                           InsertMediaActionParams& actionParams)
-{
-    BMCWEB_LOG_DEBUG << "Validation started";
-    // required param imageUrl must not be empty
-    if (actionParams.imageUrl.empty())
-    {
-        BMCWEB_LOG_ERROR << "Request action parameter Image is empty.";
-
-        messages::propertyValueFormatError(res, "<empty>", "Image");
-
-        return false;
-    }
-
-    // optional param inserted must be true
-    if ((actionParams.inserted != std::nullopt) && !*actionParams.inserted)
-    {
-        BMCWEB_LOG_ERROR
-            << "Request action optional parameter Inserted must be true.";
-
-        messages::actionParameterNotSupported(res, "Inserted", "InsertMedia");
-
-        return false;
-    }
-
-    // optional param transferMethod must be stream
-    if ((actionParams.transferMethod != std::nullopt) &&
-        (*actionParams.transferMethod != "Stream"))
-    {
-        BMCWEB_LOG_ERROR << "Request action optional parameter "
-                            "TransferMethod must be Stream.";
-
-        messages::actionParameterNotSupported(res, "TransferMethod",
-                                              "InsertMedia");
-
-        return false;
-    }
-    boost::urls::result<boost::urls::url_view> url =
-        boost::urls::parse_uri(boost::string_view(actionParams.imageUrl));
-    if (!url)
-    {
-        messages::actionParameterValueFormatError(res, actionParams.imageUrl,
-                                                  "Image", "InsertMedia");
-        return false;
-    }
-    std::optional<TransferProtocol> uriTransferProtocolType =
-        getTransferProtocolFromUri(*url);
-
-    std::optional<TransferProtocol> paramTransferProtocolType =
-        getTransferProtocolFromParam(actionParams.transferProtocolType);
-
-    // ImageUrl does not contain valid protocol type
-    if (*uriTransferProtocolType == TransferProtocol::invalid)
-    {
-        BMCWEB_LOG_ERROR << "Request action parameter ImageUrl must "
-                            "contain specified protocol type from list: "
-                            "(smb, https).";
-
-        messages::resourceAtUriInUnknownFormat(res, *url);
-
-        return false;
-    }
-
-    // transferProtocolType should contain value from list
-    if (*paramTransferProtocolType == TransferProtocol::invalid)
-    {
-        BMCWEB_LOG_ERROR << "Request action parameter TransferProtocolType "
-                            "must be provided with value from list: "
-                            "(CIFS, HTTPS).";
-
-        messages::propertyValueNotInList(
-            res, *actionParams.transferProtocolType, "TransferProtocolType");
-        return false;
-    }
-
-    // valid transfer protocol not provided either with URI nor param
-    if ((uriTransferProtocolType == std::nullopt) &&
-        (paramTransferProtocolType == std::nullopt))
-    {
-        BMCWEB_LOG_ERROR << "Request action parameter ImageUrl must "
-                            "contain specified protocol type or param "
-                            "TransferProtocolType must be provided.";
-
-        messages::resourceAtUriInUnknownFormat(res, *url);
-
-        return false;
-    }
-
-    // valid transfer protocol provided both with URI and param
-    if ((paramTransferProtocolType != std::nullopt) &&
-        (uriTransferProtocolType != std::nullopt))
-    {
-        // check if protocol is the same for URI and param
-        if (*paramTransferProtocolType != *uriTransferProtocolType)
-        {
-            BMCWEB_LOG_ERROR << "Request action parameter "
-                                "TransferProtocolType must  contain the "
-                                "same protocol type as protocol type "
-                                "provided with param imageUrl.";
-
-            messages::actionParameterValueTypeError(
-                res, *actionParams.transferProtocolType, "TransferProtocolType",
-                "InsertMedia");
-
-            return false;
-        }
-    }
-
-    // validation passed, add protocol to URI if needed
-    if (uriTransferProtocolType == std::nullopt)
-    {
-        actionParams.imageUrl = getUriWithTransferProtocol(
-            actionParams.imageUrl, *paramTransferProtocolType);
-    }
-
-    return true;
-}
 
 template <typename T>
 static void secureCleanup(T& value)
@@ -721,6 +599,135 @@ inline void doMountVmLegacy(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 }
 
 /**
+ * @brief Function validate parameters of insert media request.
+ *
+ */
+inline void validateParams(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                           const std::string& service,
+                           const std::string& resName,
+                           InsertMediaActionParams& actionParams)
+{
+    BMCWEB_LOG_DEBUG << "Validation started";
+    // required param imageUrl must not be empty
+    if (!actionParams.imageUrl)
+    {
+        BMCWEB_LOG_ERROR << "Request action parameter Image is empty.";
+
+        messages::propertyValueFormatError(asyncResp->res, "<empty>", "Image");
+
+        return;
+    }
+
+    // optional param inserted must be true
+    if ((actionParams.inserted != std::nullopt) && !*actionParams.inserted)
+    {
+        BMCWEB_LOG_ERROR
+            << "Request action optional parameter Inserted must be true.";
+
+        messages::actionParameterNotSupported(asyncResp->res, "Inserted",
+                                              "InsertMedia");
+
+        return;
+    }
+
+    // optional param transferMethod must be stream
+    if ((actionParams.transferMethod != std::nullopt) &&
+        (*actionParams.transferMethod != "Stream"))
+    {
+        BMCWEB_LOG_ERROR << "Request action optional parameter "
+                            "TransferMethod must be Stream.";
+
+        messages::actionParameterNotSupported(asyncResp->res, "TransferMethod",
+                                              "InsertMedia");
+
+        return;
+    }
+    boost::urls::result<boost::urls::url_view> url =
+        boost::urls::parse_uri(*actionParams.imageUrl);
+    if (!url)
+    {
+        messages::actionParameterValueFormatError(
+            asyncResp->res, *actionParams.imageUrl, "Image", "InsertMedia");
+        return;
+    }
+    std::optional<TransferProtocol> uriTransferProtocolType =
+        getTransferProtocolFromUri(*url);
+
+    std::optional<TransferProtocol> paramTransferProtocolType =
+        getTransferProtocolFromParam(actionParams.transferProtocolType);
+
+    // ImageUrl does not contain valid protocol type
+    if (*uriTransferProtocolType == TransferProtocol::invalid)
+    {
+        BMCWEB_LOG_ERROR << "Request action parameter ImageUrl must "
+                            "contain specified protocol type from list: "
+                            "(smb, https).";
+
+        messages::resourceAtUriInUnknownFormat(asyncResp->res, *url);
+
+        return;
+    }
+
+    // transferProtocolType should contain value from list
+    if (*paramTransferProtocolType == TransferProtocol::invalid)
+    {
+        BMCWEB_LOG_ERROR << "Request action parameter TransferProtocolType "
+                            "must be provided with value from list: "
+                            "(CIFS, HTTPS).";
+
+        messages::propertyValueNotInList(asyncResp->res,
+                                         *actionParams.transferProtocolType,
+                                         "TransferProtocolType");
+        return;
+    }
+
+    // valid transfer protocol not provided either with URI nor param
+    if ((uriTransferProtocolType == std::nullopt) &&
+        (paramTransferProtocolType == std::nullopt))
+    {
+        BMCWEB_LOG_ERROR << "Request action parameter ImageUrl must "
+                            "contain specified protocol type or param "
+                            "TransferProtocolType must be provided.";
+
+        messages::resourceAtUriInUnknownFormat(asyncResp->res, *url);
+
+        return;
+    }
+
+    // valid transfer protocol provided both with URI and param
+    if ((paramTransferProtocolType != std::nullopt) &&
+        (uriTransferProtocolType != std::nullopt))
+    {
+        // check if protocol is the same for URI and param
+        if (*paramTransferProtocolType != *uriTransferProtocolType)
+        {
+            BMCWEB_LOG_ERROR << "Request action parameter "
+                                "TransferProtocolType must  contain the "
+                                "same protocol type as protocol type "
+                                "provided with param imageUrl.";
+
+            messages::actionParameterValueTypeError(
+                asyncResp->res, *actionParams.transferProtocolType,
+                "TransferProtocolType", "InsertMedia");
+
+            return;
+        }
+    }
+
+    // validation passed, add protocol to URI if needed
+    if (uriTransferProtocolType == std::nullopt)
+    {
+        actionParams.imageUrl = getUriWithTransferProtocol(
+            *actionParams.imageUrl, *paramTransferProtocolType);
+    }
+
+    doMountVmLegacy(asyncResp, service, resName, *actionParams.imageUrl,
+                    !(*actionParams.writeProtected),
+                    std::move(*actionParams.userName),
+                    std::move(*actionParams.password));
+}
+
+/**
  * @brief Function transceives data with dbus directly.
  *
  * All BMC state properties will be retrieved before sending reset request.
@@ -779,24 +786,17 @@ inline void handleManagersVirtualMediaActionInsertPost(
 
         return;
     }
-    InsertMediaActionParams actionParams;
+    std::optional<InsertMediaActionParams> actionParams =
+        InsertMediaActionParams();
 
-    // Read obligatory parameters (url of
-    // image)
+    // Read obligatory parameters (url of image)
     if (!json_util::readJsonAction(
-            req, asyncResp->res, "Image", actionParams.imageUrl,
-            "WriteProtected", actionParams.writeProtected, "UserName",
-            actionParams.userName, "Password", actionParams.password,
-            "Inserted", actionParams.inserted, "TransferMethod",
-            actionParams.transferMethod, "TransferProtocolType",
-            actionParams.transferProtocolType))
-    {
-        BMCWEB_LOG_DEBUG << "Image is not provided";
-        return;
-    }
-
-    bool paramsValid = validateParams(asyncResp->res, actionParams);
-    if (!paramsValid)
+            req, asyncResp->res, "Image", actionParams->imageUrl,
+            "WriteProtected", actionParams->writeProtected, "UserName",
+            actionParams->userName, "Password", actionParams->password,
+            "Inserted", actionParams->inserted, "TransferMethod",
+            actionParams->transferMethod, "TransferProtocolType",
+            actionParams->transferProtocolType))
     {
         return;
     }
@@ -862,13 +862,12 @@ inline void handleManagersVirtualMediaActionInsertPost(
                         continue;
                     }
 
-                    // manager is irrelevant for
-                    // VirtualMedia dbus calls
-                    doMountVmLegacy(asyncResp, service, resName,
-                                    actionParams.imageUrl,
-                                    !(*actionParams.writeProtected),
-                                    std::move(*actionParams.userName),
-                                    std::move(*actionParams.password));
+                    if (!actionParams)
+                    {
+                        return;
+                    }
+
+                    validateParams(asyncResp, service, resName, *actionParams);
 
                     return;
                 }
@@ -892,7 +891,7 @@ inline void handleManagersVirtualMediaActionEject(
     }
     if (managerName != "bmc")
     {
-        messages::resourceNotFound(asyncResp->res, "VirtualMedia.Eject",
+        messages::resourceNotFound(asyncResp->res, "VirtualMedia.EjectMedia",
                                    resName);
 
         return;
