@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7a6a4539_05bf93ef",
+        "filename": "redfish-core/include/utils/query_param_test.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-06-24T18:04:23Z",
+      "side": 1,
+      "message": "I\u0027d also like to ask if this test case is correct. In the TopNegative case above, canDelegateTop is also initialized to false by default. The result of this case is the same. Maybe here canDelegateTop should be true?",
+      "range": {
+        "startLine": 84,
+        "startChar": 8,
+        "endLine": 84,
+        "endChar": 32
+      },
+      "revId": "745ec69aa41bf771280c0e8e569bd1b284b3a0a4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
