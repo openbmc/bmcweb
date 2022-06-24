@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "df832e89_8f9f3960",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1196,
+      "author": {
+        "id": 1000276
+      },
+      "writtenOn": "2022-06-24T20:37:04Z",
+      "side": 1,
+      "message": "Fixed this in a new parent commit.",
+      "parentUuid": "4a7268ea_71d4a1ed",
+      "range": {
+        "startLine": 1196,
+        "startChar": 0,
+        "endLine": 1196,
+        "endChar": 31
+      },
+      "revId": "137df01ee7671cee78d0c02a53748bc8368608d6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8886f051_8387d2f4",
@@ -61,6 +85,30 @@
       "side": 1,
       "message": "Also, just looked, this code still inits with brace initialization syntax:\n\nhttps://github.com/openbmc/bmcweb/blob/3ba0007367777144f474fdf99439ae8c03633486/redfish-core/lib/log_services.hpp#L1122\n\n\nso the bug exists already, and isn\u0027t made worse by your change.\n\nI\u0027m kinda wondering if we just need multiple return codes for this instead of 0 and 1.  something like\n\nenum class LogParseError {\n   Success,\n   ParseFailed,\n   MessageIdNotInRegistry\n}\n\n\nThen we just avoid the .empty() check altogether;  It looks like fillEventLogEntryJson can work such that the value passed in isn\u0027t modified if the parse failed....\n\n\n\nAgain, this is going way beyond the scope of this patchset.  What you have is no worse than what\u0027s there and does fix what it intends to;  Up to you how much work you want to do.",
       "parentUuid": "8886f051_8387d2f4",
+      "range": {
+        "startLine": 1291,
+        "startChar": 35,
+        "endLine": 1291,
+        "endChar": 44
+      },
+      "revId": "137df01ee7671cee78d0c02a53748bc8368608d6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "33f9d590_424e8f1a",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1291,
+      "author": {
+        "id": 1000276
+      },
+      "writtenOn": "2022-06-24T20:37:04Z",
+      "side": 1,
+      "message": "I added some additional commits to try to handle these cases.",
+      "parentUuid": "aa3540e0_a3a8143e",
       "range": {
         "startLine": 1291,
         "startChar": 35,
