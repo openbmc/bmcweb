@@ -9,6 +9,7 @@
 #include <ibm/locks.hpp>
 #include <nlohmann/json.hpp>
 #include <resource_messages.hpp>
+#include <sdbusplus/bus/match.hpp>
 #include <sdbusplus/message/types.hpp>
 #include <utils/json_utils.hpp>
 
