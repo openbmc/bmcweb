@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4422102e_237f49bd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-24T22:17:33Z",
+      "side": 1,
+      "message": "nit; otherwise LGTM",
+      "revId": "95e7672733624bc18e96eb33234037525d61e3a5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "35f6ec00_3de628fd",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1204,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-24T22:17:33Z",
+      "side": 1,
+      "message": "nit: this can be \n\n```\nif (LogParseError status \u003d ...; status \u003d\u003d xxx) {\n\n} else if (status !\u003d ) {\n\n}\n```\n\nSo we don\u0027t pollute the scope with a |status| declaration.",
+      "range": {
+        "startLine": 1204,
+        "startChar": 16,
+        "endLine": 1204,
+        "endChar": 29
+      },
+      "revId": "95e7672733624bc18e96eb33234037525d61e3a5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
