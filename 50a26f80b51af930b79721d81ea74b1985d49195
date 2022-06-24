@@ -87,6 +87,24 @@
       "parentUuid": "61e93467_2d55bfd7",
       "revId": "50a26f80b51af930b79721d81ea74b1985d49195",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "729897f3_87ed26f6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-24T18:52:48Z",
+      "side": 1,
+      "message": "Already pushed one Nan.\n\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/54882",
+      "parentUuid": "a6ce3c83_bfce2dbe",
+      "revId": "50a26f80b51af930b79721d81ea74b1985d49195",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
