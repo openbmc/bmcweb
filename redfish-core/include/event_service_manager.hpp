@@ -31,6 +31,7 @@
 #include <http_client.hpp>
 #include <persistent_data.hpp>
 #include <random.hpp>
+#include <sdbusplus/bus/match.hpp>
 #include <server_sent_events.hpp>
 #include <utils/json_utils.hpp>
 
