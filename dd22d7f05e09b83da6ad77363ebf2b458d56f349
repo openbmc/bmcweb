@@ -97,6 +97,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "aabcf398_87ce9d61",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-24T21:52:30Z",
+      "side": 1,
+      "message": "Thanks. I guess then it doesn\u0027t need to either this project or OpenBMC\u0027s style guide given it is in the Cpp Core Guidelines.",
+      "parentUuid": "69686d94_8aa4f65e",
+      "revId": "dd22d7f05e09b83da6ad77363ebf2b458d56f349",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "e5fe7017_2f81c86d",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 6
