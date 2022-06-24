@@ -16,6 +16,24 @@
       "message": "I think I saw this comment on another commit, can we use the website, not the Google search ? Do we need to document this somewhere in openbmc/docs ?",
       "revId": "1859f6db396720f4c1c54bb185c6e37e4f716b97",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3404c281_e93733d9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-24T21:57:03Z",
+      "side": 1,
+      "message": "Yes. I replied in the other comment. Forgot there is one more\n\nLet me resolve this.",
+      "parentUuid": "108bd8df_9a9f885d",
+      "revId": "1859f6db396720f4c1c54bb185c6e37e4f716b97",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
