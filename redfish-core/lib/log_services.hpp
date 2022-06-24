@@ -2103,9 +2103,10 @@ inline void requestRoutesBMCJournalLogService(App& app)
         });
 }
 
-static int fillBMCJournalLogEntryJson(const std::string& bmcJournalLogEntryID,
-                                      sd_journal* journal,
-                                      nlohmann::json& bmcJournalLogEntryJson)
+static int
+    fillBMCJournalLogEntryJson(const std::string& bmcJournalLogEntryID,
+                               sd_journal* journal,
+                               nlohmann::json::object_t& bmcJournalLogEntryJson)
 {
     // Get the Log Entry contents
     int ret = 0;
@@ -2227,14 +2228,14 @@ inline void requestRoutesBMCJournalLogEntryCollection(App& app)
             }
             firstEntry = false;
 
-            logEntryArray.push_back({});
-            nlohmann::json& bmcJournalLogEntry = logEntryArray.back();
+            nlohmann::json::object_t bmcJournalLogEntry;
             if (fillBMCJournalLogEntryJson(idStr, journal.get(),
                                            bmcJournalLogEntry) != 0)
             {
                 messages::internalError(asyncResp->res);
                 return;
             }
+            logEntryArray.push_back(std::move(bmcJournalLogEntry));
         }
         asyncResp->res.jsonValue["Members@odata.count"] = entryCount;
         if (delegatedQuery.skip + delegatedQuery.top < entryCount)
@@ -2307,12 +2308,14 @@ inline void requestRoutesBMCJournalLogEntry(App& app)
             return;
         }
 
+        nlohmann::json::object_t bmcJournalLogEntry;
         if (fillBMCJournalLogEntryJson(entryID, journal.get(),
-                                       asyncResp->res.jsonValue) != 0)
+                                       bmcJournalLogEntry) != 0)
         {
             messages::internalError(asyncResp->res);
             return;
         }
+        asyncResp->res.jsonValue = std::move(bmcJournalLogEntry);
         });
 }
 
@@ -2774,7 +2777,7 @@ static void
         std::string crashdumpURI =
             "/redfish/v1/Systems/system/LogServices/Crashdump/Entries/" +
             logID + "/" + filename;
-        nlohmann::json logEntry = {
+        nlohmann::json::object_t logEntry = {
             {"@odata.type", "#LogEntry.v1_7_0.LogEntry"},
             {"@odata.id",
              "/redfish/v1/Systems/system/LogServices/Crashdump/Entries/" +
