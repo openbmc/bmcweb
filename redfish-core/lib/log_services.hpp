@@ -1039,23 +1039,31 @@ inline void requestRoutesJournalEventLogClear(App& app)
         });
 }
 
-static int fillEventLogEntryJson(const std::string& logEntryID,
-                                 const std::string& logEntry,
-                                 nlohmann::json::object_t& logEntryJson)
+enum class LogParseError
+{
+    success,
+    parseFailed,
+    messageIdNotInRegistry,
+};
+
+static LogParseError
+    fillEventLogEntryJson(const std::string& logEntryID,
+                          const std::string& logEntry,
+                          nlohmann::json::object_t& logEntryJson)
 {
     // The redfish log format is "<Timestamp> <MessageId>,<MessageArgs>"
     // First get the Timestamp
     size_t space = logEntry.find_first_of(' ');
     if (space == std::string::npos)
     {
-        return 1;
+        return LogParseError::parseFailed;
     }
     std::string timestamp = logEntry.substr(0, space);
     // Then get the log contents
     size_t entryStart = logEntry.find_first_not_of(' ', space);
     if (entryStart == std::string::npos)
     {
-        return 1;
+        return LogParseError::parseFailed;
     }
     std::string_view entry(logEntry);
     entry.remove_prefix(entryStart);
@@ -1066,7 +1074,7 @@ static int fillEventLogEntryJson(const std::string& logEntryID,
     // We need at least a MessageId to be valid
     if (logEntryFields.empty())
     {
-        return 1;
+        return LogParseError::parseFailed;
     }
     std::string& messageID = logEntryFields[0];
 
@@ -1076,7 +1084,7 @@ static int fillEventLogEntryJson(const std::string& logEntryID,
     if (message == nullptr)
     {
         BMCWEB_LOG_WARNING << "Log entry not found in registry: " << logEntry;
-        return 0;
+        return LogParseError::messageIdNotInRegistry;
     }
 
     std::string msg = message->message;
@@ -1130,7 +1138,7 @@ static int fillEventLogEntryJson(const std::string& logEntryID,
     logEntryJson["EntryType"] = "Event";
     logEntryJson["Severity"] = message->messageSeverity;
     logEntryJson["Created"] = std::move(timestamp);
-    return 0;
+    return LogParseError::success;
 }
 
 inline void requestRoutesJournalEventLogEntryCollection(App& app)
@@ -1193,15 +1201,16 @@ inline void requestRoutesJournalEventLogEntryCollection(App& app)
                 firstEntry = false;
 
                 nlohmann::json::object_t bmcLogEntry;
-                if (fillEventLogEntryJson(idStr, logEntry, bmcLogEntry) != 0)
+                if (LogParseError status =
+                        fillEventLogEntryJson(idStr, logEntry, bmcLogEntry);
+                    status == LogParseError::messageIdNotInRegistry)
+                {
+                    continue;
+                }
+                else if (status != LogParseError::success)
                 {
                     messages::internalError(asyncResp->res);
                     return;
-                }
-
-                if (bmcLogEntry.empty())
-                {
-                    continue;
                 }
 
                 entryCount++;
@@ -1272,8 +1281,9 @@ inline void requestRoutesJournalEventLogEntry(App& app)
                 if (idStr == targetID)
                 {
                     nlohmann::json::object_t bmcLogEntry;
-                    if (fillEventLogEntryJson(idStr, logEntry, bmcLogEntry) !=
-                        0)
+                    if (LogParseError status =
+                            fillEventLogEntryJson(idStr, logEntry, bmcLogEntry);
+                        status != LogParseError::success)
                     {
                         messages::internalError(asyncResp->res);
                         return;
