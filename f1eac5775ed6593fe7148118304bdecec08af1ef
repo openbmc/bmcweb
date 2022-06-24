@@ -141,6 +141,30 @@
       },
       "revId": "f1eac5775ed6593fe7148118304bdecec08af1ef",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e7471c8_0d8b05c9",
+        "filename": "src/webserver_main.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-06-24T18:05:45Z",
+      "side": 0,
+      "message": "I read about this last night, Ed was right, main lose it\u0027s ownership after last use. So in patch set 6 Ed was correct, we need this keep io_context owned.\n\nHowever, patch set 8 make DBusConnection a shared owner of the io_context. So we should not require this step. I am going to keep this comment as resolved.",
+      "parentUuid": "36f8798a_178fb219",
+      "range": {
+        "startLine": 153,
+        "startChar": 0,
+        "endLine": 153,
+        "endChar": 41
+      },
+      "revId": "f1eac5775ed6593fe7148118304bdecec08af1ef",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
