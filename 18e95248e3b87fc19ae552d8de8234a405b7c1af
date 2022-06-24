@@ -216,6 +216,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "362a1597_e4fa2530",
+        "filename": "meson.build",
+        "patchSetId": 2
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-24T23:17:06Z",
+      "side": 1,
+      "message": "the explaination you gave above is much better than what\u0027s in your commit message.  Please put it in the commit message, and we should be good.",
+      "parentUuid": "b3140226_766e830b",
+      "range": {
+        "startLine": 104,
+        "startChar": 0,
+        "endLine": 108,
+        "endChar": 11
+      },
+      "revId": "18e95248e3b87fc19ae552d8de8234a405b7c1af",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "00c8f6b3_6b3bafe4",
         "filename": "redfish-core/include/redfish.hpp",
         "patchSetId": 2
