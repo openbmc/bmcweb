@@ -39,6 +39,30 @@
       },
       "revId": "601af42061bee5a69ad6576d62fabb37cba9dc28",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e9a9993_55e6db77",
+        "filename": "src/dbus_singleton.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-24T01:43:22Z",
+      "side": 1,
+      "message": "Please see\n\nhttps://stackoverflow.com/questions/21395459/how-to-pass-argument-in-a-singleton\nhttps://stackoverflow.com/questions/449436/singleton-instance-declared-as-static-variable-of-getinstance-method-is-it-thre/449823#449823\n\nline 27 will only be called after line 12. And then, in following calls of line 27, line 23 won\u0027t be executed at all. That\u0027s the main idea of using static local variable. More information in https://laristra.github.io/flecsi/src/developer-guide/patterns/meyers_singleton.html.\n\nIf we hit nullptr issue here, my test will fail immediately",
+      "parentUuid": "cc6bfdf5_4fc5a250",
+      "range": {
+        "startLine": 23,
+        "startChar": 44,
+        "endLine": 23,
+        "endChar": 46
+      },
+      "revId": "601af42061bee5a69ad6576d62fabb37cba9dc28",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
