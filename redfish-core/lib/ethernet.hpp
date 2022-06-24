@@ -2336,11 +2336,18 @@ inline void requestEthernetInterfacesRoutes(App& app)
             return;
         }
 
-        auto callback = [asyncResp](const boost::system::error_code ec) {
+        auto callback =
+            [asyncResp, rootInterfaceName](const boost::system::error_code ec) {
             if (ec)
             {
                 // TODO(ed) make more consistent error messages
                 // based on phosphor-network responses
+                if (ec.value() ==
+                    boost::system::linux_error::bad_request_descriptor)
+                {
+                    messages::resourceNotFound(
+                        asyncResp->res, "EthernetInterface", rootInterfaceName);
+                }
                 messages::internalError(asyncResp->res);
                 return;
             }
