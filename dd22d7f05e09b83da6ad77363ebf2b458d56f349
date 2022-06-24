@@ -48,6 +48,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "88884242_3b13bf62",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-24T22:40:59Z",
+      "side": 1,
+      "message": "I thought the recommendation for new code was to only include gmock?  I guess I had it wrong.\n\nI\u0027m not that bothered here.",
+      "parentUuid": "c80fb2ba_7aac8d13",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 22
+      },
+      "revId": "dd22d7f05e09b83da6ad77363ebf2b458d56f349",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "da132e33_29ecf23d",
@@ -133,6 +157,24 @@
       "side": 1,
       "message": "Thanks. I guess then it doesn\u0027t need to either this project or OpenBMC\u0027s style guide given it is in the Cpp Core Guidelines.",
       "parentUuid": "69686d94_8aa4f65e",
+      "revId": "dd22d7f05e09b83da6ad77363ebf2b458d56f349",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f6afdeb1_a8847f60",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-24T22:40:59Z",
+      "side": 1,
+      "message": "Let me rephrase my answer:  I don\u0027t have a strong opinion here, but if we\u0027re going to start having a strong opinion in code reviews, we need to make sure the codebase is consistent so that when people copy examples (for which this patchset is a good stat), they\u0027re doing the right thing.  I have not enforced it thusfar because it didn\u0027t really matter to me.  If it matters to folks, it\u0027s fine to make it consistent, but I wanted a link to where I can point people in review when we\u0027re holding up peoples patches, which patrick gave me above, so I think I\u0027m good.",
+      "parentUuid": "aabcf398_87ce9d61",
       "revId": "dd22d7f05e09b83da6ad77363ebf2b458d56f349",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
