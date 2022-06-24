@@ -422,9 +422,11 @@ class RedfishAggregator
         // check again
         if (isCollection == AggregationType::Collection)
         {
-            // TODO: This should instead be handled so that we can
-            // aggregate the satellite resource collections
             BMCWEB_LOG_DEBUG << "Aggregating a collection";
+            // We need to use a specific response handler and send the
+            // request to all known satellites
+            getInstance().forwardCollectionRequests(thisReq, asyncResp,
+                                                    satelliteInfo);
             return;
         }
 
@@ -490,6 +492,26 @@ class RedfishAggregator
             thisReq.method(), retryPolicyName, cb);
     }
 
+    // Forward a request for a collection URI to each known satellite BMC
+    void forwardCollectionRequests(
+        const crow::Request& thisReq,
+        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+        const std::unordered_map<std::string, boost::urls::url>& satelliteInfo)
+    {
+        for (const auto& sat : satelliteInfo)
+        {
+            std::function<void(crow::Response&)> cb = std::bind_front(
+                processCollectionResponse, sat.first, asyncResp);
+
+            std::string targetURI(thisReq.target());
+            std::string data = thisReq.req.body();
+            crow::HttpClient::getInstance().sendDataWithCallback(
+                data, id, std::string(sat.second.host()),
+                sat.second.port_number(), targetURI, thisReq.fields,
+                thisReq.method(), retryPolicyName, cb);
+        }
+    }
+
     // Processes the response returned by a satellite BMC and loads its
     // contents into asyncResp
     static void
@@ -523,7 +545,6 @@ class RedfishAggregator
             // TODO: For collections we  want to add the satellite responses to
             // our response rather than just straight overwriting them if our
             // local handling was successful (i.e. would return a 200).
-
             addPrefixes(jsonVal, prefix);
 
             BMCWEB_LOG_DEBUG << "Added prefix to parsed satellite response";
@@ -548,6 +569,132 @@ class RedfishAggregator
             }
         }
     }
+
+    // Processes the collection response returned by a satellite BMC and merges
+    // its "@odata.id" values
+    static void processCollectionResponse(
+        const std::string& prefix,
+        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+        crow::Response& resp)
+    {
+        if (resp.resultInt() != 200)
+        {
+            BMCWEB_LOG_DEBUG
+                << "Collection resource does not exist in satellite BMC \""
+                << prefix << "\"";
+            // Return the error if we haven't had any successes
+            if (asyncResp->res.resultInt() != 200)
+            {
+                asyncResp->res.stringResponse = std::move(resp.stringResponse);
+            }
+            return;
+        }
+
+        // The resp will not have a json component
+        // We need to create a json from resp's stringResponse
+        if (resp.getHeaderValue("Content-Type") == "application/json")
+        {
+            nlohmann::json jsonVal =
+                nlohmann::json::parse(resp.body(), nullptr, false);
+            if (jsonVal.is_discarded())
+            {
+                BMCWEB_LOG_ERROR << "Error parsing satellite response as JSON";
+
+                // Notify the user if doing so won't overwrite a valid response
+                if ((asyncResp->res.resultInt() != 200) &&
+                    (asyncResp->res.resultInt() != 502))
+                {
+                    messages::operationFailed(asyncResp->res);
+                }
+                return;
+            }
+
+            BMCWEB_LOG_DEBUG << "Successfully parsed satellite response";
+
+            // Now we need to add the prefix to the URIs contained in the
+            // response.
+            addPrefixes(jsonVal, prefix);
+
+            BMCWEB_LOG_DEBUG << "Added prefix to parsed satellite response";
+
+            // If this resource collection does not exist on the aggregating bmc
+            // and has not already been added from processing the response from
+            // a different satellite then we need to completely overwrite
+            // asyncResp
+            if (asyncResp->res.resultInt() != 200)
+            {
+                // We only want to aggregate collections that contain a
+                // "Members" array
+                if ((!jsonVal.contains("Members")) &&
+                    (!jsonVal["Members"].is_array()))
+                {
+                    BMCWEB_LOG_DEBUG
+                        << "Skipping aggregating unsupported resource";
+                    return;
+                }
+
+                BMCWEB_LOG_DEBUG
+                    << "Collection does not exist, overwriting asyncResp";
+                asyncResp->res.stringResponse.emplace(
+                    boost::beast::http::response<
+                        boost::beast::http::string_body>{});
+                asyncResp->res.result(resp.result());
+                asyncResp->res.jsonValue = std::move(jsonVal);
+
+                BMCWEB_LOG_DEBUG << "Finished overwriting asyncResp";
+            }
+            else
+            {
+                // We only want to aggregate collections that contain a
+                // "Members" array
+                if ((!asyncResp->res.jsonValue.contains("Members")) &&
+                    (!asyncResp->res.jsonValue["Members"].is_array()))
+
+                {
+                    BMCWEB_LOG_DEBUG
+                        << "Skipping aggregating unsupported resource";
+                    return;
+                }
+
+                BMCWEB_LOG_DEBUG << "Adding aggregated resources from \""
+                                 << prefix << "\" to collection";
+
+                // TODO: This is a potential race condition with multiple
+                // satellites and the aggregating bmc attempting to write to
+                // update this array.  May need to cascade calls to the next
+                // satellite at the end of this function.
+                // This is presumably not a concern when there is only a single
+                // satellite since the aggregating bmc should have completed
+                // before the response is received from the satellite.
+
+                auto& members = asyncResp->res.jsonValue["Members"];
+                auto& satMembers = jsonVal["Members"];
+                for (auto& satMem : satMembers)
+                {
+                    members.push_back(std::move(satMem));
+                }
+                asyncResp->res.jsonValue["Members@odata.count"] =
+                    members.size();
+
+                // TODO: Do we need to sort() after updating the array?
+            }
+        }
+        else
+        {
+            BMCWEB_LOG_ERROR << "Received unparsable response from \"" << prefix
+                             << "\"";
+            // We received as response that was not a json
+            // Notify the user only if we did not receive any valid responses,
+            // if the resource collection does not already exist on the
+            // aggregating BMC, and if we did not already set this warning due
+            // to a failure from a different satellite
+            if ((asyncResp->res.resultInt() != 200) &&
+                (asyncResp->res.resultInt() != 502))
+            {
+                messages::operationFailed(asyncResp->res);
+            }
+        }
+    } // End processCollectionResponse()
 
   public:
     RedfishAggregator(const RedfishAggregator&) = delete;
