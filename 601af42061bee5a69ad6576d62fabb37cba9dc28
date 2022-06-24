@@ -65,6 +65,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "801e7aa2_c788ddd3",
+        "filename": "src/dbus_singleton.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-06-24T19:00:45Z",
+      "side": 1,
+      "message": "If you want RAII, stdplus has a managed object, and using that might be preferable to adding something to sdbusplus.\n\n\nhttps://github.com/openbmc/stdplus/blob/73a20c4a7bc4bdb4b47465e2c4d5d51a696d996b/src/stdplus/handle/managed.hpp#L11\n\nHowever, that is not a priority (for me). This change is improvement as currently written",
+      "parentUuid": "38c61fa5_eb534830",
+      "range": {
+        "startLine": 12,
+        "startChar": 5,
+        "endLine": 12,
+        "endChar": 18
+      },
+      "revId": "601af42061bee5a69ad6576d62fabb37cba9dc28",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cc6bfdf5_4fc5a250",
