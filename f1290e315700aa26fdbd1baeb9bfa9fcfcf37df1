@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e8f3e9a4_b447b153",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-24T17:18:58Z",
+      "side": 1,
+      "message": "Yeah, I should add more details here, but this revolved around a discussion around OCP IMA, which aims to make an on-host redfish webserver that can publish telemetry data either in-band, or push it to the bmc.\n\nhttps://docs.google.com/presentation/d/1v93e-zNcn3cwCHdO3uEBv41Fa_K9uskI/edit#slide\u003did.p1\n\n\nACK.  Will try to get more details in the commit message.",
+      "parentUuid": "aa159e8c_eacb6d93",
+      "revId": "f1290e315700aa26fdbd1baeb9bfa9fcfcf37df1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d6b85eb7_800e65f9",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
@@ -31,6 +49,24 @@
       "writtenOn": "2022-06-22T19:29:09Z",
       "side": 1,
       "message": "I thought we moved the opposite way?",
+      "revId": "f1290e315700aa26fdbd1baeb9bfa9fcfcf37df1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d2ec5a1f_efdaeafb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-24T17:18:58Z",
+      "side": 1,
+      "message": "We did......  but I\u0027m not sure that was the right thing to do, hence why I kinda stopped the migration halfway through.\n\nThere\u0027s a desire to be able to completely remove dependencies (dbus/sdbusplus in this case), and to do that, some level of ifdef is going to be required.  The assumption is that when this happens, the OCP team would have it\u0027s own CI to make sure that we\u0027re not breaking cross-system builds, so we wouldn\u0027t regress to what we had before (each option compiled differently and broke often dependent on configure options).\n\n\nThis is definitely half baked, but I wanted to get the idea out early in the process to see what peoples thoughts are.",
+      "parentUuid": "d6b85eb7_800e65f9",
       "revId": "f1290e315700aa26fdbd1baeb9bfa9fcfcf37df1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
