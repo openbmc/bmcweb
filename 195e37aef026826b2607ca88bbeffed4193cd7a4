@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a0afc2c1_a65cf918",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1283,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-24T21:45:08Z",
+      "side": 1,
+      "message": "Ed, why replacing the whole object is bad? Won\u0027t his update take more time compared to a move construct?",
+      "range": {
+        "startLine": 1283,
+        "startChar": 31,
+        "endLine": 1283,
+        "endChar": 44
+      },
+      "revId": "195e37aef026826b2607ca88bbeffed4193cd7a4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
