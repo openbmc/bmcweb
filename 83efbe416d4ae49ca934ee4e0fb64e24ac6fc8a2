@@ -34,6 +34,24 @@
       "parentUuid": "9f95b279_d243a0df",
       "revId": "83efbe416d4ae49ca934ee4e0fb64e24ac6fc8a2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1800ffa1_e1723d5c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-24T17:23:02Z",
+      "side": 1,
+      "message": "I think that would be good for the moment.  If/when we do this, I would really expect that bmcweb needs to be publishing these object updates internally, and not taking them directly from the journal.  My initial thought is basically a loop like:\n\nif (user is connected to event service subscription):\n   sleep(poll rate)\n   for subscription in subscriptions:\n      for EventType in subscription:\n         call app.handle(Event) to walk the redfish tree for the given specification.\n         check if changed.\n         if changed, send resource added/removed/changed events appropriately.",
+      "parentUuid": "a88a7f0c_f429898c",
+      "revId": "83efbe416d4ae49ca934ee4e0fb64e24ac6fc8a2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
