@@ -89,6 +89,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2db76903_a1e74cc4",
+        "filename": "include/dbus_singleton.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-24T16:16:10Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "4771c39c_371e45f4",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 55
+      },
+      "revId": "f7ea8ca3d621e65292a35ffa0335a9cb2d39c2de",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0d68ce83_eaf47ded",
@@ -160,6 +184,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6c30ea50_9c457fd5",
+        "filename": "src/dbus_singleton.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-24T16:16:10Z",
+      "side": 1,
+      "message": "This is done.",
+      "parentUuid": "6d626987_96cb54a4",
+      "range": {
+        "startLine": 21,
+        "startChar": 20,
+        "endLine": 21,
+        "endChar": 64
+      },
+      "revId": "f7ea8ca3d621e65292a35ffa0335a9cb2d39c2de",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "27fe2f24_70918c90",
@@ -221,6 +269,30 @@
       "side": 1,
       "message": "\u003e Why nullptr dereference is possible? \n\nsystembus(nullptr) would seg fault this code.\n\n\u003e \n\u003e We should always call initialize first.\n\u003e Then line 23 won\u0027t be execute anymore.\n\u003e \n\u003e And initialize takes a reference.\n\nIn general, that\u0027s not how secure coding guidelines work.  Code needs to be secure against users calling the API incorrectly.  Yes, in this case, it\u0027s not that likely someone would, but we follow the rules because nullptr dereferences are difficult to track down.",
       "parentUuid": "b3b6f1ec_6f303e4d",
+      "range": {
+        "startLine": 23,
+        "startChar": 46,
+        "endLine": 23,
+        "endChar": 47
+      },
+      "revId": "f7ea8ca3d621e65292a35ffa0335a9cb2d39c2de",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "999693ae_628ba29b",
+        "filename": "src/dbus_singleton.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-24T16:16:10Z",
+      "side": 1,
+      "message": "It\u0027s not a concern now.",
+      "parentUuid": "73a318a3_28721589",
       "range": {
         "startLine": 23,
         "startChar": 46,
