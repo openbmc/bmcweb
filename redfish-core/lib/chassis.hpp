@@ -665,7 +665,8 @@ inline void handleChassisResetActionInfoPost(
 
     std::string resetType;
 
-    if (!json_util::readJsonAction(req, asyncResp->res, "ResetType", resetType))
+    if (!json_util::readJsonAction(req, asyncResp->res, true, "ResetType",
+                                   resetType))
     {
         return;
     }

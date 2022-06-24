@@ -779,26 +779,21 @@ inline void handleManagersVirtualMediaActionInsertPost(
 
         return;
     }
-    InsertMediaActionParams actionParams;
+    std::optional<InsertMediaActionParams> actionParams =
+        InsertMediaActionParams();
 
-    // Read obligatory parameters (url of
-    // image)
+    // Read obligatory parameters (url of image)
     if (!json_util::readJsonAction(
-            req, asyncResp->res, "Image", actionParams.imageUrl,
-            "WriteProtected", actionParams.writeProtected, "UserName",
-            actionParams.userName, "Password", actionParams.password,
-            "Inserted", actionParams.inserted, "TransferMethod",
-            actionParams.transferMethod, "TransferProtocolType",
-            actionParams.transferProtocolType))
+            req, asyncResp->res, false, "Image", actionParams->imageUrl,
+            "WriteProtected", actionParams->writeProtected, "UserName",
+            actionParams->userName, "Password", actionParams->password,
+            "Inserted", actionParams->inserted, "TransferMethod",
+            actionParams->transferMethod, "TransferProtocolType",
+            actionParams->transferProtocolType))
     {
         BMCWEB_LOG_DEBUG << "Image is not provided";
-        return;
-    }
 
-    bool paramsValid = validateParams(asyncResp->res, actionParams);
-    if (!paramsValid)
-    {
-        return;
+        actionParams = std::nullopt;
     }
 
     dbus::utility::getDbusObject(
@@ -809,6 +804,7 @@ inline void handleManagersVirtualMediaActionInsertPost(
         if (ec)
         {
             BMCWEB_LOG_ERROR << "ObjectMapper::GetObject call failed: " << ec;
+            asyncResp->res.jsonValue = {};
             messages::internalError(asyncResp->res);
 
             return;
@@ -823,6 +819,7 @@ inline void handleManagersVirtualMediaActionInsertPost(
             if (ec2)
             {
                 BMCWEB_LOG_DEBUG << "DBUS response error";
+                asyncResp->res.jsonValue = {};
                 messages::internalError(asyncResp->res);
 
                 return;
@@ -849,6 +846,7 @@ inline void handleManagersVirtualMediaActionInsertPost(
                         // Not possible in proxy mode
                         BMCWEB_LOG_DEBUG << "InsertMedia not "
                                             "allowed in proxy mode";
+                        asyncResp->res.jsonValue = {};
                         messages::resourceNotFound(asyncResp->res,
                                                    "VirtualMedia.InsertMedia",
                                                    resName);
@@ -862,13 +860,22 @@ inline void handleManagersVirtualMediaActionInsertPost(
                         continue;
                     }
 
-                    // manager is irrelevant for
-                    // VirtualMedia dbus calls
+                    if (!actionParams)
+                    {
+                        return;
+                    }
+
+                    if (!validateParams(asyncResp->res, *actionParams))
+                    {
+                        return;
+                    }
+
+                    // manager is irrelevant for VirtualMedia dbus calls
                     doMountVmLegacy(asyncResp, service, resName,
-                                    actionParams.imageUrl,
-                                    !(*actionParams.writeProtected),
-                                    std::move(*actionParams.userName),
-                                    std::move(*actionParams.password));
+                                    actionParams->imageUrl,
+                                    !(*actionParams->writeProtected),
+                                    std::move(*actionParams->userName),
+                                    std::move(*actionParams->password));
 
                     return;
                 }
@@ -892,7 +899,7 @@ inline void handleManagersVirtualMediaActionEject(
     }
     if (managerName != "bmc")
     {
-        messages::resourceNotFound(asyncResp->res, "VirtualMedia.Eject",
+        messages::resourceNotFound(asyncResp->res, "VirtualMedia.EjectMedia",
                                    resName);
 
         return;

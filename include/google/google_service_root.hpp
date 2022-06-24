@@ -191,8 +191,8 @@ inline void handleRoTSendCommandPost(
     const std::string& rotId)
 {
     std::string command;
-    if (!redfish::json_util::readJsonAction(request, asyncResp->res, "Command",
-                                            command))
+    if (!redfish::json_util::readJsonAction(request, asyncResp->res, true,
+                                            "Command", command))
     {
         BMCWEB_LOG_DEBUG << "Missing property Command.";
         redfish::messages::actionParameterMissing(asyncResp->res, "SendCommand",

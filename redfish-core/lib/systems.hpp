@@ -2755,7 +2755,7 @@ inline void requestRoutesSystemActionsReset(App& app)
             return;
         }
         std::string resetType;
-        if (!json_util::readJsonAction(req, asyncResp->res, "ResetType",
+        if (!json_util::readJsonAction(req, asyncResp->res, true, "ResetType",
                                        resetType))
         {
             return;

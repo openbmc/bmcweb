@@ -57,7 +57,7 @@ namespace json_util
  *         been filled with message and ended.
  */
 bool processJsonFromRequest(crow::Response& res, const crow::Request& req,
-                            nlohmann::json& reqJson);
+                            nlohmann::json& reqJson, bool endResponse);
 namespace details
 {
 
@@ -534,7 +534,7 @@ inline std::optional<nlohmann::json>
     readJsonPatchHelper(const crow::Request& req, crow::Response& res)
 {
     nlohmann::json jsonRequest;
-    if (!json_util::processJsonFromRequest(res, req, jsonRequest))
+    if (!json_util::processJsonFromRequest(res, req, jsonRequest, true))
     {
         BMCWEB_LOG_DEBUG << "Json value not readable";
         return std::nullopt;
@@ -578,10 +578,10 @@ bool readJsonPatch(const crow::Request& req, crow::Response& res,
 
 template <typename... UnpackTypes>
 bool readJsonAction(const crow::Request& req, crow::Response& res,
-                    const char* key, UnpackTypes&&... in)
+                    bool endResponse, const char* key, UnpackTypes&&... in)
 {
     nlohmann::json jsonRequest;
-    if (!json_util::processJsonFromRequest(res, req, jsonRequest))
+    if (!json_util::processJsonFromRequest(res, req, jsonRequest, endResponse))
     {
         BMCWEB_LOG_DEBUG << "Json value not readable";
         return false;

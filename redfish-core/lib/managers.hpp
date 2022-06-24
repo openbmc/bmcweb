@@ -130,7 +130,7 @@ inline void requestRoutesManagerResetAction(App& app)
 
         std::string resetType;
 
-        if (!json_util::readJsonAction(req, asyncResp->res, "ResetType",
+        if (!json_util::readJsonAction(req, asyncResp->res, true, "ResetType",
                                        resetType))
         {
             return;
@@ -190,7 +190,7 @@ inline void requestRoutesManagerResetToDefaultsAction(App& app)
 
         std::string resetType;
 
-        if (!json_util::readJsonAction(req, asyncResp->res,
+        if (!json_util::readJsonAction(req, asyncResp->res, true,
                                        "ResetToDefaultsType", resetType))
         {
             BMCWEB_LOG_DEBUG << "Missing property ResetToDefaultsType.";

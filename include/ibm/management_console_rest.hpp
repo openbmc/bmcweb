@@ -753,8 +753,8 @@ inline void requestRoutes(App& app)
             [](const crow::Request& req,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
         std::vector<nlohmann::json> body;
-        if (!redfish::json_util::readJsonAction(req, asyncResp->res, "Request",
-                                                body))
+        if (!redfish::json_util::readJsonAction(req, asyncResp->res, true,
+                                                "Request", body))
         {
             BMCWEB_LOG_DEBUG << "Not a Valid JSON";
             asyncResp->res.result(boost::beast::http::status::bad_request);

@@ -426,8 +426,9 @@ inline void requestRoutesUpdateServiceActionsSimpleUpdate(App& app)
         // 1) TransferProtocol:TFTP ImageURI:1.1.1.1/myfile.bin
         // 2) ImageURI:tftp://1.1.1.1/myfile.bin
 
-        if (!json_util::readJsonAction(req, asyncResp->res, "TransferProtocol",
-                                       transferProtocol, "ImageURI", imageURI))
+        if (!json_util::readJsonAction(req, asyncResp->res, true,
+                                       "TransferProtocol", transferProtocol,
+                                       "ImageURI", imageURI))
         {
             BMCWEB_LOG_DEBUG
                 << "Missing TransferProtocol or ImageURI parameter";

@@ -22,7 +22,7 @@ namespace json_util
 {
 
 bool processJsonFromRequest(crow::Response& res, const crow::Request& req,
-                            nlohmann::json& reqJson)
+                            nlohmann::json& reqJson, bool endResponse = true)
 {
     reqJson = nlohmann::json::parse(req.body, nullptr, false);
 
@@ -30,7 +30,11 @@ bool processJsonFromRequest(crow::Response& res, const crow::Request& req,
     {
         messages::malformedJSON(res);
 
-        res.end();
+        // end() will be invoked later by the caller
+        if (endResponse)
+        {
+            res.end();
+        }
 
         return false;
     }

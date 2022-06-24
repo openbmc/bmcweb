@@ -334,7 +334,7 @@ TEST(ReadJsonAction, ValidElementsReturnsTrueResponseOkValuesUnpackedCorrectly)
     req.body = "{\"integer\": 1}";
 
     int64_t integer = 0;
-    ASSERT_TRUE(readJsonAction(req, res, "integer", integer));
+    ASSERT_TRUE(readJsonAction(req, res, true, "integer", integer));
     EXPECT_EQ(res.result(), boost::beast::http::status::ok);
     EXPECT_THAT(res.jsonValue, IsEmpty());
     EXPECT_EQ(integer, 1);
@@ -349,9 +349,22 @@ TEST(ReadJsonAction, EmptyObjectReturnsTrueResponseOk)
     req.body = "{}";
 
     std::optional<int64_t> integer = 0;
-    ASSERT_TRUE(readJsonAction(req, res, "integer", integer));
+    ASSERT_TRUE(readJsonAction(req, res, true, "integer", integer));
     EXPECT_EQ(res.result(), boost::beast::http::status::ok);
     EXPECT_THAT(res.jsonValue, IsEmpty());
+}
+
+TEST(ReadJsonAction, EmptyRequestBodyReturnsFalseResponseBadRequest)
+{
+    crow::Response res;
+    std::error_code ec;
+    crow::Request req({}, ec);
+    // Ignore errors intentionally
+    req.body = "";
+
+    std::optional<int64_t> integer = 0;
+    ASSERT_FALSE(readJsonAction(req, res, true, "integer", integer));
+    EXPECT_EQ(res.result(), boost::beast::http::status::bad_request);
 }
 
 } // namespace

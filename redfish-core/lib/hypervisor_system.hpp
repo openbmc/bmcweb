@@ -1055,7 +1055,7 @@ inline void requestRoutesHypervisorSystems(App& app)
             return;
         }
         std::optional<std::string> resetType;
-        if (!json_util::readJsonAction(req, asyncResp->res, "ResetType",
+        if (!json_util::readJsonAction(req, asyncResp->res, true, "ResetType",
                                        resetType))
         {
             // readJson adds appropriate error to response

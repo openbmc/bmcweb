@@ -469,10 +469,10 @@ inline void handleReplaceCertificateAction(
     nlohmann::json certificateUri;
     std::optional<std::string> certificateType = "PEM";
 
-    if (!json_util::readJsonAction(req, asyncResp->res, "CertificateString",
-                                   certificate, "CertificateUri",
-                                   certificateUri, "CertificateType",
-                                   certificateType))
+    if (!json_util::readJsonAction(req, asyncResp->res, true,
+                                   "CertificateString", certificate,
+                                   "CertificateUri", certificateUri,
+                                   "CertificateType", certificateType))
     {
         BMCWEB_LOG_ERROR << "Required parameters are missing";
         messages::internalError(asyncResp->res);
@@ -650,7 +650,7 @@ inline void
     std::optional<std::string> optSurname = "";
     std::optional<std::string> optUnstructuredName = "";
     if (!json_util::readJsonAction(
-            req, asyncResp->res, "City", city, "CommonName", commonName,
+            req, asyncResp->res, true, "City", city, "CommonName", commonName,
             "ContactPerson", optContactPerson, "Country", country,
             "Organization", organization, "OrganizationalUnit",
             organizationalUnit, "State", state, "CertificateCollection",
