@@ -15,6 +15,7 @@ namespace redfish
 {
 namespace query_param
 {
+static constexpr size_t maxEntriesPerPage = 1000;
 
 enum class ExpandType : uint8_t
 {
@@ -37,7 +38,7 @@ struct Query
     size_t skip = 0;
 
     // Top
-    size_t top = std::numeric_limits<size_t>::max();
+    size_t top = maxEntriesPerPage;
 };
 
 // The struct defines how resource handlers in redfish-core/lib/ can handle
@@ -86,7 +87,7 @@ inline Query delegate(const QueryCapabilities& queryCapabilities, Query& query)
     if (queryCapabilities.canDelegateTop)
     {
         delegated.top = query.top;
-        query.top = std::numeric_limits<size_t>::max();
+        query.top = maxEntriesPerPage;
     }
 
     // delegate skip
@@ -173,7 +174,6 @@ inline QueryError getSkipParam(std::string_view value, Query& query)
     return getNumericParam(value, query.skip);
 }
 
-static constexpr size_t maxEntriesPerPage = 1000;
 inline QueryError getTopParam(std::string_view value, Query& query)
 {
     QueryError ret = getNumericParam(value, query.top);
@@ -606,7 +606,7 @@ inline void
         return;
     }
 
-    if (query.top != std::numeric_limits<size_t>::max() || query.skip != 0)
+    if (query.top != maxEntriesPerPage || query.skip != 0)
     {
         processTopAndSkip(query, intermediateResponse);
     }
