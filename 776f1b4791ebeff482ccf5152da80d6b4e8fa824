@@ -88,6 +88,24 @@
       "parentUuid": "6a4fe404_e2f6953f",
       "revId": "776f1b4791ebeff482ccf5152da80d6b4e8fa824",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "badb41b5_04c7cbcf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-24T15:01:36Z",
+      "side": 1,
+      "message": "\u003e And sure, I can add myself to the reviewer list\n\nGreat.  No disagreement about you adding yourself manually, you\u0027ve been doing an excellent job over the last few months.  Please keep it up.\n\n\u003e You mean gbs machines? gbs doesn\u0027t have Redfish. Or S7106?\n\nI emailed you the details directly.  They\u0027re S7106 machines.\n\n\u003e Query Parameter is a specific question that we can take out and discuss in another thread. The standard has already defined the maximum level of expand.\n\nThe point is not specifically about query parameters, it\u0027s about being able to assess code for security impacts and undefined behavior when doing reviews.\n\n\u003eI have contributed to at least the design of CRL support. Though the implementation hasn\u0027t started.\n\nThank you for pushing that forward.  I\u0027m interested to see you follow through on it.  It will help quite a bit I suspect.\n\n\n\u003e I believe I have enough understanding on Sensor Collection, Memory Collection, part of the LogService, Certificate Service, Query Parameters. I can also help any unit tests.\n\nIf you want to just do those things, that reduces the scope quite a bit, which I think will help this request to go through faster.\n\nI\u0027m going to wait to see what the rest of the community and other maintainers have to say on this.  Krzysztof also had an interest in being a maintainer here so we need to include him in this decision making process as well.",
+      "parentUuid": "7888229f_6583cfe8",
+      "revId": "776f1b4791ebeff482ccf5152da80d6b4e8fa824",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
