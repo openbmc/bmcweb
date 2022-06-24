@@ -46,6 +46,30 @@
       },
       "revId": "195e37aef026826b2607ca88bbeffed4193cd7a4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "52689f81_3652500f",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1283,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-24T23:10:19Z",
+      "side": 1,
+      "message": "https://github.com/openbmc/bmcweb/blob/master/COMMON_ERRORS.md#13-complete-replacement-of-the-response-object\n\n\nYes, update() is arguably more cycles in this case, but there\u0027s error handling and other information that might be coming from out of band, so completely replacing the json object would delete it (we\u0027ve had this bug many times in the past).  Also, not using brace initialization leads to smaller binaries overall, which is good.\n\nIn a perfect world we wouldn\u0027t construct a completely new object at all, but given the way this code is abstracted, there doesn\u0027t seem to be a clean way to do that, so update it the best compromise I can see.",
+      "parentUuid": "3ef7c9dd_ad5eebdb",
+      "range": {
+        "startLine": 1283,
+        "startChar": 31,
+        "endLine": 1283,
+        "endChar": 44
+      },
+      "revId": "195e37aef026826b2607ca88bbeffed4193cd7a4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
