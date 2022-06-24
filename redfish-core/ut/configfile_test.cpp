@@ -1,6 +1,8 @@
 #include "ibm/management_console_rest.hpp"
 #include "nlohmann/json.hpp"
 
+#include <sdbusplus/bus/match.hpp>
+
 #include <string>
 
 #include "gmock/gmock.h"
