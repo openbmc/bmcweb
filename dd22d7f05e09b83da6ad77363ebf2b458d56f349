@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "224ed061_01dc37ab",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-24T15:19:40Z",
+      "side": 1,
+      "message": "Considering that gmock includes gtest, and it\u0027s likely that gmock resources will get used in tests in the future, what is the thought process there?\n\nI\u0027m ok with the change, I\u0027d just like to understand the rationale.",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 22
+      },
+      "revId": "dd22d7f05e09b83da6ad77363ebf2b458d56f349",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "da132e33_29ecf23d",
         "filename": "/COMMIT_MSG",
         "patchSetId": 6
@@ -32,6 +55,41 @@
       "side": 1,
       "message": "WDYT, Patrick?\n\nIs this something we all agree with and can be added into the OpenBMC guide?",
       "parentUuid": "da132e33_29ecf23d",
+      "revId": "dd22d7f05e09b83da6ad77363ebf2b458d56f349",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ef13c6c_70a954b1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-24T15:19:40Z",
+      "side": 1,
+      "message": "We should be following cpp core guidelines here.  Does it have principals on how this is supposed to work?",
+      "parentUuid": "a06326b4_57f5249a",
+      "revId": "dd22d7f05e09b83da6ad77363ebf2b458d56f349",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e5fe7017_2f81c86d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-24T15:19:40Z",
+      "side": 1,
+      "message": "patchset itself looks fine;  Lets see if we can figure out what our consistent \"rule\" is going to be, given that we haven\u0027t had a rule here for a very long time.",
       "revId": "dd22d7f05e09b83da6ad77363ebf2b458d56f349",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
