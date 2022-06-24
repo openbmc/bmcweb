@@ -89,6 +89,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a5bbb4eb_03b3bd87",
+        "filename": "src/dbus_singleton.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-24T22:25:36Z",
+      "side": 1,
+      "message": "What I have is RAII already IIUC.",
+      "parentUuid": "801e7aa2_c788ddd3",
+      "range": {
+        "startLine": 12,
+        "startChar": 5,
+        "endLine": 12,
+        "endChar": 18
+      },
+      "revId": "601af42061bee5a69ad6576d62fabb37cba9dc28",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cc6bfdf5_4fc5a250",
