@@ -91,6 +91,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a61a2766_33841dda",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1204,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-24T22:48:08Z",
+      "side": 1,
+      "message": "\u003e I don\u0027t think what Nan suggested works in this case, because the status variable declaration is limited to the first scope, so the second one wouldn\u0027t have status in scope?  Maybe it works, but it\u0027s not a level of complexity I like to promote as a general rule;\n\nIt works.\n\nhttps://godbolt.org/z/qPTnf361z\n\n\"The scope of the name introduced by condition, if it is a declaration, is the combined scope of both statements\u0027 bodies:\" \n\n\u003e  Maybe, if the enum value is only being used in one conditional, and didn\u0027t push the declaration to 2 lines would it make sense and still be readable. \n\nGiven that both branches can access the variable, does it make sense now? Why is it not readable?\n\nI don\u0027t invent this style myself. Just reference it from what I learned somewhere else. \n\n\"Use the new if (init; cond) and switch (init; cond) syntax when you need a new variable for use within the if or switch statement that is not needed outside of it. This simplifies the ambient code. Moreover, since the variable’s scope is now small, its name can be shorter, too.\"\n\nhttps://abseil.io/tips/165",
+      "parentUuid": "fc261163_a111ca11",
+      "range": {
+        "startLine": 1204,
+        "startChar": 16,
+        "endLine": 1204,
+        "endChar": 29
+      },
+      "revId": "95e7672733624bc18e96eb33234037525d61e3a5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8094f8ab_5dc6a65c",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 2
