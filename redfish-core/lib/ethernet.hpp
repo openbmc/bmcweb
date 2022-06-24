@@ -2304,24 +2304,35 @@ inline void requestEthernetInterfacesRoutes(App& app)
         {
             return;
         }
-        bool vlanEnable = false;
-        uint32_t vlanId = 0;
+        std::optional<bool> vlanEnable;
+        std::optional<uint32_t> vlanId;
         if (!json_util::readJsonPatch(req, asyncResp->res, "VLANId", vlanId,
                                       "VLANEnable", vlanEnable))
         {
             return;
         }
         // Need both vlanId and vlanEnable to service this request
-        if (vlanId == 0U)
+        if (!vlanId)
         {
             messages::propertyMissing(asyncResp->res, "VLANId");
+            return;
         }
         if (!vlanEnable)
         {
             messages::propertyMissing(asyncResp->res, "VLANEnable");
+            return;
         }
-        if (static_cast<bool>(vlanId) ^ vlanEnable)
+        if (*vlanId == 0 || *vlanId >= 4095)
         {
+            messages::propertyValueOutOfRange(
+                asyncResp->res, std::to_string(*vlanId), "VLANId");
+            return;
+        }
+        if (!(*vlanEnable))
+        {
+            // In OpenBMC implementation, VLANEnable cannot be false on create
+            messages::propertyValueIncorrect(asyncResp->res, "VLANEnable",
+                                             "false");
             return;
         }
 
@@ -2339,7 +2350,7 @@ inline void requestEthernetInterfacesRoutes(App& app)
             std::move(callback), "xyz.openbmc_project.Network",
             "/xyz/openbmc_project/network",
             "xyz.openbmc_project.Network.VLAN.Create", "VLAN",
-            rootInterfaceName, vlanId);
+            rootInterfaceName, *vlanId);
         });
 }
 
