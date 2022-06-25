@@ -72,6 +72,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cd161cd5_34f6e423",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-25T01:06:30Z",
+      "side": 1,
+      "message": "\u003e you have to install libpam-dev\n\nI have to install libpam0g-dev.\n\n\u003e I\u0027m almost certain your docker build still has pam available.\n\nI used the following Dockerfile, if you want to try. At least without libpam0g-dev,\nthe build will fail since pam is required but missing.\n\n```\n#llvm clang + IWYU image\n\nFROM ubuntu:20.04\nMAINTAINER Nan Zhou \u003cnanzhoumails@gmail.com\u003e\n\nENV DEBIAN_FRONTEND noninteractive\nRUN apt-get update -q\n\n#Install Dependencies\nRUN apt-get -qy install         \\\n    build-essential             \\\n    clang                       \\\n    cmake                       \\\n    libclang-dev                \\\n    libncurses-dev              \\\n    linux-libc-dev              \\\n    llvm-dev                    \\\n    make                        \\\n    subversion                  \\\n    git                         \\\n    ca-certificates             \\\n    libpam0g-dev                \\\n    --no-install-recommends     \n\n# RUN  libssl-dev\n\nRUN pip3 install meson\n\n#Checkout IWYU and switch the banch clang_10\nRUN mkdir include-what-you-use \u0026\u0026 cd include-what-you-use \u0026\u0026 git clone https://github.com/include-what-you-use/include-what-you-use.git \u0026\u0026 cd include-what-you-use \u0026\u0026 git checkout clang_10\n\nENV CC clang\nENV CXX clang++\nENV CMAKE_C_COMPILER clang\nENV CMAKE_CXX_COMPILER clang++\n\n#Configure IWYU\nRUN cd include-what-you-use \u0026\u0026 mkdir build \u0026\u0026 cd build \u0026\u0026 cmake -G \"Unix Makefiles\" -DCMAKE_PREFIX_PATH\u003d/usr/lib/llvm-10 ../include-what-you-use\n\n#Compile and install IWYU\nRUN cd include-what-you-use/build \u0026\u0026 make \u0026\u0026 make install\n```",
+      "parentUuid": "c9d631f7_57507896",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 51
+      },
+      "revId": "18e95248e3b87fc19ae552d8de8234a405b7c1af",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "df34733e_26bb5d60",
@@ -238,6 +262,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5c95dad3_23707e5a",
+        "filename": "meson.build",
+        "patchSetId": 2
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-25T01:06:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "362a1597_e4fa2530",
+      "range": {
+        "startLine": 104,
+        "startChar": 0,
+        "endLine": 108,
+        "endChar": 11
+      },
+      "revId": "18e95248e3b87fc19ae552d8de8234a405b7c1af",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "00c8f6b3_6b3bafe4",
@@ -269,6 +317,24 @@
       "side": 1,
       "message": "That can\u0027t achieve what this commit is trying to do: when `insecure-disable-auth` is enabled, BMCWeb shouldn\u0027t depend on libssl and libpam.\n\n\"redfish_sessions.hpp\" and \"account_service.hpp\" are written in the way that it depends on libpam all the time. I didn\u0027t find other way to achieve this.",
       "parentUuid": "00c8f6b3_6b3bafe4",
+      "revId": "18e95248e3b87fc19ae552d8de8234a405b7c1af",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9fe15818_30517a26",
+        "filename": "redfish-core/include/redfish.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-25T01:06:30Z",
+      "side": 1,
+      "message": "Please reopen if it\u0027s still a concern",
+      "parentUuid": "9edcf35f_f44b82a9",
       "revId": "18e95248e3b87fc19ae552d8de8234a405b7c1af",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
