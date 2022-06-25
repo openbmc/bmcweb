@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "040367cb_a65dfa57",
         "filename": "/COMMIT_MSG",
@@ -14,10 +15,10 @@
       "side": 1,
       "message": "How does this handle \nhttps://${bmc}/redfish/v1/Systems/system/Processors/cpu0/SubProcessors/badcoreid\n\nhttps://${bmc}/redfish/v1/Systems/system/Processors/badprocessorname/SubProcessors \n\n?",
       "revId": "7d4f34575f97df725bc13d67d93913129418a256",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "2ab64f69_04c7f835",
         "filename": "/COMMIT_MSG",
@@ -32,10 +33,10 @@
       "message": "\u003e https://${bmc}/redfish/v1/Systems/system/Processors/cpu0/SubProcessors/badcoreid\n\n{\n\"@odata.id\": \"/redfish/v1/Systems/system/Processors/badcoreid\",\n\"@odata.type\": \"#Processor.v1_11_0.Processor\",\n\"SubProcessors\": {\n\"@odata.id\": \"/redfish/v1/Systems/system/Processors/badcoreid/SubProcessors\"\n},\n\"error\": {\n\"@Message.ExtendedInfo\": [\n{\n\"@odata.type\": \"#Message.v1_1_1.Message\",\n\"Message\": \"The requested resource of type Processor named badcoreid was not found.\",\n\"MessageArgs\": [\n\"Processor\",\n\"badcoreid\"\n],\n\"MessageId\": \"Base.1.8.1.ResourceNotFound\",\n\"MessageSeverity\": \"Critical\",\n\"Resolution\": \"Provide a valid resource identifier and resubmit the request.\"\n}\n],\n\"code\": \"Base.1.8.1.ResourceNotFound\",\n\"message\": \"The requested resource of type Processor named badcoreid was not found.\"\n}\n}\n\n\u003e https://${bmc}/redfish/v1/Systems/system/Processors/badprocessorname/SubProcessors \n\n{\n\"error\": {\n\"@Message.ExtendedInfo\": [\n{\n\"@odata.type\": \"#Message.v1_1_1.Message\",\n\"Message\": \"The requested resource of type SubProcessor named badprocessorname was not found.\",\n\"MessageArgs\": [\n\"SubProcessor\",\n\"badprocessorname\"\n],\n\"MessageId\": \"Base.1.8.1.ResourceNotFound\",\n\"MessageSeverity\": \"Critical\",\n\"Resolution\": \"Provide a valid resource identifier and resubmit the request.\"\n}\n],\n\"code\": \"Base.1.8.1.ResourceNotFound\",\n\"message\": \"The requested resource of type SubProcessor named badprocessorname was not found.\"\n}\n}",
       "parentUuid": "040367cb_a65dfa57",
       "revId": "7d4f34575f97df725bc13d67d93913129418a256",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "fac872e8_7d1e4908",
         "filename": "/COMMIT_MSG",
@@ -50,10 +51,10 @@
       "message": "https://${bmc}/redfish/v1/Systems/system/Processors/cpu0/SubProcessors/badcoreid\n{\n\"@odata.id\": \"/redfish/v1/Systems/system/Processors/badcoreid\",\n\"@odata.type\": \"#Processor.v1_11_0.Processor\",\n\"SubProcessors\": {\n\"@odata.id\": \"/redfish/v1/Systems/system/Processors/badcoreid/SubProcessors\"\n},\n...\nBut shouldn\u0027t this only include the error ? I.e. none of the other fields (odata.id, odata.type..)\n\nhttps://${bmc}/redfish/v1/Systems/system/Processors/badprocessorname/SubProcessors\nLooks correct. I only see the error.",
       "parentUuid": "2ab64f69_04c7f835",
       "revId": "7d4f34575f97df725bc13d67d93913129418a256",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "d529226f_854a888a",
         "filename": "/COMMIT_MSG",
@@ -68,10 +69,10 @@
       "message": "https://${bmc}/redfish/v1/Systems/system/Processors/cpu0/SubProcessors/badcoreid\n\n```\n{\n\"error\": {\n\"@Message.ExtendedInfo\": [\n{\n\"@odata.type\": \"#Message.v1_1_1.Message\",\n\"Message\": \"The requested resource of type SubProcessorsCore named badcoreid was not found.\",\n\"MessageArgs\": [\n\"SubProcessorsCore\",\n\"badcoreid\"\n],\n\"MessageId\": \"Base.1.8.1.ResourceNotFound\",\n\"MessageSeverity\": \"Critical\",\n\"Resolution\": \"Provide a valid resource identifier and resubmit the request.\"\n}\n],\n\"code\": \"Base.1.8.1.ResourceNotFound\",\n\"message\": \"The requested resource of type SubProcessorsCore named badcoreid was not found.\"\n}\n}\n```\n\n\u003e But shouldn\u0027t this only include the error ? I.e. none of the other fields (odata.id, odata.type..)\n\nDone",
       "parentUuid": "fac872e8_7d1e4908",
       "revId": "7d4f34575f97df725bc13d67d93913129418a256",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "a72cbdf1_ceb4d206",
         "filename": "redfish-core/lib/processor.hpp",
@@ -91,10 +92,10 @@
         "endChar": 13
       },
       "revId": "7d4f34575f97df725bc13d67d93913129418a256",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "8eed0d16_bd9c1a36",
         "filename": "redfish-core/lib/processor.hpp",
@@ -115,10 +116,10 @@
         "endChar": 13
       },
       "revId": "7d4f34575f97df725bc13d67d93913129418a256",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "ac74884d_bf028c3a",
         "filename": "redfish-core/lib/processor.hpp",
@@ -138,10 +139,10 @@
         "endChar": 13
       },
       "revId": "7d4f34575f97df725bc13d67d93913129418a256",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "22a26ab6_72a3f3fa",
         "filename": "redfish-core/lib/processor.hpp",
@@ -162,10 +163,10 @@
         "endChar": 13
       },
       "revId": "7d4f34575f97df725bc13d67d93913129418a256",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "11b4db9e_16c45fbf",
         "filename": "redfish-core/lib/processor.hpp",
@@ -186,10 +187,10 @@
         "endChar": 13
       },
       "revId": "7d4f34575f97df725bc13d67d93913129418a256",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "8b2dcdb0_e25f0efc",
         "filename": "redfish-core/lib/processor.hpp",
@@ -210,8 +211,31 @@
         "endChar": 13
       },
       "revId": "7d4f34575f97df725bc13d67d93913129418a256",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d25998a6_c3d376eb",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 1326,
+      "author": {
+        "id": 1001369
+      },
+      "writtenOn": "2022-06-25T02:42:35Z",
+      "side": 1,
+      "message": "Already addressed",
+      "parentUuid": "8b2dcdb0_e25f0efc",
+      "range": {
+        "startLine": 1326,
+        "startChar": 8,
+        "endLine": 1326,
+        "endChar": 13
+      },
+      "revId": "7d4f34575f97df725bc13d67d93913129418a256",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
