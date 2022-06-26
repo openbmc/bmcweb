@@ -325,7 +325,7 @@ static bool
     return !redfishLogFiles.empty();
 }
 
-std::string getDumpEntriesPath(const std::string& dumpType)
+static std::string getDumpEntriesPath(const std::string& dumpType)
 {
     std::string entriesPath;
 
