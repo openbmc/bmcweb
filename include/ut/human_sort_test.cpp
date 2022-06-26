@@ -6,6 +6,11 @@
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
 
+namespace
+{
+
+using ::testing::ElementsAreArray;
+
 TEST(AlphaNum, NumberTests)
 {
     // testcases for the algorithm
@@ -43,6 +48,6 @@ TEST(AlphaNum, LessTest)
 {
     std::set<std::string, AlphanumLess<std::string>> sorted{"Alpha 10",
                                                             "Alpha 2"};
-
-    EXPECT_THAT(sorted, ::testing::ElementsAreArray({"Alpha 2", "Alpha 10"}));
+    EXPECT_THAT(sorted, ElementsAreArray({"Alpha 2", "Alpha 10"}));
 }
+} // namespace
