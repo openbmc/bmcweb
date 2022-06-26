@@ -21,6 +21,8 @@ namespace crow::utility
 namespace
 {
 
+using ::crow::black_magic::getParameterTag;
+
 TEST(Utility, Base64DecodeAuthString)
 {
     std::string authString("dXNlcm40bWU6cGFzc3cwcmQ=");
@@ -78,8 +80,6 @@ TEST(Utility, Base64EncodeDecodeString)
 
 TEST(Utility, GetDateTimeStdtime)
 {
-    using crow::utility::getDateTimeStdtime;
-
     // some time before the epoch
     EXPECT_EQ(getDateTimeStdtime(std::time_t{-1234567}),
               "1969-12-17T17:03:53+00:00");
@@ -124,7 +124,6 @@ TEST(Utility, GetDateTimeUintMs)
 
 TEST(Utility, UrlFromPieces)
 {
-    using crow::utility::urlFromPieces;
     boost::urls::url url = urlFromPieces("redfish", "v1", "foo");
     EXPECT_EQ(std::string_view(url.data(), url.size()), "/redfish/v1/foo");
 
@@ -140,8 +139,6 @@ TEST(Utility, UrlFromPieces)
 
 TEST(Utility, readUrlSegments)
 {
-    using crow::utility::readUrlSegments;
-
     boost::urls::result<boost::urls::url_view> parsed =
         boost::urls::parse_relative_ref("/redfish/v1/Chassis#/Fans/0/Reading");
 
@@ -195,7 +192,6 @@ TEST(Utility, readUrlSegments)
 
 TEST(Utility, ValidateAndSplitUrlPositive)
 {
-    using crow::utility::validateAndSplitUrl;
     std::string host;
     std::string urlProto;
     uint16_t port = 0;
@@ -241,30 +237,24 @@ TEST(Utility, ValidateAndSplitUrlPositive)
 
 TEST(Router, ParameterTagging)
 {
-    EXPECT_EQ(6 * 6 + 6 * 3 + 2,
-              crow::black_magic::getParameterTag("<uint><double><int>"));
-    EXPECT_EQ(1, crow::black_magic::getParameterTag("<int>"));
-    EXPECT_EQ(2, crow::black_magic::getParameterTag("<uint>"));
-    EXPECT_EQ(3, crow::black_magic::getParameterTag("<float>"));
-    EXPECT_EQ(3, crow::black_magic::getParameterTag("<double>"));
-    EXPECT_EQ(4, crow::black_magic::getParameterTag("<str>"));
-    EXPECT_EQ(4, crow::black_magic::getParameterTag("<string>"));
-    EXPECT_EQ(5, crow::black_magic::getParameterTag("<path>"));
-    EXPECT_EQ(6 * 6 + 6 + 1,
-              crow::black_magic::getParameterTag("<int><int><int>"));
-    EXPECT_EQ(6 * 6 + 6 + 2,
-              crow::black_magic::getParameterTag("<uint><int><int>"));
-    EXPECT_EQ(6 * 6 + 6 * 3 + 2,
-              crow::black_magic::getParameterTag("<uint><double><int>"));
+    EXPECT_EQ(6 * 6 + 6 * 3 + 2, getParameterTag("<uint><double><int>"));
+    EXPECT_EQ(1, getParameterTag("<int>"));
+    EXPECT_EQ(2, getParameterTag("<uint>"));
+    EXPECT_EQ(3, getParameterTag("<float>"));
+    EXPECT_EQ(3, getParameterTag("<double>"));
+    EXPECT_EQ(4, getParameterTag("<str>"));
+    EXPECT_EQ(4, getParameterTag("<string>"));
+    EXPECT_EQ(5, getParameterTag("<path>"));
+    EXPECT_EQ(6 * 6 + 6 + 1, getParameterTag("<int><int><int>"));
+    EXPECT_EQ(6 * 6 + 6 + 2, getParameterTag("<uint><int><int>"));
+    EXPECT_EQ(6 * 6 + 6 * 3 + 2, getParameterTag("<uint><double><int>"));
 }
 
 TEST(URL, JsonEncoding)
 {
-    using nlohmann::json;
-
     std::string urlString = "/foo";
-    EXPECT_EQ(json(boost::urls::url(urlString)), urlString);
-    EXPECT_EQ(json(boost::urls::url_view(urlString)), urlString);
+    EXPECT_EQ(nlohmann::json(boost::urls::url(urlString)), urlString);
+    EXPECT_EQ(nlohmann::json(boost::urls::url_view(urlString)), urlString);
 }
 
 } // namespace
