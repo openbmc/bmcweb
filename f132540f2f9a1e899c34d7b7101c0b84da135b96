@@ -35,6 +35,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "372a8ad0_ea2a04ac",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-27T18:56:51Z",
+      "side": 1,
+      "message": "Generally no need to bump so soon after last comments were given.  This was reviewed Friday;  Generally it takes time for reviewers to get back to things (as I\u0027m sure you know from reviewing other peoples patches).  A rule of thumb is to give a business-week before expecting followup, or if you have specific questions, follow up on discord.",
+      "parentUuid": "711391c2_6eb5f78f",
+      "revId": "f132540f2f9a1e899c34d7b7101c0b84da135b96",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "db83b646_62e6f101",
