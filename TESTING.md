@@ -127,3 +127,13 @@ message.
 
 Test error status for your newly added resources or core codes, e.g., 4xx client
 errors, 5xx server errors.
+
+## Unit Test Styles
+
+### Namespaces
+
+Define the unit test functions in the same namespace of the component under
+test. This way, you don't need to qualify the namespaces of the functions.
+
+Also prefer putting all the sources into the anonymous namespace. This prevents
+name collisions and ODR violations with other compilation units.
