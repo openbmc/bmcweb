@@ -81,11 +81,11 @@ TEST(Delegate, TopPositive)
         .top = 42,
     };
     QueryCapabilities capabilities{
-        .canDelegateTop = false,
+        .canDelegateTop = true,
     };
     Query delegated = delegate(capabilities, query);
-    EXPECT_EQ(delegated.top, std::numeric_limits<size_t>::max());
-    EXPECT_EQ(query.top, 42);
+    EXPECT_EQ(query.top, std::numeric_limits<size_t>::max());
+    EXPECT_EQ(delegated.top, 42);
 }
 
 TEST(Delegate, SkipNegative)
