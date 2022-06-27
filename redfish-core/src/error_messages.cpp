@@ -502,14 +502,17 @@ void propertyValueFormatError(crow::Response& res, std::string_view arg1,
  * See header file for more information
  * @endinternal
  */
-nlohmann::json propertyValueNotInList(std::string_view arg1,
+
+nlohmann::json propertyValueNotInList(const nlohmann::json& arg1,
                                       std::string_view arg2)
 {
+    std::string arg1Str =
+        arg1.dump(2, ' ', true, nlohmann::json::error_handler_t::replace);
     return getLog(redfish::registries::base::Index::propertyValueNotInList,
-                  std::to_array({arg1, arg2}));
+                  std::to_array<std::string_view>({arg1Str, arg2}));
 }
 
-void propertyValueNotInList(crow::Response& res, std::string_view arg1,
+void propertyValueNotInList(crow::Response& res, const nlohmann::json& arg1,
                             std::string_view arg2)
 {
     res.result(boost::beast::http::status::bad_request);

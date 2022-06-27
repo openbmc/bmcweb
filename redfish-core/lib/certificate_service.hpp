@@ -716,8 +716,8 @@ inline void
     // time consumed in generating private key
     if (*optKeyPairAlgorithm == "RSA" && *optKeyBitLength != rsaKeyBitLength)
     {
-        messages::propertyValueNotInList(
-            asyncResp->res, std::to_string(*optKeyBitLength), "KeyBitLength");
+        messages::propertyValueNotInList(asyncResp->res, *optKeyBitLength,
+                                         "KeyBitLength");
         return;
     }
 

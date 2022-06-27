@@ -1052,8 +1052,8 @@ inline void handleLDAPPatch(nlohmann::json& input,
     {
         if (serviceAddressList->empty())
         {
-            messages::propertyValueNotInList(asyncResp->res, "[]",
-                                             "ServiceAddress");
+            messages::propertyValueNotInList(
+                asyncResp->res, *serviceAddressList, "ServiceAddress");
             return;
         }
     }
@@ -1061,7 +1061,7 @@ inline void handleLDAPPatch(nlohmann::json& input,
     {
         if (baseDNList->empty())
         {
-            messages::propertyValueNotInList(asyncResp->res, "[]",
+            messages::propertyValueNotInList(asyncResp->res, *baseDNList,
                                              "BaseDistinguishedNames");
             return;
         }
@@ -1224,8 +1224,8 @@ inline void updateUserProperties(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
                 std::string priv = getPrivilegeFromRoleId(*roleId);
                 if (priv.empty())
                 {
-                    messages::propertyValueNotInList(asyncResp->res, *roleId,
-                                                     "RoleId");
+                    messages::propertyValueNotInList(asyncResp->res, true,
+                                                     "Locked");
                     return;
                 }
 
