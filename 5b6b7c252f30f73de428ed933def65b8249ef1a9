@@ -46,6 +46,30 @@
       },
       "revId": "5b6b7c252f30f73de428ed933def65b8249ef1a9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0261388d_3304fbc9",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1197,
+      "author": {
+        "id": 1000276
+      },
+      "writtenOn": "2022-06-27T20:19:43Z",
+      "side": 1,
+      "message": "It is the same change on different resources.  Another one is coming for the host logger, too.",
+      "parentUuid": "7a043ab3_0a3a6bc4",
+      "range": {
+        "startLine": 1197,
+        "startChar": 16,
+        "endLine": 1197,
+        "endChar": 53
+      },
+      "revId": "5b6b7c252f30f73de428ed933def65b8249ef1a9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
