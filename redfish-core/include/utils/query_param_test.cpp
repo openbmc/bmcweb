@@ -81,11 +81,11 @@ TEST(Delegate, TopPositive)
         .top = 42,
     };
     QueryCapabilities capabilities{
-        .canDelegateTop = false,
+        .canDelegateTop = true,
     };
     Query delegated = delegate(capabilities, query);
-    EXPECT_EQ(delegated.top, std::numeric_limits<size_t>::max());
-    EXPECT_EQ(query.top, 42);
+    EXPECT_EQ(delegated.top, 42);
+    EXPECT_EQ(query.top, std::numeric_limits<size_t>::max());
 }
 
 TEST(Delegate, SkipNegative)
@@ -104,11 +104,11 @@ TEST(Delegate, SkipPositive)
         .skip = 42,
     };
     QueryCapabilities capabilities{
-        .canDelegateSkip = false,
+        .canDelegateSkip = true,
     };
     Query delegated = delegate(capabilities, query);
-    EXPECT_EQ(delegated.skip, 0);
-    EXPECT_EQ(query.skip, 42);
+    EXPECT_EQ(delegated.skip, 42);
+    EXPECT_EQ(query.skip, 0);
 }
 
 TEST(FormatQueryForExpand, NoSubQueryWhenQueryIsEmpty)
