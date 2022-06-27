@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2e8fc7ab_50afe91c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-27T18:12:38Z",
+      "side": 1,
+      "message": "Wait, I realize this might cause bugs.\n\nIf top is initialized to 1000. If `delegatedQuery.skip` is 0 and people are querying logs after 1001, the following codes will just bypass these logs. Right? \n\n```\nif (entryCount \u003c\u003d delegatedQuery.skip ||\n                    entryCount \u003e delegatedQuery.skip + delegatedQuery.top)\n{\n  continue;\n}\n```",
+      "parentUuid": "4ef660c3_1b5b649f",
+      "revId": "6604b718fc50d069722a8aaa5e057aaa89d75fbf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b6010b11_5fb33d5c",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 1
