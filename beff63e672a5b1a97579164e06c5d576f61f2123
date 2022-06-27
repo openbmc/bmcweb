@@ -122,6 +122,24 @@
       "parentUuid": "c5488ad2_e92fe310",
       "revId": "beff63e672a5b1a97579164e06c5d576f61f2123",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2240d64d_07c7366e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-27T20:54:26Z",
+      "side": 1,
+      "message": "Done\n\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/54941",
+      "parentUuid": "87711d1f_8ea1be53",
+      "revId": "beff63e672a5b1a97579164e06c5d576f61f2123",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
