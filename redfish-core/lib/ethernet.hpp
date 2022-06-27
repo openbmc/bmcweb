@@ -1261,11 +1261,8 @@ inline void
                                      address, "SubnetMask", subnetMask,
                                      "Gateway", gateway))
             {
-                messages::propertyValueFormatError(
-                    asyncResp->res,
-                    thisJson.dump(2, ' ', true,
-                                  nlohmann::json::error_handler_t::replace),
-                    pathString);
+                messages::propertyValueFormatError(asyncResp->res, thisJson,
+                                                   pathString);
                 return;
             }
 
@@ -1386,11 +1383,8 @@ inline void
                     messages::resourceCannotBeDeleted(asyncResp->res);
                     return;
                 }
-                messages::propertyValueFormatError(
-                    asyncResp->res,
-                    thisJson.dump(2, ' ', true,
-                                  nlohmann::json::error_handler_t::replace),
-                    pathString);
+                messages::propertyValueFormatError(asyncResp->res, thisJson,
+                                                   pathString);
                 return;
             }
 
@@ -1455,11 +1449,8 @@ inline void handleIPv6StaticAddressesPatch(
             if (!json_util::readJson(thisJsonCopy, asyncResp->res, "Address",
                                      address, "PrefixLength", prefixLength))
             {
-                messages::propertyValueFormatError(
-                    asyncResp->res,
-                    thisJson.dump(2, ' ', true,
-                                  nlohmann::json::error_handler_t::replace),
-                    pathString);
+                messages::propertyValueFormatError(asyncResp->res, thisJson,
+                                                   pathString);
                 return;
             }
 
@@ -1526,11 +1517,8 @@ inline void handleIPv6StaticAddressesPatch(
                     messages::resourceCannotBeDeleted(asyncResp->res);
                     return;
                 }
-                messages::propertyValueFormatError(
-                    asyncResp->res,
-                    thisJson.dump(2, ' ', true,
-                                  nlohmann::json::error_handler_t::replace),
-                    pathString);
+                messages::propertyValueFormatError(asyncResp->res, thisJson,
+                                                   pathString);
                 return;
             }
 
