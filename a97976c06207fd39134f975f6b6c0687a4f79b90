@@ -604,6 +604,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f6de344c_48044ffb",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 645,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-27T19:12:41Z",
+      "side": 1,
+      "message": "Check out section 8.6, 9.3.3.1 (and I\u0027m sure there\u0027s others). in the specification.  They outline the message requirements.\n\nFrom the beginning of 8.6 \"HTTP status codes often do not provide enough information to enable deterministic error semantic\".\n\n\nWhen select is used, we shouldn\u0027t be stripping the messages as well.",
+      "parentUuid": "8c0a42fd_116b0839",
+      "range": {
+        "startLine": 645,
+        "startChar": 0,
+        "endLine": 645,
+        "endChar": 69
+      },
+      "revId": "a97976c06207fd39134f975f6b6c0687a4f79b90",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f19c0fa6_dfce885f",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 5
