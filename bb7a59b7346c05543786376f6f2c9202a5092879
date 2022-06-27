@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b79d9bb0_15f37b5c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-27T16:53:17Z",
+      "side": 1,
+      "message": "Can you please just squash all these changes into one patchset to make the codebase consistent;  It will make it significantly easier to review, and then we won\u0027t have to worry about merge order, which it looks like got a bit mixed up in your patchsets.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 54
+      },
+      "revId": "bb7a59b7346c05543786376f6f2c9202a5092879",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
