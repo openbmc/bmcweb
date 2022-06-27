@@ -41,6 +41,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f9a6fdce_a72d4cf8",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-27T17:44:32Z",
+      "side": 1,
+      "message": "I thought compiler will do some optimization here. If you search \"is_any_of\", you can find a lot of other boost lib is using it for a single character.\n\nhttps://github.com/boostorg/fiber/blob/71f5b89bd195b5fe24225d80aaf0649744bc8c59/src/numa/linux/topology.cpp#L104",
+      "parentUuid": "9de4a59c_b5bf5c7b",
+      "range": {
+        "startLine": 221,
+        "startChar": 50,
+        "endLine": 221,
+        "endChar": 66
+      },
+      "revId": "e15322e72b77c1b9d54a2a4573f6b23b73db8d94",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "be7a8098_11ddae85",
@@ -101,6 +125,30 @@
       "writtenOn": "2022-06-16T04:45:16Z",
       "side": 1,
       "message": "Is it a safe assumption, that all non-array and non-objects are properties.\n(It probably is, but it is not clear to me)",
+      "range": {
+        "startLine": 679,
+        "startChar": 26,
+        "endLine": 679,
+        "endChar": 58
+      },
+      "revId": "e15322e72b77c1b9d54a2a4573f6b23b73db8d94",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "30eaf352_32816cac",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 679,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-27T17:44:32Z",
+      "side": 1,
+      "message": "I believe so, if you look at all the JSON types, https://json.nlohmann.me/api/basic_json/type/, only array and objects can contain children JSON nodes.",
+      "parentUuid": "dd4cf246_f55f2523",
       "range": {
         "startLine": 679,
         "startChar": 26,
