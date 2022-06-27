@@ -576,7 +576,7 @@ inline void handleHypervisorIPv4StaticPatch(
 {
     if ((!input.is_array()) || input.empty())
     {
-        messages::propertyValueTypeError(asyncResp->res, input.dump(),
+        messages::propertyValueTypeError(asyncResp->res, input,
                                          "IPv4StaticAddresses");
         return;
     }
@@ -922,12 +922,8 @@ inline void requestRoutesHypervisorSystems(App& app)
                 const nlohmann::json& ipv4Static = *ipv4StaticAddresses;
                 if (ipv4Static.begin() == ipv4Static.end())
                 {
-                    messages::propertyValueTypeError(
-                        asyncResp->res,
-                        ipv4Static.dump(
-                            2, ' ', true,
-                            nlohmann::json::error_handler_t::replace),
-                        "IPv4StaticAddresses");
+                    messages::propertyValueTypeError(asyncResp->res, ipv4Static,
+                                                     "IPv4StaticAddresses");
                     return;
                 }
 
