@@ -27,12 +27,14 @@
 #include <boost/beast/http/read.hpp>
 #include <boost/beast/http/string_body.hpp>
 #include <boost/beast/http/write.hpp>
+#include <boost/beast/ssl.hpp>
 #include <boost/beast/version.hpp>
 #include <boost/container/devector.hpp>
 #include <boost/system/error_code.hpp>
 #include <http/http_response.hpp>
 #include <include/async_resolve.hpp>
 #include <logging.hpp>
+#include <ssl_key_handler.hpp>
 
 #include <cstdlib>
 #include <functional>
@@ -50,6 +52,8 @@ constexpr uint8_t maxRequestQueueSize = 50;
 constexpr unsigned int httpReadBodyLimit = 16384;
 constexpr unsigned int httpReadBufferSize = 4096;
 
+constexpr const char* httpClientCertStoreDir = "/etc/cert/http-client/";
+
 enum class ConnState
 {
     initialized,
@@ -58,6 +62,8 @@ enum class ConnState
     connectInProgress,
     connectFailed,
     connected,
+    handshakeInProgress,
+    handshakeFailed,
     sendInProgress,
     sendFailed,
     recvInProgress,
@@ -67,6 +73,7 @@ enum class ConnState
     suspended,
     terminated,
     abortConnection,
+    sslInitFailed,
     retry
 };
 
@@ -119,6 +126,7 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
     std::string subId;
     std::string host;
     uint16_t port;
+    bool useSSL;
     uint32_t connId;
 
     // Retry policy information
@@ -137,6 +145,8 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
     std::function<void(bool, uint32_t, Response&)> callback;
     crow::async_resolve::Resolver resolver;
     boost::beast::tcp_stream conn;
+    std::shared_ptr<boost::asio::ssl::context> sslCtx;
+    std::optional<boost::beast::ssl_stream<boost::beast::tcp_stream&>> sslConn;
     boost::asio::steady_timer timer;
 
     friend class ConnectionPool;
@@ -173,6 +183,36 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
         const std::vector<boost::asio::ip::tcp::endpoint>& endpointList)
     {
         state = ConnState::connectInProgress;
+        if (sslCtx)
+        {
+            sslConn.emplace(conn, *sslCtx);
+
+            // NOTE: The SSL_set_tlsext_host_name is defined in tlsv1.h header
+            // file but its having old style casting (name is cast to void*).
+            // Since bmcweb compiler treats all old-style-cast as error, its
+            // causing the build failure. So replaced the same macro inline and
+            // did corrected the code by doing static_cast to viod*. This has to
+            // be fixed in openssl library in long run. Set SNI Hostname (many
+            // hosts need this to handshake successfully)
+            if (SSL_ctrl(sslConn->native_handle(), SSL_CTRL_SET_TLSEXT_HOSTNAME,
+                         TLSEXT_NAMETYPE_host_name,
+                         static_cast<void*>(&host.front())) == 0)
+
+            {
+                boost::beast::error_code ec{
+                    static_cast<int>(::ERR_get_error()),
+                    boost::asio::error::get_ssl_category()};
+
+                BMCWEB_LOG_ERROR << "SSL_set_tlsext_host_name " << host << ":"
+                                 << port << ", id: " << std::to_string(connId)
+                                 << " failed: " << ec.message();
+                // Set state as sslInit failed so that we close the connection
+                // and take appropriate action as per retry configuration.
+                state = ConnState::sslInitFailed;
+                waitAndRetry();
+                return;
+            }
+        }
 
         BMCWEB_LOG_DEBUG << "Trying to connect to: " << host << ":"
                          << std::to_string(port)
@@ -197,9 +237,54 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
                 << "Connected to: " << endpoint.address().to_string() << ":"
                 << std::to_string(endpoint.port())
                 << ", id: " << std::to_string(self->connId);
+            if (self->sslConn)
+            {
+                self->doSSLHandshake();
+                return;
+            }
             self->state = ConnState::connected;
             self->sendMessage();
         });
+    }
+
+    void doSSLHandshake()
+    {
+        state = ConnState::handshakeInProgress;
+        sslConn->async_handshake(
+            boost::asio::ssl::stream_base::client,
+            [self(shared_from_this())](const boost::beast::error_code ec) {
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR << "SSL Handshake failed -"
+                                 << " id: " << std::to_string(self->connId)
+                                 << " error: " << ec.message();
+                self->state = ConnState::handshakeFailed;
+                self->waitAndRetry();
+                return;
+            }
+            BMCWEB_LOG_DEBUG << "SSL Handshake successful -"
+                             << " id: " << std::to_string(self->connId);
+            self->state = ConnState::connected;
+            self->sendMessage();
+            });
+    }
+
+    static void
+        handleSendMsgResponse(const std::shared_ptr<ConnectionInfo>& connection,
+                              const boost::beast::error_code& ec,
+                              const std::size_t& bytesTransferred)
+    {
+        if (ec)
+        {
+            BMCWEB_LOG_ERROR << "sendMessage() failed: " << ec.message();
+            connection->state = ConnState::sendFailed;
+            connection->waitAndRetry();
+            return;
+        }
+        BMCWEB_LOG_DEBUG << "sendMessage() bytes transferred: "
+                         << bytesTransferred;
+
+        connection->recvMessage();
     }
 
     void sendMessage()
@@ -210,23 +295,68 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
         conn.expires_after(std::chrono::seconds(30));
 
         // Send the HTTP request to the remote host
-        boost::beast::http::async_write(
-            conn, req,
-            [self(shared_from_this())](const boost::beast::error_code& ec,
-                                       const std::size_t& bytesTransferred) {
-            if (ec)
-            {
-                BMCWEB_LOG_ERROR << "sendMessage() failed: " << ec.message();
-                self->state = ConnState::sendFailed;
-                self->waitAndRetry();
-                return;
-            }
-            BMCWEB_LOG_DEBUG << "sendMessage() bytes transferred: "
-                             << bytesTransferred;
-            boost::ignore_unused(bytesTransferred);
+        if (sslConn)
+        {
+            boost::beast::http::async_write(
+                *sslConn, req,
+                std::bind_front(&handleSendMsgResponse, shared_from_this()));
+        }
+        else
+        {
+            boost::beast::http::async_write(
+                conn, req,
+                std::bind_front(&handleSendMsgResponse, shared_from_this()));
+        }
+    }
 
-            self->recvMessage();
-            });
+    static void
+        handleRecvMsgResponse(const std::shared_ptr<ConnectionInfo>& connection,
+                              const boost::beast::error_code& ec,
+                              const std::size_t& bytesTransferred)
+    {
+        if (ec && ec != boost::asio::ssl::error::stream_truncated)
+        {
+            BMCWEB_LOG_ERROR << "recvMessage() failed: " << ec.message();
+            connection->state = ConnState::recvFailed;
+            connection->waitAndRetry();
+            return;
+        }
+        BMCWEB_LOG_DEBUG << "recvMessage() bytes transferred: "
+                         << bytesTransferred;
+        BMCWEB_LOG_DEBUG << "recvMessage() data: "
+                         << connection->parser->get().body();
+
+        unsigned int respCode = connection->parser->get().result_int();
+        BMCWEB_LOG_DEBUG << "recvMessage() Header Response Code: " << respCode;
+
+        // Make sure the received response code is valid as defined by
+        // the associated retry policy
+        if (connection->retryPolicy.invalidResp(respCode))
+        {
+            // The listener failed to receive the Sent-Event
+            BMCWEB_LOG_ERROR << "recvMessage() Listener Failed to "
+                                "receive Sent-Event. Header Response Code: "
+                             << respCode;
+            connection->state = ConnState::recvFailed;
+            connection->waitAndRetry();
+            return;
+        }
+
+        // Send is successful
+        // Reset the counter just in case this was after retrying
+        connection->retryCount = 0;
+
+        // Keep the connection alive if server supports it
+        // Else close the connection
+        BMCWEB_LOG_DEBUG << "recvMessage() keepalive : "
+                         << connection->parser->keep_alive();
+
+        // Copy the response into a Response object so that it can be
+        // processed by the callback function.
+        connection->res.clear();
+        connection->res.stringResponse = connection->parser->release();
+        connection->callback(connection->parser->keep_alive(),
+                             connection->connId, connection->res);
     }
 
     void recvMessage()
@@ -237,59 +367,24 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
         parser->body_limit(httpReadBodyLimit);
 
         // Receive the HTTP response
-        boost::beast::http::async_read(
-            conn, buffer, *parser,
-            [self(shared_from_this())](const boost::beast::error_code& ec,
-                                       const std::size_t& bytesTransferred) {
-            if (ec)
-            {
-                BMCWEB_LOG_ERROR << "recvMessage() failed: " << ec.message();
-                self->state = ConnState::recvFailed;
-                self->waitAndRetry();
-                return;
-            }
-            BMCWEB_LOG_DEBUG << "recvMessage() bytes transferred: "
-                             << bytesTransferred;
-            BMCWEB_LOG_DEBUG << "recvMessage() data: "
-                             << self->parser->get().body();
-
-            unsigned int respCode = self->parser->get().result_int();
-            BMCWEB_LOG_DEBUG << "recvMessage() Header Response Code: "
-                             << respCode;
-
-            // Make sure the received response code is valid as defined by
-            // the associated retry policy
-            if (self->retryPolicy.invalidResp(respCode))
-            {
-                // The listener failed to receive the Sent-Event
-                BMCWEB_LOG_ERROR << "recvMessage() Listener Failed to "
-                                    "receive Sent-Event. Header Response Code: "
-                                 << respCode;
-                self->state = ConnState::recvFailed;
-                self->waitAndRetry();
-                return;
-            }
-
-            // Send is successful
-            // Reset the counter just in case this was after retrying
-            self->retryCount = 0;
-
-            // Keep the connection alive if server supports it
-            // Else close the connection
-            BMCWEB_LOG_DEBUG << "recvMessage() keepalive : "
-                             << self->parser->keep_alive();
-
-            // Copy the response into a Response object so that it can be
-            // processed by the callback function.
-            self->res.clear();
-            self->res.stringResponse = self->parser->release();
-            self->callback(self->parser->keep_alive(), self->connId, self->res);
-            });
+        if (sslConn)
+        {
+            boost::beast::http::async_read(
+                *sslConn, buffer, *parser,
+                std::bind_front(handleRecvMsgResponse, shared_from_this()));
+        }
+        else
+        {
+            boost::beast::http::async_read(
+                conn, buffer, *parser,
+                std::bind_front(handleRecvMsgResponse, shared_from_this()));
+        }
     }
 
     void waitAndRetry()
     {
-        if (retryCount >= retryPolicy.maxRetryAttempts)
+        if ((retryCount >= retryPolicy.maxRetryAttempts) ||
+            (state == ConnState::sslInitFailed))
         {
             BMCWEB_LOG_ERROR << "Maximum number of retries reached.";
             BMCWEB_LOG_DEBUG << "Retry policy: "
@@ -348,11 +443,11 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
             self->runningTimer = false;
 
             // Let's close the connection and restart from resolve.
-            self->doCloseAndRetry();
+            self->doClose(true);
         });
     }
 
-    void doClose()
+    void shutdownConn(const bool retry)
     {
         boost::beast::error_code ec;
         conn.socket().shutdown(boost::asio::ip::tcp::socket::shutdown_both, ec);
@@ -372,42 +467,77 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
                              << " closed gracefully";
         }
 
-        state = ConnState::closed;
+        if ((state != ConnState::suspended) && (state != ConnState::terminated))
+        {
+            if (retry)
+            {
+                // Now let's try to resend the data
+                state = ConnState::retry;
+                this->doResolve();
+            }
+            else
+            {
+                state = ConnState::closed;
+            }
+        }
     }
 
-    void doCloseAndRetry()
+    void doClose(const bool retry = false)
     {
-        boost::beast::error_code ec;
-        conn.socket().shutdown(boost::asio::ip::tcp::socket::shutdown_both, ec);
-        conn.close();
-
-        // not_connected happens sometimes so don't bother reporting it.
-        if (ec && ec != boost::beast::errc::not_connected)
+        if (!sslConn)
         {
-            BMCWEB_LOG_ERROR << host << ":" << std::to_string(port)
-                             << ", id: " << std::to_string(connId)
-                             << "shutdown failed: " << ec.message();
-        }
-        else
-        {
-            BMCWEB_LOG_DEBUG << host << ":" << std::to_string(port)
-                             << ", id: " << std::to_string(connId)
-                             << " closed gracefully";
+            shutdownConn(retry);
+            return;
         }
 
-        // Now let's try to resend the data
-        state = ConnState::retry;
-        doResolve();
+        sslConn->async_shutdown([self = shared_from_this(),
+                                 retry](const boost::system::error_code ec) {
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR << self->host << ":"
+                                 << std::to_string(self->port)
+                                 << ", id: " << std::to_string(self->connId)
+                                 << " shutdown failed: " << ec.message();
+            }
+            else
+            {
+                BMCWEB_LOG_DEBUG << self->host << ":"
+                                 << std::to_string(self->port)
+                                 << ", id: " << std::to_string(self->connId)
+                                 << " closed gracefully";
+            }
+            self->shutdownConn(retry);
+        });
     }
 
   public:
-    explicit ConnectionInfo(boost::asio::io_context& ioc,
-                            const std::string& idIn, const std::string& destIP,
-                            const uint16_t destPort,
+    explicit ConnectionInfo(boost::asio::io_context& iocIn,
+                            const std::string& idIn,
+                            const std::string& destIPIn,
+                            const uint16_t destPortIn, const bool useSSLIn,
                             const unsigned int connIdIn) :
         subId(idIn),
-        host(destIP), port(destPort), connId(connIdIn), conn(ioc), timer(ioc)
-    {}
+        host(destIPIn), port(destPortIn), useSSL(useSSLIn), connId(connIdIn),
+        conn(iocIn), timer(iocIn)
+    {
+        if (useSSL)
+        {
+            sslCtx = ensuressl::getSSLClientContext(httpClientCertStoreDir);
+            if (!sslCtx)
+            {
+                BMCWEB_LOG_ERROR << "prepareSSLContext failed - " << host << ":"
+                                 << port << ", id: " << std::to_string(connId);
+                // Don't retry if failure occurs while preparing SSL context
+                // such as certificate is invalid or set cipher failure or set
+                // host name failure etc... Setting conn state to sslInitFailed
+                // and connection state will be transitioned to next state
+                // depending on retry policy set by subscription.
+                state = ConnState::sslInitFailed;
+                waitAndRetry();
+                return;
+            }
+        }
+    }
 };
 
 class ConnectionPool : public std::enable_shared_from_this<ConnectionPool>
@@ -417,6 +547,7 @@ class ConnectionPool : public std::enable_shared_from_this<ConnectionPool>
     const std::string id;
     const std::string destIP;
     const uint16_t destPort;
+    const bool useSSL;
     std::vector<std::shared_ptr<ConnectionInfo>> connections;
     boost::container::devector<PendingRequest> requestQueue;
 
@@ -594,8 +725,8 @@ class ConnectionPool : public std::enable_shared_from_this<ConnectionPool>
     {
         unsigned int newId = static_cast<unsigned int>(connections.size());
 
-        auto& ret = connections.emplace_back(
-            std::make_shared<ConnectionInfo>(ioc, id, destIP, destPort, newId));
+        auto& ret = connections.emplace_back(std::make_shared<ConnectionInfo>(
+            ioc, id, destIP, destPort, useSSL, newId));
 
         BMCWEB_LOG_DEBUG << "Added connection "
                          << std::to_string(connections.size() - 1)
@@ -609,9 +740,9 @@ class ConnectionPool : public std::enable_shared_from_this<ConnectionPool>
     explicit ConnectionPool(boost::asio::io_context& iocIn,
                             const std::string& idIn,
                             const std::string& destIPIn,
-                            const uint16_t destPortIn) :
+                            const uint16_t destPortIn, const bool useSSLIn) :
         ioc(iocIn),
-        id(idIn), destIP(destIPIn), destPort(destPortIn)
+        id(idIn), destIP(destIPIn), destPort(destPortIn), useSSL(useSSLIn)
     {
         BMCWEB_LOG_DEBUG << "Initializing connection pool for " << destIP << ":"
                          << std::to_string(destPort);
@@ -656,14 +787,14 @@ class HttpClient
     // result is not required
     void sendData(std::string& data, const std::string& id,
                   const std::string& destIP, const uint16_t destPort,
-                  const std::string& destUri,
+                  const std::string& destUri, const bool useSSL,
                   const boost::beast::http::fields& httpHeader,
                   const boost::beast::http::verb verb,
                   const std::string& retryPolicyName)
     {
-        const std::function<void(const Response&)> cb = genericResHandler;
-        sendDataWithCallback(data, id, destIP, destPort, destUri, httpHeader,
-                             verb, retryPolicyName, cb);
+        const std::function<void(Response&)> cb = genericResHandler;
+        sendDataWithCallback(data, id, destIP, destPort, destUri, useSSL,
+                             httpHeader, verb, retryPolicyName, cb);
     }
 
     // Send request to destIP:destPort and use the provided callback to
@@ -671,7 +802,7 @@ class HttpClient
     void sendDataWithCallback(std::string& data, const std::string& id,
                               const std::string& destIP,
                               const uint16_t destPort,
-                              const std::string& destUri,
+                              const std::string& destUri, const bool useSSL,
                               const boost::beast::http::fields& httpHeader,
                               const boost::beast::http::verb verb,
                               const std::string& retryPolicyName,
@@ -684,8 +815,8 @@ class HttpClient
         {
             // Now actually create the ConnectionPool shared_ptr since it does
             // not already exist
-            result.first->second =
-                std::make_shared<ConnectionPool>(ioc, id, destIP, destPort);
+            result.first->second = std::make_shared<ConnectionPool>(
+                ioc, id, destIP, destPort, useSSL);
             BMCWEB_LOG_DEBUG << "Created connection pool for " << clientKey;
         }
         else

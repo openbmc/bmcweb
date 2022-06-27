@@ -474,4 +474,68 @@ inline std::shared_ptr<boost::asio::ssl::context>
     }
     return mSslContext;
 }
+
+inline std::shared_ptr<boost::asio::ssl::context>
+    getSSLClientContext(const std::string& certPath)
+{
+    std::shared_ptr<boost::asio::ssl::context> sslCtx =
+        std::make_shared<boost::asio::ssl::context>(
+            boost::asio::ssl::context::tls_client);
+
+    boost::system::error_code ec;
+    // Support only TLS v1.2 & v1.3
+    sslCtx->set_options(boost::asio::ssl::context::default_workarounds |
+                            boost::asio::ssl::context::no_sslv2 |
+                            boost::asio::ssl::context::no_sslv3 |
+                            boost::asio::ssl::context::single_dh_use |
+                            boost::asio::ssl::context::no_tlsv1 |
+                            boost::asio::ssl::context::no_tlsv1_1,
+                        ec);
+    if (ec)
+    {
+        BMCWEB_LOG_ERROR << "SSL context set_options failed";
+        return nullptr;
+    }
+
+    // Add a directory containing certificate authority files to be used
+    // for performing verification.
+    sslCtx->add_verify_path(certPath, ec);
+    if (ec)
+    {
+        BMCWEB_LOG_ERROR << "SSL context add_verify_path failed";
+        return nullptr;
+    }
+
+    // Verify the remote server's certificate
+    sslCtx->set_verify_mode(boost::asio::ssl::verify_peer);
+    if (ec)
+    {
+        BMCWEB_LOG_ERROR << "SSL context set_verify_mode failed";
+        return nullptr;
+    }
+
+    // All cipher suites are set as per OWASP datasheet.
+    // https://cheatsheetseries.owasp.org/cheatsheets/TLS_Cipher_String_Cheat_Sheet.html
+    std::string sslCiphers = "ECDHE-ECDSA-AES128-GCM-SHA256:"
+                             "ECDHE-RSA-AES128-GCM-SHA256:"
+                             "ECDHE-ECDSA-AES256-GCM-SHA384:"
+                             "ECDHE-RSA-AES256-GCM-SHA384:"
+                             "ECDHE-ECDSA-CHACHA20-POLY1305:"
+                             "ECDHE-RSA-CHACHA20-POLY1305:"
+                             "DHE-RSA-AES128-GCM-SHA256:"
+                             "DHE-RSA-AES256-GCM-SHA384"
+                             "TLS_AES_128_GCM_SHA256:"
+                             "TLS_AES_256_GCM_SHA384:"
+                             "TLS_CHACHA20_POLY1305_SHA256";
+
+    if (SSL_CTX_set_cipher_list(sslCtx->native_handle(), sslCiphers.c_str()) !=
+        1)
+    {
+        BMCWEB_LOG_ERROR << "SSL_CTX_set_cipher_list failed";
+        return nullptr;
+    }
+
+    return sslCtx;
+}
+
 } // namespace ensuressl
