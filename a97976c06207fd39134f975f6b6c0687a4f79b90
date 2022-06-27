@@ -532,6 +532,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fadfab98_7b156d7d",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 645,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-27T16:55:09Z",
+      "side": 1,
+      "message": "it\u0027s just just error.  You will need to append all properties message, which to do that will require reading the spec.",
+      "parentUuid": "ba617682_efb4df0d",
+      "range": {
+        "startLine": 645,
+        "startChar": 0,
+        "endLine": 645,
+        "endChar": 69
+      },
+      "revId": "a97976c06207fd39134f975f6b6c0687a4f79b90",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f19c0fa6_dfce885f",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 5
