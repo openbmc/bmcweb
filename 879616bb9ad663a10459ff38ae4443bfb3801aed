@@ -254,6 +254,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a886e384_783508e7",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 836,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-27T16:22:38Z",
+      "side": 1,
+      "message": "FWIW, I changed the class name. And yes, its main functionality is to \"capture the AsyncResponse shared pointer and append objects to the response object as required\".",
+      "parentUuid": "f47771a1_085fda62",
+      "range": {
+        "startLine": 836,
+        "startChar": 6,
+        "endLine": 836,
+        "endChar": 25
+      },
+      "revId": "879616bb9ad663a10459ff38ae4443bfb3801aed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "da554ff1_4066622e",
