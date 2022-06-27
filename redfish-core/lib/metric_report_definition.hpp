@@ -705,9 +705,8 @@ class AddReport
                 {
                     metricProperties.emplace_back(uri);
                 }
-                messages::propertyValueIncorrect(asyncResp->res,
-                                                 metricProperties.dump(),
-                                                 "MetricProperties");
+                messages::propertyValueIncorrect(
+                    asyncResp->res, metricProperties, "MetricProperties");
                 return;
             }
             if (ec)
