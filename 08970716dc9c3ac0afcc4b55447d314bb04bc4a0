@@ -35,6 +35,69 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "807947cf_07ff7ec1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 19
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-27T22:33:58Z",
+      "side": 1,
+      "message": "Overall, I\u0027m struggling this a little because of its complexity.  We allowed the complexity into the Sensor subsystem because it improved the performance by 100X for something that we expect to be polled quite often, and to date, it has caused significant maintenance problems when new things are added, but in that case, it was probably worth it, as it dropped a 1 minute poll loop down to a couple seconds.\n\nArguably this is a different case, because we\u0027re talking about inventory items here, and anything we do is going to need to be copied to drives, storage, network interfaces, ect.  Given that as the future, I\u0027m a little worried about how little code is shared, given that it can lead to subtle bugs that are hard to catch (like the array ordering thing that I caught below.)\n\nGiven 2 second response time is well within what we allow, I wonder if 300 lines of complex code is worth the difference here, or if there\u0027s some improvements we can make to reuse more code between the expand case and the non.  Nan, is this something you\u0027ve thought about?",
+      "revId": "08970716dc9c3ac0afcc4b55447d314bb04bc4a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d7ca6ad3_f38bda95",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 829,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-27T22:33:58Z",
+      "side": 1,
+      "message": "typo.",
+      "range": {
+        "startLine": 829,
+        "startChar": 22,
+        "endLine": 829,
+        "endChar": 32
+      },
+      "revId": "08970716dc9c3ac0afcc4b55447d314bb04bc4a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3406a56d_003224c1",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 857,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-27T22:33:58Z",
+      "side": 1,
+      "message": "DO we do this check in the other health checks?  I didn\u0027t think so?",
+      "range": {
+        "startLine": 852,
+        "startChar": 0,
+        "endLine": 857,
+        "endChar": 9
+      },
+      "revId": "08970716dc9c3ac0afcc4b55447d314bb04bc4a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b90e093e_f1dbee82",

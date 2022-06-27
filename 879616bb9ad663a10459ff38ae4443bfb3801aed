@@ -190,6 +190,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "2eb848f9_beecbf76",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-27T22:33:58Z",
+      "side": 1,
+      "message": "\u003e Wait, is this a bug? Is there requirement on the order of the Members?\n\nExpand should return the same values as if it had been constructed from independent pieces, this includes the order of the collection.\n\nYou\u0027ve avoided the problem of the reason this bug was caused is because it didn\u0027t reuse any of the existing code for the handler, and opted to do a completely different codepath.",
+      "parentUuid": "7bbecf96_43b58e6c",
+      "range": {
+        "startLine": 49,
+        "startChar": 60,
+        "endLine": 49,
+        "endChar": 65
+      },
+      "revId": "879616bb9ad663a10459ff38ae4443bfb3801aed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "45516432_70098c9f",
