@@ -22,6 +22,30 @@
       },
       "revId": "fea55f5c583e3d8c5af53f30697203000188df45",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4a134155_608ee808",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-27T18:00:16Z",
+      "side": 1,
+      "message": "We\u0027ve never had a consistent rule for \"when should you declare a function noexcept?\" and in the context of bmcweb, it\u0027s not clear what advantage it brings us to add to all of our handlers;  There are some places where people have marked things noexcept, and I\u0027ve let them in because the declaration doesn\u0027t seem to hurt or help anything.\n\nMy overall goal for this is https://gerrit.openbmc.org/c/openbmc/bmcweb/+/46841\n\nso that marking a function noexcept would be moot, but that\u0027s a long ways off.",
+      "parentUuid": "0e99a613_50438ac4",
+      "range": {
+        "startLine": 89,
+        "startChar": 29,
+        "endLine": 89,
+        "endChar": 37
+      },
+      "revId": "fea55f5c583e3d8c5af53f30697203000188df45",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
