@@ -22,6 +22,30 @@
       },
       "revId": "bb7a59b7346c05543786376f6f2c9202a5092879",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8fa1577b_c6aefa20",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-27T23:56:20Z",
+      "side": 1,
+      "message": "For some tests, there is a little bit more changes in addition to just adding namespaces.\n\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/54928/1\n\nActually these fixes don\u0027t rely on each other and won\u0027t introduce conflicts when submitted without ordering.\n\nAny reason why this commit and its parent commit can\u0027t be merge quickly.\n\nI want to make clear that I am not trying to make more commits. I make these separate changes just because I was looking into tests one by one.",
+      "parentUuid": "b79d9bb0_15f37b5c",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 54
+      },
+      "revId": "bb7a59b7346c05543786376f6f2c9202a5092879",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
