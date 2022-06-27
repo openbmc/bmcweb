@@ -165,6 +165,29 @@
       },
       "revId": "f1eac5775ed6593fe7148118304bdecec08af1ef",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "83f50a3c_e155e4e5",
+        "filename": "src/webserver_main.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-27T18:54:50Z",
+      "side": 0,
+      "message": "I\u0027d still like to reset the systemBus variable to nullptr when we go out of scope.  This makes it less likely there\u0027s a security issue on destruction (although unlikely anyway) and makes it a lot more obvious what happened when things fail on shutdown.\n\n\nshould just be crow::connections::systemBus \u003d nullptr;",
+      "range": {
+        "startLine": 153,
+        "startChar": 0,
+        "endLine": 153,
+        "endChar": 41
+      },
+      "revId": "f1eac5775ed6593fe7148118304bdecec08af1ef",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

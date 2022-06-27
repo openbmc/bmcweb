@@ -86,6 +86,29 @@
       "parentUuid": "8302b884_205ad93e",
       "revId": "f132540f2f9a1e899c34d7b7101c0b84da135b96",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "70e19674_26ab4c5a",
+        "filename": "src/webserver_main.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-27T18:54:50Z",
+      "side": 1,
+      "message": "If this is now declared on stack, we don\u0027t need the DBusConnection class at all, the ownership is handled by the stack.  Just do\n\nsdbusplus::asio::connection dbusConnection;\ncrow::connections::systemBus \u003d \u0026dbusConnection;\n\n\nand the whole dbus_singleton.hpp file goes away, right?\n\nAs written, I\u0027m a little worried that this forces the io_context to live longer than main(), which might be an issue.",
+      "range": {
+        "startLine": 71,
+        "startChar": 4,
+        "endLine": 71,
+        "endChar": 38
+      },
+      "revId": "f132540f2f9a1e899c34d7b7101c0b84da135b96",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
