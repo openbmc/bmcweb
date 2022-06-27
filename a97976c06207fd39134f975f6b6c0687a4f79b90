@@ -628,6 +628,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f194a6f3_d87ba38d",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 645,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-27T19:42:09Z",
+      "side": 1,
+      "message": "\u003e When select is used, we shouldn\u0027t be stripping the messages as well.\n\nThis is already handled by this implementation:\n\n1. \"HTTP status codes often do not provide enough information to enable deterministic error semantics\" is under \"8.6 Error responses\". I would assume responses here have error http code, so that these query parameters won\u0027t be execute at all.\n\n2. Even if there is case \"8.6 Error responses\" have Ok HTTP codes (which I didn\u0027t find a case in the spec). I added \"error\" in this array, so all attributes under it will be selected.\n\nDo you still have concerns on this?",
+      "parentUuid": "f6de344c_48044ffb",
+      "range": {
+        "startLine": 645,
+        "startChar": 0,
+        "endLine": 645,
+        "endChar": 69
+      },
+      "revId": "a97976c06207fd39134f975f6b6c0687a4f79b90",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f19c0fa6_dfce885f",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 5
