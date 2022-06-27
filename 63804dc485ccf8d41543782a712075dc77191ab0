@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "473405f2_1d681073",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 34
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2022-06-27T15:27:37Z",
+      "side": 1,
+      "message": "CI is failing with some sensor error which are not related to this commit\n\n../redfish-core/include/../lib/sensors.hpp:681:9: error: an exception may be thrown in function \u0027\u0027 which should not throw exceptions [bugprone-exception-escape,-warnings-as-errors]",
+      "revId": "63804dc485ccf8d41543782a712075dc77191ab0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
