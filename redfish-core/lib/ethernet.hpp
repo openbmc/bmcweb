@@ -1308,10 +1308,8 @@ inline void handleIPv4StaticPatch(
 {
     if ((!input.is_array()) || input.empty())
     {
-        messages::propertyValueTypeError(
-            asyncResp->res,
-            input.dump(2, ' ', true, nlohmann::json::error_handler_t::replace),
-            "IPv4StaticAddresses");
+        messages::propertyValueTypeError(asyncResp->res, input,
+                                         "IPv4StaticAddresses");
         return;
     }
 
@@ -1511,10 +1509,8 @@ inline void handleIPv6StaticAddressesPatch(
 {
     if (!input.is_array() || input.empty())
     {
-        messages::propertyValueTypeError(
-            asyncResp->res,
-            input.dump(2, ' ', true, nlohmann::json::error_handler_t::replace),
-            "IPv6StaticAddresses");
+        messages::propertyValueTypeError(asyncResp->res, input,
+                                         "IPv6StaticAddresses");
         return;
     }
     size_t entryIdx = 1;
