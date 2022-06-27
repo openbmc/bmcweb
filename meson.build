@@ -322,6 +322,7 @@ insecure_push_style_notification = get_option('insecure-push-style-notification'
 conf_data.set10('BMCWEB_INSECURE_ENABLE_HTTP_PUSH_STYLE_EVENTING', insecure_push_style_notification.enabled())
 conf_data.set('MESON_INSTALL_PREFIX', get_option('prefix'))
 conf_data.set('HTTPS_PORT', get_option('https_port'))
+conf_data.set('BMCWEB_HTTPCLIENT_CERT_STORE_DIR', get_option('http-client-cert-dir'))
 configure_file(input: 'bmcweb_config.h.in',
                output: 'bmcweb_config.h',
                configuration: conf_data)
