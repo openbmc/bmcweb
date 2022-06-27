@@ -83,6 +83,7 @@ inline void extractNTPServersAndDomainNamesData(
             }
         }
     }
+    stl_utils::removeDuplicate(ntpData);
 }
 
 template <typename CallbackFunc>
@@ -146,7 +147,6 @@ inline void getNetworkData(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                                        "NetworkProtocol");
             return;
         }
-        stl_utils::removeDuplicate(ntpServers);
         asyncResp->res.jsonValue["NTP"]["NTPServers"] = ntpServers;
         if (!hostName.empty())
         {
