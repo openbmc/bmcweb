@@ -386,7 +386,7 @@ inline bool validateParams(crow::Response& res,
     {
         BMCWEB_LOG_ERROR << "Request action parameter Image is empty.";
 
-        messages::propertyValueFormatError(res, "<empty>", "Image");
+        messages::propertyValueFormatError(res, actionParams.imageUrl, "Image");
 
         return false;
     }
