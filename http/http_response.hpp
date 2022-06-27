@@ -71,7 +71,7 @@ struct Response
         stringResponse->result(v);
     }
 
-    boost::beast::http::status result()
+    boost::beast::http::status result() const
     {
         return stringResponse->result();
     }
@@ -81,7 +81,7 @@ struct Response
         return stringResponse->result_int();
     }
 
-    std::string_view reason()
+    std::string_view reason() const
     {
         return stringResponse->reason();
     }
@@ -101,7 +101,7 @@ struct Response
         stringResponse->keep_alive(k);
     }
 
-    bool keepAlive()
+    bool keepAlive() const
     {
         return stringResponse->keep_alive();
     }
@@ -151,7 +151,7 @@ struct Response
         }
     }
 
-    bool isAlive()
+    bool isAlive() const
     {
         return isAliveHelper && isAliveHelper();
     }
