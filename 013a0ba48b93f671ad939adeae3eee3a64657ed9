@@ -176,6 +176,24 @@
       "parentUuid": "41da3665_df4d1dca",
       "revId": "013a0ba48b93f671ad939adeae3eee3a64657ed9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c2ec7a8_ab5e8e3c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-06-27T05:01:33Z",
+      "side": 1,
+      "message": "\u003e \"We can\u0027t even start this for 12-18 months, but we can do a bunch of other stuff right now\"\n\nI think it was meant to convey complete in 12-18 months. \n\nI think we have a solution where most of this (ibm/v1/) goes away but we are still discussing. We can bring forward a more complete plan later with any phosphor-dbus-interfaces defined for anything that does stay.\n\nI guess I would prefer these go in, but if we want to hold off on merging these until there is more progress on moving to proper OpenBMC architecture (bmcweb call the dbus interface), I am okay with that. These patches are already in our fork downstream, I think Sunitha was just trying to get them upstream.",
+      "parentUuid": "68984075_0f10b83c",
+      "revId": "013a0ba48b93f671ad939adeae3eee3a64657ed9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
