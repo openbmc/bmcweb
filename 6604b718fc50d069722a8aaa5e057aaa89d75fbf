@@ -56,6 +56,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1e2b466f_6eb8894e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-27T22:13:54Z",
+      "side": 1,
+      "message": "That\u0027s a really good point, I missed that.  hmm.... that makes me wonder if we need a way to have an \"unspecified\" value.",
+      "parentUuid": "2e8fc7ab_50afe91c",
+      "revId": "6604b718fc50d069722a8aaa5e057aaa89d75fbf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b6010b11_5fb33d5c",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 1
