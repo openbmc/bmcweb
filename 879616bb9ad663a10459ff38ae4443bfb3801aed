@@ -278,6 +278,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a7489f01_193da1fc",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 836,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-27T22:24:33Z",
+      "side": 1,
+      "message": "\u003e Why is per-schema defined AsyncResponse object bad?\n\nBecause they caused lots of code duplication and bugs because of the complex code they generated.  They also impose a form of \"caching\" that requires significant amounts of memory, and leads to patterns where people store large amounts of data in the Async object, just to release it all at the end, which can lead to OOM conditions when under load.  It probably doesn\u0027t make sense to go back 4 years in the git logs to figure out exactly why (it might not be well documented there either).",
+      "parentUuid": "a886e384_783508e7",
+      "range": {
+        "startLine": 836,
+        "startChar": 6,
+        "endLine": 836,
+        "endChar": 25
+      },
+      "revId": "879616bb9ad663a10459ff38ae4443bfb3801aed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "da554ff1_4066622e",
