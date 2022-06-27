@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "40a1c052_de025cb3",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 647,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-27T22:04:08Z",
+      "side": 1,
+      "message": "Actually in PCM, certIDs are always integers",
+      "range": {
+        "startLine": 647,
+        "startChar": 4,
+        "endLine": 647,
+        "endChar": 29
+      },
+      "revId": "f2e1877ba8aaede0cbb5c8c1e24566c0e495a259",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
