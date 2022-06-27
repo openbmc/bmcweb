@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d91844b8_e3fb9481",
+        "filename": "redfish-core/lib/service_root.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-06-27T19:37:38Z",
+      "side": 1,
+      "message": "Another place we have the schema version. 😬 \n\nSomething like \nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/54030\nwould really help here",
+      "revId": "cd09ca762d0345dbd357e04c472041810cc54f63",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "94d1c5e4_96e0465c",
         "filename": "redfish-core/lib/service_root.hpp",
         "patchSetId": 1
@@ -14,6 +31,24 @@
       "writtenOn": "2022-06-24T17:09:34Z",
       "side": 1,
       "message": "This is duplicated between the HEAD and non HEAD routes, and duplicates the version information.  That\u0027s bad.... we should avoid that.",
+      "revId": "cd09ca762d0345dbd357e04c472041810cc54f63",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8feeb6df_d690fe5a",
+        "filename": "redfish-core/lib/service_root.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-06-27T19:37:38Z",
+      "side": 1,
+      "message": "+1.",
+      "parentUuid": "94d1c5e4_96e0465c",
       "revId": "cd09ca762d0345dbd357e04c472041810cc54f63",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
