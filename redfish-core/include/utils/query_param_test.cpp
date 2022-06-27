@@ -1,12 +1,10 @@
 #include "query_param.hpp"
 
-#include <cstddef>
-
 #include <boost/system/result.hpp>
 #include <boost/url/url_view.hpp>
 #include <nlohmann/json.hpp>
 
-#include <iostream>
+#include <cstddef>
 
 #include <gmock/gmock-matchers.h>
 #include <gtest/gtest.h>
@@ -15,6 +13,8 @@ namespace redfish::query_param
 {
 namespace
 {
+
+using ::testing::UnorderedElementsAre;
 
 TEST(Delegate, OnlyPositive)
 {
@@ -150,18 +150,12 @@ TEST(FormatQueryForExpand, DelegatedSubQueriesHaveSameTypeAndOneLessLevels)
               "?$expand=.($levels=1)");
 }
 
-} // namespace
-} // namespace redfish::query_param
-
 TEST(QueryParams, ParseParametersOnly)
 {
     auto ret = boost::urls::parse_relative_ref("/redfish/v1?only");
     ASSERT_TRUE(ret);
 
     crow::Response res;
-
-    using redfish::query_param::parseParameters;
-    using redfish::query_param::Query;
     std::optional<Query> query = parseParameters(ret->params(), res);
     ASSERT_TRUE(query != std::nullopt);
     EXPECT_TRUE(query->isOnly);
@@ -174,8 +168,6 @@ TEST(QueryParams, ParseParametersExpand)
 
     crow::Response res;
 
-    using redfish::query_param::parseParameters;
-    using redfish::query_param::Query;
     std::optional<Query> query = parseParameters(ret->params(), res);
     if constexpr (bmcwebInsecureEnableQueryParams)
     {
@@ -196,8 +188,6 @@ TEST(QueryParams, ParseParametersTop)
 
     crow::Response res;
 
-    using redfish::query_param::parseParameters;
-    using redfish::query_param::Query;
     std::optional<Query> query = parseParameters(ret->params(), res);
     ASSERT_TRUE(query != std::nullopt);
     EXPECT_EQ(query->top, 1);
@@ -210,8 +200,6 @@ TEST(QueryParams, ParseParametersTopOutOfRangeNegative)
 
     crow::Response res;
 
-    using redfish::query_param::parseParameters;
-    using redfish::query_param::Query;
     std::optional<Query> query = parseParameters(ret->params(), res);
     ASSERT_TRUE(query == std::nullopt);
 }
@@ -223,8 +211,6 @@ TEST(QueryParams, ParseParametersTopOutOfRangePositive)
 
     crow::Response res;
 
-    using redfish::query_param::parseParameters;
-    using redfish::query_param::Query;
     std::optional<Query> query = parseParameters(ret->params(), res);
     ASSERT_TRUE(query == std::nullopt);
 }
@@ -236,8 +222,6 @@ TEST(QueryParams, ParseParametersSkip)
 
     crow::Response res;
 
-    using redfish::query_param::parseParameters;
-    using redfish::query_param::Query;
     std::optional<Query> query = parseParameters(ret->params(), res);
     ASSERT_TRUE(query != std::nullopt);
     EXPECT_EQ(query->skip, 1);
@@ -250,8 +234,6 @@ TEST(QueryParams, ParseParametersSkipOutOfRange)
 
     crow::Response res;
 
-    using redfish::query_param::parseParameters;
-    using redfish::query_param::Query;
     std::optional<Query> query = parseParameters(ret->params(), res);
     ASSERT_EQ(query, std::nullopt);
 }
@@ -263,8 +245,6 @@ TEST(QueryParams, ParseParametersUnexpectedGetsIgnored)
 
     crow::Response res;
 
-    using redfish::query_param::parseParameters;
-    using redfish::query_param::Query;
     std::optional<Query> query = parseParameters(ret->params(), res);
     ASSERT_TRUE(query != std::nullopt);
 }
@@ -276,8 +256,6 @@ TEST(QueryParams, ParseParametersUnexpectedDollarGetsError)
 
     crow::Response res;
 
-    using redfish::query_param::parseParameters;
-    using redfish::query_param::Query;
     std::optional<Query> query = parseParameters(ret->params(), res);
     ASSERT_TRUE(query == std::nullopt);
     EXPECT_EQ(res.result(), boost::beast::http::status::not_implemented);
@@ -285,7 +263,7 @@ TEST(QueryParams, ParseParametersUnexpectedDollarGetsError)
 
 TEST(QueryParams, GetExpandType)
 {
-    redfish::query_param::Query query{};
+    Query query{};
 
     EXPECT_FALSE(getExpandType("", query));
     EXPECT_FALSE(getExpandType(".(", query));
@@ -293,11 +271,11 @@ TEST(QueryParams, GetExpandType)
     EXPECT_FALSE(getExpandType(".($levels=1", query));
 
     EXPECT_TRUE(getExpandType("*", query));
-    EXPECT_EQ(query.expandType, redfish::query_param::ExpandType::Both);
+    EXPECT_EQ(query.expandType, ExpandType::Both);
     EXPECT_TRUE(getExpandType(".", query));
-    EXPECT_EQ(query.expandType, redfish::query_param::ExpandType::NotLinks);
+    EXPECT_EQ(query.expandType, ExpandType::NotLinks);
     EXPECT_TRUE(getExpandType("~", query));
-    EXPECT_EQ(query.expandType, redfish::query_param::ExpandType::Links);
+    EXPECT_EQ(query.expandType, ExpandType::Links);
 
     // Per redfish specification, level defaults to 1
     EXPECT_TRUE(getExpandType(".", query));
@@ -316,32 +294,21 @@ TEST(QueryParams, GetExpandType)
     EXPECT_FALSE(getExpandType(".($levels=a)", query));
 }
 
-namespace redfish::query_param
-{
-// NOLINTNEXTLINE(readability-identifier-naming)
-static void PrintTo(const ExpandNode& value, ::std::ostream* os)
-{
-    *os << "ExpandNode: " << value.location << " " << value.uri;
-}
-}; // namespace redfish::query_param
-
 TEST(QueryParams, FindNavigationReferencesNonLink)
 {
     using nlohmann::json;
-    using redfish::query_param::ExpandType;
-    using redfish::query_param::findNavigationReferences;
-    using ::testing::UnorderedElementsAre;
+
     json singleTreeNode = R"({"Foo" : {"@odata.id": "/foobar"}})"_json;
 
     // Parsing as the root should net one entry
     EXPECT_THAT(findNavigationReferences(ExpandType::Both, singleTreeNode),
-                UnorderedElementsAre(redfish::query_param::ExpandNode{
-                    json::json_pointer("/Foo"), "/foobar"}));
+                UnorderedElementsAre(
+                    ExpandNode{json::json_pointer("/Foo"), "/foobar"}));
 
     // Parsing in Non-hyperlinks mode should net one entry
     EXPECT_THAT(findNavigationReferences(ExpandType::NotLinks, singleTreeNode),
-                UnorderedElementsAre(redfish::query_param::ExpandNode{
-                    json::json_pointer("/Foo"), "/foobar"}));
+                UnorderedElementsAre(
+                    ExpandNode{json::json_pointer("/Foo"), "/foobar"}));
 
     // Searching for not types should return empty set
     EXPECT_TRUE(
@@ -355,26 +322,24 @@ TEST(QueryParams, FindNavigationReferencesNonLink)
         R"({"Links": {"@odata.id": "/links"}, "Foo" : {"@odata.id": "/foobar"}})"_json;
     // Should still find Foo
     EXPECT_THAT(findNavigationReferences(ExpandType::NotLinks, multiTreeNodes),
-                UnorderedElementsAre(redfish::query_param::ExpandNode{
-                    json::json_pointer("/Foo"), "/foobar"}));
+                UnorderedElementsAre(
+                    ExpandNode{json::json_pointer("/Foo"), "/foobar"}));
 }
 
 TEST(QueryParams, FindNavigationReferencesLink)
 {
     using nlohmann::json;
-    using redfish::query_param::ExpandType;
-    using redfish::query_param::findNavigationReferences;
-    using ::testing::UnorderedElementsAre;
+
     json singleLinkNode =
         R"({"Links" : {"Sessions": {"@odata.id": "/foobar"}}})"_json;
 
     // Parsing as the root should net one entry
     EXPECT_THAT(findNavigationReferences(ExpandType::Both, singleLinkNode),
-                UnorderedElementsAre(redfish::query_param::ExpandNode{
+                UnorderedElementsAre(ExpandNode{
                     json::json_pointer("/Links/Sessions"), "/foobar"}));
     // Parsing in hyperlinks mode should net one entry
     EXPECT_THAT(findNavigationReferences(ExpandType::Links, singleLinkNode),
-                UnorderedElementsAre(redfish::query_param::ExpandNode{
+                UnorderedElementsAre(ExpandNode{
                     json::json_pointer("/Links/Sessions"), "/foobar"}));
 
     // Searching for not types should return empty set
@@ -385,3 +350,6 @@ TEST(QueryParams, FindNavigationReferencesLink)
     EXPECT_TRUE(
         findNavigationReferences(ExpandType::NotLinks, singleLinkNode).empty());
 }
+
+} // namespace
+} // namespace redfish::query_param
