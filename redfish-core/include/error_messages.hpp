@@ -546,10 +546,10 @@ void operationTimeout(crow::Response& res);
  * @param[in] arg2 Parameter of message that will replace %2 in its body.
  *
  * @returns Message PropertyValueTypeError formatted to JSON */
-nlohmann::json propertyValueTypeError(std::string_view arg1,
+nlohmann::json propertyValueTypeError(const nlohmann::json& arg1,
                                       std::string_view arg2);
 
-void propertyValueTypeError(crow::Response& res, std::string_view arg1,
+void propertyValueTypeError(crow::Response& res, const nlohmann::json& arg1,
                             std::string_view arg2);
 
 /**
