@@ -375,7 +375,7 @@ inline void requestRoutesEventDestinationCollection(App& app)
                     if (value == nullptr)
                     {
                         messages::propertyValueFormatError(
-                            asyncResp->res, item.value().dump(2, 1),
+                            asyncResp->res, item.value(),
                             "HttpHeaders/" + item.key());
                         return;
                     }
@@ -614,7 +614,7 @@ inline void requestRoutesEventDestination(App& app)
                     if (value == nullptr)
                     {
                         messages::propertyValueFormatError(
-                            asyncResp->res, it.value().dump(2, ' ', true),
+                            asyncResp->res, it.value(),
                             "HttpHeaders/" + it.key());
                         return;
                     }

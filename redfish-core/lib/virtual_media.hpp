@@ -441,6 +441,131 @@ struct InsertMediaActionParams
     std::optional<bool> inserted;
 };
 
+<<<<<<< HEAD
+=======
+/**
+ * @brief Function validate parameters of insert media request.
+ *
+ */
+inline bool validateParams(crow::Response& res,
+                           InsertMediaActionParams& actionParams)
+{
+    BMCWEB_LOG_DEBUG << "Validation started";
+    // required param imageUrl must not be empty
+    if (actionParams.imageUrl.empty())
+    {
+        BMCWEB_LOG_ERROR << "Request action parameter Image is empty.";
+
+        messages::propertyValueFormatError(res, actionParams.imageUrl, "Image");
+
+        return false;
+    }
+
+    // optional param inserted must be true
+    if ((actionParams.inserted != std::nullopt) && !*actionParams.inserted)
+    {
+        BMCWEB_LOG_ERROR
+            << "Request action optional parameter Inserted must be true.";
+
+        messages::actionParameterNotSupported(res, "Inserted", "InsertMedia");
+
+        return false;
+    }
+
+    // optional param transferMethod must be stream
+    if ((actionParams.transferMethod != std::nullopt) &&
+        (*actionParams.transferMethod != "Stream"))
+    {
+        BMCWEB_LOG_ERROR << "Request action optional parameter "
+                            "TransferMethod must be Stream.";
+
+        messages::actionParameterNotSupported(res, "TransferMethod",
+                                              "InsertMedia");
+
+        return false;
+    }
+    boost::urls::result<boost::urls::url_view> url =
+        boost::urls::parse_uri(boost::string_view(actionParams.imageUrl));
+    if (!url)
+    {
+        messages::actionParameterValueFormatError(res, actionParams.imageUrl,
+                                                  "Image", "InsertMedia");
+        return false;
+    }
+    std::optional<TransferProtocol> uriTransferProtocolType =
+        getTransferProtocolFromUri(*url);
+
+    std::optional<TransferProtocol> paramTransferProtocolType =
+        getTransferProtocolFromParam(actionParams.transferProtocolType);
+
+    // ImageUrl does not contain valid protocol type
+    if (*uriTransferProtocolType == TransferProtocol::invalid)
+    {
+        BMCWEB_LOG_ERROR << "Request action parameter ImageUrl must "
+                            "contain specified protocol type from list: "
+                            "(smb, https).";
+
+        messages::resourceAtUriInUnknownFormat(res, *url);
+
+        return false;
+    }
+
+    // transferProtocolType should contain value from list
+    if (*paramTransferProtocolType == TransferProtocol::invalid)
+    {
+        BMCWEB_LOG_ERROR << "Request action parameter TransferProtocolType "
+                            "must be provided with value from list: "
+                            "(CIFS, HTTPS).";
+
+        messages::propertyValueNotInList(
+            res, *actionParams.transferProtocolType, "TransferProtocolType");
+        return false;
+    }
+
+    // valid transfer protocol not provided either with URI nor param
+    if ((uriTransferProtocolType == std::nullopt) &&
+        (paramTransferProtocolType == std::nullopt))
+    {
+        BMCWEB_LOG_ERROR << "Request action parameter ImageUrl must "
+                            "contain specified protocol type or param "
+                            "TransferProtocolType must be provided.";
+
+        messages::resourceAtUriInUnknownFormat(res, *url);
+
+        return false;
+    }
+
+    // valid transfer protocol provided both with URI and param
+    if ((paramTransferProtocolType != std::nullopt) &&
+        (uriTransferProtocolType != std::nullopt))
+    {
+        // check if protocol is the same for URI and param
+        if (*paramTransferProtocolType != *uriTransferProtocolType)
+        {
+            BMCWEB_LOG_ERROR << "Request action parameter "
+                                "TransferProtocolType must  contain the "
+                                "same protocol type as protocol type "
+                                "provided with param imageUrl.";
+
+            messages::actionParameterValueTypeError(
+                res, *actionParams.transferProtocolType, "TransferProtocolType",
+                "InsertMedia");
+
+            return false;
+        }
+    }
+
+    // validation passed, add protocol to URI if needed
+    if (uriTransferProtocolType == std::nullopt)
+    {
+        actionParams.imageUrl = getUriWithTransferProtocol(
+            actionParams.imageUrl, *paramTransferProtocolType);
+    }
+
+    return true;
+}
+
+>>>>>>> ca418055 (Make propertyValueFormatError more typesafe)
 template <typename T>
 static void secureCleanup(T& value)
 {
