@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "887a95ae_8a497442",
+        "filename": "redfish-core/lib/service_root.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-27T20:17:19Z",
+      "side": 1,
+      "message": "Yeah, I wonder if that patch needs to come first.",
+      "parentUuid": "d91844b8_e3fb9481",
+      "revId": "cd09ca762d0345dbd357e04c472041810cc54f63",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "94d1c5e4_96e0465c",
         "filename": "redfish-core/lib/service_root.hpp",
         "patchSetId": 1
