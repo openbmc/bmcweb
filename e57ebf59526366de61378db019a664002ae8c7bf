@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e5dd32b8_5481119f",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1147,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-27T19:23:03Z",
+      "side": 1,
+      "message": "Please include the type here as we do in the rest of bmcweb.",
+      "range": {
+        "startLine": 1147,
+        "startChar": 12,
+        "endLine": 1147,
+        "endChar": 16
+      },
+      "revId": "e57ebf59526366de61378db019a664002ae8c7bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
