@@ -109,6 +109,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "80f7da70_ba441ac4",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 877,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-27T16:32:36Z",
+      "side": 1,
+      "message": "\u003e We also uses ObjectPaths for identifying the Type of sensors\n\nWe use object paths to determine the UNITS on the sensors, not the type.  Very different thing in this context.  I\u0027m not sure how we would generate a correct physical context from object_path.\n\nIt looks like your comment got cut off.",
+      "parentUuid": "296ae8f9_9fc00757",
+      "revId": "c237c2a6549f17716d008ff24ca29ff6eb74b23b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ee4bea1e_c7de3957",
         "filename": "redfish-core/lib/sensors.hpp",
         "patchSetId": 1
