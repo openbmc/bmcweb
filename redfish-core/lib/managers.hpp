@@ -692,7 +692,7 @@ inline bool
     if (config.empty())
     {
         BMCWEB_LOG_ERROR << "Empty Zones";
-        messages::propertyValueFormatError(response->res, "[]", "Zones");
+        messages::propertyValueFormatError(response->res, config, "Zones");
         return false;
     }
     for (auto& odata : config)
@@ -712,8 +712,7 @@ inline bool
         {
             BMCWEB_LOG_ERROR << "Got invalid path " << path;
             BMCWEB_LOG_ERROR << "Illegal Type Zones";
-            messages::propertyValueFormatError(response->res, odata.dump(),
-                                               "Zones");
+            messages::propertyValueFormatError(response->res, odata, "Zones");
             return false;
         }
         boost::replace_all(input, "_", " ");
