@@ -311,8 +311,8 @@ class AddReport
                 {
                     metricProperties.emplace_back(uri);
                 }
-                messages::propertyValueIncorrect(
-                    aResp->res, metricProperties.dump(), "MetricProperties");
+                messages::propertyValueIncorrect(aResp->res, metricProperties,
+                                                 "MetricProperties");
                 return;
             }
             if (ec)
