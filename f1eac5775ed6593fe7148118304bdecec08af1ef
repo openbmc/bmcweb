@@ -188,6 +188,30 @@
       },
       "revId": "f1eac5775ed6593fe7148118304bdecec08af1ef",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a662ba3b_338157ec",
+        "filename": "src/webserver_main.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-27T19:29:32Z",
+      "side": 0,
+      "message": "when io-\u003erun returns, all async code have already returned, right? There will no more reference to |systemBus| other than what DBusConnection owns.\n\nI added this `crow::connections::systemBus \u003d nullptr;`.",
+      "parentUuid": "83f50a3c_e155e4e5",
+      "range": {
+        "startLine": 153,
+        "startChar": 0,
+        "endLine": 153,
+        "endChar": 41
+      },
+      "revId": "f1eac5775ed6593fe7148118304bdecec08af1ef",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
