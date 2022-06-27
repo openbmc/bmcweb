@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e2dc1f7d_12c1b368",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-06-27T04:42:15Z",
+      "side": 1,
+      "message": "Redfish Validator pass?",
+      "revId": "1047b39c8a20d5d976532d3f60eb1d8f01ced767",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
