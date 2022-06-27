@@ -300,3 +300,13 @@ option(
                     enable on production systems at this time.  Other query
                     parameters such as only are not controlled by this option.'''
 )
+
+option(
+    'http-client-cert-dir',
+    type: 'string',
+    value: '/etc/ssl/certs/',
+    description : '''Used for configuring the custom directory containing
+                     certificate authority files to be used for performing
+                     verification while establishing the http-client SSL
+                     connections'''
+)
