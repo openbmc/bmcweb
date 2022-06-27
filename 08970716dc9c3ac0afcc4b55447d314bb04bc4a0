@@ -52,6 +52,23 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8ba99882_c0563d41",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 19
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-27T23:43:15Z",
+      "side": 1,
+      "message": "Also, given the code duplication, this adds about 7KB (about 1%) to the compressed binary size of bmcweb.  That seems pretty high for just one handler, although I\u0027m not really sure what\u0027s causing it.",
+      "revId": "08970716dc9c3ac0afcc4b55447d314bb04bc4a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d7ca6ad3_f38bda95",
