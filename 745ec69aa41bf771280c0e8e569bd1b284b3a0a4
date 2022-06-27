@@ -22,6 +22,30 @@
       },
       "revId": "745ec69aa41bf771280c0e8e569bd1b284b3a0a4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "86738642_adb9195a",
+        "filename": "redfish-core/include/utils/query_param_test.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-27T18:06:56Z",
+      "side": 1,
+      "message": "Wait, this test is actually wrong.\n\nPlease see https://gerrit.openbmc.org/c/openbmc/bmcweb/+/54933.\n\nThanks for finding it.",
+      "parentUuid": "7a6a4539_05bf93ef",
+      "range": {
+        "startLine": 84,
+        "startChar": 8,
+        "endLine": 84,
+        "endChar": 32
+      },
+      "revId": "745ec69aa41bf771280c0e8e569bd1b284b3a0a4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

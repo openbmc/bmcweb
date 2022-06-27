@@ -180,6 +180,54 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3c7dd33a_02df0535",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-27T18:06:56Z",
+      "side": 1,
+      "message": "https://abseil.io/tips/168\n\nPlease see this.",
+      "parentUuid": "44c3c0b8_ab1dd037",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 6
+      },
+      "revId": "6604b718fc50d069722a8aaa5e057aaa89d75fbf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c54a097a_08955d6b",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-27T18:06:56Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "89d11f51_2b5336f5",
+      "range": {
+        "startLine": 18,
+        "startChar": 24,
+        "endLine": 18,
+        "endChar": 41
+      },
+      "revId": "6604b718fc50d069722a8aaa5e057aaa89d75fbf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ea8fc988_40d909c2",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 1
