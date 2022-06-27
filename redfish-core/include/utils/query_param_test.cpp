@@ -1,11 +1,15 @@
 #include "query_param.hpp"
 
+#include <cstddef>
+
+#include <boost/system/result.hpp>
+#include <boost/url/url_view.hpp>
 #include <nlohmann/json.hpp>
 
 #include <iostream>
 
-#include "gmock/gmock.h"
-#include "gtest/gtest.h"
+#include <gmock/gmock-matchers.h>
+#include <gtest/gtest.h>
 
 namespace redfish::query_param
 {
