@@ -396,6 +396,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "29a07dfb_69a39be1",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 959,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-27T22:21:55Z",
+      "side": 1,
+      "message": "it\u0027s still brace initialization;  You\u0027re right, I should document that better.  COMMON_ERRORS isn\u0027t great documentation for that.  Regardless, please use the style we use elsewhere.",
+      "parentUuid": "b73fbf0e_f069236e",
+      "range": {
+        "startLine": 959,
+        "startChar": 21,
+        "endLine": 959,
+        "endChar": 22
+      },
+      "revId": "879616bb9ad663a10459ff38ae4443bfb3801aed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ce2c8b19_9b99c9de",
