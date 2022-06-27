@@ -283,8 +283,7 @@ inline void handleSessionServicePatch(
         }
         else
         {
-            messages::propertyValueNotInList(asyncResp->res,
-                                             std::to_string(*sessionTimeout),
+            messages::propertyValueNotInList(asyncResp->res, *sessionTimeout,
                                              "SessionTimeOut");
         }
     }

@@ -1005,8 +1005,8 @@ inline void handleLDAPPatch(nlohmann::json& input,
     {
         if (serviceAddressList->empty())
         {
-            messages::propertyValueNotInList(asyncResp->res, "[]",
-                                             "ServiceAddress");
+            messages::propertyValueNotInList(
+                asyncResp->res, *serviceAddressList, "ServiceAddress");
             return;
         }
     }
@@ -1014,7 +1014,7 @@ inline void handleLDAPPatch(nlohmann::json& input,
     {
         if (baseDNList->empty())
         {
-            messages::propertyValueNotInList(asyncResp->res, "[]",
+            messages::propertyValueNotInList(asyncResp->res, *baseDNList,
                                              "BaseDistinguishedNames");
             return;
         }
@@ -1213,7 +1213,7 @@ inline void updateUserProperties(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
             // not be allowed to lock an account.
             if (*locked)
             {
-                messages::propertyValueNotInList(asyncResp->res, "true",
+                messages::propertyValueNotInList(asyncResp->res, true,
                                                  "Locked");
                 return;
             }
