@@ -214,6 +214,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "14a132d9_7d9c2d2c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-27T23:45:03Z",
+      "side": 1,
+      "message": "\u003e it didn\u0027t reuse any of the existing code for the handler\n\nThis is more or less a completely new optimization. Not much codes can be shared.\n\n\u003e Expand should return the same values as if it had been constructed from independent pieces, this includes the order of the collection.\n\nThis makes sense. I didn\u0027t see it explicitly documented anywhere in Redfish spec. Though there are words like \"Returns a hyperlink and its contents in-line with retrieved resources, as if a GET call response was included in-line with that hyperlink.\"\n\nIt can be fixed via a sort. https://github.com/openbmc/bmcweb/blob/002d39b4a7a5ed7166e2acad84e0943c3def9492/redfish-core/include/utils/collection.hpp#L61.",
+      "parentUuid": "2eb848f9_beecbf76",
+      "range": {
+        "startLine": 49,
+        "startChar": 60,
+        "endLine": 49,
+        "endChar": 65
+      },
+      "revId": "879616bb9ad663a10459ff38ae4443bfb3801aed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "45516432_70098c9f",

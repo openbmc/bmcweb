@@ -71,6 +71,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "34b5d26c_700bbf39",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 19
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-27T23:45:03Z",
+      "side": 1,
+      "message": "\u003e Arguably this is a different case, because we\u0027re talking about inventory items here, and anything we do is going to need to be copied to drives, storage, network interfaces, ect.  \n\nThe improvement depends on the number of inventory items. For CPU, I would imagine it doesn\u0027t matter too much. For DIMMs can vary and increase in the future. For threads, I would imagine it will be another big improvement.\n\n\u003e Given that as the future, I\u0027m a little worried about how little code is shared, given that it can lead to subtle bugs that are hard to catch (like the array ordering thing that I caught below.)\n\u003e or if there\u0027s some improvements we can make to reuse more code between the expand case and the non.\n\nI have thought about this. My initial idea is to submit this as the first iteration. In the thread collection which we mostly like **have to** implement an efficient expand soon (there will be hundreds of threads), we then think about how these codes can be shared. We can also help clean up sensors.\n\nFrom what I can imagine, yes, many of the codes can be shared (e.g., search services, search ObjectManagers, call GetManagedObjects). The public interface will be something that takes functors to assemble JSON response from ManagedObjects dbus responses.\n\nWhat\u0027s your opinion? What I don\u0027t want to do is spend time working on a generic solution before the backend is even ready. Do we accept review this patch in details, resolve bugs if any, and then when developing backend for threads, share this code.",
+      "parentUuid": "807947cf_07ff7ec1",
+      "revId": "08970716dc9c3ac0afcc4b55447d314bb04bc4a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d7ca6ad3_f38bda95",
         "filename": "redfish-core/lib/memory.hpp",
         "patchSetId": 19
