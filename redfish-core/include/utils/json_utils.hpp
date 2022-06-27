@@ -266,11 +266,7 @@ bool unpackValue(nlohmann::json& jsonValue, std::string_view key,
             }
             else if (ec == UnpackErrorCode::outOfRange)
             {
-                messages::propertyValueNotInList(
-                    res,
-                    jsonValue.dump(2, ' ', true,
-                                   nlohmann::json::error_handler_t::replace),
-                    key);
+                messages::propertyValueNotInList(res, jsonValue, key);
             }
             return false;
         }

@@ -351,8 +351,7 @@ inline void requestRoutesCertificateActionGenerateCSR(App& app)
         if (*optKeyPairAlgorithm == "RSA" &&
             *optKeyBitLength != rsaKeyBitLength)
         {
-            messages::propertyValueNotInList(asyncResp->res,
-                                             std::to_string(*optKeyBitLength),
+            messages::propertyValueNotInList(asyncResp->res, *optKeyBitLength,
                                              "KeyBitLength");
             return;
         }

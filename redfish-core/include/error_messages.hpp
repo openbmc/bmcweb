@@ -236,12 +236,11 @@ void propertyValueFormatError(crow::Response& res, std::string_view arg1,
  * @param[in] arg2 Parameter of message that will replace %2 in its body.
  *
  * @returns Message PropertyValueNotInList formatted to JSON */
-nlohmann::json propertyValueNotInList(std::string_view arg1,
+nlohmann::json propertyValueNotInList(const nlohmann::json& arg1,
                                       std::string_view arg2);
 
-void propertyValueNotInList(crow::Response& res, std::string_view arg1,
+void propertyValueNotInList(crow::Response& res, const nlohmann::json& arg1,
                             std::string_view arg2);
-
 /**
  * @brief Formats PropertyValueOutOfRange message into JSON
  * Message body: "The value '%1' for the property %2 is not in the supported
