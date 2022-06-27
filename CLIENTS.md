@@ -11,7 +11,7 @@ of these tools, the tests pass 100%.  There may be cases where we workaround
 limitations in the testing tools behavior within bmcweb to make the tools pass,
 regardless of whether there is user impact.
 
-##Tests##
+## Tests
 
 Redfish-Service-Validator: A tool to verify through GET requests that bmcweb
 properly implements the Redfish schemas in the responded Resource.
@@ -46,7 +46,7 @@ https://github.com/drwetter/testssl.sh
 Status: Unknown
 
 
-##Clients##
+## Clients
 
 fwupd: Is a client implementation that allows updating firmware components in a
 generic way, and includes redfish as one of its plugins.
