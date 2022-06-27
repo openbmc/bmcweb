@@ -219,20 +219,12 @@ bool unpackValue(nlohmann::json& jsonValue, std::string_view key,
     {
         if (!jsonValue.is_array())
         {
-            messages::propertyValueTypeError(
-                res,
-                res.jsonValue.dump(2, ' ', true,
-                                   nlohmann::json::error_handler_t::replace),
-                key);
+            messages::propertyValueTypeError(res, res.jsonValue, key);
             return false;
         }
         if (jsonValue.size() != value.size())
         {
-            messages::propertyValueTypeError(
-                res,
-                res.jsonValue.dump(2, ' ', true,
-                                   nlohmann::json::error_handler_t::replace),
-                key);
+            messages::propertyValueTypeError(res, res.jsonValue, key);
             return false;
         }
         size_t index = 0;
@@ -247,11 +239,7 @@ bool unpackValue(nlohmann::json& jsonValue, std::string_view key,
     {
         if (!jsonValue.is_array())
         {
-            messages::propertyValueTypeError(
-                res,
-                res.jsonValue.dump(2, ' ', true,
-                                   nlohmann::json::error_handler_t::replace),
-                key);
+            messages::propertyValueTypeError(res, res.jsonValue, key);
             return false;
         }
 
@@ -270,11 +258,7 @@ bool unpackValue(nlohmann::json& jsonValue, std::string_view key,
         {
             if (ec == UnpackErrorCode::invalidType)
             {
-                messages::propertyValueTypeError(
-                    res,
-                    jsonValue.dump(2, ' ', true,
-                                   nlohmann::json::error_handler_t::replace),
-                    key);
+                messages::propertyValueTypeError(res, jsonValue, key);
             }
             else if (ec == UnpackErrorCode::outOfRange)
             {
