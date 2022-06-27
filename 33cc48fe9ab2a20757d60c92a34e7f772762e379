@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ede58713_bd98f18e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-27T14:52:32Z",
+      "side": 1,
+      "message": "Can you please go into more detail on what this issue is, using data structure and variable names from the code?\n\nReading from the websocket should be fully initialized when onconnect is called.  Normally I wouldn\u0027t take issue with this, but the issue here is that onconnect is called AFTER the connection is negotiated (ie after boost::beast::websocket::async_accept has been called) which means that the socket itself has already transitioned to websocket mode by the point that onconnect is called, so the only way to close the socket is to use close().  I\u0027d be very surprised if errors in websocket libraries propogated properly when doing it this way.\n\nIf we must have an ability to do async operations as part of a connection operation, it should be a new method, something like beforeconnect(), so that we can modify the request before the negotiation is complete.  Does that make sense?",
+      "range": {
+        "startLine": 13,
+        "startChar": 48,
+        "endLine": 15,
+        "endChar": 12
+      },
+      "revId": "33cc48fe9ab2a20757d60c92a34e7f772762e379",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
