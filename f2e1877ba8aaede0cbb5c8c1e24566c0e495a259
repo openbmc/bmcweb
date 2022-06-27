@@ -22,6 +22,29 @@
       },
       "revId": "f2e1877ba8aaede0cbb5c8c1e24566c0e495a259",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce9e1ea3_2f5566b9",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 853,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-27T22:07:18Z",
+      "side": 1,
+      "message": "I didn\u0027t dig into the children patches. But in the high level, could you explain why we need this change? Are there new backends whose object.filename() are not integers?",
+      "range": {
+        "startLine": 853,
+        "startChar": 12,
+        "endLine": 853,
+        "endChar": 36
+      },
+      "revId": "f2e1877ba8aaede0cbb5c8c1e24566c0e495a259",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
