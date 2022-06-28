@@ -16,6 +16,24 @@
       "message": "it is merge conflicting 95 changes. Even if half are Ed\u0027s that is 47 changes, but I suppose it is better to get this over with.",
       "revId": "7bf87003c44675f9e4ea3b416de54f19deb75a93",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bc2e8013_a5ca1718",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-28T21:33:40Z",
+      "side": 1,
+      "message": "When gerrit does the \"is this a merge conflict\" calculation, so far as I can tell, it only looks at what files have changed, and doesn\u0027t look into detail about what lines actually changed in the files.  Because this patchset touches several files, it looks like there are a lot of \"merge conflicts\" but I suspect 99% of them will be resolved automatically by git/gerrit.",
+      "parentUuid": "19583f7c_7e87e779",
+      "revId": "7bf87003c44675f9e4ea3b416de54f19deb75a93",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
