@@ -90,6 +90,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9d759492_b1466f4c",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-28T20:24:03Z",
+      "side": 1,
+      "message": "It\u0027s pretty common among https servers to just sever the connection when a request is complete, and not do the proper TLS shutdown.  Generally the error is benign, and can be ignored.  In theory we could log it, but so many servers do it that it\u0027s not really worth thinking about unless it caused a real error in the http request (which would have a different code).",
+      "parentUuid": "ee9d9d37_053476da",
+      "range": {
+        "startLine": 278,
+        "startChar": 22,
+        "endLine": 278,
+        "endChar": 69
+      },
+      "revId": "e054a8688a17e2ec3895a3ce1c63b72a8e8e431c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6df4d050_24112630",
         "filename": "http/http_client.hpp",
         "patchSetId": 2
@@ -101,6 +125,30 @@
       "writtenOn": "2022-06-28T20:11:17Z",
       "side": 1,
       "message": "Do we need the timer since we\u0027re not doing a read or write operation?",
+      "range": {
+        "startLine": 404,
+        "startChar": 8,
+        "endLine": 405,
+        "endChar": 53
+      },
+      "revId": "e054a8688a17e2ec3895a3ce1c63b72a8e8e431c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e5b3789d_d94e5872",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 405,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-28T20:24:03Z",
+      "side": 1,
+      "message": "+1.  Ideally we should be just using the timer here in all cases.  Also, not relying on tcp_stream makes it faster and saves a ton of binary space:\n\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/51943",
+      "parentUuid": "6df4d050_24112630",
       "range": {
         "startLine": 404,
         "startChar": 8,
