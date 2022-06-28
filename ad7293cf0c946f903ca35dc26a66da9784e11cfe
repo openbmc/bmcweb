@@ -16,6 +16,24 @@
       "message": "Any other concerns here? ",
       "revId": "ad7293cf0c946f903ca35dc26a66da9784e11cfe",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "380aad0d_ecb23569",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-28T20:11:27Z",
+      "side": 1,
+      "message": "Yes.  Commit message still needs to answer the initial question posed in the comment below \"Why is this desirable?  What systems do we have without Pam present?\"\n\nGiven that currently pam is the only way to do authentication, and not doing authentication isn\u0027t something that our rules would generally allow outside of a debug scenario, we need a much larger section on justification so we can maintain this patch.",
+      "parentUuid": "c1f03455_5af3e080",
+      "revId": "ad7293cf0c946f903ca35dc26a66da9784e11cfe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
