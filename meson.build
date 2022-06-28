@@ -41,6 +41,10 @@ if(get_option('buildtype') == 'minsize')
   add_project_arguments('-DNDEBUG', language : 'cpp')
 endif
 
+if(get_option('dns-resolver') == 'systemd-dbus')
+  add_project_arguments('-DBMCWEB_DBUS_DNS_RESOLVER', language : 'cpp')
+endif
+
 # Disable lto when compiling with no optimization
 if(get_option('optimization') == '0')
   add_project_arguments('-fno-lto', language: 'cpp')
@@ -325,6 +329,7 @@ bmcweb_dependencies += conf_h_dep
 fs = import('fs')
 
 srcfiles_bmcweb = files(
+  'http/http_client.cpp',
   'redfish-core/src/error_messages.cpp',
   'redfish-core/src/utils/json_utils.cpp',
   'src/boost_asio_ssl.cpp',
