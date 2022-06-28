@@ -86,12 +86,15 @@ static int run()
 #ifdef BMCWEB_ENABLE_REDFISH
     redfish::RedfishService redfish(app);
 
+    // Create HttpClient instance and initialize Config
+    crow::HttpClient::initialize(*io);
+
     // Create EventServiceManager instance and initialize Config
     redfish::EventServiceManager::getInstance();
 
 #ifdef BMCWEB_ENABLE_REDFISH_AGGREGATION
     // Create RedfishAggregator instance and initialize Config
-    redfish::RedfishAggregator::getInstance();
+    redfish::RedfishAggregator::initialize(*io);
 #endif
 #endif
 

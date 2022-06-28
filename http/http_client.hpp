@@ -40,6 +40,10 @@
 #include <boost/container/devector.hpp>
 #include <boost/system/error_code.hpp>
 
+#ifdef BMCWEB_DBUS_DNS_RESOLVER
+#include <include/async_resolve.hpp>
+#endif
+
 #include <cstdlib>
 #include <functional>
 #include <iostream>
@@ -146,7 +150,14 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
 
     // Ascync callables
     std::function<void(bool, uint32_t, Response&)> callback;
-    crow::async_resolve::Resolver resolver;
+
+#ifdef BMCWEB_DBUS_DNS_RESOLVER
+    using Resolver = crow::async_resolve::Resolver;
+#else
+    using Resolver = boost::asio::ip::tcp::resolver;
+#endif
+    Resolver resolver;
+
     boost::asio::ip::tcp::socket conn;
     std::optional<boost::beast::ssl_stream<boost::asio::ip::tcp::socket&>>
         sslConn;
@@ -162,15 +173,14 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
                          << std::to_string(port)
                          << ", id: " << std::to_string(connId);
 
-        resolver.asyncResolve(host, port,
-                              std::bind_front(&ConnectionInfo::afterResolve,
-                                              this, shared_from_this()));
+        resolver.async_resolve(host, std::to_string(port),
+                               std::bind_front(&ConnectionInfo::afterResolve,
+                                               this, shared_from_this()));
     }
 
-    void afterResolve(
-        const std::shared_ptr<ConnectionInfo>& /*self*/,
-        const boost::beast::error_code ec,
-        const std::vector<boost::asio::ip::tcp::endpoint>& endpointList)
+    void afterResolve(const std::shared_ptr<ConnectionInfo>& /*self*/,
+                      const boost::system::error_code& ec,
+                      const Resolver::results_type& endpointList)
     {
         if (ec || (endpointList.empty()))
         {
@@ -592,7 +602,7 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
         unsigned int connIdIn) :
         subId(idIn),
         connPolicy(connPolicyIn), host(destIPIn), port(destPortIn),
-        connId(connIdIn), conn(iocIn), timer(iocIn)
+        connId(connIdIn), resolver(iocIn), conn(iocIn), timer(iocIn)
     {
         if (useSSL)
         {
@@ -834,8 +844,7 @@ class HttpClient
   private:
     std::unordered_map<std::string, std::shared_ptr<ConnectionPool>>
         connectionPools;
-    boost::asio::io_context& ioc =
-        crow::connections::systemBus->get_io_context();
+    boost::asio::io_context& ioc;
     std::shared_ptr<ConnectionPolicy> connPolicy;
 
     // Used as a dummy callback by sendData() in order to call
@@ -848,14 +857,17 @@ class HttpClient
 
   public:
     HttpClient() = delete;
-    explicit HttpClient(const std::shared_ptr<ConnectionPolicy>& connPolicyIn) :
-        connPolicy(connPolicyIn)
-    {}
     HttpClient(const HttpClient&) = delete;
     HttpClient& operator=(const HttpClient&) = delete;
     HttpClient(HttpClient&&) = delete;
     HttpClient& operator=(HttpClient&&) = delete;
     ~HttpClient() = default;
+
+    explicit HttpClient(boost::asio::io_context& iocIn,
+                        const std::shared_ptr<ConnectionPolicy>& connPolicyIn) :
+        ioc(iocIn),
+        connPolicy(connPolicyIn)
+    {}
 
     // Send a request to destIP:destPort where additional processing of the
     // result is not required
