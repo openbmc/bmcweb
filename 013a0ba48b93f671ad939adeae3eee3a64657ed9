@@ -194,6 +194,24 @@
       "parentUuid": "68984075_0f10b83c",
       "revId": "013a0ba48b93f671ad939adeae3eee3a64657ed9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb1e9be2_4884e396",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2022-06-28T04:57:48Z",
+      "side": 1,
+      "message": "\u003e These patches are already in our fork downstream, I think Sunitha was just trying to get them upstream.\n\nYes. Thats right.\n\nWe would want to retain the implementation at https://gerrit.openbmc.org/c/openbmc/bmcweb/+/34208 at upstream master, and will remove the configFile and lock implementations in an years time.",
+      "parentUuid": "5c2ec7a8_ab5e8e3c",
+      "revId": "013a0ba48b93f671ad939adeae3eee3a64657ed9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
