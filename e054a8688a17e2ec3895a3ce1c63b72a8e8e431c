@@ -63,6 +63,144 @@
       },
       "revId": "e054a8688a17e2ec3895a3ce1c63b72a8e8e431c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ee9d9d37_053476da",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-06-28T20:11:17Z",
+      "side": 1,
+      "message": "Why do we need to ignore this error in general? Why does it not matter when SSL is not enabled?",
+      "range": {
+        "startLine": 278,
+        "startChar": 22,
+        "endLine": 278,
+        "endChar": 69
+      },
+      "revId": "e054a8688a17e2ec3895a3ce1c63b72a8e8e431c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6df4d050_24112630",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 405,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-06-28T20:11:17Z",
+      "side": 1,
+      "message": "Do we need the timer since we\u0027re not doing a read or write operation?",
+      "range": {
+        "startLine": 404,
+        "startChar": 8,
+        "endLine": 405,
+        "endChar": 53
+      },
+      "revId": "e054a8688a17e2ec3895a3ce1c63b72a8e8e431c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "715bb5e5_490352ed",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 416,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-06-28T20:11:17Z",
+      "side": 1,
+      "message": "Why do we not need to return when there\u0027s an error like we do below without SSL enabled?",
+      "range": {
+        "startLine": 410,
+        "startChar": 16,
+        "endLine": 416,
+        "endChar": 17
+      },
+      "revId": "e054a8688a17e2ec3895a3ce1c63b72a8e8e431c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a4feda30_88dca32f",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 474,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-06-28T20:11:17Z",
+      "side": 1,
+      "message": "Why do we not need to return when there\u0027s an error like we do below without SSL enabled?",
+      "range": {
+        "startLine": 468,
+        "startChar": 16,
+        "endLine": 474,
+        "endChar": 17
+      },
+      "revId": "e054a8688a17e2ec3895a3ce1c63b72a8e8e431c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "86728782_d7ebf1bb",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 826,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-06-28T20:11:17Z",
+      "side": 1,
+      "message": "You\u0027re not accounting for the use of SSL when sending the message.  Connections stay in the pool after they are created and the same pool can be used by multiple entities.  It could be the case that a connection was previously created without SSL and now you are attempting to use it to send a message with SSL or vice-versa.\n\nWhen a connection is grabbed you need to make sure that it and the message match in terms of if SSL is enabled.  If they don\u0027t match then the connection needs to be reconfigured before the message is sent.",
+      "range": {
+        "startLine": 825,
+        "startChar": 8,
+        "endLine": 826,
+        "endChar": 73
+      },
+      "revId": "e054a8688a17e2ec3895a3ce1c63b72a8e8e431c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aebfce2a_d6d65dde",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 826,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-06-28T20:11:17Z",
+      "side": 1,
+      "message": "Connections remain in the pool once they\u0027ve been created.  An existing connection could have been previously created without SSL enabled and now you\u0027re trying to send a message using SSL or vice-versa.\n\nYou need to make sure that the message to be sent and the connection grabbed agree in terms of using SSL.  If they don\u0027t then the connection needs to be reconfigured to match as part of the process.",
+      "range": {
+        "startLine": 823,
+        "startChar": 8,
+        "endLine": 826,
+        "endChar": 73
+      },
+      "revId": "e054a8688a17e2ec3895a3ce1c63b72a8e8e431c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
