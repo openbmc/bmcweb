@@ -33,6 +33,25 @@ static void addPrefixes(nlohmann::json& json, const std::string& prefix)
             boost::urls::url thisURL(*parsed);
             auto segments = thisURL.segments();
 
+            // We don't need to add prefixes to these URIs since
+            // /redfish/v1/UpdateService/ itself is not a collection
+            // /redfish/v1/UpdateService/FirmwareInventory
+            // /redfish/v1/UpdateService/SoftwareInventory
+            if (((segments.size() == 5) && (segments[4].empty())) ||
+                ((segments.size() == 4) && (!segments[3].empty())))
+            {
+                std::string seg2(segments[2]);
+                std::string seg3(segments[3]);
+                if ((seg2 == "UpdateService") &&
+                    ((seg3 == "FirmwareInventory") ||
+                     (seg3 == "SoftwareInventory")))
+                {
+                    BMCWEB_LOG_DEBUG
+                        << "Skipping UpdateService URI prefix fixing";
+                    continue;
+                }
+            }
+
             // A collection URI that ends with "/" such as
             // "/redfish/v1/Chassis/" will have 4 segments so we need to make
             // sure we don't try to add a prefix to an empty segment
@@ -41,6 +60,24 @@ static void addPrefixes(nlohmann::json& json, const std::string& prefix)
                 // The "+ 4" is to account for each "/" in the path
                 size_t offset = segments[0].size() + segments[1].size() +
                                 segments[2].size() + 4;
+
+                // We also need to aggregate FirmwareInventory and
+                // SoftwareInventory so add an extra offset
+                // /redfish/v1/UpdateService/FirmwareInventory/<id>
+                // /redfish/v1/UpdateService/SoftwareInventory/<id>
+                if ((segments.size() >= 5) && (!segments[4].empty()))
+                {
+                    std::string seg2(segments[2]);
+                    std::string seg3(segments[3]);
+                    if ((seg2 == "UpdateService") &&
+                        ((seg3 == "FirmwareInventory") ||
+                         (seg3 == "SoftwareInventory")))
+                    {
+                        BMCWEB_LOG_DEBUG
+                            << "Fixing up aggregated URI under UpdateService";
+                        offset += segments[3].size() + 1;
+                    }
+                }
 
                 odataVal.insert(offset, prefix + "_");
                 json["@odata.id"] = std::move(odataVal);
@@ -327,15 +364,43 @@ class RedfishAggregator
             if (((segments.size() == 4) && (segments[3].empty())) ||
                 ((segments.size() == 3) && (!segments[2].empty())))
             {
-                // We need to use a specific response handler and send the
-                // request to all known satellites
-                forwardCollectionRequests(thisReq, asyncResp, satelliteInfo);
-                return;
+                // /redfish/v1/UpdateService should not be forwarded
+                std::string seg2(segments[2]);
+                if (seg2 != "UpdateService")
+                {
+                    // We need to use a specific response handler and send the
+                    // request to all known satellites
+                    forwardCollectionRequests(thisReq, asyncResp,
+                                              satelliteInfo);
+                    return;
+                }
+            }
+
+            // We also need to aggregate FirmwareInventory and SoftwareInventory
+            // as collections
+            // /redfish/v1/UpdateService/FirmwareInventory
+            // /redfish/v1/UpdateService/SoftwareInventory
+            if (((segments.size() == 5) && (segments[4].empty())) ||
+                ((segments.size() == 4) && (!segments[3].empty())))
+            {
+                std::string seg2(segments[2]);
+                if ((seg2 == "UpdateService") &&
+                    ((seg3 == "FirmwareInventory") ||
+                     (seg3 == "SoftwareInventory")))
+                {
+                    BMCWEB_LOG_DEBUG
+                        << "Forwarding a collection under UpdateService";
+                    // We need to use a specific response handler and send the
+                    // request to all known satellites
+                    forwardCollectionRequests(thisReq, asyncResp,
+                                              satelliteInfo);
+                    return;
+                }
             }
 
             if (segments.size() >= 4)
             {
-                std::string targetURI(segments[3]);
+                std::string targetURI(thisURL.encoded_path());
 
                 // Determine if the resource ID begins with a known prefix
                 for (const auto& prefix : prefixes)
