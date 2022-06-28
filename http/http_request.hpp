@@ -45,11 +45,15 @@ struct Request
         }
     }
 
+// TODO: Copy constructor is needed for parsing req to SSE connection. Need to
+// discuss this in community and find solution.
+#if 0
     Request(const Request&) = delete;
     Request(const Request&&) = delete;
     Request& operator=(const Request&) = delete;
     Request& operator=(const Request&&) = delete;
     ~Request() = default;
+#endif
 
     boost::beast::http::verb method() const
     {
