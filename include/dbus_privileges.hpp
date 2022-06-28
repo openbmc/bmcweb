@@ -1,11 +1,14 @@
 #pragma once
 
-#include "dbus_utility.hpp"
-#include "error_messages.hpp"
 #include "http_request.hpp"
 #include "http_response.hpp"
-#include "logging.hpp"
 #include "routing_baserule.hpp"
+
+#ifdef BMCWEB_ENABLE_REDFISH_DBUS
+
+#include "dbus_utility.hpp"
+#include "error_messages.hpp"
+#include "logging.hpp"
 #include "utils/dbus_utils.hpp"
 
 #include <sdbusplus/unpack_properties.hpp>
@@ -144,3 +147,15 @@ void validatePrivilege(Request& req,
         "xyz.openbmc_project.User.Manager", "GetUserInfo", username);
 }
 } // namespace crow
+#else
+namespace crow
+{
+template <typename CallbackFn>
+void validatePrivilege(Request& req,
+                       const std::shared_ptr<bmcweb::AsyncResp>& /*asyncResp*/,
+                       BaseRule& /*rule*/, CallbackFn&& callback)
+{
+    callback(req);
+}
+} // namespace crow
+#endif

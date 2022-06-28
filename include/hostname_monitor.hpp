@@ -1,4 +1,5 @@
 #pragma once
+#ifdef BMCWEB_ENABLE_REDFISH_DBUS
 #ifdef BMCWEB_ENABLE_SSL
 #include "dbus_singleton.hpp"
 #include "dbus_utility.hpp"
@@ -142,4 +143,5 @@ inline void registerHostnameSignal()
 }
 } // namespace hostname_monitor
 } // namespace crow
+#endif
 #endif

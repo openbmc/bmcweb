@@ -1,4 +1,5 @@
 #pragma once
+#ifdef BMCWEB_ENABLE_GOOGLE_API
 
 #include "app.hpp"
 #include "async_resp.hpp"
@@ -225,3 +226,4 @@ inline void requestRoutes(App& app)
 
 } // namespace google_api
 } // namespace crow
+#endif
