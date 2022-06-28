@@ -22,6 +22,30 @@
       },
       "revId": "903b6c8e0845b57b87000398ae661297752b2d16",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "56d45de9_547c7254",
+        "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-28T21:30:18Z",
+      "side": 1,
+      "message": "Stringify all the strings!\n\nDone.",
+      "parentUuid": "b4dec573_11911f0a",
+      "range": {
+        "startLine": 39,
+        "startChar": 50,
+        "endLine": 39,
+        "endChar": 58
+      },
+      "revId": "903b6c8e0845b57b87000398ae661297752b2d16",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
