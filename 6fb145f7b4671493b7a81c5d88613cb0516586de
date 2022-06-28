@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e6e22d90_38853146",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 601,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-06-28T17:14:47Z",
+      "side": 1,
+      "message": "I feel like I shouldn\u0027t sort the array in an effort to keep all of the local resources together.",
+      "range": {
+        "startLine": 601,
+        "startChar": 14,
+        "endLine": 601,
+        "endChar": 71
+      },
+      "revId": "6fb145f7b4671493b7a81c5d88613cb0516586de",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
