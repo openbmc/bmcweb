@@ -22,10 +22,49 @@
 #include <boost/url/url_view.hpp>
 #include <query.hpp>
 #include <registries/privilege_registry.hpp>
+#include <sdbusplus/message/native_types.hpp>
 #include <utils/json_utils.hpp>
 
 namespace redfish
 {
+
+static constexpr const char* legacyMode = "Legacy";
+static constexpr const char* proxyMode = "Proxy";
+
+static std::optional<std::string>
+    parseObjectPathAndGetMode(const sdbusplus::message::object_path& itemPath,
+                              const std::string& resName)
+{
+    std::string thisPath = itemPath.filename();
+    BMCWEB_LOG_DEBUG << "Filename: " << itemPath.str
+                     << ", ThisPath: " << thisPath;
+
+    if (thisPath.empty())
+    {
+        return std::nullopt;
+    }
+
+    if (thisPath != resName)
+    {
+        return std::nullopt;
+    }
+
+    auto mode = itemPath.parent_path();
+    auto type = mode.parent_path();
+
+    if (mode.filename().empty() || type.filename().empty())
+    {
+        return std::nullopt;
+    }
+
+    if (type.filename() != "VirtualMedia")
+    {
+        return std::nullopt;
+    }
+
+    return {mode.filename()};
+}
+
 /**
  * @brief Function extracts transfer protocol name from URI.
  */
@@ -224,27 +263,8 @@ inline void getVmData(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
 
         for (const auto& item : subtree)
         {
-            std::string thispath = item.first.filename();
-            if (thispath.empty())
-            {
-                continue;
-            }
-
-            if (thispath != resName)
-            {
-                continue;
-            }
-
-            // "Legacy"/"Proxy"
-            auto mode = item.first.parent_path();
-            // "VirtualMedia"
-            auto type = mode.parent_path();
-            if (mode.filename().empty() || type.filename().empty())
-            {
-                continue;
-            }
-
-            if (type.filename() != "VirtualMedia")
+            auto mode = parseObjectPathAndGetMode(item.first, resName);
+            if (!mode)
             {
                 continue;
             }
@@ -252,7 +272,7 @@ inline void getVmData(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
             aResp->res.jsonValue = vmItemTemplate(name, resName);
 
             // Check if dbus path is Legacy type
-            if (mode.filename() == "Legacy")
+            if (*mode == legacyMode)
             {
                 aResp->res.jsonValue["Actions"]["#VirtualMedia.InsertMedia"]
                                     ["target"] = crow::utility::urlFromPieces(
@@ -774,6 +794,7 @@ inline void handleManagersVirtualMediaActionInsertPost(
 
         return;
     }
+
     std::optional<InsertMediaActionParams> actionParams =
         InsertMediaActionParams();
 
@@ -819,58 +840,48 @@ inline void handleManagersVirtualMediaActionInsertPost(
 
             for (const auto& object : subtree)
             {
-                const std::string& path =
-                    static_cast<const std::string&>(object.first);
-
-                std::size_t lastIndex = path.rfind('/');
-                if (lastIndex == std::string::npos)
+                auto mode = parseObjectPathAndGetMode(object.first, resName);
+                if (!mode)
                 {
                     continue;
                 }
 
-                lastIndex += 1;
-
-                if (path.substr(lastIndex) == resName)
+                if (*mode == proxyMode)
                 {
-                    lastIndex = path.rfind("Proxy");
-                    if (lastIndex != std::string::npos)
-                    {
-                        // Not possible in proxy mode
-                        BMCWEB_LOG_DEBUG << "InsertMedia not "
-                                            "allowed in proxy mode";
-                        messages::resourceNotFound(asyncResp->res,
-                                                   "VirtualMedia.InsertMedia",
-                                                   resName);
-
-                        return;
-                    }
-
-                    lastIndex = path.rfind("Legacy");
-                    if (lastIndex == std::string::npos)
-                    {
-                        continue;
-                    }
-
-                    if (!actionParams)
-                    {
-                        return;
-                    }
-
-                    if (!validateParams(asyncResp->res, *actionParams))
-                    {
-                        return;
-                    }
-
-                    // manager is irrelevant for VirtualMedia dbus calls
-                    doMountVmLegacy(asyncResp, service, resName,
-                                    actionParams->imageUrl,
-                                    !(*actionParams->writeProtected),
-                                    std::move(*actionParams->userName),
-                                    std::move(*actionParams->password));
+                    // Not possible in proxy mode
+                    BMCWEB_LOG_DEBUG << "InsertMedia not "
+                                        "allowed in proxy mode";
+                    messages::resourceNotFound(
+                        asyncResp->res, "VirtualMedia.InsertMedia", resName);
 
                     return;
                 }
+
+                if (*mode != legacyMode)
+                {
+                    continue;
+                }
+
+                if (!actionParams)
+                {
+                    return;
+                }
+
+                if (!validateParams(asyncResp->res, *actionParams))
+                {
+                    return;
+                }
+
+                // manager is irrelevant for VirtualMedia dbus calls
+                doMountVmLegacy(asyncResp, service, resName,
+                                actionParams->imageUrl,
+                                !(*actionParams->writeProtected),
+                                std::move(*actionParams->userName),
+                                std::move(*actionParams->password));
+
+                return;
             }
+
             BMCWEB_LOG_DEBUG << "Parent item not found";
             messages::resourceNotFound(asyncResp->res, "VirtualMedia", resName);
             },
@@ -928,35 +939,15 @@ inline void handleManagersVirtualMediaActionEject(
 
             for (const auto& object : subtree)
             {
-                const std::string& path =
-                    static_cast<const std::string&>(object.first);
+                auto mode =
+                    redfish::parseObjectPathAndGetMode(object.first, resName);
 
-                std::size_t lastIndex = path.rfind('/');
-                if (lastIndex == std::string::npos)
+                if (!mode)
                 {
-                    continue;
-                }
-
-                lastIndex += 1;
-
-                if (path.substr(lastIndex) == resName)
-                {
-                    lastIndex = path.rfind("Proxy");
-                    if (lastIndex != std::string::npos)
-                    {
-                        // Proxy mode
-                        doVmAction(asyncResp, service, resName, false);
-                    }
-
-                    lastIndex = path.rfind("Legacy");
-                    if (lastIndex != std::string::npos)
-                    {
-                        // Legacy mode
-                        doVmAction(asyncResp, service, resName, true);
-                    }
-
                     return;
                 }
+
+                doVmAction(asyncResp, service, resName, *mode == legacyMode);
             }
             BMCWEB_LOG_DEBUG << "Parent item not found";
             messages::resourceNotFound(asyncResp->res, "VirtualMedia", resName);
