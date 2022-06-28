@@ -118,6 +118,30 @@
       },
       "revId": "47cd356b673198a04d448b9288d5738687c74507",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce4685d0_05a84dbc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-28T21:21:04Z",
+      "side": 1,
+      "message": "I personally find inline string literals easier to read and turn into debug statements.  It\u0027s generally not something that I have enforced heavily, but I think it aids significantly in the readability to not have to reference another line when looking at dbus calls.\n\nAlso, when we started, we did a lot of global-scoped strings, and we kept having problems where a string would need to be reused between schemas, so either one schema needs to #include the other (bad for code separation) or we needed to create a totally separate file for all the string constants, which made the readability even worse (now you have to go to a different file to see the constants), and when we did it, now patches would merge-conflict heavily if two different patchsets needed that global, which tends to happen when more than one developer makes changes in a space.\n\nThe argument of \"if it ever changes\" is way less important than readability/code review speed/rebase conflicts to me.  In practice, we\u0027ve had 2 schemas that ever really changed in backward incompatible ways, and in both cases, the names didn\u0027t change, so for the moment, a schema changing name without logic changes is hypothetical, and even if it happened, find and replace is trivial to do.",
+      "parentUuid": "689c110a_912e14de",
+      "range": {
+        "startLine": 9,
+        "startChar": 53,
+        "endLine": 10,
+        "endChar": 71
+      },
+      "revId": "47cd356b673198a04d448b9288d5738687c74507",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
