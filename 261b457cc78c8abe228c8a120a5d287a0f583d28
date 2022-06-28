@@ -123,6 +123,24 @@
       "parentUuid": "19c85b76_28031c2b",
       "revId": "261b457cc78c8abe228c8a120a5d287a0f583d28",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dac129da_69aea7a3",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2180,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-28T00:06:33Z",
+      "side": 1,
+      "message": "Technically because we\u0027re using the push_back(nlohman::json::object_t\u0026\u0026) template overload instead of the the emplace_back(nlohmann::json::object_t\u0026\u0026) overload, this is technically worse, but my comment still stands, I\u0027m not worried about it.",
+      "parentUuid": "1a47ee1a_c3d89167",
+      "revId": "261b457cc78c8abe228c8a120a5d287a0f583d28",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
