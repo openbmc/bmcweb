@@ -69,6 +69,24 @@
       "parentUuid": "94d1c5e4_96e0465c",
       "revId": "cd09ca762d0345dbd357e04c472041810cc54f63",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "35284cd4_f211c4aa",
+        "filename": "redfish-core/lib/service_root.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-06-28T07:26:58Z",
+      "side": 1,
+      "message": "Just an idea:\n\nBMCWEB_ROUTE(app, \"/redfish/v1/\")\n        .privileges(redfish::privileges::getServiceRoot)\n        .headRequest(redfish::privileges::headServiceRoot, std::bind_front(handleServiceRootHead, std::ref(app))) \n        .methods(boost::beast::http::verb::get)(\n            [\u0026app](const crow::Request\u0026 req,\n                   const std::shared_ptr\u003cbmcweb::AsyncResp\u003e\u0026 asyncResp) {\n        if (!redfish::setUpRedfishRoute(app, req, asyncResp))\n        {\n            return;\n        }\n        handleServiceRootGet(asyncResp);\n        });\n\nheadRequest this will add new route and provided callback will be called before callback passed to methods this way there should be no code duplication\n\nAt first it may be a little tricky that headRequest callback is also called, but it will be used everywhere so people should quickly get used to this.\n\nIf adding header will always look the same we can go one step further.\n\nBMCWEB_ROUTE(app, \"/redfish/v1/\")\n        .privileges(redfish::privileges::getServiceRoot)\n        .header(Header{redfish::privileges::headServiceRoot, \"\u003c/redfish/v1/JsonSchemas/ServiceRoot.v1_11_0.json\u003e; rel\u003ddescribedby\"}) \n        .methods(boost::beast::http::verb::get)(\n            [\u0026app](const crow::Request\u0026 req,\n                   const std::shared_ptr\u003cbmcweb::AsyncResp\u003e\u0026 asyncResp) {\n        if (!redfish::setUpRedfishRoute(app, req, asyncResp))\n        {\n            return;\n        }\n        handleServiceRootGet(asyncResp);\n        });",
+      "parentUuid": "8feeb6df_d690fe5a",
+      "revId": "cd09ca762d0345dbd357e04c472041810cc54f63",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
