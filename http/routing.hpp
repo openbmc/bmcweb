@@ -2,7 +2,12 @@
 
 #include "async_resp.hpp"
 #include "common.hpp"
+
+// TODO(ed) abstract role providers
+#ifdef BMCWEB_ENABLE_REDFISH_DBUS
 #include "dbus_utility.hpp"
+#endif
+
 #include "error_messages.hpp"
 #include "http_request.hpp"
 #include "http_response.hpp"
@@ -1375,6 +1380,7 @@ class Router
                            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                            BaseRule& rule, CallbackFn&& callback)
     {
+
         if (req.session == nullptr)
         {
             return;
