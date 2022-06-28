@@ -14,6 +14,7 @@
 // limitations under the License.
 */
 #pragma once
+#ifdef BMCWEB_ENABLE_REDFISH_DBUS
 #include "app.hpp"
 #include "dbus_utility.hpp"
 #include "privileges.hpp"
@@ -384,3 +385,4 @@ inline void requestRoutes(App& app)
 }
 } // namespace nbd_proxy
 } // namespace crow
+#endif

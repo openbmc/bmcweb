@@ -1,5 +1,5 @@
 #pragma once
-
+#ifdef BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE
 #include "app.hpp"
 #include "async_resp.hpp"
 #include "error_messages.hpp"
@@ -820,3 +820,4 @@ inline void requestRoutes(App& app)
 
 } // namespace ibm_mc
 } // namespace crow
+#endif
