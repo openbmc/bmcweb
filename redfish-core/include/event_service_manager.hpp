@@ -377,21 +377,15 @@ class Subscription : public persistent_data::UserSubscription
     Subscription& operator=(Subscription&&) = delete;
 
     Subscription(const std::string& inHost, uint16_t inPort,
-                 const std::string& inPath, const std::string& inUriProto) :
+                 const std::string& inPath, const std::string& inUriProto,
+                 boost::asio::io_context& ioc) :
         host(inHost),
         port(inPort), policy(std::make_shared<crow::ConnectionPolicy>()),
-        client(policy), path(inPath), uriProto(inUriProto)
+        client(ioc, policy), path(inPath), uriProto(inUriProto)
     {
         // Subscription constructor
         policy->invalidResp = retryRespHandler;
     }
-
-    explicit Subscription(
-        const std::shared_ptr<boost::asio::ip::tcp::socket>& adaptor) :
-        policy(std::make_shared<crow::ConnectionPolicy>()),
-        client(policy),
-        sseConn(std::make_shared<crow::ServerSentEvents>(adaptor))
-    {}
 
     ~Subscription() = default;
 
@@ -601,12 +595,6 @@ class EventServiceManager
     uint32_t retryAttempts = 0;
     uint32_t retryTimeoutInterval = 0;
 
-    EventServiceManager()
-    {
-        // Load config from persist store.
-        initConfig();
-    }
-
     std::streampos redfishLogFilePosition{0};
     size_t noOfEventLogSubscribers{0};
     size_t noOfMetricReportSubscribers{0};
@@ -616,6 +604,8 @@ class EventServiceManager
 
     uint64_t eventId{1};
 
+    boost::asio::io_context& ioc;
+
   public:
     EventServiceManager(const EventServiceManager&) = delete;
     EventServiceManager& operator=(const EventServiceManager&) = delete;
@@ -623,9 +613,16 @@ class EventServiceManager
     EventServiceManager& operator=(EventServiceManager&&) = delete;
     ~EventServiceManager() = default;
 
-    static EventServiceManager& getInstance()
+    EventServiceManager(boost::asio::io_context& iocIn) : ioc(iocIn)
     {
-        static EventServiceManager handler;
+        // Load config from persist store.
+        initConfig();
+    }
+
+    static EventServiceManager&
+        getInstance(boost::asio::io_context* ioc = nullptr)
+    {
+        static EventServiceManager handler(*ioc);
         return handler;
     }
 
@@ -661,7 +658,7 @@ class EventServiceManager
                 continue;
             }
             std::shared_ptr<Subscription> subValue =
-                std::make_shared<Subscription>(host, port, path, urlProto);
+                std::make_shared<Subscription>(host, port, path, urlProto, ioc);
 
             subValue->id = newSub->id;
             subValue->destinationUrl = newSub->destinationUrl;
