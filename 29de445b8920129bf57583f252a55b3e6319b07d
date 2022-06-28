@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "8196fc34_504efb2c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-28T17:13:21Z",
+      "side": 1,
+      "message": "Correct.",
+      "parentUuid": "3e4f62a7_fb69acfe",
+      "range": {
+        "startLine": 13,
+        "startChar": 2,
+        "endLine": 14,
+        "endChar": 19
+      },
+      "revId": "29de445b8920129bf57583f252a55b3e6319b07d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "ee2ed6fb_15688726",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 4
@@ -54,6 +78,30 @@
       "writtenOn": "2022-06-28T16:20:53Z",
       "side": 1,
       "message": "Per https://gerrit.openbmc.org/c/openbmc/phosphor-dbus-interfaces/+/50887, it must be changed to StaticNTPServers?\n\nThis change in bmcweb is here: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/52671",
+      "range": {
+        "startLine": 347,
+        "startChar": 43,
+        "endLine": 347,
+        "endChar": 53
+      },
+      "revId": "29de445b8920129bf57583f252a55b3e6319b07d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d4967e89_af2fc916",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-28T17:13:21Z",
+      "side": 1,
+      "message": "Lets keep the discussion for that in that patch.  If this patch needs rebased, I will rebase it.",
+      "parentUuid": "87517c3b_820c5dd3",
       "range": {
         "startLine": 347,
         "startChar": 43,
