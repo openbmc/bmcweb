@@ -381,7 +381,7 @@ class Subscription : public persistent_data::UserSubscription
                  boost::asio::io_context& iocIn) :
         host(inHost),
         port(inPort), policy(std::make_shared<crow::ConnectionPolicy>()),
-        client(ioc, policy), path(inPath), uriProto(inUriProto), ioc(iocIn)
+        client(iocIn, policy), path(inPath), uriProto(inUriProto)
     {
         // Subscription constructor
         policy->invalidResp = retryRespHandler;
@@ -570,8 +570,6 @@ class Subscription : public persistent_data::UserSubscription
     std::string uriProto;
     std::shared_ptr<crow::ServerSentEvents> sseConn = nullptr;
 
-    boost::asio::io_context& ioc;
-
     // Check used to indicate what response codes are valid as part of our retry
     // policy.  2XX is considered acceptable
     static boost::system::error_code retryRespHandler(unsigned int respCode)
@@ -615,7 +613,7 @@ class EventServiceManager
     EventServiceManager& operator=(EventServiceManager&&) = delete;
     ~EventServiceManager() = default;
 
-    EventServiceManager(boost::asio::io_context& iocIn) : ioc(iocIn)
+    explicit EventServiceManager(boost::asio::io_context& iocIn) : ioc(iocIn)
     {
         // Load config from persist store.
         initConfig();
