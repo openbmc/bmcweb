@@ -86,7 +86,7 @@ static int run()
     redfish::RedfishService redfish(app);
 
     // Create HttpClient instance and initialize Config
-    crow::HttpClient::getInstance();
+    crow::HttpClient::initialize(*io);
 
     // Create EventServiceManager instance and initialize Config
     redfish::EventServiceManager::getInstance();
