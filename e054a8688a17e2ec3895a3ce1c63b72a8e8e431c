@@ -16,6 +16,29 @@
       "message": "More details needed:  How are certificates loaded?  What cipher suites are used?  Are ECC keys allowed?\n\nPlease provide more detail in your commit message.",
       "revId": "e054a8688a17e2ec3895a3ce1c63b72a8e8e431c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b5d89cf8_9f91336d",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-28T04:07:23Z",
+      "side": 1,
+      "message": "This patchset has the same problem the last one did, it doesn\u0027t load root certificates, so there is no way to verify a client.\n\nIn the beast examples, there\u0027s a function called load_root_certificates that does this that you can look at.",
+      "range": {
+        "startLine": 212,
+        "startChar": 0,
+        "endLine": 212,
+        "endChar": 47
+      },
+      "revId": "e054a8688a17e2ec3895a3ce1c63b72a8e8e431c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
