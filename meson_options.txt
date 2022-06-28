@@ -60,6 +60,13 @@ option(
 )
 
 option(
+    'redfish-dbus',
+    type: 'feature',
+    value: 'enabled',
+    description: '''Enable Redfish APIs compabible with OpenBMC.'''
+)
+
+option(
     'host-serial-socket',
     type: 'feature',
     value: 'enabled',

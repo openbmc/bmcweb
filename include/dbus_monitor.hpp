@@ -1,4 +1,5 @@
 #pragma once
+#ifdef BMCWEB_ENABLE_DBUS_REST
 #include "app.hpp"
 #include "async_resp.hpp"
 #include "dbus_singleton.hpp"
@@ -251,3 +252,4 @@ inline void requestRoutes(App& app)
 }
 } // namespace dbus_monitor
 } // namespace crow
+#endif

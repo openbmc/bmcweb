@@ -1,5 +1,6 @@
 #pragma once
 
+#include "dbus_singleton.hpp"
 #include "dbus_utility.hpp"
 #include "error_messages.hpp"
 #include "http_request.hpp"
@@ -14,6 +15,7 @@
 #include <memory>
 #include <vector>
 
+#ifdef BMCWEB_ENABLE_REDFISH_DBUS
 namespace crow
 {
 // Populate session with user information.
@@ -161,3 +163,15 @@ void validatePrivilege(Request& req,
 }
 
 } // namespace crow
+#else
+namespace crow
+{
+template <typename CallbackFn>
+void validatePrivilege(Request& req,
+                       const std::shared_ptr<bmcweb::AsyncResp>& /*asyncResp*/,
+                       BaseRule& /*rule*/, CallbackFn&& callback)
+{
+    callback(req);
+}
+} // namespace crow
+#endif

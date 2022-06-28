@@ -397,6 +397,7 @@ class RedfishAggregator
                          std::to_string(satelliteInfo.size()));
     }
 
+#ifdef BMCWEB_ENABLE_REDFISH_DBUS
     // Search D-Bus objects for satellite config objects and add their
     // information if valid
     static void findSatelliteConfigs(
@@ -528,6 +529,7 @@ class RedfishAggregator
                          result.first->second.scheme(),
                          result.first->second.encoded_host_and_port());
     }
+#endif
 
     enum AggregationType
     {
@@ -813,8 +815,9 @@ class RedfishAggregator
         std::function<
             void(const boost::system::error_code&,
                  const std::unordered_map<std::string, boost::urls::url>&)>
-            handler)
+            handler [[maybe_unused]])
     {
+#ifdef BMCWEB_ENABLE_REDFISH_DBUS
         BMCWEB_LOG_DEBUG("Gathering satellite configs");
         sdbusplus::message::object_path path("/xyz/openbmc_project/inventory");
         dbus::utility::getManagedObjects(
@@ -849,6 +852,7 @@ class RedfishAggregator
             }
             handler(ec, satelliteInfo);
         });
+#endif
     }
 
     // Processes the response returned by a satellite BMC and loads its
