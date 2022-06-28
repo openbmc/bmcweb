@@ -22,6 +22,7 @@
 #include <http/utility.hpp>
 #include <query.hpp>
 #include <registries/privilege_registry.hpp>
+#include <utils/json_utils.hpp>
 
 namespace redfish
 {
