@@ -70,6 +70,30 @@
       },
       "revId": "bb7a59b7346c05543786376f6f2c9202a5092879",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "78cbdb0e_f8919778",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-28T00:12:19Z",
+      "side": 1,
+      "message": "Okay, I will try to fix them all in the next round and produce less commits to help review. Thanks!",
+      "parentUuid": "4dd99719_6a477513",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 54
+      },
+      "revId": "bb7a59b7346c05543786376f6f2c9202a5092879",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
