@@ -269,12 +269,6 @@ class RedfishAggregator
   private:
     crow::HttpClient client;
 
-    RedfishAggregator() :
-        client(std::make_shared<crow::ConnectionPolicy>(getAggregationPolicy()))
-    {
-        getSatelliteConfigs(constructorCallback);
-    }
-
     // Dummy callback used by the Constructor so that it can report the number
     // of satellite configs when the class is first created
     static void constructorCallback(
@@ -630,15 +624,21 @@ class RedfishAggregator
     }
 
   public:
+    RedfishAggregator(boost::asio::io_context& ioc) :
+        client(ioc,
+               std::make_shared<crow::ConnectionPolicy>(getAggregationPolicy()))
+    {
+        getSatelliteConfigs(constructorCallback);
+    }
     RedfishAggregator(const RedfishAggregator&) = delete;
     RedfishAggregator& operator=(const RedfishAggregator&) = delete;
     RedfishAggregator(RedfishAggregator&&) = delete;
     RedfishAggregator& operator=(RedfishAggregator&&) = delete;
     ~RedfishAggregator() = default;
 
-    static RedfishAggregator& getInstance()
+    static RedfishAggregator& getInstance(boost::asio::io_context* io = nullptr)
     {
-        static RedfishAggregator handler;
+        static RedfishAggregator handler(*io);
         return handler;
     }
 
