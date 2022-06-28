@@ -134,6 +134,30 @@
       },
       "revId": "29de445b8920129bf57583f252a55b3e6319b07d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "13210a91_106c0e38",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-28T18:09:51Z",
+      "side": 1,
+      "message": "\u003e Sure then.\n\u003e \n\u003e Just one more thing regarding Jian Zhang\u0027s comment on the above bmcweb gerrit commit \"currently, setting up the NTP server failed.\"\n\u003e \n\u003e So even if we merge this change, the functionality won\u0027t be working as expected unless there is a conclusion in that gerrit commit. Should we take/merge these two commits together?\n\u003e \n\u003e Else if that is okay, then I am okay to give a +1 here.\n\nI sent you a message on discord;  I\u0027m not understanding why these would be related, but lets follow up.",
+      "parentUuid": "e22b597c_d0132687",
+      "range": {
+        "startLine": 347,
+        "startChar": 43,
+        "endLine": 347,
+        "endChar": 53
+      },
+      "revId": "29de445b8920129bf57583f252a55b3e6319b07d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
