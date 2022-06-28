@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3e4f62a7_fb69acfe",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2022-06-28T16:20:53Z",
+      "side": 1,
+      "message": "By this if i am right, it means:\nIf currentNTPServers has 3 entries, and the patch request contains 2 new entries, the property must discard the 3rd element in CurrentNTPServers and update the first two entries with that in the patch request?",
+      "range": {
+        "startLine": 13,
+        "startChar": 2,
+        "endLine": 14,
+        "endChar": 19
+      },
+      "revId": "29de445b8920129bf57583f252a55b3e6319b07d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee2ed6fb_15688726",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2022-06-28T16:20:53Z",
+      "side": 1,
+      "message": "I am good with this change.",
+      "revId": "29de445b8920129bf57583f252a55b3e6319b07d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "87517c3b_820c5dd3",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2022-06-28T16:20:53Z",
+      "side": 1,
+      "message": "Per https://gerrit.openbmc.org/c/openbmc/phosphor-dbus-interfaces/+/50887, it must be changed to StaticNTPServers?\n\nThis change in bmcweb is here: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/52671",
+      "range": {
+        "startLine": 347,
+        "startChar": 43,
+        "endLine": 347,
+        "endChar": 53
+      },
+      "revId": "29de445b8920129bf57583f252a55b3e6319b07d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
