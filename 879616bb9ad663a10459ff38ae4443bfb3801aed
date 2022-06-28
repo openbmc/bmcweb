@@ -286,6 +286,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "3e02060c_1aa80708",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-28T18:11:08Z",
+      "side": 1,
+      "message": "\u003e \u003e Maybe we could do something similar here?\n\u003e \n\u003e Yes, we can use this code path to fetch a single DIMM. But it will be slower than call GetAllProperties for a single sensor.\n\u003e Ideally this doesn\u0027t matter \n\nYep, this is what we found in the sensor stuff.  The per-dbus-call overhead outweighed the size of the requests being sent and received.\n\n\u003e since it\u0027s still fast enough and in most cases we will use expand.\n\u003e \n\u003e What do you think? If you agree with sharing the codes for querying a single DIMM, I can do the change. It will get a bunch of codes deleted.\n\nYes, I think that\u0027s the right approach here.",
+      "parentUuid": "12177bcb_0986c54c",
+      "range": {
+        "startLine": 49,
+        "startChar": 60,
+        "endLine": 49,
+        "endChar": 65
+      },
+      "revId": "879616bb9ad663a10459ff38ae4443bfb3801aed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "45516432_70098c9f",
