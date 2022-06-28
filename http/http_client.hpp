@@ -298,7 +298,7 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
             // We want to return a 502 to indicate there was an error with the
             // external server
             res.clear();
-            redfish::messages::operationFailed(res);
+            res.result(boost::beast::http::status::bad_gateway);
 
             if (retryPolicy.retryPolicyAction == "TerminateAfterRetries")
             {
