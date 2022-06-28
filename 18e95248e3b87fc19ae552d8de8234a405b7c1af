@@ -96,6 +96,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d07d0d53_49499efa",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-28T18:49:52Z",
+      "side": 1,
+      "message": "There\u0027s already a dockerfile checked into bmcweb (which arguably should be removed because openbmc-build-scripts has one as well) that has these dependencies figured out.  We shouldn\u0027t be reinventing the wheel here.",
+      "parentUuid": "cd161cd5_34f6e423",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 51
+      },
+      "revId": "18e95248e3b87fc19ae552d8de8234a405b7c1af",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "df34733e_26bb5d60",
