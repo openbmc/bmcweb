@@ -14,6 +14,7 @@
  // limitations under the License.
  */
 #pragma once
+#ifdef BMCWEB_ENABLE_REDFISH_DBUS
 
 #include "dbus_singleton.hpp"
 #include "logging.hpp"
@@ -271,3 +272,4 @@ inline void
 
 } // namespace utility
 } // namespace dbus
+#endif

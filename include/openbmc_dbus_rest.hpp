@@ -13,6 +13,8 @@
 // limitations under the License.
 
 #pragma once
+
+#ifdef BMCWEB_ENABLE_DBUS_REST
 #include "app.hpp"
 #include "async_resp.hpp"
 #include "dbus_singleton.hpp"
@@ -2586,3 +2588,4 @@ inline void requestRoutes(App& app)
 }
 } // namespace openbmc_mapper
 } // namespace crow
+#endif

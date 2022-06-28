@@ -1,4 +1,5 @@
 #pragma once
+#ifdef BMCWEB_ENABLE_REDFISH_DBUS
 #include "dbus_singleton.hpp"
 #include "dbus_utility.hpp"
 #include "persistent_data.hpp"
@@ -28,3 +29,4 @@ inline void registerUserRemovedSignal()
         *crow::connections::systemBus, userRemovedMatchStr, onUserRemoved);
 }
 } // namespace bmcweb
+#endif

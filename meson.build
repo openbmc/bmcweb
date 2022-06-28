@@ -81,6 +81,7 @@ feature_map = {
   'redfish-allow-deprecated-power-thermal'      : '-DBMCWEB_ALLOW_DEPRECATED_POWER_THERMAL',
   'redfish-bmc-journal'                         : '-DBMCWEB_ENABLE_REDFISH_BMC_JOURNAL',
   'redfish-cpu-log'                             : '-DBMCWEB_ENABLE_REDFISH_CPU_LOG',
+  'redfish-dbus'                                : '-DBMCWEB_ENABLE_REDFISH_DBUS',
   'redfish-dbus-log'                            : '-DBMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES',
   'redfish-dump-log'                            : '-DBMCWEB_ENABLE_REDFISH_DUMP_LOG',
   'redfish-host-logger'                         : '-DBMCWEB_ENABLE_REDFISH_HOST_LOGGER',
@@ -284,8 +285,19 @@ if not sdbusplus.found()
 endif
 bmcweb_dependencies += sdbusplus
 
+if (get_option('redfish-dbus').enabled())
+  sdbusplus = dependency('sdbusplus', required : false, include_type: 'system')
+  if not sdbusplus.found()
+    sdbusplus_proj = subproject('sdbusplus', required: true)
+    sdbusplus = sdbusplus_proj.get_variable('sdbusplus_dep')
+    sdbusplus = sdbusplus.as_system('system')
+  endif
+  bmcweb_dependencies += sdbusplus
+endif
+
 tinyxml = dependency(
     'tinyxml2',
+    default_options: ['tests=false'],
     include_type: 'system',
     version: '>=9.0.0',
 )
@@ -296,7 +308,7 @@ if not tinyxml.found()
 endif
 bmcweb_dependencies += tinyxml
 
-systemd = dependency('systemd')
+systemd = dependency('libsystemd')
 zlib = dependency('zlib')
 bmcweb_dependencies += [systemd, zlib]
 
@@ -358,7 +370,7 @@ if get_option('tests').enabled()
   gmock = gmock.as_system('system')
 endif
 
-systemd_system_unit_dir = systemd.get_variable('systemdsystemunitdir')
+systemd_system_unit_dir = dependency('systemd').get_variable(pkgconfig: 'systemdsystemunitdir')
 
 bindir = get_option('prefix') + '/' +get_option('bindir')
 
@@ -390,12 +402,14 @@ srcfiles_bmcweb = files(
   'src/json_html_serializer.cpp',
   'src/ossl_random.cpp',
 )
-
+if (get_option('redfish-dbus').enabled())
+  srcfiles_bmcweb += files('src/dbus_singleton.cpp')
+endif
 bmcweblib = static_library(
   'bmcweblib',
   srcfiles_bmcweb,
   include_directories : incdir,
-  dependencies: bmcweb_dependencies,
+  dependencies: bmcweb_dependencies + [systemd],
 )
 
 # Generate the bmcweb executable
@@ -415,8 +429,6 @@ srcfiles_unittest = files(
   'test/http/router_test.cpp',
   'test/http/utility_test.cpp',
   'test/http/verb_test.cpp',
-  'test/include/dbus_utility_test.cpp',
-  'test/include/google/google_service_root_test.cpp',
   'test/include/json_html_serializer.cpp',
   'test/include/http_utility_test.cpp',
   'test/include/human_sort_test.cpp',
@@ -425,11 +437,9 @@ srcfiles_unittest = files(
   'test/include/ibm/configfile_test.cpp',
   'test/include/ibm/lock_test.cpp',
   'test/include/multipart_test.cpp',
-  'test/include/openbmc_dbus_rest_test.cpp',
   'test/include/str_utility_test.cpp',
   'test/include/ossl_random.cpp',
   'test/redfish-core/include/privileges_test.cpp',
-  'test/redfish-core/include/redfish_aggregator_test.cpp',
   'test/redfish-core/include/registries_test.cpp',
   'test/redfish-core/include/utils/hex_utils_test.cpp',
   'test/redfish-core/include/utils/ip_utils_test.cpp',
@@ -437,13 +447,30 @@ srcfiles_unittest = files(
   'test/redfish-core/include/utils/query_param_test.cpp',
   'test/redfish-core/include/utils/stl_utils_test.cpp',
   'test/redfish-core/include/utils/time_utils_test.cpp',
-  'test/redfish-core/lib/chassis_test.cpp',
-  'test/redfish-core/lib/sensors_test.cpp',
-  'test/redfish-core/lib/log_services_dump_test.cpp',
   'test/redfish-core/lib/service_root_test.cpp',
-  'test/redfish-core/lib/thermal_subsystem_test.cpp',
-  'test/redfish-core/lib/power_subsystem_test.cpp',
 )
+
+if (get_option('redfish-dbus').enabled())
+  srcfiles_unittest += files(
+    'test/include/dbus_utility_test.cpp',
+    'test/include/google/google_service_root_test.cpp',
+    'test/include/openbmc_dbus_rest_test.cpp',
+    'test/redfish-core/include/redfish_aggregator_test.cpp',
+    'test/redfish-core/lib/chassis_test.cpp',
+    'test/redfish-core/lib/log_services_dump_test.cpp',
+    'test/redfish-core/lib/power_subsystem_test.cpp',
+    'test/redfish-core/lib/sensors_test.cpp',
+    'test/redfish-core/lib/thermal_subsystem_test.cpp',
+  )
+endif
+
+if (get_option('ibm-management-console').enabled())
+  srcfiles_unittest += files(
+    'redfish-core/ut/configfile_test.cpp',
+    'test/include/ibm/configfile_test.cpp',
+  )
+
+endif
 
 if(get_option('tests').enabled())
     # generate the test executable

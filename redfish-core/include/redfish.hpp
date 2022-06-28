@@ -15,6 +15,11 @@
 */
 #pragma once
 
+#include "redfish_sessions.hpp"
+#include "redfish_v1.hpp"
+#include "service_root.hpp"
+
+#ifdef BMCWEB_ENABLE_REDFISH_DBUS
 #include "account_service.hpp"
 #include "aggregation_service.hpp"
 #include "bios.hpp"
@@ -42,11 +47,8 @@
 #include "power_subsystem.hpp"
 #include "power_supply.hpp"
 #include "processor.hpp"
-#include "redfish_sessions.hpp"
-#include "redfish_v1.hpp"
 #include "roles.hpp"
 #include "sensors.hpp"
-#include "service_root.hpp"
 #include "storage.hpp"
 #include "systems.hpp"
 #include "task.hpp"
@@ -56,6 +58,7 @@
 #include "trigger.hpp"
 #include "update_service.hpp"
 #include "virtual_media.hpp"
+#endif
 
 namespace redfish
 {
@@ -74,6 +77,9 @@ class RedfishService
      */
     explicit RedfishService(App& app)
     {
+        requestRoutesServiceRoot(app);
+
+#ifdef BMCWEB_ENABLE_RF_DBUS_BACKEND
         requestAccountServiceRoutes(app);
 #ifdef BMCWEB_ENABLE_REDFISH_AGGREGATION
         requestRoutesAggregationService(app);
@@ -82,7 +88,6 @@ class RedfishService
 #endif
         requestRoutesRoles(app);
         requestRoutesRoleCollection(app);
-        requestRoutesServiceRoot(app);
         requestRoutesNetworkProtocol(app);
         requestRoutesSession(app);
         requestEthernetInterfacesRoutes(app);
@@ -243,6 +248,7 @@ class RedfishService
         requestRoutesMetricReport(app);
         requestRoutesTriggerCollection(app);
         requestRoutesTrigger(app);
+#endif
 
         // Note, this must be the last route registered
         requestRoutesRedfish(app);

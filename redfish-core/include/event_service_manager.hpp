@@ -8,12 +8,14 @@
 //      http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
+/Even// distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
 */
 #pragma once
+#ifdef BMCWEB_ENABLE_REDFISH_DBUS
+
 #include "dbus_utility.hpp"
 #include "error_messages.hpp"
 #include "event_service_store.hpp"
@@ -1398,3 +1400,4 @@ class EventServiceManager
 };
 
 } // namespace redfish
+#endif

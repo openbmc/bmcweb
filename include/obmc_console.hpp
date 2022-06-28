@@ -12,6 +12,7 @@ namespace crow
 {
 namespace obmc_console
 {
+#ifdef BMCWEB_ENABLE_REDFISH_DBUS
 
 // Update this value each time we add new console route.
 static constexpr const uint maxSessions = 32;
@@ -331,5 +332,6 @@ inline void requestRoutes(App& app)
         .onclose(onClose)
         .onmessage(onMessage);
 }
+#endif
 } // namespace obmc_console
 } // namespace crow

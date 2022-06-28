@@ -46,7 +46,7 @@ class ConnectionImpl : public Connection
                    std::function<void(Connection&)> openHandlerIn,
                    std::function<void(Connection&)> closeHandlerIn) :
         adaptor(std::move(adaptorIn)),
-        timer(ioc), openHandler(std::move(openHandlerIn)),
+        timer(adaptor.get_executor()), openHandler(std::move(openHandlerIn)),
         closeHandler(std::move(closeHandlerIn))
     {
         BMCWEB_LOG_DEBUG("SseConnectionImpl: SSE constructor {}", logPtr(this));
@@ -279,8 +279,6 @@ class ConnectionImpl : public Connection
     std::optional<boost::beast::http::response_serializer<
         boost::beast::http::buffer_body>>
         serializer;
-    boost::asio::io_context& ioc =
-        crow::connections::systemBus->get_io_context();
     boost::asio::steady_timer timer;
     bool doingWrite = false;
 
