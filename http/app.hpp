@@ -183,6 +183,11 @@ class App
     }
 #endif
 
+    boost::asio::io_context& ioContext()
+    {
+        return *io;
+    }
+
   private:
     std::shared_ptr<boost::asio::io_context> io;
 #ifdef BMCWEB_ENABLE_SSL
