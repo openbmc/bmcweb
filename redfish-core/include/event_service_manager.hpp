@@ -247,7 +247,7 @@ inline int formatEventLogEntry(const std::string& logEntryID,
     // RFC3339 format which matches the Redfish format except for the
     // fractional seconds between the '.' and the '+', so just remove them.
     std::size_t dot = timestamp.find_first_of('.');
-    std::size_t plus = timestamp.find_first_of('+');
+    std::size_t plus = timestamp.find_first_of('+', dot);
     if (dot != std::string::npos && plus != std::string::npos)
     {
         timestamp.erase(dot, plus - dot);
