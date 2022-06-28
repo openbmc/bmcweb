@@ -33,6 +33,24 @@
       "message": "There are new PowerSubsystem/ThermalSubsystem schemas. (e.g. https://gerrit.openbmc.org/c/openbmc/bmcweb/+/41012) \nThese look to be new files redfish-core/lib/thermal_subsystem.hpp so maybe after these merge, Krzysztof could also be added to these. \nKrzysztof, good ones to look at because IMO these are the future of the Power/Thermal in Redfish.",
       "revId": "d8ea13a2b4dc7e0e9f450a66826add740a634c21",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d92602cc_86eb64a1",
+        "filename": "OWNERS",
+        "patchSetId": 1
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-28T18:41:53Z",
+      "side": 1,
+      "message": "+1.  When those are merged, I would expect krzysztof to maintain those as well;  Krzysztof, does that sound ok to you?",
+      "parentUuid": "70441194_548101ba",
+      "revId": "d8ea13a2b4dc7e0e9f450a66826add740a634c21",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
