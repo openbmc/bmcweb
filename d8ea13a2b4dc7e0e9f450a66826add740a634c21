@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "7905551b_4b6508e9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-28T19:03:37Z",
+      "side": 1,
+      "message": "People can choose the subset of this project that they are interested in, right? For example, I want to help maintain Aggregation and the RootOfTrust codes, so I will participate the code review, improve the code and testing, and nominate myself by adding the path and myself into this list. \n\nDoes this sound good?",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 36
+      },
+      "revId": "d8ea13a2b4dc7e0e9f450a66826add740a634c21",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "60ff2e3e_8220c800",
