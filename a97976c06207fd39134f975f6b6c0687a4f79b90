@@ -652,6 +652,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1fe1a062_19895c94",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 645,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-28T18:46:43Z",
+      "side": 1,
+      "message": "\u003e \u003e When select is used, we shouldn\u0027t be stripping the messages as well.\n\u003e \n\u003e This is already handled by this implementation:\n\u003e \n\u003e 1. \"HTTP status codes often do not provide enough information to enable deterministic error semantics\" is under \"8.6 Error responses\". I would assume responses here have error http code, so that these query parameters won\u0027t be execute at all.\n\nI think you\u0027ve read that incorrectly.  that statement means that NOT all messages will result in an error code.  There\u0027s a number of messages that return 200, but will still have messages.\n\n\u003e \n\u003e 2. Even if there is case \"8.6 Error responses\" have Ok HTTP codes (which I didn\u0027t find a case in the spec). \n\nThere is that case.\n\n\u003e I added \"error\" in this array, so all attributes under it will be selected.\n\u003e \n\u003e Do you still have concerns on this?\n\nYes, there are other parameters other than \"error\" that can contain a message, including per property messages.",
+      "parentUuid": "f194a6f3_d87ba38d",
+      "range": {
+        "startLine": 645,
+        "startChar": 0,
+        "endLine": 645,
+        "endChar": 69
+      },
+      "revId": "a97976c06207fd39134f975f6b6c0687a4f79b90",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f19c0fa6_dfce885f",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 5
