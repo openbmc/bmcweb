@@ -74,6 +74,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "943869c9_5d5eed23",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-06-28T00:50:04Z",
+      "side": 1,
+      "message": "Yes but previously it\u0027s the same behavior. bmcweb itself limits GET request to LogService return at most 1000 logs at once. Previously this limit is only checked when top is specified.\n\nSee my comment on that part.",
+      "parentUuid": "1e2b466f_6eb8894e",
+      "revId": "6604b718fc50d069722a8aaa5e057aaa89d75fbf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b6010b11_5fb33d5c",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 1

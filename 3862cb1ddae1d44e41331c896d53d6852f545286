@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "92b6f00f_cf5bbfbc",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-06-28T00:50:04Z",
+      "side": 0,
+      "message": "Previously the 1000-limit is here. If top is specified to any number \u003e1000, it returns an here. If it is unspecified, SIZE_T_MAX is used and overflow happens. I just makes the 1000-limit more global I think.",
+      "range": {
+        "startLine": 176,
+        "startChar": 0,
+        "endLine": 192,
+        "endChar": 1
+      },
+      "revId": "3862cb1ddae1d44e41331c896d53d6852f545286",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
