@@ -46,6 +46,30 @@
       },
       "revId": "bb7a59b7346c05543786376f6f2c9202a5092879",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4dd99719_6a477513",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-28T00:03:11Z",
+      "side": 1,
+      "message": "I\u0027m not accusing you of making the commits just to have more commits.  FWIW, if you\u0027re doing that, I don\u0027t really care, more power to you if it\u0027s what you want.\n\nWhat I care about is reviewing this same pattern 10 times in 10 reviews takes a lot more effort than just scanning through one commit that makes the codebase consistent, and states \"This makes the codebase consistent because\" in the commit message so I can point users to it when they ask why things are the way they are.\n\nIf you don\u0027t want to do it, sure, these patches can probably merge, it\u0027s just harder to review.",
+      "parentUuid": "8fa1577b_c6aefa20",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 54
+      },
+      "revId": "bb7a59b7346c05543786376f6f2c9202a5092879",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
