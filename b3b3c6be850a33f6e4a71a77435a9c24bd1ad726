@@ -46,6 +46,30 @@
       },
       "revId": "b3b3c6be850a33f6e4a71a77435a9c24bd1ad726",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a078bd88_18048967",
+        "filename": "TESTING.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-28T17:36:41Z",
+      "side": 1,
+      "message": "Yeah, I suspect that Gunnar meant to document this in the openbmc/docs folder?",
+      "parentUuid": "15cd8374_becb03a4",
+      "range": {
+        "startLine": 130,
+        "startChar": 0,
+        "endLine": 139,
+        "endChar": 64
+      },
+      "revId": "b3b3c6be850a33f6e4a71a77435a9c24bd1ad726",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
