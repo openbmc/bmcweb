@@ -3541,7 +3541,7 @@ inline static bool parsePostCode(const std::string& postCodeID,
     end = split[1].data() + split[1].size();
     auto [ptrValue, ecValue] = std::from_chars(start, end, currentValue);
 
-    return ptrValue == end && ecValue != std::errc();
+    return ptrValue == end && ecValue == std::errc();
 }
 
 inline void requestRoutesPostCodesEntryAdditionalData(App& app)
