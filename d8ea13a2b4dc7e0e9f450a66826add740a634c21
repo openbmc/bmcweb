@@ -37,6 +37,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "eb619265_ab2a9d10",
+        "filename": "OWNERS",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-28T18:52:51Z",
+      "side": 1,
+      "message": "I thought the Gerrit Onwer plugin in doesn\u0027t work yet, does it?\n\nTo approve (+2) changes, one still needs to be in the right Github group, right?",
+      "range": {
+        "startLine": 77,
+        "startChar": 0,
+        "endLine": 77,
+        "endChar": 8
+      },
+      "revId": "d8ea13a2b4dc7e0e9f450a66826add740a634c21",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "70441194_548101ba",
         "filename": "OWNERS",
         "patchSetId": 1
