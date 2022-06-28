@@ -2,7 +2,14 @@
 
 #include "async_resp.hpp"
 #include "common.hpp"
+
+#ifdef BMCWEB_ENABLE_REDFISH_DBUS
 #include "dbus_utility.hpp"
+#include "utils/dbus_utils.hpp"
+
+#include <sdbusplus/unpack_properties.hpp>
+#endif
+
 #include "error_messages.hpp"
 #include "http_request.hpp"
 #include "http_response.hpp"
@@ -10,13 +17,11 @@
 #include "privileges.hpp"
 #include "sessions.hpp"
 #include "utility.hpp"
-#include "utils/dbus_utils.hpp"
 #include "verb.hpp"
 #include "websocket.hpp"
 
 #include <boost/beast/ssl/ssl_stream.hpp>
 #include <boost/container/flat_map.hpp>
-#include <sdbusplus/unpack_properties.hpp>
 
 #include <cerrno>
 #include <cstdint>
@@ -1256,6 +1261,7 @@ class Router
         return findRoute;
     }
 
+#ifdef BMCWEB_ENABLE_REDFISH_DBUS
     static bool isUserPrivileged(
         Request& req, const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         BaseRule& rule, const dbus::utility::DBusPropertiesMap& userInfoMap)
@@ -1375,6 +1381,7 @@ class Router
                            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                            BaseRule& rule, CallbackFn&& callback)
     {
+
         if (req.session == nullptr)
         {
             return;
@@ -1392,6 +1399,7 @@ class Router
             "xyz.openbmc_project.User.Manager", "/xyz/openbmc_project/user",
             "xyz.openbmc_project.User.Manager", "GetUserInfo", username);
     }
+#endif
 
     template <typename Adaptor>
     void handleUpgrade(Request& req,
@@ -1438,7 +1446,7 @@ class Router
 
         BMCWEB_LOG_DEBUG << "Matched rule (upgrade) '" << rule.rule << "' "
                          << static_cast<uint32_t>(*verb) << " / " << methods;
-
+#ifdef BMCWEB_ENABLE_REDFISH_DBUS
         // TODO(ed) This should be able to use std::bind_front, but it doesn't
         // appear to work with the std::move on adaptor.
         validatePrivilege(
@@ -1447,6 +1455,9 @@ class Router
                 Request& thisReq) mutable {
             rule.handleUpgrade(thisReq, asyncResp, std::move(adaptor));
             });
+#else
+        rule.handleUpgrade(req, asyncResp, std::move(adaptor));
+#endif
     }
 
     void handle(Request& req,
@@ -1514,10 +1525,15 @@ class Router
             rule.handle(req, asyncResp, params);
             return;
         }
+#ifdef BMCWEB_ENABLE_REDFISH_DBUS
         validatePrivilege(req, asyncResp, rule,
                           [&rule, asyncResp, params](Request& thisReq) mutable {
             rule.handle(thisReq, asyncResp, params);
         });
+#else
+        rule.handle(req, asyncResp, params);
+
+#endif
     }
 
     void debugPrint()
