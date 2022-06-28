@@ -51,6 +51,24 @@
       "message": "What\u0027s the state of this change now? Xiaochao, are your team actively working on this right now?\n\nZhenwei, I saw internally you want to use this patch. What\u0027s our strategy here? Are we going to take over and push it hard to merge it?",
       "revId": "0f3142febeea404a53dc72f2637d629bbd6ed55c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "211b1264_5bd07db0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 78
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001193
+      },
+      "writtenOn": "2022-06-28T17:14:07Z",
+      "side": 1,
+      "message": "Hey Nan,\n\nI\u0027m not sure about the state of this change now. There are no unresolved comments currently. We could take over but we need to coordinate with Xiaochao.",
+      "parentUuid": "7eb3d7ec_3ce86111",
+      "revId": "0f3142febeea404a53dc72f2637d629bbd6ed55c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
