@@ -34,6 +34,23 @@
       "parentUuid": "0858e565_2c34f991",
       "revId": "0f3142febeea404a53dc72f2637d629bbd6ed55c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7eb3d7ec_3ce86111",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 78
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-28T16:41:28Z",
+      "side": 1,
+      "message": "What\u0027s the state of this change now? Xiaochao, are your team actively working on this right now?\n\nZhenwei, I saw internally you want to use this patch. What\u0027s our strategy here? Are we going to take over and push it hard to merge it?",
+      "revId": "0f3142febeea404a53dc72f2637d629bbd6ed55c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
