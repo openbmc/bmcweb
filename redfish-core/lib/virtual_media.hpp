@@ -17,6 +17,7 @@
 
 #include "account_service.hpp"
 #include "app.hpp"
+#include "async_resp.hpp"
 #include "dbus_utility.hpp"
 #include "generated/enums/virtual_media.hpp"
 #include "query.hpp"
@@ -80,6 +81,45 @@ inline VmMode
         return VmMode::Proxy;
     }
     return VmMode::Invalid;
+}
+
+using CheckItemHandler =
+    std::function<void(const std::string& service, const std::string& resName,
+                       const std::shared_ptr<bmcweb::AsyncResp>&,
+                       std::pair<sdbusplus::message::object_path,
+                                 dbus::utility::DBusInteracesMap>&)>;
+
+inline void findAndParseObject(const std::string& service,
+                               const std::string& resName,
+                               const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+                               CheckItemHandler&& handler)
+{
+    crow::connections::systemBus->async_method_call(
+        [service, resName, aResp,
+         handler](const boost::system::error_code ec,
+                  dbus::utility::ManagedObjectType& subtree) {
+        if (ec)
+        {
+            BMCWEB_LOG_DEBUG << "DBUS response error";
+
+            return;
+        }
+
+        for (auto& item : subtree)
+        {
+            VmMode mode = parseObjectPathAndGetMode(item.first, resName);
+            if (mode != VmMode::Invalid)
+            {
+                handler(service, resName, aResp, item);
+                return;
+            }
+        }
+
+        BMCWEB_LOG_DEBUG << "Parent item not found";
+        aResp->res.result(boost::beast::http::status::not_found);
+        },
+        service, "/xyz/openbmc_project/VirtualMedia",
+        "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
 }
 
 /**
@@ -814,10 +854,11 @@ inline void handleManagersVirtualMediaActionInsertPost(
     {
         return;
     }
+
+    constexpr std::string_view action = "VirtualMedia.InsertMedia";
     if (name != "bmc")
     {
-        messages::resourceNotFound(asyncResp->res, "VirtualMedia.InsertMedia",
-                                   resName);
+        messages::resourceNotFound(asyncResp->res, action, resName);
 
         return;
     }
@@ -838,39 +879,46 @@ inline void handleManagersVirtualMediaActionInsertPost(
 
     dbus::utility::getDbusObject(
         "/xyz/openbmc_project/VirtualMedia", {},
-        [asyncResp, actionParams,
+        [asyncResp, action, actionParams,
          resName](const boost::system::error_code& ec,
                   const dbus::utility::MapperGetObject& getObjectType) mutable {
         if (ec)
         {
             BMCWEB_LOG_ERROR << "ObjectMapper::GetObject call failed: " << ec;
-            messages::internalError(asyncResp->res);
+            messages::resourceNotFound(asyncResp->res, action, resName);
 
             return;
         }
+
         std::string service = getObjectType.begin()->first;
         BMCWEB_LOG_DEBUG << "GetObjectType: " << service;
 
         crow::connections::systemBus->async_method_call(
-            [service, resName, actionParams,
+            [service, resName, action, actionParams,
              asyncResp](const boost::system::error_code& ec2,
                         dbus::utility::ManagedObjectType& subtree) mutable {
             if (ec2)
             {
-                BMCWEB_LOG_DEBUG << "DBUS response error";
-                messages::internalError(asyncResp->res);
+                // Not possible in proxy mode
+                BMCWEB_LOG_DEBUG << "InsertMedia not "
+                                    "allowed in proxy mode";
+                messages::resourceNotFound(asyncResp->res, action, resName);
 
                 return;
             }
-
             for (const auto& object : subtree)
             {
-                VmMode mode = parseObjectPathAndGetMode(object.first, resName);
-                if (mode == VmMode::Proxy)
+                if (!actionParams)
                 {
-                    validateParams(asyncResp, service, resName, *actionParams);
+                    VmMode mode =
+                        parseObjectPathAndGetMode(object.first, resName);
+                    if (mode == VmMode::Proxy)
+                    {
+                        validateParams(asyncResp, service, resName,
+                                       *actionParams);
 
-                    return;
+                        return;
+                    }
                 }
             }
             BMCWEB_LOG_DEBUG << "Parent item not found";
@@ -890,17 +938,18 @@ inline void handleManagersVirtualMediaActionEject(
     {
         return;
     }
+
+    const char* action = "VirtualMedia.EjectMedia";
     if (managerName != "bmc")
     {
-        messages::resourceNotFound(asyncResp->res, "VirtualMedia.EjectMedia",
-                                   resName);
+        messages::resourceNotFound(asyncResp->res, action, resName);
 
         return;
     }
 
     dbus::utility::getDbusObject(
         "/xyz/openbmc_project/VirtualMedia", {},
-        [asyncResp,
+        [asyncResp, action,
          resName](const boost::system::error_code& ec2,
                   const dbus::utility::MapperGetObject& getObjectType) {
         if (ec2)
@@ -914,14 +963,13 @@ inline void handleManagersVirtualMediaActionEject(
         BMCWEB_LOG_DEBUG << "GetObjectType: " << service;
 
         crow::connections::systemBus->async_method_call(
-            [resName, service, asyncResp{asyncResp}](
-                const boost::system::error_code& ec,
-                const dbus::utility::ManagedObjectType& subtree) {
+            [resName, service, action,
+             asyncResp](const boost::system::error_code& ec,
+                        const dbus::utility::ManagedObjectType& subtree) {
             if (ec)
             {
-                BMCWEB_LOG_DEBUG << "DBUS response error";
-                messages::internalError(asyncResp->res);
-
+                BMCWEB_LOG_ERROR << "ObjectMapper : No Service found";
+                messages::resourceNotFound(asyncResp->res, action, resName);
                 return;
             }
 
