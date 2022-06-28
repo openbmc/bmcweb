@@ -22,6 +22,30 @@
       },
       "revId": "33cc48fe9ab2a20757d60c92a34e7f772762e379",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "48f71322_0065cd5d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1001489
+      },
+      "writtenOn": "2022-06-28T11:31:16Z",
+      "side": 1,
+      "message": "Sure, I\u0027ll try to explain from a code perspective. I\u0027ll just add that this is \na situation specific to nbd_proxy. Here we do the websocket upgrade \n\"// Perform the websocket upgrade\n        ws.async_accept(req, [this, self(shared_from_this())](\n                                 boost::system::error_code ec)\" \nThen we go to the acceptDone function, where the openHandler is started. \nBefore running the handler, we start the doRead() method which reads the \ndata for the websocket. In the case of nbd_proxy, openHandler has \nasychronous processes in it which are run in cascade. When the BMC is \nunder heavy load, the asynchronous processes in nbd_proxy do not \ncomplete their execution. In the meantime we start receiving data with \ndoRead which is aborted by an error due to the fact that the websocket \nis not yet ready to receive data (openHandler has finished its work but \nthe asynchronous processes in it haven\u0027t). To sum up upgrading to websocket can be \nasynchronous and we can\u0027t start handling data until openHandler \nfinishes. There is no mechanism here to prevent reading before the \nprocesses in nbd_proxy are finished.\nDoes that explain the problem a bit better?",
+      "parentUuid": "ede58713_bd98f18e",
+      "range": {
+        "startLine": 13,
+        "startChar": 48,
+        "endLine": 15,
+        "endChar": 12
+      },
+      "revId": "33cc48fe9ab2a20757d60c92a34e7f772762e379",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
