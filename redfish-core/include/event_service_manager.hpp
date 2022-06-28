@@ -613,7 +613,7 @@ class EventServiceManager
     EventServiceManager& operator=(EventServiceManager&&) = delete;
     ~EventServiceManager() = default;
 
-    EventServiceManager(boost::asio::io_context& iocIn) : ioc(iocIn)
+    explicit EventServiceManager(boost::asio::io_context& iocIn) : ioc(iocIn)
     {
         // Load config from persist store.
         initConfig();

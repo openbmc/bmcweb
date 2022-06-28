@@ -15,10 +15,13 @@
 */
 #pragma once
 
-#include "async_resolve.hpp"
 #include "http_response.hpp"
 #include "logging.hpp"
 #include "ssl_key_handler.hpp"
+
+#ifdef BMCWEB_DBUS_DNS_RESOLVER
+#include "async_resolve.hpp"
+#endif
 
 #include <boost/asio/connect.hpp>
 #include <boost/asio/io_context.hpp>
@@ -39,10 +42,6 @@
 #include <boost/beast/version.hpp>
 #include <boost/container/devector.hpp>
 #include <boost/system/error_code.hpp>
-
-#ifdef BMCWEB_DBUS_DNS_RESOLVER
-#include <include/async_resolve.hpp>
-#endif
 
 #include <cstdlib>
 #include <functional>
