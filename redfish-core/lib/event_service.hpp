@@ -281,8 +281,8 @@ inline void requestRoutesEventDestinationCollection(App& app)
         {
             path = "/";
         }
-        std::shared_ptr<Subscription> subValue =
-            std::make_shared<Subscription>(host, port, path, urlProto);
+        std::shared_ptr<Subscription> subValue = std::make_shared<Subscription>(
+            host, port, path, urlProto, app.ioContext());
 
         subValue->destinationUrl = destUrl;
 
