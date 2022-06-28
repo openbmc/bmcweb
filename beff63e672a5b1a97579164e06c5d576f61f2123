@@ -140,6 +140,24 @@
       "parentUuid": "87711d1f_8ea1be53",
       "revId": "beff63e672a5b1a97579164e06c5d576f61f2123",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1462394b_2366fc8d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-28T04:20:50Z",
+      "side": 1,
+      "message": "\u003e What type of problems are do you envision? \n\nBiggest problem is when people ask \"why do we do this?\" in a code review (as both of you have done in the past).  If the maintainers have to type a long answer for every patch, it takes away from review time.",
+      "parentUuid": "2240d64d_07c7366e",
+      "revId": "beff63e672a5b1a97579164e06c5d576f61f2123",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
