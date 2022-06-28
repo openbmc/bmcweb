@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d598cd40_8e1ef9bb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-06-28T01:03:39Z",
+      "side": 1,
+      "message": "And previously (without this oveflow bug from commit c937d2bfefa3ff91b7175d9684f99712ec9b88e5) also initializes the max allowed $top to 1000\n\nhttps://github.com/openbmc/bmcweb/blob/5e52870bbadc7e35ff47325ffa668a6b82bf9c4a/redfish-core/lib/log_services.hpp#L1208",
+      "revId": "8d728aee482a9d622a07d5c547fd4f07009f42d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
