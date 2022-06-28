@@ -14,15 +14,24 @@
 // limitations under the License.
 */
 #pragma once
+#include <boost/asio/io_context.hpp>
 #include <boost/asio/ip/address.hpp>
 #include <boost/asio/ip/basic_endpoint.hpp>
+#include <boost/asio/ip/tcp.hpp>
 #include <boost/asio/steady_timer.hpp>
 #include <boost/beast/core/flat_buffer.hpp>
+#include <boost/beast/core/flat_static_buffer.hpp>
 #include <boost/beast/core/tcp_stream.hpp>
 #include <boost/beast/http/message.hpp>
+#include <boost/beast/http/parser.hpp>
+#include <boost/beast/http/read.hpp>
+#include <boost/beast/http/string_body.hpp>
+#include <boost/beast/http/write.hpp>
 #include <boost/beast/version.hpp>
 #include <boost/container/devector.hpp>
+#include <http/http_response.hpp>
 #include <include/async_resolve.hpp>
+#include <logging.hpp>
 
 #include <cstdlib>
 #include <functional>
