@@ -69,6 +69,229 @@
       "parentUuid": "7eb3d7ec_3ce86111",
       "revId": "0f3142febeea404a53dc72f2637d629bbd6ed55c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a3975582_be33df3d",
+        "filename": "Redfish.md",
+        "patchSetId": 78
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-28T17:53:16Z",
+      "side": 1,
+      "message": "Surely we support more than just this?",
+      "range": {
+        "startLine": 228,
+        "startChar": 0,
+        "endLine": 229,
+        "endChar": 8
+      },
+      "revId": "0f3142febeea404a53dc72f2637d629bbd6ed55c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3dd549ba_94a056ee",
+        "filename": "redfish-core/include/utils/chassis_utils.hpp",
+        "patchSetId": 78
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-28T17:53:16Z",
+      "side": 1,
+      "message": "Don\u0027t we already have a function for this?  Can we reuse existing code?",
+      "range": {
+        "startLine": 15,
+        "startChar": 5,
+        "endLine": 15,
+        "endChar": 22
+      },
+      "revId": "0f3142febeea404a53dc72f2637d629bbd6ed55c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "514547eb_c5407838",
+        "filename": "redfish-core/include/utils/chassis_utils.hpp",
+        "patchSetId": 78
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-28T17:53:16Z",
+      "side": 1,
+      "message": "Please segment this relatively large lambda into its own function.",
+      "revId": "0f3142febeea404a53dc72f2637d629bbd6ed55c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f0152e4e_494435e2",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 78
+      },
+      "lineNbr": 398,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-28T17:53:16Z",
+      "side": 1,
+      "message": "Please use urlfrompieces() and avoid brace initialization.",
+      "range": {
+        "startLine": 397,
+        "startChar": 24,
+        "endLine": 398,
+        "endChar": 64
+      },
+      "revId": "0f3142febeea404a53dc72f2637d629bbd6ed55c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "06f4a272_c878d5c4",
+        "filename": "redfish-core/lib/thermal_subsystem.hpp",
+        "patchSetId": 78
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-28T17:53:16Z",
+      "side": 1,
+      "message": "This doesn\u0027t look correct;  Please take a look",
+      "range": {
+        "startLine": 17,
+        "startChar": 52,
+        "endLine": 17,
+        "endChar": 59
+      },
+      "revId": "0f3142febeea404a53dc72f2637d629bbd6ed55c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "720d780c_e36ac39f",
+        "filename": "redfish-core/lib/thermal_subsystem.hpp",
+        "patchSetId": 78
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-28T17:53:16Z",
+      "side": 1,
+      "message": "please use urlFromPieces.",
+      "revId": "0f3142febeea404a53dc72f2637d629bbd6ed55c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4ba3d2a7_1977337a",
+        "filename": "redfish-core/lib/thermal_subsystem.hpp",
+        "patchSetId": 78
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-28T17:53:16Z",
+      "side": 1,
+      "message": "please don\u0027t use brace initialization of nlohmann objects in new code.  It bloats binary sizes.",
+      "revId": "0f3142febeea404a53dc72f2637d629bbd6ed55c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "98240f35_6f331c0d",
+        "filename": "redfish-core/lib/thermal_subsystem.hpp",
+        "patchSetId": 78
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-28T17:53:16Z",
+      "side": 1,
+      "message": "This privilege level is probably incorrect, and needs to use the privilege registry.",
+      "range": {
+        "startLine": 35,
+        "startChar": 19,
+        "endLine": 35,
+        "endChar": 31
+      },
+      "revId": "0f3142febeea404a53dc72f2637d629bbd6ed55c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7292d35c_894f8fe0",
+        "filename": "redfish-core/lib/thermal_subsystem.hpp",
+        "patchSetId": 78
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-28T17:53:16Z",
+      "side": 1,
+      "message": "Please follow the convention we use elsewhere of using std::bind_front to avoid this lambda.",
+      "range": {
+        "startLine": 39,
+        "startChar": 11,
+        "endLine": 41,
+        "endChar": 50
+      },
+      "revId": "0f3142febeea404a53dc72f2637d629bbd6ed55c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "80cd93c6_0a34050c",
+        "filename": "redfish-core/lib/thermal_subsystem.hpp",
+        "patchSetId": 78
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-28T17:53:16Z",
+      "side": 1,
+      "message": "missing setupRedfishRoute call.",
+      "revId": "0f3142febeea404a53dc72f2637d629bbd6ed55c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "afc44155_7a3c3a44",
+        "filename": "static/redfish/v1/$metadata/index.xml",
+        "patchSetId": 78
+      },
+      "lineNbr": 2430,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-28T17:53:16Z",
+      "side": 1,
+      "message": "Please add the schemas in another commit.",
+      "revId": "0f3142febeea404a53dc72f2637d629bbd6ed55c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
