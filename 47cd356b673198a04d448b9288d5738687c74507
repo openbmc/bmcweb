@@ -70,6 +70,30 @@
       },
       "revId": "47cd356b673198a04d448b9288d5738687c74507",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c86cc627_47d5db78",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-28T04:14:14Z",
+      "side": 1,
+      "message": "\u003e For example, someday we changed the interface, without this change, we have to change the string literal multiple times.\n\nYes, and that\u0027s a good thing, because it would require us to audit all the places this string is used, which we would need to do anyway, but if it\u0027s duplicated in other places, it shows up in code review, which is a good thing.\n\nAlso, and happens more in the project, only one instance of an interface changes, and needs to port to another daemon/interface, in which case, we would now need to move the only usage back to inline, which makes more of a mess.\n\nInline definitions also make it much easier to code review.\n\n\u003e Seems like it depends on the compiler implementation. \n\nYep, and our specific implementation with the flags we have deduplicates them at compile time, and if it didn\u0027t, they\u0027d be deduplicated as part of compression.\n\n\n\nThe biggest thing for me here is that code review is faster with inlines, and when someone wants to go debug something, someone can immediately convert an async_method_call into a dbus-send (or busctl) call.  At least that was the intent when we inlined all these strings.",
+      "parentUuid": "26eefb8d_149af8d3",
+      "range": {
+        "startLine": 9,
+        "startChar": 53,
+        "endLine": 10,
+        "endChar": 71
+      },
+      "revId": "47cd356b673198a04d448b9288d5738687c74507",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
