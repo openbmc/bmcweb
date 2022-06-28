@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "19583f7c_7e87e779",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-06-28T21:30:32Z",
+      "side": 1,
+      "message": "it is merge conflicting 95 changes. Even if half are Ed\u0027s that is 47 changes, but I suppose it is better to get this over with.",
+      "revId": "7bf87003c44675f9e4ea3b416de54f19deb75a93",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
