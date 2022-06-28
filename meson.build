@@ -80,6 +80,7 @@ feature_map = {
   'redfish-allow-deprecated-power-thermal'      : '-DBMCWEB_ALLOW_DEPRECATED_POWER_THERMAL',
   'redfish-bmc-journal'                         : '-DBMCWEB_ENABLE_REDFISH_BMC_JOURNAL',
   'redfish-cpu-log'                             : '-DBMCWEB_ENABLE_REDFISH_CPU_LOG',
+  'redfish-dbus'                                : '-DBMCWEB_ENABLE_REDFISH_DBUS',
   'redfish-dbus-log'                            : '-DBMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES',
   'redfish-dump-log'                            : '-DBMCWEB_ENABLE_REDFISH_DUMP_LOG',
   'redfish-host-logger'                         : '-DBMCWEB_ENABLE_REDFISH_HOST_LOGGER',
@@ -389,14 +390,11 @@ executable(
 srcfiles_unittest = [
   'http/ut/utility_test.cpp',
   'http/ut/router_test.cpp',
-  'include/ut/dbus_utility_test.cpp',
   'include/ut/http_utility_test.cpp',
   'include/ut/human_sort_test.cpp',
   'include/ut/multipart_test.cpp',
-  'include/ut/openbmc_dbus_rest_test.cpp',
   'redfish-core/include/utils/query_param_test.cpp',
   'redfish-core/lib/ut/service_root_test.cpp',
-  'redfish-core/ut/configfile_test.cpp',
   'redfish-core/ut/hex_utils_test.cpp',
   'redfish-core/ut/json_utils_test.cpp',
   'redfish-core/ut/lock_test.cpp',
@@ -406,6 +404,20 @@ srcfiles_unittest = [
   'redfish-core/ut/time_utils_test.cpp',
   'src/crow_getroutes_test.cpp',
 ]
+
+if (get_option('redfish-dbus').enabled())
+  srcfiles_unittest += [
+    'include/ut/dbus_utility_test.cpp',
+      'include/ut/openbmc_dbus_rest_test.cpp',
+  ]
+endif
+
+if (get_option('ibm-management-console').enabled())
+  srcfiles_unittest += [
+    'redfish-core/ut/configfile_test.cpp',
+  ]
+
+endif
 
 if(get_option('tests').enabled())
     # generate the test executable

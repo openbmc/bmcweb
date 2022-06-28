@@ -4,18 +4,37 @@
 #include <app.hpp>
 #include <boost/asio/io_context.hpp>
 #include <cors_preflight.hpp>
+#include <http/http_client.hpp>
+
+#ifdef BMCWEB_ENABLE_DBUS_REST
 #include <dbus_monitor.hpp>
-#include <dbus_singleton.hpp>
-#include <google/google_service_root.hpp>
-#include <hostname_monitor.hpp>
-#include <ibm/management_console_rest.hpp>
 #include <image_upload.hpp>
+#include <openbmc_dbus_rest.hpp>
+#endif
+
+#include <dbus_singleton.hpp>
+
+#ifdef BMCWEB_ENABLE_GOOGLE_API
+#include <google/google_service_root.hpp>
+#endif
+
+#ifdef BMCWEB_ENABLE_REDFISH_DBUS
+#include <hostname_monitor.hpp>
+#endif
+
+#ifdef BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE
+#include <ibm/management_console_rest.hpp>
+#endif
+
 #include <kvm_websocket.hpp>
 #include <login_routes.hpp>
 #include <obmc_console.hpp>
-#include <openbmc_dbus_rest.hpp>
 #include <redfish.hpp>
+
+#ifdef BMCWEB_ENABLE_REDFISH_AGGREGATION
 #include <redfish_aggregator.hpp>
+#endif
+
 #include <sdbusplus/asio/connection.hpp>
 #include <sdbusplus/bus.hpp>
 #include <sdbusplus/server.hpp>
@@ -68,8 +87,10 @@ static int run()
     auto io = std::make_shared<boost::asio::io_context>();
     App app(io);
 
+#ifdef BMCWEB_ENABLE_REDFISH_DBUS
     crow::connections::systemBus =
         std::make_shared<sdbusplus::asio::connection>(*io);
+#endif
 
     // Static assets need to be initialized before Authorization, because auth
     // needs to build the whitelist from the static routes
@@ -88,9 +109,6 @@ static int run()
     // Create HttpClient instance and initialize Config
     crow::HttpClient::initialize(*io);
 
-    // Create EventServiceManager instance and initialize Config
-    redfish::EventServiceManager::getInstance();
-
 #ifdef BMCWEB_ENABLE_REDFISH_AGGREGATION
     // Create RedfishAggregator instance and initialize Config
     redfish::RedfishAggregator::getInstance();
@@ -98,6 +116,10 @@ static int run()
 #endif
 
 #ifdef BMCWEB_ENABLE_DBUS_REST
+    // Create EventServiceManager instance and initialize Config
+    redfish::EventServiceManager::getInstance();
+
+
     crow::dbus_monitor::requestRoutes(app);
     crow::image_upload::requestRoutes(app);
     crow::openbmc_mapper::requestRoutes(app);
@@ -133,7 +155,7 @@ static int run()
     crow::nbd_proxy::requestRoutes(app);
 #endif
 
-#ifndef BMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES
+#ifdef BMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES
     int rc = redfish::EventServiceManager::startEventLogMonitor(*io);
     if (rc != 0)
     {
@@ -143,14 +165,18 @@ static int run()
 #endif
 
 #ifdef BMCWEB_ENABLE_SSL
+#ifdef BMCWEB_ENABLE_REDFISH_DBUS
     BMCWEB_LOG_INFO << "Start Hostname Monitor Service...";
     crow::hostname_monitor::registerHostnameSignal();
+#endif
 #endif
 
     app.run();
     io->run();
 
+#ifdef BMCWEB_ENABLE_REDFISH_DBUS
     crow::connections::systemBus.reset();
+#endif
     return 0;
 }
 
