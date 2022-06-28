@@ -1,6 +1,5 @@
 #include "app.hpp"
 #include "async_resp.hpp"
-#include "event_service_manager.hpp"
 #include "health.hpp"
 #include "log_services.hpp"
 

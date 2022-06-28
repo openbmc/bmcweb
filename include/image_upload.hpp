@@ -1,5 +1,7 @@
 #pragma once
 
+#ifdef BMCWEB_ENABLE_DBUS_REST
+
 #include "app.hpp"
 #include "dbus_singleton.hpp"
 #include "dbus_utility.hpp"
@@ -119,3 +121,4 @@ inline void requestRoutes(App& app)
 }
 } // namespace image_upload
 } // namespace crow
+#endif

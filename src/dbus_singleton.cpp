@@ -1,3 +1,4 @@
+#ifdef REDFISH_DBUS
 #include "dbus_singleton.hpp"
 
 namespace crow
@@ -9,3 +10,4 @@ sdbusplus::asio::connection* systemBus = nullptr;
 
 } // namespace connections
 } // namespace crow
+#endif
