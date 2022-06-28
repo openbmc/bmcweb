@@ -1,7 +1,12 @@
 #pragma once
 
 #include "common.hpp"
+
+// TODO(ed) abstract role providers
+#ifdef BMCWEB_ENABLE_REDFISH_DBUS
 #include "dbus_utility.hpp"
+#endif
+
 #include "error_messages.hpp"
 #include "http_request.hpp"
 #include "http_response.hpp"
@@ -1300,7 +1305,13 @@ class Router
             rules[ruleIndex]->handle(req, asyncResp, found.second);
             return;
         }
+        // TODO(ed) Abstract to a credentials handler.
+        //  For now just dump to the route.
 
+#ifndef BMCWEB_ENABLE_REDFISH_DBUS
+        rules[ruleIndex]->handle(req, asyncResp, found.second);
+
+#else
         crow::connections::systemBus->async_method_call(
             [&req, asyncResp, &rules, ruleIndex,
              found](const boost::system::error_code ec,
@@ -1405,6 +1416,7 @@ class Router
             "xyz.openbmc_project.User.Manager", "/xyz/openbmc_project/user",
             "xyz.openbmc_project.User.Manager", "GetUserInfo",
             req.session->username);
+#endif
     }
 
     void debugPrint()
