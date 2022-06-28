@@ -175,6 +175,30 @@
       },
       "revId": "f132540f2f9a1e899c34d7b7101c0b84da135b96",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9cc8a160_8e3d38ec",
+        "filename": "src/webserver_main.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-28T20:53:48Z",
+      "side": 1,
+      "message": "Done. I agree that DBusConnection can use the |io| directly without require a shared copy. |io| will be destructed after DBusConnection",
+      "parentUuid": "4be4e15a_a2a9027a",
+      "range": {
+        "startLine": 71,
+        "startChar": 4,
+        "endLine": 71,
+        "endChar": 38
+      },
+      "revId": "f132540f2f9a1e899c34d7b7101c0b84da135b96",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
