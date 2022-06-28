@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3fb46b93_f572423f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 34
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2022-06-28T17:02:46Z",
+      "side": 1,
+      "message": "I rebased on latest master but no luck, still fails.\n\nwill try again",
+      "parentUuid": "eb98a724_d7da655d",
+      "revId": "63804dc485ccf8d41543782a712075dc77191ab0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d537b830_f49879f2",
@@ -49,6 +67,30 @@
       "writtenOn": "2022-06-28T10:42:22Z",
       "side": 1,
       "message": "Can we use dbus::utility::DBusPropertiesMap here?",
+      "range": {
+        "startLine": 879,
+        "startChar": 12,
+        "endLine": 879,
+        "endChar": 38
+      },
+      "revId": "63804dc485ccf8d41543782a712075dc77191ab0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fc195aa8_f394e9ff",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 879,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2022-06-28T17:02:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d537b830_f49879f2",
       "range": {
         "startLine": 879,
         "startChar": 12,
