@@ -407,7 +407,7 @@ inline void
             uint64_t timestamp = 0;
             uint64_t size = 0;
             std::string dumpStatus;
-            nlohmann::json thisEntry;
+            nlohmann::json::object_t thisEntry;
 
             std::string entryID = object.first.filename();
             if (entryID.empty())
