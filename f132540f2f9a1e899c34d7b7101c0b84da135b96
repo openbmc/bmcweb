@@ -151,6 +151,30 @@
       },
       "revId": "f132540f2f9a1e899c34d7b7101c0b84da135b96",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4be4e15a_a2a9027a",
+        "filename": "src/webserver_main.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-28T02:56:22Z",
+      "side": 1,
+      "message": "\u003c Why will io_context live longer than main()? \n\nBecause it\u0027s a shared pointer, and now there are global-scope things that take ownership of it.  Arguably, io_context should\u0027ve never been a shared_ptr, but it helped at the time for some reasons I don\u0027t remember.\n\nIf we don\u0027t need to take a copy of the shared_ptr, because we can now gaurantee it based on both objects being on stack, shouldn\u0027t we just rely on that?",
+      "parentUuid": "212a22c9_0356489e",
+      "range": {
+        "startLine": 71,
+        "startChar": 4,
+        "endLine": 71,
+        "endChar": 38
+      },
+      "revId": "f132540f2f9a1e899c34d7b7101c0b84da135b96",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

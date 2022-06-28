@@ -212,6 +212,30 @@
       },
       "revId": "f1eac5775ed6593fe7148118304bdecec08af1ef",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "757e30ef_3d72f9b1",
+        "filename": "src/webserver_main.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-28T02:56:22Z",
+      "side": 0,
+      "message": "\u003e when io-\u003erun returns, all async code have already returned, right?\n\u003e There will no more reference to |systemBus| other than what DBusConnection owns.\n\n\nsdbusplus::match objects that are global still have some references that don\u0027t RAII properly.  It needs fixed at some point, but dereferncing 0 is a lot better than dereferencing what was once a valid pointer.\n\n\n\u003e \n\u003e I added this `crow::connections::systemBus \u003d nullptr;`.\n\nThank you.",
+      "parentUuid": "a662ba3b_338157ec",
+      "range": {
+        "startLine": 153,
+        "startChar": 0,
+        "endLine": 153,
+        "endChar": 41
+      },
+      "revId": "f1eac5775ed6593fe7148118304bdecec08af1ef",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
