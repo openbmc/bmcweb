@@ -1,6 +1,7 @@
 #pragma once
 #include <boost/asio/ip/address.hpp>
 #include <boost/asio/ip/basic_endpoint.hpp>
+#include <dbus_singleton.hpp>
 #include <sdbusplus/message.hpp>
 
 #include <charconv>
@@ -16,7 +17,10 @@ namespace async_resolve
 class Resolver
 {
   public:
-    Resolver() = default;
+    // unused io param used to keep interface identical to
+    // boost::asio::tcp:::resolver
+    Resolver(boost::asio::io_context& /*io*/)
+    {}
 
     ~Resolver() = default;
 
@@ -25,19 +29,39 @@ class Resolver
     Resolver& operator=(const Resolver&) = delete;
     Resolver& operator=(Resolver&&) = delete;
 
+    using results_type = std::vector<boost::asio::ip::tcp::endpoint>;
+
     template <typename ResolveHandler>
-    void asyncResolve(const std::string& host, uint16_t port,
-                      ResolveHandler&& handler)
+    // This function is kept using snake case so that it is interoperable with
+    // boost::asio::ip::tcp::resolver
+    // NOLINTNEXTLINE(readability-identifier-naming)
+    void async_resolve(const std::string& host, std::string_view port,
+                       ResolveHandler&& handler)
     {
         BMCWEB_LOG_DEBUG << "Trying to resolve: " << host << ":" << port;
+
+        uint16_t portNum = 0;
+
+        // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
+        const char* portEnd = port.data() + port.size();
+
+        auto it = std::from_chars(port.data(), portEnd, portNum);
+        if (it.ec != std::errc())
+        {
+            BMCWEB_LOG_ERROR << "Failed to get the Port";
+            handler(std::make_error_code(std::errc::invalid_argument), {});
+
+            return;
+        }
+
         uint64_t flag = 0;
         crow::connections::systemBus->async_method_call(
-            [host, port, handler{std::forward<ResolveHandler>(handler)}](
+            [host, portNum, handler{std::forward<ResolveHandler>(handler)}](
                 const boost::system::error_code ec,
                 const std::vector<
                     std::tuple<int32_t, int32_t, std::vector<uint8_t>>>& resp,
                 const std::string& hostName, const uint64_t flagNum) {
-            std::vector<boost::asio::ip::tcp::endpoint> endpointList;
+            results_type endpointList;
             if (ec)
             {
                 BMCWEB_LOG_ERROR << "Resolve failed: " << ec.message();
@@ -47,9 +71,11 @@ class Resolver
             BMCWEB_LOG_DEBUG << "ResolveHostname returned: " << hostName << ":"
                              << flagNum;
             // Extract the IP address from the response
-            for (auto resolveList : resp)
+            for (const std::tuple<int32_t, int32_t, std::vector<uint8_t>>&
+                     resolveList : resp)
             {
-                std::vector<uint8_t> ipAddress = std::get<2>(resolveList);
+                const std::vector<uint8_t>& ipAddress =
+                    std::get<2>(resolveList);
                 boost::asio::ip::tcp::endpoint endpoint;
                 if (ipAddress.size() == 4) // ipv4 address
                 {
@@ -77,7 +103,7 @@ class Resolver
                     handler(ec, endpointList);
                     return;
                 }
-                endpoint.port(port);
+                endpoint.port(portNum);
                 BMCWEB_LOG_DEBUG << "resolved endpoint is : " << endpoint;
                 endpointList.push_back(endpoint);
             }

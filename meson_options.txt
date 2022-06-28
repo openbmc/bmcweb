@@ -233,6 +233,17 @@ option(
 )
 
 option(
+    'dns-resolver',
+    type: 'combo',
+    choices: ['systemd-dbus', 'asio'],
+    value: 'systemd-dbus',
+    description: '''Sets which DNS resolver backend should be used.
+    systemd-dbus uses the Systemd ResolveHostname on dbus, but requires dbus
+    support.  asio relies on boost::asio::tcp::resolver, but cannot resolve
+    names when boost threading is disabled.'''
+)
+
+option(
     'redfish-aggregation',
     type: 'feature',
     value: 'disabled',

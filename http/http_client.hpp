@@ -34,6 +34,10 @@
 #include <include/async_resolve.hpp>
 #include <logging.hpp>
 
+#ifdef BMCWEB_DBUS_DNS_RESOLVER
+#include <include/async_resolve.hpp>
+#endif
+
 #include <cstdlib>
 #include <functional>
 #include <iostream>
@@ -136,7 +140,14 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
 
     // Ascync callables
     std::function<void(bool, uint32_t, Response&)> callback;
-    crow::async_resolve::Resolver resolver;
+
+#ifdef BMCWEB_DBUS_DNS_RESOLVER
+    using Resolver = crow::async_resolve::Resolver;
+#else
+    using Resolver = boost::asio::ip::tcp::resolver;
+#endif
+    Resolver resolver;
+
     boost::beast::tcp_stream conn;
     boost::asio::steady_timer timer;
 
@@ -149,11 +160,9 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
                          << std::to_string(port)
                          << ", id: " << std::to_string(connId);
 
-        auto respHandler =
-            [self(shared_from_this())](
-                const boost::beast::error_code ec,
-                const std::vector<boost::asio::ip::tcp::endpoint>&
-                    endpointList) {
+        auto respHandler = [self(shared_from_this())](
+                               const boost::system::error_code& ec,
+                               const Resolver::results_type& endpointList) {
             if (ec || (endpointList.empty()))
             {
                 BMCWEB_LOG_ERROR << "Resolve failed: " << ec.message();
@@ -167,11 +176,11 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
             self->doConnect(endpointList);
         };
 
-        resolver.asyncResolve(host, port, std::move(respHandler));
+        resolver.async_resolve(host, std::to_string(port),
+                               std::move(respHandler));
     }
 
-    void doConnect(
-        const std::vector<boost::asio::ip::tcp::endpoint>& endpointList)
+    void doConnect(const Resolver::results_type& endpointList)
     {
         state = ConnState::connectInProgress;
 
@@ -409,7 +418,8 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
                             const uint16_t destPort,
                             const unsigned int connIdIn) :
         subId(idIn),
-        host(destIP), port(destPort), connId(connIdIn), conn(ioc), timer(ioc)
+        host(destIP), port(destPort), connId(connIdIn), resolver(ioc),
+        conn(ioc), timer(ioc)
     {}
 };
 
@@ -630,8 +640,7 @@ class HttpClient
   private:
     std::unordered_map<std::string, std::shared_ptr<ConnectionPool>>
         connectionPools;
-    boost::asio::io_context& ioc =
-        crow::connections::systemBus->get_io_context();
+    boost::asio::io_context& ioc;
     std::unordered_map<std::string, RetryPolicyData> retryInfo;
     HttpClient() = default;
 
@@ -650,10 +659,20 @@ class HttpClient
     HttpClient& operator=(HttpClient&&) = delete;
     ~HttpClient() = default;
 
+    HttpClient(boost::asio::io_context& iocIn) : ioc(iocIn)
+    {}
+
+    static std::optional<HttpClient> httpClientSingleton;
+
+    static void initialize(boost::asio::io_context& ioc)
+    {
+        httpClientSingleton.emplace(ioc);
+    }
+
     static HttpClient& getInstance()
     {
-        static HttpClient handler;
-        return handler;
+        // TODO(ed) check for validity?
+        return *httpClientSingleton;
     }
 
     // Send a request to destIP:destPort where additional processing of the
