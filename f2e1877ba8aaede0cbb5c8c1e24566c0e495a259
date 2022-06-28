@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "18681a11_a5a53ab8",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 647,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-06-28T00:35:54Z",
+      "side": 1,
+      "message": "Yep that\u0027s right, but limiting ID to be an integer string is unnecessary here. In getCertificateProperty(), it calls std::to_string() to convert the integer back to string. This patch simply moves the convertion from function implementation to parameter.",
+      "parentUuid": "40a1c052_de025cb3",
+      "range": {
+        "startLine": 647,
+        "startChar": 4,
+        "endLine": 647,
+        "endChar": 29
+      },
+      "revId": "f2e1877ba8aaede0cbb5c8c1e24566c0e495a259",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ce9e1ea3_2f5566b9",
         "filename": "redfish-core/lib/certificate_service.hpp",
         "patchSetId": 11
@@ -37,6 +61,30 @@
       "writtenOn": "2022-06-27T22:07:18Z",
       "side": 1,
       "message": "I didn\u0027t dig into the children patches. But in the high level, could you explain why we need this change? Are there new backends whose object.filename() are not integers?",
+      "range": {
+        "startLine": 853,
+        "startChar": 12,
+        "endLine": 853,
+        "endChar": 36
+      },
+      "revId": "f2e1877ba8aaede0cbb5c8c1e24566c0e495a259",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eed4655a_aa250152",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 853,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-06-28T00:35:54Z",
+      "side": 1,
+      "message": "The next patch elimates the std::to_string() calls when calling getCertificateProperties() by not enforcing the id to be an integer here. Currently the handlers calls getIDFromURL() to extract the id integer, after this change, we can use the id integer string directly in the argument of route callback.\n\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/54297\n\nThis removes the unnecessary \"id in url is integer\" check to make the program more general. If one day PCM supports non-integer id, bmcweb will not break.\nsdbusplus simply returns error when object.filename() is not found, no matter it\u0027s integer or else.\n\nIt also removes the boost::convert usage in bmcweb, reducing the binary size\n\nThere is also a patch Ed submiited before. https://gerrit.openbmc.org/c/openbmc/bmcweb/+/47220 We are essentially doing the same thing.",
+      "parentUuid": "ce9e1ea3_2f5566b9",
       "range": {
         "startLine": 853,
         "startChar": 12,
