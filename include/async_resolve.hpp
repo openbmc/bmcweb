@@ -26,8 +26,11 @@ class Resolver
     Resolver& operator=(Resolver&&) = delete;
 
     template <typename ResolveHandler>
-    void asyncResolve(const std::string& host, uint16_t port,
-                      ResolveHandler&& handler)
+    // This function is kept using snake case so that it is interoperable with
+    // boost::asio::ip::tcp::resolver
+    // NOLINTNEXTLINE(readability-identifier-naming)
+    void async_resolve(const std::string& host, uint16_t port,
+                       ResolveHandler&& handler)
     {
         BMCWEB_LOG_DEBUG << "Trying to resolve: " << host << ":" << port;
         uint64_t flag = 0;
