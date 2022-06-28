@@ -1819,20 +1819,19 @@ inline bool
 
 inline void fillHostLoggerEntryJson(const std::string& logEntryID,
                                     const std::string& msg,
-                                    nlohmann::json& logEntryJson)
+                                    nlohmann::json::object_t& logEntryJson)
 {
     // Fill in the log entry with the gathered data.
-    logEntryJson = {
-        {"@odata.type", "#LogEntry.v1_4_0.LogEntry"},
-        {"@odata.id",
-         "/redfish/v1/Systems/system/LogServices/HostLogger/Entries/" +
-             logEntryID},
-        {"Name", "Host Logger Entry"},
-        {"Id", logEntryID},
-        {"Message", msg},
-        {"EntryType", "Oem"},
-        {"Severity", "OK"},
-        {"OemRecordFormat", "Host Logger Entry"}};
+    logEntryJson["@odata.type"] = "#LogEntry.v1_4_0.LogEntry";
+    logEntryJson["@odata.id"] =
+        "/redfish/v1/Systems/system/LogServices/HostLogger/Entries/" +
+        logEntryID;
+    logEntryJson["Name"] = "Host Logger Entry";
+    logEntryJson["Id"] = logEntryID;
+    logEntryJson["Message"] = msg;
+    logEntryJson["EntryType"] = "Oem";
+    logEntryJson["Severity"] = "OK";
+    logEntryJson["OemRecordFormat"] = "Host Logger Entry";
 }
 
 inline void requestRoutesSystemHostLogger(App& app)
@@ -1915,10 +1914,10 @@ inline void requestRoutesSystemHostLoggerCollection(App& app)
         {
             for (size_t i = 0; i < logEntries.size(); i++)
             {
-                logEntryArray.push_back({});
-                nlohmann::json& hostLogEntry = logEntryArray.back();
+                nlohmann::json::object_t hostLogEntry;
                 fillHostLoggerEntryJson(std::to_string(delegatedQuery.skip + i),
                                         logEntries[i], hostLogEntry);
+                logEntryArray.push_back(std::move(hostLogEntry));
             }
 
             asyncResp->res.jsonValue["Members@odata.count"] = logCount;
@@ -1986,8 +1985,9 @@ inline void requestRoutesSystemHostLoggerLogEntry(App& app)
 
         if (!logEntries.empty())
         {
-            fillHostLoggerEntryJson(targetID, logEntries[0],
-                                    asyncResp->res.jsonValue);
+            nlohmann::json::object_t hostLogEntry;
+            fillHostLoggerEntryJson(targetID, logEntries[0], hostLogEntry);
+            asyncResp->res.jsonValue.update(hostLogEntry);
             return;
         }
 
