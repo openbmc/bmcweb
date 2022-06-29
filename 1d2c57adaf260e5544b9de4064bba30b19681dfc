@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "b4a053d0_85d9f1d6",
         "filename": "redfish-core/lib/processor.hpp",
@@ -14,10 +15,10 @@
       "side": 1,
       "message": "Why Absent here and not enabled?",
       "revId": "1d2c57adaf260e5544b9de4064bba30b19681dfc",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "c73c14c4_7c28b378",
         "filename": "redfish-core/lib/processor.hpp",
@@ -32,10 +33,10 @@
       "message": "Done",
       "parentUuid": "b4a053d0_85d9f1d6",
       "revId": "1d2c57adaf260e5544b9de4064bba30b19681dfc",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "24c83f82_374a14c9",
         "filename": "redfish-core/lib/processor.hpp",
@@ -55,10 +56,10 @@
         "endChar": 66
       },
       "revId": "1d2c57adaf260e5544b9de4064bba30b19681dfc",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "ccb6f816_92ce001e",
         "filename": "redfish-core/lib/processor.hpp",
@@ -79,10 +80,10 @@
         "endChar": 66
       },
       "revId": "1d2c57adaf260e5544b9de4064bba30b19681dfc",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "b6a18834_37b79dd1",
         "filename": "redfish-core/lib/processor.hpp",
@@ -96,10 +97,10 @@
       "side": 1,
       "message": "This should probably be the default so could remove it as well if you change line 881",
       "revId": "1d2c57adaf260e5544b9de4064bba30b19681dfc",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "e45f6ee8_2d173c93",
         "filename": "redfish-core/lib/processor.hpp",
@@ -114,10 +115,10 @@
       "message": "Done",
       "parentUuid": "b6a18834_37b79dd1",
       "revId": "1d2c57adaf260e5544b9de4064bba30b19681dfc",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "8c97faf1_2883cdf2",
         "filename": "redfish-core/lib/processor.hpp",
@@ -137,10 +138,10 @@
         "endChar": 21
       },
       "revId": "1d2c57adaf260e5544b9de4064bba30b19681dfc",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "979be6d6_d6f14335",
         "filename": "redfish-core/lib/processor.hpp",
@@ -161,10 +162,10 @@
         "endChar": 21
       },
       "revId": "1d2c57adaf260e5544b9de4064bba30b19681dfc",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "7b56e7ff_9bbe05da",
         "filename": "redfish-core/lib/processor.hpp",
@@ -178,10 +179,10 @@
       "side": 1,
       "message": "if (subTreePaths.size() \u003d\u003d 0)\n{\n\n     messages::resourceNotFound(aResp-\u003eres, \"#Processor.v1_11_0.Processor\", processorId);\n     return;\n} \n\n?",
       "revId": "1d2c57adaf260e5544b9de4064bba30b19681dfc",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "9fc64f8e_6af79f81",
         "filename": "redfish-core/lib/processor.hpp",
@@ -196,8 +197,25 @@
       "message": "No, I think we can use L: 1034.\n\nIf we add these codes here, we also can not remove L: 1034, because we need to check coreId.\nin other words, if coreId is a invaild value, like(core100), we can not return `Not Found` id we remove L: 1034 right?",
       "parentUuid": "7b56e7ff_9bbe05da",
       "revId": "1d2c57adaf260e5544b9de4064bba30b19681dfc",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d7273790_87b09498",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 40
+      },
+      "lineNbr": 1006,
+      "author": {
+        "id": 1001369
+      },
+      "writtenOn": "2022-06-29T21:49:16Z",
+      "side": 1,
+      "message": "Fixed",
+      "parentUuid": "9fc64f8e_6af79f81",
+      "revId": "1d2c57adaf260e5544b9de4064bba30b19681dfc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

@@ -72,6 +72,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4814a3c8_d23626eb",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 38
+      },
+      "lineNbr": 832,
+      "author": {
+        "id": 1001369
+      },
+      "writtenOn": "2022-06-29T21:49:16Z",
+      "side": 1,
+      "message": "Addressed",
+      "parentUuid": "89addee8_542efb68",
+      "revId": "870e406012bb03c3a5893fba948951766094a428",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6a82a2cc_1c7792c5",
@@ -209,6 +227,24 @@
       "side": 1,
       "message": "\u003e Can we show how not use res.clear() ?\n\nDone\n\n```\nCan we check before? \n\nif (subTreePaths.size() \u003d\u003d 0)\n{\n\n     messages::resourceNotFound(aResp-\u003eres, \"#Processor.v1_11_0.Processor\", processorId);\n     return;\n}\n```\n\nNo, because we need to check coreId.",
       "parentUuid": "b705ea07_7255c440",
+      "revId": "870e406012bb03c3a5893fba948951766094a428",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9f60e8eb_721a0b37",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 38
+      },
+      "lineNbr": 1021,
+      "author": {
+        "id": 1001369
+      },
+      "writtenOn": "2022-06-29T21:49:16Z",
+      "side": 1,
+      "message": "Addressed",
+      "parentUuid": "5b5dc9cd_787b62a5",
       "revId": "870e406012bb03c3a5893fba948951766094a428",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
