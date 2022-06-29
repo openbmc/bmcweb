@@ -178,6 +178,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cfc36aa0_93d36bdd",
+        "filename": "redfish-core/include/redfish_defs/account_service.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-29T23:02:01Z",
+      "side": 1,
+      "message": "LdapService is better to me as well, but that\u0027s not what DMTF did unfortunately.",
+      "parentUuid": "18130fb1_7607c69e",
+      "range": {
+        "startLine": 10,
+        "startChar": 4,
+        "endLine": 10,
+        "endChar": 11
+      },
+      "revId": "65be9f3de3b253b5b6c36c6367f35fd54a75c412",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bf8cb9a0_5e430462",
