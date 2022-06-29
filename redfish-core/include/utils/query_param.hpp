@@ -16,7 +16,6 @@
 #include <boost/beast/http/status.hpp>
 #include <boost/beast/http/verb.hpp>
 #include <boost/url/params_view.hpp>
-#include <boost/url/string.hpp>
 #include <nlohmann/json.hpp>
 
 #include <algorithm>
@@ -374,9 +373,8 @@ inline bool getSelectParam(std::string_view value, Query& query)
     return true;
 }
 
-inline std::optional<Query>
-    parseParameters(const boost::urls::params_view& urlParams,
-                    crow::Response& res)
+inline std::optional<Query> parseParameters(boost::urls::params_view urlParams,
+                                            crow::Response& res)
 {
     Query ret;
     for (const boost::urls::params_view::value_type& it : urlParams)
