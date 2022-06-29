@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a10a57ae_be8792d7",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 39
+      },
+      "lineNbr": 688,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2022-06-29T04:51:26Z",
+      "side": 1,
+      "message": "Please rename this method to deleteHostCsrDbusEntry -or- something more appropriate",
+      "range": {
+        "startLine": 688,
+        "startChar": 4,
+        "endLine": 688,
+        "endChar": 22
+      },
+      "revId": "c79165043a208f482813239485f539fc0db8a893",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
