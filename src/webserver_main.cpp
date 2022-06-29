@@ -19,6 +19,7 @@
 #include <redfish_aggregator.hpp>
 #include <sdbusplus/asio/connection.hpp>
 #include <sdbusplus/bus.hpp>
+#include <sdbusplus/bus/match.hpp>
 #include <sdbusplus/server.hpp>
 #include <security_headers.hpp>
 #include <ssl_key_handler.hpp>
@@ -143,6 +144,19 @@ static int run()
     BMCWEB_LOG_INFO << "Start Hostname Monitor Service...";
     crow::hostname_monitor::registerHostnameSignal();
 #endif
+
+    namespace rules = sdbusplus::bus::match::rules;
+
+    sdbusplus::bus::match_t removeMatch(
+        *crow::connections::systemBus,
+        rules::interfacesRemoved("/xyz/openbmc_project/user"),
+        [](sdbusplus::message::message& msg) {
+        sdbusplus::message::object_path p;
+        msg.read(p);
+        auto username = p.filename();
+        persistent_data::SessionStore::getInstance().removeSessionsByUsername(
+            username);
+        });
 
     app.run();
     io->run();
