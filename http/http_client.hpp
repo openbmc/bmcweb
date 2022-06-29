@@ -487,7 +487,7 @@ class ConnectionPool : public std::enable_shared_from_this<ConnectionPool>
                   const boost::beast::http::fields& httpHeader,
                   const boost::beast::http::verb verb,
                   const RetryPolicyData& retryPolicy,
-                  std::function<void(Response&)>& resHandler)
+                  const std::function<void(Response&)>& resHandler)
     {
         std::weak_ptr<ConnectionPool> weakSelf = weak_from_this();
 
@@ -659,7 +659,7 @@ class HttpClient
                               const boost::beast::http::fields& httpHeader,
                               const boost::beast::http::verb verb,
                               const std::string& retryPolicyName,
-                              std::function<void(Response&)>& resHandler)
+                              const std::function<void(Response&)>& resHandler)
     {
         std::string clientKey = destIP + ":" + std::to_string(destPort);
         // Use nullptr to avoid creating a ConnectionPool each time
