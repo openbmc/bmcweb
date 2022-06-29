@@ -182,6 +182,30 @@
       },
       "revId": "29de445b8920129bf57583f252a55b3e6319b07d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ed201496_63a9fc79",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2022-06-29T07:35:14Z",
+      "side": 1,
+      "message": "That dbus interfaces commit I was mentioning was reverted. So now, patching of NTPServers works as earlier and the new dbus interfaces change is at: https://gerrit.openbmc.org/c/openbmc/phosphor-dbus-interfaces/+/54797",
+      "parentUuid": "cd401755_f79cf6dc",
+      "range": {
+        "startLine": 347,
+        "startChar": 43,
+        "endLine": 347,
+        "endChar": 53
+      },
+      "revId": "29de445b8920129bf57583f252a55b3e6319b07d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
