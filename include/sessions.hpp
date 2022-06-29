@@ -7,6 +7,7 @@
 
 #include <nlohmann/json.hpp>
 
+#include <algorithm>
 #include <csignal>
 #include <optional>
 #include <random>
@@ -321,6 +322,17 @@ class SessionStore
             }
         }
         return ret;
+    }
+
+    void removeSessionsByUsername(std::string_view username)
+    {
+        std::erase_if(authTokens, [username](const auto& value) {
+            if (value.second == nullptr)
+            {
+                return false;
+            }
+            return value.second->username == username;
+        });
     }
 
     void updateAuthMethodsConfig(const AuthConfigMethods& config)
