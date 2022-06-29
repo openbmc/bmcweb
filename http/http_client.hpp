@@ -596,7 +596,6 @@ class ConnectionPool : public std::enable_shared_from_this<ConnectionPool>
         ioc(iocIn),
         id(idIn), destIP(destIPIn), destPort(destPortIn)
     {
-        std::string clientKey = destIP + ":" + std::to_string(destPort);
         BMCWEB_LOG_DEBUG << "Initializing connection pool for " << destIP << ":"
                          << std::to_string(destPort);
 
