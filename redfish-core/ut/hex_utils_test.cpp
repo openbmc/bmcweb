@@ -31,7 +31,7 @@ TEST(BytesToHexString, Success)
 
 TEST(HexCharToNibble, chars)
 {
-    for (char c = 0; c < CHAR_MAX; ++c)
+    for (char c = 0; c < std::numeric_limits<char>::max(); ++c)
     {
         uint8_t expected = 16;
         if (isdigit(c) != 0)
