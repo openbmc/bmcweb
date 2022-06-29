@@ -206,8 +206,7 @@ void malformedJSON(crow::Response& res)
  */
 nlohmann::json resourceMissingAtURI(const boost::urls::url_view& arg1)
 {
-    std::array<std::string_view, 1> args{
-        std::string_view{arg1.data(), arg1.size()}};
+    std::array<std::string_view, 1> args{arg1.buffer()};
     return getLog(redfish::registries::base::Index::resourceMissingAtURI, args);
 }
 
@@ -293,9 +292,8 @@ void unrecognizedRequestBody(crow::Response& res)
 nlohmann::json resourceAtUriUnauthorized(const boost::urls::url_view& arg1,
                                          std::string_view arg2)
 {
-    return getLog(
-        redfish::registries::base::Index::resourceAtUriUnauthorized,
-        std::to_array({std::string_view{arg1.data(), arg1.size()}, arg2}));
+    return getLog(redfish::registries::base::Index::resourceAtUriUnauthorized,
+                  std::to_array<std::string_view>({arg1.buffer(), arg2}));
 }
 
 void resourceAtUriUnauthorized(crow::Response& res,
@@ -524,10 +522,9 @@ void propertyValueOutOfRange(crow::Response& res, std::string_view arg1,
  */
 nlohmann::json resourceAtUriInUnknownFormat(const boost::urls::url_view& arg1)
 {
-    std::string_view arg1str{arg1.data(), arg1.size()};
     return getLog(
         redfish::registries::base::Index::resourceAtUriInUnknownFormat,
-        std::to_array({arg1str}));
+        std::to_array<std::string_view>({arg1.buffer()}));
 }
 
 void resourceAtUriInUnknownFormat(crow::Response& res,
@@ -701,9 +698,8 @@ void resourceTypeIncompatible(crow::Response& res, std::string_view arg1,
 nlohmann::json resetRequired(const boost::urls::url_view& arg1,
                              std::string_view arg2)
 {
-    std::string_view arg1str(arg1.data(), arg1.size());
     return getLog(redfish::registries::base::Index::resetRequired,
-                  std::to_array({arg1str, arg2}));
+                  std::to_array<std::string_view>({arg1.buffer(), arg2}));
 }
 
 void resetRequired(crow::Response& res, const boost::urls::url_view& arg1,
@@ -786,8 +782,7 @@ nlohmann::json propertyValueResourceConflict(std::string_view arg1,
 {
     return getLog(
         redfish::registries::base::Index::propertyValueResourceConflict,
-        std::to_array(
-            {arg1, arg2, std::string_view{arg3.data(), arg3.size()}}));
+        std::to_array<std::string_view>({arg1, arg2, arg3.buffer()}));
 }
 
 void propertyValueResourceConflict(crow::Response& res, std::string_view arg1,
@@ -852,9 +847,8 @@ void propertyValueIncorrect(crow::Response& res, std::string_view arg1,
  */
 nlohmann::json resourceCreationConflict(const boost::urls::url_view& arg1)
 {
-    std::string_view arg1str(arg1.data(), arg1.size());
     return getLog(redfish::registries::base::Index::resourceCreationConflict,
-                  std::to_array({arg1str}));
+                  std::to_array<std::string_view>({arg1.buffer()}));
 }
 
 void resourceCreationConflict(crow::Response& res,
@@ -1005,9 +999,8 @@ void resourceNotFound(crow::Response& res, std::string_view arg1,
  */
 nlohmann::json couldNotEstablishConnection(const boost::urls::url_view& arg1)
 {
-    std::string_view arg1str(arg1.data(), arg1.size());
     return getLog(redfish::registries::base::Index::couldNotEstablishConnection,
-                  std::to_array({arg1str}));
+                  std::to_array<std::string_view>({arg1.buffer()}));
 }
 
 void couldNotEstablishConnection(crow::Response& res,
@@ -1131,10 +1124,9 @@ void actionParameterNotSupported(crow::Response& res, std::string_view arg1,
 nlohmann::json sourceDoesNotSupportProtocol(const boost::urls::url_view& arg1,
                                             std::string_view arg2)
 {
-    std::string_view arg1str(arg1.data(), arg1.size());
     return getLog(
         redfish::registries::base::Index::sourceDoesNotSupportProtocol,
-        std::to_array({arg1str, arg2}));
+        std::to_array<std::string_view>({arg1.buffer(), arg2}));
 }
 
 void sourceDoesNotSupportProtocol(crow::Response& res,
@@ -1192,9 +1184,8 @@ void accountRemoved(crow::Response& res)
  */
 nlohmann::json accessDenied(const boost::urls::url_view& arg1)
 {
-    std::string_view arg1str(arg1.data(), arg1.size());
     return getLog(redfish::registries::base::Index::accessDenied,
-                  std::to_array({arg1str}));
+                  std::to_array<std::string_view>({arg1.buffer()}));
 }
 
 void accessDenied(crow::Response& res, const boost::urls::url_view& arg1)
@@ -1360,9 +1351,8 @@ void noValidSession(crow::Response& res)
  */
 nlohmann::json invalidObject(const boost::urls::url_view& arg1)
 {
-    std::string_view arg1str(arg1.data(), arg1.size());
     return getLog(redfish::registries::base::Index::invalidObject,
-                  std::to_array({arg1str}));
+                  std::to_array<std::string_view>({arg1.buffer()}));
 }
 
 void invalidObject(crow::Response& res, const boost::urls::url_view& arg1)
@@ -1707,9 +1697,8 @@ void queryParameterOutOfRange(crow::Response& res, std::string_view arg1,
 
 nlohmann::json passwordChangeRequired(const boost::urls::url_view& arg1)
 {
-    std::string_view arg1str(arg1.data(), arg1.size());
     return getLog(redfish::registries::base::Index::passwordChangeRequired,
-                  std::to_array({arg1str}));
+                  std::to_array<std::string_view>({arg1.buffer()}));
 }
 
 /**

@@ -84,16 +84,16 @@ TEST(Utility, Base64EncodeDecodeString)
 TEST(Utility, UrlFromPieces)
 {
     boost::urls::url url = urlFromPieces("redfish", "v1", "foo");
-    EXPECT_EQ(std::string_view(url.data(), url.size()), "/redfish/v1/foo");
+    EXPECT_EQ(url.buffer(), "/redfish/v1/foo");
 
     url = urlFromPieces("/", "badString");
-    EXPECT_EQ(std::string_view(url.data(), url.size()), "/%2f/badString");
+    EXPECT_EQ(url.buffer(), "/%2f/badString");
 
     url = urlFromPieces("bad?tring");
-    EXPECT_EQ(std::string_view(url.data(), url.size()), "/bad%3ftring");
+    EXPECT_EQ(url.buffer(), "/bad%3ftring");
 
     url = urlFromPieces("/", "bad&tring");
-    EXPECT_EQ(std::string_view(url.data(), url.size()), "/%2f/bad&tring");
+    EXPECT_EQ(url.buffer(), "/%2f/bad&tring");
 }
 
 TEST(Utility, readUrlSegments)
