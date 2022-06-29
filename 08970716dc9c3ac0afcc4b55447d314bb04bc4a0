@@ -249,6 +249,30 @@
       },
       "revId": "08970716dc9c3ac0afcc4b55447d314bb04bc4a0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c1b7bccf_8472aeab",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 1086,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-29T16:49:25Z",
+      "side": 1,
+      "message": "From the Google coding standard, (which is what I follow here in leiu of cpp core guidelines having any guidance)\n\n\"The fundamental rule is: use type deduction only to make the code clearer or safer, and do not use it merely to avoid the inconvenience of writing an explicit type. When judging whether the code is clearer, keep in mind that your readers are not necessarily on your team, or familiar with your project, so types that you and your reviewer experience as unnecessary clutter will very often provide useful information to others. For example, you can assume that the return type of make_unique\u003cFoo\u003e() is obvious, but the return type of MyWidgetFactory() probably isn\u0027t.\"",
+      "parentUuid": "9eed876a_4863ae63",
+      "range": {
+        "startLine": 1086,
+        "startChar": 27,
+        "endLine": 1086,
+        "endChar": 31
+      },
+      "revId": "08970716dc9c3ac0afcc4b55447d314bb04bc4a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
