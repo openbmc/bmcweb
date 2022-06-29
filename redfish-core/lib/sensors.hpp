@@ -936,7 +936,7 @@ inline void objectInterfacesToJson(
             sensorJson["ReadingType"] = readingType;
         }
 
-        const std::string& readingUnits = sensors::toReadingUnits(sensorType);
+        std::string_view readingUnits = sensors::toReadingUnits(sensorType);
         if (readingUnits.empty())
         {
             BMCWEB_LOG_ERROR << "Redfish cannot map reading unit for "
