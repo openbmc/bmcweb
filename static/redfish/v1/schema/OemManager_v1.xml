@@ -18,6 +18,9 @@
     <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Chassis_v1.xml">
         <edmx:Include Namespace="Chassis"/>
     </edmx:Reference>
+    <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/CertificateCollection_v1.xml">
+        <edmx:Include Namespace="CertificateCollection"/>
+    </edmx:Reference>
 
     <edmx:DataServices>
         <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="OemManager">
@@ -32,6 +35,12 @@
                 <Annotation Term="OData.AdditionalProperties" Bool="true" />
                 <Annotation Term="OData.Description" String="Oem properties for OpenBmc." />
                 <Annotation Term="OData.AutoExpand"/>
+                <NavigationProperty Name="Certificates" Type="CertificateCollection.CertificateCollection" ContainsTarget="true" Nullable="false">
+                    <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+                    <Annotation Term="OData.Description" String="The link to a collection of certificates trusted by this manager."/>
+                    <Annotation Term="OData.LongDescription" String="This property shall contain a link to a Resource Collection of type CertificateCollection that contains certificates trusted by this manager."/>
+                    <Annotation Term="OData.AutoExpandReferences"/>
+                </NavigationProperty>
                 <Property Name="Fan" Type="OemManager.Fan"/>
             </ComplexType>
 

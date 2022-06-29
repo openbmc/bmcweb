@@ -312,6 +312,12 @@
                 }
             },
             "properties": {
+                "Certificates": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/CertificateCollection.json#/definitions/CertificateCollection",
+                    "description": "The link to a collection of certificates trusted by this manager.",
+                    "longDescription": "This property shall contain a link to a Resource Collection of type CertificateCollection that contains certificates trusted by this manager.",
+                    "readonly": true
+                },
                 "Fan": {
                     "anyOf": [
                         {
