@@ -342,6 +342,20 @@ class SessionStore
         }
     }
 
+    void renameUsernameInSessions(const std::string_view oldName,
+                                  const std::string_view newName)
+    {
+        auto sessionIt = authTokens.begin();
+        while (sessionIt != authTokens.end())
+        {
+            if (sessionIt->second->username == oldName)
+            {
+                sessionIt->second->username = newName;
+            }
+            sessionIt++;
+        }
+    }
+
     void updateAuthMethodsConfig(const AuthConfigMethods& config)
     {
         bool isTLSchanged = (authMethodsConfig.tls != config.tls);

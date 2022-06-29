@@ -1913,6 +1913,8 @@ inline void
 
         updateUserProperties(asyncResp, newUser, password, enabled, roleId,
                              locked);
+        persistent_data::SessionStore::getInstance().renameUsernameInSessions(
+            username, newUser);
         },
         "xyz.openbmc_project.User.Manager", "/xyz/openbmc_project/user",
         "xyz.openbmc_project.User.Manager", "RenameUser", username,
