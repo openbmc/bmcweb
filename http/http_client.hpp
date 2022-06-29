@@ -345,7 +345,6 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
 
     void doClose()
     {
-        state = ConnState::closeInProgress;
         boost::beast::error_code ec;
         conn.socket().shutdown(boost::asio::ip::tcp::socket::shutdown_both, ec);
         conn.close();
@@ -361,15 +360,12 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
         BMCWEB_LOG_DEBUG << host << ":" << std::to_string(port)
                          << ", id: " << std::to_string(connId)
                          << " closed gracefully";
-        if ((state != ConnState::suspended) && (state != ConnState::terminated))
-        {
-            state = ConnState::closed;
-        }
+
+        state = ConnState::closed;
     }
 
     void doCloseAndRetry()
     {
-        state = ConnState::closeInProgress;
         boost::beast::error_code ec;
         conn.socket().shutdown(boost::asio::ip::tcp::socket::shutdown_both, ec);
         conn.close();
@@ -385,12 +381,10 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
         BMCWEB_LOG_DEBUG << host << ":" << std::to_string(port)
                          << ", id: " << std::to_string(connId)
                          << " closed gracefully";
-        if ((state != ConnState::suspended) && (state != ConnState::terminated))
-        {
-            // Now let's try to resend the data
-            state = ConnState::retry;
-            this->doResolve();
-        }
+
+        // Now let's try to resend the data
+        state = ConnState::retry;
+        doResolve();
     }
 
   public:
