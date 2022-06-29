@@ -105,14 +105,17 @@ inline bool isParameterTagCompatible(uint64_t a, uint64_t b)
 {
     while (true)
     {
-        if (a == 0)
+        if (a == 0 && b == 0)
         {
-            return b == 0;
+            // Both tags were equivalent, parameters are compatible
+            return true;
         }
-        if (b == 0)
+        if (a == 0 || b == 0)
         {
-            return a == 0;
+            // one of the tags had more parameters than the other
+            return false;
         }
+
         uint64_t sa = a % 6;
         uint64_t sb = a % 6;
         if (sa == 5)
