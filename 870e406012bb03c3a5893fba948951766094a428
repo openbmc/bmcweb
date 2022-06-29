@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "6c064fe8_ff93c453",
         "filename": "redfish-core/lib/processor.hpp",
@@ -14,10 +15,10 @@
       "side": 1,
       "message": "When does this hit?",
       "revId": "870e406012bb03c3a5893fba948951766094a428",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "46b4bfae_bc2ab7f9",
         "filename": "redfish-core/lib/processor.hpp",
@@ -32,10 +33,10 @@
       "message": "It will hit this error when the objectPath is wrong.",
       "parentUuid": "6c064fe8_ff93c453",
       "revId": "870e406012bb03c3a5893fba948951766094a428",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "3056ffeb_5fce97c2",
         "filename": "redfish-core/lib/processor.hpp",
@@ -50,10 +51,10 @@
       "message": "So this will hit if you don\u0027t have \"/xyz/openbmc_project/inventory\" ?",
       "parentUuid": "46b4bfae_bc2ab7f9",
       "revId": "870e406012bb03c3a5893fba948951766094a428",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "89addee8_542efb68",
         "filename": "redfish-core/lib/processor.hpp",
@@ -68,10 +69,10 @@
       "message": "\u003e So this will hit if you don\u0027t have \"/xyz/openbmc_project/inventory\" ?\n\nyes, When this object path is `No` or `Error`, ec is equal to `io_error`",
       "parentUuid": "3056ffeb_5fce97c2",
       "revId": "870e406012bb03c3a5893fba948951766094a428",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "6a82a2cc_1c7792c5",
         "filename": "redfish-core/lib/processor.hpp",
@@ -85,10 +86,10 @@
       "side": 1,
       "message": "Can we set the defaults like we do for processor? \nhttps://github.com/openbmc/bmcweb/blob/4f9637fafd37b19c795367f79e4ea668de146553/redfish-core/lib/processor.hpp#L91\n\nThat way if you don\u0027t have a interface for these, it defaults to \n\n    aResp-\u003eres.jsonValue[\"Status\"][\"State\"] \u003d \"Enabled\";\n    aResp-\u003eres.jsonValue[\"Status\"][\"Health\"] \u003d \"OK\";\n\nI think that would be line 874 here\n\nThen your functional could look like: \n\n\n            else if (property.first \u003d\u003d \"Functional\")\n            {\n                const bool* cpuFunctional \u003d std::get_if\u003cbool\u003e(\u0026property.second);\n                if (cpuFunctional \u003d\u003d nullptr)\n                {\n                    messages::internalError(aResp-\u003eres);\n                    return;\n                }\n                if (*cpuFunctional \u003d\u003d false)\n                {\n                    aResp-\u003eres.jsonValue[\"Status\"][\"Health\"] \u003d \"Critical\";\n                }\n            }\n\nOr could use a pattern like https://github.com/openbmc/bmcweb/blob/4f9637fafd37b19c795367f79e4ea668de146553/redfish-core/lib/processor.hpp#L428 \nBut still has the defaults.",
       "revId": "870e406012bb03c3a5893fba948951766094a428",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "71f7ed72_d7618c36",
         "filename": "redfish-core/lib/processor.hpp",
@@ -103,10 +104,28 @@
       "message": "```\nThat way if you don\u0027t have a interface for these, it defaults to \n\n    aResp-\u003eres.jsonValue[\"Status\"][\"State\"] \u003d \"Enabled\";\n    aResp-\u003eres.jsonValue[\"Status\"][\"Health\"] \u003d \"OK\";\nI think that would be line 874 here\n```\n\nDone\n\n```\nOr could use a pattern like https://github.com/openbmc/bmcweb/blob/4f9637fafd37b19c795367f79e4ea668de146553/redfish-core/lib/processor.hpp#L428 \nBut still has the defaults.\n```\n\nYes, I am using this way now, see L: 892",
       "parentUuid": "6a82a2cc_1c7792c5",
       "revId": "870e406012bb03c3a5893fba948951766094a428",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b67c369_57ba4e29",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 38
+      },
+      "lineNbr": 947,
+      "author": {
+        "id": 1001369
+      },
+      "writtenOn": "2022-06-29T01:37:21Z",
+      "side": 1,
+      "message": "Already Addressed",
+      "parentUuid": "71f7ed72_d7618c36",
+      "revId": "870e406012bb03c3a5893fba948951766094a428",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "1b390c87_c3fca893",
         "filename": "redfish-core/lib/processor.hpp",
@@ -120,10 +139,10 @@
       "side": 1,
       "message": "Mapper returns this? I thought it was just an empty subtree if                 \"xyz.openbmc_project.Inventory.Item.CpuCore\" doesn\u0027t exist ?",
       "revId": "870e406012bb03c3a5893fba948951766094a428",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "a2abbc78_45c2b29a",
         "filename": "redfish-core/lib/processor.hpp",
@@ -138,10 +157,28 @@
       "message": "It will hit this error when the objectPath(cpuPath) is wrong.",
       "parentUuid": "1b390c87_c3fca893",
       "revId": "870e406012bb03c3a5893fba948951766094a428",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3a4e4ddb_94ea958d",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 38
+      },
+      "lineNbr": 993,
+      "author": {
+        "id": 1001369
+      },
+      "writtenOn": "2022-06-29T01:37:21Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a2abbc78_45c2b29a",
+      "revId": "870e406012bb03c3a5893fba948951766094a428",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "b705ea07_7255c440",
         "filename": "redfish-core/lib/processor.hpp",
@@ -155,10 +192,10 @@
       "side": 1,
       "message": "Can we show how not use res.clear() ?\n\nCan we check before? \n\nif (subTreePaths.size() \u003d\u003d 0)\n{\n     messages::resourceNotFound(aResp-\u003eres, \"#Processor.v1_11_0.Processor\", processorId);\n     return;\n}",
       "revId": "870e406012bb03c3a5893fba948951766094a428",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "5b5dc9cd_787b62a5",
         "filename": "redfish-core/lib/processor.hpp",
@@ -173,10 +210,10 @@
       "message": "\u003e Can we show how not use res.clear() ?\n\nDone\n\n```\nCan we check before? \n\nif (subTreePaths.size() \u003d\u003d 0)\n{\n\n     messages::resourceNotFound(aResp-\u003eres, \"#Processor.v1_11_0.Processor\", processorId);\n     return;\n}\n```\n\nNo, because we need to check coreId.",
       "parentUuid": "b705ea07_7255c440",
       "revId": "870e406012bb03c3a5893fba948951766094a428",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "f6300561_113d123d",
         "filename": "redfish-core/lib/processor.hpp",
@@ -190,10 +227,10 @@
       "side": 1,
       "message": "Mapper returns this? I thought it was just an empty subTreePaths if                 \"xyz.openbmc_project.Inventory.Item.CpuCore\"} doesn\u0027t exist ?",
       "revId": "870e406012bb03c3a5893fba948951766094a428",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "62364d13_812d85c1",
         "filename": "redfish-core/lib/processor.hpp",
@@ -208,10 +245,10 @@
       "message": "It will hit this error when the objectPath(cpuPath) is wrong.",
       "parentUuid": "f6300561_113d123d",
       "revId": "870e406012bb03c3a5893fba948951766094a428",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "309351c3_8ea1382d",
         "filename": "redfish-core/lib/processor.hpp",
@@ -226,10 +263,10 @@
       "message": "Ack",
       "parentUuid": "62364d13_812d85c1",
       "revId": "870e406012bb03c3a5893fba948951766094a428",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "ed4c6071_eadcf670",
         "filename": "redfish-core/lib/processor.hpp",
@@ -243,10 +280,10 @@
       "side": 1,
       "message": "Can you move this up? Check for \n\nif (subTreePaths.size() \u003d\u003d 0)\n{\n     messages::resourceNotFound(aResp-\u003eres, \"#Processor.v1_11_0.Processor\", processorId);\n     return;\n}\n\n?",
       "revId": "870e406012bb03c3a5893fba948951766094a428",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "a1daece2_1e1f6c9b",
         "filename": "redfish-core/lib/processor.hpp",
@@ -261,10 +298,10 @@
       "message": "Done",
       "parentUuid": "ed4c6071_eadcf670",
       "revId": "870e406012bb03c3a5893fba948951766094a428",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "f38b391d_b26a931b",
         "filename": "redfish-core/lib/processor.hpp",
@@ -278,10 +315,10 @@
       "side": 1,
       "message": "We typically don\u0027t use res.clear()\n\nCan instead you do \n\n                asyncResp-\u003eres.jsonValue[\"@odata.type\"] \u003d\n                    \"#ProcessorCollection.ProcessorCollection\";\n                asyncResp-\u003eres.jsonValue[\"@odata.id\"] \u003d\n                    \"/redfish/v1/Systems/system/Processors/\" + processorId +\n                    \"/SubProcessors\";\n                asyncResp-\u003eres.jsonValue[\"Name\"] \u003d \"SubProcessor Collection\";\nafter this?",
       "revId": "870e406012bb03c3a5893fba948951766094a428",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "391ed88f_7cbed44c",
         "filename": "redfish-core/lib/processor.hpp",
@@ -296,10 +333,10 @@
       "message": "Sure.\nBut I am curious why `res.clear()` is not recommended?",
       "parentUuid": "f38b391d_b26a931b",
       "revId": "870e406012bb03c3a5893fba948951766094a428",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "ad093053_f28ae5a5",
         "filename": "redfish-core/lib/processor.hpp",
@@ -314,10 +351,10 @@
       "message": "It is not something we have not done elsewhere; not using it makes the code more clear IMO and less error prone (everywhere you return, you need to use the res.clear())",
       "parentUuid": "391ed88f_7cbed44c",
       "revId": "870e406012bb03c3a5893fba948951766094a428",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "fd83ce62_c73083f0",
         "filename": "redfish-core/lib/processor.hpp",
@@ -332,8 +369,7 @@
       "message": "Ack",
       "parentUuid": "ad093053_f28ae5a5",
       "revId": "870e406012bb03c3a5893fba948951766094a428",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
