@@ -18,6 +18,23 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e5bcc78_abac73be",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-29T23:11:47Z",
+      "side": 1,
+      "message": "To be specific, shouldn\u0027t we be implementing /redfish/v1/Managers/{ManagerId}/NetworkProtocol/HTTPS/Certificates ?",
+      "revId": "0d072f1f7440066c51fa6897492b43313d2f00ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b69fab2a_18bfaf26",
