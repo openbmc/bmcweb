@@ -218,8 +218,8 @@ class ConnectionImpl : public Connection
                 }
                 if (closeHandler)
                 {
-                    std::string_view reason = ws.reason().reason;
-                    closeHandler(*this, std::string(reason));
+                    std::string reason{ws.reason().reason.c_str()};
+                    closeHandler(*this, reason);
                 }
                 return;
             }

@@ -519,7 +519,7 @@ class Subscription : public persistent_data::UserSubscription
         {
             if (std::find(metricReportDefinitions.begin(),
                           metricReportDefinitions.end(),
-                          mrdUri.string()) == metricReportDefinitions.end())
+                          mrdUri.buffer()) == metricReportDefinitions.end())
             {
                 return;
             }
