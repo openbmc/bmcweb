@@ -22,6 +22,30 @@
       },
       "revId": "7db3cfbde9220e99795e0047aa2ea9dd1fefdf64",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8d641abb_2abf699e",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1983,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2022-06-29T04:46:22Z",
+      "side": 1,
+      "message": "\"On\": \"The state is powered on.\" and says ready to perform all operations \nbut in this case while UpdateInProgress, seems \"PoweringOn\" makes more sense.\n@Andrew what do you suggest",
+      "parentUuid": "f06fe217_99d33902",
+      "range": {
+        "startLine": 1983,
+        "startChar": 11,
+        "endLine": 1983,
+        "endChar": 62
+      },
+      "revId": "7db3cfbde9220e99795e0047aa2ea9dd1fefdf64",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
