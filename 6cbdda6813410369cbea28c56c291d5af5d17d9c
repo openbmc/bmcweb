@@ -39,6 +39,30 @@
       },
       "revId": "6cbdda6813410369cbea28c56c291d5af5d17d9c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "de3e89dd_80d6abcb",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-29T15:18:19Z",
+      "side": 1,
+      "message": "I actually don\u0027t think they can, but they look like it because I used the wrong error message on the second condition.  It should be \"propertyValueOutOfRange\".\n\nFixed in latest.",
+      "parentUuid": "21a37833_bf8728f1",
+      "range": {
+        "startLine": 265,
+        "startChar": 12,
+        "endLine": 284,
+        "endChar": 13
+      },
+      "revId": "6cbdda6813410369cbea28c56c291d5af5d17d9c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
