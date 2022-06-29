@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d3bd170_3d38946f",
+        "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000416
+      },
+      "writtenOn": "2022-06-29T17:19:45Z",
+      "side": 1,
+      "message": "substitution?",
+      "range": {
+        "startLine": 39,
+        "startChar": 50,
+        "endLine": 39,
+        "endChar": 61
+      },
+      "revId": "40f3b676e488812b33b0126502fe94f12cb9075c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1800af25_84dbaafd",
+        "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1000416
+      },
+      "writtenOn": "2022-06-29T17:19:45Z",
+      "side": 1,
+      "message": "subminor revision means in line#65 and line#70 need be changed.\nIf someone adding new message registry then next time this subminor revision is 0penBMC.0.5.0 OR 0penBMC.0.4.1. Can we add this point here for reference which is correct and which is incorrect.",
+      "range": {
+        "startLine": 47,
+        "startChar": 40,
+        "endLine": 47,
+        "endChar": 57
+      },
+      "revId": "40f3b676e488812b33b0126502fe94f12cb9075c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
