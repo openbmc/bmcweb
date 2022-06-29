@@ -682,13 +682,12 @@ class UrlSegmentMatcherVisitor
         return std::string_view(segment.data(), segment.size()) == expected;
     }
 
-    explicit UrlSegmentMatcherVisitor(
-        const boost::urls::string_value& segmentIn) :
+    explicit UrlSegmentMatcherVisitor(std::string_view segmentIn) :
         segment(segmentIn)
     {}
 
   private:
-    const boost::urls::string_value& segment;
+    std::string_view segment;
 };
 
 inline bool readUrlSegments(const boost::urls::url_view& urlView,
@@ -705,12 +704,15 @@ inline bool readUrlSegments(const boost::urls::url_view& urlView,
     boost::urls::segments_view::iterator end = urlSegments.end();
 
     for (const auto& segment : segments)
-    {
-        if (!std::visit(UrlSegmentMatcherVisitor(*it), segment))
+    {   std::string url = (*it).to_string();
+        if (!std::visit(UrlSegmentMatcherVisitor(url), segment))
         {
             return false;
         }
         it++;
+        if (it == end){
+            return false;
+        }
     }
     return true;
 }
@@ -767,9 +769,8 @@ inline bool validateAndSplitUrl(std::string_view destUrl, std::string& urlProto,
                                 std::string& host, uint16_t& port,
                                 std::string& path)
 {
-    boost::string_view urlBoost(destUrl.data(), destUrl.size());
     boost::urls::result<boost::urls::url_view> url =
-        boost::urls::parse_uri(urlBoost);
+        boost::urls::parse_uri(destUrl);
     if (!url)
     {
         return false;
