@@ -326,6 +326,20 @@ class SessionStore
         return ret;
     }
 
+    void removeSessionsByUsername(const std::string_view username)
+    {
+        auto sessionIt = authTokens.begin();
+        while (sessionIt != authTokens.end())
+        {
+            if (sessionIt->second->username == username)
+            {
+                sessionIt = authTokens.erase(sessionIt);
+                continue;
+            }
+            sessionIt++;
+        }
+    }
+
     void updateAuthMethodsConfig(const AuthConfigMethods& config)
     {
         bool isTLSchanged = (authMethodsConfig.tls != config.tls);
