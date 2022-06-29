@@ -1820,6 +1820,8 @@ inline void
         }
 
         messages::accountRemoved(asyncResp->res);
+        persistent_data::SessionStore::getInstance().removeSessionsByUsername(
+            username);
         },
         "xyz.openbmc_project.User.Manager", userPath,
         "xyz.openbmc_project.Object.Delete", "Delete");
