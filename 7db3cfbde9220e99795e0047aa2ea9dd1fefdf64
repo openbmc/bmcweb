@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f06fe217_99d33902",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1983,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2022-06-29T04:06:43Z",
+      "side": 1,
+      "message": "When update is in progress, the PowerState \"On\" makes more sense",
+      "range": {
+        "startLine": 1983,
+        "startChar": 11,
+        "endLine": 1983,
+        "endChar": 62
+      },
+      "revId": "7db3cfbde9220e99795e0047aa2ea9dd1fefdf64",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
