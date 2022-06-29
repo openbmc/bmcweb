@@ -302,15 +302,15 @@ inline void requestRoutes(App& app)
             }
 
             auto openHandler =
-                [&conn](const boost::system::error_code ec,
+                [&conn](const boost::system::error_code ec2,
                         const dbus::utility::ManagedObjectType& objects) {
                 const std::string* socketValue = nullptr;
                 const std::string* endpointValue = nullptr;
                 const std::string* endpointObjectPath = nullptr;
 
-                if (ec)
+                if (ec2)
                 {
-                    BMCWEB_LOG_ERROR << "DBus error: " << ec.message();
+                    BMCWEB_LOG_ERROR << "DBus error: " << ec2.message();
                     conn.close("Failed to create mount point");
                     return;
                 }
