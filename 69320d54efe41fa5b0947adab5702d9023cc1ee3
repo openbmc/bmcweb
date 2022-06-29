@@ -22,6 +22,30 @@
       },
       "revId": "69320d54efe41fa5b0947adab5702d9023cc1ee3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "54d3ca3a_9488ea89",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 939,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-29T21:38:50Z",
+      "side": 0,
+      "message": "Arguably should go in another commit.  I\u0027ll move it to one.  ACK\n\nthis is undefined behavior because toReadingUnits returns a const char*.  If you then capture by std::string\u0026, you now have a reference to a destroyed rvalue.\n\nThe fact that this code works means that the undefined behavior is swinging in our favor, but it might not forever.",
+      "parentUuid": "2f646b9e_e480b7a8",
+      "range": {
+        "startLine": 939,
+        "startChar": 8,
+        "endLine": 939,
+        "endChar": 14
+      },
+      "revId": "69320d54efe41fa5b0947adab5702d9023cc1ee3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
