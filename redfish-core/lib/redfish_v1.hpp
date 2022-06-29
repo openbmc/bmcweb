@@ -38,12 +38,11 @@ inline void redfish404(App& app, const crow::Request& req,
 
     BMCWEB_LOG_ERROR << "404 on path " << path;
 
-    boost::urls::string_value name = req.urlView.segments().back();
-    std::string_view nameStr(name.data(), name.size());
+    std::string_view name = req.urlView.segments().back();
     // Note, if we hit the wildcard route, we don't know the "type" the user was
     // actually requesting, but giving them a return with an empty string is
     // still better than nothing.
-    messages::resourceNotFound(asyncResp->res, "", nameStr);
+    messages::resourceNotFound(asyncResp->res, "", name);
 }
 
 inline void
