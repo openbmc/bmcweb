@@ -7,6 +7,7 @@
 #include "hostname_monitor.hpp"
 #include "ibm/management_console_rest.hpp"
 #include "image_upload.hpp"
+#include "include/user_monitor.hpp"
 #include "kvm_websocket.hpp"
 #include "login_routes.hpp"
 #include "nbd_proxy.hpp"
@@ -146,6 +147,8 @@ static int run()
     BMCWEB_LOG_INFO << "Start Hostname Monitor Service...";
     crow::hostname_monitor::registerHostnameSignal();
 #endif
+
+    bmcweb::registerUserRemovedSignal();
 
     app.run();
     io->run();
