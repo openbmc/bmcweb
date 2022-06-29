@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "23e6501c_637b1158",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-29T23:06:26Z",
+      "side": 1,
+      "message": "Turns out, the binary size isn\u0027t lower;  I either tricked myself, or new compilers optimize differently.  Commit message has the details.",
+      "parentUuid": "4d97eb9e_1d6b6980",
+      "revId": "3f789f61c076b892f939406d9746000a04ca83e8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5429a25b_e10296fe",
