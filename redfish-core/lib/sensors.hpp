@@ -130,7 +130,7 @@ inline const char* toReadingType(const std::string& sensorType)
     return "";
 }
 
-inline const char* toReadingUnits(const std::string& sensorType)
+inline std::string_view toReadingUnits(const std::string& sensorType)
 {
     if (sensorType == "voltage")
     {
@@ -936,7 +936,7 @@ inline void objectInterfacesToJson(
             sensorJson["ReadingType"] = readingType;
         }
 
-        const std::string& readingUnits = sensors::toReadingUnits(sensorType);
+        std::string_view readingUnits = sensors::toReadingUnits(sensorType);
         if (readingUnits.empty())
         {
             BMCWEB_LOG_ERROR << "Redfish cannot map reading unit for "
