@@ -20,6 +20,46 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c775d43d_08e70e80",
+        "filename": "redfish-core/include/utils/service_utils.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-29T21:00:58Z",
+      "side": 1,
+      "message": "This file doesn\u0027t seem to belong to \"redfish-core\" given it\u0027s all DBus related.",
+      "revId": "6fc8e5c6563c6f303d123f86724b01edf3939120",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6f1c80f8_8777fdb3",
+        "filename": "redfish-core/include/utils/service_utils.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-29T21:00:58Z",
+      "side": 1,
+      "message": "Please unit test this function.",
+      "range": {
+        "startLine": 18,
+        "startChar": 12,
+        "endLine": 18,
+        "endChar": 24
+      },
+      "revId": "6fc8e5c6563c6f303d123f86724b01edf3939120",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fc9909ed_0e59707b",
         "filename": "redfish-core/include/utils/service_utils.hpp",
         "patchSetId": 23
