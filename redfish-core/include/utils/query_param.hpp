@@ -16,7 +16,6 @@
 #include <boost/beast/http/status.hpp>
 #include <boost/beast/http/verb.hpp>
 #include <boost/url/params_view.hpp>
-#include <boost/url/string.hpp>
 #include <nlohmann/json.hpp>
 
 #include <algorithm>
@@ -374,80 +373,78 @@ inline bool getSelectParam(std::string_view value, Query& query)
     return true;
 }
 
-inline std::optional<Query>
-    parseParameters(const boost::urls::params_view& urlParams,
-                    crow::Response& res)
+inline std::optional<Query> parseParameters(boost::urls::params_view urlParams,
+                                            crow::Response& res)
 {
     Query ret;
     for (const boost::urls::params_view::value_type& it : urlParams)
     {
-        std::string_view key(it.key.data(), it.key.size());
-        std::string_view value(it.value.data(), it.value.size());
-        if (key == "only")
+        if (it.key == "only")
         {
             if (!it.value.empty())
             {
-                messages::queryParameterValueFormatError(res, value, key);
+                messages::queryParameterValueFormatError(res, it.value, it.key);
                 return std::nullopt;
             }
             ret.isOnly = true;
         }
-        else if (key == "$expand" && bmcwebInsecureEnableQueryParams)
+        else if (it.key == "$expand" && bmcwebInsecureEnableQueryParams)
         {
-            if (!getExpandType(value, ret))
+            if (!getExpandType(it.value, ret))
             {
-                messages::queryParameterValueFormatError(res, value, key);
+                messages::queryParameterValueFormatError(res, it.value, it.key);
                 return std::nullopt;
             }
         }
-        else if (key == "$top")
+        else if (it.key == "$top")
         {
-            QueryError topRet = getTopParam(value, ret);
+            QueryError topRet = getTopParam(it.value, ret);
             if (topRet == QueryError::ValueFormat)
             {
-                messages::queryParameterValueFormatError(res, value, key);
+                messages::queryParameterValueFormatError(res, it.value, it.key);
                 return std::nullopt;
             }
             if (topRet == QueryError::OutOfRange)
             {
                 messages::queryParameterOutOfRange(
-                    res, value, "$top", "0-" + std::to_string(Query::maxTop));
+                    res, it.value, "$top",
+                    "0-" + std::to_string(Query::maxTop));
                 return std::nullopt;
             }
         }
-        else if (key == "$skip")
+        else if (it.key == "$skip")
         {
-            QueryError topRet = getSkipParam(value, ret);
+            QueryError topRet = getSkipParam(it.value, ret);
             if (topRet == QueryError::ValueFormat)
             {
-                messages::queryParameterValueFormatError(res, value, key);
+                messages::queryParameterValueFormatError(res, it.value, it.key);
                 return std::nullopt;
             }
             if (topRet == QueryError::OutOfRange)
             {
                 messages::queryParameterOutOfRange(
-                    res, value, key,
+                    res, it.value, it.key,
                     "0-" + std::to_string(std::numeric_limits<size_t>::max()));
                 return std::nullopt;
             }
         }
-        else if (key == "$select" && bmcwebInsecureEnableQueryParams)
+        else if (it.key == "$select" && bmcwebInsecureEnableQueryParams)
         {
-            if (!getSelectParam(value, ret))
+            if (!getSelectParam(it.value, ret))
             {
-                messages::queryParameterValueFormatError(res, value, key);
+                messages::queryParameterValueFormatError(res, it.value, it.key);
                 return std::nullopt;
             }
         }
         else
         {
             // Intentionally ignore other errors Redfish spec, 7.3.1
-            if (key.starts_with("$"))
+            if (it.key.starts_with("$"))
             {
                 // Services shall return... The HTTP 501 Not Implemented
                 // status code for any unsupported query parameters that
                 // start with $ .
-                messages::queryParameterValueFormatError(res, value, key);
+                messages::queryParameterValueFormatError(res, it.value, it.key);
                 res.result(boost::beast::http::status::not_implemented);
                 return std::nullopt;
             }

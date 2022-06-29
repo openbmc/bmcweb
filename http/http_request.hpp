@@ -100,16 +100,14 @@ struct Request
   private:
     bool setUrlInfo()
     {
-        auto result = boost::urls::parse_relative_ref(
-            boost::urls::string_view(target().data(), target().size()));
+        auto result = boost::urls::parse_relative_ref(target());
 
         if (!result)
         {
             return false;
         }
         urlView = *result;
-        url = std::string_view(urlView.encoded_path().data(),
-                               urlView.encoded_path().size());
+        url = urlView.encoded_path();
         return true;
     }
 };
