@@ -158,6 +158,30 @@
       },
       "revId": "29de445b8920129bf57583f252a55b3e6319b07d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cd401755_f79cf6dc",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 1000547
+      },
+      "writtenOn": "2022-06-29T07:09:00Z",
+      "side": 1,
+      "message": "\u003e \u003e Sure then.\n\u003e \u003e \n\u003e \u003e Just one more thing regarding Jian Zhang\u0027s comment on the above bmcweb gerrit commit \"currently, setting up the NTP server failed.\"\n\u003e \u003e \n\u003e \u003e So even if we merge this change, the functionality won\u0027t be working as expected unless there is a conclusion in that gerrit commit. Should we take/merge these two commits together?\n\u003e \u003e \n\u003e \u003e Else if that is okay, then I am okay to give a +1 here.\n\u003e \n\u003e I sent you a message on discord;  I\u0027m not understanding why these would be related, but lets follow up.\n\nI still have questions about NTPServers and StaticNTPServers\nWhen using NTPServers before, when setting NTPServers with the set method, the corresponding data will be updated to /etc/systemd/network/00-bmc-eth0.network or /etc/systemd/network/00-bmc-eth1.network,\nNow the set method does not update the data to the file when setting StaticNTPServers,\nThis will cause the NTP time synchronization function over the web to fail.",
+      "parentUuid": "13210a91_106c0e38",
+      "range": {
+        "startLine": 347,
+        "startChar": 43,
+        "endLine": 347,
+        "endChar": 53
+      },
+      "revId": "29de445b8920129bf57583f252a55b3e6319b07d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
