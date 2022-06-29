@@ -49,6 +49,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d0665ddc_f416e83d",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2325,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-06-29T15:24:20Z",
+      "side": 1,
+      "message": "+1, it\u0027s way better to define some error codes for the errors that defined in sdbusplus. I will look into it later and abandon this patch.",
+      "parentUuid": "5f27a32f_edb17ceb",
+      "range": {
+        "startLine": 2325,
+        "startChar": 0,
+        "endLine": 2325,
+        "endChar": 44
+      },
+      "revId": "f07bd92f3f4bf868f05954ef60f3cd12cd4c350d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f4b357f2_f8420bbc",
         "filename": "redfish-core/lib/ethernet.hpp",
         "patchSetId": 1
