@@ -312,7 +312,7 @@ class RedfishAggregator
                     BMCWEB_LOG_ERROR << "Port value out of range";
                     return;
                 }
-                url.set_port(static_cast<uint16_t>(*propVal));
+                url.set_port(std::to_string(static_cast<uint16_t>(*propVal)));
             }
 
             else if (prop.first == "AuthType")
@@ -435,8 +435,7 @@ class RedfishAggregator
         }
 
         // We didn't recognize the prefix and need to return a 404
-        boost::urls::string_value name = req.urlView.segments().back();
-        std::string_view nameStr(name.data(), name.size());
+        std::string_view nameStr = req.urlView.segments().back();
         messages::resourceNotFound(asyncResp->res, "", nameStr);
     }
 
@@ -461,9 +460,7 @@ class RedfishAggregator
             // don't need to write an error code
             if (isCollection == AggregationType::Resource)
             {
-                boost::urls::string_value name =
-                    sharedReq->urlView.segments().back();
-                std::string_view nameStr(name.data(), name.size());
+                std::string_view nameStr = sharedReq->urlView.segments().back();
                 messages::resourceNotFound(asyncResp->res, "", nameStr);
             }
             return;

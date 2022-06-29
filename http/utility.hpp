@@ -4,7 +4,9 @@
 #include <openssl/crypto.h>
 
 #include <boost/callable_traits.hpp>
+#include <boost/url/parse.hpp>
 #include <boost/url/url.hpp>
+#include <boost/url/url_view.hpp>
 #include <nlohmann/json.hpp>
 
 #include <array>
@@ -616,13 +618,13 @@ class UrlSegmentMatcherVisitor
   public:
     UrlParseResult operator()(std::string& output)
     {
-        output = std::string_view(segment.data(), segment.size());
+        output = segment;
         return UrlParseResult::Continue;
     }
 
     UrlParseResult operator()(std::string_view expected)
     {
-        if (std::string_view(segment.data(), segment.size()) == expected)
+        if (segment == expected)
         {
             return UrlParseResult::Continue;
         }
@@ -634,13 +636,12 @@ class UrlSegmentMatcherVisitor
         return UrlParseResult::Done;
     }
 
-    explicit UrlSegmentMatcherVisitor(
-        const boost::urls::string_value& segmentIn) :
+    explicit UrlSegmentMatcherVisitor(std::string_view segmentIn) :
         segment(segmentIn)
     {}
 
   private:
-    const boost::urls::string_value& segment;
+    std::string_view segment;
 };
 
 inline bool readUrlSegments(const boost::urls::url_view& urlView,
@@ -766,9 +767,8 @@ inline bool validateAndSplitUrl(std::string_view destUrl, std::string& urlProto,
                                 std::string& host, uint16_t& port,
                                 std::string& path)
 {
-    boost::string_view urlBoost(destUrl.data(), destUrl.size());
     boost::urls::result<boost::urls::url_view> url =
-        boost::urls::parse_uri(urlBoost);
+        boost::urls::parse_uri(destUrl);
     if (!url)
     {
         return false;
@@ -781,11 +781,9 @@ inline bool validateAndSplitUrl(std::string_view destUrl, std::string& urlProto,
 
     port = setPortDefaults(url.value());
 
-    host = std::string_view(url->encoded_host().data(),
-                            url->encoded_host().size());
+    host = url->encoded_host();
 
-    path = std::string_view(url->encoded_path().data(),
-                            url->encoded_path().size());
+    path = url->encoded_path();
     if (path.empty())
     {
         path = "/";
@@ -793,15 +791,13 @@ inline bool validateAndSplitUrl(std::string_view destUrl, std::string& urlProto,
     if (url->has_fragment())
     {
         path += '#';
-        path += std::string_view(url->encoded_fragment().data(),
-                                 url->encoded_fragment().size());
+        path += url->encoded_fragment();
     }
 
     if (url->has_query())
     {
         path += '?';
-        path += std::string_view(url->encoded_query().data(),
-                                 url->encoded_query().size());
+        path += url->encoded_query();
     }
 
     return true;
@@ -819,7 +815,7 @@ struct adl_serializer<boost::urls::url>
     // NOLINTNEXTLINE(readability-identifier-naming)
     static void to_json(json& j, const boost::urls::url& url)
     {
-        j = url.string();
+        j = url.buffer();
     }
 };
 
@@ -829,7 +825,7 @@ struct adl_serializer<boost::urls::url_view>
     // NOLINTNEXTLINE(readability-identifier-naming)
     static void to_json(json& j, const boost::urls::url_view& url)
     {
-        j = url.string();
+        j = url.buffer();
     }
 };
 } // namespace nlohmann
