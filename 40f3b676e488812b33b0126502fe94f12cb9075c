@@ -93,6 +93,30 @@
       },
       "revId": "40f3b676e488812b33b0126502fe94f12cb9075c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "94fcc92b_d4e34859",
+        "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-29T18:29:24Z",
+      "side": 1,
+      "message": "Can you give me some example text of what could be done to make this more clear?",
+      "parentUuid": "0b6d469d_2439dc03",
+      "range": {
+        "startLine": 47,
+        "startChar": 40,
+        "endLine": 47,
+        "endChar": 57
+      },
+      "revId": "40f3b676e488812b33b0126502fe94f12cb9075c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
