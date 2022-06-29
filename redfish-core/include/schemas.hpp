@@ -72,6 +72,7 @@ namespace redfish
         "TaskService",
         "TelemetryService",
         "Thermal",
+        "ThermalSubsystem",
         "Triggers",
         "UpdateService",
         "VirtualMedia",
