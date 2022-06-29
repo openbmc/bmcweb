@@ -132,6 +132,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "806d219b_e74c143b",
+        "filename": "redfish-core/include/redfish_defs/account_service.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-29T21:52:33Z",
+      "side": 1,
+      "message": "actually, I wonder if this is a case where we shouldn\u0027t follow the openbmc naming convention.  Having the enums match the Redfish spec naming convention is allowed in our coding standard, and would improve in peoples ability to search for things, and recognize things in the standard.\n\nWDYT?\n\n\nAlso, if we follow the naming standard, we\u0027re going to have to special case a lot of things.  For example, \n\nLDAPService\n\nshould arguably be\n\nldapService\n\nin our naming convention, but there\u0027s no way to automatically determined that LDAP is an acronym in code, so we\u0027d have to special case all the cases, which I don\u0027t think is worth the complexity.",
+      "parentUuid": "e387f5dc_b08585fe",
+      "range": {
+        "startLine": 10,
+        "startChar": 4,
+        "endLine": 10,
+        "endChar": 11
+      },
+      "revId": "65be9f3de3b253b5b6c36c6367f35fd54a75c412",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bf8cb9a0_5e430462",
         "filename": "redfish-core/include/redfish_defs/account_service.hpp",
         "patchSetId": 11
@@ -167,6 +191,30 @@
       "side": 1,
       "message": "our clang-tidy rules disallow macros, but in this case, it\u0027s a macro in a library we don\u0027t maintain, so it\u0027s allowed.\n\nI can mention this in the commit message.\n\nACK.",
       "parentUuid": "bf8cb9a0_5e430462",
+      "range": {
+        "startLine": 49,
+        "startChar": 51,
+        "endLine": 49,
+        "endChar": 57
+      },
+      "revId": "65be9f3de3b253b5b6c36c6367f35fd54a75c412",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bf55fb03_c7bfee6c",
+        "filename": "redfish-core/include/redfish_defs/account_service.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-29T21:52:33Z",
+      "side": 1,
+      "message": "Mentioned in commit message.",
+      "parentUuid": "83787771_64cdcb28",
       "range": {
         "startLine": 49,
         "startChar": 51,
