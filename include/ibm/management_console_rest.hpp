@@ -520,7 +520,7 @@ inline void
         returnJson["LockType"] = std::get<2>(var.second);
         returnJson["ResourceID"] = std::get<3>(var.second);
 
-        for (auto& i : std::get<4>(var.second))
+        for (const auto& i : std::get<4>(var.second))
         {
             segments["LockFlag"] = i.first;
             segments["SegmentLength"] = i.second;
@@ -588,7 +588,7 @@ inline void
     returnJson["LockType"] = std::get<2>(var.second);
     returnJson["ResourceID"] = std::get<3>(var.second);
 
-    for (auto& i : std::get<4>(var.second))
+    for (const auto& i : std::get<4>(var.second))
     {
         segments["LockFlag"] = i.first;
         segments["SegmentLength"] = i.second;
