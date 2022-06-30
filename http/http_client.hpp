@@ -616,7 +616,7 @@ class HttpClient
 
     // Used as a dummy callback by sendData() in order to call
     // sendDataWithCallback()
-    static void genericResHandler(Response& res)
+    static void genericResHandler(const Response& res)
     {
         BMCWEB_LOG_DEBUG << "Response handled with return code: "
                          << std::to_string(res.resultInt());
@@ -644,21 +644,19 @@ class HttpClient
                   const boost::beast::http::verb verb,
                   const std::string& retryPolicyName)
     {
-        std::function<void(Response&)> cb = genericResHandler;
+        const std::function<void(const Response&)> cb = genericResHandler;
         sendDataWithCallback(data, id, destIP, destPort, destUri, httpHeader,
                              verb, retryPolicyName, cb);
     }
 
     // Send request to destIP:destPort and use the provided callback to
     // handle the response
-    void sendDataWithCallback(std::string& data, const std::string& id,
-                              const std::string& destIP,
-                              const uint16_t destPort,
-                              const std::string& destUri,
-                              const boost::beast::http::fields& httpHeader,
-                              const boost::beast::http::verb verb,
-                              const std::string& retryPolicyName,
-                              std::function<void(Response&)>& resHandler)
+    void sendDataWithCallback(
+        std::string& data, const std::string& id, const std::string& destIP,
+        const uint16_t destPort, const std::string& destUri,
+        const boost::beast::http::fields& httpHeader,
+        const boost::beast::http::verb verb, const std::string& retryPolicyName,
+        const std::function<void(const Response&)>& resHandler)
     {
         std::string clientKey = destIP + ":" + std::to_string(destPort);
         // Use nullptr to avoid creating a ConnectionPool each time

@@ -119,8 +119,8 @@ static const Message* formatMessage(const std::string_view& messageID)
     {
         return nullptr;
     }
-    std::string& registryName = fields[0];
-    std::string& messageKey = fields[3];
+    const std::string& registryName = fields[0];
+    const std::string& messageKey = fields[3];
 
     // Find the right registry and check it for the MessageKey
     return getMsgFromRegistry(messageKey, getRegistryFromPrefix(registryName));
@@ -194,7 +194,7 @@ inline int getEventLogParams(const std::string& logEntry,
     // Get the MessageArgs from the log if there are any
     if (logEntryFields.size() > 1)
     {
-        std::string& messageArgsStart = logEntryFields[1];
+        const std::string& messageArgsStart = logEntryFields[1];
         // If the first string is empty, assume there are no MessageArgs
         if (!messageArgsStart.empty())
         {
@@ -307,13 +307,13 @@ inline bool
 
     for (std::size_t i = 0; i < result.size(); i += divisor)
     {
-        std::string& key = result[i];
-        std::string& op = result[i + 1];
-        std::string& value = result[i + 2];
+        const std::string& key = result[i];
+        const std::string& op = result[i + 1];
+        const std::string& value = result[i + 2];
 
         if ((i + minTokenSize) < result.size())
         {
-            std::string& separator = result[i + minTokenSize];
+            const std::string& separator = result[i + minTokenSize];
             // SSE supports only "or" and "and" in query params.
             if ((separator != "or") && (separator != "and"))
             {
