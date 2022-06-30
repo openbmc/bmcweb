@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "19363621_3acf8225",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 23
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-06-30T08:00:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "060c847f_34f142e0",
+      "revId": "6fc8e5c6563c6f303d123f86724b01edf3939120",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c775d43d_08e70e80",
@@ -31,6 +49,24 @@
       "writtenOn": "2022-06-29T21:00:58Z",
       "side": 1,
       "message": "This file doesn\u0027t seem to belong to \"redfish-core\" given it\u0027s all DBus related.",
+      "revId": "6fc8e5c6563c6f303d123f86724b01edf3939120",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "386257ad_b4ab8ec5",
+        "filename": "redfish-core/include/utils/service_utils.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-06-30T08:00:51Z",
+      "side": 1,
+      "message": "It\u0027s redfish-related I think as it writes asyncResp. Where do you think is a better place to put this file?",
+      "parentUuid": "c775d43d_08e70e80",
       "revId": "6fc8e5c6563c6f303d123f86724b01edf3939120",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -60,6 +96,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0fdc6fd6_ea84533d",
+        "filename": "redfish-core/include/utils/service_utils.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-06-30T08:00:51Z",
+      "side": 1,
+      "message": "Unit test added",
+      "parentUuid": "6f1c80f8_8777fdb3",
+      "range": {
+        "startLine": 18,
+        "startChar": 12,
+        "endLine": 18,
+        "endChar": 24
+      },
+      "revId": "6fc8e5c6563c6f303d123f86724b01edf3939120",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fc9909ed_0e59707b",
         "filename": "redfish-core/include/utils/service_utils.hpp",
         "patchSetId": 23
@@ -71,6 +131,30 @@
       "writtenOn": "2022-06-29T20:55:47Z",
       "side": 1,
       "message": "I just learned from my own patch that inplace string literal is better",
+      "range": {
+        "startLine": 42,
+        "startChar": 8,
+        "endLine": 42,
+        "endChar": 29
+      },
+      "revId": "6fc8e5c6563c6f303d123f86724b01edf3939120",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "155e34d4_5a081c31",
+        "filename": "redfish-core/include/utils/service_utils.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-06-30T08:00:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fc9909ed_0e59707b",
       "range": {
         "startLine": 42,
         "startChar": 8,
