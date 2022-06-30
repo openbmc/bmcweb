@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d521750e_b268eaeb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-30T15:00:40Z",
+      "side": 1,
+      "message": "Right, so here\u0027s the problem, upstream doesn\u0027t use grpc, and uses pam for authentication.  It also support mtls already, which is identical to grpc this in terms of authentication, so it\u0027s not clear why we need to remove pam from the build requirements given that clearly we can support mtls auth with pam present, especially given that\u0027s what openbmc uses to authenticate today.  It\u0027s also pretty likely that at some point in the future we\u0027re going to use pam for session management, as other projects have done (like cockpit), so having any mode that completely removes it is going to be an issue.\n\nUnfortunately for the moment I think at least some of this needs to remain tech-island.\n\nYes, grpc needs more discussion, but that needs to happen first, before we start merging patches for hypothetical support.  In general for features of this size, design docs need to come first, and the discussion in DMTF about grpc needs to be completed.  As is, there are still significant standing technical issues that need to be resolved.",
+      "revId": "db8966044c0fffdfe515deae254176407d05f891",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "002be0e6_428ac011",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-30T15:00:40Z",
+      "side": 1,
+      "message": "Agreed, this is kind of mediocre behavior that we should at least warn on.",
+      "revId": "db8966044c0fffdfe515deae254176407d05f891",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
