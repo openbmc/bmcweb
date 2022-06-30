@@ -118,6 +118,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4abb9d7b_bad531cb",
+        "filename": "OWNERS",
+        "patchSetId": 1
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-06-30T09:35:34Z",
+      "side": 1,
+      "message": "Yes, sounds ok.\n\nFeel free to also add me to telemetry service related schemas:\n  metric_report.hpp\n  metric_report_definition.hpp\n  trigger.hpp",
+      "parentUuid": "d92602cc_86eb64a1",
+      "revId": "d8ea13a2b4dc7e0e9f450a66826add740a634c21",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "868a86ff_988c3bca",
         "filename": "OWNERS",
         "patchSetId": 1
