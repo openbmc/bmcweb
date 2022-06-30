@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "38d32073_6c2078aa",
         "filename": "redfish-core/lib/redfish_util.hpp",
@@ -20,10 +21,34 @@
         "endChar": 17
       },
       "revId": "95fbccb926cc88b444688e4da4093bd0fcbb67f1",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6d06673c_442c4801",
+        "filename": "redfish-core/lib/redfish_util.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2022-06-30T21:08:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "38d32073_6c2078aa",
+      "range": {
+        "startLine": 91,
+        "startChar": 10,
+        "endLine": 91,
+        "endChar": 17
+      },
+      "revId": "95fbccb926cc88b444688e4da4093bd0fcbb67f1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "77553f70_bb421abf",
         "filename": "redfish-core/lib/redfish_util.hpp",
@@ -43,10 +68,34 @@
         "endChar": 24
       },
       "revId": "95fbccb926cc88b444688e4da4093bd0fcbb67f1",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e568915a_3d495af4",
+        "filename": "redfish-core/lib/redfish_util.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2022-06-30T21:08:23Z",
+      "side": 1,
+      "message": "I did that because it is static, but I get it. If anyone else uses this method, then it will create a problem",
+      "parentUuid": "77553f70_bb421abf",
+      "range": {
+        "startLine": 97,
+        "startChar": 10,
+        "endLine": 97,
+        "endChar": 24
+      },
+      "revId": "95fbccb926cc88b444688e4da4093bd0fcbb67f1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "b7d3e368_aaf65837",
         "filename": "redfish-core/lib/systems.hpp",
@@ -66,10 +115,10 @@
         "endChar": 14
       },
       "revId": "95fbccb926cc88b444688e4da4093bd0fcbb67f1",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "3e85e401_e7c5d456",
         "filename": "redfish-core/lib/systems.hpp",
@@ -90,10 +139,10 @@
         "endChar": 14
       },
       "revId": "95fbccb926cc88b444688e4da4093bd0fcbb67f1",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "78e4ca25_65dd6d79",
         "filename": "redfish-core/lib/systems.hpp",
@@ -114,10 +163,10 @@
         "endChar": 14
       },
       "revId": "95fbccb926cc88b444688e4da4093bd0fcbb67f1",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "274f12b1_4a10f8d4",
         "filename": "redfish-core/lib/systems.hpp",
@@ -137,8 +186,31 @@
         "endChar": 57
       },
       "revId": "95fbccb926cc88b444688e4da4093bd0fcbb67f1",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "96a2e1db_730933c0",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 2502,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2022-06-30T21:08:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "274f12b1_4a10f8d4",
+      "range": {
+        "startLine": 2502,
+        "startChar": 36,
+        "endLine": 2502,
+        "endChar": 57
+      },
+      "revId": "95fbccb926cc88b444688e4da4093bd0fcbb67f1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
