@@ -123,6 +123,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "88ab7f6c_ca9e9e57",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2022-06-30T21:09:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5033e1be_edcf0102",
+      "range": {
+        "startLine": 10,
+        "startChar": 50,
+        "endLine": 10,
+        "endChar": 54
+      },
+      "revId": "af205a04ba12f10bd54264999a824abc137ae84e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "28886bdf_81cb6813",
@@ -153,6 +177,30 @@
       "writtenOn": "2022-05-22T17:19:01Z",
       "side": 1,
       "message": "looks like a typo?  not sure what \"hyep\" is.",
+      "range": {
+        "startLine": 11,
+        "startChar": 50,
+        "endLine": 11,
+        "endChar": 54
+      },
+      "revId": "af205a04ba12f10bd54264999a824abc137ae84e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4fc1a04e_bc7bde08",
+        "filename": "include/obmc_hypervisor.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2022-06-30T21:09:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ecebc94d_3af524dd",
       "range": {
         "startLine": 11,
         "startChar": 50,
@@ -211,6 +259,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "89a6128c_698b9bc8",
+        "filename": "include/obmc_hypervisor.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2022-06-30T21:09:24Z",
+      "side": 1,
+      "message": "that we can handle using yocto build process.",
+      "parentUuid": "9232bb71_32ec4daf",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 34
+      },
+      "revId": "af205a04ba12f10bd54264999a824abc137ae84e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d76e2ca2_8f644bb5",
         "filename": "include/obmc_hypervisor.hpp",
         "patchSetId": 19
@@ -222,6 +294,30 @@
       "writtenOn": "2022-05-22T17:19:01Z",
       "side": 1,
       "message": "This logic looks incorrect  addConnection() needs to be called in both cases.  As-written, I\u0027m not sure how this passed any testing, maybe there\u0027s a subtle race?",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 13
+      },
+      "revId": "af205a04ba12f10bd54264999a824abc137ae84e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9bf37e42_823bb437",
+        "filename": "include/obmc_hypervisor.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2022-06-30T21:09:24Z",
+      "side": 1,
+      "message": "It works, but let me restructure the code to make it easy to read and understand.",
+      "parentUuid": "d76e2ca2_8f644bb5",
       "range": {
         "startLine": 20,
         "startChar": 0,
@@ -347,6 +443,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bd8bd48e_4ac2f97e",
+        "filename": "include/obmc_websocket.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2022-06-30T21:09:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1ed4b6ad_2bea67b1",
+      "range": {
+        "startLine": 16,
+        "startChar": 30,
+        "endLine": 16,
+        "endChar": 53
+      },
+      "revId": "af205a04ba12f10bd54264999a824abc137ae84e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "011f8b39_ad80f793",
@@ -383,6 +503,54 @@
       "writtenOn": "2022-05-22T17:19:01Z",
       "side": 1,
       "message": "Doesn\u0027t need inline when it\u0027s part of a class.  This is true for the rest of these implementations below.  Please fix all of them.",
+      "range": {
+        "startLine": 19,
+        "startChar": 4,
+        "endLine": 19,
+        "endChar": 10
+      },
+      "revId": "af205a04ba12f10bd54264999a824abc137ae84e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "11c418d1_2de32580",
+        "filename": "include/obmc_websocket.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2022-06-30T21:09:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "011f8b39_ad80f793",
+      "range": {
+        "startLine": 19,
+        "startChar": 26,
+        "endLine": 19,
+        "endChar": 39
+      },
+      "revId": "af205a04ba12f10bd54264999a824abc137ae84e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4705debe_a400a8c6",
+        "filename": "include/obmc_websocket.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2022-06-30T21:09:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2301efcc_9fb8ec87",
       "range": {
         "startLine": 19,
         "startChar": 4,
@@ -439,6 +607,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "093b03c6_c27aa27a",
+        "filename": "include/obmc_websocket.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2022-06-30T21:09:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4bf8629d_3864ef42",
+      "range": {
+        "startLine": 116,
+        "startChar": 8,
+        "endLine": 116,
+        "endChar": 12
+      },
+      "revId": "af205a04ba12f10bd54264999a824abc137ae84e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a49f53d0_309fd7b1",
@@ -452,6 +644,30 @@
       "writtenOn": "2022-05-22T17:19:01Z",
       "side": 1,
       "message": "Why is this a unique_ptr?  It seems like it should be taken by value?",
+      "range": {
+        "startLine": 146,
+        "startChar": 9,
+        "endLine": 146,
+        "endChar": 19
+      },
+      "revId": "af205a04ba12f10bd54264999a824abc137ae84e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5431a2f3_ff8daf39",
+        "filename": "include/obmc_websocket.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1001099
+      },
+      "writtenOn": "2022-06-30T21:09:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a49f53d0_309fd7b1",
       "range": {
         "startLine": 146,
         "startChar": 9,
