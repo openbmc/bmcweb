@@ -16,6 +16,24 @@
       "message": "Have you considered generating conertion functions or just create template function that can perform any conversion. It would be possible to take conversion map and string value as parameter. Perform find, return value if success or empty optional/invalid on failure.\n\nThat could remove some code, but I don\u0027t know if this going to decrease or increase binary size.",
       "revId": "a8ffdb09e1ce92ff0dc828dae2f3eb2928af14f2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "68bf5948_503f9736",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-30T17:03:10Z",
+      "side": 1,
+      "message": "\u003e Have you considered generating conertion functions or just create template function that can perform any conversion.\n\nYes.  This was all evaluated by someone previously on your team (Pawel), and the conclusion at the time what that essentially anything else we tried resulted in slower builds, larger binaries, and longer runtimes.  That was done several years ago, so we could certainly reassess with current technology and our now better understanding of what dbus-\u003eredfish conversions need done.\n\nThe biggest problem becomes that most dbus-\u003eredfish conversions are not as clean as this one.  There are cases where:\n- New enums are added without bmcweb being made aware.\n- two dbus enum values might map to one redfish value.\n- one dbus property might map to multiple redfish values in odd ways (Status is a good example of this).\n\nAll of those cases need to be able to be handled.\n\n\u003e It would be possible to take conversion map and string value as parameter. Perform find, return value if success or empty optional/invalid on failure.\n\nWhen we tried this, we either needed to declare a runtime std::map which we could either construct on global init, or construct on each use.  In the former it slowed the boot time, and used runtime memory (against some of the core bmcweb principles).  In the latter case, it was significantly slower to construct the map, do the lookup on the map, then destroy the map each time it was used.\n\nSince we did that testing, boost::describe was added into boost, which might solve some of these issues in a cleaner way, but that would need to be evaluated.  What nlohmann implements is essentially similar to what boost describe does, but specializes it for json values.\n\n\u003e \n\u003e That could remove some code, but I don\u0027t know if this going to decrease or increase binary size.\n\nHappy to see test results if you\u0027re interested in pursuing this.",
+      "parentUuid": "0655ebf6_04ac27d2",
+      "revId": "a8ffdb09e1ce92ff0dc828dae2f3eb2928af14f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
