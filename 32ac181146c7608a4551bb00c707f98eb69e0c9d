@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2f3b6743_a638c7df",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 662,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-30T17:48:35Z",
+      "side": 1,
+      "message": "Can this be const as well?",
+      "range": {
+        "startLine": 662,
+        "startChar": 30,
+        "endLine": 662,
+        "endChar": 33
+      },
+      "revId": "32ac181146c7608a4551bb00c707f98eb69e0c9d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
