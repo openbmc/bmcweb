@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d51d523_ac99b896",
+        "filename": "redfish-core/ut/query_param_test.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-30T22:37:07Z",
+      "side": 1,
+      "message": "I asked this when this unit test was firstly introduced. Ed responded that we prefer putting tests near where the sources under test are.\n\nThat\u0027s aligned with Google\u0027s convention. https://github.com/google/googletest/tree/main/googletest/samples here are some examples.\n\nIt\u0027s not consistent in this project though. I don\u0027t have a strong opinion. Putting *_test files just next to sources is what I preferred.",
+      "range": {
+        "startLine": 1,
+        "startChar": 10,
+        "endLine": 1,
+        "endChar": 15
+      },
+      "revId": "fb59f4395c57bb18a17318a05cbecfe3665d25c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
