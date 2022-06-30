@@ -18,9 +18,11 @@
 #include "error_messages.hpp"
 #include "http_request.hpp"
 #include "http_response.hpp"
+#include "human_sort.hpp"
 #include "logging.hpp"
 #include "nlohmann/json.hpp"
 
+#include <algorithm>
 #include <array>
 #include <cmath>
 #include <cstddef>
@@ -591,6 +593,50 @@ bool readJsonAction(const crow::Request& req, crow::Response& res,
         return false;
     }
     return readJson(jsonRequest, res, key, std::forward<UnpackTypes&&>(in)...);
+}
+
+// Sort the JSON array by |element[key]|.
+// Each element shall contains |key| and the corresponding value shall be of
+// type |nlohmann::json::string_t|; otherwise, returns false.
+// Elements without |key| or type of |element[key]| is not string are smaller
+// those whose |element[key]| is string.
+inline bool sortJsonArrayByKey(const std::string& key,
+                               nlohmann::json::array_t& array)
+{
+    bool succeeded = true;
+    std::sort(array.begin(), array.end(),
+              [comparator = AlphanumLess<nlohmann::json::string_t>(),
+               &succeeded,
+               &key](const nlohmann::json& a, const nlohmann::json& b) mutable {
+        auto aIt = a.find(key);
+        auto bIt = b.find(key);
+        if (aIt == a.end())
+        {
+            succeeded = false;
+            return true;
+        }
+        if (bIt == b.end())
+        {
+            succeeded = false;
+            return false;
+        }
+        const nlohmann::json::string_t* nameA =
+            aIt->get_ptr<const nlohmann::json::string_t*>();
+        const nlohmann::json::string_t* nameB =
+            bIt->get_ptr<const nlohmann::json::string_t*>();
+        if (nameA == nullptr)
+        {
+            succeeded = false;
+            return true;
+        }
+        if (nameB == nullptr)
+        {
+            succeeded = false;
+            return false;
+        }
+        return comparator(*nameA, *nameB);
+    });
+    return succeeded;
 }
 
 } // namespace json_util
