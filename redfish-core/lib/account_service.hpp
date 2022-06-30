@@ -1107,9 +1107,9 @@ inline void handleLDAPPatch(nlohmann::json& input,
 
 inline void updateUserProperties(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
                                  const std::string& username,
-                                 std::optional<std::string> password,
+                                 const std::optional<std::string>& password,
                                  std::optional<bool> enabled,
-                                 std::optional<std::string> roleId,
+                                 const std::optional<std::string>& roleId,
                                  std::optional<bool> locked)
 {
     sdbusplus::message::object_path tempObjPath(rootUserDbusPath);
@@ -1326,7 +1326,7 @@ inline void
         "org.freedesktop.DBus.Properties", "GetAll",
         "xyz.openbmc_project.User.AccountPolicy");
 
-    auto callback = [asyncResp](bool success, LDAPConfigData& confData,
+    auto callback = [asyncResp](bool success, const LDAPConfigData& confData,
                                 const std::string& ldapType) {
         if (!success)
         {
