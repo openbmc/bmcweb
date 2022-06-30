@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0655ebf6_04ac27d2",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-06-30T06:28:41Z",
+      "side": 1,
+      "message": "Have you considered generating conertion functions or just create template function that can perform any conversion. It would be possible to take conversion map and string value as parameter. Perform find, return value if success or empty optional/invalid on failure.\n\nThat could remove some code, but I don\u0027t know if this going to decrease or increase binary size.",
+      "revId": "a8ffdb09e1ce92ff0dc828dae2f3eb2928af14f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
