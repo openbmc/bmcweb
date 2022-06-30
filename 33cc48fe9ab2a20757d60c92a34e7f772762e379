@@ -94,6 +94,30 @@
       },
       "revId": "33cc48fe9ab2a20757d60c92a34e7f772762e379",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a5f421d0_b8d3e738",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-30T18:58:35Z",
+      "side": 1,
+      "message": "\u003e \u003e The solution here is to put backpressure on the socket until the unix socket is opened.\n\u003e \n\u003e Did you mean here to block the webscoket until we finish the initialization?\n\nNo, not block, but don\u0027t accept messages callbacks (or maybe only accept the first one) until the socket is opened.  This same problem can be triggered if you reduce the bandwidth in certain portions of the code (either in the websocket or between the unix socket), you\u0027ll end up buffer overflowing because there\u0027s no ability to do backpressure.\n\nhttps://medium.com/@jayphelps/backpressure-explained-the-flow-of-data-through-software-2350b3e77ce7\n\n\u003e In our case this machanism that I proposed is quite sufficient.\n\nIn the case where it disconnects with 404, it will return both a websocket handshake and a 404, which isn\u0027t right to do in the HTTP RFC.\n\n\u003e If in your opinion this is not a satisfactory solution do you have perhaps an idea or suggestion how else we can do it? Or do you see/can you apply more generic solution?\n\nadd an onMessage handler that has a \"complete\" token, so backpressure can be applied on the websocket until the data has been forwarded to the unix socket.\n\n\nAlternatively, if you must have this feature, separating out a separate \"beforeOpen\" handler, that\u0027s distinct from \"onOpen\", so that we can call \"beforeOpen\" before the websocket handshake has completed.",
+      "parentUuid": "cf9de494_4be999e5",
+      "range": {
+        "startLine": 13,
+        "startChar": 48,
+        "endLine": 15,
+        "endChar": 12
+      },
+      "revId": "33cc48fe9ab2a20757d60c92a34e7f772762e379",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
