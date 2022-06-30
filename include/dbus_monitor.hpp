@@ -8,7 +8,7 @@
 #include <boost/container/flat_set.hpp>
 #include <sdbusplus/bus/match.hpp>
 #include <sdbusplus/message/types.hpp>
-#include <websocket.hpp>
+#include "websocket.hpp"
 
 #include <variant>
 

@@ -18,9 +18,11 @@
 #include "error_messages.hpp"
 #include "http_request.hpp"
 #include "http_response.hpp"
+#include "human_sort.hpp"
 #include "logging.hpp"
-#include "nlohmann/json.hpp"
+#include <nlohmann/json.hpp>
 
+#include <algorithm>
 #include <array>
 #include <cmath>
 #include <cstddef>
@@ -589,5 +591,106 @@ bool readJsonAction(const crow::Request& req, crow::Response& res,
     }
     return readJson(jsonRequest, res, key, std::forward<UnpackTypes&&>(in)...);
 }
+
+// Determines if two json objects are less, based on the presence of the
+// @odata.id key
+inline int odataObjectCmp(const nlohmann::json& a, const nlohmann::json& b)
+{
+    using object_t = nlohmann::json::object_t;
+    const object_t* aObj = a.get_ptr<const object_t*>();
+    const object_t* bObj = b.get_ptr<const object_t*>();
+
+    if (aObj == nullptr)
+    {
+        if (bObj == nullptr)
+        {
+            return 0;
+        }
+        return -1;
+    }
+    if (bObj == nullptr)
+    {
+        return 1;
+    }
+    object_t::const_iterator aIt = aObj->find("@odata.id");
+    object_t::const_iterator bIt = bObj->find("@odata.id");
+    // If either object doesn't have the key, they get "sorted" to the end.
+    if (aIt == aObj->end())
+    {
+        if (bIt == bObj->end())
+        {
+            return 0;
+        }
+        return -1;
+    }
+    if (bIt == bObj->end())
+    {
+        return 1;
+    }
+    const nlohmann::json::string_t* nameA =
+        aIt->second.get_ptr<const std::string*>();
+    const nlohmann::json::string_t* nameB =
+        bIt->second.get_ptr<const std::string*>();
+    // If either object doesn't have a string as the key, they get "sorted" to
+    // the end.
+    if (nameA == nullptr)
+    {
+        if (nameB == nullptr)
+        {
+            return 0;
+        }
+        return -1;
+    }
+    if (nameB == nullptr)
+    {
+        return 1;
+    }
+    boost::urls::url_view aUrl(*nameA);
+    boost::urls::url_view bUrl(*nameB);
+    auto segmentsAIt = aUrl.segments().begin();
+    auto segmentsBIt = bUrl.segments().begin();
+
+    while (true)
+    {
+        if (segmentsAIt == aUrl.segments().end())
+        {
+            if (segmentsBIt == bUrl.segments().end())
+            {
+                return 0;
+            }
+            return -1;
+        }
+        if (segmentsBIt == bUrl.segments().end())
+        {
+            return 1;
+        }
+        int res = alphanumComp(*segmentsAIt, *segmentsBIt);
+        if (res != 0)
+        {
+            return res;
+        }
+
+        segmentsAIt++;
+        segmentsBIt++;
+    }
+};
+
+struct ODataObjectLess
+{
+    bool operator()(const nlohmann::json& left,
+                    const nlohmann::json& right) const
+    {
+        return odataObjectCmp(left, right) < 0;
+    }
+};
+
+// Sort the JSON array by |element[key]|.
+// Elements without |key| or type of |element[key]| is not string are smaller
+// those whose |element[key]| is string.
+inline void sortJsonArrayByOData(nlohmann::json::array_t& array)
+{
+    std::sort(array.begin(), array.end(), ODataObjectLess());
+}
+
 } // namespace json_util
 } // namespace redfish
