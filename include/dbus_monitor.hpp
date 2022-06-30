@@ -167,9 +167,7 @@ inline void requestRoutes(App& app)
         // PropertiesChanged
         thisSession.matches.reserve(thisSession.matches.size() +
                                     paths->size() * (1U + interfaceCount));
-        std::string objectManagerMatchString;
-        std::string propertiesMatchString;
-        std::string objectManagerInterfacesMatchString;
+
         // These regexes derived on the rules here:
         // https://dbus.freedesktop.org/doc/dbus-specification.html#message-protocol-names
         std::regex validPath("^/([A-Za-z0-9_]+/?)*$");
@@ -192,7 +190,7 @@ inline void requestRoutes(App& app)
                 conn.close();
                 return;
             }
-            propertiesMatchString =
+            std::string propertiesMatchString =
                 ("type='signal',"
                  "interface='org.freedesktop.DBus.Properties',"
                  "path_namespace='" +
@@ -234,7 +232,7 @@ inline void requestRoutes(App& app)
                             onPropertyUpdate, &conn));
                 }
             }
-            objectManagerMatchString =
+            std::string objectManagerMatchString =
                 ("type='signal',"
                  "interface='org.freedesktop.DBus.ObjectManager',"
                  "path_namespace='" +
