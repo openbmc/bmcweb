@@ -460,7 +460,7 @@ inline void requestRoutesCertificateActionGenerateCSR(App& app)
             sdbusplus::message::object_path csrObjectPath;
             m.read(csrObjectPath, interfacesProperties);
             BMCWEB_LOG_DEBUG << "CSR object added" << csrObjectPath.str;
-            for (auto& interface : interfacesProperties)
+            for (const auto& interface : interfacesProperties)
             {
                 if (interface.first == "xyz.openbmc_project.Certs.CSR")
                 {

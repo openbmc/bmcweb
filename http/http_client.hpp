@@ -632,7 +632,7 @@ class HttpClient
 
     // Used as a dummy callback by sendData() in order to call
     // sendDataWithCallback()
-    static void genericResHandler(Response& res)
+    static void genericResHandler(const Response& res)
     {
         BMCWEB_LOG_DEBUG << "Response handled with return code: "
                          << std::to_string(res.resultInt());
@@ -660,7 +660,7 @@ class HttpClient
                   const boost::beast::http::verb verb,
                   const std::string& retryPolicyName)
     {
-        std::function<void(Response&)> cb = genericResHandler;
+        const std::function<void(const Response&)> cb = genericResHandler;
         sendDataWithCallback(data, id, destIP, destPort, destUri, httpHeader,
                              verb, retryPolicyName, cb);
     }

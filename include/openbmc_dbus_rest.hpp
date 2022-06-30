@@ -2339,7 +2339,7 @@ inline void
                     nlohmann::json& propertyItem = propertiesObj[name];
                     crow::connections::systemBus->async_send(
                         m, [&propertyItem,
-                            asyncResp](boost::system::error_code& e,
+                            asyncResp](const boost::system::error_code& e,
                                        sdbusplus::message::message& msg) {
                             if (e)
                             {
@@ -2419,7 +2419,7 @@ inline void requestRoutes(App& app)
                 std::sort(names.begin(), names.end());
                 asyncResp->res.jsonValue["status"] = "ok";
                 auto& objectsSub = asyncResp->res.jsonValue["objects"];
-                for (auto& name : names)
+                for (const auto& name : names)
                 {
                     nlohmann::json::object_t object;
                     object["name"] = name;
