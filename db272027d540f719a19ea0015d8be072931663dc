@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1dad3fae_db11513f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 80
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-06-30T10:23:11Z",
+      "side": 1,
+      "message": "I have nothing to add. I can only +1 to all Ed\u0027s comments",
+      "revId": "db272027d540f719a19ea0015d8be072931663dc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
