@@ -262,7 +262,6 @@ inline void
 inline void
     deleteConfigFiles(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    std::vector<std::string> pathObjList;
     std::error_code ec;
     std::filesystem::path loc(
         "/var/lib/bmcweb/ibm-management-console/configfiles");
