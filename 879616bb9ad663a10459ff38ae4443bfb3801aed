@@ -312,6 +312,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "3d1caa8b_0c172b34",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-30T22:52:37Z",
+      "side": 1,
+      "message": "Done. Only one codepath now.\n\nPTAL. I also updated the testing result in commit message.",
+      "parentUuid": "3e02060c_1aa80708",
+      "range": {
+        "startLine": 49,
+        "startChar": 60,
+        "endLine": 49,
+        "endChar": 65
+      },
+      "revId": "879616bb9ad663a10459ff38ae4443bfb3801aed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "45516432_70098c9f",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 15
