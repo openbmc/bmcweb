@@ -438,12 +438,9 @@ inline bool Lock::isValidLockRequest(const LockRequest& refLockRecord)
 
 inline Rc Lock::isConflictWithTable(const LockRequests& refLockRequestStructure)
 {
-
-    uint32_t thisTransactionId = 0;
-
     if (lockTable.empty())
     {
-        thisTransactionId = generateTransactionId();
+        uint32_t thisTransactionId = generateTransactionId();
         BMCWEB_LOG_DEBUG << thisTransactionId;
         // Lock table is empty, so we are safe to add the lockrecords
         // as there will be no conflict
