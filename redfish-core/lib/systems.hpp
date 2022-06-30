@@ -52,7 +52,7 @@ inline void
     // Set it as Enabled if at least one DIMM is functional
     // Update STATE only if previous State was DISABLED and current Dimm is
     // ENABLED.
-    nlohmann::json& prevMemSummary =
+    const nlohmann::json& prevMemSummary =
         aResp->res.jsonValue["MemorySummary"]["Status"]["State"];
     if (prevMemSummary == "Disabled")
     {
@@ -107,7 +107,7 @@ inline void
 {
     BMCWEB_LOG_DEBUG << "Cpu Functional: " << isCpuFunctional;
 
-    nlohmann::json& prevProcState =
+    const nlohmann::json& prevProcState =
         aResp->res.jsonValue["ProcessorSummary"]["Status"]["State"];
 
     // Set it as Enabled if at least one CPU is functional
@@ -326,7 +326,7 @@ inline void
                                         aResp->res
                                             .jsonValue["MemorySummary"]
                                                       ["TotalSystemMemoryGiB"];
-                                    uint64_t* preValue =
+                                    const uint64_t* preValue =
                                         totalMemory.get_ptr<uint64_t*>();
                                     if (preValue == nullptr)
                                     {
@@ -2299,7 +2299,7 @@ using ipsPropertiesType =
  * @return true if successful
  */
 inline bool parseIpsProperties(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
-                               ipsPropertiesType& properties)
+                               const ipsPropertiesType& properties)
 {
     for (const auto& property : properties)
     {
@@ -2428,7 +2428,7 @@ inline void getIdlePowerSaver(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
         // Valid IdlePowerSaver object found, now read the current values
         crow::connections::systemBus->async_method_call(
             [aResp](const boost::system::error_code ec2,
-                    ipsPropertiesType& properties) {
+                    const ipsPropertiesType& properties) {
             if (ec2)
             {
                 BMCWEB_LOG_ERROR

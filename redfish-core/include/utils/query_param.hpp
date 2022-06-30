@@ -3,6 +3,7 @@
 #include "async_resp.hpp"
 #include "error_messages.hpp"
 #include "http_request.hpp"
+#include "http_response.hpp"
 #include "routing.hpp"
 
 #include <charconv>
@@ -477,7 +478,7 @@ class MultiAsyncResp : public std::enable_shared_from_this<MultiAsyncResp>
     {}
 
     void addAwaitingResponse(
-        std::shared_ptr<bmcweb::AsyncResp>& res,
+        const std::shared_ptr<bmcweb::AsyncResp>& res,
         const nlohmann::json::json_pointer& finalExpandLocation)
     {
         res->res.setCompleteRequestHandler(std::bind_front(
