@@ -15,12 +15,16 @@
 */
 #pragma once
 
+#include "human_sort.hpp"
+
 #include <error_messages.hpp>
 #include <http_request.hpp>
 #include <http_response.hpp>
 #include <nlohmann/json.hpp>
 
+#include <algorithm>
 #include <span>
+#include <string_view>
 
 namespace redfish
 {
@@ -578,6 +582,28 @@ bool readJsonAction(const crow::Request& req, crow::Response& res,
         return false;
     }
     return readJson(jsonRequest, res, key, std::forward<UnpackTypes&&>(in)...);
+}
+
+// Sort the JSON array by |element[key]|.
+// Each element shall contains |key| and the corresponding value shall be of
+// type |ValueType|; otherwise, returns false.
+template <typename ValueType>
+bool sortJsonArrayByKey(const std::string& key, nlohmann::json::array_t& array)
+{
+    bool succeeded = true;
+    std::sort(array.begin(), array.end(),
+              [comparator = AlphanumLess<ValueType>(), &succeeded,
+               &key](nlohmann::json& a, nlohmann::json& b) mutable {
+        const auto* nameA = a[key].get_ptr<const ValueType*>();
+        const auto* nameB = b[key].get_ptr<const ValueType*>();
+        if (nameA == nullptr || nameB == nullptr)
+        {
+            succeeded = false;
+            return false;
+        }
+        return comparator(*nameA, *nameB);
+    });
+    return succeeded;
 }
 
 } // namespace json_util

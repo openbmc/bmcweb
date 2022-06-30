@@ -98,6 +98,15 @@ inline int alphanumComp(const std::string_view left,
     return -1;
 }
 
+inline int alphanumComp(int64_t a, int64_t b)
+{
+    if (a < b)
+    {
+        return -1;
+    }
+    return 1;
+}
+
 // A generic template type compatible with std::less that can be used on generic
 // containers (set, map, ect)
 template <class Type>
