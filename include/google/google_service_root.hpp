@@ -143,7 +143,7 @@ inline void
                      const ResolvedEntity& resolvedEntity)
 {
     auto handleFunc = [asyncResp](const boost::system::error_code ec,
-                                  std::vector<uint8_t>& responseBytes) {
+                                  const std::vector<uint8_t>& responseBytes) {
         if (ec)
         {
             BMCWEB_LOG_ERROR << "RootOfTrust.Actions.SendCommand failed: "

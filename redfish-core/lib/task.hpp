@@ -119,7 +119,7 @@ struct TaskData : std::enable_shared_from_this<TaskData>
 
         if (tasks.size() >= maxTaskCount)
         {
-            auto& last = tasks.front();
+            const auto& last = tasks.front();
 
             // destroy all references
             last->timer.cancel();
@@ -388,7 +388,7 @@ inline void requestRoutesTask(App& app)
             return;
         }
 
-        std::shared_ptr<task::TaskData>& ptr = *find;
+        const std::shared_ptr<task::TaskData>& ptr = *find;
 
         asyncResp->res.jsonValue["@odata.type"] = "#Task.v1_4_3.Task";
         asyncResp->res.jsonValue["Id"] = strParam;

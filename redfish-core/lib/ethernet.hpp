@@ -183,15 +183,15 @@ inline std::string
     return "";
 }
 
-inline bool
-    extractEthernetInterfaceData(const std::string& ethifaceId,
-                                 dbus::utility::ManagedObjectType& dbusData,
-                                 EthernetInterfaceData& ethData)
+inline bool extractEthernetInterfaceData(
+    const std::string& ethifaceId,
+    const dbus::utility::ManagedObjectType& dbusData,
+    EthernetInterfaceData& ethData)
 {
     bool idFound = false;
-    for (auto& objpath : dbusData)
+    for (const auto& objpath : dbusData)
     {
-        for (auto& ifacePair : objpath.second)
+        for (const auto& ifacePair : objpath.second)
         {
             if (objpath.first == "/xyz/openbmc_project/network/" + ethifaceId)
             {
@@ -904,7 +904,7 @@ void getEthernetIfaceData(const std::string& ethifaceId,
         [ethifaceId{std::string{ethifaceId}},
          callback{std::forward<CallbackFunc>(callback)}](
             const boost::system::error_code errorCode,
-            dbus::utility::ManagedObjectType& resp) {
+            const dbus::utility::ManagedObjectType& resp) {
         EthernetInterfaceData ethData{};
         boost::container::flat_set<IPv4AddressData> ipv4Data;
         boost::container::flat_set<IPv6AddressData> ipv6Data;
