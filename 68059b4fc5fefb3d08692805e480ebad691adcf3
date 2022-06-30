@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "87e89545_7e729c57",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-06-30T23:35:53Z",
+      "side": 1,
+      "message": "Does this need to be explicitly covered by an include?  I don\u0027t see \"boost/system/error_code.hpp\" being included anywhere in the project.  I\u0027m guessing one of the \"boost/beast/http/\" includes at the top of the file is grabbing it.",
+      "range": {
+        "startLine": 73,
+        "startChar": 14,
+        "endLine": 73,
+        "endChar": 39
+      },
+      "revId": "68059b4fc5fefb3d08692805e480ebad691adcf3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
