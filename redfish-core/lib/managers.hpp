@@ -1625,6 +1625,7 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
                 {
                     for (const auto& property : output)
                     {
+                        std::string iface;
                         crow::connections::systemBus->async_method_call(
                             [response,
                              propertyName{std::string(property.first)}](
