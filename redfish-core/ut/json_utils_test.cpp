@@ -52,7 +52,6 @@ TEST(readJson, WrongElementType)
 
     int64_t integer = 0;
     std::string str0;
-    std::string str1;
     EXPECT_FALSE(readJson(jsonRequest, res, "integer", str0));
     EXPECT_EQ(res.result(), boost::beast::http::status::bad_request);
     EXPECT_FALSE(res.jsonValue.empty());
@@ -168,7 +167,6 @@ TEST(readJson, ExtraElement)
 
     std::optional<int> integer;
     std::optional<std::string> str;
-    std::optional<std::vector<uint8_t>> vec;
 
     EXPECT_FALSE(readJson(jsonRequest, res, "integer", integer));
     EXPECT_EQ(res.result(), boost::beast::http::status::bad_request);

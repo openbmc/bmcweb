@@ -101,7 +101,6 @@ static void assertServiceRootGet(crow::Response& res)
 
 TEST(ServiceRootTest, ServiceRootConstructor)
 {
-    std::error_code ec;
     auto shareAsyncResp = std::make_shared<bmcweb::AsyncResp>();
 
     shareAsyncResp->res.setCompleteRequestHandler(assertServiceRootGet);
