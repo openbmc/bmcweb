@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "f09ac90c_1043844a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-06-30T15:21:56Z",
+      "side": 1,
+      "message": "Not an error, but there is a warning\n\nWARNING - Oem.OpenBmc.Certificates not defined in schema OemManager (check version, spelling and casing)",
+      "parentUuid": "f60cda97_26fb7ea4",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 62
+      },
+      "revId": "0d072f1f7440066c51fa6897492b43313d2f00ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "dc966005_cf279626",
@@ -60,6 +84,42 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4a3da75e_1f105382",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-06-30T15:21:56Z",
+      "side": 1,
+      "message": "This OEM schema is added for the link to TrustStore certificate (CA certificates) which implemented long time ago. Previously there is a discussion at Redfish forum about url defined for CA certs (https://redfishforum.com/thread/169/certificate-management-ca-upload), but redfish schema still does not provide a standard way so far.\n\nThe OEM property Manager.Oem.OpenBmc.Certificates has been in bmcweb for years, this patch only adds the schema for it to resolve the \"not defined\" warning on this property.",
+      "parentUuid": "dc966005_cf279626",
+      "revId": "0d072f1f7440066c51fa6897492b43313d2f00ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f99975e3_bb27b2dd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-06-30T15:21:56Z",
+      "side": 1,
+      "message": "No, the /redfish/v1/Managers/{ManagerId}/TrustStore link the the OpenBMC specific way for CA certificates used in BMC. There is no standard redfish property serves this purpose so far.",
+      "parentUuid": "4e5bcc78_abac73be",
+      "revId": "0d072f1f7440066c51fa6897492b43313d2f00ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b69fab2a_18bfaf26",
         "filename": "static/redfish/v1/schema/OemManager_v1.xml",
         "patchSetId": 1
@@ -71,6 +131,30 @@
       "writtenOn": "2022-06-29T16:05:35Z",
       "side": 1,
       "message": "You need to create a new version of the schema to add properties to it.  Take a look at the DMTF schemas for how to do that.",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 39
+      },
+      "revId": "0d072f1f7440066c51fa6897492b43313d2f00ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b756eeb_48d7e96f",
+        "filename": "static/redfish/v1/schema/OemManager_v1.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-06-30T15:21:56Z",
+      "side": 1,
+      "message": "The OEM schema does not require version field in \"@odata.type\". And currently OemManager schema doesn\u0027t come with a version.\n\nI don\u0027t deny that adding versions to those existing schemas without it is necessary, but it might be better in another patch. Here this patch only adds missing schema for an existing property.",
+      "parentUuid": "b69fab2a_18bfaf26",
       "range": {
         "startLine": 38,
         "startChar": 0,
