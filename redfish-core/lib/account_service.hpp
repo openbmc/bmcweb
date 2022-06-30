@@ -1328,7 +1328,7 @@ inline void
         "org.freedesktop.DBus.Properties", "GetAll",
         "xyz.openbmc_project.User.AccountPolicy");
 
-    auto callback = [asyncResp](bool success, LDAPConfigData& confData,
+    auto callback = [asyncResp](bool success, const LDAPConfigData& confData,
                                 const std::string& ldapType) {
         if (!success)
         {
