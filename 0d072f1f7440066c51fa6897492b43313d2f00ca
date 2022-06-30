@@ -120,6 +120,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4774777a_e9f4024a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-30T15:29:14Z",
+      "side": 1,
+      "message": "Sorry, you\u0027re right, I linked the wrong thing;  The location to use would be:\n\n\n\u003e  There is no standard redfish property serves this purpose so far.\n\nHave you seen?\n/redfish/v1/Managers/{ManagerId}/Certificates/{CertificateId}",
+      "parentUuid": "f99975e3_bb27b2dd",
+      "revId": "0d072f1f7440066c51fa6897492b43313d2f00ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b69fab2a_18bfaf26",
         "filename": "static/redfish/v1/schema/OemManager_v1.xml",
         "patchSetId": 1
@@ -155,6 +173,30 @@
       "side": 1,
       "message": "The OEM schema does not require version field in \"@odata.type\". And currently OemManager schema doesn\u0027t come with a version.\n\nI don\u0027t deny that adding versions to those existing schemas without it is necessary, but it might be better in another patch. Here this patch only adds missing schema for an existing property.",
       "parentUuid": "b69fab2a_18bfaf26",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 39
+      },
+      "revId": "0d072f1f7440066c51fa6897492b43313d2f00ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce2fdb4a_01c997ae",
+        "filename": "static/redfish/v1/schema/OemManager_v1.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-30T15:29:14Z",
+      "side": 1,
+      "message": "\u003e The OEM schema does not require version field in \"@odata.type\"\n\nI\u0027m not sure where you got this idea, but that\u0027s not really true;  It\u0027s possible the validator doesn\u0027t test for versioning, but for any schema that changes, clients need a way to maintain a specific version.\n\nThis is documented in OEM_SCHEMAS.md \"We require this same level of quality as non OEM...\"\n\n\n\u003e but it might be better in another patch\n\nIf we do it in another patch, then we will have 3 versions of the schema;  If you want to make another patch to do it, and they merge at the same time, that would be fine.  Please let me know when you have that patch up.",
+      "parentUuid": "3b756eeb_48d7e96f",
       "range": {
         "startLine": 38,
         "startChar": 0,
