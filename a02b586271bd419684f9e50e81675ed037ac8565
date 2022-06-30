@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "49f92366_b9ca5a64",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 367,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-06-30T20:10:14Z",
+      "side": 0,
+      "message": "I think we only want to remove the check. It should still set the state",
+      "range": {
+        "startLine": 364,
+        "startChar": 8,
+        "endLine": 367,
+        "endChar": 9
+      },
+      "revId": "a02b586271bd419684f9e50e81675ed037ac8565",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9b375081_7989c36b",
         "filename": "http/http_client.hpp",
         "patchSetId": 1
@@ -14,6 +37,30 @@
       "writtenOn": "2022-06-30T18:16:50Z",
       "side": 0,
       "message": "I believe cppcheck is correct; I don\u0027t see |state| is getting changed after line 372.",
+      "range": {
+        "startLine": 388,
+        "startChar": 22,
+        "endLine": 388,
+        "endChar": 31
+      },
+      "revId": "a02b586271bd419684f9e50e81675ed037ac8565",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c199c315_793a381f",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 388,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-06-30T20:10:14Z",
+      "side": 0,
+      "message": "Yeah that state doesn\u0027t get changed, but the code within the if statement definitely gets executed.  You should only remove the check and not the body of the statement.  Removing the body should break retries",
+      "parentUuid": "9b375081_7989c36b",
       "range": {
         "startLine": 388,
         "startChar": 22,

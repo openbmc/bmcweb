@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d67fc569_7bb4e120",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-06-30T20:10:14Z",
+      "side": 1,
+      "message": "I\u0027m not sure that\u0027s right.  It looks like those branches should always get hit because those checks always resolve as true.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 61
+      },
+      "revId": "27d70d215cacab16803ad61b9ad56f20280d8332",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fd1388bf_69b4dfe8",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -19,6 +42,29 @@
         "startChar": 37,
         "endLine": 10,
         "endChar": 41
+      },
+      "revId": "27d70d215cacab16803ad61b9ad56f20280d8332",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "62291fe8_1390ad5a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-06-30T20:10:14Z",
+      "side": 1,
+      "message": "I don\u0027t think there\u0027s actually anything broken.  It looks more like an edge case I didn\u0027t fully clean up in the refactor.\n\n\"suspended\" and \"terminated\" are states that get set when the retry policy is completely exhausted.  IIRC those states denoted that the connection should not be reused and that\u0027s why they\u0027re never marked as \"closed\".\n\nNow that the client is a singleton and uses connection pooling we can\u0027t just have connections in the pool that will never be used again.  Even when retries are exhausted, the connection still gets reused and ultimately closed within the callback that gets called within waitAndRetry().\n\nThe end result is those checks that got flagged always pass.",
+      "range": {
+        "startLine": 11,
+        "startChar": 13,
+        "endLine": 11,
+        "endChar": 48
       },
       "revId": "27d70d215cacab16803ad61b9ad56f20280d8332",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
