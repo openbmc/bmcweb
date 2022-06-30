@@ -876,6 +876,30 @@
       },
       "revId": "5c6a5e412b9038ec5bf58e56b0b12a1c50c4239e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e1bc1283_4d834d60",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 46
+      },
+      "lineNbr": 1155,
+      "author": {
+        "id": 1001369
+      },
+      "writtenOn": "2022-06-30T17:56:23Z",
+      "side": 1,
+      "message": "@Ed Tanous\nI am trying to understand what associations are and how will they be beneficial in this scenario. I am not sure I understand what\u0027s the ask in all of the above comments. Can you point me in the right direction ?",
+      "parentUuid": "fc76c84b_3d63109d",
+      "range": {
+        "startLine": 1151,
+        "startChar": 0,
+        "endLine": 1155,
+        "endChar": 63
+      },
+      "revId": "5c6a5e412b9038ec5bf58e56b0b12a1c50c4239e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
