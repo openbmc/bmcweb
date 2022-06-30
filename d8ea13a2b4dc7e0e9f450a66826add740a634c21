@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "945f239b_45863693",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-06-30T23:46:00Z",
+      "side": 1,
+      "message": "I didn\u0027t see the other two comments I made before get answered, so let me ask explicitly,\n\nAre we comfortable to give +2 permission to the listed files to Krzysztof and me? And are we comfortable to extend that list, as Krzysztof and me get more experience and do more code reviews on other sources?",
+      "range": {
+        "startLine": 23,
+        "startChar": 45,
+        "endLine": 24,
+        "endChar": 26
+      },
+      "revId": "d8ea13a2b4dc7e0e9f450a66826add740a634c21",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7905551b_4b6508e9",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
