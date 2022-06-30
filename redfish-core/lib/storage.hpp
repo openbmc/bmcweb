@@ -718,7 +718,7 @@ inline void buildDrive(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         }
 
         asyncResp->res.jsonValue["@odata.id"] = crow::utility::urlFromPieces(
-            "redfish", "v1", "Chassis", "Drives", driveName);
+            "redfish", "v1", "Chassis", chassisId, "Drives", driveName);
 
         asyncResp->res.jsonValue["@odata.type"] = "#Drive.v1_7_0.Drive";
         asyncResp->res.jsonValue["Name"] = "Name";
