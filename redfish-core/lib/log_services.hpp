@@ -84,8 +84,8 @@ static const Message* getMessage(const std::string_view& messageID)
     std::vector<std::string> fields;
     fields.reserve(4);
     boost::split(fields, messageID, boost::is_any_of("."));
-    std::string& registryName = fields[0];
-    std::string& messageKey = fields[3];
+    const std::string& registryName = fields[0];
+    const std::string& messageKey = fields[3];
 
     // Find the right registry and check it for the MessageKey
     if (std::string(base::header.registryPrefix) == registryName)
@@ -527,7 +527,7 @@ inline void
     crow::connections::systemBus->async_method_call(
         [asyncResp, entryID, dumpType,
          entriesPath](const boost::system::error_code ec,
-                      dbus::utility::ManagedObjectType& resp) {
+                      const dbus::utility::ManagedObjectType& resp) {
         if (ec)
         {
             BMCWEB_LOG_ERROR << "DumpEntry resp_handler got error " << ec;
@@ -1788,10 +1788,9 @@ inline bool
     return true;
 }
 
-inline bool
-    getHostLoggerEntries(std::vector<std::filesystem::path>& hostLoggerFiles,
-                         uint64_t skip, uint64_t top,
-                         std::vector<std::string>& logEntries, size_t& logCount)
+inline bool getHostLoggerEntries(
+    const std::vector<std::filesystem::path>& hostLoggerFiles, uint64_t skip,
+    uint64_t top, std::vector<std::string>& logEntries, size_t& logCount)
 {
     GzFileReader logFile;
 

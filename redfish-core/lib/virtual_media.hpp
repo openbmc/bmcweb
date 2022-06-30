@@ -172,9 +172,9 @@ inline void getVmResourceList(std::shared_ptr<bmcweb::AsyncResp> aResp,
 {
     BMCWEB_LOG_DEBUG << "Get available Virtual Media resources.";
     crow::connections::systemBus->async_method_call(
-        [name,
-         aResp{std::move(aResp)}](const boost::system::error_code ec,
-                                  dbus::utility::ManagedObjectType& subtree) {
+        [name, aResp{std::move(aResp)}](
+            const boost::system::error_code ec,
+            const dbus::utility::ManagedObjectType& subtree) {
         if (ec)
         {
             BMCWEB_LOG_DEBUG << "DBUS response error";
@@ -917,9 +917,9 @@ inline void handleManagersVirtualMediaActionEject(
         BMCWEB_LOG_DEBUG << "GetObjectType: " << service;
 
         crow::connections::systemBus->async_method_call(
-            [resName, service,
-             asyncResp{asyncResp}](const boost::system::error_code ec,
-                                   dbus::utility::ManagedObjectType& subtree) {
+            [resName, service, asyncResp{asyncResp}](
+                const boost::system::error_code ec,
+                const dbus::utility::ManagedObjectType& subtree) {
             if (ec)
             {
                 BMCWEB_LOG_DEBUG << "DBUS response error";

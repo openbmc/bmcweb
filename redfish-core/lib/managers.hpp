@@ -935,19 +935,19 @@ inline CreatePIDRet createPidInterface(
         }
         if (inputs || outputs)
         {
-            std::array<std::optional<std::vector<std::string>>*, 2> containers =
-                {&inputs, &outputs};
+            std::array<
+                std::reference_wrapper<std::optional<std::vector<std::string>>>,
+                2>
+                containers = {inputs, outputs};
             size_t index = 0;
-            for (const auto& containerPtr : containers)
+            for (std::optional<std::vector<std::string>>& container :
+                 containers)
             {
-                std::optional<std::vector<std::string>>& container =
-                    *containerPtr;
                 if (!container)
                 {
                     index++;
                     continue;
                 }
-
                 for (std::string& value : *container)
                 {
                     boost::replace_all(value, "_", " ");
@@ -1534,7 +1534,7 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
             }
             BMCWEB_LOG_DEBUG << *container;
 
-            std::string& type = containerPair.first;
+            const std::string& type = containerPair.first;
 
             for (nlohmann::json::iterator it = container->begin();
                  it != container->end(); ++it)
@@ -1833,7 +1833,7 @@ inline void
         }
 
         bool foundImage = false;
-        for (auto& object : subtree)
+        for (const auto& object : subtree)
         {
             const std::string& path =
                 static_cast<const std::string&>(object.first);
