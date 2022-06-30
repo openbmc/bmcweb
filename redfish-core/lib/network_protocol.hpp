@@ -139,7 +139,7 @@ inline void getNetworkData(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 
     getEthernetIfaceData(
         [hostName, asyncResp](const bool& success,
-                              std::vector<std::string>& ntpServers,
+                              const std::vector<std::string>& ntpServers,
                               const std::vector<std::string>& domainNames) {
         if (!success)
         {
