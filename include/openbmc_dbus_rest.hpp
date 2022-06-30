@@ -391,7 +391,6 @@ inline void getObjectAndEnumerate(
         {
             for (const auto& connection : object.second)
             {
-                std::string& objectManagerPath = connections[connection.first];
                 for (const auto& interface : connection.second)
                 {
                     BMCWEB_LOG_DEBUG << connection.first << " has interface "
@@ -400,7 +399,7 @@ inline void getObjectAndEnumerate(
                     {
                         BMCWEB_LOG_DEBUG << "found object manager path "
                                          << object.first;
-                        objectManagerPath = object.first;
+                        connections[connection.first] = object.first;
                     }
                 }
             }

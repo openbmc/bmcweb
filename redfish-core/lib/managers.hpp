@@ -1557,7 +1557,6 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
                 bool createNewObject = (pathItr == managedObj.end());
                 BMCWEB_LOG_DEBUG << "Found = " << !createNewObject;
 
-                std::string iface;
                 /*
                 if (type == "PidControllers" || type == "FanControllers")
                 {
@@ -1634,6 +1633,7 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
                 {
                     for (const auto& property : output)
                     {
+                        std::string iface;
                         crow::connections::systemBus->async_method_call(
                             [response,
                              propertyName{std::string(property.first)}](

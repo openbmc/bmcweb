@@ -499,11 +499,10 @@ void getValidChassisPath(const std::shared_ptr<SensorsAsyncResp>& asyncResp,
         }
 
         std::optional<std::string> chassisPath;
-        std::string chassisName;
         for (const std::string& chassis : chassisPaths)
         {
             sdbusplus::message::object_path path(chassis);
-            chassisName = path.filename();
+            std::string chassisName = path.filename();
             if (chassisName.empty())
             {
                 BMCWEB_LOG_ERROR << "Failed to find '/' in " << chassis;
@@ -553,11 +552,10 @@ void getChassis(const std::shared_ptr<SensorsAsyncResp>& sensorsAsyncResp,
         }
 
         const std::string* chassisPath = nullptr;
-        std::string chassisName;
         for (const std::string& chassis : chassisPaths)
         {
             sdbusplus::message::object_path path(chassis);
-            chassisName = path.filename();
+            std::string chassisName = path.filename();
             if (chassisName.empty())
             {
                 BMCWEB_LOG_ERROR << "Failed to find '/' in " << chassis;

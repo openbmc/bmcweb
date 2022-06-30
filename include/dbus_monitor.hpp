@@ -167,7 +167,6 @@ inline void requestRoutes(App& app)
         // PropertiesChanged
         thisSession.matches.reserve(thisSession.matches.size() +
                                     paths->size() * (1U + interfaceCount));
-        std::string objectManagerMatchString;
         std::string propertiesMatchString;
         std::string objectManagerInterfacesMatchString;
         // These regexes derived on the rules here:
@@ -234,7 +233,7 @@ inline void requestRoutes(App& app)
                             onPropertyUpdate, &conn));
                 }
             }
-            objectManagerMatchString =
+            std::string objectManagerMatchString =
                 ("type='signal',"
                  "interface='org.freedesktop.DBus.ObjectManager',"
                  "path_namespace='" +

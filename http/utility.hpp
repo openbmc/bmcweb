@@ -459,7 +459,6 @@ inline bool base64Decode(const std::string_view input, std::string& output)
         char base64code0 = 0;
         char base64code1 = 0;
         char base64code2 = 0; // initialized to 0 to suppress warnings
-        char base64code3 = 0;
 
         base64code0 = getCodeValue(input[i]);
         if (base64code0 == nop)
@@ -502,7 +501,7 @@ inline bool base64Decode(const std::string_view input, std::string& output)
             { // padding , end of input
                 return (base64code2 & 0x03) == 0;
             }
-            base64code3 = getCodeValue(input[i]);
+            char base64code3 = getCodeValue(input[i]);
             if (base64code3 == nop)
             { // non base64 character
                 return false;

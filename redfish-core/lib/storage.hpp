@@ -176,6 +176,8 @@ inline void
                     // this interface isn't necessary
                     return;
                 }
+                nlohmann::json& controller =
+                    asyncResp->res.jsonValue["StorageControllers"][index];
                 for (const std::pair<std::string,
                                      dbus::utility::DbusVariantType>& property :
                      propertiesList)
@@ -184,8 +186,6 @@ inline void
                     // Redfish properties with same name and a
                     // string value
                     const std::string& propertyName = property.first;
-                    nlohmann::json& controller =
-                        asyncResp->res.jsonValue["StorageControllers"][index];
                     if ((propertyName == "PartNumber") ||
                         (propertyName == "SerialNumber") ||
                         (propertyName == "Manufacturer") ||

@@ -1241,9 +1241,9 @@ inline void requestRoutesProcessor(App& app)
             return;
         }
 
-        std::string appliedConfigUri;
         if (appliedConfigJson)
         {
+            std::string appliedConfigUri;
             if (!json_util::readJson(*appliedConfigJson, asyncResp->res,
                                      "@odata.id", appliedConfigUri))
             {
