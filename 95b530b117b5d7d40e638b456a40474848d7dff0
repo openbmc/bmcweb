@@ -112,6 +112,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad769466_8faefc3b",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 731,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-06-30T22:25:15Z",
+      "side": 1,
+      "message": "see change:\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/55031/2/redfish-core/lib/storage.hpp#b721",
+      "parentUuid": "41e400c0_db2d32d3",
+      "range": {
+        "startLine": 731,
+        "startChar": 29,
+        "endLine": 731,
+        "endChar": 48
+      },
+      "revId": "95b530b117b5d7d40e638b456a40474848d7dff0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bf6e161e_9eddff35",
