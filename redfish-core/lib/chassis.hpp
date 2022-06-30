@@ -291,7 +291,7 @@ inline void
                 }
 
                 nlohmann::json reference;
-                reference["odata.id"] = crow::utility::urlFromPieces(
+                reference["@odata.id"] = crow::utility::urlFromPieces(
                     "redfish", "v1", "Chassis", chassisId, "Drives");
                 asyncResp->res.jsonValue["Drives"] = std::move(reference);
                 });
