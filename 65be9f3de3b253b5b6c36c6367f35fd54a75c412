@@ -226,6 +226,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f62d8bd0_bac59666",
+        "filename": "redfish-core/include/redfish_defs/account_service.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-06-30T01:01:13Z",
+      "side": 1,
+      "message": "Right, but regardless of what they allowed, the standard has LDAPService in it, and unfortunately, because of how standards compliance and backward compatibility work, we don\u0027t really want to change it just for the sake of naming.  This is different than code, where it\u0027s pretty easy to rename a variable that isn\u0027t in an external facing library.",
+      "parentUuid": "8b15eb93_425714fe",
+      "range": {
+        "startLine": 10,
+        "startChar": 4,
+        "endLine": 10,
+        "endChar": 11
+      },
+      "revId": "65be9f3de3b253b5b6c36c6367f35fd54a75c412",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bf8cb9a0_5e430462",
