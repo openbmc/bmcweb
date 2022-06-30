@@ -35,11 +35,10 @@ void getValidChassisPath(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         }
 
         std::optional<std::string> chassisPath;
-        std::string chassisName;
         for (const std::string& chassis : chassisPaths)
         {
             sdbusplus::message::object_path path(chassis);
-            chassisName = path.filename();
+            std::string chassisName = path.filename();
             if (chassisName.empty())
             {
                 BMCWEB_LOG_ERROR << "Failed to find '/' in " << chassis;

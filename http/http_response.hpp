@@ -41,9 +41,9 @@ struct Response
     {}
 
     Response(Response&& res) noexcept :
-        stringResponse(std::move(res.stringResponse)), completed(res.completed)
+        stringResponse(std::move(res.stringResponse)),
+        jsonValue(std::move(res.jsonValue)), completed(res.completed)
     {
-        jsonValue = std::move(res.jsonValue);
         // See note in operator= move handler for why this is needed.
         if (!res.completed)
         {
