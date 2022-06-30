@@ -68,7 +68,6 @@ struct HealthPopulate : std::enable_shared_from_this<HealthPopulate>
 
         for (const auto& [path, interfaces] : statuses)
         {
-            bool isChild = false;
             bool isSelf = false;
             if (selfPath)
             {
@@ -87,6 +86,7 @@ struct HealthPopulate : std::enable_shared_from_this<HealthPopulate>
                 // of this association is an inventory item, or one of the
                 // endpoints in this association is a child
 
+                bool isChild = false;
                 for (const std::string& child : inventory)
                 {
                     if (boost::starts_with(path.str, child))
