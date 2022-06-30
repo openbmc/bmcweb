@@ -1330,7 +1330,7 @@ inline void
         if (entry != response.end())
         {
             std::sort(entry->begin(), entry->end(),
-                      [](nlohmann::json& c1, nlohmann::json& c2) {
+                      [](const nlohmann::json& c1, const nlohmann::json& c2) {
                 return c1["Name"] < c2["Name"];
             });
 
@@ -1611,9 +1611,9 @@ static void getInventoryItemsData(
         // Response handler for GetManagedObjects
         auto respHandler =
             [sensorsAsyncResp, inventoryItems, invConnections, objectMgrPaths,
-             callback{std::forward<Callback>(callback)},
-             invConnectionsIndex](const boost::system::error_code ec,
-                                  dbus::utility::ManagedObjectType& resp) {
+             callback{std::forward<Callback>(callback)}, invConnectionsIndex](
+                const boost::system::error_code ec,
+                const dbus::utility::ManagedObjectType& resp) {
             BMCWEB_LOG_DEBUG << "getInventoryItemsData respHandler enter";
             if (ec)
             {
@@ -1779,10 +1779,10 @@ static void getInventoryItemAssociations(
     BMCWEB_LOG_DEBUG << "getInventoryItemAssociations enter";
 
     // Response handler for GetManagedObjects
-    auto respHandler = [callback{std::forward<Callback>(callback)},
-                        sensorsAsyncResp,
-                        sensorNames](const boost::system::error_code ec,
-                                     dbus::utility::ManagedObjectType& resp) {
+    auto respHandler =
+        [callback{std::forward<Callback>(callback)}, sensorsAsyncResp,
+         sensorNames](const boost::system::error_code ec,
+                      const dbus::utility::ManagedObjectType& resp) {
         BMCWEB_LOG_DEBUG << "getInventoryItemAssociations respHandler enter";
         if (ec)
         {
@@ -2466,7 +2466,7 @@ inline void getSensorData(
         auto getManagedObjectsCb =
             [sensorsAsyncResp, sensorNames,
              inventoryItems](const boost::system::error_code ec,
-                             dbus::utility::ManagedObjectType& resp) {
+                             const dbus::utility::ManagedObjectType& resp) {
             BMCWEB_LOG_DEBUG << "getManagedObjectsCb enter";
             if (ec)
             {
@@ -2740,7 +2740,7 @@ inline void
  */
 inline bool
     findSensorNameUsingSensorPath(std::string_view sensorName,
-                                  std::set<std::string>& sensorsList,
+                                  const std::set<std::string>& sensorsList,
                                   std::set<std::string>& sensorsModified)
 {
     for (const auto& chassisSensor : sensorsList)
