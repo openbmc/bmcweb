@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f8dd74a9_e7094af1",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 939,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-07-01T07:17:03Z",
+      "side": 1,
+      "message": "just a note:\n\nconst std::string\u0026 is not undefined. Lifetime of temporary object is extended. You can read more about it here:\n\nhttps://en.cppreference.com/w/cpp/language/reference (ctrl+f \nRvalue references)\n\nAnyway string_view is still better, +1 for this change",
+      "range": {
+        "startLine": 939,
+        "startChar": 8,
+        "endLine": 939,
+        "endChar": 37
+      },
+      "revId": "b15328173915722970407c4bd670584dbc50ac0e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
