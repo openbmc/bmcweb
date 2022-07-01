@@ -192,6 +192,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c8834ffd_6ae3b948",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-01T19:24:17Z",
+      "side": 0,
+      "message": "\u003e We should leave this for now since it\u0027s possible to exit this function before setting the state as closed due to an error and it\u0027s consistent with how we have other \"xxxxxxInProgress\" states.  \n\nACK.  I missed the return there.  Good catch.\n\n\u003e \n\u003e Arguably these states in the ConnState need to be simplified now that HttpClient is no longer an explicit state machine.\n\nYep.\n\n\u003e I think a number of them don\u0027t have a direct use since we just directly call the next function in the flow.  My preference is leaving all of that to its own patch rather than starting the cleanup in this one.\n\nSounds good.",
+      "parentUuid": "ea9f1e12_55479137",
+      "range": {
+        "startLine": 348,
+        "startChar": 8,
+        "endLine": 348,
+        "endChar": 43
+      },
+      "revId": "a02b586271bd419684f9e50e81675ed037ac8565",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d187a47e_a9232839",
         "filename": "http/http_client.hpp",
         "patchSetId": 6
@@ -203,6 +227,24 @@
       "writtenOn": "2022-07-01T19:00:47Z",
       "side": 0,
       "message": "Same as above",
+      "revId": "a02b586271bd419684f9e50e81675ed037ac8565",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ea559abb_639b2993",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 372,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-01T19:24:17Z",
+      "side": 0,
+      "message": "Ack",
+      "parentUuid": "d187a47e_a9232839",
       "revId": "a02b586271bd419684f9e50e81675ed037ac8565",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }

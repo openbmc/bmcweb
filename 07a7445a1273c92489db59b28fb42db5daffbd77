@@ -16,6 +16,24 @@
       "message": "Possibly nothing to do here, but see my other comments related to this for context.  \n\nIf you do remove the instances of setting the state as \"closeInProgress\" then it should be removed here as well because it\u0027s no longer being used.",
       "revId": "07a7445a1273c92489db59b28fb42db5daffbd77",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "81698e84_7c54228b",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-01T19:24:17Z",
+      "side": 1,
+      "message": "Yeah, I think I\u0027m going to leave it.  My goal with this patch is \"clean up cppcheck warnings\" not \"make http client code change behavior.  We should eventually do both, but you\u0027re right, they should be different patches.",
+      "parentUuid": "a55fe91c_477b58fc",
+      "revId": "07a7445a1273c92489db59b28fb42db5daffbd77",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
