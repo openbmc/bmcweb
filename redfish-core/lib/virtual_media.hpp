@@ -573,7 +573,7 @@ class CredentialsProvider
         return credentials.password();
     }
 
-    SecureBuffer pack(FormatterFunc formatter)
+    SecureBuffer pack(FormatterFunc* formatter)
     {
         SecureBuffer packed{new Buffer{}};
         if (formatter != nullptr)
