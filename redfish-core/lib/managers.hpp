@@ -950,7 +950,7 @@ inline CreatePIDRet createPidInterface(
 
                 for (std::string& value : *container)
                 {
-                    boost::replace_all(value, "_", " ");
+                    std::replace(value.begin(), value.end(), '_', ' ');
                 }
                 std::string key;
                 if (index == 0)
