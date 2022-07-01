@@ -48,6 +48,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "163c4f5a_5af49209",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 367,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-01T16:05:39Z",
+      "side": 0,
+      "message": "Yep, you\u0027re right.  I was coding too fast.  The code mostly just had a \"smell\" and I wanted to get an opinion.\n\nFixed.",
+      "parentUuid": "4df2ab73_829dd164",
+      "range": {
+        "startLine": 364,
+        "startChar": 8,
+        "endLine": 367,
+        "endChar": 9
+      },
+      "revId": "a02b586271bd419684f9e50e81675ed037ac8565",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9b375081_7989c36b",
@@ -109,6 +133,30 @@
       "side": 0,
       "message": "+1 to Carson comment, cppcheck probably finds that else branch is never executed",
       "parentUuid": "c199c315_793a381f",
+      "range": {
+        "startLine": 388,
+        "startChar": 22,
+        "endLine": 388,
+        "endChar": 31
+      },
+      "revId": "a02b586271bd419684f9e50e81675ed037ac8565",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cbdb192f_43dc4a3b",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 388,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-01T16:05:39Z",
+      "side": 0,
+      "message": "Yep, you\u0027re right, I read that code wrong (missed that it was !\u003d instead of \u003d\u003d)\n\nFixed.",
+      "parentUuid": "5fd4abfa_bc7c663d",
       "range": {
         "startLine": 388,
         "startChar": 22,
