@@ -84,6 +84,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "95be5adc_8f9bfc93",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-01T20:02:34Z",
+      "side": 1,
+      "message": "Not to keep piling on, you\u0027re also missing this block of code (stolen from the examples)\n\n        // Set SNI Hostname (many hosts need this to handshake successfully)\n        if(! SSL_set_tlsext_host_name(...., host))\n        {\n            ...\n        }\n        \n        \nLots of webservers these days have SNI verification turned on, so you\u0027ll need this as well",
+      "parentUuid": "39ac317f_f484c84e",
+      "range": {
+        "startLine": 212,
+        "startChar": 0,
+        "endLine": 212,
+        "endChar": 47
+      },
+      "revId": "e054a8688a17e2ec3895a3ce1c63b72a8e8e431c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ee9d9d37_053476da",
         "filename": "http/http_client.hpp",
         "patchSetId": 2
