@@ -22,6 +22,30 @@
       },
       "revId": "fb59f4395c57bb18a17318a05cbecfe3665d25c7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4127fde1_609c6d00",
+        "filename": "redfish-core/ut/query_param_test.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-07-01T07:14:13Z",
+      "side": 1,
+      "message": "Oh I am not aware of this background, when I adding test for service utils, I think the file was put there by mistake. I think bmcweb should have a unified way for where unit test should be placed...",
+      "parentUuid": "6d51d523_ac99b896",
+      "range": {
+        "startLine": 1,
+        "startChar": 10,
+        "endLine": 1,
+        "endChar": 15
+      },
+      "revId": "fb59f4395c57bb18a17318a05cbecfe3665d25c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
