@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "dba989ac_b01b16b0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-01T18:45:03Z",
+      "side": 1,
+      "message": "\u003e I think not, renaming one logged in user should not affect other logged in users\u0027 sessions.\n\nCorrect;  I was suggesting that when you rename a user, delete all the sessions for that user.  That seems less error prone.\n\n\u003e \n\u003e The namespace is quite misleading here, persistent_data::SessionStore actually represents sessions in memory. It\u0027s only persisted to file on bmcweb exit.\n\nI\u0027m not sure why that matters in the context of this review, but yes, that is the intent.  Sessions change a lot over the lifetime of a system, and we don\u0027t necessarily want to be persisting data at that high of a rate, which is why they\u0027re only written on shutdown.",
+      "parentUuid": "897ba532_d5f36b15",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 55
+      },
+      "revId": "bff36daf97bbf509552a627cbf3985e21a1074b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c4083d97_f5e6f86e",
         "filename": "include/sessions.hpp",
         "patchSetId": 1
@@ -61,6 +85,24 @@
       "writtenOn": "2022-07-01T15:32:23Z",
       "side": 1,
       "message": "nit: using range-based for will make the code simpler",
+      "revId": "bff36daf97bbf509552a627cbf3985e21a1074b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f6387b4c_25f3a95f",
+        "filename": "include/sessions.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-01T18:45:03Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "c4083d97_f5e6f86e",
       "revId": "bff36daf97bbf509552a627cbf3985e21a1074b8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
