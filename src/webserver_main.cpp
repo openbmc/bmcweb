@@ -160,7 +160,7 @@ int main(int /*argc*/, char** /*argv*/)
     }
     catch (...)
     {
-        return -1;
         BMCWEB_LOG_CRITICAL << "Threw exception to main";
+        return -1;
     }
 }
