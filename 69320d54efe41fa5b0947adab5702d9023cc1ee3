@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c7b8c30f_d8534031",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-01T00:31:19Z",
+      "side": 0,
+      "message": "Wait, this doesn\u0027t error out the validator?",
+      "range": {
+        "startLine": 300,
+        "startChar": 31,
+        "endLine": 300,
+        "endChar": 36
+      },
+      "revId": "69320d54efe41fa5b0947adab5702d9023cc1ee3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

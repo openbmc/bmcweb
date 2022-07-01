@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0d617546_d2e89773",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-01T00:31:19Z",
+      "side": 1,
+      "message": "This might not be an official suggestion, but I would put the subject something like: \"drive: cleanup recent errors\"",
+      "revId": "3457a23ca747bf47673e2e81052daf1edee14d3d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b776e548_4c121ac6",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 721,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-01T00:31:19Z",
+      "side": 1,
+      "message": "Does validator go to this URL and check its validity?",
+      "range": {
+        "startLine": 721,
+        "startChar": 40,
+        "endLine": 721,
+        "endChar": 49
+      },
+      "revId": "3457a23ca747bf47673e2e81052daf1edee14d3d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
