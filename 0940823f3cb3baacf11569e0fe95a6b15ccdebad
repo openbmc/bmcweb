@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6bda97a6_0628b24d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-01T23:01:54Z",
+      "side": 1,
+      "message": "Couple +1s on what should be a non-path changing change.  Merging.",
+      "revId": "0940823f3cb3baacf11569e0fe95a6b15ccdebad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
