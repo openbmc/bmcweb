@@ -33,32 +33,31 @@ class LockTest : public ::testing::Test
     LockRequest record;
 
   public:
-    LockTest()
-    {
-        record = {
-            "xxxxx", "hmc-id", "Read", 234, {{"DontLock", 2}, {"DontLock", 4}}};
+    LockTest() :
         // lockrequest with multiple lockrequests
-        request = {{"xxxxx",
-                    "hmc-id",
-                    "Read",
-                    234,
-                    {{"DontLock", 2}, {"DontLock", 4}}},
-                   {"xxxxx",
-                    "hmc-id",
-                    "Read",
-                    234,
-                    {{"DontLock", 2}, {"DontLock", 4}}}};
-        request1 = {{"xxxxx",
-                     "hmc-id",
-                     "Read",
-                     234,
-                     {{"DontLock", 2}, {"DontLock", 4}}}};
-        request2 = {{"xxxxx",
-                     "hmc-id",
-                     "Write",
-                     234,
-                     {{"LockAll", 2}, {"DontLock", 4}}}};
-    }
+        request{{"xxxxx",
+                 "hmc-id",
+                 "Read",
+                 234,
+                 {{"DontLock", 2}, {"DontLock", 4}}},
+                {"xxxxx",
+                 "hmc-id",
+                 "Read",
+                 234,
+                 {{"DontLock", 2}, {"DontLock", 4}}}},
+        request1{{"xxxxx",
+                  "hmc-id",
+                  "Read",
+                  234,
+                  {{"DontLock", 2}, {"DontLock", 4}}}},
+        request2{{"xxxxx",
+                  "hmc-id",
+                  "Write",
+                  234,
+                  {{"LockAll", 2}, {"DontLock", 4}}}},
+        record{
+            "xxxxx", "hmc-id", "Read", 234, {{"DontLock", 2}, {"DontLock", 4}}}
+    {}
 
     ~LockTest() override = default;
 
