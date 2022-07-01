@@ -39,6 +39,29 @@
       },
       "revId": "76e79fffc846d5ba0cc20277f9d1d43926011d2a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "390b71e6_dfc20341",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 78
+      },
+      "lineNbr": 746,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-01T00:59:53Z",
+      "side": 1,
+      "message": "I believe this comment can be removed. It\u0027s self-explained.",
+      "range": {
+        "startLine": 745,
+        "startChar": 5,
+        "endLine": 746,
+        "endChar": 24
+      },
+      "revId": "76e79fffc846d5ba0cc20277f9d1d43926011d2a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
