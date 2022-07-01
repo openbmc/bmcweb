@@ -1107,60 +1107,58 @@ inline void handleLDAPPatch(nlohmann::json& input,
 
 inline void updateUserProperties(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
                                  const std::string& username,
-                                 std::optional<std::string> password,
-                                 std::optional<bool> enabled,
-                                 std::optional<std::string> roleId,
-                                 std::optional<bool> locked)
+                                 const std::optional<std::string>& password,
+                                 const std::optional<bool>& enabled,
+                                 const std::optional<std::string>& roleId,
+                                 const std::optional<bool>& locked)
 {
     sdbusplus::message::object_path tempObjPath(rootUserDbusPath);
     tempObjPath /= username;
     std::string dbusObjectPath(tempObjPath);
 
     dbus::utility::checkDbusPathExists(
-        dbusObjectPath,
-        [dbusObjectPath, username, password(std::move(password)),
-         roleId(std::move(roleId)), enabled, locked,
-         asyncResp{std::move(asyncResp)}](int rc) {
-        if (rc <= 0)
-        {
-            messages::resourceNotFound(asyncResp->res,
-                                       "#ManagerAccount.v1_4_0.ManagerAccount",
-                                       username);
-            return;
-        }
-
-        if (password)
-        {
-            int retval = pamUpdatePassword(username, *password);
-
-            if (retval == PAM_USER_UNKNOWN)
+        dbusObjectPath, [dbusObjectPath, username, password, roleId, enabled,
+                         locked, asyncResp{std::move(asyncResp)}](int rc) {
+            if (rc <= 0)
             {
                 messages::resourceNotFound(
                     asyncResp->res, "#ManagerAccount.v1_4_0.ManagerAccount",
                     username);
-            }
-            else if (retval == PAM_AUTHTOK_ERR)
-            {
-                // If password is invalid
-                messages::propertyValueFormatError(asyncResp->res, *password,
-                                                   "Password");
-                BMCWEB_LOG_ERROR << "pamUpdatePassword Failed";
-            }
-            else if (retval != PAM_SUCCESS)
-            {
-                messages::internalError(asyncResp->res);
                 return;
             }
-            else
-            {
-                messages::success(asyncResp->res);
-            }
-        }
 
-        if (enabled)
-        {
-            crow::connections::systemBus->async_method_call(
-                [asyncResp](const boost::system::error_code ec) {
+            if (password)
+            {
+                int retval = pamUpdatePassword(username, *password);
+
+                if (retval == PAM_USER_UNKNOWN)
+                {
+                    messages::resourceNotFound(
+                        asyncResp->res, "#ManagerAccount.v1_4_0.ManagerAccount",
+                        username);
+                }
+                else if (retval == PAM_AUTHTOK_ERR)
+                {
+                    // If password is invalid
+                    messages::propertyValueFormatError(asyncResp->res,
+                                                       *password, "Password");
+                    BMCWEB_LOG_ERROR << "pamUpdatePassword Failed";
+                }
+                else if (retval != PAM_SUCCESS)
+                {
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                else
+                {
+                    messages::success(asyncResp->res);
+                }
+            }
+
+            if (enabled)
+            {
+                crow::connections::systemBus->async_method_call(
+                    [asyncResp](const boost::system::error_code ec) {
                 if (ec)
                 {
                     BMCWEB_LOG_ERROR << "D-Bus responses error: " << ec;
@@ -1169,29 +1167,29 @@ inline void updateUserProperties(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
                 }
                 messages::success(asyncResp->res);
                 return;
-                },
-                "xyz.openbmc_project.User.Manager", dbusObjectPath,
-                "org.freedesktop.DBus.Properties", "Set",
-                "xyz.openbmc_project.User.Attributes", "UserEnabled",
-                dbus::utility::DbusVariantType{*enabled});
-        }
-
-        if (roleId)
-        {
-            std::string priv = getPrivilegeFromRoleId(*roleId);
-            if (priv.empty())
-            {
-                messages::propertyValueNotInList(asyncResp->res, *roleId,
-                                                 "RoleId");
-                return;
-            }
-            if (priv == "priv-noaccess")
-            {
-                priv = "";
+                    },
+                    "xyz.openbmc_project.User.Manager", dbusObjectPath,
+                    "org.freedesktop.DBus.Properties", "Set",
+                    "xyz.openbmc_project.User.Attributes", "UserEnabled",
+                    dbus::utility::DbusVariantType{*enabled});
             }
 
-            crow::connections::systemBus->async_method_call(
-                [asyncResp](const boost::system::error_code ec) {
+            if (roleId)
+            {
+                std::string priv = getPrivilegeFromRoleId(*roleId);
+                if (priv.empty())
+                {
+                    messages::propertyValueNotInList(asyncResp->res, *roleId,
+                                                     "RoleId");
+                    return;
+                }
+                if (priv == "priv-noaccess")
+                {
+                    priv = "";
+                }
+
+                crow::connections::systemBus->async_method_call(
+                    [asyncResp](const boost::system::error_code ec) {
                 if (ec)
                 {
                     BMCWEB_LOG_ERROR << "D-Bus responses error: " << ec;
@@ -1199,27 +1197,27 @@ inline void updateUserProperties(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
                     return;
                 }
                 messages::success(asyncResp->res);
-                },
-                "xyz.openbmc_project.User.Manager", dbusObjectPath,
-                "org.freedesktop.DBus.Properties", "Set",
-                "xyz.openbmc_project.User.Attributes", "UserPrivilege",
-                dbus::utility::DbusVariantType{priv});
-        }
-
-        if (locked)
-        {
-            // admin can unlock the account which is locked by
-            // successive authentication failures but admin should
-            // not be allowed to lock an account.
-            if (*locked)
-            {
-                messages::propertyValueNotInList(asyncResp->res, "true",
-                                                 "Locked");
-                return;
+                    },
+                    "xyz.openbmc_project.User.Manager", dbusObjectPath,
+                    "org.freedesktop.DBus.Properties", "Set",
+                    "xyz.openbmc_project.User.Attributes", "UserPrivilege",
+                    dbus::utility::DbusVariantType{priv});
             }
 
-            crow::connections::systemBus->async_method_call(
-                [asyncResp](const boost::system::error_code ec) {
+            if (locked)
+            {
+                // admin can unlock the account which is locked by
+                // successive authentication failures but admin should
+                // not be allowed to lock an account.
+                if (*locked)
+                {
+                    messages::propertyValueNotInList(asyncResp->res, "true",
+                                                     "Locked");
+                    return;
+                }
+
+                crow::connections::systemBus->async_method_call(
+                    [asyncResp](const boost::system::error_code ec) {
                 if (ec)
                 {
                     BMCWEB_LOG_ERROR << "D-Bus responses error: " << ec;
@@ -1228,13 +1226,13 @@ inline void updateUserProperties(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
                 }
                 messages::success(asyncResp->res);
                 return;
-                },
-                "xyz.openbmc_project.User.Manager", dbusObjectPath,
-                "org.freedesktop.DBus.Properties", "Set",
-                "xyz.openbmc_project.User.Attributes",
-                "UserLockedForFailedAttempt",
-                dbus::utility::DbusVariantType{*locked});
-        }
+                    },
+                    "xyz.openbmc_project.User.Manager", dbusObjectPath,
+                    "org.freedesktop.DBus.Properties", "Set",
+                    "xyz.openbmc_project.User.Attributes",
+                    "UserLockedForFailedAttempt",
+                    dbus::utility::DbusVariantType{*locked});
+            }
         });
 }
 
