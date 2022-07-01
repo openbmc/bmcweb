@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e36f4dbe_12a725d0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-01T14:29:41Z",
+      "side": 1,
+      "message": "This brings up a good point;  A user probably shouldn\u0027t be allowed to delete themselves.",
+      "range": {
+        "startLine": 15,
+        "startChar": 3,
+        "endLine": 15,
+        "endChar": 18
+      },
+      "revId": "b9e1b01ae1a213897d55716454529984caab63bb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6cd5719f_7a83195b",
+        "filename": "include/sessions.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 336,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-01T14:29:41Z",
+      "side": 1,
+      "message": "This is going to modify the authTokens structure, which invalidates sessionIt as an iterator.  I suspect what you need here is:\n        auto sessionIt \u003d authTokens.begin();\n        while (sessionIt !\u003d authTokens.end())\n        {\n            if (sessionIt-\u003esecond-\u003eusername \u003d\u003d username)\n            {\n                sessionIt \u003d authTokens.erase(session-\u003esessionToken);\n                continue;\n            }\n            sessionIt++;\n       }\n       \n       \nAlso, you might consider simplifying this to use std::erase_if\n\nhttps://en.cppreference.com/w/cpp/container/vector/erase2",
+      "range": {
+        "startLine": 336,
+        "startChar": 16,
+        "endLine": 336,
+        "endChar": 29
+      },
+      "revId": "b9e1b01ae1a213897d55716454529984caab63bb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
