@@ -22,6 +22,30 @@
       },
       "revId": "b15328173915722970407c4bd670584dbc50ac0e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "19157124_8508e92b",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 939,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-01T18:38:27Z",
+      "side": 1,
+      "message": "\"Note that rvalue references and lvalue references to const extend the lifetimes of temporary objects\"\n\n\nInteresting.... I didn\u0027t know that.  So if we had left off the const, this code would\u0027ve been incorrect, but because the const is there, the lifetime is extended.\n\nRegardless, string_view is still better, but good to know this wasn\u0027t an error initially like I thought it was.",
+      "parentUuid": "f8dd74a9_e7094af1",
+      "range": {
+        "startLine": 939,
+        "startChar": 8,
+        "endLine": 939,
+        "endChar": 37
+      },
+      "revId": "b15328173915722970407c4bd670584dbc50ac0e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
