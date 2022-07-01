@@ -24,7 +24,6 @@
 #include "utils/sw_utils.hpp"
 #include "utils/systemd_utils.hpp"
 
-#include <boost/algorithm/string/replace.hpp>
 #include <boost/date_time.hpp>
 
 #include <cstdint>
@@ -716,7 +715,7 @@ inline bool
                                                "Zones");
             return false;
         }
-        boost::replace_all(input, "_", " ");
+        std::replace(input.begin(), input.end(), '_', ' ');
         zones.emplace_back(std::move(input));
     }
     return true;
@@ -728,7 +727,8 @@ inline const dbus::utility::ManagedObjectType::value_type*
 {
     BMCWEB_LOG_DEBUG << "Find Chassis: " << value << "\n";
 
-    std::string escaped = boost::replace_all_copy(value, " ", "_");
+    std::string escaped = value;
+    std::replace(escaped.begin(), escaped.end(), '_', ' ');
     escaped = "/" + escaped;
     auto it = std::find_if(managedObj.begin(), managedObj.end(),
                            [&escaped](const auto& obj) {
@@ -950,7 +950,7 @@ inline CreatePIDRet createPidInterface(
                 }
                 for (std::string& value : *container)
                 {
-                    boost::replace_all(value, "_", " ");
+                    std::replace(value.begin(), value.end(), '_', ' ');
                 }
                 std::string key;
                 if (index == 0)
@@ -1131,7 +1131,8 @@ inline CreatePIDRet createPidInterface(
         {
             for (std::string& value : *inputs)
             {
-                boost::replace_all(value, "_", " ");
+
+                std::replace(value.begin(), value.end(), '_', ' ');
             }
             output.emplace_back("Inputs", std::move(*inputs));
         }
@@ -1614,8 +1615,10 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
                     messages::resourceExhaustion(response->res, type);
                     continue;
                 }
-                output.emplace_back("Name",
-                                    boost::replace_all_copy(name, "_", " "));
+                std::string escaped = name;
+
+                std::replace(escaped.begin(), escaped.end(), '_', ' ');
+                output.emplace_back("Name", escaped);
 
                 std::string chassis;
                 CreatePIDRet ret = createPidInterface(
