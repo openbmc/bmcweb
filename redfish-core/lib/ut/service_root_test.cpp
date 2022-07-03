@@ -11,7 +11,12 @@
 #include "gmock/gmock.h"
 #include "gtest/gtest.h"
 
-static void assertServiceRootGet(crow::Response& res)
+namespace redfish
+{
+namespace
+{
+
+void assertServiceRootGet(crow::Response& res)
 {
     nlohmann::json& json = res.jsonValue;
     EXPECT_EQ(json["@odata.id"], "/redfish/v1");
@@ -105,5 +110,8 @@ TEST(ServiceRootTest, ServiceRootConstructor)
 
     shareAsyncResp->res.setCompleteRequestHandler(assertServiceRootGet);
 
-    redfish::handleServiceRootGet(shareAsyncResp);
+    handleServiceRootGet(shareAsyncResp);
 }
+
+} // namespace
+} // namespace redfish

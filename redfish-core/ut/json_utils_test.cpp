@@ -5,9 +5,10 @@
 
 #include <gmock/gmock.h>
 
-using redfish::json_util::readJson;
-using redfish::json_util::readJsonAction;
-using redfish::json_util::readJsonPatch;
+namespace redfish::json_util
+{
+namespace
+{
 
 TEST(readJson, ValidElements)
 {
@@ -327,3 +328,6 @@ TEST(readJsonAction, EmptyObjectAllowed)
     EXPECT_EQ(res.result(), boost::beast::http::status::ok);
     EXPECT_TRUE(res.jsonValue.empty());
 }
+
+} // namespace
+} // namespace redfish::json_util

@@ -4,10 +4,11 @@
 
 #include "gmock/gmock.h"
 
-namespace crow
+namespace crow::ibm_mc_lock
 {
-namespace ibm_mc_lock
+namespace
 {
+
 using SType = std::string;
 using LockRequest = std::tuple<SType, SType, SType, uint64_t, SegmentFlags>;
 using LockRequests = std::vector<LockRequest>;
@@ -354,5 +355,5 @@ TEST_F(LockTest, ValidateSessionIDForGetlocklistGoodTestCase)
     ASSERT_EQ(1, result.size());
 }
 
-} // namespace ibm_mc_lock
-} // namespace crow
+} // namespace
+} // namespace crow::ibm_mc_lock

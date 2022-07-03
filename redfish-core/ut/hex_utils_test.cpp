@@ -2,6 +2,9 @@
 
 #include <gmock/gmock.h>
 
+namespace
+{
+
 TEST(ToHexString, uint64)
 {
     EXPECT_EQ(intToHexString(0xFFFFFFFFFFFFFFFFULL, 16), "FFFFFFFFFFFFFFFF");
@@ -65,3 +68,5 @@ TEST(HexStringToBytes, Failure)
     EXPECT_TRUE(hexStringToBytes("`").empty());
     EXPECT_TRUE(hexStringToBytes("012").empty());
 }
+
+} // namespace
