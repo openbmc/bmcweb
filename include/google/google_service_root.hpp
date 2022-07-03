@@ -51,7 +51,7 @@ struct ResolvedEntity
     std::string id;
     std::string service;
     std::string object;
-    const char* interface;
+    std::string interface;
 };
 
 using ResolvedEntityHandler = std::function<void(
