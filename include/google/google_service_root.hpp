@@ -1,3 +1,4 @@
+
 #pragma once
 
 #include <app.hpp>
@@ -15,9 +16,6 @@ namespace crow
 {
 namespace google_api
 {
-constexpr const char* hothSearchPath = "/xyz/openbmc_project";
-constexpr const char* hothInterface = "xyz.openbmc_project.Control.Hoth";
-constexpr const char* rotCollectionPrefix = "/google/v1/RootOfTrustCollection";
 
 inline void
     handleGoogleV1Get(const crow::Request& /*req*/,
@@ -30,19 +28,19 @@ inline void
     asyncResp->res.jsonValue["Name"] = "Google Service Root";
     asyncResp->res.jsonValue["Version"] = "1.0.0";
     asyncResp->res.jsonValue["RootOfTrustCollection"]["@odata.id"] =
-        rotCollectionPrefix;
+        "/google/v1/RootOfTrustCollection";
 }
 
 inline void handleRootOfTrustCollectionGet(
     const crow::Request& /*req*/,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    asyncResp->res.jsonValue["@odata.id"] = rotCollectionPrefix;
+    asyncResp->res.jsonValue["@odata.id"] = "/google/v1/RootOfTrustCollection";
     asyncResp->res.jsonValue["@odata.type"] =
         "#RootOfTrustCollection.RootOfTrustCollection";
     redfish::collection_util::getCollectionMembers(
-        asyncResp, rotCollectionPrefix, std::vector<const char*>{hothInterface},
-        hothSearchPath);
+        asyncResp, "/google/v1/RootOfTrustCollection",
+        {"xyz.openbmc_project.Control.Hoth"}, "/xyz/openbmc_project");
 }
 
 // Helper struct to identify a resolved D-Bus object interface
@@ -82,10 +80,11 @@ inline void hothGetSubtreeCallback(
             continue;
         }
 
-        ResolvedEntity resolvedEntity = {.id = rotId,
-                                         .service = object.second[0].first,
-                                         .object = object.first,
-                                         .interface = hothInterface};
+        ResolvedEntity resolvedEntity = {
+            .id = rotId,
+            .service = object.second[0].first,
+            .object = object.first,
+            .interface = "xyz.openbmc_project.Control.Hoth"};
         entityHandler(command, asyncResp, resolvedEntity);
         return;
     }
@@ -101,7 +100,8 @@ inline void resolveRoT(const std::string& command,
                        ResolvedEntityHandler&& entityHandler)
 {
 
-    std::array<std::string, 1> hothIfaces = {hothInterface};
+    std::array<std::string, 1> hothIfaces = {
+        "xyz.openbmc_project.Control.Hoth"};
     crow::connections::systemBus->async_method_call(
         [command, asyncResp, rotId,
          entityHandler{std::forward<ResolvedEntityHandler>(entityHandler)}](
@@ -112,7 +112,8 @@ inline void resolveRoT(const std::string& command,
         },
         "xyz.openbmc_project.ObjectMapper",
         "/xyz/openbmc_project/object_mapper",
-        "xyz.openbmc_project.ObjectMapper", "GetSubTree", hothSearchPath,
+        "xyz.openbmc_project.ObjectMapper", "GetSubTree",
+        "/xyz/openbmc_project",
         /*depth=*/0, hothIfaces);
 }
 
