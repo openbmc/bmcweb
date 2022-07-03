@@ -1,9 +1,13 @@
+#include "http_response.hpp"
 #include "ibm/management_console_rest.hpp"
-#include "nlohmann/json.hpp"
 
 #include <string>
 
-#include "gmock/gmock.h"
+#include <gtest/gtest-message.h>
+#include <gtest/gtest-test-part.h>
+#include <gtest/gtest.h> // IWYU pragma: keep
+
+// IWYU pragma: no_include "gtest/gtest_pred_impl.h"
 
 namespace crow
 {
