@@ -3,8 +3,12 @@
 #include <set>
 #include <string>
 
-#include <gmock/gmock.h>
-#include <gtest/gtest.h>
+#include <gmock/gmock-matchers.h>
+#include <gtest/gtest-message.h>
+#include <gtest/gtest-test-part.h>
+#include <gtest/gtest.h> // IWYU pragma: keep
+
+// IWYU pragma: no_include "gtest/gtest_pred_impl.h"
 
 namespace
 {

@@ -17,15 +17,26 @@
 
 #include "dbus_singleton.hpp"
 
+#include <boost/system/error_code.hpp> // IWYU pragma: keep
 #include <sdbusplus/message.hpp>
+#include <sdbusplus/message/native_types.hpp>
 
 #include <array>
+#include <cstddef>
+#include <cstdint>
 #include <filesystem>
+#include <memory>
 #include <regex>
+#include <sstream>
 #include <string>
 #include <tuple>
+#include <utility>
 #include <variant>
 #include <vector>
+
+// IWYU pragma: no_include <stddef.h>
+// IWYU pragma: no_include <stdint.h>
+// IWYU pragma: no_include <boost/system/detail/error_code.hpp>
 
 namespace dbus
 {

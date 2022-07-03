@@ -13,20 +13,67 @@
 // limitations under the License.
 
 #pragma once
+#include "http_request.hpp"
+#include "http_response.hpp"
+#include "logging.hpp"
+#include "routing.hpp"
+
+#include <ext/alloc_traits.h>
+#include <systemd/sd-bus-protocol.h>
+#include <systemd/sd-bus.h>
 #include <tinyxml2.h>
 
 #include <app.hpp>
 #include <async_resp.hpp>
 #include <boost/algorithm/string.hpp>
+#include <boost/algorithm/string/classification.hpp>
+#include <boost/algorithm/string/predicate.hpp>
+#include <boost/algorithm/string/split.hpp>
+#include <boost/beast/http/status.hpp>
+#include <boost/beast/http/verb.hpp>
+#include <boost/container/flat_map.hpp>
 #include <boost/container/flat_set.hpp>
+#include <boost/container/vector.hpp>
+#include <boost/iterator/iterator_facade.hpp>
+#include <boost/system/error_category.hpp>
+#include <boost/system/error_code.hpp>
+#include <boost/type_index/type_index_facade.hpp>
 #include <dbus_singleton.hpp>
 #include <dbus_utility.hpp>
+#include <nlohmann/json.hpp>
+#include <sdbusplus/asio/connection.hpp>
+#include <sdbusplus/exception.hpp>
+#include <sdbusplus/message.hpp>
+#include <sdbusplus/message/native_types.hpp>
 #include <sdbusplus/message/types.hpp>
 
+#include <algorithm>
+#include <array>
+#include <cerrno>
+#include <cstdint>
+#include <cstring>
+#include <exception>
 #include <filesystem>
 #include <fstream>
+#include <functional>
+#include <initializer_list>
+#include <iterator>
+#include <limits>
+#include <map>
+#include <memory>
 #include <regex>
+#include <string>
+#include <string_view>
+#include <type_traits>
 #include <utility>
+#include <variant>
+#include <vector>
+
+// IWYU pragma: no_include <boost/algorithm/string/detail/classification.hpp>
+// IWYU pragma: no_include <boost/system/detail/error_code.hpp>
+// IWYU pragma: no_include <boost/system/detail/error_category.hpp>
+// IWYU pragma: no_include <errno.h>
+// IWYU pragma: no_include <string.h>
 
 namespace crow
 {
