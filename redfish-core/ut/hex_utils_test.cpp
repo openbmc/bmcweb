@@ -3,6 +3,8 @@
 #include <cctype>
 #include <climits>
 
+#include <gmock/gmock-matchers.h>
+#include <gmock/gmock-more-matchers.h>
 #include <gtest/gtest-message.h>
 #include <gtest/gtest-test-part.h>
 #include <gtest/gtest.h> // IWYU pragma: keep
@@ -11,7 +13,12 @@
 // IWYU pragma: no_include <limits.h>
 // IWYU pragma: no_include <ctype.h>
 
-TEST(ToHexString, uint64)
+namespace
+{
+
+using ::testing::IsEmpty;
+
+TEST(IntToHexString, ReturnsCorrectHexForUint64)
 {
     EXPECT_EQ(intToHexString(0xFFFFFFFFFFFFFFFFULL, 16), "FFFFFFFFFFFFFFFF");
 
@@ -33,12 +40,12 @@ TEST(ToHexString, uint64)
     EXPECT_EQ(intToHexString(0xBEEF, 4), "BEEF");
 }
 
-TEST(BytesToHexString, Success)
+TEST(BytesToHexString, OnSuccess)
 {
     EXPECT_EQ(bytesToHexString({0x1a, 0x2b}), "1A2B");
 }
 
-TEST(HexCharToNibble, chars)
+TEST(HexCharToNibble, ReturnsCorrectNibbleForEveryHexChar)
 {
     for (char c = 0; c < std::numeric_limits<char>::max(); ++c)
     {
@@ -65,12 +72,14 @@ TEST(HexStringToBytes, Success)
     std::vector<uint8_t> hexBytes = {0x01, 0x23, 0x45, 0x67,
                                      0x89, 0xAB, 0xCD, 0xEF};
     EXPECT_EQ(hexStringToBytes("0123456789ABCDEF"), hexBytes);
-    EXPECT_TRUE(hexStringToBytes("").empty());
+    EXPECT_THAT(hexStringToBytes(""), IsEmpty());
 }
 
 TEST(HexStringToBytes, Failure)
 {
-    EXPECT_TRUE(hexStringToBytes("Hello").empty());
-    EXPECT_TRUE(hexStringToBytes("`").empty());
-    EXPECT_TRUE(hexStringToBytes("012").empty());
+    EXPECT_THAT(hexStringToBytes("Hello"), IsEmpty());
+    EXPECT_THAT(hexStringToBytes("`"), IsEmpty());
+    EXPECT_THAT(hexStringToBytes("012"), IsEmpty());
 }
+
+} // namespace

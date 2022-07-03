@@ -17,7 +17,12 @@
 
 // IWYU pragma: no_include "gtest/gtest_pred_impl.h"
 
-static void assertServiceRootGet(crow::Response& res)
+namespace redfish
+{
+namespace
+{
+
+void assertServiceRootGet(crow::Response& res)
 {
     nlohmann::json& json = res.jsonValue;
     EXPECT_EQ(json["@odata.id"], "/redfish/v1");
@@ -105,11 +110,14 @@ static void assertServiceRootGet(crow::Response& res)
     EXPECT_EQ(json.size(), 21);
 }
 
-TEST(ServiceRootTest, ServiceRootConstructor)
+TEST(HandleServiceRootGet, ServiceRootStaticAttributesAreExpected)
 {
     auto shareAsyncResp = std::make_shared<bmcweb::AsyncResp>();
 
     shareAsyncResp->res.setCompleteRequestHandler(assertServiceRootGet);
 
-    redfish::handleServiceRootGet(shareAsyncResp);
+    handleServiceRootGet(shareAsyncResp);
 }
+
+} // namespace
+} // namespace redfish
