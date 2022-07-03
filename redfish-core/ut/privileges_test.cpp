@@ -12,7 +12,10 @@
 
 // IWYU pragma: no_include "gtest/gtest_pred_impl.h"
 
-using namespace redfish;
+namespace redfish
+{
+namespace
+{
 
 TEST(PrivilegeTest, PrivilegeConstructor)
 {
@@ -127,3 +130,5 @@ TEST(PrivilegeTest, GetActivePrivilegeNames)
                     expectedPrivileges[2], expectedPrivileges[3],
                     expectedPrivileges[4]));
 }
+} // namespace
+} // namespace redfish
