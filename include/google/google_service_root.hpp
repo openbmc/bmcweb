@@ -70,22 +70,19 @@ inline void hothGetSubtreeCallback(
         redfish::messages::internalError(asyncResp->res);
         return;
     }
-    // Iterate over all retrieved ObjectPaths.
-    for (const std::pair<
-             std::string,
-             std::vector<std::pair<std::string, std::vector<std::string>>>>&
-             object : subtree)
+    for (const auto& [path, services] : subtree)
     {
-        sdbusplus::message::object_path objPath(object.first);
-        if (objPath.filename() != rotId || object.second.empty())
+        sdbusplus::message::object_path objPath(path);
+        if (std::string filename = objPath.filename();
+            filename.empty() || filename != rotId || services.empty())
         {
             continue;
         }
 
         ResolvedEntity resolvedEntity = {
             .id = rotId,
-            .service = object.second[0].first,
-            .object = object.first,
+            .service = services[0].first,
+            .object = path,
             .interface = "xyz.openbmc_project.Control.Hoth"};
         entityHandler(command, asyncResp, resolvedEntity);
         return;
