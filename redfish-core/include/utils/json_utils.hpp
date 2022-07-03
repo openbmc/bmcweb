@@ -15,12 +15,33 @@
 */
 #pragma once
 
-#include <error_messages.hpp>
-#include <http_request.hpp>
-#include <http_response.hpp>
-#include <nlohmann/json.hpp>
+#include "error_messages.hpp"
+#include "http_request.hpp"
+#include "http_response.hpp"
+#include "logging.hpp"
+#include "nlohmann/json.hpp"
 
+#include <array>
+#include <cmath>
+#include <cstddef>
+#include <cstdint>
+#include <limits>
+#include <map>
+#include <optional>
 #include <span>
+#include <string>
+#include <string_view>
+#include <type_traits>
+#include <utility>
+#include <variant>
+#include <vector>
+
+// IWYU pragma: no_include <stdint.h>
+
+namespace crow
+{
+struct Request;
+} // namespace crow
 
 namespace redfish
 {

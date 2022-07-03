@@ -14,6 +14,8 @@
 #include <string_view>
 #include <system_error>
 
+// IWYU pragma: no_include <stddef.h>
+
 namespace redfish
 {
 

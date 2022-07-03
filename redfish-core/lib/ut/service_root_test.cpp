@@ -1,15 +1,21 @@
 #include "bmcweb_config.h"
 
-#include "http_request.hpp"
+#include "http_response.hpp"
 #include "include/async_resp.hpp"
 #include "nlohmann/json.hpp"
-#include "redfish-core/lib/service_root.hpp"
+#include "service_root.hpp"
 
 #include <memory>
-#include <string>
+#include <system_error>
+#include <vector>
 
-#include "gmock/gmock.h"
-#include "gtest/gtest.h"
+#include <gmock/gmock-matchers.h>
+#include <gtest/gtest-matchers.h>
+#include <gtest/gtest-message.h>
+#include <gtest/gtest-test-part.h>
+#include <gtest/gtest.h> // IWYU pragma: keep
+
+// IWYU pragma: no_include "gtest/gtest_pred_impl.h"
 
 static void assertServiceRootGet(crow::Response& res)
 {

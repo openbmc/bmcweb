@@ -1,6 +1,12 @@
 #include "utils/time_utils.hpp"
 
-#include <gmock/gmock.h>
+#include <gmock/gmock-matchers.h>
+#include <gtest/gtest-matchers.h>
+#include <gtest/gtest-message.h>
+#include <gtest/gtest-test-part.h>
+#include <gtest/gtest.h> // IWYU pragma: keep
+
+// IWYU pragma: no_include "gtest/gtest_pred_impl.h"
 
 TEST(FromDurationTest, PositiveTests)
 {
