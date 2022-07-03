@@ -2,6 +2,8 @@
 
 #include "logging.hpp"
 
+#include <stdint.h>
+
 #include <algorithm>
 #include <charconv>
 #include <chrono>
