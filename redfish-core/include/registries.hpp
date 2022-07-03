@@ -15,9 +15,13 @@
 */
 #pragma once
 
+#include <stddef.h>
+
+#include <array>
 #include <span>
 #include <string>
 #include <string_view>
+#include <utility>
 
 namespace redfish::registries
 {

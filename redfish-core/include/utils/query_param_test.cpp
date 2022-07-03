@@ -4,10 +4,15 @@
 #include <boost/url/url_view.hpp>
 #include <nlohmann/json.hpp>
 
-#include <cstddef>
+#include <new>
 
 #include <gmock/gmock-matchers.h>
-#include <gtest/gtest.h>
+#include <gtest/gtest-message.h>
+#include <gtest/gtest-test-part.h>
+#include <gtest/gtest.h> // IWYU pragma: keep
+
+// IWYU pragma: no_include "gtest/gtest_pred_impl.h"
+// IWYU pragma: no_include <boost/url/impl/url_view.hpp>
 
 namespace redfish::query_param
 {
