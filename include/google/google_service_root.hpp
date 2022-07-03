@@ -19,8 +19,9 @@ constexpr const char* hothSearchPath = "/xyz/openbmc_project";
 constexpr const char* hothInterface = "xyz.openbmc_project.Control.Hoth";
 constexpr const char* rotCollectionPrefix = "/google/v1/RootOfTrustCollection";
 
-inline void getGoogleV1(const crow::Request& /*req*/,
-                        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+inline void
+    handleGoogleV1Get(const crow::Request& /*req*/,
+                      const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     asyncResp->res.jsonValue["@odata.type"] =
         "#GoogleServiceRoot.v1_0_0.GoogleServiceRoot";
@@ -32,7 +33,7 @@ inline void getGoogleV1(const crow::Request& /*req*/,
         rotCollectionPrefix;
 }
 
-inline void getRootOfTrustCollection(
+inline void handleRootOfTrustCollectionGet(
     const crow::Request& /*req*/,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
@@ -57,49 +58,59 @@ using ResolvedEntityHandler = std::function<void(
     const std::string&, const std::shared_ptr<bmcweb::AsyncResp>&,
     const ResolvedEntity&)>;
 
+inline void hothGetSubtreeCallback(
+    const std::string& command,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& rotId, const ResolvedEntityHandler& entityHandler,
+    const boost::system::error_code ec,
+    const dbus::utility::MapperGetSubTreeResponse& subtree)
+{
+    if (ec)
+    {
+        redfish::messages::internalError(asyncResp->res);
+        return;
+    }
+    // Iterate over all retrieved ObjectPaths.
+    for (const std::pair<
+             std::string,
+             std::vector<std::pair<std::string, std::vector<std::string>>>>&
+             object : subtree)
+    {
+        sdbusplus::message::object_path objPath(object.first);
+        if (objPath.filename() != rotId || object.second.empty())
+        {
+            continue;
+        }
+
+        ResolvedEntity resolvedEntity = {.id = rotId,
+                                         .service = object.second[0].first,
+                                         .object = object.first,
+                                         .interface = hothInterface};
+        entityHandler(command, asyncResp, resolvedEntity);
+        return;
+    }
+
+    // Couldn't find an object with that name.  return an error
+    redfish::messages::resourceNotFound(
+        asyncResp->res, "#RootOfTrust.v1_0_0.RootOfTrust", rotId);
+}
+
 inline void resolveRoT(const std::string& command,
                        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                        const std::string& rotId,
                        ResolvedEntityHandler&& entityHandler)
 {
-    auto validateFunc =
+
+    std::array<std::string, 1> hothIfaces = {hothInterface};
+    crow::connections::systemBus->async_method_call(
         [command, asyncResp, rotId,
          entityHandler{std::forward<ResolvedEntityHandler>(entityHandler)}](
             const boost::system::error_code ec,
             const dbus::utility::MapperGetSubTreeResponse& subtree) {
-        if (ec)
-        {
-            redfish::messages::internalError(asyncResp->res);
-            return;
-        }
-        // Iterate over all retrieved ObjectPaths.
-        for (const std::pair<
-                 std::string,
-                 std::vector<std::pair<std::string, std::vector<std::string>>>>&
-                 object : subtree)
-        {
-            sdbusplus::message::object_path objPath(object.first);
-            if (objPath.filename() != rotId || object.second.empty())
-            {
-                continue;
-            }
-
-            ResolvedEntity resolvedEntity = {.id = rotId,
-                                             .service = object.second[0].first,
-                                             .object = object.first,
-                                             .interface = hothInterface};
-            entityHandler(command, asyncResp, resolvedEntity);
-            return;
-        }
-
-        // Couldn't find an object with that name.  return an error
-        redfish::messages::resourceNotFound(
-            asyncResp->res, "#RootOfTrust.v1_0_0.RootOfTrust", rotId);
-    };
-
-    std::array<std::string, 1> hothIfaces = {hothInterface};
-    crow::connections::systemBus->async_method_call(
-        validateFunc, "xyz.openbmc_project.ObjectMapper",
+        hothGetSubtreeCallback(command, asyncResp, rotId, entityHandler, ec,
+                               subtree);
+        },
+        "xyz.openbmc_project.ObjectMapper",
         "/xyz/openbmc_project/object_mapper",
         "xyz.openbmc_project.ObjectMapper", "GetSubTree", hothSearchPath,
         /*depth=*/0, hothIfaces);
@@ -129,12 +140,30 @@ inline void populateRootOfTrustEntity(
         "Embedded";
 }
 
-inline void getRootOfTrust(const crow::Request& /*unused*/,
-                           const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                           const std::string& param)
+inline void
+    handleRootOfTrustGet(const crow::Request& /*req*/,
+                         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                         const std::string& param)
 {
-    resolveRoT("" /*Empty command*/, asyncResp, param,
-               populateRootOfTrustEntity);
+    std::string emptyCommand;
+    resolveRoT(emptyCommand, asyncResp, param, populateRootOfTrustEntity);
+}
+
+inline void
+    invocationCallback(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                       const boost::system::error_code ec,
+                       const std::vector<uint8_t>& responseBytes)
+{
+    if (ec)
+    {
+        BMCWEB_LOG_ERROR << "RootOfTrust.Actions.SendCommand failed: "
+                         << ec.message();
+        redfish::messages::internalError(asyncResp->res);
+        return;
+    }
+
+    asyncResp->res.jsonValue["CommandResponse"] =
+        bytesToHexString(responseBytes);
 }
 
 inline void
@@ -142,19 +171,6 @@ inline void
                      const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                      const ResolvedEntity& resolvedEntity)
 {
-    auto handleFunc = [asyncResp](const boost::system::error_code ec,
-                                  std::vector<uint8_t>& responseBytes) {
-        if (ec)
-        {
-            BMCWEB_LOG_ERROR << "RootOfTrust.Actions.SendCommand failed: "
-                             << ec.message();
-            redfish::messages::internalError(asyncResp->res);
-            return;
-        }
-
-        asyncResp->res.jsonValue["CommandResponse"] =
-            bytesToHexString(responseBytes);
-    };
     std::vector<uint8_t> bytes = hexStringToBytes(command);
     if (bytes.empty())
     {
@@ -165,13 +181,18 @@ inline void
     }
 
     crow::connections::systemBus->async_method_call(
-        handleFunc, resolvedEntity.service, resolvedEntity.object,
-        resolvedEntity.interface, "SendHostCommand", bytes);
+        [asyncResp{asyncResp}](const boost::system::error_code ec,
+                               const std::vector<uint8_t>& responseBytes) {
+        invocationCallback(asyncResp, ec, responseBytes);
+        },
+        resolvedEntity.service, resolvedEntity.object, resolvedEntity.interface,
+        "SendHostCommand", bytes);
 }
 
-inline void sendRoTCommand(const crow::Request& request,
-                           const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                           const std::string& rotId)
+inline void handleRoTSendCommandPost(
+    const crow::Request& request,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& rotId)
 {
     std::string command;
     if (!redfish::json_util::readJsonAction(request, asyncResp->res, "Command",
@@ -189,21 +210,21 @@ inline void sendRoTCommand(const crow::Request& request,
 inline void requestRoutes(App& app)
 {
     BMCWEB_ROUTE(app, "/google/v1/")
-        .methods(boost::beast::http::verb::get)(getGoogleV1);
+        .methods(boost::beast::http::verb::get)(handleGoogleV1Get);
 
     BMCWEB_ROUTE(app, "/google/v1/RootOfTrustCollection")
         .privileges({{"ConfigureManager"}})
-        .methods(boost::beast::http::verb::get)(getRootOfTrustCollection);
+        .methods(boost::beast::http::verb::get)(handleRootOfTrustCollectionGet);
 
     BMCWEB_ROUTE(app, "/google/v1/RootOfTrustCollection/<str>")
         .privileges({{"ConfigureManager"}})
-        .methods(boost::beast::http::verb::get)(getRootOfTrust);
+        .methods(boost::beast::http::verb::get)(handleRootOfTrustGet);
 
     BMCWEB_ROUTE(
         app,
         "/google/v1/RootOfTrustCollection/<str>/Actions/RootOfTrust.SendCommand")
         .privileges({{"ConfigureManager"}})
-        .methods(boost::beast::http::verb::post)(sendRoTCommand);
+        .methods(boost::beast::http::verb::post)(handleRoTSendCommandPost);
 }
 
 } // namespace google_api
