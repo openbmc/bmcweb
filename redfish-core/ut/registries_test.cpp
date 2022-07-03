@@ -7,7 +7,7 @@ namespace redfish::registries
 namespace
 {
 
-TEST(RedfishRegistries, fillMessageArgs)
+TEST(FillMessageArgs, ArgsAreFilledCorrectly)
 {
     std::string toFill("%1");
     fillMessageArgs({{"foo"}}, toFill);

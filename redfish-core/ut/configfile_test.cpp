@@ -10,61 +10,42 @@ namespace crow
 namespace ibm_mc
 {
 
-TEST(ConfigFileTest, FileNameValidChar)
+TEST(IsValidConfigFileName, FileNameValidCharReturnsTrue)
 {
     crow::Response res;
 
-    const std::string fileName = "GoodConfigFile";
-    EXPECT_TRUE(isValidConfigFileName(fileName, res));
+    EXPECT_TRUE(isValidConfigFileName("GoodConfigFile", res));
 }
-TEST(ConfigFileTest, FileNameInvalidChar)
+TEST(IsValidConfigFileName, FileNameInvalidCharReturnsFalse)
 {
     crow::Response res;
 
-    const std::string fileName = "Bad@file";
-    EXPECT_FALSE(isValidConfigFileName(fileName, res));
+    EXPECT_FALSE(isValidConfigFileName("Bad@file", res));
 }
-TEST(ConfigFileTest, FileNameInvalidPath1)
+TEST(IsValidConfigFileName, FileNameInvalidPathReturnsFalse)
 {
     crow::Response res;
 
-    const std::string fileName = "/../../../../../etc/badpath";
-    EXPECT_FALSE(isValidConfigFileName(fileName, res));
+    EXPECT_FALSE(isValidConfigFileName("/../../../../../etc/badpath", res));
+    EXPECT_FALSE(isValidConfigFileName("/../../etc/badpath", res));
+    EXPECT_FALSE(isValidConfigFileName("/mydir/configFile", res));
 }
-TEST(ConfigFileTest, FileNameInvalidPath2)
+
+TEST(IsValidConfigFileName, EmptyFileNameReturnsFalse)
 {
     crow::Response res;
-
-    const std::string fileName = "/../../etc/badpath";
-    EXPECT_FALSE(isValidConfigFileName(fileName, res));
+    EXPECT_FALSE(isValidConfigFileName("", res));
 }
-TEST(ConfigFileTest, FileNameInvalidPath3)
+
+TEST(IsValidConfigFileName, SlashFileNameReturnsFalse)
 {
     crow::Response res;
-
-    const std::string fileName = "/mydir/configFile";
-    EXPECT_FALSE(isValidConfigFileName(fileName, res));
+    EXPECT_FALSE(isValidConfigFileName("/", res));
 }
-TEST(ConfigFileTest, FileNameNull)
+TEST(IsValidConfigFileName, FileNameMoreThan20CharReturnsFalse)
 {
     crow::Response res;
-
-    const std::string fileName;
-    EXPECT_FALSE(isValidConfigFileName(fileName, res));
-}
-TEST(ConfigFileTest, FileNameSlash)
-{
-    crow::Response res;
-
-    const std::string fileName = "/";
-    EXPECT_FALSE(isValidConfigFileName(fileName, res));
-}
-TEST(ConfigFileTest, FileNameMorethan20Char)
-{
-    crow::Response res;
-
-    const std::string fileName = "BadfileBadfileBadfile";
-    EXPECT_FALSE(isValidConfigFileName(fileName, res));
+    EXPECT_FALSE(isValidConfigFileName("BadfileBadfileBadfile", res));
 }
 
 } // namespace ibm_mc
