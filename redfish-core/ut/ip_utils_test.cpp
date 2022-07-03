@@ -6,8 +6,12 @@
 // IWYU pragma: no_include <gtest/gtest-test-part.h>
 // IWYU pragma: no_include "gtest/gtest_pred_impl.h"
 
-using boost::asio::ip::make_address;
-using redfish::ip_util::toString;
+namespace redfish::ip_util
+{
+namespace
+{
+
+using ::boost::asio::ip::make_address;
 
 TEST(IpToString, v4mapped)
 {
@@ -22,3 +26,5 @@ TEST(IpToString, v4mapped)
               "fd03:f9ab:25de:89ec:1234:5678:90ab:cdef");
     EXPECT_EQ(toString(make_address("::ffff:127.0.0.1")), "127.0.0.1");
 }
+} // namespace
+} // namespace redfish::ip_util
