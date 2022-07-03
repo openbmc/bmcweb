@@ -15,13 +15,23 @@
 */
 #pragma once
 
+#include "logging.hpp"
+
+#include <stddef.h>
+
 #include <boost/beast/http/verb.hpp>
 #include <boost/container/flat_map.hpp>
-#include <logging.hpp>
+#include <boost/container/vector.hpp>
+#include <boost/move/algo/move.hpp>
 
 #include <array>
 #include <bitset>
 #include <cstdint>
+#include <functional>
+#include <initializer_list>
+#include <string>
+#include <string_view>
+#include <utility>
 #include <vector>
 
 namespace redfish

@@ -1,6 +1,15 @@
 #include "utils/hex_utils.hpp"
 
-#include <gmock/gmock.h>
+#include <cctype>
+#include <climits>
+
+#include <gtest/gtest-message.h>
+#include <gtest/gtest-test-part.h>
+#include <gtest/gtest.h> // IWYU pragma: keep
+
+// IWYU pragma: no_include "gtest/gtest_pred_impl.h"
+// IWYU pragma: no_include <limits.h>
+// IWYU pragma: no_include <ctype.h>
 
 TEST(ToHexString, uint64)
 {
