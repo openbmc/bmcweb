@@ -393,6 +393,7 @@ srcfiles_unittest = [
   'redfish-core/lib/ut/service_root_test.cpp',
   'redfish-core/ut/configfile_test.cpp',
   'redfish-core/ut/hex_utils_test.cpp',
+  'redfish-core/ut/ip_utils_test.cpp',
   'redfish-core/ut/json_utils_test.cpp',
   'redfish-core/ut/lock_test.cpp',
   'redfish-core/ut/privileges_test.cpp',
