@@ -6,9 +6,13 @@
 
 // IWYU pragma: no_include "gtest/gtest_pred_impl.h"
 
+namespace redfish::registries
+{
+namespace
+{
+
 TEST(RedfishRegistries, fillMessageArgs)
 {
-    using redfish::registries::fillMessageArgs;
     std::string toFill("%1");
     fillMessageArgs({{"foo"}}, toFill);
     EXPECT_EQ(toFill, "foo");
@@ -21,3 +25,5 @@ TEST(RedfishRegistries, fillMessageArgs)
     fillMessageArgs({{"foo", "bar"}}, toFill);
     EXPECT_EQ(toFill, "foo, bar");
 }
+} // namespace
+} // namespace redfish::registries
