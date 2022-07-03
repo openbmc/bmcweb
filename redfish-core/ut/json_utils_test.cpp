@@ -23,7 +23,7 @@ namespace redfish::json_util
 namespace
 {
 
-TEST(readJson, ValidElements)
+TEST(ReadJson, ValidElementsReturnsTrueResponseOkValuesUnpackedCorrectly)
 {
     crow::Response res;
     nlohmann::json jsonRequest = {{"integer", 1},
@@ -43,23 +43,26 @@ TEST(readJson, ValidElements)
     EXPECT_TRUE((vec == std::vector<uint64_t>{1, 2, 3}));
 }
 
-TEST(readJson, ExtraElements)
+TEST(readJson, ExtraElementsReturnsFalseReponseIsBadRequest)
 {
     crow::Response res;
-    nlohmann::json jsonRequest = {{"integer", 1}, {"string0", "hello"}};
+    nlohmann::json jsonRequest = {{"integer", 1}, {"string", "hello"}};
 
-    int64_t integer = 0;
-    std::string str;
+    std::optional<int> integer;
+    std::optional<std::string> str;
+
     EXPECT_FALSE(readJson(jsonRequest, res, "integer", integer));
     EXPECT_EQ(res.result(), boost::beast::http::status::bad_request);
     EXPECT_FALSE(res.jsonValue.empty());
+    EXPECT_EQ(integer, 1);
 
-    EXPECT_FALSE(readJson(jsonRequest, res, "string0", str));
+    EXPECT_FALSE(readJson(jsonRequest, res, "string", str));
     EXPECT_EQ(res.result(), boost::beast::http::status::bad_request);
     EXPECT_FALSE(res.jsonValue.empty());
+    EXPECT_EQ(str, "hello");
 }
 
-TEST(readJson, WrongElementType)
+TEST(ReadJson, WrongElementTypeReturnsFalseReponseIsBadRequest)
 {
     crow::Response res;
     nlohmann::json jsonRequest = {{"integer", 1}, {"string0", "hello"}};
@@ -80,7 +83,7 @@ TEST(readJson, WrongElementType)
     EXPECT_FALSE(res.jsonValue.empty());
 }
 
-TEST(readJson, MissingElement)
+TEST(ReadJson, MissingElementReturnsFalseReponseIsBadRequest)
 {
     crow::Response res;
     nlohmann::json jsonRequest = {{"integer", 1}, {"string0", "hello"}};
@@ -100,7 +103,7 @@ TEST(readJson, MissingElement)
     EXPECT_FALSE(res.jsonValue.empty());
 }
 
-TEST(readJson, JsonVector)
+TEST(ReadJson, JsonArrayAreUnpackedCorrectly)
 {
     crow::Response res;
     nlohmann::json jsonRequest = R"(
@@ -113,9 +116,10 @@ TEST(readJson, JsonVector)
     EXPECT_TRUE(readJson(jsonRequest, res, "TestJson", jsonVec));
     EXPECT_EQ(res.result(), boost::beast::http::status::ok);
     EXPECT_TRUE(res.jsonValue.empty());
+    EXPECT_EQ(jsonVec, R"([{"hello": "yes"}, [{"there": "no"}, "nice"]])"_json);
 }
 
-TEST(readJson, JsonSubElementValue)
+TEST(ReadJson, JsonSubElementValueAreUnpackedCorrectly)
 {
     crow::Response res;
     nlohmann::json jsonRequest = R"(
@@ -131,7 +135,7 @@ TEST(readJson, JsonSubElementValue)
     EXPECT_TRUE(res.jsonValue.empty());
 }
 
-TEST(readJson, JsonSubElementValueDepth2)
+TEST(ReadJson, JsonDeeperSubElementValueAreUnpackedCorrectly)
 {
     crow::Response res;
     nlohmann::json jsonRequest = R"(
@@ -149,7 +153,7 @@ TEST(readJson, JsonSubElementValueDepth2)
     EXPECT_TRUE(res.jsonValue.empty());
 }
 
-TEST(readJson, JsonSubElementValueMultiple)
+TEST(ReadJson, MultipleJsonSubElementValueAreUnpackedCorrectly)
 {
     crow::Response res;
     nlohmann::json jsonRequest = R"(
@@ -174,7 +178,7 @@ TEST(readJson, JsonSubElementValueMultiple)
     EXPECT_TRUE(res.jsonValue.empty());
 }
 
-TEST(readJson, ExtraElement)
+TEST(ReadJson, ExtraElement)
 {
     crow::Response res;
     nlohmann::json jsonRequest = {{"integer", 1}, {"string", "hello"}};
@@ -193,7 +197,7 @@ TEST(readJson, ExtraElement)
     EXPECT_EQ(str, "hello");
 }
 
-TEST(readJson, ValidMissingElement)
+TEST(ReadJson, ValidMissingElementReturnsTrue)
 {
     crow::Response res;
     nlohmann::json jsonRequest = {{"integer", 1}};
@@ -230,7 +234,7 @@ TEST(readJson, ValidMissingElement)
     EXPECT_EQ(str1, std::nullopt);
 }
 
-TEST(readJson, InvalidMissingElement)
+TEST(ReadJson, InvalidMissingElementReturnsFalse)
 {
     crow::Response res;
     nlohmann::json jsonRequest = {{"integer", 1}, {"string", "hello"}};
@@ -258,7 +262,7 @@ TEST(readJson, InvalidMissingElement)
     EXPECT_FALSE(res.jsonValue.empty());
 }
 
-TEST(readJsonPatch, ValidElements)
+TEST(ReadJsonPatch, ValidElementsReturnsTrueResponseOkValuesUnpackedCorrectly)
 {
     crow::Response res;
     std::error_code ec;
@@ -272,7 +276,7 @@ TEST(readJsonPatch, ValidElements)
     EXPECT_TRUE(res.jsonValue.empty());
 }
 
-TEST(readJsonPatch, EmptyObjectDisallowed)
+TEST(ReadJsonPatch, EmptyObjectReturnsFalseResponseBadRequest)
 {
     crow::Response res;
     std::error_code ec;
@@ -286,7 +290,7 @@ TEST(readJsonPatch, EmptyObjectDisallowed)
     EXPECT_FALSE(res.jsonValue.empty());
 }
 
-TEST(readJsonPatch, OdataIgnored)
+TEST(ReadJsonPatch, OdataIgnored)
 {
     crow::Response res;
     std::error_code ec;
@@ -300,7 +304,7 @@ TEST(readJsonPatch, OdataIgnored)
     EXPECT_TRUE(res.jsonValue.empty());
 }
 
-TEST(readJsonPatch, OnlyOdataGivesNoOperation)
+TEST(ReadJsonPatch, OnlyOdataGivesNoOperation)
 {
     crow::Response res;
     std::error_code ec;
@@ -314,7 +318,7 @@ TEST(readJsonPatch, OnlyOdataGivesNoOperation)
     EXPECT_FALSE(res.jsonValue.empty());
 }
 
-TEST(readJsonAction, ValidElements)
+TEST(ReadJsonAction, ValidElementsReturnsTrueResponseOkValuesUnpackedCorrectly)
 {
     crow::Response res;
     std::error_code ec;
@@ -326,9 +330,10 @@ TEST(readJsonAction, ValidElements)
     EXPECT_TRUE(readJsonAction(req, res, "integer", integer));
     EXPECT_EQ(res.result(), boost::beast::http::status::ok);
     EXPECT_TRUE(res.jsonValue.empty());
+    EXPECT_EQ(integer, 1);
 }
 
-TEST(readJsonAction, EmptyObjectAllowed)
+TEST(ReadJsonAction, EmptyObjectReturnsTrueResponseOk)
 {
     crow::Response res;
     std::error_code ec;
