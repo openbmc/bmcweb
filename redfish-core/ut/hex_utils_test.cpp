@@ -13,7 +13,7 @@
 namespace
 {
 
-TEST(ToHexString, uint64)
+TEST(IntToHexString, ReturnsCorrectHexForUint64)
 {
     EXPECT_EQ(intToHexString(0xFFFFFFFFFFFFFFFFULL, 16), "FFFFFFFFFFFFFFFF");
 
@@ -35,12 +35,12 @@ TEST(ToHexString, uint64)
     EXPECT_EQ(intToHexString(0xBEEF, 4), "BEEF");
 }
 
-TEST(BytesToHexString, Success)
+TEST(BytesToHexString, OnSuccess)
 {
     EXPECT_EQ(bytesToHexString({0x1a, 0x2b}), "1A2B");
 }
 
-TEST(HexCharToNibble, chars)
+TEST(HexCharToNibble, ReturnsCorrectNibbleForEveryHexChar)
 {
     for (char c = 0; c < std::numeric_limits<char>::max(); ++c)
     {

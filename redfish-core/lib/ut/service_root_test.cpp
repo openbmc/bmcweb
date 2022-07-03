@@ -109,7 +109,7 @@ void assertServiceRootGet(crow::Response& res)
     EXPECT_EQ(json.size(), 21);
 }
 
-TEST(ServiceRootTest, ServiceRootConstructor)
+TEST(HandleServiceRootGet, ServiceRootStaticAttributesAreExpected)
 {
     auto shareAsyncResp = std::make_shared<bmcweb::AsyncResp>();
 
