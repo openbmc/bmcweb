@@ -11,12 +11,15 @@ namespace redfish
 namespace
 {
 
+using ::testing::IsEmpty;
+using ::testing::UnorderedElementsAre;
+
 TEST(PrivilegeTest, PrivilegeConstructor)
 {
     Privileges privileges{"Login", "ConfigureManager"};
 
     EXPECT_THAT(privileges.getActivePrivilegeNames(PrivilegeType::BASE),
-                ::testing::UnorderedElementsAre("Login", "ConfigureManager"));
+                UnorderedElementsAre("Login", "ConfigureManager"));
 }
 
 TEST(PrivilegeTest, PrivilegeCheckForNoPrivilegesRequired)
@@ -96,10 +99,10 @@ TEST(PrivilegeTest, DefaultPrivilegeBitsetsAreEmpty)
     Privileges privileges;
 
     EXPECT_THAT(privileges.getActivePrivilegeNames(PrivilegeType::BASE),
-                ::testing::IsEmpty());
+                IsEmpty());
 
     EXPECT_THAT(privileges.getActivePrivilegeNames(PrivilegeType::OEM),
-                ::testing::IsEmpty());
+                IsEmpty());
 }
 
 TEST(PrivilegeTest, GetActivePrivilegeNames)
@@ -107,7 +110,7 @@ TEST(PrivilegeTest, GetActivePrivilegeNames)
     Privileges privileges;
 
     EXPECT_THAT(privileges.getActivePrivilegeNames(PrivilegeType::BASE),
-                ::testing::IsEmpty());
+                IsEmpty());
 
     std::array<const char*, 5> expectedPrivileges{
         "Login", "ConfigureManager", "ConfigureUsers", "ConfigureComponents",
@@ -118,11 +121,11 @@ TEST(PrivilegeTest, GetActivePrivilegeNames)
         EXPECT_TRUE(privileges.setSinglePrivilege(privilege));
     }
 
-    EXPECT_THAT(privileges.getActivePrivilegeNames(PrivilegeType::BASE),
-                ::testing::UnorderedElementsAre(
-                    expectedPrivileges[0], expectedPrivileges[1],
-                    expectedPrivileges[2], expectedPrivileges[3],
-                    expectedPrivileges[4]));
+    EXPECT_THAT(
+        privileges.getActivePrivilegeNames(PrivilegeType::BASE),
+        UnorderedElementsAre(expectedPrivileges[0], expectedPrivileges[1],
+                             expectedPrivileges[2], expectedPrivileges[3],
+                             expectedPrivileges[4]));
 }
 } // namespace
 } // namespace redfish
