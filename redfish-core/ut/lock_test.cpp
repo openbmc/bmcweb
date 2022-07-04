@@ -11,6 +11,7 @@
 #include <gtest/gtest.h> // IWYU pragma: keep
 
 // IWYU pragma: no_include "gtest/gtest_pred_impl.h"
+#include <gmock/gmock-more-matchers.h>
 #include <gtest/gtest-message.h>
 #include <gtest/gtest-test-part.h>
 
@@ -32,6 +33,7 @@ using RcAcquireLock = std::pair<bool, std::variant<Rc, std::pair<bool, int>>>;
 using RcReleaseLockApi = std::pair<bool, std::variant<bool, RcRelaseLock>>;
 using SessionFlags = std::pair<SType, SType>;
 using ListOfSessionIds = std::vector<std::string>;
+using ::testing::IsEmpty;
 
 class LockTest : public ::testing::Test
 {
@@ -118,7 +120,7 @@ TEST_F(LockTest, ValidationGoodTestCase)
 {
     MockLock lockManager;
     const LockRequest& t = record;
-    ASSERT_EQ(1, lockManager.isValidLockRequest(t));
+    EXPECT_TRUE(lockManager.isValidLockRequest(t));
 }
 
 TEST_F(LockTest, ValidationBadTestWithLocktype)
@@ -127,7 +129,7 @@ TEST_F(LockTest, ValidationBadTestWithLocktype)
     // Corrupt the lock type
     std::get<2>(record) = "rwrite";
     const LockRequest& t = record;
-    ASSERT_EQ(0, lockManager.isValidLockRequest(t));
+    EXPECT_FALSE(lockManager.isValidLockRequest(t));
 }
 
 TEST_F(LockTest, ValidationBadTestWithlockFlags)
@@ -136,7 +138,7 @@ TEST_F(LockTest, ValidationBadTestWithlockFlags)
     // Corrupt the lockflag
     std::get<4>(record)[0].first = "lock";
     const LockRequest& t = record;
-    ASSERT_EQ(0, lockManager.isValidLockRequest(t));
+    EXPECT_FALSE(lockManager.isValidLockRequest(t));
 }
 
 TEST_F(LockTest, ValidationBadTestWithSegmentlength)
@@ -145,14 +147,14 @@ TEST_F(LockTest, ValidationBadTestWithSegmentlength)
     // Corrupt the Segment length
     std::get<4>(record)[0].second = 7;
     const LockRequest& t = record;
-    ASSERT_EQ(0, lockManager.isValidLockRequest(t));
+    EXPECT_FALSE(lockManager.isValidLockRequest(t));
 }
 
 TEST_F(LockTest, MultiRequestWithoutConflict)
 {
     MockLock lockManager;
     const LockRequests& t = request;
-    ASSERT_EQ(0, lockManager.isConflictRequest(t));
+    EXPECT_FALSE(lockManager.isConflictRequest(t));
 }
 
 TEST_F(LockTest, MultiRequestWithConflictduetoSameSegmentLength)
@@ -164,7 +166,7 @@ TEST_F(LockTest, MultiRequestWithConflictduetoSameSegmentLength)
     // resource
     std::get<4>(request[0])[0].first = "LockAll";
     const LockRequests& t = request;
-    ASSERT_EQ(1, lockManager.isConflictRequest(t));
+    EXPECT_TRUE(lockManager.isConflictRequest(t));
 }
 
 TEST_F(LockTest, MultiRequestWithoutConflictduetoDifferentSegmentData)
@@ -182,7 +184,7 @@ TEST_F(LockTest, MultiRequestWithoutConflictduetoDifferentSegmentData)
     std::get<3>(request[0]) = 216179379183550464; // HEX 03 00 06 00 00 00 00 00
     std::get<3>(request[1]) = 288236973221478400; // HEX 04 00 06 00 00 00 00 00
     const LockRequests& t = request;
-    ASSERT_EQ(0, lockManager.isConflictRequest(t));
+    EXPECT_FALSE(lockManager.isConflictRequest(t));
 }
 
 TEST_F(LockTest, MultiRequestWithConflictduetoSameSegmentData)
@@ -199,7 +201,7 @@ TEST_F(LockTest, MultiRequestWithConflictduetoSameSegmentData)
     std::get<3>(request[0]) = 216173882346831872; // 03 00 01 00 2B 00 00 00
     std::get<3>(request[1]) = 216173882346831872; // 03 00 01 00 2B 00 00 00
     const LockRequests& t = request;
-    ASSERT_EQ(1, lockManager.isConflictRequest(t));
+    EXPECT_TRUE(lockManager.isConflictRequest(t));
 }
 
 TEST_F(LockTest, MultiRequestWithoutConflictduetoDifferentSegmentLength)
@@ -215,7 +217,7 @@ TEST_F(LockTest, MultiRequestWithoutConflictduetoDifferentSegmentLength)
     std::get<4>(request[0])[0].second = 3;
     const LockRequests& t = request;
     // Return No Conflict
-    ASSERT_EQ(0, lockManager.isConflictRequest(t));
+    EXPECT_FALSE(lockManager.isConflictRequest(t));
 }
 
 TEST_F(LockTest, MultiRequestWithoutConflictduetoReadLocktype)
@@ -226,7 +228,7 @@ TEST_F(LockTest, MultiRequestWithoutConflictduetoReadLocktype)
     std::get<4>(request[0])[0].first = "LockAll";
     const LockRequests& t = request;
     // Return No Conflict
-    ASSERT_EQ(0, lockManager.isConflictRequest(t));
+    EXPECT_FALSE(lockManager.isConflictRequest(t));
 }
 
 TEST_F(LockTest, MultiRequestWithoutConflictduetoReadLocktypeAndLockall)
@@ -238,7 +240,7 @@ TEST_F(LockTest, MultiRequestWithoutConflictduetoReadLocktypeAndLockall)
     std::get<4>(request[0])[1].first = "LockAll";
     const LockRequests& t = request;
     // Return No Conflict
-    ASSERT_EQ(0, lockManager.isConflictRequest(t));
+    EXPECT_FALSE(lockManager.isConflictRequest(t));
 }
 
 TEST_F(LockTest, RequestConflictedWithLockTableEntries)
@@ -253,7 +255,7 @@ TEST_F(LockTest, RequestConflictedWithLockTableEntries)
     const LockRequests& p = request;
     auto rc2 = lockManager.isConflictWithTable(p);
     // Return a Conflict
-    ASSERT_EQ(1, rc2.first);
+    EXPECT_TRUE(rc2.first);
 }
 
 TEST_F(LockTest, RequestNotConflictedWithLockTableEntries)
@@ -269,15 +271,15 @@ TEST_F(LockTest, RequestNotConflictedWithLockTableEntries)
     const LockRequests& p = request;
     auto rc2 = lockManager.isConflictWithTable(p);
     // Return No Conflict
-    ASSERT_EQ(0, rc2.first);
+    EXPECT_FALSE(rc2.first);
 }
 
 TEST_F(LockTest, TestGenerateTransactionIDFunction)
 {
     MockLock lockManager;
-    uint32_t transactionid1 = lockManager.generateTransactionId();
-    uint32_t transactionid2 = lockManager.generateTransactionId();
-    EXPECT_TRUE(transactionid2 == ++transactionid1);
+    uint32_t transactionId1 = lockManager.generateTransactionId();
+    uint32_t transactionId2 = lockManager.generateTransactionId();
+    EXPECT_EQ(transactionId2, ++transactionId1);
 }
 
 TEST_F(LockTest, ValidateTransactionIDsGoodTestCase)
@@ -288,7 +290,7 @@ TEST_F(LockTest, ValidateTransactionIDsGoodTestCase)
     auto rc1 = lockManager.isConflictWithTable(t);
     std::vector<uint32_t> tids = {1};
     const std::vector<uint32_t>& p = tids;
-    ASSERT_EQ(1, lockManager.validateRids(p));
+    EXPECT_TRUE(lockManager.validateRids(p));
 }
 
 TEST_F(LockTest, ValidateTransactionIDsBadTestCase)
@@ -299,7 +301,7 @@ TEST_F(LockTest, ValidateTransactionIDsBadTestCase)
     auto rc1 = lockManager.isConflictWithTable(t);
     std::vector<uint32_t> tids = {10};
     const std::vector<uint32_t>& p = tids;
-    ASSERT_EQ(0, lockManager.validateRids(p));
+    EXPECT_FALSE(lockManager.validateRids(p));
 }
 
 TEST_F(LockTest, ValidateisItMyLockGoodTestCase)
@@ -314,7 +316,7 @@ TEST_F(LockTest, ValidateisItMyLockGoodTestCase)
     std::string sessionid = "xxxxx";
     std::pair<SType, SType> ids = std::make_pair(hmcid, sessionid);
     auto rc = lockManager.isItMyLock(p, ids);
-    ASSERT_EQ(1, rc.first);
+    EXPECT_TRUE(rc.first);
 }
 
 TEST_F(LockTest, ValidateisItMyLockBadTestCase)
@@ -331,7 +333,7 @@ TEST_F(LockTest, ValidateisItMyLockBadTestCase)
     std::string sessionid = "random";
     std::pair<SType, SType> ids = std::make_pair(hmcid, sessionid);
     auto rc = lockManager.isItMyLock(p, ids);
-    ASSERT_EQ(0, rc.first);
+    EXPECT_FALSE(rc.first);
 }
 
 TEST_F(LockTest, ValidateSessionIDForGetlocklistBadTestCase)
@@ -344,7 +346,7 @@ TEST_F(LockTest, ValidateSessionIDForGetlocklistBadTestCase)
     auto status = lockManager.getLockList(sessionid);
     auto result =
         std::get<std::vector<std::pair<uint32_t, LockRequests>>>(status);
-    ASSERT_EQ(0, result.size());
+    EXPECT_THAT(result, IsEmpty());
 }
 
 TEST_F(LockTest, ValidateSessionIDForGetlocklistGoodTestCase)
@@ -357,7 +359,7 @@ TEST_F(LockTest, ValidateSessionIDForGetlocklistGoodTestCase)
     auto status = lockManager.getLockList(sessionid);
     auto result =
         std::get<std::vector<std::pair<uint32_t, LockRequests>>>(status);
-    ASSERT_EQ(1, result.size());
+    EXPECT_EQ(result.size(), 1);
 }
 
 } // namespace
