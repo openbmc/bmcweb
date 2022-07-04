@@ -428,4 +428,284 @@ inline void requestRoutesBiosAttributeRegistry(App& app)
             std::bind_front(handleBiosAttributeRegistryGet, std::ref(app)));
 }
 
+inline void handleBiosSettingsGet(
+    crow::App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)[](
+    const crow::Request&, const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+{
+    asyncResp->res.jsonValue["@odata.id"] =
+        "/redfish/v1/Systems/system/Bios/Settings";
+    asyncResp->res.jsonValue["@odata.type"] = "#Bios.v1_1_0.Bios";
+    asyncResp->res.jsonValue["Name"] = "Bios Settings Version 1";
+    asyncResp->res.jsonValue["Id"] = "BiosSettingsV1";
+    asyncResp->res.jsonValue["AttributeRegistry"] = "BiosAttributeRegistry";
+    asyncResp->res.jsonValue["Attributes"] = {};
+
+    crow::connections::systemBus->async_method_call(
+        [asyncResp](const boost::system::error_code ec,
+                    const dbus::utility::MapperGetObject& getObjectType) {
+        if (ec)
+        {
+            BMCWEB_LOG_ERROR << "ObjectMapper::GetObject call failed: " << ec;
+            messages::internalError(asyncResp->res);
+
+            return;
+        }
+
+        if (getObjectType.empty())
+        {
+            BMCWEB_LOG_ERROR << "getObjectType is empty.";
+            messages::internalError(asyncResp->res);
+
+            return;
+        }
+
+        std::string service = getObjectType.begin()->first;
+
+        crow::connections::systemBus->async_method_call(
+            [asyncResp](const boost::system::error_code ec,
+                        const std::variant<PendingAttributesType>&
+                            retPendingAttributes) {
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR << "getBiosSettings DBUS error: " << ec;
+                messages::resourceNotFound(asyncResp->res,
+                                           "Systems/system/Bios", "Settings");
+                return;
+            }
+
+            const PendingAttributesType* pendingAttributes =
+                std::get_if<PendingAttributesType>(&retPendingAttributes);
+            nlohmann::json& attributesJson =
+                asyncResp->res.jsonValue["Attributes"];
+            if (pendingAttributes == nullptr)
+            {
+                BMCWEB_LOG_ERROR << "pendingAttributes is empty";
+                messages::internalError(asyncResp->res);
+                return;
+            }
+
+            for (const PendingAttributesItemType& pendingAttributesItem :
+                 *pendingAttributes)
+            {
+                const std::string& biosAttrType =
+                    std::get<pendingAttrType>(pendingAttributesItem.second);
+
+                std::string itemType = mapAttrTypeToRedfish(biosAttrType);
+
+                if (itemType == "String" || itemType == "Enumeration")
+                {
+                    const std::string* currValue =
+                        std::get_if<std::string>(&std::get<pendingAttrValue>(
+                            pendingAttributesItem.second));
+
+                    if (!currValue)
+                    {
+                        BMCWEB_LOG_ERROR << "No string data in pending "
+                                            "attributes item data";
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+
+                    attributesJson.emplace(pendingAttributesItem.first,
+                                           *currValue);
+                }
+                else if (itemType == "Integer")
+                {
+                    const int64_t* currValue =
+                        std::get_if<int64_t>(&std::get<pendingAttrValue>(
+                            pendingAttributesItem.second));
+
+                    if (!currValue)
+                    {
+                        BMCWEB_LOG_ERROR << "No int64_t data in pending "
+                                            "attributes item data";
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+
+                    attributesJson.emplace(pendingAttributesItem.first,
+                                           *currValue);
+                }
+                else
+                {
+                    BMCWEB_LOG_ERROR << "Unsupported attribute type.";
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+            }
+            },
+            service, "/xyz/openbmc_project/bios_config/manager",
+            "org.freedesktop.DBus.Properties", "Get",
+            "xyz.openbmc_project.BIOSConfig.Manager", "PendingAttributes");
+        },
+        "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetObject",
+        "/xyz/openbmc_project/bios_config/manager",
+        std::array<const char*, 0>());
+}
+
+inline void handleBiosSettingsPatch(
+    crow::App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)[](
+    const crow::Request&, const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+{
+    nlohmann::json inpJson;
+
+    if (!redfish::json_util::readJsonPatch(req, asyncResp->res, "data",
+                                           inpJson))
+    {
+        BMCWEB_LOG_ERROR << "No 'data' in req!";
+        return;
+    }
+
+    if (inpJson.empty())
+    {
+        messages::invalidObject(asyncResp->res,
+                                crow::utility::urlFromPieces("data"));
+        BMCWEB_LOG_ERROR << "No input in req!";
+        return;
+    }
+
+    crow::connections::systemBus->async_method_call(
+        [asyncResp,
+         inpJson](const boost::system::error_code ec,
+                  const dbus::utility::MapperGetObject& getObjectType) {
+        if (ec)
+        {
+            BMCWEB_LOG_ERROR << "ObjectMapper::GetObject call failed: " << ec;
+            messages::internalError(asyncResp->res);
+
+            return;
+        }
+
+        if (getObjectType.empty())
+        {
+            BMCWEB_LOG_ERROR << "getObjectType is empty.";
+            messages::internalError(asyncResp->res);
+
+            return;
+        }
+
+        std::string service = getObjectType.begin()->first;
+
+        crow::connections::systemBus->async_method_call(
+            [asyncResp,
+             inpJson](const boost::system::error_code ec,
+                      const std::variant<BiosBaseTableType>& retBiosTable) {
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR << "getBiosAttributes DBUS error: " << ec;
+                messages::internalError(asyncResp->res);
+                return;
+            }
+
+            const BiosBaseTableType* baseBiosTable =
+                std::get_if<BiosBaseTableType>(&retBiosTable);
+
+            if (baseBiosTable == nullptr)
+            {
+                BMCWEB_LOG_ERROR << "baseBiosTable is empty.";
+                messages::internalError(asyncResp->res);
+                return;
+            }
+
+            PendingAttributesType pendingAttributes{};
+
+            for (nlohmann::detail::iteration_proxy_value<
+                     nlohmann::detail::iter_impl<const nlohmann::basic_json<>>>&
+                     attributes : inpJson.items())
+            {
+                BiosBaseTableType::const_iterator knobIter =
+                    baseBiosTable->find(attributes.key());
+                if (knobIter == baseBiosTable->end())
+                {
+                    BMCWEB_LOG_ERROR << "Cannot find " << attributes.key()
+                                     << " in baseBiosTable";
+                    messages::propertyValueNotInList(asyncResp->res,
+                                                     attributes.key(), "data");
+                    return;
+                }
+
+                const std::string& itemType =
+                    std::get<biosBaseAttrType>(knobIter->second);
+                std::string attrType = mapAttrTypeToRedfish(itemType);
+
+                if (attrType == "String" || attrType == "Enumeration")
+                {
+                    std::string val = attributes.value();
+
+                    pendingAttributes.emplace(attributes.key(),
+                                              std::make_tuple(itemType, val));
+                }
+                else if (attrType == "Integer")
+                {
+                    pendingAttributes.emplace(
+                        attributes.key(),
+                        std::make_tuple(itemType, static_cast<int64_t>(
+                                                      attributes.value())));
+                }
+                else
+                {
+                    BMCWEB_LOG_ERROR << "UNKNOWN attrType == " << itemType;
+                    messages::internalError(asyncResp->res);
+
+                    return;
+                }
+            }
+
+            if (pendingAttributes.empty())
+            {
+                BMCWEB_LOG_ERROR << "pendingAttributes is empty.";
+                messages::invalidObject(asyncResp->res,
+                                        crow::utility::urlFromPieces("data"));
+            }
+
+            crow::connections::systemBus->async_method_call(
+                [asyncResp](const boost::system::error_code ec) {
+                if (ec)
+                {
+                    BMCWEB_LOG_ERROR << "doPatch resp_handler got error " << ec
+                                     << "\n";
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+
+                messages::success(asyncResp->res);
+                },
+                "xyz.openbmc_project.BIOSConfigManager",
+                "/xyz/openbmc_project/bios_config/manager",
+                "org.freedesktop.DBus.Properties", "Set",
+                "xyz.openbmc_project.BIOSConfig.Manager", "PendingAttributes",
+                std::variant<PendingAttributesType>(pendingAttributes));
+            },
+            service, "/xyz/openbmc_project/bios_config/manager",
+            "org.freedesktop.DBus.Properties", "Get",
+            "xyz.openbmc_project.BIOSConfig.Manager", "BaseBIOSTable");
+        },
+        "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetObject",
+        "/xyz/openbmc_project/bios_config/manager",
+        std::array<const char*, 0>());
+}
+
+/**
+ * BiosSettings class supports handle GET/PATCH method for
+ * BIOS configuration pending settings.
+ */
+inline void requestRoutesBiosSettings(App& app)
+{
+    BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/Bios/Settings")
+        .privileges(redfish::privileges::getBios)
+        .methods(boost::beast::http::verb::get)(
+            std::bind_front(handleBiosSettingsGet, std::ref(app)));
+
+    BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/Bios/Settings")
+        .privileges(redfish::privileges::patchBios)
+        .methods(boost::beast::http::verb::patch)(
+            std::bind_front(handleBiosSettingsPatch, std::ref(app)));
+}
+
 } // namespace redfish
