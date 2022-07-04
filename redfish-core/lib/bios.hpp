@@ -54,17 +54,24 @@ inline void
     {
         return;
     }
+
+    std::string resetFlag =
+        "xyz.openbmc_project.BIOSConfig.Manager.ResetFlag.FactoryDefaults";
+
     crow::connections::systemBus->async_method_call(
         [asyncResp](const boost::system::error_code ec) {
         if (ec)
         {
-            BMCWEB_LOG_ERROR << "Failed to reset bios: " << ec;
+            BMCWEB_LOG_ERROR << "doPost bios reset got error " << ec;
             messages::internalError(asyncResp->res);
             return;
         }
         },
-        "org.open_power.Software.Host.Updater", "/xyz/openbmc_project/software",
-        "xyz.openbmc_project.Common.FactoryReset", "Reset");
+        "xyz.openbmc_project.BIOSConfigManager",
+        "/xyz/openbmc_project/bios_config/manager",
+        "org.freedesktop.DBus.Properties", "Set",
+        "xyz.openbmc_project.BIOSConfig.Manager", "ResetBIOSSettings",
+        std::variant<std::string>(resetFlag));
 }
 
 inline void requestRoutesBiosReset(App& app)
