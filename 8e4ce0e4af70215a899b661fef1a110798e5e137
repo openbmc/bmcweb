@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1f70373e_46dedd4a",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-07-04T14:32:54Z",
+      "side": 1,
+      "message": "Please use dbus::utility::DbusVariantType here, and inplace string literal is better",
+      "revId": "8e4ce0e4af70215a899b661fef1a110798e5e137",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
