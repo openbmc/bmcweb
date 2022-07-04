@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f1c39e05_a957b99b",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 556,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-07-04T14:25:44Z",
+      "side": 1,
+      "message": "\"data\" is not a standard redfish attribute, this should be \"Attributes\" to match GET request?",
+      "range": {
+        "startLine": 556,
+        "startChar": 64,
+        "endLine": 556,
+        "endChar": 70
+      },
+      "revId": "5ab7dd25ed48083a4d3a8ad96c530c624544359d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
