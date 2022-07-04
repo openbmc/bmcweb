@@ -75,4 +75,74 @@ inline void requestRoutesBiosReset(App& app)
             std::bind_front(handleBiosResetPost, std::ref(app)));
 }
 
+inline void handleBiosChangePasswordPost(
+    const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+{
+    std::string currentPassword;
+    std::string newPassword;
+    std::string userName;
+
+    if (!json_util::readJsonPatch(req, asyncResp->res, "NewPassword",
+                                  newPassword, "OldPassword", currentPassword,
+                                  "PasswordName", userName))
+    {
+        return;
+    }
+    if (currentPassword.empty())
+    {
+        messages::actionParameterUnknown(asyncResp->res, "ChangePassword",
+                                         "OldPassword");
+        return;
+    }
+    if (newPassword.empty())
+    {
+        messages::actionParameterUnknown(asyncResp->res, "ChangePassword",
+                                         "NewPassword");
+        return;
+    }
+    if (userName.empty())
+    {
+        messages::actionParameterUnknown(asyncResp->res, "ChangePassword",
+                                         "PasswordName");
+        return;
+    }
+
+    // In Intel BIOS, we are not supporting user password in BIOS
+    // setup
+    if (userName == "UserPassword")
+    {
+        messages::actionParameterUnknown(asyncResp->res, "ChangePassword",
+                                         "PasswordName");
+        return;
+    }
+
+    crow::connections::systemBus->async_method_call(
+        [asyncResp](const boost::system::error_code ec) {
+        if (ec)
+        {
+            BMCWEB_LOG_CRITICAL << "Failed in doPost(BiosChangePassword) "
+                                << ec;
+            messages::internalError(asyncResp->res);
+            return;
+        }
+        },
+        "xyz.openbmc_project.BIOSConfigPassword",
+        "/xyz/openbmc_project/bios_config/password",
+        "xyz.openbmc_project.BIOSConfig.Password", "ChangePassword", userName,
+        currentPassword, newPassword);
+}
+
+/**
+ * BiosChangePassword class supports handle POST method for change bios
+ * password. The class retrieves and sends data directly to D-Bus.
+ */
+inline void requestRoutesBiosChangePassword(App& app)
+{
+    BMCWEB_ROUTE(app,
+                 "/redfish/v1/Systems/system/Bios/Actions/Bios.ChangePassword/")
+        .privileges(redfish::privileges::postBios)
+        .methods(boost::beast::http::verb::post)(handleBiosChangePasswordPost);
+}
+
 } // namespace redfish
