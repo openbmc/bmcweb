@@ -22,6 +22,7 @@
 #include "../lib/chassis.hpp"
 #include "../lib/ethernet.hpp"
 #include "../lib/event_service.hpp"
+#include "../lib/fan.hpp"
 #include "../lib/hypervisor_system.hpp"
 #include "../lib/log_services.hpp"
 #include "../lib/managers.hpp"
@@ -78,6 +79,8 @@ class RedfishService
 #endif
 #ifdef BMCWEB_NEW_POWERSUBSYSTEM_THERMALSUBSYSTEM
         requestRoutesThermalSubsystem(app);
+        requestRoutesFan(app);
+        requestRoutesFanCollection(app);
 #endif
         requestRoutesManagerCollection(app);
         requestRoutesManager(app);
