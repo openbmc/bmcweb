@@ -96,6 +96,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a2ae35b1_3036f064",
+        "filename": "Redfish.md",
+        "patchSetId": 78
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 1000444
+      },
+      "writtenOn": "2022-07-04T07:43:43Z",
+      "side": 1,
+      "message": "My idea is that other stuff is added in other commits, such as Fan-Schema.",
+      "parentUuid": "a3975582_be33df3d",
+      "range": {
+        "startLine": 228,
+        "startChar": 0,
+        "endLine": 229,
+        "endChar": 8
+      },
+      "revId": "0f3142febeea404a53dc72f2637d629bbd6ed55c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3dd549ba_94a056ee",
         "filename": "redfish-core/include/utils/chassis_utils.hpp",
         "patchSetId": 78
@@ -107,6 +131,30 @@
       "writtenOn": "2022-06-28T17:53:16Z",
       "side": 1,
       "message": "Don\u0027t we already have a function for this?  Can we reuse existing code?",
+      "range": {
+        "startLine": 15,
+        "startChar": 5,
+        "endLine": 15,
+        "endChar": 22
+      },
+      "revId": "0f3142febeea404a53dc72f2637d629bbd6ed55c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ebb83879_209d22a4",
+        "filename": "redfish-core/include/utils/chassis_utils.hpp",
+        "patchSetId": 78
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000444
+      },
+      "writtenOn": "2022-07-04T07:43:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3dd549ba_94a056ee",
       "range": {
         "startLine": 15,
         "startChar": 5,
@@ -134,6 +182,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "08d1e3b5_7dd0e582",
+        "filename": "redfish-core/include/utils/chassis_utils.hpp",
+        "patchSetId": 78
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000444
+      },
+      "writtenOn": "2022-07-04T07:43:43Z",
+      "side": 1,
+      "message": "This file has been deleted",
+      "parentUuid": "514547eb_c5407838",
+      "revId": "0f3142febeea404a53dc72f2637d629bbd6ed55c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f0152e4e_494435e2",
@@ -147,6 +213,30 @@
       "writtenOn": "2022-06-28T17:53:16Z",
       "side": 1,
       "message": "Please use urlfrompieces() and avoid brace initialization.",
+      "range": {
+        "startLine": 397,
+        "startChar": 24,
+        "endLine": 398,
+        "endChar": 64
+      },
+      "revId": "0f3142febeea404a53dc72f2637d629bbd6ed55c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "89aada7c_6e01a21d",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 78
+      },
+      "lineNbr": 398,
+      "author": {
+        "id": 1000444
+      },
+      "writtenOn": "2022-07-04T07:43:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f0152e4e_494435e2",
       "range": {
         "startLine": 397,
         "startChar": 24,
@@ -180,6 +270,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "52abb601_b8efacd7",
+        "filename": "redfish-core/lib/thermal_subsystem.hpp",
+        "patchSetId": 78
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000444
+      },
+      "writtenOn": "2022-07-04T07:43:43Z",
+      "side": 1,
+      "message": "This if() has been deleted",
+      "parentUuid": "06f4a272_c878d5c4",
+      "range": {
+        "startLine": 17,
+        "startChar": 52,
+        "endLine": 17,
+        "endChar": 59
+      },
+      "revId": "0f3142febeea404a53dc72f2637d629bbd6ed55c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "720d780c_e36ac39f",
@@ -193,6 +307,24 @@
       "writtenOn": "2022-06-28T17:53:16Z",
       "side": 1,
       "message": "please use urlFromPieces.",
+      "revId": "0f3142febeea404a53dc72f2637d629bbd6ed55c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad8a9528_69f9824e",
+        "filename": "redfish-core/lib/thermal_subsystem.hpp",
+        "patchSetId": 78
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000444
+      },
+      "writtenOn": "2022-07-04T07:43:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "720d780c_e36ac39f",
       "revId": "0f3142febeea404a53dc72f2637d629bbd6ed55c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -214,6 +346,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c49a03f3_4657e86c",
+        "filename": "redfish-core/lib/thermal_subsystem.hpp",
+        "patchSetId": 78
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000444
+      },
+      "writtenOn": "2022-07-04T07:43:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4ba3d2a7_1977337a",
+      "revId": "0f3142febeea404a53dc72f2637d629bbd6ed55c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "98240f35_6f331c0d",
@@ -227,6 +377,30 @@
       "writtenOn": "2022-06-28T17:53:16Z",
       "side": 1,
       "message": "This privilege level is probably incorrect, and needs to use the privilege registry.",
+      "range": {
+        "startLine": 35,
+        "startChar": 19,
+        "endLine": 35,
+        "endChar": 31
+      },
+      "revId": "0f3142febeea404a53dc72f2637d629bbd6ed55c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e9d18b3b_90a1724a",
+        "filename": "redfish-core/lib/thermal_subsystem.hpp",
+        "patchSetId": 78
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000444
+      },
+      "writtenOn": "2022-07-04T07:43:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "98240f35_6f331c0d",
       "range": {
         "startLine": 35,
         "startChar": 19,
@@ -260,6 +434,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "99423106_5ed2ac0a",
+        "filename": "redfish-core/lib/thermal_subsystem.hpp",
+        "patchSetId": 78
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000444
+      },
+      "writtenOn": "2022-07-04T07:43:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7292d35c_894f8fe0",
+      "range": {
+        "startLine": 39,
+        "startChar": 11,
+        "endLine": 41,
+        "endChar": 50
+      },
+      "revId": "0f3142febeea404a53dc72f2637d629bbd6ed55c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "80cd93c6_0a34050c",
@@ -277,6 +475,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "22c6beb6_0a703029",
+        "filename": "redfish-core/lib/thermal_subsystem.hpp",
+        "patchSetId": 78
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1000444
+      },
+      "writtenOn": "2022-07-04T07:43:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "80cd93c6_0a34050c",
+      "revId": "0f3142febeea404a53dc72f2637d629bbd6ed55c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "afc44155_7a3c3a44",
@@ -290,6 +506,24 @@
       "writtenOn": "2022-06-28T17:53:16Z",
       "side": 1,
       "message": "Please add the schemas in another commit.",
+      "revId": "0f3142febeea404a53dc72f2637d629bbd6ed55c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6c1894be_d8794559",
+        "filename": "static/redfish/v1/$metadata/index.xml",
+        "patchSetId": 78
+      },
+      "lineNbr": 2430,
+      "author": {
+        "id": 1000444
+      },
+      "writtenOn": "2022-07-04T07:43:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "afc44155_7a3c3a44",
       "revId": "0f3142febeea404a53dc72f2637d629bbd6ed55c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
