@@ -33,6 +33,31 @@ inline void
     asyncResp->res.jsonValue["Actions"]["#Bios.ResetBios"] = {
         {"target", "/redfish/v1/Systems/system/Bios/Actions/Bios.ResetBios"}};
 
+    crow::connections::systemBus->async_method_call(
+        [asyncResp](const boost::system::error_code& ec,
+                    const dbus::utility::MapperGetObject& objectNames) {
+        if (ec)
+        {
+            BMCWEB_LOG_ERROR
+                << "Failed to GetObject for path /xyz/openbmc_project/bios_config/password. Error : "
+                << ec.what();
+            return;
+        }
+
+        if (!objectNames.empty())
+        {
+            asyncResp->res.jsonValue["Actions"]["#Bios.ChangePassword"] = {
+                {"target", "/redfish/v1/Systems/system/Bios/Actions/"
+                           "Bios.ChangePassword"}};
+        }
+        },
+        "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetObject",
+        "/xyz/openbmc_project/bios_config/password",
+        std::array<const std::string, 1>{
+            "xyz.openbmc_project.BIOSConfig.Password"});
+
     // Get the ActiveSoftwareImage and SoftwareImages
     sw_util::populateSoftwareInformation(asyncResp, sw_util::biosPurpose, "",
                                          true);
@@ -89,6 +114,62 @@ inline void requestRoutesBiosReset(App& app)
         .privileges(redfish::privileges::postBios)
         .methods(boost::beast::http::verb::post)(
             std::bind_front(handleBiosResetPost, std::ref(app)));
+}
+
+inline void handleBiosChangePasswordPost(
+    crow::App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& systemName)
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+    if (systemName != "system")
+    {
+        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                   systemName);
+        return;
+    }
+
+    std::string currentPassword;
+    std::string newPassword;
+    std::string passwordName;
+
+    if (!json_util::readJsonAction(req, asyncResp->res, "NewPassword",
+                                   newPassword, "OldPassword", currentPassword,
+                                   "PasswordName", passwordName))
+    {
+        return;
+    }
+
+    crow::connections::systemBus->async_method_call(
+        [asyncResp](const boost::system::error_code ec) {
+        if (ec)
+        {
+            BMCWEB_LOG_CRITICAL << "Failed in doPost(BiosChangePassword) "
+                                << ec;
+            messages::internalError(asyncResp->res);
+            return;
+        }
+        },
+        "xyz.openbmc_project.BIOSConfigManager",
+        "/xyz/openbmc_project/bios_config/password",
+        "xyz.openbmc_project.BIOSConfig.Password", "ChangePassword",
+        passwordName, currentPassword, newPassword);
+}
+
+/**
+ * BiosChangePassword class supports handle POST method for change bios
+ * password. The class retrieves and sends data directly to D-Bus.
+ */
+inline void requestRoutesBiosChangePassword(App& app)
+{
+    BMCWEB_ROUTE(app,
+                 "/redfish/v1/Systems/<str>/Bios/Actions/Bios.ChangePassword/")
+        .privileges(redfish::privileges::postBios)
+        .methods(boost::beast::http::verb::post)(
+            std::bind_front(handleBiosChangePasswordPost, std::ref(app)));
 }
 
 } // namespace redfish
