@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "97638bde_8af69f87",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1000929
+      },
+      "writtenOn": "2022-07-04T17:03:28Z",
+      "side": 1,
+      "message": "not sure but since we are handling password here we need to clear the password once used right ?\n\nold coversations \nhttps://gerrit.openbmc.org/c/openbmc/phosphor-host-ipmid/+/44464/1/include/ipmid/types.hpp",
+      "range": {
+        "startLine": 130,
+        "startChar": 8,
+        "endLine": 130,
+        "endChar": 23
+      },
+      "revId": "799ec49ec3d87c470877d4ce41e83478638645d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
