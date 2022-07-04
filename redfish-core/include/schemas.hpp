@@ -30,6 +30,7 @@ namespace redfish
         "Event",
         "EventDestination",
         "EventService",
+        "Fan",
         "IPAddresses",
         "JsonSchemaFile",
         "LogEntry",
