@@ -5,6 +5,15 @@
 #include <registries/privilege_registry.hpp>
 #include <utils/sw_utils.hpp>
 
+typedef void* (*memset_t)(void*, int, size_t);
+
+static volatile memset_t memset_func = memset;
+
+void cleanse(void* ptr, size_t len)
+{
+    memset_func(ptr, 0, len);
+}
+
 namespace redfish
 {
 /**
@@ -89,6 +98,98 @@ inline void requestRoutesBiosReset(App& app)
         .privileges(redfish::privileges::postBios)
         .methods(boost::beast::http::verb::post)(
             std::bind_front(handleBiosResetPost, std::ref(app)));
+}
+
+inline void handleBiosChangePasswordPost(
+    crow::App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& systemName)
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+    if (systemName != "system")
+    {
+        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                   systemName);
+        return;
+    }
+
+    std::string currentPassword;
+    std::string newPassword;
+    std::string userName;
+
+    if (!json_util::readJsonPatch(req, asyncResp->res, "NewPassword",
+                                  newPassword, "OldPassword", currentPassword,
+                                  "PasswordName", userName))
+    {
+        return;
+    }
+    if (currentPassword.empty())
+    {
+        messages::actionParameterUnknown(asyncResp->res, "ChangePassword",
+                                         "OldPassword");
+        return;
+    }
+    if (newPassword.empty())
+    {
+        messages::actionParameterUnknown(asyncResp->res, "ChangePassword",
+                                         "NewPassword");
+        return;
+    }
+    if (userName.empty())
+    {
+        messages::actionParameterUnknown(asyncResp->res, "ChangePassword",
+                                         "PasswordName");
+        return;
+    }
+
+    // In Intel BIOS, we are not supporting user password in BIOS
+    // setup
+    if (userName == "UserPassword")
+    {
+        messages::actionParameterUnknown(asyncResp->res, "ChangePassword",
+                                         "PasswordName");
+
+        /* Clear contents of password once used */
+        cleanse(&currentPassword[0], currentPassword.size());
+        cleanse(&newPassword[0], newPassword.size());
+
+        return;
+    }
+
+    crow::connections::systemBus->async_method_call(
+        [asyncResp](const boost::system::error_code ec) {
+        if (ec)
+        {
+            BMCWEB_LOG_CRITICAL << "Failed in doPost(BiosChangePassword) "
+                                << ec;
+            messages::internalError(asyncResp->res);
+            return;
+        }
+        },
+        "xyz.openbmc_project.BIOSConfigPassword",
+        "/xyz/openbmc_project/bios_config/password",
+        "xyz.openbmc_project.BIOSConfig.Password", "ChangePassword", userName,
+        currentPassword, newPassword);
+
+    /* Clear contents of password once used */
+    cleanse(&currentPassword[0], currentPassword.size());
+    cleanse(&newPassword[0], newPassword.size());
+}
+
+/**
+ * BiosChangePassword class supports handle POST method for change bios
+ * password. The class retrieves and sends data directly to D-Bus.
+ */
+inline void requestRoutesBiosChangePassword(App& app)
+{
+    BMCWEB_ROUTE(app,
+                 "/redfish/v1/Systems/system/Bios/Actions/Bios.ChangePassword/")
+        .privileges(redfish::privileges::postBios)
+        .methods(boost::beast::http::verb::post)(
+            std::bind_front(handleBiosChangePasswordPost, std::ref(app)));
 }
 
 } // namespace redfish
