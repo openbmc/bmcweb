@@ -100,11 +100,6 @@ class MockLock : public crow::ibm_mc_lock::Lock
         auto status = Lock::isItMyLock(tids, ids);
         return status;
     }
-    RcGetLockList getList(std::vector<std::string>& listSessionid)
-    {
-        auto status = Lock::getLockList(listSessionid);
-        return status;
-    }
     friend class LockTest;
 };
 
