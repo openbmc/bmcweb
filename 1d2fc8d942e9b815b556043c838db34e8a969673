@@ -16,6 +16,23 @@
       "message": "This patch has been submitted several times.  Please reuse the existing review, and respond to the comments there.",
       "revId": "1d2fc8d942e9b815b556043c838db34e8a969673",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7627cd75_0231681b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-05T18:22:24Z",
+      "side": 1,
+      "message": "This patchset also flags 10 new cppcheck warnings.  Please check the jenkins results and fix them.",
+      "revId": "1d2fc8d942e9b815b556043c838db34e8a969673",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
