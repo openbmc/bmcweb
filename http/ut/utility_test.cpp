@@ -1,6 +1,6 @@
-#include "bmcweb_config.h"
-
 #include "utility.hpp"
+
+#include "bmcweb_config.h"
 
 #include <boost/url/error.hpp>
 #include <boost/url/url.hpp>

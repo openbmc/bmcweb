@@ -72,30 +72,30 @@ class KvmSession
         hostSocket.async_read_some(
             outputBuffer.prepare(outputBuffer.capacity() - outputBuffer.size()),
             [this](const boost::system::error_code& ec, std::size_t bytesRead) {
-            BMCWEB_LOG_DEBUG << "conn:" << &conn << ", read done.  Read "
-                             << bytesRead << " bytes";
-            if (ec)
-            {
-                BMCWEB_LOG_ERROR
-                    << "conn:" << &conn
-                    << ", Couldn't read from KVM socket port: " << ec;
-                if (ec != boost::asio::error::operation_aborted)
+                BMCWEB_LOG_DEBUG << "conn:" << &conn << ", read done.  Read "
+                                 << bytesRead << " bytes";
+                if (ec)
                 {
-                    conn.close("Error in connecting to KVM port");
+                    BMCWEB_LOG_ERROR
+                        << "conn:" << &conn
+                        << ", Couldn't read from KVM socket port: " << ec;
+                    if (ec != boost::asio::error::operation_aborted)
+                    {
+                        conn.close("Error in connecting to KVM port");
+                    }
+                    return;
                 }
-                return;
-            }
 
-            outputBuffer.commit(bytesRead);
-            std::string_view payload(
-                static_cast<const char*>(outputBuffer.data().data()),
-                bytesRead);
-            BMCWEB_LOG_DEBUG << "conn:" << &conn << ", Sending payload size "
-                             << payload.size();
-            conn.sendBinary(payload);
-            outputBuffer.consume(bytesRead);
+                outputBuffer.commit(bytesRead);
+                std::string_view payload(
+                    static_cast<const char*>(outputBuffer.data().data()),
+                    bytesRead);
+                BMCWEB_LOG_DEBUG << "conn:" << &conn
+                                 << ", Sending payload size " << payload.size();
+                conn.sendBinary(payload);
+                outputBuffer.consume(bytesRead);
 
-            doRead();
+                doRead();
             });
     }
 
@@ -115,32 +115,32 @@ class KvmSession
         }
 
         doingWrite = true;
-        hostSocket.async_write_some(inputBuffer.data(),
-                                    [this](const boost::system::error_code& ec,
-                                           std::size_t bytesWritten) {
-            BMCWEB_LOG_DEBUG << "conn:" << &conn << ", Wrote " << bytesWritten
-                             << "bytes";
-            doingWrite = false;
-            inputBuffer.consume(bytesWritten);
+        hostSocket.async_write_some(
+            inputBuffer.data(), [this](const boost::system::error_code& ec,
+                                       std::size_t bytesWritten) {
+                BMCWEB_LOG_DEBUG << "conn:" << &conn << ", Wrote "
+                                 << bytesWritten << "bytes";
+                doingWrite = false;
+                inputBuffer.consume(bytesWritten);
 
-            if (ec == boost::asio::error::eof)
-            {
-                conn.close("KVM socket port closed");
-                return;
-            }
-            if (ec)
-            {
-                BMCWEB_LOG_ERROR << "conn:" << &conn
-                                 << ", Error in KVM socket write " << ec;
-                if (ec != boost::asio::error::operation_aborted)
+                if (ec == boost::asio::error::eof)
                 {
-                    conn.close("Error in reading to host port");
+                    conn.close("KVM socket port closed");
+                    return;
                 }
-                return;
-            }
+                if (ec)
+                {
+                    BMCWEB_LOG_ERROR << "conn:" << &conn
+                                     << ", Error in KVM socket write " << ec;
+                    if (ec != boost::asio::error::operation_aborted)
+                    {
+                        conn.close("Error in reading to host port");
+                    }
+                    return;
+                }
 
-            doWrite();
-        });
+                doWrite();
+            });
     }
 
     crow::websocket::Connection& conn;

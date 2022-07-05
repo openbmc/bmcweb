@@ -1,9 +1,10 @@
+#include "redfish-core/lib/service_root.hpp"
+
 #include "bmcweb_config.h"
 
 #include "http_request.hpp"
 #include "include/async_resp.hpp"
 #include "nlohmann/json.hpp"
-#include "redfish-core/lib/service_root.hpp"
 
 #include <memory>
 #include <string>

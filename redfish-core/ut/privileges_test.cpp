@@ -1,5 +1,6 @@
-#include "nlohmann/json.hpp"
 #include "privileges.hpp"
+
+#include "nlohmann/json.hpp"
 
 #include <fstream>
 #include <string>

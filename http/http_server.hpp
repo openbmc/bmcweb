@@ -127,8 +127,8 @@ class Server
 
     void startAsyncWaitForSignal()
     {
-        signals.async_wait(
-            [this](const boost::system::error_code& ec, int signalNo) {
+        signals.async_wait([this](const boost::system::error_code& ec,
+                                  int signalNo) {
             if (ec)
             {
                 BMCWEB_LOG_INFO << "Error in signal handler" << ec.message();
@@ -183,12 +183,12 @@ class Server
         acceptor->async_accept(
             boost::beast::get_lowest_layer(connection->socket()),
             [this, connection](boost::system::error_code ec) {
-            if (!ec)
-            {
-                boost::asio::post(*this->ioService,
-                                  [connection] { connection->start(); });
-            }
-            doAccept();
+                if (!ec)
+                {
+                    boost::asio::post(*this->ioService,
+                                      [connection] { connection->start(); });
+                }
+                doAccept();
             });
     }
 

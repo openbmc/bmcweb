@@ -82,7 +82,6 @@ struct HealthPopulate : std::enable_shared_from_this<HealthPopulate>
             // managers inventory is all the inventory, don't skip any
             if (!isManagersHealth && !isSelf)
             {
-
                 // We only want to look at this association if either the path
                 // of this association is an inventory item, or one of the
                 // endpoints in this association is a child
@@ -197,12 +196,12 @@ struct HealthPopulate : std::enable_shared_from_this<HealthPopulate>
         crow::connections::systemBus->async_method_call(
             [self](const boost::system::error_code ec,
                    const dbus::utility::MapperGetSubTreePathsResponse& resp) {
-            if (ec || resp.size() != 1)
-            {
-                // no global item, or too many
-                return;
-            }
-            self->globalInventoryPath = resp[0];
+                if (ec || resp.size() != 1)
+                {
+                    // no global item, or too many
+                    return;
+                }
+                self->globalInventoryPath = resp[0];
             },
             "xyz.openbmc_project.ObjectMapper",
             "/xyz/openbmc_project/object_mapper",
@@ -217,21 +216,22 @@ struct HealthPopulate : std::enable_shared_from_this<HealthPopulate>
         crow::connections::systemBus->async_method_call(
             [self](const boost::system::error_code ec,
                    const dbus::utility::ManagedObjectType& resp) {
-            if (ec)
-            {
-                return;
-            }
-            self->statuses = resp;
-            for (auto it = self->statuses.begin(); it != self->statuses.end();)
-            {
-                if (boost::ends_with(it->first.str, "critical") ||
-                    boost::ends_with(it->first.str, "warning"))
+                if (ec)
                 {
-                    it++;
-                    continue;
+                    return;
                 }
-                it = self->statuses.erase(it);
-            }
+                self->statuses = resp;
+                for (auto it = self->statuses.begin();
+                     it != self->statuses.end();)
+                {
+                    if (boost::ends_with(it->first.str, "critical") ||
+                        boost::ends_with(it->first.str, "warning"))
+                    {
+                        it++;
+                        continue;
+                    }
+                    it = self->statuses.erase(it);
+                }
             },
             "xyz.openbmc_project.ObjectMapper", "/",
             "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");

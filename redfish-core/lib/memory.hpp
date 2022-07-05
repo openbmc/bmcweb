@@ -718,13 +718,13 @@ inline void getDimmDataByService(std::shared_ptr<bmcweb::AsyncResp> aResp,
         [dimmId, aResp{std::move(aResp)}](
             const boost::system::error_code ec,
             const dbus::utility::DBusPropertiesMap& properties) {
-        if (ec)
-        {
-            BMCWEB_LOG_DEBUG << "DBUS response error";
-            messages::internalError(aResp->res);
-            return;
-        }
-        assembleDimmProperties(dimmId, aResp, properties, ""_json_pointer);
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG << "DBUS response error";
+                messages::internalError(aResp->res);
+                return;
+            }
+            assembleDimmProperties(dimmId, aResp, properties, ""_json_pointer);
         },
         service, objPath, "org.freedesktop.DBus.Properties", "GetAll", "");
 }
@@ -802,15 +802,15 @@ inline void getDimmPartitionData(std::shared_ptr<bmcweb::AsyncResp> aResp,
         [aResp{std::move(aResp)}](
             const boost::system::error_code ec,
             const dbus::utility::DBusPropertiesMap& properties) {
-        if (ec)
-        {
-            BMCWEB_LOG_DEBUG << "DBUS response error";
-            messages::internalError(aResp->res);
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG << "DBUS response error";
+                messages::internalError(aResp->res);
 
-            return;
-        }
-        nlohmann::json::json_pointer regionPtr = "/Regions"_json_pointer;
-        assembleDimmPartitionData(aResp, properties, regionPtr);
+                return;
+            }
+            nlohmann::json::json_pointer regionPtr = "/Regions"_json_pointer;
+            assembleDimmPartitionData(aResp, properties, regionPtr);
         },
 
         service, path, "org.freedesktop.DBus.Properties", "GetAll",
@@ -825,54 +825,55 @@ inline void getDimmData(std::shared_ptr<bmcweb::AsyncResp> aResp,
         [dimmId, aResp{std::move(aResp)}](
             const boost::system::error_code ec,
             const dbus::utility::MapperGetSubTreeResponse& subtree) {
-        if (ec)
-        {
-            BMCWEB_LOG_DEBUG << "DBUS response error";
-            messages::internalError(aResp->res);
-
-            return;
-        }
-        bool found = false;
-        for (const auto& [rawPath, object] : subtree)
-        {
-            sdbusplus::message::object_path path(rawPath);
-            for (const auto& [service, interfaces] : object)
+            if (ec)
             {
-                for (const auto& interface : interfaces)
-                {
-                    if (interface ==
-                            "xyz.openbmc_project.Inventory.Item.Dimm" &&
-                        path.filename() == dimmId)
-                    {
-                        getDimmDataByService(aResp, dimmId, service, rawPath);
-                        found = true;
-                    }
+                BMCWEB_LOG_DEBUG << "DBUS response error";
+                messages::internalError(aResp->res);
 
-                    // partitions are separate as there can be multiple
-                    // per
-                    // device, i.e.
-                    // /xyz/openbmc_project/Inventory/Item/Dimm1/Partition1
-                    // /xyz/openbmc_project/Inventory/Item/Dimm1/Partition2
-                    if (interface ==
-                            "xyz.openbmc_project.Inventory.Item.PersistentMemory.Partition" &&
-                        path.parent_path().filename() == dimmId)
+                return;
+            }
+            bool found = false;
+            for (const auto& [rawPath, object] : subtree)
+            {
+                sdbusplus::message::object_path path(rawPath);
+                for (const auto& [service, interfaces] : object)
+                {
+                    for (const auto& interface : interfaces)
                     {
-                        getDimmPartitionData(aResp, service, rawPath);
+                        if (interface ==
+                                "xyz.openbmc_project.Inventory.Item.Dimm" &&
+                            path.filename() == dimmId)
+                        {
+                            getDimmDataByService(aResp, dimmId, service,
+                                                 rawPath);
+                            found = true;
+                        }
+
+                        // partitions are separate as there can be multiple
+                        // per
+                        // device, i.e.
+                        // /xyz/openbmc_project/Inventory/Item/Dimm1/Partition1
+                        // /xyz/openbmc_project/Inventory/Item/Dimm1/Partition2
+                        if (interface ==
+                                "xyz.openbmc_project.Inventory.Item.PersistentMemory.Partition" &&
+                            path.parent_path().filename() == dimmId)
+                        {
+                            getDimmPartitionData(aResp, service, rawPath);
+                        }
                     }
                 }
             }
-        }
-        // Object not found
-        if (!found)
-        {
-            messages::resourceNotFound(aResp->res, "Memory", dimmId);
+            // Object not found
+            if (!found)
+            {
+                messages::resourceNotFound(aResp->res, "Memory", dimmId);
+                return;
+            }
+            // Set @odata only if object is found
+            aResp->res.jsonValue["@odata.type"] = "#Memory.v1_11_0.Memory";
+            aResp->res.jsonValue["@odata.id"] =
+                "/redfish/v1/Systems/system/Memory/" + dimmId;
             return;
-        }
-        // Set @odata only if object is found
-        aResp->res.jsonValue["@odata.type"] = "#Memory.v1_11_0.Memory";
-        aResp->res.jsonValue["@odata.id"] =
-            "/redfish/v1/Systems/system/Memory/" + dimmId;
-        return;
         },
         "xyz.openbmc_project.ObjectMapper",
         "/xyz/openbmc_project/object_mapper",
@@ -893,20 +894,20 @@ inline void requestRoutesMemoryCollection(App& app)
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-        if (!redfish::setUpRedfishRoute(app, req, asyncResp))
-        {
-            return;
-        }
-        asyncResp->res.jsonValue["@odata.type"] =
-            "#MemoryCollection.MemoryCollection";
-        asyncResp->res.jsonValue["Name"] = "Memory Module Collection";
-        asyncResp->res.jsonValue["@odata.id"] =
-            "/redfish/v1/Systems/system/Memory";
+                if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+                {
+                    return;
+                }
+                asyncResp->res.jsonValue["@odata.type"] =
+                    "#MemoryCollection.MemoryCollection";
+                asyncResp->res.jsonValue["Name"] = "Memory Module Collection";
+                asyncResp->res.jsonValue["@odata.id"] =
+                    "/redfish/v1/Systems/system/Memory";
 
-        collection_util::getCollectionMembers(
-            asyncResp, "/redfish/v1/Systems/system/Memory",
-            {"xyz.openbmc_project.Inventory.Item.Dimm"});
-        });
+                collection_util::getCollectionMembers(
+                    asyncResp, "/redfish/v1/Systems/system/Memory",
+                    {"xyz.openbmc_project.Inventory.Item.Dimm"});
+            });
 }
 
 inline void requestRoutesMemory(App& app)
@@ -920,12 +921,12 @@ inline void requestRoutesMemory(App& app)
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                    const std::string& dimmId) {
-        if (!redfish::setUpRedfishRoute(app, req, asyncResp))
-        {
-            return;
-        }
-        getDimmData(asyncResp, dimmId);
-        });
+                if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+                {
+                    return;
+                }
+                getDimmData(asyncResp, dimmId);
+            });
 }
 
 } // namespace redfish

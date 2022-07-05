@@ -62,11 +62,12 @@ inline void resolveRoT(const std::string& command,
                        const std::string& rotId,
                        ResolvedEntityHandler&& entityHandler)
 {
-    auto validateFunc =
-        [command, asyncResp, rotId,
-         entityHandler{std::forward<ResolvedEntityHandler>(entityHandler)}](
-            const boost::system::error_code ec,
-            const dbus::utility::MapperGetSubTreeResponse& subtree) {
+    auto validateFunc = [command, asyncResp, rotId,
+                         entityHandler{std::forward<ResolvedEntityHandler>(
+                             entityHandler)}](
+                            const boost::system::error_code ec,
+                            const dbus::utility::MapperGetSubTreeResponse&
+                                subtree) {
         if (ec)
         {
             redfish::messages::internalError(asyncResp->res);

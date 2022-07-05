@@ -179,32 +179,32 @@ inline void getVmResourceList(std::shared_ptr<bmcweb::AsyncResp> aResp,
         [name,
          aResp{std::move(aResp)}](const boost::system::error_code ec,
                                   dbus::utility::ManagedObjectType& subtree) {
-        if (ec)
-        {
-            BMCWEB_LOG_DEBUG << "DBUS response error";
-            return;
-        }
-        nlohmann::json& members = aResp->res.jsonValue["Members"];
-        members = nlohmann::json::array();
-
-        for (const auto& object : subtree)
-        {
-            nlohmann::json item;
-            std::string path = object.first.filename();
-            if (path.empty())
+            if (ec)
             {
-                continue;
+                BMCWEB_LOG_DEBUG << "DBUS response error";
+                return;
             }
+            nlohmann::json& members = aResp->res.jsonValue["Members"];
+            members = nlohmann::json::array();
 
-            std::string id = "/redfish/v1/Managers/";
-            id += name;
-            id += "/VirtualMedia/";
-            id += path;
+            for (const auto& object : subtree)
+            {
+                nlohmann::json item;
+                std::string path = object.first.filename();
+                if (path.empty())
+                {
+                    continue;
+                }
 
-            item["@odata.id"] = std::move(id);
-            members.emplace_back(std::move(item));
-        }
-        aResp->res.jsonValue["Members@odata.count"] = members.size();
+                std::string id = "/redfish/v1/Managers/";
+                id += name;
+                id += "/VirtualMedia/";
+                id += path;
+
+                item["@odata.id"] = std::move(id);
+                members.emplace_back(std::move(item));
+            }
+            aResp->res.jsonValue["Members@odata.count"] = members.size();
         },
         service, "/xyz/openbmc_project/VirtualMedia",
         "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
@@ -223,66 +223,66 @@ inline void getVmData(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
         [resName, name,
          aResp](const boost::system::error_code ec,
                 const dbus::utility::ManagedObjectType& subtree) {
-        if (ec)
-        {
-            BMCWEB_LOG_DEBUG << "DBUS response error";
-
-            return;
-        }
-
-        for (const auto& item : subtree)
-        {
-            std::string thispath = item.first.filename();
-            if (thispath.empty())
+            if (ec)
             {
-                continue;
+                BMCWEB_LOG_DEBUG << "DBUS response error";
+
+                return;
             }
 
-            if (thispath != resName)
+            for (const auto& item : subtree)
             {
-                continue;
-            }
+                std::string thispath = item.first.filename();
+                if (thispath.empty())
+                {
+                    continue;
+                }
 
-            // "Legacy"/"Proxy"
-            auto mode = item.first.parent_path();
-            // "VirtualMedia"
-            auto type = mode.parent_path();
-            if (mode.filename().empty() || type.filename().empty())
-            {
-                continue;
-            }
+                if (thispath != resName)
+                {
+                    continue;
+                }
 
-            if (type.filename() != "VirtualMedia")
-            {
-                continue;
-            }
+                // "Legacy"/"Proxy"
+                auto mode = item.first.parent_path();
+                // "VirtualMedia"
+                auto type = mode.parent_path();
+                if (mode.filename().empty() || type.filename().empty())
+                {
+                    continue;
+                }
 
-            aResp->res.jsonValue = vmItemTemplate(name, resName);
-            std::string actionsId = "/redfish/v1/Managers/";
-            actionsId += name;
-            actionsId += "/VirtualMedia/";
-            actionsId += resName;
-            actionsId += "/Actions";
+                if (type.filename() != "VirtualMedia")
+                {
+                    continue;
+                }
 
-            // Check if dbus path is Legacy type
-            if (mode.filename() == "Legacy")
-            {
-                aResp->res.jsonValue["Actions"]["#VirtualMedia.InsertMedia"]
+                aResp->res.jsonValue = vmItemTemplate(name, resName);
+                std::string actionsId = "/redfish/v1/Managers/";
+                actionsId += name;
+                actionsId += "/VirtualMedia/";
+                actionsId += resName;
+                actionsId += "/Actions";
+
+                // Check if dbus path is Legacy type
+                if (mode.filename() == "Legacy")
+                {
+                    aResp->res.jsonValue["Actions"]["#VirtualMedia.InsertMedia"]
+                                        ["target"] =
+                        actionsId + "/VirtualMedia.InsertMedia";
+                }
+
+                vmParseInterfaceObject(item.second, aResp);
+
+                aResp->res.jsonValue["Actions"]["#VirtualMedia.EjectMedia"]
                                     ["target"] =
-                    actionsId + "/VirtualMedia.InsertMedia";
+                    actionsId + "/VirtualMedia.EjectMedia";
+
+                return;
             }
 
-            vmParseInterfaceObject(item.second, aResp);
-
-            aResp->res
-                .jsonValue["Actions"]["#VirtualMedia.EjectMedia"]["target"] =
-                actionsId + "/VirtualMedia.EjectMedia";
-
-            return;
-        }
-
-        messages::resourceNotFound(
-            aResp->res, "#VirtualMedia.v1_3_0.VirtualMedia", resName);
+            messages::resourceNotFound(
+                aResp->res, "#VirtualMedia.v1_3_0.VirtualMedia", resName);
         },
         service, "/xyz/openbmc_project/VirtualMedia",
         "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
@@ -678,11 +678,11 @@ inline void doMountVmLegacy(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         // Pack secret
         auto secret = credentials.pack(
             [](const auto& user, const auto& pass, auto& buff) {
-            std::copy(user.begin(), user.end(), std::back_inserter(buff));
-            buff.push_back('\0');
-            std::copy(pass.begin(), pass.end(), std::back_inserter(buff));
-            buff.push_back('\0');
-        });
+                std::copy(user.begin(), user.end(), std::back_inserter(buff));
+                buff.push_back('\0');
+                std::copy(pass.begin(), pass.end(), std::back_inserter(buff));
+                buff.push_back('\0');
+            });
 
         // Open pipe
         secretPipe = std::make_shared<SecurePipe>(
@@ -692,27 +692,27 @@ inline void doMountVmLegacy(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         // Pass secret over pipe
         secretPipe->asyncWrite(
             [asyncResp](const boost::system::error_code& ec, std::size_t) {
-            if (ec)
-            {
-                BMCWEB_LOG_ERROR << "Failed to pass secret: " << ec;
-                messages::internalError(asyncResp->res);
-            }
-        });
+                if (ec)
+                {
+                    BMCWEB_LOG_ERROR << "Failed to pass secret: " << ec;
+                    messages::internalError(asyncResp->res);
+                }
+            });
     }
 
     crow::connections::systemBus->async_method_call(
         [asyncResp, secretPipe](const boost::system::error_code ec,
                                 bool success) {
-        if (ec)
-        {
-            BMCWEB_LOG_ERROR << "Bad D-Bus request error: " << ec;
-            messages::internalError(asyncResp->res);
-        }
-        else if (!success)
-        {
-            BMCWEB_LOG_ERROR << "Service responded with error";
-            messages::generalError(asyncResp->res);
-        }
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR << "Bad D-Bus request error: " << ec;
+                messages::internalError(asyncResp->res);
+            }
+            else if (!success)
+            {
+                BMCWEB_LOG_ERROR << "Service responded with error";
+                messages::generalError(asyncResp->res);
+            }
         },
         service, "/xyz/openbmc_project/VirtualMedia/Legacy/" + name,
         "xyz.openbmc_project.VirtualMedia.Legacy", "Mount", imageUrl, rw,
@@ -728,19 +728,18 @@ inline void doVmAction(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                        const std::string& service, const std::string& name,
                        bool legacy)
 {
-
     // Legacy mount requires parameter with image
     if (legacy)
     {
         crow::connections::systemBus->async_method_call(
             [asyncResp](const boost::system::error_code ec) {
-            if (ec)
-            {
-                BMCWEB_LOG_ERROR << "Bad D-Bus request error: " << ec;
+                if (ec)
+                {
+                    BMCWEB_LOG_ERROR << "Bad D-Bus request error: " << ec;
 
-                messages::internalError(asyncResp->res);
-                return;
-            }
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
             },
             service, "/xyz/openbmc_project/VirtualMedia/Legacy/" + name,
             "xyz.openbmc_project.VirtualMedia.Legacy", "Unmount");
@@ -749,13 +748,13 @@ inline void doVmAction(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     {
         crow::connections::systemBus->async_method_call(
             [asyncResp](const boost::system::error_code ec) {
-            if (ec)
-            {
-                BMCWEB_LOG_ERROR << "Bad D-Bus request error: " << ec;
+                if (ec)
+                {
+                    BMCWEB_LOG_ERROR << "Bad D-Bus request error: " << ec;
 
-                messages::internalError(asyncResp->res);
-                return;
-            }
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
             },
             service, "/xyz/openbmc_project/VirtualMedia/Proxy/" + name,
             "xyz.openbmc_project.VirtualMedia.Proxy", "Unmount");
@@ -818,77 +817,79 @@ inline void handleManagersVirtualMediaActionInsertPost(
         [asyncResp, actionParams,
          resName](const boost::system::error_code ec,
                   const dbus::utility::MapperGetObject& getObjectType) mutable {
-        if (ec)
-        {
-            BMCWEB_LOG_ERROR << "ObjectMapper::GetObject call failed: " << ec;
-            messages::internalError(asyncResp->res);
-
-            return;
-        }
-        std::string service = getObjectType.begin()->first;
-        BMCWEB_LOG_DEBUG << "GetObjectType: " << service;
-
-        crow::connections::systemBus->async_method_call(
-            [service, resName, actionParams,
-             asyncResp](const boost::system::error_code ec2,
-                        dbus::utility::ManagedObjectType& subtree) mutable {
-            if (ec2)
+            if (ec)
             {
-                BMCWEB_LOG_DEBUG << "DBUS response error";
+                BMCWEB_LOG_ERROR << "ObjectMapper::GetObject call failed: "
+                                 << ec;
+                messages::internalError(asyncResp->res);
 
                 return;
             }
+            std::string service = getObjectType.begin()->first;
+            BMCWEB_LOG_DEBUG << "GetObjectType: " << service;
 
-            for (const auto& object : subtree)
-            {
-                const std::string& path =
-                    static_cast<const std::string&>(object.first);
-
-                std::size_t lastIndex = path.rfind('/');
-                if (lastIndex == std::string::npos)
-                {
-                    continue;
-                }
-
-                lastIndex += 1;
-
-                if (path.substr(lastIndex) == resName)
-                {
-                    lastIndex = path.rfind("Proxy");
-                    if (lastIndex != std::string::npos)
+            crow::connections::systemBus->async_method_call(
+                [service, resName, actionParams,
+                 asyncResp](const boost::system::error_code ec2,
+                            dbus::utility::ManagedObjectType& subtree) mutable {
+                    if (ec2)
                     {
-                        // Not possible in proxy mode
-                        BMCWEB_LOG_DEBUG << "InsertMedia not "
-                                            "allowed in proxy mode";
-                        messages::resourceNotFound(asyncResp->res,
-                                                   "VirtualMedia.InsertMedia",
-                                                   resName);
+                        BMCWEB_LOG_DEBUG << "DBUS response error";
 
                         return;
                     }
 
-                    lastIndex = path.rfind("Legacy");
-                    if (lastIndex == std::string::npos)
+                    for (const auto& object : subtree)
                     {
-                        continue;
+                        const std::string& path =
+                            static_cast<const std::string&>(object.first);
+
+                        std::size_t lastIndex = path.rfind('/');
+                        if (lastIndex == std::string::npos)
+                        {
+                            continue;
+                        }
+
+                        lastIndex += 1;
+
+                        if (path.substr(lastIndex) == resName)
+                        {
+                            lastIndex = path.rfind("Proxy");
+                            if (lastIndex != std::string::npos)
+                            {
+                                // Not possible in proxy mode
+                                BMCWEB_LOG_DEBUG << "InsertMedia not "
+                                                    "allowed in proxy mode";
+                                messages::resourceNotFound(
+                                    asyncResp->res, "VirtualMedia.InsertMedia",
+                                    resName);
+
+                                return;
+                            }
+
+                            lastIndex = path.rfind("Legacy");
+                            if (lastIndex == std::string::npos)
+                            {
+                                continue;
+                            }
+
+                            // manager is irrelevant for
+                            // VirtualMedia dbus calls
+                            doMountVmLegacy(asyncResp, service, resName,
+                                            actionParams.imageUrl,
+                                            !(*actionParams.writeProtected),
+                                            std::move(*actionParams.userName),
+                                            std::move(*actionParams.password));
+
+                            return;
+                        }
                     }
-
-                    // manager is irrelevant for
-                    // VirtualMedia dbus calls
-                    doMountVmLegacy(asyncResp, service, resName,
-                                    actionParams.imageUrl,
-                                    !(*actionParams.writeProtected),
-                                    std::move(*actionParams.userName),
-                                    std::move(*actionParams.password));
-
-                    return;
-                }
-            }
-            BMCWEB_LOG_DEBUG << "Parent item not found";
-            messages::resourceNotFound(asyncResp->res, "VirtualMedia", resName);
-            },
-            service, "/xyz/openbmc_project/VirtualMedia",
-            "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
+                    BMCWEB_LOG_DEBUG << "Parent item not found";
+                    messages::resourceNotFound(asyncResp->res, "VirtualMedia",
+                                               resName);
+                },
+                service, "/xyz/openbmc_project/VirtualMedia",
+                "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
         },
         "xyz.openbmc_project.ObjectMapper",
         "/xyz/openbmc_project/object_mapper",
@@ -917,64 +918,66 @@ inline void handleManagersVirtualMediaActionEject(
         [asyncResp,
          resName](const boost::system::error_code ec2,
                   const dbus::utility::MapperGetObject& getObjectType) {
-        if (ec2)
-        {
-            BMCWEB_LOG_ERROR << "ObjectMapper::GetObject call failed: " << ec2;
-            messages::internalError(asyncResp->res);
-
-            return;
-        }
-        std::string service = getObjectType.begin()->first;
-        BMCWEB_LOG_DEBUG << "GetObjectType: " << service;
-
-        crow::connections::systemBus->async_method_call(
-            [resName, service,
-             asyncResp{asyncResp}](const boost::system::error_code ec,
-                                   dbus::utility::ManagedObjectType& subtree) {
-            if (ec)
+            if (ec2)
             {
-                BMCWEB_LOG_DEBUG << "DBUS response error";
+                BMCWEB_LOG_ERROR << "ObjectMapper::GetObject call failed: "
+                                 << ec2;
+                messages::internalError(asyncResp->res);
 
                 return;
             }
+            std::string service = getObjectType.begin()->first;
+            BMCWEB_LOG_DEBUG << "GetObjectType: " << service;
 
-            for (const auto& object : subtree)
-            {
-                const std::string& path =
-                    static_cast<const std::string&>(object.first);
-
-                std::size_t lastIndex = path.rfind('/');
-                if (lastIndex == std::string::npos)
-                {
-                    continue;
-                }
-
-                lastIndex += 1;
-
-                if (path.substr(lastIndex) == resName)
-                {
-                    lastIndex = path.rfind("Proxy");
-                    if (lastIndex != std::string::npos)
+            crow::connections::systemBus->async_method_call(
+                [resName, service, asyncResp{asyncResp}](
+                    const boost::system::error_code ec,
+                    dbus::utility::ManagedObjectType& subtree) {
+                    if (ec)
                     {
-                        // Proxy mode
-                        doVmAction(asyncResp, service, resName, false);
+                        BMCWEB_LOG_DEBUG << "DBUS response error";
+
+                        return;
                     }
 
-                    lastIndex = path.rfind("Legacy");
-                    if (lastIndex != std::string::npos)
+                    for (const auto& object : subtree)
                     {
-                        // Legacy mode
-                        doVmAction(asyncResp, service, resName, true);
-                    }
+                        const std::string& path =
+                            static_cast<const std::string&>(object.first);
 
-                    return;
-                }
-            }
-            BMCWEB_LOG_DEBUG << "Parent item not found";
-            messages::resourceNotFound(asyncResp->res, "VirtualMedia", resName);
-            },
-            service, "/xyz/openbmc_project/VirtualMedia",
-            "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
+                        std::size_t lastIndex = path.rfind('/');
+                        if (lastIndex == std::string::npos)
+                        {
+                            continue;
+                        }
+
+                        lastIndex += 1;
+
+                        if (path.substr(lastIndex) == resName)
+                        {
+                            lastIndex = path.rfind("Proxy");
+                            if (lastIndex != std::string::npos)
+                            {
+                                // Proxy mode
+                                doVmAction(asyncResp, service, resName, false);
+                            }
+
+                            lastIndex = path.rfind("Legacy");
+                            if (lastIndex != std::string::npos)
+                            {
+                                // Legacy mode
+                                doVmAction(asyncResp, service, resName, true);
+                            }
+
+                            return;
+                        }
+                    }
+                    BMCWEB_LOG_DEBUG << "Parent item not found";
+                    messages::resourceNotFound(asyncResp->res, "VirtualMedia",
+                                               resName);
+                },
+                service, "/xyz/openbmc_project/VirtualMedia",
+                "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
         },
         "xyz.openbmc_project.ObjectMapper",
         "/xyz/openbmc_project/object_mapper",
@@ -1007,17 +1010,18 @@ inline void handleManagersVirtualMediaCollectionGet(
     crow::connections::systemBus->async_method_call(
         [asyncResp, name](const boost::system::error_code ec,
                           const dbus::utility::MapperGetObject& getObjectType) {
-        if (ec)
-        {
-            BMCWEB_LOG_ERROR << "ObjectMapper::GetObject call failed: " << ec;
-            messages::internalError(asyncResp->res);
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR << "ObjectMapper::GetObject call failed: "
+                                 << ec;
+                messages::internalError(asyncResp->res);
 
-            return;
-        }
-        std::string service = getObjectType.begin()->first;
-        BMCWEB_LOG_DEBUG << "GetObjectType: " << service;
+                return;
+            }
+            std::string service = getObjectType.begin()->first;
+            BMCWEB_LOG_DEBUG << "GetObjectType: " << service;
 
-        getVmResourceList(asyncResp, service, name);
+            getVmResourceList(asyncResp, service, name);
         },
         "xyz.openbmc_project.ObjectMapper",
         "/xyz/openbmc_project/object_mapper",
@@ -1045,17 +1049,18 @@ inline void
         [asyncResp, name,
          resName](const boost::system::error_code ec,
                   const dbus::utility::MapperGetObject& getObjectType) {
-        if (ec)
-        {
-            BMCWEB_LOG_ERROR << "ObjectMapper::GetObject call failed: " << ec;
-            messages::internalError(asyncResp->res);
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR << "ObjectMapper::GetObject call failed: "
+                                 << ec;
+                messages::internalError(asyncResp->res);
 
-            return;
-        }
-        std::string service = getObjectType.begin()->first;
-        BMCWEB_LOG_DEBUG << "GetObjectType: " << service;
+                return;
+            }
+            std::string service = getObjectType.begin()->first;
+            BMCWEB_LOG_DEBUG << "GetObjectType: " << service;
 
-        getVmData(asyncResp, service, name, resName);
+            getVmData(asyncResp, service, name, resName);
         },
         "xyz.openbmc_project.ObjectMapper",
         "/xyz/openbmc_project/object_mapper",

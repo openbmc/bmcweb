@@ -108,34 +108,34 @@ class ConnectionImpl : public Connection
                 boost::beast::websocket::response_type& m) {
 
 #ifndef BMCWEB_INSECURE_DISABLE_CSRF_PREVENTION
-            if (session != nullptr)
-            {
-                // use protocol for csrf checking
-                if (session->cookieAuth &&
-                    !crow::utility::constantTimeStringCompare(
-                        protocol, session->csrfToken))
+                if (session != nullptr)
                 {
-                    BMCWEB_LOG_ERROR << "Websocket CSRF error";
-                    m.result(boost::beast::http::status::unauthorized);
-                    return;
+                    // use protocol for csrf checking
+                    if (session->cookieAuth &&
+                        !crow::utility::constantTimeStringCompare(
+                            protocol, session->csrfToken))
+                    {
+                        BMCWEB_LOG_ERROR << "Websocket CSRF error";
+                        m.result(boost::beast::http::status::unauthorized);
+                        return;
+                    }
                 }
-            }
 #endif
-            if (!protocol.empty())
-            {
-                m.insert(bf::sec_websocket_protocol, protocol);
-            }
+                if (!protocol.empty())
+                {
+                    m.insert(bf::sec_websocket_protocol, protocol);
+                }
 
-            m.insert(bf::strict_transport_security, "max-age=31536000; "
-                                                    "includeSubdomains; "
-                                                    "preload");
-            m.insert(bf::pragma, "no-cache");
-            m.insert(bf::cache_control, "no-Store,no-Cache");
-            m.insert("Content-Security-Policy", "default-src 'self'");
-            m.insert("X-XSS-Protection", "1; "
-                                         "mode=block");
-            m.insert("X-Content-Type-Options", "nosniff");
-        }));
+                m.insert(bf::strict_transport_security, "max-age=31536000; "
+                                                        "includeSubdomains; "
+                                                        "preload");
+                m.insert(bf::pragma, "no-cache");
+                m.insert(bf::cache_control, "no-Store,no-Cache");
+                m.insert("Content-Security-Policy", "default-src 'self'");
+                m.insert("X-XSS-Protection", "1; "
+                                             "mode=block");
+                m.insert("X-Content-Type-Options", "nosniff");
+            }));
 
         // Perform the websocket upgrade
         ws.async_accept(req, [this, self(shared_from_this())](
@@ -182,15 +182,15 @@ class ConnectionImpl : public Connection
         ws.async_close(
             {boost::beast::websocket::close_code::normal, msg},
             [self(shared_from_this())](boost::system::error_code ec) {
-            if (ec == boost::asio::error::operation_aborted)
-            {
-                return;
-            }
-            if (ec)
-            {
-                BMCWEB_LOG_ERROR << "Error closing websocket " << ec;
-                return;
-            }
+                if (ec == boost::asio::error::operation_aborted)
+                {
+                    return;
+                }
+                if (ec)
+                {
+                    BMCWEB_LOG_ERROR << "Error closing websocket " << ec;
+                    return;
+                }
             });
     }
 
@@ -211,27 +211,27 @@ class ConnectionImpl : public Connection
         ws.async_read(inBuffer,
                       [this, self(shared_from_this())](
                           boost::beast::error_code ec, std::size_t bytesRead) {
-            if (ec)
-            {
-                if (ec != boost::beast::websocket::error::closed)
-                {
-                    BMCWEB_LOG_ERROR << "doRead error " << ec;
-                }
-                if (closeHandler)
-                {
-                    std::string_view reason = ws.reason().reason;
-                    closeHandler(*this, std::string(reason));
-                }
-                return;
-            }
-            if (messageHandler)
-            {
-                messageHandler(*this, inString, ws.got_text());
-            }
-            inBuffer.consume(bytesRead);
-            inString.clear();
-            doRead();
-        });
+                          if (ec)
+                          {
+                              if (ec != boost::beast::websocket::error::closed)
+                              {
+                                  BMCWEB_LOG_ERROR << "doRead error " << ec;
+                              }
+                              if (closeHandler)
+                              {
+                                  std::string_view reason = ws.reason().reason;
+                                  closeHandler(*this, std::string(reason));
+                              }
+                              return;
+                          }
+                          if (messageHandler)
+                          {
+                              messageHandler(*this, inString, ws.got_text());
+                          }
+                          inBuffer.consume(bytesRead);
+                          inString.clear();
+                          doRead();
+                      });
     }
 
     void doWrite()
@@ -252,22 +252,23 @@ class ConnectionImpl : public Connection
         ws.async_write(boost::asio::buffer(outBuffer.front()),
                        [this, self(shared_from_this())](
                            boost::beast::error_code ec, std::size_t) {
-            doingWrite = false;
-            outBuffer.erase(outBuffer.begin());
-            if (ec == boost::beast::websocket::error::closed)
-            {
-                // Do nothing here.  doRead handler will call the
-                // closeHandler.
-                close("Write error");
-                return;
-            }
-            if (ec)
-            {
-                BMCWEB_LOG_ERROR << "Error in ws.async_write " << ec;
-                return;
-            }
-            doWrite();
-        });
+                           doingWrite = false;
+                           outBuffer.erase(outBuffer.begin());
+                           if (ec == boost::beast::websocket::error::closed)
+                           {
+                               // Do nothing here.  doRead handler will call the
+                               // closeHandler.
+                               close("Write error");
+                               return;
+                           }
+                           if (ec)
+                           {
+                               BMCWEB_LOG_ERROR << "Error in ws.async_write "
+                                                << ec;
+                               return;
+                           }
+                           doWrite();
+                       });
     }
 
   private:

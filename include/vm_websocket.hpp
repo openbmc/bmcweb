@@ -88,26 +88,26 @@ class Handler : public std::enable_shared_from_this<Handler>
             inputBuffer->data(),
             [this, self(shared_from_this())](boost::beast::error_code ec,
                                              std::size_t bytesWritten) {
-            BMCWEB_LOG_DEBUG << "Wrote " << bytesWritten << "bytes";
-            doingWrite = false;
-            inputBuffer->consume(bytesWritten);
+                BMCWEB_LOG_DEBUG << "Wrote " << bytesWritten << "bytes";
+                doingWrite = false;
+                inputBuffer->consume(bytesWritten);
 
-            if (session == nullptr)
-            {
-                return;
-            }
-            if (ec == boost::asio::error::eof)
-            {
-                session->close("VM socket port closed");
-                return;
-            }
-            if (ec)
-            {
-                session->close("Error in writing to proxy port");
-                BMCWEB_LOG_ERROR << "Error in VM socket write " << ec;
-                return;
-            }
-            doWrite();
+                if (session == nullptr)
+                {
+                    return;
+                }
+                if (ec == boost::asio::error::eof)
+                {
+                    session->close("VM socket port closed");
+                    return;
+                }
+                if (ec)
+                {
+                    session->close("Error in writing to proxy port");
+                    BMCWEB_LOG_ERROR << "Error in VM socket write " << ec;
+                    return;
+                }
+                doWrite();
             });
     }
 
@@ -119,29 +119,30 @@ class Handler : public std::enable_shared_from_this<Handler>
             outputBuffer->prepare(bytes),
             [this, self(shared_from_this())](
                 const boost::system::error_code& ec, std::size_t bytesRead) {
-            BMCWEB_LOG_DEBUG << "Read done.  Read " << bytesRead << " bytes";
-            if (ec)
-            {
-                BMCWEB_LOG_ERROR << "Couldn't read from VM port: " << ec;
-                if (session != nullptr)
+                BMCWEB_LOG_DEBUG << "Read done.  Read " << bytesRead
+                                 << " bytes";
+                if (ec)
                 {
-                    session->close("Error in connecting to VM port");
+                    BMCWEB_LOG_ERROR << "Couldn't read from VM port: " << ec;
+                    if (session != nullptr)
+                    {
+                        session->close("Error in connecting to VM port");
+                    }
+                    return;
                 }
-                return;
-            }
-            if (session == nullptr)
-            {
-                return;
-            }
+                if (session == nullptr)
+                {
+                    return;
+                }
 
-            outputBuffer->commit(bytesRead);
-            std::string_view payload(
-                static_cast<const char*>(outputBuffer->data().data()),
-                bytesRead);
-            session->sendBinary(payload);
-            outputBuffer->consume(bytesRead);
+                outputBuffer->commit(bytesRead);
+                std::string_view payload(
+                    static_cast<const char*>(outputBuffer->data().data()),
+                    bytesRead);
+                session->sendBinary(payload);
+                outputBuffer->consume(bytesRead);
 
-            doRead();
+                doRead();
             });
     }
 

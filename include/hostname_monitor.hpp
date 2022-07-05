@@ -17,15 +17,15 @@ inline void installCertificate(const std::filesystem::path& certPath)
 {
     crow::connections::systemBus->async_method_call(
         [certPath](const boost::system::error_code ec) {
-        if (ec)
-        {
-            BMCWEB_LOG_ERROR << "Replace Certificate Fail..";
-            return;
-        }
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR << "Replace Certificate Fail..";
+                return;
+            }
 
-        BMCWEB_LOG_INFO << "Replace HTTPs Certificate Success, "
-                           "remove temporary certificate file..";
-        remove(certPath.c_str());
+            BMCWEB_LOG_INFO << "Replace HTTPs Certificate Success, "
+                               "remove temporary certificate file..";
+            remove(certPath.c_str());
         },
         "xyz.openbmc_project.Certs.Manager.Server.Https",
         "/xyz/openbmc_project/certs/server/https/1",

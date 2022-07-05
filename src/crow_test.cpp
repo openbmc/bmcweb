@@ -327,11 +327,11 @@ TEST(Crow, http_method)
     BMCWEB_ROUTE(app, "/").methods(boost::beast::http::verb::post,
                                    boost::beast::http::verb::get)(
         [](const Request& req) {
-        if (req.method() == boost::beast::http::verb::get)
-            return "2";
-        else
-            return "1";
-    });
+            if (req.method() == boost::beast::http::verb::get)
+                return "2";
+            else
+                return "1";
+        });
 
     BMCWEB_ROUTE(app, "/get_only")
         .methods(boost::beast::http::verb::get)(

@@ -185,7 +185,6 @@ class Lock
 
 inline RcGetLockList Lock::getLockList(const ListOfSessionIds& listSessionId)
 {
-
     std::vector<std::pair<uint32_t, LockRequests>> lockList;
 
     if (!lockTable.empty())
@@ -219,7 +218,6 @@ inline RcGetLockList Lock::getLockList(const ListOfSessionIds& listSessionId)
 inline RcReleaseLockApi Lock::releaseLock(const ListOfTransactionIds& p,
                                           const SessionFlags& ids)
 {
-
     bool status = validateRids(p);
 
     if (!status)
@@ -242,7 +240,6 @@ inline RcReleaseLockApi Lock::releaseLock(const ListOfTransactionIds& p,
 
 inline RcAcquireLock Lock::acquireLock(const LockRequests& lockRequestStructure)
 {
-
     // validate the lock request
 
     for (const auto& lockRecord : lockRequestStructure)
@@ -370,7 +367,6 @@ inline bool Lock::validateRids(const ListOfTransactionIds& refRids)
 
 inline bool Lock::isValidLockRequest(const LockRequest& refLockRecord)
 {
-
     // validate the locktype
 
     if (!((boost::equals(std::get<2>(refLockRecord), "Read") ||
@@ -399,7 +395,6 @@ inline bool Lock::isValidLockRequest(const LockRequest& refLockRecord)
 
     for (const auto& p : std::get<4>(refLockRecord))
     {
-
         // validate the lock flags
         // Allowed lockflags are locksame,lockall & dontlock
 
@@ -438,7 +433,6 @@ inline bool Lock::isValidLockRequest(const LockRequest& refLockRecord)
 
 inline Rc Lock::isConflictWithTable(const LockRequests& refLockRequestStructure)
 {
-
     uint32_t thisTransactionId = 0;
 
     if (lockTable.empty())
@@ -562,7 +556,6 @@ inline bool Lock::isConflictRecord(const LockRequest& refLockRecord1,
     uint32_t i = 0;
     for (const auto& p : std::get<4>(refLockRecord1))
     {
-
         // return conflict when any of them is try to lock all resources
         // under the current resource level.
         if (boost::equals(p.first, "LockAll") ||

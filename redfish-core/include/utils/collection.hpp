@@ -33,46 +33,46 @@ inline void
         [collectionPath, aResp{std::move(aResp)}](
             const boost::system::error_code ec,
             const dbus::utility::MapperGetSubTreePathsResponse& objects) {
-        if (ec == boost::system::errc::io_error)
-        {
-            aResp->res.jsonValue["Members"] = nlohmann::json::array();
-            aResp->res.jsonValue["Members@odata.count"] = 0;
-            return;
-        }
-
-        if (ec)
-        {
-            BMCWEB_LOG_DEBUG << "DBUS response error " << ec.value();
-            messages::internalError(aResp->res);
-            return;
-        }
-
-        std::vector<std::string> pathNames;
-        for (const auto& object : objects)
-        {
-            sdbusplus::message::object_path path(object);
-            std::string leaf = path.filename();
-            if (leaf.empty())
+            if (ec == boost::system::errc::io_error)
             {
-                continue;
+                aResp->res.jsonValue["Members"] = nlohmann::json::array();
+                aResp->res.jsonValue["Members@odata.count"] = 0;
+                return;
             }
-            pathNames.push_back(leaf);
-        }
-        std::sort(pathNames.begin(), pathNames.end(),
-                  AlphanumLess<std::string>());
 
-        nlohmann::json& members = aResp->res.jsonValue["Members"];
-        members = nlohmann::json::array();
-        for (const std::string& leaf : pathNames)
-        {
-            std::string newPath = collectionPath;
-            newPath += '/';
-            newPath += leaf;
-            nlohmann::json::object_t member;
-            member["@odata.id"] = std::move(newPath);
-            members.push_back(std::move(member));
-        }
-        aResp->res.jsonValue["Members@odata.count"] = members.size();
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG << "DBUS response error " << ec.value();
+                messages::internalError(aResp->res);
+                return;
+            }
+
+            std::vector<std::string> pathNames;
+            for (const auto& object : objects)
+            {
+                sdbusplus::message::object_path path(object);
+                std::string leaf = path.filename();
+                if (leaf.empty())
+                {
+                    continue;
+                }
+                pathNames.push_back(leaf);
+            }
+            std::sort(pathNames.begin(), pathNames.end(),
+                      AlphanumLess<std::string>());
+
+            nlohmann::json& members = aResp->res.jsonValue["Members"];
+            members = nlohmann::json::array();
+            for (const std::string& leaf : pathNames)
+            {
+                std::string newPath = collectionPath;
+                newPath += '/';
+                newPath += leaf;
+                nlohmann::json::object_t member;
+                member["@odata.id"] = std::move(newPath);
+                members.push_back(std::move(member));
+            }
+            aResp->res.jsonValue["Members@odata.count"] = members.size();
         },
         "xyz.openbmc_project.ObjectMapper",
         "/xyz/openbmc_project/object_mapper",

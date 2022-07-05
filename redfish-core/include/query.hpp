@@ -51,8 +51,8 @@ namespace redfish
     asyncResp->res.setCompleteRequestHandler(
         [&app, handler(std::move(handler)),
          query{*queryOpt}](crow::Response& resIn) mutable {
-        processAllParams(app, query, handler, resIn);
-    });
+            processAllParams(app, query, handler, resIn);
+        });
     return true;
 }
 

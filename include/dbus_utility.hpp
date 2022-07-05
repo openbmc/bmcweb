@@ -128,7 +128,7 @@ inline void checkDbusPathExists(const std::string& path, Callback&& callback)
         [callback{std::forward<Callback>(callback)}](
             const boost::system::error_code ec,
             const dbus::utility::MapperGetObject& objectNames) {
-        callback(!ec && !objectNames.empty());
+            callback(!ec && !objectNames.empty());
         },
         "xyz.openbmc_project.ObjectMapper",
         "/xyz/openbmc_project/object_mapper",

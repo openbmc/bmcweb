@@ -150,30 +150,31 @@ inline void requestRoutes(App& app)
                 [absolutePath, contentType, contentEncoding](
                     const crow::Request&,
                     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-                if (contentType != nullptr)
-                {
-                    asyncResp->res.addHeader("Content-Type", contentType);
-                }
+                    if (contentType != nullptr)
+                    {
+                        asyncResp->res.addHeader("Content-Type", contentType);
+                    }
 
-                if (contentEncoding != nullptr)
-                {
-                    asyncResp->res.addHeader("Content-Encoding",
-                                             contentEncoding);
-                }
+                    if (contentEncoding != nullptr)
+                    {
+                        asyncResp->res.addHeader("Content-Encoding",
+                                                 contentEncoding);
+                    }
 
-                // res.set_header("Cache-Control", "public, max-age=86400");
-                std::ifstream inf(absolutePath);
-                if (!inf)
-                {
-                    BMCWEB_LOG_DEBUG << "failed to read file";
-                    asyncResp->res.result(
-                        boost::beast::http::status::internal_server_error);
-                    return;
-                }
+                    // res.set_header("Cache-Control", "public, max-age=86400");
+                    std::ifstream inf(absolutePath);
+                    if (!inf)
+                    {
+                        BMCWEB_LOG_DEBUG << "failed to read file";
+                        asyncResp->res.result(
+                            boost::beast::http::status::internal_server_error);
+                        return;
+                    }
 
-                asyncResp->res.body() = {std::istreambuf_iterator<char>(inf),
-                                         std::istreambuf_iterator<char>()};
-            });
+                    asyncResp->res.body() = {
+                        std::istreambuf_iterator<char>(inf),
+                        std::istreambuf_iterator<char>()};
+                });
         }
     }
 }

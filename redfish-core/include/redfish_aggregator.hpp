@@ -58,32 +58,32 @@ class RedfishAggregator
         crow::connections::systemBus->async_method_call(
             [handler](const boost::system::error_code ec,
                       const dbus::utility::ManagedObjectType& objects) {
-            if (ec)
-            {
-                BMCWEB_LOG_ERROR << "DBUS response error " << ec.value() << ", "
-                                 << ec.message();
-                return;
-            }
+                if (ec)
+                {
+                    BMCWEB_LOG_ERROR << "DBUS response error " << ec.value()
+                                     << ", " << ec.message();
+                    return;
+                }
 
-            // Maps a chosen alias representing a satellite BMC to a url
-            // containing the information required to create a http
-            // connection to the satellite
-            std::unordered_map<std::string, boost::urls::url> satelliteInfo;
+                // Maps a chosen alias representing a satellite BMC to a url
+                // containing the information required to create a http
+                // connection to the satellite
+                std::unordered_map<std::string, boost::urls::url> satelliteInfo;
 
-            findSatelliteConfigs(objects, satelliteInfo);
+                findSatelliteConfigs(objects, satelliteInfo);
 
-            if (!satelliteInfo.empty())
-            {
-                BMCWEB_LOG_DEBUG << "Redfish Aggregation enabled with "
-                                 << std::to_string(satelliteInfo.size())
-                                 << " satellite BMCs";
-            }
-            else
-            {
-                BMCWEB_LOG_DEBUG
-                    << "No satellite BMCs detected.  Redfish Aggregation not enabled";
-            }
-            handler(satelliteInfo);
+                if (!satelliteInfo.empty())
+                {
+                    BMCWEB_LOG_DEBUG << "Redfish Aggregation enabled with "
+                                     << std::to_string(satelliteInfo.size())
+                                     << " satellite BMCs";
+                }
+                else
+                {
+                    BMCWEB_LOG_DEBUG
+                        << "No satellite BMCs detected.  Redfish Aggregation not enabled";
+                }
+                handler(satelliteInfo);
             },
             "xyz.openbmc_project.EntityManager", "/",
             "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");

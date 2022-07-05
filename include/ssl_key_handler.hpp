@@ -154,7 +154,6 @@ inline bool verifyOpensslKeyCert(const std::string& filepath)
             }
             else
             {
-
                 std::cerr << "Key not valid error number " << ERR_get_error()
                           << "\n";
             }

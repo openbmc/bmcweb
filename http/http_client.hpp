@@ -154,18 +154,18 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
                 const boost::beast::error_code ec,
                 const std::vector<boost::asio::ip::tcp::endpoint>&
                     endpointList) {
-            if (ec || (endpointList.empty()))
-            {
-                BMCWEB_LOG_ERROR << "Resolve failed: " << ec.message();
-                self->state = ConnState::resolveFailed;
-                self->waitAndRetry();
-                return;
-            }
-            BMCWEB_LOG_DEBUG << "Resolved " << self->host << ":"
-                             << std::to_string(self->port)
-                             << ", id: " << std::to_string(self->connId);
-            self->doConnect(endpointList);
-        };
+                if (ec || (endpointList.empty()))
+                {
+                    BMCWEB_LOG_ERROR << "Resolve failed: " << ec.message();
+                    self->state = ConnState::resolveFailed;
+                    self->waitAndRetry();
+                    return;
+                }
+                BMCWEB_LOG_DEBUG << "Resolved " << self->host << ":"
+                                 << std::to_string(self->port)
+                                 << ", id: " << std::to_string(self->connId);
+                self->doConnect(endpointList);
+            };
 
         resolver.asyncResolve(host, port, std::move(respHandler));
     }
@@ -180,27 +180,28 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
                          << ", id: " << std::to_string(connId);
 
         conn.expires_after(std::chrono::seconds(30));
-        conn.async_connect(endpointList,
-                           [self(shared_from_this())](
-                               const boost::beast::error_code ec,
-                               const boost::asio::ip::tcp::endpoint& endpoint) {
-            if (ec)
-            {
-                BMCWEB_LOG_ERROR << "Connect " << endpoint.address().to_string()
-                                 << ":" << std::to_string(endpoint.port())
-                                 << ", id: " << std::to_string(self->connId)
-                                 << " failed: " << ec.message();
-                self->state = ConnState::connectFailed;
-                self->waitAndRetry();
-                return;
-            }
-            BMCWEB_LOG_DEBUG
-                << "Connected to: " << endpoint.address().to_string() << ":"
-                << std::to_string(endpoint.port())
-                << ", id: " << std::to_string(self->connId);
-            self->state = ConnState::connected;
-            self->sendMessage();
-        });
+        conn.async_connect(
+            endpointList, [self(shared_from_this())](
+                              const boost::beast::error_code ec,
+                              const boost::asio::ip::tcp::endpoint& endpoint) {
+                if (ec)
+                {
+                    BMCWEB_LOG_ERROR << "Connect "
+                                     << endpoint.address().to_string() << ":"
+                                     << std::to_string(endpoint.port())
+                                     << ", id: " << std::to_string(self->connId)
+                                     << " failed: " << ec.message();
+                    self->state = ConnState::connectFailed;
+                    self->waitAndRetry();
+                    return;
+                }
+                BMCWEB_LOG_DEBUG
+                    << "Connected to: " << endpoint.address().to_string() << ":"
+                    << std::to_string(endpoint.port())
+                    << ", id: " << std::to_string(self->connId);
+                self->state = ConnState::connected;
+                self->sendMessage();
+            });
     }
 
     void sendMessage()
@@ -215,18 +216,19 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
             conn, req,
             [self(shared_from_this())](const boost::beast::error_code& ec,
                                        const std::size_t& bytesTransferred) {
-            if (ec)
-            {
-                BMCWEB_LOG_ERROR << "sendMessage() failed: " << ec.message();
-                self->state = ConnState::sendFailed;
-                self->waitAndRetry();
-                return;
-            }
-            BMCWEB_LOG_DEBUG << "sendMessage() bytes transferred: "
-                             << bytesTransferred;
-            boost::ignore_unused(bytesTransferred);
+                if (ec)
+                {
+                    BMCWEB_LOG_ERROR << "sendMessage() failed: "
+                                     << ec.message();
+                    self->state = ConnState::sendFailed;
+                    self->waitAndRetry();
+                    return;
+                }
+                BMCWEB_LOG_DEBUG << "sendMessage() bytes transferred: "
+                                 << bytesTransferred;
+                boost::ignore_unused(bytesTransferred);
 
-            self->recvMessage();
+                self->recvMessage();
             });
     }
 
@@ -242,49 +244,52 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
             conn, buffer, *parser,
             [self(shared_from_this())](const boost::beast::error_code& ec,
                                        const std::size_t& bytesTransferred) {
-            if (ec)
-            {
-                BMCWEB_LOG_ERROR << "recvMessage() failed: " << ec.message();
-                self->state = ConnState::recvFailed;
-                self->waitAndRetry();
-                return;
-            }
-            BMCWEB_LOG_DEBUG << "recvMessage() bytes transferred: "
-                             << bytesTransferred;
-            BMCWEB_LOG_DEBUG << "recvMessage() data: "
-                             << self->parser->get().body();
+                if (ec)
+                {
+                    BMCWEB_LOG_ERROR << "recvMessage() failed: "
+                                     << ec.message();
+                    self->state = ConnState::recvFailed;
+                    self->waitAndRetry();
+                    return;
+                }
+                BMCWEB_LOG_DEBUG << "recvMessage() bytes transferred: "
+                                 << bytesTransferred;
+                BMCWEB_LOG_DEBUG << "recvMessage() data: "
+                                 << self->parser->get().body();
 
-            unsigned int respCode = self->parser->get().result_int();
-            BMCWEB_LOG_DEBUG << "recvMessage() Header Response Code: "
-                             << respCode;
-
-            // Make sure the received response code is valid as defined by
-            // the associated retry policy
-            if (self->retryPolicy.invalidResp(respCode))
-            {
-                // The listener failed to receive the Sent-Event
-                BMCWEB_LOG_ERROR << "recvMessage() Listener Failed to "
-                                    "receive Sent-Event. Header Response Code: "
+                unsigned int respCode = self->parser->get().result_int();
+                BMCWEB_LOG_DEBUG << "recvMessage() Header Response Code: "
                                  << respCode;
-                self->state = ConnState::recvFailed;
-                self->waitAndRetry();
-                return;
-            }
 
-            // Send is successful
-            // Reset the counter just in case this was after retrying
-            self->retryCount = 0;
+                // Make sure the received response code is valid as defined by
+                // the associated retry policy
+                if (self->retryPolicy.invalidResp(respCode))
+                {
+                    // The listener failed to receive the Sent-Event
+                    BMCWEB_LOG_ERROR
+                        << "recvMessage() Listener Failed to "
+                           "receive Sent-Event. Header Response Code: "
+                        << respCode;
+                    self->state = ConnState::recvFailed;
+                    self->waitAndRetry();
+                    return;
+                }
 
-            // Keep the connection alive if server supports it
-            // Else close the connection
-            BMCWEB_LOG_DEBUG << "recvMessage() keepalive : "
-                             << self->parser->keep_alive();
+                // Send is successful
+                // Reset the counter just in case this was after retrying
+                self->retryCount = 0;
 
-            // Copy the response into a Response object so that it can be
-            // processed by the callback function.
-            self->res.clear();
-            self->res.stringResponse = self->parser->release();
-            self->callback(self->parser->keep_alive(), self->connId, self->res);
+                // Keep the connection alive if server supports it
+                // Else close the connection
+                BMCWEB_LOG_DEBUG << "recvMessage() keepalive : "
+                                 << self->parser->keep_alive();
+
+                // Copy the response into a Response object so that it can be
+                // processed by the callback function.
+                self->res.clear();
+                self->res.stringResponse = self->parser->release();
+                self->callback(self->parser->keep_alive(), self->connId,
+                               self->res);
             });
     }
 
@@ -334,23 +339,23 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
         timer.expires_after(retryPolicy.retryIntervalSecs);
         timer.async_wait(
             [self(shared_from_this())](const boost::system::error_code ec) {
-            if (ec == boost::asio::error::operation_aborted)
-            {
-                BMCWEB_LOG_DEBUG
-                    << "async_wait failed since the operation is aborted"
-                    << ec.message();
-            }
-            else if (ec)
-            {
-                BMCWEB_LOG_ERROR << "async_wait failed: " << ec.message();
-                // Ignore the error and continue the retry loop to attempt
-                // sending the event as per the retry policy
-            }
-            self->runningTimer = false;
+                if (ec == boost::asio::error::operation_aborted)
+                {
+                    BMCWEB_LOG_DEBUG
+                        << "async_wait failed since the operation is aborted"
+                        << ec.message();
+                }
+                else if (ec)
+                {
+                    BMCWEB_LOG_ERROR << "async_wait failed: " << ec.message();
+                    // Ignore the error and continue the retry loop to attempt
+                    // sending the event as per the retry policy
+                }
+                self->runningTimer = false;
 
-            // Let's close the connection and restart from resolve.
-            self->doCloseAndRetry();
-        });
+                // Let's close the connection and restart from resolve.
+                self->doCloseAndRetry();
+            });
     }
 
     void doClose()

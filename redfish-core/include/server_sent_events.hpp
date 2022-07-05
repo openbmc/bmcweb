@@ -109,30 +109,30 @@ class ServerSentEvents : public std::enable_shared_from_this<ServerSentEvents>
             [self(shared_from_this())](
                 boost::beast::error_code ec,
                 [[maybe_unused]] const std::size_t& bytesTransferred) {
-            self->outBuffer.erase(0, bytesTransferred);
+                self->outBuffer.erase(0, bytesTransferred);
 
-            if (ec == boost::asio::error::eof)
-            {
-                // Send is successful, Lets remove data from queue
-                // check for next request data in queue.
-                self->requestDataQueue.pop();
-                self->state = SseConnState::idle;
-                self->checkQueue();
-                return;
-            }
+                if (ec == boost::asio::error::eof)
+                {
+                    // Send is successful, Lets remove data from queue
+                    // check for next request data in queue.
+                    self->requestDataQueue.pop();
+                    self->state = SseConnState::idle;
+                    self->checkQueue();
+                    return;
+                }
 
-            if (ec)
-            {
-                BMCWEB_LOG_ERROR << "async_write_some() failed: "
-                                 << ec.message();
-                self->state = SseConnState::sendFailed;
-                self->checkQueue();
-                return;
-            }
-            BMCWEB_LOG_DEBUG << "async_write_some() bytes transferred: "
-                             << bytesTransferred;
+                if (ec)
+                {
+                    BMCWEB_LOG_ERROR << "async_write_some() failed: "
+                                     << ec.message();
+                    self->state = SseConnState::sendFailed;
+                    self->checkQueue();
+                    return;
+                }
+                BMCWEB_LOG_DEBUG << "async_write_some() bytes transferred: "
+                                 << bytesTransferred;
 
-            self->doWrite();
+                self->doWrite();
             });
     }
 
@@ -166,17 +166,17 @@ class ServerSentEvents : public std::enable_shared_from_this<ServerSentEvents>
             [this, response,
              serializer](const boost::beast::error_code& ec,
                          [[maybe_unused]] const std::size_t& bytesTransferred) {
-            if (ec)
-            {
-                BMCWEB_LOG_ERROR << "Error sending header" << ec;
-                state = SseConnState::initFailed;
-                checkQueue();
-                return;
-            }
+                if (ec)
+                {
+                    BMCWEB_LOG_ERROR << "Error sending header" << ec;
+                    state = SseConnState::initFailed;
+                    checkQueue();
+                    return;
+                }
 
-            BMCWEB_LOG_DEBUG << "startSSE  Header sent.";
-            state = SseConnState::initialized;
-            checkQueue();
+                BMCWEB_LOG_DEBUG << "startSSE  Header sent.";
+                state = SseConnState::initialized;
+                checkQueue();
             });
     }
 
