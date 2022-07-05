@@ -22,6 +22,29 @@
       },
       "revId": "799ec49ec3d87c470877d4ce41e83478638645d8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eaf3b39e_b4e75988",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1000929
+      },
+      "writtenOn": "2022-07-05T04:45:04Z",
+      "side": 1,
+      "message": "https://gerrit.openbmc.org/c/openbmc/phosphor-host-ipmid/+/42071/11/user_channel/user_mgmt.cpp\n\nconversation related to same issue",
+      "range": {
+        "startLine": 130,
+        "startChar": 25,
+        "endLine": 130,
+        "endChar": 36
+      },
+      "revId": "799ec49ec3d87c470877d4ce41e83478638645d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
