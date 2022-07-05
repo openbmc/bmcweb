@@ -16,6 +16,24 @@
       "message": "Naveen...is there another patchset expected to address the remaining 3 unresolved comments?",
       "revId": "01ea9d88951fbd13c088a696a4b318d8b7d472c1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c423a316_59ae95f8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 17
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001093
+      },
+      "writtenOn": "2022-07-05T05:46:37Z",
+      "side": 1,
+      "message": "All review comments are resolved with the last submitted patch. only I missed to close those three. just done it.",
+      "parentUuid": "e7f2de95_54c3eb11",
+      "revId": "01ea9d88951fbd13c088a696a4b318d8b7d472c1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
