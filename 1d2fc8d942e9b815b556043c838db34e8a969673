@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ac8040c8_2d6f889f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-05T18:20:42Z",
+      "side": 1,
+      "message": "This patch has been submitted several times.  Please reuse the existing review, and respond to the comments there.",
+      "revId": "1d2fc8d942e9b815b556043c838db34e8a969673",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
