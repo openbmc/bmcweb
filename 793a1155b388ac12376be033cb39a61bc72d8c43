@@ -74,6 +74,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "0d00324b_1e923491",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1001093
+      },
+      "writtenOn": "2022-07-05T05:45:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5fdca945_d17cc7c5",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 27
+      },
+      "revId": "793a1155b388ac12376be033cb39a61bc72d8c43",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "2da60d29_7d0470ac",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 13
@@ -159,6 +183,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba6db2ca_ec89084e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001093
+      },
+      "writtenOn": "2022-07-05T05:45:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5c25efca_30bfe7d0",
+      "revId": "793a1155b388ac12376be033cb39a61bc72d8c43",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c12c7df0_803a6f80",
@@ -172,6 +214,30 @@
       "writtenOn": "2022-05-18T17:50:54Z",
       "side": 1,
       "message": "why do you put these two functions into collection util? Seems specific to ComputerSystem",
+      "range": {
+        "startLine": 81,
+        "startChar": 19,
+        "endLine": 81,
+        "endChar": 41
+      },
+      "revId": "793a1155b388ac12376be033cb39a61bc72d8c43",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bcac89e7_c87d8472",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1001093
+      },
+      "writtenOn": "2022-07-05T05:45:08Z",
+      "side": 1,
+      "message": "though it is related to computer systems , These are common util functions which may be used in other files as well.",
+      "parentUuid": "c12c7df0_803a6f80",
       "range": {
         "startLine": 81,
         "startChar": 19,
