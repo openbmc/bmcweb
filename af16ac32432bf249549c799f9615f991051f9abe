@@ -39,6 +39,23 @@
       "message": "I should\u0027ve realized this earlier, but have you verified all the various inventory systems implement ObjectManager?  I don\u0027t think they all do.  There\u0027s only 2 producers of sensors, which is why it can rely on ObjectManager.  There\u0027s lots of producers of Memory.",
       "revId": "af16ac32432bf249549c799f9615f991051f9abe",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "085df82e_79141bd1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 24
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-06T18:00:24Z",
+      "side": 1,
+      "message": "As another meta comment, I\u0027d like to see us stabilize, secure, and get the existing expand stuff enabled by default ahead of trying to optimize it.  There are likely a number of things that we\u0027re missing that will be figured out when it gets turned on within the project, so I\u0027d like to avoid over optimizing where possible.\n\nConsidering that in upstream, no real platform can use this code, that is limiting the amount of test results we can get for this patchset.",
+      "revId": "af16ac32432bf249549c799f9615f991051f9abe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
