@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0387bd56_a939bfc3",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1104,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-07-06T05:56:43Z",
+      "side": 1,
+      "message": "User `crow::utility::urlFromPieces()` instead? \n\nhttps://github.com/openbmc/bmcweb/blob/bf8ab7a3ee67977fe8e1f1958af94c9da215cb6f/http/ut/utility_test.cpp#L127",
+      "range": {
+        "startLine": 1098,
+        "startChar": 0,
+        "endLine": 1104,
+        "endChar": 53
+      },
+      "revId": "838beefab612e45202c96af79544e14df3fd72f3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bb89364d_2992b99c",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1301,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-07-06T05:56:43Z",
+      "side": 1,
+      "message": "just ec here? and like ec2 below",
+      "range": {
+        "startLine": 1301,
+        "startChar": 63,
+        "endLine": 1301,
+        "endChar": 72
+      },
+      "revId": "838beefab612e45202c96af79544e14df3fd72f3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "89df0cc5_2f047c5e",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1343,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-07-06T05:56:43Z",
+      "side": 1,
+      "message": "`const autu \u0026 [key, value]` instead?",
+      "range": {
+        "startLine": 1341,
+        "startChar": 17,
+        "endLine": 1343,
+        "endChar": 76
+      },
+      "revId": "838beefab612e45202c96af79544e14df3fd72f3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
