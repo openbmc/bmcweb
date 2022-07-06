@@ -1,0 +1,377 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ec8a6f66_5bb18dc7",
+        "filename": "bmcweb_config.h.in",
+        "patchSetId": 5
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-06T18:29:48Z",
+      "side": 1,
+      "message": "Please don\u0027t make this configurable, or, if it must be configurable, please call out the use case for why a platform would need to configure it in your commit message.",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 84
+      },
+      "revId": "d739445adffb056cbb753730656f80ccc367b010",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c9475d4b_eee36c87",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-06T18:29:48Z",
+      "side": 1,
+      "message": "Please just rely on // NOLINTNEXTLINE(error-type) for resolving this as we have in other places.  Having out own copy of this doesn\u0027t seem like it helps us here.",
+      "range": {
+        "startLine": 54,
+        "startChar": 17,
+        "endLine": 58,
+        "endChar": 77
+      },
+      "revId": "d739445adffb056cbb753730656f80ccc367b010",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "74b6a827_130f695b",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-06T18:29:48Z",
+      "side": 1,
+      "message": "no tls 1.3?\n\nCan you please make sure this conforms to the owasp TLS recommendations (as the documentation asks for).\n\nAlso, please document these design decisions (including the links to the backing owasp recommendations) in your commit message.",
+      "range": {
+        "startLine": 154,
+        "startChar": 0,
+        "endLine": 154,
+        "endChar": 76
+      },
+      "revId": "d739445adffb056cbb753730656f80ccc367b010",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "02064a3e_7fdabfb8",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-06T18:29:48Z",
+      "side": 1,
+      "message": "If we do this codepath in the constructor, we can remove the need for useSSL entirely, and just rely on\n\nif (sslConn)\n\nWe don\u0027t use any of the content from endpointList to construct the ctx, so that seems useful?",
+      "range": {
+        "startLine": 193,
+        "startChar": 12,
+        "endLine": 193,
+        "endChar": 18
+      },
+      "revId": "d739445adffb056cbb753730656f80ccc367b010",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d3f2d5e1_10e4ef68",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-06T18:29:48Z",
+      "side": 1,
+      "message": "Common error #5\n\nThere lots of error paths here.  Please account for them",
+      "range": {
+        "startLine": 197,
+        "startChar": 0,
+        "endLine": 197,
+        "endChar": 56
+      },
+      "revId": "d739445adffb056cbb753730656f80ccc367b010",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "59d674e6_c41d101d",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-06T18:29:48Z",
+      "side": 1,
+      "message": "common error #5",
+      "revId": "d739445adffb056cbb753730656f80ccc367b010",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7d39f22a_4176a2e3",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-06T18:29:48Z",
+      "side": 1,
+      "message": "possible nullptr dereference if host is empty.\n\nalso, please use .c_str().",
+      "range": {
+        "startLine": 206,
+        "startChar": 54,
+        "endLine": 206,
+        "endChar": 59
+      },
+      "revId": "d739445adffb056cbb753730656f80ccc367b010",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d2bb1d1f_58ae5fac",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-06T18:29:48Z",
+      "side": 1,
+      "message": "If loading the ssl context fails, should we even retry?  There\u0027s no recovery that I\u0027m aware of if the certs fail to load?",
+      "range": {
+        "startLine": 216,
+        "startChar": 16,
+        "endLine": 216,
+        "endChar": 28
+      },
+      "revId": "d739445adffb056cbb753730656f80ccc367b010",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "084a19e9_2d98a08d",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-06T18:29:48Z",
+      "side": 1,
+      "message": "not a problem in your patchset, but size_t is generally taken by value, not reference.",
+      "range": {
+        "startLine": 282,
+        "startChar": 50,
+        "endLine": 282,
+        "endChar": 56
+      },
+      "revId": "d739445adffb056cbb753730656f80ccc367b010",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "89d11273_7b98893d",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 294,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-06T18:29:48Z",
+      "side": 1,
+      "message": "Can this move to a member method instead of a lambda?  That\u0027s the pattern we\u0027ve been trying to move to.\n\nSomething like\n\nvoid afterConnect(std::shared_ptr\u003cConnectionInfo\u003e connection)\n\n\nthen you would use it with:\n\nboost::beast::http::async_write(*sslConn, req, std::bind_front(this, shared_from_this());",
+      "range": {
+        "startLine": 283,
+        "startChar": 0,
+        "endLine": 294,
+        "endChar": 32
+      },
+      "revId": "d739445adffb056cbb753730656f80ccc367b010",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "913c73c7_510b7c1d",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 467,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-06T18:29:48Z",
+      "side": 1,
+      "message": "once the async_shutdown is complete, you still need to call conn.socket().shutdown(boost::asio::ip::tcp::socket::shutdown_both,\n                                   ec);\n                                   \nas you do on the lines below.",
+      "revId": "d739445adffb056cbb753730656f80ccc367b010",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "99d4e4ea_fc3ace58",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 472,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-06T18:29:48Z",
+      "side": 1,
+      "message": "both of these code paths have very similar code;  Can they be combined?",
+      "revId": "d739445adffb056cbb753730656f80ccc367b010",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "95c4aa4a_7b920af6",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 502,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-06T18:29:48Z",
+      "side": 1,
+      "message": "This whole function is pretty much a duplicate of the above, which, when it was 10 lines of code duplicated was probably fine, but now that its much longer, is there any way to deduplicate the paths?",
+      "range": {
+        "startLine": 502,
+        "startChar": 9,
+        "endLine": 502,
+        "endChar": 24
+      },
+      "revId": "d739445adffb056cbb753730656f80ccc367b010",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "09060fca_d5151bb2",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 583,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-06T18:29:48Z",
+      "side": 1,
+      "message": "I\u0027m a little confused the connection pool would have a single bool in it for \"useSSL\".  Isn\u0027t the SSL state per connection?  Do we need another vector of httpsConnections similar to the http connection poll we have on 584?\n\n\nSaid another way, if I have one subscription that uses SSL and one that doesn\u0027t, this will break.  PLease add that to your tests.",
+      "range": {
+        "startLine": 583,
+        "startChar": 0,
+        "endLine": 583,
+        "endChar": 22
+      },
+      "revId": "d739445adffb056cbb753730656f80ccc367b010",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a26b0535_265df071",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 604,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-06T18:29:48Z",
+      "side": 1,
+      "message": "std::move on a bool does nothing.  Please remove.",
+      "range": {
+        "startLine": 604,
+        "startChar": 22,
+        "endLine": 604,
+        "endChar": 32
+      },
+      "revId": "d739445adffb056cbb753730656f80ccc367b010",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f49dc36a_4dfb482d",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 669,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-06T18:29:48Z",
+      "side": 1,
+      "message": "Why do we need a separate bool for this?  doesn\u0027t destUri contain http or https?",
+      "range": {
+        "startLine": 669,
+        "startChar": 0,
+        "endLine": 669,
+        "endChar": 38
+      },
+      "revId": "d739445adffb056cbb753730656f80ccc367b010",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "05e78574_5a49b2b3",
+        "filename": "meson_options.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-06T18:29:48Z",
+      "side": 1,
+      "message": "I don\u0027t think this is where phosphor-certificate-manager stores these, is it?",
+      "range": {
+        "startLine": 307,
+        "startChar": 4,
+        "endLine": 307,
+        "endChar": 29
+      },
+      "revId": "d739445adffb056cbb753730656f80ccc367b010",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

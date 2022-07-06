@@ -292,6 +292,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "df75c5e9_fb3e9df5",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 405,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-06T18:29:48Z",
+      "side": 1,
+      "message": "\u003e Agree with both of you. This can be taken as separate commit( As Ed already started on it). If you are  ok, I can take 51943 commit forward and bring it out of WIP.\n\nFeel free to take it over.  I believe the code is mostly correct, just needs some testing (and likely debugging).",
+      "parentUuid": "7852bbc2_ef9d2d9a",
+      "range": {
+        "startLine": 404,
+        "startChar": 8,
+        "endLine": 405,
+        "endChar": 53
+      },
+      "revId": "e054a8688a17e2ec3895a3ce1c63b72a8e8e431c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "715bb5e5_490352ed",
         "filename": "http/http_client.hpp",
         "patchSetId": 2
@@ -327,6 +351,30 @@
       "side": 1,
       "message": "Same as above. Just on safer side, close connection  is attempted in either case.",
       "parentUuid": "715bb5e5_490352ed",
+      "range": {
+        "startLine": 410,
+        "startChar": 16,
+        "endLine": 416,
+        "endChar": 17
+      },
+      "revId": "e054a8688a17e2ec3895a3ce1c63b72a8e8e431c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9f16fdff_fa9d4fcc",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 416,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-06T18:29:48Z",
+      "side": 1,
+      "message": "Leaving comment open to give Carson a chance to accept the statement.",
+      "parentUuid": "f1f27cdb_2fa960c9",
       "range": {
         "startLine": 410,
         "startChar": 16,
