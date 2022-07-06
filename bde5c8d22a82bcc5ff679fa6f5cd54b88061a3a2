@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4ffb3c9d_e3c5df29",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-06T00:51:47Z",
+      "side": 1,
+      "message": "\u003e Generally when we need to sort lists, we sort the objects on the return of the mapper call, THEN iterate them and load them\n\nThis works in the workflow of call GetObject of the ObjectMapper where all objects are got from a single dbus call so we can easily sort them, but not the workflow in this commit which is call ManagedObjects of the ObjectManager of each service where objects might be owned by server services and thus we can\u0027t easily sort all the objects.\n\n\u003e The only case I can see this being used is to construct the response object then use a destructor to do things \"at the end\" to sort the list, which is generally an anti pattern.\n\nThat does be the use case. We can make its usage limited to the efficient expand handlers which agree in the later commit that if we reduce the code duplication (which is done) and make the pattern reusable for other resource (will be done when developing threads resource), we can accept the downsides.",
+      "parentUuid": "3251d696_ffd784cf",
+      "revId": "bde5c8d22a82bcc5ff679fa6f5cd54b88061a3a2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4f4c8480_0345751e",
@@ -123,6 +141,30 @@
       "writtenOn": "2022-07-01T14:35:24Z",
       "side": 1,
       "message": "ValueType* please.",
+      "range": {
+        "startLine": 597,
+        "startChar": 14,
+        "endLine": 597,
+        "endChar": 18
+      },
+      "revId": "bde5c8d22a82bcc5ff679fa6f5cd54b88061a3a2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bcfa10f1_f86afa71",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 597,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-06T00:51:47Z",
+      "side": 1,
+      "message": "Wait, it\u0027s very clear get_ptr returns the corresponding pointer type, right?\n\nThis is similar to omit the type of result of make_shared or make_unique IMO.",
+      "parentUuid": "66f80794_649a99d7",
       "range": {
         "startLine": 597,
         "startChar": 14,
