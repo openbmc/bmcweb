@@ -81,6 +81,23 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "19df5c86_9e6f8117",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001026
+      },
+      "writtenOn": "2022-07-06T09:43:02Z",
+      "side": 1,
+      "message": "Sounds great!",
+      "revId": "d8ea13a2b4dc7e0e9f450a66826add740a634c21",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "eb619265_ab2a9d10",
@@ -153,6 +170,24 @@
       "side": 1,
       "message": "Yes, sounds ok.\n\nFeel free to also add me to telemetry service related schemas:\n  metric_report.hpp\n  metric_report_definition.hpp\n  trigger.hpp",
       "parentUuid": "d92602cc_86eb64a1",
+      "revId": "d8ea13a2b4dc7e0e9f450a66826add740a634c21",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b54efdff_b777c43c",
+        "filename": "OWNERS",
+        "patchSetId": 1
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1001026
+      },
+      "writtenOn": "2022-07-06T09:43:02Z",
+      "side": 1,
+      "message": "Krzysztof has great knowledge about those:\n  redfish-core/lib/metric_report_definition.hpp\n  redfish-core/lib/metric_report.hpp\n  redfish-core/lib/telemetry_service.hpp\n  redfish-core/lib/trigger.hpp",
+      "parentUuid": "4abb9d7b_bad531cb",
       "revId": "d8ea13a2b4dc7e0e9f450a66826add740a634c21",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
