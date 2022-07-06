@@ -3,6 +3,98 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6a73bbb3_5bcaa5e0",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 519,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-06T21:15:21Z",
+      "side": 1,
+      "message": "We probably need to forward errors to the caller in this case to let them know that they only got partial results.\n\nNow.... how do we do that correctly?  IDK.  let me know if you need help interpreting the dead sea scrolls.... I mean the redfish standard.",
+      "range": {
+        "startLine": 512,
+        "startChar": 0,
+        "endLine": 519,
+        "endChar": 0
+      },
+      "revId": "6fb145f7b4671493b7a81c5d88613cb0516586de",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4b44c9e5_bc0a735f",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 522,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-06T21:15:21Z",
+      "side": 1,
+      "message": "Couple things here:\n\n1. This is a possible nullptr dereference.  always check for validity.\n2. This should be a helper function on the Response object.  Ideally with the same prototype as the Request object to be similar.\n3. On most stl objects, operator[] creates a key if it doesn\u0027t exist, which isn\u0027t really what you intended here.  I forget if boost::beast::fields follows stl here, but I suspect it would.\n\nAs a safety check, we also need to check content-encoding.  in the context of this patch, feel free to just bail out if content-encoding is set to anything, but we don\u0027t want to accidentally parse a gzip payload as json, as it could give security vulnerabillities.",
+      "range": {
+        "startLine": 522,
+        "startChar": 32,
+        "endLine": 522,
+        "endChar": 34
+      },
+      "revId": "6fb145f7b4671493b7a81c5d88613cb0516586de",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "209ef1fb_fcf4e73a",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 524,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-06T21:15:21Z",
+      "side": 1,
+      "message": "Please don\u0027t do this fallback.  I understand why you did it, and I appreciate the thought, but its against the security standard, and encourages implementations to ignore putting in this field.",
+      "range": {
+        "startLine": 524,
+        "startChar": 13,
+        "endLine": 524,
+        "endChar": 35
+      },
+      "revId": "6fb145f7b4671493b7a81c5d88613cb0516586de",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "59c401bc_5747dee0",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 530,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-06T21:15:21Z",
+      "side": 1,
+      "message": "Also needs reported to the user somehow.",
+      "range": {
+        "startLine": 530,
+        "startChar": 0,
+        "endLine": 530,
+        "endChar": 79
+      },
+      "revId": "6fb145f7b4671493b7a81c5d88613cb0516586de",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e6e22d90_38853146",
         "filename": "redfish-core/include/redfish_aggregator.hpp",
         "patchSetId": 2
@@ -14,6 +106,30 @@
       "writtenOn": "2022-06-28T17:14:47Z",
       "side": 1,
       "message": "I feel like I shouldn\u0027t sort the array in an effort to keep all of the local resources together.",
+      "range": {
+        "startLine": 601,
+        "startChar": 14,
+        "endLine": 601,
+        "endChar": 71
+      },
+      "revId": "6fb145f7b4671493b7a81c5d88613cb0516586de",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e4ab81d1_5e7012a4",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 601,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-06T21:15:21Z",
+      "side": 1,
+      "message": "ideally sort before the array (generally sort on dbus path or something simpler).  Yes, technically, we don\u0027t have to sort per the standard, but in my experience, you shortcut a lot of submitted \"bugs\" by having some sort order that makes sense to humans (ironically, that\u0027s why the current function is called \"human sort\")\n\n\"local resources then aggregated resources\" seems like a reasonable sort order to me, and relatively explainable.\n\nwhere people tend to get touchy is when you get stuff like:\n\ndimm1\ndimm11\ndimm12\ndimm2\ndimm20\ndimm21\n\nect.\n\n\nAlso, per the standard, we need to return a consistent response, so the response order can\u0027t be based on the order that http calls return.",
+      "parentUuid": "e6e22d90_38853146",
       "range": {
         "startLine": 601,
         "startChar": 14,
