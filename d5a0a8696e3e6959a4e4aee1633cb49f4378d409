@@ -3,6 +3,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "31ff6393_b0f6be3b",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-07-06T09:55:34Z",
+      "side": 1,
+      "message": "using PendingAttributesType \u003d boost::container::flat_map\u003cstd::string, OptionsItemType\u003e;",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 78
+      },
+      "revId": "d5a0a8696e3e6959a4e4aee1633cb49f4378d409",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "350f22ff_2bea7408",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-07-06T09:55:34Z",
+      "side": 1,
+      "message": "This can be replaced by PendingAttributesType::value_type",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 75
+      },
+      "revId": "d5a0a8696e3e6959a4e4aee1633cb49f4378d409",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "271eba4a_fd0f419a",
         "filename": "redfish-core/lib/bios.hpp",
         "patchSetId": 3
@@ -164,6 +210,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a208150d_335049a6",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 467,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-07-06T09:55:34Z",
+      "side": 1,
+      "message": "What\u0027s the purpose of the std::variant here. The dbus response type should be definite",
+      "range": {
+        "startLine": 466,
+        "startChar": 0,
+        "endLine": 467,
+        "endChar": 48
+      },
+      "revId": "d5a0a8696e3e6959a4e4aee1633cb49f4378d409",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e6d14965_7f6ae4e4",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 487,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-07-06T09:55:34Z",
+      "side": 1,
+      "message": "Can use auto here",
+      "range": {
+        "startLine": 487,
+        "startChar": 23,
+        "endLine": 487,
+        "endChar": 48
+      },
+      "revId": "d5a0a8696e3e6959a4e4aee1633cb49f4378d409",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4c43b892_8ee5f7ab",
         "filename": "redfish-core/lib/bios.hpp",
         "patchSetId": 3
@@ -181,6 +273,70 @@
         "endLine": 565,
         "endChar": 60
       },
+      "revId": "d5a0a8696e3e6959a4e4aee1633cb49f4378d409",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6bfb87d7_7fb456e2",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 565,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-07-06T09:55:34Z",
+      "side": 1,
+      "message": "+1, and invalidObject meas the resource cannot be found. Using PropertyMissing here will be more suitable.",
+      "parentUuid": "4c43b892_8ee5f7ab",
+      "range": {
+        "startLine": 565,
+        "startChar": 47,
+        "endLine": 565,
+        "endChar": 60
+      },
+      "revId": "d5a0a8696e3e6959a4e4aee1633cb49f4378d409",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "649078a6_0cda2734",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 676,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-07-06T09:55:34Z",
+      "side": 1,
+      "message": "Use the service read from previous GetObject call",
+      "range": {
+        "startLine": 676,
+        "startChar": 16,
+        "endLine": 676,
+        "endChar": 55
+      },
+      "revId": "d5a0a8696e3e6959a4e4aee1633cb49f4378d409",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a62449c0_86fc9cc9",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 690,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-07-06T09:55:34Z",
+      "side": 1,
+      "message": "It\u0027s better to search the interface instead of the object path here.",
       "revId": "d5a0a8696e3e6959a4e4aee1633cb49f4378d409",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
