@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f2c61b22_5cdee6eb",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 781,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-06T18:59:30Z",
+      "side": 1,
+      "message": "yes, a details namespace or an anonymous namespace would be better. here.",
+      "parentUuid": "a7db10af_98f6b085",
+      "range": {
+        "startLine": 780,
+        "startChar": 0,
+        "endLine": 781,
+        "endChar": 1
+      },
+      "revId": "c78ce8b75a4816e8856b7897cd3315e9808d5800",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c44b21d1_50cbdbdd",
         "filename": "redfish-core/lib/memory.hpp",
         "patchSetId": 21
@@ -85,6 +109,30 @@
       "side": 1,
       "message": "Apologize, you suggest using a sorted container like set? What\u0027s the difference compared to sorting at the end?",
       "parentUuid": "c44b21d1_50cbdbdd",
+      "range": {
+        "startLine": 877,
+        "startChar": 8,
+        "endLine": 877,
+        "endChar": 79
+      },
+      "revId": "c78ce8b75a4816e8856b7897cd3315e9808d5800",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2755f130_79d36a14",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 877,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-06T18:59:30Z",
+      "side": 1,
+      "message": "no, we couldnt use a flat_set (because it would require declaring the comparator in the object type, which would make it incompatible with everything else).\n\nThe approximate code I meant was:\n\nvoid insert(nlohmann::json::array_t\u0026 members){\n   nlohmann::json::object_t myObjectMember;\n   auto it \u003d std::upper_bound(members.begin(), members.end(), AlphaNumObjectCmp);\n   \n   members.insert(it, myObjectMember);\n\n}\n\n\nDoing it this way means that:\n1. The array is always sorted, so there is no chance of us returning an unsorted array.\n2. If there happens to be an error, just those results will be omitted, and the partial results will still contain the working things, which helps in debug.",
+      "parentUuid": "da21ebe2_a7a6443d",
       "range": {
         "startLine": 877,
         "startChar": 8,

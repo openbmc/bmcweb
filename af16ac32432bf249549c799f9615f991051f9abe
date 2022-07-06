@@ -116,6 +116,24 @@
       "parentUuid": "cfd29be7_5f500fc7",
       "revId": "af16ac32432bf249549c799f9615f991051f9abe",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "39142f8d_516d4476",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 24
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-06T18:59:30Z",
+      "side": 1,
+      "message": "Lets move the discussion to discord.\n\n\u003e Why?\n\nNo systems enable the expand option, so there\u0027s no way to run this on a real system in a release firmware.  Yes, I appreciate that you\u0027ve tested on one system, but given that we\u0027ve had issues with ObjectManager support in the past (We still have lots of problems with sensors even today), we need more testing than just one system.",
+      "parentUuid": "6db45950_6865a71d",
+      "revId": "af16ac32432bf249549c799f9615f991051f9abe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
