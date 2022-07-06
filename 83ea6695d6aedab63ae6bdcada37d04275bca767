@@ -122,6 +122,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b86a74a1_c5b87155",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 618,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-06T19:36:26Z",
+      "side": 1,
+      "message": "ratan is correct.",
+      "parentUuid": "7d2ee853_77000b01",
+      "range": {
+        "startLine": 618,
+        "startChar": 11,
+        "endLine": 618,
+        "endChar": 30
+      },
+      "revId": "83ea6695d6aedab63ae6bdcada37d04275bca767",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c5d4c519_7d325d85",
         "filename": "include/ibm/management_console_rest.hpp",
         "patchSetId": 16
@@ -513,6 +537,30 @@
       "writtenOn": "2022-07-06T19:21:29Z",
       "side": 1,
       "message": "If the timer gets destroyed before it completes.  This is the same way we handle all other timers.",
+      "parentUuid": "0f5e3aa4_1b2d226c",
+      "range": {
+        "startLine": 729,
+        "startChar": 19,
+        "endLine": 729,
+        "endChar": 75
+      },
+      "revId": "83ea6695d6aedab63ae6bdcada37d04275bca767",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2c57819a_0ea0fcd9",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 729,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-06T19:36:26Z",
+      "side": 1,
+      "message": "See comment on other thread.  We do this with all our timer usage.",
       "parentUuid": "0f5e3aa4_1b2d226c",
       "range": {
         "startLine": 729,
