@@ -1,0 +1,8 @@
+Verified+1: OpenBMC CI <openbmcbump-ci@yahoo.com>
+Code-Review+2: Ed Tanous <ed@tanous.net>
+Code-Review+1: Jiaqing Zhao <jiaqing.zhao@intel.com>
+Submitted-by: Ed Tanous <ed@tanous.net>
+Submitted-at: Wed, 06 Jul 2022 05:09:31 +0000
+Reviewed-on: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/54791
+Project: openbmc/bmcweb
+Branch: refs/heads/master
