@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "271eba4a_fd0f419a",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-07-06T04:53:44Z",
+      "side": 1,
+      "message": "Can you pass the App object and perform setUpRedfishRoute() at very beginning?",
+      "range": {
+        "startLine": 192,
+        "startChar": 12,
+        "endLine": 192,
+        "endChar": 42
+      },
+      "revId": "d5a0a8696e3e6959a4e4aee1633cb49f4378d409",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "38e42644_63d09d12",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-07-06T04:53:44Z",
+      "side": 1,
+      "message": "There can be systems without having BIOS Attributes fetched from BIOS ( example: Early boot, where BIOS is still not booted to the point where its update bios settings or due to some communication issues or some OEM not enabled it). So returning internalError here is not right thing to do. \n\nInstead you can just return with 200 response so that end user can see empty list of Registry Attributes to avoid breaking.",
+      "range": {
+        "startLine": 223,
+        "startChar": 12,
+        "endLine": 223,
+        "endChar": 52
+      },
+      "revId": "d5a0a8696e3e6959a4e4aee1633cb49f4378d409",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "291793e5_5625c135",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-07-06T04:53:44Z",
+      "side": 1,
+      "message": "Avoid copy, use referrence.",
+      "range": {
+        "startLine": 228,
+        "startChar": 8,
+        "endLine": 228,
+        "endChar": 59
+      },
+      "revId": "d5a0a8696e3e6959a4e4aee1633cb49f4378d409",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2806d1b7_4e3feb0b",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-07-06T04:53:44Z",
+      "side": 1,
+      "message": "Bios is not the redfish schema resource. I believe it should be \"Attributes\". \n\nEither case, Instead of returning error, its right thing to return empty list - asyncResp-\u003eres.jsonValue[\"RegistryEntries\"][\"Attributes\"] list.",
+      "range": {
+        "startLine": 237,
+        "startChar": 15,
+        "endLine": 238,
+        "endChar": 51
+      },
+      "revId": "d5a0a8696e3e6959a4e4aee1633cb49f4378d409",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f64e8d54_1c8211f0",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-07-06T04:53:44Z",
+      "side": 1,
+      "message": "Is this error or warning or info? I believe it can be INFO log. \nAlso add little more information about failure if possible.",
+      "range": {
+        "startLine": 258,
+        "startChar": 20,
+        "endLine": 258,
+        "endChar": 36
+      },
+      "revId": "d5a0a8696e3e6959a4e4aee1633cb49f4378d409",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aa401a99_67ed7d4d",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 427,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-07-06T04:53:44Z",
+      "side": 1,
+      "message": "I think with new changes in upstream, We need to add setUpRedfishRoute() call at very beginning to perform basic checks like checking header, query params, filters etc..\n\nSame applies to other Routes as well.",
+      "range": {
+        "startLine": 427,
+        "startChar": 48,
+        "endLine": 427,
+        "endChar": 78
+      },
+      "revId": "d5a0a8696e3e6959a4e4aee1633cb49f4378d409",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "27453f65_3fc3e8fd",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 457,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-07-06T04:53:44Z",
+      "side": 1,
+      "message": "Similar to above, It can be empty for some OEM\u0027s and so better to populate empty attribute object instead of internalError.\n\nAlso review other places as well.",
+      "range": {
+        "startLine": 457,
+        "startChar": 12,
+        "endLine": 457,
+        "endChar": 52
+      },
+      "revId": "d5a0a8696e3e6959a4e4aee1633cb49f4378d409",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4c43b892_8ee5f7ab",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 565,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-07-06T04:53:44Z",
+      "side": 1,
+      "message": "Why are you using urlFromPieces() here? It should be property key which is invalid ( I.e \"Attributes\")",
+      "range": {
+        "startLine": 565,
+        "startChar": 47,
+        "endLine": 565,
+        "endChar": 60
+      },
+      "revId": "d5a0a8696e3e6959a4e4aee1633cb49f4378d409",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "add0e0a0_f54c7720",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 702,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-07-06T04:53:44Z",
+      "side": 1,
+      "message": "Add setUpRedfishRoute() at beginning.\n\nSame for below as well.",
+      "range": {
+        "startLine": 702,
+        "startChar": 28,
+        "endLine": 702,
+        "endChar": 49
+      },
+      "revId": "d5a0a8696e3e6959a4e4aee1633cb49f4378d409",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
