@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2d18b539_97ead167",
+        "filename": "redfish-core/lib/thermal_subsystem.hpp",
+        "patchSetId": 82
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1001193
+      },
+      "writtenOn": "2022-07-06T16:42:47Z",
+      "side": 1,
+      "message": "getMainChassisId will find the first chassis Id found from object_mapper, I don\u0027t think this is what you need here",
+      "range": {
+        "startLine": 40,
+        "startChar": 4,
+        "endLine": 40,
+        "endChar": 20
+      },
+      "revId": "bc9c71d2d1a869117293853957c417f696c9b30d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
