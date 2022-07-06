@@ -106,6 +106,24 @@
       "parentUuid": "f2184f08_81d9a737",
       "revId": "81b8dc9b906e9ab9f90ece3586fe99c3a4245645",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f57edf83_d7df95ae",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-07-06T21:30:21Z",
+      "side": 1,
+      "message": "friendly ping.",
+      "parentUuid": "04d10a2e_c72c12b3",
+      "revId": "81b8dc9b906e9ab9f90ece3586fe99c3a4245645",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
