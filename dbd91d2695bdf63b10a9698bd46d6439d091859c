@@ -33,6 +33,23 @@
       "message": "Seems reasonable to me;  Leaving open for a bit to see if anyone has any comments.",
       "revId": "dbd91d2695bdf63b10a9698bd46d6439d091859c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e1b44c7e_fa79b863",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-07-06T23:31:01Z",
+      "side": 1,
+      "message": "we always put unit test in anonymous namespaces, it is technique to prevent accidentally including unit test in the executable.\n+1 ",
+      "revId": "dbd91d2695bdf63b10a9698bd46d6439d091859c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
