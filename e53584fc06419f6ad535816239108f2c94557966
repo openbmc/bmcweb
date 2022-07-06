@@ -56,6 +56,30 @@
       },
       "revId": "e53584fc06419f6ad535816239108f2c94557966",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cab4b956_597bef36",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 60
+      },
+      "lineNbr": 588,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-07-06T21:53:23Z",
+      "side": 1,
+      "message": "um, yeah, that\u0027s probably not good. I have removed it.",
+      "parentUuid": "b2c499e8_845e8551",
+      "range": {
+        "startLine": 588,
+        "startChar": 16,
+        "endLine": 588,
+        "endChar": 20
+      },
+      "revId": "e53584fc06419f6ad535816239108f2c94557966",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
