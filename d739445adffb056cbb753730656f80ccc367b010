@@ -3,6 +3,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "747b7fc6_b8666b62",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-06T18:32:08Z",
+      "side": 1,
+      "message": "THis is using the DMTF server example?  If so, please call that out.",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 62
+      },
+      "revId": "d739445adffb056cbb753730656f80ccc367b010",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1428271c_09a6d315",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-06T18:32:08Z",
+      "side": 1,
+      "message": "You will need a test that adds both simultaneously;  As-written, I don\u0027t think this code will handle it properly.",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 37
+      },
+      "revId": "d739445adffb056cbb753730656f80ccc367b010",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ec8a6f66_5bb18dc7",
         "filename": "bmcweb_config.h.in",
         "patchSetId": 5
