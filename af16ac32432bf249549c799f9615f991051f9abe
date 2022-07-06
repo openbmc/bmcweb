@@ -80,6 +80,24 @@
       "message": "As another meta comment, I\u0027d like to see us stabilize, secure, and get the existing expand stuff enabled by default ahead of trying to optimize it.  There are likely a number of things that we\u0027re missing that will be figured out when it gets turned on within the project, so I\u0027d like to avoid over optimizing where possible.\n\nConsidering that in upstream, no real platform can use this code, that is limiting the amount of test results we can get for this patchset.",
       "revId": "af16ac32432bf249549c799f9615f991051f9abe",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6db45950_6865a71d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 24
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-06T18:25:16Z",
+      "side": 1,
+      "message": "Could you explain why \"expand\" is not stable or secure besides that we don\u0027t limit the expand level size?\n\n\u003e Considering that in upstream, no real platform can use this code, that is limiting the amount of test results we can get for this patchset.\n\nWhy? This commit changes the code path of individual DIMM as you suggested in previous comment. Most of the code will be used by others",
+      "parentUuid": "085df82e_79141bd1",
+      "revId": "af16ac32432bf249549c799f9615f991051f9abe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
