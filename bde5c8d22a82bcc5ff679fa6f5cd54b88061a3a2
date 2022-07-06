@@ -478,6 +478,24 @@
       "parentUuid": "6bcb8708_54fc1769",
       "revId": "bde5c8d22a82bcc5ff679fa6f5cd54b88061a3a2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d831c1cb_06dfe8a9",
+        "filename": "redfish-core/include/utils/json_utils_test.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-06T19:02:08Z",
+      "side": 1,
+      "message": "Yep, that would be fine.  Thanks for adding the explaination.",
+      "parentUuid": "c86d4fdb_1ba521b4",
+      "revId": "bde5c8d22a82bcc5ff679fa6f5cd54b88061a3a2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
