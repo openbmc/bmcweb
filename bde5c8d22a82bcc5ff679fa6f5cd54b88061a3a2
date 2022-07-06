@@ -179,6 +179,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "52f37149_d2134cfb",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 595,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-06T05:13:44Z",
+      "side": 1,
+      "message": "The objects is static, why would we worry about opening more than one static object?\n\nPer the coding standard, write simple code, unless there\u0027s a good reason not to.  I would expect that both of these pieces of code generate nearly identical binaries.",
+      "parentUuid": "74a3cc86_428a9e26",
+      "range": {
+        "startLine": 595,
+        "startChar": 15,
+        "endLine": 595,
+        "endChar": 53
+      },
+      "revId": "bde5c8d22a82bcc5ff679fa6f5cd54b88061a3a2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e6fdc329_5e7f5ea7",
         "filename": "redfish-core/include/utils/json_utils.hpp",
         "patchSetId": 1
@@ -350,6 +374,24 @@
       "side": 1,
       "message": "Done",
       "parentUuid": "c7a361e1_bd595852",
+      "revId": "bde5c8d22a82bcc5ff679fa6f5cd54b88061a3a2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "08f5c05c_810015ef",
+        "filename": "redfish-core/include/utils/json_utils_test.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-06T05:13:44Z",
+      "side": 1,
+      "message": "Please answer the question asked.  What is the behavior?",
+      "parentUuid": "42cd4f4a_09f84ebb",
       "revId": "bde5c8d22a82bcc5ff679fa6f5cd54b88061a3a2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
