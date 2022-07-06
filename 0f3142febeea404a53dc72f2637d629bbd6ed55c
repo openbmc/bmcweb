@@ -191,6 +191,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "693c55d3_4a77c53b",
+        "filename": "redfish-core/include/utils/chassis_utils.hpp",
+        "patchSetId": 78
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1001193
+      },
+      "writtenOn": "2022-07-06T23:55:03Z",
+      "side": 1,
+      "message": "From Ed, \n```\nyou shouldn\u0027t first check for the existence of a chassis, THEN check for the leaf node\nyou should get the list of leaf nodes, then find the one that relates to the chassis\nwhich can be done in one step, not 2\n\n```",
+      "parentUuid": "ebb83879_209d22a4",
+      "range": {
+        "startLine": 15,
+        "startChar": 5,
+        "endLine": 15,
+        "endChar": 22
+      },
+      "revId": "0f3142febeea404a53dc72f2637d629bbd6ed55c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "514547eb_c5407838",
         "filename": "redfish-core/include/utils/chassis_utils.hpp",
         "patchSetId": 78
