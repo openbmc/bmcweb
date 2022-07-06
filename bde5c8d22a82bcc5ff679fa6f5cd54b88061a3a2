@@ -59,6 +59,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "75083312_f5cc6c6a",
+        "filename": "include/human_sort.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-06T01:47:25Z",
+      "side": 1,
+      "message": "Actually, given that the only usage here is string, I will just remove this overload.",
+      "parentUuid": "4f4c8480_0345751e",
+      "range": {
+        "startLine": 101,
+        "startChar": 0,
+        "endLine": 108,
+        "endChar": 1
+      },
+      "revId": "bde5c8d22a82bcc5ff679fa6f5cd54b88061a3a2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "905badaf_9afadd5f",
@@ -72,6 +96,30 @@
       "writtenOn": "2022-07-01T14:35:24Z",
       "side": 1,
       "message": "Is there any place we\u0027d use this besides std::string?  Generally unless there\u0027s multiple use cases, we keep things non-templated until we need the template parameter.",
+      "range": {
+        "startLine": 590,
+        "startChar": 0,
+        "endLine": 590,
+        "endChar": 29
+      },
+      "revId": "bde5c8d22a82bcc5ff679fa6f5cd54b88061a3a2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0db394b9_4a16505b",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 590,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-06T01:47:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "905badaf_9afadd5f",
       "range": {
         "startLine": 590,
         "startChar": 0,
@@ -105,6 +153,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "74a3cc86_428a9e26",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 595,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-06T01:47:25Z",
+      "side": 1,
+      "message": "This is to avoid creating multiple objects for a single sort. Please reopen if there is better solution.",
+      "parentUuid": "ad47d75f_0e95e908",
+      "range": {
+        "startLine": 595,
+        "startChar": 15,
+        "endLine": 595,
+        "endChar": 53
+      },
+      "revId": "bde5c8d22a82bcc5ff679fa6f5cd54b88061a3a2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e6fdc329_5e7f5ea7",
@@ -118,6 +190,30 @@
       "writtenOn": "2022-07-01T14:35:24Z",
       "side": 1,
       "message": "These should be const, which is going do show the coding error below;  nlohmann::json::operator[] creates an element if it doesn\u0027t exist, which is a case you\u0027ll need to handle.  As written, if the key being searched doesn\u0027t exist, it will be created as null, which isn\u0027t what you intended.",
+      "range": {
+        "startLine": 596,
+        "startChar": 21,
+        "endLine": 596,
+        "endChar": 56
+      },
+      "revId": "bde5c8d22a82bcc5ff679fa6f5cd54b88061a3a2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "da01fbf1_80384593",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 596,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-06T01:47:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e6fdc329_5e7f5ea7",
       "range": {
         "startLine": 596,
         "startChar": 21,
@@ -175,6 +271,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dfbccebc_b552fe69",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 597,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-06T01:47:25Z",
+      "side": 1,
+      "message": "Ack. Please reopen if it doesn\u0027t make sense.",
+      "parentUuid": "bcfa10f1_f86afa71",
+      "range": {
+        "startLine": 597,
+        "startChar": 14,
+        "endLine": 597,
+        "endChar": 18
+      },
+      "revId": "bde5c8d22a82bcc5ff679fa6f5cd54b88061a3a2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c7a361e1_bd595852",
@@ -188,6 +308,24 @@
       "writtenOn": "2022-07-01T06:59:32Z",
       "side": 1,
       "message": "I wonder what will happen if half the elements can be sorted and half cannot. For example we have 3 valid elements 1 invalid then another 3 valid elements. You need test for this case that documents behaviour. Will all be sorted, none, or it will be partially sorted.",
+      "revId": "bde5c8d22a82bcc5ff679fa6f5cd54b88061a3a2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "42cd4f4a_09f84ebb",
+        "filename": "redfish-core/include/utils/json_utils_test.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-06T01:47:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c7a361e1_bd595852",
       "revId": "bde5c8d22a82bcc5ff679fa6f5cd54b88061a3a2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
