@@ -172,6 +172,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "10e41f5f_b84cc44b",
+        "filename": "redfish-core/include/utils/service_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-07-06T08:59:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "30ecc7e4_f455141a",
+      "revId": "4e40e3eddb20dcc6bc1fb2510a350b3a40635234",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b9bd523b_69d9bb39",
@@ -351,6 +369,30 @@
       "side": 1,
       "message": "Seems like something we need to fix then.",
       "parentUuid": "7a7d0f06_f67370db",
+      "range": {
+        "startLine": 43,
+        "startChar": 33,
+        "endLine": 43,
+        "endChar": 54
+      },
+      "revId": "4e40e3eddb20dcc6bc1fb2510a350b3a40635234",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6787a959_dcef71dd",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-07-06T08:59:40Z",
+      "side": 1,
+      "message": "Fixed in a merged patch",
+      "parentUuid": "d08b0805_e914bbef",
       "range": {
         "startLine": 43,
         "startChar": 33,
