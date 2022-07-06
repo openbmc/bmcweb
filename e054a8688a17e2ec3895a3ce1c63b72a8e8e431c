@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "e770c0b7_d119054a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-07-06T18:07:30Z",
+      "side": 1,
+      "message": "ED, I added more context in commit message.\n\nCurrently i checked with RootCA certificate(PEM) file and haven\u0027t checked other certificates. Also its set to default ciphers currently. I thought of checking with same cipher which we use for webserver(MozillaCiphers) and can be enhanced in future.\n\n            std::string mozillaModern \u003d \"ECDHE-ECDSA-AES256-GCM-SHA384:\"\n                                        \"ECDHE-RSA-AES256-GCM-SHA384:\"\n                                        \"ECDHE-ECDSA-CHACHA20-POLY1305:\"\n                                        \"ECDHE-RSA-CHACHA20-POLY1305:\"\n                                        \"ECDHE-ECDSA-AES128-GCM-SHA256:\"\n                                        \"ECDHE-RSA-AES128-GCM-SHA256:\"\n                                        \"ECDHE-ECDSA-AES256-SHA384:\"\n                                        \"ECDHE-RSA-AES256-SHA384:\"\n                                        \"ECDHE-ECDSA-AES128-SHA256:\"\n                                        \"ECDHE-RSA-AES128-SHA256\";",
+      "parentUuid": "95950aed_c2b89d89",
+      "revId": "e054a8688a17e2ec3895a3ce1c63b72a8e8e431c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "b8df4d10_17fd03bd",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 2
