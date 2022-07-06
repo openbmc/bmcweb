@@ -163,6 +163,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "50608ecb_a7b80228",
+        "filename": "redfish-core/include/utils/location_utils.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-07-06T21:57:45Z",
+      "side": 1,
+      "message": "I\u0027ll fix that change on the side. I have removed the connectors that\u0027s not documented for now.",
+      "parentUuid": "f3ba3630_755b29be",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 73
+      },
+      "revId": "50331a623905ce77d014c51f767aaa8251649fe3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "99126845_a51a61a3",
         "filename": "redfish-core/include/utils/location_utils.hpp",
         "patchSetId": 16

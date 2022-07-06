@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bc73656c_85fc4b72",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 33
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-07-06T21:57:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8ffadcc4_27ea1cf8",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 65
+      },
+      "revId": "eede1e27846fcd631fcd7a35658409b4bc02dff8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bccb259c_f7ce9a92",
@@ -41,6 +65,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d5ea92a9_6ce69194",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 33
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-07-06T21:57:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bccb259c_f7ce9a92",
+      "revId": "eede1e27846fcd631fcd7a35658409b4bc02dff8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "29afab83_12387ed8",
@@ -54,6 +96,30 @@
       "writtenOn": "2022-06-13T20:18:45Z",
       "side": 1,
       "message": "Duplicated signoff.",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 41
+      },
+      "revId": "eede1e27846fcd631fcd7a35658409b4bc02dff8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3cd22cd8_f8d611e4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 33
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-07-06T21:57:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "29afab83_12387ed8",
       "range": {
         "startLine": 42,
         "startChar": 0,
