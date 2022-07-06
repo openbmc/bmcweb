@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3142a5cc_2274c9a3",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 781,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-06T05:31:56Z",
+      "side": 1,
+      "message": "?  Why do we need a memory namespace, and if we do, why do we declare it so late?",
+      "range": {
+        "startLine": 780,
+        "startChar": 0,
+        "endLine": 781,
+        "endChar": 1
+      },
+      "revId": "c78ce8b75a4816e8856b7897cd3315e9808d5800",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c44b21d1_50cbdbdd",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 877,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-06T05:31:56Z",
+      "side": 1,
+      "message": "Generally in this case we would sort on insert into the array",
+      "range": {
+        "startLine": 877,
+        "startChar": 8,
+        "endLine": 877,
+        "endChar": 79
+      },
+      "revId": "c78ce8b75a4816e8856b7897cd3315e9808d5800",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

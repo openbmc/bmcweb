@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cfd29be7_5f500fc7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 24
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-06T05:31:56Z",
+      "side": 1,
+      "message": "I should\u0027ve realized this earlier, but have you verified all the various inventory systems implement ObjectManager?  I don\u0027t think they all do.  There\u0027s only 2 producers of sensors, which is why it can rely on ObjectManager.  There\u0027s lots of producers of Memory.",
+      "revId": "af16ac32432bf249549c799f9615f991051f9abe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
