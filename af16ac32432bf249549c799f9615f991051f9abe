@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "60dc2e88_94390694",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 24
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-06T18:22:02Z",
+      "side": 1,
+      "message": "Apologize, I have tested on real hardware. It\u0027s already in the commit message. Please review the entire commit message.\n\nThis testing result on \"mock system\" is good since it doesn\u0027t have any potential secret messages like serial numbers.\n\nLet me know if this doesn\u0027t make sense.",
+      "parentUuid": "4e5e2dbb_f409ec36",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 21
+      },
+      "revId": "af16ac32432bf249549c799f9615f991051f9abe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "cfd29be7_5f500fc7",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 24
