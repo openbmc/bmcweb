@@ -203,6 +203,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c653b642_2a9f6ecd",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 595,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-06T18:18:32Z",
+      "side": 1,
+      "message": "Wait, what is static? The comparator function is not static, https://github.com/openbmc/bmcweb/blob/bb05f2227d53d590534d1df6e6a622e13cea76ae/include/human_sort.hpp#L106. It needs an \"object\".\n\n\n```\n\nclass Compare {\npublic:\n    Compare() {std::cout \u003c\u003c \"Constructed\\n\";}\n    bool operator()(int a, int b) const {return a \u003c b;}\n};\n\nint main() {\n    std::vector\u003cint\u003e vec \u003d {0,1,2,3,4};\n    std::cout \u003c\u003c \"One way\" \u003c\u003c std::endl;\n    std::sort(vec.begin(), vec.end(), Compare());\n    std::cout \u003c\u003c \"Another way\" \u003c\u003c std::endl;\n    std::sort(vec.begin(), vec.end(), [](int a, int b) {\n      return Compare()(a, b);\n    });\n    return 0;\n}\n\n/*****************************\nOne way\nConstructed\nAnother way\nConstructed\nConstructed\nConstructed\nConstructed\nConstructed\nConstructed\nConstructed\nConstructed\n```\n\nWe should fix all the usage if you agree.",
+      "parentUuid": "52f37149_d2134cfb",
+      "range": {
+        "startLine": 595,
+        "startChar": 15,
+        "endLine": 595,
+        "endChar": 53
+      },
+      "revId": "bde5c8d22a82bcc5ff679fa6f5cd54b88061a3a2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e6fdc329_5e7f5ea7",
         "filename": "redfish-core/include/utils/json_utils.hpp",
         "patchSetId": 1
@@ -410,6 +434,24 @@
       "side": 1,
       "message": "Thank, @Nan Zhou. Test looks fine, I can figure out how algorithm works from looking at it.",
       "parentUuid": "08f5c05c_810015ef",
+      "revId": "bde5c8d22a82bcc5ff679fa6f5cd54b88061a3a2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c86d4fdb_1ba521b4",
+        "filename": "redfish-core/include/utils/json_utils_test.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-06T18:18:32Z",
+      "side": 1,
+      "message": "If you take a look at the diff of patchset 1 and 2, I have already added a comment in the function to explain the behavior. \n\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/55047/1..2\n\nNext time I will say \"Done. Added explanation to the function comment.\"",
+      "parentUuid": "6bcb8708_54fc1769",
       "revId": "bde5c8d22a82bcc5ff679fa6f5cd54b88061a3a2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
