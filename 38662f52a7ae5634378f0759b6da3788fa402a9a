@@ -16,6 +16,24 @@
       "message": "Sorry, should have been clear in that last comment. I think this should be \"On\" as well. The \"State\" will indicate the BMC is still \"Starting\".",
       "revId": "38662f52a7ae5634378f0759b6da3788fa402a9a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f4057f0_4e3b81ad",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1976,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2022-07-06T05:45:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "54825a23_0eb5bc9e",
+      "revId": "38662f52a7ae5634378f0759b6da3788fa402a9a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
