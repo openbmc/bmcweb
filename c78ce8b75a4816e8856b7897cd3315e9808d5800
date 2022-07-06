@@ -141,6 +141,30 @@
       },
       "revId": "c78ce8b75a4816e8856b7897cd3315e9808d5800",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "711647aa_70f38a78",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 877,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-06T19:13:37Z",
+      "side": 1,
+      "message": "Do you want me to abandon https://gerrit.openbmc.org/c/openbmc/bmcweb/+/55047/4?\n\nI can do this insertion sort.",
+      "parentUuid": "2755f130_79d36a14",
+      "range": {
+        "startLine": 877,
+        "startChar": 8,
+        "endLine": 877,
+        "endChar": 79
+      },
+      "revId": "c78ce8b75a4816e8856b7897cd3315e9808d5800",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
