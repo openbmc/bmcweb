@@ -803,6 +803,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "500a2482_f2d48c79",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 780,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2022-07-06T14:38:45Z",
+      "side": 1,
+      "message": "done",
+      "parentUuid": "a791f449_9477858f",
+      "range": {
+        "startLine": 780,
+        "startChar": 17,
+        "endLine": 780,
+        "endChar": 54
+      },
+      "revId": "fa2aa85318c95d6fe0c3f3ed71d7054a363d0c77",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fc586cf7_77c062b8",
@@ -874,6 +898,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c9b21961_4340b505",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 802,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2022-07-06T14:38:45Z",
+      "side": 1,
+      "message": "done",
+      "parentUuid": "7582616b_1ca28091",
+      "range": {
+        "startLine": 788,
+        "startChar": 0,
+        "endLine": 802,
+        "endChar": 27
+      },
+      "revId": "fa2aa85318c95d6fe0c3f3ed71d7054a363d0c77",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d0d7a6b6_79a04c15",
@@ -935,6 +983,30 @@
       "side": 1,
       "message": "Ack",
       "parentUuid": "89f3c0ef_e3eb70f0",
+      "range": {
+        "startLine": 811,
+        "startChar": 17,
+        "endLine": 811,
+        "endChar": 37
+      },
+      "revId": "fa2aa85318c95d6fe0c3f3ed71d7054a363d0c77",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "faaa9cb1_a3a0a9a3",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 811,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2022-07-06T14:38:45Z",
+      "side": 1,
+      "message": "is it mandatory to avoid in non-redfish endpoints? anyway we are following redfish format os instead of using other utils better to use same one",
+      "parentUuid": "7515eb31_d9913906",
       "range": {
         "startLine": 811,
         "startChar": 17,
