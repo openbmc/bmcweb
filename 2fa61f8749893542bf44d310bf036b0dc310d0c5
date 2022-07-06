@@ -100,6 +100,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f02a9b19_61fc52e1",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-06T23:08:53Z",
+      "side": 1,
+      "message": "Also... I don\u0027t see deadline timer used here.  Maybe it can just be removed?",
+      "parentUuid": "79e3a802_c75c7846",
+      "range": {
+        "startLine": 3,
+        "startChar": 21,
+        "endLine": 3,
+        "endChar": 35
+      },
+      "revId": "2fa61f8749893542bf44d310bf036b0dc310d0c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "13dea4ee_aac7715b",
         "filename": "redfish-core/include/redfish_aggregator.hpp",
         "patchSetId": 53
