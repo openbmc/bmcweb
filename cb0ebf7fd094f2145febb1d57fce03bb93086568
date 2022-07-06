@@ -34,6 +34,24 @@
       "parentUuid": "b8a38f31_f6df5d27",
       "revId": "cb0ebf7fd094f2145febb1d57fce03bb93086568",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "401b694e_1b57cbd3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-07-06T17:44:39Z",
+      "side": 1,
+      "message": "To clarify, not +2 it your own change.\nEd or Gunnar will +2, in time",
+      "parentUuid": "8d519d4d_d1c87afa",
+      "revId": "cb0ebf7fd094f2145febb1d57fce03bb93086568",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
