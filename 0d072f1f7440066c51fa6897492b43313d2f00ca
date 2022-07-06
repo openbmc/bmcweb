@@ -138,6 +138,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "320d5a00_8309479c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-07-06T09:29:48Z",
+      "side": 1,
+      "message": "\u003e Have you seen?\n/redfish/v1/Managers/{ManagerId}/Certificates/{CertificateId}\n\nRedfish spec says \"This property shall contain a link to a resource collection of type CertificateCollection that contains certificates for device identity and attestation.\" Which means the ceritificate here is the \"Manager\u0027s cert\", not the \"cert trusted by Manager\" we wanted.",
+      "parentUuid": "4774777a_e9f4024a",
+      "revId": "0d072f1f7440066c51fa6897492b43313d2f00ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b69fab2a_18bfaf26",
         "filename": "static/redfish/v1/schema/OemManager_v1.xml",
         "patchSetId": 1
@@ -197,6 +215,30 @@
       "side": 1,
       "message": "\u003e The OEM schema does not require version field in \"@odata.type\"\n\nI\u0027m not sure where you got this idea, but that\u0027s not really true;  It\u0027s possible the validator doesn\u0027t test for versioning, but for any schema that changes, clients need a way to maintain a specific version.\n\nThis is documented in OEM_SCHEMAS.md \"We require this same level of quality as non OEM...\"\n\n\n\u003e but it might be better in another patch\n\nIf we do it in another patch, then we will have 3 versions of the schema;  If you want to make another patch to do it, and they merge at the same time, that would be fine.  Please let me know when you have that patch up.",
       "parentUuid": "3b756eeb_48d7e96f",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 39
+      },
+      "revId": "0d072f1f7440066c51fa6897492b43313d2f00ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "68bed1da_2fdb4020",
+        "filename": "static/redfish/v1/schema/OemManager_v1.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-07-06T09:29:48Z",
+      "side": 1,
+      "message": "Ack. I\u0027ve raised some quesion on discord. Perhaps a unified design for oem schemas in bmcweb is desired. I\u0027m still working on it.",
+      "parentUuid": "ce2fdb4a_01c997ae",
       "range": {
         "startLine": 38,
         "startChar": 0,
