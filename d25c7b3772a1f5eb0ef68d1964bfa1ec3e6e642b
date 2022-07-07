@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "00b4d4de_9395b3c9",
+        "filename": "http/ut/router_test.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-07T01:56:22Z",
+      "side": 1,
+      "message": "Can you mention in your commit message what these do?\n\nI suspect I can understand from the context, but getting some explicit docs on this might be good.\n\nThere are common things that it obviously gets wrong (like gtest).  I wonder if there\u0027s a way to avoid this boilerplate everywhere?  just thinking out loud.",
+      "range": {
+        "startLine": 5,
+        "startChar": 39,
+        "endLine": 5,
+        "endChar": 60
+      },
+      "revId": "d25c7b3772a1f5eb0ef68d1964bfa1ec3e6e642b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "80a2e4e7_af9545f6",
+        "filename": "http/ut/router_test.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-07T01:56:22Z",
+      "side": 1,
+      "message": "Aren\u0027t these already covered by gtest.h",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 34
+      },
+      "revId": "d25c7b3772a1f5eb0ef68d1964bfa1ec3e6e642b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "62faeb98_37477c79",
+        "filename": "http/ut/router_test.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-07T01:56:22Z",
+      "side": 1,
+      "message": "We don\u0027t want to forward declare this I don\u0027t think?",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 21
+      },
+      "revId": "d25c7b3772a1f5eb0ef68d1964bfa1ec3e6e642b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
