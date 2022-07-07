@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9afb96e9_288929d5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-07T20:58:01Z",
+      "side": 1,
+      "message": "@nan if this is already covered in your IWYU patch, we can just abandon this one.",
+      "revId": "0178dcfe3343ecaf0024964b1ef87c240fa53d08",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
