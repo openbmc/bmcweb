@@ -16,7 +16,7 @@
 #pragma once
 #include "http_response.hpp"
 
-#include <boost/url/urls.hpp>
+#include <boost/url/url_view.hpp>
 #include <nlohmann/json.hpp>
 #include <source_location.hpp>
 
