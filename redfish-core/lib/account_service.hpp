@@ -1238,14 +1238,25 @@ inline void updateUserProperties(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
         });
 }
 
-inline void
-    handleAccountServiceGet(App& app, const crow::Request& req,
-                            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+inline void handleAccountServiceHead(
+    App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
+
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
+    asyncResp->res.addHeader(
+        boost::beast::http::field::link,
+        "</redfish/v1/JsonSchemas/AccountService/AccountService.json>; rel=describedby");
+}
+
+inline void
+    handleAccountServiceGet(App& app, const crow::Request& req,
+                            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+{
+    handleAccountServiceHead(app, req, asyncResp);
     const persistent_data::AuthConfigMethods& authMethodsConfig =
         persistent_data::SessionStore::getInstance().getAuthMethodsConfig();
 
@@ -1450,14 +1461,25 @@ inline void handleAccountServicePatch(
     }
 }
 
-inline void handleAccountCollectionGet(
+inline void handleAccountCollectionHead(
     App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
+
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
+    asyncResp->res.addHeader(
+        boost::beast::http::field::link,
+        "</redfish/v1/JsonSchemas/ManagerAccountCollection.json>; rel=describedby");
+}
+
+inline void handleAccountCollectionGet(
+    App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+{
+    handleAccountCollectionHead(app, req, asyncResp);
 
     asyncResp->res.jsonValue["@odata.id"] =
         "/redfish/v1/AccountService/Accounts";
@@ -1631,14 +1653,25 @@ inline void handleAccountCollectionPost(
 }
 
 inline void
-    handleAccountGet(App& app, const crow::Request& req,
-                     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                     const std::string& accountName)
+    handleAccountHead(App& app, const crow::Request& req,
+                      const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                      const std::string& /*accountName*/)
 {
+
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
+    asyncResp->res.addHeader(
+        boost::beast::http::field::link,
+        "</redfish/v1/JsonSchemas/ManagerAccount/ManagerAccount.json>; rel=describedby");
+}
+inline void
+    handleAccountGet(App& app, const crow::Request& req,
+                     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                     const std::string& accountName)
+{
+    handleAccountHead(app, req, asyncResp, accountName);
 #ifdef BMCWEB_INSECURE_DISABLE_AUTHENTICATION
     // If authentication is disabled, there are no user accounts
     messages::resourceNotFound(
@@ -1920,6 +1953,11 @@ inline void requestAccountServiceRoutes(App& app)
 {
 
     BMCWEB_ROUTE(app, "/redfish/v1/AccountService/")
+        .privileges(redfish::privileges::headAccountService)
+        .methods(boost::beast::http::verb::head)(
+            std::bind_front(handleAccountServiceHead, std::ref(app)));
+
+    BMCWEB_ROUTE(app, "/redfish/v1/AccountService/")
         .privileges(redfish::privileges::getAccountService)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handleAccountServiceGet, std::ref(app)));
@@ -1930,6 +1968,11 @@ inline void requestAccountServiceRoutes(App& app)
             std::bind_front(handleAccountServicePatch, std::ref(app)));
 
     BMCWEB_ROUTE(app, "/redfish/v1/AccountService/Accounts/")
+        .privileges(redfish::privileges::headManagerAccountCollection)
+        .methods(boost::beast::http::verb::head)(
+            std::bind_front(handleAccountCollectionHead, std::ref(app)));
+
+    BMCWEB_ROUTE(app, "/redfish/v1/AccountService/Accounts/")
         .privileges(redfish::privileges::getManagerAccountCollection)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handleAccountCollectionGet, std::ref(app)));
@@ -1938,6 +1981,11 @@ inline void requestAccountServiceRoutes(App& app)
         .privileges(redfish::privileges::postManagerAccountCollection)
         .methods(boost::beast::http::verb::post)(
             std::bind_front(handleAccountCollectionPost, std::ref(app)));
+
+    BMCWEB_ROUTE(app, "/redfish/v1/AccountService/Accounts/<str>/")
+        .privileges(redfish::privileges::headManagerAccount)
+        .methods(boost::beast::http::verb::head)(
+            std::bind_front(handleAccountHead, std::ref(app)));
 
     BMCWEB_ROUTE(app, "/redfish/v1/AccountService/Accounts/<str>/")
         .privileges(redfish::privileges::getManagerAccount)
