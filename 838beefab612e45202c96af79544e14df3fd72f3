@@ -48,6 +48,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "44bbd4e1_72c2822c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1000388
+      },
+      "writtenOn": "2022-07-07T19:48:01Z",
+      "side": 1,
+      "message": "After a discussion with Ed upstream, it seems the problem was actually introduced a while ago in object mapper : https://github.com/openbmc/phosphor-objmgr/commit/153494e0dfb6cbc47ce8506ded4f0fd59f9436c4\n\nWe should be \"adding\" the trailing / instead of removing it, as we do a \"starts_with\" search",
+      "parentUuid": "48538e00_daed6e03",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 34
+      },
+      "revId": "838beefab612e45202c96af79544e14df3fd72f3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "681b11da_803eb265",
