@@ -134,6 +134,24 @@
       "parentUuid": "6db45950_6865a71d",
       "revId": "af16ac32432bf249549c799f9615f991051f9abe",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "76a33f28_f0724458",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 24
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-07T22:12:28Z",
+      "side": 1,
+      "message": "I don\u0027t know them all off the top of my head.  We\u0027d have to go digging through the code.\n\nThis has been a problem for the sensor code you copied this pattern from already, which is why I\u0027m hesitant to add it here.",
+      "parentUuid": "ba801394_bb3ddce1",
+      "revId": "af16ac32432bf249549c799f9615f991051f9abe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
