@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "858ef061_3b25ba83",
+        "filename": "http/ut/router_test.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-07T23:02:24Z",
+      "side": 1,
+      "message": "Yes, I added a sentence for this. Unfortunately I don\u0027t know if there is better option besides pragma.",
+      "parentUuid": "00b4d4de_9395b3c9",
+      "range": {
+        "startLine": 5,
+        "startChar": 39,
+        "endLine": 5,
+        "endChar": 60
+      },
+      "revId": "d25c7b3772a1f5eb0ef68d1964bfa1ec3e6e642b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "80a2e4e7_af9545f6",

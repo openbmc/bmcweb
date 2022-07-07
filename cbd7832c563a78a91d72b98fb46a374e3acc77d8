@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9edb8eef_56fa762c",
+        "filename": "http/ut/router_test.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-07T23:02:24Z",
+      "side": 1,
+      "message": "It provides an option to fix it in the headers that sources include, https://github.com/include-what-you-use/include-what-you-use/blob/master/docs/IWYUPragmas.md#iwyu-pragma-private.\n\nI am not aware of other options. See https://github.com/include-what-you-use/include-what-you-use#how-to-correct-iwyu-mistakes",
+      "parentUuid": "6744f4ca_018c73da",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 45
+      },
+      "revId": "cbd7832c563a78a91d72b98fb46a374e3acc77d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cb564c45_06fb710f",
         "filename": "http/ut/router_test.cpp",
         "patchSetId": 5
@@ -54,6 +78,30 @@
       "writtenOn": "2022-07-07T01:57:09Z",
       "side": 1,
       "message": "why quotes here instead of \u003c",
+      "range": {
+        "startLine": 23,
+        "startChar": 27,
+        "endLine": 23,
+        "endChar": 28
+      },
+      "revId": "cbd7832c563a78a91d72b98fb46a374e3acc77d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6df1e8da_96ef9713",
+        "filename": "http/ut/router_test.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-07T23:02:24Z",
+      "side": 1,
+      "message": "iwyu uses quotes.",
+      "parentUuid": "cb564c45_06fb710f",
       "range": {
         "startLine": 23,
         "startChar": 27,
@@ -89,6 +137,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c499b465_5dee2b66",
+        "filename": "include/openbmc_dbus_rest.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-07T23:02:24Z",
+      "side": 1,
+      "message": "same to the other thread. Do we need a reason for each header?",
+      "parentUuid": "bd995e84_be4af4ac",
+      "range": {
+        "startLine": 21,
+        "startChar": 14,
+        "endLine": 21,
+        "endChar": 28
+      },
+      "revId": "cbd7832c563a78a91d72b98fb46a374e3acc77d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0e16086c_d3a389d1",
         "filename": "include/openbmc_dbus_rest.hpp",
         "patchSetId": 5
@@ -100,6 +172,30 @@
       "writtenOn": "2022-07-07T02:02:01Z",
       "side": 1,
       "message": "Any idea what these are used for?  I didn\u0027t think we had any direct sd-bus usage that we need to include (we don\u0027t list an sd-bus dependency directly).",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 27
+      },
+      "revId": "cbd7832c563a78a91d72b98fb46a374e3acc77d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d0326b60_70367897",
+        "filename": "include/openbmc_dbus_rest.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-07T23:02:24Z",
+      "side": 1,
+      "message": "iwyu will provide an explanation though, I didn\u0027t actually check every header it includes. Do we need to worry about including these extra header?",
+      "parentUuid": "0e16086c_d3a389d1",
       "range": {
         "startLine": 22,
         "startChar": 0,
