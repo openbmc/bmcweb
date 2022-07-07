@@ -101,6 +101,11 @@ foreach option_key,option_value : feature_map
         add_project_arguments(option_value,language:'cpp')
         summary(option_key,option_value, section : 'Enabled Features')
       endif
+    elif (option_key in ['basic-auth', 'cookie-auth', 'session-auth', 'xtoken-auth', 'mutual-tls-auth'])
+      if (get_option('insecure-disable-auth').disabled())
+        add_project_arguments(option_value, language:'cpp')
+        summary(option_key,option_value, section : 'Enabled Features')
+      endif
     else
       summary(option_key,option_value, section : 'Enabled Features')
       add_project_arguments(option_value,language:'cpp')
