@@ -174,6 +174,46 @@ TEST(LogServicesTest, LogServicesGetDumpEntryCollectionSystemBadECFails)
                 Contains(redfish::messages::internalError()));
 }
 
+TEST(LogServicesTest, LogServicesGetDumpEntryCollectionFaultLogBadECFails)
+{
+    auto asyncResp = std::make_shared<bmcweb::AsyncResp>();
+    MockSdbusConnection sdbusMock;
+
+    EXPECT_CALL(sdbusMock,
+                async_method_call(Matcher<handlerEcResp_t>(::testing::_),
+                                  ::testing::_, ::testing::_, ::testing::_,
+                                  ::testing::_))
+        .WillOnce(InvokeArgument<0>(
+            boost::system::error_code(1, boost::system::system_category()),
+            dbus::utility::ManagedObjectType{}));
+
+    redfish::getDumpEntryCollection(asyncResp, "FaultLog", sdbusMock);
+
+    EXPECT_EQ(asyncResp->res.result(),
+              boost::beast::http::status::internal_server_error);
+    EXPECT_THAT(asyncResp->res.jsonValue["error"]["@Message.ExtendedInfo"],
+                Contains(redfish::messages::internalError()));
+}
+
+TEST(LogServicesTest, LogServicesGetDumpEntryCollectionFaultLogSuccess)
+{
+    auto asyncResp = std::make_shared<bmcweb::AsyncResp>();
+    MockSdbusConnection sdbusMock;
+
+    EXPECT_CALL(sdbusMock,
+                async_method_call(Matcher<handlerEcResp_t>(::testing::_),
+                                  ::testing::_, ::testing::_, ::testing::_,
+                                  ::testing::_))
+        .WillOnce(InvokeArgument<0>(
+            boost::system::error_code(0, boost::system::system_category()),
+            dbus::utility::ManagedObjectType{}));
+
+    redfish::getDumpEntryCollection(asyncResp, "FaultLog", sdbusMock);
+
+    EXPECT_EQ(asyncResp->res.result(), boost::beast::http::status::ok);
+    EXPECT_EQ(asyncResp->res.jsonValue["Members@odata.count"], 0);
+}
+
 TEST(LogServicesTest, LogServicesGetDumpEntryByIdInvalidTypeFails)
 {
     auto io = std::make_shared<boost::asio::io_context>();
@@ -238,6 +278,28 @@ TEST(LogServicesTest, LogServicesGetDumpEntryByIdSystemBadECFails)
 
     // Specify entryID as empty string, causing an error
     redfish::getDumpEntryById(asyncResp, "", "System", sdbusMock);
+
+    EXPECT_EQ(asyncResp->res.result(),
+              boost::beast::http::status::internal_server_error);
+    EXPECT_THAT(asyncResp->res.jsonValue["error"]["@Message.ExtendedInfo"],
+                Contains(redfish::messages::internalError()));
+}
+
+TEST(LogServicesTest, LogServicesGetDumpEntryByIdFaultLogBadECFails)
+{
+    auto asyncResp = std::make_shared<bmcweb::AsyncResp>();
+    MockSdbusConnection sdbusMock;
+
+    EXPECT_CALL(sdbusMock,
+                async_method_call(Matcher<handlerEcResp_t>(::testing::_),
+                                  ::testing::_, ::testing::_, ::testing::_,
+                                  ::testing::_))
+        .WillOnce(InvokeArgument<0>(
+            boost::system::error_code(1, boost::system::system_category()),
+            dbus::utility::ManagedObjectType{}));
+
+    // Specify entryID as empty string, causing an error
+    redfish::getDumpEntryById(asyncResp, "", "FaultLog", sdbusMock);
 
     EXPECT_EQ(asyncResp->res.result(),
               boost::beast::http::status::internal_server_error);
