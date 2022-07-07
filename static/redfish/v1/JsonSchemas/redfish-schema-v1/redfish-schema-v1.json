@@ -1,0 +1,245 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/redfish-schema.v1_8_0",
+    "type": "object",
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Redfish Schema Extension",
+    "description": "The properties defined in this schema shall adhere to the requirements of the Redfish Specification and the semantics of the descriptions in this file.",
+    "definitions": {
+        "readonly": {
+            "type": "boolean",
+            "description": "This property shall designate a property to be readonly when set to true."
+        },
+        "requiredOnCreate": {
+            "type": "array",
+            "items": {
+                "type": "boolean"
+            },
+            "description": "This property is required to be specified in the body of a POST request to create the resource."
+        },
+        "requiredParameter": {
+            "type": "boolean",
+            "description": "This property specifies that an action parameter is required to be provided by the client as part of the action request when set to true.  Parameters not containing this property with the value of true can be left out of the client's action request."
+        },
+        "longDescription": {
+            "type": "string",
+            "description": "This attribute shall contain normative language relating to the Redfish Specification and documentation."
+        },
+        "copyright": {
+            "type": "string",
+            "description": "This attribute shall contain the copyright notice for the schema."
+        },
+        "deprecated": {
+            "type": "string",
+            "description": "The term shall be applied to a property in order to specify that the property is deprecated.  The value of the string should explain the deprecation, including new property or properties to be used. The property can be supported in new and existing implementations, but usage in new implementations is discouraged.  Deprecated properties are likely to be removed in a future major version of the schema."
+        },
+        "versionDeprecated": {
+            "type": "string",
+            "description": "The term shall be applied to a property in order to specify when the property was deprecated.  The value of the string should contain the resource version where the property was deprecated."
+        },
+        "versionAdded": {
+            "type": "string",
+            "description": "The term shall be applied to a property in order to specify when the property was added.  The value of the string should contain the resource version where the property was added."
+        },
+        "enumDescriptions": {
+            "type": "object",
+            "description": "This attribute shall contain informative language related to the enumeration values of the property."
+        },
+        "enumLongDescriptions": {
+            "type": "object",
+            "description": "This attribute shall contain normative language relating to the enumeration values of the property."
+        },
+        "enumDeprecated": {
+            "type": "object",
+            "description": "The term shall be applied to a value in order to specify that the value is deprecated.  The value of the string should explain the deprecation, including new value to be used.  The value can be supported in new and existing implementations, but usage in new implementations is discouraged.  Deprecated values are likely to be removed in a future major version of the schema."
+        },
+        "enumVersionDeprecated": {
+            "type": "object",
+            "description": "The term shall be applied to a value in order to specify when the value was deprecated.  The value of the string should contain the resource version where the value was deprecated."
+        },
+        "enumVersionAdded": {
+            "type": "object",
+            "description": "The term shall be applied to a value in order to specify when the value was added.  The value of the string should contain the resource version where the value was added."
+        },
+        "units": {
+            "type": "string",
+            "description": "This attribute shall contain the units of measure used by the value of the property."
+        },
+        "owningEntity": {
+            "type": "string",
+            "description": "Indicates the name of the entity responsible for development, publication and maintenance of a given schema.  Possible values include DMTF, SNIA or an OEM label such as is used in a Redfish OEM extension section."
+        },
+        "excerpt": {
+            "type": "string",
+            "description": "The term specifies that the property is a Excerpt data element that shall appear in objects marked as a Excerpt Copy when the value of the term matches the type specified by the ExcerptCopy term. If the value of the term is unspecified, the property shall appear in all ExcerptCopy instances."
+        },
+        "excerptCopy": {
+            "type": "string",
+            "description": "The term specifies that the object or property definition is a copy of data from a source elsewhere in the data model, and that only properties marked as Excerpt in that referenced definition shall be included. The value of the term shall contain the name and value of a key property used to construct the Excerpt subset of properties from the referenced definition. If the value of the term is not defined, then all Excerpt properties shall be copied from the referenced definition."
+        },
+        "excerptCopyOnly": {
+            "type": "boolean",
+            "description": "The term specifies that the property is a data element that shall appear only when the resource definition is used as a copy (using the ExcerptCopy term), and shall not appear in the original data resource."
+        },
+        "insertable": {
+            "type": "boolean",
+            "description": "The term specifies if new members can be added to the resource using the POST method."
+        },
+        "updatable": {
+            "type": "boolean",
+            "description": "The term specifies whether or not the resource is able to be updated using the PATCH or PUT methods."
+        },
+        "deletable": {
+            "type": "boolean",
+            "description": "The term specifies whether or not the resource is able to be removed using the DELETE methods."
+        },
+        "uris": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            },
+            "description": "The term specifies the URIs a service is allowed to use for the given resource."
+        },
+        "autoExpand": {
+            "type": "boolean",
+            "description": "The term specifies if the resource referenced by the hyperlink shall be expanded in the response body as specified in the 'Expanded resources' clause of the Redfish Specification."
+        },
+        "release": {
+            "type": "string",
+            "description": "The term specifies the version of the release bundle that this schema or versioned namespace was first released."
+        },
+        "filter": {
+            "type": "string",
+            "description": "Indicates a filter to apply to an array of objects when the values are copies of data elsewhere in the data model."
+        },
+        "language": {
+            "type": "string",
+            "description": "The term specifies the ISO 639-1 language code (Alpha-2) that matches the language used for the descriptive text in this schema file. If this term is not present, the default value shall be English (en)."
+        },
+        "translation": {
+            "type": "string",
+            "description": "The term specifies a translated language (localized) version of the property name, parameter, or enumeration string. The language used shall match the 'language' value for this schema."
+        },
+        "enumTranslations": {
+            "type": "object",
+            "description": "The term specifies a translated language (localized) version of enumeration values. The object shall contain properties with names that match the enumerations and values that contain the translation of the enumeration value. The language used shall match the 'language' value for this schema."
+        },
+        "actionResponse": {
+            "type": "object",
+            "description": "Contains the definition of the response body for a given action if it does not follow the Redfish Error format."
+        },
+        "license": {
+            "type": "string",
+            "description": "The term is applied to Redfish schema or registry in order to specify licensing information."
+        },
+        "releaseStatus": {
+            "enum": [
+                "Standard",
+                "Informational",
+                "WorkInProgress",
+                "InDevelopment"
+            ],
+            "type": "string",
+            "description": "The term specifies the public release status of a property or schema."
+        }
+    },
+    "properties": {
+        "readonly": {
+            "$ref": "#/definitions/readonly"
+        },
+        "requiredOnCreate": {
+            "$ref": "#/definitions/requiredOnCreate"
+        },
+        "requiredParameter": {
+            "$ref": "#/definitions/requiredParameter"
+        },
+        "longDescription": {
+            "$ref": "#/definitions/longDescription"
+        },
+        "copyright": {
+            "$ref": "#/definitions/copyright"
+        },
+        "deprecated": {
+            "$ref": "#/definitions/deprecated"
+        },
+        "versionDeprecated": {
+            "$ref": "#/definitions/versionDeprecated"
+        },
+        "versionAdded": {
+            "$ref": "#/definitions/versionAdded"
+        },
+        "enumDescriptions": {
+            "$ref": "#/definitions/enumDescriptions"
+        },
+        "enumLongDescriptions": {
+            "$ref": "#/definitions/enumLongDescriptions"
+        },
+        "enumDeprecated": {
+            "$ref": "#/definitions/enumDeprecated"
+        },
+        "enumVersionDeprecated": {
+            "$ref": "#/definitions/enumVersionDeprecated"
+        },
+        "enumVersionAdded": {
+            "$ref": "#/definitions/enumVersionAdded"
+        },
+        "units": {
+            "$ref": "#/definitions/units"
+        },
+        "parameters": {
+            "type": "object",
+            "description": "This term shall contain parameter definitions for a given action.",
+            "additionalProperties": { "$ref": "#" }
+        },
+        "owningEntity": {
+            "$ref": "#/definitions/owningEntity"
+        },
+        "excerpt": {
+            "$ref": "#/definitions/excerpt"
+        },
+        "excerptCopy": {
+            "$ref": "#/definitions/excerptCopy"
+        },
+        "excerptCopyOnly": {
+            "$ref": "#/definitions/excerptCopyOnly"
+        },
+        "insertable": {
+            "$ref": "#/definitions/insertable"
+        },
+        "updatable": {
+            "$ref": "#/definitions/updatable"
+        },
+        "deletable": {
+            "$ref": "#/definitions/deletable"
+        },
+        "uris": {
+            "$ref": "#/definitions/uris"
+        },
+        "autoExpand": {
+            "$ref": "#/definitions/autoExpand"
+        },
+        "release": {
+            "$ref": "#/definitions/release"
+        },
+        "filter": {
+            "$ref": "#/definitions/filter"
+        },
+        "language": {
+            "$ref": "#/definitions/language"
+        },
+        "translation": {
+            "$ref": "#/definitions/translation"
+        },
+        "enumTranslations": {
+            "$ref": "#/definitions/enumTranslations"
+        },  
+        "actionResponse": {
+            "$ref": "#/definitions/actionResponse"
+        },
+        "license": {
+            "$ref": "#/definitions/license"
+        },
+        "releaseStatus": {
+            "$ref": "#/definitions/releaseStatus"
+        }
+    }
+}

@@ -302,10 +302,17 @@ for zip_filepath in zip_ref.namelist():
                 if list(map(int, filenamesplit[1][1:].split("_"))) > list(map(
                         int, thisSchemaVersion[1:].split("_"))):
                     schema_files[filenamesplit[0]] = filenamesplit[1]
-
+        else:
+            # Unversioned schema include directly.  Invent a version so it can
+            # still be sorted against
+            schema_files[filenamesplit[0]] = "v0_0_0"
 
 for schema, version in schema_files.items():
-    basename = schema + "." + version + ".json"
+    basename = schema
+    if version != "v0_0_0":
+        basename += "." + version
+    basename += ".json"
+
     zip_filepath = os.path.join("json-schema", basename)
     schemadir = os.path.join(json_schema_path, schema)
     os.makedirs(schemadir)
