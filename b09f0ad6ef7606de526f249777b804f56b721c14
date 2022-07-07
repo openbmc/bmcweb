@@ -16,6 +16,29 @@
       "message": "Good to go?",
       "revId": "b09f0ad6ef7606de526f249777b804f56b721c14",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "42a271a3_33ebd8dd",
+        "filename": "src/dbus_singleton.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-07T02:10:22Z",
+      "side": 1,
+      "message": "I think you missed my point in the other thread.  Now that everything is on stack, we don\u0027t need this class at all.  As you can see, it doesn\u0027t really do much in its current form except hold a reference to systemBus, which is already guaranteed to have the appropriate lifetime (and holding a reference doesn\u0027t really help with that either)",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 1
+      },
+      "revId": "b09f0ad6ef7606de526f249777b804f56b721c14",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
