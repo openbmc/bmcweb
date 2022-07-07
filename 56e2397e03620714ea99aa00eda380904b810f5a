@@ -16,6 +16,24 @@
       "message": "I\u0027m not sure that we should create sensorAsyncResp here just for using getValidChassisPath. getValidChassisPath only uses |chassisId| and |asyncResp| fields in sensorAsyncResp and has nothing to do with sensors. In my opinion, we should refactor getValidChassisPath to make it more general and not relies on SensorAsyncResp.",
       "revId": "56e2397e03620714ea99aa00eda380904b810f5a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fc6a4066_07ba4dc6",
+        "filename": "redfish-core/lib/thermal_subsystem.hpp",
+        "patchSetId": 84
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-07T19:31:25Z",
+      "side": 1,
+      "message": "+1.  I really suspect that we shouldn\u0027t be using SensorAsyncResp for any new code.  It\u0027s a really old pattern that we\u0027ve since removed from most of the codebase.  SensorsAsyncResp is I think the only type-specific response object left.\n\nAlso, looking at it, it initializes it with node::sensors, which seems wrong given that this is the thermalSubsystem resource.",
+      "parentUuid": "ae6368ce_60821910",
+      "revId": "56e2397e03620714ea99aa00eda380904b810f5a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
