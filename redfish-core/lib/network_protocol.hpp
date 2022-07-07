@@ -478,24 +478,22 @@ inline void handleBmcNetworkProtocolHead(
         "</redfish/v1/JsonSchemas/ManagerNetworkProtocol/ManagerNetworkProtocol.json>; rel=describedby");
 }
 
-inline void requestRoutesNetworkProtocol(App& app)
+inline void handleManagersNetworkProtocolPatch(
+    App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/NetworkProtocol/")
-        .privileges(redfish::privileges::patchManagerNetworkProtocol)
-        .methods(boost::beast::http::verb::patch)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-        if (!redfish::setUpRedfishRoute(app, req, asyncResp))
-        {
-            return;
-        }
-        std::optional<std::string> newHostName;
-        std::optional<std::vector<nlohmann::json>> ntpServerObjects;
-        std::optional<bool> ntpEnabled;
-        std::optional<bool> ipmiEnabled;
-        std::optional<bool> sshEnabled;
 
-        // clang-format off
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+    std::optional<std::string> newHostName;
+    std::optional<std::vector<nlohmann::json>> ntpServerObjects;
+    std::optional<bool> ntpEnabled;
+    std::optional<bool> ipmiEnabled;
+    std::optional<bool> sshEnabled;
+
+    // clang-format off
         if (!json_util::readJsonPatch(
                 req, asyncResp->res,
                 "HostName", newHostName,
@@ -506,49 +504,66 @@ inline void requestRoutesNetworkProtocol(App& app)
         {
             return;
         }
-        // clang-format on
+    // clang-format on
 
-        asyncResp->res.result(boost::beast::http::status::no_content);
-        if (newHostName)
-        {
-            messages::propertyNotWritable(asyncResp->res, "HostName");
-            return;
-        }
+    asyncResp->res.result(boost::beast::http::status::no_content);
+    if (newHostName)
+    {
+        messages::propertyNotWritable(asyncResp->res, "HostName");
+        return;
+    }
 
-        if (ntpEnabled)
-        {
-            handleNTPProtocolEnabled(*ntpEnabled, asyncResp);
-        }
-        if (ntpServerObjects)
-        {
-            getEthernetIfaceData(
-                [asyncResp, ntpServerObjects](
-                    const bool success,
-                    std::vector<std::string>& currentNtpServers,
-                    const std::vector<std::string>& /*domainNames*/) {
-                if (!success)
-                {
-                    messages::internalError(asyncResp->res);
-                    return;
-                }
-                handleNTPServersPatch(asyncResp, *ntpServerObjects,
-                                      std::move(currentNtpServers));
-            });
-        }
-
-        if (ipmiEnabled)
-        {
-            handleProtocolEnabled(
-                *ipmiEnabled, asyncResp,
-                encodeServiceObjectPath(std::string(ipmiServiceName) + '@'));
-        }
-
-        if (sshEnabled)
-        {
-            handleProtocolEnabled(*sshEnabled, asyncResp,
-                                  encodeServiceObjectPath(sshServiceName));
-        }
+    if (ntpEnabled)
+    {
+        handleNTPProtocolEnabled(*ntpEnabled, asyncResp);
+    }
+    if (ntpServerObjects)
+    {
+        getEthernetIfaceData(
+            [asyncResp, ntpServerObjects](
+                const bool success, std::vector<std::string>& currentNtpServers,
+                const std::vector<std::string>& /*domainNames*/) {
+            if (!success)
+            {
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            handleNTPServersPatch(asyncResp, *ntpServerObjects,
+                                  std::move(currentNtpServers));
         });
+    }
+
+    if (ipmiEnabled)
+    {
+        handleProtocolEnabled(
+            *ipmiEnabled, asyncResp,
+            encodeServiceObjectPath(std::string(ipmiServiceName) + '@'));
+    }
+
+    if (sshEnabled)
+    {
+        handleProtocolEnabled(*sshEnabled, asyncResp,
+                              encodeServiceObjectPath(sshServiceName));
+    }
+}
+
+inline void handleManagersNetworkProtocolGet(
+    App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+    getNetworkData(asyncResp, req);
+}
+
+inline void requestRoutesNetworkProtocol(App& app)
+{
+    BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/NetworkProtocol/")
+        .privileges(redfish::privileges::patchManagerNetworkProtocol)
+        .methods(boost::beast::http::verb::patch)(
+            std::bind_front(handleManagersNetworkProtocolPatch, std::ref(app)));
 
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/NetworkProtocol/")
         .privileges(redfish::privileges::headManagerNetworkProtocol)
@@ -558,14 +573,7 @@ inline void requestRoutesNetworkProtocol(App& app)
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/NetworkProtocol/")
         .privileges(redfish::privileges::getManagerNetworkProtocol)
         .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-        if (!redfish::setUpRedfishRoute(app, req, asyncResp))
-        {
-            return;
-        }
-        getNetworkData(asyncResp, req);
-        });
+            std::bind_front(handleManagersNetworkProtocolGet, std::ref(app)));
 }
 
 } // namespace redfish
