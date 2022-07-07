@@ -11,7 +11,11 @@
 #include <ibm/management_console_rest.hpp>
 #include <image_upload.hpp>
 #include <kvm_websocket.hpp>
+
+#ifndef BMCWEB_INSECURE_DISABLE_AUTHX
 #include <login_routes.hpp>
+#endif
+
 #include <nbd_proxy.hpp>
 #include <obmc_console.hpp>
 #include <openbmc_dbus_rest.hpp>
@@ -122,7 +126,9 @@ static int run()
         cors_preflight::requestRoutes(app);
     }
 
+#ifndef BMCWEB_INSECURE_DISABLE_AUTHX
     crow::login_routes::requestRoutes(app);
+#endif
 
     setupSocket(app);
 
