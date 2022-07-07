@@ -39,6 +39,30 @@
       },
       "revId": "b09f0ad6ef7606de526f249777b804f56b721c14",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dab4829b_d9984662",
+        "filename": "src/dbus_singleton.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-07T18:30:46Z",
+      "side": 1,
+      "message": "I got what you meant this time. Done. PTAL",
+      "parentUuid": "42a271a3_33ebd8dd",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 1
+      },
+      "revId": "b09f0ad6ef7606de526f249777b804f56b721c14",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
