@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c1675448_1f755073",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-07T22:20:47Z",
+      "side": 1,
+      "message": "To add more context, there are many cases where we hit failures in intermediate dbus calls.  Having the response object return the partial results for the things that did work is generally a huge win on client-development speed, as from a bug, you can immediately identify what\u0027s missing, and that helps velocity overall.  This is why we generally don\u0027t do sorts at the end, because they usually involve storing objects in a cache somewhere.",
+      "parentUuid": "4ffb3c9d_e3c5df29",
+      "revId": "bde5c8d22a82bcc5ff679fa6f5cd54b88061a3a2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4f4c8480_0345751e",
@@ -215,6 +233,30 @@
       "side": 1,
       "message": "Wait, what is static? The comparator function is not static, https://github.com/openbmc/bmcweb/blob/bb05f2227d53d590534d1df6e6a622e13cea76ae/include/human_sort.hpp#L106. It needs an \"object\".\n\n\n```\n\nclass Compare {\npublic:\n    Compare() {std::cout \u003c\u003c \"Constructed\\n\";}\n    bool operator()(int a, int b) const {return a \u003c b;}\n};\n\nint main() {\n    std::vector\u003cint\u003e vec \u003d {0,1,2,3,4};\n    std::cout \u003c\u003c \"One way\" \u003c\u003c std::endl;\n    std::sort(vec.begin(), vec.end(), Compare());\n    std::cout \u003c\u003c \"Another way\" \u003c\u003c std::endl;\n    std::sort(vec.begin(), vec.end(), [](int a, int b) {\n      return Compare()(a, b);\n    });\n    return 0;\n}\n\n/*****************************\nOne way\nConstructed\nAnother way\nConstructed\nConstructed\nConstructed\nConstructed\nConstructed\nConstructed\nConstructed\nConstructed\n```\n\nWe should fix all the usage if you agree.",
       "parentUuid": "52f37149_d2134cfb",
+      "range": {
+        "startLine": 595,
+        "startChar": 15,
+        "endLine": 595,
+        "endChar": 53
+      },
+      "revId": "bde5c8d22a82bcc5ff679fa6f5cd54b88061a3a2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "edcbac02_c8fcaf53",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 595,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-07T22:20:47Z",
+      "side": 1,
+      "message": "Yes, I used the wrong word there; Its not static, but sizeof(AlphanumLess) \u003d\u003d 0, so it doesn\u0027t require any effort to construct (it\u0027s one step from a function pointer) so adding it into the loop optimizes to no extra code at compile time.  This is the same pattern that std::less utilizes in other places, so inlining the object makes the code cleaner, and generates the same result.",
+      "parentUuid": "c653b642_2a9f6ecd",
       "range": {
         "startLine": 595,
         "startChar": 15,
