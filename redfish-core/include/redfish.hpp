@@ -64,12 +64,16 @@ class RedfishService
      */
     explicit RedfishService(App& app)
     {
+#ifndef BMCWEB_INSECURE_DISABLE_AUTHX
         requestAccountServiceRoutes(app);
+#endif
         requestRoutesRoles(app);
         requestRoutesRoleCollection(app);
         requestRoutesServiceRoot(app);
         requestRoutesNetworkProtocol(app);
+#ifndef BMCWEB_INSECURE_DISABLE_AUTHX
         requestRoutesSession(app);
+#endif
         requestEthernetInterfacesRoutes(app);
 #ifdef BMCWEB_ALLOW_DEPRECATED_POWER_THERMAL
         requestRoutesThermal(app);
