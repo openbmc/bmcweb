@@ -189,6 +189,30 @@
       },
       "revId": "c78ce8b75a4816e8856b7897cd3315e9808d5800",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6ea725f7_18fb339e",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 877,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-07T23:33:08Z",
+      "side": 1,
+      "message": "\u003e  There are lots of inventory producing daemon\n\nWhat are those inventory daemon? Are they all upstream? If so, we can probably add ObjectManager. I thought adding ObjectManager is aligned with the dbus convention.",
+      "parentUuid": "bb0a98c2_e0765228",
+      "range": {
+        "startLine": 877,
+        "startChar": 8,
+        "endLine": 877,
+        "endChar": 79
+      },
+      "revId": "c78ce8b75a4816e8856b7897cd3315e9808d5800",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
