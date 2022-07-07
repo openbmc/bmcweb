@@ -67,6 +67,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5c2166d7_4a7d5453",
+        "filename": "http/ut/router_test.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-07T23:22:20Z",
+      "side": 1,
+      "message": "For gtest, considering that gtest.h is the public API, should we be doing:\n\n#include \u003cgtest/gtest.h\u003e // IWYU pragma: keep\n\n\n// IWYU pragma: no_include \u003cgtest/gtest-message.h\u003e\n// IWYU pragma: no_include \u003cgtest/gtest-test-part.h\u003e\n\non these?\n\nOr maybe we should define a gtest_local.h to avoid the boilerplate?",
+      "parentUuid": "9edb8eef_56fa762c",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 45
+      },
+      "revId": "cbd7832c563a78a91d72b98fb46a374e3acc77d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cb564c45_06fb710f",
         "filename": "http/ut/router_test.cpp",
         "patchSetId": 5
@@ -102,6 +126,30 @@
       "side": 1,
       "message": "iwyu uses quotes.",
       "parentUuid": "cb564c45_06fb710f",
+      "range": {
+        "startLine": 23,
+        "startChar": 27,
+        "endLine": 23,
+        "endChar": 28
+      },
+      "revId": "cbd7832c563a78a91d72b98fb46a374e3acc77d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e19c341_b5be2298",
+        "filename": "http/ut/router_test.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-07T23:22:20Z",
+      "side": 1,
+      "message": "but the line below it uses \u003c, so maybe iwyu is inconsistent?  Could this be made to be \u003c  ?",
+      "parentUuid": "6df1e8da_96ef9713",
       "range": {
         "startLine": 23,
         "startChar": 27,
@@ -161,6 +209,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0482b2fb_05187674",
+        "filename": "include/openbmc_dbus_rest.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-07T23:22:20Z",
+      "side": 1,
+      "message": "No, we don\u0027t need a reason for each header, but we generally shouldn\u0027t be including gcc specific headers, because the coding standard says to avoid implementation specific headers, so I\u0027d like to at least understand it.  I suspect this is a case where we need another pragma.",
+      "parentUuid": "bd995e84_be4af4ac",
+      "range": {
+        "startLine": 21,
+        "startChar": 14,
+        "endLine": 21,
+        "endChar": 28
+      },
+      "revId": "cbd7832c563a78a91d72b98fb46a374e3acc77d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0e16086c_d3a389d1",
         "filename": "include/openbmc_dbus_rest.hpp",
         "patchSetId": 5
@@ -196,6 +268,30 @@
       "side": 1,
       "message": "iwyu will provide an explanation though, I didn\u0027t actually check every header it includes. Do we need to worry about including these extra header?",
       "parentUuid": "0e16086c_d3a389d1",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 27
+      },
+      "revId": "cbd7832c563a78a91d72b98fb46a374e3acc77d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d94a782f_64fad62b",
+        "filename": "include/openbmc_dbus_rest.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-07T23:22:20Z",
+      "side": 1,
+      "message": "Yes, we do, because in the ideal case, we should be entirely using sdbusplus abstractions, and shouldn\u0027t be using sd-bus.h directly.  I don\u0027t see any sd-bus.h usages in this file, that\u0027s why I question it.\n\nAs stated in the commit message IWYU has false positives, and to my eye, this looks like one of them.  I could be wrong, but if it\u0027s just a matter of rerunning the results, it would be good to know.",
+      "parentUuid": "d0326b60_70367897",
       "range": {
         "startLine": 22,
         "startChar": 0,
