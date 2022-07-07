@@ -49,6 +49,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0aef9062_ca1e6b8d",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 877,
+      "author": {
+        "id": 1000388
+      },
+      "writtenOn": "2022-07-07T05:16:25Z",
+      "side": 1,
+      "message": "(I guess to get the cpuPath?)",
+      "parentUuid": "681b11da_803eb265",
+      "range": {
+        "startLine": 859,
+        "startChar": 0,
+        "endLine": 877,
+        "endChar": 9
+      },
+      "revId": "838beefab612e45202c96af79544e14df3fd72f3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0387bd56_a939bfc3",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 5
