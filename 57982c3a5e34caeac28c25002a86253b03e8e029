@@ -334,6 +334,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff19ad47_4951fb68",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 574,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2022-07-07T12:41:59Z",
+      "side": 1,
+      "message": "ok",
+      "parentUuid": "8bbfecbb_4df79048",
+      "range": {
+        "startLine": 574,
+        "startChar": 24,
+        "endLine": 574,
+        "endChar": 33
+      },
+      "revId": "57982c3a5e34caeac28c25002a86253b03e8e029",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1ae2d45f_582084d6",
@@ -1042,6 +1066,30 @@
       "side": 1,
       "message": "I see ACK, then resolved.  Maybe you meant \"Done\"?",
       "parentUuid": "b9756618_28ede1e8",
+      "range": {
+        "startLine": 715,
+        "startChar": 0,
+        "endLine": 715,
+        "endChar": 72
+      },
+      "revId": "57982c3a5e34caeac28c25002a86253b03e8e029",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "50e45d56_6f17f346",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 715,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2022-07-07T12:41:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "69aa2d92_0667f04b",
       "range": {
         "startLine": 715,
         "startChar": 0,
