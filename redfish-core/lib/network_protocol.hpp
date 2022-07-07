@@ -534,7 +534,7 @@ inline void handleManagersNetworkProtocolPatch(
     }
 }
 
-inline void handleManagersNetworkProtocolGet(
+inline void handleManagersNetworkProtocolHead(
     App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
@@ -542,6 +542,16 @@ inline void handleManagersNetworkProtocolGet(
     {
         return;
     }
+    asyncResp->res.addHeader(
+        boost::beast::http::field::link,
+        "</redfish/v1/JsonSchemas/ManagerNetworkProtocol.v1_5_0.json>; rel=describedby");
+}
+
+inline void handleManagersNetworkProtocolGet(
+    App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+{
+    handleManagersNetworkProtocolHead(app, req, asyncResp);
     getNetworkData(asyncResp, req);
 }
 
@@ -551,6 +561,11 @@ inline void requestRoutesNetworkProtocol(App& app)
         .privileges(redfish::privileges::patchManagerNetworkProtocol)
         .methods(boost::beast::http::verb::patch)(
             std::bind_front(handleManagersNetworkProtocolPatch, std::ref(app)));
+
+    BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/NetworkProtocol/")
+        .privileges(redfish::privileges::headManagerNetworkProtocol)
+        .methods(boost::beast::http::verb::head)(
+            std::bind_front(handleManagersNetworkProtocolHead, std::ref(app)));
 
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/NetworkProtocol/")
         .privileges(redfish::privileges::getManagerNetworkProtocol)
