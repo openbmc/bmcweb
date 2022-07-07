@@ -46,14 +46,27 @@ inline void fillSessionObject(crow::Response& res,
 }
 
 inline void
-    handleSessionGet(crow::App& app, const crow::Request& req,
-                     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                     const std::string& sessionId)
+    handleSessionHead(crow::App& app, const crow::Request& req,
+                      const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                      const std::string& /*sessionId*/)
 {
+
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
+    asyncResp->res.addHeader(
+        boost::beast::http::field::link,
+        "</redfish/v1/JsonSchemas/Session/Session.json>; rel=describedby");
+}
+
+inline void
+    handleSessionGet(crow::App& app, const crow::Request& req,
+                     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                     const std::string& sessionId)
+{
+    handleSessionHead(app, req, asyncResp, sessionId);
+
     // Note that control also reaches here via doPost and doDelete.
     auto session =
         persistent_data::SessionStore::getInstance().getSessionByUid(sessionId);
@@ -122,14 +135,25 @@ inline nlohmann::json getSessionCollectionMembers()
     return ret;
 }
 
-inline void handleSessionCollectionGet(
+inline void handleSessionCollectionHead(
     crow::App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
+
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
+    asyncResp->res.addHeader(
+        boost::beast::http::field::link,
+        "</redfish/v1/JsonSchemas/SessionCollection.json>; rel=describedby");
+}
+
+inline void handleSessionCollectionGet(
+    crow::App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+{
+    handleSessionCollectionHead(app, req, asyncResp);
     asyncResp->res.jsonValue["Members"] = getSessionCollectionMembers();
     asyncResp->res.jsonValue["Members@odata.count"] =
         asyncResp->res.jsonValue["Members"].size();
@@ -229,15 +253,25 @@ inline void handleSessionCollectionPost(
 
     fillSessionObject(asyncResp->res, *session);
 }
+inline void handleSessionServiceHead(
+    crow::App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+{
+
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+    asyncResp->res.addHeader(
+        boost::beast::http::field::link,
+        "</redfish/v1/JsonSchemas/SessionService.v1_0_2.json>; rel=describedby");
+}
 inline void
     handleSessionServiceGet(crow::App& app, const crow::Request& req,
                             const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
-    {
-        return;
-    }
+    handleSessionServiceHead(app, req, asyncResp);
     asyncResp->res.jsonValue["@odata.type"] =
         "#SessionService.v1_0_2.SessionService";
     asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1/SessionService/";
@@ -294,6 +328,11 @@ inline void handleSessionServicePatch(
 inline void requestRoutesSession(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/SessionService/Sessions/<str>/")
+        .privileges(redfish::privileges::headSession)
+        .methods(boost::beast::http::verb::head)(
+            std::bind_front(handleSessionHead, std::ref(app)));
+
+    BMCWEB_ROUTE(app, "/redfish/v1/SessionService/Sessions/<str>/")
         .privileges(redfish::privileges::getSession)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handleSessionGet, std::ref(app)));
@@ -302,6 +341,11 @@ inline void requestRoutesSession(App& app)
         .privileges(redfish::privileges::deleteSession)
         .methods(boost::beast::http::verb::delete_)(
             std::bind_front(handleSessionDelete, std::ref(app)));
+
+    BMCWEB_ROUTE(app, "/redfish/v1/SessionService/Sessions/")
+        .privileges(redfish::privileges::headSessionCollection)
+        .methods(boost::beast::http::verb::head)(
+            std::bind_front(handleSessionCollectionHead, std::ref(app)));
 
     BMCWEB_ROUTE(app, "/redfish/v1/SessionService/Sessions/")
         .privileges(redfish::privileges::getSessionCollection)
@@ -322,6 +366,11 @@ inline void requestRoutesSession(App& app)
         .privileges({})
         .methods(boost::beast::http::verb::post)(
             std::bind_front(handleSessionCollectionPost, std::ref(app)));
+
+    BMCWEB_ROUTE(app, "/redfish/v1/SessionService/")
+        .privileges(redfish::privileges::headSessionService)
+        .methods(boost::beast::http::verb::head)(
+            std::bind_front(handleSessionServiceHead, std::ref(app)));
 
     BMCWEB_ROUTE(app, "/redfish/v1/SessionService/")
         .privileges(redfish::privileges::getSessionService)
