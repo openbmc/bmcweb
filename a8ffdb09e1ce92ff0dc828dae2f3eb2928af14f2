@@ -56,6 +56,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "70e8267f_de5b72b0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-07T19:01:09Z",
+      "side": 1,
+      "message": "I haven\u0027t really thought about it, but if there\u0027s other users that want this, I guess we could.\n\nJust enum generation doesn\u0027t really seem useful in that context, but maybe combined with your type safe structures patch, it might be a good replacement to https://github.com/DMTF/Redfish-Schema-C-Struct-Generator.  Something to think about for sure;  If you know of other things that would use this stuff, that\u0027s something we could talk about in the future.  I\u0027m happy to rip this patch out and request a separate repo if there\u0027s another user, but I don\u0027t want to maintain that level of version-to-version compatibility without a user.",
+      "parentUuid": "b66f69cf_63de712a",
+      "revId": "a8ffdb09e1ce92ff0dc828dae2f3eb2928af14f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0abb9d47_6bc1db86",
         "filename": "redfish-core/include/redfish_defs/computer_system.hpp",
         "patchSetId": 15
