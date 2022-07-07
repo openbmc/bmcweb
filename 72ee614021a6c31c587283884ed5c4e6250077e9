@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "646e74a1_bd595fa8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-07T02:19:12Z",
+      "side": 1,
+      "message": "This kind of thing is generally not trivial, but because it\u0027s in something in google/v1, it seems unlikely it would break anyone in the community, and I know we have test harnesses for this.",
+      "range": {
+        "startLine": 14,
+        "startChar": 8,
+        "endLine": 14,
+        "endChar": 22
+      },
+      "revId": "72ee614021a6c31c587283884ed5c4e6250077e9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
