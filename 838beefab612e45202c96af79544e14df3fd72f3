@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "48538e00_daed6e03",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1000388
+      },
+      "writtenOn": "2022-07-07T05:27:48Z",
+      "side": 1,
+      "message": "Ah, it seems like making the ObjectMapper call that `getCollectionMembers` calls on https://github.com/openbmc/bmcweb/blob/002d39b4a7a5ed7166e2acad84e0943c3def9492/redfish-core/include/utils/collection.hpp#L26\n\nI\u0027m seeing that the corepath that looks like cpu0/core1 will grab cpu0/core10~19 as well... I\u0027m guessing this may be a bug in the getCollectionMembers?",
+      "parentUuid": "e2910221_26b30fc7",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 34
+      },
+      "revId": "838beefab612e45202c96af79544e14df3fd72f3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "681b11da_803eb265",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 5
@@ -61,6 +85,30 @@
       "side": 1,
       "message": "(I guess to get the cpuPath?)",
       "parentUuid": "681b11da_803eb265",
+      "range": {
+        "startLine": 859,
+        "startChar": 0,
+        "endLine": 877,
+        "endChar": 9
+      },
+      "revId": "838beefab612e45202c96af79544e14df3fd72f3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "642af56b_93b7851c",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 877,
+      "author": {
+        "id": 1000388
+      },
+      "writtenOn": "2022-07-07T05:27:48Z",
+      "side": 1,
+      "message": "(looking through again, yes it is)",
+      "parentUuid": "0aef9062_ca1e6b8d",
       "range": {
         "startLine": 859,
         "startChar": 0,
