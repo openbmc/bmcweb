@@ -185,6 +185,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f8800426_e63e67c8",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1098,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-07T23:11:24Z",
+      "side": 1,
+      "message": "Please also construct the json from leave nodes.\n\njson[abc][edf] \u003d xxx;\n\nrather than \n\njson[abc] \u003d {edf: xxx}",
+      "range": {
+        "startLine": 1098,
+        "startChar": 38,
+        "endLine": 1098,
+        "endChar": 51
+      },
+      "revId": "838beefab612e45202c96af79544e14df3fd72f3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0387bd56_a939bfc3",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 5
@@ -201,6 +224,29 @@
         "startChar": 0,
         "endLine": 1104,
         "endChar": 53
+      },
+      "revId": "838beefab612e45202c96af79544e14df3fd72f3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ff39321_e60b0a27",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1292,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-07T23:11:24Z",
+      "side": 1,
+      "message": "Have you tested the performance?\n\nWhat does it take to get all threads without expand? How are we going to implement an efficient expand?",
+      "range": {
+        "startLine": 1292,
+        "startChar": 4,
+        "endLine": 1292,
+        "endChar": 29
       },
       "revId": "838beefab612e45202c96af79544e14df3fd72f3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
