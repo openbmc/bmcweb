@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1e9b50ae_d754fe1e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-07T02:21:14Z",
+      "side": 1,
+      "message": "FYI, the owners-reviewers package is broken, so you should be adding the maintainers and reviewers onto each review.",
+      "revId": "0a30699e7508c09ca82ba24710fd143ef4c87728",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
