@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3ffbeda9_08721926",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-07T01:40:31Z",
+      "side": 1,
+      "message": "I haven\u0027t really asked, but given that nlohmann::json isn\u0027t any kind of standard json representation, and this relies on the internal machinery of that to work, I don\u0027t know if it\u0027s generally useful.\n\nIn the past the standard said that generating code is \"not their space\" to be solving, and that we should rely on other code generator tools to generate bindings.  Unfortunately, no tool I\u0027m aware of uses nlohmann.",
+      "parentUuid": "abe763c3_7faab936",
+      "revId": "a8ffdb09e1ce92ff0dc828dae2f3eb2928af14f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0abb9d47_6bc1db86",
         "filename": "redfish-core/include/redfish_defs/computer_system.hpp",
         "patchSetId": 15
@@ -31,6 +49,30 @@
       "writtenOn": "2022-07-06T18:09:48Z",
       "side": 1,
       "message": "Usb -\u003e USB\nHdd -\u003e HDD\nCd -\u003e CD\nPxe - \u003e PXE",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 8
+      },
+      "revId": "a8ffdb09e1ce92ff0dc828dae2f3eb2928af14f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dc5cdfb7_4bed82e1",
+        "filename": "redfish-core/include/redfish_defs/computer_system.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-07T01:40:31Z",
+      "side": 1,
+      "message": "These are correct to the redfish standard:\n\nhttps://redfish.dmtf.org/schemas/ComputerSystem_v1.xml\n\nIn the other thread, we discussed changing the casing, and decided it wasn\u0027t worth the effort, and inconsistency with the spec, and that we should be naming these the same as the spec to be consistent (and to improve the readability).\n\nIs there a reason these specific ones should change?",
+      "parentUuid": "0abb9d47_6bc1db86",
       "range": {
         "startLine": 14,
         "startChar": 0,
