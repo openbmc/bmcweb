@@ -3,6 +3,23 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "d78653ff_354dcc8a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-07T19:44:32Z",
+      "side": 1,
+      "message": "Thanks guys.",
+      "revId": "2cd7e531b3889afe412e2e6a76654d6a177532c8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "c609adff_570fed5e",
         "filename": "redfish-core/lib/network_protocol.hpp",
         "patchSetId": 3
@@ -14,6 +31,30 @@
       "writtenOn": "2022-07-07T19:39:40Z",
       "side": 1,
       "message": "Though this function is only used once, I believe moving the de-duplication into it is correct",
+      "range": {
+        "startLine": 47,
+        "startChar": 12,
+        "endLine": 47,
+        "endChar": 47
+      },
+      "revId": "2cd7e531b3889afe412e2e6a76654d6a177532c8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "841a2ccb_31d61fe0",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-07T19:44:32Z",
+      "side": 1,
+      "message": "That\u0027s the impetus for this patch;  In the next patch, this function gets used more than once.",
+      "parentUuid": "c609adff_570fed5e",
       "range": {
         "startLine": 47,
         "startChar": 12,
