@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b66f69cf_63de712a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-07-07T16:49:10Z",
+      "side": 1,
+      "message": "Nit,\nHave you thought about turning this into a library, and created a new openbmc repo to house this code base?",
+      "parentUuid": "3ffbeda9_08721926",
+      "revId": "a8ffdb09e1ce92ff0dc828dae2f3eb2928af14f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0abb9d47_6bc1db86",
@@ -73,6 +91,30 @@
       "side": 1,
       "message": "These are correct to the redfish standard:\n\nhttps://redfish.dmtf.org/schemas/ComputerSystem_v1.xml\n\nIn the other thread, we discussed changing the casing, and decided it wasn\u0027t worth the effort, and inconsistency with the spec, and that we should be naming these the same as the spec to be consistent (and to improve the readability).\n\nIs there a reason these specific ones should change?",
       "parentUuid": "0abb9d47_6bc1db86",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 8
+      },
+      "revId": "a8ffdb09e1ce92ff0dc828dae2f3eb2928af14f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bd3b1a86_a6683be8",
+        "filename": "redfish-core/include/redfish_defs/computer_system.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-07-07T16:49:10Z",
+      "side": 1,
+      "message": "In the cable enum it cased all caps, and most of the acronyms are cased correctly. If the spec has this inconstancy then it is fine in the implementation.  \n\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/51993/15/redfish-core/include/redfish_defs/cable.hpp#39\n\n(resolved)",
+      "parentUuid": "dc5cdfb7_4bed82e1",
       "range": {
         "startLine": 14,
         "startChar": 0,
@@ -149,6 +191,30 @@
       "writtenOn": "2022-07-06T18:09:48Z",
       "side": 1,
       "message": "So you are adding \"Invalid\" to every enum that does not have it?\nDoes this make sense, will there be enums that have similar error states such as (unknown, or Error)",
+      "range": {
+        "startLine": 80,
+        "startChar": 0,
+        "endLine": 81,
+        "endChar": 39
+      },
+      "revId": "a8ffdb09e1ce92ff0dc828dae2f3eb2928af14f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5e2cc8dc_498563f2",
+        "filename": "scripts/generate_schema_enums.py",
+        "patchSetId": 15
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-07-07T16:49:10Z",
+      "side": 1,
+      "message": "sometimes \"Invalid\" will be enum invalid, and some time it will be a spec defined \"Invalid\"",
+      "parentUuid": "2d1a601e_d3e5d6db",
       "range": {
         "startLine": 80,
         "startChar": 0,
