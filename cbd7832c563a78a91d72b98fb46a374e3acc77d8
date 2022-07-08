@@ -326,6 +326,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7f1da386_335d894f",
+        "filename": "include/openbmc_dbus_rest.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-08T03:53:26Z",
+      "side": 1,
+      "message": "Ack\n\nI didn\u0027t realize we used those types directly in here, but I guess we did.",
+      "parentUuid": "3c5646c9_7256416b",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 27
+      },
+      "revId": "cbd7832c563a78a91d72b98fb46a374e3acc77d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8378a154_e38c80be",
@@ -398,6 +422,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2555f2dc_0b0349c0",
+        "filename": "include/openbmc_dbus_rest.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-08T03:53:26Z",
+      "side": 1,
+      "message": "But if it\u0027s used within the boost object..... the boost object should be the thing #including it, not us, right?",
+      "parentUuid": "f446861e_478446e8",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 49
+      },
+      "revId": "cbd7832c563a78a91d72b98fb46a374e3acc77d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "30ad074b_9038ba44",
         "filename": "include/openbmc_dbus_rest.hpp",
         "patchSetId": 5
@@ -433,6 +481,30 @@
       "side": 1,
       "message": "I assume it is the try catch blocks\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/55138/5/include/openbmc_dbus_rest.hpp#279\n\nThe the catch blocks can be deleted, because findRemainingObjectsForEnumerate does not throw.",
       "parentUuid": "30ad074b_9038ba44",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 20
+      },
+      "revId": "cbd7832c563a78a91d72b98fb46a374e3acc77d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "058cf095_5f74d3a7",
+        "filename": "include/openbmc_dbus_rest.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-08T03:53:26Z",
+      "side": 1,
+      "message": "\u003e The the catch blocks can be deleted, because findRemainingObjectsForEnumerate does not throw.\n\nIt actually can, and if you remove the try catch blocks, clang-tidy-bugprone-exception-escape will fail.  I\u0027ve never been able to figure out why it throws, because you\u0027re right, the code doesn\u0027t look like it should.\n\n\u003e I assume it is the try catch blocks\n\nTry catch blocks are part of the language, they shouldn\u0027t need to #include \u003cexception\u003e to use.\n\nhttps://en.cppreference.com/w/cpp/header/exception\n\nThat\u0027s everything in \u003cexception\u003e, and it\u0027s possible i missed something, but nothing from that file looks like its in here?",
+      "parentUuid": "de17a522_6ffe5773",
       "range": {
         "startLine": 55,
         "startChar": 0,
