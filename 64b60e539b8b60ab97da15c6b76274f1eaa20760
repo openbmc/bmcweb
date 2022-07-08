@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "968d5e6a_a31dbce9",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 939,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-08T22:32:07Z",
+      "side": 1,
+      "message": "this also fixes copies, right?",
+      "range": {
+        "startLine": 939,
+        "startChar": 21,
+        "endLine": 939,
+        "endChar": 38
+      },
+      "revId": "64b60e539b8b60ab97da15c6b76274f1eaa20760",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "148ebd18_4f6a249e",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-08T22:32:07Z",
+      "side": 1,
+      "message": "add const here as well? I believe if get_ptr is template with const in the first place, `uint64_t* preValue \u003d get_ptr` will error out.",
+      "range": {
+        "startLine": 330,
+        "startChar": 60,
+        "endLine": 330,
+        "endChar": 68
+      },
+      "revId": "64b60e539b8b60ab97da15c6b76274f1eaa20760",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
