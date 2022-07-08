@@ -269,6 +269,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0a6897ed_7f8755d6",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 595,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-07-08T08:30:01Z",
+      "side": 1,
+      "message": "+1, It should be optimized by compiler",
+      "parentUuid": "edcbac02_c8fcaf53",
+      "range": {
+        "startLine": 595,
+        "startChar": 15,
+        "endLine": 595,
+        "endChar": 53
+      },
+      "revId": "bde5c8d22a82bcc5ff679fa6f5cd54b88061a3a2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e6fdc329_5e7f5ea7",
         "filename": "redfish-core/include/utils/json_utils.hpp",
         "patchSetId": 1
