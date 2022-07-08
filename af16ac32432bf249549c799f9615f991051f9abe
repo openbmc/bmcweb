@@ -188,6 +188,24 @@
       "parentUuid": "401ce52d_5e758daf",
       "revId": "af16ac32432bf249549c799f9615f991051f9abe",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d8a0b644_3933d15f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 24
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-07-08T21:05:05Z",
+      "side": 1,
+      "message": "I agree with Ed here, I think we need a requirement added to phosphor-dbus-interfaces. I also think we need to look at all upstream dbus daemon that publishes an inventory",
+      "parentUuid": "37f87ab9_0dac41da",
+      "revId": "af16ac32432bf249549c799f9615f991051f9abe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
