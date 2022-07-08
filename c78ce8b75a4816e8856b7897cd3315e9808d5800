@@ -213,6 +213,30 @@
       },
       "revId": "c78ce8b75a4816e8856b7897cd3315e9808d5800",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "af9f6905_ee440f66",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 877,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-08T04:00:10Z",
+      "side": 1,
+      "message": "\u003e \u003e  There are lots of inventory producing daemon\n\u003e \n\u003e What are those inventory daemon?\n\nI don\u0027t know the complete list of the top of my head.  I would probably go system by system, as there are a lot of them.\n\n\n\u003e Are they all upstream? If so, we can probably add ObjectManager.\n\nSomething to be discussed with the relevant maintainers.  Lets start by getting a discussion going in phosphor-dbus-interfaces about why this is required.\n\n\u003e I thought adding ObjectManager is aligned with the dbus convention.\n\nObjectManager is optional, and not required, so I\u0027m not sure what you mean by \"aligned\".  We modified the Sensor interface to require it, but most of the other interfaces don\u0027t, so it\u0027s pretty likely there are a lot of implementations that either don\u0027t have it, or put it in the wrong path.",
+      "parentUuid": "6ea725f7_18fb339e",
+      "range": {
+        "startLine": 877,
+        "startChar": 8,
+        "endLine": 877,
+        "endChar": 79
+      },
+      "revId": "c78ce8b75a4816e8856b7897cd3315e9808d5800",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
