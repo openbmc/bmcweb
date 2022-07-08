@@ -8,6 +8,7 @@ from io import BytesIO
 
 import generate_schema_enums
 import requests
+from generate_schema_collections import generate_top_collections
 
 VERSION = "DSP8010_2022.2"
 
@@ -391,6 +392,7 @@ with open(os.path.join(cpp_path, "schemas.hpp"), "w") as hpp_file:
 zip_ref.close()
 
 generate_schema_enums.main()
+generate_top_collections()
 
 # Now delete the xml schema files we aren't supporting
 if os.path.exists(schema_path):
