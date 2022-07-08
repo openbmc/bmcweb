@@ -2620,12 +2620,30 @@ inline void setIdlePowerSaver(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
     BMCWEB_LOG_DEBUG << "EXIT: Set idle power saver parameters";
 }
 
+inline void handleComputerSystemHead(
+    crow::App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+    asyncResp->res.addHeader(
+        boost::beast::http::field::link,
+        "</redfish/v1/JsonSchemas/ComputerSystemCollection/ComputerSystemCollection.json>; rel=describedby");
+}
+
 /**
  * SystemsCollection derived class for delivering ComputerSystems Collection
  * Schema
  */
 inline void requestRoutesSystemsCollection(App& app)
 {
+    BMCWEB_ROUTE(app, "/redfish/v1/Systems/")
+        .privileges(redfish::privileges::headComputerSystemCollection)
+        .methods(boost::beast::http::verb::head)(
+            std::bind_front(handleComputerSystemHead, std::ref(app)));
+
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/")
         .privileges(redfish::privileges::getComputerSystemCollection)
         .methods(boost::beast::http::verb::get)(
@@ -2635,6 +2653,10 @@ inline void requestRoutesSystemsCollection(App& app)
         {
             return;
         }
+
+        asyncResp->res.addHeader(
+            boost::beast::http::field::link,
+            "</redfish/v1/JsonSchemas/ComputerSystemCollection.json>; rel=describedby");
         asyncResp->res.jsonValue["@odata.type"] =
             "#ComputerSystemCollection.ComputerSystemCollection";
         asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1/Systems";
@@ -2819,12 +2841,30 @@ inline void requestRoutesSystemActionsReset(App& app)
         });
 }
 
+void handleComputerSystemCollectionHead(
+    App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+
+    asyncResp->res.addHeader(
+        boost::beast::http::field::link,
+        "</redfish/v1/JsonSchemas/ComputerSystem/ComputerSystem.json>; rel=describedby");
+}
+
 /**
  * Systems derived class for delivering Computer Systems Schema.
  */
 inline void requestRoutesSystems(App& app)
 {
 
+    BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/")
+        .privileges(redfish::privileges::headComputerSystem)
+        .methods(boost::beast::http::verb::head)(
+            std::bind_front(handleComputerSystemCollectionHead, std::ref(app)));
     /**
      * Functions triggers appropriate requests on DBus
      */
@@ -2837,6 +2877,9 @@ inline void requestRoutesSystems(App& app)
         {
             return;
         }
+        asyncResp->res.addHeader(
+            boost::beast::http::field::link,
+            "</redfish/v1/JsonSchemas/ComputerSystem/ComputerSystem.json>; rel=describedby");
         asyncResp->res.jsonValue["@odata.type"] =
             "#ComputerSystem.v1_16_0.ComputerSystem";
         asyncResp->res.jsonValue["Name"] = "system";
@@ -2962,6 +3005,10 @@ inline void requestRoutesSystems(App& app)
         {
             return;
         }
+        asyncResp->res.addHeader(
+            boost::beast::http::field::link,
+            "</redfish/v1/JsonSchemas/ComputerSystem/ComputerSystem.json>; rel=describedby");
+
         std::optional<bool> locationIndicatorActive;
         std::optional<std::string> indicatorLed;
         std::optional<std::string> assetTag;
@@ -3066,12 +3113,29 @@ inline void requestRoutesSystems(App& app)
         });
 }
 
+void handleSystemCollectionResetActionHead(
+    crow::App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+    asyncResp->res.addHeader(
+        boost::beast::http::field::link,
+        "</redfish/v1/JsonSchemas/ActionInfo/ActionInfo.json>; rel=describedby");
+}
+
 /**
  * SystemResetActionInfo derived class for delivering Computer Systems
  * ResetType AllowableValues using ResetInfo schema.
  */
 inline void requestRoutesSystemResetActionInfo(App& app)
 {
+    BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/ResetActionInfo/")
+        .privileges(redfish::privileges::headActionInfo)
+        .methods(boost::beast::http::verb::head)(std::bind_front(
+            handleSystemCollectionResetActionHead, std::ref(app)));
     /**
      * Functions triggers appropriate requests on DBus
      */
@@ -3084,6 +3148,9 @@ inline void requestRoutesSystemResetActionInfo(App& app)
         {
             return;
         }
+        asyncResp->res.addHeader(
+            boost::beast::http::field::link,
+            "</redfish/v1/JsonSchemas/ActionInfo/ActionInfo.json>; rel=describedby");
 
         asyncResp->res.jsonValue["@odata.id"] =
             "/redfish/v1/Systems/system/ResetActionInfo";
