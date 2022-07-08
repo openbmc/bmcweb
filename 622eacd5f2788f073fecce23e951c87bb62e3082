@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "42eb9f9f_e2d51e13",
+        "filename": "redfish-core/lib/thermal_subsystem.hpp",
+        "patchSetId": 85
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000444
+      },
+      "writtenOn": "2022-07-08T03:10:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7bf3225f_be8f1b86",
+      "range": {
+        "startLine": 29,
+        "startChar": 12,
+        "endLine": 29,
+        "endChar": 22
+      },
+      "revId": "622eacd5f2788f073fecce23e951c87bb62e3082",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c468dbec_9d304fb5",
@@ -84,6 +108,30 @@
       "writtenOn": "2022-07-07T19:31:25Z",
       "side": 1,
       "message": "Can this lambda be avoided by using bind_front?",
+      "range": {
+        "startLine": 51,
+        "startChar": 8,
+        "endLine": 54,
+        "endChar": 9
+      },
+      "revId": "622eacd5f2788f073fecce23e951c87bb62e3082",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7c8aea01_2e20f3ba",
+        "filename": "redfish-core/lib/thermal_subsystem.hpp",
+        "patchSetId": 85
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1000444
+      },
+      "writtenOn": "2022-07-08T03:10:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b7c04285_0cd0d353",
       "range": {
         "startLine": 51,
         "startChar": 8,
