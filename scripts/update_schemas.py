@@ -8,6 +8,7 @@ import shutil
 import json
 
 import xml.etree.ElementTree as ET
+import generate_schema_collections
 
 VERSION = "DSP8010_2021.4"
 
@@ -193,6 +194,7 @@ with open(metadata_index_path, 'w') as metadata_index:
             # filename looks like Zone_v1.xml
             filenamesplit = filename.split("_")
             if filenamesplit[0] not in include_list:
+                # TODOME: Do not exclude these
                 print("excluding schema: " + filename)
                 continue
 
@@ -290,6 +292,7 @@ for zip_filepath in zip_ref.namelist():
 
         # exclude schemas again to save flash space
         if filenamesplit[0] not in include_list:
+            # TODOME: Do not exclude these
             continue
 
         if len(filenamesplit) == 3:
@@ -332,3 +335,5 @@ with open(os.path.join(cpp_path, "schemas.hpp"), 'w') as hpp_file:
     )
 
 zip_ref.close()
+
+generate_schema_collections.main()
