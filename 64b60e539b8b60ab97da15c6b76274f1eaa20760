@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c3c0c81a_3ff1d814",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 939,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-08T23:10:52Z",
+      "side": 1,
+      "message": "I don\u0027t think so.  It wasn\u0027t a copy before, it just changes a pointer to a reference.",
+      "parentUuid": "968d5e6a_a31dbce9",
+      "range": {
+        "startLine": 939,
+        "startChar": 21,
+        "endLine": 939,
+        "endChar": 38
+      },
+      "revId": "64b60e539b8b60ab97da15c6b76274f1eaa20760",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "148ebd18_4f6a249e",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 6
