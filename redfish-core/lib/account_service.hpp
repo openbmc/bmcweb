@@ -1105,12 +1105,18 @@ inline void handleLDAPPatch(nlohmann::json& input,
         });
 }
 
+struct UserModificationPatch
+{
+    std::optional<std::string> newUserName;
+    std::optional<std::string> password;
+    std::optional<bool> enabled;
+    std::optional<std::string> roleId;
+    std::optional<bool> locked;
+};
+
 inline void updateUserProperties(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
                                  const std::string& username,
-                                 std::optional<std::string> password,
-                                 std::optional<bool> enabled,
-                                 std::optional<std::string> roleId,
-                                 std::optional<bool> locked)
+                                 const UserModificationPatch& userValues)
 {
     sdbusplus::message::object_path tempObjPath(rootUserDbusPath);
     tempObjPath /= username;
@@ -1118,9 +1124,7 @@ inline void updateUserProperties(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
 
     dbus::utility::checkDbusPathExists(
         dbusObjectPath,
-        [dbusObjectPath, username, password(std::move(password)),
-         roleId(std::move(roleId)), enabled, locked,
-         asyncResp{std::move(asyncResp)}](int rc) {
+        [asyncResp, dbusObjectPath, username, userValues](int rc) {
         if (rc <= 0)
         {
             messages::resourceNotFound(asyncResp->res,
@@ -1129,9 +1133,9 @@ inline void updateUserProperties(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
             return;
         }
 
-        if (password)
+        if (userValues.password)
         {
-            int retval = pamUpdatePassword(username, *password);
+            int retval = pamUpdatePassword(username, *userValues.password);
 
             if (retval == PAM_USER_UNKNOWN)
             {
@@ -1142,8 +1146,8 @@ inline void updateUserProperties(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
             else if (retval == PAM_AUTHTOK_ERR)
             {
                 // If password is invalid
-                messages::propertyValueFormatError(asyncResp->res, *password,
-                                                   "Password");
+                messages::propertyValueFormatError(
+                    asyncResp->res, *userValues.password, "Password");
                 BMCWEB_LOG_ERROR << "pamUpdatePassword Failed";
             }
             else if (retval != PAM_SUCCESS)
@@ -1157,7 +1161,7 @@ inline void updateUserProperties(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
             }
         }
 
-        if (enabled)
+        if (userValues.enabled)
         {
             crow::connections::systemBus->async_method_call(
                 [asyncResp](const boost::system::error_code ec) {
@@ -1173,16 +1177,16 @@ inline void updateUserProperties(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
                 "xyz.openbmc_project.User.Manager", dbusObjectPath,
                 "org.freedesktop.DBus.Properties", "Set",
                 "xyz.openbmc_project.User.Attributes", "UserEnabled",
-                dbus::utility::DbusVariantType{*enabled});
+                dbus::utility::DbusVariantType{*userValues.enabled});
         }
 
-        if (roleId)
+        if (userValues.roleId)
         {
-            std::string priv = getPrivilegeFromRoleId(*roleId);
+            std::string priv = getPrivilegeFromRoleId(*userValues.roleId);
             if (priv.empty())
             {
-                messages::propertyValueNotInList(asyncResp->res, *roleId,
-                                                 "RoleId");
+                messages::propertyValueNotInList(asyncResp->res,
+                                                 *userValues.roleId, "RoleId");
                 return;
             }
             if (priv == "priv-noaccess")
@@ -1206,12 +1210,12 @@ inline void updateUserProperties(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
                 dbus::utility::DbusVariantType{priv});
         }
 
-        if (locked)
+        if (userValues.locked)
         {
             // admin can unlock the account which is locked by
             // successive authentication failures but admin should
             // not be allowed to lock an account.
-            if (*locked)
+            if (*userValues.locked)
             {
                 messages::propertyValueNotInList(asyncResp->res, "true",
                                                  "Locked");
@@ -1233,7 +1237,7 @@ inline void updateUserProperties(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
                 "org.freedesktop.DBus.Properties", "Set",
                 "xyz.openbmc_project.User.Attributes",
                 "UserLockedForFailedAttempt",
-                dbus::utility::DbusVariantType{*locked});
+                dbus::utility::DbusVariantType{*userValues.locked});
         }
         });
 }
@@ -1657,7 +1661,6 @@ inline void
                       const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                       const std::string& /*accountName*/)
 {
-
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
     {
         return;
@@ -1666,43 +1669,10 @@ inline void
         boost::beast::http::field::link,
         "</redfish/v1/JsonSchemas/ManagerAccount/ManagerAccount.json>; rel=describedby");
 }
-inline void
-    handleAccountGet(App& app, const crow::Request& req,
-                     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+
+void getUserFromDbus(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                      const std::string& accountName)
 {
-    handleAccountHead(app, req, asyncResp, accountName);
-#ifdef BMCWEB_INSECURE_DISABLE_AUTHENTICATION
-    // If authentication is disabled, there are no user accounts
-    messages::resourceNotFound(
-        asyncResp->res, "#ManagerAccount.v1_4_0.ManagerAccount", accountName);
-    return;
-
-#endif // BMCWEB_INSECURE_DISABLE_AUTHENTICATION
-    if (req.session == nullptr)
-    {
-        messages::internalError(asyncResp->res);
-        return;
-    }
-    if (req.session->username != accountName)
-    {
-        // At this point we've determined that the user is trying to
-        // modify a user that isn't them.  We need to verify that they
-        // have permissions to modify other users, so re-run the auth
-        // check with the same permissions, minus ConfigureSelf.
-        Privileges effectiveUserPrivileges =
-            redfish::getUserPrivileges(req.userRole);
-        Privileges requiredPermissionsToChangeNonSelf = {"ConfigureUsers",
-                                                         "ConfigureManager"};
-        if (!effectiveUserPrivileges.isSupersetOf(
-                requiredPermissionsToChangeNonSelf))
-        {
-            BMCWEB_LOG_DEBUG << "GET Account denied access";
-            messages::insufficientPrivilege(asyncResp->res);
-            return;
-        }
-    }
-
     crow::connections::systemBus->async_method_call(
         [asyncResp,
          accountName](const boost::system::error_code ec,
@@ -1822,6 +1792,45 @@ inline void
 }
 
 inline void
+    handleAccountGet(App& app, const crow::Request& req,
+                     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                     const std::string& accountName)
+{
+    handleAccountHead(app, req, asyncResp, accountName);
+#ifdef BMCWEB_INSECURE_DISABLE_AUTHENTICATION
+    // If authentication is disabled, there are no user accounts
+    messages::resourceNotFound(
+        asyncResp->res, "#ManagerAccount.v1_4_0.ManagerAccount", accountName);
+    return;
+
+#endif // BMCWEB_INSECURE_DISABLE_AUTHENTICATION
+    if (req.session == nullptr)
+    {
+        messages::internalError(asyncResp->res);
+        return;
+    }
+    if (req.session->username != accountName)
+    {
+        // At this point we've determined that the user is trying to
+        // get a user that isn't them.  We need to verify that they
+        // have permissions to get other users, so re-run the auth
+        // check with the same permissions, minus ConfigureSelf.
+        Privileges effectiveUserPrivileges =
+            redfish::getUserPrivileges(req.userRole);
+        Privileges requiredPermissionsToChangeNonSelf = {"ConfigureUsers",
+                                                         "ConfigureManager"};
+        if (!effectiveUserPrivileges.isSupersetOf(
+                requiredPermissionsToChangeNonSelf))
+        {
+            BMCWEB_LOG_DEBUG << "GET Account denied access";
+            messages::insufficientPrivilege(asyncResp->res);
+            return;
+        }
+    }
+    getUserFromDbus(asyncResp, accountName);
+}
+
+inline void
     handleAccounttDelete(App& app, const crow::Request& req,
                          const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                          const std::string& username)
@@ -1858,6 +1867,62 @@ inline void
         "xyz.openbmc_project.Object.Delete", "Delete");
 }
 
+inline void updateUserValues(const std::shared_ptr<bmcweb::AsyncResp> asyncResp,
+                             const std::string& username,
+                             const UserModificationPatch& userValues)
+{
+    // if user name is not provided in the patch method or if it
+    // matches the user name in the URI, then we are treating it as
+    // updating user properties other then username. If username
+    // provided doesn't match the URI, then we are treating this as
+    // user rename request.
+    if (!userValues.newUserName || (*userValues.newUserName == username))
+    {
+        updateUserProperties(asyncResp, username, userValues);
+        return;
+    }
+    crow::connections::systemBus->async_method_call(
+        [asyncResp, username, userValues](const boost::system::error_code ec,
+                                          sdbusplus::message::message& m) {
+        if (ec)
+        {
+            userErrorMessageHandler(m.get_error(), asyncResp,
+                                    *userValues.newUserName, username);
+            return;
+        }
+
+        updateUserProperties(asyncResp, *userValues.newUserName, userValues);
+        },
+        "xyz.openbmc_project.User.Manager", "/xyz/openbmc_project/user",
+        "xyz.openbmc_project.User.Manager", "RenameUser", username,
+        *userValues.newUserName);
+}
+
+inline void handleIfMatch(const std::shared_ptr<bmcweb::AsyncResp> asyncResp,
+                          const std::string& userProvidedEtag,
+                          const std::string& username,
+                          const UserModificationPatch& userValues)
+{
+    // Construct a new response object to fill in, and check the hash of before
+    // we modify the user.
+    std::shared_ptr<bmcweb::AsyncResp> getReqAsyncResp =
+        std::make_shared<bmcweb::AsyncResp>();
+
+    getReqAsyncResp->res.setCompleteRequestHandler(
+        [asyncResp, userProvidedEtag, username,
+         userValues](crow::Response& resIn) mutable {
+        std::string computedEtag = resIn.computeEtag();
+        if (computedEtag != userProvidedEtag)
+        {
+            messages::preconditionFailed(asyncResp->res);
+            return;
+        }
+        updateUserValues(asyncResp, username, userValues);
+    });
+
+    getUserFromDbus(getReqAsyncResp, username);
+}
+
 inline void
     handleAccountPatch(App& app, const crow::Request& req,
                        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -1874,17 +1939,13 @@ inline void
     return;
 
 #endif // BMCWEB_INSECURE_DISABLE_AUTHENTICATION
-    std::optional<std::string> newUserName;
-    std::optional<std::string> password;
-    std::optional<bool> enabled;
-    std::optional<std::string> roleId;
-    std::optional<bool> locked;
-
     if (req.session == nullptr)
     {
         messages::internalError(asyncResp->res);
         return;
     }
+
+    UserModificationPatch userValues;
 
     Privileges effectiveUserPrivileges =
         redfish::getUserPrivileges(req.userRole);
@@ -1894,10 +1955,10 @@ inline void
     if (userHasConfigureUsers)
     {
         // Users with ConfigureUsers can modify for all users
-        if (!json_util::readJsonPatch(req, asyncResp->res, "UserName",
-                                      newUserName, "Password", password,
-                                      "RoleId", roleId, "Enabled", enabled,
-                                      "Locked", locked))
+        if (!json_util::readJsonPatch(
+                req, asyncResp->res, "UserName", userValues.newUserName,
+                "Password", userValues.password, "RoleId", userValues.roleId,
+                "Enabled", userValues.enabled, "Locked", userValues.locked))
         {
             return;
         }
@@ -1913,40 +1974,19 @@ inline void
 
         // ConfigureSelf accounts can only modify their password
         if (!json_util::readJsonPatch(req, asyncResp->res, "Password",
-                                      password))
+                                      userValues.password))
         {
             return;
         }
     }
-
-    // if user name is not provided in the patch method or if it
-    // matches the user name in the URI, then we are treating it as
-    // updating user properties other then username. If username
-    // provided doesn't match the URI, then we are treating this as
-    // user rename request.
-    if (!newUserName || (newUserName.value() == username))
+    std::string_view ifMatch =
+        req.getHeaderValue(boost::beast::http::field::if_match);
+    if (!ifMatch.empty())
     {
-        updateUserProperties(asyncResp, username, password, enabled, roleId,
-                             locked);
+        handleIfMatch(asyncResp, std::string(ifMatch), username, userValues);
         return;
     }
-    crow::connections::systemBus->async_method_call(
-        [asyncResp, username, password(std::move(password)),
-         roleId(std::move(roleId)), enabled, newUser{std::string(*newUserName)},
-         locked](const boost::system::error_code ec, sdbusplus::message_t& m) {
-        if (ec)
-        {
-            userErrorMessageHandler(m.get_error(), asyncResp, newUser,
-                                    username);
-            return;
-        }
-
-        updateUserProperties(asyncResp, newUser, password, enabled, roleId,
-                             locked);
-        },
-        "xyz.openbmc_project.User.Manager", "/xyz/openbmc_project/user",
-        "xyz.openbmc_project.User.Manager", "RenameUser", username,
-        *newUserName);
+    updateUserValues(asyncResp, username, userValues);
 }
 
 inline void requestAccountServiceRoutes(App& app)
