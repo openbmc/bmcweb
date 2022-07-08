@@ -45,8 +45,20 @@ struct Request
         }
     }
 
-    Request(const Request&) = delete;
-    Request(const Request&&) = delete;
+    Request(const Request&) = default;
+    Request(Request&& other) :
+        req(std::move(other.req)), fields(req.base()), body(req.body())
+
+    {
+        isSecure = other.isSecure;
+        ioService = other.ioService;
+        ipAddress = other.ipAddress;
+        session = other.session;
+        userRole = other.userRole;
+
+        setUrlInfo();
+        BMCWEB_LOG_DEBUG << "url was " << url;
+    }
     Request& operator=(const Request&) = delete;
     Request& operator=(const Request&&) = delete;
     ~Request() = default;
@@ -97,7 +109,6 @@ struct Request
         return req.keep_alive();
     }
 
-  private:
     bool setUrlInfo()
     {
         auto result = boost::urls::parse_relative_ref(

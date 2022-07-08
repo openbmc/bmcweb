@@ -66,6 +66,7 @@ class App
     void handle(Request& req,
                 const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
     {
+        BMCWEB_LOG_DEBUG << "Handling " << req.url;
         router.handle(req, asyncResp);
     }
 

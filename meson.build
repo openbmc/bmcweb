@@ -136,6 +136,7 @@ add_project_arguments(
   '-Wsign-conversion',
   '-Wunused',
   '-Wno-attributes',
+  '-Wno-maybe-uninitialized',
   ]),
   language: 'cpp'
 )
