@@ -1,5 +1,6 @@
 #pragma once
 
+#include <aggregation_utils.hpp>
 #include <boost/algorithm/string/predicate.hpp>
 #include <dbus_utility.hpp>
 #include <error_messages.hpp>
@@ -164,6 +165,14 @@ class RedfishAggregator
 
     RedfishAggregator()
     {
+        // TODO: Remove in future patches, these are here to prevent
+        // compiler warnings and get an accurate idea of the increase in the
+        // size of the binary.
+        BMCWEB_LOG_DEBUG << "There are " << topCollections.size()
+                         << " top level collections";
+        BMCWEB_LOG_DEBUG << "There are " << topCollectionsParents.size()
+                         << " top level collection parent URIs";
+
         getSatelliteConfigs(constructorCallback);
 
         // Setup the retry policy to be used by Redfish Aggregation
