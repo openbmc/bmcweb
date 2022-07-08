@@ -6,6 +6,7 @@ import zipfile
 from collections import OrderedDict, defaultdict
 from io import BytesIO
 
+import generate_schema_collections
 import generate_schema_enums
 import requests
 
@@ -396,6 +397,7 @@ with open(os.path.join(cpp_path, "schemas.hpp"), "w") as hpp_file:
 zip_ref.close()
 
 generate_schema_enums.main()
+generate_schema_collections.main()
 
 # Now delete the xml schema files we aren't supporting
 if os.path.exists(schema_path):
