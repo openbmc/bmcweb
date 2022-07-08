@@ -1,6 +1,7 @@
 #pragma once
 
 #include <boost/algorithm/string/predicate.hpp>
+#include <aggregation_utility.hpp>
 #include <dbus_utility.hpp>
 #include <error_messages.hpp>
 #include <http_client.hpp>
