@@ -98,6 +98,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "05278de2_df7dbe92",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1000388
+      },
+      "writtenOn": "2022-07-08T22:01:23Z",
+      "side": 1,
+      "message": "This is fixed with : https://gerrit.openbmc.org/c/openbmc/phosphor-objmgr/+/55196",
+      "parentUuid": "44bbd4e1_72c2822c",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 34
+      },
+      "revId": "838beefab612e45202c96af79544e14df3fd72f3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "f3bf0a0e_e37c55b6",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 5
