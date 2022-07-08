@@ -1182,6 +1182,30 @@
       },
       "revId": "fa2aa85318c95d6fe0c3f3ed71d7054a363d0c77",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2d5da1c0_ad771992",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 824,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-08T16:33:12Z",
+      "side": 1,
+      "message": "\u003e Actually in this use case 4K is max size supported and management console only use this endpoint.\n\nGreat, then please put that in your dbus server, not in bmcweb.\n\nAlso, per the dbus design, we assume that in the future there will be other clients and APIs.  The fact that there\u0027s only one at this point isn\u0027t of concern, as in the future there might be more than one.  bmcweb should be as close to a dbus-\u003eREST translator as is possible.",
+      "parentUuid": "a427b33c_cca4a60a",
+      "range": {
+        "startLine": 815,
+        "startChar": 0,
+        "endLine": 824,
+        "endChar": 13
+      },
+      "revId": "fa2aa85318c95d6fe0c3f3ed71d7054a363d0c77",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

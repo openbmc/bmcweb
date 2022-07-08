@@ -641,6 +641,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bc5ac6b5_8f9d401a",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 752,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-08T16:33:12Z",
+      "side": 1,
+      "message": "\u003e PLDM creates this folder and updates root certificate while booting host.\n\nSo we\u0027re communicating directly BMCWEB-\u003ePLDM?  Why aren\u0027t the certs written to phosphor-certificate-manager?",
+      "parentUuid": "d6746c93_a65235a6",
+      "range": {
+        "startLine": 752,
+        "startChar": 43,
+        "endLine": 752,
+        "endChar": 58
+      },
+      "revId": "1ccb9940398d9869d30553a4a6bb0396eae17538",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e7cd48cb_0080a831",
