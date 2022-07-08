@@ -416,6 +416,23 @@
       },
       "revId": "838beefab612e45202c96af79544e14df3fd72f3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "275e7c8f_0d3a0f8f",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1398,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-08T20:29:32Z",
+      "side": 1,
+      "message": "Please also register this route to the standard redfishRoute (setUpRedfishRoute)",
+      "revId": "838beefab612e45202c96af79544e14df3fd72f3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
