@@ -2620,21 +2620,39 @@ inline void setIdlePowerSaver(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
     BMCWEB_LOG_DEBUG << "EXIT: Set idle power saver parameters";
 }
 
+inline void handleComputerSystemHead(
+    crow::App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+{
+
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+    asyncResp->res.addHeader(
+        boost::beast::http::field::link,
+        "</redfish/v1/JsonSchemas/ComputerSystemCollection.json>; rel=describedby");
+}
+
 /**
- * SystemsCollection derived class for delivering ComputerSystems Collection
+ * SystemsCollection derived class for
+ * delivering ComputerSystems Collection
  * Schema
  */
 inline void requestRoutesSystemsCollection(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/")
+        .privileges(redfish::privileges::headComputerSystemCollection)
+        .methods(boost::beast::http::verb::head)(
+            std::bind_front(handleComputerSystemHead, std::ref(app)));
+
+    BMCWEB_ROUTE(app, "/redfish/v1/Systems/")
         .privileges(redfish::privileges::getComputerSystemCollection)
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-        if (!redfish::setUpRedfishRoute(app, req, asyncResp))
-        {
-            return;
-        }
+        handleComputerSystemHead(app, req, asyncResp);
+
         asyncResp->res.jsonValue["@odata.type"] =
             "#ComputerSystemCollection.ComputerSystemCollection";
         asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1/Systems";
@@ -2667,7 +2685,8 @@ inline void requestRoutesSystemsCollection(App& app)
 }
 
 /**
- * Function transceives data with dbus directly.
+ * Function transceives data with dbus
+ * directly.
  */
 inline void doNMI(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
@@ -2691,14 +2710,18 @@ inline void doNMI(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 }
 
 /**
- * SystemActionsReset class supports handle POST method for Reset action.
- * The class retrieves and sends data directly to D-Bus.
+ * SystemActionsReset class supports handle
+ * POST method for Reset action. The class
+ * retrieves and sends data directly to
+ * D-Bus.
  */
 inline void requestRoutesSystemActionsReset(App& app)
 {
     /**
-     * Function handles POST method request.
-     * Analyzes POST body message before sends Reset request data to D-Bus.
+     * Function handles POST method
+     * request. Analyzes POST body message
+     * before sends Reset request data to
+     * D-Bus.
      */
     BMCWEB_ROUTE(app,
                  "/redfish/v1/Systems/system/Actions/ComputerSystem.Reset/")
@@ -2820,13 +2843,15 @@ inline void requestRoutesSystemActionsReset(App& app)
 }
 
 /**
- * Systems derived class for delivering Computer Systems Schema.
+ * Systems derived class for delivering
+ * Computer Systems Schema.
  */
 inline void requestRoutesSystems(App& app)
 {
 
     /**
-     * Functions triggers appropriate requests on DBus
+     * Functions triggers appropriate
+     * requests on DBus
      */
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/")
         .privileges(redfish::privileges::getComputerSystem)
@@ -3067,13 +3092,15 @@ inline void requestRoutesSystems(App& app)
 }
 
 /**
- * SystemResetActionInfo derived class for delivering Computer Systems
- * ResetType AllowableValues using ResetInfo schema.
+ * SystemResetActionInfo derived class for
+ * delivering Computer Systems ResetType
+ * AllowableValues using ResetInfo schema.
  */
 inline void requestRoutesSystemResetActionInfo(App& app)
 {
     /**
-     * Functions triggers appropriate requests on DBus
+     * Functions triggers appropriate
+     * requests on DBus
      */
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/ResetActionInfo/")
         .privileges(redfish::privileges::getActionInfo)
