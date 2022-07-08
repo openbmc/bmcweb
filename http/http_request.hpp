@@ -45,8 +45,8 @@ struct Request
         }
     }
 
-    Request(const Request&) = delete;
-    Request(const Request&&) = delete;
+    Request(const Request&) = default;
+    Request(Request&&) = default;
     Request& operator=(const Request&) = delete;
     Request& operator=(const Request&&) = delete;
     ~Request() = default;
