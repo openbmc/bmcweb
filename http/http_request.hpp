@@ -45,8 +45,28 @@ struct Request
         }
     }
 
-    Request(const Request&) = delete;
-    Request(const Request&&) = delete;
+    Request(const Request& other) noexcept :
+        req(other.req), fields(req.base()), body(req.body())
+    {
+        isSecure = other.isSecure;
+        ioService = other.ioService;
+        ipAddress = other.ipAddress;
+        session = other.session;
+        userRole = other.userRole;
+        setUrlInfo();
+    }
+
+    Request(Request&& other) noexcept :
+        req(std::move(other.req)), fields(req.base()), body(req.body())
+    {
+        isSecure = other.isSecure;
+        ioService = other.ioService;
+        ipAddress = other.ipAddress;
+        session = other.session;
+        userRole = other.userRole;
+        setUrlInfo();
+    }
+
     Request& operator=(const Request&) = delete;
     Request& operator=(const Request&&) = delete;
     ~Request() = default;
