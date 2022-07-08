@@ -31,6 +31,75 @@
 
 namespace redfish
 {
+inline void
+    afterIfMatchRequest(crow::App& app,
+                        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                        crow::Request& req, const std::string& ifMatchHeader,
+                        const crow::Response& resIn)
+{
+    std::string computedEtag = resIn.computeEtag();
+    BMCWEB_LOG_DEBUG << "User provided if-match etag " << ifMatchHeader
+                     << " computed etag " << computedEtag;
+    if (computedEtag != ifMatchHeader)
+    {
+        messages::preconditionFailed(asyncResp->res);
+        return;
+    }
+    // Restart the request without if-match
+    req.req.erase(boost::beast::http::field::if_match);
+    BMCWEB_LOG_DEBUG << "Restarting request";
+    app.handle(req, asyncResp);
+}
+
+inline bool handleIfMatch(crow::App& app, const crow::Request& req,
+                          const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+{
+    if (req.session == nullptr)
+    {
+        // If the user isn't authenticated, don't even attempt to parse match
+        // parameters
+        return true;
+    }
+
+    std::string ifMatch{
+        req.getHeaderValue(boost::beast::http::field::if_match)};
+    if (ifMatch.empty())
+    {
+        // No If-Match header.  Nothing to do
+        return true;
+    }
+    if (req.req.method() != boost::beast::http::verb::patch &&
+        req.req.method() != boost::beast::http::verb::post &&
+        req.req.method() != boost::beast::http::verb::delete_)
+    {
+        messages::preconditionFailed(asyncResp->res);
+        return false;
+    }
+    boost::system::error_code ec;
+
+    // Try to GET the same resource
+    crow::Request newReq({boost::beast::http::verb::get, req.url, 11}, ec);
+
+    if (ec)
+    {
+        messages::internalError(asyncResp->res);
+        return false;
+    }
+
+    // New request has the same credentials as the old request
+    newReq.session = req.session;
+
+    // Construct a new response object to fill in, and check the hash of before
+    // we modify the Resource.
+    std::shared_ptr<bmcweb::AsyncResp> getReqAsyncResp =
+        std::make_shared<bmcweb::AsyncResp>();
+
+    getReqAsyncResp->res.setCompleteRequestHandler(std::bind_front(
+        afterIfMatchRequest, std::ref(app), asyncResp, req, ifMatch));
+
+    app.handle(newReq, getReqAsyncResp);
+    return false;
+}
 
 // Sets up the Redfish Route and delegates some of the query parameter
 // processing. |queryCapabilities| stores which query parameters will be
@@ -60,6 +129,11 @@ namespace redfish
     std::optional<query_param::Query> queryOpt =
         query_param::parseParameters(req.urlView.params(), asyncResp->res);
     if (queryOpt == std::nullopt)
+    {
+        return false;
+    }
+
+    if (!handleIfMatch(app, req, asyncResp))
     {
         return false;
     }

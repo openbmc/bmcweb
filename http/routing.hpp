@@ -1370,11 +1370,12 @@ class Router
             rule.handle(req, asyncResp, params);
             return;
         }
+        std::string username = req.session->username;
 
         crow::connections::systemBus->async_method_call(
-            [&req, asyncResp, &rule,
-             params](const boost::system::error_code ec,
-                     const dbus::utility::DBusPropertiesMap& userInfoMap) {
+            [req{std::move(req)}, asyncResp, &rule, params](
+                const boost::system::error_code ec,
+                const dbus::utility::DBusPropertiesMap& userInfoMap) mutable {
             if (ec)
             {
                 BMCWEB_LOG_ERROR << "GetUserInfo failed...";
@@ -1473,8 +1474,7 @@ class Router
             rule.handle(req, asyncResp, params);
             },
             "xyz.openbmc_project.User.Manager", "/xyz/openbmc_project/user",
-            "xyz.openbmc_project.User.Manager", "GetUserInfo",
-            req.session->username);
+            "xyz.openbmc_project.User.Manager", "GetUserInfo", username);
     }
 
     void debugPrint()
