@@ -150,18 +150,28 @@ struct Response
         stringResponse->body() += std::string(bodyPart);
     }
 
-    void end()
+    std::string computeEtag() const
     {
         // Only set etag if this request succeeded
-        if (result() == boost::beast::http::status::ok)
+        if (result() != boost::beast::http::status::ok)
         {
-            // and the json response isn't empty
-            if (!jsonValue.empty())
-            {
-                size_t hashval = std::hash<nlohmann::json>{}(jsonValue);
-                std::string hexVal = "\"" + intToHexString(hashval, 8) + "\"";
-                addHeader(boost::beast::http::field::etag, hexVal);
-            }
+            return "";
+        }
+        // and the json response isn't empty
+        if (jsonValue.empty())
+        {
+            return "";
+        }
+        size_t hashval = std::hash<nlohmann::json>{}(jsonValue);
+        return "\"" + intToHexString(hashval, 8) + "\"";
+    }
+
+    void end()
+    {
+        std::string etag = computeEtag();
+        if (!etag.empty())
+        {
+            addHeader(boost::beast::http::field::etag, etag);
         }
         if (completed)
         {
