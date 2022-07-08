@@ -10,6 +10,7 @@ import shutil
 import json
 
 import xml.etree.ElementTree as ET
+import generate_schema_collections
 
 VERSION = "DSP8010_2022.2"
 
@@ -237,6 +238,7 @@ for zip_filepath in zip_ref.namelist():
         filenamesplit = filename.split(".")
         # exclude schemas again to save flash space
         if filenamesplit[0] not in include_list:
+            # TODOME: Do not exclude these
             continue
         json_schema_files[filenamesplit[0]].append(filename)
     elif zip_filepath.startswith("openapi/"):
@@ -267,6 +269,7 @@ with open(metadata_index_path, "w") as metadata_index:
         # filename looks like Zone_v1.xml
         filenamesplit = filename.split("_")
         if filenamesplit[0] not in include_list:
+            # TODOME: Do not exclude these
             print("excluding schema: " + filename)
             continue
 
@@ -396,3 +399,5 @@ with open(os.path.join(cpp_path, "schemas.hpp"), "w") as hpp_file:
     hpp_file.write("    };\n" "}\n")
 
 zip_ref.close()
+
+generate_schema_collections.main()
