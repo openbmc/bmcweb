@@ -1,5 +1,6 @@
 #pragma once
 
+#include <aggregation_utils.hpp>
 #include <boost/algorithm/string/predicate.hpp>
 #include <dbus_utility.hpp>
 #include <error_messages.hpp>
@@ -32,7 +33,6 @@ constexpr std::array nonUriProperties{
     // "Destination", // Only used by EventService and won't be a Redfish URI
     "HostName",
     "Image",
-    // "Members@odata.navigationLink",
     "MetricProperty",
     "OriginOfCondition",
     "TaskMonitor",
@@ -164,6 +164,12 @@ class RedfishAggregator
 
     RedfishAggregator()
     {
+        // TODO: Remove in future patches, this is here to prevent compiler
+        // warnings and get an accurate idea of the increase in the size of the
+        // binary.
+        BMCWEB_LOG_DEBUG << "There are " << topCollections.size()
+                         << " top level collections";
+
         getSatelliteConfigs(constructorCallback);
 
         // Setup the retry policy to be used by Redfish Aggregation
