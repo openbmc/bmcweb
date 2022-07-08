@@ -16,6 +16,23 @@
       "message": "Pretty trivial, but in IBM code, so I would like someone from IBM to review and make sure this is the intent.",
       "revId": "494bb5d8d9a9c14535ccbccbec1c78f1550b27b0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fda34ea7_c06d041b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-07-08T17:28:09Z",
+      "side": 1,
+      "message": "Looks good",
+      "revId": "494bb5d8d9a9c14535ccbccbec1c78f1550b27b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
