@@ -2620,6 +2620,20 @@ inline void setIdlePowerSaver(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
     BMCWEB_LOG_DEBUG << "EXIT: Set idle power saver parameters";
 }
 
+inline void handleComputerSystemHead(
+    crow::App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+{
+
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+    asyncResp->res.addHeader(
+        boost::beast::http::field::link,
+        "</redfish/v1/JsonSchemas/ComputerSystemCollection.json>; rel=describedby");
+}
+
 /**
  * SystemsCollection derived class for delivering ComputerSystems Collection
  * Schema
@@ -2627,14 +2641,17 @@ inline void setIdlePowerSaver(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
 inline void requestRoutesSystemsCollection(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/")
+        .privileges(redfish::privileges::headComputerSystemCollection)
+        .methods(boost::beast::http::verb::head)(
+            std::bind_front(handleComputerSystemHead, std::ref(app)));
+
+    BMCWEB_ROUTE(app, "/redfish/v1/Systems/")
         .privileges(redfish::privileges::getComputerSystemCollection)
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-        if (!redfish::setUpRedfishRoute(app, req, asyncResp))
-        {
-            return;
-        }
+        handleComputerSystemHead(app, req, asyncResp);
+
         asyncResp->res.jsonValue["@odata.type"] =
             "#ComputerSystemCollection.ComputerSystemCollection";
         asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1/Systems";
