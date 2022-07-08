@@ -304,6 +304,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3c5646c9_7256416b",
+        "filename": "include/openbmc_dbus_rest.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-07-08T00:17:26Z",
+      "side": 1,
+      "message": "sd-bus.h:\nsd_bus_error\n\nsd-bus-protocol.h:\nSD_BUS_TYPE_ARRAY, SD_BUS_TYPE_VARIANT, SD_BUS_TYPE_STRUCT, SD_BUS_TYPE_DICT_ENTRY",
+      "parentUuid": "d94a782f_64fad62b",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 27
+      },
+      "revId": "cbd7832c563a78a91d72b98fb46a374e3acc77d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8378a154_e38c80be",
         "filename": "include/openbmc_dbus_rest.hpp",
         "patchSetId": 5
@@ -350,6 +374,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f446861e_478446e8",
+        "filename": "include/openbmc_dbus_rest.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-07-08T00:17:26Z",
+      "side": 1,
+      "message": "I suspect this is implicitly used when you compare to boost objects\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/55138/5/include/openbmc_dbus_rest.hpp#501",
+      "parentUuid": "aedb5f37_bb3d5f3c",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 49
+      },
+      "revId": "cbd7832c563a78a91d72b98fb46a374e3acc77d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "30ad074b_9038ba44",
         "filename": "include/openbmc_dbus_rest.hpp",
         "patchSetId": 5
@@ -361,6 +409,30 @@
       "writtenOn": "2022-07-07T02:02:01Z",
       "side": 1,
       "message": "Nothing in the below throws exceptions.",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 20
+      },
+      "revId": "cbd7832c563a78a91d72b98fb46a374e3acc77d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "de17a522_6ffe5773",
+        "filename": "include/openbmc_dbus_rest.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-07-08T00:17:26Z",
+      "side": 1,
+      "message": "I assume it is the try catch blocks\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/55138/5/include/openbmc_dbus_rest.hpp#279\n\nThe the catch blocks can be deleted, because findRemainingObjectsForEnumerate does not throw.",
+      "parentUuid": "30ad074b_9038ba44",
       "range": {
         "startLine": 55,
         "startChar": 0,
