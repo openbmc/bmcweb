@@ -49,6 +49,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0021c42c_6379618c",
+        "filename": "redfish-core/lib/thermal_subsystem.hpp",
+        "patchSetId": 85
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1001193
+      },
+      "writtenOn": "2022-07-08T00:06:04Z",
+      "side": 1,
+      "message": "I don\u0027t think getValidChassisPath has the same bug that getMainChassisId has. getMainChassisId will find the first Chassis from dbus and call the callback with the first ChassisId. However, getValidChassisPath will find the given chassisId and call the callback with that chassisId. That\u0027s exactly what we need here. https://github.com/openbmc/bmcweb/blob/4e23a444e8503fd03ab40de2844c783e142ebef8/redfish-core/lib/sensors.hpp#L512",
+      "parentUuid": "c468dbec_9d304fb5",
+      "range": {
+        "startLine": 49,
+        "startChar": 4,
+        "endLine": 49,
+        "endChar": 23
+      },
+      "revId": "622eacd5f2788f073fecce23e951c87bb62e3082",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b7c04285_0cd0d353",
         "filename": "redfish-core/lib/thermal_subsystem.hpp",
         "patchSetId": 85
