@@ -162,6 +162,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f53a9058_826301f4",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 859,
+      "author": {
+        "id": 1001369
+      },
+      "writtenOn": "2022-07-08T22:52:47Z",
+      "side": 1,
+      "message": "These are not local lambdas though. They are being passed as argument. Let me see if I can pass inline function as argument instead and maintain its inline property",
+      "parentUuid": "c9e01518_b6c9614d",
+      "range": {
+        "startLine": 859,
+        "startChar": 9,
+        "endLine": 859,
+        "endChar": 17
+      },
+      "revId": "838beefab612e45202c96af79544e14df3fd72f3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "681b11da_803eb265",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 5
@@ -278,6 +302,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5d339de6_b58391f6",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1098,
+      "author": {
+        "id": 1001369
+      },
+      "writtenOn": "2022-07-08T22:52:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f8800426_e63e67c8",
+      "range": {
+        "startLine": 1098,
+        "startChar": 38,
+        "endLine": 1098,
+        "endChar": 51
+      },
+      "revId": "838beefab612e45202c96af79544e14df3fd72f3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0387bd56_a939bfc3",
@@ -338,6 +386,30 @@
       "writtenOn": "2022-07-07T23:11:24Z",
       "side": 1,
       "message": "Have you tested the performance?\n\nWhat does it take to get all threads without expand? How are we going to implement an efficient expand?",
+      "range": {
+        "startLine": 1292,
+        "startChar": 4,
+        "endLine": 1292,
+        "endChar": 29
+      },
+      "revId": "838beefab612e45202c96af79544e14df3fd72f3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "20a55199_5c919aec",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1292,
+      "author": {
+        "id": 1001369
+      },
+      "writtenOn": "2022-07-08T22:52:47Z",
+      "side": 1,
+      "message": "I have not tested the performance.. Let me try to get that info",
+      "parentUuid": "9ff39321_e60b0a27",
       "range": {
         "startLine": 1292,
         "startChar": 4,
@@ -455,6 +527,24 @@
       "writtenOn": "2022-07-08T20:29:32Z",
       "side": 1,
       "message": "Please also register this route to the standard redfishRoute (setUpRedfishRoute)",
+      "revId": "838beefab612e45202c96af79544e14df3fd72f3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e2594d8_eba8495b",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1398,
+      "author": {
+        "id": 1001369
+      },
+      "writtenOn": "2022-07-08T22:52:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "275e7c8f_0d3a0f8f",
       "revId": "838beefab612e45202c96af79544e14df3fd72f3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
