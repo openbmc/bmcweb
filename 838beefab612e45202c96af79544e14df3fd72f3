@@ -74,6 +74,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "31964d05_6cca743a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1001369
+      },
+      "writtenOn": "2022-07-08T17:46:20Z",
+      "side": 1,
+      "message": "Thanks Brandon, for finding the root cause.",
+      "parentUuid": "44bbd4e1_72c2822c",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 34
+      },
+      "revId": "838beefab612e45202c96af79544e14df3fd72f3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "f3bf0a0e_e37c55b6",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 5
@@ -183,6 +207,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "67e9c0d1_5540c6e1",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 877,
+      "author": {
+        "id": 1001369
+      },
+      "writtenOn": "2022-07-08T17:46:20Z",
+      "side": 1,
+      "message": "Yes, that\u0027s correct",
+      "parentUuid": "642af56b_93b7851c",
+      "range": {
+        "startLine": 859,
+        "startChar": 0,
+        "endLine": 877,
+        "endChar": 9
+      },
+      "revId": "838beefab612e45202c96af79544e14df3fd72f3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f8800426_e63e67c8",
@@ -219,6 +267,30 @@
       "writtenOn": "2022-07-06T05:56:43Z",
       "side": 1,
       "message": "User `crow::utility::urlFromPieces()` instead? \n\nhttps://github.com/openbmc/bmcweb/blob/bf8ab7a3ee67977fe8e1f1958af94c9da215cb6f/http/ut/utility_test.cpp#L127",
+      "range": {
+        "startLine": 1098,
+        "startChar": 0,
+        "endLine": 1104,
+        "endChar": 53
+      },
+      "revId": "838beefab612e45202c96af79544e14df3fd72f3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "82851028_cda967b2",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1104,
+      "author": {
+        "id": 1001369
+      },
+      "writtenOn": "2022-07-08T17:46:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0387bd56_a939bfc3",
       "range": {
         "startLine": 1098,
         "startChar": 0,
@@ -275,6 +347,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4b8dd48f_4b4c2b0e",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1301,
+      "author": {
+        "id": 1001369
+      },
+      "writtenOn": "2022-07-08T17:46:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bb89364d_2992b99c",
+      "range": {
+        "startLine": 1301,
+        "startChar": 63,
+        "endLine": 1301,
+        "endChar": 72
+      },
+      "revId": "838beefab612e45202c96af79544e14df3fd72f3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "89df0cc5_2f047c5e",
@@ -288,6 +384,30 @@
       "writtenOn": "2022-07-06T05:56:43Z",
       "side": 1,
       "message": "`const autu \u0026 [key, value]` instead?",
+      "range": {
+        "startLine": 1341,
+        "startChar": 17,
+        "endLine": 1343,
+        "endChar": 76
+      },
+      "revId": "838beefab612e45202c96af79544e14df3fd72f3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "853abb14_4fb686df",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1343,
+      "author": {
+        "id": 1001369
+      },
+      "writtenOn": "2022-07-08T17:46:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "89df0cc5_2f047c5e",
       "range": {
         "startLine": 1341,
         "startChar": 17,
