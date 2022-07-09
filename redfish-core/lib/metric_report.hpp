@@ -28,12 +28,12 @@ inline nlohmann::json toMetricValues(const Readings& readings)
 
     for (const auto& [id, metadata, sensorValue, timestamp] : readings)
     {
-        metricValues.push_back({
-            {"MetricId", id},
-            {"MetricProperty", metadata},
-            {"MetricValue", std::to_string(sensorValue)},
-            {"Timestamp", crow::utility::getDateTimeUintMs(timestamp)},
-        });
+        nlohmann::json::object_t metricReport;
+        metricReport["MetricId"] = id;
+        metricReport["MetricProperty"] = metadata;
+        metricReport["MetricValue"] = std::to_string(sensorValue);
+        metricReport["Timestamp"] = crow::utility::getDateTimeUintMs(timestamp);
+        metricValues.push_back(std::move(metricReport));
     }
 
     return metricValues;

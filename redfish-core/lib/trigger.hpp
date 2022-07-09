@@ -97,13 +97,12 @@ inline std::optional<nlohmann::json::array_t>
         {
             return std::nullopt;
         }
-
-        triggers.push_back({
-            {"Name", name},
-            {"Severity", severity},
-            {"DwellTime", *duration},
-            {"Value", value},
-        });
+        nlohmann::json::object_t trigger;
+        trigger["Name"] = name;
+        trigger["Severity"] = severity;
+        trigger["DwellTime"] = *duration;
+        trigger["Value"] = value;
+        triggers.push_back(std::move(trigger));
     }
 
     return {std::move(triggers)};

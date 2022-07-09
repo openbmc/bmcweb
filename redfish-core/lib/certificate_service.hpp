@@ -72,15 +72,16 @@ inline void requestRoutesCertificateService(App& app)
             asyncResp->res.jsonValue["CertificateLocations"]["@odata.id"] =
                 "/redfish/v1/CertificateService/CertificateLocations";
         }
-        asyncResp->res
-            .jsonValue["Actions"]["#CertificateService.ReplaceCertificate"] = {
-            {"target",
-             "/redfish/v1/CertificateService/Actions/CertificateService.ReplaceCertificate"},
-            {"CertificateType@Redfish.AllowableValues", {"PEM"}}};
-        asyncResp->res
-            .jsonValue["Actions"]["#CertificateService.GenerateCSR"] = {
-            {"target",
-             "/redfish/v1/CertificateService/Actions/CertificateService.GenerateCSR"}};
+        nlohmann::json& actions = asyncResp->res.jsonValue["Actions"];
+        nlohmann::json& replace =
+            actions["#CertificateService.ReplaceCertificate"];
+        replace["target"] =
+            "/redfish/v1/CertificateService/Actions/CertificateService.ReplaceCertificate";
+        nlohmann::json::array_t allowed;
+        allowed.push_back("PEM");
+        replace["CertificateType@Redfish.AllowableValues"] = std::move(allowed);
+        actions["#CertificateService.GenerateCSR"]["target"] =
+            "/redfish/v1/CertificateService/Actions/CertificateService.GenerateCSR";
         });
 } // requestRoutesCertificateService
 
