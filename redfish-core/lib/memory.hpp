@@ -878,6 +878,46 @@ class HealthAndPartition :
         partitionServiceToObjectManagerPath;
     dbus::utility::ManagedObjectType objectsForPartition;
 };
+
+inline void getDimmChassisAssociation(
+    const std::shared_ptr<memory::HealthAndPartition>& healthAndPartition,
+    const nlohmann::json::json_pointer& jsonPtr, const std::string& dimmId,
+    const std::string& path)
+{
+    BMCWEB_LOG_DEBUG << "Get DIMM -- Chassis association";
+
+    sdbusplus::asio::getProperty<std::vector<std::string>>(
+        *crow::connections::systemBus, "xyz.openbmc_project.ObjectMapper",
+        path + "/chassis", "xyz.openbmc_project.Association", "endpoints",
+        [healthAndPartition, dimmId,
+         jsonPtr](const boost::system::error_code ec,
+                  const std::vector<std::string>& chassisList) {
+        if (ec)
+        {
+            return;
+        }
+        if (chassisList.empty())
+        {
+            return;
+        }
+        if (chassisList.size() > 1)
+        {
+            BMCWEB_LOG_DEBUG << dimmId
+                             << " is associated with mutliple chassis";
+            return;
+        }
+        sdbusplus::message::object_path chassisPath(chassisList[0]);
+        std::string chassisName = chassisPath.filename();
+        if (chassisName.empty())
+        {
+            BMCWEB_LOG_ERROR << "filename() is empty in " << chassisPath.str;
+            return;
+        }
+        healthAndPartition->asyncResponse->res
+            .jsonValue[jsonPtr]["Links"]["Chassis"]["@odata.id"] =
+            "/redfish/v1/Chassis/" + chassisName;
+        });
+}
 } // namespace memory
 
 inline void getAllDimmsCallback(
@@ -936,6 +976,9 @@ inline void getAllDimmsCallback(
         auto dimmHealth = std::make_shared<HealthPopulate>(
             healthAndPartition->asyncResponse, healthPtr);
         dimmHealth->selfPath = objectPath;
+        memory::getDimmChassisAssociation(
+            healthAndPartition, healthAndPartition->dimmToPtr[thisDimmID],
+            thisDimmID, objectPath);
         if (healthAndPartition->health == nullptr)
         {
             dimmHealth->populate();
@@ -967,6 +1010,18 @@ inline void getAllDimmsCallback(
             assembleDimmProperties(
                 thisDimmID, healthAndPartition->asyncResponse, properties,
                 healthAndPartition->dimmToPtr[thisDimmID]);
+            if (interface == "xyz.openbmc_project.Inventory.Connector.Slot")
+            {
+                healthAndPartition->asyncResponse->res
+                    .jsonValue["Location"]["PartLocation"]["LocationType"] =
+                    "Slot";
+            }
+            if (interface == "xyz.openbmc_project.Inventory.Connector.Embedded")
+            {
+                healthAndPartition->asyncResponse->res
+                    .jsonValue["Location"]["PartLocation"]["LocationType"] =
+                    "Embeded";
+            }
         }
     }
     if (!dimmId)
