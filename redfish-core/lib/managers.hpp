@@ -396,8 +396,8 @@ inline void
                         chassis = "#IllegalValue";
                     }
                     nlohmann::json& zone = zones[name];
-                    zone["Chassis"] = {
-                        {"@odata.id", "/redfish/v1/Chassis/" + chassis}};
+                    zone["Chassis"]["@odata.id"] =
+                        "/redfish/v1/Chassis/" + chassis;
                     zone["@odata.id"] =
                         "/redfish/v1/Managers/bmc#/Oem/OpenBmc/Fan/FanZones/" +
                         name;
@@ -2012,7 +2012,8 @@ inline void requestRoutesManager(App& app)
             asyncResp->res.jsonValue["Actions"]["#Manager.ResetToDefaults"];
         resetToDefaults["target"] =
             "/redfish/v1/Managers/bmc/Actions/Manager.ResetToDefaults";
-        resetToDefaults["ResetType@Redfish.AllowableValues"] = {"ResetAll"};
+        resetToDefaults["ResetType@Redfish.AllowableValues"] =
+            nlohmann::json::array_t({"ResetAll"});
 
         std::pair<std::string, std::string> redfishDateTimeOffset =
             crow::utility::getDateTimeOffsetNow();
@@ -2027,15 +2028,15 @@ inline void requestRoutesManager(App& app)
         // Fill in SerialConsole info
         asyncResp->res.jsonValue["SerialConsole"]["ServiceEnabled"] = true;
         asyncResp->res.jsonValue["SerialConsole"]["MaxConcurrentSessions"] = 15;
-        asyncResp->res.jsonValue["SerialConsole"]["ConnectTypesSupported"] = {
-            "IPMI", "SSH"};
+        asyncResp->res.jsonValue["SerialConsole"]["ConnectTypesSupported"] =
+            nlohmann::json::array_t({"IPMI", "SSH"});
 #ifdef BMCWEB_ENABLE_KVM
         // Fill in GraphicalConsole info
         asyncResp->res.jsonValue["GraphicalConsole"]["ServiceEnabled"] = true;
         asyncResp->res.jsonValue["GraphicalConsole"]["MaxConcurrentSessions"] =
             4;
-        asyncResp->res
-            .jsonValue["GraphicalConsole"]["ConnectTypesSupported"] = {"KVMIP"};
+        asyncResp->res.jsonValue["GraphicalConsole"]["ConnectTypesSupported"] =
+            nlohmann::json::array_t({"KVMIP"});
 #endif // BMCWEB_ENABLE_KVM
 
         asyncResp->res.jsonValue["Links"]["ManagerForServers@odata.count"] = 1;

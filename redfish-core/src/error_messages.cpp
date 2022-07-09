@@ -1700,18 +1700,23 @@ void invalidUpload(crow::Response& res, std::string_view arg1,
  */
 nlohmann::json invalidUpload(std::string_view arg1, std::string_view arg2)
 {
+    nlohmann::json::object_t ret;
     std::string msg = "Invalid file uploaded to ";
     msg += arg1;
     msg += ": ";
     msg += arg2;
     msg += ".";
-    return nlohmann::json{
-        {"@odata.type", "/redfish/v1/$metadata#Message.v1_1_1.Message"},
-        {"MessageId", "OpenBMC.0.2.InvalidUpload"},
-        {"Message", std::move(msg)},
-        {"MessageArgs", {arg1, arg2}},
-        {"MessageSeverity", "Warning"},
-        {"Resolution", "None."}};
+
+    ret["@odata.type"] = "/redfish/v1/$metadata#Message.v1_1_1.Message";
+    ret["MessageId"] = "OpenBMC.0.2.InvalidUpload";
+    ret["Message"] = std::move(msg);
+    nlohmann::json::array_t args;
+    args.push_back(arg1);
+    args.push_back(arg2);
+    ret["MessageArgs"] = std::move(args);
+    ret["MessageSeverity"] = "Warning";
+    ret["Resolution"] = "None.";
+    return ret;
 }
 } // namespace messages
 

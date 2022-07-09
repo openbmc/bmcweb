@@ -198,22 +198,26 @@ inline void
                         // Firmware images are at
                         // /redfish/v1/UpdateService/FirmwareInventory/<Id>
                         // e.g. .../FirmwareInventory/82d3ec86
-                        softwareImageMembers.push_back(
-                            {{"@odata.id", "/redfish/v1/UpdateService/"
-                                           "FirmwareInventory/" +
-                                               swId}});
+                        nlohmann::json::object_t member;
+                        member["@odata.id"] = "/redfish/v1/UpdateService/"
+                                              "FirmwareInventory/" +
+                                              swId;
+                        softwareImageMembers.push_back(std::move(member));
                         aResp->res
                             .jsonValue["Links"]["SoftwareImages@odata.count"] =
                             softwareImageMembers.size();
 
                         if (runningImage)
                         {
+                            nlohmann::json::object_t runningMember;
+                            runningMember["@odata.id"] =
+                                "/redfish/v1/UpdateService/"
+                                "FirmwareInventory/" +
+                                swId;
                             // Create the link to the running image
                             aResp->res
-                                .jsonValue["Links"]["ActiveSoftwareImage"] = {
-                                {"@odata.id", "/redfish/v1/UpdateService/"
-                                              "FirmwareInventory/" +
-                                                  swId}};
+                                .jsonValue["Links"]["ActiveSoftwareImage"] =
+                                std::move(runningMember);
                         }
                     }
                     if (!activeVersionPropName.empty() && runningImage)
