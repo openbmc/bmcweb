@@ -83,13 +83,16 @@ inline void requestRoutesEventService(App& app)
         asyncResp->res.jsonValue["RegistryPrefixes"] = supportedRegPrefixes;
         asyncResp->res.jsonValue["ResourceTypes"] = supportedResourceTypes;
 
-        nlohmann::json supportedSSEFilters = {
-            {"EventFormatType", true},        {"MessageId", true},
-            {"MetricReportDefinition", true}, {"RegistryPrefix", true},
-            {"OriginResource", false},        {"ResourceType", false}};
+        nlohmann::json::object_t supportedSSEFilters;
+        supportedSSEFilters["EventFormatType"] = true;
+        supportedSSEFilters["MessageId"] = true;
+        supportedSSEFilters["MetricReportDefinition"] = true;
+        supportedSSEFilters["RegistryPrefix"] = true;
+        supportedSSEFilters["OriginResource"] = false;
+        supportedSSEFilters["ResourceType"] = false;
 
         asyncResp->res.jsonValue["SSEFilterPropertiesSupported"] =
-            supportedSSEFilters;
+            std::move(supportedSSEFilters);
         });
 
     BMCWEB_ROUTE(app, "/redfish/v1/EventService/")
