@@ -1660,9 +1660,9 @@ inline void parseInterfaceData(
         jsonResponse["FQDN"] = fqdn;
     }
 
-    jsonResponse["VLANs"] = {
-        {"@odata.id",
-         "/redfish/v1/Managers/bmc/EthernetInterfaces/" + ifaceId + "/VLANs"}};
+    jsonResponse["VLANs"]["@odata.id"] =
+        crow::utility::urlFromPieces("redfish", "v1", "Managers", "bmc",
+                                     "EthernetInterfaces", ifaceId, "VLANs");
 
     jsonResponse["NameServers"] = ethData.nameServers;
     jsonResponse["StaticNameServers"] = ethData.staticNameServers;
@@ -1673,7 +1673,6 @@ inline void parseInterfaceData(
     ipv4StaticArray = nlohmann::json::array();
     for (const auto& ipv4Config : ipv4Data)
     {
-
         std::string gatewayStr = ipv4Config.gateway;
         if (gatewayStr.empty())
         {
