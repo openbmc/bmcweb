@@ -1,0 +1,10 @@
+Code-Review+2: Ed Tanous <ed@tanous.net>
+Code-Review+1: AppaRao Puli <apparao.puli@intel.com>
+Code-Review+1: Nan Zhou <nanzhoumails@gmail.com>
+Code-Review+1: Jiaqing Zhao <jiaqing.zhao@intel.com>
+Verified+1: OpenBMC CI <openbmcbump-ci@yahoo.com>
+Submitted-by: Ed Tanous <ed@tanous.net>
+Submitted-at: Sat, 09 Jul 2022 14:08:03 +0000
+Reviewed-on: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/54973
+Project: openbmc/bmcweb
+Branch: refs/heads/master
