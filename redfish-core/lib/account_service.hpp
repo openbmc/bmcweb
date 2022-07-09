@@ -180,10 +180,18 @@ inline void parseLDAPConfigData(nlohmann::json& jsonResponse,
     {
         BMCWEB_LOG_DEBUG << "Pushing the data groupName="
                          << obj.second.groupName << "\n";
-        roleMapArray.push_back(
-            {nlohmann::json::array({"RemoteGroup", obj.second.groupName}),
-             nlohmann::json::array(
-                 {"LocalRole", getRoleIdFromPrivilege(obj.second.privilege)})});
+
+        nlohmann::json::array_t remoteGroupArray;
+        nlohmann::json::object_t remoteGroup;
+        remoteGroup["RemoteGroup"] = obj.second.groupName;
+        remoteGroupArray.emplace_back(std::move(remoteGroup));
+        roleMapArray.emplace_back(std::move(remoteGroupArray));
+
+        nlohmann::json::array_t localRoleArray;
+        nlohmann::json::object_t localRole;
+        localRole["LocalRole"] = getRoleIdFromPrivilege(obj.second.privilege);
+        localRoleArray.emplace_back(std::move(localRole));
+        roleMapArray.emplace_back(std::move(localRoleArray));
     }
 }
 
@@ -1727,7 +1735,8 @@ inline void
         asyncResp->res.jsonValue["Name"] = "User Account";
         asyncResp->res.jsonValue["Description"] = "User Account";
         asyncResp->res.jsonValue["Password"] = nullptr;
-        asyncResp->res.jsonValue["AccountTypes"] = {"Redfish"};
+        asyncResp->res.jsonValue["AccountTypes"] =
+            nlohmann::json::array_t({"Redfish"});
 
         for (const auto& interface : userIt->second)
         {
