@@ -16,6 +16,92 @@
       "message": "PTAL. I removed PAM. And decrease the changes. Now I am just making the existing insecure-disable-auth option better",
       "revId": "06256040190c01ce2f0020bf6b00aea58783f3a7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "41b9140e_eaeee492",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-09T17:32:12Z",
+      "side": 1,
+      "message": "I think there\u0027s a misunderstanding about what this option does.  It disables checking of authentication for routes.  It should not:\n1. Change the Redfish tree.\n2. Change the supported routes (ie, /login should still function as it did with auth enabled so users can test the webui).\n\nThe only thing it\u0027s intended to do is to remove responses that might respond with 401 (originally so we could test the impact that auth has).  This patchset is significantly changing that behavior, which I think renders the option infeasible for it\u0027s originally intended purpose.\n\nFor better or worse, we don\u0027t check in code that disagrees or allows us to break the Redfish specification.  If you believe these services should be optional, that\u0027s something to discuss with DMTF and to get into a specification release.  If you\u0027ve already done that and I\u0027m just unaware of it, please let me know.  FWIW, if these are to become optional in the standard, there\u0027s quite a bit of test tooling that needs to change as well in talking with the redfish-tools forum, so you might want to bring it up there as well.\n\nI could see wanting to disable the /login functions, but that should be a separate option.",
+      "revId": "06256040190c01ce2f0020bf6b00aea58783f3a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "695cee1b_67405122",
+        "filename": "redfish-core/include/redfish.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-09T17:32:12Z",
+      "side": 1,
+      "message": "You can\u0027t remove AccountService in any case.  It is required by the standard.",
+      "range": {
+        "startLine": 67,
+        "startChar": 0,
+        "endLine": 67,
+        "endChar": 37
+      },
+      "revId": "06256040190c01ce2f0020bf6b00aea58783f3a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "be4182fd_89087650",
+        "filename": "redfish-core/include/redfish.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-09T17:32:12Z",
+      "side": 1,
+      "message": "Same as above, SessionService is required by the standard.",
+      "range": {
+        "startLine": 74,
+        "startChar": 8,
+        "endLine": 74,
+        "endChar": 37
+      },
+      "revId": "06256040190c01ce2f0020bf6b00aea58783f3a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "81b63a88_e03c20a3",
+        "filename": "src/webserver_main.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-09T17:32:12Z",
+      "side": 1,
+      "message": "One of the use cases for disable auth was to be able to test the webui.  This would break that use case.  I suspect we need a separate option for removing these legacy routes.",
+      "range": {
+        "startLine": 130,
+        "startChar": 0,
+        "endLine": 130,
+        "endChar": 43
+      },
+      "revId": "06256040190c01ce2f0020bf6b00aea58783f3a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
