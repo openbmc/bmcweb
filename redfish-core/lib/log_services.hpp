@@ -955,9 +955,12 @@ inline void requestRoutesSystemLogServiceCollection(App& app)
                 {
                     nlohmann::json& logServiceArrayLocal =
                         asyncResp->res.jsonValue["Members"];
-                    logServiceArrayLocal.push_back(
-                        {{"@odata.id",
-                          "/redfish/v1/Systems/system/LogServices/PostCodes"}});
+                    nlohmann::json::object_t member;
+                    member["@odata.id"] =
+                        "/redfish/v1/Systems/system/LogServices/PostCodes";
+
+                    logServiceArrayLocal.push_back(std::move(member));
+
                     asyncResp->res.jsonValue["Members@odata.count"] =
                         logServiceArrayLocal.size();
                     return;
@@ -2025,8 +2028,9 @@ inline void handleLogServicesCollectionGet(
     logServiceArray = nlohmann::json::array();
 
 #ifdef BMCWEB_ENABLE_REDFISH_BMC_JOURNAL
-    logServiceArray.push_back(
-        {{"@odata.id", "/redfish/v1/Managers/bmc/LogServices/Journal"}});
+    nlohmann::json::object_t journal;
+    journal["@odata.id"] = "/redfish/v1/Managers/bmc/LogServices/Journal";
+    logServiceArray.push_back(std::move(journal));
 #endif
 
     asyncResp->res.jsonValue["Members@odata.count"] = logServiceArray.size();
@@ -2053,15 +2057,17 @@ inline void handleLogServicesCollectionGet(
         {
             if (path == "/xyz/openbmc_project/dump/bmc")
             {
-                logServiceArrayLocal.push_back(
-                    {{"@odata.id",
-                      "/redfish/v1/Managers/bmc/LogServices/Dump"}});
+                nlohmann::json::object_t member;
+                member["@odata.id"] =
+                    "/redfish/v1/Managers/bmc/LogServices/Dump";
+                logServiceArrayLocal.push_back(std::move(member));
             }
             else if (path == "/xyz/openbmc_project/dump/faultlog")
             {
-                logServiceArrayLocal.push_back(
-                    {{"@odata.id",
-                      "/redfish/v1/Managers/bmc/LogServices/FaultLog"}});
+                nlohmann::json::object_t member;
+                member["@odata.id"] =
+                    "/redfish/v1/Managers/bmc/LogServices/FaultLog";
+                logServiceArrayLocal.push_back(std::move(member));
             }
         }
 

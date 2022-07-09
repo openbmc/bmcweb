@@ -449,9 +449,10 @@ inline void requestRoutesTaskCollection(App& app)
             {
                 continue; // shouldn't be possible
             }
-            members.emplace_back(
-                nlohmann::json{{"@odata.id", "/redfish/v1/TaskService/Tasks/" +
-                                                 std::to_string(task->index)}});
+            nlohmann::json::object_t member;
+            member["@odata.id"] =
+                "redfish/v1/TaskService/Tasks/" + std::to_string(task->index);
+            members.emplace_back(std::move(member));
         }
         });
 }

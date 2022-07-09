@@ -99,10 +99,10 @@ inline void
     for (const auto& [sensorPath, operationType, metricId, metadata] :
          *readingParams)
     {
-        metrics.push_back({
-            {"MetricId", metricId},
-            {"MetricProperties", {metadata}},
-        });
+        nlohmann::json::object_t metric;
+        metric["MetricId"] = metricId;
+        metric["MetricProperties"] = nlohmann::json::array_t({metadata});
+        metrics.push_back(std::move(metric));
     }
     asyncResp->res.jsonValue["Metrics"] = metrics;
     asyncResp->res.jsonValue["MetricReportDefinitionType"] = *reportingType;
