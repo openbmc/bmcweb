@@ -1112,6 +1112,7 @@ struct UserModificationPatch
     std::optional<bool> enabled;
     std::optional<std::string> roleId;
     std::optional<bool> locked;
+    std::optional<bool> expired;
 };
 
 inline void updateUserProperties(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
@@ -1237,6 +1238,25 @@ inline void updateUserProperties(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
                 "org.freedesktop.DBus.Properties", "Set",
                 "xyz.openbmc_project.User.Attributes",
                 "UserLockedForFailedAttempt",
+                dbus::utility::DbusVariantType{*userValues.locked});
+        }
+
+        if (userValues.expired)
+        {
+            crow::connections::systemBus->async_method_call(
+                [asyncResp](const boost::system::error_code ec) {
+                if (ec)
+                {
+                    BMCWEB_LOG_ERROR << "D-Bus responses error: " << ec;
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                messages::success(asyncResp->res);
+                return;
+                },
+                "xyz.openbmc_project.User.Manager", dbusObjectPath,
+                "org.freedesktop.DBus.Properties", "Set",
+                "xyz.openbmc_project.User.Attributes", "UserPasswordExpired",
                 dbus::utility::DbusVariantType{*userValues.locked});
         }
         });
@@ -1959,7 +1979,8 @@ inline void
         if (!json_util::readJsonPatch(
                 req, asyncResp->res, "UserName", userValues.newUserName,
                 "Password", userValues.password, "RoleId", userValues.roleId,
-                "Enabled", userValues.enabled, "Locked", userValues.locked))
+                "Enabled", userValues.enabled, "Locked", userValues.locked,
+                "PasswordChangeRequired", userValues.expired))
         {
             return;
         }
@@ -1980,6 +2001,7 @@ inline void
             return;
         }
     }
+
     std::string_view ifMatch =
         req.getHeaderValue(boost::beast::http::field::if_match);
     if (!ifMatch.empty())

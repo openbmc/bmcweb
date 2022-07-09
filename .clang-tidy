@@ -224,7 +224,6 @@ cppcoreguidelines-slicing,
 cppcoreguidelines-special-member-functions,
 google-explicit-constructor,
 misc-misplaced-const,
-#misc-no-recursion,
 misc-redundant-expression,
 misc-static-assert,
 misc-throw-by-value-catch-by-reference,
@@ -305,7 +304,6 @@ readability-string-compare,
 readability-suspicious-call-argument,
 readability-uniqueptr-delete-release,
 readability-uppercase-literal-suffix'
-
 WarningsAsErrors: '*'
 HeaderFilterRegex: '.*'
 CheckOptions:
