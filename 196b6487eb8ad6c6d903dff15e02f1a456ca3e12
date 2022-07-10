@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8682ffb8_e8660e89",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000907
+      },
+      "writtenOn": "2022-07-10T18:42:48Z",
+      "side": 1,
+      "message": "This commit requires https://gerrit.openbmc.org/c/openbmc/bmcweb/+/55231 to function correctly",
+      "revId": "196b6487eb8ad6c6d903dff15e02f1a456ca3e12",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
