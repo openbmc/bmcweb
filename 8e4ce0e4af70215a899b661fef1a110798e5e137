@@ -3,6 +3,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "684573e3_71bf5835",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000907
+      },
+      "writtenOn": "2022-07-10T13:56:40Z",
+      "side": 1,
+      "message": "* through ?",
+      "range": {
+        "startLine": 13,
+        "startChar": 35,
+        "endLine": 13,
+        "endChar": 40
+      },
+      "revId": "8e4ce0e4af70215a899b661fef1a110798e5e137",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c3688069_7983a566",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1000907
+      },
+      "writtenOn": "2022-07-10T13:56:40Z",
+      "side": 1,
+      "message": "setUpRedfishRoute accepts asyncResp object.\nRevert this change to make the CI build successful",
+      "range": {
+        "startLine": 53,
+        "startChar": 46,
+        "endLine": 53,
+        "endChar": 60
+      },
+      "revId": "8e4ce0e4af70215a899b661fef1a110798e5e137",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1f70373e_46dedd4a",
         "filename": "redfish-core/lib/bios.hpp",
         "patchSetId": 1
