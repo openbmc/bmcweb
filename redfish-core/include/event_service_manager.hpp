@@ -396,7 +396,7 @@ class Subscription : public persistent_data::UserSubscription
         // A connection pool will be created if one does not already exist
         crow::HttpClient::getInstance().sendData(
             msg, id, host, port, path, httpHeaders,
-            boost::beast::http::verb::post, retryPolicyName);
+            boost::beast::http::verb::post, retryPolicyName, retryPolicy);
         eventSeqNum++;
 
         if (sseConn != nullptr)
@@ -550,12 +550,6 @@ class Subscription : public persistent_data::UserSubscription
             retryPolicyName);
     }
 
-    void updateRetryPolicy()
-    {
-        crow::HttpClient::getInstance().setRetryPolicy(retryPolicy,
-                                                       retryPolicyName);
-    }
-
     uint64_t getEventSeqNum() const
     {
         return eventSeqNum;
@@ -685,7 +679,6 @@ class EventServiceManager
 #endif
             // Update retry configuration.
             subValue->updateRetryConfig(retryAttempts, retryTimeoutInterval);
-            subValue->updateRetryPolicy();
         }
     }
 
@@ -939,7 +932,6 @@ class EventServiceManager
 #endif
         // Update retry configuration.
         subValue->updateRetryConfig(retryAttempts, retryTimeoutInterval);
-        subValue->updateRetryPolicy();
 
         return id;
     }
