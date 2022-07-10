@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3570399b_16960aad",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1000907
+      },
+      "writtenOn": "2022-07-10T14:11:06Z",
+      "side": 1,
+      "message": "I guess We might need to call :\n\nif (!redfish::setUpRedfishRoute(app, req, asyncResp))\n{\n    return;\n}\n\nand then go ahead with \"handleBiosChangePasswordPost\"",
+      "range": {
+        "startLine": 145,
+        "startChar": 48,
+        "endLine": 145,
+        "endChar": 49
+      },
+      "revId": "f45b53a71eee38c3731bf8660b9609fe15050b3e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
