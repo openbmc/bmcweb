@@ -53,6 +53,9 @@ static constexpr const char* metricReportFormatType = "MetricReport";
 static constexpr const char* eventServiceFile =
     "/var/lib/bmcweb/eventservice_config.json";
 
+std::function<void(std::string)> deleteTerminatedSubscription =
+    [](std::string) {};
+
 namespace registries
 {
 inline std::span<const MessageEntry>
@@ -393,10 +396,29 @@ class Subscription : public persistent_data::UserSubscription
             return false;
         }
 
+        std::function<void(crow::Response&)> sendEventCallback =
+            [subId(id), retryPolicy(retryPolicy),
+             deleteTerminatedSubscription(deleteTerminatedSubscription)](
+                crow::Response& res) {
+            if (res.result() == boost::beast::http::status::bad_gateway)
+            {
+                // Response is going to have bad_gateway result if the event
+                // listener was not able to receive the event even after
+                // multiple retries. This response is received only when retry
+                // policy is Suspend after retires or Terminate after reties.
+                // Call Delete subscription only when policy is terminate after
+                // retries.
+                if (retryPolicy == "TerminateAfterRetries")
+                {
+                    deleteTerminatedSubscription(subId);
+                }
+            }
+        };
+
         // A connection pool will be created if one does not already exist
-        crow::HttpClient::getInstance().sendData(
+        crow::HttpClient::getInstance().sendDataWithCallback(
             msg, id, host, port, path, httpHeaders,
-            boost::beast::http::verb::post, retryPolicyName);
+            boost::beast::http::verb::post, retryPolicyName, sendEventCallback);
         eventSeqNum++;
 
         if (sseConn != nullptr)
@@ -597,6 +619,12 @@ class EventServiceManager
 
     EventServiceManager()
     {
+        // Set Lambda for deletion of terminated subscriptions
+        deleteTerminatedSubscription = [](std::string id) {
+            BMCWEB_LOG_DEBUG << "Deleting Terminated Subscription : " << id;
+            EventServiceManager::getInstance().deleteSubscription(id);
+        };
+
         // Load config from persist store.
         initConfig();
     }
