@@ -893,6 +893,7 @@ class EventServiceManager
                 retry = 0;
                 break;
             }
+            subValue->id = id;
             auto inserted = subscriptionsMap.insert(std::pair(id, subValue));
             if (inserted.second)
             {
