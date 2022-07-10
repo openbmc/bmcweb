@@ -34,6 +34,24 @@
       "parentUuid": "fad2b8bd_ed261779",
       "revId": "d13a70d44e562031562063ede23690b697e6c6b0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "45542afe_8a5e1e6d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000907
+      },
+      "writtenOn": "2022-07-10T13:45:00Z",
+      "side": 1,
+      "message": "Updated commit message to reflect the intent of the patch.\nAlso, resolved merge conflicts",
+      "parentUuid": "f68ce0b0_46aa20f5",
+      "revId": "d13a70d44e562031562063ede23690b697e6c6b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
