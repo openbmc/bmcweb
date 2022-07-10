@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a0ca24db_790deda5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000907
+      },
+      "writtenOn": "2022-07-10T13:48:11Z",
+      "side": 1,
+      "message": "Updated commit message for the same",
+      "parentUuid": "6ca65ff6_034a8e5c",
+      "revId": "0381b192f6840e609e256fa2c2a8b4851de112b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d4aece11_809bc2d9",
@@ -191,6 +209,30 @@
       "side": 1,
       "message": "Dheeraj, We can  move all this common code to single API and use it both places.",
       "parentUuid": "883184d0_701c4ed9",
+      "range": {
+        "startLine": 1211,
+        "startChar": 0,
+        "endLine": 1312,
+        "endChar": 0
+      },
+      "revId": "0381b192f6840e609e256fa2c2a8b4851de112b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3c7a3f96_51c33901",
+        "filename": "http/routing.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1312,
+      "author": {
+        "id": 1000907
+      },
+      "writtenOn": "2022-07-10T13:48:11Z",
+      "side": 1,
+      "message": "Moved the common code to a new function (validatePrivilege).",
+      "parentUuid": "fee19bd9_b4268422",
       "range": {
         "startLine": 1211,
         "startChar": 0,
