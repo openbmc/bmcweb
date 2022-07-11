@@ -111,7 +111,8 @@ class RedfishAggregator
 {
   private:
     const std::string retryPolicyName = "RedfishAggregation";
-    const uint32_t retryAttempts = 5;
+    const std::string retryPolicyAction = "TerminateAfterRetries";
+    const uint32_t retryAttempts = 1;
     const uint32_t retryTimeoutInterval = 0;
     const std::string id = "Aggregator";
 
@@ -123,6 +124,8 @@ class RedfishAggregator
         crow::HttpClient::getInstance().setRetryConfig(
             retryAttempts, retryTimeoutInterval, aggregationRetryHandler,
             retryPolicyName);
+        crow::HttpClient::getInstance().setRetryPolicy(retryPolicyAction,
+                                                       retryPolicyName);
     }
 
     static inline boost::system::error_code
