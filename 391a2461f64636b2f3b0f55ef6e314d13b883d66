@@ -68,6 +68,29 @@
       },
       "revId": "391a2461f64636b2f3b0f55ef6e314d13b883d66",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "43e20196_36a6d0f0",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 622,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-11T17:43:04Z",
+      "side": 1,
+      "message": "see prior comment, why can\u0027t we just use the singleton for this?",
+      "range": {
+        "startLine": 622,
+        "startChar": 0,
+        "endLine": 622,
+        "endChar": 62
+      },
+      "revId": "391a2461f64636b2f3b0f55ef6e314d13b883d66",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
