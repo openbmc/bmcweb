@@ -15,9 +15,14 @@
 */
 #pragma once
 
+#include <array>
+#include <cstddef>
 #include <span>
 #include <string>
 #include <string_view>
+#include <utility>
+
+// IWYU pragma: no_include <stddef.h>
 
 namespace redfish::registries
 {

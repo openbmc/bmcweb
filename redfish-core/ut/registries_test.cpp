@@ -1,6 +1,10 @@
 #include "registries.hpp"
 
-#include "gmock/gmock.h"
+#include <gtest/gtest.h> // IWYU pragma: keep
+
+// IWYU pragma: no_include <gtest/gtest-message.h>
+// IWYU pragma: no_include <gtest/gtest-test-part.h>
+// IWYU pragma: no_include "gtest/gtest_pred_impl.h"
 
 namespace redfish::registries
 {
