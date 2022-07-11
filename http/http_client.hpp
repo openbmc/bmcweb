@@ -179,7 +179,7 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
                          << std::to_string(port)
                          << ", id: " << std::to_string(connId);
 
-        conn.expires_after(std::chrono::seconds(30));
+        conn.expires_after(std::chrono::seconds(1));
         conn.async_connect(endpointList,
                            [self(shared_from_this())](
                                const boost::beast::error_code ec,
@@ -366,11 +366,13 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
             BMCWEB_LOG_ERROR << host << ":" << std::to_string(port)
                              << ", id: " << std::to_string(connId)
                              << "shutdown failed: " << ec.message();
-            return;
         }
-        BMCWEB_LOG_DEBUG << host << ":" << std::to_string(port)
-                         << ", id: " << std::to_string(connId)
-                         << " closed gracefully";
+        else
+        {
+            BMCWEB_LOG_DEBUG << host << ":" << std::to_string(port)
+                             << ", id: " << std::to_string(connId)
+                             << " closed gracefully";
+        }
 
         state = ConnState::closed;
     }
@@ -388,11 +390,13 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
             BMCWEB_LOG_ERROR << host << ":" << std::to_string(port)
                              << ", id: " << std::to_string(connId)
                              << "shutdown failed: " << ec.message();
-            return;
         }
-        BMCWEB_LOG_DEBUG << host << ":" << std::to_string(port)
-                         << ", id: " << std::to_string(connId)
-                         << " closed gracefully";
+        else
+        {
+            BMCWEB_LOG_DEBUG << host << ":" << std::to_string(port)
+                             << ", id: " << std::to_string(connId)
+                             << " closed gracefully";
+        }
 
         // Now let's try to resend the data
         state = ConnState::retry;
