@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "554985f6_0b7f90e5",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 982,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-11T17:27:52Z",
+      "side": 1,
+      "message": "This is basically the same call as getCollectionMembers;  Should we be using that instead?",
+      "range": {
+        "startLine": 982,
+        "startChar": 41,
+        "endLine": 982,
+        "endChar": 58
+      },
+      "revId": "2f8ab686fc8d17467cd5a631703a3486f3f6f8af",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
