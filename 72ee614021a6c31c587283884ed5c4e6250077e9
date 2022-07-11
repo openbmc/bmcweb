@@ -22,6 +22,30 @@
       },
       "revId": "72ee614021a6c31c587283884ed5c4e6250077e9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "99bd3fa0_dc2ea63e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-11T01:52:27Z",
+      "side": 1,
+      "message": "Yes, this commit has been tested on hardware.",
+      "parentUuid": "646e74a1_bd595fa8",
+      "range": {
+        "startLine": 14,
+        "startChar": 8,
+        "endLine": 14,
+        "endChar": 22
+      },
+      "revId": "72ee614021a6c31c587283884ed5c4e6250077e9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
