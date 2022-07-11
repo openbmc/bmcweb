@@ -17,7 +17,9 @@
 
 #include <app.hpp>
 #include <async_resp.hpp>
-#include <boost/algorithm/string.hpp>
+#include <boost/algorithm/string/classification.hpp>
+#include <boost/algorithm/string/predicate.hpp>
+#include <boost/algorithm/string/split.hpp>
 #include <boost/container/flat_set.hpp>
 #include <dbus_singleton.hpp>
 #include <dbus_utility.hpp>
@@ -207,7 +209,7 @@ inline void findRemainingObjectsForEnumerate(
             {
                 for (const auto& interface : interfaces)
                 {
-                    if (!boost::starts_with(interface, "org.freedesktop.DBus"))
+                    if (!interface.starts_with("org.freedesktop.DBus"))
                     {
                         getPropertiesForEnumerate(path, service, interface,
                                                   asyncResp);
@@ -244,7 +246,6 @@ struct InProgressEnumerateData
     InProgressEnumerateData(InProgressEnumerateData&&) = delete;
     InProgressEnumerateData& operator=(const InProgressEnumerateData&) = delete;
     InProgressEnumerateData& operator=(InProgressEnumerateData&&) = delete;
-
     const std::string objectPath;
     std::shared_ptr<dbus::utility::MapperGetSubTreeResponse> subtree;
     std::shared_ptr<bmcweb::AsyncResp> asyncResp;
@@ -275,7 +276,7 @@ inline void getManagedObjectsForEnumerate(
 
         for (const auto& objectPath : objects)
         {
-            if (boost::starts_with(objectPath.first.str, objectName))
+            if (objectPath.first.str.starts_with(objectName))
             {
                 BMCWEB_LOG_DEBUG << "Reading object " << objectPath.first.str;
                 nlohmann::json& objectJson = dataJson[objectPath.first.str];
@@ -775,7 +776,7 @@ inline int convertJsonToDbus(sd_bus_message* m, const std::string& argType,
             }
             sd_bus_message_append_basic(m, argCode[0], doubleValue);
         }
-        else if (boost::starts_with(argCode, "a"))
+        else if (argCode.starts_with("a"))
         {
             std::string containedType = argCode.substr(1);
             r = sd_bus_message_open_container(m, SD_BUS_TYPE_ARRAY,
@@ -795,7 +796,7 @@ inline int convertJsonToDbus(sd_bus_message* m, const std::string& argType,
             }
             sd_bus_message_close_container(m);
         }
-        else if (boost::starts_with(argCode, "v"))
+        else if (argCode.starts_with("v"))
         {
             std::string containedType = argCode.substr(1);
             BMCWEB_LOG_DEBUG << "variant type: " << argCode
@@ -819,8 +820,7 @@ inline int convertJsonToDbus(sd_bus_message* m, const std::string& argType,
                 return r;
             }
         }
-        else if (boost::starts_with(argCode, "(") &&
-                 boost::ends_with(argCode, ")"))
+        else if (argCode.starts_with("(") && argCode.ends_with(")"))
         {
             std::string containedType = argCode.substr(1, argCode.size() - 1);
             r = sd_bus_message_open_container(m, SD_BUS_TYPE_STRUCT,
@@ -846,8 +846,7 @@ inline int convertJsonToDbus(sd_bus_message* m, const std::string& argType,
             }
             r = sd_bus_message_close_container(m);
         }
-        else if (boost::starts_with(argCode, "{") &&
-                 boost::ends_with(argCode, "}"))
+        else if (argCode.starts_with("{") && argCode.ends_with("}"))
         {
             std::string containedType = argCode.substr(1, argCode.size() - 1);
             r = sd_bus_message_open_container(m, SD_BUS_TYPE_DICT_ENTRY,
@@ -1000,8 +999,7 @@ inline int readArrayFromMessage(const std::string& typeCode,
         return r;
     }
 
-    bool dict = boost::starts_with(containedType, "{") &&
-                boost::ends_with(containedType, "}");
+    bool dict = containedType.starts_with("{") && containedType.ends_with("}");
 
     if (dict)
     {
@@ -1243,7 +1241,7 @@ inline int convertDBusToJSON(const std::string& returnType,
                 return r;
             }
         }
-        else if (boost::starts_with(typeCode, "a"))
+        else if (typeCode.starts_with("a"))
         {
             r = readArrayFromMessage(typeCode, m, *thisElement);
             if (r < 0)
@@ -1251,8 +1249,7 @@ inline int convertDBusToJSON(const std::string& returnType,
                 return r;
             }
         }
-        else if (boost::starts_with(typeCode, "(") &&
-                 boost::ends_with(typeCode, ")"))
+        else if (typeCode.starts_with("(") && typeCode.ends_with(")"))
         {
             r = readStructFromMessage(typeCode, m, *thisElement);
             if (r < 0)
@@ -1260,7 +1257,7 @@ inline int convertDBusToJSON(const std::string& returnType,
                 return r;
             }
         }
-        else if (boost::starts_with(typeCode, "v"))
+        else if (typeCode.starts_with("v"))
         {
             r = readVariantFromMessage(m, *thisElement);
             if (r < 0)
@@ -2028,13 +2025,13 @@ inline void handleDBusUrl(const crow::Request& req,
     }
     else if (req.method() == boost::beast::http::verb::get)
     {
-        if (boost::ends_with(objectPath, "/enumerate"))
+        if (objectPath.ends_with("/enumerate"))
         {
             objectPath.erase(objectPath.end() - sizeof("enumerate"),
                              objectPath.end());
             handleEnumerate(asyncResp, objectPath);
         }
-        else if (boost::ends_with(objectPath, "/list"))
+        else if (objectPath.ends_with("/list"))
         {
             objectPath.erase(objectPath.end() - sizeof("list"),
                              objectPath.end());
@@ -2043,7 +2040,7 @@ inline void handleDBusUrl(const crow::Request& req,
         else
         {
             // Trim any trailing "/" at the end
-            if (boost::ends_with(objectPath, "/"))
+            if (objectPath.ends_with("/"))
             {
                 objectPath.pop_back();
                 handleList(asyncResp, objectPath, 1);

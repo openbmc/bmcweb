@@ -1,6 +1,6 @@
 #pragma once
 
-#include <boost/algorithm/string.hpp>
+#include <boost/algorithm/string/predicate.hpp>
 #include <boost/container/flat_map.hpp>
 #include <boost/endian/conversion.hpp>
 #include <include/ibm/utils.hpp>
@@ -9,6 +9,7 @@
 
 #include <filesystem>
 #include <fstream>
+#include <variant>
 
 namespace crow
 {

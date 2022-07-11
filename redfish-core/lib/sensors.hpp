@@ -16,7 +16,7 @@
 #pragma once
 
 #include <app.hpp>
-#include <boost/algorithm/string/predicate.hpp>
+#include <boost/algorithm/string/classification.hpp>
 #include <boost/algorithm/string/split.hpp>
 #include <boost/range/algorithm/replace_copy_if.hpp>
 #include <dbus_singleton.hpp>
@@ -463,7 +463,7 @@ inline void reduceSensorList(
     {
         for (const std::string& sensor : *allSensors)
         {
-            if (boost::starts_with(sensor, type))
+            if (sensor.starts_with(type))
             {
                 activeSensors->emplace(sensor);
             }
@@ -1232,11 +1232,11 @@ inline void populateFanRedundancy(
 
                     std::string health;
 
-                    if (boost::ends_with(*status, "Full"))
+                    if (status->ends_with("Full"))
                     {
                         health = "OK";
                     }
-                    else if (boost::ends_with(*status, "Degraded"))
+                    else if (status->ends_with("Degraded"))
                     {
                         health = "Warning";
                     }
@@ -1982,15 +1982,15 @@ void getInventoryLedData(
             if (inventoryItem != nullptr)
             {
                 // Store LED state in InventoryItem
-                if (boost::ends_with(state, "On"))
+                if (state.ends_with("On"))
                 {
                     inventoryItem->ledState = LedState::ON;
                 }
-                else if (boost::ends_with(state, "Blink"))
+                else if (state.ends_with("Blink"))
                 {
                     inventoryItem->ledState = LedState::BLINK;
                 }
-                else if (boost::ends_with(state, "Off"))
+                else if (state.ends_with("Off"))
                 {
                     inventoryItem->ledState = LedState::OFF;
                 }

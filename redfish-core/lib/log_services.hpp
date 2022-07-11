@@ -27,6 +27,7 @@
 #include <unistd.h>
 
 #include <app.hpp>
+#include <boost/algorithm/string/classification.hpp>
 #include <boost/algorithm/string/replace.hpp>
 #include <boost/algorithm/string/split.hpp>
 #include <boost/beast/http.hpp>
@@ -312,7 +313,7 @@ static bool
     {
         // If we find a redfish log file, save the path
         std::string filename = dirEnt.path().filename();
-        if (boost::starts_with(filename, redfishLogFilename))
+        if (filename.starts_with(redfishLogFilename))
         {
             redfishLogFiles.emplace_back(redfishLogDir / filename);
         }
@@ -1774,7 +1775,7 @@ inline bool
         std::string filename = it.path().filename();
         // Prefix of each log files is "log". Find the file and save the
         // path
-        if (boost::starts_with(filename, "log"))
+        if (filename.starts_with("log"))
         {
             hostLoggerFiles.emplace_back(it.path());
         }

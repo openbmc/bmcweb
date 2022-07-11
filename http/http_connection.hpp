@@ -7,7 +7,6 @@
 #include "logging.hpp"
 #include "utility.hpp"
 
-#include <boost/algorithm/string.hpp>
 #include <boost/algorithm/string/predicate.hpp>
 #include <boost/asio/io_context.hpp>
 #include <boost/asio/ip/tcp.hpp>

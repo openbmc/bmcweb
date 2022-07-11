@@ -16,6 +16,8 @@
 #pragma once
 
 #include <app.hpp>
+#include <boost/algorithm/string/classification.hpp>
+#include <boost/algorithm/string/split.hpp>
 #include <boost/container/flat_set.hpp>
 #include <dbus_singleton.hpp>
 #include <dbus_utility.hpp>
@@ -430,7 +432,7 @@ inline void
     for (const auto& objpath : dbusData)
     {
         // Check if proper pattern for object path appears
-        if (boost::starts_with(objpath.first.str, ipv6PathStart))
+        if (objpath.first.str.starts_with(ipv6PathStart))
         {
             for (const auto& interface : objpath.second)
             {
@@ -508,7 +510,7 @@ inline void
     for (const auto& objpath : dbusData)
     {
         // Check if proper pattern for object path appears
-        if (boost::starts_with(objpath.first.str, ipv4PathStart))
+        if (objpath.first.str.starts_with(ipv4PathStart))
         {
             for (const auto& interface : objpath.second)
             {
@@ -569,7 +571,7 @@ inline void
                     }
                     // Check if given address is local, or global
                     ipv4Address.linktype =
-                        boost::starts_with(ipv4Address.address, "169.254.")
+                        ipv4Address.address.starts_with("169.254.")
                             ? LinkType::Local
                             : LinkType::Global;
                 }
@@ -1815,7 +1817,7 @@ inline void parseInterfaceData(nlohmann::json& jsonResponse,
 
 inline bool verifyNames(const std::string& parent, const std::string& iface)
 {
-    return boost::starts_with(iface, parent + "_");
+    return iface.starts_with(parent + "_");
 }
 
 inline void requestEthernetInterfacesRoutes(App& app)
@@ -2272,7 +2274,7 @@ inline void requestEthernetInterfacesRoutes(App& app)
 
             for (const std::string& ifaceItem : ifaceList)
             {
-                if (boost::starts_with(ifaceItem, rootInterfaceName + "_"))
+                if (ifaceItem.starts_with(rootInterfaceName + "_"))
                 {
                     std::string path =
                         "/redfish/v1/Managers/bmc/EthernetInterfaces/";
