@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b6ad6a93_d0d7a419",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-11T17:26:41Z",
+      "side": 1,
+      "message": "per the Developing guide, please try to answer why we\u0027re making these changes.  Is there documentation that recommends it?  Does it make it more readable?",
+      "range": {
+        "startLine": 9,
+        "startChar": 2,
+        "endLine": 10,
+        "endChar": 56
+      },
+      "revId": "56e0b30f8b1f1fe7974a12930cd7b6b473c42587",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "059a05b8_88df64d3",
+        "filename": "redfish-core/ut/hex_utils_test.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-11T17:26:41Z",
+      "side": 1,
+      "message": "Lets omit these from this patchset for now until we have this figured out in the IWYU patch.",
+      "range": {
+        "startLine": 6,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 38
+      },
+      "revId": "56e0b30f8b1f1fe7974a12930cd7b6b473c42587",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5e9b28ec_17ebd095",
+        "filename": "redfish-core/ut/hex_utils_test.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-11T17:26:41Z",
+      "side": 1,
+      "message": "This is in the gmock namespace, not the gtest namespace, right?  do we need to include gmock.h?",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 25
+      },
+      "revId": "56e0b30f8b1f1fe7974a12930cd7b6b473c42587",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
