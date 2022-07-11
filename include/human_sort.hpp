@@ -1,6 +1,7 @@
 #pragma once
 
 #include <charconv>
+#include <iterator>
 #include <string_view>
 
 namespace details
