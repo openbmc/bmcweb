@@ -23,7 +23,6 @@
 #include "utils/json_utils.hpp"
 
 #include <boost/process/async_pipe.hpp>
-#include <boost/type_traits/has_dereference.hpp>
 #include <boost/url/url_view.hpp>
 
 #include <array>
@@ -590,28 +589,29 @@ class CredentialsProvider
 };
 
 // Wrapper for boost::async_pipe ensuring proper pipe cleanup
-template <typename Buffer>
-class Pipe
+class SecurePipe
 {
   public:
     using unix_fd = sdbusplus::message::unix_fd;
 
-    Pipe(boost::asio::io_context& io, Buffer&& bufferIn) :
-        impl(io), buffer{std::move(bufferIn)}
+    SecurePipe(boost::asio::io_context& io,
+               CredentialsProvider::SecureBuffer&& bufferIn) :
+        impl(io),
+        buffer{std::move(bufferIn)}
     {}
 
-    ~Pipe()
+    ~SecurePipe()
     {
         // Named pipe needs to be explicitly removed
         impl.close();
     }
 
-    Pipe(const Pipe&) = delete;
-    Pipe(Pipe&&) = delete;
-    Pipe& operator=(const Pipe&) = delete;
-    Pipe& operator=(Pipe&&) = delete;
+    SecurePipe(const SecurePipe&) = delete;
+    SecurePipe(SecurePipe&&) = delete;
+    SecurePipe& operator=(const SecurePipe&) = delete;
+    SecurePipe& operator=(SecurePipe&&) = delete;
 
-    unix_fd fd()
+    unix_fd fd() const
     {
         return unix_fd{impl.native_source()};
     }
@@ -619,30 +619,13 @@ class Pipe
     template <typename WriteHandler>
     void asyncWrite(WriteHandler&& handler)
     {
-        impl.async_write_some(data(), std::forward<WriteHandler>(handler));
-    }
-
-  private:
-    // Specialization for pointer types
-    template <typename B = Buffer>
-    typename std::enable_if<boost::has_dereference<B>::value,
-                            boost::asio::const_buffer>::type
-        data()
-    {
-        return boost::asio::buffer(*buffer);
-    }
-
-    template <typename B = Buffer>
-    typename std::enable_if<!boost::has_dereference<B>::value,
-                            boost::asio::const_buffer>::type
-        data()
-    {
-        return boost::asio::buffer(buffer);
+        impl.async_write_some(boost::asio::buffer(*buffer),
+                              std::forward<WriteHandler>(handler));
     }
 
     const std::string name;
     boost::process::async_pipe impl;
-    Buffer buffer;
+    CredentialsProvider::SecureBuffer buffer;
 };
 
 /**
@@ -655,7 +638,6 @@ inline void doMountVmLegacy(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                             const std::string& imageUrl, const bool rw,
                             std::string&& userName, std::string&& password)
 {
-    using SecurePipe = Pipe<CredentialsProvider::SecureBuffer>;
     constexpr const size_t secretLimit = 1024;
 
     std::shared_ptr<SecurePipe> secretPipe;
