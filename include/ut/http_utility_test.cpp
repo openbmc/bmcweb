@@ -1,6 +1,10 @@
 #include "http_utility.hpp"
 
-#include <gtest/gtest.h>
+#include <gtest/gtest.h> // IWYU pragma: keep
+
+// IWYU pragma: no_include <gtest/gtest-message.h>
+// IWYU pragma: no_include <gtest/gtest-test-part.h>
+// IWYU pragma: no_include "gtest/gtest_pred_impl.h"
 
 namespace http_helpers
 {

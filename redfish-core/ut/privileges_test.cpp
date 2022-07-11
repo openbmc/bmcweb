@@ -1,10 +1,16 @@
-#include "nlohmann/json.hpp"
 #include "privileges.hpp"
 
-#include <fstream>
-#include <string>
+#include <boost/beast/http/verb.hpp>
 
-#include "gmock/gmock.h"
+#include <array>
+
+#include <gmock/gmock-matchers.h>
+#include <gmock/gmock-more-matchers.h>
+#include <gtest/gtest.h> // IWYU pragma: keep
+
+// IWYU pragma: no_include <gtest/gtest-message.h>
+// IWYU pragma: no_include <gtest/gtest-test-part.h>
+// IWYU pragma: no_include "gtest/gtest_pred_impl.h"
 
 namespace redfish
 {
