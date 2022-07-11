@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9448613d_3f1f9b8f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-11T01:22:25Z",
+      "side": 1,
+      "message": "As discussed in the other thread. IWYU pragma is the way that IWYU suggests to correct wrong includes.",
+      "parentUuid": "f1817783_24783410",
+      "revId": "1e18c32bcda6fc7cbeb2f8fd9f73c03534971057",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6e55b4d1_db60cdf0",
@@ -49,6 +67,24 @@
       "side": 1,
       "message": "I don\u0027t want you to document every header.  Most of them look correct;  I\u0027ve tried to only call out the headers that don\u0027t look correct, are adding a lot of repeated boilerplate or are disobeying the coding standard.",
       "parentUuid": "6e55b4d1_db60cdf0",
+      "revId": "1e18c32bcda6fc7cbeb2f8fd9f73c03534971057",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "81916280_d82eb8ad",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-11T01:22:25Z",
+      "side": 1,
+      "message": "Done. Replied all comments.",
+      "parentUuid": "ac14e8b9_ea93c23f",
       "revId": "1e18c32bcda6fc7cbeb2f8fd9f73c03534971057",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
