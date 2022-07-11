@@ -115,6 +115,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "80c130d8_35243327",
+        "filename": "http/ut/router_test.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-11T17:23:43Z",
+      "side": 1,
+      "message": "My suggestion used IWYU pragma, so I don\u0027t quite understand your answer.  I\u0027m suggesting that we shouldn\u0027t include headers that the test harness documentation itself (gtest in this case) doesn\u0027t recommend.",
+      "parentUuid": "915be3b5_b0d25446",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 45
+      },
+      "revId": "cbd7832c563a78a91d72b98fb46a374e3acc77d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cb564c45_06fb710f",
         "filename": "http/ut/router_test.cpp",
         "patchSetId": 5
@@ -198,6 +222,30 @@
       "side": 1,
       "message": "I made \"gtest/gtest_pred_impl.h\" consistent to \"\" which is what iwyu includes.\n\nI don\u0027t know why it\u0027s \"\" in the first place.",
       "parentUuid": "7e19c341_b5be2298",
+      "range": {
+        "startLine": 23,
+        "startChar": 27,
+        "endLine": 23,
+        "endChar": 28
+      },
+      "revId": "cbd7832c563a78a91d72b98fb46a374e3acc77d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a83ec29f_c9bd5c19",
+        "filename": "http/ut/router_test.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-11T17:23:43Z",
+      "side": 1,
+      "message": "Should we figure out why before we check this in?",
+      "parentUuid": "1c1c7c30_85d7ca8c",
       "range": {
         "startLine": 23,
         "startChar": 27,
@@ -554,6 +602,30 @@
       "side": 1,
       "message": "../include/openbmc_dbus_rest.hpp should add these lines:\n#include \u003cboost/type_index/type_index_facade.hpp\u003e     // for operator\u003d\u003d\n\nBriefly reading from https://www.boost.org/doc/libs/1_79_0/doc/html/boost_typeindex_header_reference.html#header.boost.type_index.type_index_facade_hpp, seems to me it\u0027s valid to include this header and it\u0027s private. I also didn\u0027t find an issue about this header in iwyu.\n\nI kept it. Please reopen if this doesn\u0027t make sense.",
       "parentUuid": "2555f2dc_0b0349c0",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 49
+      },
+      "revId": "cbd7832c563a78a91d72b98fb46a374e3acc77d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29269b0c_22cf210b",
+        "filename": "include/openbmc_dbus_rest.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-11T17:23:43Z",
+      "side": 1,
+      "message": "operator\u003d\u003d in what namespace?  I\u0027d like to understand this before this checks in.  If we don\u0027t understand the changes being made, we won\u0027t be able to enforce that they\u0027re correct on future code reviews, thats why this is important.",
+      "parentUuid": "abda0a8c_e08045f3",
       "range": {
         "startLine": 40,
         "startChar": 0,
