@@ -1,15 +1,40 @@
 #pragma once
+#include "bmcweb_config.h"
+
 #include "app.hpp"
 #include "async_resp.hpp"
 #include "error_messages.hpp"
 #include "http_request.hpp"
-#include "routing.hpp"
+#include "http_response.hpp"
+#include "logging.hpp"
 
+#include <sys/types.h>
+
+#include <boost/beast/http/message.hpp> // IWYU pragma: keep
+#include <boost/beast/http/status.hpp>
+#include <boost/beast/http/verb.hpp>
+#include <boost/url/params_view.hpp>
+#include <boost/url/string.hpp>
+#include <nlohmann/json.hpp>
+
+#include <algorithm>
 #include <charconv>
+#include <cstdint>
+#include <functional>
+#include <limits>
+#include <map>
+#include <memory>
+#include <optional>
 #include <string>
 #include <string_view>
+#include <system_error>
 #include <utility>
 #include <vector>
+
+// IWYU pragma: no_include <boost/url/impl/params_view.hpp>
+// IWYU pragma: no_include <boost/beast/http/impl/message.hpp>
+// IWYU pragma: no_include <boost/intrusive/detail/list_iterator.hpp>
+// IWYU pragma: no_include <stdint.h>
 
 namespace redfish
 {
