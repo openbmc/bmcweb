@@ -237,6 +237,30 @@
       },
       "revId": "c78ce8b75a4816e8856b7897cd3315e9808d5800",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "caff9d81_20f652e3",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 877,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-11T20:59:03Z",
+      "side": 1,
+      "message": "I realized that insertion doesn\u0027t work unless we make significant code changes. Currently we need ptr of DIMMs to be stable.",
+      "parentUuid": "af9f6905_ee440f66",
+      "range": {
+        "startLine": 877,
+        "startChar": 8,
+        "endLine": 877,
+        "endChar": 79
+      },
+      "revId": "c78ce8b75a4816e8856b7897cd3315e9808d5800",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
