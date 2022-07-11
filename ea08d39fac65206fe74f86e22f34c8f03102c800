@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bc749983_9d23f772",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 79
+      },
+      "lineNbr": 698,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-11T20:45:43Z",
+      "side": 1,
+      "message": "super nit: the inner bracket can be removed. \n\n```\nstatus \u003d\u003d \"abc\" || status \u003d\u003d \"def\"\n```",
+      "range": {
+        "startLine": 698,
+        "startChar": 8,
+        "endLine": 698,
+        "endChar": 9
+      },
+      "revId": "ea08d39fac65206fe74f86e22f34c8f03102c800",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c39731b1_14ea4b13",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 79
+      },
+      "lineNbr": 705,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-11T20:45:43Z",
+      "side": 1,
+      "message": "ditto. can use string comparison.",
+      "range": {
+        "startLine": 705,
+        "startChar": 15,
+        "endLine": 705,
+        "endChar": 21
+      },
+      "revId": "ea08d39fac65206fe74f86e22f34c8f03102c800",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a58b95d2_692823f5",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 79
+      },
+      "lineNbr": 719,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-11T20:45:43Z",
+      "side": 1,
+      "message": "We can remove this need of .first or .second by using \n\n```\nfor (auto const\u0026 [key, value] : values)\n```",
+      "range": {
+        "startLine": 719,
+        "startChar": 12,
+        "endLine": 719,
+        "endChar": 21
+      },
+      "revId": "ea08d39fac65206fe74f86e22f34c8f03102c800",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
