@@ -89,6 +89,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "915be3b5_b0d25446",
+        "filename": "http/ut/router_test.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-11T01:20:51Z",
+      "side": 1,
+      "message": "I prefer just using IWYU pragma. Done.",
+      "parentUuid": "5c2166d7_4a7d5453",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 45
+      },
+      "revId": "cbd7832c563a78a91d72b98fb46a374e3acc77d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cb564c45_06fb710f",
@@ -160,6 +184,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1c1c7c30_85d7ca8c",
+        "filename": "http/ut/router_test.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-11T01:20:51Z",
+      "side": 1,
+      "message": "I made \"gtest/gtest_pred_impl.h\" consistent to \"\" which is what iwyu includes.\n\nI don\u0027t know why it\u0027s \"\" in the first place.",
+      "parentUuid": "7e19c341_b5be2298",
+      "range": {
+        "startLine": 23,
+        "startChar": 27,
+        "endLine": 23,
+        "endChar": 28
+      },
+      "revId": "cbd7832c563a78a91d72b98fb46a374e3acc77d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bd995e84_be4af4ac",
@@ -221,6 +269,30 @@
       "side": 1,
       "message": "No, we don\u0027t need a reason for each header, but we generally shouldn\u0027t be including gcc specific headers, because the coding standard says to avoid implementation specific headers, so I\u0027d like to at least understand it.  I suspect this is a case where we need another pragma.",
       "parentUuid": "bd995e84_be4af4ac",
+      "range": {
+        "startLine": 21,
+        "startChar": 14,
+        "endLine": 21,
+        "endChar": 28
+      },
+      "revId": "cbd7832c563a78a91d72b98fb46a374e3acc77d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3b07599a_d9c1ee0a",
+        "filename": "include/openbmc_dbus_rest.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-11T01:20:51Z",
+      "side": 1,
+      "message": "https://github.com/include-what-you-use/include-what-you-use/issues/166\n\nI have muted it.",
+      "parentUuid": "0482b2fb_05187674",
       "range": {
         "startLine": 21,
         "startChar": 14,
@@ -373,6 +445,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b64563ff_9f2a73fb",
+        "filename": "include/openbmc_dbus_rest.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-11T01:20:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8378a154_e38c80be",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 37
+      },
+      "revId": "cbd7832c563a78a91d72b98fb46a374e3acc77d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "aedb5f37_bb3d5f3c",
@@ -444,6 +540,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "abda0a8c_e08045f3",
+        "filename": "include/openbmc_dbus_rest.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-11T01:20:51Z",
+      "side": 1,
+      "message": "../include/openbmc_dbus_rest.hpp should add these lines:\n#include \u003cboost/type_index/type_index_facade.hpp\u003e     // for operator\u003d\u003d\n\nBriefly reading from https://www.boost.org/doc/libs/1_79_0/doc/html/boost_typeindex_header_reference.html#header.boost.type_index.type_index_facade_hpp, seems to me it\u0027s valid to include this header and it\u0027s private. I also didn\u0027t find an issue about this header in iwyu.\n\nI kept it. Please reopen if this doesn\u0027t make sense.",
+      "parentUuid": "2555f2dc_0b0349c0",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 49
+      },
+      "revId": "cbd7832c563a78a91d72b98fb46a374e3acc77d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "30ad074b_9038ba44",
@@ -505,6 +625,30 @@
       "side": 1,
       "message": "\u003e The the catch blocks can be deleted, because findRemainingObjectsForEnumerate does not throw.\n\nIt actually can, and if you remove the try catch blocks, clang-tidy-bugprone-exception-escape will fail.  I\u0027ve never been able to figure out why it throws, because you\u0027re right, the code doesn\u0027t look like it should.\n\n\u003e I assume it is the try catch blocks\n\nTry catch blocks are part of the language, they shouldn\u0027t need to #include \u003cexception\u003e to use.\n\nhttps://en.cppreference.com/w/cpp/header/exception\n\nThat\u0027s everything in \u003cexception\u003e, and it\u0027s possible i missed something, but nothing from that file looks like its in here?",
       "parentUuid": "de17a522_6ffe5773",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 20
+      },
+      "revId": "cbd7832c563a78a91d72b98fb46a374e3acc77d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6695d98b_f85bb056",
+        "filename": "include/openbmc_dbus_rest.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-11T01:20:51Z",
+      "side": 1,
+      "message": "IWYU said\n\n```\n../include/openbmc_dbus_rest.hpp should add these lines:\n#include \u003cexception\u003e                                  // for exception\n```\n\nBut there\u0027s no exception reference. This seems to me yet another false positive.\n\nMuted for now.",
+      "parentUuid": "058cf095_5f74d3a7",
       "range": {
         "startLine": 55,
         "startChar": 0,

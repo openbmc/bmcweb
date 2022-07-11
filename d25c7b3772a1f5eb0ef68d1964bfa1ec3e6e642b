@@ -71,6 +71,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "19c08145_bad3234d",
+        "filename": "http/ut/router_test.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-11T01:20:51Z",
+      "side": 1,
+      "message": "Done. Yes, these headers don\u0027t make sense to me. I don\u0027t see them added in the internal version of iwyu.",
+      "parentUuid": "80a2e4e7_af9545f6",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 34
+      },
+      "revId": "d25c7b3772a1f5eb0ef68d1964bfa1ec3e6e642b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "62faeb98_37477c79",
@@ -84,6 +108,30 @@
       "writtenOn": "2022-07-07T01:56:22Z",
       "side": 1,
       "message": "We don\u0027t want to forward declare this I don\u0027t think?",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 21
+      },
+      "revId": "d25c7b3772a1f5eb0ef68d1964bfa1ec3e6e642b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4d7f2a86_3d91a0f7",
+        "filename": "http/ut/router_test.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-11T01:20:51Z",
+      "side": 1,
+      "message": "I didn\u0027t dig into why iwyu thought this forward declaration is necessary. What\u0027s interesting is that it suggests removing \"async_resp.hpp\" and forward declaring AsyncResp.\n\nFor now, I used pragma to mute this.",
+      "parentUuid": "62faeb98_37477c79",
       "range": {
         "startLine": 17,
         "startChar": 0,
