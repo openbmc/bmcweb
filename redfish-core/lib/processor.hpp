@@ -230,7 +230,7 @@ inline void getCpuDataByService(std::shared_ptr<bmcweb::AsyncResp> aResp,
             {
                 getCpuDataByInterface(aResp, object.second);
             }
-            else if (boost::starts_with(object.first.str, corePath))
+            else if (object.first.str.starts_with(corePath))
             {
                 for (const auto& interface : object.second)
                 {
@@ -700,7 +700,7 @@ inline void getProcessorObject(const std::shared_ptr<bmcweb::AsyncResp>& resp,
         for (const auto& [objectPath, serviceMap] : subtree)
         {
             // Ignore any objects which don't end with our desired cpu name
-            if (!boost::ends_with(objectPath, processorId))
+            if (!objectPath.ends_with(processorId))
             {
                 continue;
             }
@@ -1014,7 +1014,7 @@ inline void patchAppliedOperatingConfig(
     std::string expectedPrefix("/redfish/v1/Systems/system/Processors/");
     expectedPrefix += processorId;
     expectedPrefix += "/OperatingConfigs/";
-    if (!boost::starts_with(appliedConfigUri, expectedPrefix) ||
+    if (!appliedConfigUri.starts_with(expectedPrefix) ||
         expectedPrefix.size() == appliedConfigUri.size())
     {
         messages::propertyValueIncorrect(
@@ -1078,7 +1078,7 @@ inline void requestRoutesOperatingConfigCollection(App& app)
 
             for (const std::string& object : objects)
             {
-                if (!boost::ends_with(object, cpuName))
+                if (!object.ends_with(cpuName))
                 {
                     continue;
                 }
@@ -1138,8 +1138,7 @@ inline void requestRoutesOperatingConfig(App& app)
             for (const auto& [objectPath, serviceMap] : subtree)
             {
                 // Ignore any configs without matching cpuX/configY
-                if (!boost::ends_with(objectPath, expectedEnding) ||
-                    serviceMap.empty())
+                if (!objectPath.ends_with(expectedEnding) || serviceMap.empty())
                 {
                     continue;
                 }

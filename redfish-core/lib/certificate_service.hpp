@@ -318,15 +318,14 @@ inline void requestRoutesCertificateActionGenerateCSR(App& app)
 
         std::string objectPath;
         std::string service;
-        if (boost::starts_with(
-                certURI,
+        if (certURI.starts_with(
                 "/redfish/v1/Managers/bmc/NetworkProtocol/HTTPS/Certificates"))
         {
             objectPath = certs::httpsObjectPath;
             service = certs::httpsServiceName;
         }
-        else if (boost::starts_with(
-                     certURI, "/redfish/v1/AccountService/LDAP/Certificates"))
+        else if (certURI.starts_with(
+                     "/redfish/v1/AccountService/LDAP/Certificates"))
         {
             objectPath = certs::ldapObjectPath;
             service = certs::ldapServiceName;
@@ -358,8 +357,7 @@ inline void requestRoutesCertificateActionGenerateCSR(App& app)
         }
 
         // validate KeyUsage supporting only 1 type based on URL
-        if (boost::starts_with(
-                certURI,
+        if (certURI.starts_with(
                 "/redfish/v1/Managers/bmc/NetworkProtocol/HTTPS/Certificates"))
         {
             if (optKeyUsage->empty())
@@ -382,8 +380,8 @@ inline void requestRoutesCertificateActionGenerateCSR(App& app)
                 return;
             }
         }
-        else if (boost::starts_with(
-                     certURI, "/redfish/v1/AccountService/LDAP/Certificates"))
+        else if (certURI.starts_with(
+                     "/redfish/v1/AccountService/LDAP/Certificates"))
         {
             if (optKeyUsage->empty())
             {
@@ -799,8 +797,7 @@ inline void requestRoutesCertificateActionsReplaceCertificate(App& app)
         std::string objectPath;
         std::string name;
         std::string service;
-        if (boost::starts_with(
-                certURI,
+        if (certURI.starts_with(
                 "/redfish/v1/Managers/bmc/NetworkProtocol/HTTPS/Certificates/"))
         {
             objectPath =
@@ -808,16 +805,15 @@ inline void requestRoutesCertificateActionsReplaceCertificate(App& app)
             name = "HTTPS certificate";
             service = certs::httpsServiceName;
         }
-        else if (boost::starts_with(
-                     certURI, "/redfish/v1/AccountService/LDAP/Certificates/"))
+        else if (certURI.starts_with(
+                     "/redfish/v1/AccountService/LDAP/Certificates/"))
         {
             objectPath =
                 std::string(certs::ldapObjectPath) + "/" + std::to_string(id);
             name = "LDAP certificate";
             service = certs::ldapServiceName;
         }
-        else if (boost::starts_with(
-                     certURI,
+        else if (certURI.starts_with(
                      "/redfish/v1/Managers/bmc/Truststore/Certificates/"))
         {
             objectPath = std::string(certs::authorityObjectPath) + "/" +
