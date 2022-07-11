@@ -1,8 +1,20 @@
 #pragma once
-#include "http_request.hpp"
 
 #include <boost/algorithm/string/classification.hpp>
+#include <boost/algorithm/string/constants.hpp>
 #include <boost/algorithm/string/split.hpp>
+#include <boost/iterator/iterator_facade.hpp>
+#include <boost/type_index/type_index_facade.hpp>
+
+#include <cctype>
+#include <iomanip>
+#include <ostream>
+#include <string>
+#include <string_view>
+#include <vector>
+
+// IWYU pragma: no_include <ctype.h>
+// IWYU pragma: no_include <boost/algorithm/string/detail/classification.hpp>
 
 namespace http_helpers
 {

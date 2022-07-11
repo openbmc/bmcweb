@@ -1,7 +1,18 @@
 #include "app.hpp"
+#include "routing.hpp"
 
-#include "gmock/gmock.h"
-#include "gtest/gtest.h"
+#include <boost/beast/http/status.hpp>
+
+#include <memory>
+
+#include <gmock/gmock-matchers.h>
+#include <gmock/gmock-more-matchers.h>
+#include <gtest/gtest-matchers.h>
+#include <gtest/gtest.h> // IWYU pragma: keep
+
+// IWYU pragma: no_include <gtest/gtest-message.h>
+// IWYU pragma: no_include <gtest/gtest-test-part.h>
+// IWYU pragma: no_include "gtest/gtest_pred_impl.h"
 
 namespace crow
 {
