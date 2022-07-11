@@ -1,10 +1,23 @@
+#include "http_request.hpp"
+#include "http_response.hpp"
 #include "utils/json_utils.hpp"
 
+#include <boost/beast/http/status.hpp>
+#include <nlohmann/json.hpp>
+
+#include <cstdint>
+#include <optional>
 #include <string>
+#include <system_error>
 #include <vector>
 
-#include <gmock/gmock.h>
-#include <gtest/gtest.h>
+#include <gmock/gmock.h> // IWYU pragma: keep
+#include <gtest/gtest.h> // IWYU pragma: keep
+
+// IWYU pragma: no_include <gtest/gtest-message.h>
+// IWYU pragma: no_include <gtest/gtest-test-part.h>
+// IWYU pragma: no_include "gtest/gtest_pred_impl.h"
+// IWYU pragma: no_include <boost/intrusive/detail/list_iterator.hpp>
 
 namespace redfish::json_util
 {
