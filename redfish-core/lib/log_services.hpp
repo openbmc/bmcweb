@@ -30,7 +30,7 @@
 #include <boost/algorithm/string/classification.hpp>
 #include <boost/algorithm/string/replace.hpp>
 #include <boost/algorithm/string/split.hpp>
-#include <boost/beast/http.hpp>
+#include <boost/beast/http/verb.hpp>
 #include <boost/container/flat_map.hpp>
 #include <boost/system/linux_error.hpp>
 #include <dbus_utility.hpp>
