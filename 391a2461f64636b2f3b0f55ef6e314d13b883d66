@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "20ba3a9f_5d742f54",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-11T15:27:14Z",
+      "side": 1,
+      "message": "Why is this a std::function.  No uses of it seem to rely on any captures.  Also, we generally try to avoid non-const global variables.  Can this just be a normal function?",
+      "range": {
+        "startLine": 56,
+        "startChar": 0,
+        "endLine": 58,
+        "endChar": 0
+      },
+      "revId": "391a2461f64636b2f3b0f55ef6e314d13b883d66",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "775ff2a3_c938f002",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 400,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-11T15:27:14Z",
+      "side": 1,
+      "message": "Please just keep the same variable name.  Also, both of these are copies, so you would just write\n\n[id, retryPolicy]",
+      "range": {
+        "startLine": 400,
+        "startChar": 13,
+        "endLine": 400,
+        "endChar": 22
+      },
+      "revId": "391a2461f64636b2f3b0f55ef6e314d13b883d66",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9556faa3_bf891d89",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 411,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-11T15:27:14Z",
+      "side": 1,
+      "message": "can we do this branch earlier in the code to avoid attaching the callback at all if the retry policy doesn\u0027t match this?",
+      "range": {
+        "startLine": 411,
+        "startChar": 0,
+        "endLine": 411,
+        "endChar": 59
+      },
+      "revId": "391a2461f64636b2f3b0f55ef6e314d13b883d66",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
