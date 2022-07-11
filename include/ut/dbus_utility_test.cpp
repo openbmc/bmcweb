@@ -2,7 +2,11 @@
 
 #include <string>
 
-#include <gtest/gtest.h>
+#include <gtest/gtest.h> // IWYU pragma: keep
+
+// IWYU pragma: no_include <gtest/gtest-message.h>
+// IWYU pragma: no_include <gtest/gtest-test-part.h>
+// IWYU pragma: no_include "gtest/gtest_pred_impl.h"
 
 namespace dbus::utility
 {

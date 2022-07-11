@@ -8,11 +8,15 @@
 #include <cmath>
 #include <compare>
 #include <cstddef>
+#include <cstdint>
 #include <optional>
 #include <ratio>
 #include <string>
 #include <string_view>
 #include <system_error>
+
+// IWYU pragma: no_include <stddef.h>
+// IWYU pragma: no_include <stdint.h>
 
 namespace redfish
 {

@@ -1,13 +1,23 @@
 #include "http/http_request.hpp"
 #include "multipart_parser.hpp"
 
+#include <boost/beast/http/fields.hpp>
 #include <boost/beast/http/message.hpp>
 #include <boost/beast/http/string_body.hpp>
 
-#include <map>
+#include <memory>
+#include <string_view>
 #include <system_error>
+#include <vector>
 
-#include <gtest/gtest.h>
+#include <gtest/gtest.h> // IWYU pragma: keep
+
+// IWYU pragma: no_include <gtest/gtest-message.h>
+// IWYU pragma: no_include <gtest/gtest-test-part.h>
+// IWYU pragma: no_include "gtest/gtest_pred_impl.h"
+// IWYU pragma: no_include <boost/beast/http/impl/fields.hpp>
+// IWYU pragma: no_include <boost/intrusive/detail/list_iterator.hpp>
+// IWYU pragma: no_include <boost/intrusive/detail/tree_iterator.hpp>
 
 namespace
 {
