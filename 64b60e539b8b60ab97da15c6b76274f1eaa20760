@@ -48,6 +48,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6aa7b77e_3e5880dc",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 939,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-11T01:34:28Z",
+      "side": 1,
+      "message": "oh, missed the \"*\". Ack",
+      "parentUuid": "c3c0c81a_3ff1d814",
+      "range": {
+        "startLine": 939,
+        "startChar": 21,
+        "endLine": 939,
+        "endChar": 38
+      },
+      "revId": "64b60e539b8b60ab97da15c6b76274f1eaa20760",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "148ebd18_4f6a249e",
