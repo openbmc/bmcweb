@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d635b5db_5edbefd1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-11T01:32:13Z",
+      "side": 1,
+      "message": "Done. I removed urlFromPieces. Just refactored to inline string literals.",
+      "parentUuid": "601c2277_5342f5b8",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 10
+      },
+      "revId": "364abbc5dee7adc6132a74e093c841dcfff9ad1c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "76f5db40_a8d5d310",
@@ -88,6 +112,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6eee077c_54b9397c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-11T01:32:13Z",
+      "side": 1,
+      "message": "Yes, all of them are test on hardware.",
+      "parentUuid": "a8ad37af_da4b4f38",
+      "revId": "364abbc5dee7adc6132a74e093c841dcfff9ad1c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e688adf1_93fd2c4f",
@@ -101,6 +143,30 @@
       "writtenOn": "2022-07-07T02:16:53Z",
       "side": 1,
       "message": "There\u0027s no need to convert this to a string, nlohmann can encode boost::urls::url appropriately.",
+      "range": {
+        "startLine": 37,
+        "startChar": 4,
+        "endLine": 37,
+        "endChar": 15
+      },
+      "revId": "364abbc5dee7adc6132a74e093c841dcfff9ad1c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3ef8afa4_049e54e3",
+        "filename": "include/google/google_service_root.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-11T01:32:13Z",
+      "side": 1,
+      "message": "Done. I removed urlFromPieces. Just refactored to inline string literals.",
+      "parentUuid": "e688adf1_93fd2c4f",
       "range": {
         "startLine": 37,
         "startChar": 4,
