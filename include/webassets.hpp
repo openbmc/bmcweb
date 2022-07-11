@@ -79,7 +79,7 @@ inline void requestRoutes(App& app)
         if (std::filesystem::is_directory(dir))
         {
             // don't recurse into hidden directories or symlinks
-            if (boost::starts_with(dir.path().filename().string(), ".") ||
+            if (dir.path().filename().string().starts_with(".") ||
                 std::filesystem::is_symlink(dir))
             {
                 dirIter.disable_recursion_pending();
@@ -99,7 +99,7 @@ inline void requestRoutes(App& app)
                 contentEncoding = "gzip";
             }
 
-            if (boost::starts_with(webpath.filename().string(), "index."))
+            if (webpath.filename().string().starts_with("index."))
             {
                 webpath = webpath.parent_path();
                 if (webpath.string().empty() || webpath.string().back() != '/')

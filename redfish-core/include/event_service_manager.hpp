@@ -22,6 +22,8 @@
 
 #include <sys/inotify.h>
 
+#include <boost/algorithm/string/classification.hpp>
+#include <boost/algorithm/string/split.hpp>
 #include <boost/asio/io_context.hpp>
 #include <boost/container/flat_map.hpp>
 #include <dbus_utility.hpp>

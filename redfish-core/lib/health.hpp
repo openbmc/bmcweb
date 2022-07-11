@@ -18,7 +18,6 @@
 #include "async_resp.hpp"
 
 #include <app.hpp>
-#include <boost/algorithm/string/predicate.hpp>
 #include <dbus_singleton.hpp>
 #include <dbus_utility.hpp>
 #include <nlohmann/json.hpp>
@@ -73,7 +72,7 @@ struct HealthPopulate : std::enable_shared_from_this<HealthPopulate>
             if (selfPath)
             {
                 if (boost::equals(path.str, *selfPath) ||
-                    boost::starts_with(path.str, *selfPath + "/"))
+                    path.str.starts_with(*selfPath + "/"))
                 {
                     isSelf = true;
                 }
@@ -89,7 +88,7 @@ struct HealthPopulate : std::enable_shared_from_this<HealthPopulate>
 
                 for (const std::string& child : inventory)
                 {
-                    if (boost::starts_with(path.str, child))
+                    if (path.str.starts_with(child))
                     {
                         isChild = true;
                         break;
@@ -138,15 +137,15 @@ struct HealthPopulate : std::enable_shared_from_this<HealthPopulate>
                 }
             }
 
-            if (boost::starts_with(path.str, globalInventoryPath) &&
-                boost::ends_with(path.str, "critical"))
+            if (path.str.starts_with(globalInventoryPath) &&
+                path.str.ends_with("critical"))
             {
                 health = "Critical";
                 rollup = "Critical";
                 return;
             }
-            if (boost::starts_with(path.str, globalInventoryPath) &&
-                boost::ends_with(path.str, "warning"))
+            if (path.str.starts_with(globalInventoryPath) &&
+                path.str.ends_with("warning"))
             {
                 health = "Warning";
                 if (rollup != "Critical")
@@ -154,7 +153,7 @@ struct HealthPopulate : std::enable_shared_from_this<HealthPopulate>
                     rollup = "Warning";
                 }
             }
-            else if (boost::ends_with(path.str, "critical"))
+            else if (path.str.ends_with("critical"))
             {
                 rollup = "Critical";
                 if (isSelf)
@@ -163,7 +162,7 @@ struct HealthPopulate : std::enable_shared_from_this<HealthPopulate>
                     return;
                 }
             }
-            else if (boost::ends_with(path.str, "warning"))
+            else if (path.str.ends_with("warning"))
             {
                 if (rollup != "Critical")
                 {
@@ -224,8 +223,8 @@ struct HealthPopulate : std::enable_shared_from_this<HealthPopulate>
             self->statuses = resp;
             for (auto it = self->statuses.begin(); it != self->statuses.end();)
             {
-                if (boost::ends_with(it->first.str, "critical") ||
-                    boost::ends_with(it->first.str, "warning"))
+                if (it->first.str.ends_with("critical") ||
+                    it->first.str.ends_with("warning"))
                 {
                     it++;
                     continue;

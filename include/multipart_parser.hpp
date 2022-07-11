@@ -1,6 +1,5 @@
 #pragma once
 
-#include <boost/algorithm/string/predicate.hpp>
 #include <boost/beast/http/fields.hpp>
 #include <http_request.hpp>
 
@@ -58,8 +57,7 @@ class MultipartParser
         std::string_view contentType = req.getHeaderValue("content-type");
 
         const std::string boundaryFormat = "multipart/form-data; boundary=";
-        if (!boost::starts_with(req.getHeaderValue("content-type"),
-                                boundaryFormat))
+        if (!contentType.starts_with(boundaryFormat))
         {
             return ParserError::ERROR_BOUNDARY_FORMAT;
         }

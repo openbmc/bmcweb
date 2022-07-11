@@ -3,7 +3,6 @@
 #include "webroutes.hpp"
 
 #include <app.hpp>
-#include <boost/algorithm/string/predicate.hpp>
 #include <boost/container/flat_set.hpp>
 #include <common.hpp>
 #include <forward_unauthorized.hpp>
@@ -42,7 +41,7 @@ static std::shared_ptr<persistent_data::UserSession>
 {
     BMCWEB_LOG_DEBUG << "[AuthMiddleware] Basic authentication";
 
-    if (!boost::starts_with(authHeader, "Basic "))
+    if (!authHeader.starts_with("Basic "))
     {
         return nullptr;
     }
@@ -97,7 +96,7 @@ static std::shared_ptr<persistent_data::UserSession>
     performTokenAuth(std::string_view authHeader)
 {
     BMCWEB_LOG_DEBUG << "[AuthMiddleware] Token authentication";
-    if (!boost::starts_with(authHeader, "Token "))
+    if (!authHeader.starts_with("Token "))
     {
         return nullptr;
     }

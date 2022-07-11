@@ -18,7 +18,6 @@
 #include "health.hpp"
 
 #include <app.hpp>
-#include <boost/algorithm/string.hpp>
 #include <dbus_utility.hpp>
 #include <nlohmann/json.hpp>
 #include <query.hpp>
@@ -383,7 +382,7 @@ inline void getPersistentMemoryProperties(
 
         for (const char* v : values)
         {
-            if (boost::ends_with(*value, v))
+            if (value->ends_with(v))
             {
                 aResp->res.jsonValue[jsonPtr]["OperatingMemoryModes"].push_back(
                     v);
@@ -405,7 +404,7 @@ inline void getPersistentMemoryProperties(
 
         for (const char* v : values)
         {
-            if (boost::ends_with(*value, v))
+            if (value->ends_with(v))
             {
                 aResp->res.jsonValue[jsonPtr]["MemoryMedia"].push_back(v);
                 break;
@@ -554,7 +553,7 @@ inline void
 
             for (const char* v : values)
             {
-                if (boost::ends_with(*value, v))
+                if (value->ends_with(v))
                 {
                     aResp->res.jsonValue[jsonPtr]["ErrorCorrection"] = v;
                     break;
@@ -578,7 +577,7 @@ inline void
 
             for (const char* v : values)
             {
-                if (boost::ends_with(*value, v))
+                if (value->ends_with(v))
                 {
                     aResp->res.jsonValue[jsonPtr]["BaseModuleType"] = v;
                     break;
@@ -642,7 +641,7 @@ inline void
                 {
                     aResp->res.jsonValue[jsonPtr]["MemoryType"] = "DRAM";
                 }
-                else if (boost::ends_with(*value, "Logical"))
+                else if (value->ends_with("Logical"))
                 {
                     aResp->res.jsonValue[jsonPtr]["MemoryType"] = "IntelOptane";
                 }

@@ -158,8 +158,8 @@ static void
                                 return !task::completed;
                             }
 
-                            if (boost::ends_with(*state, "Invalid") ||
-                                boost::ends_with(*state, "Failed"))
+                            if (state->ends_with("Invalid") ||
+                                state->ends_with("Failed"))
                             {
                                 taskData->state = "Exception";
                                 taskData->status = "Warning";
@@ -168,7 +168,7 @@ static void
                                 return task::completed;
                             }
 
-                            if (boost::ends_with(*state, "Staged"))
+                            if (state->ends_with("Staged"))
                             {
                                 taskData->state = "Stopping";
                                 taskData->messages.emplace_back(
@@ -183,7 +183,7 @@ static void
                                 return !task::completed;
                             }
 
-                            if (boost::ends_with(*state, "Active"))
+                            if (state->ends_with("Active"))
                             {
                                 taskData->messages.emplace_back(
                                     messages::taskCompletedOK(index));
@@ -924,7 +924,7 @@ inline void requestRoutesSoftwareInventory(App& app)
                                      std::string, std::vector<std::string>>>>&
                      obj : subtree)
             {
-                if (!boost::ends_with(obj.first, *swId))
+                if (!obj.first.ends_with(*swId))
                 {
                     continue;
                 }

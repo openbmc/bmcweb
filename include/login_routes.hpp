@@ -34,7 +34,7 @@ inline void requestRoutes(App& app)
         // within it are not destroyed before we can use them
         nlohmann::json loginCredentials;
         // Check if auth was provided by a payload
-        if (boost::starts_with(contentType, "application/json"))
+        if (contentType.starts_with("application/json"))
         {
             loginCredentials = nlohmann::json::parse(req.body, nullptr, false);
             if (loginCredentials.is_discarded())
@@ -116,7 +116,7 @@ inline void requestRoutes(App& app)
                 }
             }
         }
-        else if (boost::starts_with(contentType, "multipart/form-data"))
+        else if (contentType.starts_with("multipart/form-data"))
         {
             looksLikePhosphorRest = true;
             MultipartParser parser;
