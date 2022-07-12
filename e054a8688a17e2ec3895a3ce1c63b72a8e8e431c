@@ -385,6 +385,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "12aa161c_8129fa5b",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 416,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-07-12T17:34:58Z",
+      "side": 1,
+      "message": "I\u0027m alright with removing the return here, but it\u0027s because I\u0027ve found that the return statement in the code without SSL enabled can break the flow in certain situations.",
+      "parentUuid": "9f16fdff_fa9d4fcc",
+      "range": {
+        "startLine": 410,
+        "startChar": 16,
+        "endLine": 416,
+        "endChar": 17
+      },
+      "revId": "e054a8688a17e2ec3895a3ce1c63b72a8e8e431c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a4feda30_88dca32f",
@@ -518,6 +542,30 @@
       "parentUuid": "86728782_d7ebf1bb",
       "range": {
         "startLine": 825,
+        "startChar": 8,
+        "endLine": 826,
+        "endChar": 73
+      },
+      "revId": "e054a8688a17e2ec3895a3ce1c63b72a8e8e431c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f67e96a9_0a42bef3",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 826,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-07-12T17:34:58Z",
+      "side": 1,
+      "message": "Sorry, I\u0027m not sure how I ended up flagging this same thing twice without realizing it.",
+      "parentUuid": "f8f0dcd3_ecd41d15",
+      "range": {
+        "startLine": 823,
         "startChar": 8,
         "endLine": 826,
         "endChar": 73

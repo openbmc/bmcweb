@@ -353,6 +353,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d90186b6_923047f3",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 583,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-07-12T17:34:58Z",
+      "side": 1,
+      "message": "+1 on the bool needing to be per connection instead of the pool as a whole.  Account for this in the testing.\n\n\u003e Do we need another vector of httpsConnections similar to the http connection poll we have on 584?\nIs it common to have separate pools for http and https?  Also at that point we\u0027d effectively have 8 connections to a single destination.  We had a discussion around limiting the pool size back on the refactoring CL https://gerrit.openbmc.org/c/openbmc/bmcweb/+/52281/comments/56c205dc_6fa6f52e",
+      "parentUuid": "09060fca_d5151bb2",
+      "range": {
+        "startLine": 583,
+        "startChar": 0,
+        "endLine": 583,
+        "endChar": 22
+      },
+      "revId": "d739445adffb056cbb753730656f80ccc367b010",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a26b0535_265df071",
         "filename": "http/http_client.hpp",
         "patchSetId": 5
@@ -376,6 +400,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "399374bc_22930e3a",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 651,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-07-12T17:34:58Z",
+      "side": 1,
+      "message": "You first need to make sure the next message in the queue matches the current connection in terms of using SSL.  If they do not then you need to ignore if the server is keepAlive and close the connection before reconfiguring the connection and sending the next message.",
+      "range": {
+        "startLine": 639,
+        "startChar": 12,
+        "endLine": 651,
+        "endChar": 13
+      },
+      "revId": "d739445adffb056cbb753730656f80ccc367b010",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f49dc36a_4dfb482d",
         "filename": "http/http_client.hpp",
         "patchSetId": 5
@@ -392,6 +439,52 @@
         "startChar": 0,
         "endLine": 669,
         "endChar": 38
+      },
+      "revId": "d739445adffb056cbb753730656f80ccc367b010",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e9e1133_2df87256",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 731,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-07-12T17:34:58Z",
+      "side": 1,
+      "message": "This is where you need to make sure the message and existing connection agree in terms of using SSL.  If they do not then you need to reconfigure the connection.  \n\nIf the connection is idle then you need to make sure you close it first",
+      "range": {
+        "startLine": 708,
+        "startChar": 0,
+        "endLine": 731,
+        "endChar": 13
+      },
+      "revId": "d739445adffb056cbb753730656f80ccc367b010",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6e73ce50_a921c59a",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 743,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-07-12T17:34:58Z",
+      "side": 1,
+      "message": "You don\u0027t need to use move since this is a bool",
+      "range": {
+        "startLine": 743,
+        "startChar": 12,
+        "endLine": 743,
+        "endChar": 47
       },
       "revId": "d739445adffb056cbb753730656f80ccc367b010",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
