@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b60e1c88_2f4b7eea",
+        "filename": "include/ibm/locks.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-12T20:16:25Z",
+      "side": 1,
+      "message": "it\u0027s related, although non obvious why.  boost/algorithm/string.hpp #includes variant, but boost/algorithm/string/predicate.hpp does not.  THis file uses std::visit, and didn\u0027t follow IWYU, so we need to add the include back for the #include on line 3 to build.",
+      "parentUuid": "b748e1ea_5cabebb1",
+      "revId": "fcda0d935260b8c6c08f3949212ce742e07ca9ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "de5942a0_ed77def8",
         "filename": "include/openbmc_dbus_rest.hpp",
         "patchSetId": 1
