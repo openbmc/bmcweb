@@ -94,6 +94,81 @@ TEST(Utility, GetDateTimeStdtime)
               "1970-01-01T00:00:00+00:00");
 }
 
+TEST(Utility, GetDateTime)
+{
+    EXPECT_EQ(details::getDateTime(
+                  boost::posix_time::microseconds(1638312095123456), 0),
+              "2021-11-30T22:41:35+00:00");
+    EXPECT_EQ(details::getDateTime(
+                  boost::posix_time::microseconds(1638312095123456), 1),
+              "2021-11-30T22:41:35.1+00:00");
+    EXPECT_EQ(details::getDateTime(
+                  boost::posix_time::microseconds(1638312095123456), 2),
+              "2021-11-30T22:41:35.12+00:00");
+    EXPECT_EQ(details::getDateTime(
+                  boost::posix_time::microseconds(1638312095123456), 3),
+              "2021-11-30T22:41:35.123+00:00");
+    EXPECT_EQ(details::getDateTime(
+                  boost::posix_time::microseconds(1638312095123456), 4),
+              "2021-11-30T22:41:35.1234+00:00");
+    EXPECT_EQ(details::getDateTime(
+                  boost::posix_time::microseconds(1638312095123456), 5),
+              "2021-11-30T22:41:35.12345+00:00");
+    EXPECT_EQ(details::getDateTime(
+                  boost::posix_time::microseconds(1638312095123456), 6),
+              "2021-11-30T22:41:35.123456+00:00");
+    // Max 6 fraction digits
+    EXPECT_EQ(details::getDateTime(
+                  boost::posix_time::microseconds(1638312095123456), 7),
+              "2021-11-30T22:41:35.123456+00:00");
+
+    EXPECT_EQ(details::getDateTime(
+                  boost::posix_time::microseconds(1638312095000000), 0),
+              "2021-11-30T22:41:35+00:00");
+    EXPECT_EQ(details::getDateTime(
+                  boost::posix_time::microseconds(1638312095000000), 1),
+              "2021-11-30T22:41:35.0+00:00");
+    EXPECT_EQ(details::getDateTime(
+                  boost::posix_time::microseconds(1638312095000000), 2),
+              "2021-11-30T22:41:35.00+00:00");
+    EXPECT_EQ(details::getDateTime(
+                  boost::posix_time::microseconds(1638312095000000), 3),
+              "2021-11-30T22:41:35.000+00:00");
+    EXPECT_EQ(details::getDateTime(
+                  boost::posix_time::microseconds(1638312095000000), 4),
+              "2021-11-30T22:41:35.0000+00:00");
+    EXPECT_EQ(details::getDateTime(
+                  boost::posix_time::microseconds(1638312095000000), 5),
+              "2021-11-30T22:41:35.00000+00:00");
+    EXPECT_EQ(details::getDateTime(
+                  boost::posix_time::microseconds(1638312095000000), 6),
+              "2021-11-30T22:41:35.000000+00:00");
+    // Max 6 fraction digits
+    EXPECT_EQ(details::getDateTime(
+                  boost::posix_time::microseconds(1638312095000000), 7),
+              "2021-11-30T22:41:35.000000+00:00");
+
+    // returns the maximum Redfish date
+    EXPECT_EQ(details::getDateTime(
+                  boost::posix_time::microseconds(details::maxMicroSeconds), 0),
+              "9999-12-31T23:59:59+00:00");
+    EXPECT_EQ(details::getDateTime(
+                  boost::posix_time::microseconds(details::maxMicroSeconds), 3),
+              "9999-12-31T23:59:59.999+00:00");
+    EXPECT_EQ(details::getDateTime(
+                  boost::posix_time::microseconds(details::maxMicroSeconds), 6),
+              "9999-12-31T23:59:59.999999+00:00");
+    // returns the minimum Redfish date
+    EXPECT_EQ(details::getDateTime(boost::posix_time::microseconds(
+                                       std::numeric_limits<uint64_t>::min()),
+                                   0),
+              "1970-01-01T00:00:00+00:00");
+    EXPECT_EQ(details::getDateTime(boost::posix_time::microseconds(
+                                       std::numeric_limits<uint64_t>::min()),
+                                   6),
+              "1970-01-01T00:00:00.000000+00:00");
+}
+
 TEST(Utility, GetDateTimeUint)
 {
     EXPECT_EQ(getDateTimeUint(uint64_t{1638312095}),
@@ -117,9 +192,22 @@ TEST(Utility, GetDateTimeUintMs)
 {
     // returns the maximum Redfish date
     EXPECT_EQ(getDateTimeUintMs(std::numeric_limits<uint64_t>::max()),
-              "9999-12-31T23:59:59.999000+00:00");
+              "9999-12-31T23:59:59.999+00:00");
     EXPECT_EQ(getDateTimeUintMs(std::numeric_limits<uint64_t>::min()),
-              "1970-01-01T00:00:00+00:00");
+              "1970-01-01T00:00:00.000+00:00");
+    EXPECT_EQ(getDateTimeUintMs(253402300799000),
+              "9999-12-31T23:59:59.000+00:00");
+}
+
+TEST(Utility, GetDateTimeUintUs)
+{
+    // returns the maximum Redfish date
+    EXPECT_EQ(getDateTimeUintUs(std::numeric_limits<uint64_t>::max()),
+              "9999-12-31T23:59:59.999999+00:00");
+    EXPECT_EQ(getDateTimeUintUs(std::numeric_limits<uint64_t>::min()),
+              "1970-01-01T00:00:00.000000+00:00");
+    EXPECT_EQ(getDateTimeUintUs(253402300799000000),
+              "9999-12-31T23:59:59.000000+00:00");
 }
 
 TEST(Utility, UrlFromPieces)
