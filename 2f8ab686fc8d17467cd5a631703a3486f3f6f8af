@@ -43,6 +43,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6e1c1f9d_3757e13b",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 968,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-12T22:13:47Z",
+      "side": 1,
+      "message": "This comment is not needed since codes are explained.",
+      "range": {
+        "startLine": 968,
+        "startChar": 11,
+        "endLine": 968,
+        "endChar": 62
+      },
+      "revId": "2f8ab686fc8d17467cd5a631703a3486f3f6f8af",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "caaf9b6f_d3972e38",
         "filename": "redfish-core/lib/ethernet.hpp",
         "patchSetId": 2
@@ -60,6 +83,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d575a1f4_c0a11764",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 971,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-12T22:13:47Z",
+      "side": 1,
+      "message": "+1. Please take a look at other codes.",
+      "parentUuid": "caaf9b6f_d3972e38",
+      "revId": "2f8ab686fc8d17467cd5a631703a3486f3f6f8af",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "554985f6_0b7f90e5",
         "filename": "redfish-core/lib/ethernet.hpp",
         "patchSetId": 2
@@ -71,6 +112,30 @@
       "writtenOn": "2022-07-11T17:27:52Z",
       "side": 1,
       "message": "This is basically the same call as getCollectionMembers;  Should we be using that instead?",
+      "range": {
+        "startLine": 982,
+        "startChar": 41,
+        "endLine": 982,
+        "endChar": 58
+      },
+      "revId": "2f8ab686fc8d17467cd5a631703a3486f3f6f8af",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f622ec0_a10da938",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 982,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-12T22:13:47Z",
+      "side": 1,
+      "message": "getCollectionMembers doesn\u0027t take a callback though.",
+      "parentUuid": "554985f6_0b7f90e5",
       "range": {
         "startLine": 982,
         "startChar": 41,
