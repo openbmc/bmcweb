@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f86ea438_827264de",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 79
+      },
+      "lineNbr": 698,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2022-07-12T06:41:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bc749983_9d23f772",
+      "range": {
+        "startLine": 698,
+        "startChar": 8,
+        "endLine": 698,
+        "endChar": 9
+      },
+      "revId": "ea08d39fac65206fe74f86e22f34c8f03102c800",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c39731b1_14ea4b13",
@@ -47,6 +71,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "42bc36dc_933a18d5",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 79
+      },
+      "lineNbr": 705,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2022-07-12T06:41:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c39731b1_14ea4b13",
+      "range": {
+        "startLine": 705,
+        "startChar": 15,
+        "endLine": 705,
+        "endChar": 21
+      },
+      "revId": "ea08d39fac65206fe74f86e22f34c8f03102c800",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a58b95d2_692823f5",
@@ -60,6 +108,30 @@
       "writtenOn": "2022-07-11T20:45:43Z",
       "side": 1,
       "message": "We can remove this need of .first or .second by using \n\n```\nfor (auto const\u0026 [key, value] : values)\n```",
+      "range": {
+        "startLine": 719,
+        "startChar": 12,
+        "endLine": 719,
+        "endChar": 21
+      },
+      "revId": "ea08d39fac65206fe74f86e22f34c8f03102c800",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "00b9259d_5048baaa",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 79
+      },
+      "lineNbr": 719,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2022-07-12T06:41:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a58b95d2_692823f5",
       "range": {
         "startLine": 719,
         "startChar": 12,
