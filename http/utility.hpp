@@ -10,7 +10,6 @@
 
 #include <array>
 #include <chrono>
-#include <cstddef>
 #include <cstdint>
 #include <ctime>
 #include <functional>
@@ -28,76 +27,58 @@ namespace crow
 namespace black_magic
 {
 
-enum class TypeCode : uint8_t
-{
-    Unspecified = 0,
-    Integer = 1,
-    UnsignedInteger = 2,
-    Float = 3,
-    String = 4,
-    Path = 5,
-    Max = 6,
-};
-
-// Remove when we have c++23
-template <typename E>
-constexpr typename std::underlying_type<E>::type toUnderlying(E e) noexcept
-{
-    return static_cast<typename std::underlying_type<E>::type>(e);
-}
-
 template <typename T>
-constexpr TypeCode getParameterTag()
+constexpr uint64_t getParameterTag()
 {
     if constexpr (std::is_same_v<int, T>)
     {
-        return TypeCode::Integer;
+        return 1;
     }
     if constexpr (std::is_same_v<char, T>)
     {
-        return TypeCode::Integer;
+        return 1;
     }
     if constexpr (std::is_same_v<short, T>)
     {
-        return TypeCode::Integer;
+        return 1;
     }
     if constexpr (std::is_same_v<long, T>)
     {
-        return TypeCode::Integer;
+        return 1;
     }
     if constexpr (std::is_same_v<long long, T>)
     {
-        return TypeCode::Integer;
+        return 1;
     }
     if constexpr (std::is_same_v<unsigned int, T>)
     {
-        return TypeCode::UnsignedInteger;
+        return 2;
     }
     if constexpr (std::is_same_v<unsigned char, T>)
     {
-        return TypeCode::UnsignedInteger;
+        return 2;
     }
     if constexpr (std::is_same_v<unsigned short, T>)
     {
-        return TypeCode::UnsignedInteger;
+        return 2;
     }
     if constexpr (std::is_same_v<unsigned long, T>)
     {
-        return TypeCode::UnsignedInteger;
+        return 2;
     }
     if constexpr (std::is_same_v<unsigned long long, T>)
     {
-        return TypeCode::UnsignedInteger;
+        return 2;
     }
     if constexpr (std::is_same_v<double, T>)
     {
-        return TypeCode::Float;
+        return 3;
     }
     if constexpr (std::is_same_v<std::string, T>)
     {
-        return TypeCode::String;
+        return 4;
     }
-    return TypeCode::Unspecified;
+    return 0;
 }
 
 template <typename... Args>
@@ -115,12 +96,8 @@ struct computeParameterTagFromArgsList<Arg, Args...>
     static constexpr int subValue =
         computeParameterTagFromArgsList<Args...>::value;
     static constexpr int value =
-        getParameterTag<typename std::decay<Arg>::type>() !=
-                TypeCode::Unspecified
-            ? static_cast<unsigned long>(subValue *
-                                         toUnderlying(TypeCode::Max)) +
-                  static_cast<uint64_t>(
-                      getParameterTag<typename std::decay<Arg>::type>())
+        getParameterTag<typename std::decay<Arg>::type>() != 0
+            ? subValue * 6 + getParameterTag<typename std::decay<Arg>::type>()
             : subValue;
 };
 
@@ -136,23 +113,22 @@ inline bool isParameterTagCompatible(uint64_t a, uint64_t b)
         {
             return a == 0;
         }
-        TypeCode sa = static_cast<TypeCode>(a % toUnderlying(TypeCode::Max));
-        TypeCode sb = static_cast<TypeCode>(b % toUnderlying(TypeCode::Max));
-
-        if (sa == TypeCode::Path)
+        uint64_t sa = a % 6;
+        uint64_t sb = a % 6;
+        if (sa == 5)
         {
-            sa = TypeCode::String;
+            sa = 4;
         }
-        if (sb == TypeCode::Path)
+        if (sb == 5)
         {
-            sb = TypeCode::String;
+            sb = 4;
         }
         if (sa != sb)
         {
             return false;
         }
-        a /= toUnderlying(TypeCode::Max);
-        b /= toUnderlying(TypeCode::Max);
+        a /= 6;
+        b /= 6;
     }
     return false;
 }
@@ -196,24 +172,23 @@ constexpr inline uint64_t getParameterTag(std::string_view url)
 
             if (tag == "<int>")
             {
-                tagValue += insertIndex * toUnderlying(TypeCode::Integer);
+                tagValue += insertIndex * 1;
             }
             if (tag == "<uint>")
             {
-                tagValue +=
-                    insertIndex * toUnderlying(TypeCode::UnsignedInteger);
+                tagValue += insertIndex * 2;
             }
             if (tag == "<float>" || tag == "<double>")
             {
-                tagValue += insertIndex * toUnderlying(TypeCode::Float);
+                tagValue += insertIndex * 3;
             }
             if (tag == "<str>" || tag == "<string>")
             {
-                tagValue += insertIndex * toUnderlying(TypeCode::String);
+                tagValue += insertIndex * 4;
             }
             if (tag == "<path>")
             {
-                tagValue += insertIndex * toUnderlying(TypeCode::Path);
+                tagValue += insertIndex * 5;
             }
             paramIndex++;
             urlSegmentIndex = std::string_view::npos;
@@ -539,14 +514,89 @@ inline bool base64Decode(const std::string_view input, std::string& output)
 
 namespace details
 {
+constexpr uint64_t maxMicroSeconds = 253402300799999999;
 constexpr uint64_t maxMilliSeconds = 253402300799999;
 constexpr uint64_t maxSeconds = 253402300799;
-inline std::string getDateTime(boost::posix_time::milliseconds timeSinceEpoch)
+constexpr uint8_t fractionDigitsMicroSeconds = 6;
+constexpr uint8_t fractionDigitsMilliSeconds = 3;
+constexpr uint8_t fractionDigitsSeconds = 0;
+
+// Based on ISO 8601 extended format
+// <YYYY>-<MM>-<DD>T<hh>:<mm>:<ss>[.<SSS>](Z|((+|-)<HH>:<MM>))
+constexpr uint8_t decimalPosition = 19;
+
+// Returns the formatted date time string, with the specified number of
+// fraction digits (max 6 -- if the given numFractionDigits is greater
+// than 6, this function just outputs 6 fraction digits, since the max
+// precision of timeSinceEpoch is microseconds.
+inline std::string getDateTime(boost::posix_time::microseconds timeSinceEpoch,
+                               uint8_t numFractionDigits)
 {
     boost::posix_time::ptime epoch(boost::gregorian::date(1970, 1, 1));
     boost::posix_time::ptime time = epoch + timeSinceEpoch;
+
+    std::string isoExtendedStr =
+        boost::posix_time::to_iso_extended_string(time);
+
+    // Per Redfish spec v1.15.0, 9.5.5 Date-Time values:
+    //   Date-Time values are strings according to the ISO 8601 extended format,
+    //   including the time offset or UTC suffix. Date-Time values shall use the
+    //   format: <YYYY>-<MM>-<DD>T<hh>:<mm>:<ss>[.<SSS>](Z|((+|-)<HH>:<MM>))
+    //   where
+    //   <SSS> is optional and is the decimal fraction of a second. Shall be
+    //   one or more digits where the number of digits implies the precision.
+
+    // Adjustments to the output of boost::posix_time::to_iso_extended_string()
+    // are needed to ensure "the number of digits implies the precision". For
+    // example, boost::posix_time::to_iso_extended_string() tends to truncate
+    // all-0 fraction digits, and sometimes provides more fraction digits than
+    // the actual available precision. Here we adjust the fraction digits to
+    // match the numFractionDigits argument specified:
+
+    numFractionDigits =
+        std::min(details::fractionDigitsMicroSeconds, numFractionDigits);
+    std::string::size_type currNumFractionDigits = 0;
+    std::string::size_type pos = isoExtendedStr.find('.');
+    if (pos == decimalPosition)
+    {
+        currNumFractionDigits = isoExtendedStr.size() - pos - 1;
+    }
+    else if (pos != std::string::npos)
+    {
+        // Decimal point was found, but in an unexpected position.
+        // Append zero offset to the end according to the Redfish spec for
+        // Date-Time and return without adjusting fraction digits.
+        return isoExtendedStr + "+00:00";
+    }
+
+    if (currNumFractionDigits > numFractionDigits)
+    {
+        while (currNumFractionDigits > numFractionDigits)
+        {
+            isoExtendedStr.pop_back();
+            currNumFractionDigits--;
+        }
+        if (numFractionDigits == 0)
+        {
+            // Remove decimal point
+            isoExtendedStr.pop_back();
+        }
+    }
+    else if (currNumFractionDigits < numFractionDigits)
+    {
+        if (currNumFractionDigits == 0)
+        {
+            isoExtendedStr += ".";
+        }
+        while (currNumFractionDigits < numFractionDigits)
+        {
+            isoExtendedStr += "0";
+            currNumFractionDigits++;
+        }
+    }
+
     // append zero offset to the end according to the Redfish spec for Date-Time
-    return boost::posix_time::to_iso_extended_string(time) + "+00:00";
+    return isoExtendedStr + "+00:00";
 }
 } // namespace details
 
@@ -559,7 +609,8 @@ inline std::string getDateTimeUint(uint64_t secondsSinceEpoch)
     secondsSinceEpoch = std::min(secondsSinceEpoch, details::maxSeconds);
     boost::posix_time::seconds boostSeconds(secondsSinceEpoch);
     return details::getDateTime(
-        boost::posix_time::milliseconds(boostSeconds.total_milliseconds()));
+        boost::posix_time::microseconds(boostSeconds.total_microseconds()),
+        details::fractionDigitsSeconds);
 }
 
 // Returns the formatted date time string.
@@ -571,7 +622,21 @@ inline std::string getDateTimeUintMs(uint64_t milliSecondsSinceEpoch)
     milliSecondsSinceEpoch =
         std::min(details::maxMilliSeconds, milliSecondsSinceEpoch);
     return details::getDateTime(
-        boost::posix_time::milliseconds(milliSecondsSinceEpoch));
+        boost::posix_time::microseconds(milliSecondsSinceEpoch * 1000),
+        details::fractionDigitsMilliSeconds);
+}
+
+// Returns the formatted date time string.
+// Note that the maximum supported date is 9999-12-31T23:59:59.999999+00:00, if
+// the given |microSecondsSinceEpoch| is too large, we return the maximum
+// supported date. This behavior is to avoid exceptions throwed by Boost.
+inline std::string getDateTimeUintUs(uint64_t microSecondsSinceEpoch)
+{
+    microSecondsSinceEpoch =
+        std::min(details::maxMicroSeconds, microSecondsSinceEpoch);
+    return details::getDateTime(
+        boost::posix_time::microseconds(microSecondsSinceEpoch),
+        details::fractionDigitsMicroSeconds);
 }
 
 inline std::string getDateTimeStdtime(std::time_t secondsSinceEpoch)
@@ -680,8 +745,7 @@ class UrlSegmentMatcherVisitor
         return std::string_view(segment.data(), segment.size()) == expected;
     }
 
-    explicit UrlSegmentMatcherVisitor(
-        const boost::urls::string_value& segmentIn) :
+    UrlSegmentMatcherVisitor(const boost::urls::string_value& segmentIn) :
         segment(segmentIn)
     {}
 
