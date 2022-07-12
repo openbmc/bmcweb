@@ -34,6 +34,24 @@
       "parentUuid": "ae6368ce_60821910",
       "revId": "56e2397e03620714ea99aa00eda380904b810f5a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa39584f_d07c89be",
+        "filename": "redfish-core/lib/thermal_subsystem.hpp",
+        "patchSetId": 84
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1000444
+      },
+      "writtenOn": "2022-07-12T02:53:18Z",
+      "side": 1,
+      "message": "So who wants to modify and merge this new method?",
+      "parentUuid": "fc6a4066_07ba4dc6",
+      "revId": "56e2397e03620714ea99aa00eda380904b810f5a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
