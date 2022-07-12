@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "540fca60_d3e7bd42",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-12T18:43:57Z",
+      "side": 1,
+      "message": "1 is way too short.....  5-15 seconds would be in my head as a relatively sane default, but.... we should be looking to something with more industry traction for inspiration.  What does curl/wget/requests do in this case for a timeout, and can we just copy them?\n\nNow that I\u0027ve had my coffee, I\u0027m starting to understand the problem more;  You have to bring up the connection, and do the request in the time that it takes the primary request to time out, which means you have more constraints on your timing.\n\n(thinking out loud) What if we relied on keep alive, and just kept an open connection to each aggregated resource all the time, then, if we get a request we could immediately check if the connection exists, and 502 immediately, instead of waiting for connect to fail?",
+      "parentUuid": "c443fad7_5f92defc",
+      "range": {
+        "startLine": 10,
+        "startChar": 17,
+        "endLine": 11,
+        "endChar": 26
+      },
+      "revId": "122f379bf286075a7aac335399f2d1fb28765c15",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4b47f701_861bd49f",
         "filename": "http/http_client.hpp",
         "patchSetId": 4
