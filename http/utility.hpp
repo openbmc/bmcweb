@@ -541,14 +541,153 @@ inline bool base64Decode(const std::string_view input, std::string& output)
 
 namespace details
 {
+constexpr uint64_t maxMicroSeconds = 253402300799999999;
 constexpr uint64_t maxMilliSeconds = 253402300799999;
 constexpr uint64_t maxSeconds = 253402300799;
-inline std::string getDateTime(boost::posix_time::milliseconds timeSinceEpoch)
+constexpr size_t numFractionalDigitsMicroSeconds = 6;
+constexpr size_t numFractionalDigitsMilliSeconds = 3;
+constexpr size_t numFractionalDigitsSeconds = 0;
+
+// This function is based on boost::posix_time::to_simple_string()
+// from Boost.Date_Time v1.78. with the following prototype:
+// std::string to_simple_string(time_duration td)
+//
+// Modifications involve error handling and outputting the specified
+// number of fractional digits (in order to create Redfish timestamps
+// expressing a particular precision).
+//
+// An empty string is returned if the td given is a "special"
+// time_duration value or if the numFractionalDigits given is greater than 6
+// (microsecond-precision).
+inline std::string to_simple_string_with_num_fraction_digits(
+    boost::posix_time::time_duration td, size_t numFractionalDigits)
 {
-    boost::posix_time::ptime epoch(boost::gregorian::date(1970, 1, 1));
-    boost::posix_time::ptime time = epoch + timeSinceEpoch;
-    // append zero offset to the end according to the Redfish spec for Date-Time
-    return boost::posix_time::to_iso_extended_string(time) + "+00:00";
+    if (numFractionalDigits > numFractionalDigitsMicroSeconds)
+    {
+        return "";
+    }
+
+    std::ostringstream ss;
+
+    if (td.is_special() ||
+        (numFractionalDigits > numFractionalDigitsMicroSeconds))
+    {
+        ss << "";
+    }
+    else
+    {
+        if (td.is_negative())
+        {
+            ss << '-';
+        }
+        ss << std::setw(2) << std::setfill('0')
+           << boost::date_time::absolute_value(td.hours()) << ":";
+        ss << std::setw(2) << std::setfill('0')
+           << boost::date_time::absolute_value(td.minutes()) << ":";
+        ss << std::setw(2) << std::setfill('0')
+           << boost::date_time::absolute_value(td.seconds());
+
+        if (numFractionalDigits > 0)
+        {
+            boost::posix_time::time_duration::fractional_seconds_type frac_sec =
+                boost::date_time::absolute_value(td.fractional_seconds());
+
+            std::ostringstream sstemp;
+
+            // Note: std::setw sets the min width. The actual output width of
+            // frac_sec will be at least numFractionalDigits, but could be
+            // greater
+            sstemp << std::setw(static_cast<int>(numFractionalDigits))
+                   << std::setfill('0') << frac_sec;
+
+            // Use substr() to truncate to exactly numFractionalDigits
+            ss << "." << sstemp.str().substr(0, numFractionalDigits);
+        }
+    }
+    return ss.str();
+}
+
+// This function is based on boost::posix_time::to_iso_extended_string()
+// from Boost.Date_Time v1.78. with the following prototype:
+// std::string to_iso_extended_string(ptime t)
+//
+// Modifications include:
+// (1) returning an empty string for "special" time_duration values
+// (2) calling to_simple_string_with_num_fraction_digits() instead of
+// boost::posix_time::to_simple_string(), in order to generate a
+// date-time string containing a specified number of fractional
+// digits. Note that an empty string is returned if the
+// numFractionalDigits given is greater than 6 (microsecond-precision).
+inline std::string
+    to_iso_extended_string_with_num_fraction_digits(boost::posix_time::ptime t,
+                                                    size_t numFractionalDigits)
+{
+    if (numFractionalDigits > details::numFractionalDigitsMicroSeconds)
+    {
+        return "";
+    }
+
+    std::string ts =
+        boost::gregorian::to_iso_extended_string(t.date()); // + "T";
+    if (!t.time_of_day().is_special())
+    {
+        // Call to_simple_string_with_num_fraction_digits() instead of
+        // boost::posix_time::to_simple_string()
+        return ts + "T" +
+               to_simple_string_with_num_fraction_digits(t.time_of_day(),
+                                                         numFractionalDigits);
+    }
+    else
+    {
+        // Return empty string instead of string containing special value
+        return "";
+    }
+}
+
+// Returns the formatted date time string, with the specified number of
+// fraction digits (max 6, corresponding to the max precision of
+// microseconds currently supported). An empty string is returned if the
+// numFractionalDigits given is greater than 6.
+inline std::string getDateTime(boost::posix_time::microseconds timeSinceEpoch,
+                               size_t numFractionalDigits)
+{
+    if (numFractionalDigits > details::numFractionalDigitsMicroSeconds)
+    {
+        return "";
+    }
+
+    boost::gregorian::date epoch(1970, 1, 1);
+    boost::posix_time::ptime time(epoch, timeSinceEpoch);
+
+    // Generate date-time string according to Redfish requirements,
+    // where the number of fractional digits implies the precision.
+    //
+    // Per Redfish spec v1.15.0, 9.5.5 Date-Time values:
+    //   Date-Time values are strings according to the ISO 8601 extended format,
+    //   including the time offset or UTC suffix. Date-Time values shall use the
+    //   format: <YYYY>-<MM>-<DD>T<hh>:<mm>:<ss>[.<SSS>](Z|((+|-)<HH>:<MM>))
+    //   where
+    //   <SSS> is optional and is the decimal fraction of a second. Shall be
+    //   one or more digits where the number of digits implies the precision.
+    //
+    // (When previously calling boost::posix_time::to_iso_extended_string()
+    // from Boost.Date_Time v1.78 directly, all-0 value fractional
+    // digits were truncated, and in other cases the function output a
+    // fixed number of fractional digits corresponding to the max
+    // resolution that the Boost.Date_Time library was compiled to
+    // support, rather than the precision intended to be expressed for
+    // a particular Redfish response.)
+    std::string result = to_iso_extended_string_with_num_fraction_digits(
+        time, numFractionalDigits);
+
+    if (!result.empty())
+    {
+        // append zero offset to the end according to the Redfish spec for
+        // Date-Time
+        result += "+00:00";
+    }
+
+    return result;
 }
 } // namespace details
 
@@ -561,7 +700,8 @@ inline std::string getDateTimeUint(uint64_t secondsSinceEpoch)
     secondsSinceEpoch = std::min(secondsSinceEpoch, details::maxSeconds);
     boost::posix_time::seconds boostSeconds(secondsSinceEpoch);
     return details::getDateTime(
-        boost::posix_time::milliseconds(boostSeconds.total_milliseconds()));
+        boost::posix_time::microseconds(boostSeconds.total_microseconds()),
+        details::numFractionalDigitsSeconds);
 }
 
 // Returns the formatted date time string.
@@ -573,7 +713,21 @@ inline std::string getDateTimeUintMs(uint64_t milliSecondsSinceEpoch)
     milliSecondsSinceEpoch =
         std::min(details::maxMilliSeconds, milliSecondsSinceEpoch);
     return details::getDateTime(
-        boost::posix_time::milliseconds(milliSecondsSinceEpoch));
+        boost::posix_time::microseconds(milliSecondsSinceEpoch * 1000),
+        details::numFractionalDigitsMilliSeconds);
+}
+
+// Returns the formatted date time string.
+// Note that the maximum supported date is 9999-12-31T23:59:59.999999+00:00, if
+// the given |microSecondsSinceEpoch| is too large, we return the maximum
+// supported date. This behavior is to avoid exceptions throwed by Boost.
+inline std::string getDateTimeUintUs(uint64_t microSecondsSinceEpoch)
+{
+    microSecondsSinceEpoch =
+        std::min(details::maxMicroSeconds, microSecondsSinceEpoch);
+    return details::getDateTime(
+        boost::posix_time::microseconds(microSecondsSinceEpoch),
+        details::numFractionalDigitsMicroSeconds);
 }
 
 inline std::string getDateTimeStdtime(std::time_t secondsSinceEpoch)
