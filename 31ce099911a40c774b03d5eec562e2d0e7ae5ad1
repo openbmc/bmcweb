@@ -74,6 +74,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "837c42cd_fc0cc5f3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 24
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-07-12T21:22:52Z",
+      "side": 1,
+      "message": "It doesn\u0027t have to group anything. I just meant that if we are searching for like a resource all SSD_X, we can find it directly.\n\nThe use case is that it look at the Name to create the devpath and that needs to be the same across different resources. For example,\n\n```\n/PE0/cpld\n/PE1/cpld\n```\n\nInstead of having\n\n```\n/PE0/cpld_0\n/PE1/cpld_1\n```\n\nThe flexibility allow us to create the first set of names. I guess it does require the object path to have suffix of `_index` if we want to use it. That\u0027s already being done with FriDevice and EntityManager for the most part. If not, it will not affect it.",
+      "parentUuid": "47364130_811f95a3",
+      "range": {
+        "startLine": 9,
+        "startChar": 16,
+        "endLine": 9,
+        "endChar": 35
+      },
+      "revId": "31ce099911a40c774b03d5eec562e2d0e7ae5ad1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c95576cc_b8308647",
         "filename": "include/dbus_utility.hpp",
         "patchSetId": 24
