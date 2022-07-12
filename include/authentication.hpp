@@ -260,7 +260,8 @@ static std::shared_ptr<persistent_data::UserSession>
 [[maybe_unused]] static std::shared_ptr<persistent_data::UserSession>
     authenticate(
         const boost::asio::ip::address& ipAddress [[maybe_unused]],
-        Response& res [[maybe_unused]], boost::beast::http::verb method,
+        Response& res [[maybe_unused]],
+        boost::beast::http::verb method [[maybe_unused]],
         const boost::beast::http::header<true>& reqHeader,
         [[maybe_unused]] const std::shared_ptr<persistent_data::UserSession>&
             session)
