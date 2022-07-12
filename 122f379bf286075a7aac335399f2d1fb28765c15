@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6394efd7_6bfa10a5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-12T04:28:26Z",
+      "side": 1,
+      "message": "In real scenarios, connect can definitely take more than a second, especially on low links, or SSL that takes a long time to bring the link up, so 1 second isn\u0027t going to work.\n\nWhat I\u0027d like to understand is why this matters at all.  If the destination is unreachable, aren\u0027t we bound by the linux timeouts, and shouldn\u0027t those be relatively quick based on L2 network routing?  I would expect the timeout in this case is just a security precaution for compromised network nodes that might not bring up the full connection quickly in an attempt to run the bmc out of resources, but clearly you\u0027re seeing something else here.",
+      "range": {
+        "startLine": 10,
+        "startChar": 17,
+        "endLine": 11,
+        "endChar": 26
+      },
+      "revId": "122f379bf286075a7aac335399f2d1fb28765c15",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4b47f701_861bd49f",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-12T04:28:26Z",
+      "side": 1,
+      "message": "Now that this doesn\u0027t return early, this does nothing (which cppcheck will flag)",
+      "range": {
+        "startLine": 358,
+        "startChar": 0,
+        "endLine": 358,
+        "endChar": 43
+      },
+      "revId": "122f379bf286075a7aac335399f2d1fb28765c15",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "db3f47b8_4b9fc75f",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-12T04:28:26Z",
+      "side": 1,
+      "message": "Same here.",
+      "range": {
+        "startLine": 382,
+        "startChar": 0,
+        "endLine": 382,
+        "endChar": 43
+      },
+      "revId": "122f379bf286075a7aac335399f2d1fb28765c15",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
