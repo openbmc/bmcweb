@@ -98,6 +98,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "36384145_101b604c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-12T22:11:42Z",
+      "side": 1,
+      "message": "\u003e \u003e What does curl/wget/requests do in this case for a timeout, and can we just copy them?\n\u003e Based on running curl on my local machine to some made-up destination, curl will just run until it hits its own internal timeout.  On my machine that seems to take ~130 seconds:\n\u003e ```\n\u003e curl: (28) Failed to connect to 192.92.32.1 port 80 after 130994 ms: Connection timed out\n\u003e curl: (28) Failed to connect to 192.92.32.1 port 80 after 130045 ms: Connection timed out\n\u003e curl: (28) Failed to connect to 192.92.32.1 port 80 after 129363 ms: Connection timed out\n\u003e ```\n\u003e \n\u003e Basically we need to prove a negative (the destination does not exist) and the standard approach seems to be to wait for a timeout.  For now the only time that this hurts is the redfish aggregation edge case where either a satellite is unreachable, or the satellite config is incorrect.\n\u003e \n\u003e \u003e (thinking out loud) What if we relied on keep alive, and just kept an open connection to each aggregated resource all the time, then, if we get a request we could immediately check if the connection exists, and 502 immediately, instead of waiting for connect to fail?\n\u003e (Also thinking out loud) I think that would only work if the destination supports keep alive. \n\nGood point, although it seems pretty reasonable that DMTF might require keepalive, given they require TLS.  I don\u0027t know of an implementation that doesn\u0027t support it, although you are technically correct.  For this use case it might be worth getting into the standard.\n\n\u003e Also, I would need some way to handle the scenario where the destination blinking in and out results in not all of the connections in the pool remaining open.  \n\n\nNot following in this case.  if tcp is dropping, wouldn\u0027t the connections be closing and be destroyed?\n\n\u003e \n\u003e I could take the same idea and add a bool to each connection pool that denotes if a connection timeout previously occurred.  That bool could only be set if we fall through due to a connection timeout.  It would be cleared anytime a connection is able to receive a response to a request.\n\n\n\u003e \n\u003e As part of each message sendinging attempt we would first check the value of that bool for the specified connection pool.  When the bool is set then we would immediately return a 502, but at the same time we would also just send a ping to the destination to check in the background if that destination has become available again.  If it did then we would flip the bool so that future requests know to not return a 502.\n\n\nOh, so you\u0027re thinking we keep connection objects alive regardless of their connectedness.  That might work?  Or maybe we need a \"last time connected\" time, so we can still handle the first-connect case?  Or the case where a keepalive was rightly timed out by the client.",
+      "parentUuid": "b925826c_d74b8db5",
+      "range": {
+        "startLine": 10,
+        "startChar": 17,
+        "endLine": 11,
+        "endChar": 26
+      },
+      "revId": "122f379bf286075a7aac335399f2d1fb28765c15",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4b47f701_861bd49f",
         "filename": "http/http_client.hpp",
         "patchSetId": 4
