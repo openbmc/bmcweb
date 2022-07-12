@@ -74,6 +74,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b925826c_d74b8db5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-07-12T21:08:34Z",
+      "side": 1,
+      "message": "\u003e What does curl/wget/requests do in this case for a timeout, and can we just copy them?\nBased on running curl on my local machine to some made-up destination, curl will just run until it hits its own internal timeout.  On my machine that seems to take ~130 seconds:\n```\ncurl: (28) Failed to connect to 192.92.32.1 port 80 after 130994 ms: Connection timed out\ncurl: (28) Failed to connect to 192.92.32.1 port 80 after 130045 ms: Connection timed out\ncurl: (28) Failed to connect to 192.92.32.1 port 80 after 129363 ms: Connection timed out\n```\n\nBasically we need to prove a negative (the destination does not exist) and the standard approach seems to be to wait for a timeout.  For now the only time that this hurts is the redfish aggregation edge case where either a satellite is unreachable, or the satellite config is incorrect.\n\n\u003e (thinking out loud) What if we relied on keep alive, and just kept an open connection to each aggregated resource all the time, then, if we get a request we could immediately check if the connection exists, and 502 immediately, instead of waiting for connect to fail?\n(Also thinking out loud) I think that would only work if the destination supports keep alive.  Also, I would need some way to handle the scenario where the destination blinking in and out results in not all of the connections in the pool remaining open.  \n\nI could take the same idea and add a bool to each connection pool that denotes if a connection timeout previously occurred.  That bool could only be set if we fall through due to a connection timeout.  It would be cleared anytime a connection is able to receive a response to a request.\n\nAs part of each message sendinging attempt we would first check the value of that bool for the specified connection pool.  When the bool is set then we would immediately return a 502, but at the same time we would also just send a ping to the destination to check in the background if that destination has become available again.  If it did then we would flip the bool so that future requests know to not return a 502.",
+      "parentUuid": "540fca60_d3e7bd42",
+      "range": {
+        "startLine": 10,
+        "startChar": 17,
+        "endLine": 11,
+        "endChar": 26
+      },
+      "revId": "122f379bf286075a7aac335399f2d1fb28765c15",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4b47f701_861bd49f",
         "filename": "http/http_client.hpp",
         "patchSetId": 4
