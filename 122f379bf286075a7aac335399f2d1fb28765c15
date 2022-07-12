@@ -122,6 +122,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9a383535_abae737c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-07-12T22:57:53Z",
+      "side": 1,
+      "message": "\u003e Good point, although it seems pretty reasonable that DMTF might require keepalive, given they require TLS.  I don\u0027t know of an implementation that doesn\u0027t support it, although you are technically correct.  For this use case it might be worth getting into the standard.\nI didn\u0027t consider that it\u0027s part of the standard.  If it is then I\u0027d feel better about relying on it.  However, there\u0027s still an issue with tracking this on a per connection basis.  I\u0027ll explain that later in this comment.\n\n\u003e \u003e Also, I would need some way to handle the scenario where the destination blinking in and out results in not all of the connections in the pool remaining open.\n\u003e Not following in this case.  if tcp is dropping, wouldn\u0027t the connections be closing and be destroyed?\nThey would be closed but they are not be destroyed.  Even then, a single connection fail would not affect the entire pool.  Let\u0027s say we have a full connection pool that has been sending w/o issue.  All of a sudden the destination goes down.  Each individual connection will still appear as idle until we attempt to send a message to the unreachable destination using that connection.  Similarly, if the destination comes back online then we risk false positives where the individual connections will each return a 502 the first time they are used.\n\n\u003e Oh, so you\u0027re thinking we keep connection objects alive regardless of their connectedness. That might work?\n(Provided I\u0027m understanding what keeping it alive means) That\u0027s effectively how the code functions now since there is not a method to delete a connection from the pool.  They get closed if something goes wrong, but they still remain in the pool\u0027s vector of connections.\n\n\u003e Or maybe we need a \"last time connected\" time, so we can still handle the first-connect case?  Or the case where a keepalive was rightly timed out by the client.\nWhen the pool is first created we can just set the bool to denote that there are no connection issues.  The first message send attempt would set the actual connection status.\n\nIf we want to make sure the destination is available before the first message send attempt then we\u0027d need to just send a dummy message whenever the other entity is created.  For Redfish Aggregation for example I\u0027d want to send a dummy message within the Constructor for RedfishAggregator to each satellite BMC.",
+      "parentUuid": "36384145_101b604c",
+      "range": {
+        "startLine": 10,
+        "startChar": 17,
+        "endLine": 11,
+        "endChar": 26
+      },
+      "revId": "122f379bf286075a7aac335399f2d1fb28765c15",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4b47f701_861bd49f",
         "filename": "http/http_client.hpp",
         "patchSetId": 4
