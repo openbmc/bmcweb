@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "32d794fa_7e1d2afa",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-12T23:23:55Z",
+      "side": 1,
+      "message": "I removed UpdateService and AccounService and the Redfish Service Validator didn\u0027t report errors.\n\nAnyway, I removed this part from this patch.",
+      "parentUuid": "340f44a8_96bd587d",
+      "revId": "06256040190c01ce2f0020bf6b00aea58783f3a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "8539e887_afa5585d",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 10
@@ -52,6 +70,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5baff4ac_614e1af6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-12T23:23:55Z",
+      "side": 1,
+      "message": "Let me fix the meson options first. I believe we have an agreement on that already?",
+      "parentUuid": "41b9140e_eaeee492",
+      "revId": "06256040190c01ce2f0020bf6b00aea58783f3a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "695cee1b_67405122",
@@ -65,6 +101,30 @@
       "writtenOn": "2022-07-09T17:32:12Z",
       "side": 1,
       "message": "You can\u0027t remove AccountService in any case.  It is required by the standard.",
+      "range": {
+        "startLine": 67,
+        "startChar": 0,
+        "endLine": 67,
+        "endChar": 37
+      },
+      "revId": "06256040190c01ce2f0020bf6b00aea58783f3a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0bedf641_dbe31f89",
+        "filename": "redfish-core/include/redfish.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-12T23:23:55Z",
+      "side": 1,
+      "message": "ACK. I just kept the meson change.",
+      "parentUuid": "695cee1b_67405122",
       "range": {
         "startLine": 67,
         "startChar": 0,
@@ -98,6 +158,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4df05b6c_723e5024",
+        "filename": "redfish-core/include/redfish.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-12T23:23:55Z",
+      "side": 1,
+      "message": "ACK. I just kept the meson change.",
+      "parentUuid": "be4182fd_89087650",
+      "range": {
+        "startLine": 74,
+        "startChar": 8,
+        "endLine": 74,
+        "endChar": 37
+      },
+      "revId": "06256040190c01ce2f0020bf6b00aea58783f3a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "81b63a88_e03c20a3",
@@ -111,6 +195,30 @@
       "writtenOn": "2022-07-09T17:32:12Z",
       "side": 1,
       "message": "One of the use cases for disable auth was to be able to test the webui.  This would break that use case.  I suspect we need a separate option for removing these legacy routes.",
+      "range": {
+        "startLine": 130,
+        "startChar": 0,
+        "endLine": 130,
+        "endChar": 43
+      },
+      "revId": "06256040190c01ce2f0020bf6b00aea58783f3a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3749a345_996fd2ff",
+        "filename": "src/webserver_main.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-12T23:23:55Z",
+      "side": 1,
+      "message": "ACK. I just kept the meson change.",
+      "parentUuid": "81b63a88_e03c20a3",
       "range": {
         "startLine": 130,
         "startChar": 0,
