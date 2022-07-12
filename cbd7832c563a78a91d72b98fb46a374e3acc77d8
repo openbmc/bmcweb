@@ -825,6 +825,30 @@
       },
       "revId": "cbd7832c563a78a91d72b98fb46a374e3acc77d8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "738e55e5_036136c0",
+        "filename": "include/openbmc_dbus_rest.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-07-12T16:52:40Z",
+      "side": 1,
+      "message": "I agree. It throws a variant type. I was responding to your \n\u003e  I\u0027ve never been able to figure out why it throws, because you\u0027re right, the code doesn\u0027t look like it should.",
+      "parentUuid": "86192c5e_6c524000",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 20
+      },
+      "revId": "cbd7832c563a78a91d72b98fb46a374e3acc77d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
