@@ -98,6 +98,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "48b2b28f_e33583f4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 24
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-12T22:09:34Z",
+      "side": 1,
+      "message": "Thanks, \n\n```\nThe use case is that it look at the Name to create the devpath and that needs to be the same across different resources. For example,\n/PE0/cpld\n/PE1/cpld\nInstead of having\n/PE0/cpld_0\n/PE1/cpld_1\n```\n\nConsider adding this into the commit message? That\u0027s exactly what I was asking for.\n\n\u003e  I guess it does require the object path to have suffix of `_index` if we want to use it\n\nNot only the _index suffix, but also the inventory type, right. The format must be \n\n```\n${inventoryType}_${index}\n```",
+      "parentUuid": "837c42cd_fc0cc5f3",
+      "range": {
+        "startLine": 9,
+        "startChar": 16,
+        "endLine": 9,
+        "endChar": 35
+      },
+      "revId": "31ce099911a40c774b03d5eec562e2d0e7ae5ad1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c95576cc_b8308647",
         "filename": "include/dbus_utility.hpp",
         "patchSetId": 24
