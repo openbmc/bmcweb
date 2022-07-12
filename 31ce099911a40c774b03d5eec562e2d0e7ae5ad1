@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6af89e5d_3b7bfe8f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 24
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-07-12T20:28:24Z",
+      "side": 1,
+      "message": "We want a way to set any name to the resource.\n\nSince ID is already the dbus path with the suffix, we are using without the suffix as the name to group them together. If it is not removed, then it will just be the same as ID.",
+      "parentUuid": "c7ba92e8_262c2cf0",
+      "range": {
+        "startLine": 9,
+        "startChar": 16,
+        "endLine": 9,
+        "endChar": 35
+      },
+      "revId": "31ce099911a40c774b03d5eec562e2d0e7ae5ad1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c95576cc_b8308647",
         "filename": "include/dbus_utility.hpp",
         "patchSetId": 24
@@ -37,6 +61,30 @@
       "writtenOn": "2022-07-12T20:12:45Z",
       "side": 1,
       "message": "this just checks non empty?",
+      "range": {
+        "startLine": 150,
+        "startChar": 11,
+        "endLine": 150,
+        "endChar": 43
+      },
+      "revId": "31ce099911a40c774b03d5eec562e2d0e7ae5ad1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "18177c58_62e8800a",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-07-12T20:28:24Z",
+      "side": 1,
+      "message": "yeah, pretty much. I\u0027ll clean it up and test it out again.",
+      "parentUuid": "c95576cc_b8308647",
       "range": {
         "startLine": 150,
         "startChar": 11,
@@ -60,6 +108,30 @@
       "writtenOn": "2022-07-12T20:12:45Z",
       "side": 1,
       "message": "TestCaseName should be PascalCase.",
+      "range": {
+        "startLine": 44,
+        "startChar": 18,
+        "endLine": 44,
+        "endChar": 33
+      },
+      "revId": "31ce099911a40c774b03d5eec562e2d0e7ae5ad1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8e5324c0_825e43c2",
+        "filename": "include/ut/dbus_utility_test.cpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-07-12T20:28:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "56f97f9f_8b84b083",
       "range": {
         "startLine": 44,
         "startChar": 18,
