@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "e8d0cdf6_dbf4e3a6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-12T22:11:37Z",
+      "side": 1,
+      "message": "Please also run service validator and add the result to commit msg.",
+      "range": {
+        "startLine": 13,
+        "startChar": 5,
+        "endLine": 13,
+        "endChar": 14
+      },
+      "revId": "2f8ab686fc8d17467cd5a631703a3486f3f6f8af",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "807a2252_c741adeb",
