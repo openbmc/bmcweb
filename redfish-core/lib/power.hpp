@@ -17,6 +17,7 @@
 #pragma once
 
 #include "sensors.hpp"
+#include "utils/chassis_utils.hpp"
 
 #include <app.hpp>
 #include <dbus_utility.hpp>
@@ -110,7 +111,9 @@ inline void setPowerCapOverride(
                 std::variant<uint32_t>(*value));
             });
     };
-    getValidChassisPath(sensorsAsyncResp, std::move(getChassisPath));
+    redfish::chassis_utils::getValidChassisPath(sensorsAsyncResp->asyncResp,
+                                                sensorsAsyncResp->chassisId,
+                                                std::move(getChassisPath));
 }
 inline void requestRoutesPower(App& app)
 {
