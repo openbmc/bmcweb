@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b748e1ea_5cabebb1",
+        "filename": "include/ibm/locks.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-07-12T20:01:17Z",
+      "side": 1,
+      "message": "Some these header changes, seem unrelated. Just fixing this while in here?\nI mean this is correct, I see: \n    std::variant\u003cstd:\nbelow",
+      "revId": "fcda0d935260b8c6c08f3949212ce742e07ca9ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
