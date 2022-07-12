@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c443fad7_5f92defc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-07-12T16:07:44Z",
+      "side": 1,
+      "message": "\u003e In real scenarios, connect can definitely take more than a second, especially on low links, or SSL that takes a long time to bring the link up, so 1 second isn\u0027t going to work.\nIn that case, is it possible to reduce the 30 second limit at all?\n\n\u003e ...but clearly you\u0027re seeing something else here\nOn my BMC I\u0027m seeing the timer in doConnect() completely expire when the destination is unreachable (i.e. \"The socket was closed due to a timeout\").  This takes the full 30 seconds.\n\nIn this case I\u0027m using an external IP rather than an arbitrary port on the localhost that has been configured to forward to a non-existent satellite BMC.",
+      "parentUuid": "6394efd7_6bfa10a5",
+      "range": {
+        "startLine": 10,
+        "startChar": 17,
+        "endLine": 11,
+        "endChar": 26
+      },
+      "revId": "122f379bf286075a7aac335399f2d1fb28765c15",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4b47f701_861bd49f",
         "filename": "http/http_client.hpp",
         "patchSetId": 4
@@ -37,6 +61,30 @@
       "writtenOn": "2022-07-12T04:28:26Z",
       "side": 1,
       "message": "Now that this doesn\u0027t return early, this does nothing (which cppcheck will flag)",
+      "range": {
+        "startLine": 358,
+        "startChar": 0,
+        "endLine": 358,
+        "endChar": 43
+      },
+      "revId": "122f379bf286075a7aac335399f2d1fb28765c15",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4bd45576_18c407ec",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-07-12T16:07:44Z",
+      "side": 1,
+      "message": "I removed it",
+      "parentUuid": "4b47f701_861bd49f",
       "range": {
         "startLine": 358,
         "startChar": 0,
@@ -60,6 +108,30 @@
       "writtenOn": "2022-07-12T04:28:26Z",
       "side": 1,
       "message": "Same here.",
+      "range": {
+        "startLine": 382,
+        "startChar": 0,
+        "endLine": 382,
+        "endChar": 43
+      },
+      "revId": "122f379bf286075a7aac335399f2d1fb28765c15",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "24f963b3_9d358fd1",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-07-12T16:07:44Z",
+      "side": 1,
+      "message": "I removed it",
+      "parentUuid": "db3f47b8_4b9fc75f",
       "range": {
         "startLine": 382,
         "startChar": 0,
