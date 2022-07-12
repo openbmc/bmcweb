@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "47364130_811f95a3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 24
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-12T20:49:38Z",
+      "side": 1,
+      "message": "\u003e we are using without the suffix as the name to group them together\n\nWhy do we want to group?\n\nAnd also does this imply a certain pattern for the object path in the daemon is required?",
+      "parentUuid": "6af89e5d_3b7bfe8f",
+      "range": {
+        "startLine": 9,
+        "startChar": 16,
+        "endLine": 9,
+        "endChar": 35
+      },
+      "revId": "31ce099911a40c774b03d5eec562e2d0e7ae5ad1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c95576cc_b8308647",
         "filename": "include/dbus_utility.hpp",
         "patchSetId": 24

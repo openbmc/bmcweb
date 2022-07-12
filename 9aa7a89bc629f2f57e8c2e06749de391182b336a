@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d5566a77_79ce8012",
+        "filename": "include/ut/dbus_utility_test.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-12T20:49:38Z",
+      "side": 1,
+      "message": "I just realized the unit test clean up was merged. Then I would suggest we use even better suite and test case names. \n\nTEST(GetResourceName, NumericSuffixRemoved)\n\nTEST(GetResourceName, OtherSuffixNotRemoved)",
+      "range": {
+        "startLine": 44,
+        "startChar": 5,
+        "endLine": 44,
+        "endChar": 32
+      },
+      "revId": "9aa7a89bc629f2f57e8c2e06749de391182b336a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
