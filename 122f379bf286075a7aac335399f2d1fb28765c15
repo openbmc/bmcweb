@@ -170,6 +170,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7e07824b_7327f7e9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-07-13T15:47:07Z",
+      "side": 1,
+      "message": "\u003e So the above kind of implies that we need some tracking of the \"health\" of a given remote that\u0027s separate from the connection itself (this is starting to get messy).\nYes and absolutely yes\n\n\u003e What if we used GET /redfish/v1 as a canary in the coal mine sort of set up?\nYeah I think that\u0027s a good option.\n\n\u003e Because our /redfish/v1 polling task is local and not tied to a response, it can take as long as it likes to time out (or we can set an arbitrarily short timeout)\nSounds reasonable.\n\nWould it be alright to also poll the destination each time we attempt to send to a currently 502 destination rather than waiting for the polling task to update it again?\n\nI suspect as a follow up to this we\u0027ll also want to add some sort of method to remove connection pools.  For example, if we delete a subscription then we\u0027d want to delete its connection pool if it\u0027s not being used by another subscription or Redfish Aggregation.  No sense in polling unavailable destinations that the system won\u0027t be using.",
+      "parentUuid": "89392661_e44f531a",
+      "range": {
+        "startLine": 10,
+        "startChar": 17,
+        "endLine": 11,
+        "endChar": 26
+      },
+      "revId": "122f379bf286075a7aac335399f2d1fb28765c15",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4b47f701_861bd49f",
         "filename": "http/http_client.hpp",
         "patchSetId": 4
