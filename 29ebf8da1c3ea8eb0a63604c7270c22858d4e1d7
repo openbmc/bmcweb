@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7a52cab6_4b66a83f",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 336,
+      "author": {
+        "id": 1001026
+      },
+      "writtenOn": "2022-07-13T09:29:34Z",
+      "side": 1,
+      "message": "should be inline instead of static",
+      "range": {
+        "startLine": 336,
+        "startChar": 0,
+        "endLine": 336,
+        "endChar": 7
+      },
+      "revId": "29ebf8da1c3ea8eb0a63604c7270c22858d4e1d7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
