@@ -218,6 +218,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5adcd46a_5e351196",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-07-13T18:48:00Z",
+      "side": 1,
+      "message": "\u003e \u003e Would it be alright to also poll the destination each time we attempt to send to a currently 502 destination rather than waiting for the polling task to update it again?\n\u003e Assuming we don\u0027t already have one in progress, yeah, that seems reasonable, although that invokes the same problem you\u0027re trying to solve.  The aggregated resource has N seconds to timeout, and the client would prefer an answer faster than N if the client is unconnectable.  If we attempt to open a connection on first request, we make it possible that a client sees an N second response time.\nI should have been more clear.  In that scenario we\u0027d still immediately return a 502 rather than waiting for a response.  The main idea is to just use this event to instantly trigger a poll instead of waiting for the internal timer to say it\u0027s time to poll all of the current 502 destinations.\n\nMy thought is if something is attempting to query an unreachable destination more often than we are polling, then we should check that specific destination more often to catch when it comes back online as soon as possible.  The internal polling will catch the destinations that we do not send to as often and also serve as a way to revive destinations without some other entity explicitly sending to it.\n\n\u003e Just another aside, ODIM must\u0027ve solved this problem already, and they\u0027re open source, we could take a look at what they did.\nSounds good",
+      "parentUuid": "e5438430_c171d1b1",
+      "range": {
+        "startLine": 10,
+        "startChar": 17,
+        "endLine": 11,
+        "endChar": 26
+      },
+      "revId": "122f379bf286075a7aac335399f2d1fb28765c15",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4b47f701_861bd49f",
         "filename": "http/http_client.hpp",
         "patchSetId": 4
