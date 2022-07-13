@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "31593707_d3f521bd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-13T15:14:37Z",
+      "side": 1,
+      "message": "Snehalatha, if you\u0027re going to restore a review that was abandoned for lack of response, please at least reply to the comments.  If you\u0027re still working on this, please mark it WIP (either in your commit message or in the topic) so we know you\u0027re still working on it.",
+      "revId": "767ef9c5248efa88a5bbacde8bc91f78cccd9aae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
