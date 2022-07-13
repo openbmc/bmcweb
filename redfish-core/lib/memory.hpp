@@ -909,6 +909,104 @@ inline void requestRoutesMemoryCollection(App& app)
         });
 }
 
+// Constructs hook with known-good settings for use with MemoryMetrics
+inline external_storer::Hook makeDimmHook()
+{
+    const std::string pathBase{"Systems/system/Memory"};
+
+    const std::string emptyString;
+    const std::vector<std::string> emptyList;
+
+    return {pathBase, emptyString, emptyList, emptyList};
+}
+
+// Remembers the ExternalStorer hook and one instance per DIMM in this system
+inline std::shared_ptr<external_storer::Hook>
+    rememberDimmHook(const std::string& dimmId)
+{
+    static std::shared_ptr<external_storer::Hook> hookMemory = nullptr;
+
+    if (!hookMemory)
+    {
+        // If not already remembered by static variable, create hook
+        hookMemory = std::make_shared<external_storer::Hook>(makeDimmHook());
+    }
+
+    auto respGet = std::make_shared<bmcweb::AsyncResp>();
+
+    hookMemory->handleGetInstance(respGet, dimmId);
+    if (respGet->res.result() == boost::beast::http::status::ok)
+    {
+        // Already exists, good, nothing more needs to be done
+        return hookMemory;
+    }
+
+    boost::beast::http::request<boost::beast::http::string_body> upBody;
+    std::error_code ec;
+
+    // Create instance, with name of DIMM, and no further customizations
+    auto upJson = nlohmann::json::object();
+    upJson["Id"] = dimmId;
+
+    // Must supply 4th argument to avoid throwing exceptions
+    upBody.body() =
+        upJson.dump(-1, ' ', false, nlohmann::json::error_handler_t::replace);
+    crow::Request reqCreate{upBody, ec};
+
+    auto respCreate = std::make_shared<bmcweb::AsyncResp>();
+    hookMemory->handleCreateInstance(reqCreate, respCreate);
+    if (respCreate->res.result() != boost::beast::http::status::created)
+    {
+        BMCWEB_LOG_ERROR << "Problem creating instance for " << dimmId;
+        return nullptr;
+    }
+
+    // The instance should now be usable
+    return hookMemory;
+}
+
+inline bool getExternalStorerMemoryMetrics(
+    const std::shared_ptr<bmcweb::AsyncResp>& aResp, const std::string& dimmId)
+{
+    std::shared_ptr<external_storer::Hook> hook = rememberDimmHook(dimmId);
+    if (!hook)
+    {
+        BMCWEB_LOG_ERROR << "Problem getting hook for " << dimmId;
+        return false;
+    }
+
+    std::string emptyString;
+    hook->handleGetEntry(aResp, dimmId, emptyString, "MemoryMetrics");
+    if (aResp->res.result() != boost::beast::http::status::ok)
+    {
+        // This is normal behavior, file is not mandatory
+        return false;
+    }
+
+    // Apply invariants, to override whatever might have been in the file
+    aResp->res.jsonValue["@odata.type"] = "#MemoryMetrics.v1_4_1.MemoryMetrics";
+
+    return true;
+}
+
+inline void getMemoryMetrics(std::shared_ptr<bmcweb::AsyncResp> aResp,
+                             const std::string& dimmId)
+{
+    BMCWEB_LOG_DEBUG << "Get available memory metrics for DIMM.";
+
+    // This is the integration point for ExternalStorer with MemoryMetrics.
+    // If locally-existing file exists, use ExternalStorer to return it.
+    if (getExternalStorerMemoryMetrics(aResp, dimmId))
+    {
+        BMCWEB_LOG_DEBUG << "Successful local file read for " << dimmId;
+        return;
+    }
+
+    // No more falling back to D-Bus query, instead, simply give user 404
+    BMCWEB_LOG_WARNING << "Memory metrics not found for " << dimmId;
+    messages::resourceNotFound(aResp->res, "MemoryMetrics", dimmId);
+}
+
 inline void requestRoutesMemory(App& app)
 {
     /**
@@ -925,6 +1023,26 @@ inline void requestRoutesMemory(App& app)
             return;
         }
         getDimmData(asyncResp, dimmId);
+        });
+}
+
+inline void requestRoutesMemoryMetrics(App& app)
+{
+    /**
+     * Functions triggers appropriate requests on DBus
+     */
+    BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/Memory/<str>/MemoryMetrics/")
+        .privileges(redfish::privileges::getMemoryMetrics)
+        .methods(boost::beast::http::verb::get)(
+            [](const crow::Request&,
+               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const std::string& dimmId) {
+        asyncResp->res.jsonValue["@odata.type"] =
+            "#MemoryMetrics.v1_4_1.MemoryMetrics";
+        asyncResp->res.jsonValue["@odata.id"] =
+            "/redfish/v1/Systems/system/Memory/" + dimmId + "/MemoryMetrics";
+
+        getMemoryMetrics(asyncResp, dimmId);
         });
 }
 
