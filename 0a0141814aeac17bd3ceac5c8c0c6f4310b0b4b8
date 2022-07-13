@@ -102,6 +102,30 @@
       },
       "revId": "0a0141814aeac17bd3ceac5c8c0c6f4310b0b4b8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "174de24f_7d2b3f5d",
+        "filename": "redfish-core/lib/task.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-13T15:27:32Z",
+      "side": 1,
+      "message": "+1.  Also, using starts_with here is an instance of common error #12.",
+      "parentUuid": "7f0d1489_fc2dab87",
+      "range": {
+        "startLine": 56,
+        "startChar": 12,
+        "endLine": 56,
+        "endChar": 64
+      },
+      "revId": "0a0141814aeac17bd3ceac5c8c0c6f4310b0b4b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
