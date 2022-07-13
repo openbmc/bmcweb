@@ -146,6 +146,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "89392661_e44f531a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-13T15:05:52Z",
+      "side": 1,
+      "message": "So the above kind of implies that we need some tracking of the \"health\" of a given remote that\u0027s separate from the connection itself (this is starting to get messy).\n\n(again thinking out loud) What if we used GET /redfish/v1 as a canary in the coal mine sort of set up?  If the system is up, it should definitely respond to /redfish/v1, and it\u0027s a response that doesn\u0027t really take up bandwidth.  (technically we could also do HEAD if we were really worried about bw).  If the system ever drops connections, we start trying to connect to /redfish/v1 at some rate, and 502 any incoming connection until we get at least one connection that succeeds in connecting to /redfish/v1.  Because our /redfish/v1 polling task is local and not tied to a response, it can take as long as it likes to time out (or we can set an arbitrarily short timeout), and when the resource goes down, we could immediately 502 instead of waiting for a timeout.\n\n\nI wonder how nginx deals with this.  It has a reverse proxy and seems to time out in a reasonable amount of time.",
+      "parentUuid": "9a383535_abae737c",
+      "range": {
+        "startLine": 10,
+        "startChar": 17,
+        "endLine": 11,
+        "endChar": 26
+      },
+      "revId": "122f379bf286075a7aac335399f2d1fb28765c15",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4b47f701_861bd49f",
         "filename": "http/http_client.hpp",
         "patchSetId": 4
