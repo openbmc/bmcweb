@@ -238,6 +238,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0082df74_d2d6196a",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-13T20:15:44Z",
+      "side": 1,
+      "message": "Per our coding standard, that commit will need to go in the same time.  If you\u0027re willing to maintain this patch series in the meantime, that would be fine, but I\u0027m not going to merge a default behavior that is known to not obey the security rules.  If you disagree with the security rules, or owasp recommendations, I\u0027m happy to have that discussion.",
+      "parentUuid": "71a91d40_1846a897",
+      "range": {
+        "startLine": 154,
+        "startChar": 0,
+        "endLine": 154,
+        "endChar": 76
+      },
+      "revId": "d739445adffb056cbb753730656f80ccc367b010",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "02064a3e_7fdabfb8",
         "filename": "http/http_client.hpp",
         "patchSetId": 5
@@ -419,6 +443,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7d6d76e2_f8c28610",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-13T20:15:44Z",
+      "side": 1,
+      "message": "Retrying is no more safe if the cert isn\u0027t available, so I don\u0027t understand your answer.",
+      "parentUuid": "5e5101ff_87f8a2b7",
+      "range": {
+        "startLine": 216,
+        "startChar": 16,
+        "endLine": 216,
+        "endChar": 28
+      },
+      "revId": "d739445adffb056cbb753730656f80ccc367b010",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "084a19e9_2d98a08d",
         "filename": "http/http_client.hpp",
         "patchSetId": 5
@@ -501,6 +549,30 @@
       "side": 1,
       "message": "I think this is aligned with other patterns, like:\n\nOn success cases (In side lamda) -\u003e doResolve()  calls  doConnect()  Calls -\u003e doHandShake() -\u003e sendMessage() -\u003e recvMessage() -\u003e Calls callback()",
       "parentUuid": "89d11273_7b98893d",
+      "range": {
+        "startLine": 283,
+        "startChar": 0,
+        "endLine": 294,
+        "endChar": 32
+      },
+      "revId": "d739445adffb056cbb753730656f80ccc367b010",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a95b30d3_db67e305",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 294,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-13T20:15:44Z",
+      "side": 1,
+      "message": "Point still stands, this is a pattern that we\u0027re trying to get rid of because it leads to really confusing compile errors, log messages, and stack traces.  I\u0027m not interested in supporting patchsets that make the problem worse.\n\nIf you need me to make this mod for you, I\u0027m happy to if you\u0027re still willing to test.",
+      "parentUuid": "452d9a3e_c69a4563",
       "range": {
         "startLine": 283,
         "startChar": 0,
@@ -689,6 +761,30 @@
       "side": 1,
       "message": "The subscriptions are maintained in different map that is connectionPools.\n\nEach subscription can have map entry in connectionPools with key as IP:PORT. So ideally speaking with this itself both http \u0026 https works fine( Reason: Since we are using IP:port as key to connectionPools which can\u0027t be same for both http \u0026 https - Either IP or port has be change)\n\nBut there is an issue what if two subscriptions has different paths on same IP:PORT ( example: Subscription 1: https://10.0.0.1:4000/path1 and subscription 2: https://10.0.0.1:4000/path2 - Note both can have there own filters) -  So i am planning to change logic in such a way that Key will be passed directly from EventServiceManager ( can use same subscription ID) as part of sendData(...) call. This way all key\u0027s will be unique. But planning to do this as separate commit.",
       "parentUuid": "d90186b6_923047f3",
+      "range": {
+        "startLine": 583,
+        "startChar": 0,
+        "endLine": 583,
+        "endChar": 22
+      },
+      "revId": "d739445adffb056cbb753730656f80ccc367b010",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "97c46dda_a7916670",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 583,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-13T20:15:44Z",
+      "side": 1,
+      "message": "Sure, let me know when that commit is ready and we can stack it on top of this one, but they\u0027ll need to merge together.\n\nThe behavior you describe seems pretty likely to what a test script would do, or if A user mapped to localhost, so it\u0027s not something I\u0027m comfortable living with in master for the moment.",
+      "parentUuid": "c0a487a1_da331e11",
       "range": {
         "startLine": 583,
         "startChar": 0,
