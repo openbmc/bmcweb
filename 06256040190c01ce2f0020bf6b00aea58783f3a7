@@ -38,6 +38,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "083f6387_47279063",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-13T15:10:31Z",
+      "side": 1,
+      "message": "That\u0027s a little surprising, but might just be a deficiency of the tool..... Redfish-Protocol-Validator would for sure have failures as it tries tests against accountservice",
+      "parentUuid": "32d794fa_7e1d2afa",
+      "revId": "06256040190c01ce2f0020bf6b00aea58783f3a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "8539e887_afa5585d",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 10
@@ -84,6 +102,24 @@
       "side": 1,
       "message": "Let me fix the meson options first. I believe we have an agreement on that already?",
       "parentUuid": "41b9140e_eaeee492",
+      "revId": "06256040190c01ce2f0020bf6b00aea58783f3a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "92ce5913_df6c831f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-13T15:10:31Z",
+      "side": 1,
+      "message": "Yep, that would be fine.",
+      "parentUuid": "5baff4ac_614e1af6",
       "revId": "06256040190c01ce2f0020bf6b00aea58783f3a7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
