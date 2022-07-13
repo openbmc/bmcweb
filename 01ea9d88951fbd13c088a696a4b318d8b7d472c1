@@ -51,6 +51,23 @@
       "message": "Looks good to me.",
       "revId": "01ea9d88951fbd13c088a696a4b318d8b7d472c1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "41742cd5_ad03799c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 17
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001093
+      },
+      "writtenOn": "2022-07-13T11:29:10Z",
+      "side": 1,
+      "message": "This patch is depends on the following patch: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/53816\n\nI\u0027m working on to resolve the merge conflicts of this patch. ",
+      "revId": "01ea9d88951fbd13c088a696a4b318d8b7d472c1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
