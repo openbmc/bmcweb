@@ -33,6 +33,24 @@
       "message": "Hello Ed,\nCould you help us to review the latest patch according your suggestion again?\nThanks in advance.\n\nBest regards,\nTim",
       "revId": "b2c9efeb3ff68451dc7330e02ae98f193f6ad417",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e4842be2_6bd0b922",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000294
+      },
+      "writtenOn": "2022-07-13T03:11:30Z",
+      "side": 1,
+      "message": "friendly ping",
+      "parentUuid": "f629c441_170b3e54",
+      "revId": "b2c9efeb3ff68451dc7330e02ae98f193f6ad417",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
