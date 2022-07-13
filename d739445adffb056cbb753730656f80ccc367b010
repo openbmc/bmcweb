@@ -144,6 +144,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "897c3f85_3e4280d4",
+        "filename": "bmcweb_config.h.in",
+        "patchSetId": 5
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-13T20:19:55Z",
+      "side": 1,
+      "message": "\u003e Different OEM might look to store certificates in different area\u0027s\n\nI\u0027m not interested in supporting multiple locations.  If OEMs want to have custom certificates, integrate with phosphor-certificate-manager and have it own the cert.",
+      "parentUuid": "856390db_94ebbcac",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 84
+      },
+      "revId": "d739445adffb056cbb753730656f80ccc367b010",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c9475d4b_eee36c87",
         "filename": "http/http_client.hpp",
         "patchSetId": 5
@@ -179,6 +203,30 @@
       "side": 1,
       "message": "I tried multiple ways ways of using but no luck :( \n\nAdding \"// NOLINTNEXTLINE(cppcoreguidelines-pro-type-old-style-cast)\" and \"// NOLINTNEXTLINE(*)\" and \"// NOLINT(*)\" but still seeing same issue. Not sure whats wrong, any pointer?\n\nERROR: \nerror: use of old-style cast to \u0027void*\u0027 [-Werror\u003dold-style-cast]",
       "parentUuid": "c9475d4b_eee36c87",
+      "range": {
+        "startLine": 54,
+        "startChar": 17,
+        "endLine": 58,
+        "endChar": 77
+      },
+      "revId": "d739445adffb056cbb753730656f80ccc367b010",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "106f2737_fa92a198",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-13T20:19:55Z",
+      "side": 1,
+      "message": "Maybe try NOLINTBEGIN and NOLINTEND, which got added in clang-tidy-14.\n\nPS, please don\u0027t resolve comments if they haven\u0027t been resolved.  It helps maintainers to review.",
+      "parentUuid": "de7866d3_9842318c",
       "range": {
         "startLine": 54,
         "startChar": 17,
@@ -926,6 +974,30 @@
       "side": 1,
       "message": "destUri is contains the path not the full URI to extract it. It should have been name destPath instead of destUri.  I will correct name in separate commit.",
       "parentUuid": "f49dc36a_4dfb482d",
+      "range": {
+        "startLine": 669,
+        "startChar": 0,
+        "endLine": 669,
+        "endChar": 38
+      },
+      "revId": "d739445adffb056cbb753730656f80ccc367b010",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "62b9604b_992e6b3b",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 669,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-13T20:19:55Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "4f0e7eb9_5afd4ff7",
       "range": {
         "startLine": 669,
         "startChar": 0,
