@@ -16,6 +16,57 @@
       "message": "@edtonous @Gunnar\nCan you please merge this?",
       "revId": "34799b5bb04c1f8de442d5b8646930c083b7ec76",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "354e2ca4_82457d40",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 18
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-07-13T15:55:29Z",
+      "side": 1,
+      "message": "Can you PoweringOn for the PowerState when we aren\u0027t ready? Otherwise looks good",
+      "revId": "34799b5bb04c1f8de442d5b8646930c083b7ec76",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c8943dd6_2657221f",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 1947,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-07-13T15:55:29Z",
+      "side": 1,
+      "message": "I think state management is one it is fine calling directly (we do other places). \n\nIf this interface doesn\u0027t exist, you would not get a Status/PowerState but I think that is fine. Some places we do have a default but everyone should have this interface, if they don\u0027t, leaving off seems reasonable (leave off properties you don\u0027t have information on, more in line with the Redfish spec IMO)",
+      "revId": "34799b5bb04c1f8de442d5b8646930c083b7ec76",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa755dbd_05e80fc1",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 1976,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-07-13T15:55:29Z",
+      "side": 1,
+      "message": "\"PoweringOn\", ?\n\n        \"PowerState\": {\n            \"enum\": [\n                \"On\",\n                \"Off\",\n                \"PoweringOn\",\n                \"PoweringOff\",\n                \"Paused\"\n            ],",
+      "revId": "34799b5bb04c1f8de442d5b8646930c083b7ec76",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
