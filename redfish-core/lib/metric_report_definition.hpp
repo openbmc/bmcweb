@@ -274,7 +274,11 @@ class AddReport
             for (size_t i = 0; i < uris.size(); i++)
             {
                 const std::string& uri = uris[i];
-                auto el = uriToDbus.find(uri);
+
+                auto el = std::find_if(uriToDbus.begin(), uriToDbus.end(),
+                                       [&uri](const SensorData& data) {
+                    return uri == data.uri;
+                });
                 if (el == uriToDbus.end())
                 {
                     BMCWEB_LOG_ERROR
@@ -286,7 +290,7 @@ class AddReport
                     return;
                 }
 
-                const std::string& dbusPath = el->second;
+                const std::string& dbusPath = el->dbusPath;
                 readingParams.emplace_back(dbusPath, "SINGLE", id, uri);
             }
         }
@@ -308,9 +312,9 @@ class AddReport
             if (ec == boost::system::errc::argument_list_too_long)
             {
                 nlohmann::json metricProperties = nlohmann::json::array();
-                for (const auto& [uri, _] : uriToDbus)
+                for (const auto& sensor : uriToDbus)
                 {
-                    metricProperties.emplace_back(uri);
+                    metricProperties.emplace_back(sensor.uri + sensor.valueKey);
                 }
                 messages::propertyValueIncorrect(
                     aResp->res, metricProperties.dump(), "MetricProperties");
@@ -337,15 +341,15 @@ class AddReport
     AddReport& operator=(const AddReport&) = delete;
     AddReport& operator=(AddReport&&) = delete;
 
-    void insert(const std::map<std::string, std::string>& el)
+    void insert(const std::vector<SensorData>& el)
     {
-        uriToDbus.insert(el.begin(), el.end());
+        uriToDbus.insert(uriToDbus.end(), el.begin(), el.end());
     }
 
   private:
     const std::shared_ptr<bmcweb::AsyncResp> asyncResp;
     AddReportArgs args;
-    boost::container::flat_map<std::string, std::string> uriToDbus{};
+    std::vector<SensorData> uriToDbus;
 };
 } // namespace telemetry
 
@@ -401,20 +405,11 @@ inline void requestRoutesMetricReportDefinitionCollection(App& app)
             std::make_shared<telemetry::AddReport>(std::move(args), asyncResp);
         for (const auto& [chassis, sensorType] : chassisSensors)
         {
-            retrieveUriToDbusMap(
-                chassis, sensorType,
-                [asyncResp, addReportReq](
-                    const boost::beast::http::status status,
-                    const std::map<std::string, std::string>& uriToDbus) {
-                if (status != boost::beast::http::status::ok)
-                {
-                    BMCWEB_LOG_ERROR
-                        << "Failed to retrieve URI to dbus sensors map with err "
-                        << static_cast<unsigned>(status);
-                    return;
-                }
+            retrieveUriToDbusMap(chassis, sensorType,
+                                 [asyncResp, addReportReq](
+                                     const std::vector<SensorData>& uriToDbus) {
                 addReportReq->insert(uriToDbus);
-                });
+            });
         }
         });
 }
