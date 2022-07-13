@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5109d799_cfb3cedc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-07-13T20:09:05Z",
+      "side": 1,
+      "message": "Updated commit message with more details.",
+      "parentUuid": "747b7fc6_b8666b62",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 62
+      },
+      "revId": "d739445adffb056cbb753730656f80ccc367b010",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1428271c_09a6d315",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-07-06T18:32:08Z",
       "side": 1,
       "message": "You will need a test that adds both simultaneously;  As-written, I don\u0027t think this code will handle it properly.",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 37
+      },
+      "revId": "d739445adffb056cbb753730656f80ccc367b010",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9445d4cc_54afdb83",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-07-13T20:09:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1428271c_09a6d315",
       "range": {
         "startLine": 28,
         "startChar": 0,
@@ -154,6 +202,30 @@
       "writtenOn": "2022-07-06T18:29:48Z",
       "side": 1,
       "message": "no tls 1.3?\n\nCan you please make sure this conforms to the owasp TLS recommendations (as the documentation asks for).\n\nAlso, please document these design decisions (including the links to the backing owasp recommendations) in your commit message.",
+      "range": {
+        "startLine": 154,
+        "startChar": 0,
+        "endLine": 154,
+        "endChar": 76
+      },
+      "revId": "d739445adffb056cbb753730656f80ccc367b010",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "71a91d40_1846a897",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-07-13T20:09:05Z",
+      "side": 1,
+      "message": "Yeah, This is initial commit with tls1.2, I will look at the OWSAP and enhance the security as part of separate commit",
+      "parentUuid": "74b6a827_130f695b",
       "range": {
         "startLine": 154,
         "startChar": 0,
@@ -323,6 +395,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5e5101ff_87f8a2b7",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-07-13T20:09:05Z",
+      "side": 1,
+      "message": "Yeah, ideally no recovery but i am just following fail safe path of retry after retry interval and set connection to suspended/terminate states.",
+      "parentUuid": "d2bb1d1f_58ae5fac",
+      "range": {
+        "startLine": 216,
+        "startChar": 16,
+        "endLine": 216,
+        "endChar": 28
+      },
+      "revId": "d739445adffb056cbb753730656f80ccc367b010",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "084a19e9_2d98a08d",
         "filename": "http/http_client.hpp",
         "patchSetId": 5
@@ -393,6 +489,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "452d9a3e_c69a4563",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 294,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-07-13T20:09:05Z",
+      "side": 1,
+      "message": "I think this is aligned with other patterns, like:\n\nOn success cases (In side lamda) -\u003e doResolve()  calls  doConnect()  Calls -\u003e doHandShake() -\u003e sendMessage() -\u003e recvMessage() -\u003e Calls callback()",
+      "parentUuid": "89d11273_7b98893d",
+      "range": {
+        "startLine": 283,
+        "startChar": 0,
+        "endLine": 294,
+        "endChar": 32
+      },
+      "revId": "d739445adffb056cbb753730656f80ccc367b010",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "913c73c7_510b7c1d",
         "filename": "http/http_client.hpp",
         "patchSetId": 5
@@ -404,6 +524,24 @@
       "writtenOn": "2022-07-06T18:29:48Z",
       "side": 1,
       "message": "once the async_shutdown is complete, you still need to call conn.socket().shutdown(boost::asio::ip::tcp::socket::shutdown_both,\n                                   ec);\n                                   \nas you do on the lines below.",
+      "revId": "d739445adffb056cbb753730656f80ccc367b010",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fc7c908c_b6d06c1c",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 467,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-07-13T20:09:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "913c73c7_510b7c1d",
       "revId": "d739445adffb056cbb753730656f80ccc367b010",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -425,6 +563,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b0f81bbf_f8d45812",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 472,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-07-13T20:09:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "99d4e4ea_fc3ace58",
+      "revId": "d739445adffb056cbb753730656f80ccc367b010",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "95c4aa4a_7b920af6",
@@ -438,6 +594,30 @@
       "writtenOn": "2022-07-06T18:29:48Z",
       "side": 1,
       "message": "This whole function is pretty much a duplicate of the above, which, when it was 10 lines of code duplicated was probably fine, but now that its much longer, is there any way to deduplicate the paths?",
+      "range": {
+        "startLine": 502,
+        "startChar": 9,
+        "endLine": 502,
+        "endChar": 24
+      },
+      "revId": "d739445adffb056cbb753730656f80ccc367b010",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c125bf88_7b9acf96",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 502,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-07-13T20:09:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "95c4aa4a_7b920af6",
       "range": {
         "startLine": 502,
         "startChar": 9,
