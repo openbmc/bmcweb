@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "643c8eea_7e95b2e3",
+        "filename": "include/ibm/locks.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-07-13T16:16:42Z",
+      "side": 1,
+      "message": "Ack.",
+      "parentUuid": "b60e1c88_2f4b7eea",
+      "revId": "fcda0d935260b8c6c08f3949212ce742e07ca9ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "de5942a0_ed77def8",
         "filename": "include/openbmc_dbus_rest.hpp",
         "patchSetId": 1
