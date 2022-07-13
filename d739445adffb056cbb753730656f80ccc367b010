@@ -70,6 +70,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "856390db_94ebbcac",
+        "filename": "bmcweb_config.h.in",
+        "patchSetId": 5
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-07-13T18:48:55Z",
+      "side": 1,
+      "message": "Its more than platform, Different OEM might look to store certificates in different area\u0027s. I can add same note in commit message.",
+      "parentUuid": "ec8a6f66_5bb18dc7",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 84
+      },
+      "revId": "d739445adffb056cbb753730656f80ccc367b010",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c9475d4b_eee36c87",
@@ -83,6 +107,30 @@
       "writtenOn": "2022-07-06T18:29:48Z",
       "side": 1,
       "message": "Please just rely on // NOLINTNEXTLINE(error-type) for resolving this as we have in other places.  Having out own copy of this doesn\u0027t seem like it helps us here.",
+      "range": {
+        "startLine": 54,
+        "startChar": 17,
+        "endLine": 58,
+        "endChar": 77
+      },
+      "revId": "d739445adffb056cbb753730656f80ccc367b010",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "de7866d3_9842318c",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-07-13T18:48:55Z",
+      "side": 1,
+      "message": "I tried multiple ways ways of using but no luck :( \n\nAdding \"// NOLINTNEXTLINE(cppcoreguidelines-pro-type-old-style-cast)\" and \"// NOLINTNEXTLINE(*)\" and \"// NOLINT(*)\" but still seeing same issue. Not sure whats wrong, any pointer?\n\nERROR: \nerror: use of old-style cast to \u0027void*\u0027 [-Werror\u003dold-style-cast]",
+      "parentUuid": "c9475d4b_eee36c87",
       "range": {
         "startLine": 54,
         "startChar": 17,
@@ -202,6 +250,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b197fced_fef7db78",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-07-13T18:48:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7d39f22a_4176a2e3",
+      "range": {
+        "startLine": 206,
+        "startChar": 54,
+        "endLine": 206,
+        "endChar": 59
+      },
+      "revId": "d739445adffb056cbb753730656f80ccc367b010",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d2bb1d1f_58ae5fac",
@@ -238,6 +310,30 @@
       "writtenOn": "2022-07-06T18:29:48Z",
       "side": 1,
       "message": "not a problem in your patchset, but size_t is generally taken by value, not reference.",
+      "range": {
+        "startLine": 282,
+        "startChar": 50,
+        "endLine": 282,
+        "endChar": 56
+      },
+      "revId": "d739445adffb056cbb753730656f80ccc367b010",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b8568ba2_dda6004f",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-07-13T18:48:55Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "084a19e9_2d98a08d",
       "range": {
         "startLine": 282,
         "startChar": 50,
@@ -377,6 +473,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c0a487a1_da331e11",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 583,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-07-13T18:48:55Z",
+      "side": 1,
+      "message": "The subscriptions are maintained in different map that is connectionPools.\n\nEach subscription can have map entry in connectionPools with key as IP:PORT. So ideally speaking with this itself both http \u0026 https works fine( Reason: Since we are using IP:port as key to connectionPools which can\u0027t be same for both http \u0026 https - Either IP or port has be change)\n\nBut there is an issue what if two subscriptions has different paths on same IP:PORT ( example: Subscription 1: https://10.0.0.1:4000/path1 and subscription 2: https://10.0.0.1:4000/path2 - Note both can have there own filters) -  So i am planning to change logic in such a way that Key will be passed directly from EventServiceManager ( can use same subscription ID) as part of sendData(...) call. This way all key\u0027s will be unique. But planning to do this as separate commit.",
+      "parentUuid": "d90186b6_923047f3",
+      "range": {
+        "startLine": 583,
+        "startChar": 0,
+        "endLine": 583,
+        "endChar": 22
+      },
+      "revId": "d739445adffb056cbb753730656f80ccc367b010",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a26b0535_265df071",
         "filename": "http/http_client.hpp",
         "patchSetId": 5
@@ -388,6 +508,30 @@
       "writtenOn": "2022-07-06T18:29:48Z",
       "side": 1,
       "message": "std::move on a bool does nothing.  Please remove.",
+      "range": {
+        "startLine": 604,
+        "startChar": 22,
+        "endLine": 604,
+        "endChar": 32
+      },
+      "revId": "d739445adffb056cbb753730656f80ccc367b010",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e1d4e494_0226fa8d",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 604,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-07-13T18:48:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a26b0535_265df071",
       "range": {
         "startLine": 604,
         "startChar": 22,
@@ -423,6 +567,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d090d160_cde6f787",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 651,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-07-13T18:48:55Z",
+      "side": 1,
+      "message": "Same as explained at https://gerrit.openbmc.org/c/openbmc/bmcweb/+/54945/comments/8e9e1133_2df87256\n\nDo let me know if any disagreement.",
+      "parentUuid": "399374bc_22930e3a",
+      "range": {
+        "startLine": 639,
+        "startChar": 12,
+        "endLine": 651,
+        "endChar": 13
+      },
+      "revId": "d739445adffb056cbb753730656f80ccc367b010",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f49dc36a_4dfb482d",
         "filename": "http/http_client.hpp",
         "patchSetId": 5
@@ -434,6 +602,30 @@
       "writtenOn": "2022-07-06T18:29:48Z",
       "side": 1,
       "message": "Why do we need a separate bool for this?  doesn\u0027t destUri contain http or https?",
+      "range": {
+        "startLine": 669,
+        "startChar": 0,
+        "endLine": 669,
+        "endChar": 38
+      },
+      "revId": "d739445adffb056cbb753730656f80ccc367b010",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f0e7eb9_5afd4ff7",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 669,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-07-13T18:48:55Z",
+      "side": 1,
+      "message": "destUri is contains the path not the full URI to extract it. It should have been name destPath instead of destUri.  I will correct name in separate commit.",
+      "parentUuid": "f49dc36a_4dfb482d",
       "range": {
         "startLine": 669,
         "startChar": 0,
@@ -469,6 +661,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "52e8e1a5_9caa1e7e",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 731,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-07-13T18:48:55Z",
+      "side": 1,
+      "message": "Not clear on why we need to make check message and existing connection again here. Already we are adding entry for each subscription in connectionPool using IP \u0026 port . So only if the the send request is for specific subscription( Checked via unique key in connection pool) and its sent to the connections established(No mismatch of http-https there) for that specific subscription. So i don\u0027t see need for cross verification of SSL here.\n\nRegarding idle state checking, We are already doing this here as we mapped conn(tcp_stream) with ssl_stream during construction of sslConn, So using state from tcp_stream connection is enough that is we are already doing in this highlighted code.",
+      "parentUuid": "8e9e1133_2df87256",
+      "range": {
+        "startLine": 708,
+        "startChar": 0,
+        "endLine": 731,
+        "endChar": 13
+      },
+      "revId": "d739445adffb056cbb753730656f80ccc367b010",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6e73ce50_a921c59a",
         "filename": "http/http_client.hpp",
         "patchSetId": 5
@@ -480,6 +696,30 @@
       "writtenOn": "2022-07-12T17:34:58Z",
       "side": 1,
       "message": "You don\u0027t need to use move since this is a bool",
+      "range": {
+        "startLine": 743,
+        "startChar": 12,
+        "endLine": 743,
+        "endChar": 47
+      },
+      "revId": "d739445adffb056cbb753730656f80ccc367b010",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2d1c1b20_06bb7061",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 743,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-07-13T18:48:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6e73ce50_a921c59a",
       "range": {
         "startLine": 743,
         "startChar": 12,
