@@ -105,6 +105,30 @@
       },
       "revId": "fcda0d935260b8c6c08f3949212ce742e07ca9ae",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "32d0f02b_928b24c9",
+        "filename": "include/openbmc_dbus_rest.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-13T05:49:50Z",
+      "side": 1,
+      "message": "then lets get yours merged first and we can handle this one after.",
+      "parentUuid": "25874864_11372d93",
+      "range": {
+        "startLine": 20,
+        "startChar": 32,
+        "endLine": 20,
+        "endChar": 33
+      },
+      "revId": "fcda0d935260b8c6c08f3949212ce742e07ca9ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
