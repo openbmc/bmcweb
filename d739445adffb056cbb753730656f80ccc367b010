@@ -845,6 +845,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "29468008_65e0bd89",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 583,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-07-13T21:30:32Z",
+      "side": 1,
+      "message": "\u003e The subscriptions are maintained in different map that is connectionPools.\nNo we have a connection pool for each IP:PORT pair and each connection pool can have at most 4 connections.  This way we can have N different subscriptions using the same IP:PORT and now create unique connections or pools for each one.\n\n\u003e But there is an issue what if two subscriptions has different paths on same IP:PORT\nThat should not be an issue.  The public sendData() function takes IP, Port, and destUri as arguments.  The IP:Port is used to choose the connection pool and then a conection within a pool sends to the destUri.  \n\n\u003e So i am planning to change logic in such a way that Key will be passed directly from EventServiceManager ( can use same subscription ID) as part of sendData(...) call. This way all key\u0027s will be unique. But planning to do this as separate commit.\nDo not make this change.  In your example we want both subscriptions to use the same connection pool.  I don\u0027t think it\u0027s a good idea to let services like EventServiceManager create exclusive pools via a unique subscription ID.  We want these pools to be shared across different services.  Right now Redfish Aggregation is the only other entity that will send HTTP requests, but there could be more in the future.\n\nIf subscriptions are somehow being created as their own connection pool then that is a bug that needs to be fixed rather than standardizing that behavior.",
+      "parentUuid": "97c46dda_a7916670",
+      "range": {
+        "startLine": 583,
+        "startChar": 0,
+        "endLine": 583,
+        "endChar": 22
+      },
+      "revId": "d739445adffb056cbb753730656f80ccc367b010",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a26b0535_265df071",
         "filename": "http/http_client.hpp",
         "patchSetId": 5
@@ -927,6 +951,30 @@
       "side": 1,
       "message": "Same as explained at https://gerrit.openbmc.org/c/openbmc/bmcweb/+/54945/comments/8e9e1133_2df87256\n\nDo let me know if any disagreement.",
       "parentUuid": "399374bc_22930e3a",
+      "range": {
+        "startLine": 639,
+        "startChar": 12,
+        "endLine": 651,
+        "endChar": 13
+      },
+      "revId": "d739445adffb056cbb753730656f80ccc367b010",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "40867b2b_a5b67c5a",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 651,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-07-13T21:30:32Z",
+      "side": 1,
+      "message": "See my above response",
+      "parentUuid": "d090d160_cde6f787",
       "range": {
         "startLine": 639,
         "startChar": 12,
@@ -1045,6 +1093,30 @@
       "side": 1,
       "message": "Not clear on why we need to make check message and existing connection again here. Already we are adding entry for each subscription in connectionPool using IP \u0026 port . So only if the the send request is for specific subscription( Checked via unique key in connection pool) and its sent to the connections established(No mismatch of http-https there) for that specific subscription. So i don\u0027t see need for cross verification of SSL here.\n\nRegarding idle state checking, We are already doing this here as we mapped conn(tcp_stream) with ssl_stream during construction of sslConn, So using state from tcp_stream connection is enough that is we are already doing in this highlighted code.",
       "parentUuid": "8e9e1133_2df87256",
+      "range": {
+        "startLine": 708,
+        "startChar": 0,
+        "endLine": 731,
+        "endChar": 13
+      },
+      "revId": "d739445adffb056cbb753730656f80ccc367b010",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f4fe1e21_642bbd28",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 731,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-07-13T21:30:32Z",
+      "side": 1,
+      "message": "As explained above, a connection pool only exists for a given IP:Port pair.  Each connection within the pool is configured to send to that specific IP:Port pair. They just exist within the pool as a vector of connections.\n\nThere is no distinction made about what entity created the pool in the first place.  Different subscription that use the same IP:Port will share the same connection pool.",
+      "parentUuid": "52e8e1a5_9caa1e7e",
       "range": {
         "startLine": 708,
         "startChar": 0,
