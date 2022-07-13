@@ -333,6 +333,19 @@ class InventoryItem
     LedState ledState = LedState::UNKNOWN;
 };
 
+inline void objectMapperErrorToMessage(const boost::system::error_code ec,
+                                       crow::Response& res)
+{
+    if (ec == boost::system::errc::timed_out)
+    {
+        messages::serviceTemporarilyUnavailable(res, "30");
+    }
+    else
+    {
+        messages::internalError(res);
+    }
+}
+
 /**
  * @brief Get objects with connection necessary for sensors
  * @param SensorsAsyncResp Pointer to object holding response data
@@ -358,7 +371,7 @@ void getObjectsWithConnection(
         BMCWEB_LOG_DEBUG << "getObjectsWithConnection resp_handler enter";
         if (ec)
         {
-            messages::internalError(sensorsAsyncResp->asyncResp->res);
+            objectMapperErrorToMessage(ec, sensorsAsyncResp->asyncResp->res);
             BMCWEB_LOG_ERROR
                 << "getObjectsWithConnection resp_handler: Dbus error " << ec;
             return;
@@ -492,9 +505,9 @@ void getValidChassisPath(const std::shared_ptr<SensorsAsyncResp>& asyncResp,
         BMCWEB_LOG_DEBUG << "getValidChassisPath respHandler enter";
         if (ec)
         {
+            objectMapperErrorToMessage(ec, asyncResp->asyncResp->res);
             BMCWEB_LOG_ERROR << "getValidChassisPath respHandler DBUS error: "
                              << ec;
-            messages::internalError(asyncResp->asyncResp->res);
             return;
         }
 
@@ -547,8 +560,8 @@ void getChassis(const std::shared_ptr<SensorsAsyncResp>& sensorsAsyncResp,
         BMCWEB_LOG_DEBUG << "getChassis respHandler enter";
         if (ec)
         {
+            objectMapperErrorToMessage(ec, sensorsAsyncResp->asyncResp->res);
             BMCWEB_LOG_ERROR << "getChassis respHandler DBUS error: " << ec;
-            messages::internalError(sensorsAsyncResp->asyncResp->res);
             return;
         }
 
@@ -625,7 +638,8 @@ void getChassis(const std::shared_ptr<SensorsAsyncResp>& sensorsAsyncResp,
             {
                 if (e.value() != EBADR)
                 {
-                    messages::internalError(sensorsAsyncResp->asyncResp->res);
+                    objectMapperErrorToMessage(
+                        e, sensorsAsyncResp->asyncResp->res);
                     return;
                 }
             }
@@ -679,7 +693,7 @@ void getObjectManagerPaths(
         BMCWEB_LOG_DEBUG << "getObjectManagerPaths respHandler enter";
         if (ec)
         {
-            messages::internalError(sensorsAsyncResp->asyncResp->res);
+            objectMapperErrorToMessage(ec, sensorsAsyncResp->asyncResp->res);
             BMCWEB_LOG_ERROR << "getObjectManagerPaths respHandler: DBus error "
                              << ec;
             return;
@@ -1708,7 +1722,7 @@ static void getInventoryItemsConnections(
         BMCWEB_LOG_DEBUG << "getInventoryItemsConnections respHandler enter";
         if (ec)
         {
-            messages::internalError(sensorsAsyncResp->asyncResp->res);
+            objectMapperErrorToMessage(ec, sensorsAsyncResp->asyncResp->res);
             BMCWEB_LOG_ERROR
                 << "getInventoryItemsConnections respHandler DBus error " << ec;
             return;
@@ -2061,7 +2075,7 @@ void getInventoryLeds(
         BMCWEB_LOG_DEBUG << "getInventoryLeds respHandler enter";
         if (ec)
         {
-            messages::internalError(sensorsAsyncResp->asyncResp->res);
+            objectMapperErrorToMessage(ec, sensorsAsyncResp->asyncResp->res);
             BMCWEB_LOG_ERROR << "getInventoryLeds respHandler DBus error "
                              << ec;
             return;
@@ -2238,7 +2252,7 @@ void getPowerSupplyAttributes(
         BMCWEB_LOG_DEBUG << "getPowerSupplyAttributes respHandler enter";
         if (ec)
         {
-            messages::internalError(sensorsAsyncResp->asyncResp->res);
+            objectMapperErrorToMessage(ec, sensorsAsyncResp->asyncResp->res);
             BMCWEB_LOG_ERROR
                 << "getPowerSupplyAttributes respHandler DBus error " << ec;
             return;
@@ -3040,7 +3054,7 @@ inline void handleSensorGet(App& app, const crow::Request& req,
         BMCWEB_LOG_DEBUG << "respHandler1 enter";
         if (ec)
         {
-            messages::internalError(asyncResp->asyncResp->res);
+            objectMapperErrorToMessage(ec, asyncResp->asyncResp->res);
             BMCWEB_LOG_ERROR << "Sensor getSensorPaths resp_handler: "
                              << "Dbus error " << ec;
             return;
