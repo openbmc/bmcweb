@@ -173,6 +173,14 @@ inline const char* toReadingUnits(const std::string& sensorType)
 }
 } // namespace sensors
 
+struct SensorData
+{
+    std::string name;
+    std::string uri;
+    std::string valueKey;
+    std::string dbusPath;
+};
+
 /**
  * SensorsAsyncResp
  * Gathers data needed for response processing after async calls are done
@@ -180,17 +188,8 @@ inline const char* toReadingUnits(const std::string& sensorType)
 class SensorsAsyncResp
 {
   public:
-    using DataCompleteCb = std::function<void(
-        const boost::beast::http::status status,
-        const std::map<std::string, std::string>& uriToDbus)>;
-
-    struct SensorData
-    {
-        const std::string name;
-        std::string uri;
-        const std::string valueKey;
-        const std::string dbusPath;
-    };
+    using DataCompleteCb =
+        std::function<void(const std::vector<SensorData>& uriToDbus)>;
 
     SensorsAsyncResp(const std::shared_ptr<bmcweb::AsyncResp>& asyncRespIn,
                      const std::string& chassisIdIn,
@@ -225,28 +224,11 @@ class SensorsAsyncResp
 
     ~SensorsAsyncResp()
     {
-        if (asyncResp->res.result() ==
-            boost::beast::http::status::internal_server_error)
+        if (!dataComplete || !metadata)
         {
-            // Reset the json object to clear out any data that made it in
-            // before the error happened todo(ed) handle error condition with
-            // proper code
-            asyncResp->res.jsonValue = nlohmann::json::object();
+            return;
         }
-
-        if (dataComplete && metadata)
-        {
-            std::map<std::string, std::string> map;
-            if (asyncResp->res.result() == boost::beast::http::status::ok)
-            {
-                for (auto& sensor : *metadata)
-                {
-                    map.insert(std::make_pair(sensor.uri + sensor.valueKey,
-                                              sensor.dbusPath));
-                }
-            }
-            dataComplete(asyncResp->res.result(), map);
-        }
+        dataComplete(*metadata);
     }
 
     SensorsAsyncResp(const SensorsAsyncResp&) = delete;
@@ -259,9 +241,9 @@ class SensorsAsyncResp
     {
         if (metadata)
         {
-            metadata->emplace_back(SensorData{sensorObject["Name"],
+            metadata->emplace_back(sensorObject["Name"],
                                               sensorObject["@odata.id"],
-                                              valueKey, dbusPath});
+                                              valueKey, dbusPath);
         }
     }
 
@@ -2816,15 +2798,14 @@ inline void retrieveUriToDbusMap(const std::string& chassis,
     if (pathIt == sensors::paths.cend())
     {
         BMCWEB_LOG_ERROR << "Wrong node provided : " << node;
-        mapComplete(boost::beast::http::status::bad_request, {});
+        mapComplete({});
         return;
     }
 
     auto asyncResp = std::make_shared<bmcweb::AsyncResp>();
     auto callback = [asyncResp, mapCompleteCb{std::move(mapComplete)}](
-                        const boost::beast::http::status status,
-                        const std::map<std::string, std::string>& uriToDbus) {
-        mapCompleteCb(status, uriToDbus);
+                        const std::vector<SensorData>& uriToDbus) {
+        mapCompleteCb(uriToDbus);
     };
 
     auto resp = std::make_shared<SensorsAsyncResp>(
