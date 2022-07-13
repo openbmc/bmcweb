@@ -189,6 +189,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "807496f5_c4915e88",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-07-13T19:31:11Z",
+      "side": 1,
+      "message": "We need to set the connection context with all required options and create ssl_stream with tcp_stream before doing every connection. Else we are ending up on asio.ssl error.",
+      "parentUuid": "02064a3e_7fdabfb8",
+      "range": {
+        "startLine": 193,
+        "startChar": 12,
+        "endLine": 193,
+        "endChar": 18
+      },
+      "revId": "d739445adffb056cbb753730656f80ccc367b010",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d3f2d5e1_10e4ef68",
         "filename": "http/http_client.hpp",
         "patchSetId": 5
@@ -743,6 +767,30 @@
       "writtenOn": "2022-07-06T18:29:48Z",
       "side": 1,
       "message": "I don\u0027t think this is where phosphor-certificate-manager stores these, is it?",
+      "range": {
+        "startLine": 307,
+        "startChar": 4,
+        "endLine": 307,
+        "endChar": 29
+      },
+      "revId": "d739445adffb056cbb753730656f80ccc367b010",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b70cd174_4f35d3ad",
+        "filename": "meson_options.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-07-13T19:31:11Z",
+      "side": 1,
+      "message": "All SSL certificates are stored here so added it as default patch. I will change the default path.",
+      "parentUuid": "05e78574_5a49b2b3",
       "range": {
         "startLine": 307,
         "startChar": 4,
