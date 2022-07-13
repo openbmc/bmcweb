@@ -935,6 +935,17 @@ inline void requestRoutesSystemLogServiceCollection(App& app)
             "/redfish/v1/Systems/system/LogServices/HostLogger";
         logServiceArray.push_back(std::move(hostlogger));
 #endif
+
+        // This is the ExternalStorer integration point
+        for (const auto& instance :
+             external_storer::rememberLogServices()->listInstances())
+        {
+            nlohmann::json::object_t externalStorerInstance;
+            externalStorerInstance["@odata.id"] =
+                "/redfish/v1/Systems/system/LogServices/" + instance;
+            logServiceArray.push_back(std::move(externalStorerInstance));
+        }
+
         asyncResp->res.jsonValue["Members@odata.count"] =
             logServiceArray.size();
 
