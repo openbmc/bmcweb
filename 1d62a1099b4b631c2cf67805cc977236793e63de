@@ -360,6 +360,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5821d178_9e684d10",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 747,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-07-13T16:13:48Z",
+      "side": 1,
+      "message": "Needs addressed",
+      "parentUuid": "e2434e52_5b5eb167",
+      "range": {
+        "startLine": 747,
+        "startChar": 46,
+        "endLine": 747,
+        "endChar": 53
+      },
+      "revId": "1d62a1099b4b631c2cf67805cc977236793e63de",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b17fa31e_228f9027",
         "filename": "include/ibm/management_console_rest.hpp",
         "patchSetId": 17

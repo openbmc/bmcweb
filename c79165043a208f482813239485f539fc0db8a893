@@ -3,6 +3,40 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "031cad6e_039c1dde",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 39
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-07-13T16:13:48Z",
+      "side": 1,
+      "message": "Please wrap at 50/72, not some custom number",
+      "revId": "c79165043a208f482813239485f539fc0db8a893",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2ebcb3d5_917c6a59",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 39
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-07-13T16:13:48Z",
+      "side": 1,
+      "message": "Please try to use proper capitalization and sentence structure. \n\nE.g.\n\nIn our IBM case, our hypervisor acts as a CA that signs the CSR, so keep this an IBM-specific interface.",
+      "revId": "c79165043a208f482813239485f539fc0db8a893",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0ff39fbb_8e074482",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 39
