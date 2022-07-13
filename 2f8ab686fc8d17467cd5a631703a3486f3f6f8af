@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "acb23cdf_10d1eee2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1001371
+      },
+      "writtenOn": "2022-07-13T16:08:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e8d0cdf6_dbf4e3a6",
+      "range": {
+        "startLine": 13,
+        "startChar": 5,
+        "endLine": 13,
+        "endChar": 14
+      },
+      "revId": "2f8ab686fc8d17467cd5a631703a3486f3f6f8af",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "807a2252_c741adeb",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 2
@@ -136,6 +160,24 @@
       "side": 1,
       "message": "+1. Please take a look at other codes.",
       "parentUuid": "caaf9b6f_d3972e38",
+      "revId": "2f8ab686fc8d17467cd5a631703a3486f3f6f8af",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d0238a2a_01933ffb",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 971,
+      "author": {
+        "id": 1001371
+      },
+      "writtenOn": "2022-07-13T16:08:16Z",
+      "side": 1,
+      "message": "done",
+      "parentUuid": "d575a1f4_c0a11764",
       "revId": "2f8ab686fc8d17467cd5a631703a3486f3f6f8af",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
