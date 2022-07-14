@@ -16,6 +16,9 @@
 #pragma once
 
 #include "dbus_singleton.hpp"
+#include "logging.hpp"
+
+#include <tinyxml2.h>
 
 #include <boost/system/error_code.hpp> // IWYU pragma: keep
 #include <sdbusplus/message/native_types.hpp>
@@ -138,6 +141,50 @@ inline void checkDbusPathExists(const std::string& path, Callback&& callback)
         "/xyz/openbmc_project/object_mapper",
         "xyz.openbmc_project.ObjectMapper", "GetObject", path,
         std::array<std::string, 0>());
+}
+
+/**
+ * @brief Parse the XML result of a D-Bus object introspection and search for
+ * the specified interface
+ *
+ * @param[in]  interface     D-Bus interface to search for in the XML result
+ *
+ * @return bool true if the specified interface is found
+ */
+inline bool introspectXmlContains(const char* interface,
+                                  const std::string& introspectXml)
+{
+    if (interface == nullptr)
+    {
+        BMCWEB_LOG_ERROR << "introspectXmlContains: invalid interface arg";
+        return false;
+    }
+
+    tinyxml2::XMLDocument doc;
+    doc.Parse(introspectXml.c_str());
+    tinyxml2::XMLNode* pRoot = doc.FirstChildElement("node");
+
+    if (pRoot == nullptr)
+    {
+        BMCWEB_LOG_ERROR << "XML document failed to parse";
+    }
+    else
+    {
+        tinyxml2::XMLElement* node = pRoot->FirstChildElement("interface");
+        while (node != nullptr)
+        {
+            const char* nodeInterfaceName = node->Attribute("name");
+
+            if ((nodeInterfaceName != nullptr) && (interface != nullptr) &&
+                (std::strcmp(nodeInterfaceName, interface) == 0))
+            {
+                return true;
+            }
+            node = node->NextSiblingElement("interface");
+        }
+    }
+
+    return false;
 }
 
 } // namespace utility

@@ -66,9 +66,6 @@ void assertLogServicesSystemDumpServiceGet(crow::Response& res)
     nlohmann::json& json = res.jsonValue;
     EXPECT_EQ(json["@odata.id"], "/redfish/v1/Systems/system/LogServices/Dump");
     EXPECT_EQ(
-        json["Actions"]["#LogService.ClearLog"]["target"],
-        "/redfish/v1/Systems/system/LogServices/Dump/Actions/LogService.ClearLog");
-    EXPECT_EQ(
         json["Actions"]["#LogService.CollectDiagnosticData"]["target"],
         "/redfish/v1/Systems/system/LogServices/Dump/Actions/LogService.CollectDiagnosticData");
     EXPECT_EQ(json["Description"], "System Dump LogService");
