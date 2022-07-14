@@ -69,6 +69,24 @@
       "parentUuid": "e9595743_67cdc40c",
       "revId": "19925e487f3ba3d74c97cdc6655594b5ede00819",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "da87718b_1c009160",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-14T17:38:37Z",
+      "side": 1,
+      "message": "Considering this is specific to one OEM, I\u0027d like someone from said OEM to review it, and in some cases that takes more than a week;  Considering that it:\n\n1. has no effect to most users\n2. Is an API that isn\u0027t well documented, for which this could be an actual bug that we\u0027re covering up.\n3. doesn\u0027t change behavior for the users that use this code.\n\nIt seems reasonable to me to wait a little bit for input.  Is there something being held up by this that would increase the priority?",
+      "parentUuid": "a3d02ebd_e2a3e4fa",
+      "revId": "19925e487f3ba3d74c97cdc6655594b5ede00819",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
