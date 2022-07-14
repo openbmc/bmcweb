@@ -820,33 +820,17 @@ inline void clearDump(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         std::string(boost::algorithm::to_lower_copy(dumpType));
 
     crow::connections::systemBus->async_method_call(
-        [asyncResp, dumpType](
-            const boost::system::error_code ec,
-            const dbus::utility::MapperGetSubTreePathsResponse& subTreePaths) {
+        [asyncResp](const boost::system::error_code ec) {
         if (ec)
         {
-            BMCWEB_LOG_ERROR << "resp_handler got error " << ec;
+            BMCWEB_LOG_ERROR << "clearDump resp_handler got error " << ec;
             messages::internalError(asyncResp->res);
             return;
         }
-
-        for (const std::string& path : subTreePaths)
-        {
-            sdbusplus::message::object_path objPath(path);
-            std::string logID = objPath.filename();
-            if (logID.empty())
-            {
-                continue;
-            }
-            deleteDumpEntry(asyncResp, logID, dumpType);
-        }
         },
-        "xyz.openbmc_project.ObjectMapper",
-        "/xyz/openbmc_project/object_mapper",
-        "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths",
-        "/xyz/openbmc_project/dump/" + dumpTypeLowerCopy, 0,
-        std::array<std::string, 1>{"xyz.openbmc_project.Dump.Entry." +
-                                   dumpType});
+        "xyz.openbmc_project.Dump.Manager",
+        "/xyz/openbmc_project/dump/" + dumpTypeLowerCopy,
+        "xyz.openbmc_project.Collection.DeleteAll", "DeleteAll");
 }
 
 inline static void
