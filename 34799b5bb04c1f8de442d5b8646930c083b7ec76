@@ -89,6 +89,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "65eaa3cc_266d8591",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 18
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-07-14T14:04:34Z",
+      "side": 1,
+      "message": "So this is the comment:\n\"Yeah, I\u0027d vote we make it \"On\" for everything. i.e. if the BMC can return state then it\u0027s power is On. The \"State\" is where you provide the more detailed info about what the BMC is doing.\" ?\n\nI still think PoweringOn makes more sense but I guess 🤷",
+      "parentUuid": "631435c4_9ba061f6",
+      "revId": "34799b5bb04c1f8de442d5b8646930c083b7ec76",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c8943dd6_2657221f",
