@@ -266,6 +266,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6f3c5fdc_3e75eb7f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-07-14T18:26:31Z",
+      "side": 1,
+      "message": "\u003e In that model, I worry about flooding the machine with requests when it first comes up (a la thundering herd).  I guess I had assumed that for the connection loop, we\u0027d have no wait.  We\u0027d do:\n\u003e \n\u003e 1. Try to connect\n\u003e 2. Wait for timeout of N seconds.\n\u003e 3. Immediately retry to connect when it times out.\n\u003e \n\u003e I hadn\u0027t imagined there would be a time where a request comes in but we weren\u0027t already trying to connect\nI was picturing there would be a noticeable delay between when poll would timeout and when we would attempt to poll again.  That\u0027s why I wanted to let messages trigger a polling event as well.  If we can just immediately retry after a timeout then that\u0027s not a concern.  I prefer your approach since it\u0027s more straightforward and there\u0027s not the risk of flooding the machine.\n\nIs it alright to make this a separate CL and leave this one to focus on removing the return statements that were causing the client to hang?  I\u0027ve restored the timeout to its original value of 30 and updated the commit message.",
+      "parentUuid": "3cf934dc_9303d548",
+      "range": {
+        "startLine": 10,
+        "startChar": 17,
+        "endLine": 11,
+        "endChar": 26
+      },
+      "revId": "122f379bf286075a7aac335399f2d1fb28765c15",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4b47f701_861bd49f",
         "filename": "http/http_client.hpp",
         "patchSetId": 4
