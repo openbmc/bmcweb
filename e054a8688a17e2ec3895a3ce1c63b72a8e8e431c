@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ffcf2e7_6ae10000",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-14T00:10:38Z",
+      "side": 1,
+      "message": "we need to do whatever the current owasp guidelines say.",
+      "parentUuid": "e770c0b7_d119054a",
+      "revId": "e054a8688a17e2ec3895a3ce1c63b72a8e8e431c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "b8df4d10_17fd03bd",
