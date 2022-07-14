@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "feac9d37_29ed26f4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-07-14T19:37:46Z",
+      "side": 1,
+      "message": "For the future, before we merge, I think a \"Tested: Code builds.\" is better than \"Tested: WIP\"",
+      "revId": "535f5dbe6141be0ca959a4f1c7fff140ef51bd7c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2dff48fa_7aebc06d",
         "filename": "redfish-core/lib/virtual_media.hpp",
         "patchSetId": 9
