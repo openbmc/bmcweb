@@ -28,9 +28,6 @@ void assertLogServicesBMCDumpServiceGet(crow::Response& res)
     nlohmann::json& json = res.jsonValue;
     EXPECT_EQ(json["@odata.id"], "/redfish/v1/Managers/bmc/LogServices/Dump");
     EXPECT_EQ(
-        json["Actions"]["#LogService.ClearLog"]["target"],
-        "/redfish/v1/Managers/bmc/LogServices/Dump/Actions/LogService.ClearLog");
-    EXPECT_EQ(
         json["Actions"]["#LogService.CollectDiagnosticData"]["target"],
         "/redfish/v1/Managers/bmc/LogServices/Dump/Actions/LogService.CollectDiagnosticData");
     EXPECT_EQ(json["Description"], "BMC Dump LogService");
@@ -47,9 +44,6 @@ void assertLogServicesFaultLogDumpServiceGet(crow::Response& res)
     nlohmann::json& json = res.jsonValue;
     EXPECT_EQ(json["@odata.id"],
               "/redfish/v1/Managers/bmc/LogServices/FaultLog");
-    EXPECT_EQ(
-        json["Actions"]["#LogService.ClearLog"]["target"],
-        "/redfish/v1/Managers/bmc/LogServices/FaultLog/Actions/LogService.ClearLog");
     EXPECT_EQ(json["Actions"]["#LogService.CollectDiagnosticData"]["target"],
               nlohmann::detail::value_t::null);
     EXPECT_EQ(json["Description"], "FaultLog Dump LogService");
@@ -65,9 +59,6 @@ void assertLogServicesSystemDumpServiceGet(crow::Response& res)
 
     nlohmann::json& json = res.jsonValue;
     EXPECT_EQ(json["@odata.id"], "/redfish/v1/Systems/system/LogServices/Dump");
-    EXPECT_EQ(
-        json["Actions"]["#LogService.ClearLog"]["target"],
-        "/redfish/v1/Systems/system/LogServices/Dump/Actions/LogService.ClearLog");
     EXPECT_EQ(
         json["Actions"]["#LogService.CollectDiagnosticData"]["target"],
         "/redfish/v1/Systems/system/LogServices/Dump/Actions/LogService.CollectDiagnosticData");
