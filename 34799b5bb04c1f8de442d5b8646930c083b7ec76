@@ -107,6 +107,23 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0f163f4b_ea709997",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 18
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2022-07-14T14:53:04Z",
+      "side": 1,
+      "message": "@EdTonous can you please do merge review?",
+      "revId": "34799b5bb04c1f8de442d5b8646930c083b7ec76",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c8943dd6_2657221f",
@@ -191,6 +208,24 @@
       "side": 1,
       "message": "Gunnar\nplease look at discussion about this in last few patchsets , Andrew and Sunitha suggested to use enum \"On\" as state provides detailed state",
       "parentUuid": "fa755dbd_05e80fc1",
+      "revId": "34799b5bb04c1f8de442d5b8646930c083b7ec76",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cdf8c4c1_c97ca8e3",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 1976,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2022-07-14T14:53:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f40e1b54_4b443c36",
       "revId": "34799b5bb04c1f8de442d5b8646930c083b7ec76",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
