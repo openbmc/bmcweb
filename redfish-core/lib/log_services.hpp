@@ -974,32 +974,19 @@ inline void clearDump(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 {
     std::string dumpTypeLowerCopy =
         std::string(boost::algorithm::to_lower_copy(dumpType));
-    std::string interface = "xyz.openbmc_project.Dump.Entry." + dumpType;
-    const std::array<const std::string_view, 1> interfaces{interface};
 
-    dbus::utility::getSubTreePaths(
-        "/xyz/openbmc_project/dump/" + dumpTypeLowerCopy, 0, interfaces,
-        [asyncResp, dumpType](
-            const boost::system::error_code& ec,
-            const dbus::utility::MapperGetSubTreePathsResponse& subTreePaths) {
+    crow::connections::systemBus->async_method_call(
+        [asyncResp](const boost::system::error_code ec) {
         if (ec)
         {
-            BMCWEB_LOG_ERROR << "resp_handler got error " << ec;
+            BMCWEB_LOG_ERROR << "clearDump resp_handler got error " << ec;
             messages::internalError(asyncResp->res);
             return;
         }
-
-        for (const std::string& path : subTreePaths)
-        {
-            sdbusplus::message::object_path objPath(path);
-            std::string logID = objPath.filename();
-            if (logID.empty())
-            {
-                continue;
-            }
-            deleteDumpEntry(asyncResp, logID, dumpType);
-        }
-        });
+        },
+        "xyz.openbmc_project.Dump.Manager",
+        "/xyz/openbmc_project/dump/" + dumpTypeLowerCopy,
+        "xyz.openbmc_project.Collection.DeleteAll", "DeleteAll");
 }
 
 inline static void
@@ -2632,8 +2619,6 @@ inline void
         redfishDateTimeOffset.second;
 
     asyncResp->res.jsonValue["Entries"]["@odata.id"] = dumpPath + "/Entries";
-    asyncResp->res.jsonValue["Actions"]["#LogService.ClearLog"]["target"] =
-        dumpPath + "/Actions/LogService.ClearLog";
 
     if (collectDiagnosticDataSupported)
     {
@@ -2641,6 +2626,38 @@ inline void
                                 ["target"] =
             dumpPath + "/Actions/LogService.CollectDiagnosticData";
     }
+
+    constexpr std::array<std::string_view, 1> interfaces = {
+        deleteAllInterface};
+    dbus::utility::getSubTreePaths(
+        "/xyz/openbmc_project/dump", 0, interfaces,
+        [asyncResp, dumpType, dumpPath](
+            const boost::system::error_code& ec,
+            const dbus::utility::MapperGetSubTreePathsResponse& subTreePaths) {
+        if (ec)
+        {
+            BMCWEB_LOG_ERROR << "getDumpServiceInfo respHandler got error "
+                             << ec;
+            // Assume that getting an error simply means there are no dump
+            // LogServices. Return without adding any error response.
+            return;
+        }
+
+        const std::string dbusDumpPath =
+            "/xyz/openbmc_project/dump/" +
+            boost::algorithm::to_lower_copy(dumpType);
+
+        for (const std::string& path : subTreePaths)
+        {
+            if (path == dbusDumpPath)
+            {
+                asyncResp->res
+                    .jsonValue["Actions"]["#LogService.ClearLog"]["target"] =
+                    dumpPath + "/Actions/LogService.ClearLog";
+                break;
+            }
+        }
+    });
 }
 
 inline void handleLogServicesDumpServiceGet(
