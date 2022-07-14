@@ -1,6 +1,52 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "84eb441c_2cdb3fc1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 23
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-14T15:32:24Z",
+      "side": 1,
+      "message": "This is enabled on all BMCs, do all BMCs enable the backend for this (ie is it in the defaults for the phosphor distro)",
+      "range": {
+        "startLine": 9,
+        "startChar": 43,
+        "endLine": 9,
+        "endChar": 51
+      },
+      "revId": "ec80312ba3e6966529beccdddd2d1a14f59d472b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ece4b63b_71203487",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 23
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-14T15:32:24Z",
+      "side": 1,
+      "message": "Per the developing guide, please call out the actual tests you ran.  I would expect it to include at least Redfish service validator and some GETs to verify the content is available.",
+      "range": {
+        "startLine": 13,
+        "startChar": 20,
+        "endLine": 13,
+        "endChar": 33
+      },
+      "revId": "ec80312ba3e6966529beccdddd2d1a14f59d472b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "1ceebba5_56aa8e10",
