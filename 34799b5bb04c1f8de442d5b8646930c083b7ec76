@@ -35,6 +35,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee1a332b_d21d8819",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 18
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2022-07-14T07:34:48Z",
+      "side": 1,
+      "message": "please look at above discussion about the same where Andrew suggested to keep it as \"ON\"",
+      "parentUuid": "354e2ca4_82457d40",
+      "revId": "34799b5bb04c1f8de442d5b8646930c083b7ec76",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c8943dd6_2657221f",
@@ -48,6 +66,24 @@
       "writtenOn": "2022-07-13T15:55:29Z",
       "side": 1,
       "message": "I think state management is one it is fine calling directly (we do other places). \n\nIf this interface doesn\u0027t exist, you would not get a Status/PowerState but I think that is fine. Some places we do have a default but everyone should have this interface, if they don\u0027t, leaving off seems reasonable (leave off properties you don\u0027t have information on, more in line with the Redfish spec IMO)",
+      "revId": "34799b5bb04c1f8de442d5b8646930c083b7ec76",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d97d5663_5b447f21",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 1947,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2022-07-14T07:34:48Z",
+      "side": 1,
+      "message": "ok",
+      "parentUuid": "c8943dd6_2657221f",
       "revId": "34799b5bb04c1f8de442d5b8646930c083b7ec76",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
