@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "daf341a9_2d7a3d0a",
+        "filename": "http/ut/utility_test.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-15T00:46:52Z",
+      "side": 1,
+      "message": "For new codes, could we get better test names? Please take a look at the https://gerrit.openbmc.org/c/openbmc/bmcweb/+/55142",
+      "range": {
+        "startLine": 97,
+        "startChar": 5,
+        "endLine": 97,
+        "endChar": 12
+      },
+      "revId": "f079c8e8e78f472da82d7d3bfcfa2e02dc21de27",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e63af65c_cb1edad6",
+        "filename": "http/utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 554,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-15T00:46:52Z",
+      "side": 1,
+      "message": "If we don\u0027t error out if the input is not valid (beyond 6), could you help at least document the behavior explicitly just like the other function here?",
+      "range": {
+        "startLine": 554,
+        "startChar": 20,
+        "endLine": 554,
+        "endChar": 23
+      },
+      "revId": "f079c8e8e78f472da82d7d3bfcfa2e02dc21de27",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e50c046c_e1237f7e",
+        "filename": "http/utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 556,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-15T00:46:52Z",
+      "side": 1,
+      "message": "if the max is 6, why do you use uint64_t? Is a normal `int` just working?",
+      "range": {
+        "startLine": 556,
+        "startChar": 31,
+        "endLine": 556,
+        "endChar": 39
+      },
+      "revId": "f079c8e8e78f472da82d7d3bfcfa2e02dc21de27",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "14801d2b_447208dd",
+        "filename": "http/utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 569,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-15T00:46:52Z",
+      "side": 1,
+      "message": "What does \u003cSSS\u003e mean? Does it mean if it exists, it should return exactly 3 digits?\n\nThis is probably the outstanding question we need to figure out.",
+      "range": {
+        "startLine": 569,
+        "startChar": 10,
+        "endLine": 569,
+        "endChar": 14
+      },
+      "revId": "f079c8e8e78f472da82d7d3bfcfa2e02dc21de27",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
