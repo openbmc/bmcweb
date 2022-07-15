@@ -448,6 +448,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e5668d39_3dd892e1",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-15T21:13:41Z",
+      "side": 1,
+      "message": "\u003e I\u0027m specifically trying to catch collection URIs that have a trailing slash like \u0027/redfish/v1/Chassis/\u0027.  Those show up as 4 segments and the last one is empty.\n\nHave you ever looked at the readUrlSegments method?  I think we solved that in there.\n\n\u003e \n\u003e In some respects this check is meant to be a placeholder for handling collections in subsequent patches.\n\u003e \n\u003e It could be removed if I modify the next check to be:\n\u003e ```\n\u003e if ((segments.size() \u003e\u003d 4) \u0026\u0026 (!segments[3].empty()))\n\u003e ```\n\u003e \n\u003e My preference is to leave it as is so that it\u0027s closer to what the final implementation should look like.  It\u0027s a minor thing though so I\u0027m alright with removing it if you think I should.\n\nLets see if readUrlSegments does what you need here.",
+      "parentUuid": "179e649f_8fdb1d55",
+      "range": {
+        "startLine": 279,
+        "startChar": 12,
+        "endLine": 279,
+        "endChar": 64
+      },
+      "revId": "2fa61f8749893542bf44d310bf036b0dc310d0c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d01505fb_5b205d3c",
         "filename": "redfish-core/include/redfish_aggregator.hpp",
         "patchSetId": 53
@@ -636,6 +660,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2e8a0aa9_c0ba485a",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-15T21:13:41Z",
+      "side": 1,
+      "message": "declare your unordered_map as\n\nstd::unordered_map\u003cstd::string, MyValue, std::less\u003c\u003e\u003e and string_view lookups will work on it.  Some day I will understand why the C++ committee makes us jump through so many hoops.",
+      "parentUuid": "51ef134c_d9b634fd",
+      "range": {
+        "startLine": 352,
+        "startChar": 19,
+        "endLine": 352,
+        "endChar": 26
+      },
+      "revId": "2fa61f8749893542bf44d310bf036b0dc310d0c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0eb311a1_d793b5c7",
         "filename": "redfish-core/include/redfish_aggregator.hpp",
         "patchSetId": 53
@@ -671,6 +719,30 @@
       "side": 1,
       "message": "I assume you mean a method similar to \"getHeaderValue()\".  I\u0027ve added a \"getBaseValue()\" method to Response.  Please reopen this comment if you had something else in mind.",
       "parentUuid": "0eb311a1_d793b5c7",
+      "range": {
+        "startLine": 405,
+        "startChar": 13,
+        "endLine": 405,
+        "endChar": 56
+      },
+      "revId": "2fa61f8749893542bf44d310bf036b0dc310d0c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5c0b14b7_2583a196",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 405,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-15T21:13:41Z",
+      "side": 1,
+      "message": "Correct, getHeaderValue.  Can we keep the naming the same?  \"getBaseValue\" isn\u0027t very descriptive.",
+      "parentUuid": "c4a80f81_fe381469",
       "range": {
         "startLine": 405,
         "startChar": 13,
@@ -730,6 +802,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fe45c6b9_cafca998",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 407,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-15T21:13:41Z",
+      "side": 1,
+      "message": "\u003e Can we assume that any response from a satellite bmc will always be an \"application/json\" type?\n\nAny response from within the redfish tree, yes we can assume it will be there, but there are things that jump outside the redfish tree that this will still need to handle at some point (like AdditionalDataURI) but lets cross that bridge when we get there.",
+      "parentUuid": "3d7afb5c_dcba4e2a",
+      "range": {
+        "startLine": 407,
+        "startChar": 12,
+        "endLine": 407,
+        "endChar": 50
+      },
+      "revId": "2fa61f8749893542bf44d310bf036b0dc310d0c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "45844a5b_a8ac1f78",
         "filename": "redfish-core/include/redfish_aggregator.hpp",
         "patchSetId": 53
@@ -765,6 +861,30 @@
       "side": 1,
       "message": "There is \"OperationFailed\" which mentions aggregation as a use case.  It returns a 502.  I\u0027ve made the change.",
       "parentUuid": "45844a5b_a8ac1f78",
+      "range": {
+        "startLine": 414,
+        "startChar": 16,
+        "endLine": 414,
+        "endChar": 56
+      },
+      "revId": "2fa61f8749893542bf44d310bf036b0dc310d0c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "80341d02_9e2fef34",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 414,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-15T21:13:41Z",
+      "side": 1,
+      "message": "Sounds reasonable.",
+      "parentUuid": "8ac965a6_1b2149fd",
       "range": {
         "startLine": 414,
         "startChar": 16,
@@ -824,6 +944,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "13e6481f_44d628da",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 426,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-15T21:13:41Z",
+      "side": 1,
+      "message": "Yeah.....  This is something we need to regroup on at some point.  The response might contain more than just a error message.  Is it possible to JUST clear out the error messages (I don\u0027t know how feasible that is) so we\u0027re more surgical about it?",
+      "parentUuid": "f019481e_7685b5f9",
+      "range": {
+        "startLine": 426,
+        "startChar": 32,
+        "endLine": 426,
+        "endChar": 58
+      },
+      "revId": "2fa61f8749893542bf44d310bf036b0dc310d0c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0faab78f_fc52bc57",
         "filename": "redfish-core/include/redfish_aggregator.hpp",
         "patchSetId": 53
@@ -859,6 +1003,30 @@
       "side": 1,
       "message": "For this patch we are not aggregating the information.  We need to overwrite the json because it likely contains an error message generated by the aggregating BMC also handling the message that should be forwarded.\n\nI\u0027ll use this method in the future CL that is responsible for aggregating collections.",
       "parentUuid": "0faab78f_fc52bc57",
+      "range": {
+        "startLine": 431,
+        "startChar": 0,
+        "endLine": 431,
+        "endChar": 58
+      },
+      "revId": "2fa61f8749893542bf44d310bf036b0dc310d0c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a28cf13f_9d506aaf",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 431,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-15T21:13:41Z",
+      "side": 1,
+      "message": "See above, I think we can just remove the error information specifically.",
+      "parentUuid": "c732296d_eb6cb5a1",
       "range": {
         "startLine": 431,
         "startChar": 0,
@@ -906,6 +1074,30 @@
       "side": 1,
       "message": "I ask in my response in the earlier comment if we can always assume satellite responses must be json.  The answer to that will have some bearing on the change I make here.\n\nIn this specific case I think we can set this as an error as long as long as the body is not empty.  I\u0027d expect responses to GET requests to always include a body, but what about other types of requests?  The current check as-is makes sure we don\u0027t return an error when we receive a response with an empty body but a 200 result.",
       "parentUuid": "57f677b8_82ba0e9c",
+      "range": {
+        "startLine": 439,
+        "startChar": 12,
+        "endLine": 440,
+        "endChar": 28
+      },
+      "revId": "2fa61f8749893542bf44d310bf036b0dc310d0c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bc4d4b91_9182a733",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 440,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-15T21:13:41Z",
+      "side": 1,
+      "message": "\u003e I ask in my response in the earlier comment if we can always assume satellite responses must be json.  The answer to that will have some bearing on the change I make here.\n\nFor things within the redfish tree, yes, they\u0027re required to have the content type set.\n\n\u003e \n\u003e In this specific case I think we can set this as an error as long as long as the body is not empty.  I\u0027d expect responses to GET requests to always include a body, but what about other types of requests?\n\ninteresting, there\u0027s several responses to GET requests that don\u0027t include a body that we probably need to handle.  i didn\u0027t think about that \n\n\u003e  The current check as-is makes sure we don\u0027t return an error when we receive a response with an empty body but a 200 result.\n\nhow about this:\nif the content claimed to be json but wasn\u0027t, return 500 for the moment.  This for sure needs revisited when we start handling httppushuri and such.",
+      "parentUuid": "ab1227da_16f3c34a",
       "range": {
         "startLine": 439,
         "startChar": 12,
@@ -1000,6 +1192,30 @@
       "side": 1,
       "message": "Won\u0027t we need two copies since we need to locally handle the request as is since the prefix in the URI will cause the aggregating BMC to try to return a 404. At the same time, for the request that is forwarded we need to modify the URI to remove the prefix denoting the desired satellite BMC.\n\nThe plan to ultimately get around that would be satellite config cacheing since that will allow us to know immediately what satellites exist and thus if a request is only destined for a satellite BMC.  We\u0027ll be able to skip locally handling the request and there won\u0027t be a concern about modifying the request\u0027s URI to remove the prefix.\n\n\u003e Also, I suspect some of this needs abstracted in a regular copy constructor.  A copy can\u0027t fail, so we need a copy overload for that, and we can remove the failure check entirely..\nJust to clarify, do you mean modifying crow::Request in http/http_request.hpp so that there is a copy constructor?  It\u0027s currently disabled and I\u0027m guessing it\u0027s because of the reason you said above where requests can be quite large.",
       "parentUuid": "54d26932_7f9fffc2",
+      "range": {
+        "startLine": 463,
+        "startChar": 8,
+        "endLine": 463,
+        "endChar": 78
+      },
+      "revId": "2fa61f8749893542bf44d310bf036b0dc310d0c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3d485ed7_fc8a6b7e",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 463,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-15T21:13:41Z",
+      "side": 1,
+      "message": "\u003e Won\u0027t we need two copies since we need to locally handle the request as is since the prefix in the URI will cause the aggregating BMC to try to return a 404.\n\nhmmmm  This is making me wish we\u0027d made the request object shared_ptr as well, but I think you\u0027re right.  groan.  Or maybe a shared_ptr body type?  Might be something to look into later.\n\n\u003e At the same time, for the request that is forwarded we need to modify the URI to remove the prefix denoting the desired satellite BMC.\n\nRight.  to be clear, what I said was \"at a minimum, we should avoid making the extra copy\", what I should\u0027ve said was \"one copy is fine, don\u0027t make two copies\";\n\n\u003e \n\u003e The plan to ultimately get around that would be satellite config cacheing since that will allow us to know immediately what satellites exist and thus if a request is only destined for a satellite BMC.  We\u0027ll be able to skip locally handling the request and there won\u0027t be a concern about modifying the request\u0027s URI to remove the prefix.\n\u003e \n\u003e \u003e Also, I suspect some of this needs abstracted in a regular copy constructor.  A copy can\u0027t fail, so we need a copy overload for that, and we can remove the failure check entirely..\n\u003e Just to clarify, do you mean modifying crow::Request in http/http_request.hpp so that there is a copy constructor?\n\nCorrect.\n\n\u003e  It\u0027s currently disabled and I\u0027m guessing it\u0027s because of the reason you said above where requests can be quite large.\n\nIt\u0027s disabled because people abused it, and at the time there was no valid reason to use it.  In your case, for the moment, I think it\u0027s a valid reason.  If we wanted to be worried about it, we could make it an explicit \"CopyRequest()\" method so that it\u0027s super obvious when it\u0027s happening in code review, but I\u0027m not that worried about it.",
+      "parentUuid": "61ecfd4a_24b5d17e",
       "range": {
         "startLine": 463,
         "startChar": 8,
