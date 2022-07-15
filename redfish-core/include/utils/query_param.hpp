@@ -230,7 +230,7 @@ inline std::optional<Query>
             {
                 messages::queryParameterOutOfRange(
                     res, value, "$top",
-                    "1-" + std::to_string(maxEntriesPerPage));
+                    "0-" + std::to_string(maxEntriesPerPage));
                 return std::nullopt;
             }
         }
@@ -246,7 +246,7 @@ inline std::optional<Query>
             {
                 messages::queryParameterOutOfRange(
                     res, value, key,
-                    "1-" + std::to_string(std::numeric_limits<size_t>::max()));
+                    "0-" + std::to_string(std::numeric_limits<size_t>::max()));
                 return std::nullopt;
             }
         }
