@@ -469,7 +469,7 @@ inline void
             {
                 continue;
             }
-            uint64_t timestamp = 0;
+            uint64_t timestampUs = 0;
             uint64_t size = 0;
             std::string dumpStatus;
             nlohmann::json::object_t thisEntry;
@@ -480,7 +480,7 @@ inline void
                 continue;
             }
 
-            parseDumpEntryFromDbusObject(object, dumpStatus, size, timestamp,
+            parseDumpEntryFromDbusObject(object, dumpStatus, size, timestampUs,
                                          asyncResp);
 
             if (dumpStatus !=
@@ -495,18 +495,26 @@ inline void
             thisEntry["@odata.id"] = entriesPath + entryID;
             thisEntry["Id"] = entryID;
             thisEntry["EntryType"] = "Event";
-            thisEntry["Created"] = crow::utility::getDateTimeUint(timestamp);
             thisEntry["Name"] = dumpType + " Dump Entry";
 
             if (dumpType == "BMC")
             {
+                thisEntry["Created"] =
+                    crow::utility::getDateTimeUint(timestampUs / 1000 / 1000);
                 thisEntry["DiagnosticDataType"] = "Manager";
                 thisEntry["AdditionalDataURI"] =
                     entriesPath + entryID + "/attachment";
                 thisEntry["AdditionalDataSizeBytes"] = size;
             }
+            else if (dumpType == "FaultLog")
+            {
+                thisEntry["Created"] =
+                    crow::utility::getDateTimeUintUs(timestampUs);
+            }
             else if (dumpType == "System")
             {
+                thisEntry["Created"] =
+                    crow::utility::getDateTimeUint(timestampUs / 1000 / 1000);
                 thisEntry["DiagnosticDataType"] = "OEM";
                 thisEntry["OEMDiagnosticDataType"] = "System";
                 thisEntry["AdditionalDataURI"] =
@@ -556,12 +564,12 @@ inline void
             }
 
             foundDumpEntry = true;
-            uint64_t timestamp = 0;
+            uint64_t timestampUs = 0;
             uint64_t size = 0;
             std::string dumpStatus;
 
             parseDumpEntryFromDbusObject(objectPath, dumpStatus, size,
-                                         timestamp, asyncResp);
+                                         timestampUs, asyncResp);
 
             if (dumpStatus !=
                     "xyz.openbmc_project.Common.Progress.OperationStatus.Completed" &&
@@ -579,19 +587,26 @@ inline void
             asyncResp->res.jsonValue["@odata.id"] = entriesPath + entryID;
             asyncResp->res.jsonValue["Id"] = entryID;
             asyncResp->res.jsonValue["EntryType"] = "Event";
-            asyncResp->res.jsonValue["Created"] =
-                crow::utility::getDateTimeUint(timestamp);
             asyncResp->res.jsonValue["Name"] = dumpType + " Dump Entry";
 
             if (dumpType == "BMC")
             {
+                asyncResp->res.jsonValue["Created"] =
+                    crow::utility::getDateTimeUint(timestampUs / 1000 / 1000);
                 asyncResp->res.jsonValue["DiagnosticDataType"] = "Manager";
                 asyncResp->res.jsonValue["AdditionalDataURI"] =
                     entriesPath + entryID + "/attachment";
                 asyncResp->res.jsonValue["AdditionalDataSizeBytes"] = size;
             }
+            else if (dumpType == "FaultLog")
+            {
+                asyncResp->res.jsonValue["Created"] =
+                    crow::utility::getDateTimeUintUs(timestampUs);
+            }
             else if (dumpType == "System")
             {
+                asyncResp->res.jsonValue["Created"] =
+                    crow::utility::getDateTimeUint(timestampUs / 1000 / 1000);
                 asyncResp->res.jsonValue["DiagnosticDataType"] = "OEM";
                 asyncResp->res.jsonValue["OEMDiagnosticDataType"] = "System";
                 asyncResp->res.jsonValue["AdditionalDataURI"] =
