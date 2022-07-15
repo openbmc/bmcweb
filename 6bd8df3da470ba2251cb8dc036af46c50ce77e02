@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b3b0fe06_249caea5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 37
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-15T20:43:14Z",
+      "side": 1,
+      "message": "Just like other commits, in the commit message, please indicate that why this change is needed, that\u0027ll help the review a lot. Thanks",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 9
+      },
+      "revId": "6bd8df3da470ba2251cb8dc036af46c50ce77e02",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "89a4392a_0142cdac",
+        "filename": "redfish-core/include/utils/location_utils.hpp",
+        "patchSetId": 37
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-15T20:43:14Z",
+      "side": 1,
+      "message": "should we fail the response when the property is just missing? also, can it get combined into one of the property GetAll dbus call rather than make a new dbus call to just get a single string property?",
+      "range": {
+        "startLine": 59,
+        "startChar": 12,
+        "endLine": 59,
+        "endChar": 14
+      },
+      "revId": "6bd8df3da470ba2251cb8dc036af46c50ce77e02",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
