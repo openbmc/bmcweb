@@ -22,6 +22,30 @@
       },
       "revId": "eddc9e7fc10d48fcdaa632aa2eec5d43b9fe23b6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c703a070_8800c137",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-07-15T17:28:52Z",
+      "side": 1,
+      "message": "Yeah I think that would be a better way to handle this now that we have multiple entities sharing the HTTP client.",
+      "parentUuid": "777b32dc_3519ea53",
+      "range": {
+        "startLine": 61,
+        "startChar": 43,
+        "endLine": 61,
+        "endChar": 64
+      },
+      "revId": "eddc9e7fc10d48fcdaa632aa2eec5d43b9fe23b6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
