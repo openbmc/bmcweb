@@ -16,6 +16,24 @@
       "message": "Could we summarize the next step?",
       "revId": "8beb8afe04420ed2410e64ece80e578fbbfd80e5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "121b00a4_22ee9713",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 38
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000520
+      },
+      "writtenOn": "2022-07-15T22:50:34Z",
+      "side": 1,
+      "message": "This is a proof-of-concept prototype which works, but a more general solution was desired, that would somehow be schema-aware and know enough to automatically work throughout the Redfish tree, without having to be individually instantiated for each endpoint in which ExternalStorer functionality is desired.",
+      "parentUuid": "151c02c4_98ecd313",
+      "revId": "8beb8afe04420ed2410e64ece80e578fbbfd80e5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
