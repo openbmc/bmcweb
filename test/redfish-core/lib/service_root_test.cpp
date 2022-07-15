@@ -55,7 +55,7 @@ void assertServiceRootGet(crow::Response& res)
     EXPECT_EQ(json["Managers"].size(), 1);
 
     EXPECT_EQ(json["Name"], "Root Service");
-    EXPECT_EQ(json["RedfishVersion"], "1.9.0");
+    EXPECT_EQ(json["RedfishVersion"], "1.17.0");
 
     EXPECT_EQ(json["Registries"]["@odata.id"], "/redfish/v1/Registries");
     EXPECT_EQ(json["Registries"].size(), 1);
