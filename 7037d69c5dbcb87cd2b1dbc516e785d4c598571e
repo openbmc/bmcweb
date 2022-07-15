@@ -16,6 +16,24 @@
       "message": "I also took a look at the previous related clearLog commit at  https://gerrit.openbmc.org/c/openbmc/bmcweb/+/36796 but didn\u0027t notice a specific reason to not use DeleteAll.",
       "revId": "7037d69c5dbcb87cd2b1dbc516e785d4c598571e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f8167454_cb0da8c6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-07-15T00:53:10Z",
+      "side": 1,
+      "message": "*clearDump, not clearLog",
+      "parentUuid": "e23e99ee_70f14391",
+      "revId": "7037d69c5dbcb87cd2b1dbc516e785d4c598571e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
