@@ -16,6 +16,29 @@
       "message": "+1 the wrong patch.",
       "revId": "932d686987edde670dddd2439aebe751b55cfbcc",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "54046a97_3150e3d8",
+        "filename": "redfish-core/ut/location_utils_test.cpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-15T16:21:44Z",
+      "side": 1,
+      "message": "Same as the other patch, please fix these test names.",
+      "range": {
+        "startLine": 19,
+        "startChar": 22,
+        "endLine": 19,
+        "endChar": 44
+      },
+      "revId": "932d686987edde670dddd2439aebe751b55cfbcc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
