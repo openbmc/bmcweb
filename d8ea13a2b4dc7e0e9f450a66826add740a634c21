@@ -117,6 +117,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "841b05aa_5447d05c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-15T16:29:49Z",
+      "side": 1,
+      "message": "Apologize, what is not happening? \n\nhttps://gerrit.openbmc.org/q/project:openbmc/bmcweb+reviewer:nanzhoumails%2540gmail.com+after:2022-06-29+commentby:nanzhoumails%2540gmail.com\n\nI intentionally do several reviews every week since several months ago, for the files that I can maintain and can\u0027t maintain yet. The above are patches that I took a look and at least put one comment.\n\nI also continued contributing to the part that I was interested in,\n\nhttps://gerrit.openbmc.org/q/project:openbmc/bmcweb+owner:nanzhoumails%2540gmail.com+after:2022-06-29\n\nWhat are the gaps?",
+      "parentUuid": "7325c644_a3952642",
+      "revId": "d8ea13a2b4dc7e0e9f450a66826add740a634c21",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "eb619265_ab2a9d10",
         "filename": "OWNERS",
         "patchSetId": 1
