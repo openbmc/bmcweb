@@ -20,6 +20,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cb6874b5_6c8150be",
+        "filename": "redfish-core/ut/location_utils_test.cpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-15T16:22:04Z",
+      "side": 1,
+      "message": "iwyu? At least \u003coptional\u003e is missing",
+      "range": {
+        "startLine": 3,
+        "startChar": 18,
+        "endLine": 3,
+        "endChar": 19
+      },
+      "revId": "932d686987edde670dddd2439aebe751b55cfbcc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "54046a97_3150e3d8",
         "filename": "redfish-core/ut/location_utils_test.cpp",
         "patchSetId": 36
