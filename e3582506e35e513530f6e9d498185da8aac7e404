@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ce0f2cd9_d5a0376c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 23
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-07-15T04:31:17Z",
+      "side": 1,
+      "message": "@Ali Ahmed\nIt is better to run CI locally first if you want to upload this patch.\n",
+      "revId": "e3582506e35e513530f6e9d498185da8aac7e404",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
