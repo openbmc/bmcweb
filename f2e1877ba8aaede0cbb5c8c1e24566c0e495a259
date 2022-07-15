@@ -48,6 +48,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "91c8a312_ee4c3058",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 647,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-15T21:10:22Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "18681a11_a5a53ab8",
+      "range": {
+        "startLine": 647,
+        "startChar": 4,
+        "endLine": 647,
+        "endChar": 29
+      },
+      "revId": "f2e1877ba8aaede0cbb5c8c1e24566c0e495a259",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ce9e1ea3_2f5566b9",
