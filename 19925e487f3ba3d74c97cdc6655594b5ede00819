@@ -122,6 +122,24 @@
       "message": "This method is used at https://github.com/openbmc/bmcweb/blob/master/include/ibm/locks.hpp#L186\n\n@Nan Zhou, What made you to remove this UT case? Any errors you saw?",
       "revId": "19925e487f3ba3d74c97cdc6655594b5ede00819",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a330ffd1_ee02ea3e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-15T04:26:18Z",
+      "side": 1,
+      "message": "Wait, how is that code using a function defined in a unit test source file?\n\nI am not saying the corresponding function of the real Lock class is not used. It does be used. https://github.com/openbmc/bmcweb/blob/9d335096ee48fa0ed95d7b8c8e116385c983c250/include/ibm/management_console_rest.hpp#L609\n\nIt is just that this \"getList\" function in the Mock class is not used anywhere. If you need to test this function in the future, please add back this dead code at that time. Does it sound fair?\n\n\n\u003e What made you to remove this UT case? Any errors you saw?\n\nI didn\u0027t remove any test case. I just removed a dead code that\u0027s not referenced anywhere. It was the compiler who found this in the first place.\n\n\n```\nFunction \u0027getList\u0027 is never used \n```",
+      "parentUuid": "12304780_c3f38a19",
+      "revId": "19925e487f3ba3d74c97cdc6655594b5ede00819",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
