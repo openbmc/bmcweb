@@ -15,17 +15,17 @@
 */
 #pragma once
 
+#include "app.hpp"
+#include "dbus_utility.hpp"
 #include "health.hpp"
+#include "query.hpp"
 #include "redfish_util.hpp"
+#include "registries/privilege_registry.hpp"
+#include "utils/sw_utils.hpp"
+#include "utils/systemd_utils.hpp"
 
-#include <app.hpp>
 #include <boost/algorithm/string/replace.hpp>
 #include <boost/date_time.hpp>
-#include <dbus_utility.hpp>
-#include <query.hpp>
-#include <registries/privilege_registry.hpp>
-#include <utils/sw_utils.hpp>
-#include <utils/systemd_utils.hpp>
 
 #include <cstdint>
 #include <memory>
@@ -1954,7 +1954,7 @@ inline void requestRoutesManager(App& app)
             return;
         }
         asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1/Managers/bmc";
-        asyncResp->res.jsonValue["@odata.type"] = "#Manager.v1_11_0.Manager";
+        asyncResp->res.jsonValue["@odata.type"] = "#Manager.v1_14_0.Manager";
         asyncResp->res.jsonValue["Id"] = "bmc";
         asyncResp->res.jsonValue["Name"] = "OpenBmc Manager";
         asyncResp->res.jsonValue["Description"] =
@@ -2053,6 +2053,12 @@ inline void requestRoutesManager(App& app)
                                              "FirmwareVersion", true);
 
         managerGetLastResetTime(asyncResp);
+
+        // ManagerDiagnosticData is added for all BMCs.
+        nlohmann::json& managerDiagnosticData =
+            asyncResp->res.jsonValue["ManagerDiagnosticData"];
+        managerDiagnosticData["@odata.id"] =
+            "/redfish/v1/Managers/bmc/ManagerDiagnosticData";
 
         auto pids = std::make_shared<GetPIDValues>(asyncResp);
         pids->run();
