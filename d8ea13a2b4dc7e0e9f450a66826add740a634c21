@@ -100,6 +100,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7325c644_a3952642",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-15T15:21:24Z",
+      "side": 1,
+      "message": "Just to update the public thread, a few weeks ago I asked both of the new maintainers to review the existing patchsets that are out against these subsystems they would now maintain, and I am intentionally not reviewing those yet;  I haven\u0027t seen that happen, so this patchset is waiting on that to get done.",
+      "revId": "d8ea13a2b4dc7e0e9f450a66826add740a634c21",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "eb619265_ab2a9d10",
         "filename": "OWNERS",
         "patchSetId": 1
