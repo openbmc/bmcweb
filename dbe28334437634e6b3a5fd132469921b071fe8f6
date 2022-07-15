@@ -16,6 +16,24 @@
       "message": "Is there a way we can tell in meson if an option is explicitly set, or if it\u0027s just the default?  We might want to give the user a warning in the case where they try\n\n\n-Dinsecure-disable-auth\u003dtrue -Dbasic-auth\u003dtrue\n\n\nNot sure if there\u0027s a way to do that.  If we can\u0027t, what you have is better than what was there before.",
       "revId": "dbe28334437634e6b3a5fd132469921b071fe8f6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dafb63bb_7b608bed",
+        "filename": "meson.build",
+        "patchSetId": 11
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-15T00:57:39Z",
+      "side": 1,
+      "message": "https://mesonbuild.com/Reference-manual_returned_feature.html\n\nThat\u0027s a good thought. I didn\u0027t see such interface in the returned feature object. Thus I believe it\u0027s not possible so far.",
+      "parentUuid": "956d318b_d2699307",
+      "revId": "dbe28334437634e6b3a5fd132469921b071fe8f6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

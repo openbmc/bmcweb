@@ -56,6 +56,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "06bc3c74_aa34e3b4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-15T00:57:39Z",
+      "side": 1,
+      "message": "Maybe it doesn\u0027t look at AccountService if the auth type is None.",
+      "parentUuid": "083f6387_47279063",
+      "revId": "06256040190c01ce2f0020bf6b00aea58783f3a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "8539e887_afa5585d",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 10
