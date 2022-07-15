@@ -53,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "86b9fde0_d43935a7",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-15T16:02:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9ac231d9_3de25e80",
+      "revId": "5e6903c9f3cc3b37a7b698e322b633c09213e3aa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d771d8b7_228b793c",
@@ -66,6 +84,24 @@
       "writtenOn": "2022-07-14T19:35:56Z",
       "side": 1,
       "message": "Fix them other places?",
+      "revId": "5e6903c9f3cc3b37a7b698e322b633c09213e3aa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8593ae60_ae79e34f",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1134,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-15T16:02:19Z",
+      "side": 1,
+      "message": "Fixed.  I didn\u0027t do this initially because I was just trying to fix the one that cppcheck was complaining about, but we might as well fix all of them.",
+      "parentUuid": "d771d8b7_228b793c",
       "revId": "5e6903c9f3cc3b37a7b698e322b633c09213e3aa",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
