@@ -211,6 +211,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "0bdb3711_055b4a84",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-15T20:58:15Z",
+      "side": 1,
+      "message": "Generally we rely on \"less code is better\".  Yes, it\u0027s slightly inefficient, but because the primary constraint for bmcweb is binary size, not algorithmic efficiency we tend to make these tradeoffs the other direction.\n\n\nAlso, FWIW, optimizers are crazy smart these days, it wouldn\u0027t surprise me if it bypassed it entirely.  Also, string_views are crazy cheap to contruct.",
+      "parentUuid": "4fd1be20_9035dfb6",
+      "range": {
+        "startLine": 254,
+        "startChar": 0,
+        "endLine": 255,
+        "endChar": 9
+      },
+      "revId": "2fa61f8749893542bf44d310bf036b0dc310d0c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "033d245c_9b8e291b",
