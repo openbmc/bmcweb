@@ -105,6 +105,23 @@
       "parentUuid": "da87718b_1c009160",
       "revId": "19925e487f3ba3d74c97cdc6655594b5ede00819",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "12304780_c3f38a19",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2022-07-15T02:53:16Z",
+      "side": 1,
+      "message": "This method is used at https://github.com/openbmc/bmcweb/blob/master/include/ibm/locks.hpp#L186\n\n@Nan Zhou, What made you to remove this UT case? Any errors you saw?",
+      "revId": "19925e487f3ba3d74c97cdc6655594b5ede00819",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
