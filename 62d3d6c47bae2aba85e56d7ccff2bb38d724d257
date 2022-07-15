@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "698ca677_fd049fe2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-15T20:53:16Z",
+      "side": 1,
+      "message": "Can we also get the NextLink tested in event log?",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 52
+      },
+      "revId": "62d3d6c47bae2aba85e56d7ccff2bb38d724d257",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2cfab8f5_3d308c18",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 12
