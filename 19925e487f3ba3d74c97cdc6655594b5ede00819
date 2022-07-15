@@ -87,6 +87,24 @@
       "parentUuid": "a3d02ebd_e2a3e4fa",
       "revId": "19925e487f3ba3d74c97cdc6655594b5ede00819",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d8c76ce5_028a02f1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-15T00:50:34Z",
+      "side": 1,
+      "message": "\u003e  Is there something being held up by this that would increase the priority?\n\nNope.\n\nThanks Gunnar to CC other people. Will check git blame next time.",
+      "parentUuid": "da87718b_1c009160",
+      "revId": "19925e487f3ba3d74c97cdc6655594b5ede00819",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
