@@ -52,6 +52,24 @@
       "parentUuid": "dafb63bb_7b608bed",
       "revId": "dbe28334437634e6b3a5fd132469921b071fe8f6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "815b2f07_f99afe27",
+        "filename": "meson.build",
+        "patchSetId": 11
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-15T18:19:48Z",
+      "side": 1,
+      "message": "Let me clarify,\n\nWe want to make [\u0027basic-auth\u0027, \u0027cookie-auth\u0027, \u0027session-auth\u0027, \u0027xtoken-auth\u0027, \u0027mutual-tls-auth\u0027] combo, default to define the identifier (-DBMCWEB_XXX_AUTH_ENABLED), and when insecure-disable-auth is disabled but one of [\u0027basic-auth\u0027, \u0027cookie-auth\u0027, \u0027session-auth\u0027, \u0027xtoken-auth\u0027, \u0027mutual-tls-auth\u0027] is \"default\" or \"enabled\", we print a warning?\n\nThat seems more changes are needed. Do we accept this + a documentation on the meson_options as an incremental improvement?",
+      "parentUuid": "05125866_5dd9e1b5",
+      "revId": "dbe28334437634e6b3a5fd132469921b071fe8f6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
