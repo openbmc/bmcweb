@@ -75,7 +75,7 @@ TEST(Delegate, TopNegative)
         .top = 42,
     };
     Query delegated = delegate(QueryCapabilities{}, query);
-    EXPECT_EQ(delegated.top, std::numeric_limits<size_t>::max());
+    EXPECT_EQ(delegated.top, std::nullopt);
     EXPECT_EQ(query.top, 42);
 }
 
@@ -89,7 +89,7 @@ TEST(Delegate, TopPositive)
     };
     Query delegated = delegate(capabilities, query);
     EXPECT_EQ(delegated.top, 42);
-    EXPECT_EQ(query.top, std::numeric_limits<size_t>::max());
+    EXPECT_EQ(query.top, std::nullopt);
 }
 
 TEST(Delegate, SkipNegative)
@@ -206,7 +206,8 @@ TEST(QueryParams, ParseParametersTopOutOfRangeNegative)
 
 TEST(QueryParams, ParseParametersTopOutOfRangePositive)
 {
-    auto ret = boost::urls::parse_relative_ref("/redfish/v1?$top=1001");
+    auto ret = boost::urls::parse_relative_ref(
+        "/redfish/v1?$top=99999999999999999999");
     ASSERT_TRUE(ret);
 
     crow::Response res;

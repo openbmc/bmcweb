@@ -1226,7 +1226,8 @@ inline void requestRoutesJournalEventLogEntryCollection(App& app)
                 // Handle paging using skip (number of entries to skip from the
                 // start) and top (number of entries to display)
                 if (entryCount <= delegatedQuery.skip ||
-                    entryCount > delegatedQuery.skip + delegatedQuery.top)
+                    (delegatedQuery.top &&
+                     entryCount > delegatedQuery.skip + *(delegatedQuery.top)))
                 {
                     continue;
                 }
@@ -1235,11 +1236,12 @@ inline void requestRoutesJournalEventLogEntryCollection(App& app)
             }
         }
         asyncResp->res.jsonValue["Members@odata.count"] = entryCount;
-        if (delegatedQuery.skip + delegatedQuery.top < entryCount)
+        if (delegatedQuery.top &&
+            delegatedQuery.skip + *(delegatedQuery.top) < entryCount)
         {
             asyncResp->res.jsonValue["Members@odata.nextLink"] =
                 "/redfish/v1/Systems/system/LogServices/EventLog/Entries?$skip=" +
-                std::to_string(delegatedQuery.skip + delegatedQuery.top);
+                std::to_string(delegatedQuery.skip + *(delegatedQuery.top));
         }
         });
 }
@@ -1789,8 +1791,9 @@ inline bool
 }
 
 inline bool getHostLoggerEntries(
-    const std::vector<std::filesystem::path>& hostLoggerFiles, uint64_t skip,
-    uint64_t top, std::vector<std::string>& logEntries, size_t& logCount)
+    const std::vector<std::filesystem::path>& hostLoggerFiles, size_t skip,
+    std::optional<size_t> top, std::vector<std::string>& logEntries,
+    size_t& logCount)
 {
     GzFileReader logFile;
 
@@ -1808,7 +1811,7 @@ inline bool getHostLoggerEntries(
     if (!lastMessage.empty())
     {
         logCount++;
-        if (logCount > skip && logCount <= (skip + top))
+        if (logCount > skip && (!top || logCount <= (skip + *top)))
         {
             logEntries.push_back(lastMessage);
         }
@@ -1920,11 +1923,12 @@ inline void requestRoutesSystemHostLoggerCollection(App& app)
             }
 
             asyncResp->res.jsonValue["Members@odata.count"] = logCount;
-            if (delegatedQuery.skip + delegatedQuery.top < logCount)
+            if (delegatedQuery.top &&
+                delegatedQuery.skip + *(delegatedQuery.top) < logCount)
             {
                 asyncResp->res.jsonValue["Members@odata.nextLink"] =
                     "/redfish/v1/Systems/system/LogServices/HostLogger/Entries?$skip=" +
-                    std::to_string(delegatedQuery.skip + delegatedQuery.top);
+                    std::to_string(delegatedQuery.skip + *(delegatedQuery.top));
             }
         }
         });
@@ -1945,7 +1949,7 @@ inline void requestRoutesSystemHostLoggerLogEntry(App& app)
         }
         const std::string& targetID = param;
 
-        uint64_t idInt = 0;
+        size_t idInt = 0;
 
         // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
         const char* end = targetID.data() + targetID.size();
@@ -1970,7 +1974,7 @@ inline void requestRoutesSystemHostLoggerLogEntry(App& app)
         }
 
         size_t logCount = 0;
-        uint64_t top = 1;
+        size_t top = 1;
         std::vector<std::string> logEntries;
         // We can get specific entry by skip and top. For example, if we
         // want to get nth entry, we can set skip = n-1 and top = 1 to
@@ -2223,7 +2227,8 @@ inline void requestRoutesBMCJournalLogEntryCollection(App& app)
             // Handle paging using skip (number of entries to skip from
             // the start) and top (number of entries to display)
             if (entryCount <= delegatedQuery.skip ||
-                entryCount > delegatedQuery.skip + delegatedQuery.top)
+                (delegatedQuery.top &&
+                 entryCount > delegatedQuery.skip + *(delegatedQuery.top)))
             {
                 continue;
             }
@@ -2245,11 +2250,12 @@ inline void requestRoutesBMCJournalLogEntryCollection(App& app)
             logEntryArray.push_back(std::move(bmcJournalLogEntry));
         }
         asyncResp->res.jsonValue["Members@odata.count"] = entryCount;
-        if (delegatedQuery.skip + delegatedQuery.top < entryCount)
+        if (delegatedQuery.top &&
+            delegatedQuery.skip + *(delegatedQuery.top) < entryCount)
         {
             asyncResp->res.jsonValue["Members@odata.nextLink"] =
                 "/redfish/v1/Managers/bmc/LogServices/Journal/Entries?$skip=" +
-                std::to_string(delegatedQuery.skip + delegatedQuery.top);
+                std::to_string(delegatedQuery.skip + *(delegatedQuery.top));
         }
         });
 }
@@ -3239,7 +3245,7 @@ static void fillPostCodeEntry(
     const boost::container::flat_map<
         uint64_t, std::tuple<uint64_t, std::vector<uint8_t>>>& postcode,
     const uint16_t bootIndex, const uint64_t codeIndex = 0,
-    const uint64_t skip = 0, const uint64_t top = 0)
+    const size_t skip = 0, const std::optional<size_t> top = std::nullopt)
 {
     // Get the Message from the MessageRegistry
     const registries::Message* message =
@@ -3272,7 +3278,7 @@ static void fillPostCodeEntry(
         // skip if no specific codeIndex is specified and currentCodeIndex does
         // not fall between top and skip
         if ((codeIndex == 0) &&
-            (currentCodeIndex <= skip || currentCodeIndex > top))
+            (currentCodeIndex <= skip || (top && currentCodeIndex > *top)))
         {
             continue;
         }
@@ -3396,8 +3402,8 @@ static void getPostCodeForEntry(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
 static void getPostCodeForBoot(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
                                const uint16_t bootIndex,
                                const uint16_t bootCount,
-                               const uint64_t entryCount, const uint64_t skip,
-                               const uint64_t top)
+                               const size_t entryCount, const size_t skip,
+                               const std::optional<size_t> top)
 {
     crow::connections::systemBus->async_method_call(
         [aResp, bootIndex, bootCount, entryCount, skip,
@@ -3412,16 +3418,19 @@ static void getPostCodeForBoot(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
             return;
         }
 
-        uint64_t endCount = entryCount;
+        size_t endCount = entryCount;
         if (!postcode.empty())
         {
             endCount = entryCount + postcode.size();
 
-            if ((skip < endCount) && ((top + skip) > entryCount))
+            if ((skip < endCount) && (!top || (*top + skip) > entryCount))
             {
-                uint64_t thisBootSkip = std::max(skip, entryCount) - entryCount;
-                uint64_t thisBootTop =
-                    std::min(top + skip, endCount) - entryCount;
+                size_t thisBootSkip = std::max(skip, entryCount) - entryCount;
+                std::optional<size_t> thisBootTop = std::nullopt;
+                if (top)
+                {
+                    thisBootTop = std::min(*top + skip, endCount) - entryCount;
+                }
 
                 fillPostCodeEntry(aResp, postcode, bootIndex, 0, thisBootSkip,
                                   thisBootTop);
@@ -3437,9 +3446,12 @@ static void getPostCodeForBoot(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
         }
         else
         {
-            aResp->res.jsonValue["Members@odata.nextLink"] =
-                "/redfish/v1/Systems/system/LogServices/PostCodes/Entries?$skip=" +
-                std::to_string(skip + top);
+            if (top && skip + *top < endCount)
+            {
+                aResp->res.jsonValue["Members@odata.nextLink"] =
+                    "/redfish/v1/Systems/system/LogServices/PostCodes/Entries?$skip=" +
+                    std::to_string(skip + *top);
+            }
         }
         },
         "xyz.openbmc_project.State.Boot.PostCode0",
@@ -3450,9 +3462,9 @@ static void getPostCodeForBoot(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
 
 static void
     getCurrentBootNumber(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
-                         const uint64_t skip, const uint64_t top)
+                         const size_t skip, const std::optional<size_t> top)
 {
-    uint64_t entryCount = 0;
+    size_t entryCount = 0;
     sdbusplus::asio::getProperty<uint16_t>(
         *crow::connections::systemBus,
         "xyz.openbmc_project.State.Boot.PostCode0",
