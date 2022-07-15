@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "777b32dc_3519ea53",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-15T17:23:28Z",
+      "side": 1,
+      "message": "Not something to fix in this commit, but is this something we should make an enum for?  Passing around strings seems error-prone.\n\nSomething to think about.",
+      "range": {
+        "startLine": 61,
+        "startChar": 43,
+        "endLine": 61,
+        "endChar": 64
+      },
+      "revId": "eddc9e7fc10d48fcdaa632aa2eec5d43b9fe23b6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
