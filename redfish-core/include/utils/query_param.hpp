@@ -7,6 +7,7 @@
 #include "routing.hpp"
 
 #include <charconv>
+#include <optional>
 #include <string>
 #include <string_view>
 #include <utility>
@@ -16,7 +17,6 @@ namespace redfish
 {
 namespace query_param
 {
-
 enum class ExpandType : uint8_t
 {
     None,
@@ -38,7 +38,7 @@ struct Query
     size_t skip = 0;
 
     // Top
-    size_t top = std::numeric_limits<size_t>::max();
+    std::optional<size_t> top = std::nullopt;
 };
 
 // The struct defines how resource handlers in redfish-core/lib/ can handle
@@ -87,7 +87,7 @@ inline Query delegate(const QueryCapabilities& queryCapabilities, Query& query)
     if (queryCapabilities.canDelegateTop)
     {
         delegated.top = query.top;
-        query.top = std::numeric_limits<size_t>::max();
+        query.top = std::nullopt;
     }
 
     // delegate skip
@@ -174,21 +174,22 @@ inline QueryError getSkipParam(std::string_view value, Query& query)
     return getNumericParam(value, query.skip);
 }
 
-static constexpr size_t maxEntriesPerPage = 1000;
 inline QueryError getTopParam(std::string_view value, Query& query)
 {
-    QueryError ret = getNumericParam(value, query.top);
+    size_t topParam;
+    QueryError ret = getNumericParam(value, topParam);
     if (ret != QueryError::Ok)
     {
         return ret;
     }
 
     // Range check for sanity.
-    if (query.top > maxEntriesPerPage)
+    if (topParam > std::numeric_limits<size_t>::max())
     {
         return QueryError::OutOfRange;
     }
 
+    query.top = topParam;
     return QueryError::Ok;
 }
 
@@ -230,7 +231,7 @@ inline std::optional<Query>
             {
                 messages::queryParameterOutOfRange(
                     res, value, "$top",
-                    "1-" + std::to_string(maxEntriesPerPage));
+                    "1-" + std::to_string(std::numeric_limits<size_t>::max()));
                 return std::nullopt;
             }
         }
@@ -577,8 +578,11 @@ inline void processTopAndSkip(const Query& query, crow::Response& res)
     size_t skip = std::min(arr->size(), query.skip);
     arr->erase(arr->begin(), arr->begin() + static_cast<ssize_t>(skip));
 
-    size_t top = std::min(arr->size(), query.top);
-    arr->erase(arr->begin() + static_cast<ssize_t>(top), arr->end());
+    if (query.top)
+    {
+        size_t top = std::min(arr->size(), *(query.top));
+        arr->erase(arr->begin() + static_cast<ssize_t>(top), arr->end());
+    }
 }
 
 inline void
@@ -607,7 +611,7 @@ inline void
         return;
     }
 
-    if (query.top != std::numeric_limits<size_t>::max() || query.skip != 0)
+    if (query.top || query.skip != 0)
     {
         processTopAndSkip(query, intermediateResponse);
     }
