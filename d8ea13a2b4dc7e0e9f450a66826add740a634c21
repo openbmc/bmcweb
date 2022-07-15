@@ -135,6 +135,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2848d670_b8656b81",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-15T17:03:33Z",
+      "side": 1,
+      "message": "There are reviews out for things that you would now maintain that you haven\u0027t reviewed yet.  One such example:\n\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/54548\n\nI\u0027m not saying you\u0027re not reviewing, but the goal here is one responsible person for any given file (possibly with a backup).  Now, maybe the above is an isolated case, but lets make sure that you have a query that can find all the reviews that you need to be involved with.  If we need to rearrange the files some to make that query easier for you, let me know.",
+      "parentUuid": "841b05aa_5447d05c",
+      "revId": "d8ea13a2b4dc7e0e9f450a66826add740a634c21",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "eb619265_ab2a9d10",
         "filename": "OWNERS",
         "patchSetId": 1
