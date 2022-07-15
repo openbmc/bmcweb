@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "60c5d4d7_7c08c008",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 25
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-15T20:59:04Z",
+      "side": 1,
+      "message": "I was supposed to review LogService related changes, please add me to the reviewer list. Especially these are google changes. Thanks!",
+      "revId": "dd834b3e703a80c79be7e31c6010b39556626ddb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "25dc5293_7602a4b1",
