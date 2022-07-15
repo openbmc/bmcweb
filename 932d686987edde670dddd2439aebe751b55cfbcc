@@ -41,6 +41,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f7d737b_8ec01509",
+        "filename": "redfish-core/ut/location_utils_test.cpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-07-15T16:27:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cb6874b5_6c8150be",
+      "range": {
+        "startLine": 3,
+        "startChar": 18,
+        "endLine": 3,
+        "endChar": 19
+      },
+      "revId": "932d686987edde670dddd2439aebe751b55cfbcc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "54046a97_3150e3d8",
@@ -54,6 +78,30 @@
       "writtenOn": "2022-07-15T16:21:44Z",
       "side": 1,
       "message": "Same as the other patch, please fix these test names.",
+      "range": {
+        "startLine": 19,
+        "startChar": 22,
+        "endLine": 19,
+        "endChar": 44
+      },
+      "revId": "932d686987edde670dddd2439aebe751b55cfbcc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "78505f9e_aaf2a9ba",
+        "filename": "redfish-core/ut/location_utils_test.cpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-07-15T16:27:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "54046a97_3150e3d8",
       "range": {
         "startLine": 19,
         "startChar": 22,
