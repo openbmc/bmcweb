@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0186ac07_4d82fad7",
+        "filename": "redfish-core/lib/ut/log_services_test.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-15T20:56:11Z",
+      "side": 1,
+      "message": "Please use \u003c\u003e for system headers.",
+      "range": {
+        "startLine": 7,
+        "startChar": 9,
+        "endLine": 7,
+        "endChar": 10
+      },
+      "revId": "dd834b3e703a80c79be7e31c6010b39556626ddb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aa4bf467_c0a2822d",
+        "filename": "redfish-core/lib/ut/log_services_test.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-15T20:56:11Z",
+      "side": 1,
+      "message": "Please add a Namespace to the tests, like what the other unit tests do.",
+      "range": {
+        "startLine": 10,
+        "startChar": 6,
+        "endLine": 10,
+        "endChar": 13
+      },
+      "revId": "dd834b3e703a80c79be7e31c6010b39556626ddb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "81a333d8_b4404f31",
+        "filename": "redfish-core/lib/ut/log_services_test.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-15T20:56:11Z",
+      "side": 1,
+      "message": "fully qualifying using declarations?",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 5
+      },
+      "revId": "dd834b3e703a80c79be7e31c6010b39556626ddb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
