@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8405313f_ca8aec68",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-15T22:37:34Z",
+      "side": 1,
+      "message": "Validator?",
+      "revId": "65c234103e5d96f2747909f1794a47214bc73ec8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4925b6f1_45774741",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 965,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-15T22:37:34Z",
+      "side": 1,
+      "message": "For here and everywhere else, shall be handle path failures here?",
+      "range": {
+        "startLine": 965,
+        "startChar": 21,
+        "endLine": 965,
+        "endChar": 29
+      },
+      "revId": "65c234103e5d96f2747909f1794a47214bc73ec8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0103355e_fee8042d",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 1071,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-15T22:37:34Z",
+      "side": 1,
+      "message": "This is called several time, consider getting this as a string, and use it twice?",
+      "range": {
+        "startLine": 1071,
+        "startChar": 21,
+        "endLine": 1071,
+        "endChar": 29
+      },
+      "revId": "65c234103e5d96f2747909f1794a47214bc73ec8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "34025d74_cbaf8134",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 1103,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-15T22:37:34Z",
+      "side": 1,
+      "message": "What\u0027s the convention here? I saw we construct this |object_path| just for contacting a path? Does it worth it?",
+      "range": {
+        "startLine": 1103,
+        "startChar": 40,
+        "endLine": 1103,
+        "endChar": 44
+      },
+      "revId": "65c234103e5d96f2747909f1794a47214bc73ec8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
