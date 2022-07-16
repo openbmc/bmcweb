@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5e098d55_71993149",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-07-16T01:42:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8405313f_ca8aec68",
+      "revId": "65c234103e5d96f2747909f1794a47214bc73ec8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4925b6f1_45774741",
@@ -67,6 +85,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a42238f0_02788ad7",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 965,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-07-16T01:42:24Z",
+      "side": 1,
+      "message": "It is changed to urlFromPieces in https://gerrit.openbmc.org/c/openbmc/bmcweb/+/54548/ Also this patchset\n\nAnd the path failure will be handled in getCertificateProperties() when calling DBus.",
+      "parentUuid": "cf5a298d_e8ef0339",
+      "range": {
+        "startLine": 965,
+        "startChar": 21,
+        "endLine": 965,
+        "endChar": 29
+      },
+      "revId": "65c234103e5d96f2747909f1794a47214bc73ec8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0103355e_fee8042d",
         "filename": "redfish-core/lib/certificate_service.hpp",
         "patchSetId": 13
@@ -78,6 +120,30 @@
       "writtenOn": "2022-07-15T22:37:34Z",
       "side": 1,
       "message": "This is called several time, consider getting this as a string, and use it twice?",
+      "range": {
+        "startLine": 1071,
+        "startChar": 21,
+        "endLine": 1071,
+        "endChar": 29
+      },
+      "revId": "65c234103e5d96f2747909f1794a47214bc73ec8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "17179a7e_729d28d1",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 1071,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-07-16T01:42:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0103355e_fee8042d",
       "range": {
         "startLine": 1071,
         "startChar": 21,
@@ -125,6 +191,30 @@
       "side": 1,
       "message": "unfortunately we\u0027re inconsistent on dbus between our usage of object_path and string.  Also, object_path doesn\u0027t have a constexpr constructor, so there\u0027s no way to make ldapObjectPath constexpr, so this is what we have for the moment.  If someone wanted to, they could come up with a patches with the mods to sdbusplus::message::object_path to allow it to be constexpr (or maybe a constexpr specific type)\n\n\nFor the moment, I think this is the best we have.",
       "parentUuid": "34025d74_cbaf8134",
+      "range": {
+        "startLine": 1103,
+        "startChar": 40,
+        "endLine": 1103,
+        "endChar": 44
+      },
+      "revId": "65c234103e5d96f2747909f1794a47214bc73ec8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ea70ce4_8ae8901b",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 1103,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-07-16T01:42:24Z",
+      "side": 1,
+      "message": "Agreed",
+      "parentUuid": "64889452_82745be4",
       "range": {
         "startLine": 1103,
         "startChar": 40,
