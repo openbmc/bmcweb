@@ -326,6 +326,69 @@ static bool
     return !redfishLogFiles.empty();
 }
 
+inline void parseDumpEntryFromDbusObject(
+    const dbus::utility::ManagedItem& object, std::string& dumpStatus,
+    uint64_t& size, uint64_t& timestamp,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+{
+    for (const auto& interfaceMap : object.second)
+    {
+        if (interfaceMap.first == "xyz.openbmc_project.Common.Progress")
+        {
+            for (const auto& propertyMap : interfaceMap.second)
+            {
+                if (propertyMap.first == "Status")
+                {
+                    const auto* status =
+                        std::get_if<std::string>(&propertyMap.second);
+                    if (status == nullptr)
+                    {
+                        messages::internalError(asyncResp->res);
+                        break;
+                    }
+                    dumpStatus = *status;
+                }
+            }
+        }
+        else if (interfaceMap.first == "xyz.openbmc_project.Dump.Entry")
+        {
+            for (const auto& propertyMap : interfaceMap.second)
+            {
+                if (propertyMap.first == "Size")
+                {
+                    const auto* sizePtr =
+                        std::get_if<uint64_t>(&propertyMap.second);
+                    if (sizePtr == nullptr)
+                    {
+                        messages::internalError(asyncResp->res);
+                        break;
+                    }
+                    size = *sizePtr;
+                    break;
+                }
+            }
+        }
+        else if (interfaceMap.first == "xyz.openbmc_project.Time.EpochTime")
+        {
+            for (const auto& propertyMap : interfaceMap.second)
+            {
+                if (propertyMap.first == "Elapsed")
+                {
+                    const uint64_t* usecsTimeStamp =
+                        std::get_if<uint64_t>(&propertyMap.second);
+                    if (usecsTimeStamp == nullptr)
+                    {
+                        messages::internalError(asyncResp->res);
+                        break;
+                    }
+                    timestamp = *usecsTimeStamp;
+                    break;
+                }
+            }
+        }
+    }
+}
+
 static std::string getDumpEntriesPath(const std::string& dumpType)
 {
     std::string entriesPath;
@@ -416,65 +479,8 @@ inline void
                 continue;
             }
 
-            for (auto& interfaceMap : object.second)
-            {
-                if (interfaceMap.first == "xyz.openbmc_project.Common.Progress")
-                {
-                    for (const auto& propertyMap : interfaceMap.second)
-                    {
-                        if (propertyMap.first == "Status")
-                        {
-                            const auto* status =
-                                std::get_if<std::string>(&propertyMap.second);
-                            if (status == nullptr)
-                            {
-                                messages::internalError(asyncResp->res);
-                                break;
-                            }
-                            dumpStatus = *status;
-                        }
-                    }
-                }
-                else if (interfaceMap.first == "xyz.openbmc_project.Dump.Entry")
-                {
-
-                    for (auto& propertyMap : interfaceMap.second)
-                    {
-                        if (propertyMap.first == "Size")
-                        {
-                            const auto* sizePtr =
-                                std::get_if<uint64_t>(&propertyMap.second);
-                            if (sizePtr == nullptr)
-                            {
-                                messages::internalError(asyncResp->res);
-                                break;
-                            }
-                            size = *sizePtr;
-                            break;
-                        }
-                    }
-                }
-                else if (interfaceMap.first ==
-                         "xyz.openbmc_project.Time.EpochTime")
-                {
-
-                    for (const auto& propertyMap : interfaceMap.second)
-                    {
-                        if (propertyMap.first == "Elapsed")
-                        {
-                            const uint64_t* usecsTimeStamp =
-                                std::get_if<uint64_t>(&propertyMap.second);
-                            if (usecsTimeStamp == nullptr)
-                            {
-                                messages::internalError(asyncResp->res);
-                                break;
-                            }
-                            timestamp = (*usecsTimeStamp / 1000 / 1000);
-                            break;
-                        }
-                    }
-                }
-            }
+            parseDumpEntryFromDbusObject(object, dumpStatus, size, timestamp,
+                                         asyncResp);
 
             if (dumpStatus !=
                     "xyz.openbmc_project.Common.Progress.OperationStatus.Completed" &&
@@ -553,63 +559,8 @@ inline void
             uint64_t size = 0;
             std::string dumpStatus;
 
-            for (const auto& interfaceMap : objectPath.second)
-            {
-                if (interfaceMap.first == "xyz.openbmc_project.Common.Progress")
-                {
-                    for (const auto& propertyMap : interfaceMap.second)
-                    {
-                        if (propertyMap.first == "Status")
-                        {
-                            const std::string* status =
-                                std::get_if<std::string>(&propertyMap.second);
-                            if (status == nullptr)
-                            {
-                                messages::internalError(asyncResp->res);
-                                break;
-                            }
-                            dumpStatus = *status;
-                        }
-                    }
-                }
-                else if (interfaceMap.first == "xyz.openbmc_project.Dump.Entry")
-                {
-                    for (const auto& propertyMap : interfaceMap.second)
-                    {
-                        if (propertyMap.first == "Size")
-                        {
-                            const uint64_t* sizePtr =
-                                std::get_if<uint64_t>(&propertyMap.second);
-                            if (sizePtr == nullptr)
-                            {
-                                messages::internalError(asyncResp->res);
-                                break;
-                            }
-                            size = *sizePtr;
-                            break;
-                        }
-                    }
-                }
-                else if (interfaceMap.first ==
-                         "xyz.openbmc_project.Time.EpochTime")
-                {
-                    for (const auto& propertyMap : interfaceMap.second)
-                    {
-                        if (propertyMap.first == "Elapsed")
-                        {
-                            const uint64_t* usecsTimeStamp =
-                                std::get_if<uint64_t>(&propertyMap.second);
-                            if (usecsTimeStamp == nullptr)
-                            {
-                                messages::internalError(asyncResp->res);
-                                break;
-                            }
-                            timestamp = *usecsTimeStamp / 1000 / 1000;
-                            break;
-                        }
-                    }
-                }
-            }
+            parseDumpEntryFromDbusObject(objectPath, dumpStatus, size,
+                                         timestamp, asyncResp);
 
             if (dumpStatus !=
                     "xyz.openbmc_project.Common.Progress.OperationStatus.Completed" &&
