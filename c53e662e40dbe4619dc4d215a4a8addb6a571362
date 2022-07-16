@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a63d9a49_b4cf38a9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-07-16T00:30:24Z",
+      "side": 1,
+      "message": "looks fine",
+      "revId": "c53e662e40dbe4619dc4d215a4a8addb6a571362",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c26fd1ce_119c6dae",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-07-16T00:30:24Z",
+      "side": 1,
+      "message": "nit:\nplease add \"#include \u003calgorithm\u003e\"",
+      "range": {
+        "startLine": 29,
+        "startChar": 1,
+        "endLine": 29,
+        "endChar": 2
+      },
+      "revId": "c53e662e40dbe4619dc4d215a4a8addb6a571362",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
