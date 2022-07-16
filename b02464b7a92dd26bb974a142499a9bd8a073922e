@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5e02c372_a07caa57",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1823,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-16T01:14:32Z",
+      "side": 1,
+      "message": "As written, I don\u0027t think this works if a user is removed via another interface like IPMI.  Should we do this under a dbus match expression instead?",
+      "revId": "b02464b7a92dd26bb974a142499a9bd8a073922e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
