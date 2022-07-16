@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cf5a298d_e8ef0339",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 965,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-16T01:04:38Z",
+      "side": 1,
+      "message": "+1.  Also, if we\u0027re chaging this, it should be using urlFromPieces.",
+      "parentUuid": "4925b6f1_45774741",
+      "range": {
+        "startLine": 965,
+        "startChar": 21,
+        "endLine": 965,
+        "endChar": 29
+      },
+      "revId": "65c234103e5d96f2747909f1794a47214bc73ec8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0103355e_fee8042d",
         "filename": "redfish-core/lib/certificate_service.hpp",
         "patchSetId": 13
@@ -77,6 +101,30 @@
       "writtenOn": "2022-07-15T22:37:34Z",
       "side": 1,
       "message": "What\u0027s the convention here? I saw we construct this |object_path| just for contacting a path? Does it worth it?",
+      "range": {
+        "startLine": 1103,
+        "startChar": 40,
+        "endLine": 1103,
+        "endChar": 44
+      },
+      "revId": "65c234103e5d96f2747909f1794a47214bc73ec8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "64889452_82745be4",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 1103,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-16T01:04:38Z",
+      "side": 1,
+      "message": "unfortunately we\u0027re inconsistent on dbus between our usage of object_path and string.  Also, object_path doesn\u0027t have a constexpr constructor, so there\u0027s no way to make ldapObjectPath constexpr, so this is what we have for the moment.  If someone wanted to, they could come up with a patches with the mods to sdbusplus::message::object_path to allow it to be constexpr (or maybe a constexpr specific type)\n\n\nFor the moment, I think this is the best we have.",
+      "parentUuid": "34025d74_cbaf8134",
       "range": {
         "startLine": 1103,
         "startChar": 40,
