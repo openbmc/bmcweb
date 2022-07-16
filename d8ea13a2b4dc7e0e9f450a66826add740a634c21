@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3ee03809_d5d49bcf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-16T00:40:51Z",
+      "side": 1,
+      "message": "\u003e Are we comfortable to give +2 permission to the listed files to Krzysztof and me?\n\nIf you\u0027re directing the question to me, this is answered in the commit message: \"The\nhope is that over time, these maintainers can grow into owning larger\nportions of the stack.\" so I think the answer is yes.",
+      "parentUuid": "9a35024f_138ce649",
+      "range": {
+        "startLine": 23,
+        "startChar": 45,
+        "endLine": 24,
+        "endChar": 26
+      },
+      "revId": "d8ea13a2b4dc7e0e9f450a66826add740a634c21",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7905551b_4b6508e9",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -314,6 +338,24 @@
       "side": 1,
       "message": "\u003e Considering that you\u0027re managing the memory schema, which is based on the physical topology, and that there\u0027s no systems that can replicate smbios/memory inventory information, I\u0027m not sure I agree with that.  We also don\u0027t have a great simulator for sensors, or log service subsystems.  Can you give more details on how you\u0027d test these if you don\u0027t have a system?\n\nWait, are you asking if I have any hardware, or a public hardware?\n\nI for sure have access to Google hardware. Otherwise how do I even work? That\u0027s how I tested all the commits I did in the project and some commits that I reviewed. You reviewed most of the patches and should have seen I said tested on hardware in the commit message.\n\nI don\u0027t have a public hardware. I believe most of Google contributors don\u0027t have a public hardware.\n\nWhat I was saying is that, for the parts that I maintained, testing on Google hardware is sufficient. Is that fair?",
       "parentUuid": "93270f17_2d2d055a",
+      "revId": "d8ea13a2b4dc7e0e9f450a66826add740a634c21",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6c497251_7299e06c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-16T00:40:51Z",
+      "side": 1,
+      "message": "\u003e \u003e Considering that you\u0027re managing the memory schema, which is based on the physical topology, and that there\u0027s no systems that can replicate smbios/memory inventory information, I\u0027m not sure I agree with that.  We also don\u0027t have a great simulator for sensors, or log service subsystems.  Can you give more details on how you\u0027d test these if you don\u0027t have a system?\n\u003e \n\u003e Wait, are you asking if I have any hardware, or a public hardware?\n\nI\u0027m saying it\u0027s nearly impossible to maintain a system with code that you can\u0027t run.\n\n\u003e \n\u003e I for sure have access to Google hardware. Otherwise how do I even work?\n\nNo disagreement there, but Google hardware has its own quirks.  In this role, you\u0027re not a maintainer for google, you\u0027re a maintainer for all of openbmc, so you need to consider more hardware than just Googles.\n\n\u003e That\u0027s how I tested all the commits I did in the project and some commits that I reviewed. You reviewed most of the patches and should have seen I said tested on hardware in the commit message.\n\nYep, and basically all of those I tested on real upstream hardware to verify that it worked, because I\u0027m the maintainer and that\u0027s part of the responsibility.  If you\u0027re becoming a maintainer with this commit, that responsibility will transition in part to you for the things you maintain.\n\n\u003e \n\u003e I don\u0027t have a public hardware. I believe most of Google contributors don\u0027t have a public hardware.\n\u003e \n\u003e What I was saying is that, for the parts that I maintained, testing on Google hardware is sufficient. Is that fair?\n\nConsidering that google has patches against many subsystems, no, generally testing only on downstream systems isn\u0027t sufficient to verify that they meet the published dbus interfaces.  Many times we have patches that are only tested on downstream clients, and cause bugs in upstream because of it;  It\u0027s a maintainers job to use judgement on how much to accept.",
+      "parentUuid": "16b80dbe_7a4188ab",
       "revId": "d8ea13a2b4dc7e0e9f450a66826add740a634c21",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
