@@ -120,6 +120,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5606b79f_1135c052",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-16T01:15:07Z",
+      "side": 1,
+      "message": "That\u0027s a fair point.  ACK.\n\nOverall, I think we need to be tracking users by some sort of uid to avoid this problem, but that\u0027s outside the scope of this patch.",
+      "parentUuid": "6836d3a2_f4d2a945",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 55
+      },
+      "revId": "bff36daf97bbf509552a627cbf3985e21a1074b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c4083d97_f5e6f86e",
