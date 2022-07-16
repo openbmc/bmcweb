@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "51081ecb_f180b403",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-07-16T01:28:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "698ca677_fd049fe2",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 52
+      },
+      "revId": "62d3d6c47bae2aba85e56d7ccff2bb38d724d257",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2cfab8f5_3d308c18",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-07-15T20:52:34Z",
       "side": 1,
       "message": "wait, can we really hit this branch now?",
+      "range": {
+        "startLine": 187,
+        "startChar": 8,
+        "endLine": 187,
+        "endChar": 16
+      },
+      "revId": "62d3d6c47bae2aba85e56d7ccff2bb38d724d257",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "94c65c15_9008bbb7",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-07-16T01:28:34Z",
+      "side": 1,
+      "message": "Yes this will never be reached, removed.",
+      "parentUuid": "2cfab8f5_3d308c18",
       "range": {
         "startLine": 187,
         "startChar": 8,
