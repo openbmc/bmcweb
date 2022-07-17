@@ -526,51 +526,41 @@ struct ExpandNode
     }
 };
 
-// Walks a json object looking for Redfish NavigationReference entries that
-// might need resolved.  It recursively walks the jsonResponse object, looking
-// for links at every level, and returns a list (out) of locations within the
-// tree that need to be expanded.  The current json pointer location p is passed
-// in to reference the current node that's being expanded, so it can be combined
-// with the keys from the jsonResponse object
+// Forward declaration so this can be used recursively.
 inline void findNavigationReferencesRecursive(
     ExpandType eType, nlohmann::json& jsonResponse,
     const nlohmann::json::json_pointer& p, int depth, bool inLinks,
+    std::vector<ExpandNode>& out);
+
+inline void findNavigationReferencesInArrayRecursive(
+    ExpandType eType, nlohmann::json::array_t& array,
+    const nlohmann::json::json_pointer& p, int depth, bool inLinks,
     std::vector<ExpandNode>& out)
 {
-    // If no expand is needed, return early
-    if (eType == ExpandType::None)
+    size_t index = 0;
+    // For arrays, walk every element in the array
+    for (auto& element : array)
     {
-        return;
+        nlohmann::json::json_pointer newPtr = p / index;
+        BMCWEB_LOG_DEBUG << "Traversing response at " << newPtr.to_string();
+        findNavigationReferencesRecursive(eType, element, newPtr, depth,
+                                          inLinks, out);
+        index++;
     }
+}
 
-    nlohmann::json::array_t* array =
-        jsonResponse.get_ptr<nlohmann::json::array_t*>();
-    if (array != nullptr)
-    {
-        size_t index = 0;
-        // For arrays, walk every element in the array
-        for (auto& element : *array)
-        {
-            nlohmann::json::json_pointer newPtr = p / index;
-            BMCWEB_LOG_DEBUG << "Traversing response at " << newPtr.to_string();
-            findNavigationReferencesRecursive(eType, element, newPtr, depth,
-                                              inLinks, out);
-            index++;
-        }
-    }
-    nlohmann::json::object_t* obj =
-        jsonResponse.get_ptr<nlohmann::json::object_t*>();
-    if (obj == nullptr)
-    {
-        return;
-    }
+inline void findNavigationReferencesInObjectRecursive(
+    ExpandType eType, nlohmann::json::object_t& obj,
+    const nlohmann::json::json_pointer& p, int depth, bool inLinks,
+    std::vector<ExpandNode>& out)
+{
     // Navigation References only ever have a single element
-    if (obj->size() == 1)
+    if (obj.size() == 1)
     {
-        if (obj->begin()->first == "@odata.id")
+        if (obj.begin()->first == "@odata.id")
         {
             const std::string* uri =
-                obj->begin()->second.get_ptr<const std::string*>();
+                obj.begin()->second.get_ptr<const std::string*>();
             if (uri != nullptr)
             {
                 BMCWEB_LOG_DEBUG << "Found " << *uri << " at " << p.to_string();
@@ -581,15 +571,15 @@ inline void findNavigationReferencesRecursive(
     }
 
     int newDepth = depth;
-    auto odataId = obj->find("@odata.id");
-    if (odataId != obj->end())
+    auto odataId = obj.find("@odata.id");
+    if (odataId != obj.end())
     {
         // The Redfish spec requires all resources to include the resource
         // identifier.  If the object has multiple elements and one of them is
         // "@odata.id" then that means we have entered a new level / expanded
         // resource.  We need to stop traversing if we're already at the desired
         // depth
-        if ((obj->size() > 1) && (depth == 0))
+        if ((obj.size() > 1) && (depth == 0))
         {
             return;
         }
@@ -597,7 +587,7 @@ inline void findNavigationReferencesRecursive(
     }
 
     // Loop the object and look for links
-    for (auto& element : *obj)
+    for (auto& element : obj)
     {
         bool localInLinks = inLinks;
         if (!localInLinks)
@@ -620,6 +610,39 @@ inline void findNavigationReferencesRecursive(
 
         findNavigationReferencesRecursive(eType, element.second, newPtr,
                                           newDepth, localInLinks, out);
+    }
+}
+
+// Walks a json object looking for Redfish NavigationReference entries that
+// might need resolved.  It recursively walks the jsonResponse object, looking
+// for links at every level, and returns a list (out) of locations within the
+// tree that need to be expanded.  The current json pointer location p is passed
+// in to reference the current node that's being expanded, so it can be combined
+// with the keys from the jsonResponse object
+inline void findNavigationReferencesRecursive(
+    ExpandType eType, nlohmann::json& jsonResponse,
+    const nlohmann::json::json_pointer& p, int depth, bool inLinks,
+    std::vector<ExpandNode>& out)
+{
+    // If no expand is needed, return early
+    if (eType == ExpandType::None)
+    {
+        return;
+    }
+    nlohmann::json::array_t* array =
+        jsonResponse.get_ptr<nlohmann::json::array_t*>();
+    if (array != nullptr)
+    {
+        findNavigationReferencesInArrayRecursive(eType, *array, p, inLinks,
+                                                 depth, out);
+        return;
+    }
+    nlohmann::json::object_t* obj =
+        jsonResponse.get_ptr<nlohmann::json::object_t*>();
+    if (obj != nullptr)
+    {
+        findNavigationReferencesInObjectRecursive(eType, *obj, p, inLinks,
+                                                  depth, out);
     }
 }
 
