@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "18ef1320_e0bc9720",
+        "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 439,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-17T16:12:35Z",
+      "side": 1,
+      "message": "Shouldn\u0027t these be in a DMTF registry?  Nothing about the above is specific to openbmc.",
+      "range": {
+        "startLine": 404,
+        "startChar": 1,
+        "endLine": 439,
+        "endChar": 11
+      },
+      "revId": "62eace6199137eeba0e6b59e54c2495800478a9a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
