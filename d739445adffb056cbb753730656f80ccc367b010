@@ -287,6 +287,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5f15bf17_8cb8b6c0",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-17T16:24:57Z",
+      "side": 1,
+      "message": "Maybe just inline this then with a comment about the above?  #defines tend to be difficult to remove once in place.",
+      "parentUuid": "300f606f_215b8aa2",
+      "range": {
+        "startLine": 54,
+        "startChar": 17,
+        "endLine": 58,
+        "endChar": 77
+      },
+      "revId": "d739445adffb056cbb753730656f80ccc367b010",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "74b6a827_130f695b",
         "filename": "http/http_client.hpp",
         "patchSetId": 5

@@ -1,0 +1,187 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "556c274d_714675c0",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-17T16:24:57Z",
+      "side": 1,
+      "message": "Can we please put this in the same file as the other ssl context things so that when we update, we can update one location?  Also, can any of this be deduplicated with the server context construction?",
+      "revId": "fd64ddb00ec8b4e59d5c3be7fd1e7b88a84fb19c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f5c71c3_9daa5388",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-17T16:24:57Z",
+      "side": 1,
+      "message": "Could this just return the ssl context?  That would make it simpler to put outside of this class.",
+      "range": {
+        "startLine": 165,
+        "startChar": 0,
+        "endLine": 166,
+        "endChar": 51
+      },
+      "revId": "fd64ddb00ec8b4e59d5c3be7fd1e7b88a84fb19c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bbd6444e_8693804e",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-17T16:24:57Z",
+      "side": 1,
+      "message": "I\u0027m assuming you meant to return here?\n\nAs written this seg faults on the next line when sslCtx-\u003eadd_verify_path is called.",
+      "revId": "fd64ddb00ec8b4e59d5c3be7fd1e7b88a84fb19c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "06b01854_4f7cfff0",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-17T16:24:57Z",
+      "side": 1,
+      "message": "owasp cheatsheet references mozilla, and this list doesn\u0027t seems to match either intermediate, modern, or old lists:\n\nhttps://wiki.mozilla.org/Security/Server_Side_TLS\n\nSomething I\u0027m missing?",
+      "revId": "fd64ddb00ec8b4e59d5c3be7fd1e7b88a84fb19c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "25b21a98_03a0b7c0",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-17T16:24:57Z",
+      "side": 1,
+      "message": "You need to handle this error.  if sslCtx isn\u0027t filled in it means ssl ctx construction failed, so we need to error out.",
+      "range": {
+        "startLine": 259,
+        "startChar": 0,
+        "endLine": 259,
+        "endChar": 19
+      },
+      "revId": "fd64ddb00ec8b4e59d5c3be7fd1e7b88a84fb19c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aab0d031_a8b48cad",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-17T16:24:57Z",
+      "side": 1,
+      "message": "If you keep the #define, you don\u0027t need this.",
+      "range": {
+        "startLine": 263,
+        "startChar": 15,
+        "endLine": 263,
+        "endChar": 26
+      },
+      "revId": "fd64ddb00ec8b4e59d5c3be7fd1e7b88a84fb19c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ff8dab8d_f4be3591",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-17T16:24:57Z",
+      "side": 1,
+      "message": "Please handle your errors.  Just logging it doesn\u0027t solve the issue, you need to close the connection.",
+      "revId": "fd64ddb00ec8b4e59d5c3be7fd1e7b88a84fb19c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "74e0e79c_578ea706",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-17T16:24:57Z",
+      "side": 1,
+      "message": "please follow the convention we use elsewhere for unused variables.  Also, this variable doesn\u0027t appear to be unused.",
+      "range": {
+        "startLine": 348,
+        "startChar": 15,
+        "endLine": 348,
+        "endChar": 28
+      },
+      "revId": "fd64ddb00ec8b4e59d5c3be7fd1e7b88a84fb19c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c474a1d3_f826a338",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 517,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-17T16:24:57Z",
+      "side": 1,
+      "message": "I don\u0027t believe this has any effect on a shutdown",
+      "range": {
+        "startLine": 516,
+        "startChar": 8,
+        "endLine": 517,
+        "endChar": 53
+      },
+      "revId": "fd64ddb00ec8b4e59d5c3be7fd1e7b88a84fb19c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
