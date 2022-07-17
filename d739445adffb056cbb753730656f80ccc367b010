@@ -168,6 +168,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c162b95b_3500c356",
+        "filename": "bmcweb_config.h.in",
+        "patchSetId": 5
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-07-17T00:55:48Z",
+      "side": 1,
+      "message": "Changed it to single location and removed compile option.",
+      "parentUuid": "897c3f85_3e4280d4",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 84
+      },
+      "revId": "d739445adffb056cbb753730656f80ccc367b010",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c9475d4b_eee36c87",
         "filename": "http/http_client.hpp",
         "patchSetId": 5
@@ -227,6 +251,30 @@
       "side": 1,
       "message": "Maybe try NOLINTBEGIN and NOLINTEND, which got added in clang-tidy-14.\n\nPS, please don\u0027t resolve comments if they haven\u0027t been resolved.  It helps maintainers to review.",
       "parentUuid": "de7866d3_9842318c",
+      "range": {
+        "startLine": 54,
+        "startChar": 17,
+        "endLine": 58,
+        "endChar": 77
+      },
+      "revId": "d739445adffb056cbb753730656f80ccc367b010",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "300f606f_215b8aa2",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-07-17T00:55:48Z",
+      "side": 1,
+      "message": "I tried that as well with no luck (Same error). For now, I left  the code with \"_local\" define. Can you please provide any further suggestion? Thanks for continuous support on this.\n\nSure, I will make sure its open till you agree on it.",
+      "parentUuid": "106f2737_fa92a198",
       "range": {
         "startLine": 54,
         "startChar": 17,
@@ -310,6 +358,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6beb745f_95c68f25",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-07-17T00:55:48Z",
+      "side": 1,
+      "message": "Done, I added code to support only TLS v1.2 \u0026 TLS v1.3 and explicitly disabled SSLv2/v3/TLSv1/TLS v1.1\n\nhttps://cheatsheetseries.owasp.org/cheatsheets/TLS_Cipher_String_Cheat_Sheet.html\nhttps://www.boost.org/doc/libs/1_73_0/doc/html/boost_asio/reference/ssl__context.html",
+      "parentUuid": "0082df74_d2d6196a",
+      "range": {
+        "startLine": 154,
+        "startChar": 0,
+        "endLine": 154,
+        "endChar": 76
+      },
+      "revId": "d739445adffb056cbb753730656f80ccc367b010",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "02064a3e_7fdabfb8",
         "filename": "http/http_client.hpp",
         "patchSetId": 5
@@ -381,6 +453,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d2297ce6_4527d4e1",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-07-17T00:55:48Z",
+      "side": 1,
+      "message": "Moved prepare context section to constructor and used context for differentiating the SSL connection and to create ssl_stream.",
+      "parentUuid": "4b2480d5_dba9f1bf",
+      "range": {
+        "startLine": 193,
+        "startChar": 12,
+        "endLine": 193,
+        "endChar": 18
+      },
+      "revId": "d739445adffb056cbb753730656f80ccc367b010",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d3f2d5e1_10e4ef68",
         "filename": "http/http_client.hpp",
         "patchSetId": 5
@@ -392,6 +488,30 @@
       "writtenOn": "2022-07-06T18:29:48Z",
       "side": 1,
       "message": "Common error #5\n\nThere lots of error paths here.  Please account for them",
+      "range": {
+        "startLine": 197,
+        "startChar": 0,
+        "endLine": 197,
+        "endChar": 56
+      },
+      "revId": "d739445adffb056cbb753730656f80ccc367b010",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9885aee4_9a5bf370",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-07-17T00:55:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d3f2d5e1_10e4ef68",
       "range": {
         "startLine": 197,
         "startChar": 0,
@@ -415,6 +535,24 @@
       "writtenOn": "2022-07-06T18:29:48Z",
       "side": 1,
       "message": "common error #5",
+      "revId": "d739445adffb056cbb753730656f80ccc367b010",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d6e1b73d_883b93b4",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-07-17T00:55:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "59d674e6_c41d101d",
       "revId": "d739445adffb056cbb753730656f80ccc367b010",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -539,6 +677,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d4b34d45_317afaab",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-07-17T00:55:48Z",
+      "side": 1,
+      "message": "Done, Set the state to sslInitFailed and correspondingly, state will be transitioned to suspended/terminated depending on subscription settings.",
+      "parentUuid": "7d6d76e2_f8c28610",
+      "range": {
+        "startLine": 216,
+        "startChar": 16,
+        "endLine": 216,
+        "endChar": 28
+      },
+      "revId": "d739445adffb056cbb753730656f80ccc367b010",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "084a19e9_2d98a08d",
         "filename": "http/http_client.hpp",
         "patchSetId": 5
@@ -645,6 +807,30 @@
       "side": 1,
       "message": "Point still stands, this is a pattern that we\u0027re trying to get rid of because it leads to really confusing compile errors, log messages, and stack traces.  I\u0027m not interested in supporting patchsets that make the problem worse.\n\nIf you need me to make this mod for you, I\u0027m happy to if you\u0027re still willing to test.",
       "parentUuid": "452d9a3e_c69a4563",
+      "range": {
+        "startLine": 283,
+        "startChar": 0,
+        "endLine": 294,
+        "endChar": 32
+      },
+      "revId": "d739445adffb056cbb753730656f80ccc367b010",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1cc82e71_4bb489fd",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 294,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-07-17T00:55:48Z",
+      "side": 1,
+      "message": "ED, Thanks for offering help, I misunderstood your first comment, my bad. \n\nNow its moved to member function. There is one more existing code which need to be moved doResolvee() which i can move it in separate patch( Since its not touched in this).",
+      "parentUuid": "a95b30d3_db67e305",
       "range": {
         "startLine": 283,
         "startChar": 0,
@@ -893,6 +1079,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "20808b5e_e3e3e0f5",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 583,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-07-17T00:55:48Z",
+      "side": 1,
+      "message": "\u003e \u003e The subscriptions are maintained in different map that is connectionPools.\n\u003e No we have a connection pool for each IP:PORT pair and each connection pool can have at most 4 connections.  This way we can have N different subscriptions using the same IP:PORT and now create unique connections or pools for each one.\n\u003e \n\u003e \u003e But there is an issue what if two subscriptions has different paths on same IP:PORT\n\u003e That should not be an issue.  The public sendData() function takes IP, Port, and destUri as arguments.  The IP:Port is used to choose the connection pool and then a conection within a pool sends to the destUri.  \n\u003e \n\u003e \u003e So i am planning to change logic in such a way that Key will be passed directly from EventServiceManager ( can use same subscription ID) as part of sendData(...) call. This way all key\u0027s will be unique. But planning to do this as separate commit.\n\u003e Do not make this change.  In your example we want both subscriptions to use the same connection pool.  I don\u0027t think it\u0027s a good idea to let services like EventServiceManager create exclusive pools via a unique subscription ID.  We want these pools to be shared across different services.  Right now Redfish Aggregation is the only other entity that will send HTTP requests, but there could be more in the future.\n\u003e \n\u003e If subscriptions are somehow being created as their own connection pool then that is a bug that needs to be fixed rather than standardizing that behavior.\n\nYeah, I see and looks like the code is fine as is even for SSL. As i said before, each IP:PORT will have its own pool of connections and in that pool we can\u0027t have SSL \u0026 Non SSL both together( Reason: Either IP or PORT one of it will change between http or https). So we are good in handling both connections pool. I checked a case where https://\u003cIP\u003e:\u003chttps_port\u003e \u0026 http://\u003cSameIP\u003e:\u003chttp_port\u003e and both works. Also tested with multiple subscription(different path) and that also works fine.",
+      "parentUuid": "29468008_65e0bd89",
+      "range": {
+        "startLine": 583,
+        "startChar": 0,
+        "endLine": 583,
+        "endChar": 22
+      },
+      "revId": "d739445adffb056cbb753730656f80ccc367b010",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a26b0535_265df071",
         "filename": "http/http_client.hpp",
         "patchSetId": 5
@@ -999,6 +1209,30 @@
       "side": 1,
       "message": "See my above response",
       "parentUuid": "d090d160_cde6f787",
+      "range": {
+        "startLine": 639,
+        "startChar": 12,
+        "endLine": 651,
+        "endChar": 13
+      },
+      "revId": "d739445adffb056cbb753730656f80ccc367b010",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c07f46fe_37d2f538",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 651,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-07-17T00:55:48Z",
+      "side": 1,
+      "message": "See my response. https://gerrit.openbmc.org/c/openbmc/bmcweb/+/54945/comments/09060fca_d5151bb2\n\nModified code with parsing useSSL makes sslConn and existing connection pool works for both SSL \u0026 non-SSL cases.",
+      "parentUuid": "40867b2b_a5b67c5a",
       "range": {
         "startLine": 639,
         "startChar": 12,
@@ -1153,6 +1387,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "66e09848_59d8ff15",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 731,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-07-17T00:55:48Z",
+      "side": 1,
+      "message": "Same as above: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/54945/comments/09060fca_d5151bb2",
+      "parentUuid": "f4fe1e21_642bbd28",
+      "range": {
+        "startLine": 708,
+        "startChar": 0,
+        "endLine": 731,
+        "endChar": 13
+      },
+      "revId": "d739445adffb056cbb753730656f80ccc367b010",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6e73ce50_a921c59a",
         "filename": "http/http_client.hpp",
         "patchSetId": 5
@@ -1235,6 +1493,30 @@
       "side": 1,
       "message": "All SSL certificates are stored here so added it as default patch. I will change the default path.",
       "parentUuid": "05e78574_5a49b2b3",
+      "range": {
+        "startLine": 307,
+        "startChar": 4,
+        "endLine": 307,
+        "endChar": 29
+      },
+      "revId": "d739445adffb056cbb753730656f80ccc367b010",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "320a8be9_794de374",
+        "filename": "meson_options.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-07-17T00:55:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b70cd174_4f35d3ad",
       "range": {
         "startLine": 307,
         "startChar": 4,

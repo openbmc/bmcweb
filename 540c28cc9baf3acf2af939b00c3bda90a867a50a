@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "44a0720b_84ecbce4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-07-17T00:55:48Z",
+      "side": 1,
+      "message": "Done, Updated code to support cipher which are documented in OWASP and update commit message accordingly.",
+      "parentUuid": "13d471d8_76c8e91c",
+      "range": {
+        "startLine": 17,
+        "startChar": 13,
+        "endLine": 17,
+        "endChar": 63
+      },
+      "revId": "540c28cc9baf3acf2af939b00c3bda90a867a50a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1940c6c4_b9b7a337",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-07-13T20:19:55Z",
       "side": 1,
       "message": "Why?  This cert should be in the same place in all cases, and should be using the phosphor-certificate-manager root cert, right?",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 30
+      },
+      "revId": "540c28cc9baf3acf2af939b00c3bda90a867a50a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "62585a5a_d6baab0a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-07-17T00:55:48Z",
+      "side": 1,
+      "message": "Done, removed option for configuring it during compile time.",
+      "parentUuid": "1940c6c4_b9b7a337",
       "range": {
         "startLine": 22,
         "startChar": 0,
