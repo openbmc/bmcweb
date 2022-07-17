@@ -525,6 +525,16 @@ struct ExpandNode
     }
 };
 
+inline void findNavigationReferencesInArrayRecursive(
+    ExpandType eType, nlohmann::json::array_t* array,
+    const nlohmann::json::json_pointer& p, int depth, int skipDepth,
+    bool inLinks, std::vector<ExpandNode>& out);
+
+inline void findNavigationReferencesInObjectRecursive(
+    ExpandType eType, nlohmann::json::object_t* obj,
+    const nlohmann::json::json_pointer& p, int depth, int skipDepth,
+    bool inLinks, std::vector<ExpandNode>& out);
+
 // Walks a json object looking for Redfish NavigationReference entries that
 // might need resolved.  It recursively walks the jsonResponse object, looking
 // for links at every level, and returns a list (out) of locations within the
@@ -546,16 +556,8 @@ inline void findNavigationReferencesRecursive(
         jsonResponse.get_ptr<nlohmann::json::array_t*>();
     if (array != nullptr)
     {
-        size_t index = 0;
-        // For arrays, walk every element in the array
-        for (auto& element : *array)
-        {
-            nlohmann::json::json_pointer newPtr = p / index;
-            BMCWEB_LOG_DEBUG << "Traversing response at " << newPtr.to_string();
-            findNavigationReferencesRecursive(eType, element, newPtr, depth,
-                                              skipDepth, inLinks, out);
-            index++;
-        }
+        findNavigationReferencesInArrayRecursive(eType, array, p, depth,
+                                                 skipDepth, inLinks, out);
     }
     nlohmann::json::object_t* obj =
         jsonResponse.get_ptr<nlohmann::json::object_t*>();
@@ -563,6 +565,32 @@ inline void findNavigationReferencesRecursive(
     {
         return;
     }
+    findNavigationReferencesInObjectRecursive(eType, obj, p, depth, skipDepth,
+                                              inLinks, out);
+}
+
+inline void findNavigationReferencesInArrayRecursive(
+    ExpandType eType, nlohmann::json::array_t* array,
+    const nlohmann::json::json_pointer& p, int depth, int skipDepth,
+    bool inLinks, std::vector<ExpandNode>& out)
+{
+    size_t index = 0;
+    // For arrays, walk every element in the array
+    for (auto& element : *array)
+    {
+        nlohmann::json::json_pointer newPtr = p / index;
+        BMCWEB_LOG_DEBUG << "Traversing response at " << newPtr.to_string();
+        findNavigationReferencesRecursive(eType, element, newPtr, depth,
+                                          skipDepth, inLinks, out);
+        index++;
+    }
+}
+
+inline void findNavigationReferencesInObjectRecursive(
+    ExpandType eType, nlohmann::json::object_t* obj,
+    const nlohmann::json::json_pointer& p, int depth, int skipDepth,
+    bool inLinks, std::vector<ExpandNode>& out)
+{
     // Navigation References only ever have a single element
     if (obj->size() == 1)
     {
