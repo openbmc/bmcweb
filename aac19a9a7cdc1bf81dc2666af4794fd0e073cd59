@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a6620e07_9068c97f",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-18T16:26:34Z",
+      "side": 1,
+      "message": "?  I\u0027m pretty sure we still want to impose reasonable limits here;  Setting this to size_t max would mean it\u0027s likely we can run out of memory.",
+      "range": {
+        "startLine": 229,
+        "startChar": 42,
+        "endLine": 229,
+        "endChar": 76
+      },
+      "revId": "aac19a9a7cdc1bf81dc2666af4794fd0e073cd59",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8493e183_e8ac3e50",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 580,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-18T16:26:34Z",
+      "side": 1,
+      "message": "Can we rearrange this a little now that we have a branch anyway to something like:\n\nif (query.top \u0026\u0026 *query.top \u003e arr-\u003esize()){\n   arr-\u003eerase(arr-\u003ebegin() + static_cast\u003cssize_t\u003e(*query.top), arr-\u003eend());\n}\n\nThe point of the old code was to avoid a branch entirely.",
+      "revId": "aac19a9a7cdc1bf81dc2666af4794fd0e073cd59",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "21ad925d_269fd4ba",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 3426,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-18T16:26:34Z",
+      "side": 1,
+      "message": "Can you please break up this logic a little?  It was difficult to read before, now it\u0027s really tough.\n\nAlso, as written, this change the default max size from being 10000 to size_t::max, which I\u0027m pretty sure isn\u0027t what we want.",
+      "range": {
+        "startLine": 3426,
+        "startChar": 12,
+        "endLine": 3426,
+        "endChar": 74
+      },
+      "revId": "aac19a9a7cdc1bf81dc2666af4794fd0e073cd59",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
