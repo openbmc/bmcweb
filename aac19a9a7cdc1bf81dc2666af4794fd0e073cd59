@@ -86,6 +86,30 @@
       },
       "revId": "aac19a9a7cdc1bf81dc2666af4794fd0e073cd59",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c116089e_ce40de82",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 3426,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-18T18:11:36Z",
+      "side": 1,
+      "message": "Because if you have a resource that has 1 million items, you don\u0027t want to run the bmc out of resources trying to generate the json representation of it.",
+      "parentUuid": "32a23174_099da74e",
+      "range": {
+        "startLine": 3426,
+        "startChar": 12,
+        "endLine": 3426,
+        "endChar": 74
+      },
+      "revId": "aac19a9a7cdc1bf81dc2666af4794fd0e073cd59",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
