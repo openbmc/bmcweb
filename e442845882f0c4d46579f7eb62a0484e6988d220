@@ -22,6 +22,47 @@
       },
       "revId": "e442845882f0c4d46579f7eb62a0484e6988d220",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f511efd1_0be1d69c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-18T16:20:19Z",
+      "side": 1,
+      "message": "It\u0027s not explicitly called out, but considering if you couldn\u0027t skip \u003c 1 parameter, you\u0027d never be able to see the first member, I expect it\u0027s implied.",
+      "parentUuid": "dc9dbeb6_60e5d5e0",
+      "range": {
+        "startLine": 9,
+        "startChar": 13,
+        "endLine": 9,
+        "endChar": 25
+      },
+      "revId": "e442845882f0c4d46579f7eb62a0484e6988d220",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8a23e208_a11265b2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-18T16:20:19Z",
+      "side": 1,
+      "message": "Once Nans happy with the answer below, LGTM",
+      "revId": "e442845882f0c4d46579f7eb62a0484e6988d220",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
