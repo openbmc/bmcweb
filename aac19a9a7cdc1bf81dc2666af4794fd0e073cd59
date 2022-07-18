@@ -62,6 +62,30 @@
       },
       "revId": "aac19a9a7cdc1bf81dc2666af4794fd0e073cd59",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "32a23174_099da74e",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 3426,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-18T16:29:01Z",
+      "side": 1,
+      "message": "\u003e this change the default max size from being 10000 to size_t::max, which I\u0027m pretty sure isn\u0027t what we want.\n\nWhy do we have 10000 in the first place?",
+      "parentUuid": "21ad925d_269fd4ba",
+      "range": {
+        "startLine": 3426,
+        "startChar": 12,
+        "endLine": 3426,
+        "endChar": 74
+      },
+      "revId": "aac19a9a7cdc1bf81dc2666af4794fd0e073cd59",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
