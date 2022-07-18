@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d67c4e0e_9f9aaeb6",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-07-18T22:14:49Z",
+      "side": 1,
+      "message": "Note: Added this break statement, as mentioned in the commit message.",
+      "range": {
+        "startLine": 348,
+        "startChar": 20,
+        "endLine": 348,
+        "endChar": 26
+      },
+      "revId": "0eca21287c5ca40a58f6986176b72e58d2702238",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
