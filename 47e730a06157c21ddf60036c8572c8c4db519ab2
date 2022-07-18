@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2c00010b_e6f3d4f5",
+        "filename": "http/ut/utility_test.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-18T23:03:34Z",
+      "side": 1,
+      "message": "Thanks for fixing existing codes. But generally we prefer separate codes. I am fine with it this time.",
+      "range": {
+        "startLine": 88,
+        "startChar": 5,
+        "endLine": 88,
+        "endChar": 23
+      },
+      "revId": "47e730a06157c21ddf60036c8572c8c4db519ab2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3c39282c_ed62f462",
@@ -19,6 +42,76 @@
         "startChar": 33,
         "endLine": 99,
         "endChar": 72
+      },
+      "revId": "47e730a06157c21ddf60036c8572c8c4db519ab2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "94f13b2d_84469421",
+        "filename": "http/ut/utility_test.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-18T23:03:34Z",
+      "side": 1,
+      "message": "This is really good question. Here this basically means `std::numeric_limits\u003cstd::time_t\u003e::min()` gets zero somehow in the unit test environment somehow. I did some research but didn\u0027t find a clue.\n\nI wrote the initial test IIRC, but I didn\u0027t dig into too much.\n\nOther maintainers, any opinions?",
+      "parentUuid": "3c39282c_ed62f462",
+      "range": {
+        "startLine": 99,
+        "startChar": 33,
+        "endLine": 99,
+        "endChar": 72
+      },
+      "revId": "47e730a06157c21ddf60036c8572c8c4db519ab2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d0c660af_c24961c9",
+        "filename": "http/ut/utility_test.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-18T23:03:34Z",
+      "side": 1,
+      "message": "I believe as a general guideline, we don\u0027t unit test internal interfaces but public interfaces.\n\nCan it be covered in other tests against public interfaces?",
+      "range": {
+        "startLine": 106,
+        "startChar": 8,
+        "endLine": 106,
+        "endChar": 15
+      },
+      "revId": "47e730a06157c21ddf60036c8572c8c4db519ab2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cc558bf2_bcb5f21f",
+        "filename": "http/ut/utility_test.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-18T23:03:34Z",
+      "side": 1,
+      "message": "These numbers are chosen because:\n\n1. 1638312095: some time in the past\n2. 41638312095: some time in the future beyond 2038\n3. 253402300799: maximum",
+      "range": {
+        "startLine": 200,
+        "startChar": 22,
+        "endLine": 200,
+        "endChar": 43
       },
       "revId": "47e730a06157c21ddf60036c8572c8c4db519ab2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
