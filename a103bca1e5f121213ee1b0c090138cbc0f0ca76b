@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "876b24d0_d738ffdc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-18T00:00:55Z",
+      "side": 1,
+      "message": "I just noticed this at the end of the stack of patches you pushed.  I don\u0027t think this has anything to do with select, so could stand on its own, and would\u0027ve been reviewed faster had we done that.\n\nWith that said, this would generally be a tool for the Redfish DMTF tooling (either tacklebox or usecase checker).  There is already a usecase checker script for query parameters, so I suspect this would be a good addition there.\n\nAlternatively, if you really want this to be in OpenBMC, openbmc-tools is probably where you want it; it\u0027s a generalized \"useful scripts\" repository.",
+      "revId": "a103bca1e5f121213ee1b0c090138cbc0f0ca76b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "699bcf15_b60e3a68",
+        "filename": "scripts/expand_performance.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-18T00:00:55Z",
+      "side": 1,
+      "message": "Generally when testing the performance of multiple requests, you would generally do it with a connection pool, with multiple connections running in parallel, as most performance sensitive implementations would.",
+      "range": {
+        "startLine": 10,
+        "startChar": 24,
+        "endLine": 10,
+        "endChar": 28
+      },
+      "revId": "a103bca1e5f121213ee1b0c090138cbc0f0ca76b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e0edde84_b972482c",
+        "filename": "scripts/expand_performance.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-18T00:00:55Z",
+      "side": 1,
+      "message": "Not using a requests.Session object is going to unintentionally make the multi-request case slower.",
+      "range": {
+        "startLine": 14,
+        "startChar": 8,
+        "endLine": 14,
+        "endChar": 16
+      },
+      "revId": "a103bca1e5f121213ee1b0c090138cbc0f0ca76b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "961c7fe6_b367a9cd",
+        "filename": "scripts/expand_performance.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-18T00:00:55Z",
+      "side": 1,
+      "message": "Generally you would do this operation with .json(), which the request object returns directly.\n\nWith that said, you don\u0027t really want to include the json parsing time in your benchmark, so maybe just omit the json parsing in the second case on line 19?",
+      "range": {
+        "startLine": 17,
+        "startChar": 44,
+        "endLine": 17,
+        "endChar": 51
+      },
+      "revId": "a103bca1e5f121213ee1b0c090138cbc0f0ca76b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a0a754bc_eb9e27eb",
+        "filename": "scripts/expand_performance.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-18T00:00:55Z",
+      "side": 1,
+      "message": "Why would this need to be an expand?  Generally folks are just getting sensor values?",
+      "range": {
+        "startLine": 20,
+        "startChar": 57,
+        "endLine": 20,
+        "endChar": 67
+      },
+      "revId": "a103bca1e5f121213ee1b0c090138cbc0f0ca76b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
