@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0bf6af22_88080592",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 65
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2022-07-18T18:54:24Z",
+      "side": 1,
+      "message": "This is describing what the code does (which can be inferred by looking at the code). Focus more on the why you made this change. For example, \"ComputerSystem.v1.11 introduced a new property, AutomaticRetryAttempts, which allows the user to configure the amount of retry attempts on host boot failures. This commit adds support for this new property\"",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 38
+      },
+      "revId": "ce3b102ebc5894c9eb15bd81b72984af7e017a45",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "00e5e6dd_88ae7494",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 65
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2022-07-18T18:54:24Z",
+      "side": 1,
+      "message": "Need to get this working (or at least verify this commit adds no new errors in your testing)",
+      "revId": "ce3b102ebc5894c9eb15bd81b72984af7e017a45",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d1ec765a_0f271c4f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 65
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2022-07-18T18:54:24Z",
+      "side": 1,
+      "message": "Please show some more details here like changing it via curl and showing it changed as expected via curl commands. Also show that RemainingAutomaticRetryAttempts changes as expected with this test.",
+      "revId": "ce3b102ebc5894c9eb15bd81b72984af7e017a45",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3fda92d7_ab2ec33b",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 65
+      },
+      "lineNbr": 1152,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2022-07-18T18:54:24Z",
+      "side": 1,
+      "message": "In the previous code, a missing implementation of this interface, would just \"return\" and no internalError. We probably want to keep that behavior (i.e. this is not required by bmcweb).",
+      "revId": "ce3b102ebc5894c9eb15bd81b72984af7e017a45",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
