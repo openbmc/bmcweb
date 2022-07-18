@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f9c80cd5_d08adf97",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 54
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2022-07-18T19:10:38Z",
+      "side": 1,
+      "message": "I think this needs to be put on top of https://gerrit.openbmc.org/c/openbmc/bmcweb/+/53602? Seems like we\u0027ve got some duplication between the two.",
+      "revId": "fa7cfbec25706cea38240636b17aed5e30f76ed6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
