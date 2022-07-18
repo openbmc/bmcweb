@@ -53,6 +53,23 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c7f6dc03_7599ac0e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-18T16:19:25Z",
+      "side": 1,
+      "message": "Sent a question, otherwise LGTM",
+      "revId": "7037d69c5dbcb87cd2b1dbc516e785d4c598571e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cc000d98_cecc1c88",
