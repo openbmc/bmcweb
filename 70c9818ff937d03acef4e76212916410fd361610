@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2b69d54a_715dcc46",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-07-18T16:50:54Z",
+      "side": 1,
+      "message": "I thought the corp specific namespaces were left to the owners of the name space.\n\nI will ask an honest/direct question, as long as the ibm stuff does not affect upstream bmcweb, why do we really care?",
+      "revId": "70c9818ff937d03acef4e76212916410fd361610",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5e726c97_ffc55679",
@@ -14,6 +31,30 @@
       "writtenOn": "2022-07-18T15:34:02Z",
       "side": 1,
       "message": "I\u0027m still waiting on an explaination of why explicitly calling close() has any effect on an raii object that will immediately go out of scope.",
+      "range": {
+        "startLine": 332,
+        "startChar": 0,
+        "endLine": 332,
+        "endChar": 21
+      },
+      "revId": "70c9818ff937d03acef4e76212916410fd361610",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9619b232_b2694589",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-07-18T16:50:54Z",
+      "side": 1,
+      "message": "readfile is not raii, it is just a stack variable. The stack variable going out of scope will not trigger the destructor, because it is not a shared/unique_ptr.\n\nAs a solution, stdplus provides a managedFd that might fit your needs, and provide a raii. However, bmcweb rarely requires use of stdplus.\n\nhttps://github.com/openbmc/stdplus/blob/master/include-fd/stdplus/fd/managed.hpp#L28",
+      "parentUuid": "5e726c97_ffc55679",
       "range": {
         "startLine": 332,
         "startChar": 0,
