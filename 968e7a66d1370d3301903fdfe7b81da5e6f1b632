@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "96eddb5b_0abdcc23",
         "filename": "redfish-core/include/registries/privilege_registry.hpp",
@@ -14,10 +15,10 @@
       "side": 1,
       "message": "This should not be edited directly",
       "revId": "968e7a66d1370d3301903fdfe7b81da5e6f1b632",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "0032dc98_138fc268",
         "filename": "redfish-core/include/registries/privilege_registry.hpp",
@@ -32,10 +33,10 @@
       "message": "Done",
       "parentUuid": "96eddb5b_0abdcc23",
       "revId": "968e7a66d1370d3301903fdfe7b81da5e6f1b632",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "9e85f489_82525f9a",
         "filename": "redfish-core/lib/update_service.hpp",
@@ -49,10 +50,10 @@
       "side": 1,
       "message": "Is this really an internal Error? Looks like a badly formatted request to me",
       "revId": "968e7a66d1370d3301903fdfe7b81da5e6f1b632",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "75835d07_b9d4482c",
         "filename": "redfish-core/lib/update_service.hpp",
@@ -67,8 +68,25 @@
       "message": "Can we use `messages::resourceAtUriInUnknownFormat`?",
       "parentUuid": "9e85f489_82525f9a",
       "revId": "968e7a66d1370d3301903fdfe7b81da5e6f1b632",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "acf2577b_144e9b05",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 56
+      },
+      "lineNbr": 738,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-07-18T01:51:55Z",
+      "side": 1,
+      "message": "\u003e Can we use `messages::resourceAtUriInUnknownFormat`?\n\nRemoved messages::internal Error in latest patchset",
+      "parentUuid": "75835d07_b9d4482c",
+      "revId": "968e7a66d1370d3301903fdfe7b81da5e6f1b632",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

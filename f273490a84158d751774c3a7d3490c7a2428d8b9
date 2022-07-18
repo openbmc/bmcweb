@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "d7eed587_f46545ff",
         "filename": "redfish-core/include/utils/string_utils.hpp",
@@ -14,10 +15,10 @@
       "side": 1,
       "message": "This isn\u0027t appropriate parsing of the attributes.  Please use the boost functions for this, which implement to the RFC.  If you can\u0027t use the boost functions, or they don\u0027t work, please state that.",
       "revId": "f273490a84158d751774c3a7d3490c7a2428d8b9",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "d20ecda6_f7c71b67",
         "filename": "redfish-core/include/utils/string_utils.hpp",
@@ -32,10 +33,10 @@
       "message": "Yeah.\nI used the boost library and removed this.",
       "parentUuid": "d7eed587_f46545ff",
       "revId": "f273490a84158d751774c3a7d3490c7a2428d8b9",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "3cae22ee_eccbb98a",
         "filename": "redfish-core/include/utils/string_utils.hpp",
@@ -50,10 +51,10 @@
       "message": "I don\u0027t see an include of rfc7230.hpp from boost....",
       "parentUuid": "d20ecda6_f7c71b67",
       "revId": "f273490a84158d751774c3a7d3490c7a2428d8b9",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "c2f8493a_91830726",
         "filename": "redfish-core/include/utils/string_utils.hpp",
@@ -68,10 +69,10 @@
       "message": "Done",
       "parentUuid": "3cae22ee_eccbb98a",
       "revId": "f273490a84158d751774c3a7d3490c7a2428d8b9",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "eccde6f7_9c86c0f0",
         "filename": "redfish-core/include/utils/string_utils.hpp",
@@ -86,10 +87,10 @@
       "message": "I don\u0027t think you understand..... #include rfc7230 and use the utility functions within it, don\u0027t write your own.",
       "parentUuid": "c2f8493a_91830726",
       "revId": "f273490a84158d751774c3a7d3490c7a2428d8b9",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "f2725641_615cb02c",
         "filename": "redfish-core/include/utils/string_utils.hpp",
@@ -104,10 +105,10 @@
       "message": "I have dropped this file, could you review patchset-38:\nhttps://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/32174/38/redfish-core/lib/update_service.hpp#756",
       "parentUuid": "eccde6f7_9c86c0f0",
       "revId": "f273490a84158d751774c3a7d3490c7a2428d8b9",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "bad4ae89_9ae10347",
         "filename": "redfish-core/lib/update_service.hpp",
@@ -127,10 +128,10 @@
         "endChar": 56
       },
       "revId": "f273490a84158d751774c3a7d3490c7a2428d8b9",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "30eedef0_5fd2960a",
         "filename": "redfish-core/lib/update_service.hpp",
@@ -151,10 +152,10 @@
         "endChar": 56
       },
       "revId": "f273490a84158d751774c3a7d3490c7a2428d8b9",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "2d77ae5c_6906e114",
         "filename": "redfish-core/lib/update_service.hpp",
@@ -168,10 +169,10 @@
       "side": 1,
       "message": "OEM still doesn\u0027t look used.",
       "revId": "f273490a84158d751774c3a7d3490c7a2428d8b9",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "c81ac37c_19b1e800",
         "filename": "redfish-core/lib/update_service.hpp",
@@ -186,10 +187,10 @@
       "message": "Ack",
       "parentUuid": "2d77ae5c_6906e114",
       "revId": "f273490a84158d751774c3a7d3490c7a2428d8b9",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "22757b3d_9dc36a5b",
         "filename": "redfish-core/lib/update_service.hpp",
@@ -209,10 +210,10 @@
         "endChar": 46
       },
       "revId": "f273490a84158d751774c3a7d3490c7a2428d8b9",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "910a8508_b7498815",
         "filename": "redfish-core/lib/update_service.hpp",
@@ -233,10 +234,10 @@
         "endChar": 46
       },
       "revId": "f273490a84158d751774c3a7d3490c7a2428d8b9",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "ee880d75_48a5a4a1",
         "filename": "redfish-core/lib/update_service.hpp",
@@ -257,10 +258,34 @@
         "endChar": 46
       },
       "revId": "f273490a84158d751774c3a7d3490c7a2428d8b9",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e735c176_f13d52d4",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 35
+      },
+      "lineNbr": 762,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-07-18T01:51:55Z",
+      "side": 1,
+      "message": "\u003e Take a pointer to the content data and use that as your reference.\n\nI have updted it in latest patcheset.",
+      "parentUuid": "ee880d75_48a5a4a1",
+      "range": {
+        "startLine": 762,
+        "startChar": 0,
+        "endLine": 762,
+        "endChar": 46
+      },
+      "revId": "f273490a84158d751774c3a7d3490c7a2428d8b9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "9ba60a21_e7317a46",
         "filename": "redfish-core/lib/update_service.hpp",
@@ -280,10 +305,10 @@
         "endChar": 39
       },
       "revId": "f273490a84158d751774c3a7d3490c7a2428d8b9",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "d40ce984_7b823694",
         "filename": "redfish-core/lib/update_service.hpp",
@@ -304,10 +329,10 @@
         "endChar": 39
       },
       "revId": "f273490a84158d751774c3a7d3490c7a2428d8b9",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "16adfd63_937eddd7",
         "filename": "redfish-core/lib/update_service.hpp",
@@ -327,10 +352,10 @@
         "endChar": 44
       },
       "revId": "f273490a84158d751774c3a7d3490c7a2428d8b9",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "74113ef4_13a636ab",
         "filename": "redfish-core/lib/update_service.hpp",
@@ -351,8 +376,7 @@
         "endChar": 44
       },
       "revId": "f273490a84158d751774c3a7d3490c7a2428d8b9",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

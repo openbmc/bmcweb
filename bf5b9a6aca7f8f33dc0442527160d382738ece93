@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "db352f4c_a41ac8df",
         "filename": "redfish-core/lib/update_service.hpp",
@@ -14,10 +15,10 @@
       "side": 1,
       "message": "Don\u0027t we need to handle Targets and Oem of UpdateParameters?",
       "revId": "bf5b9a6aca7f8f33dc0442527160d382738ece93",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "976cf75d_64bd8346",
         "filename": "redfish-core/lib/update_service.hpp",
@@ -32,10 +33,28 @@
       "message": "For now, should only parse the applyTime property and update d-bus.\nright?",
       "parentUuid": "db352f4c_a41ac8df",
       "revId": "bf5b9a6aca7f8f33dc0442527160d382738ece93",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "51ee25cd_d1902732",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 762,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-07-18T01:51:55Z",
+      "side": 1,
+      "message": "\u003e For now, should only parse the applyTime property and update d-bus.\n\u003e right?\n\nI have updated it in latest patchset",
+      "parentUuid": "976cf75d_64bd8346",
+      "revId": "bf5b9a6aca7f8f33dc0442527160d382738ece93",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "86969539_31d5e287",
         "filename": "redfish-core/lib/update_service.hpp",
@@ -49,10 +68,10 @@
       "side": 1,
       "message": "have you tested the update with the uploaded image? Does the image binary received as same or any headers were added to it by multi-part?",
       "revId": "bf5b9a6aca7f8f33dc0442527160d382738ece93",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "60c9a9e2_38658bd3",
         "filename": "redfish-core/lib/update_service.hpp",
@@ -67,10 +86,10 @@
       "message": "\u003ehave you tested the update with the uploaded image? \nyes, upload and update image success.\n\n\u003eby multi-part?\nsorry, according to the redfish spec, we need to use the octet-stream type to receive the image binary instead of multi-part.\nhttp://redfish.dmtf.org/schemas/DSP0266_1.8.0.html#multipart-http-push-updates-a-id-http-push-update-a-",
       "parentUuid": "86969539_31d5e287",
       "revId": "bf5b9a6aca7f8f33dc0442527160d382738ece93",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "9ce1a076_9bf1e982",
         "filename": "redfish-core/lib/update_service.hpp",
@@ -85,10 +104,10 @@
       "message": "I don\u0027t see the implementation is correct, as per the redfish spec, the request should have been like this.\n\nMultiPart request should have the boundary tag, You ccan see the implementation in following commit.\n\nhttps://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/31030\n\n\nPOST /redfish/v1/UpdateService/upload HTTP/1.1\nHost: \u003chost-path\u003e\nContent-Type: multipart/form-data; boundary\u003d---------------------------d74496d66958873e\nContent-Length: \u003ccomputed-length\u003e\nConnection: keep-alive\nX-Auth-Token: \u003csession-auth-token\u003e\n\n-----------------------------d74496d66958873e\nContent-Disposition: form-data; name\u003d\"UpdateParameters\"\nContent-Type: application/json\n\n{\n    \"Targets\": [\n        \"/redfish/v1/Managers/1\"\n    ],\n    \"@Redfish.OperationApplyTime\": \"OnReset\",\n    \"Oem\": {}\n}\n\n-----------------------------d74496d66958873e\nContent-Disposition: form-data; name\u003d\"UpdateFile\"; filename\u003d\"flash.bin\"\nContent-Type: application/octet-stream\n\n\u003csoftware image binary\u003e",
       "parentUuid": "60c9a9e2_38658bd3",
       "revId": "bf5b9a6aca7f8f33dc0442527160d382738ece93",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "f0df18c0_15133e27",
         "filename": "redfish-core/lib/update_service.hpp",
@@ -103,10 +122,10 @@
       "message": "I just used this patch and tried update using postman tool, the image file has got appended with 2 bytes at the end of the file. Can you also test with postman and check? I used postman as below.\n\n\nPOST https://10.190.164.182/redfish/v1/UpdateService/upload\nKEY\nUpdateParameters\nVALUE \n{\"Targets\":\"/redfish/v1/Managers/1\"],\"@Redfish.OperationApplyTime\":\"Immediate\",\"Oem\":{}}\nCONTENT TYPE\napplication/json\n\nKEY\nUpdateFile\nVALUE\nbmc_signed_cap-20200515120637.bin\nCONTENT TYPE\napplication/octet-stream",
       "parentUuid": "9ce1a076_9bf1e982",
       "revId": "bf5b9a6aca7f8f33dc0442527160d382738ece93",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "ac847c58_cf376028",
         "filename": "redfish-core/lib/update_service.hpp",
@@ -121,10 +140,10 @@
       "message": "@Vikram B\n\u003ebmc_signed_cap-20200515120637.bin\nIt should be *.tar, please see my commit message, thanks :)\n\n@Rata\n\u003eI don\u0027t see the implementation is correct\ncould you point out where is not correct? thanks.\nissues about this commit: https://github.com/ibm-openbmc/dev/issues/1372.\n\n\u003eMultiPart request should have the boundary tag\nright.\nI printed the following message from this commit.\n\nPOST /redfish/v1/UpdateService/upload HTTP/1.1\nHost: \u003chost-path\u003e\nContent-Type: multipart/form-data; boundary\u003d---------------------------91b83fcd225fffac\nContent-Length: \u003ccomputed-length\u003e\nConnection: keep-alive\nX-Auth-Token: \u003csession-auth-token\u003e\n\n-----------------------------91b83fcd225fffac\nContent-Disposition: form-data; name\u003d\"UpdateParameters\"\nContent-Type: application/json\n\n{\n    \"Targets\": [\n        \"/redfish/v1/Managers/1\"\n    ],\n    \"@Redfish.OperationApplyTime\": \"Immediate\",\n    \"Oem\": {}\n}\n\n-----------------------------91b83fcd225fffac\nContent-Disposition: form-data; name\u003d\"UpdateFile\"; filename\u003d\"obmc-phosphor-image-fp5280g2.static.mtd.tar\"\nContent-Type: application/octet-stream\n\n\u003csoftware image binary\u003e",
       "parentUuid": "f0df18c0_15133e27",
       "revId": "bf5b9a6aca7f8f33dc0442527160d382738ece93",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "6af58b30_f78a2e5b",
         "filename": "redfish-core/lib/update_service.hpp",
@@ -139,10 +158,10 @@
       "message": "@Liu, With HttpPushUri we could earlier use both .bin and .tar files on the binary POST body. This changing prompting for changes in the back end (i.e. phosphor-bmc-code-mgmt) where uploaded image is need to be parsed. We need to know why binary image upload is not working with form-data.",
       "parentUuid": "ac847c58_cf376028",
       "revId": "bf5b9a6aca7f8f33dc0442527160d382738ece93",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "7de9b617_ecec6628",
         "filename": "redfish-core/lib/update_service.hpp",
@@ -157,10 +176,10 @@
       "message": "@george : This is what I got from the commit message \n\n\ncurl -k -H \"X-Auth-Token: $token\" -H \"Content-Type:\nmultipart/form-data\" -F\n\"UpdateParameters\u003d{\\\"Targets\\\":[\\\"/redfish/v1/Managers/1\\\"],\\\"@Redfish.OperationApplyTime\\\":\\\"Immediate\\\",\\\"Oem\\\":{}};type\u003dappalication/json\"\n-F\n\"UpdateFile\u003d@obmc-phosphor-image.static.mtd.tar;type\u003dapplication/octet-stream\"\nhttps://${bmc}/redfish/v1/UpdateService/upload\n{\n  \"@odata.id\": \"/redfish/v1/TaskService/Tasks/0\",\n  \"@odata.type\": \"#Task.v1_4_3.Task\",\n  \"Id\": \"0\",\n  \"TaskState\": \"Running\",\n  \"TaskStatus\": \"OK\"\n} \n\n\nAs per the redfish spec(http://redfish.dmtf.org/schemas/DSP0266_1.8.0.html#multipart-http-push-updates-a-id-http-push-update-a-) the request should have been like this.\n\nPOST /redfish/v1/UpdateService/upload HTTP/1.1\nHost: \u003chost-path\u003e\nContent-Type: multipart/form-data; boundary\u003d---------------------------d74496d66958873e\nContent-Length: \u003ccomputed-length\u003e\nConnection: keep-alive\nX-Auth-Token: \u003csession-auth-token\u003e\n\n-----------------------------d74496d66958873e\nContent-Disposition: form-data; name\u003d\"UpdateParameters\"\nContent-Type: application/json\n\n{\n    \"Targets\": [\n        \"/redfish/v1/Managers/1\"\n    ],\n    \"@Redfish.OperationApplyTime\": \"OnReset\",\n    \"Oem\": {}\n}\n\n-----------------------------d74496d66958873e\nContent-Disposition: form-data; name\u003d\"UpdateFile\"; filename\u003d\"flash.bin\"\nContent-Type: application/octet-stream\n\n\u003csoftware image binary\u003e\n\n\nWhat I meant to say if you look at the curl request which you are using it for testing doesn\u0027t have the boundry tag , however spec also suggest that there should be boundry tag.\n\nIf boundry tag is not there in multipart request then how the content is multipart.",
       "parentUuid": "6af58b30_f78a2e5b",
       "revId": "bf5b9a6aca7f8f33dc0442527160d382738ece93",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "1ac5b033_323b67cb",
         "filename": "redfish-core/lib/update_service.hpp",
@@ -175,10 +194,10 @@
       "message": "@Ratan\nSorry, Maybe I am not familiar with this boundary tag, but I checked and parsed it by the curl request(https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/32174/5/redfish-core/lib/update_service.hpp#754), and printed boundary tag by the curl request.\nSo could you tell me where is an error？\n\n@Vikram B\nSorry, I want to know, What * .bin file are you referring to? :)\nfrom my understanding, load and update image just need *.tar file.\nAnd phosphor-bmc-code-mgmt only supports * .tar files.\n*.tar -\u003e /tmp/image",
       "parentUuid": "7de9b617_ecec6628",
       "revId": "bf5b9a6aca7f8f33dc0442527160d382738ece93",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "14705fb0_ec50202a",
         "filename": "redfish-core/lib/update_service.hpp",
@@ -193,10 +212,10 @@
       "message": "@Liu, .bin is the raw hex image file. I\u0027m curious to know why multi-part-form-data appends \"0x0D\" and \"0x0A\" (i.e CR, LF) to the image files.",
       "parentUuid": "1ac5b033_323b67cb",
       "revId": "bf5b9a6aca7f8f33dc0442527160d382738ece93",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "d2910d80_5eec5983",
         "filename": "redfish-core/lib/update_service.hpp",
@@ -211,10 +230,10 @@
       "message": "@Vikram B\n\u003ebin is the raw hex image file.\nThe full name is？For example?\n\u003eI\u0027m curious to know why multi-part-form-data appends \"0x0D\" and \"0x0A\" (i.e CR, LF) to the image files.\nOh, This is the standard format of multipart/form-data of HTML Form. :)\nRefer to: https://dev.to/sidthesloth92/understanding-html-form-encoding-url-encoded-and-multipart-forms-3lpa",
       "parentUuid": "14705fb0_ec50202a",
       "revId": "bf5b9a6aca7f8f33dc0442527160d382738ece93",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "69da3843_16246a75",
         "filename": "redfish-core/lib/update_service.hpp",
@@ -229,10 +248,10 @@
       "message": "@vikram, Can you please pull the raw HTTP request packet from the below request? Y\n\ncurl -k -H \"X-Auth-Token: $token\" -H \"Content-Type:\nmultipart/form-data\" -F\n\"UpdateParameters\u003d{\\\"Targets\\\":[\\\"/redfish/v1/Managers/1\\\"],\\\"@Redfish.OperationApplyTime\\\":\\\"Immediate\\\",\\\"Oem\\\":{}};type\u003dappalication/json\"\n-F\n\"UpdateFile\u003d@obmc-phosphor-image.static.mtd.tar;type\u003dapplication/octet-stream\"\nhttps://${bmc}/redfish/v1/UpdateService/upload\n{\n  \"@odata.id\": \"/redfish/v1/TaskService/Tasks/0\",\n  \"@odata.type\": \"#Task.v1_4_3.Task\",\n  \"Id\": \"0\",\n  \"TaskState\": \"Running\",\n  \"TaskStatus\": \"OK\"\n}\n\n\nyou can print the HTTP request data in bmceb itself and get me the output.\n\n\nAs per redfish raw http data looks like below.\n\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\nContent-Type: multipart/form-data; boundary\u003d---------------------------d74496d66958873e\nContent-Length: \u003ccomputed-length\u003e\nConnection: keep-alive\nX-Auth-Token: \u003csession-auth-token\u003e\n\n-----------------------------d74496d66958873e\nContent-Disposition: form-data; name\u003d\"UpdateParameters\"\nContent-Type: application/json\n\n{\n    \"Targets\": [\n        \"/redfish/v1/Managers/1\"\n    ],\n    \"@Redfish.OperationApplyTime\": \"OnReset\",\n    \"Oem\": {}\n}\n\n-----------------------------d74496d66958873e\n\n \u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d",
       "parentUuid": "d2910d80_5eec5983",
       "revId": "bf5b9a6aca7f8f33dc0442527160d382738ece93",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "5a0aac61_7b1d2d48",
         "filename": "redfish-core/lib/update_service.hpp",
@@ -247,8 +266,25 @@
       "message": "@Ratan- the HTTP request to bmcweb comes as below. Its as per redfish format.\n\nJun 10 10:00:52 intel-obmc bmcweb[817]: updateservice... entered doPost()...\nJun 10 10:00:52 intel-obmc bmcweb[817]: in UpdateServiceMultipart. in doPost..reqheader..multipart/form-data; boundary\u003d--------------------------238714517375460583285069\nJun 10 10:00:52 intel-obmc bmcweb[817]: Content-Length: 23644668\nJun 10 10:00:52 intel-obmc bmcweb[817]: Content-Type: multipart/form-data; boundary\u003d--------------------------238714517375460583285069\nJun 10 10:00:52 intel-obmc bmcweb[817]: Connection: keep-alive\nJun 10 10:00:52 intel-obmc bmcweb[817]: X-Auth-Token:\nJun 10 10:00:52 intel-obmc bmcweb[817]: Content-Disposition:\nJun 10 10:00:52 intel-obmc bmcweb[817]: in UpdateServiceMultipart. in doPost..boundary..--------------------------238714517375460583285069\nJun 10 10:00:52 intel-obmc bmcweb[817]: in UpdateServiceMultipart. in doPost..reqBody..----------------------------238714517375460583285069\nJun 10 10:00:52 intel-obmc bmcweb[817]: Content-Disposition: form-data; name\u003d\"UpdateParameters\"\nJun 10 10:00:52 intel-obmc bmcweb[817]: Content-Type: application/json\nJun 10 10:00:52 intel-obmc bmcweb[817]:\nJun 10 10:00:52 intel-obmc bmcweb[817]: {\"Targets\":[\"/redfish/v1/Managers/1\"],\"@Redfish.OperationApplyTime\":\"Immediate\",\"Oem\":{}}\nJun 10 10:00:52 intel-obmc bmcweb[817]: ----------------------------238714517375460583285069\nJun 10 10:00:52 intel-obmc bmcweb[817]: Content-Disposition: form-data; name\u003d\"UpdateFile\"; filename\u003d\"intel-platforms-image-update-intel-ast2500-20200609152836.tar\"\nJun 10 10:00:52 intel-obmc bmcweb[817]: Content-Type: application/x-tar",
       "parentUuid": "69da3843_16246a75",
       "revId": "bf5b9a6aca7f8f33dc0442527160d382738ece93",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1217f3b6_933bdc46",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 771,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-07-18T01:51:55Z",
+      "side": 1,
+      "message": "\u003e @Ratan- the HTTP request to bmcweb comes as below. Its as per redfish format.\n\u003e \n\u003e Jun 10 10:00:52 intel-obmc bmcweb[817]: updateservice... entered doPost()...\n\u003e Jun 10 10:00:52 intel-obmc bmcweb[817]: in UpdateServiceMultipart. in doPost..reqheader..multipart/form-data; boundary\u003d--------------------------238714517375460583285069\n\u003e Jun 10 10:00:52 intel-obmc bmcweb[817]: Content-Length: 23644668\n\u003e Jun 10 10:00:52 intel-obmc bmcweb[817]: Content-Type: multipart/form-data; boundary\u003d--------------------------238714517375460583285069\n\u003e Jun 10 10:00:52 intel-obmc bmcweb[817]: Connection: keep-alive\n\u003e Jun 10 10:00:52 intel-obmc bmcweb[817]: X-Auth-Token:\n\u003e Jun 10 10:00:52 intel-obmc bmcweb[817]: Content-Disposition:\n\u003e Jun 10 10:00:52 intel-obmc bmcweb[817]: in UpdateServiceMultipart. in doPost..boundary..--------------------------238714517375460583285069\n\u003e Jun 10 10:00:52 intel-obmc bmcweb[817]: in UpdateServiceMultipart. in doPost..reqBody..----------------------------238714517375460583285069\n\u003e Jun 10 10:00:52 intel-obmc bmcweb[817]: Content-Disposition: form-data; name\u003d\"UpdateParameters\"\n\u003e Jun 10 10:00:52 intel-obmc bmcweb[817]: Content-Type: application/json\n\u003e Jun 10 10:00:52 intel-obmc bmcweb[817]:\n\u003e Jun 10 10:00:52 intel-obmc bmcweb[817]: {\"Targets\":[\"/redfish/v1/Managers/1\"],\"@Redfish.OperationApplyTime\":\"Immediate\",\"Oem\":{}}\n\u003e Jun 10 10:00:52 intel-obmc bmcweb[817]: ----------------------------238714517375460583285069\n\u003e Jun 10 10:00:52 intel-obmc bmcweb[817]: Content-Disposition: form-data; name\u003d\"UpdateFile\"; filename\u003d\"intel-platforms-image-update-intel-ast2500-20200609152836.tar\"\n\u003e Jun 10 10:00:52 intel-obmc bmcweb[817]: Content-Type: application/x-tar\n\n@Vikram gave +1, so these discussions can be closed",
+      "parentUuid": "5a0aac61_7b1d2d48",
+      "revId": "bf5b9a6aca7f8f33dc0442527160d382738ece93",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

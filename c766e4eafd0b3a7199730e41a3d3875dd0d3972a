@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "92a2cd83_8ed0e279",
         "filename": "/COMMIT_MSG",
@@ -20,10 +21,10 @@
         "endChar": 2
       },
       "revId": "c766e4eafd0b3a7199730e41a3d3875dd0d3972a",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "ec67ec58_c5c2b910",
         "filename": "/COMMIT_MSG",
@@ -44,10 +45,34 @@
         "endChar": 2
       },
       "revId": "c766e4eafd0b3a7199730e41a3d3875dd0d3972a",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "b1014d52_49bfc9cf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 38
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-07-18T01:51:55Z",
+      "side": 1,
+      "message": "\u003e Sorry, I checked `redfishtool`(https://github.com/DMTF/Redfishtool/), but I do not know how to use `redfishtool`.\n\u003e Could you point me an example with `POST code upload`? thanks.\n\n@Ed, Do you have any advice?",
+      "parentUuid": "ec67ec58_c5c2b910",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 2
+      },
+      "revId": "c766e4eafd0b3a7199730e41a3d3875dd0d3972a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "d2636756_65f93939",
         "filename": "redfish-core/lib/update_service.hpp",
@@ -61,10 +86,10 @@
       "side": 1,
       "message": "need to check the file opened before writing to it.",
       "revId": "c766e4eafd0b3a7199730e41a3d3875dd0d3972a",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "6b59b3b8_e7b1ab39",
         "filename": "redfish-core/lib/update_service.hpp",
@@ -79,10 +104,10 @@
       "message": "Done",
       "parentUuid": "d2636756_65f93939",
       "revId": "c766e4eafd0b3a7199730e41a3d3875dd0d3972a",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "c8b02cac_e0884a8f",
         "filename": "redfish-core/lib/update_service.hpp",
@@ -102,10 +127,10 @@
         "endChar": 61
       },
       "revId": "c766e4eafd0b3a7199730e41a3d3875dd0d3972a",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "d3e1dab3_c09815b4",
         "filename": "redfish-core/lib/update_service.hpp",
@@ -126,10 +151,10 @@
         "endChar": 61
       },
       "revId": "c766e4eafd0b3a7199730e41a3d3875dd0d3972a",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "fb6f5663_98a053b8",
         "filename": "redfish-core/lib/update_service.hpp",
@@ -150,10 +175,34 @@
         "endChar": 61
       },
       "revId": "c766e4eafd0b3a7199730e41a3d3875dd0d3972a",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "605e134c_24b3b3c5",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 38
+      },
+      "lineNbr": 757,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-07-18T01:51:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fb6f5663_98a053b8",
+      "range": {
+        "startLine": 757,
+        "startChar": 51,
+        "endLine": 757,
+        "endChar": 61
+      },
+      "revId": "c766e4eafd0b3a7199730e41a3d3875dd0d3972a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "671c0971_a1107456",
         "filename": "redfish-core/lib/update_service.hpp",
@@ -173,10 +222,34 @@
         "endChar": 50
       },
       "revId": "c766e4eafd0b3a7199730e41a3d3875dd0d3972a",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e2fccb4e_1f64111a",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 38
+      },
+      "lineNbr": 776,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-07-18T01:51:55Z",
+      "side": 1,
+      "message": "\u003e still a complete copy of the data here.\n\nI have updated it in latest patchset",
+      "parentUuid": "671c0971_a1107456",
+      "range": {
+        "startLine": 776,
+        "startChar": 0,
+        "endLine": 776,
+        "endChar": 50
+      },
+      "revId": "c766e4eafd0b3a7199730e41a3d3875dd0d3972a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "8f8f7247_1b75aa6e",
         "filename": "redfish-core/lib/update_service.hpp",
@@ -196,10 +269,10 @@
         "endChar": 52
       },
       "revId": "c766e4eafd0b3a7199730e41a3d3875dd0d3972a",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "4a51d5bd_6cd9c856",
         "filename": "redfish-core/lib/update_service.hpp",
@@ -220,8 +293,7 @@
         "endChar": 52
       },
       "revId": "c766e4eafd0b3a7199730e41a3d3875dd0d3972a",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

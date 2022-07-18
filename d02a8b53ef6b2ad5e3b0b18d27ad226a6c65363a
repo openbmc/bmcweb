@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "04b541fe_da6f815b",
         "filename": "redfish-core/include/utils/json_utils.hpp",
@@ -14,10 +15,10 @@
       "side": 1,
       "message": "Sorry, missed this the first time around.  This is identical to the readJson call above it.  Please make the above readJson call into this one similar to how you did below.",
       "revId": "d02a8b53ef6b2ad5e3b0b18d27ad226a6c65363a",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "a6a63239_1f939e3a",
         "filename": "redfish-core/include/utils/json_utils.hpp",
@@ -32,10 +33,10 @@
       "message": "Done",
       "parentUuid": "04b541fe_da6f815b",
       "revId": "d02a8b53ef6b2ad5e3b0b18d27ad226a6c65363a",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "df980f5e_ccf7e7ab",
         "filename": "redfish-core/lib/update_service.hpp",
@@ -55,10 +56,10 @@
         "endChar": 68
       },
       "revId": "d02a8b53ef6b2ad5e3b0b18d27ad226a6c65363a",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "62c67ca0_3835b400",
         "filename": "redfish-core/lib/update_service.hpp",
@@ -79,10 +80,10 @@
         "endChar": 68
       },
       "revId": "d02a8b53ef6b2ad5e3b0b18d27ad226a6c65363a",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "2d9cb86b_308c657a",
         "filename": "redfish-core/lib/update_service.hpp",
@@ -102,10 +103,10 @@
         "endChar": 65
       },
       "revId": "d02a8b53ef6b2ad5e3b0b18d27ad226a6c65363a",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "45f44493_98231c2b",
         "filename": "redfish-core/lib/update_service.hpp",
@@ -126,10 +127,34 @@
         "endChar": 65
       },
       "revId": "d02a8b53ef6b2ad5e3b0b18d27ad226a6c65363a",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f412e0b3_5e5eae24",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 33
+      },
+      "lineNbr": 726,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-07-18T01:51:55Z",
+      "side": 1,
+      "message": "\u003e No, I tested, all parameters need to be passed when parsing json.\n\nI have updated it in latest patchset",
+      "parentUuid": "45f44493_98231c2b",
+      "range": {
+        "startLine": 726,
+        "startChar": 0,
+        "endLine": 726,
+        "endChar": 65
+      },
+      "revId": "d02a8b53ef6b2ad5e3b0b18d27ad226a6c65363a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "98e656c0_ef8e01ac",
         "filename": "redfish-core/lib/update_service.hpp",
@@ -149,10 +174,10 @@
         "endChar": 61
       },
       "revId": "d02a8b53ef6b2ad5e3b0b18d27ad226a6c65363a",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "87d5cb35_e3c9c34b",
         "filename": "redfish-core/lib/update_service.hpp",
@@ -173,10 +198,10 @@
         "endChar": 61
       },
       "revId": "d02a8b53ef6b2ad5e3b0b18d27ad226a6c65363a",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "e69dcfb1_4f6393af",
         "filename": "redfish-core/lib/update_service.hpp",
@@ -196,10 +221,10 @@
         "endChar": 46
       },
       "revId": "d02a8b53ef6b2ad5e3b0b18d27ad226a6c65363a",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "c0d179e3_1395165b",
         "filename": "redfish-core/lib/update_service.hpp",
@@ -220,10 +245,34 @@
         "endChar": 46
       },
       "revId": "d02a8b53ef6b2ad5e3b0b18d27ad226a6c65363a",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a82abb69_ca6f8e10",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 33
+      },
+      "lineNbr": 738,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-07-18T01:51:55Z",
+      "side": 1,
+      "message": "\u003e Using `uploadData \u003d std::move(formpart.content);` will cause CI failed.\n\u003e Also, Since this is POD, I don\u0027t think we can use `std::move`.\n\u003e \n\u003e ```\n\u003e /home/jenkins-op/workspace/ci-repository/openbmc/bmcweb/build-clang/../redfish-core/include/../lib/update_service.hpp:738:30: error: std::move of the const expression has no effect; remove std::move() [performance-move-const-arg,-warnings-as-errors]\n\u003e                 uploadData \u003d std::move(formpart.content);\n\u003e                              ^~~~~~~~~~                ~\n\u003e ```\n\nI have updated it in latest patchset",
+      "parentUuid": "c0d179e3_1395165b",
+      "range": {
+        "startLine": 738,
+        "startChar": 0,
+        "endLine": 738,
+        "endChar": 46
+      },
+      "revId": "d02a8b53ef6b2ad5e3b0b18d27ad226a6c65363a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "20f48ad7_3039faa1",
         "filename": "redfish-core/lib/update_service.hpp",
@@ -243,10 +292,10 @@
         "endChar": 68
       },
       "revId": "d02a8b53ef6b2ad5e3b0b18d27ad226a6c65363a",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "47800102_0a0bee15",
         "filename": "redfish-core/lib/update_service.hpp",
@@ -267,10 +316,10 @@
         "endChar": 68
       },
       "revId": "d02a8b53ef6b2ad5e3b0b18d27ad226a6c65363a",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "d5fe6ec7_197e65f1",
         "filename": "redfish-core/lib/update_service.hpp",
@@ -290,10 +339,10 @@
         "endChar": 64
       },
       "revId": "d02a8b53ef6b2ad5e3b0b18d27ad226a6c65363a",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "13d55593_cf5c338a",
         "filename": "redfish-core/lib/update_service.hpp",
@@ -314,8 +363,7 @@
         "endChar": 64
       },
       "revId": "d02a8b53ef6b2ad5e3b0b18d27ad226a6c65363a",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
