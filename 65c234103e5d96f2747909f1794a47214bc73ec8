@@ -247,6 +247,30 @@
       },
       "revId": "65c234103e5d96f2747909f1794a47214bc73ec8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "99381757_7cd1830c",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 1103,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-18T16:40:46Z",
+      "side": 1,
+      "message": "\u003e I can actually asking this:\n\u003e \n\u003e ```\n\u003e std::string certURL \u003d\n\u003e             \"/redfish/v1/AccountService/LDAP/Certificates/\" + id;\n\u003e sdbusplus::message::object_path path(certs::ldapObjectPath);\n\u003e path /\u003d id;\n\u003e ```\n\u003e \n\u003e There are two styles of contacting paths (\"${a}/\" + b, vs using sdbusplus) in the same code. Should we use the same way? \n\nThese are two different paths, one is a url, one is a dbus object path.  There are minor differences in how we use them.  Yes, ideally everything should be using sdbusplus these days, but it didn\u0027t always exist, so there\u0027s a lot of code that does the string concat on its own.\n\n\u003e \n\u003e Why is it related to constexpr constructor of object_path?\n\nBecause ideally we\u0027d be able to do\n\nconstexpr sdbusplus::message::object_path ldapObjectPath \u003d \"...\";\n\nand avoid the intermediate object_path construction that you mentioned entirely.",
+      "parentUuid": "12eab313_8ed74839",
+      "range": {
+        "startLine": 1103,
+        "startChar": 40,
+        "endLine": 1103,
+        "endChar": 44
+      },
+      "revId": "65c234103e5d96f2747909f1794a47214bc73ec8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
