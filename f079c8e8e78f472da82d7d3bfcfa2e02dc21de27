@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e6e584a1_94c71c43",
+        "filename": "http/ut/utility_test.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-07-18T20:51:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "daf341a9_2d7a3d0a",
+      "range": {
+        "startLine": 97,
+        "startChar": 5,
+        "endLine": 97,
+        "endChar": 12
+      },
+      "revId": "f079c8e8e78f472da82d7d3bfcfa2e02dc21de27",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e63af65c_cb1edad6",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-07-15T00:46:52Z",
       "side": 1,
       "message": "If we don\u0027t error out if the input is not valid (beyond 6), could you help at least document the behavior explicitly just like the other function here?",
+      "range": {
+        "startLine": 554,
+        "startChar": 20,
+        "endLine": 554,
+        "endChar": 23
+      },
+      "revId": "f079c8e8e78f472da82d7d3bfcfa2e02dc21de27",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "567a234c_b4380ecb",
+        "filename": "http/utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 554,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-07-18T20:51:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e63af65c_cb1edad6",
       "range": {
         "startLine": 554,
         "startChar": 20,
@@ -70,6 +118,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3f2099c9_17bd6788",
+        "filename": "http/utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 556,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-07-18T20:51:06Z",
+      "side": 1,
+      "message": "Reduced to uint_8",
+      "parentUuid": "e50c046c_e1237f7e",
+      "range": {
+        "startLine": 556,
+        "startChar": 31,
+        "endLine": 556,
+        "endChar": 39
+      },
+      "revId": "f079c8e8e78f472da82d7d3bfcfa2e02dc21de27",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "14801d2b_447208dd",
@@ -83,6 +155,30 @@
       "writtenOn": "2022-07-15T00:46:52Z",
       "side": 1,
       "message": "What does \u003cSSS\u003e mean? Does it mean if it exists, it should return exactly 3 digits?\n\nThis is probably the outstanding question we need to figure out.",
+      "range": {
+        "startLine": 569,
+        "startChar": 10,
+        "endLine": 569,
+        "endChar": 14
+      },
+      "revId": "f079c8e8e78f472da82d7d3bfcfa2e02dc21de27",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "69bde198_97c46ca9",
+        "filename": "http/utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 569,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-07-18T20:51:06Z",
+      "side": 1,
+      "message": "To me, the following sentence explains it clearly: \"Shall be one or more digits where the number of digits implies the precision.\" In other words, \u003cSSS\u003e does not necessarily return exactly 3 digits -- it depends on the precision that we are intending to express. \n\nCapping it to 6 fraction digits is just a limitation of the current implementation. From what I understand, the spec does not limit the number fraction digits -- there could be 100 digits if a system is able to actually track time with that much precision. \n\n(Side note: I tried to modify getDateTime() to receive boost::posix_time::nanoseconds instead of boost::posix_time::microseconds but got some build errors along the way -- perhaps because it needs 96 bits of storage: https://stackoverflow.com/questions/19769795/how-to-enable-nanoseconds-in-boostposix-time)",
+      "parentUuid": "14801d2b_447208dd",
       "range": {
         "startLine": 569,
         "startChar": 10,

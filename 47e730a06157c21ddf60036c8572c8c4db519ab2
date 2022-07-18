@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3c39282c_ed62f462",
+        "filename": "http/ut/utility_test.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-07-18T20:51:06Z",
+      "side": 1,
+      "message": "Question on this pre-existing test case:\nI find it surprising that the date-time string from the \"PreEpoch\" test case above (year 1969) is earlier than the min date-time string here (year 1970, at the epoch). I would expect the \"min\" argument would result in getDateTimeStdtime() producing the earliest date-time string it supports. Anyone understand the behavior and can explain it?",
+      "range": {
+        "startLine": 99,
+        "startChar": 33,
+        "endLine": 99,
+        "endChar": 72
+      },
+      "revId": "47e730a06157c21ddf60036c8572c8c4db519ab2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5687e619_bb213885",
+        "filename": "http/ut/utility_test.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-07-18T20:51:06Z",
+      "side": 1,
+      "message": "Is uint64_t{} needed? Seems to build and run okay without it (here and throughout the various GetDateTime-related test cases).",
+      "range": {
+        "startLine": 208,
+        "startChar": 30,
+        "endLine": 208,
+        "endChar": 38
+      },
+      "revId": "47e730a06157c21ddf60036c8572c8c4db519ab2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
