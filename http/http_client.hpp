@@ -99,11 +99,11 @@ struct RetryPolicyData
 struct PendingRequest
 {
     boost::beast::http::request<boost::beast::http::string_body> req;
-    std::function<void(bool, uint32_t, Response&)> callback;
+    std::function<void(bool, bool, uint32_t, Response&)> callback;
     RetryPolicyData retryPolicy;
     PendingRequest(
         boost::beast::http::request<boost::beast::http::string_body>&& reqIn,
-        const std::function<void(bool, uint32_t, Response&)>& callbackIn,
+        const std::function<void(bool, bool, uint32_t, Response&)>& callbackIn,
         const RetryPolicyData& retryPolicyIn) :
         req(std::move(reqIn)),
         callback(callbackIn), retryPolicy(retryPolicyIn)
@@ -134,7 +134,8 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
     Response res;
 
     // Ascync callables
-    std::function<void(bool, uint32_t, Response&)> callback;
+    std::function<void(bool, bool, uint32_t, Response&)> callback;
+    std::function<void()> callbackUnreachable;
     crow::async_resolve::Resolver resolver;
     boost::beast::tcp_stream conn;
     boost::asio::steady_timer timer;
@@ -189,8 +190,20 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
                                  << ":" << std::to_string(endpoint.port())
                                  << ", id: " << std::to_string(self->connId)
                                  << " failed: " << ec.message();
-                self->state = ConnState::connectFailed;
-                self->waitAndRetry();
+
+                // We don't need to retry if we failed to connect due to the
+                // connection timing out.  Just go ahead and return a 504
+                if (ec == boost::beast::error::timeout)
+                {
+                    BMCWEB_LOG_DEBUG
+                        << "Skipping retry attempt(s) for unreachable server";
+                    self->doUnreachable();
+                }
+                else
+                {
+                    self->state = ConnState::connectFailed;
+                    self->waitAndRetry();
+                }
                 return;
             }
             BMCWEB_LOG_DEBUG
@@ -283,7 +296,8 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
             // processed by the callback function.
             self->res.clear();
             self->res.stringResponse = self->parser->release();
-            self->callback(self->parser->keep_alive(), self->connId, self->res);
+            self->callback(false, self->parser->keep_alive(), self->connId,
+                           self->res);
             });
     }
 
@@ -304,12 +318,12 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
             {
                 // TODO: delete subscription
                 state = ConnState::terminated;
-                callback(false, connId, res);
+                callback(false, false, connId, res);
             }
             if (retryPolicy.retryPolicyAction == "SuspendRetries")
             {
                 state = ConnState::suspended;
-                callback(false, connId, res);
+                callback(false, false, connId, res);
             }
             // Reset the retrycount to zero so that client can try connecting
             // again if needed
@@ -363,7 +377,7 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
         {
             BMCWEB_LOG_ERROR << host << ":" << std::to_string(port)
                              << ", id: " << std::to_string(connId)
-                             << "shutdown failed: " << ec.message();
+                             << " shutdown failed: " << ec.message();
         }
         else
         {
@@ -386,7 +400,7 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
         {
             BMCWEB_LOG_ERROR << host << ":" << std::to_string(port)
                              << ", id: " << std::to_string(connId)
-                             << "shutdown failed: " << ec.message();
+                             << " shutdown failed: " << ec.message();
         }
         else
         {
@@ -398,6 +412,82 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
         // Now let's try to resend the data
         state = ConnState::retry;
         doResolve();
+    }
+
+    void doUnreachable()
+    {
+        // We want to return a 504 to indicate that the external server is not
+        // reachable.  The first argument indicates that the destination
+        // was unreachable.  The callback will use that to begin internal
+        // polling to check if the destination has become reachable
+        res.clear();
+        res.result(boost::beast::http::status::gateway_timeout);
+        callback(true, false, connId, res);
+    }
+
+    void doResolveUnreachable()
+    {
+        BMCWEB_LOG_DEBUG << "Trying to resolve " << host << ":"
+                         << std::to_string(port)
+                         << ", id: " << std::to_string(connId)
+                         << " for connection polling";
+
+        auto respHandler =
+            [self(shared_from_this())](
+                const boost::beast::error_code ec,
+                const std::vector<boost::asio::ip::tcp::endpoint>&
+                    endpointList) {
+            if (ec || (endpointList.empty()))
+            {
+                BMCWEB_LOG_ERROR << "Unreachable resolve failed: "
+                                 << ec.message();
+                self->state = ConnState::resolveFailed;
+                self->doResolveUnreachable();
+                return;
+            }
+            BMCWEB_LOG_DEBUG << "Resolved " << self->host << ":"
+                             << std::to_string(self->port)
+                             << ", id: " << std::to_string(self->connId);
+            self->doConnectUnreachable(endpointList);
+        };
+
+        resolver.asyncResolve(host, port, std::move(respHandler));
+    }
+
+    void doConnectUnreachable(
+        const std::vector<boost::asio::ip::tcp::endpoint>& endpointList)
+    {
+        BMCWEB_LOG_DEBUG << "Trying to connect to: " << host << ":"
+                         << std::to_string(port)
+                         << ", id: " << std::to_string(connId)
+                         << " for connection polling";
+
+        conn.expires_after(std::chrono::seconds(30));
+        conn.async_connect(endpointList,
+                           [self(shared_from_this())](
+                               const boost::beast::error_code ec,
+                               const boost::asio::ip::tcp::endpoint& endpoint) {
+            // We only need to retry if the connection attempt timed out.  Any
+            // other errors from connecting can be handled by the normal flow
+            if (ec && (ec == boost::beast::error::timeout))
+            {
+                BMCWEB_LOG_ERROR << "Connect " << endpoint.address().to_string()
+                                 << ":" << std::to_string(endpoint.port())
+                                 << ", id: " << std::to_string(self->connId)
+                                 << " timed out";
+                self->doResolveUnreachable();
+                return;
+            }
+
+            BMCWEB_LOG_DEBUG
+                << "Destination: " << endpoint.address().to_string() << ":"
+                << std::to_string(endpoint.port()) << " is now reachable!";
+
+            // The callback should update the connection pool to indicate that
+            // the destination is now reachable
+            self->callbackUnreachable();
+            self->doClose();
+        });
     }
 
   public:
@@ -417,8 +507,13 @@ class ConnectionPool : public std::enable_shared_from_this<ConnectionPool>
     const std::string id;
     const std::string destIP;
     const uint16_t destPort;
+    bool destUnreachable = false;
     std::vector<std::shared_ptr<ConnectionInfo>> connections;
     boost::container::devector<PendingRequest> requestQueue;
+
+    // This connection is only used to continuously poll the destination when
+    // it is unreachable.
+    std::shared_ptr<ConnectionInfo> pollingConnection;
 
     friend class HttpClient;
 
@@ -479,7 +574,14 @@ class ConnectionPool : public std::enable_shared_from_this<ConnectionPool>
 
             setConnProps(*conn);
 
-            if (keepAlive)
+            // Is this destination known to be unreachable?
+            // If so then we need to just immediately return a 502 rather
+            // than waiting for connection timeouts
+            if (destUnreachable)
+            {
+                conn->doUnreachable();
+            }
+            else if (keepAlive)
             {
                 conn->sendMessage();
             }
@@ -515,8 +617,8 @@ class ConnectionPool : public std::enable_shared_from_this<ConnectionPool>
         std::weak_ptr<ConnectionPool> weakSelf = weak_from_this();
 
         // Callback to be called once the request has been sent
-        auto cb = [weakSelf, resHandler](bool keepAlive, uint32_t connId,
-                                         Response& res) {
+        auto cb = [weakSelf, resHandler](bool unreachable, bool keepAlive,
+                                         uint32_t connId, Response& res) {
             // Allow provided callback to perform additional processing of the
             // request
             resHandler(res);
@@ -528,6 +630,15 @@ class ConnectionPool : public std::enable_shared_from_this<ConnectionPool>
             {
                 BMCWEB_LOG_CRITICAL << self << " Failed to capture connection";
                 return;
+            }
+
+            // We failed to send the message because the destination is
+            // unreachable.  We need to start a timer (if we haven't already)
+            // so that we can poll the destination until it becomes reachable
+            if (unreachable)
+            {
+                BMCWEB_LOG_DEBUG << "Connection attempt timed out";
+                self->pollUnreachableDest();
             }
 
             self->sendNext(keepAlive, connId);
@@ -555,7 +666,16 @@ class ConnectionPool : public std::enable_shared_from_this<ConnectionPool>
                 std::string commonMsg = std::to_string(i) + " from pool " +
                                         destIP + ":" + std::to_string(destPort);
 
-                if (conn->state == ConnState::idle)
+                // Is this destination known to be unreachable?
+                // If so then we need to just immediately return a 504 rather
+                // than waiting for connection timeouts
+                if (destUnreachable)
+                {
+                    BMCWEB_LOG_DEBUG
+                        << "Destination unreachable.  Skipping send";
+                    conn->doUnreachable();
+                }
+                else if (conn->state == ConnState::idle)
                 {
                     BMCWEB_LOG_DEBUG << "Grabbing idle connection "
                                      << commonMsg;
@@ -581,7 +701,17 @@ class ConnectionPool : public std::enable_shared_from_this<ConnectionPool>
             conn->req = std::move(thisReq);
             conn->callback = std::move(cb);
             setConnRetryPolicy(*conn, retryPolicy);
-            conn->doResolve();
+
+            // Don't attempt to send the message if we already know the
+            // destination to be unreachable
+            if (destUnreachable)
+            {
+                conn->doUnreachable();
+            }
+            else
+            {
+                conn->doResolve();
+            }
         }
         else if (requestQueue.size() < maxRequestQueueSize)
         {
@@ -611,6 +741,41 @@ class ConnectionPool : public std::enable_shared_from_this<ConnectionPool>
         return ret;
     }
 
+    // The destination is unreachable so we need to keep polling to catch when
+    // it becomes available again
+    void pollUnreachableDest()
+    {
+        if (destUnreachable)
+        {
+            // We've already kicked off polling if we know the destination is
+            // unreachable.  Make sure we don't attempt to start it again.
+            BMCWEB_LOG_DEBUG
+                << "Polling unreachable destination already in progress";
+            return;
+        }
+
+        BMCWEB_LOG_DEBUG << "Marking destination as unreachable";
+        destUnreachable = true;
+
+        std::weak_ptr<ConnectionPool> weakSelf = weak_from_this();
+        auto cb = [weakSelf]() {
+            std::shared_ptr<ConnectionPool> self = weakSelf.lock();
+            if (!self)
+            {
+                BMCWEB_LOG_CRITICAL << self << " Failed to capture connection";
+                return;
+            }
+            self->destUnreachable = false;
+            BMCWEB_LOG_DEBUG << "Destination " << self->destIP << ":"
+                             << std::to_string(self->destPort)
+                             << "is now marked as reachable";
+        };
+
+        BMCWEB_LOG_DEBUG << "Begin polling unreachable destination";
+        pollingConnection->callbackUnreachable = std::move(cb);
+        pollingConnection->doResolveUnreachable();
+    }
+
   public:
     explicit ConnectionPool(boost::asio::io_context& iocIn,
                             const std::string& idIn,
@@ -621,6 +786,11 @@ class ConnectionPool : public std::enable_shared_from_this<ConnectionPool>
     {
         BMCWEB_LOG_DEBUG << "Initializing connection pool for " << destIP << ":"
                          << std::to_string(destPort);
+
+        // Create the connection used to poll when the destination is
+        // unreachable
+        pollingConnection = std::make_shared<ConnectionInfo>(
+            ioc, id, destIP, destPort, maxPoolSize);
 
         // Initialize the pool with a single connection
         addConnection();
