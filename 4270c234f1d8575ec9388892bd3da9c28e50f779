@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a429c8e1_a6afe695",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-19T18:22:51Z",
+      "side": 1,
+      "message": "Overall, I\u0027m really surprised we\u0027re having to write this ourselves.  Is there nothing in boost, or std::chrono that can generate what we need?",
+      "revId": "4270c234f1d8575ec9388892bd3da9c28e50f779",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "17225592_f65408e6",
+        "filename": "http/utility.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 553,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-19T18:22:51Z",
+      "side": 1,
+      "message": "I don\u0027t think this works, given that there are optional fields, and I don\u0027t beleive \u003cMM\u003e-\u003cDD\u003e are required to be zero padded.",
+      "range": {
+        "startLine": 553,
+        "startChar": 18,
+        "endLine": 553,
+        "endChar": 33
+      },
+      "revId": "4270c234f1d8575ec9388892bd3da9c28e50f779",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "07aab98f_252e7a77",
+        "filename": "http/utility.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 584,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-19T18:22:51Z",
+      "side": 1,
+      "message": "This should just be a range check.  If there\u0027s code that\u0027s requesting \u003e fractionDigitsMicroSeconds, it\u0027s arguably incorrect, we should just return empty string.",
+      "range": {
+        "startLine": 583,
+        "startChar": 1,
+        "endLine": 584,
+        "endChar": 73
+      },
+      "revId": "4270c234f1d8575ec9388892bd3da9c28e50f779",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dfb9a7ec_be46b3ac",
+        "filename": "http/utility.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 586,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-19T18:22:51Z",
+      "side": 1,
+      "message": "This seems a little error prone;  Is there a way we can just generate the struct we need upfront, rather than generating the wrong one, and then trying to turn it into the one we need?  It seems odd there\u0027s not a boost::posix_time overload that can do this.\n\n\nAlso, this is really odd.... if we know decimalPosition, can\u0027t we just check string[decimalPosition] \u003d\u003d \u0027.\u0027 ?",
+      "range": {
+        "startLine": 586,
+        "startChar": 0,
+        "endLine": 586,
+        "endChar": 58
+      },
+      "revId": "4270c234f1d8575ec9388892bd3da9c28e50f779",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
