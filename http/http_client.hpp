@@ -197,6 +197,13 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
                       boost::beast::error_code ec,
                       const boost::asio::ip::tcp::endpoint& endpoint)
     {
+        // The operation already timed out.  We don't want do continue down
+        // this branch
+        if (ec && ec == boost::asio::error::operation_aborted)
+        {
+            return;
+        }
+
         timer.cancel();
         if (ec)
         {
@@ -238,6 +245,13 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
     void afterSslHandshake(const std::shared_ptr<ConnectionInfo>& /*self*/,
                            boost::beast::error_code ec)
     {
+        // The operation already timed out.  We don't want do continue down
+        // this branch
+        if (ec && ec == boost::asio::error::operation_aborted)
+        {
+            return;
+        }
+
         timer.cancel();
         if (ec)
         {
@@ -282,6 +296,13 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
     void afterWrite(const std::shared_ptr<ConnectionInfo>& /*self*/,
                     const boost::beast::error_code& ec, size_t bytesTransferred)
     {
+        // The operation already timed out.  We don't want do continue down
+        // this branch
+        if (ec && ec == boost::asio::error::operation_aborted)
+        {
+            return;
+        }
+
         timer.cancel();
         if (ec)
         {
@@ -327,6 +348,13 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
                    const boost::beast::error_code& ec,
                    const std::size_t& bytesTransferred)
     {
+        // The operation already timed out.  We don't want do continue down
+        // this branch
+        if (ec && ec == boost::asio::error::operation_aborted)
+        {
+            return;
+        }
+
         timer.cancel();
         if (ec && ec != boost::asio::ssl::error::stream_truncated)
         {
@@ -366,9 +394,9 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
 
         // Copy the response into a Response object so that it can be
         // processed by the callback function.
-        res.clear();
         res.stringResponse = parser->release();
         callback(parser->keep_alive(), connId, res);
+        res.clear();
     }
 
     static void onTimeout(const std::weak_ptr<ConnectionInfo>& weakSelf,
@@ -377,8 +405,7 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
         if (ec == boost::asio::error::operation_aborted)
         {
             BMCWEB_LOG_DEBUG
-                << "async_wait failed since the operation is aborted"
-                << ec.message();
+                << "async_wait failed since the operation is aborted";
             return;
         }
         if (ec)
@@ -404,22 +431,22 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
             BMCWEB_LOG_DEBUG << "Retry policy: "
                              << retryPolicy.retryPolicyAction;
 
-            // We want to return a 502 to indicate there was an error with the
-            // external server
-            res.clear();
-            res.result(boost::beast::http::status::bad_gateway);
-
             if (retryPolicy.retryPolicyAction == "TerminateAfterRetries")
             {
                 // TODO: delete subscription
                 state = ConnState::terminated;
-                callback(false, connId, res);
             }
             if (retryPolicy.retryPolicyAction == "SuspendRetries")
             {
                 state = ConnState::suspended;
-                callback(false, connId, res);
             }
+
+            // We want to return a 502 to indicate there was an error with
+            // the external server
+            res.result(boost::beast::http::status::bad_gateway);
+            callback(false, connId, res);
+            res.clear();
+
             // Reset the retrycount to zero so that client can try connecting
             // again if needed
             retryCount = 0;
@@ -468,7 +495,7 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
         {
             BMCWEB_LOG_ERROR << host << ":" << std::to_string(port)
                              << ", id: " << std::to_string(connId)
-                             << "shutdown failed: " << ec.message();
+                             << " shutdown failed: " << ec.message();
         }
         else
         {
@@ -477,18 +504,15 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
                              << " closed gracefully";
         }
 
-        if ((state != ConnState::suspended) && (state != ConnState::terminated))
+        if (retry)
         {
-            if (retry)
-            {
-                // Now let's try to resend the data
-                state = ConnState::retry;
-                doResolve();
-            }
-            else
-            {
-                state = ConnState::closed;
-            }
+            // Now let's try to resend the data
+            state = ConnState::retry;
+            doResolve();
+        }
+        else
+        {
+            state = ConnState::closed;
         }
     }
 
