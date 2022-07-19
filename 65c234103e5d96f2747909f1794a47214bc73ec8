@@ -295,6 +295,30 @@
       },
       "revId": "65c234103e5d96f2747909f1794a47214bc73ec8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2e93f766_446878be",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 1103,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-07-19T08:19:46Z",
+      "side": 1,
+      "message": "\u003e constexpr sdbusplus::message::object_path ldapObjectPath \u003d \"...\";\n\nCurrently object_path is a wrapper of std::string, which cannot be constexpr. (I know C++20 supports constexpr std::string, but it requires the allocation being cleaned up in constexpr evaluation time, which is not our case)\n\nOr something like `static const sdbusplus::message::object_path ldapObjPath(\"...\");` can be used, but it is not as clean as we want I think.",
+      "parentUuid": "8a9e1744_457a6a85",
+      "range": {
+        "startLine": 1103,
+        "startChar": 40,
+        "endLine": 1103,
+        "endChar": 44
+      },
+      "revId": "65c234103e5d96f2747909f1794a47214bc73ec8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
