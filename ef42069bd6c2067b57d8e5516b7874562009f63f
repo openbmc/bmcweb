@@ -51,6 +51,24 @@
       "message": "chassis_utils a lot like https://gerrit.openbmc.org/c/openbmc/bmcweb/+/52534. Maybe you should just rebase on top of that.",
       "revId": "ef42069bd6c2067b57d8e5516b7874562009f63f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f3c50eb_3105daaf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001193
+      },
+      "writtenOn": "2022-07-19T15:58:18Z",
+      "side": 1,
+      "message": "The signature is a bit of different. And I would prefer one patch instead of two patches for such simple functionality.",
+      "parentUuid": "82366d53_54be1775",
+      "revId": "ef42069bd6c2067b57d8e5516b7874562009f63f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
