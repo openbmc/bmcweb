@@ -20,6 +20,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0cd60c9b_64e7304b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-19T18:30:50Z",
+      "side": 1,
+      "message": "I\u0027m taking a look at the to_iso_extended_string implementation here, and it looks like it\u0027s entirely implemented using public methods.\n\n\nhttps://github.com/boostorg/date_time/blob/acbee0dc6a168289c398041e91e053b3684083fc/include/boost/date_time/posix_time/time_formatters_limited.hpp#L196\n\n\n\nIt looks like we\u0027ve implemented more code than to_simple_string:\n\nhttps://github.com/boostorg/date_time/blob/acbee0dc6a168289c398041e91e053b3684083fc/include/boost/date_time/posix_time/time_formatters_limited.hpp#L27\n\n\nShould we just:\n\nCopy/paste the above code, remove the things we don\u0027t need (MSVC IFDEF for example), adapt the error conditions (We should never return \"infinity\" for example), then just modify the call to num_fractional_digits() to just use the parameter we have here?\n\n\nThat seems like it would be less code, and faster than what we\u0027re doing below.",
+      "revId": "4270c234f1d8575ec9388892bd3da9c28e50f779",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "17225592_f65408e6",
         "filename": "http/utility.hpp",
         "patchSetId": 10
