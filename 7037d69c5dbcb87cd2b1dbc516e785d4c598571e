@@ -91,6 +91,30 @@
       },
       "revId": "7037d69c5dbcb87cd2b1dbc516e785d4c598571e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ef60dd77_f5b90754",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 833,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-07-19T01:45:11Z",
+      "side": 1,
+      "message": "Yes, it\u0027s implemented by the base dump manager (see https://github.com/openbmc/phosphor-debug-collector/blob/master/dump_manager.hpp#L17 and https://github.com/openbmc/phosphor-debug-collector/blob/master/dump_manager.cpp#L13), and the BMC/FaultLog/System dump managers all inherit from the base dump manager.",
+      "parentUuid": "cc000d98_cecc1c88",
+      "range": {
+        "startLine": 833,
+        "startChar": 40,
+        "endLine": 833,
+        "endChar": 49
+      },
+      "revId": "7037d69c5dbcb87cd2b1dbc516e785d4c598571e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
