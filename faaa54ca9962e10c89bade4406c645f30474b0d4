@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d591092_7ca5fb5f",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 1620,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-19T00:15:05Z",
+      "side": 1,
+      "message": "nit: extra line?",
+      "revId": "faaa54ca9962e10c89bade4406c645f30474b0d4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d14cfaf4_c6ec91b2",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 1622,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-19T00:15:05Z",
+      "side": 1,
+      "message": "This shows some of the downsides: std::replace doesn\u0027t return but change in place; so we might get more lines of code.\n\nThough I agree using std if possible instead of boost is generally good and it\u0027s also in the coding standard.",
+      "range": {
+        "startLine": 1622,
+        "startChar": 1,
+        "endLine": 1622,
+        "endChar": 53
+      },
+      "revId": "faaa54ca9962e10c89bade4406c645f30474b0d4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
