@@ -73,6 +73,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "78b0d232_0402d143",
+        "filename": "redfish-core/include/utils/service_utils.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-19T00:25:09Z",
+      "side": 1,
+      "message": "I believe Ed is doing some work to be able to use redifsh-core/ without dbus.\n\nThis file can go to the general include? https://github.com/openbmc/bmcweb/tree/master/include\n\nJust a random comment.",
+      "parentUuid": "386257ad_b4ab8ec5",
+      "revId": "6fc8e5c6563c6f303d123f86724b01edf3939120",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6f1c80f8_8777fdb3",
         "filename": "redfish-core/include/utils/service_utils.hpp",
         "patchSetId": 23
