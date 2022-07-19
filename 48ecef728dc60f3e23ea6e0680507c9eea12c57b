@@ -16,6 +16,24 @@
       "message": "Ideally, there could be 1 DbusChassisInterfaces: \ninstead of this one and \nhttps://github.com/openbmc/bmcweb/blob/master/redfish-core/lib/chassis.hpp#L218",
       "revId": "48ecef728dc60f3e23ea6e0680507c9eea12c57b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e2dc09cc_9635f804",
+        "filename": "redfish-core/include/utils/chassis_utils.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000998
+      },
+      "writtenOn": "2022-07-19T20:36:02Z",
+      "side": 1,
+      "message": "Done. Might be worth generalizing this more in future, perhaps as an additional API in ObjectMapper to search for objects by name.",
+      "parentUuid": "a1767cf5_2d90d7b7",
+      "revId": "48ecef728dc60f3e23ea6e0680507c9eea12c57b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
