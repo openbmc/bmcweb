@@ -16,6 +16,24 @@
       "message": "iwyu, at least string, sdbusplus headers are missing,",
       "revId": "af622b1aae596b74fd9721e3f35fd6778e6bce18",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "37031e60_d5f64778",
+        "filename": "redfish-core/include/utils/service_utils.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-07-19T08:45:50Z",
+      "side": 1,
+      "message": "Done. Btw is there any doc about running iwyu tool in bmcweb?",
+      "parentUuid": "7046c42b_98fd8d6b",
+      "revId": "af622b1aae596b74fd9721e3f35fd6778e6bce18",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
