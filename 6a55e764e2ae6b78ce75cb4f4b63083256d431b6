@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4a3dff5f_3098fc7c",
+        "filename": "redfish-core/include/utils/chassis_utils.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-19T23:31:34Z",
+      "side": 1,
+      "message": "What about failures? We don\u0027t do anything?\n\nBesides that, I believe the convention is \n\n```\nif (ec) {\n  // error\n  return;\n}\n\n// logic of successful case\n\n```\n\nThis can help reduce the indents.",
+      "range": {
+        "startLine": 28,
+        "startChar": 8,
+        "endLine": 28,
+        "endChar": 10
+      },
+      "revId": "6a55e764e2ae6b78ce75cb4f4b63083256d431b6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
