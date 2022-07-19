@@ -110,6 +110,30 @@
       },
       "revId": "aac19a9a7cdc1bf81dc2666af4794fd0e073cd59",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b677b52_2179d033",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 3426,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-07-19T09:06:14Z",
+      "side": 1,
+      "message": "Before coding, I\u0027d like to discuss something.\n\nPreviously the limit is 1000 entries per GET request, any $top value larger than 1000 will be rejected. What should the new behavior be?\n\n1. Keep old behavior, then the std::optional here is pretty useless as the default value can simply be 1000, and it rarely overflow.\n2. Let any value to be specified, but by default it would be 1000. I personally prefer this one, but users must ensure their query will not crash the BMC.",
+      "parentUuid": "c116089e_ce40de82",
+      "range": {
+        "startLine": 3426,
+        "startChar": 12,
+        "endLine": 3426,
+        "endChar": 74
+      },
+      "revId": "aac19a9a7cdc1bf81dc2666af4794fd0e073cd59",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
