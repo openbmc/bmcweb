@@ -46,6 +46,30 @@
       },
       "revId": "b15328173915722970407c4bd670584dbc50ac0e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9dd7eed1_44bcde51",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 939,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-19T00:04:13Z",
+      "side": 1,
+      "message": "👍\n\nstring_view definitely works. Why not change the return signature to string_view as well?",
+      "parentUuid": "19157124_8508e92b",
+      "range": {
+        "startLine": 939,
+        "startChar": 8,
+        "endLine": 939,
+        "endChar": 37
+      },
+      "revId": "b15328173915722970407c4bd670584dbc50ac0e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
