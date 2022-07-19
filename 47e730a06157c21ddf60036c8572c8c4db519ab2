@@ -169,6 +169,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ae6d2a2f_239f03dc",
+        "filename": "http/ut/utility_test.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-19T18:16:40Z",
+      "side": 1,
+      "message": "std::time_t on a 32 bit linux system is int32_t.  std::numeric_limits\u003cstd::time_t\u003e::min() returning 0 is really surprising.....\n\nMaybe somehow we\u0027re getting time_t as uint32_t?",
+      "parentUuid": "1648ac8b_2357c483",
+      "range": {
+        "startLine": 99,
+        "startChar": 33,
+        "endLine": 99,
+        "endChar": 72
+      },
+      "revId": "47e730a06157c21ddf60036c8572c8c4db519ab2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d0c660af_c24961c9",
         "filename": "http/ut/utility_test.cpp",
         "patchSetId": 7
