@@ -141,14 +141,14 @@ class RedfishAggregator
 
     RedfishAggregator()
     {
-        getSatelliteConfigs(constructorCallback);
-
         // Setup the retry policy to be used by Redfish Aggregation
         crow::HttpClient::getInstance().setRetryConfig(
             retryAttempts, retryTimeoutInterval, aggregationRetryHandler,
             retryPolicyName);
         crow::HttpClient::getInstance().setRetryPolicy(retryPolicyAction,
                                                        retryPolicyName);
+
+        getSatelliteConfigs(constructorCallback);
     }
 
     static inline boost::system::error_code
@@ -175,6 +175,30 @@ class RedfishAggregator
         BMCWEB_LOG_DEBUG << "There were "
                          << std::to_string(satelliteInfo.size())
                          << " satellite configs found at startup";
+
+        // Send a dummy message to each satellite so we can try to find out if
+        // they are unreachable before we actually start sending messages to
+        // them
+        getInstance().pingSatellites(satelliteInfo);
+    }
+
+    // This is its own function because we need to access the aggregator's id
+    // and retryPolicyName, but constructorCallback() must be a static void.
+    void pingSatellites(
+        const std::unordered_map<std::string, boost::urls::url>& satelliteInfo)
+    {
+        for (const auto& [prefix, url] : satelliteInfo)
+        {
+            // We're only concerned with if IP:PORT is reachable so the
+            // contents of the message don't actually matter.
+            BMCWEB_LOG_DEBUG << "Pinging satellite BMC " << prefix;
+            std::string data;
+            boost::beast::http::fields emptyFields;
+            crow::HttpClient::getInstance().sendData(
+                data, id, std::string(url.host()), url.port_number(),
+                "/redfish/v1", false, emptyFields,
+                boost::beast::http::verb::get, retryPolicyName);
+        }
     }
 
     // Polls D-Bus to get all available satellite config information
