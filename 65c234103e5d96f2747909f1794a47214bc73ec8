@@ -271,6 +271,30 @@
       },
       "revId": "65c234103e5d96f2747909f1794a47214bc73ec8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a9e1744_457a6a85",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 1103,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-19T00:19:54Z",
+      "side": 1,
+      "message": "\u003e constexpr sdbusplus::message::object_path ldapObjectPath \u003d \"...\";\n\nI see. You want to declare the global variable constexpr. Makes sense.",
+      "parentUuid": "99381757_7cd1830c",
+      "range": {
+        "startLine": 1103,
+        "startChar": 40,
+        "endLine": 1103,
+        "endChar": 44
+      },
+      "revId": "65c234103e5d96f2747909f1794a47214bc73ec8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
