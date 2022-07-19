@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "77bce022_1cf40dca",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 65
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1001428
+      },
+      "writtenOn": "2022-07-19T15:50:31Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "0bf6af22_88080592",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 38
+      },
+      "revId": "ce3b102ebc5894c9eb15bd81b72984af7e017a45",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "00e5e6dd_88ae7494",
@@ -41,6 +65,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f0ea060d_9bd0d0d5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 65
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1001428
+      },
+      "writtenOn": "2022-07-19T15:50:31Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "00e5e6dd_88ae7494",
+      "revId": "ce3b102ebc5894c9eb15bd81b72984af7e017a45",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d1ec765a_0f271c4f",
@@ -54,6 +96,24 @@
       "writtenOn": "2022-07-18T18:54:24Z",
       "side": 1,
       "message": "Please show some more details here like changing it via curl and showing it changed as expected via curl commands. Also show that RemainingAutomaticRetryAttempts changes as expected with this test.",
+      "revId": "ce3b102ebc5894c9eb15bd81b72984af7e017a45",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2ffcfeba_07fac63d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 65
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1001428
+      },
+      "writtenOn": "2022-07-19T15:50:31Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "d1ec765a_0f271c4f",
       "revId": "ce3b102ebc5894c9eb15bd81b72984af7e017a45",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
