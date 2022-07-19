@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "df0e7b63_271b200c",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 1620,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-19T15:46:11Z",
+      "side": 1,
+      "message": "I added a line in between because it seemed to make sense to me, but sure, I can remove it.",
+      "parentUuid": "6d591092_7ca5fb5f",
+      "revId": "faaa54ca9962e10c89bade4406c645f30474b0d4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d14cfaf4_c6ec91b2",
@@ -31,6 +49,30 @@
       "writtenOn": "2022-07-19T00:15:05Z",
       "side": 1,
       "message": "This shows some of the downsides: std::replace doesn\u0027t return but change in place; so we might get more lines of code.\n\nThough I agree using std if possible instead of boost is generally good and it\u0027s also in the coding standard.",
+      "range": {
+        "startLine": 1622,
+        "startChar": 1,
+        "endLine": 1622,
+        "endChar": 53
+      },
+      "revId": "faaa54ca9962e10c89bade4406c645f30474b0d4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a42bf1e_6cc759d8",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 1622,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-19T15:46:11Z",
+      "side": 1,
+      "message": "+1 to everything above.  The advantages of not #including \u003cboost/string/replace.hpp\u003e outweigh the downsides of having two lines of code.\n\nAlso, I like that it forces the coder to realize that this is a copy, and if they really need to make a copy, or if it can be done in place.",
+      "parentUuid": "d14cfaf4_c6ec91b2",
       "range": {
         "startLine": 1622,
         "startChar": 1,
