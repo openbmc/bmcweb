@@ -48,6 +48,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "1c76c108_e762cba4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-07-19T09:00:59Z",
+      "side": 1,
+      "message": "Sorry I\u0027m not uploading the latest patch. I\u0027ve uploaded the latest commit message.\n\nThe reason for allowing $skip being 0 is to support get all members of collection (starting from 0), just as Ed\u0027s comment said. Unfortunately it is not specified in spec, we have to consider the real cases.",
+      "parentUuid": "f511efd1_0be1d69c",
+      "range": {
+        "startLine": 9,
+        "startChar": 13,
+        "endLine": 9,
+        "endChar": 25
+      },
+      "revId": "e442845882f0c4d46579f7eb62a0484e6988d220",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "8a23e208_a11265b2",
