@@ -73,6 +73,24 @@
       "message": "In the previous code, a missing implementation of this interface, would just \"return\" and no internalError. We probably want to keep that behavior (i.e. this is not required by bmcweb).",
       "revId": "ce3b102ebc5894c9eb15bd81b72984af7e017a45",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "59208c16_32db5e9d",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 65
+      },
+      "lineNbr": 1152,
+      "author": {
+        "id": 1001428
+      },
+      "writtenOn": "2022-07-19T15:44:35Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "3fda92d7_ab2ec33b",
+      "revId": "ce3b102ebc5894c9eb15bd81b72984af7e017a45",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
