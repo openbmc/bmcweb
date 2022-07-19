@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d43ad511_8ad3b328",
+        "filename": "http/ut/utility_test.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-07-19T00:29:07Z",
+      "side": 1,
+      "message": "Acknowledged.",
+      "parentUuid": "2c00010b_e6f3d4f5",
+      "range": {
+        "startLine": 88,
+        "startChar": 5,
+        "endLine": 88,
+        "endChar": 23
+      },
+      "revId": "47e730a06157c21ddf60036c8572c8c4db519ab2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3c39282c_ed62f462",
@@ -73,6 +97,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0140c0a3_9f36c5b4",
+        "filename": "http/ut/utility_test.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-07-19T00:29:07Z",
+      "side": 1,
+      "message": "When I tried printing the min in this unit test function (std::cout \u003c\u003c std::numeric_limits\u003cstd::time_t\u003e::min() \u003c\u003c std::endl;) it output -9223372036854775808, which matches with the expected INT64 min.\n\nAnyways, this is not a blocker for this code review, but just wondering if others have insights.",
+      "parentUuid": "94f13b2d_84469421",
+      "range": {
+        "startLine": 99,
+        "startChar": 33,
+        "endLine": 99,
+        "endChar": 72
+      },
+      "revId": "47e730a06157c21ddf60036c8572c8c4db519ab2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d0c660af_c24961c9",
         "filename": "http/ut/utility_test.cpp",
         "patchSetId": 7
@@ -96,6 +144,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "632e02a7_a24c844b",
+        "filename": "http/ut/utility_test.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-07-19T00:29:07Z",
+      "side": 1,
+      "message": "Oh I see. Is it a strict or a soft guideline? Fraction digit testing is indirectly included in other tests (GetDateTimeUint(), GetDateTimeMs(), and GetDateTimeUs() output 0, 3, and 6 fraction digits respectively), but not with such a fine-grained approach (e.g. 0-7 fraction digits individually requested here).",
+      "parentUuid": "d0c660af_c24961c9",
+      "range": {
+        "startLine": 106,
+        "startChar": 8,
+        "endLine": 106,
+        "endChar": 15
+      },
+      "revId": "47e730a06157c21ddf60036c8572c8c4db519ab2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cc558bf2_bcb5f21f",
         "filename": "http/ut/utility_test.cpp",
         "patchSetId": 7
@@ -107,6 +179,30 @@
       "writtenOn": "2022-07-18T23:03:34Z",
       "side": 1,
       "message": "These numbers are chosen because:\n\n1. 1638312095: some time in the past\n2. 41638312095: some time in the future beyond 2038\n3. 253402300799: maximum",
+      "range": {
+        "startLine": 200,
+        "startChar": 22,
+        "endLine": 200,
+        "endChar": 43
+      },
+      "revId": "47e730a06157c21ddf60036c8572c8c4db519ab2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "18182c55_63b2d972",
+        "filename": "http/ut/utility_test.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-07-19T00:29:07Z",
+      "side": 1,
+      "message": "Added comment for #1.",
+      "parentUuid": "cc558bf2_bcb5f21f",
       "range": {
         "startLine": 200,
         "startChar": 22,
