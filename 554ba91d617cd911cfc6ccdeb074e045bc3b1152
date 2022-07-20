@@ -93,6 +93,30 @@
       },
       "revId": "554ba91d617cd911cfc6ccdeb074e045bc3b1152",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d4b9ffb9_8d1f6ef0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-07-20T22:26:47Z",
+      "side": 1,
+      "message": "\u003e 1. User boots up bmc, works great, it returns urls without main_.\n\u003e 2. User plugs in a device that has aggregation supported, and BAM suddenly all the URIs for things that didn\u0027t change now change.\n\u003e \n\u003e This doesn\u0027t really match up with the redfish \"should\" statements around stability of URI in this regard, so I don\u0027t think as stated, this is going to work.\nAlright so we can\u0027t add \"main_\" depending on if satellite configs exist.\n\n\u003e I like your thought process, and I did think about that, but it has the same problem.  User flashes their BMC with a newer openbmc that supports aggregation, and BAM, suddenly all the IDs change.\nAlways adding \"main_\" seems like the only other option.  It sounds like there isn\u0027t a way to include \"main_\" in this context without breaking everything at the point aggregation becomes the default.\n\nUpsetting a lot of people would not be the only issue with always including \"main_\".  If we were to eventually add main_ by default then things will get hairy since the aggregated satellites would include main_ as well.  Aggregated URIs would like /redfish/v1/Chassis/aggregated0_main_someID and that\u0027s not very appealing.\n\nBased on this it sounds like there isn\u0027t an avenue to add \"main_\".  Really the only reason to add main is to avoid a collision where the aggregating BMC has a resource called something like \"/redfish/v1/Chassis/aggregated0_someID\" and the satellite has a Chassis called someID.  It would also appear as \"/redfish/v1/Chassis/aggregated0_someID\".\n\nI think you could make the argument that presumably you have control over the aggregating BMC so you would have to purposefully begin the name of a resource on your machine with \"aggregated0_\"",
+      "parentUuid": "25fd4085_dbcf7bdb",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 19
+      },
+      "revId": "554ba91d617cd911cfc6ccdeb074e045bc3b1152",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
