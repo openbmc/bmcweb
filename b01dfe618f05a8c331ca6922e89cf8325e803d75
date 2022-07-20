@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2ed986a1_e30c3c29",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 2645,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-07-20T12:16:58Z",
+      "side": 1,
+      "message": "Is this a typo? In https://github.com/openbmc/docs/blob/master/console.md there is a space between ~ and . (~ .), here space is missing (~.)",
+      "range": {
+        "startLine": 2645,
+        "startChar": 15,
+        "endLine": 2645,
+        "endChar": 17
+      },
+      "revId": "b01dfe618f05a8c331ca6922e89cf8325e803d75",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
