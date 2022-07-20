@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d85cda71_66f98e98",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-07-20T11:53:49Z",
+      "side": 1,
+      "message": "LGTM. I don\u0027t have any other ideas how to implement it.",
+      "revId": "36dfed98c0386aa07b85b021eb4e048ba400b66f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
