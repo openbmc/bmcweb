@@ -15,10 +15,12 @@
 */
 #pragma once
 
+#include "audit_events.hpp"
 #include "error_messages.hpp"
 #include "persistent_data.hpp"
 
 #include <app.hpp>
+#include <boost/asio/ip/host_name.hpp>
 #include <http/utility.hpp>
 #include <query.hpp>
 #include <registries/privilege_registry.hpp>
@@ -192,6 +194,9 @@ inline void handleSessionCollectionPost(
     {
         messages::resourceAtUriUnauthorized(asyncResp->res, req.urlView,
                                             "Invalid username or password");
+        audit::audit_acct_event(AUDIT_USER_LOGIN, username.c_str(), getuid(),
+                                boost::asio::ip::host_name().c_str(),
+                                req.ipAddress.to_string().c_str(), NULL, false);
         return;
     }
 #ifdef BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE
@@ -219,6 +224,9 @@ inline void handleSessionCollectionPost(
     asyncResp->res.addHeader(
         "Location", "/redfish/v1/SessionService/Sessions/" + session->uniqueId);
     asyncResp->res.result(boost::beast::http::status::created);
+    audit::audit_acct_event(AUDIT_USER_LOGIN, username.c_str(), getuid(),
+                            boost::asio::ip::host_name().c_str(),
+                            req.ipAddress.to_string().c_str(), NULL, true);
     if (session->isConfigureSelfOnly)
     {
         messages::passwordChangeRequired(
