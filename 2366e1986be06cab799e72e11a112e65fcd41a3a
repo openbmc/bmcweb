@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "763032a4_233a1427",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 72
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2022-07-20T18:27:37Z",
+      "side": 1,
+      "message": "Still need to get it passing redfish validator",
+      "revId": "2366e1986be06cab799e72e11a112e65fcd41a3a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9a911c4d_eb22be63",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 72
+      },
+      "lineNbr": 1263,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2022-07-20T18:27:37Z",
+      "side": 1,
+      "message": "nit: personally I prefer to have smaller, but more commits (i.e. I would have put the set in a separate commit on top of this commit) but others prefer the bigger commits. Especially since you were getting close on this review. Now you\u0027ve added new code on patchset 72.",
+      "revId": "2366e1986be06cab799e72e11a112e65fcd41a3a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e7b1e15a_6bd77193",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 72
+      },
+      "lineNbr": 1289,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2022-07-20T18:27:37Z",
+      "side": 1,
+      "message": "Should be _ERROR",
+      "range": {
+        "startLine": 1289,
+        "startChar": 22,
+        "endLine": 1289,
+        "endChar": 28
+      },
+      "revId": "2366e1986be06cab799e72e11a112e65fcd41a3a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2d9913e4_46f7a851",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 72
+      },
+      "lineNbr": 1296,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2022-07-20T18:27:37Z",
+      "side": 1,
+      "message": "_ERROR",
+      "range": {
+        "startLine": 1296,
+        "startChar": 22,
+        "endLine": 1296,
+        "endChar": 29
+      },
+      "revId": "2366e1986be06cab799e72e11a112e65fcd41a3a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
