@@ -2916,10 +2916,6 @@ inline void requestRoutesCrashdumpFile(App& app)
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                    const std::string& logID, const std::string& fileName) {
-        if (!redfish::setUpRedfishRoute(app, req, asyncResp))
-        {
-            return;
-        }
         auto getStoredLogCallback =
             [asyncResp, logID, fileName, url(boost::urls::url(req.urlView))](
                 const boost::system::error_code ec,
