@@ -237,6 +237,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "2f2ccc33_6d56f0f4",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-07-20T00:52:38Z",
+      "side": 1,
+      "message": "Understood, I\u0027ve removed the check",
+      "parentUuid": "0bdb3711_055b4a84",
+      "range": {
+        "startLine": 254,
+        "startChar": 0,
+        "endLine": 255,
+        "endChar": 9
+      },
+      "revId": "2fa61f8749893542bf44d310bf036b0dc310d0c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "033d245c_9b8e291b",
         "filename": "redfish-core/include/redfish_aggregator.hpp",
         "patchSetId": 53
@@ -472,6 +496,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8be75096_cc9247e3",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-07-20T00:52:38Z",
+      "side": 1,
+      "message": "\u003e \u003e I\u0027m specifically trying to catch collection URIs that have a trailing slash like \u0027/redfish/v1/Chassis/\u0027.  Those show up as 4 segments and the last one is empty.\n\u003e Have you ever looked at the readUrlSegments method?  I think we solved that in there.\nI have but it doesn\u0027t seem to actually solve the issue.  It just returns early if the existing url does not have the same number of segments as there are in the segment list it is being compared to.  The only place the method is actually used is in telemetry_utils.hpp and that doesn\u0027t appear to ultimately get used to compare a user supplied url which may or may not have a trailing slash.\n\nThat method is also only used for exact matches so it doesn\u0027t really work in my case where I\u0027m not trying to exactly match the name of the resource collection and the individual resource ID itself.",
+      "parentUuid": "e5668d39_3dd892e1",
+      "range": {
+        "startLine": 279,
+        "startChar": 12,
+        "endLine": 279,
+        "endChar": 64
+      },
+      "revId": "2fa61f8749893542bf44d310bf036b0dc310d0c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d01505fb_5b205d3c",
         "filename": "redfish-core/include/redfish_aggregator.hpp",
         "patchSetId": 53
@@ -684,6 +732,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4e3f5f60_ba15fd1b",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-07-20T00:52:38Z",
+      "side": 1,
+      "message": "\u003e std::unordered_map\u003cstd::string, MyValue, std::less\u003c\u003e\u003e and string_view lookups will work on it.\nI\u0027ve tried declaring something along those lines, but it complains about not having a method to hash the key type string_view.  Isn\u0027t that example closer to how to declare a normal map?\n\nAlso, I will still have to convert this back into a string because we need to be able to add \"_\" to the prefix so we can parse the resource ID for the complete prefix like \"aggregated0_\".",
+      "parentUuid": "2e8a0aa9_c0ba485a",
+      "range": {
+        "startLine": 352,
+        "startChar": 19,
+        "endLine": 352,
+        "endChar": 26
+      },
+      "revId": "2fa61f8749893542bf44d310bf036b0dc310d0c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0eb311a1_d793b5c7",
         "filename": "redfish-core/include/redfish_aggregator.hpp",
         "patchSetId": 53
@@ -814,6 +886,30 @@
       "side": 1,
       "message": "\u003e Can we assume that any response from a satellite bmc will always be an \"application/json\" type?\n\nAny response from within the redfish tree, yes we can assume it will be there, but there are things that jump outside the redfish tree that this will still need to handle at some point (like AdditionalDataURI) but lets cross that bridge when we get there.",
       "parentUuid": "3d7afb5c_dcba4e2a",
+      "range": {
+        "startLine": 407,
+        "startChar": 12,
+        "endLine": 407,
+        "endChar": 50
+      },
+      "revId": "2fa61f8749893542bf44d310bf036b0dc310d0c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "012aa353_955b82fa",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 407,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-07-20T00:52:38Z",
+      "side": 1,
+      "message": "Sounds good.  I removed the nlohmann::json::accept() from the if statement.  Now if the \"Content-Type\" check fails and the body is not empty then we just return an operationFailed message.\n\nI\u0027ll leave this open for now since it\u0027s directly related to this other comment thread(https://gerrit.openbmc.org/c/openbmc/bmcweb/+/53310/comments/4dac0696_2265aced)",
+      "parentUuid": "fe45c6b9_cafca998",
       "range": {
         "startLine": 407,
         "startChar": 12,
@@ -968,6 +1064,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5b205868_3c44135f",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 426,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-07-20T00:52:38Z",
+      "side": 1,
+      "message": "I should be able to remove the error by using ` res.jsonValue.erase(\"error\") `.  \n\nHowever, I still don\u0027t think we\u0027d want to keep any additional parts of the response generated by the aggregating BMC.  The request itself was only ever meant for a specific satellite BMC so we should act like that is the only BMC that actually handled the response.  Including parts of a response from an unintended recipient doesn\u0027t make sense to me in this context.",
+      "parentUuid": "13e6481f_44d628da",
+      "range": {
+        "startLine": 426,
+        "startChar": 32,
+        "endLine": 426,
+        "endChar": 58
+      },
+      "revId": "2fa61f8749893542bf44d310bf036b0dc310d0c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0faab78f_fc52bc57",
         "filename": "redfish-core/include/redfish_aggregator.hpp",
         "patchSetId": 53
@@ -1098,6 +1218,30 @@
       "side": 1,
       "message": "\u003e I ask in my response in the earlier comment if we can always assume satellite responses must be json.  The answer to that will have some bearing on the change I make here.\n\nFor things within the redfish tree, yes, they\u0027re required to have the content type set.\n\n\u003e \n\u003e In this specific case I think we can set this as an error as long as long as the body is not empty.  I\u0027d expect responses to GET requests to always include a body, but what about other types of requests?\n\ninteresting, there\u0027s several responses to GET requests that don\u0027t include a body that we probably need to handle.  i didn\u0027t think about that \n\n\u003e  The current check as-is makes sure we don\u0027t return an error when we receive a response with an empty body but a 200 result.\n\nhow about this:\nif the content claimed to be json but wasn\u0027t, return 500 for the moment.  This for sure needs revisited when we start handling httppushuri and such.",
       "parentUuid": "ab1227da_16f3c34a",
+      "range": {
+        "startLine": 439,
+        "startChar": 12,
+        "endLine": 440,
+        "endChar": 28
+      },
+      "revId": "2fa61f8749893542bf44d310bf036b0dc310d0c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c00ea427_d3519b87",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 440,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-07-20T00:52:38Z",
+      "side": 1,
+      "message": "\u003e \u003e In this specific case I think we can set this as an error as long as long as the body is not empty.  I\u0027d expect responses to GET requests to always include a body, but what about other types of requests?\n\u003e interesting, there\u0027s several responses to GET requests that don\u0027t include a body that we probably need to handle.  i didn\u0027t think about that \nIn those instances, will the \"Content-Type\" still appear as \"application/json\" even though the body is empty?\n\n\u003e how about this:\n\u003e if the content claimed to be json but wasn\u0027t, return 500 for the moment.  This for sure needs revisited when we start handling httppushuri and such.\nI\u0027m assuming this occurs when the \"Content-Type\" is \"application/json\", but the following call to nlohmann::json::parse(resp.body(), nullptr, false) fails.\n\nWouldn\u0027t we want to return a 502 since that would be on the satellite BMC for either mislabeling the Content-Type or not formatting resp.body() correctly?  That is how it is currently set to be handled when we check jsonVal.is_discarded() in this function.",
+      "parentUuid": "bc4d4b91_9182a733",
       "range": {
         "startLine": 439,
         "startChar": 12,
