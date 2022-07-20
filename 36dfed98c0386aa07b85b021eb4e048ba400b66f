@@ -16,6 +16,24 @@
       "message": "LGTM. I don\u0027t have any other ideas how to implement it.",
       "revId": "36dfed98c0386aa07b85b021eb4e048ba400b66f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e984f30_de25e054",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-20T14:32:11Z",
+      "side": 1,
+      "message": "If we come up with a better pattern later, we can always change it.  There\u0027s not that many links.",
+      "parentUuid": "d85cda71_66f98e98",
+      "revId": "36dfed98c0386aa07b85b021eb4e048ba400b66f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
