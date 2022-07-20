@@ -22,6 +22,30 @@
       },
       "revId": "e980fdd0e7680bfd07de9fa2e38305a1c81a0026",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4654663f_87554485",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-07-20T07:34:26Z",
+      "side": 1,
+      "message": "sdbusplus has a timeout mechanism for async_method_call. Since ObjectMapper response is not received in sdbusplus before timer expires callback is called with timeout error.\n\nThis error is likely to happen on slower systems or systems with many objects and interfaces.",
+      "parentUuid": "18a572cf_a7bb5f5a",
+      "range": {
+        "startLine": 10,
+        "startChar": 31,
+        "endLine": 10,
+        "endChar": 64
+      },
+      "revId": "e980fdd0e7680bfd07de9fa2e38305a1c81a0026",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
