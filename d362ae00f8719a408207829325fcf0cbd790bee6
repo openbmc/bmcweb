@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "19abc400_7a1a9686",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-20T02:43:07Z",
+      "side": 1,
+      "message": "Because I was attempting to keep the patch small, but a number of the managers routes are more complex and deserve their own patchset given the complexity.  It\u0027s also not an immediate priority, whereas fixing Systems is blocking multi-host.",
+      "parentUuid": "0d138bf6_e261d55f",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 4
+      },
+      "revId": "d362ae00f8719a408207829325fcf0cbd790bee6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8548d54b_1a5fb3ab",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
@@ -37,6 +61,30 @@
       "writtenOn": "2022-07-20T01:13:49Z",
       "side": 1,
       "message": "What does this mean?",
+      "range": {
+        "startLine": 29,
+        "startChar": 31,
+        "endLine": 29,
+        "endChar": 59
+      },
+      "revId": "d362ae00f8719a408207829325fcf0cbd790bee6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c3914cdd_bc87970b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-20T02:43:07Z",
+      "side": 1,
+      "message": "would \"moving these to routes that match the redfish spec would likely\nmeant that we could generate this code in the future at some point ...\"  be a better wording?",
+      "parentUuid": "8548d54b_1a5fb3ab",
       "range": {
         "startLine": 29,
         "startChar": 31,
