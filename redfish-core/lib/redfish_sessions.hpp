@@ -16,6 +16,7 @@
 #pragma once
 
 #include "app.hpp"
+#include "audit_events.hpp"
 #include "error_messages.hpp"
 #include "http/utility.hpp"
 #include "persistent_data.hpp"
@@ -24,6 +25,7 @@
 #include "utils/json_utils.hpp"
 
 #include <boost/url/format.hpp>
+#include <boost/asio/ip/host_name.hpp>
 
 namespace redfish
 {
@@ -227,6 +229,9 @@ inline void handleSessionCollectionPost(
     {
         messages::resourceAtUriUnauthorized(asyncResp->res, req.url(),
                                             "Invalid username or password");
+        audit::auditAcctEvent(AUDIT_USER_LOGIN, username.c_str(), getuid(),
+                              boost::asio::ip::host_name().c_str(),
+                              req.ipAddress.to_string().c_str(), NULL, false);
         return;
     }
 
@@ -245,6 +250,9 @@ inline void handleSessionCollectionPost(
     asyncResp->res.addHeader(
         "Location", "/redfish/v1/SessionService/Sessions/" + session->uniqueId);
     asyncResp->res.result(boost::beast::http::status::created);
+    audit::auditAcctEvent(AUDIT_USER_LOGIN, username.c_str(), getuid(),
+                          boost::asio::ip::host_name().c_str(),
+                          req.ipAddress.to_string().c_str(), NULL, true);
     if (session->isConfigureSelfOnly)
     {
         messages::passwordChangeRequired(
