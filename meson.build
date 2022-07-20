@@ -255,6 +255,11 @@ atomic =  cxx.find_library('atomic', required: true)
 openssl = dependency('openssl', required : true)
 bmcweb_dependencies += [pam, atomic, openssl]
 
+if get_option('audit-events').enabled()
+  audit = cxx.find_library('libaudit', required: true)
+  bmcweb_dependencies += audit
+endif
+
 sdbusplus = dependency('sdbusplus', required : false, include_type: 'system')
 if not sdbusplus.found()
   sdbusplus_proj = subproject('sdbusplus', required: true)
