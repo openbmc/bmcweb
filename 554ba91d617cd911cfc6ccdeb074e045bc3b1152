@@ -69,6 +69,30 @@
       },
       "revId": "554ba91d617cd911cfc6ccdeb074e045bc3b1152",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "25fd4085_dbcf7bdb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-20T20:45:30Z",
+      "side": 1,
+      "message": "\u003e What if we just include \"main_\" if the aggregation compilation option is enabled? \n\u003e The existence (or lack thereof) of satellite configs would have no bearing on if we include the prefix.\n\n\nI like your thought process, and I did think about that, but it has the same problem.  User flashes their BMC with a newer openbmc that supports aggregation, and BAM, suddenly all the IDs change.\n\n\n\u003e \n\u003e In this way the URIs on the aggregating BMC don\u0027t change when a new device is plugged in.  Plus, the prefix addition is hidden behind a compiler option so you\u0027d have to purposefully opt into changing the URIs.\n\nOur general rule is that all options are enabled by default, and should have no impact in the cases where they\u0027re not configured or you don\u0027t have the hardware.  This is to help development having to update 6000 systems and forks every time we add a new option.  Aggregation is disabled by default right now because it\u0027s arguably not stable, but that will change at some point as you keep working it.",
+      "parentUuid": "d14d9281_c2048e0e",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 19
+      },
+      "revId": "554ba91d617cd911cfc6ccdeb074e045bc3b1152",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
