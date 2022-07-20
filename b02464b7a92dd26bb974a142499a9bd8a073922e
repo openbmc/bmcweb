@@ -34,6 +34,24 @@
       "parentUuid": "5e02c372_a07caa57",
       "revId": "b02464b7a92dd26bb974a142499a9bd8a073922e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca21467f_224a55e4",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1823,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-20T03:32:50Z",
+      "side": 1,
+      "message": "interfacesremoved should still trigger on a rename, right?\n\ni think tracking by uid is the end goal, but for the moment, I’m ok with this behavior.  we could even argue it’s correct, given the username changed, the user should probably re-login with their new username.",
+      "parentUuid": "823cce7a_528b3a54",
+      "revId": "b02464b7a92dd26bb974a142499a9bd8a073922e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
