@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a51a79e1_449ea5a8",
+        "filename": "redfish-core/include/utils/chassis_utils.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000998
+      },
+      "writtenOn": "2022-07-20T15:59:13Z",
+      "side": 1,
+      "message": "See https://gerrit.openbmc.org/c/openbmc/bmcweb/+/52534/comments/a1767cf5_2d90d7b7. There are some use cases where we can\u0027t easily use the find function, but would need the same set of interfaces. The actual usage would be in the cleanup that\u0027s needed to use the stuff in this file in the various places where we are looking for chassis.",
+      "parentUuid": "0711b45c_4c1ff89a",
+      "range": {
+        "startLine": 11,
+        "startChar": 37,
+        "endLine": 11,
+        "endChar": 58
+      },
+      "revId": "287557c43ef98be315e59365af4e59659584a0b9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "651940a0_a742c368",
         "filename": "redfish-core/include/utils/chassis_utils.hpp",
         "patchSetId": 12
@@ -60,6 +84,30 @@
       "writtenOn": "2022-07-20T01:01:51Z",
       "side": 1,
       "message": "I have seen several times that different committers want to create a function like this: get object path of given interfaces then execute callbacks.\n\nThis function seems to me don\u0027t need to be chassis specific. Shall we enhance the existing getCollections?\n\nWhat are your opinions, existing maintainers?",
+      "range": {
+        "startLine": 22,
+        "startChar": 5,
+        "endLine": 22,
+        "endChar": 24
+      },
+      "revId": "287557c43ef98be315e59365af4e59659584a0b9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3379e7b7_07241888",
+        "filename": "redfish-core/include/utils/chassis_utils.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000998
+      },
+      "writtenOn": "2022-07-20T15:59:13Z",
+      "side": 1,
+      "message": "I agree. Ed suggested adding something to the object mapper to do this since it\u0027s more efficient to do it there. I was planning to come up with a prototype of that, but in the meantime, I think it might be easier to get this in to unblock dependencies while we figure out a more general solution.",
+      "parentUuid": "9e9fd0a2_0f8ae2d4",
       "range": {
         "startLine": 22,
         "startChar": 5,
