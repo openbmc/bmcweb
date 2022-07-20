@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bd128b3f_530aed6a",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 65
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-20T16:25:03Z",
+      "side": 1,
+      "message": "please call this getHeaderValue to match the request object.",
+      "range": {
+        "startLine": 99,
+        "startChar": 21,
+        "endLine": 99,
+        "endChar": 33
+      },
+      "revId": "d988c828ae98c0ca92e7b61d5271e3c3b582c96b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d89559b1_a7729a4e",
         "filename": "redfish-core/include/redfish_aggregator.hpp",
         "patchSetId": 65
