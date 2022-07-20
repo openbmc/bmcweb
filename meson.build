@@ -60,6 +60,7 @@ incdir = include_directories(
 ## create a MAP of  "options : feature_flag"
 
 feature_map = {
+  'audit-events'                                : '-DBMCWEB_ENABLE_LINUX_AUDIT_EVENTS',
   'basic-auth'                                  : '-DBMCWEB_ENABLE_BASIC_AUTHENTICATION',
   'cookie-auth'                                 : '-DBMCWEB_ENABLE_COOKIE_AUTHENTICATION',
   'google-api'                                  : '-DBMCWEB_ENABLE_GOOGLE_API',
@@ -254,6 +255,11 @@ pam = cxx.find_library('pam', required: true)
 atomic =  cxx.find_library('atomic', required: true)
 openssl = dependency('openssl', required : true)
 bmcweb_dependencies += [pam, atomic, openssl]
+
+if get_option('audit-events').enabled()
+  audit = cxx.find_library('libaudit', required: true)
+  bmcweb_dependencies += audit
+endif
 
 sdbusplus = dependency('sdbusplus', required : false, include_type: 'system')
 if not sdbusplus.found()
