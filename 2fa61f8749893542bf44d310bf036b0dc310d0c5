@@ -756,6 +756,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4a5672c9_c55844e6",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-07-20T16:12:04Z",
+      "side": 1,
+      "message": "\u003e \u003e std::unordered_map\u003cstd::string, MyValue, std::less\u003c\u003e\u003e and string_view lookups will work on it.\n\u003e I\u0027ve tried declaring something along those lines, but it complains about not having a method to hash the key type string_view.  Isn\u0027t that example closer to how to declare a normal map?\nDisregard this portion of my previous comment.  I was able to get it to work by using std::hash\u003cstd::string_view\u003e\n\nI do still have my concerns about needing to create strings from string_view",
+      "parentUuid": "4e3f5f60_ba15fd1b",
+      "range": {
+        "startLine": 352,
+        "startChar": 19,
+        "endLine": 352,
+        "endChar": 26
+      },
+      "revId": "2fa61f8749893542bf44d310bf036b0dc310d0c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0eb311a1_d793b5c7",
         "filename": "redfish-core/include/redfish_aggregator.hpp",
         "patchSetId": 53
