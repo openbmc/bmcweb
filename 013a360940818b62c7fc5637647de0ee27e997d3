@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e8be5f18_3419cd21",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-07-20T20:18:15Z",
+      "side": 1,
+      "message": "In D-Bus there\u0027s just one \"Status\" property in the xyz.openbmc_project.Common.Progress interface, please see https://github.com/openbmc/phosphor-dbus-interfaces/blob/master/yaml/xyz/openbmc_project/Common/Progress.interface.yaml",
+      "parentUuid": "58f721b0_ffd0771c",
+      "range": {
+        "startLine": 348,
+        "startChar": 20,
+        "endLine": 348,
+        "endChar": 25
+      },
+      "revId": "013a360940818b62c7fc5637647de0ee27e997d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "77103248_cb6159cb",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-07-20T18:19:59Z",
       "side": 1,
       "message": "Not 100% sure what the planned use cases for this are, but what does getting here without ever hitting the first if statement within the for loop mean?\n\ni.e. `interfaceMap.first` is \"xyz.openbmc_project.Common.Progress\", but there\u0027s no `propertyMap.first` that is \"Status\" within `interfaceMap.second`.\n\nIs it okay to ignore and continue or should this function signal this case somehow (`return false` or otherwise)?\n\nSimilar question for the following two for loops.",
+      "range": {
+        "startLine": 350,
+        "startChar": 12,
+        "endLine": 350,
+        "endChar": 13
+      },
+      "revId": "013a360940818b62c7fc5637647de0ee27e997d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "68374b5c_a0c6aa8a",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-07-20T20:18:15Z",
+      "side": 1,
+      "message": "Good question -- I think it\u0027s okay to ignore and continue. Currently it\u0027s up to the caller to decide what to do if the Status isn\u0027t received. getDumpEntryCollection() checks Status by looking for !dumpStatus.empty() in lines 488-494 and if so simply skips outputting the entry, while getDumpEntryById() does a similar check in lines in 573-582 but outputs a Redfish error.\n\nAs for \"Size\" and \"Elapsed\", the current behavior in the case they are not received is that getDumpEntryCollection() and getDumpEntryById() just use the size and timestamp values from initialization (0) for constructing the dump entry Redfish output and populate the rest of the fields normally. The question is whether we\u0027d prefer to return a Redfish error (in which case I could easily add a check in this function to check if those properties were received and return false if not).\n\nDo other reviewers have an opinion?",
+      "parentUuid": "77103248_cb6159cb",
       "range": {
         "startLine": 350,
         "startChar": 12,
