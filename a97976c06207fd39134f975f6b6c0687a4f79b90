@@ -772,6 +772,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b2f67819_125e1a24",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 645,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-20T20:38:58Z",
+      "side": 1,
+      "message": "Cool.\n\n\u003e Firstly, it might be that we are just worrying too much and the other annotations don\u0027t need to implicitly selected.\n\nIf that\u0027s true, then we should get a quick answer from DMTF (I\u0027m assuming we\u0027ll talk about it tomorrow) and that should be the end of it;  Lets figure out what the consensus is, and then this patchset should be pretty doable to update (or maybe is already correct as it stands).\n\n\nThanks for starting that!",
+      "parentUuid": "b690ed20_31d1177a",
+      "range": {
+        "startLine": 645,
+        "startChar": 0,
+        "endLine": 645,
+        "endChar": 69
+      },
+      "revId": "a97976c06207fd39134f975f6b6c0687a4f79b90",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f19c0fa6_dfce885f",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 5
