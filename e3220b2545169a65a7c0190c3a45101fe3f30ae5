@@ -16,6 +16,23 @@
       "message": "Looks like this is blocked on the dbus-interfaces review (which is blocked on the design finishing) so I suspect this might take a while.\n\nIn the meantime, please make sure you update the Redfish.md documentation with your new fields.  I don\u0027t see that doc in the changeset, and I would\u0027ve expected it.",
       "revId": "e3220b2545169a65a7c0190c3a45101fe3f30ae5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "750f6319_6bc4ce3b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-20T02:47:00Z",
+      "side": 1,
+      "message": "Also, why is this stacked on top of implement efficient expand handler;  I don\u0027t think they\u0027re related in code, only in name?",
+      "revId": "e3220b2545169a65a7c0190c3a45101fe3f30ae5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
