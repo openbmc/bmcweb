@@ -119,6 +119,13 @@ option(
 )
 
 option(
+    'audit-events',
+    type: 'feature',
+    value: 'disabled',
+    description: 'Enable audit events support for bmcweb'
+)
+
+option(
     'redfish-provisioning-feature',
     type: 'feature',
     value: 'disabled',
