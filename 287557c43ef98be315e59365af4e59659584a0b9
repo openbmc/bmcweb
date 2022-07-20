@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0711b45c_4c1ff89a",
+        "filename": "redfish-core/include/utils/chassis_utils.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-20T01:01:51Z",
+      "side": 1,
+      "message": "Is this variable used somewhere else? If not, consider getting the declaration into the function?",
+      "range": {
+        "startLine": 11,
+        "startChar": 37,
+        "endLine": 11,
+        "endChar": 58
+      },
+      "revId": "287557c43ef98be315e59365af4e59659584a0b9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "651940a0_a742c368",
+        "filename": "redfish-core/include/utils/chassis_utils.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-20T01:01:51Z",
+      "side": 1,
+      "message": "nit: #space is not consistent",
+      "range": {
+        "startLine": 19,
+        "startChar": 19,
+        "endLine": 19,
+        "endChar": 20
+      },
+      "revId": "287557c43ef98be315e59365af4e59659584a0b9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e9fd0a2_0f8ae2d4",
+        "filename": "redfish-core/include/utils/chassis_utils.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-20T01:01:51Z",
+      "side": 1,
+      "message": "I have seen several times that different committers want to create a function like this: get object path of given interfaces then execute callbacks.\n\nThis function seems to me don\u0027t need to be chassis specific. Shall we enhance the existing getCollections?\n\nWhat are your opinions, existing maintainers?",
+      "range": {
+        "startLine": 22,
+        "startChar": 5,
+        "endLine": 22,
+        "endChar": 24
+      },
+      "revId": "287557c43ef98be315e59365af4e59659584a0b9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
