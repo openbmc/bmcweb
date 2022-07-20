@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "58f721b0_ffd0771c",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 1001387
+      },
+      "writtenOn": "2022-07-20T18:19:59Z",
+      "side": 1,
+      "message": "Can there be multiple statuses within the `interfaceMap.second` vector?\n\nCouldn\u0027t find guidance for this in the included header files, but if there can be, do we want to break early and use the first status? Or should this continue and assign the last status to `dumpStatus`?",
+      "range": {
+        "startLine": 348,
+        "startChar": 20,
+        "endLine": 348,
+        "endChar": 25
+      },
+      "revId": "013a360940818b62c7fc5637647de0ee27e997d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "77103248_cb6159cb",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 1001387
+      },
+      "writtenOn": "2022-07-20T18:19:59Z",
+      "side": 1,
+      "message": "Not 100% sure what the planned use cases for this are, but what does getting here without ever hitting the first if statement within the for loop mean?\n\ni.e. `interfaceMap.first` is \"xyz.openbmc_project.Common.Progress\", but there\u0027s no `propertyMap.first` that is \"Status\" within `interfaceMap.second`.\n\nIs it okay to ignore and continue or should this function signal this case somehow (`return false` or otherwise)?\n\nSimilar question for the following two for loops.",
+      "range": {
+        "startLine": 350,
+        "startChar": 12,
+        "endLine": 350,
+        "endChar": 13
+      },
+      "revId": "013a360940818b62c7fc5637647de0ee27e997d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
