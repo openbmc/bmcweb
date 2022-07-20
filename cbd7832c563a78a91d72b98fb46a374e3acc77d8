@@ -328,6 +328,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ab493bf7_b3cf0485",
+        "filename": "http/ut/router_test.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-20T17:32:23Z",
+      "side": 1,
+      "message": "See here,\n\nhttps://github.com/google/googletest/blob/bf66935e07825318ae519675d73d0f3e313b3ec6/googletest/include/gtest/gtest_pred_impl.h#L32\n\nIt\u0027s known that IWYU will try to include the impl header. Somehow these pragmas in gtest library don\u0027t work. I suspect it\u0027s a bug in IWYU side.\n\nAnything else you want to me to explain?",
+      "parentUuid": "ac237537_48f78c77",
+      "range": {
+        "startLine": 23,
+        "startChar": 27,
+        "endLine": 23,
+        "endChar": 28
+      },
+      "revId": "cbd7832c563a78a91d72b98fb46a374e3acc77d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bd995e84_be4af4ac",

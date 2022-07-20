@@ -191,6 +191,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dfae5ae6_d59fc4ff",
+        "filename": "http/ut/router_test.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-20T17:32:23Z",
+      "side": 1,
+      "message": "Same as the other thread,\n\nhttps://github.com/google/googletest/blob/bf66935e07825318ae519675d73d0f3e313b3ec6/googletest/include/gtest/gtest-message.h#L44\n\nIt\u0027s known that IWYU will try to include these detailed headers. But these pragmas don\u0027t work (possibly due to bug on IWYU side).\n\n\u003e Understanding why the gtest usage rules disagree with iwyu is what we need here.\n\nIt\u0027s stated in gtest\u0027s documentations: \"INTERNAL IMPLEMENTATION - DO NOT USE IN A USER PROGRAM.\"\n\nAnything else you want me to do? Does it look good now?",
+      "parentUuid": "b00a8abb_da947f20",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 34
+      },
+      "revId": "d25c7b3772a1f5eb0ef68d1964bfa1ec3e6e642b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "62faeb98_37477c79",
