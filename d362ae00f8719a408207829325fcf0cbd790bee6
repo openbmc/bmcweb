@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cca0033b_c3e8763c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-20T17:49:23Z",
+      "side": 1,
+      "message": "ACK. Consider adding them into the this sentence?",
+      "parentUuid": "19abc400_7a1a9686",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 4
+      },
+      "revId": "d362ae00f8719a408207829325fcf0cbd790bee6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8548d54b_1a5fb3ab",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
@@ -85,6 +109,30 @@
       "side": 1,
       "message": "would \"moving these to routes that match the redfish spec would likely\nmeant that we could generate this code in the future at some point ...\"  be a better wording?",
       "parentUuid": "8548d54b_1a5fb3ab",
+      "range": {
+        "startLine": 29,
+        "startChar": 31,
+        "endLine": 29,
+        "endChar": 59
+      },
+      "revId": "d362ae00f8719a408207829325fcf0cbd790bee6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "595dd689_471d4af5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-20T17:49:23Z",
+      "side": 1,
+      "message": "Yes. \n\nI didn\u0027t find routing in the Redfish spec but routing exists in this project.",
+      "parentUuid": "c3914cdd_bc87970b",
       "range": {
         "startLine": 29,
         "startChar": 31,
