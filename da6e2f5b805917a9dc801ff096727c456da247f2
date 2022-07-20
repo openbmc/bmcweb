@@ -22,6 +22,30 @@
       },
       "revId": "da6e2f5b805917a9dc801ff096727c456da247f2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3173614c_c4668d28",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 901,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-20T01:04:52Z",
+      "side": 1,
+      "message": "This is split from https://gerrit.openbmc.org/c/openbmc/bmcweb/+/46739/13",
+      "parentUuid": "10819c88_7f24788e",
+      "range": {
+        "startLine": 901,
+        "startChar": 1,
+        "endLine": 901,
+        "endChar": 19
+      },
+      "revId": "da6e2f5b805917a9dc801ff096727c456da247f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
