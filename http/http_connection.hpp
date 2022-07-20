@@ -3,6 +3,9 @@
 
 #include "async_resp.hpp"
 #include "authentication.hpp"
+#ifdef BMCWEB_ENABLE_LINUX_AUDIT_EVENTS
+#include "audit_events.hpp"
+#endif
 #include "complete_response_fields.hpp"
 #include "http2_connection.hpp"
 #include "http_response.hpp"
@@ -339,6 +342,29 @@ class Connection :
         }
         res = std::move(thisRes);
         res.keepAlive(keepAlive);
+
+#ifdef BMCWEB_ENABLE_LINUX_AUDIT_EVENTS
+        if (audit::wantAudit(*req))
+        {
+            if (userSession != nullptr)
+            {
+                bool requestSuccess = false;
+                // Look for good return codes and if so we know the operation
+                // passed
+                if ((res.resultInt() >= 200) && (res.resultInt() < 300))
+                {
+                    requestSuccess = true;
+                }
+
+                audit::auditEvent(*req, userSession->username, requestSuccess);
+            }
+            else
+            {
+                BMCWEB_LOG_DEBUG(
+                    "UserSession is null, not able to log audit event.");
+            }
+        }
+#endif // BMCWEB_ENABLE_LINUX_AUDIT_EVENTS
 
         completeResponseFields(*req, res);
 

@@ -129,6 +129,16 @@ option(
 )
 
 option(
+    'audit-events',
+    type: 'feature',
+    value: 'disabled',
+    description: '''Enable audit events support for bmcweb. This uses libaudit.
+                    security-relevant events are wrote as entries in
+                    /var/log/audit/audit.log. Tools such as aureport can be used
+                    to produce audit,login reports parsing the audit.log'''
+)
+
+option(
     'redfish-provisioning-feature',
     type: 'feature',
     value: 'disabled',

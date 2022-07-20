@@ -64,6 +64,7 @@ incdir = include_directories(
 ## create a MAP of  "options : feature_flag"
 
 feature_map = {
+  'audit-events'                                : '-DBMCWEB_ENABLE_LINUX_AUDIT_EVENTS',
   'basic-auth'                                  : '-DBMCWEB_ENABLE_BASIC_AUTHENTICATION',
   'cookie-auth'                                 : '-DBMCWEB_ENABLE_COOKIE_AUTHENTICATION',
   'google-api'                                  : '-DBMCWEB_ENABLE_GOOGLE_API',
@@ -274,6 +275,11 @@ if not nghttp2.found()
 endif
 bmcweb_dependencies += nghttp2
 
+if get_option('audit-events').enabled()
+  audit = cxx.find_library('libaudit', required: true)
+  bmcweb_dependencies += audit
+endif
+
 sdbusplus = dependency('sdbusplus', required : false, include_type: 'system')
 if not sdbusplus.found()
   sdbusplus_proj = subproject('sdbusplus', required: true)
@@ -410,6 +416,10 @@ srcfiles_unittest = files(
   'test/redfish-core/lib/thermal_subsystem_test.cpp',
   'test/redfish-core/lib/power_subsystem_test.cpp',
 )
+
+if (get_option('audit-events').enabled())
+	srcfiles_unittest += files('test/include/audit_events_test.cpp',)
+endif
 
 if(get_option('tests').enabled())
     # generate the test executable
