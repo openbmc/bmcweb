@@ -200,6 +200,30 @@
       },
       "revId": "013a360940818b62c7fc5637647de0ee27e997d3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b79d3a29_23e02919",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-20T22:17:47Z",
+      "side": 1,
+      "message": "\u003e I can separate that change from this patchset if you think it\u0027s better for this to be a pure refactoring with no behavior change.\n\nYes, please do. That will help the refactoring get in faster.",
+      "parentUuid": "ce43a040_a0bb8914",
+      "range": {
+        "startLine": 350,
+        "startChar": 12,
+        "endLine": 350,
+        "endChar": 13
+      },
+      "revId": "013a360940818b62c7fc5637647de0ee27e997d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
