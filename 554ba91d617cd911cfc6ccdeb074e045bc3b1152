@@ -45,6 +45,30 @@
       },
       "revId": "554ba91d617cd911cfc6ccdeb074e045bc3b1152",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d14d9281_c2048e0e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-07-20T20:37:21Z",
+      "side": 1,
+      "message": "What if we just include \"main_\" if the aggregation compilation option is enabled?  The existence (or lack thereof) of satellite configs would have no bearing on if we include the prefix.\n\nIn this way the URIs on the aggregating BMC don\u0027t change when a new device is plugged in.  Plus, the prefix addition is hidden behind a compiler option so you\u0027d have to purposefully opt into changing the URIs.",
+      "parentUuid": "cbfc9dd5_5c1a8918",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 19
+      },
+      "revId": "554ba91d617cd911cfc6ccdeb074e045bc3b1152",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
