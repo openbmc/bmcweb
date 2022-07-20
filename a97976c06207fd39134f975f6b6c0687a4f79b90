@@ -748,6 +748,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b690ed20_31d1177a",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 645,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-20T19:59:08Z",
+      "side": 1,
+      "message": "Wrong link. \n\nhttps://github.com/DMTF/Redfish/issues/5175\n\n\"Based on the wording today, I would expect things like @Message.ExtendedInfo and other annotations to be omitted.\"\n\nWe can discuss that in the next DMTF meeting if you want.",
+      "parentUuid": "ce46fe66_3fd11f32",
+      "range": {
+        "startLine": 645,
+        "startChar": 0,
+        "endLine": 645,
+        "endChar": 69
+      },
+      "revId": "a97976c06207fd39134f975f6b6c0687a4f79b90",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f19c0fa6_dfce885f",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 5
