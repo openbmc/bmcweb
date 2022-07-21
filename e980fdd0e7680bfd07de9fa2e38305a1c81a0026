@@ -94,6 +94,30 @@
       },
       "revId": "e980fdd0e7680bfd07de9fa2e38305a1c81a0026",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bd437d69_bd63274f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-07-21T11:11:47Z",
+      "side": 1,
+      "message": "So object mapper is parsing all objects on dbus during first request, then it keeps data in memory so it can respond much faster. Pawel does this timeout occurs only one time after starting/restarting object mapper or does it happens all the time?",
+      "parentUuid": "542b5d6d_33da63e0",
+      "range": {
+        "startLine": 10,
+        "startChar": 31,
+        "endLine": 10,
+        "endChar": 64
+      },
+      "revId": "e980fdd0e7680bfd07de9fa2e38305a1c81a0026",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
