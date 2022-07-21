@@ -16,6 +16,24 @@
       "message": "LGTM, but you need to fix CI errors first",
       "revId": "52edf365790a68b90db6d1fa462a7b62e2132f69",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "08b8eba7_94884adc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 35
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-07-21T06:13:51Z",
+      "side": 1,
+      "message": "The CI failed to connect to redfish.dmtf.org and it errors. Not related to this patch.",
+      "parentUuid": "29a136de_4bc77026",
+      "revId": "52edf365790a68b90db6d1fa462a7b62e2132f69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
