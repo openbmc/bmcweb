@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ccfc4b60_40ad0a55",
+        "filename": "http/ut/router_test.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-07-21T08:34:41Z",
+      "side": 1,
+      "message": "To be honest I don\u0027t like the results of IWYU script. I would rather invest in creating custom target in meson which verifies that each .hpp file is self contained.\n\nIf you want to stay with IWYU is there a way to condifure in some configuration file in bmcweb repository to not include some headers, because right now there are pragmas almost in every file.",
+      "revId": "c55982d04a253274a834ffa523f68f2230b1dfd2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
