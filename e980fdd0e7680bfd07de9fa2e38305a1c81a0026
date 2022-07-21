@@ -142,6 +142,30 @@
       },
       "revId": "e980fdd0e7680bfd07de9fa2e38305a1c81a0026",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cb21a2d1_8e869565",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-21T15:35:34Z",
+      "side": 1,
+      "message": "\u003e In our testing PMT is adding over 4000 sensors on dbus. \n\nYes, if you intentionally overload dbus, things will have problems, and IMO, the system is giving the right error message here.  Something went wrong internally (the mapper didn\u0027t reply because it was locked up).  The current sensor subsystem was designed for ipmi limits of 256, although it\u0027s likely good to about 1000 sensors.\n\nAlso, in the future, when you do testing like this, PLEASE add it to your commit message.  It helps to explain what you\u0027re trying to accomplish and that this didn\u0027t occur in a \"normal\" system.\n\n\n\u003e When those objects are added or removed mapperx process utilizes about 45% of cpu for about 2-3 minutes and is not responding to any dbus calls\n\nI\u0027m guessing you added 4000 objects to one daemon?  That\u0027s well outside the limits of what the mapper is intended to handle (but could be made to handle more).  Have you tried 40 daemons with 100 sensors each (which is more likely in this scenario).\n\n\nI\u0027m still of the position that this is a mapper bug.  If we want to make it parse single-daemons with lots of objects, that\u0027s pretty doable to make work, we just need to pause the XML parsing, and return control to the io_context once in a while so that it can answer dbus messages in a timely manner.  That\u0027s the patch that needs added, not something that tells the user to try again later.  What if the mapper is completely locked up forever?  We shouldn\u0027t tell the user to try again later forever.\n\n\n\u003e Looks like it\u0027s some initialization phase that gets stuck with many dbus objects.\n\nWithout seeing your code, it\u0027s hard to speculate.  Can you try running your tests with this test tool? https://github.com/openbmc/openbmc-tools/tree/master/dbus_sensor_tester\nIt\u0027s likely parsing the gigantic XML that would be generated from a 4000 sensor daemon, and that takes a little time (although 2-3 minutes seems high).",
+      "parentUuid": "73894577_2b5c9ea4",
+      "range": {
+        "startLine": 10,
+        "startChar": 31,
+        "endLine": 10,
+        "endChar": 64
+      },
+      "revId": "e980fdd0e7680bfd07de9fa2e38305a1c81a0026",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
