@@ -34,6 +34,24 @@
       "parentUuid": "ccfc4b60_40ad0a55",
       "revId": "c55982d04a253274a834ffa523f68f2230b1dfd2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f84c1a6_c82912e4",
+        "filename": "http/ut/router_test.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-21T17:16:05Z",
+      "side": 1,
+      "message": "\u003e To be honest I don\u0027t like the results of IWYU script. I would rather invest in creating custom target in meson which verifies that each .hpp file is self contained.\n\n\nFWIW, I don\u0027t like them either, but here\u0027s my thinking on the issue.\n\n1. They are non-enforcing today.  We will never hold up new patchsets because they\u0027re missing an IWYU pragma or expect users to understand their usage (we maintainers will have to maintain them when we do IWYU runs, which has always been true in bmcweb).\n2. The #include additions we\u0027re adding are in fact correct to the coding standard, and I think we can all agree with that those changes on their own are good, and worth having a tool that can automate especially considering all the code it changed has been reviewed, and we missed things.\n3. It allows Nan to maintain our IWYU easier, while only adding a minor amount of ugliness to the codebase.  If at some point in the future we decide:\n - clang-include-fixer works better\n - we don\u0027t want to maintain IWYU support\n - This line of correctness isn\u0027t worthwhile.\n \nthe definitions are trivial to sed command out of the codebase and commit. \n\n4. This has zero effect on runtime code (they\u0027re just comments) so there\u0027s no chance that this effects any running code.\n \n\nFor the above reasons, I\u0027m in favor of this patch overall, even with the ugliness in the comments.\n\n\n\n\u003e I would rather invest in creating custom target in meson which verifies that each .hpp file is self contained.\n\nAgree, if there\u0027s a better way to do integration here, we should explore it (being cognizant of Nans comment about reinventing the wheel).  But, this is the patch we have now, using the effort we do have, and IF we find the time and effort to create the above custom target, the existing pragmas are trivial to remove (to the point where I\u0027m happy to create that patch), so I don\u0027t want to let good be the enemy of better here.\n\n\nSeem reasonable?",
+      "parentUuid": "52746402_bfd8ed5f",
+      "revId": "c55982d04a253274a834ffa523f68f2230b1dfd2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
