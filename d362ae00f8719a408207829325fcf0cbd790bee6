@@ -72,6 +72,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "25b98a0a_7ac0dcc7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-21T16:19:02Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "cca0033b_c3e8763c",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 4
+      },
+      "revId": "d362ae00f8719a408207829325fcf0cbd790bee6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8548d54b_1a5fb3ab",
@@ -133,6 +157,30 @@
       "side": 1,
       "message": "Yes. \n\nI didn\u0027t find routing in the Redfish spec but routing exists in this project.",
       "parentUuid": "c3914cdd_bc87970b",
+      "range": {
+        "startLine": 29,
+        "startChar": 31,
+        "endLine": 29,
+        "endChar": 59
+      },
+      "revId": "d362ae00f8719a408207829325fcf0cbd790bee6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "51ef2347_bedcf513",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-21T16:19:02Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "595dd689_471d4af5",
       "range": {
         "startLine": 29,
         "startChar": 31,
