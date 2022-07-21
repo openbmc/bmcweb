@@ -74,6 +74,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d261cefd_887f5d0c",
+        "filename": "redfish-core/include/utils/chassis_utils.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000998
+      },
+      "writtenOn": "2022-07-21T18:29:18Z",
+      "side": 1,
+      "message": "Perhaps it will be clearer if I explain what I was planning. This patch provides the common definitions needed for finding chassis. Subsequent patches would implement the following cleanup: \n1. Use getValidChassisPath where we are searching for chassis by name. (e.g https://github.com/openbmc/bmcweb/blob/a926c53e9ceb83ea5dd02f889ef6ba1f2ad358f3/redfish-core/lib/chassis.hpp#L222)\n2. Use dBusChassisInterfaces where we need the interface list for other purposes. (e.g. https://github.com/openbmc/bmcweb/blob/a926c53e9ceb83ea5dd02f889ef6ba1f2ad358f3/redfish-core/lib/chassis.hpp#L154)",
+      "parentUuid": "fba762e8_237d997d",
+      "range": {
+        "startLine": 11,
+        "startChar": 37,
+        "endLine": 11,
+        "endChar": 58
+      },
+      "revId": "287557c43ef98be315e59365af4e59659584a0b9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "651940a0_a742c368",
         "filename": "redfish-core/include/utils/chassis_utils.hpp",
         "patchSetId": 12
@@ -156,6 +180,30 @@
       "side": 1,
       "message": "\u003e get object path of given interfaces then execute callbacks.\n\nI\u0027m fine if true generalization happens in another patch.  That\u0027s actually preferred because it keeps the patchsets small and mergable.\n\n\n\u003e I agree. Ed suggested adding something to the object mapper to do this since it\u0027s more efficient to do it there. I was planning to come up with a prototype of that, but in the meantime, I think it might be easier to get this in to unblock dependencies while we figure out a more general solution.\n\nYep, pretty sure I said that and seems reasonable to me.",
       "parentUuid": "3379e7b7_07241888",
+      "range": {
+        "startLine": 22,
+        "startChar": 5,
+        "endLine": 22,
+        "endChar": 24
+      },
+      "revId": "287557c43ef98be315e59365af4e59659584a0b9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a4fdc54c_be2d301a",
+        "filename": "redfish-core/include/utils/chassis_utils.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000998
+      },
+      "writtenOn": "2022-07-21T18:29:18Z",
+      "side": 1,
+      "message": "Let\u0027s save the generalization for another patch then.",
+      "parentUuid": "5a44400d_31b14740",
       "range": {
         "startLine": 22,
         "startChar": 5,
