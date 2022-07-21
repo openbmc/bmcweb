@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4fa231c8_3e7a4a40",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-21T15:51:48Z",
+      "side": 1,
+      "message": "shall we check if $top is in the range of [0, 1000] in |queryParameterValueFormatError| now?",
+      "range": {
+        "startLine": 42,
+        "startChar": 17,
+        "endLine": 42,
+        "endChar": 34
+      },
+      "revId": "ce8ea743055f1b82c60790db40aa3295e03bdf9c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
