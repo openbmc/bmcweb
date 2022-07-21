@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fba762e8_237d997d",
+        "filename": "redfish-core/include/utils/chassis_utils.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-21T16:58:01Z",
+      "side": 1,
+      "message": "I don\u0027t quite understand the answer.  Does that cleanup need to come first then?  As-written, we\u0027re duplicating data, and in a way that\u0027s pretty doable to just have a single definition for.",
+      "parentUuid": "a51a79e1_449ea5a8",
+      "range": {
+        "startLine": 11,
+        "startChar": 37,
+        "endLine": 11,
+        "endChar": 58
+      },
+      "revId": "287557c43ef98be315e59365af4e59659584a0b9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "651940a0_a742c368",
         "filename": "redfish-core/include/utils/chassis_utils.hpp",
         "patchSetId": 12
@@ -108,6 +132,30 @@
       "side": 1,
       "message": "I agree. Ed suggested adding something to the object mapper to do this since it\u0027s more efficient to do it there. I was planning to come up with a prototype of that, but in the meantime, I think it might be easier to get this in to unblock dependencies while we figure out a more general solution.",
       "parentUuid": "9e9fd0a2_0f8ae2d4",
+      "range": {
+        "startLine": 22,
+        "startChar": 5,
+        "endLine": 22,
+        "endChar": 24
+      },
+      "revId": "287557c43ef98be315e59365af4e59659584a0b9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a44400d_31b14740",
+        "filename": "redfish-core/include/utils/chassis_utils.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-21T16:58:01Z",
+      "side": 1,
+      "message": "\u003e get object path of given interfaces then execute callbacks.\n\nI\u0027m fine if true generalization happens in another patch.  That\u0027s actually preferred because it keeps the patchsets small and mergable.\n\n\n\u003e I agree. Ed suggested adding something to the object mapper to do this since it\u0027s more efficient to do it there. I was planning to come up with a prototype of that, but in the meantime, I think it might be easier to get this in to unblock dependencies while we figure out a more general solution.\n\nYep, pretty sure I said that and seems reasonable to me.",
+      "parentUuid": "3379e7b7_07241888",
       "range": {
         "startLine": 22,
         "startChar": 5,
