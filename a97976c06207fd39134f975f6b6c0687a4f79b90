@@ -820,6 +820,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3da43469_ab2c9314",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 645,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-21T16:34:47Z",
+      "side": 1,
+      "message": "\u003e DMTF said in the current spec, implementation should omit these unless selected.\n\nYep, I was in the discussion, and they said that might not be the intent, and we spent about 2 minutes talking about it given the time constraints.  Considering that this patch has been in review for a while, and it took us 4 weeks to file the question, we need to give DMTF equal time to respond;  Waiting a little longer (I\u0027m assuming til next Tuesday) until we have the intended answer on this seems like an ok compromise.\n\nOnce we have the \"intent\" called out, we can discuss what to do with this patch, and if we want to check in this patchset as is.\n\n\nDid anyone do the testing on the interop lab to see how most other systems implemented this?",
+      "parentUuid": "de961e67_388c3d76",
+      "range": {
+        "startLine": 645,
+        "startChar": 0,
+        "endLine": 645,
+        "endChar": 69
+      },
+      "revId": "a97976c06207fd39134f975f6b6c0687a4f79b90",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f19c0fa6_dfce885f",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 5
