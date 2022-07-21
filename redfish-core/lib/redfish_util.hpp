@@ -17,6 +17,10 @@
 #ifndef BMCWEB_ENABLE_REDFISH_ONE_CHASSIS
 
 #include <dbus_utility.hpp>
+#include <sdbusplus/asio/property.hpp>
+
+#include <charconv>
+
 namespace redfish
 {
 
