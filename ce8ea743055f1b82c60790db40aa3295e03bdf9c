@@ -1,6 +1,46 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7deb44ca_6def0377",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-21T16:37:33Z",
+      "side": 1,
+      "message": "LGTM.  Need to make sure Nans questions are answered sufficiently to his liking, the I think this can go.",
+      "revId": "ce8ea743055f1b82c60790db40aa3295e03bdf9c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a91d0753_15f9f813",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-21T16:37:33Z",
+      "side": 1,
+      "message": "nit.  Feel free to ignore, because this code is still better than before, but would this parameter make more sense to put in the Query struct directly next to the top parameter?  That way it\u0027s a lot more clear what its intended use is?",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 49
+      },
+      "revId": "ce8ea743055f1b82c60790db40aa3295e03bdf9c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4fa231c8_3e7a4a40",
@@ -20,6 +60,47 @@
         "endLine": 42,
         "endChar": 34
       },
+      "revId": "ce8ea743055f1b82c60790db40aa3295e03bdf9c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "68bf3e68_27c7b069",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-21T16:37:33Z",
+      "side": 1,
+      "message": "I think it\u0027s already covered.  See check below.",
+      "parentUuid": "4fa231c8_3e7a4a40",
+      "range": {
+        "startLine": 42,
+        "startChar": 17,
+        "endLine": 42,
+        "endChar": 34
+      },
+      "revId": "ce8ea743055f1b82c60790db40aa3295e03bdf9c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c61b0a3e_0ef14af9",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-21T16:37:33Z",
+      "side": 1,
+      "message": "@Nan, we already check the range here.",
       "revId": "ce8ea743055f1b82c60790db40aa3295e03bdf9c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
