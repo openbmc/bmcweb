@@ -117,6 +117,30 @@
       },
       "revId": "554ba91d617cd911cfc6ccdeb074e045bc3b1152",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "720a797b_264afe05",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-21T00:39:15Z",
+      "side": 1,
+      "message": "\u003e \u003e 1. User boots up bmc, works great, it returns urls without main_.\n\u003e \u003e 2. User plugs in a device that has aggregation supported, and BAM suddenly all the URIs for things that didn\u0027t change now change.\n\u003e \u003e \n\u003e \u003e This doesn\u0027t really match up with the redfish \"should\" statements around stability of URI in this regard, so I don\u0027t think as stated, this is going to work.\n\u003e Alright so we can\u0027t add \"main_\" depending on if satellite configs exist.\n\u003e \n\u003e \u003e I like your thought process, and I did think about that, but it has the same problem.  User flashes their BMC with a newer openbmc that supports aggregation, and BAM, suddenly all the IDs change.\n\u003e Always adding \"main_\" seems like the only other option.  It sounds like there isn\u0027t a way to include \"main_\" in this context without breaking everything at the point aggregation becomes the default.\n\u003e \n\u003e Upsetting a lot of people would not be the only issue with always including \"main_\".  If we were to eventually add main_ by default then things will get hairy since the aggregated satellites would include main_ as well.\n\u003e  Aggregated URIs would like /redfish/v1/Chassis/aggregated0_main_someID and that\u0027s not very appealing.\n\nReason #193763 why URIs are supposed to be opaque, and not represent any actual information.\n\n\u003e \n\u003e Based on this it sounds like there isn\u0027t an avenue to add \"main_\".  Really the only reason to add main is to avoid a collision where the aggregating BMC has a resource called something like \"/redfish/v1/Chassis/aggregated0_someID\" and the satellite has a Chassis called someID.  It would also appear as \"/redfish/v1/Chassis/aggregated0_someID\".\n\n\nThat is a very valid concern, and why I would probably argue we shouldn\u0027t use \"aggregated\" either, we should use something more.... special\n\n\u003e \n\u003e I think you could make the argument that presumably you have control over the aggregating BMC so you would have to purposefully begin the name of a resource on your machine with \"aggregated0_\"\n\nYep, that\u0027s the thinking, and even that, in theory we can mitigate against.  We could just have the existing dbus collections outright reject any resources that start with whatever magic keyword we use, then there\u0027s no way you can even attack it if you were nefarious and doing it on purpose, your resources just wouldn\u0027t\u0027 show up.",
+      "parentUuid": "d4b9ffb9_8d1f6ef0",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 19
+      },
+      "revId": "554ba91d617cd911cfc6ccdeb074e045bc3b1152",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
