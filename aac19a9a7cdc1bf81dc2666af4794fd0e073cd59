@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f16c1c5_31b2d056",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-07-21T06:04:09Z",
+      "side": 1,
+      "message": "Done by put the previous 1000-entry limit back.",
+      "parentUuid": "a6620e07_9068c97f",
+      "range": {
+        "startLine": 229,
+        "startChar": 42,
+        "endLine": 229,
+        "endChar": 76
+      },
+      "revId": "aac19a9a7cdc1bf81dc2666af4794fd0e073cd59",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8493e183_e8ac3e50",
@@ -37,6 +61,24 @@
       "writtenOn": "2022-07-18T16:26:34Z",
       "side": 1,
       "message": "Can we rearrange this a little now that we have a branch anyway to something like:\n\nif (query.top \u0026\u0026 *query.top \u003e arr-\u003esize()){\n   arr-\u003eerase(arr-\u003ebegin() + static_cast\u003cssize_t\u003e(*query.top), arr-\u003eend());\n}\n\nThe point of the old code was to avoid a branch entirely.",
+      "revId": "aac19a9a7cdc1bf81dc2666af4794fd0e073cd59",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "65adc2f1_9d68e373",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 580,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-07-21T06:04:09Z",
+      "side": 1,
+      "message": "Not using std::optional any more so that this is no longer a problem",
+      "parentUuid": "8493e183_e8ac3e50",
       "revId": "aac19a9a7cdc1bf81dc2666af4794fd0e073cd59",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -150,6 +192,30 @@
       "side": 1,
       "message": "\u003e Before coding, I\u0027d like to discuss something.\n\u003e \n\u003e Previously the limit is 1000 entries per GET request, any $top value larger than 1000 will be rejected. What should the new behavior be?\n\u003e \n\u003e 1. Keep old behavior, then the std::optional here is pretty useless as the default value can simply be 1000, and it rarely overflow.\n\nI think this is the answer.\n\n\u003e 2. Let any value to be specified, but by default it would be 1000. I personally prefer this one, but users must ensure their query will not crash the BMC.\n\nThis one is a non starter.  Users are also potential attackers, and there\u0027s no way for a user to know what queries will and wont run the bmc out of resources.  We need some kind of limit here.",
       "parentUuid": "9b677b52_2179d033",
+      "range": {
+        "startLine": 3426,
+        "startChar": 12,
+        "endLine": 3426,
+        "endChar": 74
+      },
+      "revId": "aac19a9a7cdc1bf81dc2666af4794fd0e073cd59",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3d82358d_e8b76833",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 3426,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-07-21T06:04:09Z",
+      "side": 1,
+      "message": "Making the default value being 1000 no longer needs using the std::optional as $top now always has a value. Changed back to my initial patch.",
+      "parentUuid": "9d6b8207_c59ea7b7",
       "range": {
         "startLine": 3426,
         "startChar": 12,
