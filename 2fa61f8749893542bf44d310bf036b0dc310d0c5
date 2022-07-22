@@ -846,6 +846,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "03fc83bd_fbe37701",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-07-22T20:52:02Z",
+      "side": 1,
+      "message": "Reopening this for now.  I\u0027m going to revert to using string.",
+      "parentUuid": "d3087f78_da2ca02b",
+      "range": {
+        "startLine": 352,
+        "startChar": 19,
+        "endLine": 352,
+        "endChar": 26
+      },
+      "revId": "2fa61f8749893542bf44d310bf036b0dc310d0c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0eb311a1_d793b5c7",
         "filename": "redfish-core/include/redfish_aggregator.hpp",
         "patchSetId": 53
