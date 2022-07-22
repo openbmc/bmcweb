@@ -191,6 +191,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "21718a4c_7c008109",
+        "filename": "http/ut/utility_test.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-07-22T04:19:27Z",
+      "side": 1,
+      "message": "It seems like it\u0027s using INT64 for time_t, since when I printed std::numeric_limits\u003cstd::time_t\u003e::min() from within getDateTimeStdtime() it gave a value matching the INT64 min, and printing sizeof(std::time_t) gave a value of 8.  But now I have a feeling the value is getting stored into a smaller data type in an underlying function, causing the most significant bits to be chopped off and the value to become 0.",
+      "parentUuid": "ae6d2a2f_239f03dc",
+      "range": {
+        "startLine": 99,
+        "startChar": 33,
+        "endLine": 99,
+        "endChar": 72
+      },
+      "revId": "47e730a06157c21ddf60036c8572c8c4db519ab2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d0c660af_c24961c9",

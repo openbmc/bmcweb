@@ -72,6 +72,42 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "217b8219_d49392ba",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-07-22T04:19:27Z",
+      "side": 1,
+      "message": "In patchset 11 I am taking the copy-paste approach. If we go with it, does any Boost license text need to be added or do we have it somewhere already?\n\nFrom what I read and observed with bench testing, num_fractional_digits() is based on the max resolution configured by compile options (microseconds in our case), and casting doesn\u0027t help.\n\nPrint output:\nboost::posix_time::time_duration::num_fractional_digits(): 6\nboost::posix_time::milliseconds::num_fractional_digits(): 6\nboost::posix_time::microseconds::num_fractional_digits(): 6",
+      "parentUuid": "30526223_1a3124d3",
+      "revId": "4270c234f1d8575ec9388892bd3da9c28e50f779",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "84d3834f_9dd71b90",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-07-22T04:19:27Z",
+      "side": 1,
+      "message": "There are two issues in existing code that I\u0027m trying to solve as part of this patchset:\n\n1) Nonzero value fraction digits: too many fraction digits are output for timestamps intended to be millisecond-precision\n2) All-0 value fraction digits: they are truncated, which isn\u0027t what we want for timestamps that are intended to be higher precision than seconds\n\nIt looks like boost::date_time::time_facet can help us solve the second problem but not the first. Still, thanks for finding and sharing this post.",
+      "parentUuid": "bccff1a9_75496f13",
+      "revId": "4270c234f1d8575ec9388892bd3da9c28e50f779",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "17225592_f65408e6",
         "filename": "http/utility.hpp",
         "patchSetId": 10
@@ -83,6 +119,30 @@
       "writtenOn": "2022-07-19T18:22:51Z",
       "side": 1,
       "message": "I don\u0027t think this works, given that there are optional fields, and I don\u0027t beleive \u003cMM\u003e-\u003cDD\u003e are required to be zero padded.",
+      "range": {
+        "startLine": 553,
+        "startChar": 18,
+        "endLine": 553,
+        "endChar": 33
+      },
+      "revId": "4270c234f1d8575ec9388892bd3da9c28e50f779",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e93d63f0_f6a6c58f",
+        "filename": "http/utility.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 553,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-07-22T04:19:27Z",
+      "side": 1,
+      "message": "It\u0027s a moot point now with the latest patchset, but padding is required and there aren\u0027t optional fields to the left of the decimal (well maybe the \u0027T\u0027, though in practice to_iso_extended_string() always gives it to us). But it\u0027d be fair to say this kind of code is brittle.",
+      "parentUuid": "17225592_f65408e6",
       "range": {
         "startLine": 553,
         "startChar": 18,
@@ -116,6 +176,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3bb1facf_8c3ae387",
+        "filename": "http/utility.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 563,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-07-22T04:19:27Z",
+      "side": 1,
+      "message": "Updated to use the constructor.",
+      "parentUuid": "c2f465bd_e3c273b7",
+      "range": {
+        "startLine": 563,
+        "startChar": 29,
+        "endLine": 563,
+        "endChar": 59
+      },
+      "revId": "4270c234f1d8575ec9388892bd3da9c28e50f779",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "07aab98f_252e7a77",
@@ -139,6 +223,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1d4a1310_cb1988a5",
+        "filename": "http/utility.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 584,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-07-22T04:19:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "07aab98f_252e7a77",
+      "range": {
+        "startLine": 583,
+        "startChar": 1,
+        "endLine": 584,
+        "endChar": 73
+      },
+      "revId": "4270c234f1d8575ec9388892bd3da9c28e50f779",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dfb9a7ec_be46b3ac",
@@ -152,6 +260,30 @@
       "writtenOn": "2022-07-19T18:22:51Z",
       "side": 1,
       "message": "This seems a little error prone;  Is there a way we can just generate the struct we need upfront, rather than generating the wrong one, and then trying to turn it into the one we need?  It seems odd there\u0027s not a boost::posix_time overload that can do this.\n\n\nAlso, this is really odd.... if we know decimalPosition, can\u0027t we just check string[decimalPosition] \u003d\u003d \u0027.\u0027 ?",
+      "range": {
+        "startLine": 586,
+        "startChar": 0,
+        "endLine": 586,
+        "endChar": 58
+      },
+      "revId": "4270c234f1d8575ec9388892bd3da9c28e50f779",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7e600bb4_606aa580",
+        "filename": "http/utility.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 586,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-07-22T04:19:27Z",
+      "side": 1,
+      "message": "Moot point with the latest patchset, but indeed checking string[decimalPosition] would have been more straightforward. The benefit of find() is that it can tell us whether a decimal was found in an unexpected position (invalid) vs. not present at all (valid), so it depends if we need to differentiate between those cases.",
+      "parentUuid": "dfb9a7ec_be46b3ac",
       "range": {
         "startLine": 586,
         "startChar": 0,
