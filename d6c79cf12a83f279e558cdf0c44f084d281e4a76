@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c6a321c0_f1013cdb",
+        "filename": "http/utility.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 563,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-22T18:31:21Z",
+      "side": 1,
+      "message": "Given that now we have code to do the direct string conversions, can this move back to using std::chrono, per our coding standard? (legitimately asking, I\u0027m not sure) Previously we allowed boost because std::chrono didn\u0027t have a mechanism for printing iso timestamps for non, time_t based things, but if we\u0027re now writing it ourselves, I think that point might be moot, and the coding standard would say to use std::chrono?",
+      "range": {
+        "startLine": 563,
+        "startChar": 42,
+        "endLine": 563,
+        "endChar": 74
+      },
+      "revId": "d6c79cf12a83f279e558cdf0c44f084d281e4a76",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7a288e4f_f0446d19",
+        "filename": "http/utility.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 569,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-22T18:31:21Z",
+      "side": 1,
+      "message": "Why do we need this limitation?  If a user requests femtosecond precision, shouldn\u0027t we just give it to them?\n\nIf we really want to limit to milliseconds and microseconds (which might be reasonable) can this just be an\n\nenum class Precision {\n   Seconds\n   Milliseconds,\n   microseconds\n\n}\n\nto keep the type safety?",
+      "range": {
+        "startLine": 566,
+        "startChar": 0,
+        "endLine": 569,
+        "endChar": 5
+      },
+      "revId": "d6c79cf12a83f279e558cdf0c44f084d281e4a76",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8d5d560a_a0fa9bda",
+        "filename": "http/utility.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 574,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-22T18:31:21Z",
+      "side": 1,
+      "message": "Duplicated check  Remove.",
+      "range": {
+        "startLine": 574,
+        "startChar": 8,
+        "endLine": 574,
+        "endChar": 62
+      },
+      "revId": "d6c79cf12a83f279e558cdf0c44f084d281e4a76",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "083136d1_3e0b11a7",
+        "filename": "http/utility.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 576,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-22T18:31:21Z",
+      "side": 1,
+      "message": "just put\n\nreturn \"\" here\n\nand move the ostringstream construction to below.  return early is a pattern we use all over to handle this case.",
+      "range": {
+        "startLine": 576,
+        "startChar": 10,
+        "endLine": 576,
+        "endChar": 11
+      },
+      "revId": "d6c79cf12a83f279e558cdf0c44f084d281e4a76",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2827c031_ece1705a",
+        "filename": "http/utility.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 596,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-22T18:31:21Z",
+      "side": 1,
+      "message": "I\u0027m assuming you copied and pasted this, but looking at it, any idea why we can\u0027t just call setw on the existing stringstream?  It seems wasteful to construct a whole new stringstream just to then load in a value and call str() on it to load into the next stringstream.",
+      "range": {
+        "startLine": 596,
+        "startChar": 0,
+        "endLine": 596,
+        "endChar": 38
+      },
+      "revId": "d6c79cf12a83f279e558cdf0c44f084d281e4a76",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ec6061fb_2f2f4657",
+        "filename": "http/utility.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 635,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-22T18:31:21Z",
+      "side": 1,
+      "message": "Same as above.  A, do we want to limit this, and B, this check I think is now duplicated between handlers.",
+      "range": {
+        "startLine": 632,
+        "startChar": 0,
+        "endLine": 635,
+        "endChar": 5
+      },
+      "revId": "d6c79cf12a83f279e558cdf0c44f084d281e4a76",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
