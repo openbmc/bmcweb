@@ -1,0 +1,9 @@
+Verified+1: OpenBMC CI <openbmcbump-ci@yahoo.com>
+Code-Review+1: Krzysztof Grobelny <krzysztof.grobelny@intel.com>
+Code-Review+1: Nan Zhou <nanzhoumails@gmail.com>
+Code-Review+2: Ed Tanous <ed@tanous.net>
+Submitted-by: Ed Tanous <ed@tanous.net>
+Submitted-at: Fri, 22 Jul 2022 00:48:21 +0000
+Reviewed-on: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/54869
+Project: openbmc/bmcweb
+Branch: refs/heads/master
