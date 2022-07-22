@@ -40,7 +40,6 @@ namespace redfish
 {
 namespace query_param
 {
-inline constexpr size_t maxEntriesPerPage = 1000;
 
 enum class ExpandType : uint8_t
 {
@@ -60,10 +59,12 @@ struct Query
     ExpandType expandType = ExpandType::None;
 
     // Skip
-    size_t skip = 0;
+    static constexpr size_t defaultSkip = 0;
+    size_t skip = defaultSkip;
 
     // Top
-    size_t top = maxEntriesPerPage;
+    static constexpr size_t defaultTop = 1000; // Max entries a response contain
+    size_t top = defaultTop;
 };
 
 // The struct defines how resource handlers in redfish-core/lib/ can handle
@@ -112,14 +113,14 @@ inline Query delegate(const QueryCapabilities& queryCapabilities, Query& query)
     if (queryCapabilities.canDelegateTop)
     {
         delegated.top = query.top;
-        query.top = maxEntriesPerPage;
+        query.top = Query::defaultTop;
     }
 
     // delegate skip
     if (queryCapabilities.canDelegateSkip)
     {
         delegated.skip = query.skip;
-        query.skip = 0;
+        query.skip = Query::defaultSkip;
     }
     return delegated;
 }
@@ -208,7 +209,7 @@ inline QueryError getTopParam(std::string_view value, Query& query)
     }
 
     // Range check for sanity.
-    if (query.top > maxEntriesPerPage)
+    if (query.top > Query::defaultTop)
     {
         return QueryError::OutOfRange;
     }
@@ -254,7 +255,7 @@ inline std::optional<Query>
             {
                 messages::queryParameterOutOfRange(
                     res, value, "$top",
-                    "0-" + std::to_string(maxEntriesPerPage));
+                    "0-" + std::to_string(Query::defaultTop));
                 return std::nullopt;
             }
         }
@@ -631,7 +632,7 @@ inline void
         return;
     }
 
-    if (query.top <= maxEntriesPerPage || query.skip != 0)
+    if (query.top <= Query::defaultTop || query.skip != 0)
     {
         processTopAndSkip(query, intermediateResponse);
     }
