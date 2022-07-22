@@ -1167,8 +1167,7 @@ inline void requestRoutesJournalEventLogEntryCollection(App& app)
         {
             return;
         }
-        size_t top =
-            delegatedQuery.top.value_or(query_param::maxEntriesPerPage);
+        size_t top = delegatedQuery.top.value_or(query_param::Query::maxTop);
         size_t skip = delegatedQuery.skip.value_or(0);
 
         // Collections don't include the static data added by SubRoute
@@ -1896,8 +1895,7 @@ inline void requestRoutesSystemHostLoggerCollection(App& app)
         }
         // If we weren't provided top and skip limits, use the defaults.
         size_t skip = delegatedQuery.skip.value_or(0);
-        size_t top =
-            delegatedQuery.top.value_or(query_param::maxEntriesPerPage);
+        size_t top = delegatedQuery.top.value_or(query_param::Query::maxTop);
         size_t logCount = 0;
         // This vector only store the entries we want to expose that
         // control by skip and top.
@@ -2197,8 +2195,7 @@ inline void requestRoutesBMCJournalLogEntryCollection(App& app)
         }
 
         size_t skip = delegatedQuery.skip.value_or(0);
-        size_t top =
-            delegatedQuery.top.value_or(query_param::maxEntriesPerPage);
+        size_t top = delegatedQuery.top.value_or(query_param::Query::maxTop);
 
         // Collections don't include the static data added by SubRoute
         // because it has a duplicate entry for members
@@ -3509,8 +3506,7 @@ inline void requestRoutesPostCodesEntryCollection(App& app)
         asyncResp->res.jsonValue["Members"] = nlohmann::json::array();
         asyncResp->res.jsonValue["Members@odata.count"] = 0;
         size_t skip = delegatedQuery.skip.value_or(0);
-        size_t top =
-            delegatedQuery.top.value_or(query_param::maxEntriesPerPage);
+        size_t top = delegatedQuery.top.value_or(query_param::Query::maxTop);
         getCurrentBootNumber(asyncResp, skip, top);
         });
 }
