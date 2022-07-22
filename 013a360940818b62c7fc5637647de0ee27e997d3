@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "21b1312a_1a5ec56e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-07-22T06:34:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d4a6b067_9bea04ab",
+      "revId": "013a360940818b62c7fc5637647de0ee27e997d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "58f721b0_ffd0771c",
@@ -216,6 +234,30 @@
       "side": 1,
       "message": "\u003e I can separate that change from this patchset if you think it\u0027s better for this to be a pure refactoring with no behavior change.\n\nYes, please do. That will help the refactoring get in faster.",
       "parentUuid": "ce43a040_a0bb8914",
+      "range": {
+        "startLine": 350,
+        "startChar": 12,
+        "endLine": 350,
+        "endChar": 13
+      },
+      "revId": "013a360940818b62c7fc5637647de0ee27e997d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6545bf80_0c38d8fa",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-07-22T06:34:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b79d3a29_23e02919",
       "range": {
         "startLine": 350,
         "startChar": 12,
