@@ -33,6 +33,23 @@
       "message": "I agree with you that the mapper call in requestRoutesSensor() is repeated later in the code, which is inefficient.\n\nWorse yet, in reading the code, requestRoutesSensor() ignores the chassis that was specified in the Redfish URI.  For example, you can specify `/redfish/v1/Chassis/chassis_that_does_not_exist/Sensors/\u003cvalid_sensor_name\u003e` and it works fine.  It should first check that the chassis is valid, then find sensors associated with that chassis via the `all_sensors` association, and then find the D-Bus sensor that matches the sensor base name in the URI.  You didn\u0027t add that bug; I just noticed it during this review.\n\nAlmost all of that validation logic is already implemented, so we don\u0027t want to copy/paste it.  I would suggest making a simpler change than the one you have here.  It would solve the efficiency problem and also the invalid chassis bug.\n\n* Add a sensorName field to the SensorsAsyncResp struct.  The struct represents the current Redfish request, and it already contains the chassisId from the Redfish URI.  You could add a std::string sensorName field that defaults to \"\".  This would represent the sensor ID (if any) specified in the Redfish URI.\n\n* In requestRoutesSensor(), set the new sensorName field in the SensorsAsyncResp to the sensor name in the Redfish URI.  Then call getChassisData() just like the old Power and Thermal schemas do.  You can get rid of almost all the other code in requestRoutesSensor().\n\n* In reduceSensorList(), it already reduces the set of chassis sensors to those that match the `types` field in the SensorsAsyncResp.  That was how the old Power and Thermal schemas returned only the sensors of the correct type within the chassis.  Make a small change to this function to also check the sensorName field in the SensorsAsyncResp.  If it is not \"\", then only use the sensor (store it in activeSensors) if it has the correct name.  This will essentially reduce the sensor list to one element.\n\n* The only thing missing would be a check in requestRoutesSensor() that we found the specified sensor, with an error if we didn\u0027t.  Hopefully would just be a few lines total of code changes.",
       "revId": "297398c7f728b927b50ad9dae15afea907934302",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "82b5a279_4742cc8b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-07-22T13:36:46Z",
+      "side": 1,
+      "message": "This change needs rebase or to be marked as abandoned",
+      "revId": "297398c7f728b927b50ad9dae15afea907934302",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
