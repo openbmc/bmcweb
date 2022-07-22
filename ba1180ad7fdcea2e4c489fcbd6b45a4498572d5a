@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d88e1363_a9981d68",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-22T00:21:11Z",
+      "side": 1,
+      "message": "Loving the cleanup.  Looks good except for the tidy stuff.",
+      "revId": "ba1180ad7fdcea2e4c489fcbd6b45a4498572d5a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "be2078d5_b0f58566",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 642,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-22T00:21:11Z",
+      "side": 1,
+      "message": "clang-tidy flagged this.  put this as /* chassisId */\n\nFWIW, this would\u0027ve probably caught the bug below where the code basically ignores the chassis id.",
+      "revId": "ba1180ad7fdcea2e4c489fcbd6b45a4498572d5a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
