@@ -40,10 +40,23 @@ struct Response
     Response() : stringResponse(response_type{})
     {}
 
+    Response(Response&& res) noexcept :
+        stringResponse(std::move(res.stringResponse)), completed(res.completed)
+    {
+        jsonValue = std::move(res.jsonValue);
+        // See note in operator= move handler for why this is needed.
+        if (!res.completed)
+        {
+            completeRequestHandler = std::move(res.completeRequestHandler);
+            res.completeRequestHandler = nullptr;
+        }
+        isAliveHelper = res.isAliveHelper;
+        res.isAliveHelper = nullptr;
+    }
+
     ~Response() = default;
 
     Response(const Response&) = delete;
-    Response(Response&&) = delete;
 
     Response& operator=(const Response& r) = delete;
 
@@ -58,10 +71,23 @@ struct Response
         stringResponse = std::move(r.stringResponse);
         r.stringResponse.emplace(response_type{});
         jsonValue = std::move(r.jsonValue);
+
+        // Only need to move completion handler if not already completed
+        // Note, there are cases where we might move out of a Response object
+        // while in a completion handler for that response object.  This check
+        // is intended to prevent destructing the functor we are currently
+        // executing from in that case.
+        if (!r.completed)
+        {
+            completeRequestHandler = std::move(r.completeRequestHandler);
+            r.completeRequestHandler = nullptr;
+        }
+        else
+        {
+            completeRequestHandler = nullptr;
+        }
         completed = r.completed;
-        completeRequestHandler = std::move(r.completeRequestHandler);
         isAliveHelper = std::move(r.isAliveHelper);
-        r.completeRequestHandler = nullptr;
         r.isAliveHelper = nullptr;
         return *this;
     }
@@ -160,6 +186,10 @@ struct Response
     {
         BMCWEB_LOG_DEBUG << this << " setting completion handler";
         completeRequestHandler = std::move(handler);
+
+        // Now that we have a new completion handler attached, we're no longer
+        // complete
+        completed = false;
     }
 
     std::function<void(Response&)> releaseCompleteRequestHandler()
@@ -168,6 +198,7 @@ struct Response
                          << static_cast<bool>(completeRequestHandler);
         std::function<void(Response&)> ret = completeRequestHandler;
         completeRequestHandler = nullptr;
+        completed = true;
         return ret;
     }
 
