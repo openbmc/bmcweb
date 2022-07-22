@@ -16,6 +16,8 @@ class AsyncResp
 {
   public:
     AsyncResp() = default;
+    explicit AsyncResp(crow::Response&& resIn) : res(std::move(resIn))
+    {}
 
     AsyncResp(const AsyncResp&) = delete;
     AsyncResp(AsyncResp&&) = delete;
