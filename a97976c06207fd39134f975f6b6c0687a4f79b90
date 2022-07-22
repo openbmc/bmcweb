@@ -844,6 +844,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5c5ef43b_8d9ce64b",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 645,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-22T16:22:33Z",
+      "side": 1,
+      "message": "\u003e Did anyone do the testing on the interop lab to see how most other systems implemented this?\n\nThese three companies implement $select: Lenovo, HPE, and Dell. All of them have the same behavior: these annotations are omitted unless selected explicitly.\n\n```\n/redfish/v1/Systems/1?$select\u003dBoot\n{\n    \"@odata.context\": \"/redfish/v1/$metadata#ComputerSystem.ComputerSystem\",\n    \"@odata.id\": \"/redfish/v1/Systems/System.Embedded.1\",\n    \"@odata.type\": \"#ComputerSystem.v1_10_0.ComputerSystem\",\n    \"Boot\": {\n        \"BootOptions\": {\n            \"@odata.id\": \"/redfish/v1/Systems/System.Embedded.1/BootOptions\"\n        },\n        \"Certificates\": {\n            \"@odata.id\": \"/redfish/v1/Systems/System.Embedded.1/Boot/Certificates\"\n        },\n        \"BootOrder\": [\n            \"Boot0005\",\n            \"Boot0000\",\n            \"Boot0001\"\n        ],\n        \"BootOrder@odata.count\": 3,\n        \"BootSourceOverrideEnabled\": \"Disabled\",\n        \"BootSourceOverrideMode\": \"UEFI\",\n        \"BootSourceOverrideTarget\": \"None\",\n        \"UefiTargetBootSourceOverride\": null,\n        \"BootSourceOverrideTarget@Redfish.AllowableValues\": [\n            \"None\",\n            \"Pxe\",\n            \"Floppy\",\n            \"Cd\",\n            \"Hdd\",\n            \"BiosSetup\",\n            \"Utilities\",\n            \"UefiTarget\",\n            \"SDCard\",\n            \"UefiHttp\"\n        ]\n    }\n}\n\n/redfish/v1/Systems/System.Embedded.1?$select\u003dBoot/BootSourceOverrideTarget\n{\n    \"@odata.context\": \"/redfish/v1/$metadata#ComputerSystem.ComputerSystem\",\n    \"@odata.id\": \"/redfish/v1/Systems/System.Embedded.1\",\n    \"@odata.type\": \"#ComputerSystem.v1_10_0.ComputerSystem\",\n    \"Boot\": {\n        \"BootSourceOverrideTarget\": \"None\"\n    }\n}\n\n```",
+      "parentUuid": "3da43469_ab2c9314",
+      "range": {
+        "startLine": 645,
+        "startChar": 0,
+        "endLine": 645,
+        "endChar": 69
+      },
+      "revId": "a97976c06207fd39134f975f6b6c0687a4f79b90",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f19c0fa6_dfce885f",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 5
