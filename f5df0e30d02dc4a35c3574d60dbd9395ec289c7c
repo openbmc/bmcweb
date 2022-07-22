@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d1429f2e_aa89703b",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 494,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-07-22T13:24:58Z",
+      "side": 1,
+      "message": "Either complete this todo in this change or remove property from this change.",
+      "range": {
+        "startLine": 494,
+        "startChar": 20,
+        "endLine": 494,
+        "endChar": 59
+      },
+      "revId": "f5df0e30d02dc4a35c3574d60dbd9395ec289c7c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

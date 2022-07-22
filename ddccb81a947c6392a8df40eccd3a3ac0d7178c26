@@ -49,6 +49,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "173bf1cd_b6a7df22",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-07-22T13:24:58Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "cad800c5_367271a1",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 25
+      },
+      "revId": "ddccb81a947c6392a8df40eccd3a3ac0d7178c26",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "21e8f6bf_53133eaf",
         "filename": "redfish-core/lib/event_service.hpp",
         "patchSetId": 2
