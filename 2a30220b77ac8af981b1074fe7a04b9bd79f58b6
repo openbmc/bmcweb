@@ -3,6 +3,23 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "d560e36f_6f518c43",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-22T00:50:37Z",
+      "side": 1,
+      "message": "We\u0027ve discussed this transition heavily in the past, I\u0027ve reviewed the code, and it looks mechanical and correct to me.\n\nAs always, happy to discuss, but given that these cause bad merge conflicts if they sit around too long.  Merging quickly.",
+      "revId": "2a30220b77ac8af981b1074fe7a04b9bd79f58b6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "4d459840_8a8ee31b",
         "filename": "redfish-core/lib/chassis_test.cpp",
         "patchSetId": 2
