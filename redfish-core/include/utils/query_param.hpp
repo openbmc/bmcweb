@@ -49,7 +49,6 @@ namespace redfish
 {
 namespace query_param
 {
-inline constexpr size_t maxEntriesPerPage = 1000;
 
 enum class ExpandType : uint8_t
 {
@@ -178,6 +177,7 @@ struct Query
     std::optional<size_t> skip = std::nullopt;
 
     // Top
+    static constexpr size_t maxTop = 1000; // Max entries a response contain
     std::optional<size_t> top = std::nullopt;
 
     // Select
@@ -334,7 +334,7 @@ inline QueryError getTopParam(std::string_view value, Query& query)
     }
 
     // Range check for sanity.
-    if (query.top > maxEntriesPerPage)
+    if (query.top > Query::maxTop)
     {
         return QueryError::OutOfRange;
     }
@@ -411,8 +411,7 @@ inline std::optional<Query>
             if (topRet == QueryError::OutOfRange)
             {
                 messages::queryParameterOutOfRange(
-                    res, value, "$top",
-                    "0-" + std::to_string(maxEntriesPerPage));
+                    res, value, "$top", "0-" + std::to_string(Query::maxTop));
                 return std::nullopt;
             }
         }
