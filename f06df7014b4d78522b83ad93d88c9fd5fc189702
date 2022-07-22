@@ -330,6 +330,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "12c561ae_f7181ae4",
+        "filename": "redfish-core/include/privileges.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-07-22T12:46:02Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "20ebf02d_b19f800c",
+      "range": {
+        "startLine": 89,
+        "startChar": 61,
+        "endLine": 89,
+        "endChar": 65
+      },
+      "revId": "f06df7014b4d78522b83ad93d88c9fd5fc189702",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dd807daa_6e8122cc",
@@ -461,6 +485,30 @@
       "side": 1,
       "message": "See above.  This was this way before, I\u0027d rather not fix it in this commit, which is largely automated.",
       "parentUuid": "880fec4e_68c82b79",
+      "range": {
+        "startLine": 719,
+        "startChar": 54,
+        "endLine": 719,
+        "endChar": 57
+      },
+      "revId": "f06df7014b4d78522b83ad93d88c9fd5fc189702",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "75d64035_8cc060cd",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 719,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-07-22T12:46:02Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "771e139c_137269bd",
       "range": {
         "startLine": 719,
         "startChar": 54,
