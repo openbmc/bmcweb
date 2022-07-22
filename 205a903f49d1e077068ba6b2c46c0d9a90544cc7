@@ -91,6 +91,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2071413d_4dea0b11",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-07-22T20:46:27Z",
+      "side": 1,
+      "message": "\u003e \u003e 2) Modify the response\u0027s completion handler so that it fixes the links before calling the original completion handler function.\n\u003e (in the voice of the Mandalorian) This is the way.\nI\u0027ll use this approach if we need to add \"main_\".  Based on the conversations in other threads it sounds like we\u0027ve going to avoid using \"main_\" entirely.  The patchset will become abandoned in that scenario",
+      "parentUuid": "206609d1_52dc18a4",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 0
+      },
+      "revId": "205a903f49d1e077068ba6b2c46c0d9a90544cc7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8d186732_94080906",
         "filename": "redfish-core/include/redfish_aggregator.hpp",
         "patchSetId": 1
@@ -150,6 +174,30 @@
       "side": 1,
       "message": "I think we talked through the above on chat, but if you still need an answer to this, let me know.",
       "parentUuid": "c1793a31_081d8c7a",
+      "range": {
+        "startLine": 321,
+        "startChar": 0,
+        "endLine": 324,
+        "endChar": 91
+      },
+      "revId": "205a903f49d1e077068ba6b2c46c0d9a90544cc7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a955668b_405cdfc9",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-07-22T20:46:27Z",
+      "side": 1,
+      "message": "Yeah we\u0027ve talked it through and I\u0027m good with the approach.  I\u0027m going to leave this open until the patchset gets updated to remove this.\n\nFor reference, this is the patch that will address recognizing valid collections that are not currently supported by BMCWeb: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/55215",
+      "parentUuid": "0618c51c_641bbab3",
       "range": {
         "startLine": 321,
         "startChar": 0,
