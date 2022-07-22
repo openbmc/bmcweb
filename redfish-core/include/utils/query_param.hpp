@@ -361,7 +361,8 @@ inline void findNavigationReferencesRecursive(
         for (auto& element : *array)
         {
             nlohmann::json::json_pointer newPtr = p / index;
-            BMCWEB_LOG_DEBUG << "Traversing response at " << newPtr.to_string();
+            BMCWEB_LOG_DEBUG << "Traversing response at \""
+                             << newPtr.to_string() << "\"";
             findNavigationReferencesRecursive(eType, element, newPtr, inLinks,
                                               out);
             index++;
