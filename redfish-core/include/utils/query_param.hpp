@@ -621,6 +621,7 @@ inline void
         auto asyncResp = std::make_shared<bmcweb::AsyncResp>();
         asyncResp->res.setCompleteRequestHandler(std::move(completionHandler));
         asyncResp->res.jsonValue = std::move(intermediateResponse.jsonValue);
+        asyncResp->res.stringResponse = std::move(intermediateResponse.stringResponse);
         auto multi = std::make_shared<MultiAsyncResp>(app, asyncResp);
 
         multi->startQuery(query);
