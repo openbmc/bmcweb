@@ -219,6 +219,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ba76ac39_13496a81",
+        "filename": "redfish-core/lib/health.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-07-22T12:53:12Z",
+      "side": 1,
+      "message": "Consider multiple users sending requests at same time. Most of them are forwarded to dedicated services that do the work and bmcweb send response when request is completed.\n\nWith blocking call like here other bmcweb users will be blocked, some of the requests may timeout, so basically this change all other bmcweb code to misbehave.\n\nIf you need to perform this requests in order you need to nest async_method_call\u0027s like in other places in bmcweb.",
+      "parentUuid": "4dd3cc21_d65e3251",
+      "range": {
+        "startLine": 297,
+        "startChar": 0,
+        "endLine": 297,
+        "endChar": 52
+      },
+      "revId": "46ef9b2b93edf8b3f4b470829023e81a07476aeb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c0d339ba_965fac38",
         "filename": "redfish-core/lib/health.hpp",
         "patchSetId": 2
