@@ -40,7 +40,6 @@ namespace redfish
 {
 namespace query_param
 {
-inline constexpr size_t maxEntriesPerPage = 1000;
 
 enum class ExpandType : uint8_t
 {
@@ -63,7 +62,8 @@ struct Query
     size_t skip = 0;
 
     // Top
-    size_t top = maxEntriesPerPage;
+    static constexpr size_t maxTop = 1000; // Max entries a response contains
+    size_t top = maxTop;
 };
 
 // The struct defines how resource handlers in redfish-core/lib/ can handle
@@ -112,7 +112,7 @@ inline Query delegate(const QueryCapabilities& queryCapabilities, Query& query)
     if (queryCapabilities.canDelegateTop)
     {
         delegated.top = query.top;
-        query.top = maxEntriesPerPage;
+        query.top = Query::maxTop;
     }
 
     // delegate skip
@@ -208,7 +208,7 @@ inline QueryError getTopParam(std::string_view value, Query& query)
     }
 
     // Range check for sanity.
-    if (query.top > maxEntriesPerPage)
+    if (query.top > Query::maxTop)
     {
         return QueryError::OutOfRange;
     }
@@ -253,8 +253,7 @@ inline std::optional<Query>
             if (topRet == QueryError::OutOfRange)
             {
                 messages::queryParameterOutOfRange(
-                    res, value, "$top",
-                    "0-" + std::to_string(maxEntriesPerPage));
+                    res, value, "$top", "0-" + std::to_string(Query::maxTop));
                 return std::nullopt;
             }
         }
@@ -631,7 +630,7 @@ inline void
         return;
     }
 
-    if (query.top <= maxEntriesPerPage || query.skip != 0)
+    if (query.top <= Query::maxTop || query.skip != 0)
     {
         processTopAndSkip(query, intermediateResponse);
     }
