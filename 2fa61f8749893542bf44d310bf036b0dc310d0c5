@@ -1437,6 +1437,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0987d834_f00107cf",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 460,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-22T04:06:13Z",
+      "side": 1,
+      "message": "I forgot this is public, and that\u0027s why it\u0027s here.  Fine as is.",
+      "parentUuid": "75279307_dec9e223",
+      "range": {
+        "startLine": 460,
+        "startChar": 8,
+        "endLine": 460,
+        "endChar": 24
+      },
+      "revId": "2fa61f8749893542bf44d310bf036b0dc310d0c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "54d26932_7f9fffc2",

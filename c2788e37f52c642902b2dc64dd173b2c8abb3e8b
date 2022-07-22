@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "23b3b164_eacd0231",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 66
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-22T04:06:13Z",
+      "side": 1,
+      "message": "Sorry, didn\u0027t realize you did this, but I suspect that\u0027s not going to work.  std::string_view is non-owning, so you can\u0027t keep references past their lifetime.",
+      "range": {
+        "startLine": 48,
+        "startChar": 33,
+        "endLine": 48,
+        "endChar": 49
+      },
+      "revId": "c2788e37f52c642902b2dc64dd173b2c8abb3e8b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
