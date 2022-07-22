@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "73c42a7e_18ec2706",
         "filename": "/COMMIT_MSG",
@@ -20,10 +21,10 @@
         "endChar": 24
       },
       "revId": "327d90d96a32c03578c4c1103f4c94f328d8e596",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "2f4484d7_9cd57574",
         "filename": "/COMMIT_MSG",
@@ -44,10 +45,10 @@
         "endChar": 24
       },
       "revId": "327d90d96a32c03578c4c1103f4c94f328d8e596",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "0591b379_858548ba",
         "filename": "/COMMIT_MSG",
@@ -68,10 +69,10 @@
         "endChar": 24
       },
       "revId": "327d90d96a32c03578c4c1103f4c94f328d8e596",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "7d25e65d_26eb44ec",
         "filename": "/COMMIT_MSG",
@@ -92,10 +93,10 @@
         "endChar": 24
       },
       "revId": "327d90d96a32c03578c4c1103f4c94f328d8e596",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "8ee24af0_2dc765ad",
         "filename": "include/dbus_monitor.hpp",
@@ -115,10 +116,10 @@
         "endChar": 15
       },
       "revId": "327d90d96a32c03578c4c1103f4c94f328d8e596",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "53c1fd1d_7a0bd8ee",
         "filename": "include/dbus_monitor.hpp",
@@ -139,10 +140,34 @@
         "endChar": 15
       },
       "revId": "327d90d96a32c03578c4c1103f4c94f328d8e596",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f9c0e87_385de46e",
+        "filename": "include/dbus_monitor.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-22T15:16:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "53c1fd1d_7a0bd8ee",
+      "range": {
+        "startLine": 25,
+        "startChar": 7,
+        "endLine": 25,
+        "endChar": 15
+      },
+      "revId": "327d90d96a32c03578c4c1103f4c94f328d8e596",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "0d3e9e4a_b1e34a5e",
         "filename": "include/ibm/locks.hpp",
@@ -156,10 +181,10 @@
       "side": 1,
       "message": "Order likely doesn\u0027t matter.",
       "revId": "327d90d96a32c03578c4c1103f4c94f328d8e596",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "ec7d0766_ddd5cd43",
         "filename": "include/nbd_proxy.hpp",
@@ -179,10 +204,10 @@
         "endChar": 75
       },
       "revId": "327d90d96a32c03578c4c1103f4c94f328d8e596",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "acbeb3a9_7a9c697b",
         "filename": "include/nbd_proxy.hpp",
@@ -203,10 +228,10 @@
         "endChar": 75
       },
       "revId": "327d90d96a32c03578c4c1103f4c94f328d8e596",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "43132ff3_124fd5a1",
         "filename": "include/nbd_proxy.hpp",
@@ -227,10 +252,10 @@
         "endChar": 75
       },
       "revId": "327d90d96a32c03578c4c1103f4c94f328d8e596",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "95836595_1b84ff2a",
         "filename": "redfish-core/include/privileges.hpp",
@@ -250,10 +275,10 @@
         "endChar": 37
       },
       "revId": "327d90d96a32c03578c4c1103f4c94f328d8e596",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "b87249db_d82c5f70",
         "filename": "redfish-core/include/privileges.hpp",
@@ -274,10 +299,10 @@
         "endChar": 37
       },
       "revId": "327d90d96a32c03578c4c1103f4c94f328d8e596",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "9fdf3c14_7712b2fd",
         "filename": "redfish-core/lib/ethernet.hpp",
@@ -291,10 +316,10 @@
       "side": 1,
       "message": "This is a pretty awesome type. 😞",
       "revId": "327d90d96a32c03578c4c1103f4c94f328d8e596",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "40fcb189_1736977d",
         "filename": "redfish-core/lib/ethernet.hpp",
@@ -309,10 +334,10 @@
       "message": "GetManagedObjects is a horrifying call to do.  If it didn\u0027t literally triple the performance of some of the endpoints, I would never advocate using it.\n\nIn the previous patches in the series I\u0027m starting to get all of these at least using common types so that we can start to consolidate them and hopefully apply some sanity to some of them.",
       "parentUuid": "9fdf3c14_7712b2fd",
       "revId": "327d90d96a32c03578c4c1103f4c94f328d8e596",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "c53c46ed_46ab8eb7",
         "filename": "redfish-core/lib/log_services.hpp",
@@ -332,10 +357,10 @@
         "endChar": 28
       },
       "revId": "327d90d96a32c03578c4c1103f4c94f328d8e596",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "226bb8d7_8d6f82dd",
         "filename": "redfish-core/lib/log_services.hpp",
@@ -356,8 +381,7 @@
         "endChar": 28
       },
       "revId": "327d90d96a32c03578c4c1103f4c94f328d8e596",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
