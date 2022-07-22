@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "dba60165_d8a7c104",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-22T01:42:56Z",
+      "side": 1,
+      "message": "Yeah, I didn\u0027t actually intend for the first part of the patch content to be in a single patch, but yes, you\u0027re right, more detail is required here.\n\nACK.",
+      "parentUuid": "c336654e_fd6f5a52",
+      "revId": "2b3a0fff8d85afef546dcdac54bab23b8846f152",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "38646d46_7d286370",
         "filename": "redfish-core/lib/virtual_media.hpp",
         "patchSetId": 8
@@ -31,6 +49,30 @@
       "writtenOn": "2022-07-20T01:10:25Z",
       "side": 1,
       "message": "Wait, this line of change doesn\u0027t break code?",
+      "range": {
+        "startLine": 565,
+        "startChar": 22,
+        "endLine": 565,
+        "endChar": 35
+      },
+      "revId": "2b3a0fff8d85afef546dcdac54bab23b8846f152",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f1294862_e627b7bf",
+        "filename": "redfish-core/lib/virtual_media.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 565,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-22T01:42:56Z",
+      "side": 1,
+      "message": "I don\u0027t think so (can\u0027t test because of no backend), because FormatterFunc is a template already, and the existing code was already passing in a pointer, just the type wasn\u0027t called out in the type, and so the value got copied.  This changes it into a function pointer, which doesn\u0027t need copied.",
+      "parentUuid": "38646d46_7d286370",
       "range": {
         "startLine": 565,
         "startChar": 22,
