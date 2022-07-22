@@ -841,14 +841,11 @@ inline void
     if (query.expandType != ExpandType::None)
     {
         BMCWEB_LOG_DEBUG << "Executing expand query";
-        // TODO(ed) this is a copy of the response object.  Admittedly,
-        // we're inherently doing something inefficient, but we shouldn't
-        // have to do a full copy
-        auto asyncResp = std::make_shared<bmcweb::AsyncResp>();
-        asyncResp->res.setCompleteRequestHandler(std::move(completionHandler));
-        asyncResp->res.jsonValue = std::move(intermediateResponse.jsonValue);
-        auto multi = std::make_shared<MultiAsyncResp>(app, asyncResp);
+        auto asyncResp = std::make_shared<bmcweb::AsyncResp>(
+            std::move(intermediateResponse));
 
+        asyncResp->res.setCompleteRequestHandler(std::move(completionHandler));
+        auto multi = std::make_shared<MultiAsyncResp>(app, asyncResp);
         multi->startQuery(query);
         return;
     }
