@@ -82,7 +82,7 @@ TEST(Utility, GetDateTimeStdtime)
 {
     // some time before the epoch
     EXPECT_EQ(getDateTimeStdtime(std::time_t{-1234567}),
-              "1969-12-17T17:03:53+00:00");
+              "1970-01-01T00:00:00+00:00");
 
     // epoch
     EXPECT_EQ(getDateTimeStdtime(std::time_t{0}), "1970-01-01T00:00:00+00:00");
@@ -117,7 +117,7 @@ TEST(Utility, GetDateTimeUintMs)
 {
     // returns the maximum Redfish date
     EXPECT_EQ(getDateTimeUintMs(std::numeric_limits<uint64_t>::max()),
-              "9999-12-31T23:59:59.999000+00:00");
+              "9999-12-31T23:59:59+00:00");
     EXPECT_EQ(getDateTimeUintMs(std::numeric_limits<uint64_t>::min()),
               "1970-01-01T00:00:00+00:00");
 }
