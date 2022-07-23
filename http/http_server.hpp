@@ -9,7 +9,6 @@
 #include <boost/asio/ssl/context.hpp>
 #include <boost/asio/steady_timer.hpp>
 #include <boost/beast/ssl/ssl_stream.hpp>
-#include <boost/date_time/posix_time/posix_time.hpp>
 #include <ssl_key_handler.hpp>
 
 #include <atomic>
