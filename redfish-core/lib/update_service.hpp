@@ -28,8 +28,8 @@ namespace redfish
 {
 
 // Match signals added on software path
-static std::unique_ptr<sdbusplus::bus::match::match> fwUpdateMatcher;
-static std::unique_ptr<sdbusplus::bus::match::match> fwUpdateErrorMatcher;
+static std::unique_ptr<sdbusplus::bus::match_t> fwUpdateMatcher;
+static std::unique_ptr<sdbusplus::bus::match_t> fwUpdateErrorMatcher;
 // Only allow one update at a time
 static bool fwUpdateInProgress = false;
 // Timer for software available
@@ -63,8 +63,7 @@ inline static void activateImage(const std::string& objPath,
 // then no asyncResp updates will occur
 static void
     softwareInterfaceAdded(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                           sdbusplus::message::message& m,
-                           task::Payload&& payload)
+                           sdbusplus::message_t& m, task::Payload&& payload)
 {
     dbus::utility::DBusInteracesMap interfacesProperties;
 
@@ -120,7 +119,7 @@ static void
                     std::shared_ptr<task::TaskData> task =
                         task::TaskData::createTask(
                             [](boost::system::error_code ec,
-                               sdbusplus::message::message& msg,
+                               sdbusplus::message_t& msg,
                                const std::shared_ptr<task::TaskData>&
                                    taskData) {
                         if (ec)
@@ -296,26 +295,25 @@ static void monitorForSoftwareAvailable(
         }
     });
     task::Payload payload(req);
-    auto callback =
-        [asyncResp, payload](sdbusplus::message::message& m) mutable {
+    auto callback = [asyncResp, payload](sdbusplus::message_t& m) mutable {
         BMCWEB_LOG_DEBUG << "Match fired";
         softwareInterfaceAdded(asyncResp, m, std::move(payload));
     };
 
     fwUpdateInProgress = true;
 
-    fwUpdateMatcher = std::make_unique<sdbusplus::bus::match::match>(
+    fwUpdateMatcher = std::make_unique<sdbusplus::bus::match_t>(
         *crow::connections::systemBus,
         "interface='org.freedesktop.DBus.ObjectManager',type='signal',"
         "member='InterfacesAdded',path='/xyz/openbmc_project/software'",
         callback);
 
-    fwUpdateErrorMatcher = std::make_unique<sdbusplus::bus::match::match>(
+    fwUpdateErrorMatcher = std::make_unique<sdbusplus::bus::match_t>(
         *crow::connections::systemBus,
         "interface='org.freedesktop.DBus.ObjectManager',type='signal',"
         "member='InterfacesAdded',"
         "path='/xyz/openbmc_project/logging'",
-        [asyncResp, url](sdbusplus::message::message& m) {
+        [asyncResp, url](sdbusplus::message_t& m) {
         std::vector<std::pair<std::string, dbus::utility::DBusPropertiesMap>>
             interfacesProperties;
         sdbusplus::message::object_path objPath;

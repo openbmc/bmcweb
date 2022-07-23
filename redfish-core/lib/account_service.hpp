@@ -1584,7 +1584,7 @@ inline void handleAccountCollectionPost(
 
         crow::connections::systemBus->async_method_call(
             [asyncResp, username, password](const boost::system::error_code ec2,
-                                            sdbusplus::message::message& m) {
+                                            sdbusplus::message_t& m) {
             if (ec2)
             {
                 userErrorMessageHandler(m.get_error(), asyncResp, username, "");
@@ -1900,8 +1900,7 @@ inline void
     crow::connections::systemBus->async_method_call(
         [asyncResp, username, password(std::move(password)),
          roleId(std::move(roleId)), enabled, newUser{std::string(*newUserName)},
-         locked](const boost::system::error_code ec,
-                 sdbusplus::message::message& m) {
+         locked](const boost::system::error_code ec, sdbusplus::message_t& m) {
         if (ec)
         {
             userErrorMessageHandler(m.get_error(), asyncResp, newUser,

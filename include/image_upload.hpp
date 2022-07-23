@@ -16,7 +16,7 @@ namespace crow
 namespace image_upload
 {
 
-static std::unique_ptr<sdbusplus::bus::match::match> fwUpdateMatcher;
+static std::unique_ptr<sdbusplus::bus::match_t> fwUpdateMatcher;
 
 inline void
     uploadImageHandler(const crow::Request& req,
@@ -57,8 +57,8 @@ inline void
         asyncResp->res.jsonValue["status"] = "error";
     };
 
-    std::function<void(sdbusplus::message::message&)> callback =
-        [asyncResp](sdbusplus::message::message& m) {
+    std::function<void(sdbusplus::message_t&)> callback =
+        [asyncResp](sdbusplus::message_t& m) {
         BMCWEB_LOG_DEBUG << "Match fired";
 
         sdbusplus::message::object_path path;
@@ -84,7 +84,7 @@ inline void
             fwUpdateMatcher = nullptr;
         }
     };
-    fwUpdateMatcher = std::make_unique<sdbusplus::bus::match::match>(
+    fwUpdateMatcher = std::make_unique<sdbusplus::bus::match_t>(
         *crow::connections::systemBus,
         "interface='org.freedesktop.DBus.ObjectManager',type='signal',"
         "member='InterfacesAdded',path='/xyz/openbmc_project/software'",

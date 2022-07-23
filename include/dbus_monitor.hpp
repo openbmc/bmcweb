@@ -18,7 +18,7 @@ namespace dbus_monitor
 
 struct DbusWebsocketSession
 {
-    std::vector<std::unique_ptr<sdbusplus::bus::match::match>> matches;
+    std::vector<std::unique_ptr<sdbusplus::bus::match_t>> matches;
     boost::container::flat_set<std::string, std::less<>,
                                std::vector<std::string>>
         interfaces;
@@ -44,7 +44,7 @@ inline int onPropertyUpdate(sd_bus_message* m, void* userdata,
         BMCWEB_LOG_ERROR << "Couldn't find dbus connection " << connection;
         return 0;
     }
-    sdbusplus::message::message message(m);
+    sdbusplus::message_t message(m);
     nlohmann::json json;
     json["event"] = message.get_member();
     json["path"] = message.get_path();
@@ -206,7 +206,7 @@ inline void requestRoutes(App& app)
                 BMCWEB_LOG_DEBUG << "Creating match " << propertiesMatchString;
 
                 thisSession.matches.emplace_back(
-                    std::make_unique<sdbusplus::bus::match::match>(
+                    std::make_unique<sdbusplus::bus::match_t>(
                         *crow::connections::systemBus, propertiesMatchString,
                         onPropertyUpdate, &conn));
             }
@@ -229,7 +229,7 @@ inline void requestRoutes(App& app)
                     ifaceMatchString += "'";
                     BMCWEB_LOG_DEBUG << "Creating match " << ifaceMatchString;
                     thisSession.matches.emplace_back(
-                        std::make_unique<sdbusplus::bus::match::match>(
+                        std::make_unique<sdbusplus::bus::match_t>(
                             *crow::connections::systemBus, ifaceMatchString,
                             onPropertyUpdate, &conn));
                 }
@@ -243,7 +243,7 @@ inline void requestRoutes(App& app)
                  "member='InterfacesAdded'");
             BMCWEB_LOG_DEBUG << "Creating match " << objectManagerMatchString;
             thisSession.matches.emplace_back(
-                std::make_unique<sdbusplus::bus::match::match>(
+                std::make_unique<sdbusplus::bus::match_t>(
                     *crow::connections::systemBus, objectManagerMatchString,
                     onPropertyUpdate, &conn));
         }

@@ -938,7 +938,7 @@ inline int convertJsonToDbus(sd_bus_message* m, const std::string& argType,
 }
 
 template <typename T>
-int readMessageItem(const std::string& typeCode, sdbusplus::message::message& m,
+int readMessageItem(const std::string& typeCode, sdbusplus::message_t& m,
                     nlohmann::json& data)
 {
     T value;
@@ -955,11 +955,11 @@ int readMessageItem(const std::string& typeCode, sdbusplus::message::message& m,
     return 0;
 }
 
-int convertDBusToJSON(const std::string& returnType,
-                      sdbusplus::message::message& m, nlohmann::json& response);
+int convertDBusToJSON(const std::string& returnType, sdbusplus::message_t& m,
+                      nlohmann::json& response);
 
 inline int readDictEntryFromMessage(const std::string& typeCode,
-                                    sdbusplus::message::message& m,
+                                    sdbusplus::message_t& m,
                                     nlohmann::json& object)
 {
     std::vector<std::string> types = dbusArgSplit(typeCode);
@@ -1018,8 +1018,7 @@ inline int readDictEntryFromMessage(const std::string& typeCode,
 }
 
 inline int readArrayFromMessage(const std::string& typeCode,
-                                sdbusplus::message::message& m,
-                                nlohmann::json& data)
+                                sdbusplus::message_t& m, nlohmann::json& data)
 {
     if (typeCode.size() < 2)
     {
@@ -1098,8 +1097,7 @@ inline int readArrayFromMessage(const std::string& typeCode,
 }
 
 inline int readStructFromMessage(const std::string& typeCode,
-                                 sdbusplus::message::message& m,
-                                 nlohmann::json& data)
+                                 sdbusplus::message_t& m, nlohmann::json& data)
 {
     if (typeCode.size() < 3)
     {
@@ -1139,8 +1137,7 @@ inline int readStructFromMessage(const std::string& typeCode,
     return 0;
 }
 
-inline int readVariantFromMessage(sdbusplus::message::message& m,
-                                  nlohmann::json& data)
+inline int readVariantFromMessage(sdbusplus::message_t& m, nlohmann::json& data)
 {
     const char* containerType = nullptr;
     int r = sd_bus_message_peek_type(m.get(), nullptr, &containerType);
@@ -1176,8 +1173,7 @@ inline int readVariantFromMessage(sdbusplus::message::message& m,
 }
 
 inline int convertDBusToJSON(const std::string& returnType,
-                             sdbusplus::message::message& m,
-                             nlohmann::json& response)
+                             sdbusplus::message_t& m, nlohmann::json& response)
 {
     int r = 0;
     const std::vector<std::string> returnTypes = dbusArgSplit(returnType);
@@ -1317,7 +1313,7 @@ inline int convertDBusToJSON(const std::string& returnType,
 
 inline void handleMethodResponse(
     const std::shared_ptr<InProgressActionData>& transaction,
-    sdbusplus::message::message& m, const std::string& returnType)
+    sdbusplus::message_t& m, const std::string& returnType)
 {
     nlohmann::json data;
 
@@ -1434,7 +1430,7 @@ inline void findActionOnInterface(
                         BMCWEB_LOG_DEBUG << "Found method named "
                                          << thisMethodName << " on interface "
                                          << thisInterfaceName;
-                        sdbusplus::message::message m =
+                        sdbusplus::message_t m =
                             crow::connections::systemBus->new_method_call(
                                 connectionName.c_str(),
                                 transaction->path.c_str(), thisInterfaceName,
@@ -1500,7 +1496,7 @@ inline void findActionOnInterface(
                             m,
                             [transaction,
                              returnType](boost::system::error_code ec2,
-                                         sdbusplus::message::message& m2) {
+                                         sdbusplus::message_t& m2) {
                             if (ec2)
                             {
                                 transaction->methodFailed = true;
@@ -1748,7 +1744,7 @@ inline void handleGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 
             for (const std::string& interface : interfaceNames)
             {
-                sdbusplus::message::message m =
+                sdbusplus::message_t m =
                     crow::connections::systemBus->new_method_call(
                         connection.first.c_str(), path->c_str(),
                         "org.freedesktop.DBus.Properties", "GetAll");
@@ -1756,7 +1752,7 @@ inline void handleGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                 crow::connections::systemBus->async_send(
                     m, [asyncResp, response,
                         propertyName](const boost::system::error_code ec2,
-                                      sdbusplus::message::message& msg) {
+                                      sdbusplus::message_t& msg) {
                         if (ec2)
                         {
                             BMCWEB_LOG_ERROR << "Bad dbus request error: "
@@ -1942,7 +1938,7 @@ inline void handlePut(const crow::Request& req,
                             const char* argType = propNode->Attribute("type");
                             if (argType != nullptr)
                             {
-                                sdbusplus::message::message m =
+                                sdbusplus::message_t m =
                                     crow::connections::systemBus
                                         ->new_method_call(
                                             connectionName.c_str(),
@@ -1988,9 +1984,8 @@ inline void handlePut(const crow::Request& req,
                                 }
                                 crow::connections::systemBus->async_send(
                                     m,
-                                    [transaction](
-                                        boost::system::error_code ec,
-                                        sdbusplus::message::message& m2) {
+                                    [transaction](boost::system::error_code ec,
+                                                  sdbusplus::message_t& m2) {
                                     BMCWEB_LOG_DEBUG << "sent";
                                     if (ec)
                                     {
@@ -2366,7 +2361,7 @@ inline void
                 const char* type = property->Attribute("type");
                 if (type != nullptr && name != nullptr)
                 {
-                    sdbusplus::message::message m =
+                    sdbusplus::message_t m =
                         crow::connections::systemBus->new_method_call(
                             processName.c_str(), objectPath.c_str(),
                             "org.freedesktop."
@@ -2378,7 +2373,7 @@ inline void
                     crow::connections::systemBus->async_send(
                         m, [&propertyItem,
                             asyncResp](const boost::system::error_code& e,
-                                       sdbusplus::message::message& msg) {
+                                       sdbusplus::message_t& msg) {
                             if (e)
                             {
                                 return;

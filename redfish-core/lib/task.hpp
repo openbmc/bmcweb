@@ -84,10 +84,10 @@ struct Payload
 struct TaskData : std::enable_shared_from_this<TaskData>
 {
   private:
-    TaskData(std::function<bool(boost::system::error_code,
-                                sdbusplus::message::message&,
-                                const std::shared_ptr<TaskData>&)>&& handler,
-             const std::string& matchIn, size_t idx) :
+    TaskData(
+        std::function<bool(boost::system::error_code, sdbusplus::message_t&,
+                           const std::shared_ptr<TaskData>&)>&& handler,
+        const std::string& matchIn, size_t idx) :
         callback(std::move(handler)),
         matchStr(matchIn), index(idx),
         startTime(std::chrono::system_clock::to_time_t(
@@ -101,8 +101,7 @@ struct TaskData : std::enable_shared_from_this<TaskData>
     TaskData() = delete;
 
     static std::shared_ptr<TaskData>& createTask(
-        std::function<bool(boost::system::error_code,
-                           sdbusplus::message::message&,
+        std::function<bool(boost::system::error_code, sdbusplus::message_t&,
                            const std::shared_ptr<TaskData>&)>&& handler,
         const std::string& match)
     {
@@ -111,7 +110,7 @@ struct TaskData : std::enable_shared_from_this<TaskData>
         {
             MakeSharedHelper(
                 std::function<bool(boost::system::error_code,
-                                   sdbusplus::message::message&,
+                                   sdbusplus::message_t&,
                                    const std::shared_ptr<TaskData>&)>&& handler,
                 const std::string& match2, size_t idx) :
                 TaskData(std::move(handler), match2, idx)
@@ -179,7 +178,7 @@ struct TaskData : std::enable_shared_from_this<TaskData>
                 ec = boost::asio::error::operation_aborted;
             }
             self->match.reset();
-            sdbusplus::message::message msg;
+            sdbusplus::message_t msg;
             self->finishTask();
             self->state = "Cancelled";
             self->status = "Warning";
@@ -268,10 +267,10 @@ struct TaskData : std::enable_shared_from_this<TaskData>
         {
             return;
         }
-        match = std::make_unique<sdbusplus::bus::match::match>(
-            static_cast<sdbusplus::bus::bus&>(*crow::connections::systemBus),
+        match = std::make_unique<sdbusplus::bus::match_t>(
+            static_cast<sdbusplus::bus_t&>(*crow::connections::systemBus),
             matchStr,
-            [self = shared_from_this()](sdbusplus::message::message& message) {
+            [self = shared_from_this()](sdbusplus::message_t& message) {
             boost::system::error_code ec;
 
             // callback to return True if callback is done, callback needs
@@ -298,7 +297,7 @@ struct TaskData : std::enable_shared_from_this<TaskData>
         sendTaskEvent(state, index);
     }
 
-    std::function<bool(boost::system::error_code, sdbusplus::message::message&,
+    std::function<bool(boost::system::error_code, sdbusplus::message_t&,
                        const std::shared_ptr<TaskData>&)>
         callback;
     std::string matchStr;
@@ -308,7 +307,7 @@ struct TaskData : std::enable_shared_from_this<TaskData>
     std::string state;
     nlohmann::json messages;
     boost::asio::steady_timer timer;
-    std::unique_ptr<sdbusplus::bus::match::match> match;
+    std::unique_ptr<sdbusplus::bus::match_t> match;
     std::optional<time_t> endTime;
     std::optional<Payload> payload;
     bool gave204 = false;

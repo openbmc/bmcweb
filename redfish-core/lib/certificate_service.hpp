@@ -199,7 +199,7 @@ class CertificateFile
     std::filesystem::path certDirectory;
 };
 
-static std::unique_ptr<sdbusplus::bus::match::match> csrMatcher;
+static std::unique_ptr<sdbusplus::bus::match_t> csrMatcher;
 /**
  * @brief Read data from CSR D-bus object and set to response
  *
@@ -441,10 +441,9 @@ inline void requestRoutesCertificateActionGenerateCSR(App& app)
                           objectPath +
                           "',"
                           "member='InterfacesAdded'");
-        csrMatcher = std::make_unique<sdbusplus::bus::match::match>(
+        csrMatcher = std::make_unique<sdbusplus::bus::match_t>(
             *crow::connections::systemBus, match,
-            [asyncResp, service, objectPath,
-             certURI](sdbusplus::message::message& m) {
+            [asyncResp, service, objectPath, certURI](sdbusplus::message_t& m) {
             timeout.cancel();
             if (m.is_method_error())
             {

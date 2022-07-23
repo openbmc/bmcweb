@@ -11,7 +11,7 @@ namespace crow
 {
 namespace hostname_monitor
 {
-static std::unique_ptr<sdbusplus::bus::match::match> hostnameSignalMonitor;
+static std::unique_ptr<sdbusplus::bus::match_t> hostnameSignalMonitor;
 
 inline void installCertificate(const std::filesystem::path& certPath)
 {
@@ -41,7 +41,7 @@ inline int onPropertyUpdate(sd_bus_message* m, void* /* userdata */,
         return 0;
     }
 
-    sdbusplus::message::message message(m);
+    sdbusplus::message_t message(m);
     std::string iface;
     dbus::utility::DBusPropertiesMap changedProperties;
 
@@ -133,7 +133,7 @@ inline void registerHostnameSignal()
          "arg0='xyz.openbmc_project.Network.SystemConfiguration',"
          "member='PropertiesChanged'");
 
-    hostnameSignalMonitor = std::make_unique<sdbusplus::bus::match::match>(
+    hostnameSignalMonitor = std::make_unique<sdbusplus::bus::match_t>(
         *crow::connections::systemBus, propertiesMatchString, onPropertyUpdate,
         nullptr);
 }
