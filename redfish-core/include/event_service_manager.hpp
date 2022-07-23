@@ -606,7 +606,7 @@ class EventServiceManager
     std::streampos redfishLogFilePosition{0};
     size_t noOfEventLogSubscribers{0};
     size_t noOfMetricReportSubscribers{0};
-    std::shared_ptr<sdbusplus::bus::match::match> matchTelemetryMonitor;
+    std::shared_ptr<sdbusplus::bus::match_t> matchTelemetryMonitor;
     boost::container::flat_map<std::string, std::shared_ptr<Subscription>>
         subscriptionsMap;
 
@@ -1337,7 +1337,7 @@ class EventServiceManager
     }
 
 #endif
-    static void getReadingsForReport(sdbusplus::message::message& msg)
+    static void getReadingsForReport(sdbusplus::message_t& msg)
     {
         if (msg.is_method_error())
         {
@@ -1409,7 +1409,7 @@ class EventServiceManager
                                "interface='org.freedesktop.DBus.Properties',"
                                "arg0=xyz.openbmc_project.Telemetry.Report";
 
-        matchTelemetryMonitor = std::make_shared<sdbusplus::bus::match::match>(
+        matchTelemetryMonitor = std::make_shared<sdbusplus::bus::match_t>(
             *crow::connections::systemBus, matchStr, getReadingsForReport);
     }
 };

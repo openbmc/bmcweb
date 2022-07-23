@@ -929,7 +929,7 @@ inline void
     handleAppliedConfigResponse(const std::shared_ptr<bmcweb::AsyncResp>& resp,
                                 const std::string& setPropVal,
                                 boost::system::error_code ec,
-                                const sdbusplus::message::message& msg)
+                                const sdbusplus::message_t& msg)
 {
     if (!ec)
     {
@@ -1035,7 +1035,7 @@ inline void patchAppliedOperatingConfig(
     // Set the property, with handler to check error responses
     crow::connections::systemBus->async_method_call(
         [resp, appliedConfigUri](const boost::system::error_code ec,
-                                 const sdbusplus::message::message& msg) {
+                                 const sdbusplus::message_t& msg) {
         handleAppliedConfigResponse(resp, appliedConfigUri, ec, msg);
         },
         *controlService, cpuObjectPath, "org.freedesktop.DBus.Properties",

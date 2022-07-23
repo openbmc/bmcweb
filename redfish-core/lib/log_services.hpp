@@ -693,9 +693,9 @@ inline void
                            const std::string& dumpType)
 {
     std::shared_ptr<task::TaskData> task = task::TaskData::createTask(
-        [dumpId, dumpPath, dumpType](
-            boost::system::error_code err, sdbusplus::message::message& m,
-            const std::shared_ptr<task::TaskData>& taskData) {
+        [dumpId, dumpPath,
+         dumpType](boost::system::error_code err, sdbusplus::message_t& m,
+                   const std::shared_ptr<task::TaskData>& taskData) {
         if (err)
         {
             BMCWEB_LOG_ERROR << "Error in creating a dump";
@@ -3087,7 +3087,7 @@ inline void requestRoutesCrashdumpCollect(App& app)
                 return;
             }
             std::shared_ptr<task::TaskData> task = task::TaskData::createTask(
-                [](boost::system::error_code err, sdbusplus::message::message&,
+                [](boost::system::error_code err, sdbusplus::message_t&,
                    const std::shared_ptr<task::TaskData>& taskData) {
                 if (!err)
                 {
