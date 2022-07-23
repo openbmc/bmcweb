@@ -802,6 +802,13 @@ inline void getProcessorData(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
             }
         }
     }
+
+    // Inserting the "Metrics" JSON stanza
+    std::string metricsUrl = aResp->res.jsonValue["@odata.id"];
+    metricsUrl += "/ProcessorMetrics";
+    nlohmann::json::object_t metricsObj;
+    metricsObj["@odata.id"] = std::move(metricsUrl);
+    aResp->res.jsonValue["Metrics"] = std::move(metricsObj);
 }
 
 /**
@@ -1168,6 +1175,462 @@ inline void requestRoutesOperatingConfig(App& app)
         });
 }
 
+inline int countProcessors(void)
+{
+    // TODO(): This is a STUB
+    // For now, this is OK, since it is only used for syntax validation.
+    // However, when and if writing (POST, PATCH, etc.) is allowed,
+    // we will need to have better bounds-checking here,
+    // otherwise it will be trivial for a writer to DoS all the storage.
+    return 16;
+}
+
+inline int countCores(int cpuIndex)
+{
+    // TODO(): This is a STUB, see above comment
+    (void)cpuIndex;
+    return 256;
+}
+
+inline int countThreads(int cpuIndex, int coreIndex)
+{
+    // TODO(): This is a STUB, see above comment
+    (void)cpuIndex;
+    (void)coreIndex;
+    return 16;
+}
+
+inline int prefixStrToInt(const std::string& prefix, const std::string& str)
+{
+    size_t lenPrefix = prefix.size();
+    size_t lenStr = str.size();
+
+    // Content following prefix must be within 1 to 9 characters in length
+    if (lenStr < (lenPrefix + 1))
+    {
+        BMCWEB_LOG_ERROR << "Index number too short";
+        return -1;
+    }
+    if (lenStr > (lenPrefix + 9))
+    {
+        // This length limit prevents 32-bit rollover attacks
+        BMCWEB_LOG_ERROR << "Index number too long";
+        return -1;
+    }
+
+    if (str.substr(0, lenPrefix) != prefix)
+    {
+        // Prefix does not match
+        BMCWEB_LOG_ERROR << "Index number wrong prefix";
+        return -1;
+    }
+
+    std::string numText = str.substr(lenPrefix);
+    size_t lenText = numText.size();
+    size_t lenCheck = std::strlen(numText.c_str());
+    if (lenText != lenCheck)
+    {
+        // This comparison prevents 0x00 string truncation attacks
+        BMCWEB_LOG_ERROR << "Index number wrong length";
+        return -1;
+    }
+
+    // Cannot use std::stoi because stoi throws
+    char* endptr = nullptr;
+    long value = std::strtol(numText.c_str(), &endptr, 10);
+    if (*endptr != '\0')
+    {
+        // The number was followed by extra content
+        BMCWEB_LOG_ERROR << "Index number wrong content";
+        return -1;
+    }
+
+    int result = static_cast<int>(value);
+    return result;
+}
+
+inline int cpuArgToIndex(const std::string& cpuArg)
+{
+    int bound = countProcessors();
+    int num = prefixStrToInt("cpu", cpuArg);
+    if (num >= bound)
+    {
+        BMCWEB_LOG_ERROR << "Processor index out of range";
+        return -1;
+    }
+    return num;
+}
+
+inline int coreArgToIndex(const std::string& coreArg, int cpuIndex)
+{
+    int bound = countCores(cpuIndex);
+    int num = prefixStrToInt("core", coreArg);
+    if (num >= bound)
+    {
+        BMCWEB_LOG_ERROR << "Subprocessor core index out of range";
+        return -1;
+    }
+    return num;
+}
+
+inline int threadArgToIndex(const std::string& threadArg, int cpuIndex,
+                            int coreIndex)
+{
+    int bound = countThreads(cpuIndex, coreIndex);
+    int num = prefixStrToInt("thread", threadArg);
+    if (num >= bound)
+    {
+        BMCWEB_LOG_ERROR << "Subprocessor thread index out of range";
+        return -1;
+    }
+    return num;
+}
+
+inline int validateCpu(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                       const std::string& cpuArg)
+{
+    int cpuIndex = cpuArgToIndex(cpuArg);
+    if (cpuIndex < 0)
+    {
+        messages::resourceNotFound(asyncResp->res, "Processor", cpuArg);
+    }
+    return cpuIndex;
+}
+
+inline int validateCpuCore(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                           const std::string& cpuArg,
+                           const std::string& coreArg)
+{
+    int cpuIndex = validateCpu(asyncResp, cpuArg);
+    if (cpuIndex < 0)
+    {
+        return cpuIndex;
+    }
+    int coreIndex = coreArgToIndex(coreArg, cpuIndex);
+    if (coreIndex < 0)
+    {
+        messages::resourceNotFound(asyncResp->res, "Core", coreArg);
+    }
+    return coreIndex;
+}
+
+inline int
+    validateCpuCoreThread(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                          const std::string& cpuArg, const std::string& coreArg,
+                          const std::string& threadArg)
+{
+    int cpuIndex = validateCpu(asyncResp, cpuArg);
+    if (cpuIndex < 0)
+    {
+        return cpuIndex;
+    }
+    int coreIndex = validateCpuCore(asyncResp, cpuArg, coreArg);
+    if (coreIndex < 0)
+    {
+        return coreIndex;
+    }
+    int threadIndex = threadArgToIndex(threadArg, cpuIndex, coreIndex);
+    if (threadIndex < 0)
+    {
+        messages::resourceNotFound(asyncResp->res, "Thread", threadArg);
+    }
+    return threadIndex;
+}
+
+// Creates a generic ExternalStorer hook, should be 2 directories above
+// Each hook contains instances, each instance contains entries
+// Omit the leading "/redfish/v1" from pathBase, and no trailing slash
+inline external_storer::Hook makeExternalStorerHook(const std::string& pathBase)
+{
+    const std::string emptyString;
+    const std::vector<std::string> emptyList;
+
+    return {pathBase, emptyString, emptyList, emptyList};
+}
+
+// Creates a generic ExternalStorer instance within the given hook
+// The content will be minimal, just enough to create filename on disk
+// Returns true if successful
+inline bool makeExternalStorerInstance(
+    const std::shared_ptr<external_storer::Hook>& hook, const std::string& id)
+{
+    auto respGet = std::make_shared<bmcweb::AsyncResp>();
+
+    hook->handleGetInstance(respGet, id);
+    if (respGet->res.result() == boost::beast::http::status::ok)
+    {
+        // Already exists, nothing more needs to be done
+        return true;
+    }
+
+    boost::beast::http::request<boost::beast::http::string_body> upBody;
+    std::error_code ec;
+
+    // Create instance, with given ID, which will become filename on disk
+    auto upJson = nlohmann::json::object();
+    upJson["Id"] = id;
+
+    // Must supply 4th argument to avoid throwing exceptions
+    upBody.body() =
+        upJson.dump(-1, ' ', false, nlohmann::json::error_handler_t::replace);
+    crow::Request reqCreate{upBody, ec};
+
+    auto respCreate = std::make_shared<bmcweb::AsyncResp>();
+
+    hook->handleCreateInstance(reqCreate, respCreate);
+    if (respCreate->res.result() != boost::beast::http::status::created)
+    {
+        BMCWEB_LOG_ERROR << "Problem creating ExternalStorer instance " << id;
+        return false;
+    }
+
+    return true;
+}
+
+// Remembers toplevel Processors hook, there is only one
+// Each instance in it represents a CPU and is named like cpuArg
+// Each instance contains only one entry, "ProcessorMetrics"
+inline std::shared_ptr<external_storer::Hook>
+    rememberProcessorHook(const std::string& cpuArg)
+{
+    static std::shared_ptr<external_storer::Hook> hookProcessor = nullptr;
+
+    if (!hookProcessor)
+    {
+        // If not already remembered by static variable, create hook
+        hookProcessor = std::make_shared<external_storer::Hook>(
+            makeExternalStorerHook("Systems/system/Processors"));
+    }
+
+    if (!(makeExternalStorerInstance(hookProcessor, cpuArg)))
+    {
+        BMCWEB_LOG_ERROR << "Problem remembering hook for " << cpuArg;
+        return nullptr;
+    }
+
+    return hookProcessor;
+}
+
+// Remembers lowest-level SubProcessors hook
+// There is one hook for each unique (CPU, thread) tuple
+// Each instance in it represents a thread and is named like threadArg
+// Each instance contains only one entry, "ProcessorMetrics"
+inline std::shared_ptr<external_storer::Hook>
+    rememberThreadHook(const std::string& cpuArg, const std::string& coreArg,
+                       const std::string& threadArg)
+{
+    static std::map<
+        std::string,
+        std::map<std::string, std::shared_ptr<external_storer::Hook>>>
+        hookMaps;
+
+    auto findCpu = hookMaps.find(cpuArg);
+    if (findCpu == hookMaps.end())
+    {
+        hookMaps[cpuArg] = {};
+        findCpu = hookMaps.find(cpuArg);
+    }
+
+    auto findCore = findCpu->second.find(coreArg);
+    if (findCore == findCpu->second.end())
+    {
+        (findCpu->second)[coreArg] = {};
+        findCore = findCpu->second.find(coreArg);
+    }
+
+    std::shared_ptr<external_storer::Hook> hookThread = findCore->second;
+
+    if (!hookThread)
+    {
+        std::string path = "Systems/system/Processors/" + cpuArg +
+                           "/SubProcessors/" + coreArg + "/SubProcessors";
+        hookThread = std::make_shared<external_storer::Hook>(
+            makeExternalStorerHook(path));
+        findCore->second = hookThread;
+    }
+
+    if (!(makeExternalStorerInstance(hookThread, threadArg)))
+    {
+        BMCWEB_LOG_ERROR << "Problem remembering hook for " << threadArg;
+        return nullptr;
+    }
+
+    return hookThread;
+}
+
+inline nlohmann::json fakeProcessorMetrics(const std::string& cpu,
+                                           const std::string& core,
+                                           const std::string& thread)
+{
+    nlohmann::json::object_t metricsObj;
+
+    metricsObj["Id"] = "Metrics";
+    metricsObj["Name"] = "Processor Metrics";
+
+    // The different levels have slightly different default content
+    if (!thread.empty())
+    {
+        // Thread level
+        metricsObj["CorrectableCoreErrorCount"] = 0;
+        metricsObj["UncorrectableCoreErrorCount"] = 0;
+    }
+    else
+    {
+        // CPU level
+        metricsObj["CorrectableOtherErrorCount"] = 0;
+        metricsObj["UncorrectableOtherErrorCount"] = 0;
+    }
+
+    // ExternalStorer would normally apply this as invariant if successful
+    // The caller already applies "@odata.type" as invariant no matter what
+    std::string url = "/redfish/v1/Systems/system/Processors/";
+    url += cpu;
+    if (!core.empty())
+    {
+        url += "/SubProcessors/";
+        url += core;
+    }
+    if (!thread.empty())
+    {
+        url += "/SubProcessors/";
+        url += thread;
+    }
+    url += "/ProcessorMetrics";
+
+    metricsObj["@odata.id"] = std::move(url);
+
+    return metricsObj;
+}
+
+inline void
+    handleGetCpuMetrics(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                        const std::string& cpuArg)
+{
+    if (validateCpu(asyncResp, cpuArg) < 0)
+    {
+        // Error reply already composed
+        return;
+    }
+
+    std::shared_ptr<external_storer::Hook> hook = rememberProcessorHook(cpuArg);
+    if (!hook)
+    {
+        messages::resourceNotFound(asyncResp->res, "Processor", cpuArg);
+        return;
+    }
+
+    std::string emptyString;
+    hook->handleGetEntry(asyncResp, cpuArg, emptyString, "ProcessorMetrics");
+    if (asyncResp->res.result() == boost::beast::http::status::not_found)
+    {
+        // Fake up a synthetic response to replace only the 404 error
+        asyncResp->res.jsonValue = fakeProcessorMetrics(cpuArg, "", "");
+        asyncResp->res.result(boost::beast::http::status::ok);
+    }
+    if (asyncResp->res.result() != boost::beast::http::status::ok)
+    {
+        // Error reply already composed
+        return;
+    }
+
+    // Apply invariants, to override whatever might have been in the file
+    asyncResp->res.jsonValue["@odata.type"] = "#ProcessorMetrics.v1_3_0.json";
+}
+
+inline void handleGetCpuCoreThreadMetrics(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& cpuArg, const std::string& coreArg,
+    const std::string& threadArg)
+{
+    if (validateCpuCoreThread(asyncResp, cpuArg, coreArg, threadArg) < 0)
+    {
+        return;
+    }
+
+    std::shared_ptr<external_storer::Hook> hook =
+        rememberThreadHook(cpuArg, coreArg, threadArg);
+    if (!hook)
+    {
+        messages::resourceNotFound(asyncResp->res, "Thread", threadArg);
+        return;
+    }
+
+    std::string emptyString;
+    hook->handleGetEntry(asyncResp, threadArg, emptyString, "ProcessorMetrics");
+    if (asyncResp->res.result() == boost::beast::http::status::not_found)
+    {
+        // Fake up a synthetic response to replace only the 404 error
+        asyncResp->res.jsonValue =
+            fakeProcessorMetrics(cpuArg, coreArg, threadArg);
+        asyncResp->res.result(boost::beast::http::status::ok);
+    }
+    if (asyncResp->res.result() != boost::beast::http::status::ok)
+    {
+        // Error reply already composed
+        return;
+    }
+
+    // Apply invariants, to override whatever might have been in the file
+    asyncResp->res.jsonValue["@odata.type"] = "#ProcessorMetrics.v1_3_0.json";
+}
+
+// The glue layers are already handled by these functions elsewhere:
+// Processors = requestRoutesProcessorCollection()
+// Processors/cpuX = requestRoutesProcessor()
+// Processors/cpuX/SubProcessors = requestRoutesSubProcessorCoreCollection()
+// Processors/cpuX/SubProcessors/coreX = requestRoutesSubProcessorCore()
+// Processors/cpuX/SubProcessors/coreX/SubProcessors =
+// requestRoutesSubProcessorThreadCollection()
+// Processors/cpuX/SubProcessors/coreX/SubProcessors/threadX =
+// requestRoutesSubProcessorThread()
+
+// The "ProcessorMetrics" endpoints are below those glue layers:
+// Processors/cpuX/ProcessorMetrics = handled here
+// Processors/cpuX/SubProcessors/coreX/ProcessorMetrics = intentionally omitted
+// Processors/cpuX/SubProcessors/coreX/SubProcessors/threadX/ProcessorMetrics =
+// handled here
+inline void requestRoutesProcessorMetrics(App& app)
+{
+    BMCWEB_ROUTE(
+        app, "/redfish/v1/Systems/system/Processors/<str>/ProcessorMetrics/")
+        .privileges(redfish::privileges::getProcessor)
+        .methods(boost::beast::http::verb::get)(
+            [&app](const crow::Request& req,
+                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                   const std::string& cpuArg) {
+        if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+        {
+            return;
+        }
+        handleGetCpuMetrics(asyncResp, cpuArg);
+        });
+
+    BMCWEB_ROUTE(
+        app,
+        "/redfish/v1/Systems/system/Processors/<str>/SubProcessors/<str>/SubProcessors/<str>/ProcessorMetrics/")
+        .privileges(redfish::privileges::getProcessor)
+        .methods(boost::beast::http::verb::get)(
+            [&app](const crow::Request& req,
+                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                   const std::string& cpuArg, const std::string& coreArg,
+                   const std::string& threadArg) {
+        if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+        {
+            return;
+        }
+        handleGetCpuCoreThreadMetrics(asyncResp, cpuArg, coreArg, threadArg);
+        });
+
+    // TODO(): Implement corresponding PATCH methods
+    // The POST method is not correct to use here,
+    // as the result location is already well-known name "ProcessorMetrics".
+    // and from the user point of view it always exists,
+    // so the creation operation is not the correct operation.
+    // The PUT method also might not be correct to use here,
+    // as it would fully replace all content at the result location,
+    // but the expectation is to only selectively replace some content.
+}
+
 inline void requestRoutesProcessorCollection(App& app)
 {
     /**
@@ -1256,6 +1719,8 @@ inline void requestRoutesProcessor(App& app)
                                                appliedConfigUri));
         }
         });
+
+    requestRoutesProcessorMetrics(app);
 }
 
 } // namespace redfish
