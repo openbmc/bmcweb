@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a70de388_0662f9bb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 67
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-23T16:02:23Z",
+      "side": 1,
+      "message": "Also, a passing thought that just went through my head.  In the future, we will have multiple types of aggregated Redfish (RDE, etc).  \"aggregated\" is probably not specific enough for network aggregated nodes.  Just something to think about.",
+      "revId": "b6dd9a58004da7a421ba1324bdcf95cdb3e0c1df",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
