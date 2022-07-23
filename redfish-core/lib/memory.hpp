@@ -701,6 +701,13 @@ inline void
             getPersistentMemoryProperties(aResp, property, jsonPtr);
         }
     }
+
+    // Inserting the "Metrics" JSON stanza
+    std::string metricsUrl = aResp->res.jsonValue[jsonPtr]["@odata.id"];
+    metricsUrl += "/MemoryMetrics";
+    nlohmann::json::object_t metricsObj;
+    metricsObj["@odata.id"] = std::move(metricsUrl);
+    aResp->res.jsonValue[jsonPtr]["Metrics"] = std::move(metricsObj);
 }
 
 inline void getDimmDataByService(std::shared_ptr<bmcweb::AsyncResp> aResp,
@@ -908,6 +915,220 @@ inline void requestRoutesMemoryCollection(App& app)
         });
 }
 
+// Constructs hook with known-good settings for use with MemoryMetrics
+inline external_storer::Hook makeDimmHook()
+{
+    const std::string pathBase{"Systems/system/Memory"};
+
+    const std::string emptyString;
+    const std::vector<std::string> emptyList;
+
+    return {pathBase, emptyString, emptyList, emptyList};
+}
+
+// Remembers the ExternalStorer hook and one instance per DIMM in this system
+inline std::shared_ptr<external_storer::Hook>
+    rememberDimmHook(const std::string& dimmId)
+{
+    static std::shared_ptr<external_storer::Hook> hookMemory = nullptr;
+
+    if (!hookMemory)
+    {
+        // If not already remembered by static variable, create hook
+        hookMemory = std::make_shared<external_storer::Hook>(makeDimmHook());
+    }
+
+    auto respGet = std::make_shared<bmcweb::AsyncResp>();
+
+    hookMemory->handleGetInstance(respGet, dimmId);
+    if (respGet->res.result() == boost::beast::http::status::ok)
+    {
+        // Already exists, good, nothing more needs to be done
+        return hookMemory;
+    }
+
+    boost::beast::http::request<boost::beast::http::string_body> upBody;
+    std::error_code ec;
+
+    // Create instance, with name of DIMM, and no further customizations
+    auto upJson = nlohmann::json::object();
+    upJson["Id"] = dimmId;
+
+    // Must supply 4th argument to avoid throwing exceptions
+    upBody.body() =
+        upJson.dump(-1, ' ', false, nlohmann::json::error_handler_t::replace);
+    crow::Request reqCreate{upBody, ec};
+
+    auto respCreate = std::make_shared<bmcweb::AsyncResp>();
+    hookMemory->handleCreateInstance(reqCreate, respCreate);
+    if (respCreate->res.result() != boost::beast::http::status::created)
+    {
+        BMCWEB_LOG_ERROR << "Problem creating instance for " << dimmId;
+        return nullptr;
+    }
+
+    // The instance should now be usable
+    return hookMemory;
+}
+
+inline nlohmann::json fakeMemoryMetrics(const std::string& dimm)
+{
+    nlohmann::json::object_t metricsObj;
+
+    metricsObj["Id"] = "Metrics";
+    metricsObj["Name"] = "Memory Metrics";
+
+    nlohmann::json::object_t currentPeriod;
+
+    currentPeriod["CorrectableECCErrorCount"] = 0;
+    currentPeriod["UncorrectableECCErrorCount"] = 0;
+    currentPeriod["IndeterminateCorrectableErrorCount"] = 0;
+    currentPeriod["IndeterminateUncorrectableErrorCount"] = 0;
+
+    metricsObj["CurrentPeriod"] = std::move(currentPeriod);
+
+    // ExternalStorer would normally apply this as invariant if successful
+    // The caller already applies "@odata.type" as invariant no matter what
+    std::string url = "/redfish/v1/Systems/system/Memory/";
+    url += dimm;
+    url += "/MemoryMetrics";
+
+    metricsObj["@odata.id"] = std::move(url);
+
+    return metricsObj;
+}
+
+// TODO(): This is cut-and-paste code with the ProcessorMetrics patch
+// This function is only renamed because of compiler limitation
+// Merge into a common utility function, once known where to keep it
+inline int prefixStrToInt2(const std::string& prefix, const std::string& str)
+{
+    size_t lenPrefix = prefix.size();
+    size_t lenStr = str.size();
+
+    // Content following prefix must be within 1 to 9 characters in length
+    if (lenStr < (lenPrefix + 1))
+    {
+        BMCWEB_LOG_ERROR << "Index number too short";
+        return -1;
+    }
+    if (lenStr > (lenPrefix + 9))
+    {
+        // This length limit prevents 32-bit rollover attacks
+        BMCWEB_LOG_ERROR << "Index number too long";
+        return -1;
+    }
+
+    if (str.substr(0, lenPrefix) != prefix)
+    {
+        // Prefix does not match
+        BMCWEB_LOG_ERROR << "Index number wrong prefix";
+        return -1;
+    }
+
+    std::string numText = str.substr(lenPrefix);
+    size_t lenText = numText.size();
+    size_t lenCheck = std::strlen(numText.c_str());
+    if (lenText != lenCheck)
+    {
+        // This comparison prevents 0x00 string truncation attacks
+        BMCWEB_LOG_ERROR << "Index number wrong length";
+        return -1;
+    }
+
+    // Cannot use std::stoi because stoi throws
+    char* endptr = nullptr;
+    long value = std::strtol(numText.c_str(), &endptr, 10);
+    if (*endptr != '\0')
+    {
+        // The number was followed by extra content
+        BMCWEB_LOG_ERROR << "Index number wrong content";
+        return -1;
+    }
+
+    int result = static_cast<int>(value);
+    return result;
+}
+
+inline int countDimm()
+{
+    // TODO(): This is a STUB
+    return 256;
+}
+
+inline bool checkDimmIndex(const std::string& dimmId)
+{
+    int bound = countDimm();
+    int num = prefixStrToInt2("dimm", dimmId);
+
+    if (num < 0)
+    {
+        BMCWEB_LOG_ERROR << "DIMM index not parseable";
+        return false;
+    }
+    if (num >= bound)
+    {
+        BMCWEB_LOG_ERROR << "DIMM index out of range";
+        return false;
+    }
+
+    return true;
+}
+
+inline bool getExternalStorerMemoryMetrics(
+    const std::shared_ptr<bmcweb::AsyncResp>& aResp, const std::string& dimmId)
+{
+    if (!checkDimmIndex(dimmId))
+    {
+        BMCWEB_LOG_ERROR << "Problem checking DIMM index for " << dimmId;
+        return false;
+    }
+
+    std::shared_ptr<external_storer::Hook> hook = rememberDimmHook(dimmId);
+    if (!hook)
+    {
+        BMCWEB_LOG_ERROR << "Problem getting hook for " << dimmId;
+        return false;
+    }
+
+    std::string emptyString;
+    hook->handleGetEntry(aResp, dimmId, emptyString, "MemoryMetrics");
+    if (aResp->res.result() == boost::beast::http::status::not_found)
+    {
+        // Fake up a synthetic response to replace only the 404 error
+        aResp->res.jsonValue = fakeMemoryMetrics(dimmId);
+        aResp->res.result(boost::beast::http::status::ok);
+    }
+    if (aResp->res.result() != boost::beast::http::status::ok)
+    {
+        BMCWEB_LOG_ERROR << "Problem getting file for " << dimmId;
+        return false;
+    }
+
+    // Apply invariants, to override whatever might have been in the file
+    aResp->res.jsonValue["@odata.type"] = "#MemoryMetrics.v1_4_1.MemoryMetrics";
+
+    return true;
+}
+
+inline void getMemoryMetrics(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+                             const std::string& dimmId)
+{
+    BMCWEB_LOG_DEBUG << "Get available memory metrics for DIMM.";
+
+    // This is the integration point for ExternalStorer with MemoryMetrics.
+    // If locally-existing file exists, use ExternalStorer to return it.
+    if (getExternalStorerMemoryMetrics(aResp, dimmId))
+    {
+        BMCWEB_LOG_DEBUG << "Successful local file read for " << dimmId;
+        return;
+    }
+
+    // No more falling back to D-Bus query, instead, simply give user 404
+    BMCWEB_LOG_WARNING << "Memory metrics not found for " << dimmId;
+    messages::resourceNotFound(aResp->res, "MemoryMetrics", dimmId);
+}
+
 inline void requestRoutesMemory(App& app)
 {
     /**
@@ -924,6 +1145,30 @@ inline void requestRoutesMemory(App& app)
             return;
         }
         getDimmData(asyncResp, dimmId);
+        });
+}
+
+inline void requestRoutesMemoryMetrics(App& app)
+{
+    /**
+     * Functions triggers appropriate requests on DBus
+     */
+    BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/Memory/<str>/MemoryMetrics/")
+        .privileges(redfish::privileges::getMemoryMetrics)
+        .methods(boost::beast::http::verb::get)(
+            [&app](const crow::Request& req,
+                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                   const std::string& dimmId) {
+        if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+        {
+            return;
+        }
+        asyncResp->res.jsonValue["@odata.type"] =
+            "#MemoryMetrics.v1_4_1.MemoryMetrics";
+        asyncResp->res.jsonValue["@odata.id"] =
+            "/redfish/v1/Systems/system/Memory/" + dimmId + "/MemoryMetrics";
+
+        getMemoryMetrics(asyncResp, dimmId);
         });
 }
 
