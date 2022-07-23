@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e67f070a_c05af3b6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-23T15:29:19Z",
+      "side": 1,
+      "message": "\u003e To centralize the serialization, why do we move it to where it is now?\n\nBecause having all the serialization code in one place lets us make sure that it\u0027s backward compatible and following the requirements for the persistent data file.\n\n\u003e From my perspective, it\u0027s actually a decentralization since what this part of codes does can be centralized to UserSubscription structure. It will also involve fewer file changes when we want to change the properties in UserSubscription.\n\nI can\u0027t say I agree with you there.  On the project we optimize for \"most likely to result in a correct behavior\" and \"Readable by the developer\" not \"fewer files changed for a patchset\".",
+      "parentUuid": "4470f96b_3e553825",
+      "range": {
+        "startLine": 11,
+        "startChar": 45,
+        "endLine": 13,
+        "endChar": 55
+      },
+      "revId": "628a2dbfff466c693a8cd99af7cfdec13d1882d7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "da7f37ab_d437c611",
         "filename": "include/event_service_store.hpp",
         "patchSetId": 2
