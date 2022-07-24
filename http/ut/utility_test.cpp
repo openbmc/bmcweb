@@ -115,9 +115,18 @@ TEST(Utility, GetDateTimeUintMs)
 {
     // returns the maximum Redfish date
     EXPECT_EQ(getDateTimeUintMs(std::numeric_limits<uint64_t>::max()),
-              "584556019-04-03T14:25:51+00:00");
+              "584556019-04-03T14:25:51.615+00:00");
     EXPECT_EQ(getDateTimeUintMs(std::numeric_limits<uint64_t>::min()),
-              "1970-01-01T00:00:00+00:00");
+              "1970-01-01T00:00:00.000+00:00");
+}
+
+TEST(Utility, GetDateTimeUintUs)
+{
+    // returns the maximum Redfish date
+    EXPECT_EQ(getDateTimeUintUs(std::numeric_limits<uint64_t>::max()),
+              "586524-01-19T08:01:49.000551+00:00");
+    EXPECT_EQ(getDateTimeUintUs(std::numeric_limits<uint64_t>::min()),
+              "1970-01-01T00:00:00.000000+00:00");
 }
 
 TEST(Utility, UrlFromPieces)

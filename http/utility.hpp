@@ -630,6 +630,23 @@ std::string toISO8061Str(std::chrono::duration<IntType, Period> t)
 
     seconds se = duration_cast<seconds>(t);
     out += details::padZeros(se.count(), 2);
+    t -= se;
+
+    if constexpr (std::is_same_v<typename decltype(t)::period, std::milli>)
+    {
+        out += '.';
+        using MilliDuration = std::chrono::duration<int, std::milli>;
+        MilliDuration subsec = duration_cast<MilliDuration>(t);
+        out += details::padZeros(subsec.count(), 3);
+    }
+    else if constexpr (std::is_same_v<typename decltype(t)::period, std::micro>)
+    {
+        out += '.';
+
+        using MicroDuration = std::chrono::duration<int, std::milli>;
+        MicroDuration subsec = duration_cast<MicroDuration>(t);
+        out += details::padZeros(subsec.count(), 6);
+    }
 
     out += "+00:00";
     return out;
@@ -643,11 +660,19 @@ inline std::string getDateTimeUint(uint64_t secondsSinceEpoch)
     DurationType sinceEpoch(secondsSinceEpoch);
     return details::toISO8061Str(sinceEpoch);
 }
-// Returns the formatted date time string.
+// Returns the formatted date time string with millisecond precision
 inline std::string getDateTimeUintMs(uint64_t milliSecondsSinceEpoch)
 {
     using DurationType = std::chrono::duration<uint64_t, std::milli>;
     DurationType sinceEpoch(milliSecondsSinceEpoch);
+    return details::toISO8061Str(sinceEpoch);
+}
+
+// Returns the formatted date time string with microsecond precision
+inline std::string getDateTimeUintUs(uint64_t microSecondsSinceEpoch)
+{
+    using DurationType = std::chrono::duration<uint64_t, std::micro>;
+    DurationType sinceEpoch(microSecondsSinceEpoch);
     return details::toISO8061Str(sinceEpoch);
 }
 
