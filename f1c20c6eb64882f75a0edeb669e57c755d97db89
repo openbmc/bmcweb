@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c0863177_b61ffcb9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-07-24T06:41:25Z",
+      "side": 1,
+      "message": "I had marked this as \"Work in Progress\" (until other patchsets it depends on get submitted), but thanks for taking a look in advance 👍.",
+      "revId": "f1c20c6eb64882f75a0edeb669e57c755d97db89",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b777c732_871644b9",
@@ -26,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cc557542_fa85599d",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 415,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-07-24T06:41:25Z",
+      "side": 1,
+      "message": "In review at https://gerrit.openbmc.org/c/openbmc/phosphor-dbus-interfaces/+/53018",
+      "parentUuid": "b777c732_871644b9",
+      "range": {
+        "startLine": 415,
+        "startChar": 18,
+        "endLine": 415,
+        "endChar": 57
+      },
+      "revId": "f1c20c6eb64882f75a0edeb669e57c755d97db89",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0eb04a22_de827763",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 2
@@ -37,6 +78,30 @@
       "writtenOn": "2022-07-24T04:02:53Z",
       "side": 1,
       "message": "Neither of these seem to exist either.",
+      "range": {
+        "startLine": 434,
+        "startChar": 25,
+        "endLine": 434,
+        "endChar": 82
+      },
+      "revId": "f1c20c6eb64882f75a0edeb669e57c755d97db89",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d204442a_83b44602",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 434,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-07-24T06:41:25Z",
+      "side": 1,
+      "message": "In review at https://gerrit.openbmc.org/c/openbmc/phosphor-dbus-interfaces/+/53018",
+      "parentUuid": "0eb04a22_de827763",
       "range": {
         "startLine": 434,
         "startChar": 25,

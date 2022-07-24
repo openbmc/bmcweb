@@ -16,6 +16,24 @@
       "message": "Please move code in a different commit before adding features.",
       "revId": "0d7702c0246c5948caf12a3e441f74952c7d0ccf",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca09bf1d_4f75280c",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 556,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-07-24T06:41:25Z",
+      "side": 0,
+      "message": "In review at https://gerrit.openbmc.org/c/openbmc/bmcweb/+/55468 (would appreciate your review when you get a chance)",
+      "parentUuid": "1508cf4c_482fd6a7",
+      "revId": "0d7702c0246c5948caf12a3e441f74952c7d0ccf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
