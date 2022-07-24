@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b777c732_871644b9",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 415,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-24T04:02:53Z",
+      "side": 1,
+      "message": "This interface doesn\u0027t look like it exists:\nhttps://github.com/openbmc/phosphor-dbus-\ninterfaces/tree/master/yaml/xyz/openbmc_project/Dump/Entry",
+      "range": {
+        "startLine": 415,
+        "startChar": 18,
+        "endLine": 415,
+        "endChar": 57
+      },
+      "revId": "f1c20c6eb64882f75a0edeb669e57c755d97db89",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0eb04a22_de827763",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 434,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-24T04:02:53Z",
+      "side": 1,
+      "message": "Neither of these seem to exist either.",
+      "range": {
+        "startLine": 434,
+        "startChar": 25,
+        "endLine": 434,
+        "endChar": 82
+      },
+      "revId": "f1c20c6eb64882f75a0edeb669e57c755d97db89",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
