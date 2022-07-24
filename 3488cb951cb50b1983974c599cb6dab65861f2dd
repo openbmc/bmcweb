@@ -22,6 +22,30 @@
       },
       "revId": "3488cb951cb50b1983974c599cb6dab65861f2dd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0603c990_d2938e6e",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1569,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-24T02:15:06Z",
+      "side": 1,
+      "message": "In practice, no, it\u0027s not possible.",
+      "parentUuid": "1af98f2d_006da4c9",
+      "range": {
+        "startLine": 1567,
+        "startChar": 0,
+        "endLine": 1569,
+        "endChar": 41
+      },
+      "revId": "3488cb951cb50b1983974c599cb6dab65861f2dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
