@@ -634,6 +634,23 @@ std::string toISO8160Str(
 
     seconds se = duration_cast<seconds>(t);
     out += details::padZeros(se.count(), 2);
+    t -= se;
+
+    if constexpr (std::is_same_v<typename Duration::period, std::milli>)
+    {
+        out += '.';
+        using MilliDuration = std::chrono::duration<int, std::milli>;
+        MilliDuration subsec = duration_cast<MilliDuration>(t);
+        out += details::padZeros(subsec.count(), 3);
+    }
+    else if constexpr (std::is_same_v<typename Duration::period, std::micro>)
+    {
+        out += '.';
+
+        using MicroDuration = std::chrono::duration<int, std::milli>;
+        MicroDuration subsec = duration_cast<MicroDuration>(t);
+        out += details::padZeros(subsec.count(), 6);
+    }
 
     out += "+00:00";
     return out;
@@ -654,6 +671,19 @@ inline std::string getDateTimeUintMs(uint64_t milliSecondsSinceEpoch)
 {
     using DurationType = std::chrono::duration<uint64_t, std::milli>;
     DurationType sinceEpoch(milliSecondsSinceEpoch);
+    std::chrono::time_point<std::chrono::system_clock, DurationType> epoch{
+        sinceEpoch};
+    return toISO8160Str(epoch);
+}
+
+// Returns the formatted date time string.
+// Note that the maximum supported date is 9999-12-31T23:59:59.999+00:00, if
+// the given |millisSecondsSinceEpoch| is too large, we return the maximum
+// supported date.
+inline std::string getDateTimeUintUs(uint64_t microSecondsSinceEpoch)
+{
+    using DurationType = std::chrono::duration<uint64_t, std::micro>;
+    DurationType sinceEpoch(microSecondsSinceEpoch);
     std::chrono::time_point<std::chrono::system_clock, DurationType> epoch{
         sinceEpoch};
     return toISO8160Str(epoch);
