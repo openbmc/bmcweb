@@ -410,6 +410,42 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e88d2422_3d86b6b7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-24T17:00:42Z",
+      "side": 1,
+      "message": "FYI\n\nhttps://gerrit.openbmc.org/q/project:openbmc/bmcweb+(file:%2522%255E.*_test.cpp%2522+OR+file:%2522redfish-core/lib/certificate_service.hpp%2522+OR+file:%2522redfish-core/lib/log_service.hpp%2522+OR+file:%2522redfish-core/lib/memory.hpp%2522+Or+file:%2522redfish-core/lib/sensors.hpp%2522)+-commentby:nanzhoumails+reviewer:nanzhoumails%2540gmail.com is now empty.\n\nPlease let me know if there is still a gap. I will keep monitoring this query URL every week.",
+      "parentUuid": "492aeb03_f46fd39b",
+      "revId": "d8ea13a2b4dc7e0e9f450a66826add740a634c21",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c986c576_ac2114a0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-24T17:00:42Z",
+      "side": 1,
+      "message": "FYI, I have the s7106 machine set up already.\n\n```\nroot@s7106:~# cat /etc/os-release \nID\u003dopenbmc-phosphor\nNAME\u003d\"Phosphor OpenBMC (Phosphor OpenBMC Project Reference Distro)\"\nVERSION\u003d\"2.12.0-dev\"\nVERSION_ID\u003d2.12.0-dev-1525-ga491adf94\nPRETTY_NAME\u003d\"Phosphor OpenBMC (Phosphor OpenBMC Project Reference Distro) 2.12.0-dev\"\nBUILD_ID\u003d\"20220720043308\"\nOPENBMC_TARGET_MACHINE\u003d\"s7106\"\n```\n\nI believe there is no gap on this thread now.",
+      "parentUuid": "6c497251_7299e06c",
+      "revId": "d8ea13a2b4dc7e0e9f450a66826add740a634c21",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "eb619265_ab2a9d10",
         "filename": "OWNERS",
         "patchSetId": 1
