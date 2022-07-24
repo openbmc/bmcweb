@@ -892,6 +892,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3d6bfbde_9f8b832b",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 645,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-24T16:48:41Z",
+      "side": 1,
+      "message": "Did you check to see if they validate input?\n\n```\n/redfish/v1/Systems/1?$select\u003dBoot/NotExist\n\n{\n    \"PCIeFunctions@odata.count\": 6,\n    \"@odata.type\": \"#ComputerSystem.v1_11_0.ComputerSystem\",\n    \"@odata.id\": \"/redfish/v1/Systems/1\",\n    \"@odata.etag\": \"\\\"25bd2d9a1ea4630e845d97\\\"\",\n    \"Boot\": {},\n    \"PCIeDevices@odata.count\": 5\n}\n```",
+      "parentUuid": "57f4d55c_483a61a2",
+      "range": {
+        "startLine": 645,
+        "startChar": 0,
+        "endLine": 645,
+        "endChar": 69
+      },
+      "revId": "a97976c06207fd39134f975f6b6c0687a4f79b90",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f19c0fa6_dfce885f",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 5
