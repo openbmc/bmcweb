@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "490aafea_38f5817e",
+        "filename": "http/utility.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 563,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-24T04:04:11Z",
+      "side": 1,
+      "message": "https://gerrit.openbmc.org/c/openbmc/bmcweb/+/55837",
+      "parentUuid": "c6a321c0_f1013cdb",
+      "range": {
+        "startLine": 563,
+        "startChar": 42,
+        "endLine": 563,
+        "endChar": 74
+      },
+      "revId": "d6c79cf12a83f279e558cdf0c44f084d281e4a76",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7a288e4f_f0446d19",
         "filename": "http/utility.hpp",
         "patchSetId": 12
