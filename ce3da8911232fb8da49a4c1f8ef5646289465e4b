@@ -52,6 +52,24 @@
       "parentUuid": "c8861304_4b2720d1",
       "revId": "ce3da8911232fb8da49a4c1f8ef5646289465e4b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "01695dff_6409fc77",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-24T02:13:53Z",
+      "side": 1,
+      "message": "Sorry, forgot to update this review;  This actually caused failures when I tested it, which required filing a bug against the DMTF specification, which have now been merged (but took a bit), so I will try retesting at some point in the future.",
+      "parentUuid": "e9e137d6_57ac8023",
+      "revId": "ce3da8911232fb8da49a4c1f8ef5646289465e4b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
