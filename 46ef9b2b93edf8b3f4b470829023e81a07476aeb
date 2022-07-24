@@ -243,6 +243,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f4f199cd_1d575d26",
+        "filename": "redfish-core/lib/health.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-24T03:01:37Z",
+      "side": 1,
+      "message": "\u003e What\u0027s the reasoning behind?\n\nIt made bmcweb about 3-4X faster when we moved over (sometimes more in some of the more complex handlers).  Yes, it\u0027s complex, but in the tradeoff between complexity and performance, we couldn\u0027t really ignore a gain that large.\n\nIf you\u0027re interested, feel free to try taking one of the more complex handlers and replace everything with blocking calls.\n\n\u003e  Especially when there exists some required execution order.\n\nGenerally the intent of our dbus design is to avoid places where there is an explicit execution order.  For our handlers, a truly required execution order is rare.  Generally we\u0027ve found that everything is additive, or can be made additive by checking what other async callers have put into the response.",
+      "parentUuid": "ba76ac39_13496a81",
+      "range": {
+        "startLine": 297,
+        "startChar": 0,
+        "endLine": 297,
+        "endChar": 52
+      },
+      "revId": "46ef9b2b93edf8b3f4b470829023e81a07476aeb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c0d339ba_965fac38",
         "filename": "redfish-core/lib/health.hpp",
         "patchSetId": 2
