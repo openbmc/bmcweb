@@ -93,6 +93,30 @@
       },
       "revId": "949c49536bc721243ff3308d8bce85816457bd75",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2081406b_d3a6862d",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-25T21:27:34Z",
+      "side": 1,
+      "message": "Actually, now that I think about it, no, we should not copy headers in this case.  In the case of $only, we actually want the headers from the second request, and we actually do want to drop the headers from the first request, because they would conflict for things like Allow, which by my reading, should be returning the Allow for the resource we just got, not the collection.",
+      "parentUuid": "b772581f_a3b6881c",
+      "range": {
+        "startLine": 320,
+        "startChar": 46,
+        "endLine": 320,
+        "endChar": 55
+      },
+      "revId": "949c49536bc721243ff3308d8bce85816457bd75",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
