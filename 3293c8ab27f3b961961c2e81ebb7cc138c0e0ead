@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f88c3c9f_68beb559",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-25T23:53:02Z",
+      "side": 1,
+      "message": "This is good.\n\nWhy do we fail in the first place? In which line do we return 400?",
+      "revId": "3293c8ab27f3b961961c2e81ebb7cc138c0e0ead",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "589c3bc7_796eb1a2",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-25T23:53:02Z",
+      "side": 1,
+      "message": "Cool. This is clean.",
+      "range": {
+        "startLine": 199,
+        "startChar": 45,
+        "endLine": 199,
+        "endChar": 52
+      },
+      "revId": "3293c8ab27f3b961961c2e81ebb7cc138c0e0ead",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
