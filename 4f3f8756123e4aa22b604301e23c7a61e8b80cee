@@ -22,6 +22,30 @@
       },
       "revId": "4f3f8756123e4aa22b604301e23c7a61e8b80cee",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "26112155_a6d7e84f",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-07-25T00:12:18Z",
+      "side": 1,
+      "message": "Yes it\u0027s because its a static member. But I also cannot found any doc about it... Shall I switch to the \"normal\" order?\n\nhttps://en.cppreference.com/w/cpp/language/static",
+      "parentUuid": "fa94db20_d0d66b1b",
+      "range": {
+        "startLine": 41,
+        "startChar": 17,
+        "endLine": 41,
+        "endChar": 23
+      },
+      "revId": "4f3f8756123e4aa22b604301e23c7a61e8b80cee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
