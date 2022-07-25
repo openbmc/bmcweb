@@ -46,6 +46,30 @@
       },
       "revId": "0d7702c0246c5948caf12a3e441f74952c7d0ccf",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a1e66b2d_1931d587",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 364,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-25T22:58:29Z",
+      "side": 0,
+      "message": "But why do we keep two different print then? They are both nlohmann::json::json_pointer, right? Does it make sense to unify them?",
+      "parentUuid": "5f759d5a_54d26bb4",
+      "range": {
+        "startLine": 364,
+        "startChar": 67,
+        "endLine": 364,
+        "endChar": 79
+      },
+      "revId": "0d7702c0246c5948caf12a3e441f74952c7d0ccf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
