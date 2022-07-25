@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "42898282_3f105d80",
+        "filename": "redfish-core/include/registries.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-25T22:25:32Z",
+      "side": 1,
+      "message": "does it create several temporary strings every time this function gets called?",
+      "range": {
+        "startLine": 42,
+        "startChar": 15,
+        "endLine": 42,
+        "endChar": 67
+      },
+      "revId": "2cd021a49d505d4b37bf6293f9f5888cd4f23742",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
