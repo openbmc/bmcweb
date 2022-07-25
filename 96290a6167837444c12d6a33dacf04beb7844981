@@ -181,6 +181,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "19cee24b_06fb7bc5",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 1956,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-25T18:32:53Z",
+      "side": 1,
+      "message": "As written, you\u0027ve now imposed a hard dependency on bmc-state-manager, but fails to handle the race of if bmcweb comes up before bmc-state-manager.  Considering that folks are using this API to determine if the bmc is \"up\", and system-wise, we don\u0027t really want a failure in bmc-state-manager to cause bmcweb to lock up (given that bmcweb has a lot of debug use cases) we need to think through these paths a little in this implementation.  if bmc-state-manager fails",
+      "parentUuid": "0579cfd9_e6afbe1b",
+      "range": {
+        "startLine": 1956,
+        "startChar": 0,
+        "endLine": 1956,
+        "endChar": 48
+      },
+      "revId": "96290a6167837444c12d6a33dacf04beb7844981",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "32043d8c_2f32dd00",
         "filename": "redfish-core/lib/managers.hpp",
         "patchSetId": 20
