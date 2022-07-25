@@ -482,6 +482,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7ed17498_39f89cd1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-25T21:37:58Z",
+      "side": 1,
+      "message": "Do you mean limiting the +2 permission to only files that listed in the OWNER file?\n\nWe don\u0027t have that in the meta repo (project:openbmc/openbmc). But I believe it\u0027s a contract that people only +2 the files they maintain.",
+      "parentUuid": "d213d66c_a77dbe08",
+      "revId": "d8ea13a2b4dc7e0e9f450a66826add740a634c21",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "eb619265_ab2a9d10",
         "filename": "OWNERS",
         "patchSetId": 1
