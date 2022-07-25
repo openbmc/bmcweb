@@ -229,6 +229,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "453d3191_ae725534",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 1956,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2022-07-25T18:58:41Z",
+      "side": 1,
+      "message": "Yeah, if unable to find the state, I think we should just return the old default:\n        asyncResp-\u003eres.jsonValue[\"PowerState\"] \u003d \"On\";\n        asyncResp-\u003eres.jsonValue[\"Status\"][\"State\"] \u003d \"Enabled\";\n        asyncResp-\u003eres.jsonValue[\"Status\"][\"Health\"] \u003d \"OK\";",
+      "parentUuid": "0579cfd9_e6afbe1b",
+      "range": {
+        "startLine": 1956,
+        "startChar": 0,
+        "endLine": 1956,
+        "endChar": 48
+      },
+      "revId": "96290a6167837444c12d6a33dacf04beb7844981",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "32043d8c_2f32dd00",
         "filename": "redfish-core/lib/managers.hpp",
         "patchSetId": 20
@@ -240,6 +264,30 @@
       "writtenOn": "2022-07-25T18:28:36Z",
       "side": 1,
       "message": "This is hardcoded the same as before in all possible paths.  I suspect this can move back to just being hardcoded where it was prior to this patch.",
+      "range": {
+        "startLine": 1962,
+        "startChar": 0,
+        "endLine": 1962,
+        "endChar": 54
+      },
+      "revId": "96290a6167837444c12d6a33dacf04beb7844981",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b38faffc_f4520be1",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 1962,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2022-07-25T18:58:41Z",
+      "side": 1,
+      "message": "Yeah, there was a lot of debate on this during the review but final agreement was to just leave to always On so makes sense to just put it back, or at top of this function if we want it all in one place.",
+      "parentUuid": "32043d8c_2f32dd00",
       "range": {
         "startLine": 1962,
         "startChar": 0,

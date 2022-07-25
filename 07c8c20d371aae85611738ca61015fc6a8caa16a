@@ -22,6 +22,30 @@
       },
       "revId": "07c8c20d371aae85611738ca61015fc6a8caa16a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "86ef8cd5_53063332",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 2102,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2022-07-25T18:58:41Z",
+      "side": 0,
+      "message": "Lengtjy discord discussion but IMO, we have a precedent of abstracting systemd states behind services like x86-power-control/phosphor-state-manager. You can see it in functions like getHostState() and getChassisState(). We could put all the logic in bmcweb to determine if the BMC is being updated or has a failed critical service (Quiesced) but that a) adds a lot more code to bmcweb and b) goes away from our design of allowing other repositories abstract away the complexity. Commit  message should be updated to identify these use cases and why using bmc-state-manager for this abstraction is a benefit.",
+      "parentUuid": "90bdb047_a66b459c",
+      "range": {
+        "startLine": 2080,
+        "startChar": 0,
+        "endLine": 2102,
+        "endChar": 9
+      },
+      "revId": "07c8c20d371aae85611738ca61015fc6a8caa16a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
