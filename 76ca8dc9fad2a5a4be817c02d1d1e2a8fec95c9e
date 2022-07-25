@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b4edaf06_5f0c61f6",
+        "filename": "redfish-core/include/registries.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-07-25T06:33:36Z",
+      "side": 1,
+      "message": "nit: how about changing while(true) to use break condition\n\nwhile(size_t stringIndex \u003d msg.find(\u0027%\u0027); stringIndex !\u003d std::string::npos) {\n // ...\n}\n\nreturn ret + msg;",
+      "range": {
+        "startLine": 67,
+        "startChar": 4,
+        "endLine": 91,
+        "endChar": 5
+      },
+      "revId": "76ca8dc9fad2a5a4be817c02d1d1e2a8fec95c9e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
