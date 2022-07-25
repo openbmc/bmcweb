@@ -22,6 +22,30 @@
       },
       "revId": "0d7702c0246c5948caf12a3e441f74952c7d0ccf",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5f759d5a_54d26bb4",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 364,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-25T22:53:01Z",
+      "side": 0,
+      "message": "I\u0027d like to keep the to_string() call for now, because although json_pointer does provide an iostream operator (I think) there\u0027s this patch https://gerrit.openbmc.org/c/openbmc/bmcweb/+/51587 to replace the logging that won\u0027t work with it when we change over, so if it\u0027s ok with you, I think to_string() is still needed, and 411 will need to change to this pattern when 51587 lands.",
+      "parentUuid": "bebf73d6_3a8dc807",
+      "range": {
+        "startLine": 364,
+        "startChar": 67,
+        "endLine": 364,
+        "endChar": 79
+      },
+      "revId": "0d7702c0246c5948caf12a3e441f74952c7d0ccf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
