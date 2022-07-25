@@ -72,6 +72,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "80416cfb_dab04232",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-07-25T23:34:06Z",
+      "side": 1,
+      "message": "Summary of feedback from Ed via discord, which I will look into addressing:\n\n\"All collections have ClearLog actions attached to them, so either they [(DeleteAll in this case)] need to be required in PDI, or we need to check to see if that object has a ClearLog interface before we populate the action.\nI\u0027m honestly ok with either, probably a preference for the later, because I suspect we\u0027ll have logs in the future that don\u0027t allow clearing.\nor are read-only\"\n\nDiscord thread: https://discord.com/channels/775381525260664832/855566794994221117/1001231412986388661",
+      "revId": "7037d69c5dbcb87cd2b1dbc516e785d4c598571e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cc000d98_cecc1c88",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 2
