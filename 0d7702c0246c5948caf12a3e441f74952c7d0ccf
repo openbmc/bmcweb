@@ -94,6 +94,30 @@
       },
       "revId": "0d7702c0246c5948caf12a3e441f74952c7d0ccf",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "97113f0e_dcc68c33",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 364,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-25T23:14:13Z",
+      "side": 0,
+      "message": "No, just a nit.",
+      "parentUuid": "fb6060dc_6207ab33",
+      "range": {
+        "startLine": 364,
+        "startChar": 67,
+        "endLine": 364,
+        "endChar": 79
+      },
+      "revId": "0d7702c0246c5948caf12a3e441f74952c7d0ccf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
