@@ -52,6 +52,47 @@
       "parentUuid": "f61766ac_98a193c3",
       "revId": "49d0a2b00ef1b4690a7f68b99de260080d9683a2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "25b3564d_8025342e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-07-25T06:50:10Z",
+      "side": 1,
+      "message": "You are right. My though was since there was no update for so long maybe it is obsolete now. Good to hear that this is still something in progress.",
+      "parentUuid": "b7e1c691_8bc3fa54",
+      "revId": "49d0a2b00ef1b4690a7f68b99de260080d9683a2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8054fcf7_ee5f8402",
+        "filename": "redfish-core/include/utils/fw_utils.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-07-25T06:50:10Z",
+      "side": 1,
+      "message": "Considering how much entries we usually have in map there should be no significant difference in performance or memory. If this makes bmcweb binary smaller I think it\u0027s good idea to use std::map instead.",
+      "range": {
+        "startLine": 135,
+        "startChar": 38,
+        "endLine": 135,
+        "endChar": 46
+      },
+      "revId": "49d0a2b00ef1b4690a7f68b99de260080d9683a2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
