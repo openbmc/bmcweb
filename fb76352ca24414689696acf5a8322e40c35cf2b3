@@ -22,6 +22,30 @@
       },
       "revId": "fb76352ca24414689696acf5a8322e40c35cf2b3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "14dc7a6a_8e7fd6ad",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-25T01:43:45Z",
+      "side": 1,
+      "message": "the rest of the sentence says literally that, “it’s possible to return a non object json response”.  is there a way to word this to make it more clear?\n\nbasically, yes, a nlohmann json object lets you return a bool or a double without it being wrapped in an object.",
+      "parentUuid": "1a5a55ec_f0eabb59",
+      "range": {
+        "startLine": 10,
+        "startChar": 34,
+        "endLine": 10,
+        "endChar": 45
+      },
+      "revId": "fb76352ca24414689696acf5a8322e40c35cf2b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
