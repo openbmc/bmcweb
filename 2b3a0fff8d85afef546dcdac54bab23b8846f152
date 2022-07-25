@@ -81,6 +81,30 @@
       },
       "revId": "2b3a0fff8d85afef546dcdac54bab23b8846f152",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9c39794f_5a20156d",
+        "filename": "redfish-core/lib/virtual_media.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 565,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-25T23:37:23Z",
+      "side": 1,
+      "message": "Oh, okay.\n\nIf FormatterFunc is meant to be a function pointer, should we declare it as \n\n```\nusing FormatterFunc \u003d void(*)(const std::string\u0026 username,\n                               const std::string\u0026 password, Buffer\u0026 dest);\n```\n?",
+      "parentUuid": "f1294862_e627b7bf",
+      "range": {
+        "startLine": 565,
+        "startChar": 22,
+        "endLine": 565,
+        "endChar": 35
+      },
+      "revId": "2b3a0fff8d85afef546dcdac54bab23b8846f152",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
