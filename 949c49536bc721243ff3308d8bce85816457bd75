@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "62b44892_b95234e2",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-25T19:40:30Z",
+      "side": 1,
+      "message": "What does this branch mean in reality? If the source Response is already completed, the result Response object from the move constructor will just do nothing?",
+      "range": {
+        "startLine": 87,
+        "startChar": 12,
+        "endLine": 87,
+        "endChar": 45
+      },
+      "revId": "949c49536bc721243ff3308d8bce85816457bd75",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d7852aeb_f46bdc3c",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 8
