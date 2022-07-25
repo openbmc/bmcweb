@@ -63,6 +63,24 @@
       "message": "LGTM, It\u0027s marked as WIP, but if this compiles it should be working ok.",
       "revId": "fb76352ca24414689696acf5a8322e40c35cf2b3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ece9aa21_7bab8670",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-07-25T07:11:49Z",
+      "side": 1,
+      "message": "As a sanity check Redfish Validator can be executed.",
+      "parentUuid": "b9482284_508875b7",
+      "revId": "fb76352ca24414689696acf5a8322e40c35cf2b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
