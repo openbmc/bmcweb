@@ -258,6 +258,30 @@
       },
       "revId": "6fb145f7b4671493b7a81c5d88613cb0516586de",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e05eef40_1fc85414",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 601,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-25T03:16:11Z",
+      "side": 1,
+      "message": "Generally I\u0027m a fan of just inserting in order in this case.  \"do action when all things are done\" is a really hard concept in bmcweb (and async daemons in general) and involve reference counting and a bunch of other mess, simply making sure that you insert by AlphaNumLess (probably by using std::upper_bound) would shortcut the need for reference counting an destructors.\n\nI think in the other thread we\u0027ve decided that dbus isn\u0027t going to own the prefix definition, so we can skip 1.\n\nstep 2 can be replaced by the above \"insert in place\" operation.\nwhich removes the need to have any step 3\n\nWDYT?",
+      "parentUuid": "a9f88f71_b63eaca7",
+      "range": {
+        "startLine": 601,
+        "startChar": 14,
+        "endLine": 601,
+        "endChar": 71
+      },
+      "revId": "6fb145f7b4671493b7a81c5d88613cb0516586de",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
