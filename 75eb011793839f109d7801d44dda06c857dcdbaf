@@ -22,6 +22,29 @@
       },
       "revId": "75eb011793839f109d7801d44dda06c857dcdbaf",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "77222288_ddbfda91",
+        "filename": "redfish-core/ut/service_utils_test.cpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-25T20:26:10Z",
+      "side": 1,
+      "message": "Please use more specific test name. Please take a look at existing test codes.",
+      "range": {
+        "startLine": 10,
+        "startChar": 5,
+        "endLine": 10,
+        "endChar": 21
+      },
+      "revId": "75eb011793839f109d7801d44dda06c857dcdbaf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
