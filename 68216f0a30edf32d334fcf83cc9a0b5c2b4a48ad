@@ -94,6 +94,30 @@
       },
       "revId": "68216f0a30edf32d334fcf83cc9a0b5c2b4a48ad",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ed2e6aa0_99a2a9c2",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 889,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-25T03:26:05Z",
+      "side": 1,
+      "message": "Fine either way, just pointing out that it doesn\u0027t save a line if we have to wrap.",
+      "parentUuid": "d09fd434_144f0def",
+      "range": {
+        "startLine": 888,
+        "startChar": 0,
+        "endLine": 889,
+        "endChar": 23
+      },
+      "revId": "68216f0a30edf32d334fcf83cc9a0b5c2b4a48ad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
