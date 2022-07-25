@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d9330f12_36410beb",
+        "filename": "redfish-core/include/utils/service_utils.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-07-25T07:18:59Z",
+      "side": 1,
+      "message": "Take a look at sdbusplus::asio::setProperty you can use it instead. It requires to pass callback, but you can use std::binb_front to avoid code duplication.",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 53
+      },
+      "revId": "75eb011793839f109d7801d44dda06c857dcdbaf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
