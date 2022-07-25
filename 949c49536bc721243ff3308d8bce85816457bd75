@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2cd5945a_f6f0783d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-25T23:18:07Z",
+      "side": 1,
+      "message": "Posted a question. Otherwise LGTM",
+      "revId": "949c49536bc721243ff3308d8bce85816457bd75",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "62b44892_b95234e2",
@@ -38,6 +55,30 @@
       "side": 1,
       "message": "The underlying theory is that a given completion handler is only called once.  If we hit this branch, it means that the completion handler has already been called, so there\u0027s no reason to preserve it",
       "parentUuid": "62b44892_b95234e2",
+      "range": {
+        "startLine": 87,
+        "startChar": 12,
+        "endLine": 87,
+        "endChar": 45
+      },
+      "revId": "949c49536bc721243ff3308d8bce85816457bd75",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5f51681d_f24e114f",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-25T23:18:07Z",
+      "side": 1,
+      "message": "Just trying to understand when this could happen. Is this suppose to happen? My understanding is if we ever want to move construct a response (to hijack a handler via   |setCompleteRequestHandler|), the source response should be still active, right?",
+      "parentUuid": "24541f4c_b328e8cc",
       "range": {
         "startLine": 87,
         "startChar": 12,
