@@ -38,6 +38,13 @@ inline void redfish404(App& app, const crow::Request& req,
 
     BMCWEB_LOG_ERROR << "404 on path " << path;
 
+    if (req.method() != boost::beast::http::verb::get)
+    {
+        asyncResp->res.result(
+            boost::beast::http::status::method_not_allowed);
+        return;
+    }
+
     boost::urls::string_value name = req.urlView.segments().back();
     std::string_view nameStr(name.data(), name.size());
     // Note, if we hit the wildcard route, we don't know the "type" the user was
@@ -137,7 +144,11 @@ inline void requestRoutesRedfish(App& app)
 
     // Note, this route must always be registered last
     BMCWEB_ROUTE(app, "/redfish/<path>")
-    (std::bind_front(redfish404, std::ref(app)));
+        .methods(boost::beast::http::verb::get, boost::beast::http::verb::post,
+                 boost::beast::http::verb::put,
+                 boost::beast::http::verb::patch,
+                 boost::beast::http::verb::delete_)(
+            std::bind_front(redfish404, std::ref(app)));
 }
 
 } // namespace redfish
