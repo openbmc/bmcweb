@@ -22,6 +22,30 @@
       },
       "revId": "76ca8dc9fad2a5a4be817c02d1d1e2a8fec95c9e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a579668f_12100ca4",
+        "filename": "redfish-core/include/registries.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-25T15:11:44Z",
+      "side": 1,
+      "message": "The above doesn\u0027t seem to compile.  I don\u0027t think you can put semicolon separated statements in a while loop.\n\nAlso, for what you wrote, I\u0027d rather use operator +\u003d on the ret object, because it\u0027s already called reserve() for the correct size string, whereas what you wrote will construct a new string.\n\nHappy to make changes to the while loop, I\u0027m just not sure how to accomplish what you\u0027re trying to do.",
+      "parentUuid": "b4edaf06_5f0c61f6",
+      "range": {
+        "startLine": 67,
+        "startChar": 4,
+        "endLine": 91,
+        "endChar": 5
+      },
+      "revId": "76ca8dc9fad2a5a4be817c02d1d1e2a8fec95c9e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
