@@ -140,6 +140,30 @@
       },
       "revId": "949c49536bc721243ff3308d8bce85816457bd75",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "353d9d7c_5f4eb7d8",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 521,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-25T22:56:50Z",
+      "side": 1,
+      "message": "what is WAI?\n\nI do think this is correct, we don\u0027t want to populate headers from the sub-expand objects on the root object.  We should always get the headers from the root object.",
+      "parentUuid": "15e492df_74bdf7e9",
+      "range": {
+        "startLine": 521,
+        "startChar": 29,
+        "endLine": 521,
+        "endChar": 67
+      },
+      "revId": "949c49536bc721243ff3308d8bce85816457bd75",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
