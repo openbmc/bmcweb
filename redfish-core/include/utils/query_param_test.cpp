@@ -81,7 +81,7 @@ TEST(Delegate, TopNegative)
         .top = 42,
     };
     Query delegated = delegate(QueryCapabilities{}, query);
-    EXPECT_EQ(delegated.top, maxEntriesPerPage);
+    EXPECT_EQ(delegated.top, std::nullopt);
     EXPECT_EQ(query.top, 42);
 }
 
@@ -95,7 +95,7 @@ TEST(Delegate, TopPositive)
     };
     Query delegated = delegate(capabilities, query);
     EXPECT_EQ(delegated.top, 42);
-    EXPECT_EQ(query.top, maxEntriesPerPage);
+    EXPECT_EQ(query.top, std::nullopt);
 }
 
 TEST(Delegate, SkipNegative)
@@ -104,7 +104,7 @@ TEST(Delegate, SkipNegative)
         .skip = 42,
     };
     Query delegated = delegate(QueryCapabilities{}, query);
-    EXPECT_EQ(delegated.skip, 0);
+    EXPECT_EQ(delegated.skip, std::nullopt);
     EXPECT_EQ(query.skip, 42);
 }
 
