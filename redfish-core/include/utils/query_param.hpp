@@ -60,10 +60,10 @@ struct Query
     ExpandType expandType = ExpandType::None;
 
     // Skip
-    size_t skip = 0;
+    std::optional<size_t> skip = std::nullopt;
 
     // Top
-    size_t top = maxEntriesPerPage;
+    std::optional<size_t> top = std::nullopt;
 };
 
 // The struct defines how resource handlers in redfish-core/lib/ can handle
@@ -109,14 +109,14 @@ inline Query delegate(const QueryCapabilities& queryCapabilities, Query& query)
     }
 
     // delegate top
-    if (queryCapabilities.canDelegateTop)
+    if (query.top && queryCapabilities.canDelegateTop)
     {
         delegated.top = query.top;
         query.top = maxEntriesPerPage;
     }
 
     // delegate skip
-    if (queryCapabilities.canDelegateSkip)
+    if (query.skip && queryCapabilities.canDelegateSkip)
     {
         delegated.skip = query.skip;
         query.skip = 0;
@@ -196,12 +196,12 @@ inline QueryError getNumericParam(std::string_view value, size_t& param)
 
 inline QueryError getSkipParam(std::string_view value, Query& query)
 {
-    return getNumericParam(value, query.skip);
+    return getNumericParam(value, query.skip.emplace());
 }
 
 inline QueryError getTopParam(std::string_view value, Query& query)
 {
-    QueryError ret = getNumericParam(value, query.top);
+    QueryError ret = getNumericParam(value, query.top.emplace());
     if (ret != QueryError::Ok)
     {
         return ret;
@@ -566,6 +566,11 @@ class MultiAsyncResp : public std::enable_shared_from_this<MultiAsyncResp>
 
 inline void processTopAndSkip(const Query& query, crow::Response& res)
 {
+    if (!query.skip && !query.top)
+    {
+        // No work to do.
+        return;
+    }
     nlohmann::json::object_t* obj =
         res.jsonValue.get_ptr<nlohmann::json::object_t*>();
     if (obj == nullptr)
@@ -596,13 +601,18 @@ inline void processTopAndSkip(const Query& query, crow::Response& res)
         return;
     }
 
-    // Per section 7.3.1 of the Redfish specification, $skip is run before $top
-    // Can only skip as many values as we have
-    size_t skip = std::min(arr->size(), query.skip);
-    arr->erase(arr->begin(), arr->begin() + static_cast<ssize_t>(skip));
-
-    size_t top = std::min(arr->size(), query.top);
-    arr->erase(arr->begin() + static_cast<ssize_t>(top), arr->end());
+    if (query.skip)
+    {
+        // Per section 7.3.1 of the Redfish specification, $skip is run before
+        // $top Can only skip as many values as we have
+        size_t skip = std::min(arr->size(), *query.skip);
+        arr->erase(arr->begin(), arr->begin() + static_cast<ssize_t>(skip));
+    }
+    if (query.top)
+    {
+        size_t top = std::min(arr->size(), *query.top);
+        arr->erase(arr->begin() + static_cast<ssize_t>(top), arr->end());
+    }
 }
 
 inline void
@@ -631,7 +641,7 @@ inline void
         return;
     }
 
-    if (query.top <= maxEntriesPerPage || query.skip != 0)
+    if (query.top || query.skip)
     {
         processTopAndSkip(query, intermediateResponse);
     }
