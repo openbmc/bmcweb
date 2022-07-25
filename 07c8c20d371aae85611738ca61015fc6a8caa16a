@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "90bdb047_a66b459c",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 2102,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-25T16:40:21Z",
+      "side": 0,
+      "message": "Isn\u0027t this going to break existing users that relied on the systemd state?  Why are we moving away from the systemd state?  Please answer in your commit message.  From my perspective, systemd is more \"standard\", so this is a step backward.",
+      "range": {
+        "startLine": 2080,
+        "startChar": 0,
+        "endLine": 2102,
+        "endChar": 9
+      },
+      "revId": "07c8c20d371aae85611738ca61015fc6a8caa16a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

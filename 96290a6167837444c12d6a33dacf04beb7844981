@@ -1,6 +1,92 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "a72f7451_4b4c6e93",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 20
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-25T16:40:21Z",
+      "side": 1,
+      "message": "Please wrap your commits properly.  50/72 please",
+      "revId": "96290a6167837444c12d6a33dacf04beb7844981",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6a711398_3aee4e72",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 20
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-25T16:40:21Z",
+      "side": 1,
+      "message": "Given the comment I made below, this doesn\u0027t appear to be true, and you\u0027ve deleted the code that sets the BMC state to \"starting\"",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 10
+      },
+      "revId": "96290a6167837444c12d6a33dacf04beb7844981",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "870c94f2_63fe8fe0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 20
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-25T16:40:21Z",
+      "side": 1,
+      "message": "typo.",
+      "range": {
+        "startLine": 11,
+        "startChar": 33,
+        "endLine": 11,
+        "endChar": 39
+      },
+      "revId": "96290a6167837444c12d6a33dacf04beb7844981",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "57bc4771_307ddb1c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 20
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-25T16:40:21Z",
+      "side": 1,
+      "message": "?  CurrentBMCState isn\u0027t settable, is it?",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 65
+      },
+      "revId": "96290a6167837444c12d6a33dacf04beb7844981",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "4b38d45d_f2a875b8",
@@ -49,6 +135,69 @@
       "writtenOn": "2022-07-25T06:02:12Z",
       "side": 1,
       "message": "@EdTonous @Gunnar can you please do merge for this commit?",
+      "revId": "96290a6167837444c12d6a33dacf04beb7844981",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "29fbd6cf_0ac6fe0b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 20
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-25T16:40:21Z",
+      "side": 1,
+      "message": "Please write a more complete commit message;  The commit message should answer \"why\", and needs to include why for the whole commit, including why we\u0027re moving away from systemd here (which is the standard interface for this).",
+      "revId": "96290a6167837444c12d6a33dacf04beb7844981",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0579cfd9_e6afbe1b",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 1956,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-25T16:40:21Z",
+      "side": 1,
+      "message": "Is this present on all BMCs?",
+      "range": {
+        "startLine": 1956,
+        "startChar": 0,
+        "endLine": 1956,
+        "endChar": 48
+      },
+      "revId": "96290a6167837444c12d6a33dacf04beb7844981",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a99b77b1_8f5f830a",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 1971,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-25T16:40:21Z",
+      "side": 1,
+      "message": "Please adapt and consider the existing health designs.  I\u0027m pretty sure it\u0027s required in this case.",
+      "range": {
+        "startLine": 1971,
+        "startChar": 0,
+        "endLine": 1971,
+        "endChar": 66
+      },
       "revId": "96290a6167837444c12d6a33dacf04beb7844981",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
