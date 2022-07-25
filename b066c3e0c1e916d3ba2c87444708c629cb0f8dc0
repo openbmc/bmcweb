@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1043343d_29a6380e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001489
+      },
+      "writtenOn": "2022-07-25T09:43:27Z",
+      "side": 1,
+      "message": "This commit can help with this problem https://gerrit.openbmc.org/c/openbmc/bmcweb/+/54292\nI think it would be worth merging it ",
+      "revId": "b066c3e0c1e916d3ba2c87444708c629cb0f8dc0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
