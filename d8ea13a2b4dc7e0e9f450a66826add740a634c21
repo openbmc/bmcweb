@@ -446,6 +446,42 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d213d66c_a77dbe08",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-25T03:24:22Z",
+      "side": 1,
+      "message": "I think the only gap is I need to log into gerrit and add some of the prolog logic, which I don\u0027t quite remember how to do, but that\u0027s on me for the moment.",
+      "parentUuid": "e88d2422_3d86b6b7",
+      "revId": "d8ea13a2b4dc7e0e9f450a66826add740a634c21",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "646dd08d_21774eae",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-25T03:24:22Z",
+      "side": 1,
+      "message": "great!",
+      "parentUuid": "c986c576_ac2114a0",
+      "revId": "d8ea13a2b4dc7e0e9f450a66826add740a634c21",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "eb619265_ab2a9d10",
         "filename": "OWNERS",
         "patchSetId": 1
@@ -481,6 +517,30 @@
       "side": 1,
       "message": "Not explicitly answered. But in the other thread, people will get +2 permission.",
       "parentUuid": "eb619265_ab2a9d10",
+      "range": {
+        "startLine": 77,
+        "startChar": 0,
+        "endLine": 77,
+        "endChar": 8
+      },
+      "revId": "d8ea13a2b4dc7e0e9f450a66826add740a634c21",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "71657550_ea620685",
+        "filename": "OWNERS",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-25T03:24:22Z",
+      "side": 1,
+      "message": "there’s some gerrit admin stuff I need to do to make this work.  it’s on my list to do.",
+      "parentUuid": "5f88cd45_0617e3f9",
       "range": {
         "startLine": 77,
         "startChar": 0,
