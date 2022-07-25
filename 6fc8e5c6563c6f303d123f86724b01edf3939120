@@ -109,6 +109,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0b237c9c_3b210a17",
+        "filename": "redfish-core/include/utils/service_utils.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-25T16:20:54Z",
+      "side": 1,
+      "message": "Said another way, I\u0027m happy to rebase my patches on top of these.",
+      "parentUuid": "0ab4b25c_15bf3f70",
+      "revId": "6fc8e5c6563c6f303d123f86724b01edf3939120",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6f1c80f8_8777fdb3",
         "filename": "redfish-core/include/utils/service_utils.hpp",
         "patchSetId": 23
