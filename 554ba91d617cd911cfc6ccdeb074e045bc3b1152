@@ -213,6 +213,30 @@
       },
       "revId": "554ba91d617cd911cfc6ccdeb074e045bc3b1152",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d874f36e_dbcd545d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-07-25T17:52:40Z",
+      "side": 1,
+      "message": "\u003e \u003e \u003e \u003e Based on this it sounds like there isn\u0027t an avenue to add \"main_\".  Really the only reason to add main is to avoid a collision where the aggregating BMC has a resource called something like \"/redfish/v1/Chassis/aggregated0_someID\" and the satellite has a Chassis called someID.  It would also appear as \"/redfish/v1/Chassis/aggregated0_someID\".\n\u003e \u003e \u003e That is a very valid concern, and why I would probably argue we shouldn\u0027t use \"aggregated\" either, we should use something more.... special\n\u003e \u003e It\u0027s not very special, but I like that it obviously shows that the resource belongs to a satellite BMC.  Off the top of my head I can\u0027t think of a reason that a user would arbitrary choose a local identifier that begins with aggregated.\n\u003e Lots of sensors are called \"aggregated\" for margin sensors today (we call them fleeting, but regardless).  If aggregated is what we want, that probably works.\nSounds good.\n\n\u003e \u003e  If we enforce this through the dbus collections like you describe later then it feels like that reduces need to pick a keyword that is overly special.  Saying to users \"don\u0027t begin resource names with \u0027aggregated\u0027\" seems reasonable.\n\u003e Agreed.  I\u0027d like us to come up with at least a couple other names just so we can say we tried and thought about it hard, because realistically once we pick the name, it\u0027s forever.\nFair enough, a few others ones I can think of are \"satellite\", \"remote\", \"external\".  My preference is still \"aggregated\".\n\n\u003e \u003e \u003e \u003e I think you could make the argument that presumably you have control over the aggregating BMC so you would have to purposefully begin the name of a resource on your machine with \"aggregated0_\"\n\u003e \u003e \u003e Yep, that\u0027s the thinking, and even that, in theory we can mitigate against.  We could just have the existing dbus collections outright reject any resources that start with whatever magic keyword we use, then there\u0027s no way you can even attack it if you were nefarious and doing it on purpose, your resources just wouldn\u0027t\u0027 show up.\n\u003e \u003e Along these lines we could change aggregated resource IDs into \"aggregated\u003cvalue chosen at runtime\u003e_\u003coriginal ID\u003e\".  The aggregated prefixes would become \"aggregated0_\", \"aggregated1_\", etc.  It\u0027s the same form as before, but we don\u0027t allow the HW config to set the prefix value.  We\u0027d just increment that value as we found satellite configs.  We could match against \"aggregated\" and ignore the value for the purpose of D-Bus matching.\n\u003e Yup, you got it.  That gives us a way to identify an aggregated resource without,  having to hit dbus or the cache, which means the 404 handler can be smarter, and we can have separate paths for \"aggregated resource 404ed\", versus \"this route 404ed\"\nI don\u0027t think we\u0027d necessarily even need an explicit separate path for \"aggregated resource 404ed\".  If it\u0027s for an individual resource then we\u0027d not need to actually handle it on the aggregator since we don\u0027t want to write a 404 to AsyncResp because we know AsyncResp is going to be overwritten by the response from the satellite.  We could just return right after we begin the process of forwarding the request to the satellite BMC.  This also saves us from having to create duplicate BMCWEB_ROUTE()\u0027s for each supported resource like \"/redfish/v1/Chassis/aggregated\u003cstr\u003e/\".\n\nIf the request is for a resource collection then we\u0027d just use the normal handler since the prefixes wouldn\u0027t be included in the URI.",
+      "parentUuid": "4ff4865a_f4638a48",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 19
+      },
+      "revId": "554ba91d617cd911cfc6ccdeb074e045bc3b1152",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

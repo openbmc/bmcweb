@@ -139,6 +139,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ec38fc3b_27b60568",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-07-25T17:52:40Z",
+      "side": 1,
+      "message": "That actually isn\u0027t too bad.  We can update the links as part of the response handler for each request sent to a satellite.  We would do that before we actually update the aggregator\u0027s AsyncResp with the information from the satellite\u0027s response.\n\nThat\u0027s how it\u0027s now approached in this CL https://gerrit.openbmc.org/c/openbmc/bmcweb/+/53794/19",
+      "parentUuid": "ce4c8e7d_8435581c",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 0
+      },
+      "revId": "205a903f49d1e077068ba6b2c46c0d9a90544cc7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8d186732_94080906",
         "filename": "redfish-core/include/redfish_aggregator.hpp",
         "patchSetId": 1
