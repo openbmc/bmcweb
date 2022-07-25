@@ -91,6 +91,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0ab4b25c_15bf3f70",
+        "filename": "redfish-core/include/utils/service_utils.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-25T16:20:29Z",
+      "side": 1,
+      "message": "\"redfish-core\" is a mix of both Dbus-redfish handlers and non-dbus redfish stuff.  The things in these files are specific to managing services, so they belong next to the NetworkProtocol handlers.\n\nI have patches to start separating out dbus more, but I don\u0027t think we need to hold up this patch for that.",
+      "parentUuid": "386257ad_b4ab8ec5",
+      "revId": "6fc8e5c6563c6f303d123f86724b01edf3939120",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6f1c80f8_8777fdb3",
         "filename": "redfish-core/include/utils/service_utils.hpp",
         "patchSetId": 23
@@ -147,6 +165,30 @@
         "id": 1000682
       },
       "writtenOn": "2022-07-19T00:22:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0fdc6fd6_ea84533d",
+      "range": {
+        "startLine": 18,
+        "startChar": 12,
+        "endLine": 18,
+        "endChar": 24
+      },
+      "revId": "6fc8e5c6563c6f303d123f86724b01edf3939120",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b372b4ab_af435743",
+        "filename": "redfish-core/include/utils/service_utils.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-25T16:20:29Z",
       "side": 1,
       "message": "Done",
       "parentUuid": "0fdc6fd6_ea84533d",

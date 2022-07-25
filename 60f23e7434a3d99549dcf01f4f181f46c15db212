@@ -46,6 +46,30 @@
       },
       "revId": "60f23e7434a3d99549dcf01f4f181f46c15db212",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e5651fbf_0f1bb516",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 368,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-25T16:20:29Z",
+      "side": 1,
+      "message": "Latest patchset looks like it fixed the stacking issue.  Thanks.",
+      "parentUuid": "e5052d2e_275543c9",
+      "range": {
+        "startLine": 358,
+        "startChar": 0,
+        "endLine": 368,
+        "endChar": 59
+      },
+      "revId": "60f23e7434a3d99549dcf01f4f181f46c15db212",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
