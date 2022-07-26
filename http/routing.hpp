@@ -27,6 +27,19 @@
 namespace crow
 {
 
+// Note, this is an imperfect abstraction.  There are a lot of verbs that we
+// use memory for, but are basically unused by most implementations.
+// Ideally we would have a list of verbs that we do use, and only index in
+// to a smaller array of those, but that would require a translation from
+// boost::beast::http::verb, to the bmcweb index.
+static constexpr size_t maxVerbIndex =
+    static_cast<size_t>(boost::beast::http::verb::patch);
+
+// MaxVerb + 1 is designated as the "not found" verb.  It is done this way
+// to keep the BaseRule as a single bitfield (thus keeping the struct small)
+// while still having a way to declare a route a "not found" route.
+static constexpr const size_t notFoundIndex = maxVerbIndex + 1;
+
 class BaseRule
 {
   public:
@@ -95,6 +108,9 @@ class BaseRule
 
     size_t methodsBitfield{
         1 << static_cast<size_t>(boost::beast::http::verb::get)};
+    static_assert(std::numeric_limits<decltype(methodsBitfield)>::digits >
+                      notFoundIndex,
+                  "Not enough bits to store bitfield");
 
     std::vector<redfish::Privileges> privilegesSet;
 
@@ -438,6 +454,13 @@ struct RuleParameterTraits
         self_t* self = static_cast<self_t*>(this);
         methods(argsMethod...);
         self->methodsBitfield |= 1U << static_cast<size_t>(method);
+        return *self;
+    }
+
+    self_t& notFound()
+    {
+        self_t* self = static_cast<self_t*>(this);
+        self->methodsBitfield = 1U << notFoundIndex;
         return *self;
     }
 
@@ -1097,7 +1120,7 @@ class Router
         {
             return;
         }
-        for (size_t method = 0, methodBit = 1; method < maxHttpVerbCount;
+        for (size_t method = 0, methodBit = 1; method <= notFoundIndex;
              method++, methodBit <<= 1)
         {
             if ((ruleObject->methodsBitfield & methodBit) > 0U)
@@ -1209,28 +1232,46 @@ class Router
         }
     }
 
-    std::string buildAllowHeader(Request& req)
+    struct FindRouteResponse
     {
         std::string allowHeader;
+        BaseRule* rule = nullptr;
+        RoutingParams params;
+    };
+
+    FindRouteResponse findRoute(Request& req) const
+    {
+        FindRouteResponse findRoute;
+
+        size_t reqMethodIndex = static_cast<size_t>(req.method());
         // Check to see if this url exists at any verb
-        for (size_t perMethodIndex = 0; perMethodIndex < perMethods.size();
+        for (size_t perMethodIndex = 0; perMethodIndex <= maxVerbIndex;
              perMethodIndex++)
         {
-            const PerMethod& p = perMethods[perMethodIndex];
-            const std::pair<unsigned, RoutingParams>& found2 =
-                p.trie.find(req.url);
+            // Make sure it's safe to deference the array at that index
+            static_assert(maxVerbIndex <
+                          std::tuple_size_v<decltype(perMethods)>);
+
+            const PerMethod& perMethod = perMethods[perMethodIndex];
+            std::pair<unsigned, RoutingParams> found2 =
+                perMethod.trie.find(req.url);
             if (found2.first == 0)
             {
                 continue;
             }
-            if (!allowHeader.empty())
+            if (!findRoute.allowHeader.empty())
             {
-                allowHeader += ", ";
+                findRoute.allowHeader += ", ";
             }
-            allowHeader += boost::beast::http::to_string(
+            findRoute.allowHeader += boost::beast::http::to_string(
                 static_cast<boost::beast::http::verb>(perMethodIndex));
+            if (perMethodIndex == reqMethodIndex)
+            {
+                findRoute.rule = perMethod.rules[found2.first];
+                findRoute.params = std::move(found2.second);
+            }
         }
-        return allowHeader;
+        return findRoute;
     }
 
     void handle(Request& req,
@@ -1241,64 +1282,71 @@ class Router
             asyncResp->res.result(boost::beast::http::status::not_found);
             return;
         }
-        PerMethod& perMethod = perMethods[static_cast<size_t>(req.method())];
-        Trie& trie = perMethod.trie;
-        std::vector<BaseRule*>& rules = perMethod.rules;
-        std::string allowHeader = buildAllowHeader(req);
-        if (!allowHeader.empty())
+
+        FindRouteResponse foundRoute = findRoute(req);
+
+        // Couldn't find a normal route with any verb, try looking for a 404
+        // route
+        if (foundRoute.allowHeader.empty())
         {
+            if (foundRoute.rule == nullptr)
+            {
+                const PerMethod& perMethod = perMethods[notFoundIndex];
+                std::pair<unsigned, RoutingParams> found =
+                    perMethod.trie.find(req.url);
+                if (found.first >= perMethod.rules.size())
+                {
+                    throw std::runtime_error(
+                        "Trie internal structure corrupted!");
+                }
+                // Found a 404 route, switch that in
+                if (found.first != 0U)
+                {
+                    foundRoute.rule = perMethod.rules[found.first];
+                    foundRoute.params = std::move(found.second);
+                }
+            }
+        }
+        else
+        {
+            // Found at least one valid route, fill in the allow header
             asyncResp->res.addHeader(boost::beast::http::field::allow,
-                                     allowHeader);
+                                     foundRoute.allowHeader);
         }
 
-        const std::pair<unsigned, RoutingParams>& found = trie.find(req.url);
-
-        unsigned ruleIndex = found.first;
-        if (ruleIndex == 0U)
+        // If we couldn't find a real route or a 404 route, return a generic
+        // response
+        if (foundRoute.rule == nullptr)
         {
-            if (!allowHeader.empty())
+            if (foundRoute.allowHeader.empty())
+            {
+                asyncResp->res.result(boost::beast::http::status::not_found);
+            }
+            else
             {
                 asyncResp->res.result(
                     boost::beast::http::status::method_not_allowed);
-                return;
             }
-
-            BMCWEB_LOG_DEBUG << "Cannot match rules " << req.url;
-            asyncResp->res.result(boost::beast::http::status::not_found);
             return;
         }
 
-        if (ruleIndex >= rules.size())
-        {
-            throw std::runtime_error("Trie internal structure corrupted!");
-        }
+        BaseRule& rule = *foundRoute.rule;
+        RoutingParams params = std::move(foundRoute.params);
 
-        if ((rules[ruleIndex]->getMethods() &
-             (1U << static_cast<uint32_t>(req.method()))) == 0)
-        {
-            BMCWEB_LOG_DEBUG << "Rule found but method mismatch: " << req.url
-                             << " with " << req.methodString() << "("
-                             << static_cast<uint32_t>(req.method()) << ") / "
-                             << rules[ruleIndex]->getMethods();
-            asyncResp->res.result(
-                boost::beast::http::status::method_not_allowed);
-            return;
-        }
-
-        BMCWEB_LOG_DEBUG << "Matched rule '" << rules[ruleIndex]->rule << "' "
+        BMCWEB_LOG_DEBUG << "Matched rule '" << rule.rule << "' "
                          << static_cast<uint32_t>(req.method()) << " / "
-                         << rules[ruleIndex]->getMethods();
+                         << rule.getMethods();
 
         if (req.session == nullptr)
         {
-            rules[ruleIndex]->handle(req, asyncResp, found.second);
+            rule.handle(req, asyncResp, params);
             return;
         }
 
         crow::connections::systemBus->async_method_call(
-            [&req, asyncResp, &rules, ruleIndex,
-             found](const boost::system::error_code ec,
-                    const dbus::utility::DBusPropertiesMap& userInfoMap) {
+            [&req, asyncResp, &rule,
+             params](const boost::system::error_code ec,
+                     const dbus::utility::DBusPropertiesMap& userInfoMap) {
             if (ec)
             {
                 BMCWEB_LOG_ERROR << "GetUserInfo failed...";
@@ -1380,7 +1428,7 @@ class Router
                 BMCWEB_LOG_DEBUG << "Operation limited to ConfigureSelf";
             }
 
-            if (!rules[ruleIndex]->checkPrivileges(userPrivileges))
+            if (!rule.checkPrivileges(userPrivileges))
             {
                 asyncResp->res.result(boost::beast::http::status::forbidden);
                 if (req.session->isConfigureSelfOnly)
@@ -1394,7 +1442,7 @@ class Router
             }
 
             req.userRole = userRole;
-            rules[ruleIndex]->handle(req, asyncResp, found.second);
+            rule.handle(req, asyncResp, params);
             },
             "xyz.openbmc_project.User.Manager", "/xyz/openbmc_project/user",
             "xyz.openbmc_project.User.Manager", "GetUserInfo",
@@ -1438,10 +1486,7 @@ class Router
         {}
     };
 
-    const static size_t maxHttpVerbCount =
-        static_cast<size_t>(boost::beast::http::verb::unlink);
-
-    std::array<PerMethod, maxHttpVerbCount> perMethods;
+    std::array<PerMethod, notFoundIndex + 1> perMethods;
     std::vector<std::unique_ptr<BaseRule>> allRules;
 };
 } // namespace crow

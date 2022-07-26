@@ -42,17 +42,53 @@ TEST(Router, AllowHeader)
 
     // No route should return no methods.
     router.validate();
-    EXPECT_EQ(router.buildAllowHeader(req), "");
+    EXPECT_EQ(router.findRoute(req).allowHeader, "");
+    EXPECT_EQ(router.findRoute(req).rule, nullptr);
 
     router.newRuleTagged<getParameterTag(url)>(std::string(url))
         .methods(boost::beast::http::verb::get)(nullCallback);
     router.validate();
-    EXPECT_EQ(router.buildAllowHeader(req), "GET");
+    EXPECT_EQ(router.findRoute(req).allowHeader, "GET");
+    EXPECT_NE(router.findRoute(req).rule, nullptr);
+
+    Request patchReq{{boost::beast::http::verb::patch, url, 11}, ec};
+    EXPECT_EQ(router.findRoute(patchReq).rule, nullptr);
 
     router.newRuleTagged<getParameterTag(url)>(std::string(url))
         .methods(boost::beast::http::verb::patch)(nullCallback);
     router.validate();
-    EXPECT_EQ(router.buildAllowHeader(req), "GET, PATCH");
+    EXPECT_EQ(router.findRoute(req).allowHeader, "GET, PATCH");
+    EXPECT_NE(router.findRoute(req).rule, nullptr);
+    EXPECT_NE(router.findRoute(patchReq).rule, nullptr);
+}
+
+TEST(Router, 404)
+{
+    bool notFoundCalled = false;
+    // Callback handler that does nothing
+    auto nullCallback =
+        [&notFoundCalled](const Request&,
+                          const std::shared_ptr<bmcweb::AsyncResp>&) {
+        notFoundCalled = true;
+    };
+
+    Router router;
+    std::error_code ec;
+
+    constexpr const std::string_view url = "/foo/bar";
+
+    Request req{{boost::beast::http::verb::get, url, 11}, ec};
+
+    router.newRuleTagged<getParameterTag(url)>("/foo/<path>")
+        .notFound()(nullCallback);
+    router.validate();
+    {
+        std::shared_ptr<bmcweb::AsyncResp> asyncResp =
+            std::make_shared<bmcweb::AsyncResp>();
+
+        router.handle(req, asyncResp);
+    }
+    EXPECT_TRUE(notFoundCalled);
 }
 } // namespace
 } // namespace crow
