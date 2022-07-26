@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8ddb46fc_22e0f3ef",
+        "filename": "redfish-core/include/utils/service_utils.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-07-26T07:18:26Z",
+      "side": 1,
+      "message": "IMO, using sdbusplus::asio::setProperty does not save code here as a callback to handle error is still needed. My setProperty here is somewhat similar to the sdbusplus one, except it has its own error handler and hardcoded the service here.\n\nBesides, bmcweb is not using sdbusplus::asio::setProperty currently.",
+      "parentUuid": "d9330f12_36410beb",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 53
+      },
+      "revId": "75eb011793839f109d7801d44dda06c857dcdbaf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "77222288_ddbfda91",
         "filename": "redfish-core/ut/service_utils_test.cpp",
         "patchSetId": 29
@@ -37,6 +61,30 @@
       "writtenOn": "2022-07-25T20:26:10Z",
       "side": 1,
       "message": "Please use more specific test name. Please take a look at existing test codes.",
+      "range": {
+        "startLine": 10,
+        "startChar": 5,
+        "endLine": 10,
+        "endChar": 21
+      },
+      "revId": "75eb011793839f109d7801d44dda06c857dcdbaf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8baab19d_3c0f967c",
+        "filename": "redfish-core/ut/service_utils_test.cpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-07-26T07:18:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "77222288_ddbfda91",
       "range": {
         "startLine": 10,
         "startChar": 5,
