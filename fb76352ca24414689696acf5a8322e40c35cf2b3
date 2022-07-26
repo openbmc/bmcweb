@@ -128,6 +128,30 @@
       },
       "revId": "fb76352ca24414689696acf5a8322e40c35cf2b3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ab06307_6404d666",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-26T03:13:23Z",
+      "side": 1,
+      "message": "yes.  we were returning the whole response object instead of just the wrong parameters.  I can break it into its own patch.",
+      "parentUuid": "a2a77300_01c16299",
+      "range": {
+        "startLine": 204,
+        "startChar": 16,
+        "endLine": 204,
+        "endChar": 25
+      },
+      "revId": "fb76352ca24414689696acf5a8322e40c35cf2b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
