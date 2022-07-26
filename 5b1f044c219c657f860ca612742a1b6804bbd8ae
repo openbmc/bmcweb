@@ -16,6 +16,24 @@
       "message": "Given that last time similar change breaks QEMU Robot test, I would like us test this commit.",
       "revId": "5b1f044c219c657f860ca612742a1b6804bbd8ae",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce651cb1_9f146bdd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-26T22:50:40Z",
+      "side": 1,
+      "message": "we do technically require redfish-service-validator on all commits changing redfish get handlers.  I missed that that test wasn\u0027t run on the other patchset;  WE need to get the codebase passing again, then we can start fixing more stuff.  All patchsets are on hold until master is fixed, so lets focus on testing that.",
+      "parentUuid": "fa81030e_eb4b04c7",
+      "revId": "5b1f044c219c657f860ca612742a1b6804bbd8ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
