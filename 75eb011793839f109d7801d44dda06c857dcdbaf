@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4c263894_de5d29b3",
+        "filename": "redfish-core/include/utils/service_utils.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-07-26T07:49:45Z",
+      "side": 1,
+      "message": "People are starting to use version from sdbusplus, there are couple of uses in bmcweb of setProperty.\n\nThere is only duplication in parameters.\n\nvoid setEnabled(const std::shared_ptr\u003cbmcweb::AsyncResp\u003e\u0026 asyncResp,\n                const std::string\u0026 serviceName, const bool enabled)\n{\n    crow::connections::systemBus-\u003easync_method_call(\n        [asyncResp, serviceName,\n         enabled](const boost::system::error_code ec,\n                  const dbus::utility::ManagedObjectType\u0026 objects) {\n        if (ec)\n        {\n            messages::internalError(asyncResp-\u003eres);\n            return;\n        }\n\n        bool serviceFound \u003d false;\n        for (const auto\u0026 [path, _] : objects)\n        {\n            if (!matchService(path, serviceName))\n            {\n                continue;\n            }\n\n            serviceFound \u003d true;\n\n            auto errorHandler \u003d [asyncResp](boost::system::error_code ec) {\n              if (ec)\n              {\n                messages::internalError(asyncResp-\u003eres);\n                return;\n              }\n           });\n\n           sdbusplus::asio::setProperty(\n             \"xyz.openbmc_project.Control.Service.Manager\", path, \n             \"xyz.openbmc_project.Control.Service.Attributes\",\n             \"Running\", enabled, errorHandler);\n\n           sdbusplus::asio::setProperty(\n             \"xyz.openbmc_project.Control.Service.Manager\", path, \n             \"xyz.openbmc_project.Control.Service.Attributes\",\n             \"Enabled\", enabled, errorHandler);\n        }\n\n        // The Redfish property will not be populated in if service is not\n        // found, return PropertyUnknown for PATCH request\n        if (!serviceFound)\n        {\n            messages::propertyUnknown(asyncResp-\u003eres, \"Enabled\");\n            return;\n        }\n        },\n        \"xyz.openbmc_project.Control.Service.Manager\",\n        \"/xyz/openbmc_project/control/service\",\n        \"org.freedesktop.DBus.ObjectManager\", \"GetManagedObjects\");\n}",
+      "parentUuid": "8ddb46fc_22e0f3ef",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 53
+      },
+      "revId": "75eb011793839f109d7801d44dda06c857dcdbaf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "77222288_ddbfda91",
         "filename": "redfish-core/ut/service_utils_test.cpp",
         "patchSetId": 29
