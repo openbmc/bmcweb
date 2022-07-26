@@ -36,6 +36,23 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "e4374d1e_18644237",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-07-26T02:27:01Z",
+      "side": 1,
+      "message": "May I ask the reason of not resetting query.top to std::nullopt here? I\u0027m not familar with delegation.",
+      "revId": "3293c8ab27f3b961961c2e81ebb7cc138c0e0ead",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "589c3bc7_796eb1a2",
@@ -78,6 +95,29 @@
         "startChar": 45,
         "endLine": 199,
         "endChar": 52
+      },
+      "revId": "3293c8ab27f3b961961c2e81ebb7cc138c0e0ead",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ebeb6a98_e9bcdb8e",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1180,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-07-26T02:27:01Z",
+      "side": 1,
+      "message": "Maybe using `size_t top \u003d delegatedQuery.top.value_or(query_param::maxEntriesPerPage)` would be better. This brings less change to current code.\n\nAs you requested to move maxEntriesPerPage to Query struct. I think we can have `defaultTop` and `defaultSkip` there instead of hardcoding it here.",
+      "range": {
+        "startLine": 1173,
+        "startChar": 8,
+        "endLine": 1180,
+        "endChar": 9
       },
       "revId": "3293c8ab27f3b961961c2e81ebb7cc138c0e0ead",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
