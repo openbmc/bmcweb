@@ -29,6 +29,55 @@ namespace redfish
 {
 
 /**
+ * @brief Retrieves resources over dbus to link to the chassis
+ *
+ * @param[in] aResp       - Shared pointer for completing asynchronous calls.
+ * @param[in] associationPath  - Chassis dbus path to look for the storage.
+ * @param[in] resoruce     - Resource to link to the chassis
+ * @param[in] resourceURI  - Resource URI to add the resource
+ * @param[in] interfaces   - List of interfaces to constrain the GetSubTree
+ * search
+ *
+ * @return None.
+ */
+inline void getChassisResources(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+                                const std::string& associationPath,
+                                const std::string& resourceName,
+                                const std::string& resourceURI)
+{
+    sdbusplus::asio::getProperty<std::vector<std::string>>(
+        *crow::connections::systemBus, "xyz.openbmc_project.ObjectMapper",
+        associationPath, "xyz.openbmc_project.Association", "endpoints",
+        [aResp, resourceName,
+         resourceURI](const boost::system::error_code ec,
+                      const std::vector<std::string>& resourceList) {
+        if (ec)
+        {
+            BMCWEB_LOG_DEBUG << "getChassisResources got DBUS response error";
+            return;
+        }
+
+        nlohmann::json& resources = aResp->res.jsonValue["Links"][resourceName];
+        resources = nlohmann::json::array();
+        auto& count =
+            aResp->res.jsonValue["Links"][resourceName + "@odata.count"];
+        count = 0;
+        for (const std::string& resource : resourceList)
+        {
+            sdbusplus::message::object_path path(resource);
+            std::string leaf = path.filename();
+            if (leaf.empty())
+            {
+                continue;
+            }
+
+            resources.push_back({{"@odata.id", resourceURI + leaf}});
+        }
+        count = resources.size();
+        });
+}
+
+/**
  * @brief Retrieves chassis state properties over dbus
  *
  * @param[in] aResp - Shared pointer for completing asynchronous calls.
@@ -344,10 +393,10 @@ inline void requestRoutesChassis(App& app)
                 }
 
                 crow::connections::systemBus->async_method_call(
-                    [asyncResp, chassisId(std::string(chassisId))](
-                        const boost::system::error_code /*ec2*/,
-                        const dbus::utility::DBusPropertiesMap&
-                            propertiesList) {
+                    [asyncResp, chassisId(std::string(chassisId)),
+                     path](const boost::system::error_code /*ec2*/,
+                           const dbus::utility::DBusPropertiesMap&
+                               propertiesList) {
                     for (const std::pair<std::string,
                                          dbus::utility::DbusVariantType>&
                              property : propertiesList)
@@ -411,6 +460,8 @@ inline void requestRoutesChassis(App& app)
                     asyncResp->res.jsonValue["Links"]["ManagedBy"] =
                         std::move(managedBy);
                     getChassisState(asyncResp);
+                    getChassisResources(asyncResp, path + "/storage", "Storage",
+                                        "/redfish/v1/Storage/");
                     },
                     connectionName, path, "org.freedesktop.DBus.Properties",
                     "GetAll", "xyz.openbmc_project.Inventory.Decorator.Asset");
