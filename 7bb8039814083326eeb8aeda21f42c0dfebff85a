@@ -22,6 +22,30 @@
       },
       "revId": "7bb8039814083326eeb8aeda21f42c0dfebff85a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "115e3aeb_909b60d3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-07-26T02:34:18Z",
+      "side": 1,
+      "message": "I think the variable name need to tell its relationship with top. Now I renamed it to defaultTop and defaultSkip for change https://gerrit.openbmc.org/c/openbmc/bmcweb/+/55900",
+      "parentUuid": "a62016cd_6dddd08f",
+      "range": {
+        "startLine": 10,
+        "startChar": 43,
+        "endLine": 11,
+        "endChar": 10
+      },
+      "revId": "7bb8039814083326eeb8aeda21f42c0dfebff85a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
