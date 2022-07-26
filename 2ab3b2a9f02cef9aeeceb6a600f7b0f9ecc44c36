@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2af33136_3420542a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-26T02:31:53Z",
+      "side": 1,
+      "message": "This is already supported I thought, but clearly it\u0027s not working in your case.  Can we get a better explanation of what you\u0027re trying to accomplish?\n\nhttps://github.com/openbmc/bmcweb/blob/45248ba327bcf330fd2e49f90a59159fdf8ebecc/http/routing.hpp#L1268\n\nI suspect in this case the handling needs to be aggregation specific?\n\n\nAlso, POST/PUT/PATCH/DELETE can still return 404, so as written, I think this doesn\u0027t do the right thing in RESTFUL semantics.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 33
+      },
+      "revId": "2ab3b2a9f02cef9aeeceb6a600f7b0f9ecc44c36",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf9aa226_b7a4b50e",
+        "filename": "redfish-core/lib/redfish_v1.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-26T02:31:53Z",
+      "side": 1,
+      "message": "I\u0027m confused why we\u0027d make an explicit verb list here.  These are all the common verbs, but if we send TRACE /redfish/v1 we should still get 404.",
+      "range": {
+        "startLine": 146,
+        "startChar": 17,
+        "endLine": 148,
+        "endChar": 50
+      },
+      "revId": "2ab3b2a9f02cef9aeeceb6a600f7b0f9ecc44c36",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
