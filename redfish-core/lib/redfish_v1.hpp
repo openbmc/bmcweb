@@ -137,7 +137,7 @@ inline void requestRoutesRedfish(App& app)
 
     // Note, this route must always be registered last
     BMCWEB_ROUTE(app, "/redfish/<path>")
-    (std::bind_front(redfish404, std::ref(app)));
+        .notFound()(std::bind_front(redfish404, std::ref(app)));
 }
 
 } // namespace redfish

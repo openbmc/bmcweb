@@ -54,5 +54,33 @@ TEST(Router, AllowHeader)
     router.validate();
     EXPECT_EQ(router.buildAllowHeader(req), "GET, PATCH");
 }
+
+TEST(Router, 404)
+{
+    bool notFoundCalled = false;
+    // Callback handler that does nothing
+    auto nullCallback =
+        [&notFoundCalled](const Request&,
+                          const std::shared_ptr<bmcweb::AsyncResp>&) {
+        notFoundCalled = true;
+    };
+
+    Router router;
+    std::error_code ec;
+
+    constexpr const std::string_view url = "/foo/bar";
+
+    Request req{{boost::beast::http::verb::get, url, 11}, ec};
+
+    router.newRuleTagged<getParameterTag(url)>("/foo").notFound()(nullCallback);
+    router.validate();
+    {
+        std::shared_ptr<bmcweb::AsyncResp> asyncResp =
+            std::make_shared<bmcweb::AsyncResp>();
+
+        router.handle(req, asyncResp);
+    }
+    EXPECT_TRUE(notFoundCalled);
+}
 } // namespace
 } // namespace crow
