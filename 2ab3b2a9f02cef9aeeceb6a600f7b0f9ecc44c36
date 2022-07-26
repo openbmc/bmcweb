@@ -117,6 +117,30 @@
       },
       "revId": "2ab3b2a9f02cef9aeeceb6a600f7b0f9ecc44c36",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6148c506_798fb5d3",
+        "filename": "redfish-core/lib/redfish_v1.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-26T23:25:49Z",
+      "side": 1,
+      "message": "\u003e When we don\u0027t have an explicit verb list then it seems to default to only accepting GET.\n\nThat\u0027s a bug, and now how these are intended to work.\n\n\u003e  I chose these verbs because from what I can tell those are the only verbs we use with the other instances of BMCWEB_ROUTE.  Sending TRACE to /redfish/v1 should actually result in a 405 produced by the section of code linked in your above comment.\n\nNot quite.  TRACE /redfish/v1 should return 405 (because /redfish/v1 exists)\n\nTRACE /redfish/v1/Foobar should return 404.",
+      "parentUuid": "e0606577_06f2dbd5",
+      "range": {
+        "startLine": 146,
+        "startChar": 17,
+        "endLine": 148,
+        "endChar": 50
+      },
+      "revId": "2ab3b2a9f02cef9aeeceb6a600f7b0f9ecc44c36",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
