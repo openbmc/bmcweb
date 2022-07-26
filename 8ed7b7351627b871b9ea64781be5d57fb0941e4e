@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2b4cda9f_f3da8f43",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001485
+      },
+      "writtenOn": "2022-07-26T15:44:13Z",
+      "side": 1,
+      "message": "removed",
+      "parentUuid": "4d4833e6_b3a75369",
+      "revId": "8ed7b7351627b871b9ea64781be5d57fb0941e4e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "52167c93_e30321eb",
@@ -659,6 +677,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0de38b00_65e92bc4",
+        "filename": "redfish-core/lib/license_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 539,
+      "author": {
+        "id": 1001485
+      },
+      "writtenOn": "2022-07-26T15:44:13Z",
+      "side": 1,
+      "message": "removed",
+      "parentUuid": "258617a2_97edf042",
+      "range": {
+        "startLine": 539,
+        "startChar": 0,
+        "endLine": 539,
+        "endChar": 63
+      },
+      "revId": "8ed7b7351627b871b9ea64781be5d57fb0941e4e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4c22efa9_7480b1c2",
@@ -672,6 +714,30 @@
       "writtenOn": "2022-06-03T23:59:41Z",
       "side": 1,
       "message": "You\u0027re mixing schemas here.  earlier in this file you treated Links as an object, here you\u0027re treting it as an array.  I don\u0027t remember which is correct in the standard, but one of them is wrong.",
+      "range": {
+        "startLine": 552,
+        "startChar": 31,
+        "endLine": 552,
+        "endChar": 32
+      },
+      "revId": "8ed7b7351627b871b9ea64781be5d57fb0941e4e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "67a072a2_96f878e7",
+        "filename": "redfish-core/lib/license_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 552,
+      "author": {
+        "id": 1001485
+      },
+      "writtenOn": "2022-07-26T15:44:13Z",
+      "side": 1,
+      "message": "Removed this error message",
+      "parentUuid": "4c22efa9_7480b1c2",
       "range": {
         "startLine": 552,
         "startChar": 31,
