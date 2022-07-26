@@ -988,6 +988,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e4735474_8736e1f2",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 645,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-26T03:14:03Z",
+      "side": 1,
+      "message": "\u003e The other system vendors (non openbmc)\n\nI did check all systems in interop lab. What else do you want me to do?\n\n\u003e That seems problematic too for backward compatibility, if a parameter gets added later.\n\nAre you saying returning 400 by checking if a property is in the final JSON is problematic if a new attribute is added? Why is that? Could you elaborate?\n\n\u003e I\u0027m ok with not comparing against a fixed list, but SOME kind of validation is required  to meet the security principals we require.  https://cheatsheetseries.owasp.org/cheatsheets/Input_Validation_Cheat_Sheet.html#implementing-input-validation\n\u003e Sure if you want to break it up into another patch, that\u0027s fine, but I\u0027d like to have some understanding of what we need before this patchset merges.\n\u003e What about:\n\u003e Property is in the range [A-Za-z0-9]\n\u003e Property is less than 40 characters long.\n\nThis can be implemented in this patch. But this seems to me OpenBMC specific, not in the Redfish spec. Any other requirements besides this? Do you want to limit the number of properties being selected?\n\n\u003e Unfortunately in open source, people pull and deploy continuously, so if we check in bugs, we get CVEs;  As written, this feature isn\u0027t behind the option flag, if you want to do it incrementally, put it behind the option flag, and it can probably go in.\n\nThis is behind insecure-query-params, right?\n\n\u003e Are we sure we have the recursive bits correct?\n\nCould you please point out which part are wrong so I can fix them?\n\nI am okay with fixing concerns without massive change 😊. But it is difficult if we go with A then several weeks later we drop A completely and say we need to do B.",
+      "parentUuid": "28498b3c_9cdce5e9",
+      "range": {
+        "startLine": 645,
+        "startChar": 0,
+        "endLine": 645,
+        "endChar": 69
+      },
+      "revId": "a97976c06207fd39134f975f6b6c0687a4f79b90",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f19c0fa6_dfce885f",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 5
