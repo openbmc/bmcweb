@@ -27,6 +27,7 @@
 #include "query.hpp"
 #include "redfish_util.hpp"
 #include "registries/privilege_registry.hpp"
+#include "utils/collection.hpp"
 #include "utils/dbus_utils.hpp"
 
 #include <boost/system/error_code.hpp>
@@ -63,12 +64,34 @@ inline void requestRoutesStorageCollection(App& app)
         asyncResp->res.jsonValue["@odata.id"] =
             "/redfish/v1/Systems/system/Storage";
         asyncResp->res.jsonValue["Name"] = "Storage Collection";
-        nlohmann::json::array_t members;
-        nlohmann::json::object_t member;
-        member["@odata.id"] = "/redfish/v1/Systems/system/Storage/1";
-        members.emplace_back(member);
-        asyncResp->res.jsonValue["Members"] = std::move(members);
-        asyncResp->res.jsonValue["Members@odata.count"] = 1;
+
+        constexpr std::array<std::string_view, 1> interface {
+            "xyz.openbmc_project.Inventory.Item.Storage"
+        };
+        collection_util::getCollectionMembers(
+            asyncResp,
+            boost::urls::format("/redfish/v1/Systems/system/Storage"),
+            interface);
+        });
+
+    BMCWEB_ROUTE(app, "/redfish/v1/Storage/")
+        .privileges(redfish::privileges::getStorageCollection)
+        .methods(boost::beast::http::verb::get)(
+            [&app](const crow::Request& req,
+                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+        if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+        {
+            return;
+        }
+        asyncResp->res.jsonValue["@odata.type"] =
+            "#StorageCollection.StorageCollection";
+        asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1/Storage";
+        asyncResp->res.jsonValue["Name"] = "Storage Collection";
+        constexpr std::array<std::string_view, 1> interface {
+            "xyz.openbmc_project.Inventory.Item.Storage"
+        };
+        collection_util::getCollectionMembers(
+            asyncResp, boost::urls::format("/redfish/v1/Storage"), interface);
         });
 }
 
@@ -122,31 +145,135 @@ inline void getDrives(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 
 inline void requestRoutesStorage(App& app)
 {
-    BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/Storage/1/")
+    BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/Storage/<str>/")
         .privileges(redfish::privileges::getStorage)
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                   const std::string& systemName,
+                   const std::string& storageId) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
         }
-        asyncResp->res.jsonValue["@odata.type"] = "#Storage.v1_13_0.Storage";
-        asyncResp->res.jsonValue["@odata.id"] =
-            "/redfish/v1/Systems/system/Storage/1";
-        asyncResp->res.jsonValue["Name"] = "Storage";
-        asyncResp->res.jsonValue["Id"] = "1";
-        asyncResp->res.jsonValue["Status"]["State"] = "Enabled";
-
-        auto health = std::make_shared<HealthPopulate>(asyncResp);
-        if constexpr (bmcwebEnableHealthPopulate)
+        if (systemName != "system")
         {
-            health->populate();
+            messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                       systemName);
+            return;
         }
 
-        getDrives(asyncResp, health);
-        asyncResp->res.jsonValue["Controllers"]["@odata.id"] =
-            "/redfish/v1/Systems/system/Storage/1/Controllers";
+        constexpr std::array<std::string_view, 1> interfaces = {
+            "xyz.openbmc_project.Inventory.Item.Storage"};
+        dbus::utility::getSubTree(
+            "/xyz/openbmc_project/inventory", 0, interfaces,
+            [asyncResp, storageId](
+                const boost::system::error_code ec,
+                const dbus::utility::MapperGetSubTreeResponse& subtree) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG << "requestRoutesStorage DBUS response error";
+                messages::resourceNotFound(
+                    asyncResp->res, "#Storage.v1_13_0.Storage", storageId);
+                return;
+            }
+            auto storage = std::find_if(
+                subtree.begin(), subtree.end(),
+                [&storageId](
+                    const std::pair<std::string,
+                                    dbus::utility::MapperServiceMap>& object) {
+                return sdbusplus::message::object_path(object.first)
+                           .filename() == storageId;
+                });
+            if (storage == subtree.end())
+            {
+                messages::resourceNotFound(
+                    asyncResp->res, "#Storage.v1_13_0.Storage", storageId);
+                return;
+            }
+
+            asyncResp->res.jsonValue["@odata.type"] =
+                "#Storage.v1_13_0.Storage";
+            asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
+                "/redfish/v1/Systems/system/Storage/{}", storageId);
+            asyncResp->res.jsonValue["Name"] = "Storage";
+            asyncResp->res.jsonValue["Id"] = storageId;
+            asyncResp->res.jsonValue["Status"]["State"] = "Enabled";
+
+            auto health = std::make_shared<HealthPopulate>(asyncResp);
+            if constexpr (bmcwebEnableHealthPopulate)
+            {
+                health->populate();
+            }
+
+            getDrives(asyncResp, health);
+            asyncResp->res.jsonValue["Controllers"]["@odata.id"] =
+                boost::urls::format(
+                    "/redfish/v1/Systems/system/Storage/{}/Controllers",
+                    storageId);
+            });
+        });
+
+    BMCWEB_ROUTE(app, "/redfish/v1/Storage/<str>/")
+        .privileges(redfish::privileges::getStorage)
+        .methods(boost::beast::http::verb::get)(
+            [&app](const crow::Request& req,
+                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                   const std::string& storageId) {
+        if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+        {
+            BMCWEB_LOG_DEBUG << "requestRoutesStorage setUpRedfishRoute failed";
+            return;
+        }
+
+        constexpr std::array<std::string_view, 1> interfaces = {
+            "xyz.openbmc_project.Inventory.Item.Storage"};
+        dbus::utility::getSubTree(
+            "/xyz/openbmc_project/inventory", 0, interfaces,
+            [asyncResp, storageId](
+                const boost::system::error_code ec,
+                const dbus::utility::MapperGetSubTreeResponse& subtree) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG << "requestRoutesStorage DBUS response error";
+                messages::resourceNotFound(
+                    asyncResp->res, "#Storage.v1_13_0.Storage", storageId);
+                return;
+            }
+            auto storage = std::find_if(
+                subtree.begin(), subtree.end(),
+                [&storageId](
+                    const std::pair<std::string,
+                                    dbus::utility::MapperServiceMap>& object) {
+                return sdbusplus::message::object_path(object.first)
+                           .filename() == storageId;
+                });
+            if (storage == subtree.end())
+            {
+                messages::resourceNotFound(
+                    asyncResp->res, "#Storage.v1_13_0.Storage", storageId);
+                return;
+            }
+
+            asyncResp->res.jsonValue["@odata.type"] =
+                "#Storage.v1_13_0.Storage";
+            asyncResp->res.jsonValue["@odata.id"] =
+                boost::urls::format("/redfish/v1/Storage/{}", storageId);
+            asyncResp->res.jsonValue["Name"] = "Storage";
+            asyncResp->res.jsonValue["Id"] = storageId;
+            asyncResp->res.jsonValue["Status"]["State"] = "Enabled";
+
+            // Storage subsystem to Stroage link.
+            nlohmann::json::array_t storageServices;
+            nlohmann::json::object_t storageService;
+            storageService["@odata.id"] = boost::urls::format(
+                "/redfish/v1/Systems/system/Storage/{}", storageId);
+            storageServices.emplace_back(storageService);
+            asyncResp->res.jsonValue["Links"]["StorageServices"] =
+                std::move(storageServices);
+            asyncResp->res.jsonValue["Links"]["StorageServices@odata.count"] =
+                1;
+            });
         });
 }
 
