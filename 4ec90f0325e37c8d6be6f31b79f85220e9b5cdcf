@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f2ff9e4_286bdbe9",
+        "filename": "redfish-core/lib/thermal_subsystem.hpp",
+        "patchSetId": 89
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-26T00:03:00Z",
+      "side": 1,
+      "message": "For new codes, I prefer we use the convention https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#Rs-incform",
+      "range": {
+        "startLine": 3,
+        "startChar": 9,
+        "endLine": 3,
+        "endChar": 18
+      },
+      "revId": "4ec90f0325e37c8d6be6f31b79f85220e9b5cdcf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e70fb5b1_e2468ea7",
+        "filename": "redfish-core/lib/thermal_subsystem.hpp",
+        "patchSetId": 89
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-26T00:03:00Z",
+      "side": 1,
+      "message": "This is VERY unit testable in the current code architectures",
+      "range": {
+        "startLine": 11,
+        "startChar": 12,
+        "endLine": 11,
+        "endChar": 40
+      },
+      "revId": "4ec90f0325e37c8d6be6f31b79f85220e9b5cdcf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
