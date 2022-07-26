@@ -964,6 +964,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "28498b3c_9cdce5e9",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 645,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-26T02:37:50Z",
+      "side": 1,
+      "message": "\u003e \u003e  I’m surprised it’s that common considering they input validation of network input is such a common requirement.\n\u003e \n\u003e Who\u0027re \"they\"?\n\nThe other system vendors (non openbmc)\n\n\u003e \n\u003e \u003e I’m assuming all the systems operate that way?\n\u003e \n\u003e I checked all systems available on interop lab today.\n\u003e \n\u003e HPE and Lenovo didn\u0027t implement validation. Dell did validate the input of $select. By doing some reverse engineering, I believe what they do is checking if the value of $select is in resolvable in the final JSON. If not, they return 400.\n\nThat seems problematic too for backward compatibility, if a parameter gets added later.\n\n\u003e \n\u003e WDYU? Do you want this patch to be perfect? Or we can improve in future patchsets? \n\nI\u0027m ok with not comparing against a fixed list, but SOME kind of validation is required  to meet the security principals we require.  https://cheatsheetseries.owasp.org/cheatsheets/Input_Validation_Cheat_Sheet.html#implementing-input-validation\n\nSure if you want to break it up into another patch, that\u0027s fine, but I\u0027d like to have some understanding of what we need before this patchset merges.\n\nWhat about:\nProperty is in the range [A-Za-z0-9]\nProperty is less than 40 characters long.\n\n\n\u003e \n\u003e I prefer improve in future patchsets.\n\nUnfortunately in open source, people pull and deploy continuously, so if we check in bugs, we get CVEs;  As written, this feature isn\u0027t behind the option flag, if you want to do it incrementally, put it behind the option flag, and it can probably go in.\n\n\u003e This patch has simple validation already (it checks it is a valid path). And it has been in review for a while.\n\n\n\nAre we sure we have the recursive bits correct?",
+      "parentUuid": "e071eb0e_d624bb85",
+      "range": {
+        "startLine": 645,
+        "startChar": 0,
+        "endLine": 645,
+        "endChar": 69
+      },
+      "revId": "a97976c06207fd39134f975f6b6c0687a4f79b90",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f19c0fa6_dfce885f",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 5
