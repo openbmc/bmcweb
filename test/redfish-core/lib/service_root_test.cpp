@@ -61,6 +61,9 @@ void assertServiceRootGet(crow::Response& res)
               "/redfish/v1/SessionService");
     EXPECT_EQ(json["SessionService"].size(), 1);
 
+    EXPECT_EQ(json["Storage"]["@odata.id"], "/redfish/v1/Storage");
+    EXPECT_EQ(json["Storage"].size(), 1);
+
     EXPECT_EQ(json["Systems"]["@odata.id"], "/redfish/v1/Systems");
     EXPECT_EQ(json["Systems"].size(), 1);
 
