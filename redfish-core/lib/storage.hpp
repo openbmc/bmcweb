@@ -26,6 +26,8 @@
 #include <sdbusplus/unpack_properties.hpp>
 #include <utils/dbus_utils.hpp>
 
+#include <unordered_set>
+
 namespace redfish
 {
 inline void requestRoutesStorageCollection(App& app)
@@ -79,10 +81,13 @@ inline void requestRoutesStorageCollection(App& app)
 }
 
 inline void getDrives(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                      const std::shared_ptr<HealthPopulate>& health)
+                      const std::shared_ptr<HealthPopulate>& health,
+                      const sdbusplus::message::object_path& storagePath,
+                      const std::string& chassisId)
 {
+
     crow::connections::systemBus->async_method_call(
-        [asyncResp, health](
+        [asyncResp, health, storagePath, chassisId](
             const boost::system::error_code ec,
             const dbus::utility::MapperGetSubTreePathsResponse& driveList) {
         if (ec)
@@ -91,32 +96,54 @@ inline void getDrives(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
             messages::internalError(asyncResp->res);
             return;
         }
-
-        nlohmann::json& driveArray = asyncResp->res.jsonValue["Drives"];
-        driveArray = nlohmann::json::array();
-        auto& count = asyncResp->res.jsonValue["Drives@odata.count"];
-        count = 0;
-
-        health->inventory.insert(health->inventory.end(), driveList.begin(),
-                                 driveList.end());
-
-        for (const std::string& drive : driveList)
-        {
-            sdbusplus::message::object_path object(drive);
-            if (object.filename().empty())
+        sdbusplus::asio::getProperty<std::vector<std::string>>(
+            *crow::connections::systemBus, "xyz.openbmc_project.ObjectMapper",
+            (storagePath / "drive").str, "xyz.openbmc_project.Association",
+            "endpoints",
+            [asyncResp, health, storagePath, chassisId,
+             driveList](const boost::system::error_code ec2,
+                        const std::vector<std::string>& driveAssociations) {
+            if (ec2)
             {
-                BMCWEB_LOG_ERROR << "Failed to find filename in " << drive;
+                BMCWEB_LOG_DEBUG << storagePath.str
+                                 << " has no Drive association";
                 return;
             }
 
-            nlohmann::json::object_t driveJson;
-            driveJson["@odata.id"] =
-                "/redfish/v1/Systems/system/Storage/1/Drives/" +
-                object.filename();
-            driveArray.push_back(std::move(driveJson));
-        }
+            std::unordered_set<std::string> driveMap(driveList.begin(),
+                                                     driveList.end());
 
-        count = driveArray.size();
+            nlohmann::json& driveArray = asyncResp->res.jsonValue["Drives"];
+            driveArray = nlohmann::json::array();
+            auto& count = asyncResp->res.jsonValue["Drives@odata.count"];
+            count = 0;
+
+            for (const std::string& drivePath : driveAssociations)
+            {
+                sdbusplus::message::object_path path(drivePath);
+                const std::string leaf = path.filename();
+                if (leaf.empty())
+                {
+                    BMCWEB_LOG_DEBUG << "filename() is empty for " << drivePath;
+                    continue;
+                }
+
+                if (driveMap.find(drivePath) == driveMap.end())
+                {
+                    BMCWEB_LOG_DEBUG
+                        << "Associated Drive is does not have valid Drive interface: "
+                        << drivePath;
+                    continue;
+                }
+
+                health->inventory.emplace_back(drivePath);
+                nlohmann::json::object_t drive;
+                drive["@odata.id"] = crow::utility::urlFromPieces(
+                    "redfish", "v1", "Chassis", chassisId, "Drives", leaf);
+                driveArray.push_back(std::move(drive));
+            }
+            count = asyncResp->res.jsonValue["Drives"].size();
+            });
         },
         "xyz.openbmc_project.ObjectMapper",
         "/xyz/openbmc_project/object_mapper",
@@ -277,6 +304,72 @@ inline void
             "xyz.openbmc_project.Inventory.Item.StorageController"});
 }
 
+inline void
+    getDriveFromChassis(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                        const std::shared_ptr<HealthPopulate>& health,
+                        const sdbusplus::message::object_path& storagePath)
+{
+
+    crow::connections::systemBus->async_method_call(
+        [asyncResp, health, storagePath](
+            const boost::system::error_code ec,
+            const dbus::utility::MapperGetSubTreePathsResponse& chassisList) {
+        if (ec)
+        {
+            BMCWEB_LOG_ERROR << "Chassis mapper call error";
+            messages::internalError(asyncResp->res);
+            return;
+        }
+        sdbusplus::asio::getProperty<std::vector<std::string>>(
+            *crow::connections::systemBus, "xyz.openbmc_project.ObjectMapper",
+            (storagePath / "chassis").str, "xyz.openbmc_project.Association",
+            "endpoints",
+            [asyncResp, health, storagePath,
+             chassisList](const boost::system::error_code ec2,
+                          const std::vector<std::string>& chassisAssociations) {
+            if (ec2)
+            {
+                BMCWEB_LOG_DEBUG << storagePath.str
+                                 << " has no Chassis association";
+                return;
+            }
+
+            if (chassisAssociations.size() != 1)
+            {
+                BMCWEB_LOG_WARNING << "Storage is associated to not 1 Chassis";
+            }
+
+            std::unordered_set<std::string> chassisMap(chassisList.begin(),
+                                                       chassisList.end());
+            const std::string& chassisPath = chassisAssociations.front();
+            if (chassisMap.find(chassisPath) == chassisMap.end())
+            {
+                BMCWEB_LOG_WARNING << "Failed to find Chassis with "
+                                   << chassisPath;
+                return;
+            }
+
+            std::string chassisId =
+                sdbusplus::message::object_path(chassisPath).filename();
+            if (chassisId.empty())
+            {
+                BMCWEB_LOG_ERROR << "Failed to find filename in "
+                                 << chassisPath;
+                return;
+            }
+
+            getDrives(asyncResp, health, storagePath, chassisId);
+            });
+        },
+        "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths",
+        "/xyz/openbmc_project/inventory", int32_t(0),
+        std::array<const char*, 2>{
+            "xyz.openbmc_project.Inventory.Item.Board",
+            "xyz.openbmc_project.Inventory.Item.Chassis"});
+}
+
 inline void requestRoutesStorage(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/Storage/<str>/")
@@ -346,7 +439,7 @@ inline void requestRoutesStorage(App& app)
             auto health = std::make_shared<HealthPopulate>(asyncResp);
             health->populate();
 
-            getDrives(asyncResp, health);
+            getDriveFromChassis(asyncResp, health, storage->first);
             getStorageControllers(asyncResp, health, storageId);
             },
             "xyz.openbmc_project.ObjectMapper",
