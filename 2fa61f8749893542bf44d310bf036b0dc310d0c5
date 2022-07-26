@@ -113,6 +113,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bfd0424f_9d2d5ad7",
+        "filename": "redfish-core/include/query.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-07-26T01:03:25Z",
+      "side": 1,
+      "message": "I\u0027m not sure there\u0027s a good way to move any of this to a separate file.  I could see renaming the file to something like \"route_setup.hpp\".  Even then I\u0027m not sure it makes sense until we add other features that need an entry point in every route and we have a need to abstract the query processing out of the definition of setUpRedfishRouteWithDelegation().",
+      "parentUuid": "a7250ded_b8a93188",
+      "revId": "2fa61f8749893542bf44d310bf036b0dc310d0c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "79e3a802_c75c7846",
         "filename": "redfish-core/include/redfish_aggregator.hpp",
         "patchSetId": 53
