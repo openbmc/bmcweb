@@ -46,6 +46,30 @@
       },
       "revId": "2cd021a49d505d4b37bf6293f9f5888cd4f23742",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "111c58fd_3cbe8a2c",
+        "filename": "redfish-core/include/registries.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-26T19:07:12Z",
+      "side": 1,
+      "message": "https://github.com/openbmc/bmcweb/blob/master/.clang-tidy#L261 this?\n\nLGTM if clang tidy doesn\u0027t error out.",
+      "parentUuid": "7854bfc3_7c8f8c68",
+      "range": {
+        "startLine": 42,
+        "startChar": 15,
+        "endLine": 42,
+        "endChar": 67
+      },
+      "revId": "2cd021a49d505d4b37bf6293f9f5888cd4f23742",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
