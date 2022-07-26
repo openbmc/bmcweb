@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ee2e92d_4ec5f5e8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-26T19:11:29Z",
+      "side": 1,
+      "message": "Needs test results. Otherwise LGTM",
+      "revId": "fcbd5fce4854a043fe9a3484e6456fcf1303d862",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "87a84cb5_29f3d168",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 3416,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-26T19:11:29Z",
+      "side": 1,
+      "message": "why do we add this?",
+      "range": {
+        "startLine": 3416,
+        "startChar": 28,
+        "endLine": 3416,
+        "endChar": 35
+      },
+      "revId": "fcbd5fce4854a043fe9a3484e6456fcf1303d862",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
