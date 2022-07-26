@@ -106,6 +106,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4bac54cd_1e0763b2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-07-26T07:18:49Z",
+      "side": 1,
+      "message": "This has already been solved as now they are in the same patchset.",
+      "parentUuid": "8c4e6949_3c19cf40",
+      "revId": "4cc1da56f614bd3cf7e307592099235aabbf7591",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "442869a7_582ecb0e",
