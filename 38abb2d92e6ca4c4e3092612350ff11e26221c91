@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "03c8bee9_d913e997",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1001186
+      },
+      "writtenOn": "2022-07-26T10:37:33Z",
+      "side": 1,
+      "message": "done",
+      "parentUuid": "098b5526_abde75db",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 7
+      },
+      "revId": "38abb2d92e6ca4c4e3092612350ff11e26221c91",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fe0d7201_d7fb6e03",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-02-14T15:01:23Z",
       "side": 1,
       "message": "I think this may disrupt the existing subscribers during the BMC upgrades ? Persisted subscribers who do not have the \"owner\" entry will not be restored. \n\nThis can be optional parameter correct ?",
+      "range": {
+        "startLine": 200,
+        "startChar": 12,
+        "endLine": 200,
+        "endChar": 45
+      },
+      "revId": "38abb2d92e6ca4c4e3092612350ff11e26221c91",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e6959a02_5fa95be9",
+        "filename": "include/event_service_store.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1001186
+      },
+      "writtenOn": "2022-07-26T10:37:33Z",
+      "side": 1,
+      "message": "done",
+      "parentUuid": "fe0d7201_d7fb6e03",
       "range": {
         "startLine": 200,
         "startChar": 12,
@@ -64,6 +112,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "529a39ca_1b39180a",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 595,
+      "author": {
+        "id": 1001186
+      },
+      "writtenOn": "2022-07-26T10:37:33Z",
+      "side": 1,
+      "message": "done",
+      "parentUuid": "9cd4b3c3_b4436d25",
+      "revId": "38abb2d92e6ca4c4e3092612350ff11e26221c91",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2c95ee24_8a78d35c",
@@ -77,6 +143,24 @@
       "writtenOn": "2022-02-14T15:01:23Z",
       "side": 1,
       "message": "You may add a BMCWEB_LOG_ERROR here",
+      "revId": "38abb2d92e6ca4c4e3092612350ff11e26221c91",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ceced756_793a1a88",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 685,
+      "author": {
+        "id": 1001186
+      },
+      "writtenOn": "2022-07-26T10:37:33Z",
+      "side": 1,
+      "message": "done",
+      "parentUuid": "2c95ee24_8a78d35c",
       "revId": "38abb2d92e6ca4c4e3092612350ff11e26221c91",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
