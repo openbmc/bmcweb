@@ -70,6 +70,24 @@
       "parentUuid": "d818ddc5_a7b14141",
       "revId": "b15d6f4d2a6854a1ab7f78b5102f7a6bef65009f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f4b65b21_7addafd7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-07-26T08:31:28Z",
+      "side": 1,
+      "message": "I am not sure if I understand you correctly.\n\nDoes that mean we should keep the code as is or instead of extracting this to class method it should be extracted to free function instead?",
+      "parentUuid": "c32327ba_11d58132",
+      "revId": "b15d6f4d2a6854a1ab7f78b5102f7a6bef65009f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
