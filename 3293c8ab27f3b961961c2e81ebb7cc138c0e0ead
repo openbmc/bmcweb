@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "dbc6070f_671c4f14",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-26T02:26:12Z",
+      "side": 1,
+      "message": "Answered in the commit message.  Done.",
+      "parentUuid": "f88c3c9f_68beb559",
+      "revId": "3293c8ab27f3b961961c2e81ebb7cc138c0e0ead",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "589c3bc7_796eb1a2",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 3
@@ -31,6 +49,30 @@
       "writtenOn": "2022-07-25T23:53:02Z",
       "side": 1,
       "message": "Cool. This is clean.",
+      "range": {
+        "startLine": 199,
+        "startChar": 45,
+        "endLine": 199,
+        "endChar": 52
+      },
+      "revId": "3293c8ab27f3b961961c2e81ebb7cc138c0e0ead",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e953d5c8_6556e9b5",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-26T02:26:12Z",
+      "side": 1,
+      "message": "Yeah.... I was a little surprised this worked (usually something goes wrong) but not this time.",
+      "parentUuid": "589c3bc7_796eb1a2",
       "range": {
         "startLine": 199,
         "startChar": 45,
