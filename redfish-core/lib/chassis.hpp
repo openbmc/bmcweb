@@ -30,6 +30,51 @@ namespace redfish
 {
 
 /**
+ * @brief Retrieves resources over dbus to link to the chassis
+ *
+ * @param[in] aResp           - Shared pointer for completing asynchronous calls
+ * @param[in] path            - Chassis dbus path to look for the storage.
+ *
+ * Calls the Association endpoints on the path + "/storage" and add the link of
+ * json["Links"]["Storage@odata.count"] =
+ *    {"@odata.id", "/redfish/v1/Storage/" + resourceId}
+ *
+ * @return None.
+ */
+inline void getStorageLink(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+                           const std::string& associationPath)
+{
+    sdbusplus::asio::getProperty<std::vector<std::string>>(
+        *crow::connections::systemBus, "xyz.openbmc_project.ObjectMapper",
+        path + "/storage", "xyz.openbmc_project.Association", "endpoints",
+        [aResp](const boost::system::error_code ec,
+                const std::vector<std::string>& resourceList) {
+        if (ec)
+        {
+            BMCWEB_LOG_DEBUG << "getStorageLink got DBUS response error";
+            return;
+        }
+
+        nlohmann::json& resources = aResp->res.jsonValue["Links"]["Storage"];
+        resources = nlohmann::json::array();
+        auto& count = aResp->res.jsonValue["Links"]["Storage@odata.count"];
+        count = 0;
+        for (const std::string& resource : resourceList)
+        {
+            sdbusplus::message::object_path path(resource);
+            std::string leaf = path.filename();
+            if (leaf.empty())
+            {
+                continue;
+            }
+
+            resources.push_back({{"@odata.id", "/redfish/v1/Storage/" + leaf}});
+        }
+        count = resources.size();
+        });
+}
+
+/**
  * @brief Retrieves chassis state properties over dbus
  *
  * @param[in] aResp - Shared pointer for completing asynchronous calls.
@@ -337,9 +382,9 @@ inline void
             }
 
             crow::connections::systemBus->async_method_call(
-                [asyncResp, chassisId(std::string(chassisId))](
-                    const boost::system::error_code /*ec2*/,
-                    const dbus::utility::DBusPropertiesMap& propertiesList) {
+                [asyncResp, chassisId(std::string(chassisId)),
+                 path](const boost::system::error_code /*ec2*/,
+                       const dbus::utility::DBusPropertiesMap& propertiesList) {
                 for (const std::pair<std::string,
                                      dbus::utility::DbusVariantType>& property :
                      propertiesList)
@@ -403,6 +448,7 @@ inline void
                 asyncResp->res.jsonValue["Links"]["ManagedBy"] =
                     std::move(managedBy);
                 getChassisState(asyncResp);
+                getStorageLink(asyncResp, path);
                 },
                 connectionName, path, "org.freedesktop.DBus.Properties",
                 "GetAll", "xyz.openbmc_project.Inventory.Decorator.Asset");
