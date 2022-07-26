@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b0dbc25a_4ebfac48",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-07-26T03:45:31Z",
+      "side": 1,
+      "message": "\u003e This is already supported I thought, but clearly it\u0027s not working in your case.  Can we get a better explanation of what you\u0027re trying to accomplish?\nFrom my testing, it only works for GET requests.  Ultimately I need to\ncall setUpRedfishRouteWithDelegation() when handling requests since that is where the hook for Redfish Aggregation will be located.  In BMCWeb\u0027s current state that section of code you linked to will catch all endpoing and method combinations that are not explicitly covered by an instance of BMCWEB_ROUTE.\n\n\u003e https://github.com/openbmc/bmcweb/blob/45248ba327bcf330fd2e49f90a59159fdf8ebecc/http/routing.hpp#L1268\n\u003e \n\u003e I suspect in this case the handling needs to be aggregation specific?\nYeah that\u0027s the spot that gets called when we send a non-GET request to a URI that we do not support in BMCWeb.  I didn\u0027t want to add a hook there since it would involve editing an http file and we\u0027ve had previous discussions about not adding Redfish specific code to any of those files.  Also, the lack of a verb list for handling \"/redfish/\u003cpath\u003e\" seems to indicate that this was supposed to catch all verbs rather than just GET.\n\n\u003e Also, POST/PUT/PATCH/DELETE can still return 404, so as written, I think this doesn\u0027t do the right thing in RESTFUL semantics.\nI did that preserve the current behavior.  We call redfish404() only when we handle a GET request to an unrecognized URI.",
+      "parentUuid": "2af33136_3420542a",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 33
+      },
+      "revId": "2ab3b2a9f02cef9aeeceb6a600f7b0f9ecc44c36",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bf9aa226_b7a4b50e",
         "filename": "redfish-core/lib/redfish_v1.hpp",
         "patchSetId": 2
@@ -37,6 +61,30 @@
       "writtenOn": "2022-07-26T02:31:53Z",
       "side": 1,
       "message": "I\u0027m confused why we\u0027d make an explicit verb list here.  These are all the common verbs, but if we send TRACE /redfish/v1 we should still get 404.",
+      "range": {
+        "startLine": 146,
+        "startChar": 17,
+        "endLine": 148,
+        "endChar": 50
+      },
+      "revId": "2ab3b2a9f02cef9aeeceb6a600f7b0f9ecc44c36",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e0606577_06f2dbd5",
+        "filename": "redfish-core/lib/redfish_v1.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-07-26T03:45:31Z",
+      "side": 1,
+      "message": "When we don\u0027t have an explicit verb list then it seems to default to only accepting GET.  I chose these verbs because from what I can tell those are the only verbs we use with the other instances of BMCWEB_ROUTE.  Sending TRACE to /redfish/v1 should actually result in a 405 produced by the section of code linked in your above comment.",
+      "parentUuid": "bf9aa226_b7a4b50e",
       "range": {
         "startLine": 146,
         "startChar": 17,
