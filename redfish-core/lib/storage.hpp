@@ -49,6 +49,24 @@ inline void requestRoutesStorageCollection(App& app)
         asyncResp->res.jsonValue["Members"] = std::move(members);
         asyncResp->res.jsonValue["Members@odata.count"] = 1;
         });
+
+    BMCWEB_ROUTE(app, "/redfish/v1/Storage/")
+        .privileges(redfish::privileges::getStorageCollection)
+        .methods(boost::beast::http::verb::get)(
+            [&app](const crow::Request& req,
+                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+        if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+        {
+            return;
+        }
+        asyncResp->res.jsonValue["@odata.type"] =
+            "#StorageCollection.StorageCollection";
+        asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1/Storage";
+        asyncResp->res.jsonValue["Name"] = "Storage Collection";
+        collection_util::getCollectionMembers(
+            asyncResp, "/redfish/v1/Storage",
+            {"xyz.openbmc_project.Inventory.Item.Storage"});
+        });
 }
 
 inline void getDrives(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -255,6 +273,66 @@ inline void requestRoutesStorage(App& app)
 
         getDrives(asyncResp, health);
         getStorageControllers(asyncResp, health);
+        });
+
+    BMCWEB_ROUTE(app, "/redfish/v1/Storage/<str>/")
+        .privileges(redfish::privileges::getStorage)
+        .methods(boost::beast::http::verb::get)(
+            [&app](const crow::Request& req,
+                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                   const std::string& storageId) {
+        if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+        {
+            BMCWEB_LOG_DEBUG << "requestRoutesStorage setUpRedfishRoute failed";
+            return;
+        }
+
+        crow::connections::systemBus->async_method_call(
+            [asyncResp, storageId](
+                const boost::system::error_code ec,
+                const dbus::utility::MapperGetSubTreeResponse& subtree) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG << "requestRoutesStorage DBUS response error";
+                messages::resourceNotFound(
+                    asyncResp->res, "#Storage.v1_7_1.Storage", storageId);
+                return;
+            }
+
+            auto storage = std::find_if(
+                subtree.begin(), subtree.end(),
+                [&storageId](
+                    const std::pair<std::string,
+                                    dbus::utility::MapperServiceMap>& object) {
+                return sdbusplus::message::object_path(object.first)
+                           .filename() == storageId;
+                });
+            if (storage == subtree.end())
+            {
+                messages::resourceNotFound(
+                    asyncResp->res, "#Storage.v1_7_1.Storage", storageId);
+                return;
+            }
+
+            asyncResp->res.jsonValue["@odata.type"] = "#Storage.v1_7_1.Storage";
+            asyncResp->res.jsonValue["@odata.id"] =
+                "/redfish/v1/Storage/" + storageId;
+            asyncResp->res.jsonValue["Name"] = "Storage";
+            asyncResp->res.jsonValue["Id"] = storageId;
+            asyncResp->res.jsonValue["Status"]["State"] = "Enabled";
+
+            auto health = std::make_shared<HealthPopulate>(asyncResp);
+            health->populate();
+
+            getDrives(asyncResp, health);
+            getStorageControllers(asyncResp, health);
+            },
+            "xyz.openbmc_project.ObjectMapper",
+            "/xyz/openbmc_project/object_mapper",
+            "xyz.openbmc_project.ObjectMapper", "GetSubTree",
+            "/xyz/openbmc_project/inventory", 0,
+            std::array<std::string, 1>{
+                "xyz.openbmc_project.Inventory.Item.Storage"});
         });
 }
 
