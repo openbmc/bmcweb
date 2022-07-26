@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "10320df0_4fe6ad05",
+        "filename": "redfish-core/lib/thermal_subsystem.hpp",
+        "patchSetId": 89
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1000444
+      },
+      "writtenOn": "2022-07-26T00:48:50Z",
+      "side": 1,
+      "message": "This is used in similar functions in this repository, there is no need to modify this in just one patchset. I think it\u0027s better to stick to the consistent spelling.\n\ned has given +2 before. This patchset is about to be merged, and I want to avoid unnecessary changes as much as possible.",
+      "parentUuid": "4f2ff9e4_286bdbe9",
+      "range": {
+        "startLine": 3,
+        "startChar": 9,
+        "endLine": 3,
+        "endChar": 18
+      },
+      "revId": "4ec90f0325e37c8d6be6f31b79f85220e9b5cdcf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e70fb5b1_e2468ea7",
         "filename": "redfish-core/lib/thermal_subsystem.hpp",
         "patchSetId": 89
@@ -37,6 +61,30 @@
       "writtenOn": "2022-07-26T00:03:00Z",
       "side": 1,
       "message": "This is VERY unit testable in the current code architectures",
+      "range": {
+        "startLine": 11,
+        "startChar": 12,
+        "endLine": 11,
+        "endChar": 40
+      },
+      "revId": "4ec90f0325e37c8d6be6f31b79f85220e9b5cdcf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "448b9bab_f2d2213a",
+        "filename": "redfish-core/lib/thermal_subsystem.hpp",
+        "patchSetId": 89
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000444
+      },
+      "writtenOn": "2022-07-26T00:48:50Z",
+      "side": 1,
+      "message": "This function is currently just a hard-coded structure. Is there anything that needs UT?",
+      "parentUuid": "e70fb5b1_e2468ea7",
       "range": {
         "startLine": 11,
         "startChar": 12,
