@@ -39,6 +39,30 @@
       },
       "revId": "fcbd5fce4854a043fe9a3484e6456fcf1303d862",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "692f13ff_02abc508",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 3416,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-26T22:56:00Z",
+      "side": 1,
+      "message": "Because in the first patch we were modifying skip and top.  Now we\u0027re not, so this isn\u0027t needed.\n\nFixed in latest patchset.",
+      "parentUuid": "87a84cb5_29f3d168",
+      "range": {
+        "startLine": 3416,
+        "startChar": 28,
+        "endLine": 3416,
+        "endChar": 35
+      },
+      "revId": "fcbd5fce4854a043fe9a3484e6456fcf1303d862",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
