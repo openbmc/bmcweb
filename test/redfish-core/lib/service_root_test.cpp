@@ -61,6 +61,9 @@ void assertServiceRootGet(crow::Response& res)
               "/redfish/v1/SessionService");
     EXPECT_EQ(json["SessionService"].size(), 1);
 
+    EXPECT_EQ(json["Storage"]["@odata.id"], "/redfish/v1/Storage");
+    EXPECT_EQ(json["Storage"].size(), 1);
+
     EXPECT_EQ(json["Systems"]["@odata.id"], "/redfish/v1/Systems");
     EXPECT_EQ(json["Systems"].size(), 1);
 
@@ -106,7 +109,7 @@ void assertServiceRootGet(crow::Response& res)
     EXPECT_FALSE(
         json["ProtocolFeaturesSupported"]["DeepOperations"]["DeepPATCH"]);
     EXPECT_EQ(json["ProtocolFeaturesSupported"]["DeepOperations"].size(), 2);
-    EXPECT_EQ(json.size(), 21);
+    EXPECT_EQ(json.size(), 22);
 }
 
 TEST(HandleServiceRootGet, ServiceRootStaticAttributesAreExpected)
