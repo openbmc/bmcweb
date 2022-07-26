@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "420cec23_7cc5bdf6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1001321
+      },
+      "writtenOn": "2022-07-26T23:36:40Z",
+      "side": 1,
+      "message": "@Ed this is in relation to the conversation you and I had on Discord a while back. To recap, Intel and AMI are still working on the service that will use the License schema and it will be a while before we are ready with it. \n \nWe felt we should share this ahead of time to get feedback from the community. Also incase there are others interested in License schema this will give them a head start. \n\nLast time we spoke, you had mentioned we can get the gerrit review to a merge-able point until Intel/AMI is ready other pieces. Is that still ok?",
+      "parentUuid": "5fefaa64_95c4821c",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 0
+      },
+      "revId": "ddb69ca3bba2851fdd99782a93232aca79e30c10",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "284b2c15_5d8c8209",
         "filename": "/COMMIT_MSG",
         "patchSetId": 5
