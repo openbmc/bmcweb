@@ -631,6 +631,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6ea7d403_cf3801e7",
+        "filename": "redfish-core/lib/license_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 529,
+      "author": {
+        "id": 1001485
+      },
+      "writtenOn": "2022-07-26T15:49:54Z",
+      "side": 1,
+      "message": "removed URL parsing with regex",
+      "parentUuid": "77f11920_be995b33",
+      "range": {
+        "startLine": 525,
+        "startChar": 0,
+        "endLine": 529,
+        "endChar": 71
+      },
+      "revId": "8ed7b7351627b871b9ea64781be5d57fb0941e4e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b44abf35_7eb37193",
@@ -644,6 +668,30 @@
       "writtenOn": "2022-06-03T23:59:41Z",
       "side": 1,
       "message": "Again, please prefer to invert this check and return early (although with url parsing, it might not be neccesary anymore.",
+      "range": {
+        "startLine": 530,
+        "startChar": 0,
+        "endLine": 530,
+        "endChar": 66
+      },
+      "revId": "8ed7b7351627b871b9ea64781be5d57fb0941e4e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "60c6e2a9_dc873f32",
+        "filename": "redfish-core/lib/license_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 530,
+      "author": {
+        "id": 1001485
+      },
+      "writtenOn": "2022-07-26T15:49:54Z",
+      "side": 1,
+      "message": "removed",
+      "parentUuid": "b44abf35_7eb37193",
       "range": {
         "startLine": 530,
         "startChar": 0,
@@ -771,6 +819,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "793757fb_7e4825e9",
+        "filename": "redfish-core/lib/license_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 566,
+      "author": {
+        "id": 1001485
+      },
+      "writtenOn": "2022-07-26T15:49:54Z",
+      "side": 1,
+      "message": "Fixed as per the all the above comments",
+      "parentUuid": "e4f9a7d7_379ca8c9",
+      "range": {
+        "startLine": 561,
+        "startChar": 1,
+        "endLine": 566,
+        "endChar": 42
+      },
+      "revId": "8ed7b7351627b871b9ea64781be5d57fb0941e4e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e6b30c6e_7f4275d4",
@@ -784,6 +856,30 @@
       "writtenOn": "2022-06-03T23:59:41Z",
       "side": 1,
       "message": "This check is not required, and is actually guaranteed by the router to never happen.  Even if it does, it generally causes no functional issues if it\u0027s empty.",
+      "range": {
+        "startLine": 567,
+        "startChar": 0,
+        "endLine": 571,
+        "endChar": 17
+      },
+      "revId": "8ed7b7351627b871b9ea64781be5d57fb0941e4e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "41557efb_64108b52",
+        "filename": "redfish-core/lib/license_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 571,
+      "author": {
+        "id": 1001485
+      },
+      "writtenOn": "2022-07-26T15:49:54Z",
+      "side": 1,
+      "message": "removed",
+      "parentUuid": "e6b30c6e_7f4275d4",
       "range": {
         "startLine": 567,
         "startChar": 0,
@@ -819,6 +915,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4d1525ca_8cabcb32",
+        "filename": "redfish-core/lib/license_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 576,
+      "author": {
+        "id": 1001485
+      },
+      "writtenOn": "2022-07-26T15:49:54Z",
+      "side": 1,
+      "message": "As of now we have implemented it consdering mainly the CPU Licenses. All other licenses when implemented should comes under the else part. This function call is used to identify the license type",
+      "parentUuid": "279eb18e_0a61807d",
+      "range": {
+        "startLine": 574,
+        "startChar": 0,
+        "endLine": 576,
+        "endChar": 17
+      },
+      "revId": "8ed7b7351627b871b9ea64781be5d57fb0941e4e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "57a7f529_e1f5dcd8",
         "filename": "redfish-core/lib/license_service.hpp",
         "patchSetId": 2
@@ -830,6 +950,30 @@
       "writtenOn": "2022-06-03T23:59:41Z",
       "side": 1,
       "message": "Please don\u0027t capture req by reference, as it causes lifetime issues on async calls if the connection drops while a request handling is in process.  Parse out the fields you need, and pass those by value to your callback.",
+      "range": {
+        "startLine": 579,
+        "startChar": 25,
+        "endLine": 579,
+        "endChar": 29
+      },
+      "revId": "8ed7b7351627b871b9ea64781be5d57fb0941e4e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bd07f195_48980b71",
+        "filename": "redfish-core/lib/license_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 579,
+      "author": {
+        "id": 1001485
+      },
+      "writtenOn": "2022-07-26T15:49:54Z",
+      "side": 1,
+      "message": "Removed \u0026req",
+      "parentUuid": "57a7f529_e1f5dcd8",
       "range": {
         "startLine": 579,
         "startChar": 25,
