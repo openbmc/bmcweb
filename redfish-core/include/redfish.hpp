@@ -111,7 +111,6 @@ class RedfishService
         requestRoutesStorage(app);
         requestRoutesStorageControllerCollection(app);
         requestRoutesStorageController(app);
-        requestRoutesDrive(app);
         requestRoutesCable(app);
         requestRoutesCableCollection(app);
 #ifdef BMCWEB_INSECURE_ENABLE_REDFISH_FW_TFTP_UPDATE

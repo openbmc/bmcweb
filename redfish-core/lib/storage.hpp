@@ -92,13 +92,17 @@ inline void requestRoutesStorageCollection(App& app)
 }
 
 inline void getDrives(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                      const std::shared_ptr<HealthPopulate>& health)
+                      const std::shared_ptr<HealthPopulate>& health,
+                      const sdbusplus::message::object_path& storagePath,
+                      const std::string& chassisId)
 {
     const std::array<std::string_view, 1> interfaces = {
         "xyz.openbmc_project.Inventory.Item.Drive"};
-    dbus::utility::getSubTreePaths(
-        "/xyz/openbmc_project/inventory", 0, interfaces,
-        [asyncResp, health](
+    dbus::utility::getAssociatedSubTreePaths(
+        storagePath / "drive",
+        sdbusplus::message::object_path("/xyz/openbmc_project/inventory"), 0,
+        interfaces,
+        [asyncResp, health, chassisId](
             const boost::system::error_code& ec,
             const dbus::utility::MapperGetSubTreePathsResponse& driveList) {
         if (ec)
@@ -127,12 +131,53 @@ inline void getDrives(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 
             nlohmann::json::object_t driveJson;
             driveJson["@odata.id"] = crow::utility::urlFromPieces(
-                "redfish", "v1", "Systems", "system", "Storage", "1", "Drives",
+                "redfish", "v1", "Chassis", chassisId, "Drives",
                 object.filename());
             driveArray.push_back(std::move(driveJson));
         }
 
         count = driveArray.size();
+        });
+}
+
+inline void
+    getDriveFromChassis(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                        const std::shared_ptr<HealthPopulate>& health,
+                        const sdbusplus::message::object_path& storagePath)
+{
+    const std::array<std::string_view, 2> interfaces = {
+        "xyz.openbmc_project.Inventory.Item.Board",
+        "xyz.openbmc_project.Inventory.Item.Chassis"};
+    dbus::utility::getAssociatedSubTreePaths(
+        storagePath / "chassis",
+        sdbusplus::message::object_path("/xyz/openbmc_project/inventory"), 0,
+        interfaces,
+        [asyncResp, health, storagePath](
+            const boost::system::error_code ec,
+            const dbus::utility::MapperGetSubTreePathsResponse& chassisList) {
+        if (ec)
+        {
+            BMCWEB_LOG_ERROR << "Chassis mapper call error";
+            messages::internalError(asyncResp->res);
+            return;
+        }
+        if (chassisList.size() != 1)
+        {
+            BMCWEB_LOG_ERROR
+                << "Storage is not associated with only one chassis";
+            messages::internalError(asyncResp->res);
+            return;
+        }
+
+        std::string chassisPath = chassisList.front();
+        std::string chassisId =
+            sdbusplus::message::object_path(chassisPath).filename();
+        if (chassisId.empty())
+        {
+            BMCWEB_LOG_ERROR << "Failed to find filename in " << chassisPath;
+            return;
+        }
+        getDrives(asyncResp, health, storagePath, chassisId);
         });
 }
 
@@ -197,7 +242,7 @@ inline void requestRoutesStorage(App& app)
             auto health = std::make_shared<HealthPopulate>(asyncResp);
             health->populate();
 
-            getDrives(asyncResp, health);
+            getDriveFromChassis(asyncResp, health, storage->first);
             asyncResp->res.jsonValue["Controllers"]["@odata.id"] =
                 crow::utility::urlFromPieces("redfish", "v1", "Systems",
                                              "system", "Storage", storageId,
@@ -538,95 +583,6 @@ static void addAllDriveInfo(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
             getDriveItemProperties(asyncResp, connectionName, path);
         }
     }
-}
-
-inline void requestRoutesDrive(App& app)
-{
-    BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/Storage/1/Drives/<str>/")
-        .privileges(redfish::privileges::getDrive)
-        .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                   const std::string& systemName, const std::string& driveId) {
-        if (!redfish::setUpRedfishRoute(app, req, asyncResp))
-        {
-            return;
-        }
-        if (systemName != "system")
-        {
-            messages::resourceNotFound(asyncResp->res, "ComputerSystem",
-                                       systemName);
-            return;
-        }
-
-        constexpr std::array<std::string_view, 1> interfaces = {
-            "xyz.openbmc_project.Inventory.Item.Drive"};
-        dbus::utility::getSubTree(
-            "/xyz/openbmc_project/inventory", 0, interfaces,
-            [asyncResp,
-             driveId](const boost::system::error_code& ec,
-                      const dbus::utility::MapperGetSubTreeResponse& subtree) {
-            if (ec)
-            {
-                BMCWEB_LOG_ERROR << "Drive mapper call error";
-                messages::internalError(asyncResp->res);
-                return;
-            }
-
-            auto drive = std::find_if(
-                subtree.begin(), subtree.end(),
-                [&driveId](
-                    const std::pair<std::string,
-                                    dbus::utility::MapperServiceMap>& object) {
-                return sdbusplus::message::object_path(object.first)
-                           .filename() == driveId;
-                });
-
-            if (drive == subtree.end())
-            {
-                messages::resourceNotFound(asyncResp->res, "Drive", driveId);
-                return;
-            }
-
-            const std::string& path = drive->first;
-            const dbus::utility::MapperServiceMap& connectionNames =
-                drive->second;
-
-            asyncResp->res.jsonValue["@odata.type"] = "#Drive.v1_7_0.Drive";
-            asyncResp->res.jsonValue["@odata.id"] =
-                crow::utility::urlFromPieces("redfish", "v1", "Systems",
-                                             "system", "Storage", "1", "Drives",
-                                             driveId);
-            asyncResp->res.jsonValue["Name"] = driveId;
-            asyncResp->res.jsonValue["Id"] = driveId;
-
-            if (connectionNames.size() != 1)
-            {
-                BMCWEB_LOG_ERROR << "Connection size " << connectionNames.size()
-                                 << ", not equal to 1";
-                messages::internalError(asyncResp->res);
-                return;
-            }
-
-            getMainChassisId(
-                asyncResp, [](const std::string& chassisId,
-                              const std::shared_ptr<bmcweb::AsyncResp>& aRsp) {
-                    aRsp->res.jsonValue["Links"]["Chassis"]["@odata.id"] =
-                        crow::utility::urlFromPieces("redfish", "v1", "Chassis",
-                                                     chassisId);
-                });
-
-            // default it to Enabled
-            asyncResp->res.jsonValue["Status"]["State"] = "Enabled";
-
-            auto health = std::make_shared<HealthPopulate>(asyncResp);
-            health->inventory.emplace_back(path);
-            health->populate();
-
-            addAllDriveInfo(asyncResp, connectionNames[0].first, path,
-                            connectionNames[0].second);
-            });
-        });
 }
 
 /**
