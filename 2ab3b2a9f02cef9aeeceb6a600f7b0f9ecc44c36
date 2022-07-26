@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3b3180bd_8be57fe9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-26T23:24:35Z",
+      "side": 1,
+      "message": "\u003e \u003e This is already supported I thought, but clearly it\u0027s not working in your case.  Can we get a better explanation of what you\u0027re trying to accomplish?\n\u003e From my testing, it only works for GET requests.\n\nHMMM... this isn\u0027t the intent.  I wonder if we broke something in the router at some point.\n\n\u003e  Ultimately I need to\n\u003e call setUpRedfishRouteWithDelegation() when handling requests since that is where the hook for Redfish Aggregation will be located.  In BMCWeb\u0027s current state that section of code you linked to will catch all endpoing and method combinations that are not explicitly covered by an instance of BMCWEB_ROUTE.\n\nhmmmmm.... this needs thought through better so we don\u0027t regress our passing redfish-protocol-validator.  Just so we can agree on intent:\n\n1. Any url that doesn\u0027t have any handlers registered, or the aggregated resource returns 404, needs to return 404\n2. Any url that has any verb handled, needs to return method not allowed.\n\n\u003e \n\u003e \u003e https://github.com/openbmc/bmcweb/blob/45248ba327bcf330fd2e49f90a59159fdf8ebecc/http/routing.hpp#L1268\n\u003e \u003e \n\u003e \u003e I suspect in this case the handling needs to be aggregation specific?\n\u003e Yeah that\u0027s the spot that gets called when we send a non-GET request to a URI that we do not support in BMCWeb.  I didn\u0027t want to add a hook there since it would involve editing an http file and we\u0027ve had previous discussions about not adding Redfish specific code to any of those files.  Also, the lack of a verb list for handling \"/redfish/\u003cpath\u003e\" seems to indicate that this was supposed to catch all verbs rather than just GET.\n\u003e \n\u003e \u003e Also, POST/PUT/PATCH/DELETE can still return 404, so as written, I think this doesn\u0027t do the right thing in RESTFUL semantics.\n\u003e I did that preserve the current behavior.  We call redfish404() only when we handle a GET request to an unrecognized URI.\n\n\nif I POST /redfish/v1/foobar, does it return 404?  It looks like it\u0027s going to return 405?",
+      "parentUuid": "b0dbc25a_4ebfac48",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 33
+      },
+      "revId": "2ab3b2a9f02cef9aeeceb6a600f7b0f9ecc44c36",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bf9aa226_b7a4b50e",
         "filename": "redfish-core/lib/redfish_v1.hpp",
         "patchSetId": 2
