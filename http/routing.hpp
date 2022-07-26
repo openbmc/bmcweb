@@ -93,8 +93,7 @@ class BaseRule
         return false;
     }
 
-    size_t methodsBitfield{
-        1 << static_cast<size_t>(boost::beast::http::verb::get)};
+    size_t methodsBitfield = std::numeric_limits<size_t>::max();
 
     std::vector<redfish::Privileges> privilegesSet;
 
