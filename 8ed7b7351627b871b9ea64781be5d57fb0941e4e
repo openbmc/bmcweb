@@ -587,6 +587,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fa4c99d5_e2871429",
+        "filename": "redfish-core/lib/license_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 509,
+      "author": {
+        "id": 1001485
+      },
+      "writtenOn": "2022-07-26T15:56:17Z",
+      "side": 1,
+      "message": "As per the schema Authorization scope support all those 4 values. So if AuthScope has a value other than those four we can return it with error. Also we are validating authscope specifically for CPULicense. So again this is going to be validated based on the License Type. This is just the general validation.",
+      "parentUuid": "2718ae22_d6f5d8a2",
+      "range": {
+        "startLine": 507,
+        "startChar": 0,
+        "endLine": 509,
+        "endChar": 17
+      },
+      "revId": "8ed7b7351627b871b9ea64781be5d57fb0941e4e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6c701c63_45f4bf2c",
         "filename": "redfish-core/lib/license_service.hpp",
         "patchSetId": 2
