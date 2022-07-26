@@ -56,5 +56,45 @@ TEST(HandleChassisResetActionInfoGet, StaticAttributesAreExpected)
     handleChassisResetActionInfoGet(app, request, response, fakeChassis);
 }
 
+void assertChassisGetStorageLink(const std::vector<std::string>& storageId,
+                                 crow::Response& res)
+{
+    nlohmann::json::array_t storages;
+    for (const std::string& id : storageId)
+    {
+        nlohmann::json::object_t storage;
+        storage["@odata.id"] = crow::utility::urlFromPieces(
+            "redfish", "v1", "Systems", "system", "Storage", id);
+        storages.push_back(std::move(storage));
+    }
+
+    nlohmann::json::object_t link;
+    link["Storage"] = storages;
+    link["Storage@odata.count"] = storages.size();
+    EXPECT_EQ(res.jsonValue["Links"], link);
+}
+
+TEST(PopulateStorageLink, ValidStorageLinks)
+{
+    const std::vector<std::string>& input{"/xyz/test/hello_1", "/xyz/test/",
+                                          "/xyz/test/_61bc"};
+    auto response = std::make_shared<bmcweb::AsyncResp>();
+    const std::vector<std::string> output{"hello_1", "abc"};
+    response->res.setCompleteRequestHandler(
+        std::bind_front(assertChassisGetStorageLink, output));
+    populateStorageLink(response, input);
+}
+
+TEST(PopulateStorageLink, EmptyStorageLink)
+{
+    const std::vector<std::string>& input{"/xyz/test0/", "/xyz/test1/",
+                                          "/xyz/test2/"};
+    auto response = std::make_shared<bmcweb::AsyncResp>();
+    const std::vector<std::string> output;
+    response->res.setCompleteRequestHandler(
+        std::bind_front(assertChassisGetStorageLink, output));
+    populateStorageLink(response, input);
+}
+
 } // namespace
 } // namespace redfish
