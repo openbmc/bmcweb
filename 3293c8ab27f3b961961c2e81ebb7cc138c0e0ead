@@ -53,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "27ed22b1_17280ac3",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-26T03:06:27Z",
+      "side": 1,
+      "message": "you’re actually right, this is a mistake, it should be std::nullopt \n\nACK",
+      "parentUuid": "e4374d1e_18644237",
+      "revId": "3293c8ab27f3b961961c2e81ebb7cc138c0e0ead",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "589c3bc7_796eb1a2",
