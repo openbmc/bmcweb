@@ -163,6 +163,30 @@
       },
       "revId": "3293c8ab27f3b961961c2e81ebb7cc138c0e0ead",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2d4627d9_ba463fb1",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1180,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-26T16:57:01Z",
+      "side": 1,
+      "message": "Good idea.  Changes made in latest patchset.",
+      "parentUuid": "86ec1ebd_cdb8dc39",
+      "range": {
+        "startLine": 1173,
+        "startChar": 8,
+        "endLine": 1180,
+        "endChar": 9
+      },
+      "revId": "3293c8ab27f3b961961c2e81ebb7cc138c0e0ead",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
