@@ -50,12 +50,23 @@ TEST(GetRoutes, TestOneRoute)
 TEST(GetRoutes, TestlotsOfRoutes)
 {
     App app;
-    BMCWEB_ROUTE(app, "/")([]() { return boost::beast::http::status::ok; });
-    BMCWEB_ROUTE(app, "/foo")([]() { return boost::beast::http::status::ok; });
-    BMCWEB_ROUTE(app, "/bar")([]() { return boost::beast::http::status::ok; });
-    BMCWEB_ROUTE(app, "/baz")([]() { return boost::beast::http::status::ok; });
-    BMCWEB_ROUTE(app, "/boo")([]() { return boost::beast::http::status::ok; });
-    BMCWEB_ROUTE(app, "/moo")([]() { return boost::beast::http::status::ok; });
+    BMCWEB_ROUTE(app, "/").methods(boost::beast::http::verb::get)(
+        []() { return boost::beast::http::status::ok; });
+    BMCWEB_ROUTE(app, "/foo").methods(boost::beast::http::verb::get)([]() {
+        return boost::beast::http::status::ok;
+    });
+    BMCWEB_ROUTE(app, "/bar").methods(boost::beast::http::verb::get)([]() {
+        return boost::beast::http::status::ok;
+    });
+    BMCWEB_ROUTE(app, "/baz").methods(boost::beast::http::verb::get)([]() {
+        return boost::beast::http::status::ok;
+    });
+    BMCWEB_ROUTE(app, "/boo").methods(boost::beast::http::verb::get)([]() {
+        return boost::beast::http::status::ok;
+    });
+    BMCWEB_ROUTE(app, "/moo").methods(boost::beast::http::verb::get)([]() {
+        return boost::beast::http::status::ok;
+    });
 
     app.validate();
 

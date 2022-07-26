@@ -93,8 +93,20 @@ class BaseRule
         return false;
     }
 
-    size_t methodsBitfield{
-        1 << static_cast<size_t>(boost::beast::http::verb::get)};
+    // Note, this is an imperfect abstraction.  There are a lot of verbs that we
+    // use memory for, but are basically unused by most implementations.
+    // Ideally we would have a list of verbs that we do use, and only index in,
+    // but that would require a translation from boost::beast::http::verb, to
+    // the bmcweb index.
+    static constexpr size_t maxVerbIndex =
+        static_cast<size_t>(boost::beast::http::verb::patch);
+
+    static constexpr const size_t notFoundIndex = maxVerbIndex + 1;
+    size_t methodsBitfield =
+        1 << static_cast<size_t>(boost::beast::http::verb::get);
+    static_assert(std::numeric_limits<decltype(methodsBitfield)>::digits >
+                      notFoundIndex,
+                  "Not enough bits to store bitfield");
 
     std::vector<redfish::Privileges> privilegesSet;
 
@@ -438,6 +450,13 @@ struct RuleParameterTraits
         self_t* self = static_cast<self_t*>(this);
         methods(argsMethod...);
         self->methodsBitfield |= 1U << static_cast<size_t>(method);
+        return *self;
+    }
+
+    self_t& notFound()
+    {
+        self_t* self = static_cast<self_t*>(this);
+        self->methodsBitfield = 1U << BaseRule::notFoundIndex;
         return *self;
     }
 
@@ -1097,20 +1116,20 @@ class Router
         {
             return;
         }
-        for (size_t method = 0, methodBit = 1; method < maxHttpVerbCount;
+        for (size_t method = 0, methodBit = 1; method < BaseRule::notFoundIndex;
              method++, methodBit <<= 1)
         {
             if ((ruleObject->methodsBitfield & methodBit) > 0U)
             {
-                perMethods[method].rules.emplace_back(ruleObject);
-                perMethods[method].trie.add(
-                    rule, static_cast<unsigned>(
-                              perMethods[method].rules.size() - 1U));
+                PerMethod& perMethod = perMethods[method];
+                perMethod.rules.emplace_back(ruleObject);
+                perMethod.trie.add(
+                    rule, static_cast<unsigned>(perMethod.rules.size() - 1U));
                 // directory case:
                 //   request to `/about' url matches `/about/' rule
                 if (rule.size() > 2 && rule.back() == '/')
                 {
-                    perMethods[method].trie.add(
+                    perMethod.trie.add(
                         rule.substr(0, rule.size() - 1),
                         static_cast<unsigned>(perMethods[method].rules.size() -
                                               1));
@@ -1212,9 +1231,13 @@ class Router
     std::string buildAllowHeader(Request& req)
     {
         std::string allowHeader;
+
+        // Make sure it's safe to deference the array at that index
+        static_assert(BaseRule::maxVerbIndex <
+                      std::tuple_size_v<decltype(perMethods)>);
         // Check to see if this url exists at any verb
-        for (size_t perMethodIndex = 0; perMethodIndex < perMethods.size();
-             perMethodIndex++)
+        for (size_t perMethodIndex = 0;
+             perMethodIndex <= BaseRule::maxVerbIndex; perMethodIndex++)
         {
             const PerMethod& p = perMethods[perMethodIndex];
             const std::pair<unsigned, RoutingParams>& found2 =
@@ -1245,6 +1268,7 @@ class Router
         Trie& trie = perMethod.trie;
         std::vector<BaseRule*>& rules = perMethod.rules;
         std::string allowHeader = buildAllowHeader(req);
+        std::pair<unsigned, RoutingParams> found;
         if (!allowHeader.empty())
         {
             asyncResp->res.addHeader(boost::beast::http::field::allow,
@@ -1255,9 +1279,12 @@ class Router
             {
                 return;
             }
+            found = trie.find(req.url);
         }
-
-        const std::pair<unsigned, RoutingParams>& found = trie.find(req.url);
+        else
+        {
+            found = perMethods[BaseRule::notFoundIndex].trie.find(req.url);
+        }
 
         unsigned ruleIndex = found.first;
         if (ruleIndex == 0U)
@@ -1444,10 +1471,7 @@ class Router
         {}
     };
 
-    const static size_t maxHttpVerbCount =
-        static_cast<size_t>(boost::beast::http::verb::unlink);
-
-    std::array<PerMethod, maxHttpVerbCount> perMethods;
+    std::array<PerMethod, BaseRule::notFoundIndex> perMethods;
     std::vector<std::unique_ptr<BaseRule>> allRules;
 };
 } // namespace crow
