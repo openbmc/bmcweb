@@ -94,6 +94,30 @@
       },
       "revId": "76ca8dc9fad2a5a4be817c02d1d1e2a8fec95c9e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "543a650a_d6e314ce",
+        "filename": "redfish-core/include/registries.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-07-26T07:55:19Z",
+      "side": 1,
+      "message": "My bad. I assumed that new standard add initializer also to while loop. But it only adds it to [if, for, range for, switch]\n\nEither while(true) or for loop are fine.",
+      "parentUuid": "9ae9c337_40ea21d0",
+      "range": {
+        "startLine": 67,
+        "startChar": 4,
+        "endLine": 91,
+        "endChar": 5
+      },
+      "revId": "76ca8dc9fad2a5a4be817c02d1d1e2a8fec95c9e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
