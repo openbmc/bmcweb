@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb4d5a24_e5b8e220",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-07-27T17:19:37Z",
+      "side": 1,
+      "message": "For next time, signed-off should include all authors. I.e. Since Nan uploaded a version, a signed off should also be present from Nan.",
+      "revId": "bffa0a428dd9138229d1edd920882b4a92bf259e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
