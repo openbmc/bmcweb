@@ -45,6 +45,30 @@
       },
       "revId": "68100fabbee910f0549163ee5a15ce7d6b77e2ad",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f716ffaa_89562921",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 3440,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-27T20:40:58Z",
+      "side": 1,
+      "message": "I think the other LogService instances handle this correctly (and I recall reviewing for that behavior).  I think it just got missed here.",
+      "parentUuid": "8ba1b517_2051caad",
+      "range": {
+        "startLine": 3440,
+        "startChar": 55,
+        "endLine": 3440,
+        "endChar": 56
+      },
+      "revId": "68100fabbee910f0549163ee5a15ce7d6b77e2ad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
