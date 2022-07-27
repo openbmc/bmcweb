@@ -3397,7 +3397,7 @@ static void getPostCodeForBoot(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
             getPostCodeForBoot(aResp, static_cast<uint16_t>(bootIndex + 1),
                                bootCount, endCount, skip, top);
         }
-        else
+        else if (skip + top < endCount)
         {
             aResp->res.jsonValue["Members@odata.nextLink"] =
                 "/redfish/v1/Systems/system/LogServices/PostCodes/Entries?$skip=" +
