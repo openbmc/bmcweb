@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "90912018_3942f952",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 3409,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-07-27T02:47:43Z",
+      "side": 1,
+      "message": "Changing the data type causes type error on line 3421. size_t is implemetation-defined and can be u16, u32 or u64. Calling std::min on different underlying data type gives error. Casting size_t to a larger data type will not cause any issue I think.\n\nAlso, this function is not modifying the value of skip and top now, it would be better to keep the const here.",
+      "range": {
+        "startLine": 3408,
+        "startChar": 58,
+        "endLine": 3409,
+        "endChar": 41
+      },
+      "revId": "57c0ddcbe5a08d8c231dfa9d9a6a2a0a71044568",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
