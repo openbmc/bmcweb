@@ -22,6 +22,30 @@
       },
       "revId": "57c0ddcbe5a08d8c231dfa9d9a6a2a0a71044568",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "041a6d6e_94ef9978",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 3409,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-27T03:05:12Z",
+      "side": 1,
+      "message": "I have fixed the std::min issue by just doing casting.\n\nI don\u0027t have strong preference for this const copy-by-value parameters.",
+      "parentUuid": "90912018_3942f952",
+      "range": {
+        "startLine": 3408,
+        "startChar": 58,
+        "endLine": 3409,
+        "endChar": 41
+      },
+      "revId": "57c0ddcbe5a08d8c231dfa9d9a6a2a0a71044568",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
