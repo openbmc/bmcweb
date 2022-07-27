@@ -22,6 +22,29 @@
       },
       "revId": "68100fabbee910f0549163ee5a15ce7d6b77e2ad",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ba1b517_2051caad",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 3440,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-27T19:07:17Z",
+      "side": 1,
+      "message": "Do we have this issue in other log services?",
+      "range": {
+        "startLine": 3440,
+        "startChar": 55,
+        "endLine": 3440,
+        "endChar": 56
+      },
+      "revId": "68100fabbee910f0549163ee5a15ce7d6b77e2ad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
