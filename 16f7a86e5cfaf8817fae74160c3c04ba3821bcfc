@@ -199,6 +199,30 @@
       },
       "revId": "16f7a86e5cfaf8817fae74160c3c04ba3821bcfc",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "42a19f3f_8ec855f0",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 647,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-07-27T17:36:37Z",
+      "side": 1,
+      "message": "I think current code is better as other params which can co-exist with skip/top might be implemented later.",
+      "parentUuid": "23305216_abdd633d",
+      "range": {
+        "startLine": 644,
+        "startChar": 4,
+        "endLine": 647,
+        "endChar": 5
+      },
+      "revId": "16f7a86e5cfaf8817fae74160c3c04ba3821bcfc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
