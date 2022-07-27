@@ -1012,6 +1012,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "12a46f62_5df9ccd1",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 645,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-27T17:19:27Z",
+      "side": 1,
+      "message": "I have implemented \n\n```\nWhat about:\nProperty is in the range [A-Za-z0-9]\nProperty is less than 40 characters long.\n```\n\nHowever, some properties might contain @, ., #, and /. I added these chars as well. 40 is not enough for some nested properties. I loose the limit to 60.",
+      "parentUuid": "e4735474_8736e1f2",
+      "range": {
+        "startLine": 645,
+        "startChar": 0,
+        "endLine": 645,
+        "endChar": 69
+      },
+      "revId": "a97976c06207fd39134f975f6b6c0687a4f79b90",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f19c0fa6_dfce885f",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 5
