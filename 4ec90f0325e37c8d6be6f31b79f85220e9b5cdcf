@@ -48,6 +48,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8ce29e2d_d6f26f3a",
+        "filename": "redfish-core/lib/thermal_subsystem.hpp",
+        "patchSetId": 89
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1001193
+      },
+      "writtenOn": "2022-07-27T20:46:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "10320df0_4fe6ad05",
+      "range": {
+        "startLine": 3,
+        "startChar": 9,
+        "endLine": 3,
+        "endChar": 18
+      },
+      "revId": "4ec90f0325e37c8d6be6f31b79f85220e9b5cdcf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e70fb5b1_e2468ea7",
@@ -85,6 +109,30 @@
       "side": 1,
       "message": "This function is currently just a hard-coded structure. Is there anything that needs UT?",
       "parentUuid": "e70fb5b1_e2468ea7",
+      "range": {
+        "startLine": 11,
+        "startChar": 12,
+        "endLine": 11,
+        "endChar": 40
+      },
+      "revId": "4ec90f0325e37c8d6be6f31b79f85220e9b5cdcf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1d84d65b_eb4b31dd",
+        "filename": "redfish-core/lib/thermal_subsystem.hpp",
+        "patchSetId": 89
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1001193
+      },
+      "writtenOn": "2022-07-27T20:46:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "448b9bab_f2d2213a",
       "range": {
         "startLine": 11,
         "startChar": 12,
