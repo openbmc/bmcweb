@@ -22,6 +22,30 @@
       },
       "revId": "218ca04e1a89baaaefac2f3165801adeb43df423",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd01b9a9_bf4ac0e4",
+        "filename": "redfish-core/include/utils/query_param_test.cpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-27T17:17:50Z",
+      "side": 1,
+      "message": "Done\n\nI have fixed this. Now our behavior is the same as the other systems.",
+      "parentUuid": "0c3d2f8f_268cd316",
+      "range": {
+        "startLine": 273,
+        "startChar": 3,
+        "endLine": 274,
+        "endChar": 17
+      },
+      "revId": "218ca04e1a89baaaefac2f3165801adeb43df423",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
