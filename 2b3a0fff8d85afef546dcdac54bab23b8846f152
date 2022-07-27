@@ -56,6 +56,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9085b282_dbf78396",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-27T20:36:40Z",
+      "side": 1,
+      "message": "Yep.  I\u0027ll do my best (not sure my system supports this whole thing).",
+      "parentUuid": "e215f80e_8e374199",
+      "revId": "2b3a0fff8d85afef546dcdac54bab23b8846f152",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "38646d46_7d286370",
         "filename": "redfish-core/lib/virtual_media.hpp",
         "patchSetId": 8
