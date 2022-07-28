@@ -51,6 +51,29 @@
       "message": "It looks like \nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/55031/3/redfish-core/lib/storage.hpp#721",
       "revId": "899a1e474dcd577a094bc76565243b20c98e5ea8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cd74f55b_fb56d857",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 721,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-28T18:08:22Z",
+      "side": 1,
+      "message": "The same question. Is this URL wrong? if so, why don\u0027t get validator issue before?",
+      "range": {
+        "startLine": 721,
+        "startChar": 40,
+        "endLine": 721,
+        "endChar": 49
+      },
+      "revId": "899a1e474dcd577a094bc76565243b20c98e5ea8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
