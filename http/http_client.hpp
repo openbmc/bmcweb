@@ -47,7 +47,7 @@ namespace crow
 // It is assumed that the BMC should be able to handle 4 parallel connections
 constexpr uint8_t maxPoolSize = 4;
 constexpr uint8_t maxRequestQueueSize = 50;
-constexpr unsigned int httpReadBodyLimit = 16384;
+constexpr unsigned int httpReadBodyLimit = 131072;
 constexpr unsigned int httpReadBufferSize = 4096;
 
 enum class ConnState
