@@ -1036,6 +1036,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4cb1dfff_e5fb80e3",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 645,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-28T01:06:55Z",
+      "side": 1,
+      "message": "\u003e \u003e The other system vendors (non openbmc)\n\u003e \n\u003e I did check all systems in interop lab. What else do you want me to do?\n\u003e \n\u003e \u003e That seems problematic too for backward compatibility, if a parameter gets added later.\n\u003e \n\u003e Are you saying returning 400 by checking if a property is in the final JSON is problematic if a new attribute is added? Why is that? Could you elaborate?\n\u003e \n\u003e \u003e I\u0027m ok with not comparing against a fixed list, but SOME kind of validation is required  to meet the security principals we require.  https://cheatsheetseries.owasp.org/cheatsheets/Input_Validation_Cheat_Sheet.html#implementing-input-validation\n\u003e \u003e Sure if you want to break it up into another patch, that\u0027s fine, but I\u0027d like to have some understanding of what we need before this patchset merges.\n\u003e \u003e What about:\n\u003e \u003e Property is in the range [A-Za-z0-9]\n\u003e \u003e Property is less than 40 characters long.\n\u003e \n\u003e This can be implemented in this patch. But this seems to me OpenBMC specific, not in the Redfish spec.\n\nThe naming is the redfish specification naming pattern.  the 40 is intended to be longer than Redfish would ever put in a Property.\n\n\u003e Any other requirements besides this? Do you want to limit the number of properties being selected?\n\nThat\u0027s probably a good idea too.  Maybe a limit of 50?\n\n\u003e \n\u003e \u003e Unfortunately in open source, people pull and deploy continuously, so if we check in bugs, we get CVEs;  As written, this feature isn\u0027t behind the option flag, if you want to do it incrementally, put it behind the option flag, and it can probably go in.\n\u003e \n\u003e This is behind insecure-query-params, right?\n \nAs written, I didn\u0027t think it was, but I can look more tomorrow.\n\n\u003e \n\u003e \u003e Are we sure we have the recursive bits correct?\n\u003e \n\u003e Could you please point out which part are wrong so I can fix them?\n\nI\u0027m asking the question, because I don\u0027t know the answer.  When we select things like Foo/Bar, we need to only recurse into the Complex objects, not the resources, the resources would reset to the start.  That seems subtle, which is why I\u0027m asking how confident you are that it\u0027s right.  if you\u0027re confident, then that\u0027s fine.\n\n\u003e \n\u003e I am okay with fixing concerns without massive change 😊. But it is difficult if we go with A then several weeks later we drop A completely and say we need to do B.\n\nChange happens in the project.  Either the options are:\n1. We leave things in review until we\u0027re CERTAIN they\u0027re correct, well tested, and bug free, then once it\u0027s merged they don\u0027t have to change.\n2. We merge things that look correct, and adapt to change where needed.\n\nFWIW, I generally try to go for #2.",
+      "parentUuid": "e4735474_8736e1f2",
+      "range": {
+        "startLine": 645,
+        "startChar": 0,
+        "endLine": 645,
+        "endChar": 69
+      },
+      "revId": "a97976c06207fd39134f975f6b6c0687a4f79b90",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f19c0fa6_dfce885f",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 5

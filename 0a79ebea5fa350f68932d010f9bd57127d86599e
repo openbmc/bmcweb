@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dd673420_432e17ef",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-28T01:06:55Z",
+      "side": 1,
+      "message": "Generally you iterate a char by value, not reference.",
+      "range": {
+        "startLine": 255,
+        "startChar": 15,
+        "endLine": 255,
+        "endChar": 19
+      },
+      "revId": "0a79ebea5fa350f68932d010f9bd57127d86599e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0372b73a_ba003a6d",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-28T01:06:55Z",
+      "side": 1,
+      "message": "Properties can\u0027t contain any of these, right?\n\n@ is reserved for messages, which I don\u0027t think users should be allowed to select.\n\n. I think is ok for multidepth.  Ideally we would make sure that \"foo..bar\" is disallowed, but that might be a little overly paranoid.  Up to you.\n\n# is reserved for fragments, and I don\u0027t think a property can have a # in the name, right?",
+      "range": {
+        "startLine": 257,
+        "startChar": 65,
+        "endLine": 258,
+        "endChar": 47
+      },
+      "revId": "0a79ebea5fa350f68932d010f9bd57127d86599e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "44340dfe_921abcf5",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-28T01:06:55Z",
+      "side": 1,
+      "message": "missing const.",
+      "range": {
+        "startLine": 288,
+        "startChar": 4,
+        "endLine": 288,
+        "endChar": 8
+      },
+      "revId": "0a79ebea5fa350f68932d010f9bd57127d86599e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1594e6b1_89a7d191",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 392,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-28T01:06:55Z",
+      "side": 1,
+      "message": "This is going to produce the wrong message.  I think you want maybe queryCombinationInvalid?",
+      "range": {
+        "startLine": 392,
+        "startChar": 18,
+        "endLine": 392,
+        "endChar": 48
+      },
+      "revId": "0a79ebea5fa350f68932d010f9bd57127d86599e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3c7e5ddf_b875e8f1",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 754,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-28T01:06:55Z",
+      "side": 1,
+      "message": "This doesn\u0027t work, right?  erase() invalidates iterators, so when you do this, nextIt is now invalidated, right?\n\nhttps://json.nlohmann.me/api/basic_json/erase/#notes\n\nLook at note #1.\n\n\nI suspect we need to be doing something like\n\nit \u003d root[currRootPtr].erase(it.key());\n\nto avoid lifetime issues?\n\n\nIt looks kinda like you\u0027ve worked around this with json_pointer?  I\u0027m assuming you saw issues, which is why you had to go back to root every time you did an erase (guessing)",
+      "range": {
+        "startLine": 754,
+        "startChar": 12,
+        "endLine": 754,
+        "endChar": 46
+      },
+      "revId": "0a79ebea5fa350f68932d010f9bd57127d86599e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f8e7fcc_63c9a4c8",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 768,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-28T01:06:55Z",
+      "side": 1,
+      "message": "Same problem as above, you\u0027re invalidating iterators.",
+      "range": {
+        "startLine": 768,
+        "startChar": 0,
+        "endLine": 768,
+        "endChar": 69
+      },
+      "revId": "0a79ebea5fa350f68932d010f9bd57127d86599e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
