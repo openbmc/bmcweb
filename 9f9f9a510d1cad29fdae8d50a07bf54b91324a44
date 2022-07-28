@@ -1,6 +1,46 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2d9d98ee_b0ea3da3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-07-28T18:47:29Z",
+      "side": 1,
+      "message": "The overall approach looks good to me.",
+      "revId": "9f9f9a510d1cad29fdae8d50a07bf54b91324a44",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c0151d7_6b43317b",
+        "filename": "http/ut/utility_test.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-07-28T18:47:29Z",
+      "side": 1,
+      "message": "Redfish currently only allows a 4-digit year.",
+      "range": {
+        "startLine": 109,
+        "startChar": 15,
+        "endLine": 109,
+        "endChar": 24
+      },
+      "revId": "9f9f9a510d1cad29fdae8d50a07bf54b91324a44",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d7c2dd0a_614990d1",
@@ -44,6 +84,138 @@
         "endLine": 562,
         "endChar": 71
       },
+      "revId": "9f9f9a510d1cad29fdae8d50a07bf54b91324a44",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7abcf334_2c760cc0",
+        "filename": "http/utility.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 566,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-07-28T18:47:29Z",
+      "side": 1,
+      "message": "nit: suggest adding \"due to binary code size\"",
+      "range": {
+        "startLine": 565,
+        "startChar": 71,
+        "endLine": 566,
+        "endChar": 20
+      },
+      "revId": "9f9f9a510d1cad29fdae8d50a07bf54b91324a44",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "954db5f0_b1e975ba",
+        "filename": "http/utility.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 590,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-07-28T18:47:29Z",
+      "side": 1,
+      "message": "Just wondering, any reason for using \"class\" for IntType vs \"typename\" for Period?",
+      "range": {
+        "startLine": 590,
+        "startChar": 10,
+        "endLine": 590,
+        "endChar": 40
+      },
+      "revId": "9f9f9a510d1cad29fdae8d50a07bf54b91324a44",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2c9ad5ac_b7e0f78a",
+        "filename": "http/utility.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 591,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-07-28T18:47:29Z",
+      "side": 1,
+      "message": "Suggest toISO8061ExtendedStr",
+      "range": {
+        "startLine": 591,
+        "startChar": 12,
+        "endLine": 591,
+        "endChar": 24
+      },
+      "revId": "9f9f9a510d1cad29fdae8d50a07bf54b91324a44",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ec9f5fe8_566cd3d5",
+        "filename": "http/utility.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 601,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-07-28T18:47:29Z",
+      "side": 1,
+      "message": "Can you help me understand in what kind of cases we\u0027d have d \u003e t?",
+      "range": {
+        "startLine": 601,
+        "startChar": 4,
+        "endLine": 601,
+        "endChar": 14
+      },
+      "revId": "9f9f9a510d1cad29fdae8d50a07bf54b91324a44",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5fdf78ce_5e8b09db",
+        "filename": "http/utility.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 614,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-07-28T18:47:29Z",
+      "side": 1,
+      "message": "For Redfish (Redfish spec 1.15.1, 9.5.5 Date-Time) we need a version of the ISO 8061 extended string where the year is exactly 4 digits, but this can return more than that.",
+      "range": {
+        "startLine": 614,
+        "startChar": 20,
+        "endLine": 614,
+        "endChar": 38
+      },
+      "revId": "9f9f9a510d1cad29fdae8d50a07bf54b91324a44",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1025e482_6f3e12a3",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-07-28T18:47:29Z",
+      "side": 1,
+      "message": "Is this needed?",
       "revId": "9f9f9a510d1cad29fdae8d50a07bf54b91324a44",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
