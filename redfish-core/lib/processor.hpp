@@ -26,8 +26,10 @@
 #include <registries/privilege_registry.hpp>
 #include <sdbusplus/asio/property.hpp>
 #include <sdbusplus/message/native_types.hpp>
+#include <sdbusplus/unpack_properties.hpp>
 #include <sdbusplus/utility/dedup_variant.hpp>
 #include <utils/collection.hpp>
+#include <utils/dbus_utils.hpp>
 #include <utils/json_utils.hpp>
 
 namespace redfish
@@ -280,11 +282,13 @@ inline void getCpuAssetData(std::shared_ptr<bmcweb::AsyncResp> aResp,
                             const std::string& objPath)
 {
     BMCWEB_LOG_DEBUG << "Get Cpu Asset Data";
-    crow::connections::systemBus->async_method_call(
+    sdbusplus::asio::getAllProperties(
+        *crow::connections::systemBus, service, objPath,
+        "xyz.openbmc_project.Inventory.Decorator.Asset",
         [objPath, aResp{std::move(aResp)}](
             const boost::system::error_code ec,
-            const boost::container::flat_map<
-                std::string, dbus::utility::DbusVariantType>& properties) {
+            const std::vector<std::pair<
+                std::string, dbus::utility::DbusVariantType>>& properties) {
         if (ec)
         {
             BMCWEB_LOG_DEBUG << "DBUS response error";
@@ -292,76 +296,60 @@ inline void getCpuAssetData(std::shared_ptr<bmcweb::AsyncResp> aResp,
             return;
         }
 
-        for (const auto& property : properties)
+        const std::string* serialNumber = nullptr;
+        const std::string* model = nullptr;
+        const std::string* manufacturer = nullptr;
+        const std::string* partNumber = nullptr;
+        const std::string* sparePartNumber = nullptr;
+
+        const bool success = sdbusplus::unpackPropertiesNoThrow(
+            dbus_utils::UnpackErrorPrinter(), properties, "SerialNumber",
+            serialNumber, "Model", model, "Manufacturer", manufacturer,
+            "PartNumber", partNumber, "SparePartNumber", sparePartNumber);
+
+        if (!success)
         {
-            if (property.first == "SerialNumber")
-            {
-                const std::string* sn =
-                    std::get_if<std::string>(&property.second);
-                if (sn != nullptr && !sn->empty())
-                {
-                    aResp->res.jsonValue["SerialNumber"] = *sn;
-                }
-            }
-            else if (property.first == "Model")
-            {
-                const std::string* model =
-                    std::get_if<std::string>(&property.second);
-                if (model != nullptr && !model->empty())
-                {
-                    aResp->res.jsonValue["Model"] = *model;
-                }
-            }
-            else if (property.first == "Manufacturer")
-            {
+            messages::internalError(aResp->res);
+            return;
+        }
 
-                const std::string* mfg =
-                    std::get_if<std::string>(&property.second);
-                if (mfg != nullptr)
-                {
-                    aResp->res.jsonValue["Manufacturer"] = *mfg;
+        if (serialNumber != nullptr && !serialNumber->empty())
+        {
+            aResp->res.jsonValue["SerialNumber"] = *serialNumber;
+        }
 
-                    // Otherwise would be unexpected.
-                    if (mfg->find("Intel") != std::string::npos)
-                    {
-                        aResp->res.jsonValue["ProcessorArchitecture"] = "x86";
-                        aResp->res.jsonValue["InstructionSet"] = "x86-64";
-                    }
-                    else if (mfg->find("IBM") != std::string::npos)
-                    {
-                        aResp->res.jsonValue["ProcessorArchitecture"] = "Power";
-                        aResp->res.jsonValue["InstructionSet"] = "PowerISA";
-                    }
-                }
-            }
-            else if (property.first == "PartNumber")
+        if (model && !model->empty())
+        {
+            aResp->res.jsonValue["Model"] = *model;
+        }
+
+        if (manufacturer != nullptr)
+        {
+            aResp->res.jsonValue["Manufacturer"] = *manufacturer;
+
+            // Otherwise would be unexpected.
+            if (manufacturer->find("Intel") != std::string::npos)
             {
-                const std::string* partNumber =
-                    std::get_if<std::string>(&property.second);
-
-                if (partNumber == nullptr)
-                {
-                    messages::internalError(aResp->res);
-                    return;
-                }
-                aResp->res.jsonValue["PartNumber"] = *partNumber;
+                aResp->res.jsonValue["ProcessorArchitecture"] = "x86";
+                aResp->res.jsonValue["InstructionSet"] = "x86-64";
             }
-            else if (property.first == "SparePartNumber")
+            else if (manufacturer->find("IBM") != std::string::npos)
             {
-                const std::string* sparePartNumber =
-                    std::get_if<std::string>(&property.second);
-
-                if (sparePartNumber == nullptr)
-                {
-                    messages::internalError(aResp->res);
-                    return;
-                }
-                aResp->res.jsonValue["SparePartNumber"] = *sparePartNumber;
+                aResp->res.jsonValue["ProcessorArchitecture"] = "Power";
+                aResp->res.jsonValue["InstructionSet"] = "PowerISA";
             }
         }
-        },
-        service, objPath, "org.freedesktop.DBus.Properties", "GetAll",
-        "xyz.openbmc_project.Inventory.Decorator.Asset");
+
+        if (partNumber != nullptr)
+        {
+            aResp->res.jsonValue["PartNumber"] = *partNumber;
+        }
+
+        if (sparePartNumber != nullptr)
+        {
+            aResp->res.jsonValue["SparePartNumber"] = *sparePartNumber;
+        }
+        });
 }
 
 inline void getCpuRevisionData(std::shared_ptr<bmcweb::AsyncResp> aResp,
@@ -369,11 +357,13 @@ inline void getCpuRevisionData(std::shared_ptr<bmcweb::AsyncResp> aResp,
                                const std::string& objPath)
 {
     BMCWEB_LOG_DEBUG << "Get Cpu Revision Data";
-    crow::connections::systemBus->async_method_call(
+    sdbusplus::asio::getAllProperties(
+        *crow::connections::systemBus, service, objPath,
+        "xyz.openbmc_project.Inventory.Decorator.Revision",
         [objPath, aResp{std::move(aResp)}](
             const boost::system::error_code ec,
-            const boost::container::flat_map<
-                std::string, dbus::utility::DbusVariantType>& properties) {
+            const std::vector<std::pair<
+                std::string, dbus::utility::DbusVariantType>>& properties) {
         if (ec)
         {
             BMCWEB_LOG_DEBUG << "DBUS response error";
@@ -381,22 +371,22 @@ inline void getCpuRevisionData(std::shared_ptr<bmcweb::AsyncResp> aResp,
             return;
         }
 
-        for (const auto& property : properties)
+        const std::string* version = nullptr;
+
+        const bool success = sdbusplus::unpackPropertiesNoThrow(
+            dbus_utils::UnpackErrorPrinter(), properties, "Version", version);
+
+        if (!success)
         {
-            if (property.first == "Version")
-            {
-                const std::string* ver =
-                    std::get_if<std::string>(&property.second);
-                if (ver != nullptr)
-                {
-                    aResp->res.jsonValue["Version"] = *ver;
-                }
-                break;
-            }
+            messages::internalError(aResp->res);
+            return;
         }
-        },
-        service, objPath, "org.freedesktop.DBus.Properties", "GetAll",
-        "xyz.openbmc_project.Inventory.Decorator.Revision");
+
+        if (version != nullptr)
+        {
+            aResp->res.jsonValue["Version"] = *version;
+        }
+        });
 }
 
 inline void getAcceleratorDataByService(
@@ -405,43 +395,41 @@ inline void getAcceleratorDataByService(
 {
     BMCWEB_LOG_DEBUG
         << "Get available system Accelerator resources by service.";
-    crow::connections::systemBus->async_method_call(
+    sdbusplus::asio::getAllProperties(
+        *crow::connections::systemBus, service, objPath, "",
         [acclrtrId, aResp{std::move(aResp)}](
             const boost::system::error_code ec,
-            const boost::container::flat_map<
-                std::string, dbus::utility::DbusVariantType>& properties) {
+            const std::vector<std::pair<
+                std::string, dbus::utility::DbusVariantType>>& properties) {
         if (ec)
         {
             BMCWEB_LOG_DEBUG << "DBUS response error";
             messages::internalError(aResp->res);
             return;
         }
-        aResp->res.jsonValue["Id"] = acclrtrId;
-        aResp->res.jsonValue["Name"] = "Processor";
-        const bool* accPresent = nullptr;
-        const bool* accFunctional = nullptr;
 
-        for (const auto& property : properties)
+        const bool* functional = nullptr;
+        const bool* present = nullptr;
+
+        const bool success = sdbusplus::unpackPropertiesNoThrow(
+            dbus_utils::UnpackErrorPrinter(), properties, "Functional",
+            functional, "Present", present);
+
+        if (!success)
         {
-            if (property.first == "Functional")
-            {
-                accFunctional = std::get_if<bool>(&property.second);
-            }
-            else if (property.first == "Present")
-            {
-                accPresent = std::get_if<bool>(&property.second);
-            }
+            messages::internalError(aResp->res);
+            return;
         }
 
         std::string state = "Enabled";
         std::string health = "OK";
 
-        if (accPresent != nullptr && !*accPresent)
+        if (present != nullptr && !*present)
         {
             state = "Absent";
         }
 
-        if ((accFunctional != nullptr) && !*accFunctional)
+        if (functional != nullptr && !*functional)
         {
             if (state == "Enabled")
             {
@@ -449,11 +437,12 @@ inline void getAcceleratorDataByService(
             }
         }
 
+        aResp->res.jsonValue["Id"] = acclrtrId;
+        aResp->res.jsonValue["Name"] = "Processor";
         aResp->res.jsonValue["Status"]["State"] = state;
         aResp->res.jsonValue["Status"]["Health"] = health;
         aResp->res.jsonValue["ProcessorType"] = "Accelerator";
-        },
-        service, objPath, "org.freedesktop.DBus.Properties", "GetAll", "");
+        });
 }
 
 // OperatingConfig D-Bus Types
@@ -522,7 +511,9 @@ inline void getCpuConfigData(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
     BMCWEB_LOG_INFO << "Getting CPU operating configs for " << cpuId;
 
     // First, GetAll CurrentOperatingConfig properties on the object
-    crow::connections::systemBus->async_method_call(
+    sdbusplus::asio::getAllProperties(
+        *crow::connections::systemBus, service, objPath,
+        "xyz.openbmc_project.Control.Processor.CurrentOperatingConfig",
         [aResp, cpuId, service](
             const boost::system::error_code ec,
             const std::vector<std::pair<
@@ -536,78 +527,75 @@ inline void getCpuConfigData(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
 
         nlohmann::json& json = aResp->res.jsonValue;
 
-        for (const auto& [dbusPropName, variantVal] : properties)
+        const sdbusplus::message::object_path* appliedConfig = nullptr;
+        const bool* baseSpeedPriorityEnabled = nullptr;
+
+        const bool success = sdbusplus::unpackPropertiesNoThrow(
+            dbus_utils::UnpackErrorPrinter(), properties, "AppliedConfig",
+            appliedConfig, "BaseSpeedPriorityEnabled",
+            baseSpeedPriorityEnabled);
+
+        if (!success)
         {
-            if (dbusPropName == "AppliedConfig")
-            {
-                const sdbusplus::message::object_path* dbusPathWrapper =
-                    std::get_if<sdbusplus::message::object_path>(&variantVal);
-                if (dbusPathWrapper == nullptr)
-                {
-                    continue;
-                }
-
-                const std::string& dbusPath = dbusPathWrapper->str;
-                std::string uri = "/redfish/v1/Systems/system/Processors/" +
-                                  cpuId + "/OperatingConfigs";
-                nlohmann::json::object_t operatingConfig;
-                operatingConfig["@odata.id"] = uri;
-                json["OperatingConfigs"] = std::move(operatingConfig);
-
-                // Reuse the D-Bus config object name for the Redfish
-                // URI
-                size_t baseNamePos = dbusPath.rfind('/');
-                if (baseNamePos == std::string::npos ||
-                    baseNamePos == (dbusPath.size() - 1))
-                {
-                    // If the AppliedConfig was somehow not a valid path,
-                    // skip adding any more properties, since everything
-                    // else is tied to this applied config.
-                    messages::internalError(aResp->res);
-                    break;
-                }
-                uri += '/';
-                uri += dbusPath.substr(baseNamePos + 1);
-                nlohmann::json::object_t appliedOperatingConfig;
-                appliedOperatingConfig["@odata.id"] = uri;
-                json["AppliedOperatingConfig"] =
-                    std::move(appliedOperatingConfig);
-
-                // Once we found the current applied config, queue another
-                // request to read the base freq core ids out of that
-                // config.
-                sdbusplus::asio::getProperty<BaseSpeedPrioritySettingsProperty>(
-                    *crow::connections::systemBus, service, dbusPath,
-                    "xyz.openbmc_project.Inventory.Item.Cpu."
-                    "OperatingConfig",
-                    "BaseSpeedPrioritySettings",
-                    [aResp](const boost::system::error_code ec2,
-                            const BaseSpeedPrioritySettingsProperty&
-                                baseSpeedList) {
-                    if (ec2)
-                    {
-                        BMCWEB_LOG_WARNING << "D-Bus Property Get error: "
-                                           << ec2;
-                        messages::internalError(aResp->res);
-                        return;
-                    }
-
-                    highSpeedCoreIdsHandler(aResp, baseSpeedList);
-                    });
-            }
-            else if (dbusPropName == "BaseSpeedPriorityEnabled")
-            {
-                const bool* state = std::get_if<bool>(&variantVal);
-                if (state != nullptr)
-                {
-                    json["BaseSpeedPriorityState"] =
-                        *state ? "Enabled" : "Disabled";
-                }
-            }
+            messages::internalError(aResp->res);
+            return;
         }
-        },
-        service, objPath, "org.freedesktop.DBus.Properties", "GetAll",
-        "xyz.openbmc_project.Control.Processor.CurrentOperatingConfig");
+
+        if (appliedConfig != nullptr)
+        {
+            const std::string& dbusPath = appliedConfig->str;
+            std::string uri = "/redfish/v1/Systems/system/Processors/" + cpuId +
+                              "/OperatingConfigs";
+            nlohmann::json::object_t operatingConfig;
+            operatingConfig["@odata.id"] = uri;
+            json["OperatingConfigs"] = std::move(operatingConfig);
+
+            // Reuse the D-Bus config object name for the Redfish
+            // URI
+            size_t baseNamePos = dbusPath.rfind('/');
+            if (baseNamePos == std::string::npos ||
+                baseNamePos == (dbusPath.size() - 1))
+            {
+                // If the AppliedConfig was somehow not a valid path,
+                // skip adding any more properties, since everything
+                // else is tied to this applied config.
+                messages::internalError(aResp->res);
+                return;
+            }
+            uri += '/';
+            uri += dbusPath.substr(baseNamePos + 1);
+            nlohmann::json::object_t appliedOperatingConfig;
+            appliedOperatingConfig["@odata.id"] = uri;
+            json["AppliedOperatingConfig"] = std::move(appliedOperatingConfig);
+
+            // Once we found the current applied config, queue another
+            // request to read the base freq core ids out of that
+            // config.
+            sdbusplus::asio::getProperty<BaseSpeedPrioritySettingsProperty>(
+                *crow::connections::systemBus, service, dbusPath,
+                "xyz.openbmc_project.Inventory.Item.Cpu."
+                "OperatingConfig",
+                "BaseSpeedPrioritySettings",
+                [aResp](
+                    const boost::system::error_code ec2,
+                    const BaseSpeedPrioritySettingsProperty& baseSpeedList) {
+                if (ec2)
+                {
+                    BMCWEB_LOG_WARNING << "D-Bus Property Get error: " << ec2;
+                    messages::internalError(aResp->res);
+                    return;
+                }
+
+                highSpeedCoreIdsHandler(aResp, baseSpeedList);
+                });
+        }
+
+        if (baseSpeedPriorityEnabled != nullptr)
+        {
+            json["BaseSpeedPriorityState"] =
+                *baseSpeedPriorityEnabled ? "Enabled" : "Disabled";
+        }
+        });
 }
 
 /**
@@ -817,7 +805,9 @@ inline void
                            const std::string& service,
                            const std::string& objPath)
 {
-    crow::connections::systemBus->async_method_call(
+    sdbusplus::asio::getAllProperties(
+        *crow::connections::systemBus, service, objPath,
+        "xyz.openbmc_project.Inventory.Item.Cpu.OperatingConfig",
         [aResp](const boost::system::error_code ec,
                 const OperatingConfigProperties& properties) {
         if (ec)
@@ -827,93 +817,83 @@ inline void
             return;
         }
 
-        nlohmann::json& json = aResp->res.jsonValue;
-        for (const auto& [key, variant] : properties)
+        const size_t* availableCoreCount = nullptr;
+        const uint32_t* baseSpeed = nullptr;
+        const uint32_t* maxJunctionTemperature = nullptr;
+        const uint32_t* maxSpeed = nullptr;
+        const uint32_t* powerLimit = nullptr;
+        const TurboProfileProperty* turboProfile = nullptr;
+        const BaseSpeedPrioritySettingsProperty* baseSpeedPrioritySettings =
+            nullptr;
+
+        const bool success = sdbusplus::unpackPropertiesNoThrow(
+            dbus_utils::UnpackErrorPrinter(), properties, "AvailableCoreCount",
+            availableCoreCount, "BaseSpeed", baseSpeed,
+            "MaxJunctionTemperature", maxJunctionTemperature, "MaxSpeed",
+            maxSpeed, "PowerLimit", powerLimit, "TurboProfile", turboProfile,
+            "BaseSpeedPrioritySettings", baseSpeedPrioritySettings);
+
+        if (!success)
         {
-            if (key == "AvailableCoreCount")
-            {
-                const size_t* cores = std::get_if<size_t>(&variant);
-                if (cores != nullptr)
-                {
-                    json["TotalAvailableCoreCount"] = *cores;
-                }
-            }
-            else if (key == "BaseSpeed")
-            {
-                const uint32_t* speed = std::get_if<uint32_t>(&variant);
-                if (speed != nullptr)
-                {
-                    json["BaseSpeedMHz"] = *speed;
-                }
-            }
-            else if (key == "MaxJunctionTemperature")
-            {
-                const uint32_t* temp = std::get_if<uint32_t>(&variant);
-                if (temp != nullptr)
-                {
-                    json["MaxJunctionTemperatureCelsius"] = *temp;
-                }
-            }
-            else if (key == "MaxSpeed")
-            {
-                const uint32_t* speed = std::get_if<uint32_t>(&variant);
-                if (speed != nullptr)
-                {
-                    json["MaxSpeedMHz"] = *speed;
-                }
-            }
-            else if (key == "PowerLimit")
-            {
-                const uint32_t* tdp = std::get_if<uint32_t>(&variant);
-                if (tdp != nullptr)
-                {
-                    json["TDPWatts"] = *tdp;
-                }
-            }
-            else if (key == "TurboProfile")
-            {
-                const auto* turboList =
-                    std::get_if<TurboProfileProperty>(&variant);
-                if (turboList == nullptr)
-                {
-                    continue;
-                }
+            messages::internalError(aResp->res);
+            return;
+        }
 
-                nlohmann::json& turboArray = json["TurboProfile"];
-                turboArray = nlohmann::json::array();
-                for (const auto& [turboSpeed, coreCount] : *turboList)
-                {
-                    nlohmann::json::object_t turbo;
-                    turbo["ActiveCoreCount"] = coreCount;
-                    turbo["MaxSpeedMHz"] = turboSpeed;
-                    turboArray.push_back(std::move(turbo));
-                }
-            }
-            else if (key == "BaseSpeedPrioritySettings")
-            {
-                const auto* baseSpeedList =
-                    std::get_if<BaseSpeedPrioritySettingsProperty>(&variant);
-                if (baseSpeedList == nullptr)
-                {
-                    continue;
-                }
+        nlohmann::json& json = aResp->res.jsonValue;
 
-                nlohmann::json& baseSpeedArray =
-                    json["BaseSpeedPrioritySettings"];
-                baseSpeedArray = nlohmann::json::array();
-                for (const auto& [baseSpeed, coreList] : *baseSpeedList)
-                {
-                    nlohmann::json::object_t speed;
-                    speed["CoreCount"] = coreList.size();
-                    speed["CoreIDs"] = coreList;
-                    speed["BaseSpeedMHz"] = baseSpeed;
-                    baseSpeedArray.push_back(std::move(speed));
-                }
+        if (availableCoreCount != nullptr)
+        {
+            json["TotalAvailableCoreCount"] = *availableCoreCount;
+        }
+
+        if (baseSpeed != nullptr)
+        {
+            json["BaseSpeedMHz"] = *baseSpeed;
+        }
+
+        if (maxJunctionTemperature != nullptr)
+        {
+            json["MaxJunctionTemperatureCelsius"] = *maxJunctionTemperature;
+        }
+
+        if (maxSpeed != nullptr)
+        {
+            json["MaxSpeedMHz"] = *maxSpeed;
+        }
+
+        if (powerLimit != nullptr)
+        {
+            json["TDPWatts"] = *powerLimit;
+        }
+
+        if (turboProfile != nullptr)
+        {
+            nlohmann::json& turboArray = json["TurboProfile"];
+            turboArray = nlohmann::json::array();
+            for (const auto& [turboSpeed, coreCount] : *turboProfile)
+            {
+                nlohmann::json::object_t turbo;
+                turbo["ActiveCoreCount"] = coreCount;
+                turbo["MaxSpeedMHz"] = turboSpeed;
+                turboArray.push_back(std::move(turbo));
             }
         }
-        },
-        service, objPath, "org.freedesktop.DBus.Properties", "GetAll",
-        "xyz.openbmc_project.Inventory.Item.Cpu.OperatingConfig");
+
+        if (baseSpeedPrioritySettings != nullptr)
+        {
+            nlohmann::json& baseSpeedArray = json["BaseSpeedPrioritySettings"];
+            baseSpeedArray = nlohmann::json::array();
+            for (const auto& [baseSpeedMhz, coreList] :
+                 *baseSpeedPrioritySettings)
+            {
+                nlohmann::json::object_t speed;
+                speed["CoreCount"] = coreList.size();
+                speed["CoreIDs"] = coreList;
+                speed["BaseSpeedMHz"] = baseSpeedMhz;
+                baseSpeedArray.push_back(std::move(speed));
+            }
+        }
+        });
 }
 
 /**
