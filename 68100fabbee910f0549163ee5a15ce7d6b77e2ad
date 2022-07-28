@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "09c0ef1c_2e260f7e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-07-28T02:22:28Z",
+      "side": 1,
+      "message": "This change itself wont be verified by validator as it will not use skip. I\u0027ll run it and update the result to ensure others does not goes wrong. Ack.",
+      "parentUuid": "0ebcd397_1b1cf2bf",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 9
+      },
+      "revId": "68100fabbee910f0549163ee5a15ce7d6b77e2ad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8ba1b517_2051caad",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 1
@@ -61,6 +85,30 @@
       "side": 1,
       "message": "I think the other LogService instances handle this correctly (and I recall reviewing for that behavior).  I think it just got missed here.",
       "parentUuid": "8ba1b517_2051caad",
+      "range": {
+        "startLine": 3440,
+        "startChar": 55,
+        "endLine": 3440,
+        "endChar": 56
+      },
+      "revId": "68100fabbee910f0549163ee5a15ce7d6b77e2ad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f924fcf9_493d96a2",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 3440,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-07-28T02:22:28Z",
+      "side": 1,
+      "message": "Yes only PostCode misses this logic",
+      "parentUuid": "f716ffaa_89562921",
       "range": {
         "startLine": 3440,
         "startChar": 55,
