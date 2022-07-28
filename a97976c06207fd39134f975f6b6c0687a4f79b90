@@ -1060,6 +1060,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "04bed7bb_02982840",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 645,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-28T01:34:56Z",
+      "side": 1,
+      "message": "\u003e When we select things like Foo/Bar, we need to only recurse into the Complex objects, not the resources, the resources would reset to the start. \n\nI don\u0027t understand this comment. I agree the recursive part is subtle but we are programming on a tree, and recursion algorithm is intuitive on tree, right? We used recursion on expand before already. I have tried to write unit test to cover all cases. If you find a gap in the test case, I can add.\n\n\u003e 2. We merge things that look correct, and adapt to change where needed.\n\nGiven that some of the issues are really ambiguous and we don\u0027t know the answer (neither does DMTF). I prefer going for #2.",
+      "parentUuid": "4cb1dfff_e5fb80e3",
+      "range": {
+        "startLine": 645,
+        "startChar": 0,
+        "endLine": 645,
+        "endChar": 69
+      },
+      "revId": "a97976c06207fd39134f975f6b6c0687a4f79b90",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f19c0fa6_dfce885f",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 5

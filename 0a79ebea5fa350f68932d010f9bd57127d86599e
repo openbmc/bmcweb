@@ -49,6 +49,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b717d0d9_2ccec1ce",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-28T01:34:56Z",
+      "side": 1,
+      "message": "@: all implementation allow selecting @odata.id at least. The other properties include \"BootOrder@odata.count\", \"BootSourceOverrideTarget@Redfish.AllowableValues\". All the implementation allow selecting these properties.\n\n.: 2 of 3 implementation don\u0027t check \"foo..bar\". So I prefer keep it as is here.\n\n#: \"#ComputerSystem.Reset\" is one of those properties. 1 of 3 implementation allow selecting this.\n\nAren\u0027t these valid properties?",
+      "parentUuid": "0372b73a_ba003a6d",
+      "range": {
+        "startLine": 257,
+        "startChar": 65,
+        "endLine": 258,
+        "endChar": 47
+      },
+      "revId": "0a79ebea5fa350f68932d010f9bd57127d86599e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "44340dfe_921abcf5",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 24
@@ -60,6 +84,30 @@
       "writtenOn": "2022-07-28T01:06:55Z",
       "side": 1,
       "message": "missing const.",
+      "range": {
+        "startLine": 288,
+        "startChar": 4,
+        "endLine": 288,
+        "endChar": 8
+      },
+      "revId": "0a79ebea5fa350f68932d010f9bd57127d86599e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "76a6cacf_1a7c67a4",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-28T01:34:56Z",
+      "side": 1,
+      "message": "Yes, I used to change the property, forgot to update in the latest patch. Will do",
+      "parentUuid": "44340dfe_921abcf5",
       "range": {
         "startLine": 288,
         "startChar": 4,
@@ -95,6 +143,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b4578601_15c08e15",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 392,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-28T01:34:56Z",
+      "side": 1,
+      "message": "nice, will do.",
+      "parentUuid": "1594e6b1_89a7d191",
+      "range": {
+        "startLine": 392,
+        "startChar": 18,
+        "endLine": 392,
+        "endChar": 48
+      },
+      "revId": "0a79ebea5fa350f68932d010f9bd57127d86599e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3c7e5ddf_b875e8f1",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 24
@@ -106,6 +178,30 @@
       "writtenOn": "2022-07-28T01:06:55Z",
       "side": 1,
       "message": "This doesn\u0027t work, right?  erase() invalidates iterators, so when you do this, nextIt is now invalidated, right?\n\nhttps://json.nlohmann.me/api/basic_json/erase/#notes\n\nLook at note #1.\n\n\nI suspect we need to be doing something like\n\nit \u003d root[currRootPtr].erase(it.key());\n\nto avoid lifetime issues?\n\n\nIt looks kinda like you\u0027ve worked around this with json_pointer?  I\u0027m assuming you saw issues, which is why you had to go back to root every time you did an erase (guessing)",
+      "range": {
+        "startLine": 754,
+        "startChar": 12,
+        "endLine": 754,
+        "endChar": 46
+      },
+      "revId": "0a79ebea5fa350f68932d010f9bd57127d86599e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a841dad_37af3c0a",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 754,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-28T01:34:56Z",
+      "side": 1,
+      "message": "Let me think about it.\n\nIf JSON use std::map under the hood. erase won\u0027t invalidate other iterators than the erased one. See Iterator validity in https://cplusplus.com/reference/map/map/erase/.\n\nWhy does unit test work?",
+      "parentUuid": "3c7e5ddf_b875e8f1",
       "range": {
         "startLine": 754,
         "startChar": 12,
