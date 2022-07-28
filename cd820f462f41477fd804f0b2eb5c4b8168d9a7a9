@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "e8798867_47b8d742",
         "filename": "redfish-core/lib/storage.hpp",
@@ -20,8 +21,31 @@
         "endChar": 17
       },
       "revId": "cd820f462f41477fd804f0b2eb5c4b8168d9a7a9",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "27c763c4_46c848d0",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-07-28T11:49:44Z",
+      "side": 1,
+      "message": "oh yeah. Um, not sure if this intended or a bug.",
+      "parentUuid": "e8798867_47b8d742",
+      "range": {
+        "startLine": 75,
+        "startChar": 0,
+        "endLine": 81,
+        "endChar": 17
+      },
+      "revId": "cd820f462f41477fd804f0b2eb5c4b8168d9a7a9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

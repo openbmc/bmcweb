@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "84d06137_f77df8a5",
         "filename": "/COMMIT_MSG",
@@ -14,10 +15,10 @@
       "side": 1,
       "message": "Why?",
       "revId": "c6d76b8c7e36f984870c9eaef4183d70f6bb0739",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "83c518f6_ab7655b6",
         "filename": "/COMMIT_MSG",
@@ -32,10 +33,10 @@
       "message": "Since right now we are only using Storage/1/ to manage all the Drives,\n\nSince Storage is basically used as a Drive/StorageController Collections... I thought it is safe to just have a Storage be default to each chassis. This will allow better Storage/Drive managements.",
       "parentUuid": "84d06137_f77df8a5",
       "revId": "c6d76b8c7e36f984870c9eaef4183d70f6bb0739",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "ae38cac8_d4477815",
         "filename": "/COMMIT_MSG",
@@ -50,10 +51,10 @@
       "message": "I don\u0027t think this scales to other implementations very well.\nI feel this is not a very robust solution and isn\u0027t what we have done other places. \n \nDo we need new inventory items? A storage inventory item? Do we need to create associations between this new storage inventory item and chassis? \n\nhttps://gerrit.openbmc-project.xyz/c/openbmc/docs/+/41468 \n\nCan we do the same with Drives? New documented associations and new inventory items if we need?",
       "parentUuid": "83c518f6_ab7655b6",
       "revId": "c6d76b8c7e36f984870c9eaef4183d70f6bb0739",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "a4089840_fc9b29a9",
         "filename": "/COMMIT_MSG",
@@ -68,10 +69,10 @@
       "message": "Yeah, we can add new Storage interface to support this for it to be more robust.\n\nI have the change in https://gerrit.openbmc-project.xyz/c/openbmc/phosphor-dbus-interfaces/+/44540\n\nAs for the association between the storage storage inventory item and chassis, I think we can just link to the Storages that is under the Chassis\u0027s object path. I think the doc you were referring to are focus more on things that is at a higher level than the current Chassis and cannot be directly under the chassis\u0027s object path.\n\nSame thing with Drive. Can\u0027t we just use the sub paths to determine the relationships? to the Storage and Chassis.",
       "parentUuid": "ae38cac8_d4477815",
       "revId": "c6d76b8c7e36f984870c9eaef4183d70f6bb0739",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "0ab81af5_8f9f62f4",
         "filename": "/COMMIT_MSG",
@@ -86,10 +87,10 @@
       "message": "\u003e As for the association between the storage storage inventory item and chassis, I think we can just link to the Storages that is under the Chassis\u0027s object path\n\n\u003e Same thing with Drive. Can\u0027t we just use the sub paths to determine the relationships? \n\nI just want whatever we do here to be consistent e.g. whatever we choose here https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/38570 should match. (there is several other inventory to inventory relationships in review now)\n\nWe might need that doc in first setting the direction: https://gerrit.openbmc-project.xyz/c/openbmc/docs/+/41468",
       "parentUuid": "a4089840_fc9b29a9",
       "revId": "c6d76b8c7e36f984870c9eaef4183d70f6bb0739",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "21fbe4af_f180e425",
         "filename": "/COMMIT_MSG",
@@ -104,10 +105,10 @@
       "message": "yeah, I agree that we should be consistent on how we want to approach this.\n\nIt seems like the relationship in https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/38570 it not finished yet....\n\nYeah, sounds like we need to have https://gerrit.openbmc-project.xyz/c/openbmc/docs/+/41468 before any of the inventory relationship changes go in.",
       "parentUuid": "0ab81af5_8f9f62f4",
       "revId": "c6d76b8c7e36f984870c9eaef4183d70f6bb0739",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "7f61c448_088c3900",
         "filename": "redfish-core/lib/chassis.hpp",
@@ -127,10 +128,10 @@
         "endChar": 55
       },
       "revId": "c6d76b8c7e36f984870c9eaef4183d70f6bb0739",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "6034c2c7_6b792c2b",
         "filename": "redfish-core/lib/chassis.hpp",
@@ -151,10 +152,10 @@
         "endChar": 55
       },
       "revId": "c6d76b8c7e36f984870c9eaef4183d70f6bb0739",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "7d17d50b_108252b5",
         "filename": "redfish-core/lib/storage.hpp",
@@ -174,10 +175,10 @@
         "endChar": 66
       },
       "revId": "c6d76b8c7e36f984870c9eaef4183d70f6bb0739",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "0254a784_fe1b29d4",
         "filename": "redfish-core/lib/storage.hpp",
@@ -198,10 +199,34 @@
         "endChar": 66
       },
       "revId": "c6d76b8c7e36f984870c9eaef4183d70f6bb0739",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9951f519_d13dbc18",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-07-28T11:49:44Z",
+      "side": 1,
+      "message": "ok, this should be fine now.",
+      "parentUuid": "0254a784_fe1b29d4",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 66
+      },
+      "revId": "c6d76b8c7e36f984870c9eaef4183d70f6bb0739",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "5046184e_479df19c",
         "filename": "redfish-core/lib/storage.hpp",
@@ -221,10 +246,10 @@
         "endChar": 64
       },
       "revId": "c6d76b8c7e36f984870c9eaef4183d70f6bb0739",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "86b26616_1cf0ddf1",
         "filename": "redfish-core/lib/storage.hpp",
@@ -245,10 +270,10 @@
         "endChar": 64
       },
       "revId": "c6d76b8c7e36f984870c9eaef4183d70f6bb0739",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "1663e4e8_975091af",
         "filename": "redfish-core/lib/storage.hpp",
@@ -269,8 +294,7 @@
         "endChar": 64
       },
       "revId": "c6d76b8c7e36f984870c9eaef4183d70f6bb0739",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

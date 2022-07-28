@@ -125,6 +125,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5b4b2624_8a262032",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-07-28T11:49:44Z",
+      "side": 1,
+      "message": "I am not sure where this is looking at anymore, but I have moved to using Association definition and moved the Drive stuff into a new change in the chain to make this change smaller.",
+      "parentUuid": "3916024a_8109b711",
+      "revId": "1bf8ed8210e913bd20e58cfb85cc1410cb456870",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c51b7ddb_a9d30525",

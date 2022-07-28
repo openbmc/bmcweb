@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fe31f62a_bb3a1b87",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 42
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-07-28T11:49:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "73ee6171_bb121715",
+      "range": {
+        "startLine": 80,
+        "startChar": 63,
+        "endLine": 80,
+        "endChar": 70
+      },
+      "revId": "87206ef0ce21f494d09cf1e6f86e92b378579c81",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ad931948_fcbfbcd2",
@@ -37,6 +61,24 @@
       "writtenOn": "2021-09-21T01:44:20Z",
       "side": 1,
       "message": "Might want to make this log more specific, like \"mapper response error\"",
+      "revId": "87206ef0ce21f494d09cf1e6f86e92b378579c81",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b57bb283_d38807ad",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 42
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-07-28T11:49:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ad931948_fcbfbcd2",
       "revId": "87206ef0ce21f494d09cf1e6f86e92b378579c81",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -81,6 +123,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3ed098e2_8d669170",
+        "filename": "redfish-core/lib/redfish_util.hpp",
+        "patchSetId": 42
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-07-28T11:49:44Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "b49ad8cd_69df185b",
+      "range": {
+        "startLine": 255,
+        "startChar": 25,
+        "endLine": 255,
+        "endChar": 26
+      },
+      "revId": "87206ef0ce21f494d09cf1e6f86e92b378579c81",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b288d5cd_9b86ccb1",
@@ -94,6 +160,24 @@
       "writtenOn": "2021-09-21T01:44:20Z",
       "side": 1,
       "message": "should document the return value too",
+      "revId": "87206ef0ce21f494d09cf1e6f86e92b378579c81",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "463db280_8632ede0",
+        "filename": "redfish-core/lib/redfish_util.hpp",
+        "patchSetId": 42
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-07-28T11:49:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b288d5cd_9b86ccb1",
       "revId": "87206ef0ce21f494d09cf1e6f86e92b378579c81",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -215,6 +299,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b0bcca0e_320baced",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 42
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-07-28T11:49:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a87fdbe4_0bbb64cb",
+      "range": {
+        "startLine": 279,
+        "startChar": 52,
+        "endLine": 279,
+        "endChar": 56
+      },
+      "revId": "87206ef0ce21f494d09cf1e6f86e92b378579c81",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f177ad94_a90b6de5",
@@ -228,6 +336,30 @@
       "writtenOn": "2021-10-06T22:48:48Z",
       "side": 1,
       "message": "I\u0027m guessing you missed a reference here.  This is a copy.",
+      "range": {
+        "startLine": 280,
+        "startChar": 0,
+        "endLine": 281,
+        "endChar": 50
+      },
+      "revId": "87206ef0ce21f494d09cf1e6f86e92b378579c81",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "785cb51d_b2431f9d",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 42
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-07-28T11:49:44Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "f177ad94_a90b6de5",
       "range": {
         "startLine": 280,
         "startChar": 0,
@@ -255,6 +387,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c933e7cd_d116bd19",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 42
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-07-28T11:49:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "41744115_b0f42995",
+      "revId": "87206ef0ce21f494d09cf1e6f86e92b378579c81",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "24804916_fdcf8c04",
@@ -268,6 +418,30 @@
       "writtenOn": "2021-10-06T22:48:48Z",
       "side": 1,
       "message": "Simplify this to a single:\nreturn path.filename() \u003d\u003d storageId",
+      "range": {
+        "startLine": 283,
+        "startChar": 0,
+        "endLine": 288,
+        "endChar": 44
+      },
+      "revId": "87206ef0ce21f494d09cf1e6f86e92b378579c81",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eaa39f6a_a60de205",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 42
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-07-28T11:49:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "24804916_fdcf8c04",
       "range": {
         "startLine": 283,
         "startChar": 0,
