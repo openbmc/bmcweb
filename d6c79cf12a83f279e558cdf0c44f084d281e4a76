@@ -48,6 +48,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c8975f5c_5ecf8096",
+        "filename": "http/utility.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 563,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-07-28T19:08:16Z",
+      "side": 1,
+      "message": "Looks like you got around to it sooner than me 👍. Your approach looks good, so let\u0027s move forward with yours.",
+      "parentUuid": "490aafea_38f5817e",
+      "range": {
+        "startLine": 563,
+        "startChar": 42,
+        "endLine": 563,
+        "endChar": 74
+      },
+      "revId": "d6c79cf12a83f279e558cdf0c44f084d281e4a76",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7a288e4f_f0446d19",
@@ -142,6 +166,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0db3fbc8_3281bacc",
+        "filename": "http/utility.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 596,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-07-28T19:08:16Z",
+      "side": 1,
+      "message": "This part wasn\u0027t copy pasted. setw sets a min width but does not set a max, so we could still get too many digits. I was trying to get numFractionalDigits as a string and use substr to truncate it to the desired number of digits. A separate stringstream was a (perhaps inefficient) means to get numFractionalDigits converted to a string and zero padded.",
+      "parentUuid": "2827c031_ece1705a",
+      "range": {
+        "startLine": 596,
+        "startChar": 0,
+        "endLine": 596,
+        "endChar": 38
+      },
+      "revId": "d6c79cf12a83f279e558cdf0c44f084d281e4a76",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ec6061fb_2f2f4657",
         "filename": "http/utility.hpp",
         "patchSetId": 12
@@ -153,6 +201,30 @@
       "writtenOn": "2022-07-22T18:31:21Z",
       "side": 1,
       "message": "Same as above.  A, do we want to limit this, and B, this check I think is now duplicated between handlers.",
+      "range": {
+        "startLine": 632,
+        "startChar": 0,
+        "endLine": 635,
+        "endChar": 5
+      },
+      "revId": "d6c79cf12a83f279e558cdf0c44f084d281e4a76",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1484f611_a5a3192e",
+        "filename": "http/utility.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 635,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-07-28T19:08:16Z",
+      "side": 1,
+      "message": "I had added this based on your previous comment at https://gerrit.openbmc.org/c/openbmc/bmcweb/+/55312/comments/07aab98f_252e7a77, but wasn\u0027t sure whether to put it only at the top level (getDateTime()) or at all levels.",
+      "parentUuid": "ec6061fb_2f2f4657",
       "range": {
         "startLine": 632,
         "startChar": 0,
