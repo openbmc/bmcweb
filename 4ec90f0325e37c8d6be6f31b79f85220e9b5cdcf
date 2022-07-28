@@ -72,6 +72,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b93d287_640834fd",
+        "filename": "redfish-core/lib/thermal_subsystem.hpp",
+        "patchSetId": 89
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-07-28T00:34:15Z",
+      "side": 1,
+      "message": "@Zhenwei\nPlease do not modify the commits of the owner at will. @Xiaochao has already replied to this issue, and since it\u0027s a common issue and it\u0027s close to being merged, I think he\u0027ll introduce a new commit to fix it. Thanks",
+      "parentUuid": "8ce29e2d_d6f26f3a",
+      "range": {
+        "startLine": 3,
+        "startChar": 9,
+        "endLine": 3,
+        "endChar": 18
+      },
+      "revId": "4ec90f0325e37c8d6be6f31b79f85220e9b5cdcf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e70fb5b1_e2468ea7",
