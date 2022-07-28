@@ -207,7 +207,7 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
         state = ConnState::sendInProgress;
 
         // Set a timeout on the operation
-        conn.expires_after(std::chrono::seconds(30));
+        conn.expires_after(std::chrono::seconds(120));
 
         // Send the HTTP request to the remote host
         boost::beast::http::async_write(
