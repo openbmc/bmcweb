@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "6c6aa80c_864e24f6",
         "filename": "redfish-core/lib/chassis.hpp",
@@ -14,10 +15,10 @@
       "side": 1,
       "message": "This just doesn\u0027t feel correct..",
       "revId": "1bf8ed8210e913bd20e58cfb85cc1410cb456870",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "a07c8b94_cde49ded",
         "filename": "redfish-core/lib/chassis.hpp",
@@ -32,10 +33,10 @@
       "message": "Are you referring to the format?\n\nOr because it forced each chassis to have a Storage? I will update that to use \n\nhttps://gerrit.openbmc-project.xyz/c/openbmc/phosphor-dbus-interfaces/+/44540",
       "parentUuid": "6c6aa80c_864e24f6",
       "revId": "1bf8ed8210e913bd20e58cfb85cc1410cb456870",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "66137ba9_9c363b78",
         "filename": "redfish-core/lib/chassis.hpp",
@@ -50,10 +51,10 @@
       "message": "I am referring to you had a chassisId determining the storageId but this has changed so considering Done.",
       "parentUuid": "a07c8b94_cde49ded",
       "revId": "1bf8ed8210e913bd20e58cfb85cc1410cb456870",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "060ac8e4_4baf4622",
         "filename": "redfish-core/lib/storage.hpp",
@@ -67,10 +68,10 @@
       "side": 1,
       "message": "Can we do .parent_path() and do exact matching? So we are looking at the D-Bus path to determine containment ? \n\nProposal I over at https://gerrit.openbmc-project.xyz/c/openbmc/docs/+/41468/4/architecture/dbus-inventory.md#1 ?\nWe might to settle on a direction there first on that architecture doc.",
       "revId": "1bf8ed8210e913bd20e58cfb85cc1410cb456870",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "a84ac081_7d5956e4",
         "filename": "redfish-core/lib/storage.hpp",
@@ -85,10 +86,10 @@
       "message": "Using .parent_path() will force it to be the direct parent. Do we want to force it so that the Drive is always the direct child of the Storage?\n\nThe current implementation just ensures it is a subpath (just realized that I need to add \"/\" at the end)\n\nWe can do multi-level of parent_path() to get the same result.\n\n-----\n\nFor Proposal I, I am not sure how relevant that is to resources outside of Chassis.",
       "parentUuid": "060ac8e4_4baf4622",
       "revId": "1bf8ed8210e913bd20e58cfb85cc1410cb456870",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "7754d014_1665f48c",
         "filename": "redfish-core/lib/storage.hpp",
@@ -103,10 +104,10 @@
       "message": "I think \"We can do multi-level of parent_path() to get the same result\" would be the most correct.",
       "parentUuid": "a84ac081_7d5956e4",
       "revId": "1bf8ed8210e913bd20e58cfb85cc1410cb456870",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "3916024a_8109b711",
         "filename": "redfish-core/lib/storage.hpp",
@@ -121,10 +122,10 @@
       "message": "I added https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/43744/29/redfish-core/lib/redfish_util.hpp#b16 to loop through all the parent_path()\u0027s.",
       "parentUuid": "7754d014_1665f48c",
       "revId": "1bf8ed8210e913bd20e58cfb85cc1410cb456870",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "c51b7ddb_a9d30525",
         "filename": "redfish-core/lib/storage.hpp",
@@ -144,10 +145,10 @@
         "endChar": 43
       },
       "revId": "1bf8ed8210e913bd20e58cfb85cc1410cb456870",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "5825de4b_922dd015",
         "filename": "redfish-core/lib/storage.hpp",
@@ -168,10 +169,10 @@
         "endChar": 43
       },
       "revId": "1bf8ed8210e913bd20e58cfb85cc1410cb456870",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "adb256b2_31fb8438",
         "filename": "redfish-core/lib/storage.hpp",
@@ -192,10 +193,10 @@
         "endChar": 43
       },
       "revId": "1bf8ed8210e913bd20e58cfb85cc1410cb456870",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "01698125_9fb0345d",
         "filename": "redfish-core/lib/storage.hpp",
@@ -215,10 +216,10 @@
         "endChar": 64
       },
       "revId": "1bf8ed8210e913bd20e58cfb85cc1410cb456870",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "3042ff2c_1bdf7570",
         "filename": "redfish-core/lib/storage.hpp",
@@ -239,10 +240,10 @@
         "endChar": 64
       },
       "revId": "1bf8ed8210e913bd20e58cfb85cc1410cb456870",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "f3eaa730_0a627c79",
         "filename": "redfish-core/lib/storage.hpp",
@@ -256,10 +257,10 @@
       "side": 1,
       "message": "https://github.com/openbmc/bmcweb/blob/master/COMMON_ERRORS.md#12-imprecise-matching \nCan we use \n\nsdbusplus::message::object_path\n....filename(); \nhttps://github.com/openbmc/bmcweb/search?q\u003dsdbusplus%3A%3Amessage%3A%3Aobject_path ?",
       "revId": "1bf8ed8210e913bd20e58cfb85cc1410cb456870",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "c6f30cb6_58ba8dfd",
         "filename": "redfish-core/lib/storage.hpp",
@@ -274,10 +275,10 @@
       "message": "Done. Thanks.",
       "parentUuid": "f3eaa730_0a627c79",
       "revId": "1bf8ed8210e913bd20e58cfb85cc1410cb456870",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "bd2d52be_4e209f0e",
         "filename": "redfish-core/lib/storage.hpp",
@@ -297,10 +298,10 @@
         "endChar": 63
       },
       "revId": "1bf8ed8210e913bd20e58cfb85cc1410cb456870",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "60dba8c9_ca8e89ca",
         "filename": "redfish-core/lib/storage.hpp",
@@ -321,8 +322,31 @@
         "endChar": 63
       },
       "revId": "1bf8ed8210e913bd20e58cfb85cc1410cb456870",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "babee996_f784b37a",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-07-28T01:27:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "60dba8c9_ca8e89ca",
+      "range": {
+        "startLine": 305,
+        "startChar": 23,
+        "endLine": 305,
+        "endChar": 63
+      },
+      "revId": "1bf8ed8210e913bd20e58cfb85cc1410cb456870",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

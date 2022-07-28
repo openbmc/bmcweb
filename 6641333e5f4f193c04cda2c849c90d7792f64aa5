@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "9f77b596_b7317d40",
         "filename": "redfish-core/lib/chassis.hpp",
@@ -20,10 +21,10 @@
         "endChar": 20
       },
       "revId": "6641333e5f4f193c04cda2c849c90d7792f64aa5",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "6bfbda59_45266de2",
         "filename": "redfish-core/lib/chassis.hpp",
@@ -44,10 +45,10 @@
         "endChar": 20
       },
       "revId": "6641333e5f4f193c04cda2c849c90d7792f64aa5",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "3d1ed134_1b0674b6",
         "filename": "redfish-core/lib/chassis.hpp",
@@ -68,10 +69,34 @@
         "endChar": 20
       },
       "revId": "6641333e5f4f193c04cda2c849c90d7792f64aa5",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "50d20a73_f21aa909",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-07-28T01:27:55Z",
+      "side": 1,
+      "message": "ok. I have this change again in here. But I cleaned up a lot so I think I\u0027ll keep it here and have the discussion here.",
+      "parentUuid": "3d1ed134_1b0674b6",
+      "range": {
+        "startLine": 123,
+        "startChar": 0,
+        "endLine": 126,
+        "endChar": 20
+      },
+      "revId": "6641333e5f4f193c04cda2c849c90d7792f64aa5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "890576de_99edbb11",
         "filename": "redfish-core/lib/chassis.hpp",
@@ -91,10 +116,10 @@
         "endChar": 72
       },
       "revId": "6641333e5f4f193c04cda2c849c90d7792f64aa5",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "9ea2657a_cb2ab19e",
         "filename": "redfish-core/lib/chassis.hpp",
@@ -115,10 +140,10 @@
         "endChar": 72
       },
       "revId": "6641333e5f4f193c04cda2c849c90d7792f64aa5",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "bc2c15a2_55ba330e",
         "filename": "redfish-core/lib/redfish_util.hpp",
@@ -138,8 +163,7 @@
         "endChar": 17
       },
       "revId": "6641333e5f4f193c04cda2c849c90d7792f64aa5",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

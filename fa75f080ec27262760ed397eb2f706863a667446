@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6650eb6b_e5e3c4f6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 70
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-07-28T01:27:55Z",
+      "side": 1,
+      "message": "Ready for now... but I\u0027ll need to go through the comments to make sure I didn\u0027t miss anything.",
+      "revId": "fa75f080ec27262760ed397eb2f706863a667446",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
