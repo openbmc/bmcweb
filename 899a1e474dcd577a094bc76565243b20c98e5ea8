@@ -74,6 +74,30 @@
       },
       "revId": "899a1e474dcd577a094bc76565243b20c98e5ea8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4b6211bf_2d114ace",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 721,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-07-28T18:19:33Z",
+      "side": 1,
+      "message": "The URL was wrong before and failing Redfish Validator.\n\nI guess the error was missed before. idk (I didn\u0027t make the previous change for this).",
+      "parentUuid": "cd74f55b_fb56d857",
+      "range": {
+        "startLine": 721,
+        "startChar": 40,
+        "endLine": 721,
+        "endChar": 49
+      },
+      "revId": "899a1e474dcd577a094bc76565243b20c98e5ea8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
