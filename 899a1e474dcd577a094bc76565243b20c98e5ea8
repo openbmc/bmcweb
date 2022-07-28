@@ -98,6 +98,30 @@
       },
       "revId": "899a1e474dcd577a094bc76565243b20c98e5ea8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ddb235b7_a0553e31",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 721,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-28T18:33:29Z",
+      "side": 1,
+      "message": "could you help paste the validator error message before this change in the commit message?",
+      "parentUuid": "4b6211bf_2d114ace",
+      "range": {
+        "startLine": 721,
+        "startChar": 40,
+        "endLine": 721,
+        "endChar": 49
+      },
+      "revId": "899a1e474dcd577a094bc76565243b20c98e5ea8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
