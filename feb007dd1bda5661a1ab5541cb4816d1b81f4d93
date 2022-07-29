@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "55dd4764_656e0df9",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-29T01:55:14Z",
+      "side": 1,
+      "message": "Why is this a filesystem path?  Dbus properties don\u0027t exist in the filesystem, so won\u0027t this give us incorrect behavior on escaping?",
+      "range": {
+        "startLine": 82,
+        "startChar": 16,
+        "endLine": 82,
+        "endChar": 37
+      },
+      "revId": "feb007dd1bda5661a1ab5541cb4816d1b81f4d93",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "36f29854_d8d6a9c3",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 294,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-29T01:55:14Z",
+      "side": 1,
+      "message": "What does this have to do with the filesystem?",
+      "range": {
+        "startLine": 294,
+        "startChar": 46,
+        "endLine": 294,
+        "endChar": 67
+      },
+      "revId": "feb007dd1bda5661a1ab5541cb4816d1b81f4d93",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a78ed2d_f97c1a47",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 740,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-29T01:55:14Z",
+      "side": 1,
+      "message": "this is going to be duplicating a lot of comparisons.  Should we be breaking up the childPtr into pieces, and rely on something that does direct comparison at this level?",
+      "range": {
+        "startLine": 740,
+        "startChar": 36,
+        "endLine": 740,
+        "endChar": 44
+      },
+      "revId": "feb007dd1bda5661a1ab5541cb4816d1b81f4d93",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e21b861c_4dfe1625",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 795,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-29T01:55:14Z",
+      "side": 1,
+      "message": "why do we need to make a copy here?",
+      "range": {
+        "startLine": 794,
+        "startChar": 0,
+        "endLine": 795,
+        "endChar": 70
+      },
+      "revId": "feb007dd1bda5661a1ab5541cb4816d1b81f4d93",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2e24f0f8_3c4b0fa3",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 864,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-29T01:55:14Z",
+      "side": 1,
+      "message": "Should we simplify processSelect by relying on the completionHandler() call on line 867.  This is the same thing processTopAndSkip does.",
+      "range": {
+        "startLine": 864,
+        "startChar": 8,
+        "endLine": 864,
+        "endChar": 14
+      },
+      "revId": "feb007dd1bda5661a1ab5541cb4816d1b81f4d93",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

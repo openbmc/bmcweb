@@ -1084,6 +1084,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "739a9244_eee242b1",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 645,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-29T01:55:14Z",
+      "side": 1,
+      "message": "\u003e  I agree the recursive part is subtle but we are programming on a tree, and recursion algorithm is intuitive on tree, right?\n\nNope, there are two types of Redfish structures in an object, a ComplexType, and a Resource.  As written this recurses into both, which I don\u0027t believe it should.\n\n\n\u003e Given that some of the issues are really ambiguous and we don\u0027t know the answer (neither does DMTF). I prefer going for #2.\n\nSure, but I don\u0027t believe the complex type versus property is ambiguous at this point.  Has there been any more discussion on the issue trackers?\n\nArguably this is a good reason to wait for a response from DMTF about how this should behave.",
+      "parentUuid": "04bed7bb_02982840",
+      "range": {
+        "startLine": 645,
+        "startChar": 0,
+        "endLine": 645,
+        "endChar": 69
+      },
+      "revId": "a97976c06207fd39134f975f6b6c0687a4f79b90",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f19c0fa6_dfce885f",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 5
