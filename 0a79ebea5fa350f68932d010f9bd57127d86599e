@@ -593,6 +593,30 @@
       },
       "revId": "0a79ebea5fa350f68932d010f9bd57127d86599e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7a32a444_782c6231",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 768,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-29T22:00:54Z",
+      "side": 1,
+      "message": "\u003e  This is only an issue with AutoExpand resources.\n\nThis is not entirely true. I take it back. There are arrays elsewhere. But mostly likely people want to select properties of objects array when query is expanded.",
+      "parentUuid": "a5bd2f62_0db50c66",
+      "range": {
+        "startLine": 768,
+        "startChar": 0,
+        "endLine": 768,
+        "endChar": 69
+      },
+      "revId": "0a79ebea5fa350f68932d010f9bd57127d86599e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
