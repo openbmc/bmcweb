@@ -22,6 +22,30 @@
       },
       "revId": "5c666ed1f8ce19e12ac9ba1ebfbc0869251a1023",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3c1dcbe8_81b2947b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-07-29T23:54:21Z",
+      "side": 1,
+      "message": "Because being able to establish a connection to a destination is independent from how quick the destination will generate a response to a received request.  If we\u0027re able to establish a connection then I feel we can reasonably expect the destination to respond to a response.\n\nIf you attempt to curl a non-existant IP then the connection attempt will timeout within two minutes.  However, you can launch netcat and then curl the port netcat is listening on. In that case curl will wait until it receives a response to its GET request rather than timing out in a similar manner.  I argue our HTTP client should be similar in the sense that it should wait longer to receive a response than it should wait to establish a connection.\n\nBefore the HTTP client refactor we actually didn\u0027t do anything with the responses to the requests sent by Event Service Manager so it didn\u0027t matter if we timed out before receiving a response.",
+      "parentUuid": "7b185b6b_cd2730f9",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 63
+      },
+      "revId": "5c666ed1f8ce19e12ac9ba1ebfbc0869251a1023",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
