@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b0e64a5a_7e6fd9d6",
+        "filename": "http/ut/utility_test.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-29T02:57:22Z",
+      "side": 1,
+      "message": "ACK",
+      "parentUuid": "5c0151d7_6b43317b",
+      "range": {
+        "startLine": 109,
+        "startChar": 15,
+        "endLine": 109,
+        "endChar": 24
+      },
+      "revId": "9f9f9a510d1cad29fdae8d50a07bf54b91324a44",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d7c2dd0a_614990d1",
         "filename": "http/utility.hpp",
         "patchSetId": 5
@@ -111,6 +135,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e6e269f4_ce902c6b",
+        "filename": "http/utility.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 566,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-29T02:57:22Z",
+      "side": 1,
+      "message": "It\u0027s arguably more for compile times;  Binary size is about the same, but ACK.",
+      "parentUuid": "7abcf334_2c760cc0",
+      "range": {
+        "startLine": 565,
+        "startChar": 71,
+        "endLine": 566,
+        "endChar": 20
+      },
+      "revId": "9f9f9a510d1cad29fdae8d50a07bf54b91324a44",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "954db5f0_b1e975ba",
@@ -136,6 +184,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "33deb741_6c761717",
+        "filename": "http/utility.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 590,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-29T02:57:22Z",
+      "side": 1,
+      "message": "Good point, I should be consistent.  ACK.",
+      "parentUuid": "954db5f0_b1e975ba",
+      "range": {
+        "startLine": 590,
+        "startChar": 10,
+        "endLine": 590,
+        "endChar": 40
+      },
+      "revId": "9f9f9a510d1cad29fdae8d50a07bf54b91324a44",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2c9ad5ac_b7e0f78a",
         "filename": "http/utility.hpp",
         "patchSetId": 5
@@ -147,6 +219,30 @@
       "writtenOn": "2022-07-28T18:47:29Z",
       "side": 1,
       "message": "Suggest toISO8061ExtendedStr",
+      "range": {
+        "startLine": 591,
+        "startChar": 12,
+        "endLine": 591,
+        "endChar": 24
+      },
+      "revId": "9f9f9a510d1cad29fdae8d50a07bf54b91324a44",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eeb18452_68f0cd98",
+        "filename": "http/utility.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 591,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-29T02:57:22Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "2c9ad5ac_b7e0f78a",
       "range": {
         "startLine": 591,
         "startChar": 12,
@@ -182,6 +278,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e002ee16_18bb25d0",
+        "filename": "http/utility.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 601,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-29T02:57:22Z",
+      "side": 1,
+      "message": "For dates before 1970 is my understanding from looking at this code.",
+      "parentUuid": "ec9f5fe8_566cd3d5",
+      "range": {
+        "startLine": 601,
+        "startChar": 4,
+        "endLine": 601,
+        "endChar": 14
+      },
+      "revId": "9f9f9a510d1cad29fdae8d50a07bf54b91324a44",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5fdf78ce_5e8b09db",
         "filename": "http/utility.hpp",
         "patchSetId": 5
@@ -205,6 +325,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bb951284_6c702cb3",
+        "filename": "http/utility.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 614,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-29T02:57:22Z",
+      "side": 1,
+      "message": "Yep, same comment as before, ACK.",
+      "parentUuid": "5fdf78ce_5e8b09db",
+      "range": {
+        "startLine": 614,
+        "startChar": 20,
+        "endLine": 614,
+        "endChar": 38
+      },
+      "revId": "9f9f9a510d1cad29fdae8d50a07bf54b91324a44",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1025e482_6f3e12a3",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 5
@@ -216,6 +360,24 @@
       "writtenOn": "2022-07-28T18:47:29Z",
       "side": 1,
       "message": "Is this needed?",
+      "revId": "9f9f9a510d1cad29fdae8d50a07bf54b91324a44",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a0d45c3d_576e2e3e",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-29T02:57:22Z",
+      "side": 1,
+      "message": "Yep.  it\u0027s a missing include that this file got transitively through posix_time.hpp.",
+      "parentUuid": "1025e482_6f3e12a3",
       "revId": "9f9f9a510d1cad29fdae8d50a07bf54b91324a44",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
