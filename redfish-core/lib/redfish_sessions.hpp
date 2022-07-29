@@ -230,7 +230,7 @@ inline void handleSessionCollectionPost(
         messages::passwordChangeRequired(
             asyncResp->res,
             crow::utility::urlFromPieces("redfish", "v1", "AccountService",
-                                         "Accounts", req.session->username));
+                                         "Accounts", session->username));
     }
 
     fillSessionObject(asyncResp->res, *session);
