@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5712adef_0d5ae921",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-29T18:33:48Z",
+      "side": 1,
+      "message": "One minor thing then this patchset looks good to me.",
+      "revId": "a5783871d03f2fbb754030e968c29eaeee8f8c4d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c37ae91b_ab3746d0",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-29T18:33:48Z",
+      "side": 1,
+      "message": "nitpick, in our normal coding pattern we\u0027d need a nullptr check for this, given that (in theory at least) generateUserSession could give us a nullptr and we\u0027d have the same problem\n\nSomething like:\n\nif (session \u003d\u003d nullptr){\n   messages::internalError(asyncResp-\u003eres);\n   return;\n}",
+      "revId": "a5783871d03f2fbb754030e968c29eaeee8f8c4d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
