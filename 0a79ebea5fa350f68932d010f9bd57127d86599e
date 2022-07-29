@@ -428,6 +428,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f1a16030_5d545130",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 754,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-29T21:58:15Z",
+      "side": 1,
+      "message": "I have used the iterator to remove. It doesn\u0027t save any line though. It does save a json pointer look up as you said. 👍 \n\nLet me know if there\u0027s anything else",
+      "parentUuid": "865a1acc_8d4a7c93",
+      "range": {
+        "startLine": 754,
+        "startChar": 12,
+        "endLine": 754,
+        "endChar": 46
+      },
+      "revId": "0a79ebea5fa350f68932d010f9bd57127d86599e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8f8e7fcc_63c9a4c8",
@@ -537,6 +561,30 @@
       "side": 1,
       "message": "that’s a good point, shouldn’t we be recursing here?  what if it’s an array of objects?",
       "parentUuid": "54e3f356_f586ae41",
+      "range": {
+        "startLine": 768,
+        "startChar": 0,
+        "endLine": 768,
+        "endChar": 69
+      },
+      "revId": "0a79ebea5fa350f68932d010f9bd57127d86599e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a5bd2f62_0db50c66",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 768,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-29T21:58:15Z",
+      "side": 1,
+      "message": "One of the existing implementation allows selecting properties in an array of objects. The other two have different behaviors. It\u0027s ambigious. That\u0027s why I used to recurse here but removed in newer patches.\n\n```\n/redfish/v1/Chassis/1/Thermal?$select\u003dFans/Reading\n{\n    \"Temperatures@odata.count\": 15,\n    \"@odata.id\": \"/redfish/v1/Chassis/1/Thermal\",\n    \"Fans@odata.count\": 14,\n    \"@odata.context\": \"/redfish/v1/$metadata#Thermal.Thermal\",\n    \"@odata.etag\": \"\\\"a8b2942326b383598e52eb\\\"\",\n    \"@odata.type\": \"#Thermal.v1_7_1.Thermal\",\n    \"Fans\": [\n        {\n            \"Reading\": 5712,\n            \"@odata.id\": \"/redfish/v1/Chassis/1/Thermal#/Fans/0\"\n        },\n     ],\n }\n\n\n{\n    \"@odata.context\": \"/redfish/v1/$metadata#Thermal.Thermal\",\n    \"@odata.etag\": \"W/\\\"611928B7\\\"\",\n    \"@odata.id\": \"/redfish/v1/Chassis/1/Thermal\",\n    \"@odata.type\": \"#Thermal.v1_6_2.Thermal\",\n    \"Fans\": [\n        {\n            \"Reading\": 13\n        },\n        {\n            \"Reading\": 13\n        },\n        {\n            \"Reading\": 13\n        },\n        {\n            \"Reading\": 13\n        },\n        {\n            \"Reading\": 13\n        },\n        {\n            \"Reading\": 13\n        },\n        {\n            \"Reading\": 13\n        }\n    ]\n}\n\n```\n\nI have created an issue https://github.com/DMTF/Redfish/issues/5188.\n\nFor now, do we accept not allowing selecting on array of objects as what Dell does? This is only an issue with AutoExpand resources.",
+      "parentUuid": "4b98a11c_7ad4fc13",
       "range": {
         "startLine": 768,
         "startChar": 0,

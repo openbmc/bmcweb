@@ -72,6 +72,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d38109a1_7af5c0d3",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-29T21:58:15Z",
+      "side": 1,
+      "message": "No need to care about path or json_pointer anymore after going with split_by \"/\"",
+      "parentUuid": "042024c2_c8be62b1",
+      "range": {
+        "startLine": 82,
+        "startChar": 16,
+        "endLine": 82,
+        "endChar": 37
+      },
+      "revId": "feb007dd1bda5661a1ab5541cb4816d1b81f4d93",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "36f29854_d8d6a9c3",
@@ -133,6 +157,30 @@
       "side": 1,
       "message": "yeah, I think split by / is going to make this a lot better.  we should decide if we want to split first or split later, but that’s a discussion we can have.",
       "parentUuid": "988749eb_ec66e616",
+      "range": {
+        "startLine": 294,
+        "startChar": 46,
+        "endLine": 294,
+        "endChar": 67
+      },
+      "revId": "feb007dd1bda5661a1ab5541cb4816d1b81f4d93",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5b1835c4_669b5b64",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 294,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-29T21:58:15Z",
+      "side": 1,
+      "message": "Done. Went with split by later in |performSelect|.",
+      "parentUuid": "20c847b6_8b6a50ff",
       "range": {
         "startLine": 294,
         "startChar": 46,
@@ -214,6 +262,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "17326532_5621ca9a",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 740,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-29T21:58:15Z",
+      "side": 1,
+      "message": "Done. Erase via iterator now.",
+      "parentUuid": "89504a5b_9473c05b",
+      "range": {
+        "startLine": 740,
+        "startChar": 36,
+        "endLine": 740,
+        "endChar": 44
+      },
+      "revId": "feb007dd1bda5661a1ab5541cb4816d1b81f4d93",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e21b861c_4dfe1625",
@@ -285,6 +357,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1d490c03_3dd608df",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 795,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-29T21:58:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "14523f12_c974dfba",
+      "range": {
+        "startLine": 794,
+        "startChar": 0,
+        "endLine": 795,
+        "endChar": 70
+      },
+      "revId": "feb007dd1bda5661a1ab5541cb4816d1b81f4d93",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2e24f0f8_3c4b0fa3",
@@ -322,6 +418,30 @@
       "side": 1,
       "message": "It is reasonable. Will do.",
       "parentUuid": "2e24f0f8_3c4b0fa3",
+      "range": {
+        "startLine": 864,
+        "startChar": 8,
+        "endLine": 864,
+        "endChar": 14
+      },
+      "revId": "feb007dd1bda5661a1ab5541cb4816d1b81f4d93",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4a765451_3b714898",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 864,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-29T21:58:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3adc6a62_14f6cdc0",
       "range": {
         "startLine": 864,
         "startChar": 8,
