@@ -91,6 +91,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "00e8802b_94bf13d8",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-29T02:59:10Z",
+      "side": 1,
+      "message": "\u003e Just trying to understand when this could happen. Is this suppose to happen?\n\nYes.  If you move out of a response object while calling the function, you don\u0027t want to destroy your function context (that leads to issues).\n\n\u003e My understanding is if we ever want to move construct a response (to hijack a handler via   |setCompleteRequestHandler|), the source response should be still active, right?\n\nNot if we\u0027re currently in the handler, which is what this case is for.  The source response is being executed, but in our rules of \"don\u0027t execute completion handlers twice\" we don\u0027t want to move out of it.",
+      "parentUuid": "5f51681d_f24e114f",
+      "range": {
+        "startLine": 87,
+        "startChar": 12,
+        "endLine": 87,
+        "endChar": 45
+      },
+      "revId": "949c49536bc721243ff3308d8bce85816457bd75",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d7852aeb_f46bdc3c",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 8
