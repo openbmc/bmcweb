@@ -215,6 +215,12 @@ inline void handleSessionCollectionPost(
         persistent_data::SessionStore::getInstance().generateUserSession(
             username, req.ipAddress, clientId,
             persistent_data::PersistenceType::TIMEOUT, isConfigureSelfOnly);
+    if (session == nullptr)
+    {
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
     asyncResp->res.addHeader("X-Auth-Token", session->sessionToken);
     asyncResp->res.addHeader(
         "Location", "/redfish/v1/SessionService/Sessions/" + session->uniqueId);
