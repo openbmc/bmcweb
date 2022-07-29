@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a5e6aa3b_b16ffcfc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1001372
+      },
+      "writtenOn": "2022-07-29T10:00:07Z",
+      "side": 1,
+      "message": "I think deleting the user and returning to the login page could be also well",
+      "parentUuid": "e36f4dbe_12a725d0",
+      "range": {
+        "startLine": 15,
+        "startChar": 3,
+        "endLine": 15,
+        "endChar": 18
+      },
+      "revId": "b9e1b01ae1a213897d55716454529984caab63bb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bce81799_ce59a538",
@@ -85,6 +109,30 @@
       "side": 1,
       "message": "Agree with Xie, it deletes all sessions, not just one.",
       "parentUuid": "111b024b_bbab68e6",
+      "range": {
+        "startLine": 329,
+        "startChar": 22,
+        "endLine": 329,
+        "endChar": 23
+      },
+      "revId": "b9e1b01ae1a213897d55716454529984caab63bb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8c1940c9_21814156",
+        "filename": "include/sessions.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 1001372
+      },
+      "writtenOn": "2022-07-29T10:00:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e261c8cf_83d6d192",
       "range": {
         "startLine": 329,
         "startChar": 22,
