@@ -70,6 +70,30 @@
       },
       "revId": "17d6aa3a3d7a0300fce026bf93831108db7afa9c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "953d1c1e_42ac966a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-29T18:17:10Z",
+      "side": 1,
+      "message": "Latest patch still has some issues, but I\u0027m slowly working through all the corner cases.",
+      "parentUuid": "8aaef5ba_9161c812",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 16
+      },
+      "revId": "17d6aa3a3d7a0300fce026bf93831108db7afa9c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
