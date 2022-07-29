@@ -118,6 +118,30 @@
       },
       "revId": "76ca8dc9fad2a5a4be817c02d1d1e2a8fec95c9e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "974d97cc_6815dc46",
+        "filename": "redfish-core/include/registries.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-29T18:31:59Z",
+      "side": 1,
+      "message": "No problem, your comment resulted in the code being better, so that\u0027s a good thing overall.",
+      "parentUuid": "543a650a_d6e314ce",
+      "range": {
+        "startLine": 67,
+        "startChar": 4,
+        "endLine": 91,
+        "endChar": 5
+      },
+      "revId": "76ca8dc9fad2a5a4be817c02d1d1e2a8fec95c9e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
