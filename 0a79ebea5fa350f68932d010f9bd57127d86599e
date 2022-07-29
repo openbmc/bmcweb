@@ -382,6 +382,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d6a914d2_a680203a",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 754,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-29T02:29:08Z",
+      "side": 1,
+      "message": "\u003e but we\u0027re still duplicating lookups by using the json_pointer to the root. IN theory those could still invalidate any item on the root object.\n\nCould you explain what you want me to do here? We already have a lot up lookup everywhere.",
+      "parentUuid": "1a2ecc4c_3069f088",
+      "range": {
+        "startLine": 754,
+        "startChar": 12,
+        "endLine": 754,
+        "endChar": 46
+      },
+      "revId": "0a79ebea5fa350f68932d010f9bd57127d86599e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8f8e7fcc_63c9a4c8",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 24
@@ -441,6 +465,30 @@
       "side": 1,
       "message": "\u003e In this branch, there\u0027s no iterator at all. I replied your concern in the above thread and said it is WAI.\n\ncurrRoot is a pointer to something in the root object, which you\u0027ve just modified.  Yes, it\u0027s not an iterator, but pointers (references in this case) invalidate with the same rules.\n\n\u003e \n\u003e Let me know if there are other questions or concerns.",
       "parentUuid": "ad3db51e_a4ea5381",
+      "range": {
+        "startLine": 768,
+        "startChar": 0,
+        "endLine": 768,
+        "endChar": 69
+      },
+      "revId": "0a79ebea5fa350f68932d010f9bd57127d86599e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "54e3f356_f586ae41",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 768,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-29T02:29:08Z",
+      "side": 1,
+      "message": "After erase, we return. currRoot is never referenced anymore. What is the problem?",
+      "parentUuid": "7722b696_6d7ac8bd",
       "range": {
         "startLine": 768,
         "startChar": 0,

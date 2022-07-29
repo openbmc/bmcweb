@@ -1108,6 +1108,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c21bcecc_9ee4aa9a",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 645,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-07-29T02:29:08Z",
+      "side": 1,
+      "message": "\u003e Nope, there are two types of Redfish structures in an object, a ComplexType, and a Resource.  As written this recurses into both, which I don\u0027t believe it should.\n\nWhy does this matter from an implementation point of view? The spec clearly said \"The syntax for properties in objects or properties in arrays of objects shall be the object and property names concatenated with a slash (/).\". Why shouldn\u0027t it recurse into both Resource and ComplexType? Which one should it recurse? And, by Resource you mean an \"URI-addressable Redfish data structure\"? Why is it involved? We don\u0027t have expand here.\n\n\u003e Arguably this is a good reason to wait for a response from DMTF about how this should behave.\n\nThe ticket I create is not about complextype. It is about annotation properties. https://github.com/DMTF/Redfish/issues/5175\n\nThe latest feedback is that we are doing the correct thing here: \"error\" will always exist regardless of $select. Other annotation properties aren\u0027t a must.",
+      "parentUuid": "739a9244_eee242b1",
+      "range": {
+        "startLine": 645,
+        "startChar": 0,
+        "endLine": 645,
+        "endChar": 69
+      },
+      "revId": "a97976c06207fd39134f975f6b6c0687a4f79b90",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f19c0fa6_dfce885f",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 5
