@@ -320,7 +320,7 @@ nlohmann::json resourceCannotBeDeleted(void)
 
 void resourceCannotBeDeleted(crow::Response& res)
 {
-    res.result(boost::beast::http::status::forbidden);
+    res.result(boost::beast::http::status::method_not_allowed);
     addMessageToErrorJson(res.jsonValue, resourceCannotBeDeleted());
 }
 
@@ -910,7 +910,6 @@ nlohmann::json operationFailed(void)
 
 void operationFailed(crow::Response& res)
 {
-    res.result(boost::beast::http::status::bad_gateway);
     addMessageToErrorJson(res.jsonValue, operationFailed());
 }
 
