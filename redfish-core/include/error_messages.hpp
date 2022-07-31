@@ -1027,6 +1027,14 @@ nlohmann::json insufficientStorage();
 
 void insufficientStorage(crow::Response& res);
 
+/**
+ * @brief Formats OperationNotAllowed message into JSON
+ * Message body: "he HTTP method is not allowed on this resource."
+ * @returns Message OperationNotAllowed formatted to JSON */
+nlohmann::json operationNotAllowed();
+
+void operationNotAllowed(crow::Response& res);
+
 } // namespace messages
 
 } // namespace redfish
