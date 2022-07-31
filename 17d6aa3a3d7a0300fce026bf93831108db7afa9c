@@ -118,6 +118,30 @@
       },
       "revId": "17d6aa3a3d7a0300fce026bf93831108db7afa9c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b6a2a6b_fb6835e8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-07-31T22:55:41Z",
+      "side": 1,
+      "message": "Also, to answer your latest question, now the error handler is very explicitly set in the router with its own route type.",
+      "parentUuid": "fb50bba2_9a5770e5",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 16
+      },
+      "revId": "17d6aa3a3d7a0300fce026bf93831108db7afa9c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
