@@ -39,6 +39,7 @@ static constexpr size_t maxVerbIndex =
 // to keep the BaseRule as a single bitfield (thus keeping the struct small)
 // while still having a way to declare a route a "not found" route.
 static constexpr const size_t notFoundIndex = maxVerbIndex + 1;
+static constexpr const size_t methodNotAllowedIndex = notFoundIndex + 1;
 
 class BaseRule
 {
@@ -109,7 +110,7 @@ class BaseRule
     size_t methodsBitfield{
         1 << static_cast<size_t>(boost::beast::http::verb::get)};
     static_assert(std::numeric_limits<decltype(methodsBitfield)>::digits >
-                      notFoundIndex,
+                      methodNotAllowedIndex,
                   "Not enough bits to store bitfield");
 
     std::vector<redfish::Privileges> privilegesSet;
@@ -461,6 +462,13 @@ struct RuleParameterTraits
     {
         self_t* self = static_cast<self_t*>(this);
         self->methodsBitfield = 1U << notFoundIndex;
+        return *self;
+    }
+
+    self_t& methodNotAllowed()
+    {
+        self_t* self = static_cast<self_t*>(this);
+        self->methodsBitfield = 1U << methodNotAllowedIndex;
         return *self;
     }
 
@@ -1120,7 +1128,7 @@ class Router
         {
             return;
         }
-        for (size_t method = 0, methodBit = 1; method <= notFoundIndex;
+        for (size_t method = 0, methodBit = 1; method <= methodNotAllowedIndex;
              method++, methodBit <<= 1)
         {
             if ((ruleObject->methodsBitfield & methodBit) > 0U)
@@ -1175,7 +1183,30 @@ class Router
         FindRoute route;
     };
 
-    FindRouteResponse findRoute(const Request& req) const
+    FindRoute findRouteByIndex(std::string_view url, size_t index) const
+    {
+        FindRoute route;
+        if (index >= perMethods.size())
+        {
+            BMCWEB_LOG_CRITICAL << "Bad index???";
+            return route;
+        }
+        const PerMethod& perMethod = perMethods[index];
+        std::pair<unsigned, RoutingParams> found = perMethod.trie.find(url);
+        if (found.first >= perMethod.rules.size())
+        {
+            throw std::runtime_error("Trie internal structure corrupted!");
+        }
+        // Found a 404 route, switch that in
+        if (found.first != 0U)
+        {
+            route.rule = perMethod.rules[found.first];
+            route.params = std::move(found.second);
+        }
+        return route;
+    }
+
+    FindRouteResponse findRoute(Request& req) const
     {
         FindRouteResponse findRoute;
 
@@ -1187,11 +1218,8 @@ class Router
             // Make sure it's safe to deference the array at that index
             static_assert(maxVerbIndex <
                           std::tuple_size_v<decltype(perMethods)>);
-
-            const PerMethod& perMethod = perMethods[perMethodIndex];
-            std::pair<unsigned, RoutingParams> found2 =
-                perMethod.trie.find(req.url);
-            if (found2.first == 0)
+            FindRoute route = findRouteByIndex(req.url, perMethodIndex);
+            if (route.rule == nullptr)
             {
                 continue;
             }
@@ -1203,8 +1231,7 @@ class Router
                 static_cast<boost::beast::http::verb>(perMethodIndex));
             if (perMethodIndex == reqMethodIndex)
             {
-                findRoute.route.rule = perMethod.rules[found2.first];
-                findRoute.route.params = std::move(found2.second);
+                findRoute.route = route;
             }
         }
         return findRoute;
@@ -1296,20 +1323,7 @@ class Router
         {
             if (foundRoute.route.rule == nullptr)
             {
-                const PerMethod& perMethod = perMethods[notFoundIndex];
-                std::pair<unsigned, RoutingParams> found =
-                    perMethod.trie.find(req.url);
-                if (found.first >= perMethod.rules.size())
-                {
-                    throw std::runtime_error(
-                        "Trie internal structure corrupted!");
-                }
-                // Found a 404 route, switch that in
-                if (found.first != 0U)
-                {
-                    foundRoute.route.rule = perMethod.rules[found.first];
-                    foundRoute.route.params = std::move(found.second);
-                }
+                foundRoute.route = findRouteByIndex(req.url, notFoundIndex);
             }
         }
         else
@@ -1317,6 +1331,9 @@ class Router
             // Found at least one valid route, fill in the allow header
             asyncResp->res.addHeader(boost::beast::http::field::allow,
                                      foundRoute.allowHeader);
+
+            // See if we have a method not allowed (405) handler
+            foundRoute.route = findRouteByIndex(req.url, methodNotAllowedIndex);
         }
 
         // If we couldn't find a real route or a 404 route, return a generic
@@ -1491,7 +1508,7 @@ class Router
         {}
     };
 
-    std::array<PerMethod, notFoundIndex + 1> perMethods;
+    std::array<PerMethod, methodNotAllowedIndex + 1> perMethods;
     std::vector<std::unique_ptr<BaseRule>> allRules;
 };
 } // namespace crow
