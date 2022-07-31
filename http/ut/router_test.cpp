@@ -90,5 +90,37 @@ TEST(Router, 404)
     }
     EXPECT_TRUE(notFoundCalled);
 }
+
+TEST(Router, 405)
+{
+    // Callback handler that does nothing
+    auto nullCallback = [](const Request&,
+                           const std::shared_ptr<bmcweb::AsyncResp>&) {};
+    bool called = false;
+    auto notAllowedCallback =
+        [&called](const Request&, const std::shared_ptr<bmcweb::AsyncResp>&) {
+        called = true;
+    };
+
+    Router router;
+    std::error_code ec;
+
+    constexpr const std::string_view url = "/foo/bar";
+
+    Request req{{boost::beast::http::verb::patch, url, 11}, ec};
+
+    router.newRuleTagged<getParameterTag(url)>(std::string(url))
+        .methods(boost::beast::http::verb::get)(nullCallback);
+    router.newRuleTagged<getParameterTag(url)>("/foo/<path>")
+        .methodNotAllowed()(notAllowedCallback);
+    router.validate();
+    {
+        std::shared_ptr<bmcweb::AsyncResp> asyncResp =
+            std::make_shared<bmcweb::AsyncResp>();
+
+        router.handle(req, asyncResp);
+    }
+    EXPECT_TRUE(called);
+}
 } // namespace
 } // namespace crow
