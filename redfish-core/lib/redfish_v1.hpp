@@ -46,6 +46,29 @@ inline void redfish404(App& app, const crow::Request& req,
     messages::resourceNotFound(asyncResp->res, "", nameStr);
 }
 
+inline void redfish405(App& app, const crow::Request& req,
+                       const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                       const std::string& path)
+{
+    // If we fall to this route, we didn't have a more specific route, so return
+    // 405
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+
+    BMCWEB_LOG_ERROR << "405 on path " << path;
+    asyncResp->res.result(boost::beast::http::status::method_not_allowed);
+    if (req.method() == boost::beast::http::verb::delete_)
+    {
+        messages::resourceCannotBeDeleted(asyncResp->res);
+    }
+    else
+    {
+        messages::operationNotAllowed(asyncResp->res);
+    }
+}
+
 inline void
     jsonSchemaIndexGet(App& app, const crow::Request& req,
                        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
@@ -138,6 +161,9 @@ inline void requestRoutesRedfish(App& app)
     // Note, this route must always be registered last
     BMCWEB_ROUTE(app, "/redfish/<path>")
         .notFound()(std::bind_front(redfish404, std::ref(app)));
+
+    BMCWEB_ROUTE(app, "/redfish/<path>")
+        .methodNotAllowed()(std::bind_front(redfish405, std::ref(app)));
 }
 
 } // namespace redfish

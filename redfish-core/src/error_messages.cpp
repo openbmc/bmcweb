@@ -300,7 +300,7 @@ nlohmann::json resourceCannotBeDeleted(void)
 
 void resourceCannotBeDeleted(crow::Response& res)
 {
-    res.result(boost::beast::http::status::forbidden);
+    res.result(boost::beast::http::status::method_not_allowed);
     addMessageToErrorJson(res.jsonValue, resourceCannotBeDeleted());
 }
 
@@ -890,7 +890,6 @@ nlohmann::json operationFailed(void)
 
 void operationFailed(crow::Response& res)
 {
-    res.result(boost::beast::http::status::bad_gateway);
     addMessageToErrorJson(res.jsonValue, operationFailed());
 }
 
@@ -1664,13 +1663,6 @@ void passwordChangeRequired(crow::Response& res,
     messages::addMessageToJsonRoot(res.jsonValue, passwordChangeRequired(arg1));
 }
 
-void invalidUpload(crow::Response& res, std::string_view arg1,
-                   std::string_view arg2)
-{
-    res.result(boost::beast::http::status::bad_request);
-    addMessageToErrorJson(res.jsonValue, invalidUpload(arg1, arg2));
-}
-
 /**
  * @internal
  * @brief Formats InsufficientStorage message into JSON
@@ -1687,6 +1679,31 @@ void insufficientStorage(crow::Response& res)
 {
     res.result(boost::beast::http::status::insufficient_storage);
     addMessageToErrorJson(res.jsonValue, insufficientStorage());
+}
+
+/**
+ * @internal
+ * @brief Formats OperationNotAllowed message into JSON
+ *
+ * See header file for more information
+ * @endinternal
+ */
+nlohmann::json operationNotAllowed()
+{
+    return getLog(redfish::registries::base::Index::operationNotAllowed, {});
+}
+
+void operationNotAllowed(crow::Response& res)
+{
+    res.result(boost::beast::http::status::method_not_allowed);
+    addMessageToErrorJson(res.jsonValue, operationNotAllowed());
+}
+
+void invalidUpload(crow::Response& res, std::string_view arg1,
+                   std::string_view arg2)
+{
+    res.result(boost::beast::http::status::bad_request);
+    addMessageToErrorJson(res.jsonValue, invalidUpload(arg1, arg2));
 }
 
 /**
