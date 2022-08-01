@@ -18,6 +18,23 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "93c53479_5f4ac28d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 26
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-01T17:27:24Z",
+      "side": 1,
+      "message": "Other thing I realized, the odata spec says \"The value of the $select query option is a comma-separated list of properties, qualified action names, qualified function names, the star operator (*), or the star operator prefixed with the namespace or alias of the schema in order to specify all operations defined in the schema. Only aliases defined in the metadata document of the service can be used in URLs.\"\n\nI don\u0027t think we handle the namespace or * things today, but that\u0027s something to be added to the TODO so we can get this patch moving.",
+      "revId": "0093c17562676afb5dbfcab14a3572be06e8c6fb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2d22c9f4_0b61f84c",
