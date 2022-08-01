@@ -93,6 +93,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "790e3ac5_f79e7ac9",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-08-01T22:10:34Z",
+      "side": 1,
+      "message": "Done.\n\nIt saves just an extra move?\n\nI was following https://abseil.io/tips/112. But I am okay with changing here.",
+      "parentUuid": "1fa211e5_accb5c40",
+      "range": {
+        "startLine": 304,
+        "startChar": 33,
+        "endLine": 304,
+        "endChar": 39
+      },
+      "revId": "0093c17562676afb5dbfcab14a3572be06e8c6fb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "506e08e9_43a222cd",
@@ -106,6 +130,30 @@
       "writtenOn": "2022-08-01T14:38:49Z",
       "side": 1,
       "message": "Looks like this now doesn\u0027t get used, except in recursive calls to itself, can it be removed?",
+      "range": {
+        "startLine": 728,
+        "startChar": 71,
+        "endLine": 728,
+        "endChar": 75
+      },
+      "revId": "0093c17562676afb5dbfcab14a3572be06e8c6fb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "48b44679_c5b66125",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 728,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-08-01T22:10:34Z",
+      "side": 1,
+      "message": "Still need it in the array branch.\n\nI guess we can accept this for now. I will help review your patch on top of it.",
+      "parentUuid": "506e08e9_43a222cd",
       "range": {
         "startLine": 728,
         "startChar": 71,
