@@ -49,6 +49,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ab1dbedc_9c6b0b56",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000206
+      },
+      "writtenOn": "2022-08-01T18:25:44Z",
+      "side": 1,
+      "message": "As i said above, my intent was to only depend on the libaudit \u0026 kernel netlink socket support for pushing the events.\n\nAuditd is sort of additional toppings that would help regulate these events to its own file , with a great set of configuration options. We don\u0027t necessarily need this, as per the audit documentation without a listener on the netlink socket, the logs should by default be routed to syslog daemon (journal).",
+      "parentUuid": "d37b45f3_7436aa4a",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 67
+      },
+      "revId": "c569d8b23d46eee454b5cdc67d86b228a9e60b76",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "15929ce0_e019328f",
         "filename": "/COMMIT_MSG",
         "patchSetId": 5
@@ -60,6 +84,30 @@
       "writtenOn": "2022-08-01T04:50:14Z",
       "side": 1,
       "message": "Any webservers?  All of those are login daemons, which arguably we should be using on openbmc, but I never got there and we currently have evolved to not having shared session infrastructure.",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 56
+      },
+      "revId": "c569d8b23d46eee454b5cdc67d86b228a9e60b76",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "13fde02c_badaf44d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000206
+      },
+      "writtenOn": "2022-08-01T18:25:44Z",
+      "side": 1,
+      "message": "\u003e Any webservers?  \nI have not found any opensource webservers that use this (at least in my research), I found reference to libaudit in projects like sshd, sssd, clevis(pluggable framework for automated decryption), usbguard(software framework for implementing USB device authorization policies).\n\n\n\u003e All of those are login daemons, which arguably we should be using on openbmc, but I never got there and we currently have evolved to not having shared session infrastructure.\n\nAck",
+      "parentUuid": "15929ce0_e019328f",
       "range": {
         "startLine": 34,
         "startChar": 0,
@@ -100,6 +148,24 @@
       "writtenOn": "2022-08-01T04:50:14Z",
       "side": 1,
       "message": "Cool to see progress, and happy to help you work through getting it merged.\n\nSome initial thoughts that come to mind:\n1. Presumably this library is doing blocking filesystem calls, which could lock up all of bmcweb (given that it\u0027s a single-threaded reactor).  Do we need to evict this audit logging to another process where it can be done at a lower priority soas not to impact the performance?\n2. This patch is proposing auditd be a required dependency.  Surely there are users that would opt out of it?  If so, how do we manage that complexity?  Runtime selection?  Compile time?\n3. Overall, my eventual goal was to completely remove session collections out of bmcweb, and make use of one of the existing login daemons (probably systemd logind) through pam.  This would get us more standard login/logout procedures, and we could easily hook in whatever plugins we wanted, including this one, because users would be logging in \"normally\".  This is similar to what the cockpit project (another webserver for remote managing linux systems) does.  If that were to happen, would that make using this plugin easier?",
+      "revId": "c569d8b23d46eee454b5cdc67d86b228a9e60b76",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e1cd6a6_53749bef",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000206
+      },
+      "writtenOn": "2022-08-01T18:25:44Z",
+      "side": 1,
+      "message": "\u003e Cool to see progress, and happy to help you work through getting it merged.\n\u003e \n\u003e Some initial thoughts that come to mind:\n\u003e 1. Presumably this library is doing blocking filesystem calls, which could lock up all of bmcweb (given that it\u0027s a single-threaded reactor).  Do we need to evict this audit logging to another process where it can be done at a lower priority soas not to impact the performance?\n\nPer my understanding about audit framework, this library would only send messages over netlink_audit socket (this is just a sender) to the kernel part of the linux audit subsystem, these don\u0027t actually touch the filesystem. There is another listening daemon \"audid\" that would be responsible for writing records onto the disk, so in that sense it is already separated ? \n\nAnd also auditd has a configuration option where we could tell it to not flush the data into the file immediately - rather we could also tell at what frequency we should flush things to the log.\n\n\u003e 2. This patch is proposing auditd be a required dependency.  Surely there are users that would opt out of it?  If so, how do we manage that complexity?  Runtime selection?  Compile time?\nMy intent in this patch is to not have auditd daemon as a required dependency , rather have kernel support for audit + libaudit shared library as runtime + compile time dependency, and per audit RFC  \"All messages are logged via the netlink socket if a user-space daemon is listening(auditd). If not, the messages are logged via printk to the syslog daemon (by default). So I am guessing if we don\u0027t have auditd, but just have libaudit \u0026 kernel support for audit enabled, we can at-least see the audit events in the journal(although I have not tested this myself).\n\n\n\u003e 3. Overall, my eventual goal was to completely remove session collections out of bmcweb, and make use of one of the existing login daemons (probably systemd logind) through pam.  This would get us more standard login/logout procedures, and we could easily hook in whatever plugins we wanted, including this one, because users would be logging in \"normally\".  This is similar to what the cockpit project (another webserver for remote managing linux systems) does.  If that were to happen, would that make using this plugin easier?\n\nI see that systemd,dbus \u0026 journal already have audit support (https://github.com/systemd/systemd/blob/e0a12b96344b1d7ee499df1d0447b14ced62c1b4/meson.build#L1218), i think that we would probably not need this change if we use systemd logind , probably we need to tweak some options of systemd , but that should work out of the box and should give us the audit events(if it is compiled with audit support \u0026 have kernel support for audit events)",
+      "parentUuid": "fdb4ec6e_2fe4d271",
       "revId": "c569d8b23d46eee454b5cdc67d86b228a9e60b76",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
