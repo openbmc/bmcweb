@@ -16,6 +16,24 @@
       "message": "I realize we don\u0027t document the rules here well, but I\u0027m trying to improve that.  Please help to review https://gerrit.openbmc.org/c/openbmc/bmcweb/+/54350\n\nand apply the best practices it suggests to your commit",
       "revId": "4a3a6a15780d91428236389dedeca03cc435c2bd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f155dae3_0a7cff0f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001213
+      },
+      "writtenOn": "2022-08-01T10:23:59Z",
+      "side": 1,
+      "message": "Could you please check now and let me know your comments.",
+      "parentUuid": "98cac6fe_8633a546",
+      "revId": "4a3a6a15780d91428236389dedeca03cc435c2bd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
