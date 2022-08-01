@@ -4,6 +4,8 @@
 
 #include <bmcweb_config.h>
 
+#include <redfish_aggregator.hpp>
+
 namespace redfish
 {
 
@@ -19,6 +21,13 @@ namespace redfish
 {
     BMCWEB_LOG_DEBUG << "setup redfish route";
 
+    std::optional<query_param::Query> queryOpt =
+        query_param::parseParameters(req.urlView.params(), asyncResp->res);
+    if (queryOpt == std::nullopt)
+    {
+        return false;
+    }
+
     // Section 7.4 of the redfish spec "Redfish Services shall process the
     // [OData-Version header] in the following table as defined by the HTTP 1.1
     // specification..."
@@ -30,19 +39,31 @@ namespace redfish
         return false;
     }
 
-    asyncResp->res.addHeader("OData-Version", "4.0");
-
-    std::optional<query_param::Query> queryOpt =
-        query_param::parseParameters(req.urlView.params(), asyncResp->res);
-    if (queryOpt == std::nullopt)
+#ifdef BMCWEB_ENABLE_REDFISH_AGGREGATION
+    bool noAggregation = true;
+    if (RedfishAggregator::getInstance().beginAggregation(req, asyncResp))
     {
-        return false;
+        // The request should be forwarded to a satellite BMC.  Don't write
+        // anything to the asyncResp since it will get overwritten later.
+        noAggregation = false;
     }
+
+    if (noAggregation)
+    {
+        asyncResp->res.addHeader("OData-Version", "4.0");
+    }
+#else
+    asyncResp->res.addHeader("OData-Version", "4.0");
+#endif
 
     // If this isn't a get, no need to do anything with parameters
     if (req.method() != boost::beast::http::verb::get)
     {
+#ifdef BMCWEB_ENABLE_REDFISH_AGGREGATION
+        return noAggregation;
+#else
         return true;
+#endif
     }
 
     delegated = query_param::delegate(queryCapabilities, *queryOpt);
@@ -53,7 +74,12 @@ namespace redfish
          query{*queryOpt}](crow::Response& resIn) mutable {
         processAllParams(app, query, handler, resIn);
     });
+
+#ifdef BMCWEB_ENABLE_REDFISH_AGGREGATION
+    return noAggregation;
+#else
     return true;
+#endif
 }
 
 // Sets up the Redfish Route. All parameters are handled by the default handler.
