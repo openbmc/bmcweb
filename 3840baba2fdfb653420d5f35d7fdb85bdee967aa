@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "16d8fe1a_0b6f2174",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-01T21:55:12Z",
+      "side": 1,
+      "message": "Please get added to your companies CLA.  This will allow CI to trigger, and expose some work to do (this patch doesn\u0027t build in CI as-is by looking at it).",
+      "revId": "3840baba2fdfb653420d5f35d7fdb85bdee967aa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

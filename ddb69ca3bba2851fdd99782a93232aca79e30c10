@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "64244524_58f02540",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-01T21:55:12Z",
+      "side": 1,
+      "message": "\u003e @Ed this is in relation to the conversation you and I had on Discord a while back. To recap, Intel and AMI are still working on the service that will use the License schema and it will be a while before we are ready with it. \n\u003e  \n\u003e We felt we should share this ahead of time to get feedback from the community.\n\nI can only give as much feedback as can be seen, and \n\n\u003e Also incase there are others interested in License schema this will give them a head start. \n\nPlease start by pushing a phosphor-dbus-interfaces review, so we can discuss your interface in the right forum.  This patchset isn\u0027t the right place to discuss it.\n\n\u003e \n\u003e Last time we spoke, you had mentioned we can get the gerrit review to a merge-able point until Intel/AMI is ready other pieces. Is that still ok?\n\nYep, just that phosphor-dbus-interfaces needs to come first (and ideally should\u0027ve been pushed and discussed before this patch, but that\u0027s ok).",
+      "parentUuid": "420cec23_7cc5bdf6",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 0
+      },
+      "revId": "ddb69ca3bba2851fdd99782a93232aca79e30c10",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "284b2c15_5d8c8209",
         "filename": "/COMMIT_MSG",
         "patchSetId": 5
