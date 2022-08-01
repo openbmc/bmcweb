@@ -357,6 +357,7 @@ srcfiles_unittest = files(
   'test/http/crow_getroutes_test.cpp',
   'test/http/router_test.cpp',
   'test/http/utility_test.cpp',
+  'test/http/verb_test.cpp',
   'test/include/dbus_utility_test.cpp',
   'test/include/google/google_service_root_test.cpp',
   'test/include/http_utility_test.cpp',
