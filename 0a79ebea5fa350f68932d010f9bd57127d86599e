@@ -689,6 +689,30 @@
       },
       "revId": "0a79ebea5fa350f68932d010f9bd57127d86599e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9d49d2e4_c09f6f2a",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 768,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-01T17:20:13Z",
+      "side": 1,
+      "message": "👍\n\nClosing out this thread.  We can discuss on individual TODO items.",
+      "parentUuid": "f991d7fd_2cf96fea",
+      "range": {
+        "startLine": 768,
+        "startChar": 0,
+        "endLine": 768,
+        "endChar": 69
+      },
+      "revId": "0a79ebea5fa350f68932d010f9bd57127d86599e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

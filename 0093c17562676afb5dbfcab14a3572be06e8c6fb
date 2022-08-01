@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "28faedb9_22cb90f6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 26
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-01T17:20:13Z",
+      "side": 1,
+      "message": "FYI, I stacked a patch on top with what I was thinking for the tree walking.  Lets get this patch in first, then I think the one I wrote is just an optimization.",
+      "revId": "0093c17562676afb5dbfcab14a3572be06e8c6fb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2d22c9f4_0b61f84c",
