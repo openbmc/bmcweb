@@ -94,6 +94,30 @@
       },
       "revId": "5c666ed1f8ce19e12ac9ba1ebfbc0869251a1023",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6dddcddf_70902c67",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-01T22:02:43Z",
+      "side": 1,
+      "message": "\u003e In my case the delay should eventually go away and the response time become less than the 15 second guideline.  In that respect this change isn\u0027t ultimately needed by us.\n\u003e \n\u003e I thought the 30 second timeout might\u0027ve been leftover from when the HTTP client had a much more limited usecase.  I did not know about the timing guidelines so I\u0027m alright with abandoning this patchset and keeping the timeout as-is.\n\nACK.  That\u0027s something that I do need to document better.  TODO(ed)\n\n\u003e \n\u003e \u003e Maybe we have some mechanism where after a reasonable time (maybe 5-10 seconds) we return a Task so that the user can track the response taking its time in flight?\n\u003e I think that sounds reasonable.  Right now I\u0027m not sure if there\u0027s a true need for that.  Are there any other reasons beyond trying to paper over a satellite having issues?\n\nNot really, although we will eventually need to handle the case where the satellite itself gives us a taskservice.\n\n\u003e  Going forward a usecase might be created where a satellite will need more than 30 seconds to generate a response.\n\nLets talk about that when we get there.  IMO, anything that takes \u003e15 seconds to generate ONE response is broken against the user expectations, especially when there\u0027s async options available to the sattelite (top/skip reductions for large collections, and TaskService)",
+      "parentUuid": "80bc6339_bb130a5c",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 63
+      },
+      "revId": "5c666ed1f8ce19e12ac9ba1ebfbc0869251a1023",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
