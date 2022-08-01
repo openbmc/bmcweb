@@ -1156,6 +1156,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "922c099c_15520871",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 645,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-01T14:32:07Z",
+      "side": 1,
+      "message": "\u003eWhy does this matter from an implementation point of view? The spec clearly said \"The syntax for properties in objects or properties in arrays of objects shall be the object and property names concatenated with a slash (/).\" Why shouldn\u0027t it recurse into both Resource and ComplexType\n\nBecause in complex objects, the elements aren\u0027t \"Properties\".  So the above statement doesn\u0027t apply.",
+      "parentUuid": "3243b42c_59376262",
+      "range": {
+        "startLine": 645,
+        "startChar": 0,
+        "endLine": 645,
+        "endChar": 69
+      },
+      "revId": "a97976c06207fd39134f975f6b6c0687a4f79b90",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f19c0fa6_dfce885f",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 5

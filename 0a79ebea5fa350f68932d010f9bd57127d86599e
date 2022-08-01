@@ -617,6 +617,30 @@
       },
       "revId": "0a79ebea5fa350f68932d010f9bd57127d86599e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e7163a95_8330c774",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 768,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-01T14:32:07Z",
+      "side": 1,
+      "message": "\u003e For now, do we accept not allowing selecting on array of objects as what Dell does?\n\nWe probably need to document a TODO list that we agree on here.  Yes, I don\u0027t want to hold up this patch any longer, but I\u0027d like to make sure we have consensus on what needs done to make it correct before it merges.\n\nOn the list:\n1. Array selection handling.\n2. Complex vs Resource type objects selection (is the syntax the same)\n\nAnything else?",
+      "parentUuid": "7a32a444_782c6231",
+      "range": {
+        "startLine": 768,
+        "startChar": 0,
+        "endLine": 768,
+        "endChar": 69
+      },
+      "revId": "0a79ebea5fa350f68932d010f9bd57127d86599e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
