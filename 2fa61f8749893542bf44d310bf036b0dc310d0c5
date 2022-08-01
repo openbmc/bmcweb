@@ -41,6 +41,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "da49a854_1c1df54e",
+        "filename": "redfish-core/include/query.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-08-01T23:54:28Z",
+      "side": 1,
+      "message": "This behavior has been removed by an earlier patch in the chain https://gerrit.openbmc.org/c/openbmc/bmcweb/+/56062/3",
+      "parentUuid": "b5b10ad8_53f0157a",
+      "range": {
+        "startLine": 27,
+        "startChar": 7,
+        "endLine": 28,
+        "endChar": 21
+      },
+      "revId": "2fa61f8749893542bf44d310bf036b0dc310d0c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0bdf30e5_1a3f749a",
@@ -90,6 +114,24 @@
       "side": 1,
       "message": "\u003e \u003e this is something that needs handled.\n\u003e I have a couple of ideas:\n\u003e 1) On the aggregation end we only overwrite if we received a 200 response from the satellite.  We could do the opposite in the aggregator. I\u0027d add some sort of check to the start of addMessageToErrorJson() or the error message functions that call it to make sure we are not locally overwriting a response from a satellite that somehow completed early.  That\u0027s also assuming that the default response code is not 200.\n\u003e \n\u003e I could enclose this check within an \"ifdef BMCWEB_ENABLE_REDFISH_AGGREGATION\" as well.\n\u003e   \n\u003e 2) This wouldn\u0027t be an answer in the short term.  Caching of satellite configs would allow us to check if a message needs to be routed before we attempt to handle it locally.  In those cases we wouldn\u0027t need to worry about this sort of clobbering for non-collection URIs since we\u0027d never locally handle a request meant for a satellite.  We\u0027ll have the same clobbering risk on collection URIs, but that is a much narrower portion of possible URIs to account for.\n\nLets talk on discord.  It\u0027ll be faster.  I think I understand the above, but I\u0027m not positive.",
       "parentUuid": "3496ab63_f66a9159",
+      "revId": "2fa61f8749893542bf44d310bf036b0dc310d0c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0ea5d519_7b215d8a",
+        "filename": "redfish-core/include/query.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-08-01T23:54:28Z",
+      "side": 1,
+      "message": "Following the discord discussion (https://discord.com/channels/775381525260664832/999348592168931499/999348595876712570), this behavior has been removed by a new patch earlier in the chain https://gerrit.openbmc.org/c/openbmc/bmcweb/+/56062/3.  Now we do not attempt to locally handle a request if it should be forwarded to a satellite BMC.  That means we will not be overwriting a 404 with the actual response from the satellite.",
+      "parentUuid": "040c15a8_21418c0e",
       "revId": "2fa61f8749893542bf44d310bf036b0dc310d0c5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -544,6 +586,30 @@
       "side": 1,
       "message": "\u003e \u003e I\u0027m specifically trying to catch collection URIs that have a trailing slash like \u0027/redfish/v1/Chassis/\u0027.  Those show up as 4 segments and the last one is empty.\n\u003e Have you ever looked at the readUrlSegments method?  I think we solved that in there.\nI have but it doesn\u0027t seem to actually solve the issue.  It just returns early if the existing url does not have the same number of segments as there are in the segment list it is being compared to.  The only place the method is actually used is in telemetry_utils.hpp and that doesn\u0027t appear to ultimately get used to compare a user supplied url which may or may not have a trailing slash.\n\nThat method is also only used for exact matches so it doesn\u0027t really work in my case where I\u0027m not trying to exactly match the name of the resource collection and the individual resource ID itself.",
       "parentUuid": "e5668d39_3dd892e1",
+      "range": {
+        "startLine": 279,
+        "startChar": 12,
+        "endLine": 279,
+        "endChar": 64
+      },
+      "revId": "2fa61f8749893542bf44d310bf036b0dc310d0c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "59181958_2201d61d",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-08-01T23:54:28Z",
+      "side": 1,
+      "message": "Note that a new patch has been added earlier in the chain https://gerrit.openbmc.org/c/openbmc/bmcweb/+/56062/3.  It implements this section of code responsible for identifying if a request needs to be forwarded to a satellite BMC.\n\nI\u0027m marking this thread resolved now that it\u0027s no longer being introduced by this patch.  If there you still have questions with this approach then please comment on the linked patched above.",
+      "parentUuid": "8be75096_cc9247e3",
       "range": {
         "startLine": 279,
         "startChar": 12,
@@ -1304,6 +1370,30 @@
       "side": 1,
       "message": "\u003e I should be able to remove the error by using ` res.jsonValue.erase(\"error\") `.  \n\u003e \n\nYeah, that helps\n\n\u003e However, I still don\u0027t think we\u0027d want to keep any additional parts of the response generated by the aggregating BMC.  The request itself was only ever meant for a specific satellite BMC so we should act like that is the only BMC that actually handled the response.  Including parts of a response from an unintended recipient doesn\u0027t make sense to me in this context.\n\nI\u0027d like to understand this better.  I\u0027m fairly certain we can make the 404 handler \"smarter\" and have it just not add a 404 message in the case where we know the URI is getting aggregated.",
       "parentUuid": "5b205868_3c44135f",
+      "range": {
+        "startLine": 426,
+        "startChar": 32,
+        "endLine": 426,
+        "endChar": 58
+      },
+      "revId": "2fa61f8749893542bf44d310bf036b0dc310d0c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "57426224_ba5fe106",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 426,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-08-01T23:54:28Z",
+      "side": 1,
+      "message": "Following discussion elsewhere, we are no longer having the aggregating BMC write a 404 and then overwrite that with the response from a satellite BMC.  An earlier patch in the chain has been created to remove this behavior https://gerrit.openbmc.org/c/openbmc/bmcweb/+/56062/3.\n\nNow we only locally handle a request if the resource ID does not begin with \"aggregated\".  If it does then we know we should forward the request and as a result we should not locally write anything to the message.",
+      "parentUuid": "79f426b6_18ddf8f5",
       "range": {
         "startLine": 426,
         "startChar": 32,
