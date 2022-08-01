@@ -46,6 +46,30 @@
       },
       "revId": "5c666ed1f8ce19e12ac9ba1ebfbc0869251a1023",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2d0e897c_2403aa19",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-01T04:42:30Z",
+      "side": 1,
+      "message": "120 seconds is way too long for any sort of responsive UI.  The guideline in bmcweb is that APIs that return 200 should respond within 15 seconds, under the assumption that a 30 second timeout should be double what\u0027s needed if the system gets under load, and 30 seconds is a timeout that a lot of common libraries set.  If a nominal API returns in \u003e 15 seconds, we should be returning a task service.\n\nLets talk through though.  Clearly you have an implementation that doesn\u0027t follow the rules, but I\u0027m not sure what to do about it, given that having really long timeouts will lead to people believing it\u0027s a bmcweb bug, not a bug in the aggregator.\n\nMaybe we have some mechanism where after a reasonable time (maybe 5-10 seconds) we return a Task so that the user can track the response taking its time in flight?\n\nNot really sure what to do here.  An API needing two minutes to return is pretty much unacceptable in any sort of scenario (I\u0027m pretty sure your SLOs on your program require all polled actions to take place in \u003c 1 minute), so if we have aggregated devices that are needing a 2 minute timeout, we need to discuss with those device manufacturers.",
+      "parentUuid": "3c1dcbe8_81b2947b",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 63
+      },
+      "revId": "5c666ed1f8ce19e12ac9ba1ebfbc0869251a1023",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
