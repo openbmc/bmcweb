@@ -771,6 +771,56 @@ inline void performSelect(nlohmann::json& currRoot,
         }
         return;
     }
+    nlohmann::json::array_t* array =
+        currRoot.get_ptr<nlohmann::json::array_t*>();
+    if (array != nullptr)
+    {
+        auto propertyIt = properties.begin();
+        for (nlohmann::json::array_t::iterator it = array->begin();
+             it != array->end(); it++)
+        {
+            bool includeWholeObject = false;
+            std::vector<std::string> depthProperties;
+            while (propertyIt != properties.end())
+            {
+                std::size_t index = propertyIt->find('/');
+                std::string filename = propertyIt->substr(0, index);
+                if (filename !=
+                    std::to_string(std::distance(array->begin(), it)))
+                {
+                    break;
+                }
+                if (index == std::string::npos)
+                {
+                    includeWholeObject = true;
+                }
+                std::string remaining = propertyIt->substr(index + 1);
+                depthProperties.emplace_back(remaining);
+                propertyIt++;
+            }
+            if (includeWholeObject)
+            {
+                continue;
+            }
+            if (!depthProperties.empty())
+            {
+                BMCWEB_LOG_DEBUG
+                    << "Recursively select: "
+                    << std::to_string(std::distance(array->begin(), it));
+                performSelect(*it, depthProperties);
+                continue;
+            }
+            // For arrays, we need to maintain indexing, so just erase all the
+            // keys in the object
+            nlohmann::json::object_t* arrayObject =
+                it->get_ptr<nlohmann::json::object_t*>();
+            if (arrayObject == nullptr)
+            {
+                continue;
+            }
+            arrayObject->clear();
+        }
+    }
 }
 
 inline void
