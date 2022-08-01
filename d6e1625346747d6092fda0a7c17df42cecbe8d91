@@ -93,6 +93,23 @@
       },
       "revId": "d6e1625346747d6092fda0a7c17df42cecbe8d91",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b3d28f63_69c302ec",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-01T22:26:50Z",
+      "side": 1,
+      "message": "FYI, @Nan I\u0027m pretty sure this is a bug in what you wrote (I didn\u0027t test it).  I\u0027m fine if you want to merge your patch and rely on this one to fix it, or if you want to backport it to your patch, that\u0027s fine too.",
+      "revId": "d6e1625346747d6092fda0a7c17df42cecbe8d91",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
