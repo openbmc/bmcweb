@@ -278,6 +278,67 @@ TEST(RecursiveSelect, ExpectedKeysAreSelectInNestedObject)
     EXPECT_EQ(root, expected);
 }
 
+TEST(RecursiveSelect, ExpectedKeysAreSelectInNestedArray)
+{
+    std::vector<std::string> shouldSelect = {"array1/0/select_me"};
+    nlohmann::json root = R"(
+    {
+      "array1":[
+        {
+            "select_me": "123",
+            "omit_me": "456"
+        },
+        {
+            "omit_me2": "456"
+        }
+      ]
+    }
+    )"_json;
+    nlohmann::json expected = R"(
+    {
+      "array1":[
+        {
+            "select_me": "123"
+        },
+        {}
+      ]
+    }
+    )"_json;
+    performSelect(root, shouldSelect);
+    EXPECT_EQ(root, expected);
+}
+
+TEST(RecursiveSelect, ExpectedObjectsAreSelectedArray)
+{
+    std::vector<std::string> shouldSelect = {"array1/1"};
+    nlohmann::json root = R"(
+    {
+      "array1":[
+        {
+            "omit_me": "456"
+        },
+        {
+            "select_me": "123",
+            "select_me2": "456"
+        }
+      ]
+    }
+    )"_json;
+    nlohmann::json expected = R"(
+    {
+      "array1":[
+        {},
+        {
+            "select_me": "123",
+            "select_me2": "456"
+        }
+      ]
+    }
+    )"_json;
+    performSelect(root, shouldSelect);
+    EXPECT_EQ(root, expected);
+}
+
 TEST(RecursiveSelect, OdataPropertiesAreSelected)
 {
     nlohmann::json root = R"(
