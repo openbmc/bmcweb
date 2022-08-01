@@ -1,0 +1,8 @@
+Code-Review+2: Ed Tanous <ed@tanous.net>
+Code-Review+1: Jayaprakash Mutyala <mutyalax.jayaprakash@intel.com>
+Verified+1: OpenBMC CI <openbmcbump-ci@yahoo.com>
+Submitted-by: Ed Tanous <ed@tanous.net>
+Submitted-at: Mon, 01 Aug 2022 14:26:13 +0000
+Reviewed-on: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/54350
+Project: openbmc/bmcweb
+Branch: refs/heads/master
