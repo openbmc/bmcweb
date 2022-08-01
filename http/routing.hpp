@@ -9,6 +9,7 @@
 #include "privileges.hpp"
 #include "sessions.hpp"
 #include "utility.hpp"
+#include "verb.hpp"
 #include "websocket.hpp"
 
 #include <async_resp.hpp>
@@ -27,13 +28,7 @@
 namespace crow
 {
 
-// Note, this is an imperfect abstraction.  There are a lot of verbs that we
-// use memory for, but are basically unused by most implementations.
-// Ideally we would have a list of verbs that we do use, and only index in
-// to a smaller array of those, but that would require a translation from
-// boost::beast::http::verb, to the bmcweb index.
-static constexpr size_t maxVerbIndex =
-    static_cast<size_t>(boost::beast::http::verb::patch);
+static constexpr size_t maxVerbIndex = static_cast<size_t>(HttpVerb::Max) - 1U;
 
 // MaxVerb + 1 is designated as the "not found" verb.  It is done this way
 // to keep the BaseRule as a single bitfield (thus keeping the struct small)
@@ -107,8 +102,7 @@ class BaseRule
         return false;
     }
 
-    size_t methodsBitfield{
-        1 << static_cast<size_t>(boost::beast::http::verb::get)};
+    size_t methodsBitfield{1 << static_cast<size_t>(HttpVerb::Get)};
     static_assert(std::numeric_limits<decltype(methodsBitfield)>::digits >
                       methodNotAllowedIndex,
                   "Not enough bits to store bitfield");
@@ -445,7 +439,11 @@ struct RuleParameterTraits
     self_t& methods(boost::beast::http::verb method)
     {
         self_t* self = static_cast<self_t*>(this);
-        self->methodsBitfield = 1U << static_cast<size_t>(method);
+        std::optional<HttpVerb> verb = httpVerbFromBoost(method);
+        if (verb)
+        {
+            self->methodsBitfield = 1U << static_cast<size_t>(*verb);
+        }
         return *self;
     }
 
@@ -454,7 +452,11 @@ struct RuleParameterTraits
     {
         self_t* self = static_cast<self_t*>(this);
         methods(argsMethod...);
-        self->methodsBitfield |= 1U << static_cast<size_t>(method);
+        std::optional<HttpVerb> verb = httpVerbFromBoost(method);
+        if (verb)
+        {
+            self->methodsBitfield |= 1U << static_cast<size_t>(*verb);
+        }
         return *self;
     }
 
@@ -1210,7 +1212,12 @@ class Router
     {
         FindRouteResponse findRoute;
 
-        size_t reqMethodIndex = static_cast<size_t>(req.method());
+        std::optional<HttpVerb> verb = httpVerbFromBoost(req.method());
+        if (!verb)
+        {
+            return findRoute;
+        }
+        size_t reqMethodIndex = static_cast<size_t>(*verb);
         // Check to see if this url exists at any verb
         for (size_t perMethodIndex = 0; perMethodIndex <= maxVerbIndex;
              perMethodIndex++)
@@ -1227,8 +1234,8 @@ class Router
             {
                 findRoute.allowHeader += ", ";
             }
-            findRoute.allowHeader += boost::beast::http::to_string(
-                static_cast<boost::beast::http::verb>(perMethodIndex));
+            HttpVerb thisVerb = static_cast<HttpVerb>(perMethodIndex);
+            findRoute.allowHeader += httpVerbToString(thisVerb);
             if (perMethodIndex == reqMethodIndex)
             {
                 findRoute.route = route;
@@ -1240,14 +1247,14 @@ class Router
     template <typename Adaptor>
     void handleUpgrade(const Request& req, Response& res, Adaptor&& adaptor)
     {
-        if (static_cast<size_t>(req.method()) >= perMethods.size())
+        std::optional<HttpVerb> verb = httpVerbFromBoost(req.method());
+        if (!verb || static_cast<size_t>(*verb) >= perMethods.size())
         {
             res.result(boost::beast::http::status::not_found);
             res.end();
             return;
         }
-
-        PerMethod& perMethod = perMethods[static_cast<size_t>(req.method())];
+        PerMethod& perMethod = perMethods[static_cast<size_t>(*verb)];
         Trie& trie = perMethod.trie;
         std::vector<BaseRule*>& rules = perMethod.rules;
 
@@ -1309,7 +1316,8 @@ class Router
     void handle(Request& req,
                 const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
     {
-        if (static_cast<size_t>(req.method()) >= perMethods.size())
+        std::optional<HttpVerb> verb = httpVerbFromBoost(req.method());
+        if (!verb || static_cast<size_t>(*verb) >= perMethods.size())
         {
             asyncResp->res.result(boost::beast::http::status::not_found);
             return;
@@ -1331,7 +1339,6 @@ class Router
             // Found at least one valid route, fill in the allow header
             asyncResp->res.addHeader(boost::beast::http::field::allow,
                                      foundRoute.allowHeader);
-
             // See if we have a method not allowed (405) handler
             foundRoute.route = findRouteByIndex(req.url, methodNotAllowedIndex);
         }
