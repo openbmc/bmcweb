@@ -159,6 +159,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "32627d16_798bde54",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-08-01T23:47:15Z",
+      "side": 1,
+      "message": "Oh, I see. This is resolved anyway in your CL.",
+      "parentUuid": "6709d570_fe4c15fa",
+      "range": {
+        "startLine": 304,
+        "startChar": 33,
+        "endLine": 304,
+        "endChar": 39
+      },
+      "revId": "0093c17562676afb5dbfcab14a3572be06e8c6fb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "506e08e9_43a222cd",
