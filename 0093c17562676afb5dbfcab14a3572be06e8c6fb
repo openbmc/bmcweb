@@ -135,6 +135,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6709d570_fe4c15fa",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-01T23:33:36Z",
+      "side": 1,
+      "message": "From the above.\n\n\u003e Consequently, if you have a choice between push_back() and emplace_back() with the SAME ARGUMENTS, your code will tend to be more readable if you choose push_back(), because push_back() expresses your intent more specifically.\n\nIn this case, you don\u0027t have the same arguments, you have\n\ninsert(std::string(str))\nversus\nemplace(str)\n\nwhich can use the std::string_view constructor for string and save the type.",
+      "parentUuid": "790e3ac5_f79e7ac9",
+      "range": {
+        "startLine": 304,
+        "startChar": 33,
+        "endLine": 304,
+        "endChar": 39
+      },
+      "revId": "0093c17562676afb5dbfcab14a3572be06e8c6fb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "506e08e9_43a222cd",
