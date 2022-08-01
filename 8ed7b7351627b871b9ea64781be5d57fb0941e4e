@@ -364,6 +364,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e5243217_f62ccf84",
+        "filename": "redfish-core/lib/license_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 1001485
+      },
+      "writtenOn": "2022-08-01T15:00:03Z",
+      "side": 1,
+      "message": "type casted the response code to enum for comparison like elsewhere",
+      "parentUuid": "bfe9b6cc_c752e9e2",
+      "range": {
+        "startLine": 223,
+        "startChar": 12,
+        "endLine": 223,
+        "endChar": 28
+      },
+      "revId": "8ed7b7351627b871b9ea64781be5d57fb0941e4e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d4ca8c98_0ba19176",
@@ -1187,6 +1211,30 @@
       "writtenOn": "2022-06-03T23:59:41Z",
       "side": 1,
       "message": "what is sdsi, and why do we put is as part of the lookup path?",
+      "range": {
+        "startLine": 613,
+        "startChar": 46,
+        "endLine": 613,
+        "endChar": 50
+      },
+      "revId": "8ed7b7351627b871b9ea64781be5d57fb0941e4e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9f33c3df_c4d92b74",
+        "filename": "redfish-core/lib/license_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 613,
+      "author": {
+        "id": 1001485
+      },
+      "writtenOn": "2022-08-01T15:00:03Z",
+      "side": 1,
+      "message": "removed and used the global variable already defined",
+      "parentUuid": "f5f951a4_2a183fd1",
       "range": {
         "startLine": 613,
         "startChar": 46,
