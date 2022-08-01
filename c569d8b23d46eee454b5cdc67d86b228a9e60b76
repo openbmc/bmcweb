@@ -1,6 +1,75 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "66e3c60a_2a309f31",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-01T04:50:14Z",
+      "side": 1,
+      "message": "Please wrap your commits properly.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 40
+      },
+      "revId": "c569d8b23d46eee454b5cdc67d86b228a9e60b76",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d37b45f3_7436aa4a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-01T04:50:14Z",
+      "side": 1,
+      "message": "How do other distros manage it?  Surely things like nginx don\u0027t link in auditd as a required module as you\u0027ve done here (or does it, I don\u0027t really know).  Is there recommendations from libaudit on how it should be integrated?",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 67
+      },
+      "revId": "c569d8b23d46eee454b5cdc67d86b228a9e60b76",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "15929ce0_e019328f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-01T04:50:14Z",
+      "side": 1,
+      "message": "Any webservers?  All of those are login daemons, which arguably we should be using on openbmc, but I never got there and we currently have evolved to not having shared session infrastructure.",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 56
+      },
+      "revId": "c569d8b23d46eee454b5cdc67d86b228a9e60b76",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "9debe39a_61f865ce",
@@ -14,6 +83,23 @@
       "writtenOn": "2022-07-31T06:07:09Z",
       "side": 1,
       "message": "CI would fail - as we don\u0027t have libaudit-dev package installed in the CI docker image.",
+      "revId": "c569d8b23d46eee454b5cdc67d86b228a9e60b76",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fdb4ec6e_2fe4d271",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-01T04:50:14Z",
+      "side": 1,
+      "message": "Cool to see progress, and happy to help you work through getting it merged.\n\nSome initial thoughts that come to mind:\n1. Presumably this library is doing blocking filesystem calls, which could lock up all of bmcweb (given that it\u0027s a single-threaded reactor).  Do we need to evict this audit logging to another process where it can be done at a lower priority soas not to impact the performance?\n2. This patch is proposing auditd be a required dependency.  Surely there are users that would opt out of it?  If so, how do we manage that complexity?  Runtime selection?  Compile time?\n3. Overall, my eventual goal was to completely remove session collections out of bmcweb, and make use of one of the existing login daemons (probably systemd logind) through pam.  This would get us more standard login/logout procedures, and we could easily hook in whatever plugins we wanted, including this one, because users would be logging in \"normally\".  This is similar to what the cockpit project (another webserver for remote managing linux systems) does.  If that were to happen, would that make using this plugin easier?",
       "revId": "c569d8b23d46eee454b5cdc67d86b228a9e60b76",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
