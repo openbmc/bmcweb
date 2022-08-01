@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "f284ee9c_ee1b4764",
         "filename": "redfish-core/lib/processor.hpp",
@@ -14,10 +15,10 @@
       "side": 1,
       "message": "Accelerator makes sense. \nDid you have a reason to add xyz.openbmc_project.Inventory.Decorator.Asset ?\nSorry I added to the confusion here",
       "revId": "0bae45c2311040b5b1c7d52d3b36d7adf7cd8ce1",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "5490ed39_8c2777f4",
         "filename": "redfish-core/lib/processor.hpp",
@@ -32,8 +33,25 @@
       "message": "Yeah.\nSince we do not need to get processor data, I think we can remove it.",
       "parentUuid": "f284ee9c_ee1b4764",
       "revId": "0bae45c2311040b5b1c7d52d3b36d7adf7cd8ce1",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "19a8ab1a_4a03dd2d",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 613,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-08-01T08:06:50Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "5490ed39_8c2777f4",
+      "revId": "0bae45c2311040b5b1c7d52d3b36d7adf7cd8ce1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

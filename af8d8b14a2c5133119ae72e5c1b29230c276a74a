@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "1c66e6c7_215745c0",
         "filename": "redfish-core/lib/led.hpp",
@@ -20,10 +21,10 @@
         "endChar": 52
       },
       "revId": "af8d8b14a2c5133119ae72e5c1b29230c276a74a",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "11b5f2ff_e862f9ca",
         "filename": "redfish-core/lib/led.hpp",
@@ -44,10 +45,34 @@
         "endChar": 52
       },
       "revId": "af8d8b14a2c5133119ae72e5c1b29230c276a74a",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f3e0e397_684eacc3",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-08-01T08:06:50Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "11b5f2ff_e862f9ca",
+      "range": {
+        "startLine": 290,
+        "startChar": 16,
+        "endLine": 290,
+        "endChar": 52
+      },
+      "revId": "af8d8b14a2c5133119ae72e5c1b29230c276a74a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "af1c7719_9fbbcf38",
         "filename": "redfish-core/lib/led.hpp",
@@ -61,10 +86,28 @@
       "side": 1,
       "message": "same comment as above",
       "revId": "af8d8b14a2c5133119ae72e5c1b29230c276a74a",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "81081583_de64c4c8",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-08-01T08:06:50Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "af1c7719_9fbbcf38",
+      "revId": "af8d8b14a2c5133119ae72e5c1b29230c276a74a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "8e979303_f54f0626",
         "filename": "redfish-core/lib/processor.hpp",
@@ -78,10 +121,10 @@
       "side": 1,
       "message": "This is missing from the array down below.\n\nIgnoring the issue on if it\u0027s a good idea to use this interface, there could be other associations in it besides the LED one so just it being here doesn\u0027t mean there is an associated LED.",
       "revId": "af8d8b14a2c5133119ae72e5c1b29230c276a74a",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "8b5c560b_ca4bb112",
         "filename": "redfish-core/lib/processor.hpp",
@@ -96,8 +139,7 @@
       "message": "Ack",
       "parentUuid": "8e979303_f54f0626",
       "revId": "af8d8b14a2c5133119ae72e5c1b29230c276a74a",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

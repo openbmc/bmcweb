@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "44ceab5a_451786ef",
         "filename": "redfish-core/lib/processor.hpp",
@@ -14,10 +15,10 @@
       "side": 1,
       "message": "After thought : Where are we checking if the property is LocationIndicatorActive and then setting this ?.. for example : we can have a D-Bus object implement both CPU and Association and it might not be LED and may be some other association right ?.",
       "revId": "a9d6366489245af20568e7f58fdf80b02ac74464",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "b8b07040_793d3346",
         "filename": "redfish-core/lib/processor.hpp",
@@ -32,10 +33,10 @@
       "message": "Yes, I know what is your mean.\n\n\u003e we can have a D-Bus object implement both CPU and Association and it might not be LED and may be some other association right \n\nWe will return 500 error\nlike this:\n```\ncurl -k -H \"X-Auth-Token: $token\" https://${bmc}/redfish/v1/Systems/system/Processors/cpu0\n{\n  \"@odata.id\": \"/redfish/v1/Systems/system/Processors/cpu0\",\n  \"@odata.type\": \"#Processor.v1_11_0.Processor\",\n  \"Id\": \"cpu0\",\n  \"InstructionSet\": \"PowerISA\",\n  \"Manufacturer\": \"IBM\",\n  \"MaxSpeedMHz\": 0,\n  \"Name\": \"Processor\",\n  \"PartNumber\": \"02CY415\",\n  \"ProcessorArchitecture\": \"Power\",\n  \"ProcessorId\": {\n    \"EffectiveFamily\": \"\"\n  },\n  \"ProcessorType\": \"CPU\",\n  \"SerialNumber\": \"YA1934319126\",\n  \"Socket\": \"\",\n  \"SparePartNumber\": \"\",\n  \"Status\": {\n    \"Health\": \"OK\",\n    \"State\": \"Enabled\"\n  },\n  \"TotalCores\": 20,\n  \"TotalThreads\": 0,\n  \"Version\": \"22\",\n  \"error\": {\n    \"@Message.ExtendedInfo\": [\n      {\n        \"@odata.type\": \"#Message.v1_1_1.Message\",\n        \"Message\": \"The request failed due to an internal service error.  The service is still operational.\",\n        \"MessageArgs\": [],\n        \"MessageId\": \"Base.1.8.1.InternalError\",\n        \"MessageSeverity\": \"Critical\",\n        \"Resolution\": \"Resubmit the request.  If the problem persists, consider resetting the service.\"\n      }\n    ],\n    \"code\": \"Base.1.8.1.InternalError\",\n    \"message\": \"The request failed due to an internal service error.  The service is still operational.\"\n  }\n}\n```\n\nBut I think we do not need to return 500 when the `objPath + \"/identify_led_group\"` path does not exists, return directly.\n\n@Vishwa, @Ed\nWhat do you think?",
       "parentUuid": "44ceab5a_451786ef",
       "revId": "a9d6366489245af20568e7f58fdf80b02ac74464",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "e79284ab_5caf0f5d",
         "filename": "redfish-core/lib/processor.hpp",
@@ -50,10 +51,28 @@
       "message": "If there are no associations, we should not treat \u0027em as errors.. it\u0027s perfectly normal not to have associations. \n\nHaving said that, my comment was on PATCH.. but looks like you have GET here in your response ?",
       "parentUuid": "b8b07040_793d3346",
       "revId": "a9d6366489245af20568e7f58fdf80b02ac74464",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "51108032_511a9611",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 94
+      },
+      "lineNbr": 1038,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-08-01T08:06:50Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "e79284ab_5caf0f5d",
+      "revId": "a9d6366489245af20568e7f58fdf80b02ac74464",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "8148dc35_d2190367",
         "filename": "redfish-core/lib/processor.hpp",
@@ -67,10 +86,10 @@
       "side": 1,
       "message": "I believe we needed this inside if(locationIndicatorActive) ?",
       "revId": "a9d6366489245af20568e7f58fdf80b02ac74464",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "6aefbead_25113fdf",
         "filename": "redfish-core/lib/processor.hpp",
@@ -85,10 +104,10 @@
       "message": "No, we checked here:\nhttps://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/37045/94/redfish-core/lib/processor.hpp#1039\n\nI remembered that is Ed\u0027s suggestion.",
       "parentUuid": "8148dc35_d2190367",
       "revId": "a9d6366489245af20568e7f58fdf80b02ac74464",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "0761fa23_2c9f06fe",
         "filename": "redfish-core/lib/processor.hpp",
@@ -103,8 +122,25 @@
       "message": "\u003e I believe we needed this inside if(locationIndicatorActive) ?\n\nYes, Maybe I misunderstood Ed\u0027s meaning.\nDone",
       "parentUuid": "6aefbead_25113fdf",
       "revId": "a9d6366489245af20568e7f58fdf80b02ac74464",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d3476de4_32b03c74",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 94
+      },
+      "lineNbr": 1405,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-08-01T08:06:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0761fa23_2c9f06fe",
+      "revId": "a9d6366489245af20568e7f58fdf80b02ac74464",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

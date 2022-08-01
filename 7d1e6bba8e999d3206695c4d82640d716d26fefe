@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "e6b8855d_253e60b8",
         "filename": "redfish-core/lib/led.hpp",
@@ -14,10 +15,10 @@
       "side": 1,
       "message": "Hmm.. so if an association is not found, then will it result in returning HTTP: 404 ?",
       "revId": "7d1e6bba8e999d3206695c4d82640d716d26fefe",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "74be05b0_22d13403",
         "filename": "redfish-core/lib/led.hpp",
@@ -32,10 +33,10 @@
       "message": "No, return HTTP: 500",
       "parentUuid": "e6b8855d_253e60b8",
       "revId": "7d1e6bba8e999d3206695c4d82640d716d26fefe",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "f96e858b_f0b2cf58",
         "filename": "redfish-core/lib/led.hpp",
@@ -50,10 +51,28 @@
       "message": "hmm.. I don\u0027t think so it\u0027s an error not having the association ?.. I would defer that to maintainers",
       "parentUuid": "74be05b0_22d13403",
       "revId": "7d1e6bba8e999d3206695c4d82640d716d26fefe",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "50ed9099_930e634b",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-08-01T08:06:50Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "f96e858b_f0b2cf58",
+      "revId": "7d1e6bba8e999d3206695c4d82640d716d26fefe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "8698efd3_eb5499f9",
         "filename": "redfish-core/lib/processor.hpp",
@@ -67,10 +86,10 @@
       "side": 1,
       "message": "Is this really needed ?.. I put the comment in Memory commit",
       "revId": "7d1e6bba8e999d3206695c4d82640d716d26fefe",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "331167e5_a9bc17d1",
         "filename": "redfish-core/lib/processor.hpp",
@@ -85,8 +104,7 @@
       "message": "Ack",
       "parentUuid": "8698efd3_eb5499f9",
       "revId": "7d1e6bba8e999d3206695c4d82640d716d26fefe",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

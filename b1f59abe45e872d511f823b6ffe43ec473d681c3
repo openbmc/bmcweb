@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "746b6835_af14978f",
         "filename": "redfish-core/lib/led.hpp",
@@ -20,10 +21,10 @@
         "endChar": 38
       },
       "revId": "b1f59abe45e872d511f823b6ffe43ec473d681c3",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "2bc1e0c4_a0002f03",
         "filename": "redfish-core/lib/led.hpp",
@@ -44,10 +45,10 @@
         "endChar": 38
       },
       "revId": "b1f59abe45e872d511f823b6ffe43ec473d681c3",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "673035a0_1b1aa174",
         "filename": "redfish-core/lib/led.hpp",
@@ -68,10 +69,10 @@
         "endChar": 38
       },
       "revId": "b1f59abe45e872d511f823b6ffe43ec473d681c3",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "804539ef_e0234fba",
         "filename": "redfish-core/lib/led.hpp",
@@ -92,10 +93,10 @@
         "endChar": 38
       },
       "revId": "b1f59abe45e872d511f823b6ffe43ec473d681c3",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "c9a908f1_b77dbea8",
         "filename": "redfish-core/lib/led.hpp",
@@ -109,10 +110,28 @@
       "side": 1,
       "message": "Associations were made to be used by looking for the objects that the mapper service creates when it sees Associations.Definitions interfaces (https://github.com/openbmc/docs/blob/master/architecture/object-mapper.md#associations).\n\nSo in this case, you would look for the xyz.openbmc_project.Association interface to be on the \u003ccpu object path\u003e/identify_led_group object path.  Then its endpoints property will contain the object path of the LED group.",
       "revId": "b1f59abe45e872d511f823b6ffe43ec473d681c3",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d5e2ef0c_8172ec74",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-08-01T08:06:50Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c9a908f1_b77dbea8",
+      "revId": "b1f59abe45e872d511f823b6ffe43ec473d681c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "cdd1e3c3_b8249cbb",
         "filename": "redfish-core/lib/led.hpp",
@@ -132,10 +151,10 @@
         "endChar": 30
       },
       "revId": "b1f59abe45e872d511f823b6ffe43ec473d681c3",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "bc494f3f_00c3b64c",
         "filename": "redfish-core/lib/led.hpp",
@@ -156,10 +175,10 @@
         "endChar": 30
       },
       "revId": "b1f59abe45e872d511f823b6ffe43ec473d681c3",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "d6efa6f3_0c75c385",
         "filename": "redfish-core/lib/led.hpp",
@@ -180,10 +199,10 @@
         "endChar": 30
       },
       "revId": "b1f59abe45e872d511f823b6ffe43ec473d681c3",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "a4f1b4e1_75be1e99",
         "filename": "redfish-core/lib/led.hpp",
@@ -204,10 +223,34 @@
         "endChar": 30
       },
       "revId": "b1f59abe45e872d511f823b6ffe43ec473d681c3",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ac68cd7_e7e87899",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 396,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-08-01T08:06:50Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a4f1b4e1_75be1e99",
+      "range": {
+        "startLine": 396,
+        "startChar": 25,
+        "endLine": 396,
+        "endChar": 30
+      },
+      "revId": "b1f59abe45e872d511f823b6ffe43ec473d681c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "2fff3b92_01066f3a",
         "filename": "redfish-core/lib/led.hpp",
@@ -227,8 +270,31 @@
         "endChar": 53
       },
       "revId": "b1f59abe45e872d511f823b6ffe43ec473d681c3",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "421f4777_8a2716f5",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 415,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-08-01T08:06:50Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "2fff3b92_01066f3a",
+      "range": {
+        "startLine": 415,
+        "startChar": 9,
+        "endLine": 415,
+        "endChar": 53
+      },
+      "revId": "b1f59abe45e872d511f823b6ffe43ec473d681c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

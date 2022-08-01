@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "feba91d6_ed53a300",
         "filename": "redfish-core/lib/led.hpp",
@@ -14,10 +15,10 @@
       "side": 1,
       "message": "Is there any BMCWEB_LOG needed here ?",
       "revId": "e24bb192d551e5d75716feaaf24337e3b585b261",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "15af6db6_a3de8121",
         "filename": "redfish-core/lib/led.hpp",
@@ -32,10 +33,10 @@
       "message": "Done",
       "parentUuid": "feba91d6_ed53a300",
       "revId": "e24bb192d551e5d75716feaaf24337e3b585b261",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "e481f9e4_f81ef5e6",
         "filename": "redfish-core/lib/led.hpp",
@@ -49,10 +50,10 @@
       "side": 1,
       "message": "We should be using ObjectMapper: getService since it fails if a particular LED Group D-Bus object is not implemented by LED.GroupManager",
       "revId": "e24bb192d551e5d75716feaaf24337e3b585b261",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "0d71d687_95336785",
         "filename": "redfish-core/lib/led.hpp",
@@ -67,10 +68,10 @@
       "message": "Sorry, I do not think we need to use getService here.\nYes, Logically, it is necessary to obtain ServiceName through GetObject\nBut if we get the serviceName through GetObject by nesting again, I think this is a tedious process, not to mention, for all LED-related interfaces, we can hard-code serviceName (xyz.openbmc_project.LED.GroupManager), and return if it fails. 500 error.\n\nlike L:84, 89, 148, 154, 220, 225, 261,268\n\nIf you disagree, I think I can push a new patch to fix these issues together\n\n@Gunnar, What do you think?",
       "parentUuid": "e481f9e4_f81ef5e6",
       "revId": "e24bb192d551e5d75716feaaf24337e3b585b261",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "c5872416_5985f9d3",
         "filename": "redfish-core/lib/led.hpp",
@@ -85,10 +86,10 @@
       "message": "We should be using Mapper since it is always possible to have any arbitrary daemon hosting a D-Bus object..",
       "parentUuid": "0d71d687_95336785",
       "revId": "e24bb192d551e5d75716feaaf24337e3b585b261",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "98c89e0c_94055ba2",
         "filename": "redfish-core/lib/led.hpp",
@@ -103,10 +104,10 @@
       "message": "I will push a new patch in the next commit",
       "parentUuid": "c5872416_5985f9d3",
       "revId": "e24bb192d551e5d75716feaaf24337e3b585b261",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "26e9727d_435bf592",
         "filename": "redfish-core/lib/led.hpp",
@@ -121,10 +122,10 @@
       "message": "I am fine with new commit for Mapper.. ( not sure what maintainers want tho ). But, we would need to handle Item.\u003c$item\u003e OR Associations.Definitions",
       "parentUuid": "98c89e0c_94055ba2",
       "revId": "e24bb192d551e5d75716feaaf24337e3b585b261",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "2997965f_2c1408cd",
         "filename": "redfish-core/lib/led.hpp",
@@ -139,10 +140,28 @@
       "message": "I addressed this issue on CPU and DImm",
       "parentUuid": "26e9727d_435bf592",
       "revId": "e24bb192d551e5d75716feaaf24337e3b585b261",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "084699ab_d80ada32",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 47
+      },
+      "lineNbr": 333,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-08-01T08:06:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2997965f_2c1408cd",
+      "revId": "e24bb192d551e5d75716feaaf24337e3b585b261",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "db3f9fd9_5914cedf",
         "filename": "redfish-core/lib/led.hpp",
@@ -156,10 +175,10 @@
       "side": 1,
       "message": "should we be using Patch instead of Set because this is bmcweb ?",
       "revId": "e24bb192d551e5d75716feaaf24337e3b585b261",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "39279fa7_008930b6",
         "filename": "redfish-core/lib/led.hpp",
@@ -174,10 +193,10 @@
       "message": "We use set everywhere. I am okay with it.",
       "parentUuid": "db3f9fd9_5914cedf",
       "revId": "e24bb192d551e5d75716feaaf24337e3b585b261",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "e59eba03_9cc84b0e",
         "filename": "redfish-core/lib/led.hpp",
@@ -192,10 +211,10 @@
       "message": "Ack",
       "parentUuid": "39279fa7_008930b6",
       "revId": "e24bb192d551e5d75716feaaf24337e3b585b261",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "438f1187_51dd76b2",
         "filename": "redfish-core/lib/led.hpp",
@@ -209,10 +228,10 @@
       "side": 1,
       "message": "Please use the mapper :: getService",
       "revId": "e24bb192d551e5d75716feaaf24337e3b585b261",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "985e6df6_ce25169f",
         "filename": "redfish-core/lib/led.hpp",
@@ -227,10 +246,28 @@
       "message": "As above",
       "parentUuid": "438f1187_51dd76b2",
       "revId": "e24bb192d551e5d75716feaaf24337e3b585b261",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0115d72e_9c1a33fe",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 47
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-08-01T08:06:50Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "985e6df6_ce25169f",
+      "revId": "e24bb192d551e5d75716feaaf24337e3b585b261",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "951fd953_9876aa5e",
         "filename": "redfish-core/lib/processor.hpp",
@@ -244,10 +281,10 @@
       "side": 1,
       "message": "should we have BMCWEB_LOG ?",
       "revId": "e24bb192d551e5d75716feaaf24337e3b585b261",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "bc159e2b_8e1baf41",
         "filename": "redfish-core/lib/processor.hpp",
@@ -262,10 +299,10 @@
       "message": "Done",
       "parentUuid": "951fd953_9876aa5e",
       "revId": "e24bb192d551e5d75716feaaf24337e3b585b261",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "66f83c6d_e9231fdf",
         "filename": "redfish-core/lib/processor.hpp",
@@ -279,10 +316,10 @@
       "side": 1,
       "message": "LOG ?.. also, what error case does this map to ?",
       "revId": "e24bb192d551e5d75716feaaf24337e3b585b261",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "2aa5bbd4_2d93f1ff",
         "filename": "redfish-core/lib/processor.hpp",
@@ -297,10 +334,10 @@
       "message": "This maps to like if the request is empty\nhttps://github.com/openbmc/bmcweb/blob/0260d9d6b252d5fef81a51d4797e27a6893827f4/redfish-core/include/utils/json_utils.hpp#L400\n\nTypically don\u0027t have a log for this. I am fine either way. \nhttps://github.com/openbmc/bmcweb/blob/8d1b46d7f8d39db2ba048f9e9007106ca3a28c9b/redfish-core/lib/power.hpp#L68",
       "parentUuid": "66f83c6d_e9231fdf",
       "revId": "e24bb192d551e5d75716feaaf24337e3b585b261",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "dbb863fe_9a1da381",
         "filename": "redfish-core/lib/processor.hpp",
@@ -315,10 +352,10 @@
       "message": "Thanks.. So. for 1119, if client sends a request without patch data .. correct ?",
       "parentUuid": "2aa5bbd4_2d93f1ff",
       "revId": "e24bb192d551e5d75716feaaf24337e3b585b261",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "6b1957e4_40b7ac27",
         "filename": "redfish-core/lib/processor.hpp",
@@ -333,10 +370,28 @@
       "message": "Correct",
       "parentUuid": "dbb863fe_9a1da381",
       "revId": "e24bb192d551e5d75716feaaf24337e3b585b261",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0dc06e6e_4101affd",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 47
+      },
+      "lineNbr": 1119,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-08-01T08:06:50Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "6b1957e4_40b7ac27",
+      "revId": "e24bb192d551e5d75716feaaf24337e3b585b261",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "643fa1ae_3488a3e6",
         "filename": "redfish-core/lib/processor.hpp",
@@ -350,10 +405,10 @@
       "side": 1,
       "message": "in what cases name !\u003d cpuId gets into ?",
       "revId": "e24bb192d551e5d75716feaaf24337e3b585b261",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "6ea782aa_8a1c6836",
         "filename": "redfish-core/lib/processor.hpp",
@@ -368,10 +423,10 @@
       "message": "cpu0 !\u003d cpu1 would be an example",
       "parentUuid": "643fa1ae_3488a3e6",
       "revId": "e24bb192d551e5d75716feaaf24337e3b585b261",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "ef0462c3_1f541ede",
         "filename": "redfish-core/lib/processor.hpp",
@@ -386,10 +441,10 @@
       "message": "ahh.. I forgot we are looping through.. yeah. thanks",
       "parentUuid": "6ea782aa_8a1c6836",
       "revId": "e24bb192d551e5d75716feaaf24337e3b585b261",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "b6b9149a_824c3be7",
         "filename": "redfish-core/lib/processor.hpp",
@@ -404,8 +459,7 @@
       "message": "Ack",
       "parentUuid": "ef0462c3_1f541ede",
       "revId": "e24bb192d551e5d75716feaaf24337e3b585b261",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

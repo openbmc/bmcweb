@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "f00f08a7_e759ef56",
         "filename": "redfish-core/lib/processor.hpp",
@@ -14,10 +15,28 @@
       "side": 1,
       "message": "why !name.empty() needed here ?. Isn\u0027t name \u003d\u003d processorId alone sufficient ?\n\nAlso, why does it say endsWithDesiredDimmName ?.. ( the DimmName  part )",
       "revId": "7856de9629cf497cf2536769bea47896c2feec23",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ae862875_e8e928a2",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 88
+      },
+      "lineNbr": 651,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-08-01T08:06:50Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "f00f08a7_e759ef56",
+      "revId": "7856de9629cf497cf2536769bea47896c2feec23",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "03ad0427_e0b00cf2",
         "filename": "redfish-core/lib/processor.hpp",
@@ -31,10 +50,28 @@
       "side": 1,
       "message": "hmm.. why was the variable changed ?.. I think whatever we had with that comment was already appropriate ?\n\nEven if you wanted to change it for some reason ( I don\u0027t see a need ), \"processorFound\" should be enough ?",
       "revId": "7856de9629cf497cf2536769bea47896c2feec23",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fcb92de2_9b93b362",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 88
+      },
+      "lineNbr": 657,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-08-01T08:06:50Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "03ad0427_e0b00cf2",
+      "revId": "7856de9629cf497cf2536769bea47896c2feec23",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "e696ec40_0fd7e3a8",
         "filename": "redfish-core/lib/processor.hpp",
@@ -48,10 +85,28 @@
       "side": 1,
       "message": "Hmm.. not sure why this change was needed ?.. Did you run it by Ed before making this change ?",
       "revId": "7856de9629cf497cf2536769bea47896c2feec23",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "82e7444e_fffd1e92",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 88
+      },
+      "lineNbr": 680,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-08-01T08:06:50Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "e696ec40_0fd7e3a8",
+      "revId": "7856de9629cf497cf2536769bea47896c2feec23",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "6505e7f1_21f912c8",
         "filename": "redfish-core/lib/processor.hpp",
@@ -65,10 +120,28 @@
       "side": 1,
       "message": "Hmm.. a lot of what was in this function in Base has been removed ?.. where is that part covered ?",
       "revId": "7856de9629cf497cf2536769bea47896c2feec23",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c3c28af0_a2b61cc0",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 88
+      },
+      "lineNbr": 890,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-08-01T08:06:50Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "6505e7f1_21f912c8",
+      "revId": "7856de9629cf497cf2536769bea47896c2feec23",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "f7c6bca0_357d4f68",
         "filename": "redfish-core/lib/processor.hpp",
@@ -82,8 +155,25 @@
       "side": 1,
       "message": "I think I am at loss here.. I would suggest we go back to set : 66 where Ed wanted us make minor modifications on top of set: 65",
       "revId": "7856de9629cf497cf2536769bea47896c2feec23",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fcbf5dbe_16212c29",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 88
+      },
+      "lineNbr": 1263,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-08-01T08:06:50Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "f7c6bca0_357d4f68",
+      "revId": "7856de9629cf497cf2536769bea47896c2feec23",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

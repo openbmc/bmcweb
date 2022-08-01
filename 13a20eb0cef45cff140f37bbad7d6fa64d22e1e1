@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "2cf509a9_6b30a6f7",
         "filename": "/COMMIT_MSG",
@@ -14,10 +15,10 @@
       "side": 1,
       "message": "The Asserted property of LED Group D-Bus object pointed to by \"identify_led_group\" is then set to \"true\". LED Manager, would then do what is needed for that group.",
       "revId": "13a20eb0cef45cff140f37bbad7d6fa64d22e1e1",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "b8ecfb87_6a9d44af",
         "filename": "/COMMIT_MSG",
@@ -32,10 +33,28 @@
       "message": "See：\nhttps://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/37045/34//COMMIT_MSG#10\n\n@Vishwa\nWhat do you think?",
       "parentUuid": "2cf509a9_6b30a6f7",
       "revId": "13a20eb0cef45cff140f37bbad7d6fa64d22e1e1",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "53ccfe77_193e3e36",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 38
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-08-01T08:06:50Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "b8ecfb87_6a9d44af",
+      "revId": "13a20eb0cef45cff140f37bbad7d6fa64d22e1e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "e784cfea_ddb1472a",
         "filename": "/COMMIT_MSG",
@@ -49,10 +68,10 @@
       "side": 1,
       "message": "The Asserted property of LED Group D-Bus object should be turned off when the \"LocationIndicatorActive\" is PATCHed to \"false\"",
       "revId": "13a20eb0cef45cff140f37bbad7d6fa64d22e1e1",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "27f3da53_a29e1907",
         "filename": "/COMMIT_MSG",
@@ -67,10 +86,28 @@
       "message": "as above",
       "parentUuid": "e784cfea_ddb1472a",
       "revId": "13a20eb0cef45cff140f37bbad7d6fa64d22e1e1",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "41d168f2_b801c5c5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 38
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-08-01T08:06:50Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "27f3da53_a29e1907",
+      "revId": "13a20eb0cef45cff140f37bbad7d6fa64d22e1e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "ed20ad93_fd4fff44",
         "filename": "redfish-core/lib/processor.hpp",
@@ -90,10 +127,10 @@
         "endChar": 13
       },
       "revId": "13a20eb0cef45cff140f37bbad7d6fa64d22e1e1",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "202e1c37_2107a83d",
         "filename": "redfish-core/lib/processor.hpp",
@@ -114,10 +151,34 @@
         "endChar": 13
       },
       "revId": "13a20eb0cef45cff140f37bbad7d6fa64d22e1e1",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7c9ce1ea_8d7a8884",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 38
+      },
+      "lineNbr": 750,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-08-01T08:06:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "202e1c37_2107a83d",
+      "range": {
+        "startLine": 742,
+        "startChar": 0,
+        "endLine": 750,
+        "endChar": 13
+      },
+      "revId": "13a20eb0cef45cff140f37bbad7d6fa64d22e1e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "6e131834_c974f057",
         "filename": "redfish-core/lib/processor.hpp",
@@ -131,10 +192,10 @@
       "side": 1,
       "message": "hmm.. why are we returning if the PATCH value is [false] ?.. Isn\u0027t it what we are supposed to update ?",
       "revId": "13a20eb0cef45cff140f37bbad7d6fa64d22e1e1",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "69c7af7e_6c625359",
         "filename": "redfish-core/lib/processor.hpp",
@@ -149,10 +210,28 @@
       "message": "Sorry, here is a pointer, not value\n\nlike:\nif (locationIndicatorActive \u003d\u003d nullptr)\n{\n  return;\n}",
       "parentUuid": "6e131834_c974f057",
       "revId": "13a20eb0cef45cff140f37bbad7d6fa64d22e1e1",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "57cb35b2_b39a18bf",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 38
+      },
+      "lineNbr": 1131,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-08-01T08:06:50Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "69c7af7e_6c625359",
+      "revId": "13a20eb0cef45cff140f37bbad7d6fa64d22e1e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "bc3bf008_62d038e4",
         "filename": "redfish-core/lib/processor.hpp",
@@ -166,10 +245,10 @@
       "side": 1,
       "message": "hmm confused why we have Item.Cpu and Item.Accelerator ?",
       "revId": "13a20eb0cef45cff140f37bbad7d6fa64d22e1e1",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "1bebe7a4_b9a88997",
         "filename": "redfish-core/lib/processor.hpp",
@@ -184,10 +263,10 @@
       "message": "In the comments a long time ago, I remember @Gunnar suggested adding the `Accelerator` interface.",
       "parentUuid": "bc3bf008_62d038e4",
       "revId": "13a20eb0cef45cff140f37bbad7d6fa64d22e1e1",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "a451ff29_9d7f1b1b",
         "filename": "redfish-core/lib/processor.hpp",
@@ -202,10 +281,28 @@
       "message": "A Processor in Redfish is more than just a CPU. \n\nFrom https://redfish.dmtf.org/schemas/v1/Processor.v1_11_0.json\n\n        \"ProcessorType\": {\n            \"enum\": [\n                \"CPU\",\n                \"GPU\",\n                \"FPGA\",\n                \"DSP\",\n                \"Accelerator\",\n                \"Core\",\n                \"Thread\",\n                \"OEM\"\n            ],\n            \"enumDescriptions\": {\n                \"Accelerator\": \"An accelerator.\",\n                \"CPU\": \"A CPU.\",\n                \"Core\": \"A core in a processor.\",\n                \"DSP\": \"A DSP.\",\n                \"FPGA\": \"An FPGA.\",\n                \"GPU\": \"A GPU.\",\n                \"OEM\": \"An OEM-defined processing unit.\",\n                \"Thread\": \"A thread in a processor.\"\n            },",
       "parentUuid": "1bebe7a4_b9a88997",
       "revId": "13a20eb0cef45cff140f37bbad7d6fa64d22e1e1",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ed0e3c6_0a207984",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 38
+      },
+      "lineNbr": 1200,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-08-01T08:06:50Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a451ff29_9d7f1b1b",
+      "revId": "13a20eb0cef45cff140f37bbad7d6fa64d22e1e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "2e89f5b5_f4fd05c1",
         "filename": "redfish-core/lib/processor.hpp",
@@ -225,10 +322,10 @@
         "endChar": 61
       },
       "revId": "13a20eb0cef45cff140f37bbad7d6fa64d22e1e1",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "384966fe_1a2da81d",
         "filename": "redfish-core/lib/processor.hpp",
@@ -249,8 +346,31 @@
         "endChar": 61
       },
       "revId": "13a20eb0cef45cff140f37bbad7d6fa64d22e1e1",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b5f8d943_8183087b",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 38
+      },
+      "lineNbr": 1202,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-08-01T08:06:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "384966fe_1a2da81d",
+      "range": {
+        "startLine": 1200,
+        "startChar": 0,
+        "endLine": 1202,
+        "endChar": 61
+      },
+      "revId": "13a20eb0cef45cff140f37bbad7d6fa64d22e1e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

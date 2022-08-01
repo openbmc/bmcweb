@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "d3817f44_72aeb0f3",
         "filename": "redfish-core/lib/led.hpp",
@@ -20,10 +21,10 @@
         "endChar": 71
       },
       "revId": "4c32eedc84caafeb2b63b644d8462e9ba74e5087",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "d0b1486d_79521e4d",
         "filename": "redfish-core/lib/led.hpp",
@@ -44,10 +45,10 @@
         "endChar": 71
       },
       "revId": "4c32eedc84caafeb2b63b644d8462e9ba74e5087",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "f24b698e_20ebbc50",
         "filename": "redfish-core/lib/led.hpp",
@@ -68,10 +69,10 @@
         "endChar": 71
       },
       "revId": "4c32eedc84caafeb2b63b644d8462e9ba74e5087",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "3034c74c_6286bebf",
         "filename": "redfish-core/lib/led.hpp",
@@ -92,10 +93,10 @@
         "endChar": 71
       },
       "revId": "4c32eedc84caafeb2b63b644d8462e9ba74e5087",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "7da31418_f67eff8b",
         "filename": "redfish-core/lib/led.hpp",
@@ -115,10 +116,10 @@
         "endChar": 29
       },
       "revId": "4c32eedc84caafeb2b63b644d8462e9ba74e5087",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "3b73e28a_ead24cc9",
         "filename": "redfish-core/lib/led.hpp",
@@ -139,10 +140,10 @@
         "endChar": 29
       },
       "revId": "4c32eedc84caafeb2b63b644d8462e9ba74e5087",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "4dfae326_89df1dba",
         "filename": "redfish-core/lib/led.hpp",
@@ -162,10 +163,10 @@
         "endChar": 71
       },
       "revId": "4c32eedc84caafeb2b63b644d8462e9ba74e5087",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "dcb4197f_21469df7",
         "filename": "redfish-core/lib/led.hpp",
@@ -186,10 +187,10 @@
         "endChar": 71
       },
       "revId": "4c32eedc84caafeb2b63b644d8462e9ba74e5087",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "7a1526b8_5e5b809b",
         "filename": "redfish-core/lib/led.hpp",
@@ -210,10 +211,34 @@
         "endChar": 71
       },
       "revId": "4c32eedc84caafeb2b63b644d8462e9ba74e5087",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "32a81f45_bd51e31d",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-08-01T08:06:50Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "7a1526b8_5e5b809b",
+      "range": {
+        "startLine": 352,
+        "startChar": 0,
+        "endLine": 353,
+        "endChar": 71
+      },
+      "revId": "4c32eedc84caafeb2b63b644d8462e9ba74e5087",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "3f6ad3f7_12d6a059",
         "filename": "redfish-core/lib/processor.hpp",
@@ -227,10 +252,10 @@
       "side": 1,
       "message": "this can goto line 1009. But I am okay this one being here too",
       "revId": "4c32eedc84caafeb2b63b644d8462e9ba74e5087",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "d953ecc3_f1fa9e5f",
         "filename": "redfish-core/lib/processor.hpp",
@@ -245,10 +270,10 @@
       "message": "Done",
       "parentUuid": "3f6ad3f7_12d6a059",
       "revId": "4c32eedc84caafeb2b63b644d8462e9ba74e5087",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "46ee1ae4_b410ccab",
         "filename": "redfish-core/lib/processor.hpp",
@@ -263,10 +288,10 @@
       "message": "By [Done], are you planning on making the change or leaving it as-is ?",
       "parentUuid": "d953ecc3_f1fa9e5f",
       "revId": "4c32eedc84caafeb2b63b644d8462e9ba74e5087",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "d967d700_b8c0b5a1",
         "filename": "redfish-core/lib/processor.hpp",
@@ -281,10 +306,10 @@
       "message": "I have updated it in Patchset-22.\nMaybe I am wrong?",
       "parentUuid": "46ee1ae4_b410ccab",
       "revId": "4c32eedc84caafeb2b63b644d8462e9ba74e5087",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "a578191a_e04307b5",
         "filename": "redfish-core/lib/processor.hpp",
@@ -299,10 +324,10 @@
       "message": "hmm.. sorry , I don\u0027t see where the change is being made ?. I was asking if we can put this after the readJson call as there is a return there on some condition and the cpuId is not used if so.",
       "parentUuid": "d967d700_b8c0b5a1",
       "revId": "4c32eedc84caafeb2b63b644d8462e9ba74e5087",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "71148e14_ee6e38fc",
         "filename": "redfish-core/lib/processor.hpp",
@@ -317,8 +342,7 @@
       "message": "Oh, Sorry, I see 😊\nDone",
       "parentUuid": "a578191a_e04307b5",
       "revId": "4c32eedc84caafeb2b63b644d8462e9ba74e5087",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

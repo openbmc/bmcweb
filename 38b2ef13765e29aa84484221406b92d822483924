@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "57191882_41a96c2f",
         "filename": "/COMMIT_MSG",
@@ -14,10 +15,10 @@
       "side": 1,
       "message": "Can you explain more about this design? \nYou are using the Association interface to find the LED group?\nCan you point us at a doc? \nI think this design is okay, but I think we need a paragraph about these associations to \nhttps://github.com/openbmc/docs/blob/357556a5dc0622ecbb3ef0f1988e5e5b0ed5b611/architecture/LED-architecture.md ?",
       "revId": "38b2ef13765e29aa84484221406b92d822483924",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "cd8ffa13_a3a0d27a",
         "filename": "/COMMIT_MSG",
@@ -32,10 +33,10 @@
       "message": "\u003e Can you explain more about this design? \n\nsure.\n1. First, we need to define fType:identify_led_group in associations.json as follows:\n```\n{\n\t\"path\": \"system/chassis/motherboard/cpu0\",\n\t\"endpoints\":\n\t[\n\t... ...\n\t\t{\n\t\t\t\"types\":\n\t\t\t{\n\t\t\t\t\"rType\": \"fru_identify\",\n\t\t\t\t\"fType\": \"identify_led_group\"\n\t\t\t},\n\t\t\t\"paths\":\n\t\t\t[\n\t\t\t\t\"/xyz/openbmc_project/led/groups/cpu0_identify\"\n\t\t\t]\n\t\t}\n\t... ...\n\t]\n}\n```\n2. We can find the corresponding LEDsGroupPaths by the `path` and `fType` equal to `identify_led_group` in types.\n3. Get the Asserted property value by the LEDsGroupPaths.\n4. If Asserted\u003dtrue, the corresponding physical LEDs will turn on, so it can be considered that LocationIndicatorActive\u003dtrue, otherwise, LocationIndicatorActive\u003dfalse.\n\n\u003e You are using the Association interface to find the LED group?\n\nyes, as above.\n\n\u003e Can you point us at a doc?\n\nNow, we can refer to the following tasks:\nhttps://github.com/ibm-openbmc/dev/issues/2084\nIt was created by @Vishwa\n\n\u003e but I think we need a paragraph about these associations to \nhttps://github.com/openbmc/docs/blob/357556a5dc0622ecbb3ef0f1988e5e5b0ed5b611/architecture/LED-architecture.md ?\n\nYes, Since @Vishwa is an expert on LEDs, I will update it after discussing with @Vishwa.",
       "parentUuid": "57191882_41a96c2f",
       "revId": "38b2ef13765e29aa84484221406b92d822483924",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "c48c7ae3_3d558bc4",
         "filename": "/COMMIT_MSG",
@@ -50,10 +51,10 @@
       "message": "Can we update https://github.com/openbmc/docs/blob/357556a5dc0622ecbb3ef0f1988e5e5b0ed5b611/architecture/LED-architecture.md to include this design  ?",
       "parentUuid": "cd8ffa13_a3a0d27a",
       "revId": "38b2ef13765e29aa84484221406b92d822483924",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "e0864b54_0d211e1f",
         "filename": "/COMMIT_MSG",
@@ -68,10 +69,10 @@
       "message": "yeah.. I was just looking at that today",
       "parentUuid": "c48c7ae3_3d558bc4",
       "revId": "38b2ef13765e29aa84484221406b92d822483924",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "7aecdc9b_7845633d",
         "filename": "/COMMIT_MSG",
@@ -86,10 +87,10 @@
       "message": "Don\u0027t see it. Did I miss it?",
       "parentUuid": "e0864b54_0d211e1f",
       "revId": "38b2ef13765e29aa84484221406b92d822483924",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "3a609c6d_126b4554",
         "filename": "/COMMIT_MSG",
@@ -104,10 +105,28 @@
       "message": "yeah.. you missed it :) \n\nI just put https://gerrit.openbmc-project.xyz/#/c/openbmc/docs/+/37941/",
       "parentUuid": "7aecdc9b_7845633d",
       "revId": "38b2ef13765e29aa84484221406b92d822483924",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b97a07e2_ab98396f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-08-01T08:06:50Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "3a609c6d_126b4554",
+      "revId": "38b2ef13765e29aa84484221406b92d822483924",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
       "key": {
         "uuid": "ecd45ea4_045f6ab2",
         "filename": "redfish-core/lib/cpudimm.hpp",
@@ -127,10 +146,10 @@
         "endChar": 66
       },
       "revId": "38b2ef13765e29aa84484221406b92d822483924",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "1c975cc2_7d940b83",
         "filename": "redfish-core/lib/cpudimm.hpp",
@@ -151,10 +170,10 @@
         "endChar": 66
       },
       "revId": "38b2ef13765e29aa84484221406b92d822483924",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "49a81255_7461140a",
         "filename": "redfish-core/lib/cpudimm.hpp",
@@ -168,10 +187,10 @@
       "side": 1,
       "message": "Please put the comment that was added for doGET ?",
       "revId": "38b2ef13765e29aa84484221406b92d822483924",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "4c82ad27_40a2bcf9",
         "filename": "redfish-core/lib/cpudimm.hpp",
@@ -186,8 +205,7 @@
       "message": "Ack",
       "parentUuid": "49a81255_7461140a",
       "revId": "38b2ef13765e29aa84484221406b92d822483924",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
