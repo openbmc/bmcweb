@@ -4,6 +4,8 @@
 
 #include <bmcweb_config.h>
 
+#include <redfish_aggregator.hpp>
+
 namespace redfish
 {
 
@@ -39,10 +41,20 @@ namespace redfish
         return false;
     }
 
+    bool needToCallHandlers = true;
+
+#ifdef BMCWEB_ENABLE_REDFISH_AGGREGATION
+    needToCallHandlers = RedfishAggregator::getInstance().beginAggregation(
+                             req, asyncResp) == Result::LocalHandle;
+
+    // If the request should be forwarded to a satellite BMC then we don't want
+    // to write anything to the asyncResp since it will get overwritten later.
+#endif
+
     // If this isn't a get, no need to do anything with parameters
     if (req.method() != boost::beast::http::verb::get)
     {
-        return true;
+        return needToCallHandlers;
     }
 
     delegated = query_param::delegate(queryCapabilities, *queryOpt);
@@ -53,7 +65,8 @@ namespace redfish
          query{*queryOpt}](crow::Response& resIn) mutable {
         processAllParams(app, query, handler, resIn);
     });
-    return true;
+
+    return needToCallHandlers;
 }
 
 // Sets up the Redfish Route. All parameters are handled by the default handler.
