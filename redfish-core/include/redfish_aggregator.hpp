@@ -5,6 +5,27 @@
 namespace redfish
 {
 
+enum class Result
+{
+    LocalHandle,
+    NoLocalHandle
+};
+
+// Checks if the provided path is related to one of the resource collections
+// under UpdateService
+static inline bool
+    isUpdateServiceCollection(const std::vector<std::string>& segments)
+{
+    if (segments.size() < 4)
+    {
+        return false;
+    }
+
+    return (segments[2] == "UpdateService") &&
+           ((segments[3] == "FirmwareInventory") ||
+            (segments[3] == "SoftwareInventory"));
+}
+
 class RedfishAggregator
 {
   private:
@@ -105,7 +126,19 @@ class RedfishAggregator
                     BMCWEB_LOG_DEBUG << "Found Satellite Controller at "
                                      << objectPath.first.str;
 
-                    addSatelliteConfig(interface.second, satelliteInfo);
+                    if (!satelliteInfo.empty())
+                    {
+                        BMCWEB_LOG_ERROR
+                            << "Redfish Aggregation only supports one satellite!";
+                        BMCWEB_LOG_DEBUG << "Clearing all satellite data";
+                        satelliteInfo.clear();
+                        return;
+                    }
+
+                    // For now assume there will only be one satellite config.
+                    // Assign it the name/prefix "5B247A"
+                    addSatelliteConfig("5B247A", interface.second,
+                                       satelliteInfo);
                 }
             }
         }
@@ -114,35 +147,15 @@ class RedfishAggregator
     // Parse the properties of a satellite config object and add the
     // configuration if the properties are valid
     static void addSatelliteConfig(
+        const std::string& name,
         const dbus::utility::DBusPropertiesMap& properties,
         std::unordered_map<std::string, boost::urls::url>& satelliteInfo)
     {
         boost::urls::url url;
-        std::string name;
 
         for (const auto& prop : properties)
         {
-            if (prop.first == "Name")
-            {
-                const std::string* propVal =
-                    std::get_if<std::string>(&prop.second);
-                if (propVal == nullptr)
-                {
-                    BMCWEB_LOG_ERROR << "Invalid Name value";
-                    return;
-                }
-
-                // The IDs will become <Name>_<ID> so the name should not
-                // contain a '_'
-                if (propVal->find('_') != std::string::npos)
-                {
-                    BMCWEB_LOG_ERROR << "Name cannot contain a \"_\"";
-                    return;
-                }
-                name = *propVal;
-            }
-
-            else if (prop.first == "Hostname")
+            if (prop.first == "Hostname")
             {
                 const std::string* propVal =
                     std::get_if<std::string>(&prop.second);
@@ -195,12 +208,6 @@ class RedfishAggregator
         } // Finished reading properties
 
         // Make sure all required config information was made available
-        if (name.empty())
-        {
-            BMCWEB_LOG_ERROR << "Satellite config missing Name";
-            return;
-        }
-
         if (url.host().empty())
         {
             BMCWEB_LOG_ERROR << "Satellite config " << name << " missing Host";
@@ -247,6 +254,62 @@ class RedfishAggregator
     {
         static RedfishAggregator handler;
         return handler;
+    }
+
+    // Entry point to Redfish Aggregation
+    // Returns Result stating whether or not we still need to locally handle the
+    // request
+    static Result
+        beginAggregation(const crow::Request& thisReq,
+                         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+    {
+        using crow::utility::OrMorePaths;
+        using crow::utility::readUrlSegments;
+        const boost::urls::url_view& url = thisReq.urlView;
+        // UpdateService is the only top level resource that is not a Collection
+        if (readUrlSegments(url, "redfish", "v1", "UpdateService"))
+        {
+            return Result::LocalHandle;
+        }
+
+        // Is the request for a resource collection?:
+        // /redfish/v1/<resource>
+        // e.g. /redfish/v1/Chassis
+        std::string collectionName;
+        if (readUrlSegments(url, "redfish", "v1", collectionName))
+        {
+            return Result::LocalHandle;
+        }
+
+        // We know that the ID of an aggregated resource will begin with
+        // "5B247A".  For the most part the URI will begin like this:
+        // /redfish/v1/<resource>/<resource ID>
+        // Note, FirmwareInventory and SoftwareInventory are "special" because
+        // they are two levels deep, but still need aggregated
+        // /redfish/v1/UpdateService/FirmwareInventory/<FirmwareInventory ID>
+        // /redfish/v1/UpdateService/SoftwareInventory/<SoftwareInventory ID>
+        if (readUrlSegments(url, "redfish", "v1", "UpdateService",
+                            "SoftwareInventory", memberName, OrMorePaths()) ||
+            readUrlSegments(url, "redfish", "v1", "UpdateService",
+                            "FirmwareInventory", memberName, OrMorePaths()) ||
+            readUrlSegments(url, "redfish", "v1", collectionName, memberName,
+                            OrMorePaths()))
+        {
+            if (memberName.starts_with("5B247A"))
+            {
+                BMCWEB_LOG_DEBUG << "Need to forward a request";
+
+                // TODO: Extract the prefix from the request's URI, retrieve
+                // the associated satellite config information, and then
+                // forward the request to that satellite.
+                redfish::messages::internalError(asyncResp->res);
+                return Result::NoLocalHandle;
+            }
+            return Result::LocalHandle;
+        }
+
+        BMCWEB_LOG_DEBUG << "Aggregation not required";
+        return Result::LocalHandle;
     }
 };
 
