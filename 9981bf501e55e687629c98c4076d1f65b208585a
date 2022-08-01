@@ -34,6 +34,24 @@
       "parentUuid": "e0bd6f0b_48aaee7e",
       "revId": "9981bf501e55e687629c98c4076d1f65b208585a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d2466206_b49a5293",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-08-01T16:56:15Z",
+      "side": 1,
+      "message": "Ack. I just meant testing the normal use cases of the session service.",
+      "parentUuid": "84a12ea3_67a5a95b",
+      "revId": "9981bf501e55e687629c98c4076d1f65b208585a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
