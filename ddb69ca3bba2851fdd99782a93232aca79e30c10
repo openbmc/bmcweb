@@ -117,6 +117,30 @@
       },
       "revId": "ddb69ca3bba2851fdd99782a93232aca79e30c10",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7c363b9e_fc43d471",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-02T15:20:28Z",
+      "side": 1,
+      "message": "There\u0027s still a file called SDSi helper.",
+      "parentUuid": "94c3c43b_390397ff",
+      "range": {
+        "startLine": 15,
+        "startChar": 18,
+        "endLine": 15,
+        "endChar": 22
+      },
+      "revId": "ddb69ca3bba2851fdd99782a93232aca79e30c10",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
