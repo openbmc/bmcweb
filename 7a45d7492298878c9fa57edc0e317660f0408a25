@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f65d9cc_07823b98",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-08-02T00:14:08Z",
+      "side": 1,
+      "message": "You are implementing somewhat a two pointer algorithm. This requires the JSON is sorted in the same way as here, right?\n\nDoes nlohmann JSON sort keys in AlphanumLess\u003cstd::string\u003e?",
+      "range": {
+        "startLine": 303,
+        "startChar": 14,
+        "endLine": 303,
+        "endChar": 26
+      },
+      "revId": "7a45d7492298878c9fa57edc0e317660f0408a25",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "83d38d4d_79715fbf",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 742,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-08-02T00:14:08Z",
+      "side": 1,
+      "message": "This can be string_view",
+      "range": {
+        "startLine": 742,
+        "startChar": 21,
+        "endLine": 742,
+        "endChar": 27
+      },
+      "revId": "7a45d7492298878c9fa57edc0e317660f0408a25",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
