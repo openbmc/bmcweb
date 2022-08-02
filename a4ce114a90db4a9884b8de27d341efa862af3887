@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e05273a1_f819d0c9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-02T19:28:02Z",
+      "side": 1,
+      "message": "I have no problem with the lack of testing.  It\u0027s removing an unused variable, which by definition is unused and shouldn\u0027t change anything.\n\nAs always, happy to discuss, but merging a trivial commit.",
+      "revId": "a4ce114a90db4a9884b8de27d341efa862af3887",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
