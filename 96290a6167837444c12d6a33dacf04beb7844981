@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9c361754_c316287a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 20
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2022-08-02T16:29:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a72f7451_4b4c6e93",
+      "revId": "96290a6167837444c12d6a33dacf04beb7844981",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6a711398_3aee4e72",
@@ -31,6 +49,30 @@
       "writtenOn": "2022-07-25T16:40:21Z",
       "side": 1,
       "message": "Given the comment I made below, this doesn\u0027t appear to be true, and you\u0027ve deleted the code that sets the BMC state to \"starting\"",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 10
+      },
+      "revId": "96290a6167837444c12d6a33dacf04beb7844981",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b49e43a_65abe9ae",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 20
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2022-08-02T16:29:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6a711398_3aee4e72",
       "range": {
         "startLine": 9,
         "startChar": 0,
@@ -64,6 +106,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3e2c9eb2_1e176358",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 20
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2022-08-02T16:29:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "870c94f2_63fe8fe0",
+      "range": {
+        "startLine": 11,
+        "startChar": 33,
+        "endLine": 11,
+        "endChar": 39
+      },
+      "revId": "96290a6167837444c12d6a33dacf04beb7844981",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "57bc4771_307ddb1c",
@@ -77,6 +143,30 @@
       "writtenOn": "2022-07-25T16:40:21Z",
       "side": 1,
       "message": "?  CurrentBMCState isn\u0027t settable, is it?",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 65
+      },
+      "revId": "96290a6167837444c12d6a33dacf04beb7844981",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d7451d21_654e58ba",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 20
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2022-08-02T16:29:09Z",
+      "side": 1,
+      "message": "CurrentBMCState is settable.\nI mean, have tested this patch with all possible bmc states",
+      "parentUuid": "57bc4771_307ddb1c",
       "range": {
         "startLine": 21,
         "startChar": 0,
@@ -251,6 +341,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f986dfb4_fe1705c4",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 1956,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2022-08-02T16:29:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "453d3191_ae725534",
+      "range": {
+        "startLine": 1956,
+        "startChar": 0,
+        "endLine": 1956,
+        "endChar": 48
+      },
+      "revId": "96290a6167837444c12d6a33dacf04beb7844981",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "32043d8c_2f32dd00",
@@ -298,6 +412,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ece8d76b_2864a54e",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 1962,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2022-08-02T16:29:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b38faffc_f4520be1",
+      "range": {
+        "startLine": 1962,
+        "startChar": 0,
+        "endLine": 1962,
+        "endChar": 54
+      },
+      "revId": "96290a6167837444c12d6a33dacf04beb7844981",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a99b77b1_8f5f830a",
@@ -311,6 +449,30 @@
       "writtenOn": "2022-07-25T16:40:21Z",
       "side": 1,
       "message": "Please adapt and consider the existing health designs.  I\u0027m pretty sure it\u0027s required in this case.",
+      "range": {
+        "startLine": 1971,
+        "startChar": 0,
+        "endLine": 1971,
+        "endChar": 66
+      },
+      "revId": "96290a6167837444c12d6a33dacf04beb7844981",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "807ee375_33d94710",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 1971,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2022-08-02T16:29:09Z",
+      "side": 1,
+      "message": "Ed\n\nI see this is the way followed in most of the places..\nI don\u0027t think we need any other health designs in this case",
+      "parentUuid": "a99b77b1_8f5f830a",
       "range": {
         "startLine": 1971,
         "startChar": 0,
