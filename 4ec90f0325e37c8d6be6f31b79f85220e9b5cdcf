@@ -120,6 +120,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ccabac28_8b6f3b91",
+        "filename": "redfish-core/lib/thermal_subsystem.hpp",
+        "patchSetId": 89
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-08-02T17:30:42Z",
+      "side": 1,
+      "message": "Agreed. I believe Zhenwei did the correct thing by reading the diff.",
+      "parentUuid": "769d917f_de70b3d4",
+      "range": {
+        "startLine": 3,
+        "startChar": 9,
+        "endLine": 3,
+        "endChar": 18
+      },
+      "revId": "4ec90f0325e37c8d6be6f31b79f85220e9b5cdcf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e70fb5b1_e2468ea7",
