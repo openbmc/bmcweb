@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "94298f37_76eeb2b6",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 59
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-08-02T07:31:47Z",
+      "side": 1,
+      "message": "can combine since `path` is not used anymore.",
+      "range": {
+        "startLine": 126,
+        "startChar": 12,
+        "endLine": 127,
+        "endChar": 47
+      },
+      "revId": "86a8d972a82882cc5180b8eed176322f90ccb690",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7b9ef2a9_5c3bd367",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 59
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-08-02T07:31:47Z",
+      "side": 1,
+      "message": "is this needed for the string sort?",
+      "range": {
+        "startLine": 135,
+        "startChar": 18,
+        "endLine": 135,
+        "endChar": 45
+      },
+      "revId": "86a8d972a82882cc5180b8eed176322f90ccb690",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "113f7f24_7f4b35d8",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 59
+      },
+      "lineNbr": 845,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-08-02T07:31:47Z",
+      "side": 1,
+      "message": "combine?",
+      "range": {
+        "startLine": 842,
+        "startChar": 5,
+        "endLine": 845,
+        "endChar": 25
+      },
+      "revId": "86a8d972a82882cc5180b8eed176322f90ccb690",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2d24c244_b4ac7e90",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 59
+      },
+      "lineNbr": 1009,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-08-02T07:31:47Z",
+      "side": 1,
+      "message": "nit: rm line",
+      "revId": "86a8d972a82882cc5180b8eed176322f90ccb690",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
