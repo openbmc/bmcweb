@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a77cc882_f2b8042e",
+        "filename": "redfish-core/include/query.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-08-02T20:23:28Z",
+      "side": 1,
+      "message": "Ultimately I was trying to limit the amount of code that I needed to account for due to #ifdef\u0027s.\n\nIt did not seem like it mattered in what order we perform this check and the \"OData-Version\" check.  I moved this one first because I only wanted to write the \"OData-Version\" to the header if we\u0027re not supposed to forward a request to a satellite BMC.",
+      "parentUuid": "39c617ad_cb1c0bea",
+      "revId": "6284e4cf53c2a60b2abc195bfea74a849cfdc13a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8cad1567_1e7e1c0f",
         "filename": "redfish-core/include/query.hpp",
         "patchSetId": 3
@@ -54,6 +72,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "34b2a26a_1b2aaa53",
+        "filename": "redfish-core/include/query.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-08-02T20:23:28Z",
+      "side": 1,
+      "message": "I thought we wanted completely to avoid writing anything to the response if it was later going to be overwritten by the response from the satellite BMC?  If that\u0027s not the case then I can restore this to its previous behavior.",
+      "parentUuid": "8cad1567_1e7e1c0f",
+      "revId": "6284e4cf53c2a60b2abc195bfea74a849cfdc13a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9f3c030e_1e3a2a2e",
         "filename": "redfish-core/include/query.hpp",
         "patchSetId": 3
@@ -65,6 +101,24 @@
       "writtenOn": "2022-08-02T17:53:15Z",
       "side": 1,
       "message": "Having this variable inside the ifdef makes this code really hard to read.  Is it required?  Couldn\u0027t we just return on line 48 and get the same result?",
+      "revId": "6284e4cf53c2a60b2abc195bfea74a849cfdc13a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8b0fbf0e_f24b5e57",
+        "filename": "redfish-core/include/query.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-08-02T20:23:28Z",
+      "side": 1,
+      "message": "I don\u0027t think we can return early at line 48 because we need to process the query params at the end of this function.\n\nIt is awkward with the variable inside of the #ifdef.  I can clean this up a lot by introducing the variable outside of the #ifdef.  It\u0027ll also get cleaner if you confirm in the above thread that it is alright to write to the response when we are going to later overwrite it with the response from the satellite BMC.",
+      "parentUuid": "9f3c030e_1e3a2a2e",
       "revId": "6284e4cf53c2a60b2abc195bfea74a849cfdc13a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
