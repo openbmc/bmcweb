@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7c510612_3ad7e385",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-02T02:09:30Z",
+      "side": 1,
+      "message": "\u003e If the size of the json tree is N, it\u0027s O(N).\n\njson pointer operator[] lookup is O(log(N) * Depth) based on the number of nodes, so the overall is AvgDepthOfProperty * log(N) * K * N. (because K needs to be recursed per property).\n\n\u003e The algorithm in the patch requires O(K*avg_len_of_property*logK) to sort the array\n\nNot sure what avg_len_of_property has to do with it, I would\u0027ve assumed the dominant factor is K.\n\nK*log(K) is for the initial sort (assuming it\u0027s not sorted from the user, which seems likely).  This has nothing to do with N (number of keys in map).  N is significantly higher order of magnitude than K.\nA signal iteration of the tree is used, so that\u0027s N\nK is required once\n\nSo the new mechanism gives Klog(k) + N + K, assuming that we go with what you said (K is \u003c 10 properties and is therefor small compared to N) this devolves down to N.\n\nThe old mechanism did a json_pointer lookup on the root at every level, while iterating, but didn\u0027t require the initial K sort, but did require K iteration for every key.\n\nSo you end up with\nN (to iterate the whole map) * log(N) ( to look of the json_pointer from the root) * K (to iterate your keys on each map)\n \n \n \nWith all of this said, the primary reason I did this is because,this is half the code, and is simpler, which presumably translates to binary size improvements (haven\u0027t measured that though.)  Less code is better.  I can get that coded up in the commit message.\n\n\u003e making property array a trie\n\nYep, I thought about this, but that would lead to more code (we\u0027d have to write a trie implementation, or generalize the one in the router), which somewhat defeats the purpose of this patch.",
+      "parentUuid": "68ee4342_c2c33af5",
+      "range": {
+        "startLine": 20,
+        "startChar": 49,
+        "endLine": 20,
+        "endChar": 59
+      },
+      "revId": "7a45d7492298878c9fa57edc0e317660f0408a25",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7f65d9cc_07823b98",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 5
@@ -73,6 +97,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c0cf1470_9e6fbdcb",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-02T02:09:30Z",
+      "side": 1,
+      "message": "\u003e You are implementing somewhat a two pointer algorithm. This requires the JSON is sorted in the same way as here, right?\n\nYep, and I added comments to that effect.\n\n\u003e \n\u003e Does nlohmann JSON sort keys in AlphanumLess\u003cstd::string\u003e?\n\nnlohmann json sorts keys by std::less at each level (because it is a std::map underneath), with the array indexes being the equivalent of AlphaNumLess\n\nkey1/1\nkey1/2\nkey1/22\n\nwhich has functionally the same sort order as alphanumLess, once the tree is accounted for.",
+      "parentUuid": "7f65d9cc_07823b98",
+      "range": {
+        "startLine": 303,
+        "startChar": 14,
+        "endLine": 303,
+        "endChar": 26
+      },
+      "revId": "7a45d7492298878c9fa57edc0e317660f0408a25",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "83d38d4d_79715fbf",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 5
@@ -84,6 +132,30 @@
       "writtenOn": "2022-08-02T00:14:08Z",
       "side": 1,
       "message": "This can be string_view",
+      "range": {
+        "startLine": 742,
+        "startChar": 21,
+        "endLine": 742,
+        "endChar": 27
+      },
+      "revId": "7a45d7492298878c9fa57edc0e317660f0408a25",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fefb46a4_8c296768",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 742,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-02T02:09:30Z",
+      "side": 1,
+      "message": "I originally tried that, but there\u0027s a subtle pointer invalidation problem that occurred on delete.  If it\u0027s important I can look at it again.",
+      "parentUuid": "83d38d4d_79715fbf",
       "range": {
         "startLine": 742,
         "startChar": 21,
