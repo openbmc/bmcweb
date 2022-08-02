@@ -41,6 +41,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "98c21d91_d4b6a72b",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-08-02T17:21:28Z",
+      "side": 1,
+      "message": "Probably not.  I\u0027ve removed it.",
+      "parentUuid": "e5e5d016_75491de5",
+      "revId": "43f0d7b02f41691455fdce00346811e3e6786ea1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8ffd0a21_53174d54",
@@ -64,6 +82,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4cc3c24d_2b536962",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-08-02T17:21:28Z",
+      "side": 1,
+      "message": "I suppose it isn\u0027t.  It\u0027s been removed.",
+      "parentUuid": "8ffd0a21_53174d54",
+      "range": {
+        "startLine": 26,
+        "startChar": 16,
+        "endLine": 27,
+        "endChar": 25
+      },
+      "revId": "43f0d7b02f41691455fdce00346811e3e6786ea1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7ec3174f_2bc9583c",
@@ -77,6 +119,30 @@
       "writtenOn": "2022-07-20T09:27:58Z",
       "side": 1,
       "message": "nit: It\u0027s quite obvious that addPrefix adds prefixes. Imo you can remove this comment.",
+      "range": {
+        "startLine": 446,
+        "startChar": 12,
+        "endLine": 447,
+        "endChar": 23
+      },
+      "revId": "43f0d7b02f41691455fdce00346811e3e6786ea1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "46601aee_3909c072",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 447,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-08-02T17:21:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7ec3174f_2bc9583c",
       "range": {
         "startLine": 446,
         "startChar": 12,
