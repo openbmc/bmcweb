@@ -444,6 +444,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d71aa76e_f3b59aa0",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1292,
+      "author": {
+        "id": 1001369
+      },
+      "writtenOn": "2022-08-02T19:05:53Z",
+      "side": 1,
+      "message": "For us I see the performance to be 21s average for expand at Processor level. I am thinking of the efficient exapand (Similar to what you proposed for memory metrics). But given the concerns (on memory metrics efficient expand), maybe we should keep it downstream.",
+      "parentUuid": "20a55199_5c919aec",
+      "range": {
+        "startLine": 1292,
+        "startChar": 4,
+        "endLine": 1292,
+        "endChar": 29
+      },
+      "revId": "838beefab612e45202c96af79544e14df3fd72f3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bb89364d_2992b99c",
