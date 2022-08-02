@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "dab5dfcd_7779453d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-08-02T00:28:39Z",
+      "side": 1,
+      "message": "Previously it has the same complexity after preprocessing. If the size of the json tree is N, it\u0027s O(N).\n\nIf the length of selected properties is K (we limit K to \u003c\u003d 10 currently), the previous algorithm needs at most O(K*avg_len_of_property*avg_num_of_slash_in_property). Given all the constraints we have. This is not a lot.\n\nThe algorithm in the patch requires O(K*avg_len_of_property*logK) to sort the array. It also needs some more complexity when creating new vectors for strings.\n\nCould you explain why you see this algorithm a good optimization?",
+      "range": {
+        "startLine": 20,
+        "startChar": 49,
+        "endLine": 20,
+        "endChar": 59
+      },
+      "revId": "7a45d7492298878c9fa57edc0e317660f0408a25",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7f65d9cc_07823b98",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 5
