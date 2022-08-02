@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "488ce5ef_b1f02060",
+        "filename": "redfish-core/include/utils/dbus_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-08-02T17:13:57Z",
+      "side": 1,
+      "message": "For new coeds, if you can, please IWYU. Here, we are missing BMCWEB_LOG_DEBUG. This means every source that includes this header now has to add the logging header",
+      "revId": "728a6a413d9e161ba803a9dfb9ddb7dc21edf6ac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
