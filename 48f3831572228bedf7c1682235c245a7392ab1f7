@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d0f63e6_73702fb5",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 919,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-08-02T07:34:11Z",
+      "side": 1,
+      "message": "combine?",
+      "range": {
+        "startLine": 916,
+        "startChar": 8,
+        "endLine": 919,
+        "endChar": 25
+      },
+      "revId": "48f3831572228bedf7c1682235c245a7392ab1f7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "34d8b16d_56176bcf",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 962,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-08-02T07:34:11Z",
+      "side": 1,
+      "message": "isn\u0027t this the same as Core? maybe refactor it?",
+      "range": {
+        "startLine": 958,
+        "startChar": 11,
+        "endLine": 962,
+        "endChar": 17
+      },
+      "revId": "48f3831572228bedf7c1682235c245a7392ab1f7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
