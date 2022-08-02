@@ -72,6 +72,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3b2f8fc6_5f0fb9bc",
+        "filename": "http/utility.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 563,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-02T15:33:31Z",
+      "side": 1,
+      "message": "👍  I got bored on a plane....",
+      "parentUuid": "c8975f5c_5ecf8096",
+      "range": {
+        "startLine": 563,
+        "startChar": 42,
+        "endLine": 563,
+        "endChar": 74
+      },
+      "revId": "d6c79cf12a83f279e558cdf0c44f084d281e4a76",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7a288e4f_f0446d19",
@@ -188,6 +212,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ab7b86e4_cd190716",
+        "filename": "http/utility.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 596,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-02T15:33:31Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "0db3fbc8_3281bacc",
+      "range": {
+        "startLine": 596,
+        "startChar": 0,
+        "endLine": 596,
+        "endChar": 38
+      },
+      "revId": "d6c79cf12a83f279e558cdf0c44f084d281e4a76",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ec6061fb_2f2f4657",
@@ -225,6 +273,30 @@
       "side": 1,
       "message": "I had added this based on your previous comment at https://gerrit.openbmc.org/c/openbmc/bmcweb/+/55312/comments/07aab98f_252e7a77, but wasn\u0027t sure whether to put it only at the top level (getDateTime()) or at all levels.",
       "parentUuid": "ec6061fb_2f2f4657",
+      "range": {
+        "startLine": 632,
+        "startChar": 0,
+        "endLine": 635,
+        "endChar": 5
+      },
+      "revId": "d6c79cf12a83f279e558cdf0c44f084d281e4a76",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f6a5d31b_965a914d",
+        "filename": "http/utility.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 635,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-02T15:33:31Z",
+      "side": 1,
+      "message": "In my series we just define it based on the resolution of the input, which I think is the right thing to do.",
+      "parentUuid": "1484f611_a5a3192e",
       "range": {
         "startLine": 632,
         "startChar": 0,
