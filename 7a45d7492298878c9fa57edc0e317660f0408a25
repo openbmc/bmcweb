@@ -98,6 +98,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cc798b76_6665fb38",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-02T17:17:52Z",
+      "side": 1,
+      "message": "I\u0027m reading the above;  I\u0027m not sure I got all my O(n) mechanics right, but the commit message has been changed to not mention optimization.  The key is it\u0027s less code, and smaller binary.",
+      "parentUuid": "6b75f12e_132ab6e9",
+      "range": {
+        "startLine": 20,
+        "startChar": 49,
+        "endLine": 20,
+        "endChar": 59
+      },
+      "revId": "7a45d7492298878c9fa57edc0e317660f0408a25",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7f65d9cc_07823b98",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 5
