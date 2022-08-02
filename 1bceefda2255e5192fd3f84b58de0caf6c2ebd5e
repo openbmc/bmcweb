@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "52f8e29e_28538813",
         "filename": "/COMMIT_MSG",
@@ -20,10 +21,10 @@
         "endChar": 6
       },
       "revId": "1bceefda2255e5192fd3f84b58de0caf6c2ebd5e",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "361c0d02_2ad9f853",
         "filename": "/COMMIT_MSG",
@@ -44,10 +45,34 @@
         "endChar": 6
       },
       "revId": "1bceefda2255e5192fd3f84b58de0caf6c2ebd5e",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e05abc70_6014f7de",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1001369
+      },
+      "writtenOn": "2022-08-02T19:05:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "361c0d02_2ad9f853",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 6
+      },
+      "revId": "1bceefda2255e5192fd3f84b58de0caf6c2ebd5e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "6f9ce97a_4b866ec8",
         "filename": "redfish-core/lib/processor.hpp",
@@ -61,10 +86,10 @@
       "side": 1,
       "message": "I think I am fine with this but we haven\u0027t been using PrettyName in bmcweb",
       "revId": "1bceefda2255e5192fd3f84b58de0caf6c2ebd5e",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "0d3fae84_ca1b5bf2",
         "filename": "redfish-core/lib/processor.hpp",
@@ -79,10 +104,28 @@
       "message": "Yes.\nWhen bmcweb has the PrettyName property, I think I can fix it again.",
       "parentUuid": "6f9ce97a_4b866ec8",
       "revId": "1bceefda2255e5192fd3f84b58de0caf6c2ebd5e",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e8c14d98_e5f46df7",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 692,
+      "author": {
+        "id": 1001369
+      },
+      "writtenOn": "2022-08-02T19:05:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0d3fae84_ca1b5bf2",
+      "revId": "1bceefda2255e5192fd3f84b58de0caf6c2ebd5e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "e2a0e4fc_9ff3006c",
         "filename": "redfish-core/lib/processor.hpp",
@@ -96,10 +139,10 @@
       "side": 1,
       "message": "Not sure why we need to bump, SubProcessors has been around for a long time. \nTypically I advise to not bump unless we need to. \nI think this processor schema should match the one below, so if you stick with 1_9, do so below as well. \n \n\n                \"SubProcessors\": {\n                    \"$ref\": \"http://redfish.dmtf.org/schemas/v1/ProcessorCollection.json#/definitions/ProcessorCollection\",\n                    \"description\": \"The link to the collection of sub-processors associated with this system, such as cores or threads, that are part of a processor.\",\n                    \"longDescription\": \"This property shall contain a link to a resource collection of type ProcessorCollection.\",\n                    \"readonly\": true,\n                    \"versionAdded\": \"v1_3_0\"\n                },",
       "revId": "1bceefda2255e5192fd3f84b58de0caf6c2ebd5e",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "d16471e1_af94f67a",
         "filename": "redfish-core/lib/processor.hpp",
@@ -114,10 +157,10 @@
       "message": "Ack",
       "parentUuid": "e2a0e4fc_9ff3006c",
       "revId": "1bceefda2255e5192fd3f84b58de0caf6c2ebd5e",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "8f246b03_819f2563",
         "filename": "redfish-core/lib/processor.hpp",
@@ -131,10 +174,10 @@
       "side": 1,
       "message": "Could change to SubProcessor. Might be more clear",
       "revId": "1bceefda2255e5192fd3f84b58de0caf6c2ebd5e",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "e140d578_659f337c",
         "filename": "redfish-core/lib/processor.hpp",
@@ -149,10 +192,10 @@
       "message": "Done",
       "parentUuid": "8f246b03_819f2563",
       "revId": "1bceefda2255e5192fd3f84b58de0caf6c2ebd5e",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "faa7cde0_7a0fb005",
         "filename": "redfish-core/lib/processor.hpp",
@@ -166,10 +209,10 @@
       "side": 1,
       "message": "This isn\u0027t a Collection. SubProcessor ?",
       "revId": "1bceefda2255e5192fd3f84b58de0caf6c2ebd5e",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "3893b3a8_8a530782",
         "filename": "redfish-core/lib/processor.hpp",
@@ -184,8 +227,7 @@
       "message": "Ack",
       "parentUuid": "faa7cde0_7a0fb005",
       "revId": "1bceefda2255e5192fd3f84b58de0caf6c2ebd5e",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

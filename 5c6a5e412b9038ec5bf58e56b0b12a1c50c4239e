@@ -900,6 +900,30 @@
       },
       "revId": "5c6a5e412b9038ec5bf58e56b0b12a1c50c4239e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ed3fe23d_89050bd0",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 46
+      },
+      "lineNbr": 1155,
+      "author": {
+        "id": 1001369
+      },
+      "writtenOn": "2022-08-02T19:05:29Z",
+      "side": 1,
+      "message": "Updated the code to use associations between cpu and core.",
+      "parentUuid": "e1bc1283_4d834d60",
+      "range": {
+        "startLine": 1151,
+        "startChar": 0,
+        "endLine": 1155,
+        "endChar": 63
+      },
+      "revId": "5c6a5e412b9038ec5bf58e56b0b12a1c50c4239e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

@@ -72,6 +72,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "33262e8b_aaf74945",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 19
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1001369
+      },
+      "writtenOn": "2022-08-02T19:05:29Z",
+      "side": 1,
+      "message": "With the latest patch, the response to query with bad core id would be below.\n\nHTTP request sent, awaiting response... 404 Not Found\n2022-08-02 12:04:56 ERROR 404: Not Found",
+      "parentUuid": "d529226f_854a888a",
+      "revId": "7d4f34575f97df725bc13d67d93913129418a256",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a72cbdf1_ceb4d206",

@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3cb5a236_2b00f351",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 59
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1001369
+      },
+      "writtenOn": "2022-08-02T19:05:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "94298f37_76eeb2b6",
+      "range": {
+        "startLine": 126,
+        "startChar": 12,
+        "endLine": 127,
+        "endChar": 47
+      },
+      "revId": "86a8d972a82882cc5180b8eed176322f90ccb690",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7b9ef2a9_5c3bd367",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-08-02T07:31:47Z",
       "side": 1,
       "message": "is this needed for the string sort?",
+      "range": {
+        "startLine": 135,
+        "startChar": 18,
+        "endLine": 135,
+        "endChar": 45
+      },
+      "revId": "86a8d972a82882cc5180b8eed176322f90ccb690",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "73c35229_0e62f7e1",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 59
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1001369
+      },
+      "writtenOn": "2022-08-02T19:05:29Z",
+      "side": 1,
+      "message": "Yes, it is needed to sort the alphanumeric string based on their numeric values.",
+      "parentUuid": "7b9ef2a9_5c3bd367",
       "range": {
         "startLine": 135,
         "startChar": 18,
@@ -70,6 +118,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a82e4920_428983d5",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 59
+      },
+      "lineNbr": 845,
+      "author": {
+        "id": 1001369
+      },
+      "writtenOn": "2022-08-02T19:05:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "113f7f24_7f4b35d8",
+      "range": {
+        "startLine": 842,
+        "startChar": 5,
+        "endLine": 845,
+        "endChar": 25
+      },
+      "revId": "86a8d972a82882cc5180b8eed176322f90ccb690",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2d24c244_b4ac7e90",
@@ -83,6 +155,24 @@
       "writtenOn": "2022-08-02T07:31:47Z",
       "side": 1,
       "message": "nit: rm line",
+      "revId": "86a8d972a82882cc5180b8eed176322f90ccb690",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d59b5928_c0b19ccb",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 59
+      },
+      "lineNbr": 1009,
+      "author": {
+        "id": 1001369
+      },
+      "writtenOn": "2022-08-02T19:05:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2d24c244_b4ac7e90",
       "revId": "86a8d972a82882cc5180b8eed176322f90ccb690",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
