@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e790ffee_769378f4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 24
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2022-08-02T17:46:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "29186310_3a77106f",
+      "revId": "5909c9f2ac4bd249dc058165d5fd6ec22c810aaa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a3f96d6d_e9d6a415",
@@ -31,6 +49,24 @@
       "writtenOn": "2022-08-02T17:43:58Z",
       "side": 1,
       "message": "This kind of just jumps into things, let me take a stab and giving a bit more background.",
+      "revId": "5909c9f2ac4bd249dc058165d5fd6ec22c810aaa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "458d2242_55129c7b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 24
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2022-08-02T17:46:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a3f96d6d_e9d6a415",
       "revId": "5909c9f2ac4bd249dc058165d5fd6ec22c810aaa",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
