@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "92930cd5_a5e92430",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-02T02:14:53Z",
+      "side": 1,
+      "message": "Looking pretty good.  Just need to get CI passing.",
+      "revId": "fddee6b2674d8ba6b7ecb95bba7750537f5e5c9d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "285f1e58_3b26391c",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 403,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-02T02:14:53Z",
+      "side": 1,
+      "message": "Please use the common typedef for this.",
+      "range": {
+        "startLine": 402,
+        "startChar": 18,
+        "endLine": 403,
+        "endChar": 61
+      },
+      "revId": "fddee6b2674d8ba6b7ecb95bba7750537f5e5c9d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
