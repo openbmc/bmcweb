@@ -723,10 +723,11 @@ inline void processTopAndSkip(const Query& query, crow::Response& res)
 // |root| JSON in the async response, this function erases leaves whose keys are
 // not in the |shouldSelect| set.
 // |shouldSelect| contains all the properties that needs to be selected.
-inline void recursiveSelect(
-    nlohmann::json& currRoot, const nlohmann::json::json_pointer& currRootPtr,
-    const std::unordered_set<std::string>& intermediatePaths,
-    const std::unordered_set<std::string>& properties, nlohmann::json& root)
+inline void
+    recursiveSelect(nlohmann::json& currRoot,
+                    const nlohmann::json::json_pointer& currRootPtr,
+                    const std::unordered_set<std::string>& intermediatePaths,
+                    const std::unordered_set<std::string>& properties)
 {
     nlohmann::json::object_t* object =
         currRoot.get_ptr<nlohmann::json::object_t*>();
@@ -747,30 +748,14 @@ inline void recursiveSelect(
             if (intermediatePaths.contains(childPtr))
             {
                 BMCWEB_LOG_DEBUG << "Recursively select: " << childPtr;
-                recursiveSelect(*it, childPtr, intermediatePaths, properties,
-                                root);
+                recursiveSelect(*it, childPtr, intermediatePaths, properties);
                 it = nextIt;
                 continue;
             }
             BMCWEB_LOG_DEBUG << childPtr << " is getting removed!";
             it = currRoot.erase(it);
         }
-        return;
     }
-    nlohmann::json::array_t* array =
-        currRoot.get_ptr<nlohmann::json::array_t*>();
-    if (array != nullptr)
-    {
-        BMCWEB_LOG_DEBUG << "Current JSON is an array: " << currRootPtr;
-        if (properties.contains(currRootPtr))
-        {
-            return;
-        }
-        root[currRootPtr.parent_pointer()].erase(currRootPtr.back());
-        BMCWEB_LOG_DEBUG << currRootPtr << " is getting removed!";
-        return;
-    }
-    BMCWEB_LOG_DEBUG << "Current JSON is a property value: " << currRootPtr;
 }
 
 inline std::unordered_set<std::string>
@@ -804,7 +789,7 @@ inline void performSelect(nlohmann::json& root,
     std::unordered_set<std::string> intermediatePaths =
         getIntermediatePaths(properties);
     recursiveSelect(root, nlohmann::json::json_pointer(""), intermediatePaths,
-                    properties, root);
+                    properties);
 }
 
 // The current implementation of $select still has the following TODOs due to
