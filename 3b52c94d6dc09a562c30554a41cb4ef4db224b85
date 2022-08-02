@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "61a0cb73_4de8d81e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-08-02T17:09:09Z",
+      "side": 1,
+      "message": "Pending a test confirmation. Otherwise LGTM",
+      "revId": "3b52c94d6dc09a562c30554a41cb4ef4db224b85",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
