@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cbe8a78b_33fcb05a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-02T19:29:11Z",
+      "side": 1,
+      "message": "This only applies if SSL support is disabled, which already has a very low take rate.\n\nThis commit makes the code build.\n\nAs always, happy to discuss, but this is a trivial build fix, merging quickly.",
+      "revId": "d9049df1b85c7163047db6a18660a8cd6ddf9c3d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
