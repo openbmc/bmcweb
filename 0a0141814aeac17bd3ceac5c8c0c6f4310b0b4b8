@@ -73,6 +73,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8cbb5823_f38b9e82",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-02T06:14:02Z",
+      "side": 1,
+      "message": "👍",
+      "parentUuid": "f3654103_171c27fb",
+      "revId": "0a0141814aeac17bd3ceac5c8c0c6f4310b0b4b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c3bf0ab2_d038e21b",
         "filename": "include/openbmc_dbus_rest.hpp",
         "patchSetId": 3
@@ -178,6 +196,30 @@
       "side": 1,
       "message": "starts_here is used because sometimes encoding can be appended to content-type.\nFor example: `application/json; charset\u003dutf-8`\n\nIf you have better proposal let me know.",
       "parentUuid": "174de24f_7d2b3f5d",
+      "range": {
+        "startLine": 56,
+        "startChar": 12,
+        "endLine": 56,
+        "endChar": 64
+      },
+      "revId": "0a0141814aeac17bd3ceac5c8c0c6f4310b0b4b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "059c0883_312dd91d",
+        "filename": "redfish-core/lib/task.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-02T06:14:02Z",
+      "side": 1,
+      "message": "Just check for both strings directly.\n\nfrom the redfish spec:\n\"Services shall accept the ContentType header set to either\napplication/json or application/json;charset\u003dutf-8.\"\n\n\nso just write the code to accept either.",
+      "parentUuid": "8472713a_d913b07b",
       "range": {
         "startLine": 56,
         "startChar": 12,
