@@ -74,6 +74,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6b75f12e_132ab6e9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-02T03:35:37Z",
+      "side": 1,
+      "message": "I updated the commit message with the above, which no longer talks about optimization, but talks about simplification, for which there is a measurable difference in binary size.  Let me know if you want more details there.",
+      "parentUuid": "7c510612_3ad7e385",
+      "range": {
+        "startLine": 20,
+        "startChar": 49,
+        "endLine": 20,
+        "endChar": 59
+      },
+      "revId": "7a45d7492298878c9fa57edc0e317660f0408a25",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7f65d9cc_07823b98",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 5
@@ -156,6 +180,30 @@
       "side": 1,
       "message": "I originally tried that, but there\u0027s a subtle pointer invalidation problem that occurred on delete.  If it\u0027s important I can look at it again.",
       "parentUuid": "83d38d4d_79715fbf",
+      "range": {
+        "startLine": 742,
+        "startChar": 21,
+        "endLine": 742,
+        "endChar": 27
+      },
+      "revId": "7a45d7492298878c9fa57edc0e317660f0408a25",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e56e37d_f055b905",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 742,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-02T03:35:37Z",
+      "side": 1,
+      "message": "Fixed in latest.  I had to wrap the stubstr call in a string_view.",
+      "parentUuid": "fefb46a4_8c296768",
       "range": {
         "startLine": 742,
         "startChar": 21,
