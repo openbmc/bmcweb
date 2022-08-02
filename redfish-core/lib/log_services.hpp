@@ -2923,9 +2923,9 @@ inline void requestRoutesCrashdumpFile(App& app)
         "/redfish/v1/Systems/system/LogServices/Crashdump/Entries/<str>/<str>/")
         .privileges(redfish::privileges::getLogEntry)
         .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                   const std::string& logID, const std::string& fileName) {
+            [](const crow::Request& req,
+               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const std::string& logID, const std::string& fileName) {
         // Do not call getRedfishRoute here since the crashdump file is not a
         // Redfish resource.
         auto getStoredLogCallback =
