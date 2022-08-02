@@ -26,6 +26,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "13344d12_1e3b8ac1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-08-02T14:48:42Z",
+      "side": 1,
+      "message": "How many of these audit::audit_acct_event would we add to bmcweb?\n \nYou mentioned \"Actions with accounts and privileges\", do those traces go in user managmenet or bmcweb?\n\nWould we ever just log every request ?",
+      "revId": "c569d8b23d46eee454b5cdc67d86b228a9e60b76",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d37b45f3_7436aa4a",
         "filename": "/COMMIT_MSG",
         "patchSetId": 5
@@ -166,6 +183,23 @@
       "side": 1,
       "message": "\u003e Cool to see progress, and happy to help you work through getting it merged.\n\u003e \n\u003e Some initial thoughts that come to mind:\n\u003e 1. Presumably this library is doing blocking filesystem calls, which could lock up all of bmcweb (given that it\u0027s a single-threaded reactor).  Do we need to evict this audit logging to another process where it can be done at a lower priority soas not to impact the performance?\n\nPer my understanding about audit framework, this library would only send messages over netlink_audit socket (this is just a sender) to the kernel part of the linux audit subsystem, these don\u0027t actually touch the filesystem. There is another listening daemon \"audid\" that would be responsible for writing records onto the disk, so in that sense it is already separated ? \n\nAnd also auditd has a configuration option where we could tell it to not flush the data into the file immediately - rather we could also tell at what frequency we should flush things to the log.\n\n\u003e 2. This patch is proposing auditd be a required dependency.  Surely there are users that would opt out of it?  If so, how do we manage that complexity?  Runtime selection?  Compile time?\nMy intent in this patch is to not have auditd daemon as a required dependency , rather have kernel support for audit + libaudit shared library as runtime + compile time dependency, and per audit RFC  \"All messages are logged via the netlink socket if a user-space daemon is listening(auditd). If not, the messages are logged via printk to the syslog daemon (by default). So I am guessing if we don\u0027t have auditd, but just have libaudit \u0026 kernel support for audit enabled, we can at-least see the audit events in the journal(although I have not tested this myself).\n\n\n\u003e 3. Overall, my eventual goal was to completely remove session collections out of bmcweb, and make use of one of the existing login daemons (probably systemd logind) through pam.  This would get us more standard login/logout procedures, and we could easily hook in whatever plugins we wanted, including this one, because users would be logging in \"normally\".  This is similar to what the cockpit project (another webserver for remote managing linux systems) does.  If that were to happen, would that make using this plugin easier?\n\nI see that systemd,dbus \u0026 journal already have audit support (https://github.com/systemd/systemd/blob/e0a12b96344b1d7ee499df1d0447b14ced62c1b4/meson.build#L1218), i think that we would probably not need this change if we use systemd logind , probably we need to tweak some options of systemd , but that should work out of the box and should give us the audit events(if it is compiled with audit support \u0026 have kernel support for audit events)",
       "parentUuid": "fdb4ec6e_2fe4d271",
+      "revId": "c569d8b23d46eee454b5cdc67d86b228a9e60b76",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f8f98fc_e279da65",
+        "filename": "meson_options.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-08-02T14:48:42Z",
+      "side": 1,
+      "message": "Can you add a bit more here.",
       "revId": "c569d8b23d46eee454b5cdc67d86b228a9e60b76",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
