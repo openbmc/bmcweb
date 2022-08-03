@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3170f52f_62781813",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-03T20:47:24Z",
+      "side": 1,
+      "message": "Done.  Included http_request",
+      "parentUuid": "871d9f1b_ef5f5bb5",
+      "revId": "01b77a435a46cb48d1d671c86ff9d3bf44750f83",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3673e04d_5838c7c9",
@@ -67,6 +85,24 @@
       "side": 1,
       "message": "Maybe you misread?  Or I\u0027m misunderstanding what you\u0027re asking.  They\u0027re both in the status namespace:\n\nboost::beast::http::status::content_type\nboost::beast::http::status::content_transfer_encoding",
       "parentUuid": "3673e04d_5838c7c9",
+      "revId": "01b77a435a46cb48d1d671c86ff9d3bf44750f83",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "224d4278_e732191f",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 3630,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-03T20:47:24Z",
+      "side": 1,
+      "message": "NVM, I see what you\u0027re saying.  Yeah, I messed up the rebase.  Fixed now.",
+      "parentUuid": "14b6ab94_7fa55242",
       "revId": "01b77a435a46cb48d1d671c86ff9d3bf44750f83",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
