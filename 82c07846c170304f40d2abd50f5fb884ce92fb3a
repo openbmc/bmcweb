@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "800c095f_fadd3422",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-08-03T22:50:16Z",
+      "side": 1,
+      "message": "Pending tests. Otherwise LGTM. It\u0027s removing duplicate codes and using an existing well-tested function.",
+      "revId": "82c07846c170304f40d2abd50f5fb884ce92fb3a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
