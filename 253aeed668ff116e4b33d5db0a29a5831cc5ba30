@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "abd61c9b_3a6189c8",
+        "filename": "redfish-core/include/query.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-08-03T19:46:54Z",
+      "side": 1,
+      "message": "Copying a Trie doesn\u0027t make sense and is not efficient. But yes, as long as we can make sure the Trie here is always moved, making it copiable is not a big deal. Done.",
+      "parentUuid": "3c02ba9e_1f54867d",
+      "range": {
+        "startLine": 37,
+        "startChar": 3,
+        "endLine": 37,
+        "endChar": 36
+      },
+      "revId": "253aeed668ff116e4b33d5db0a29a5831cc5ba30",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "968ddb9d_d242076d",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-08-03T15:20:11Z",
       "side": 1,
       "message": "Would it make more sense to use empty() as the indication that this is a leaf?  And drop the leaf variable completely?",
+      "range": {
+        "startLine": 93,
+        "startChar": 0,
+        "endLine": 93,
+        "endChar": 32
+      },
+      "revId": "253aeed668ff116e4b33d5db0a29a5831cc5ba30",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b2a1951d_685e7ba8",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-08-03T19:46:54Z",
+      "side": 1,
+      "message": "There might be case where we have properties \u003d {/a, /a/b}. We still need to set leaf to true for the \"/a\" node.\n\nMaybe rename |leaf| to |selected| to avoid confusion? WDYT?\n\nDone. I have renamed this variable.",
+      "parentUuid": "968ddb9d_d242076d",
       "range": {
         "startLine": 93,
         "startChar": 0,
@@ -72,6 +120,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "52da5798_c62ed27e",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-08-03T19:46:54Z",
+      "side": 1,
+      "message": "Oh, this something I don\u0027t know. Why does std::map accept incomplete types?\n\nChanged to std::map, but kept this thread open for my question.",
+      "parentUuid": "17943482_2a433ac5",
+      "range": {
+        "startLine": 107,
+        "startChar": 36,
+        "endLine": 107,
+        "endChar": 52
+      },
+      "revId": "253aeed668ff116e4b33d5db0a29a5831cc5ba30",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "db12a9a2_9f32654d",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 1
@@ -83,6 +155,30 @@
       "writtenOn": "2022-08-03T15:20:11Z",
       "side": 1,
       "message": "Would it be better to do this with find(\u0027/\u0027) at each level?  That would save quite a few allocations, and drop the dependency on boost.",
+      "range": {
+        "startLine": 142,
+        "startChar": 0,
+        "endLine": 142,
+        "endChar": 72
+      },
+      "revId": "253aeed668ff116e4b33d5db0a29a5831cc5ba30",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1de72587_8c61bd64",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-08-03T19:46:54Z",
+      "side": 1,
+      "message": "Makes sense.\n\nDone.",
+      "parentUuid": "db12a9a2_9f32654d",
       "range": {
         "startLine": 142,
         "startChar": 0,
@@ -139,6 +235,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0925e4d3_24431df2",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-08-03T19:46:54Z",
+      "side": 1,
+      "message": "This can be a value. But we also need the map inside the node to be values.",
+      "parentUuid": "96c45fbf_29bc322f",
+      "range": {
+        "startLine": 163,
+        "startChar": 4,
+        "endLine": 163,
+        "endChar": 19
+      },
+      "revId": "253aeed668ff116e4b33d5db0a29a5831cc5ba30",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2b16a968_fb9b71e0",
@@ -152,6 +272,30 @@
       "writtenOn": "2022-08-03T15:20:11Z",
       "side": 1,
       "message": "Should SelectTrie have a clear() method to avoid this extra construction?",
+      "range": {
+        "startLine": 246,
+        "startChar": 24,
+        "endLine": 246,
+        "endChar": 39
+      },
+      "revId": "253aeed668ff116e4b33d5db0a29a5831cc5ba30",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bfb30d69_93ca475f",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-08-03T19:46:54Z",
+      "side": 1,
+      "message": "Yes. Done.",
+      "parentUuid": "2b16a968_fb9b71e0",
       "range": {
         "startLine": 246,
         "startChar": 24,
