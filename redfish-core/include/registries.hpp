@@ -47,13 +47,18 @@ struct Header
 struct Message
 {
     const char* description;
-    const char* message;
+    const char* messageString;
     const char* messageSeverity;
     const size_t numberOfArgs;
     std::array<const char*, 5> paramTypes;
     const char* resolution;
 };
-using MessageEntry = std::pair<const char*, const Message>;
+
+struct MessageEntry
+{
+    const char* messageId;
+    Message message;
+};
 
 inline std::string
     fillMessageArgs(const std::span<const std::string_view> messageArgs,
@@ -100,7 +105,7 @@ inline nlohmann::json::object_t
     // Intentionally make a copy of the string, so we can append in the
     // parameters.
     std::string msg =
-        redfish::registries::fillMessageArgs(args, entry.second.message);
+        redfish::registries::fillMessageArgs(args, entry.message.messageString);
     nlohmann::json jArgs = nlohmann::json::array();
     for (std::string_view arg : args)
     {
@@ -108,15 +113,15 @@ inline nlohmann::json::object_t
     }
     std::string msgId = header.id;
     msgId += ".";
-    msgId += entry.first;
+    msgId += entry.messageId;
 
     nlohmann::json::object_t response;
     response["@odata.type"] = "#Message.v1_1_1.Message";
     response["MessageId"] = std::move(msgId);
     response["Message"] = std::move(msg);
     response["MessageArgs"] = std::move(jArgs);
-    response["MessageSeverity"] = entry.second.messageSeverity;
-    response["Resolution"] = entry.second.resolution;
+    response["MessageSeverity"] = entry.message.messageSeverity;
+    response["Resolution"] = entry.message.resolution;
     return response;
 }
 

@@ -1316,8 +1316,8 @@ static LogParseError
                                               logEntryFields.end());
     messageArgs.resize(message->numberOfArgs);
 
-    std::string msg = redfish::registries::fillMessageArgs(messageArgs,
-                                                           message->message);
+    std::string msg = redfish::registries::fillMessageArgs(
+        messageArgs, message->messageString);
     if (msg.empty())
     {
         return LogParseError::parseFailed;
