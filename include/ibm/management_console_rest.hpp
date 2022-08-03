@@ -447,9 +447,10 @@ inline void
 
             segInfo.push_back(std::make_pair(lockFlags, segmentLength));
         }
-        lockRequestStructure.push_back(
-            make_tuple(req.session->uniqueId, req.session->clientId, lockType,
-                       resourceId, segInfo));
+
+        lockRequestStructure.push_back(make_tuple(
+            req.session->uniqueId, req.session->clientId.value_or(""), lockType,
+            resourceId, segInfo));
     }
 
     // print lock request into journal
@@ -556,8 +557,8 @@ inline void
     // validate the request ids
 
     auto varReleaselock = crow::ibm_mc_lock::Lock::getInstance().releaseLock(
-        listTransactionIds,
-        std::make_pair(req.session->clientId, req.session->uniqueId));
+        listTransactionIds, std::make_pair(req.session->clientId.value_or(""),
+                                           req.session->uniqueId));
 
     if (!varReleaselock.first)
     {
