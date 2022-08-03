@@ -20,6 +20,7 @@
 #include <array>
 #include <charconv>
 #include <cstddef>
+#include <format>
 #include <iostream>
 #include <numeric>
 #include <span>
@@ -33,27 +34,27 @@ namespace redfish::registries
 {
 struct Header
 {
-    const char* copyright;
-    const char* type;
-    const char* id;
-    const char* name;
-    const char* language;
-    const char* description;
-    const char* registryPrefix;
-    const char* registryVersion;
-    const char* owningEntity;
+    std::string_view copyright;
+    std::string_view type;
+    std::string_view id;
+    std::string_view name;
+    std::string_view language;
+    std::string_view description;
+    std::string_view registryPrefix;
+    std::string_view registryVersion;
+    std::string_view owningEntity;
 };
 
 struct Message
 {
-    const char* description;
-    const char* message;
-    const char* messageSeverity;
+    std::string_view messageId;
+    std::string_view description;
+    std::string_view messageString;
+    std::string_view messageSeverity;
     const size_t numberOfArgs;
-    std::array<const char*, 5> paramTypes;
-    const char* resolution;
+    std::array<const std::string_view, 5> paramTypes;
+    std::string_view resolution;
 };
-using MessageEntry = std::pair<const char*, const Message>;
 
 inline std::string
     fillMessageArgs(const std::span<const std::string_view> messageArgs,
@@ -92,37 +93,35 @@ inline std::string
 }
 
 inline nlohmann::json::object_t
-    getLogFromRegistry(const Header& header,
-                       std::span<const MessageEntry> registry, size_t index,
-                       std::span<const std::string_view> args)
+    getLogFromRegistry(const Header& header, std::span<const Message> registry,
+                       size_t index, std::span<const std::string_view> args)
 {
-    const redfish::registries::MessageEntry& entry = registry[index];
+    const redfish::registries::Message& entry = registry[index];
     // Intentionally make a copy of the string, so we can append in the
     // parameters.
-    std::string msg =
-        redfish::registries::fillMessageArgs(args, entry.second.message);
+    std::string msg = redfish::registries::fillMessageArgs(args,
+                                                           entry.messageString);
     nlohmann::json jArgs = nlohmann::json::array();
     for (std::string_view arg : args)
     {
         jArgs.push_back(arg);
     }
-    std::string msgId = header.id;
-    msgId += ".";
-    msgId += entry.first;
+    std::string msgId = std::format("{}.{}", header.id, entry.messageId);
+    ;
 
     nlohmann::json::object_t response;
     response["@odata.type"] = "#Message.v1_1_1.Message";
     response["MessageId"] = std::move(msgId);
     response["Message"] = std::move(msg);
     response["MessageArgs"] = std::move(jArgs);
-    response["MessageSeverity"] = entry.second.messageSeverity;
-    response["Resolution"] = entry.second.resolution;
+    response["MessageSeverity"] = entry.messageSeverity;
+    response["Resolution"] = entry.resolution;
     return response;
 }
 
 const Message* getMessage(std::string_view messageID);
 
 const Message* getMessageFromRegistry(const std::string& messageKey,
-                                      std::span<const MessageEntry> registry);
+                                      std::span<const Message> registry);
 
 } // namespace redfish::registries
