@@ -177,6 +177,24 @@
       "parentUuid": "9434dcac_8733b077",
       "revId": "906e051fe6cca08de7dc5eeb0846b2110e805b61",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fde06304_fd2da035",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-03T20:48:47Z",
+      "side": 1,
+      "message": "Naveen,\nIf you intend to work on Redfish patches in the future, you will need to learn to use the redfish service validator.",
+      "parentUuid": "1d191d2c_2a11dd5c",
+      "revId": "906e051fe6cca08de7dc5eeb0846b2110e805b61",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
