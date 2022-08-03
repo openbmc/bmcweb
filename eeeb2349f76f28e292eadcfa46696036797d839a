@@ -16,6 +16,24 @@
       "message": "Hi Ed, please review patch. Please let us know if still need to change version on this patch as well.\nThanks.",
       "revId": "eeeb2349f76f28e292eadcfa46696036797d839a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "40ee3d64_f64426ed",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-03T20:51:46Z",
+      "side": 1,
+      "message": "Yes, please follow the (now documented) rules for editing this file.",
+      "parentUuid": "d09f1f6c_0868f60c",
+      "revId": "eeeb2349f76f28e292eadcfa46696036797d839a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
