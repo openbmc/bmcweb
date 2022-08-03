@@ -416,15 +416,15 @@ class Subscription : public persistent_data::UserSubscription
         logEntryArray.push_back({});
         nlohmann::json& logEntryJson = logEntryArray.back();
 
-        logEntryJson = {
-            {"EventId", "TestID"},
-            {"EventType", "Event"},
-            {"Severity", "OK"},
-            {"Message", "Generated test event"},
-            {"MessageId", "OpenBMC.0.2.TestEventLog"},
-            {"MessageArgs", nlohmann::json::array()},
-            {"EventTimestamp", crow::utility::getDateTimeOffsetNow().first},
-            {"Context", customText}};
+        logEntryJson = {{"EventId", "TestID"},
+                        {"EventType", "Event"},
+                        {"Severity", "OK"},
+                        {"Message", "Generated test event"},
+                        {"MessageId", "OpenBMC.0.2.TestEventLog"},
+                        {"MessageArgs", nlohmann::json::array()},
+                        {"EventTimestamp",
+                         redfish::time_utils::getDateTimeOffsetNow().first},
+                        {"Context", customText}};
 
         nlohmann::json msg;
         msg["@odata.type"] = "#Event.v1_4_0.Event";
@@ -1027,7 +1027,8 @@ class EventServiceManager
         nlohmann::json event = {
             {"EventId", eventId},
             {"MemberId", memberId},
-            {"EventTimestamp", crow::utility::getDateTimeOffsetNow().first},
+            {"EventTimestamp",
+             redfish::time_utils::getDateTimeOffsetNow().first},
             {"OriginOfCondition", origin}};
         for (nlohmann::json::iterator it = event.begin(); it != event.end();
              ++it)
@@ -1085,7 +1086,8 @@ class EventServiceManager
         {
             std::shared_ptr<Subscription> entry = it.second;
             nlohmann::json msgJson = {
-                {"Timestamp", crow::utility::getDateTimeOffsetNow().first},
+                {"Timestamp",
+                 redfish::time_utils::getDateTimeOffsetNow().first},
                 {"OriginOfCondition", "/ibm/v1/HMC/BroadcastService"},
                 {"Name", "Broadcast Message"},
                 {"Message", broadcastMsg}};

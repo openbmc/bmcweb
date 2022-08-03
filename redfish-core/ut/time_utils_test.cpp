@@ -82,5 +82,62 @@ TEST(ToDurationStringFromUintTest, NegativeTests)
               std::nullopt);
 }
 
+TEST(GetDateTimeStdtime, ConversionTests)
+{
+    // some time before the epoch
+    EXPECT_EQ(getDateTimeStdtime(std::time_t{-1234567}),
+              "1970-01-01T00:00:00+00:00");
+
+    // epoch
+    EXPECT_EQ(getDateTimeStdtime(std::time_t{0}), "1970-01-01T00:00:00+00:00");
+
+    // Limits
+    EXPECT_EQ(getDateTimeStdtime(std::numeric_limits<std::time_t>::max()),
+              "9999-12-31T23:59:59+00:00");
+    EXPECT_EQ(getDateTimeStdtime(std::numeric_limits<std::time_t>::min()),
+              "1970-01-01T00:00:00+00:00");
+}
+
+TEST(GetDateTimeUint, ConversionTests)
+{
+    EXPECT_EQ(getDateTimeUint(uint64_t{1638312095}),
+              "2021-11-30T22:41:35+00:00");
+    // some time in the future, beyond 2038
+    EXPECT_EQ(getDateTimeUint(uint64_t{41638312095}),
+              "3289-06-18T21:48:15+00:00");
+    // the maximum time we support
+    EXPECT_EQ(getDateTimeUint(uint64_t{253402300799}),
+              "9999-12-31T23:59:59+00:00");
+
+    // returns the maximum Redfish date
+    EXPECT_EQ(getDateTimeUint(std::numeric_limits<uint64_t>::max()),
+              "9999-12-31T23:59:59+00:00");
+
+    EXPECT_EQ(getDateTimeUint(std::numeric_limits<uint64_t>::min()),
+              "1970-01-01T00:00:00+00:00");
+}
+
+TEST(GetDateTimeUintMs, ConverstionTests)
+{
+    EXPECT_EQ(getDateTimeUintMs(uint64_t{1638312095123}),
+              "2021-11-30T22:41:35.123+00:00");
+    // returns the maximum Redfish date
+    EXPECT_EQ(getDateTimeUintMs(std::numeric_limits<uint64_t>::max()),
+              "9999-12-31T23:59:59.999+00:00");
+    EXPECT_EQ(getDateTimeUintMs(std::numeric_limits<uint64_t>::min()),
+              "1970-01-01T00:00:00.000+00:00");
+}
+
+TEST(Utility, GetDateTimeUintUs)
+{
+    EXPECT_EQ(getDateTimeUintUs(uint64_t{1638312095123456}),
+              "2021-11-30T22:41:35.123456+00:00");
+    // returns the maximum Redfish date
+    EXPECT_EQ(getDateTimeUintUs(std::numeric_limits<uint64_t>::max()),
+              "9999-12-31T23:59:59.999999+00:00");
+    EXPECT_EQ(getDateTimeUintUs(std::numeric_limits<uint64_t>::min()),
+              "1970-01-01T00:00:00.000000+00:00");
+}
+
 } // namespace
 } // namespace redfish::time_utils
