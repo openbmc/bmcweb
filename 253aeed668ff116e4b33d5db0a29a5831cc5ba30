@@ -3,6 +3,167 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3c02ba9e_1f54867d",
+        "filename": "redfish-core/include/query.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-03T15:20:11Z",
+      "side": 1,
+      "message": "Why don\u0027t we just make our objects copyable?",
+      "range": {
+        "startLine": 37,
+        "startChar": 3,
+        "endLine": 37,
+        "endChar": 36
+      },
+      "revId": "253aeed668ff116e4b33d5db0a29a5831cc5ba30",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "968ddb9d_d242076d",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-03T15:20:11Z",
+      "side": 1,
+      "message": "Would it make more sense to use empty() as the indication that this is a leaf?  And drop the leaf variable completely?",
+      "range": {
+        "startLine": 93,
+        "startChar": 0,
+        "endLine": 93,
+        "endChar": 32
+      },
+      "revId": "253aeed668ff116e4b33d5db0a29a5831cc5ba30",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "17943482_2a433ac5",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-03T15:20:11Z",
+      "side": 1,
+      "message": "If you use std::map, could these be values?\n\nstd::map would also give us a future optimization where we could single walk the tree.",
+      "range": {
+        "startLine": 107,
+        "startChar": 36,
+        "endLine": 107,
+        "endChar": 52
+      },
+      "revId": "253aeed668ff116e4b33d5db0a29a5831cc5ba30",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "db12a9a2_9f32654d",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-03T15:20:11Z",
+      "side": 1,
+      "message": "Would it be better to do this with find(\u0027/\u0027) at each level?  That would save quite a few allocations, and drop the dependency on boost.",
+      "range": {
+        "startLine": 142,
+        "startChar": 0,
+        "endLine": 142,
+        "endChar": 72
+      },
+      "revId": "253aeed668ff116e4b33d5db0a29a5831cc5ba30",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8cc21756_ffc92612",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-03T15:20:11Z",
+      "side": 1,
+      "message": "This is duplicating a hash lookup here and on currNode-\u003einsert\n\nShould we be using emplace() here, to do a \"create if doesn\u0027t exist\" operation?",
+      "range": {
+        "startLine": 151,
+        "startChar": 39,
+        "endLine": 151,
+        "endChar": 53
+      },
+      "revId": "253aeed668ff116e4b33d5db0a29a5831cc5ba30",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "96c45fbf_29bc322f",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-03T15:20:11Z",
+      "side": 1,
+      "message": "Pretty sure this can be a value, which I think solves your movable problem?",
+      "range": {
+        "startLine": 163,
+        "startChar": 4,
+        "endLine": 163,
+        "endChar": 19
+      },
+      "revId": "253aeed668ff116e4b33d5db0a29a5831cc5ba30",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b16a968_fb9b71e0",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-03T15:20:11Z",
+      "side": 1,
+      "message": "Should SelectTrie have a clear() method to avoid this extra construction?",
+      "range": {
+        "startLine": 246,
+        "startChar": 24,
+        "endLine": 246,
+        "endChar": 39
+      },
+      "revId": "253aeed668ff116e4b33d5db0a29a5831cc5ba30",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c67f941c_a99864b3",
         "filename": "redfish-core/include/utils/query_param_test.cpp",
         "patchSetId": 1
@@ -14,6 +175,30 @@
       "writtenOn": "2022-08-03T14:55:09Z",
       "side": 1,
       "message": "These changes are because we now check properties while constructing the tree.",
+      "range": {
+        "startLine": 271,
+        "startChar": 9,
+        "endLine": 271,
+        "endChar": 17
+      },
+      "revId": "253aeed668ff116e4b33d5db0a29a5831cc5ba30",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7f84d7fb_f3d3d8ce",
+        "filename": "redfish-core/include/utils/query_param_test.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-03T15:20:11Z",
+      "side": 1,
+      "message": "👍",
+      "parentUuid": "c67f941c_a99864b3",
       "range": {
         "startLine": 271,
         "startChar": 9,
