@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "99157550_0e54851f",
+        "filename": "redfish-core/include/query.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-03T19:51:43Z",
+      "side": 1,
+      "message": "Fair point, why don\u0027t we just move the Trie (and query object) into the lambda?",
+      "parentUuid": "abd61c9b_3a6189c8",
+      "range": {
+        "startLine": 37,
+        "startChar": 3,
+        "endLine": 37,
+        "endChar": 36
+      },
+      "revId": "253aeed668ff116e4b33d5db0a29a5831cc5ba30",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "968ddb9d_d242076d",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 1
@@ -131,6 +155,30 @@
       "writtenOn": "2022-08-03T19:46:54Z",
       "side": 1,
       "message": "Oh, this something I don\u0027t know. Why does std::map accept incomplete types?\n\nChanged to std::map, but kept this thread open for my question.",
+      "parentUuid": "17943482_2a433ac5",
+      "range": {
+        "startLine": 107,
+        "startChar": 36,
+        "endLine": 107,
+        "endChar": 52
+      },
+      "revId": "253aeed668ff116e4b33d5db0a29a5831cc5ba30",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd33d1bf_f3e9f390",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-03T19:51:43Z",
+      "side": 1,
+      "message": "\u003e Why does std::map accept incomplete types? \n\nMy understanding (which is imperfect and someone that knows better feel free to jump in.) is that because std::map is a linked list implementation, the values are pointers anyway, so they can be incomplete and resolved at runtime.\n\nstd::unordered_map might require a std::move, which means it needs a concrete implementation in memory.",
       "parentUuid": "17943482_2a433ac5",
       "range": {
         "startLine": 107,
