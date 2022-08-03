@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c5c8376b_2140a302",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-03T20:14:42Z",
+      "side": 1,
+      "message": "I don\u0027t see a usage of this?",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 18
+      },
+      "revId": "d1eed261265a849715809ebf9bb51d0e85bece5d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a755cda5_bafed9f5",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-03T20:14:42Z",
+      "side": 1,
+      "message": "nit: should we make this match std containers and make this emplace()?",
+      "range": {
+        "startLine": 80,
+        "startChar": 20,
+        "endLine": 80,
+        "endChar": 36
+      },
+      "revId": "d1eed261265a849715809ebf9bb51d0e85bece5d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a280926c_805723c7",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-03T20:14:42Z",
+      "side": 1,
+      "message": "would it make sense to use empty() as the same thing as \"isSelected\"?  We could keep the same behavior and drop a bool from the struct.\n\nJust a thought that could make it simpler, not required.",
+      "range": {
+        "startLine": 103,
+        "startChar": 0,
+        "endLine": 111,
+        "endChar": 5
+      },
+      "revId": "d1eed261265a849715809ebf9bb51d0e85bece5d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa666eea_eda61de2",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-03T20:14:42Z",
+      "side": 1,
+      "message": "nit. When declaring a std::map in a c++20 daemon, always fill in the third argument as less\u003c\u003e.  This means that string_view lookups will be possible (even if they aren\u0027t used until the future).\n\nOptionally, you could also make your find() call work with string_view, but up to you.",
+      "revId": "d1eed261265a849715809ebf9bb51d0e85bece5d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4b669885_231eefd3",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-03T20:14:42Z",
+      "side": 1,
+      "message": "I don\u0027t think you need this conditional;  substr(0, std::string_view::npos) will return to the end of the string to make this code easier to write.",
+      "range": {
+        "startLine": 156,
+        "startChar": 12,
+        "endLine": 157,
+        "endChar": 13
+      },
+      "revId": "d1eed261265a849715809ebf9bb51d0e85bece5d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
