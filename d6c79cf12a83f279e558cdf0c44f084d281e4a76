@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2b15082a_32a230c7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-08-03T00:07:36Z",
+      "side": 1,
+      "message": "Moving to WIP (to eventually abandon). We will move forward with Ed\u0027s patchsets for  dropping the boost::posix_time dependency and adding microsecond timestamp support (see https://gerrit.openbmc.org/c/openbmc/bmcweb/+/55836 and https://gerrit.openbmc.org/c/openbmc/bmcweb/+/55837).",
+      "revId": "d6c79cf12a83f279e558cdf0c44f084d281e4a76",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c6a321c0_f1013cdb",
@@ -297,6 +314,30 @@
       "side": 1,
       "message": "In my series we just define it based on the resolution of the input, which I think is the right thing to do.",
       "parentUuid": "1484f611_a5a3192e",
+      "range": {
+        "startLine": 632,
+        "startChar": 0,
+        "endLine": 635,
+        "endChar": 5
+      },
+      "revId": "d6c79cf12a83f279e558cdf0c44f084d281e4a76",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "31b09a48_bb0bc93b",
+        "filename": "http/utility.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 635,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-08-03T00:07:36Z",
+      "side": 1,
+      "message": "Sounds good.",
+      "parentUuid": "f6a5d31b_965a914d",
       "range": {
         "startLine": 632,
         "startChar": 0,
