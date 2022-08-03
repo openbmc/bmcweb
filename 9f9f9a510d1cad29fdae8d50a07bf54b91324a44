@@ -468,6 +468,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e346c5a_4c6e6a70",
+        "filename": "http/utility.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 601,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-03T20:31:47Z",
+      "side": 1,
+      "message": "\u003e \"from looking at this code.\" \u003e\u003e did you look at some outside code?\n\nNo, looking at this code.  The thing here is that negative dates are prior to 1970-01-01, so we need to account for negative \"days\" being actually one day prior\n\nie, 1 second before epoch, is actually 1 day before epoch, because we need 1969-12-31, so this line accounts for that.\n\n\u003e \n\u003e I still don\u0027t quite understand how this if-statement works but I trust that it does work since unit tests pass.\n\nWith that said, now that we don\u0027t handle negative dates (we just clamp to epoch) I don\u0027t think this line is useful, so I\u0027ve removed it.",
+      "parentUuid": "6133bd74_b7e04c76",
+      "range": {
+        "startLine": 601,
+        "startChar": 4,
+        "endLine": 601,
+        "endChar": 14
+      },
+      "revId": "9f9f9a510d1cad29fdae8d50a07bf54b91324a44",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5fdf78ce_5e8b09db",
