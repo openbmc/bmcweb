@@ -220,6 +220,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e8a2b9db_78793340",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-08-03T17:05:04Z",
+      "side": 1,
+      "message": "It was intentional.  I wanted to end up with boost::urls::segments instead of boost::urls::segments_view because segments allow me to perform array style lookup while segments_view requires using an iterator.  I wasn\u0027t able to get boost::urls::segments from boost::urls::url_view so that\u0027s why I made this copy.",
+      "parentUuid": "a9eabfe1_d33c9cc5",
+      "range": {
+        "startLine": 247,
+        "startChar": 25,
+        "endLine": 247,
+        "endChar": 32
+      },
+      "revId": "6284e4cf53c2a60b2abc195bfea74a849cfdc13a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6fa9dfe1_513e1873",
         "filename": "redfish-core/include/redfish_aggregator.hpp",
         "patchSetId": 3
@@ -279,6 +303,30 @@
       "side": 1,
       "message": "it’s not normalized because there’s literally one use case where ending with a / has to return different behavior than without a /.  otherwise we would’ve fixed this in the core long ago.",
       "parentUuid": "1d2fa443_784d387e",
+      "range": {
+        "startLine": 252,
+        "startChar": 11,
+        "endLine": 252,
+        "endChar": 33
+      },
+      "revId": "6284e4cf53c2a60b2abc195bfea74a849cfdc13a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d23ed7c2_649d7c93",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-08-03T17:05:04Z",
+      "side": 1,
+      "message": "ACK.  I\u0027ll normalize and clean up the comparisons.",
+      "parentUuid": "03049502_885605a5",
       "range": {
         "startLine": 252,
         "startChar": 11,
@@ -421,6 +469,30 @@
       "side": 1,
       "message": "\u003e There definitely are, however the later patch that implements aggregating collections will ignore responses that do not contain a \"Members\" array so that\u0027s enough to catch false positives. \n\nACK.\n\n\u003e UpdateService is hardcoded in because it contains collections and we want to make sure we handle those correctly.\n\nI\u0027m not following this.  Aren\u0027t there other collections that might exist 2 levels deep?\n\n\u003e \n\u003e This is ultimately the right way to handle determining what is and isn\u0027t a collection https://gerrit.openbmc.org/c/openbmc/bmcweb/+/55215.  When that\u0027s finished then it will provide a more reliable method of determining what is and isn\u0027t a collection.  The hard coding can go away.\n\nACK.",
       "parentUuid": "9af98a96_2b5923b9",
+      "range": {
+        "startLine": 258,
+        "startChar": 25,
+        "endLine": 258,
+        "endChar": 38
+      },
+      "revId": "6284e4cf53c2a60b2abc195bfea74a849cfdc13a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f2b5b874_25702c7b",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-08-03T17:05:04Z",
+      "side": 1,
+      "message": "\u003e \u003e UpdateService is hardcoded in because it contains collections and we want to make sure we handle those correctly.\n\u003e I\u0027m not following this.  Aren\u0027t there other collections that might exist 2 levels deep?\nThere are some other collections that exist 2 or more levels deep, but I don\u0027t think we\u0027d want to aggregate those.  A number of them exist within another collection (e.g. Sensors under a Chassis).  Roles and Accounts exist under Account Service.  I figured we\u0027d need to implement some special handling if we want to correctly enable satellite Roles and Accounts.",
+      "parentUuid": "7f966148_fa30b9db",
       "range": {
         "startLine": 258,
         "startChar": 25,
@@ -616,6 +688,30 @@
       "side": 1,
       "message": "what is the device is fooaggregated_node ? Won\u0027t this code fail?\n\nI suspect you want boost::starts_with, then to set pos by hand.",
       "parentUuid": "b9e5f981_2fbb2c5d",
+      "range": {
+        "startLine": 331,
+        "startChar": 30,
+        "endLine": 331,
+        "endChar": 34
+      },
+      "revId": "6284e4cf53c2a60b2abc195bfea74a849cfdc13a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aed79988_a7d238e9",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-08-03T17:05:04Z",
+      "side": 1,
+      "message": "No it would handle it correctly if seg4 is \"fooaggregated_node\".  find(\"aggregated\") returns the starting position of \"aggregated\" so for that example it would be 3.  pos can only be 0 when \"aggregated\" appears at the start of the string.",
+      "parentUuid": "892d1f36_0a756960",
       "range": {
         "startLine": 331,
         "startChar": 30,
