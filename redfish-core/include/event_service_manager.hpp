@@ -86,11 +86,11 @@ static const Message*
     std::span<const MessageEntry>::iterator messageIt =
         std::find_if(registry.begin(), registry.end(),
                      [&messageKey](const MessageEntry& messageEntry) {
-        return messageKey == messageEntry.first;
+        return messageKey == messageEntry.messageId;
         });
     if (messageIt != registry.end())
     {
-        return &messageIt->second;
+        return &messageIt->message;
     }
 
     return nullptr;
@@ -227,8 +227,8 @@ inline int formatEventLogEntry(const std::string& logEntryID,
         return -1;
     }
 
-    std::string msg = redfish::registries::fillMessageArgs(messageArgs,
-                                                           message->message);
+    std::string msg = redfish::registries::fillMessageArgs(
+        messageArgs, message->messageString);
     if (msg.empty())
     {
         return -1;
