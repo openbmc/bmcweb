@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5129646a_3edc48f1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-08-03T20:57:03Z",
+      "side": 1,
+      "message": "I don\u0027t see major changes since last time I +1 it",
+      "revId": "1c0c40c30df0627f3f6f0fbc8cd8d65026c10c03",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
