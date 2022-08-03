@@ -244,6 +244,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "743ef6c8_b29f51ff",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-03T19:56:19Z",
+      "side": 1,
+      "message": "..... I\u0027m not quite following, and would really prefer we not copy.  Even if we have to do iterator++; 3 times, that seems better than making a complete copy, although it really surprises me that there\u0027s this limitation in boost url.",
+      "parentUuid": "e8a2b9db_78793340",
+      "range": {
+        "startLine": 247,
+        "startChar": 25,
+        "endLine": 247,
+        "endChar": 32
+      },
+      "revId": "6284e4cf53c2a60b2abc195bfea74a849cfdc13a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6fa9dfe1_513e1873",
         "filename": "redfish-core/include/redfish_aggregator.hpp",
         "patchSetId": 3
@@ -505,6 +529,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fa148d6e_e85819d1",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-03T19:56:19Z",
+      "side": 1,
+      "message": "\u003e \u003e \u003e UpdateService is hardcoded in because it contains collections and we want to make sure we handle those correctly.\n\u003e \u003e I\u0027m not following this.  Aren\u0027t there other collections that might exist 2 levels deep?\n\u003e There are some other collections that exist 2 or more levels deep, but I don\u0027t think we\u0027d want to aggregate those.\n\nWhy not?\n\n\u003e  A number of them exist within another collection (e.g. Sensors under a Chassis).  Roles and Accounts exist under Account Service.  I figured we\u0027d need to implement some special handling if we want to correctly enable satellite Roles and Accounts.\n\nAgreed, Roles and Accounts is weird, and probably shouldn\u0027t be aggregated at all, but I\u0027d much rather we make a list of \"things that don\u0027t make sense to aggregate\" and then just aggregate all the rest.  That seems far less brittle than an allow list.",
+      "parentUuid": "f2b5b874_25702c7b",
+      "range": {
+        "startLine": 258,
+        "startChar": 25,
+        "endLine": 258,
+        "endChar": 38
+      },
+      "revId": "6284e4cf53c2a60b2abc195bfea74a849cfdc13a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ed9d16c9_529bcdaf",
         "filename": "redfish-core/include/redfish_aggregator.hpp",
         "patchSetId": 3
@@ -712,6 +760,30 @@
       "side": 1,
       "message": "No it would handle it correctly if seg4 is \"fooaggregated_node\".  find(\"aggregated\") returns the starting position of \"aggregated\" so for that example it would be 3.  pos can only be 0 when \"aggregated\" appears at the start of the string.",
       "parentUuid": "892d1f36_0a756960",
+      "range": {
+        "startLine": 331,
+        "startChar": 30,
+        "endLine": 331,
+        "endChar": 34
+      },
+      "revId": "6284e4cf53c2a60b2abc195bfea74a849cfdc13a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "45a2b9ad_a181c5e1",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-03T19:56:19Z",
+      "side": 1,
+      "message": "Ah, good point, but I\u0027m still going to hold the position that starts_with declares your intent better, and it\u0027s what we should use here.  std::string::starts_with I\u0027m pretty sure is what we should be doing.",
+      "parentUuid": "aed79988_a7d238e9",
       "range": {
         "startLine": 331,
         "startChar": 30,
