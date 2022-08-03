@@ -22,6 +22,23 @@
       },
       "revId": "7915c5a060a65d253a5eba35e32dfe91f1ff3acc",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d1a765f4_f3d6d17b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-08-03T23:13:56Z",
+      "side": 1,
+      "message": "Does RedfishServiceValidator check these headers?",
+      "revId": "7915c5a060a65d253a5eba35e32dfe91f1ff3acc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
