@@ -30,6 +30,23 @@
 namespace redfish
 {
 
+namespace details
+{
+
+// std::function objects requires to be copiable. We need a workaround if a
+// lambda captures move-only objects.
+// See
+// https://stackoverflow.com/questions/56940199/how-to-capture-a-unique-ptr-in-a-stdfunction
+template <class F>
+auto makeSharedFunction(F&& f)
+{
+    return [pf = std::make_shared<std::decay_t<F>>(std::forward<F>(f))](
+               auto&&... args) -> decltype(auto) {
+        return (*pf)(decltype(args)(args)...);
+    };
+}
+} // namespace details
+
 // Sets up the Redfish Route and delegates some of the query parameter
 // processing. |queryCapabilities| stores which query parameters will be
 // handled by redfish-core/lib codes, then default query parameter handler won't
@@ -71,11 +88,13 @@ namespace redfish
     delegated = query_param::delegate(queryCapabilities, *queryOpt);
     std::function<void(crow::Response&)> handler =
         asyncResp->res.releaseCompleteRequestHandler();
-    asyncResp->res.setCompleteRequestHandler(
+
+    asyncResp->res.setCompleteRequestHandler(details::makeSharedFunction(
         [&app, handler(std::move(handler)),
-         query{*queryOpt}](crow::Response& resIn) mutable {
+         query{std::move(*queryOpt)}](crow::Response& resIn) mutable {
         processAllParams(app, query, handler, resIn);
-    });
+    }));
+
     return true;
 }
 

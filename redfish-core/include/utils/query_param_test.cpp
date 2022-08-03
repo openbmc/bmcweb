@@ -7,6 +7,7 @@
 #include <nlohmann/json.hpp>
 
 #include <new>
+#include <span>
 
 #include <gmock/gmock.h> // IWYU pragma: keep
 #include <gtest/gtest.h> // IWYU pragma: keep
@@ -165,6 +166,7 @@ TEST(IsSelectedPropertyAllowed, NotAllowedCharactersReturnsFalse)
     EXPECT_FALSE(isSelectedPropertyAllowed("?"));
     EXPECT_FALSE(isSelectedPropertyAllowed("!"));
     EXPECT_FALSE(isSelectedPropertyAllowed("-"));
+    EXPECT_FALSE(isSelectedPropertyAllowed("/"));
 }
 
 TEST(IsSelectedPropertyAllowed, EmptyStringReturnsFalse)
@@ -189,7 +191,7 @@ TEST(IsSelectedPropertyAllowed, ValidPropertReturnsTrue)
     EXPECT_TRUE(isSelectedPropertyAllowed("@odata.type"));
     EXPECT_TRUE(isSelectedPropertyAllowed("#ComputerSystem.Reset"));
     EXPECT_TRUE(isSelectedPropertyAllowed(
-        "Boot/BootSourceOverrideTarget@Redfish.AllowableValues"));
+        "BootSourceOverrideTarget@Redfish.AllowableValues"));
 }
 
 TEST(GetSelectParam, EmptyValueReturnsError)
@@ -212,79 +214,104 @@ TEST(GetSelectParam, InvalidPathPropertyReturnsError)
     EXPECT_FALSE(getSelectParam("%%%", query));
 }
 
-TEST(GetSelectParam, PropertyReturnsOk)
+TEST(GetSelectParam, TrieNodesRespectAllProperties)
 {
     Query query;
     ASSERT_TRUE(getSelectParam("foo/bar,bar", query));
-    EXPECT_THAT(query.selectedProperties,
-                UnorderedElementsAre(Eq("/foo/bar"), Eq("/bar"),
-                                     Eq("/@odata.id"), Eq("/@odata.type"),
-                                     Eq("/@odata.context"), Eq("/@odata.etag"),
-                                     Eq("/error")));
+    ASSERT_NE(query.selectTrie.root, nullptr);
+
+    ASSERT_NE(query.selectTrie.root->find("bar"), nullptr);
+    EXPECT_TRUE(query.selectTrie.root->find("bar")->isLeaf());
+
+    ASSERT_NE(query.selectTrie.root->find("@odata.id"), nullptr);
+    EXPECT_TRUE(query.selectTrie.root->find("@odata.id")->isLeaf());
+
+    ASSERT_NE(query.selectTrie.root->find("@odata.type"), nullptr);
+    EXPECT_TRUE(query.selectTrie.root->find("@odata.type")->isLeaf());
+
+    ASSERT_NE(query.selectTrie.root->find("@odata.context"), nullptr);
+    EXPECT_TRUE(query.selectTrie.root->find("@odata.context")->isLeaf());
+
+    ASSERT_NE(query.selectTrie.root->find("@odata.etag"), nullptr);
+    EXPECT_TRUE(query.selectTrie.root->find("@odata.etag")->isLeaf());
+
+    ASSERT_NE(query.selectTrie.root->find("error"), nullptr);
+    EXPECT_TRUE(query.selectTrie.root->find("error")->isLeaf());
+
+    SelectTrieNode* child = query.selectTrie.root->find("foo");
+    ASSERT_NE(child, nullptr);
+    EXPECT_FALSE(child->isLeaf());
+    ASSERT_NE(child->find("bar"), nullptr);
+    EXPECT_TRUE(child->find("bar")->isLeaf());
 }
 
-TEST(GetIntermediatePaths, AllIntermediatePathsAreReturned)
+SelectTrie getTrie(std::span<std::string_view> properties)
 {
-    std::unordered_set<std::string> properties = {"/foo/bar/213"};
-    EXPECT_THAT(getIntermediatePaths(properties),
-                UnorderedElementsAre(Eq("/foo/bar"), Eq("/foo")));
+    SelectTrie trie;
+    for (auto const& property : properties)
+    {
+        EXPECT_TRUE(trie.insertNode(property));
+    }
+    return trie;
 }
 
 TEST(RecursiveSelect, ExpectedKeysAreSelectInSimpleObject)
 {
-    std::unordered_set<std::string> shouldSelect = {"/select_me"};
-    nlohmann::json root = R"({"select_me" : "foo", "omit_me" : "bar"})"_json;
-    nlohmann::json expected = R"({"select_me" : "foo"})"_json;
-    performSelect(root, shouldSelect);
+    std::vector<std::string_view> properties = {"SelectMe"};
+    SelectTrie trie = getTrie(properties);
+    nlohmann::json root = R"({"SelectMe" : "foo", "OmitMe" : "bar"})"_json;
+    nlohmann::json expected = R"({"SelectMe" : "foo"})"_json;
+    recursiveSelect(root, *trie.root);
     EXPECT_EQ(root, expected);
 }
 
 TEST(RecursiveSelect, ExpectedKeysAreSelectInNestedObject)
 {
-    std::unordered_set<std::string> shouldSelect = {
-        "/select_me", "/prefix0/explicit_select_me", "/prefix1", "/prefix2"};
+    std::vector<std::string_view> properties = {
+        "SelectMe", "Prefix0/ExplicitSelectMe", "Prefix1", "Prefix2"};
+    SelectTrie trie = getTrie(properties);
     nlohmann::json root = R"(
 {
-  "select_me":[
+  "SelectMe":[
     "foo"
   ],
-  "omit_me":"bar",
-  "prefix0":{
-    "explicit_select_me":"123",
-    "omit_me":"456"
+  "OmitMe":"bar",
+  "Prefix0":{
+    "ExplicitSelectMe":"123",
+    "OmitMe":"456"
   },
-  "prefix1":{
-    "implicit_select_me":"123"
+  "Prefix1":{
+    "ImplicitSelectMe":"123"
   },
-  "prefix2":[
+  "Prefix2":[
     {
-      "implicit_select_me":"123"
+      "ImplicitSelectMe":"123"
     }
   ],
-  "prefix3":[
-    "omit_me"
+  "Prefix3":[
+    "OmitMe"
   ]
 }
 )"_json;
     nlohmann::json expected = R"(
 {
-  "select_me":[
+  "SelectMe":[
     "foo"
   ],
-  "prefix0":{
-    "explicit_select_me":"123"
+  "Prefix0":{
+    "ExplicitSelectMe":"123"
   },
-  "prefix1":{
-    "implicit_select_me":"123"
+  "Prefix1":{
+    "ImplicitSelectMe":"123"
   },
-  "prefix2":[
+  "Prefix2":[
     {
-      "implicit_select_me":"123"
+      "ImplicitSelectMe":"123"
     }
   ]
 }
 )"_json;
-    performSelect(root, shouldSelect);
+    recursiveSelect(root, *trie.root);
     EXPECT_EQ(root, expected);
 }
 
@@ -292,19 +319,19 @@ TEST(RecursiveSelect, OdataPropertiesAreSelected)
 {
     nlohmann::json root = R"(
 {
-  "omit_me":"bar",
+  "OmitMe":"bar",
   "@odata.id":1,
   "@odata.type":2,
   "@odata.context":3,
   "@odata.etag":4,
   "prefix1":{
-    "omit_me":"bar",
+    "OmitMe":"bar",
     "@odata.id":1
   },
-  "prefix2":[1, 2, 3],
-  "prefix3":[
+  "Prefix2":[1, 2, 3],
+  "Prefix3":[
     {
-      "omit_me":"bar",
+      "OmitMe":"bar",
       "@odata.id":1
     }
   ]
@@ -325,7 +352,7 @@ TEST(RecursiveSelect, OdataPropertiesAreSelected)
     if constexpr (bmcwebInsecureEnableQueryParams)
     {
         ASSERT_NE(query, std::nullopt);
-        performSelect(root, query->selectedProperties);
+        recursiveSelect(root, *query->selectTrie.root);
         EXPECT_EQ(root, expected);
     }
     else
