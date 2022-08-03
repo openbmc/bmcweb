@@ -16,6 +16,23 @@
       "message": "This LGTM. It also fixed some constness issues in the original code",
       "revId": "f39ce5e0f89fe6415f6bcef7d066c4d441b37334",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa0a7c36_1bf23338",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 345,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-08-03T17:19:26Z",
+      "side": 1,
+      "message": "Why not a break here like it used to have?",
+      "revId": "f39ce5e0f89fe6415f6bcef7d066c4d441b37334",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
