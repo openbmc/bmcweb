@@ -1316,8 +1316,8 @@ static LogParseError
                                               logEntryFields.end());
     messageArgs.resize(message->numberOfArgs);
 
-    std::string msg = redfish::registries::fillMessageArgs(messageArgs,
-                                                           message->message);
+    std::string msg = redfish::registries::fillMessageArgs(
+        messageArgs, message->messageString);
     if (msg.empty())
     {
         return LogParseError::parseFailed;
@@ -3900,8 +3900,8 @@ static bool fillPostCodeEntry(
         std::array<std::string_view, 3> messageArgs = {
             bootIndexStr, timeOffsetString, hexCodeStr};
 
-        std::string msg =
-            redfish::registries::fillMessageArgs(messageArgs, message->message);
+        std::string msg = redfish::registries::fillMessageArgs(
+            messageArgs, message->messageString);
         if (msg.empty())
         {
             messages::internalError(asyncResp->res);

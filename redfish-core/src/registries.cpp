@@ -16,11 +16,11 @@ const Message* getMessageFromRegistry(const std::string& messageKey,
     std::span<const MessageEntry>::iterator messageIt =
         std::find_if(registry.begin(), registry.end(),
                      [&messageKey](const MessageEntry& messageEntry) {
-        return std::strcmp(messageEntry.first, messageKey.c_str()) == 0;
+        return std::strcmp(messageEntry.messageId, messageKey.c_str()) == 0;
         });
     if (messageIt != registry.end())
     {
-        return &messageIt->second;
+        return &messageIt->message;
     }
 
     return nullptr;
