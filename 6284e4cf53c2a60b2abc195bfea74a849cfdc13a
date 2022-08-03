@@ -160,6 +160,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "44bc58e2_786db134",
+        "filename": "redfish-core/include/query.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-08-03T22:19:30Z",
+      "side": 1,
+      "message": "Understood.  I\u0027m going to mark this as resolved now that I\u0027ve reverted the initial change.",
+      "parentUuid": "889f2d6d_1559994d",
+      "revId": "6284e4cf53c2a60b2abc195bfea74a849cfdc13a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9f3c030e_1e3a2a2e",
@@ -268,6 +286,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b6f37965_dfcc1f3c",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-08-03T22:19:30Z",
+      "side": 1,
+      "message": "\u003e Even if we have to do iterator++; 3 times, that seems better than making a complete copy,\nI can go that route, but boost::urls::segments_view is read only so I will not be able to normalize the path and simplify the comparisons as mentioned below https://gerrit.openbmc.org/c/openbmc/bmcweb/+/56062/comments/6fa9dfe1_513e1873.\n\nWhat if just create a vector of strings to represent up to the first 5 segments?\n\n\u003e although it really surprises me that there\u0027s this limitation in boost url.\nI\u0027m possible I\u0027m not doing it correctly, but this is the only method I\u0027ve been able to come up with to create boost::urls::segments when starting with boost::urls::url_view.",
+      "parentUuid": "743ef6c8_b29f51ff",
+      "range": {
+        "startLine": 247,
+        "startChar": 25,
+        "endLine": 247,
+        "endChar": 32
+      },
+      "revId": "6284e4cf53c2a60b2abc195bfea74a849cfdc13a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6fa9dfe1_513e1873",
         "filename": "redfish-core/include/redfish_aggregator.hpp",
         "patchSetId": 3
@@ -351,6 +393,30 @@
       "side": 1,
       "message": "ACK.  I\u0027ll normalize and clean up the comparisons.",
       "parentUuid": "03049502_885605a5",
+      "range": {
+        "startLine": 252,
+        "startChar": 11,
+        "endLine": 252,
+        "endChar": 33
+      },
+      "revId": "6284e4cf53c2a60b2abc195bfea74a849cfdc13a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4aefcb3e_9663bf24",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-08-03T22:19:30Z",
+      "side": 1,
+      "message": "I\u0027ve normalized and cleaned up the comparisons.  That might be temporary though.  It directly depends on the outcome of this thread https://gerrit.openbmc.org/c/openbmc/bmcweb/+/56062/comments/a9eabfe1_d33c9cc5.  \n\nI\u0027ll leave this thread open until that one is resolved.",
+      "parentUuid": "d23ed7c2_649d7c93",
       "range": {
         "startLine": 252,
         "startChar": 11,
@@ -624,6 +690,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "afbc1c64_ae523768",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-08-03T22:19:30Z",
+      "side": 1,
+      "message": "\u003e I still would like the enum, even if it\u0027s two state, as it makes this code more readable.  bool is error prone for things that aren\u0027t \"this is an error\"\nAlright no problem.  I\u0027ve added an enum and now we return the enum instead of the bool.  Let me know if this looks acceptable.",
+      "parentUuid": "41497563_f23ee144",
+      "range": {
+        "startLine": 266,
+        "startChar": 23,
+        "endLine": 266,
+        "endChar": 28
+      },
+      "revId": "6284e4cf53c2a60b2abc195bfea74a849cfdc13a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4d0ec192_52bde85c",
         "filename": "redfish-core/include/redfish_aggregator.hpp",
         "patchSetId": 3
@@ -671,6 +761,24 @@
       "side": 1,
       "message": "👍",
       "parentUuid": "4cefcfb0_ff97629f",
+      "revId": "6284e4cf53c2a60b2abc195bfea74a849cfdc13a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "95a5c493_856979b9",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-08-03T22:19:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a973f158_2266a230",
       "revId": "6284e4cf53c2a60b2abc195bfea74a849cfdc13a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -784,6 +892,30 @@
       "side": 1,
       "message": "Ah, good point, but I\u0027m still going to hold the position that starts_with declares your intent better, and it\u0027s what we should use here.  std::string::starts_with I\u0027m pretty sure is what we should be doing.",
       "parentUuid": "aed79988_a7d238e9",
+      "range": {
+        "startLine": 331,
+        "startChar": 30,
+        "endLine": 331,
+        "endChar": 34
+      },
+      "revId": "6284e4cf53c2a60b2abc195bfea74a849cfdc13a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2244bd5b_65647b59",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-08-03T22:19:30Z",
+      "side": 1,
+      "message": "That\u0027s fine, I\u0027ve changed these instances of find() to starts_with().",
+      "parentUuid": "45a2b9ad_a181c5e1",
       "range": {
         "startLine": 331,
         "startChar": 30,
