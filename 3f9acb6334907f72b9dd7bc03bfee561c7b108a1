@@ -98,6 +98,24 @@
       "message": "I am struggling a bit here on when we should return an internal error and when we should not. These were found by the mapper it is just when we go to the service, it returns a host_unreachable.\n\nSo do we think all non-required properties should *not* return an error on host_unreachable? There is very few required properties in Redfish. \n\nDo we think all non-important, non-required properties should not return an error on host_unreachable? \nSo a property like powerstate if it gets a host_unreachable then return an error but LastResetTime and properties like PowerModes if it gets a host_unreachable, just ignore and leave off the response?\n\nNot sure this should guide us but like the OCP profile (the OCP profiles are outdated at this point, just a data point on possible importance to a Redfish client) expects PowerState but not any of these. \n\nhttps://github.com/opencomputeproject/HWMgmt-OCP-Profiles/blob/master/OCPRackManagerController.v1_0_1.json#L426",
       "revId": "3f9acb6334907f72b9dd7bc03bfee561c7b108a1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2129fa9d_7ef3cb5c",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 2002,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-03T20:19:41Z",
+      "side": 1,
+      "message": "IMO, the rules are:\n\n1. If DBus gives us an fewer keys that doesn\u0027t match the specification, 500 to send the user the message that their implementation has a bug.\n2. If Dbus gives us extra keys, do nothing, because our dbus interfaces aren\u0027t versioned.\n\n\n\u003e So a property like powerstate if it gets a host_unreachable then return an error but LastResetTime and properties like PowerModes if it gets a host_unreachable, just ignore and leave off the response?\n\n\nI think the difference is that one is being looked up in the mapper (so a failure to get means an actual failure) versus things we didn\u0027t look up, they might just not exist?  Idk",
+      "parentUuid": "49f41c33_be706ff6",
+      "revId": "3f9acb6334907f72b9dd7bc03bfee561c7b108a1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

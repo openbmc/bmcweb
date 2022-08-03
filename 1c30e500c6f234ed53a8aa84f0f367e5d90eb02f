@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "00abb9cd_ea7a7c43",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1979,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-03T20:19:41Z",
+      "side": 0,
+      "message": "Same as below.",
+      "range": {
+        "startLine": 1979,
+        "startChar": 48,
+        "endLine": 1979,
+        "endChar": 53
+      },
+      "revId": "1c30e500c6f234ed53a8aa84f0f367e5d90eb02f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "75faa982_fcd7a89b",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2458,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-03T20:19:41Z",
+      "side": 0,
+      "message": "not understanding why this was removed.  If the mapper gave us this connection, it should respond properly to this interface.",
+      "revId": "1c30e500c6f234ed53a8aa84f0f367e5d90eb02f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
