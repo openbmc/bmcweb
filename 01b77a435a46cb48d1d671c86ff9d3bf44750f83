@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "871d9f1b_ef5f5bb5",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-03T20:35:26Z",
+      "side": 1,
+      "message": "\u003e Do you need to include anything here?\n\nProbably.  ACK.",
+      "parentUuid": "4a6a6e54_21c9fc73",
+      "revId": "01b77a435a46cb48d1d671c86ff9d3bf44750f83",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3673e04d_5838c7c9",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 3
@@ -31,6 +49,24 @@
       "writtenOn": "2022-08-03T20:26:13Z",
       "side": 1,
       "message": "Why is this status vs  boost::beast::http::field::content_transfer_encoding above?",
+      "revId": "01b77a435a46cb48d1d671c86ff9d3bf44750f83",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "14b6ab94_7fa55242",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 3630,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-03T20:35:26Z",
+      "side": 1,
+      "message": "Maybe you misread?  Or I\u0027m misunderstanding what you\u0027re asking.  They\u0027re both in the status namespace:\n\nboost::beast::http::status::content_type\nboost::beast::http::status::content_transfer_encoding",
+      "parentUuid": "3673e04d_5838c7c9",
       "revId": "01b77a435a46cb48d1d671c86ff9d3bf44750f83",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
