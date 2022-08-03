@@ -65,6 +65,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7eea5b5a_9ee8126a",
+        "filename": "http/ut/utility_test.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-03T07:21:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b0e64a5a_7e6fd9d6",
+      "range": {
+        "startLine": 109,
+        "startChar": 15,
+        "endLine": 109,
+        "endChar": 24
+      },
+      "revId": "9f9f9a510d1cad29fdae8d50a07bf54b91324a44",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d7c2dd0a_614990d1",
@@ -102,6 +126,30 @@
       "side": 1,
       "message": "I wish I could say I\u0027m that smart.  ACK, will fix.   I need to note where this came from.",
       "parentUuid": "d7c2dd0a_614990d1",
+      "range": {
+        "startLine": 552,
+        "startChar": 0,
+        "endLine": 562,
+        "endChar": 71
+      },
+      "revId": "9f9f9a510d1cad29fdae8d50a07bf54b91324a44",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "36ae37a9_6b824ef3",
+        "filename": "http/utility.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 562,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-03T07:21:20Z",
+      "side": 1,
+      "message": "Cited the source of these calculations.",
+      "parentUuid": "dfd301ee_ce6ad5fc",
       "range": {
         "startLine": 552,
         "startChar": 0,
@@ -159,6 +207,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "487a44f9_085315cc",
+        "filename": "http/utility.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 566,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-03T07:21:20Z",
+      "side": 1,
+      "message": "Updated commit message.",
+      "parentUuid": "e6e269f4_ce902c6b",
+      "range": {
+        "startLine": 565,
+        "startChar": 71,
+        "endLine": 566,
+        "endChar": 20
+      },
+      "revId": "9f9f9a510d1cad29fdae8d50a07bf54b91324a44",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "954db5f0_b1e975ba",
@@ -196,6 +268,30 @@
       "side": 1,
       "message": "Good point, I should be consistent.  ACK.",
       "parentUuid": "954db5f0_b1e975ba",
+      "range": {
+        "startLine": 590,
+        "startChar": 10,
+        "endLine": 590,
+        "endChar": 40
+      },
+      "revId": "9f9f9a510d1cad29fdae8d50a07bf54b91324a44",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "08cc2e28_010cc7be",
+        "filename": "http/utility.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 590,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-03T07:21:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "33deb741_6c761717",
       "range": {
         "startLine": 590,
         "startChar": 10,
@@ -253,6 +349,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "252cea79_295ec41f",
+        "filename": "http/utility.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 591,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-03T07:21:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eeb18452_68f0cd98",
+      "range": {
+        "startLine": 591,
+        "startChar": 12,
+        "endLine": 591,
+        "endChar": 24
+      },
+      "revId": "9f9f9a510d1cad29fdae8d50a07bf54b91324a44",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ec9f5fe8_566cd3d5",
@@ -290,6 +410,30 @@
       "side": 1,
       "message": "For dates before 1970 is my understanding from looking at this code.",
       "parentUuid": "ec9f5fe8_566cd3d5",
+      "range": {
+        "startLine": 601,
+        "startChar": 4,
+        "endLine": 601,
+        "endChar": 14
+      },
+      "revId": "9f9f9a510d1cad29fdae8d50a07bf54b91324a44",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aff93225_533e03a3",
+        "filename": "http/utility.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 601,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-03T07:21:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e002ee16_18bb25d0",
       "range": {
         "startLine": 601,
         "startChar": 4,
@@ -347,6 +491,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "28966959_32fc095f",
+        "filename": "http/utility.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 614,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-03T07:21:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bb951284_6c702cb3",
+      "range": {
+        "startLine": 614,
+        "startChar": 20,
+        "endLine": 614,
+        "endChar": 38
+      },
+      "revId": "9f9f9a510d1cad29fdae8d50a07bf54b91324a44",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1025e482_6f3e12a3",
@@ -378,6 +546,24 @@
       "side": 1,
       "message": "Yep.  it\u0027s a missing include that this file got transitively through posix_time.hpp.",
       "parentUuid": "1025e482_6f3e12a3",
+      "revId": "9f9f9a510d1cad29fdae8d50a07bf54b91324a44",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "26f2b6ce_69181e60",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-03T07:21:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a0d45c3d_576e2e3e",
       "revId": "9f9f9a510d1cad29fdae8d50a07bf54b91324a44",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
