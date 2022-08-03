@@ -71,6 +71,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "00076ef6_778b3c7f",
+        "filename": "redfish-core/include/query.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-03T15:46:15Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "123ea00e_494cd91d",
+      "revId": "6284e4cf53c2a60b2abc195bfea74a849cfdc13a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8cad1567_1e7e1c0f",
@@ -120,6 +138,24 @@
       "side": 1,
       "message": "I\u0027ve preemptively restored this in patchset 4",
       "parentUuid": "34b2a26a_1b2aaa53",
+      "revId": "6284e4cf53c2a60b2abc195bfea74a849cfdc13a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "889f2d6d_1559994d",
+        "filename": "redfish-core/include/query.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-03T15:46:15Z",
+      "side": 1,
+      "message": "\u003e I thought we wanted completely to avoid writing anything to the response\n\nGenerally this rule applies to things where we expect differences between handlers;  Everything within the Redfish tree should be setting Odata.Version, so I have a minor preference for simpler code here, but it\u0027s not strong.\n\nThe main places we tend to get bugs are when people overwrite status codes, and overwrite json objects.",
+      "parentUuid": "00407b81_e03d1b54",
       "revId": "6284e4cf53c2a60b2abc195bfea74a849cfdc13a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -231,6 +267,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "03049502_885605a5",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-03T15:46:15Z",
+      "side": 1,
+      "message": "it’s not normalized because there’s literally one use case where ending with a / has to return different behavior than without a /.  otherwise we would’ve fixed this in the core long ago.",
+      "parentUuid": "1d2fa443_784d387e",
+      "range": {
+        "startLine": 252,
+        "startChar": 11,
+        "endLine": 252,
+        "endChar": 33
+      },
+      "revId": "6284e4cf53c2a60b2abc195bfea74a849cfdc13a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "837a73a8_71e2b554",
         "filename": "redfish-core/include/redfish_aggregator.hpp",
         "patchSetId": 3
@@ -266,6 +326,30 @@
       "side": 1,
       "message": "I do check it.  The \"segments.size() \u003d\u003d 4\" gets checked before \"segments[3].empty()\"",
       "parentUuid": "837a73a8_71e2b554",
+      "range": {
+        "startLine": 253,
+        "startChar": 40,
+        "endLine": 253,
+        "endChar": 48
+      },
+      "revId": "6284e4cf53c2a60b2abc195bfea74a849cfdc13a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "48df6bfa_9880b7b6",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-03T15:46:15Z",
+      "side": 1,
+      "message": "Yes you do....  ignore.  I was reviewing quickly and missed it.",
+      "parentUuid": "85b74ea5_af449e28",
       "range": {
         "startLine": 253,
         "startChar": 40,
@@ -325,6 +409,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7f966148_fa30b9db",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-03T15:46:15Z",
+      "side": 1,
+      "message": "\u003e There definitely are, however the later patch that implements aggregating collections will ignore responses that do not contain a \"Members\" array so that\u0027s enough to catch false positives. \n\nACK.\n\n\u003e UpdateService is hardcoded in because it contains collections and we want to make sure we handle those correctly.\n\nI\u0027m not following this.  Aren\u0027t there other collections that might exist 2 levels deep?\n\n\u003e \n\u003e This is ultimately the right way to handle determining what is and isn\u0027t a collection https://gerrit.openbmc.org/c/openbmc/bmcweb/+/55215.  When that\u0027s finished then it will provide a more reliable method of determining what is and isn\u0027t a collection.  The hard coding can go away.\n\nACK.",
+      "parentUuid": "9af98a96_2b5923b9",
+      "range": {
+        "startLine": 258,
+        "startChar": 25,
+        "endLine": 258,
+        "endChar": 38
+      },
+      "revId": "6284e4cf53c2a60b2abc195bfea74a849cfdc13a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ed9d16c9_529bcdaf",
         "filename": "redfish-core/include/redfish_aggregator.hpp",
         "patchSetId": 3
@@ -372,6 +480,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "41497563_f23ee144",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-03T15:46:15Z",
+      "side": 1,
+      "message": "\u003e An enum would be more descriptive, but it\u0027s not really a tristate.  There are three paths like you mention, but really there are only two end results: do or don\u0027t handle request locally.  \"AggregationStartedBmcStillNeeded\" and \"AggregationNotRequired\" would still be handled the same way by whatever calls beginAggregation().\n\u003e \n\u003e In future patches we will call the forward request or forward collection request methods before we actually hit these return statements.\n\u003e \n\u003e If still prefer an enum then I think it should just be something like \"LocalHandle\", \"NoLocalHandle\".  Either way, for an enum are you suggesting I would just have this function return the enum itself instead of the bool?\n\nI still would like the enum, even if it\u0027s two state, as it makes this code more readable.  bool is error prone for things that aren\u0027t \"this is an error\"",
+      "parentUuid": "f9261f2b_a2553b76",
+      "range": {
+        "startLine": 266,
+        "startChar": 23,
+        "endLine": 266,
+        "endChar": 28
+      },
+      "revId": "6284e4cf53c2a60b2abc195bfea74a849cfdc13a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4d0ec192_52bde85c",
         "filename": "redfish-core/include/redfish_aggregator.hpp",
         "patchSetId": 3
@@ -401,6 +533,24 @@
       "side": 1,
       "message": "The way will be when this patch is completed https://gerrit.openbmc.org/c/openbmc/bmcweb/+/55215.  At that point we\u0027ll always be able to know what the collections are without having to implement all of this special hard coding.",
       "parentUuid": "4d0ec192_52bde85c",
+      "revId": "6284e4cf53c2a60b2abc195bfea74a849cfdc13a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a973f158_2266a230",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-03T15:46:15Z",
+      "side": 1,
+      "message": "👍",
+      "parentUuid": "4cefcfb0_ff97629f",
       "revId": "6284e4cf53c2a60b2abc195bfea74a849cfdc13a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -442,6 +592,30 @@
       "side": 1,
       "message": "I didn\u0027t think I was violating that error because I\u0027m making sure the segment begins with \"aggregated\" rather than checking if find() returns true like in that example.  I\u0027ll just switch to std::string::starts_with().",
       "parentUuid": "9c2708c0_de26a503",
+      "range": {
+        "startLine": 331,
+        "startChar": 30,
+        "endLine": 331,
+        "endChar": 34
+      },
+      "revId": "6284e4cf53c2a60b2abc195bfea74a849cfdc13a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "892d1f36_0a756960",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-03T15:46:15Z",
+      "side": 1,
+      "message": "what is the device is fooaggregated_node ? Won\u0027t this code fail?\n\nI suspect you want boost::starts_with, then to set pos by hand.",
+      "parentUuid": "b9e5f981_2fbb2c5d",
       "range": {
         "startLine": 331,
         "startChar": 30,
