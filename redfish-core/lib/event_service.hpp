@@ -538,16 +538,15 @@ inline void requestRoutesEventDestinationCollection(App& app)
                 // Check for Message ID in each of the selected Registry
                 for (const std::string& it : registryPrefix)
                 {
-                    const std::span<const redfish::registries::MessageEntry>
+                    const std::span<const redfish::registries::Message>
                         registry =
                             redfish::registries::getRegistryFromPrefix(it);
 
-                    if (std::any_of(
-                            registry.begin(), registry.end(),
-                            [&id](const redfish::registries::MessageEntry&
-                                      messageEntry) {
-                        return id == messageEntry.first;
-                            }))
+                    if (std::any_of(registry.begin(), registry.end(),
+                                    [&id](const redfish::registries::Message&
+                                              messageEntry) {
+                        return id == messageEntry.messageId;
+                        }))
                     {
                         validId = true;
                         break;
