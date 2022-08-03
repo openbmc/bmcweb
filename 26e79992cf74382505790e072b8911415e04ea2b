@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d905f1d1_e8db351a",
+        "filename": "redfish-core/include/utils/chassis_utils.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000085
+      },
+      "writtenOn": "2022-08-03T17:00:04Z",
+      "side": 1,
+      "message": "I think the merge conflict starts here. Looks like someone liked this idea, or had the same plan. Named it getValidChassisPath(...) though.\n\nhttps://github.com/openbmc/bmcweb/commit/0d7702c0246c5948caf12a3e441f74952c7d0ccf",
+      "revId": "26e79992cf74382505790e072b8911415e04ea2b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
