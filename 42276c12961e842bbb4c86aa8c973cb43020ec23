@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ed295c4_079b38a7",
+        "filename": "http/utility.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 576,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-08-03T23:01:45Z",
+      "side": 1,
+      "message": "nit: move val inside the for loop?",
+      "range": {
+        "startLine": 576,
+        "startChar": 9,
+        "endLine": 576,
+        "endChar": 10
+      },
+      "revId": "42276c12961e842bbb4c86aa8c973cb43020ec23",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "431f4655_f84bfbac",
+        "filename": "http/utility.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 585,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-08-03T23:01:45Z",
+      "side": 1,
+      "message": "A question, do you invent this?",
+      "range": {
+        "startLine": 585,
+        "startChar": 12,
+        "endLine": 585,
+        "endChar": 32
+      },
+      "revId": "42276c12961e842bbb4c86aa8c973cb43020ec23",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d9d0f850_5b4b5ebf",
+        "filename": "http/utility.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 585,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-08-03T23:01:45Z",
+      "side": 1,
+      "message": "Is this function worth a highlevel description and a couple of examples about output given certain input?",
+      "range": {
+        "startLine": 585,
+        "startChar": 12,
+        "endLine": 585,
+        "endChar": 32
+      },
+      "revId": "42276c12961e842bbb4c86aa8c973cb43020ec23",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fe0511c9_f2c6b65c",
+        "filename": "http/utility.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 604,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-08-03T23:01:45Z",
+      "side": 1,
+      "message": "This is not a constraint previously, but not a big deal since we won\u0027t likely have a use case where time is before the epoch.",
+      "range": {
+        "startLine": 604,
+        "startChar": 60,
+        "endLine": 604,
+        "endChar": 80
+      },
+      "revId": "42276c12961e842bbb4c86aa8c973cb43020ec23",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
