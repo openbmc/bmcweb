@@ -24,6 +24,8 @@ namespace
 {
 
 using ::testing::Eq;
+using ::testing::IsEmpty;
+using ::testing::Key;
 using ::testing::UnorderedElementsAre;
 
 TEST(Delegate, OnlyPositive)
@@ -216,15 +218,19 @@ TEST(GetSelectParam, PropertyReturnsOk)
 {
     Query query;
     ASSERT_TRUE(getSelectParam("foo/bar,bar", query));
-    EXPECT_THAT(query.selectedProperties,
-                UnorderedElementsAre(Eq("foo/bar"), Eq("bar"), Eq("@odata.id"),
-                                     Eq("@odata.type"), Eq("@odata.context"),
-                                     Eq("@odata.etag"), Eq("error")));
+    EXPECT_THAT(query.selectedProperties.children,
+                UnorderedElementsAre(
+                    Key(Eq("foo")), Key(Eq("bar")), Key(Eq("@odata.id")),
+                    Key(Eq("@odata.type")), Key(Eq("@odata.context")),
+                    Key(Eq("@odata.etag")), Key(Eq("error"))));
+    EXPECT_THAT(query.selectedProperties.children["foo"].children,
+                UnorderedElementsAre(Key(Eq("bar"))));
+    EXPECT_THAT(query.selectedProperties.children["bar"].children, IsEmpty());
 }
 
 TEST(RecursiveSelect, ExpectedKeysAreSelectInSimpleObject)
 {
-    std::vector<std::string> shouldSelect = {"select_me"};
+    SelectedParameterTrie shouldSelect = {"select_me"};
     nlohmann::json root = R"({"select_me" : "foo", "omit_me" : "bar"})"_json;
     nlohmann::json expected = R"({"select_me" : "foo"})"_json;
     performSelect(root, shouldSelect);
@@ -233,8 +239,8 @@ TEST(RecursiveSelect, ExpectedKeysAreSelectInSimpleObject)
 
 TEST(RecursiveSelect, ExpectedKeysAreSelectInNestedObject)
 {
-    std::vector<std::string> shouldSelect = {"prefix0/explicit_select_me",
-                                             "prefix1", "prefix2", "select_me"};
+    SelectedParameterTrie shouldSelect = {"prefix0/explicit_select_me",
+                                          "prefix1", "prefix2", "select_me"};
     nlohmann::json root = R"(
 {
   "select_me":[
