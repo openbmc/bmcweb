@@ -215,6 +215,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5638d6cd_bbd877a9",
+        "filename": "redfish-core/include/query.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-03T22:47:37Z",
+      "side": 1,
+      "message": "How about this?\n\nbool needToCallHandlers \u003d true;\n\n#ifdef BMCWEB_ENABLE_REDFISH_AGGREGATION\n    needToCallHandlers \u003d RedfishAggregator::getInstance().beginAggregation(req, asyncResp) !\u003d\n        Result::NoLocalHandle;\n    \n        // The request should be forwarded to a satellite BMC.  Don\u0027t write\n        // anything to the asyncResp since it will get overwritten later.\n#endif\n\n    // If this isn\u0027t a get, no need to do anything with parameters\n    if (req.method() !\u003d boost::beast::http::verb::get)\n    {\n        return needToCallHandlers;\n    }\n\n    delegated \u003d query_param::delegate(queryCapabilities, *queryOpt);\n    std::function\u003cvoid(crow::Response\u0026)\u003e handler \u003d\n        asyncResp-\u003eres.releaseCompleteRequestHandler();\n    asyncResp-\u003eres.setCompleteRequestHandler(\n        [\u0026app, handler(std::move(handler)),\n         query{*queryOpt}](crow::Response\u0026 resIn) mutable {\n        processAllParams(app, query, handler, resIn);\n    });\n\n    return needToCallHandlers;\n\n\nI think it gives the same logic, but removes a bunch of ifdefs, and makes the double negative on the bool go away.\n\nWDYT?",
+      "parentUuid": "8b0fbf0e_f24b5e57",
+      "revId": "6284e4cf53c2a60b2abc195bfea74a849cfdc13a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a9eabfe1_d33c9cc5",
         "filename": "redfish-core/include/redfish_aggregator.hpp",
         "patchSetId": 3
@@ -298,6 +316,30 @@
       "side": 1,
       "message": "\u003e Even if we have to do iterator++; 3 times, that seems better than making a complete copy,\nI can go that route, but boost::urls::segments_view is read only so I will not be able to normalize the path and simplify the comparisons as mentioned below https://gerrit.openbmc.org/c/openbmc/bmcweb/+/56062/comments/6fa9dfe1_513e1873.\n\nWhat if just create a vector of strings to represent up to the first 5 segments?\n\n\u003e although it really surprises me that there\u0027s this limitation in boost url.\nI\u0027m possible I\u0027m not doing it correctly, but this is the only method I\u0027ve been able to come up with to create boost::urls::segments when starting with boost::urls::url_view.",
       "parentUuid": "743ef6c8_b29f51ff",
+      "range": {
+        "startLine": 247,
+        "startChar": 25,
+        "endLine": 247,
+        "endChar": 32
+      },
+      "revId": "6284e4cf53c2a60b2abc195bfea74a849cfdc13a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5893d24d_08abd9d5",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-03T22:47:37Z",
+      "side": 1,
+      "message": "\u003e \u003e Even if we have to do iterator++; 3 times, that seems better than making a complete copy,\n\u003e I can go that route, but boost::urls::segments_view is read only so I will not be able to normalize the path and simplify the comparisons as mentioned below https://gerrit.openbmc.org/c/openbmc/bmcweb/+/56062/comments/6fa9dfe1_513e1873.\n\u003e \n\u003e What if just create a vector of strings to represent up to the first 5 segments?\n\nGroan... I didn\u0027t think about that.  Yeah, normalization requires the copy, and is probably worth it.\n\nSure if you wanted a string array, that would work too.\n\n\u003e \n\u003e \u003e although it really surprises me that there\u0027s this limitation in boost url.\n\u003e I\u0027m possible I\u0027m not doing it correctly, but this is the only method I\u0027ve been able to come up with to create boost::urls::segments when starting with boost::urls::url_view.",
+      "parentUuid": "b6f37965_dfcc1f3c",
       "range": {
         "startLine": 247,
         "startChar": 25,
