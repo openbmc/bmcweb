@@ -37,7 +37,7 @@ TEST(RedfishRegistries, GetMessageFromRegistry)
 
     EXPECT_EQ(std::string(msg1->description),
               "Indicates that a service has started successfully.");
-    EXPECT_EQ(std::string(msg1->message),
+    EXPECT_EQ(std::string(msg1->messageString),
               "Service %1 has started successfully.");
     EXPECT_EQ(std::string(msg1->messageSeverity), "OK");
     EXPECT_EQ(msg1->numberOfArgs, 1);
