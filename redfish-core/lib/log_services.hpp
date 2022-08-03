@@ -415,6 +415,115 @@ static std::string getDumpEntriesPath(const std::string& dumpType)
     return entriesPath;
 }
 
+inline void parseDumpEntryFromDbusObject(
+    const dbus::utility::ManagedItem& object, std::string& dumpStatus,
+    uint64_t& size, uint64_t& timestamp, std::string& entryType,
+    std::string& primaryLogId,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+{
+    for (const auto& interfaceMap : object.second)
+    {
+        if (interfaceMap.first == "xyz.openbmc_project.Common.Progress")
+        {
+            for (const auto& propertyMap : interfaceMap.second)
+            {
+                if (propertyMap.first == "Status")
+                {
+                    const auto* status =
+                        std::get_if<std::string>(&propertyMap.second);
+                    if (status == nullptr)
+                    {
+                        messages::internalError(asyncResp->res);
+                        break;
+                    }
+                    dumpStatus = *status;
+                }
+            }
+        }
+        else if (interfaceMap.first == "xyz.openbmc_project.Dump.Entry")
+        {
+            for (const auto& propertyMap : interfaceMap.second)
+            {
+                if (propertyMap.first == "Size")
+                {
+                    const auto* sizePtr =
+                        std::get_if<uint64_t>(&propertyMap.second);
+                    if (sizePtr == nullptr)
+                    {
+                        messages::internalError(asyncResp->res);
+                        break;
+                    }
+                    size = *sizePtr;
+                    break;
+                }
+            }
+        }
+        else if (interfaceMap.first == "xyz.openbmc_project.Time.EpochTime")
+        {
+            for (const auto& propertyMap : interfaceMap.second)
+            {
+                if (propertyMap.first == "Elapsed")
+                {
+                    const uint64_t* usecsTimeStamp =
+                        std::get_if<uint64_t>(&propertyMap.second);
+                    if (usecsTimeStamp == nullptr)
+                    {
+                        messages::internalError(asyncResp->res);
+                        break;
+                    }
+                    timestamp = *usecsTimeStamp;
+                    break;
+                }
+            }
+        }
+        else if (interfaceMap.first ==
+                 "xyz.openbmc_project.Dump.Entry.FaultLog")
+        {
+            for (const auto& propertyMap : interfaceMap.second)
+            {
+                if (propertyMap.first == "Type")
+                {
+                    const std::string* entryTypePtr =
+                        std::get_if<std::string>(&propertyMap.second);
+                    if (entryTypePtr == nullptr)
+                    {
+                        messages::internalError(asyncResp->res);
+                        break;
+                    }
+                    if (*entryTypePtr ==
+                        "xyz.openbmc_project.Dump.Entry.FaultLog.FaultDataType.Crashdump")
+                    {
+                        entryType = "Crashdump";
+                    }
+                    else if (
+                        *entryTypePtr ==
+                        "xyz.openbmc_project.Dump.Entry.FaultLog.FaultDataType.CPER")
+                    {
+                        entryType = "CPER";
+                    }
+                    else
+                    {
+                        BMCWEB_LOG_ERROR << "Unexpected fault log entry type: "
+                                         << *entryTypePtr;
+                        return;
+                    }
+                }
+                else if (propertyMap.first == "PrimaryLogId")
+                {
+                    const std::string* primaryLogIdPtr =
+                        std::get_if<std::string>(&propertyMap.second);
+                    if (primaryLogIdPtr == nullptr)
+                    {
+                        messages::internalError(asyncResp->res);
+                        break;
+                    }
+                    primaryLogId = *primaryLogIdPtr;
+                }
+            }
+        }
+    }
+}
+
 inline void
     getDumpEntryCollection(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                            const std::string& dumpType)
@@ -468,9 +577,11 @@ inline void
             {
                 continue;
             }
-            uint64_t timestamp = 0;
+            uint64_t timestampUs = 0;
             uint64_t size = 0;
             std::string dumpStatus;
+            std::string primaryLogId;
+            std::string entryType;
             nlohmann::json::object_t thisEntry;
 
             std::string entryID = object.first.filename();
@@ -479,8 +590,8 @@ inline void
                 continue;
             }
 
-            parseDumpEntryFromDbusObject(object, dumpStatus, size, timestamp,
-                                         asyncResp);
+            parseDumpEntryFromDbusObject(object, dumpStatus, size, timestampUs,
+                                         entryType, primaryLogId, asyncResp);
 
             if (dumpStatus !=
                     "xyz.openbmc_project.Common.Progress.OperationStatus.Completed" &&
@@ -494,18 +605,45 @@ inline void
             thisEntry["@odata.id"] = entriesPath + entryID;
             thisEntry["Id"] = entryID;
             thisEntry["EntryType"] = "Event";
-            thisEntry["Created"] = crow::utility::getDateTimeUint(timestamp);
             thisEntry["Name"] = dumpType + " Dump Entry";
 
             if (dumpType == "BMC")
             {
+                thisEntry["Created"] =
+                    crow::utility::getDateTimeUint(timestampUs / 1000 / 1000);
+
                 thisEntry["DiagnosticDataType"] = "Manager";
                 thisEntry["AdditionalDataURI"] =
                     entriesPath + entryID + "/attachment";
                 thisEntry["AdditionalDataSizeBytes"] = size;
             }
+            else if (dumpType == "FaultLog")
+            {
+                thisEntry["Created"] =
+                    crow::utility::getDateTimeUintMs(timestampUs / 1000);
+                thisEntry["DiagnosticDataType"] = "OEM";
+                thisEntry["OEMDiagnosticDataType"] = "OpenBMC Fault Log";
+                thisEntry["EntryType"] = "Oem";
+
+                if (entryType == "CPER")
+                {
+                    thisEntry["AdditionalDataURI"] =
+                        "/redfish/v1/Systems/system/LogServices/" +
+                        primaryLogId;
+                    thisEntry["OemRecordFormat"] = "CPER";
+                }
+                else if (entryType == "Crashdump")
+                {
+                    thisEntry["AdditionalDataURI"] =
+                        "/redfish/v1/Systems/system/LogServices/Crashdump/Entries/" +
+                        primaryLogId;
+                    thisEntry["OemRecordFormat"] = "Crashdump";
+                }
+            }
             else if (dumpType == "System")
             {
+                thisEntry["Created"] =
+                    crow::utility::getDateTimeUint(timestampUs / 1000 / 1000);
                 thisEntry["DiagnosticDataType"] = "OEM";
                 thisEntry["OEMDiagnosticDataType"] = "System";
                 thisEntry["AdditionalDataURI"] =
@@ -555,12 +693,15 @@ inline void
             }
 
             foundDumpEntry = true;
-            uint64_t timestamp = 0;
+            uint64_t timestampUs = 0;
             uint64_t size = 0;
             std::string dumpStatus;
+            std::string primaryLogId;
+            std::string entryType;
 
             parseDumpEntryFromDbusObject(objectPath, dumpStatus, size,
-                                         timestamp, asyncResp);
+                                         timestampUs, entryType, primaryLogId,
+                                         asyncResp);
 
             if (dumpStatus !=
                     "xyz.openbmc_project.Common.Progress.OperationStatus.Completed" &&
@@ -578,19 +719,45 @@ inline void
             asyncResp->res.jsonValue["@odata.id"] = entriesPath + entryID;
             asyncResp->res.jsonValue["Id"] = entryID;
             asyncResp->res.jsonValue["EntryType"] = "Event";
-            asyncResp->res.jsonValue["Created"] =
-                crow::utility::getDateTimeUint(timestamp);
             asyncResp->res.jsonValue["Name"] = dumpType + " Dump Entry";
 
             if (dumpType == "BMC")
             {
+                asyncResp->res.jsonValue["Created"] =
+                    crow::utility::getDateTimeUint(timestampUs / 1000 / 1000);
                 asyncResp->res.jsonValue["DiagnosticDataType"] = "Manager";
                 asyncResp->res.jsonValue["AdditionalDataURI"] =
                     entriesPath + entryID + "/attachment";
                 asyncResp->res.jsonValue["AdditionalDataSizeBytes"] = size;
             }
+            else if (dumpType == "FaultLog")
+            {
+                asyncResp->res.jsonValue["Created"] =
+                    crow::utility::getDateTimeUintMs(timestampUs / 1000);
+                asyncResp->res.jsonValue["DiagnosticDataType"] = "OEM";
+                asyncResp->res.jsonValue["OEMDiagnosticDataType"] =
+                    "OpenBMC Fault Log";
+                asyncResp->res.jsonValue["EntryType"] = "Oem";
+
+                if (entryType == "CPER")
+                {
+                    asyncResp->res.jsonValue["AdditionalDataURI"] =
+                        "/redfish/v1/Systems/system/LogServices/" +
+                        primaryLogId;
+                    asyncResp->res.jsonValue["OemRecordFormat"] = "CPER";
+                }
+                else if (entryType == "Crashdump")
+                {
+                    asyncResp->res.jsonValue["AdditionalDataURI"] =
+                        "/redfish/v1/Systems/system/LogServices/Crashdump/Entries/" +
+                        primaryLogId;
+                    asyncResp->res.jsonValue["OemRecordFormat"] = "Crashdump";
+                }
+            }
             else if (dumpType == "System")
             {
+                asyncResp->res.jsonValue["Created"] =
+                    crow::utility::getDateTimeUint(timestampUs / 1000 / 1000);
                 asyncResp->res.jsonValue["DiagnosticDataType"] = "OEM";
                 asyncResp->res.jsonValue["OEMDiagnosticDataType"] = "System";
                 asyncResp->res.jsonValue["AdditionalDataURI"] =
