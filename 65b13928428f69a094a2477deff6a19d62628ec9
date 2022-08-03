@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "13d12602_6bca42ec",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 929,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-08-03T11:47:00Z",
+      "side": 1,
+      "message": "use std::string_view to compare instead.\nstd::string_view(\"xyz.openbmc_project.Common.Error.NotAllowed\") \u003d\u003d dbusError-\u003ename",
+      "revId": "65b13928428f69a094a2477deff6a19d62628ec9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
