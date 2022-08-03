@@ -67,11 +67,11 @@ static const Message*
     std::span<const MessageEntry>::iterator messageIt =
         std::find_if(registry.begin(), registry.end(),
                      [&messageKey](const MessageEntry& messageEntry) {
-        return std::strcmp(messageEntry.first, messageKey.c_str()) == 0;
+        return std::strcmp(messageEntry.messageId, messageKey.c_str()) == 0;
         });
     if (messageIt != registry.end())
     {
-        return &messageIt->second;
+        return &messageIt->message;
     }
 
     return nullptr;
@@ -1048,7 +1048,7 @@ static LogParseError
         return LogParseError::messageIdNotInRegistry;
     }
 
-    std::string msg = message->message;
+    std::string msg = message->messageString;
 
     // Get the MessageArgs from the log if there are any
     std::span<std::string> messageArgs;
@@ -3273,7 +3273,7 @@ static void fillPostCodeEntry(
         std::string msg;
         if (message != nullptr)
         {
-            msg = message->message;
+            msg = message->messageString;
 
             // fill in this post code value
             int i = 0;
