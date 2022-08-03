@@ -395,11 +395,11 @@ inline void requestRoutesTask(App& app)
         asyncResp->res.jsonValue["Name"] = "Task " + strParam;
         asyncResp->res.jsonValue["TaskState"] = ptr->state;
         asyncResp->res.jsonValue["StartTime"] =
-            crow::utility::getDateTimeStdtime(ptr->startTime);
+            redfish::time_utils::getDateTimeStdtime(ptr->startTime);
         if (ptr->endTime)
         {
             asyncResp->res.jsonValue["EndTime"] =
-                crow::utility::getDateTimeStdtime(*(ptr->endTime));
+                redfish::time_utils::getDateTimeStdtime(*(ptr->endTime));
         }
         asyncResp->res.jsonValue["TaskStatus"] = ptr->status;
         asyncResp->res.jsonValue["Messages"] = ptr->messages;
@@ -473,7 +473,7 @@ inline void requestRoutesTaskService(App& app)
         asyncResp->res.jsonValue["Name"] = "Task Service";
         asyncResp->res.jsonValue["Id"] = "TaskService";
         asyncResp->res.jsonValue["DateTime"] =
-            crow::utility::getDateTimeOffsetNow().first;
+            redfish::time_utils::getDateTimeOffsetNow().first;
         asyncResp->res.jsonValue["CompletedTaskOverWritePolicy"] = "Oldest";
 
         asyncResp->res.jsonValue["LifeCycleEventOnTaskStateChange"] = true;

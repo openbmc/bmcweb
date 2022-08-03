@@ -2,6 +2,7 @@
 
 #include "utils/collection.hpp"
 #include "utils/telemetry_utils.hpp"
+#include "utils/time_utils.hpp"
 
 #include <app.hpp>
 #include <dbus_utility.hpp>
@@ -32,7 +33,7 @@ inline nlohmann::json toMetricValues(const Readings& readings)
             {"MetricId", id},
             {"MetricProperty", metadata},
             {"MetricValue", std::to_string(sensorValue)},
-            {"Timestamp", crow::utility::getDateTimeUintMs(timestamp)},
+            {"Timestamp", redfish::time_utils::getDateTimeUintMs(timestamp)},
         });
     }
 
@@ -55,7 +56,7 @@ inline bool fillReport(nlohmann::json& json, const std::string& id,
             .string();
 
     const auto& [timestamp, readings] = timestampReadings;
-    json["Timestamp"] = crow::utility::getDateTimeUintMs(timestamp);
+    json["Timestamp"] = redfish::time_utils::getDateTimeUintMs(timestamp);
     json["MetricValues"] = toMetricValues(readings);
     return true;
 }

@@ -23,6 +23,7 @@
 #include "registries/privilege_registry.hpp"
 #include "utils/sw_utils.hpp"
 #include "utils/systemd_utils.hpp"
+#include "utils/time_utils.hpp"
 
 #include <boost/date_time.hpp>
 
@@ -1781,7 +1782,7 @@ inline void
 
         // Convert to ISO 8601 standard
         aResp->res.jsonValue["LastResetTime"] =
-            crow::utility::getDateTimeUint(lastResetTimeStamp);
+            redfish::time_utils::getDateTimeUint(lastResetTimeStamp);
         });
 }
 
@@ -2015,7 +2016,7 @@ inline void requestRoutesManager(App& app)
         resetToDefaults["ResetType@Redfish.AllowableValues"] = {"ResetAll"};
 
         std::pair<std::string, std::string> redfishDateTimeOffset =
-            crow::utility::getDateTimeOffsetNow();
+            redfish::time_utils::getDateTimeOffsetNow();
 
         asyncResp->res.jsonValue["DateTime"] = redfishDateTimeOffset.first;
         asyncResp->res.jsonValue["DateTimeLocalOffset"] =
