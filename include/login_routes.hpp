@@ -176,11 +176,10 @@ inline void requestRoutes(App& app)
             }
             else
             {
-                std::string unsupportedClientId;
                 auto session =
                     persistent_data::SessionStore::getInstance()
                         .generateUserSession(
-                            username, req.ipAddress, unsupportedClientId,
+                            username, req.ipAddress, std::nullopt,
                             persistent_data::PersistenceType::TIMEOUT,
                             isConfigureSelfOnly);
 
