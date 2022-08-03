@@ -38,11 +38,10 @@ inline void fillSessionObject(crow::Response& res,
     res.jsonValue["Name"] = "User Session";
     res.jsonValue["Description"] = "Manager User Session";
     res.jsonValue["ClientOriginIPAddress"] = session.clientIp;
-#ifdef BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE
-    res.jsonValue["Oem"]["OpenBMC"]["@odata.type"] =
-        "#OemSession.v1_0_0.Session";
-    res.jsonValue["Oem"]["OpenBMC"]["ClientID"] = session.clientId;
-#endif
+    if (session.clientId)
+    {
+        res.jsonValue["Context"] = *session.clientId;
+    }
 }
 
 inline void
@@ -186,10 +185,9 @@ inline void handleSessionCollectionPost(
     }
     std::string username;
     std::string password;
-    std::optional<nlohmann::json> oemObject;
-    std::string clientId;
+    std::optional<std::string> clientId;
     if (!json_util::readJsonPatch(req, asyncResp->res, "UserName", username,
-                                  "Password", password, "Oem", oemObject))
+                                  "Password", password, "Context", clientId))
     {
         return;
     }
@@ -218,21 +216,6 @@ inline void handleSessionCollectionPost(
                                             "Invalid username or password");
         return;
     }
-#ifdef BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE
-    if (oemObject)
-    {
-        std::optional<nlohmann::json> bmcOem;
-        if (!json_util::readJson(*oemObject, asyncResp->res, "OpenBMC", bmcOem))
-        {
-            return;
-        }
-        if (!json_util::readJson(*bmcOem, asyncResp->res, "ClientID", clientId))
-        {
-            BMCWEB_LOG_ERROR << "Could not read ClientId";
-            return;
-        }
-    }
-#endif
 
     // User is authenticated - create session
     std::shared_ptr<persistent_data::UserSession> session =
