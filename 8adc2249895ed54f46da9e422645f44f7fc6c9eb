@@ -22,6 +22,30 @@
       },
       "revId": "8adc2249895ed54f46da9e422645f44f7fc6c9eb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2a867946_d718b138",
+        "filename": "redfish-core/include/resource_messages.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-03T21:47:42Z",
+      "side": 1,
+      "message": "\u003e Some additional unit tests could replace testing on specific hardware\n\u003e If new tests are added for resourceChanged, resourceCreated, resourceRemoved, getLog that check exact result of this functions then code is refactored we can be 100% sure that there was no changes in output.\n\n\nNo disagreement, but we\u0027d need some significant refactoring of these files to avoid having to have a unit test per message type.  We do have unit tests for the underlying functions this calls.\n\nConsidering that these files were generated from the standard, I\u0027m not sure how to avoid just duplicating the message registry in the unit tests for all cases.  Any ideas there?",
+      "parentUuid": "eca9e965_c74855d3",
+      "range": {
+        "startLine": 24,
+        "startChar": 22,
+        "endLine": 24,
+        "endChar": 37
+      },
+      "revId": "8adc2249895ed54f46da9e422645f44f7fc6c9eb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
