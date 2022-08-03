@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f1aefbf5_6eaa9137",
+        "filename": "http/utility.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 549,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-08-03T18:34:46Z",
+      "side": 1,
+      "message": "nit: looks nicer if this is on the next line :)",
+      "range": {
+        "startLine": 549,
+        "startChar": 72,
+        "endLine": 549,
+        "endChar": 75
+      },
+      "revId": "cdaf0344f5e9501856e97a2ff7e5d52dbfe11ae3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "786de147_9608adfd",
+        "filename": "http/utility.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 570,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-08-03T18:34:46Z",
+      "side": 1,
+      "message": "May be worth mentioning in the header comment that \"pad\" also serves as the exact width and we don\u0027t do negatives",
+      "revId": "cdaf0344f5e9501856e97a2ff7e5d52dbfe11ae3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
