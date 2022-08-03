@@ -233,6 +233,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "87e5103c_740af2bf",
+        "filename": "redfish-core/include/query.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-08-03T23:37:47Z",
+      "side": 1,
+      "message": "\u003e I think it gives the same logic, but removes a bunch of ifdefs, and makes the double negative on the bool go away.\n\u003e \n\u003e WDYT?\nI was really wanting to avoid adding any code outside of #ifdef\u0027s, but I think it doing so just makes everything so much cleaner.  I\u0027ll implement your suggestion.",
+      "parentUuid": "5638d6cd_bbd877a9",
+      "revId": "6284e4cf53c2a60b2abc195bfea74a849cfdc13a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a9eabfe1_d33c9cc5",
         "filename": "redfish-core/include/redfish_aggregator.hpp",
         "patchSetId": 3
@@ -340,6 +358,30 @@
       "side": 1,
       "message": "\u003e \u003e Even if we have to do iterator++; 3 times, that seems better than making a complete copy,\n\u003e I can go that route, but boost::urls::segments_view is read only so I will not be able to normalize the path and simplify the comparisons as mentioned below https://gerrit.openbmc.org/c/openbmc/bmcweb/+/56062/comments/6fa9dfe1_513e1873.\n\u003e \n\u003e What if just create a vector of strings to represent up to the first 5 segments?\n\nGroan... I didn\u0027t think about that.  Yeah, normalization requires the copy, and is probably worth it.\n\nSure if you wanted a string array, that would work too.\n\n\u003e \n\u003e \u003e although it really surprises me that there\u0027s this limitation in boost url.\n\u003e I\u0027m possible I\u0027m not doing it correctly, but this is the only method I\u0027ve been able to come up with to create boost::urls::segments when starting with boost::urls::url_view.",
       "parentUuid": "b6f37965_dfcc1f3c",
+      "range": {
+        "startLine": 247,
+        "startChar": 25,
+        "endLine": 247,
+        "endChar": 32
+      },
+      "revId": "6284e4cf53c2a60b2abc195bfea74a849cfdc13a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9f1a3ba9_061d189a",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-08-03T23:37:47Z",
+      "side": 1,
+      "message": "\u003e Sure if you wanted a string array, that would work too.\nI\u0027m going to opt for that since I ultimately need strings anyway, I can remove this initial copy, and I\u0027ll still get to normalize the path.",
+      "parentUuid": "5893d24d_08abd9d5",
       "range": {
         "startLine": 247,
         "startChar": 25,
@@ -649,6 +691,30 @@
       "side": 1,
       "message": "\u003e \u003e \u003e UpdateService is hardcoded in because it contains collections and we want to make sure we handle those correctly.\n\u003e \u003e I\u0027m not following this.  Aren\u0027t there other collections that might exist 2 levels deep?\n\u003e There are some other collections that exist 2 or more levels deep, but I don\u0027t think we\u0027d want to aggregate those.\n\nWhy not?\n\n\u003e  A number of them exist within another collection (e.g. Sensors under a Chassis).  Roles and Accounts exist under Account Service.  I figured we\u0027d need to implement some special handling if we want to correctly enable satellite Roles and Accounts.\n\nAgreed, Roles and Accounts is weird, and probably shouldn\u0027t be aggregated at all, but I\u0027d much rather we make a list of \"things that don\u0027t make sense to aggregate\" and then just aggregate all the rest.  That seems far less brittle than an allow list.",
       "parentUuid": "f2b5b874_25702c7b",
+      "range": {
+        "startLine": 258,
+        "startChar": 25,
+        "endLine": 258,
+        "endChar": 38
+      },
+      "revId": "6284e4cf53c2a60b2abc195bfea74a849cfdc13a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "70549ca1_8b397371",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-08-03T23:37:47Z",
+      "side": 1,
+      "message": "\u003e I\u0027d much rather we make a list of \"things that don\u0027t make sense to aggregate\" and then just aggregate all the rest.  That seems far less brittle than an allow list.\nI\u0027m not sure I agree that an allow list is that brittle.  It\u0027s certainly not preferable for long term viability, but there\u0027s a better solution for that in the pipeline.\n\nWe\u0027ll catch /redfish/v1/\u003cnot collection\u003e/ by virtue of the later aggregating collections patch that will ignore \"collection\" responses that don\u0027t include a Members array.  We\u0027re really just concerned about URIs that deviate from the general form of /redfish/v1/\u003ccollection\u003e/\u003cid\u003e.\n\nI think a block list would become a massive headache and it might even be more brittle.  We can\u0027t individually identify for certain if a request is for a collection.  It wouldn\u0027t be sufficient for the block list to just contain the non-top level collections that we don\u0027t want to aggregate.  We would end up with a massive number of false positives.  \n\nLet\u0027s say we have a URI like /redfish/v1/Chassis/Phony.  It doesn\u0027t have a prefix so we know it\u0027s not for a satellite resource.  Phony doesn\u0027t show up in the list of blocked collections so we\u0027d send the request to the satellite.\n\nAnother consideration is a block list would be much larger than an allow list.  That could introduce significant latency due to all of the additional string comparisons.",
+      "parentUuid": "fa148d6e_e85819d1",
       "range": {
         "startLine": 258,
         "startChar": 25,
