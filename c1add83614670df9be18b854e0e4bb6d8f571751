@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e3f944cd_ec368315",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-08-03T22:43:53Z",
+      "side": 1,
+      "message": "Put a nit. Otherwise LGTM",
+      "revId": "c1add83614670df9be18b854e0e4bb6d8f571751",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f9bf07e9_924f3e11",
