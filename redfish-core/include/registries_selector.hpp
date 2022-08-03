@@ -8,7 +8,7 @@
 
 namespace redfish::registries
 {
-inline std::span<const MessageEntry>
+inline std::span<const Message>
     getRegistryFromPrefix(std::string_view registryName)
 {
     if (task_event::header.registryPrefix == registryName)
