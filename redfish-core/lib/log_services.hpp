@@ -1312,9 +1312,13 @@ static LogParseError
         return LogParseError::messageIdNotInRegistry;
     }
 
+<<<<<<< HEAD
     std::vector<std::string_view> messageArgs(logEntryIter,
                                               logEntryFields.end());
     messageArgs.resize(message->numberOfArgs);
+=======
+    std::string msg = message->messageString;
+>>>>>>> 158b0323 (WIP: Give MessageEntry a real class)
 
     std::string msg = redfish::registries::fillMessageArgs(messageArgs,
                                                            message->message);
@@ -3904,8 +3908,24 @@ static bool fillPostCodeEntry(
             redfish::registries::fillMessageArgs(messageArgs, message->message);
         if (msg.empty())
         {
+<<<<<<< HEAD
             messages::internalError(asyncResp->res);
             return false;
+=======
+            msg = message->messageString;
+
+            // fill in this post code value
+            int i = 0;
+            for (const std::string& messageArg : messageArgs)
+            {
+                std::string argStr = "%" + std::to_string(++i);
+                size_t argPos = msg.find(argStr);
+                if (argPos != std::string::npos)
+                {
+                    msg.replace(argPos, argStr.length(), messageArg);
+                }
+            }
+>>>>>>> 158b0323 (WIP: Give MessageEntry a real class)
         }
 
         // Get Severity template from message registry

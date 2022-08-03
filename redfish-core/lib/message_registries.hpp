@@ -222,18 +222,18 @@ inline void handleMessageRegistryGet(
     // Go through the Message Registry and populate each Message
     for (const registries::MessageEntry* message : registryEntries)
     {
-        nlohmann::json& obj = messageObj[message->first];
-        obj["Description"] = message->second.description;
-        obj["Message"] = message->second.message;
-        obj["Severity"] = message->second.messageSeverity;
-        obj["MessageSeverity"] = message->second.messageSeverity;
-        obj["NumberOfArgs"] = message->second.numberOfArgs;
-        obj["Resolution"] = message->second.resolution;
-        if (message->second.numberOfArgs > 0)
+        nlohmann::json& obj = messageObj[message->messageId];
+        obj["Description"] = message->message.description;
+        obj["Message"] = message->message.messageString;
+        obj["Severity"] = message->message.messageSeverity;
+        obj["MessageSeverity"] = message->message.messageSeverity;
+        obj["NumberOfArgs"] = message->message.numberOfArgs;
+        obj["Resolution"] = message->message.resolution;
+        if (message->message.numberOfArgs > 0)
         {
             nlohmann::json& messageParamArray = obj["ParamTypes"];
             messageParamArray = nlohmann::json::array();
-            for (const char* str : message->second.paramTypes)
+            for (const char* str : message->message.paramTypes)
             {
                 if (str == nullptr)
                 {
