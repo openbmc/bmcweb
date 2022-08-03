@@ -30,12 +30,18 @@ namespace details
 constexpr intmax_t dayDuration = static_cast<intmax_t>(24 * 60 * 60);
 using Days = std::chrono::duration<long long, std::ratio<dayDuration>>;
 
-inline void leftZeroPadding(std::string& str, const std::size_t padding)
+// Creates a string from an integer in the most efficient way possible without
+// using std::locale.  Adds an exact zero pad based on the pad input parameter.
+// Does not handle negative numbers.
+inline std::string padZeros(long int value, size_t pad)
 {
-    if (str.size() < padding)
+    std::string result(pad, '0');
+    for (long val = value; pad > 0; pad--)
     {
-        str.insert(0, padding - str.size(), '0');
+        result[pad - 1] = static_cast<char>('0' + val % 10);
+        val /= 10;
     }
+    return result;
 }
 
 template <typename FromTime>
@@ -210,9 +216,8 @@ inline std::string toDurationString(std::chrono::milliseconds ms)
     if (seconds.count() != 0 || ms.count() != 0)
     {
         fmt += std::to_string(seconds.count()) + ".";
-        std::string msStr = std::to_string(ms.count());
-        details::leftZeroPadding(msStr, 3);
-        fmt += msStr + "S";
+        fmt += details::padZeros(ms.count(), 3);
+        fmt += "S";
     }
 
     return fmt;
