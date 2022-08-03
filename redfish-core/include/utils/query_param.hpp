@@ -11,7 +11,6 @@
 #include <sys/types.h>
 
 #include <boost/algorithm/string/classification.hpp>
-#include <boost/algorithm/string/split.hpp>
 #include <boost/beast/http/message.hpp> // IWYU pragma: keep
 #include <boost/beast/http/status.hpp>
 #include <boost/beast/http/verb.hpp>
@@ -61,6 +60,46 @@ enum class ExpandType : uint8_t
     Both,
 };
 
+struct SelectedParameterTrie
+{
+    std::map<std::string, SelectedParameterTrie, std::less<>> children;
+
+    SelectedParameterTrie() = default;
+
+    SelectedParameterTrie(std::initializer_list<std::string_view> init)
+    {
+        for (std::string_view value : init)
+        {
+            push(value);
+        }
+    }
+
+    void push(std::string_view str)
+    {
+        SelectedParameterTrie* currentNode = this;
+        while (true)
+        {
+            size_t index = str.find('/');
+            std::string childName(str.substr(0, index));
+            currentNode = &currentNode->children[childName];
+            if (str.size() <= childName.size() + 1)
+            {
+                break;
+            }
+            str.remove_prefix(childName.size() + 1);
+        }
+    }
+
+    bool empty() const
+    {
+        return children.empty();
+    }
+
+    void clear()
+    {
+        children.clear();
+    }
+};
 // The struct stores the parsed query parameters of the default Redfish route.
 struct Query
 {
@@ -78,7 +117,7 @@ struct Query
     std::optional<size_t> top = std::nullopt;
 
     // Select
-    std::vector<std::string> selectedProperties = {};
+    SelectedParameterTrie selectedProperties{};
 };
 
 // The struct defines how resource handlers in redfish-core/lib/ can handle
@@ -271,32 +310,39 @@ inline bool isSelectedPropertyAllowed(std::string_view property)
 // https://docs.oasis-open.org/odata/odata/v4.01/os/abnf/odata-abnf-construction-rules.txt
 inline bool getSelectParam(std::string_view value, Query& query)
 {
-    boost::split(query.selectedProperties, value, boost::is_any_of(","));
-    if (query.selectedProperties.empty())
-    {
-        return false;
-    }
     // These a magic number, but with it it's less likely that this code
     // introduces CVE; e.g., too large properties crash the service.
     constexpr int maxNumProperties = 10;
-    if (query.selectedProperties.size() > maxNumProperties)
+    size_t propertyCount = 0;
+    while (true)
     {
-        return false;
-    }
-    for (const std::string& property : query.selectedProperties)
-    {
+        size_t index = value.find(',');
+        std::string_view property = value.substr(0, index);
         if (!isSelectedPropertyAllowed(property))
         {
             return false;
         }
+        if (propertyCount > maxNumProperties)
+        {
+            return false;
+        }
+        propertyCount++;
+        query.selectedProperties.push(property);
+        if (property.size() + 1 >= value.size())
+        {
+            break;
+        }
+        value.remove_prefix(property.size() + 1);
     }
+
     // Per the Redfish spec section 7.3.3, the service shall select certain
     // properties as if $select was omitted.
     constexpr std::array<std::string_view, 5> reservedProperties = {
         "@odata.id", "@odata.type", "@odata.context", "@odata.etag", "error"};
-    query.selectedProperties.insert(query.selectedProperties.begin(),
-                                    reservedProperties.begin(),
-                                    reservedProperties.end());
+    for (std::string_view property : reservedProperties)
+    {
+        query.selectedProperties.push(property);
+    }
 
     return true;
 }
@@ -720,7 +766,7 @@ inline void processTopAndSkip(const Query& query, crow::Response& res)
 // |shouldSelect| contains all the properties that needs to be selected.  List
 // must be sorted.
 inline void performSelect(nlohmann::json& currRoot,
-                          const std::vector<std::string>& properties)
+                          const SelectedParameterTrie& properties)
 {
     nlohmann::json::object_t* object =
         currRoot.get_ptr<nlohmann::json::object_t*>();
@@ -729,40 +775,21 @@ inline void performSelect(nlohmann::json& currRoot,
         auto it = object->begin();
         while (it != object->end())
         {
-            bool includeWholeObject = false;
-            std::vector<std::string> depthProperties;
-            for (const std::string& property : properties)
+            auto propit = properties.children.find(it->first);
+            if (propit == properties.children.end())
             {
-                std::size_t index = property.find('/');
-                std::string_view prop(property);
-                std::string_view filename = prop.substr(0, index);
-                if (filename != it->first)
-                {
-                    continue;
-                }
-                if (index == std::string::npos)
-                {
-                    includeWholeObject = true;
-                    break;
-                }
-                depthProperties.emplace_back(property.substr(index + 1));
-            }
-            if (includeWholeObject)
-            {
-                it++;
+                BMCWEB_LOG_DEBUG << it->first << " is getting removed!";
+                // If this wasn't selected, erase it.
+                it = object->erase(it);
                 continue;
             }
-            // Only need to recurse if there are properties to select
-            if (!depthProperties.empty())
+            if (!propit->second.children.empty())
             {
+                // Include the whole object
                 BMCWEB_LOG_DEBUG << "Recursively select: " << it->first;
-                performSelect(it->second, depthProperties);
-                it++;
-                continue;
+                performSelect(it->second, propit->second);
             }
-
-            BMCWEB_LOG_DEBUG << it->first << " is getting removed!";
-            it = object->erase(it);
+            it++;
         }
         return;
     }
