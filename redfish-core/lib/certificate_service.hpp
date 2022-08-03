@@ -688,7 +688,7 @@ static void getCertificateProperties(
                 if (value != nullptr)
                 {
                     asyncResp->res.jsonValue["ValidNotAfter"] =
-                        crow::utility::getDateTimeUint(*value);
+                        redfish::time_utils::getDateTimeUint(*value);
                 }
             }
             else if (property.first == "ValidNotBefore")
@@ -697,7 +697,7 @@ static void getCertificateProperties(
                 if (value != nullptr)
                 {
                     asyncResp->res.jsonValue["ValidNotBefore"] =
-                        crow::utility::getDateTimeUint(*value);
+                        redfish::time_utils::getDateTimeUint(*value);
                 }
             }
         }

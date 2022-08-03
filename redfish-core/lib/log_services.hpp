@@ -38,6 +38,7 @@
 #include <error_messages.hpp>
 #include <query.hpp>
 #include <registries/privilege_registry.hpp>
+#include <utils/time_utils.hpp>
 
 #include <charconv>
 #include <filesystem>
@@ -178,7 +179,8 @@ inline static bool getEntryTimestamp(sd_journal* journal,
                          << strerror(-ret);
         return false;
     }
-    entryTimestamp = crow::utility::getDateTimeUint(timestamp / 1000 / 1000);
+    entryTimestamp =
+        redfish::time_utils::getDateTimeUint(timestamp / 1000 / 1000);
     return true;
 }
 
@@ -495,7 +497,8 @@ inline void
             thisEntry["@odata.id"] = entriesPath + entryID;
             thisEntry["Id"] = entryID;
             thisEntry["EntryType"] = "Event";
-            thisEntry["Created"] = crow::utility::getDateTimeUint(timestamp);
+            thisEntry["Created"] =
+                redfish::time_utils::getDateTimeUint(timestamp);
             thisEntry["Name"] = dumpType + " Dump Entry";
 
             if (dumpType == "BMC")
@@ -580,7 +583,7 @@ inline void
             asyncResp->res.jsonValue["Id"] = entryID;
             asyncResp->res.jsonValue["EntryType"] = "Event";
             asyncResp->res.jsonValue["Created"] =
-                crow::utility::getDateTimeUint(timestamp);
+                redfish::time_utils::getDateTimeUint(timestamp);
             asyncResp->res.jsonValue["Name"] = dumpType + " Dump Entry";
 
             if (dumpType == "BMC")
@@ -944,7 +947,7 @@ inline void requestRoutesEventLogService(App& app)
         asyncResp->res.jsonValue["OverWritePolicy"] = "WrapsWhenFull";
 
         std::pair<std::string, std::string> redfishDateTimeOffset =
-            crow::utility::getDateTimeOffsetNow();
+            redfish::time_utils::getDateTimeOffsetNow();
 
         asyncResp->res.jsonValue["DateTime"] = redfishDateTimeOffset.first;
         asyncResp->res.jsonValue["DateTimeLocalOffset"] =
@@ -1396,9 +1399,9 @@ inline void requestRoutesDBusEventLogEntryCollection(App& app)
                 thisEntry["Severity"] =
                     translateSeverityDbusToRedfish(*severity);
                 thisEntry["Created"] =
-                    crow::utility::getDateTimeUintMs(*timestamp);
+                    redfish::time_utils::getDateTimeUintMs(*timestamp);
                 thisEntry["Modified"] =
-                    crow::utility::getDateTimeUintMs(*updateTimestamp);
+                    redfish::time_utils::getDateTimeUintMs(*updateTimestamp);
                 if (filePath != nullptr)
                 {
                     thisEntry["AdditionalDataURI"] =
@@ -1519,9 +1522,9 @@ inline void requestRoutesDBusEventLogEntry(App& app)
             asyncResp->res.jsonValue["Severity"] =
                 translateSeverityDbusToRedfish(*severity);
             asyncResp->res.jsonValue["Created"] =
-                crow::utility::getDateTimeUintMs(*timestamp);
+                redfish::time_utils::getDateTimeUintMs(*timestamp);
             asyncResp->res.jsonValue["Modified"] =
-                crow::utility::getDateTimeUintMs(*updateTimestamp);
+                redfish::time_utils::getDateTimeUintMs(*updateTimestamp);
             if (filePath != nullptr)
             {
                 asyncResp->res.jsonValue["AdditionalDataURI"] =
@@ -2059,7 +2062,7 @@ inline void requestRoutesBMCJournalLogService(App& app)
         asyncResp->res.jsonValue["OverWritePolicy"] = "WrapsWhenFull";
 
         std::pair<std::string, std::string> redfishDateTimeOffset =
-            crow::utility::getDateTimeOffsetNow();
+            redfish::time_utils::getDateTimeOffsetNow();
         asyncResp->res.jsonValue["DateTime"] = redfishDateTimeOffset.first;
         asyncResp->res.jsonValue["DateTimeLocalOffset"] =
             redfishDateTimeOffset.second;
@@ -2331,7 +2334,7 @@ inline void
     asyncResp->res.jsonValue["OverWritePolicy"] = std::move(overWritePolicy);
 
     std::pair<std::string, std::string> redfishDateTimeOffset =
-        crow::utility::getDateTimeOffsetNow();
+        redfish::time_utils::getDateTimeOffsetNow();
     asyncResp->res.jsonValue["DateTime"] = redfishDateTimeOffset.first;
     asyncResp->res.jsonValue["DateTimeLocalOffset"] =
         redfishDateTimeOffset.second;
@@ -2531,7 +2534,7 @@ inline void requestRoutesSystemDumpService(App& app)
         asyncResp->res.jsonValue["OverWritePolicy"] = "WrapsWhenFull";
 
         std::pair<std::string, std::string> redfishDateTimeOffset =
-            crow::utility::getDateTimeOffsetNow();
+            redfish::time_utils::getDateTimeOffsetNow();
         asyncResp->res.jsonValue["DateTime"] = redfishDateTimeOffset.first;
         asyncResp->res.jsonValue["DateTimeLocalOffset"] =
             redfishDateTimeOffset.second;
@@ -2665,7 +2668,7 @@ inline void requestRoutesCrashdumpService(App& app)
         asyncResp->res.jsonValue["MaxNumberOfRecords"] = 3;
 
         std::pair<std::string, std::string> redfishDateTimeOffset =
-            crow::utility::getDateTimeOffsetNow();
+            redfish::time_utils::getDateTimeOffsetNow();
         asyncResp->res.jsonValue["DateTime"] = redfishDateTimeOffset.first;
         asyncResp->res.jsonValue["DateTimeLocalOffset"] =
             redfishDateTimeOffset.second;
@@ -3147,7 +3150,7 @@ inline void requestRoutesPostCodesLogService(App& app)
             "/redfish/v1/Systems/system/LogServices/PostCodes/Entries";
 
         std::pair<std::string, std::string> redfishDateTimeOffset =
-            crow::utility::getDateTimeOffsetNow();
+            redfish::time_utils::getDateTimeOffsetNow();
         asyncResp->res.jsonValue["DateTime"] = redfishDateTimeOffset.first;
         asyncResp->res.jsonValue["DateTimeLocalOffset"] =
             redfishDateTimeOffset.second;
@@ -3254,7 +3257,7 @@ static void fillPostCodeEntry(
         // Get the Created time from the timestamp
         std::string entryTimeStr;
         entryTimeStr =
-            crow::utility::getDateTimeUint(usecSinceEpoch / 1000 / 1000);
+            redfish::time_utils::getDateTimeUint(usecSinceEpoch / 1000 / 1000);
 
         // assemble messageArgs: BootIndex, TimeOffset(100us), PostCode(hex)
         std::ostringstream hexCode;
