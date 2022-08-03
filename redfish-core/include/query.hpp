@@ -71,11 +71,13 @@ namespace redfish
     delegated = query_param::delegate(queryCapabilities, *queryOpt);
     std::function<void(crow::Response&)> handler =
         asyncResp->res.releaseCompleteRequestHandler();
+
     asyncResp->res.setCompleteRequestHandler(
         [&app, handler(std::move(handler)),
-         query{*queryOpt}](crow::Response& resIn) mutable {
+         query{std::move(*queryOpt)}](crow::Response& resIn) mutable {
         processAllParams(app, query, handler, resIn);
     });
+
     return true;
 }
 
