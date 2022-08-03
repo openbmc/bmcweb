@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4a6a6e54_21c9fc73",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-08-03T20:26:13Z",
+      "side": 1,
+      "message": "Do you need to include anything here?",
+      "revId": "01b77a435a46cb48d1d671c86ff9d3bf44750f83",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3673e04d_5838c7c9",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 3630,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-08-03T20:26:13Z",
+      "side": 1,
+      "message": "Why is this status vs  boost::beast::http::field::content_transfer_encoding above?",
+      "revId": "01b77a435a46cb48d1d671c86ff9d3bf44750f83",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
