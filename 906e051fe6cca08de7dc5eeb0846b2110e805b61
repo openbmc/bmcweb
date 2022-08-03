@@ -159,6 +159,24 @@
       "parentUuid": "6d12e57a_edeeb9c5",
       "revId": "906e051fe6cca08de7dc5eeb0846b2110e805b61",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1d191d2c_2a11dd5c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001093
+      },
+      "writtenOn": "2022-08-03T13:52:15Z",
+      "side": 1,
+      "message": "Nan Zhou, I have not run Validator before. If you already have done it, it would be helpful if you check in your system. Meanwhile, i will also try in our system.Thanks.",
+      "parentUuid": "9434dcac_8733b077",
+      "revId": "906e051fe6cca08de7dc5eeb0846b2110e805b61",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
