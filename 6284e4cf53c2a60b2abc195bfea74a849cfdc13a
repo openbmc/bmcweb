@@ -55,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "123ea00e_494cd91d",
+        "filename": "redfish-core/include/query.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-08-03T00:19:36Z",
+      "side": 1,
+      "message": "I reverted this in patchset 4.",
+      "parentUuid": "a77cc882_f2b8042e",
+      "revId": "6284e4cf53c2a60b2abc195bfea74a849cfdc13a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8cad1567_1e7e1c0f",
         "filename": "redfish-core/include/query.hpp",
         "patchSetId": 3
@@ -84,6 +102,24 @@
       "side": 1,
       "message": "I thought we wanted completely to avoid writing anything to the response if it was later going to be overwritten by the response from the satellite BMC?  If that\u0027s not the case then I can restore this to its previous behavior.",
       "parentUuid": "8cad1567_1e7e1c0f",
+      "revId": "6284e4cf53c2a60b2abc195bfea74a849cfdc13a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "00407b81_e03d1b54",
+        "filename": "redfish-core/include/query.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-08-03T00:19:36Z",
+      "side": 1,
+      "message": "I\u0027ve preemptively restored this in patchset 4",
+      "parentUuid": "34b2a26a_1b2aaa53",
       "revId": "6284e4cf53c2a60b2abc195bfea74a849cfdc13a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -171,6 +207,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1d2fa443_784d387e",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-08-03T00:19:36Z",
+      "side": 1,
+      "message": "Yeah that general idea is supported by the API and normalizing would make things waaaay easier to deal with.  I assumed there was a reason the URI had had not been previously normalized so I was trying to preserve it as is.  If that\u0027s not a concern then I\u0027ll add normalization to make this easier to follow.",
+      "parentUuid": "6fa9dfe1_513e1873",
+      "range": {
+        "startLine": 252,
+        "startChar": 11,
+        "endLine": 252,
+        "endChar": 33
+      },
+      "revId": "6284e4cf53c2a60b2abc195bfea74a849cfdc13a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "837a73a8_71e2b554",
         "filename": "redfish-core/include/redfish_aggregator.hpp",
         "patchSetId": 3
@@ -182,6 +242,30 @@
       "writtenOn": "2022-08-02T17:53:15Z",
       "side": 1,
       "message": "Possible nullptr dereference.  Range check your requests please.",
+      "range": {
+        "startLine": 253,
+        "startChar": 40,
+        "endLine": 253,
+        "endChar": 48
+      },
+      "revId": "6284e4cf53c2a60b2abc195bfea74a849cfdc13a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "85b74ea5_af449e28",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-08-03T00:19:36Z",
+      "side": 1,
+      "message": "I do check it.  The \"segments.size() \u003d\u003d 4\" gets checked before \"segments[3].empty()\"",
+      "parentUuid": "837a73a8_71e2b554",
       "range": {
         "startLine": 253,
         "startChar": 40,
@@ -217,6 +301,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9af98a96_2b5923b9",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-08-03T00:19:36Z",
+      "side": 1,
+      "message": "There definitely are, however the later patch that implements aggregating collections will ignore responses that do not contain a \"Members\" array so that\u0027s enough to catch false positives.  UpdateService is hardcoded in because it contains collections and we want to make sure we handle those correctly.\n\nThis is ultimately the right way to handle determining what is and isn\u0027t a collection https://gerrit.openbmc.org/c/openbmc/bmcweb/+/55215.  When that\u0027s finished then it will provide a more reliable method of determining what is and isn\u0027t a collection.  The hard coding can go away.",
+      "parentUuid": "45246507_503286c8",
+      "range": {
+        "startLine": 258,
+        "startChar": 25,
+        "endLine": 258,
+        "endChar": 38
+      },
+      "revId": "6284e4cf53c2a60b2abc195bfea74a849cfdc13a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ed9d16c9_529bcdaf",
         "filename": "redfish-core/include/redfish_aggregator.hpp",
         "patchSetId": 3
@@ -228,6 +336,30 @@
       "writtenOn": "2022-08-02T17:53:15Z",
       "side": 1,
       "message": "Maybe an enum would be better here?  false and true aren\u0027t very descriptive, and having a tristate seems a lot more readable\n\nSomething like\n\nenum class Result {\n    AggregationStarted,\n    AggregationStartedBmcStillNeeded,\n    AggregationNotRequired,\n}\n\n?  \n\n\nThose names are kinda lame, but you get the idea.",
+      "range": {
+        "startLine": 266,
+        "startChar": 23,
+        "endLine": 266,
+        "endChar": 28
+      },
+      "revId": "6284e4cf53c2a60b2abc195bfea74a849cfdc13a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f9261f2b_a2553b76",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-08-03T00:19:36Z",
+      "side": 1,
+      "message": "An enum would be more descriptive, but it\u0027s not really a tristate.  There are three paths like you mention, but really there are only two end results: do or don\u0027t handle request locally.  \"AggregationStartedBmcStillNeeded\" and \"AggregationNotRequired\" would still be handled the same way by whatever calls beginAggregation().\n\nIn future patches we will call the forward request or forward collection request methods before we actually hit these return statements.\n\nIf still prefer an enum then I think it should just be something like \"LocalHandle\", \"NoLocalHandle\".  Either way, for an enum are you suggesting I would just have this function return the enum itself instead of the bool?",
+      "parentUuid": "ed9d16c9_529bcdaf",
       "range": {
         "startLine": 266,
         "startChar": 23,
@@ -257,6 +389,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4cefcfb0_ff97629f",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-08-03T00:19:36Z",
+      "side": 1,
+      "message": "The way will be when this patch is completed https://gerrit.openbmc.org/c/openbmc/bmcweb/+/55215.  At that point we\u0027ll always be able to know what the collections are without having to implement all of this special hard coding.",
+      "parentUuid": "4d0ec192_52bde85c",
+      "revId": "6284e4cf53c2a60b2abc195bfea74a849cfdc13a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9c2708c0_de26a503",
         "filename": "redfish-core/include/redfish_aggregator.hpp",
         "patchSetId": 3
@@ -268,6 +418,30 @@
       "writtenOn": "2022-08-02T17:53:15Z",
       "side": 1,
       "message": "common error #12.",
+      "range": {
+        "startLine": 331,
+        "startChar": 30,
+        "endLine": 331,
+        "endChar": 34
+      },
+      "revId": "6284e4cf53c2a60b2abc195bfea74a849cfdc13a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b9e5f981_2fbb2c5d",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-08-03T00:19:36Z",
+      "side": 1,
+      "message": "I didn\u0027t think I was violating that error because I\u0027m making sure the segment begins with \"aggregated\" rather than checking if find() returns true like in that example.  I\u0027ll just switch to std::string::starts_with().",
+      "parentUuid": "9c2708c0_de26a503",
       "range": {
         "startLine": 331,
         "startChar": 30,
