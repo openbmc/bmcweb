@@ -107,29 +107,24 @@ def update_registries(files):
             messages_sorted = sorted(json_dict["Messages"].items())
             for messageId, message in messages_sorted:
                 registry.write(
-                    "    MessageEntry{{\n"
+                    "    Message{{\n"
                     '        "{messageId}",\n'
-                    "        {{\n"
-                    '            "{message[Description]}",\n'
-                    '            "{message[Message]}",\n'
-                    '            "{message[MessageSeverity]}",\n'
-                    "            {message[NumberOfArgs]},\n"
-                    "            {{".format(
-                        messageId=messageId, message=message
-                    )
+                    '        "{message[Description]}",\n'
+                    '        "{message[Message]}",\n'
+                    '        "{message[MessageSeverity]}",\n'
+                    "        {message[NumberOfArgs]},\n"
+                    "        {{".format(messageId=messageId, message=message)
                 )
                 paramTypes = message.get("ParamTypes")
                 if paramTypes:
                     for paramType in paramTypes:
-                        registry.write(
-                            '\n                "{}",'.format(paramType)
-                        )
-                    registry.write("\n            },\n")
+                        registry.write('\n            "{}",'.format(paramType))
+                    registry.write("\n        },\n")
                 else:
                     registry.write("},\n")
                 registry.write(
-                    '            "{message[Resolution]}",\n'
-                    "        }}}},\n".format(message=message)
+                    '        "{message[Resolution]}",\n'
+                    "    }},\n".format(message=message)
                 )
 
             registry.write("\n};\n\nenum class Index\n{\n")
