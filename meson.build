@@ -245,6 +245,7 @@ cxx.get_supported_arguments([
   '-DBOOST_EXCEPTION_DISABLE',
   '-DBOOST_URL_NO_SOURCE_LOCATION',
   '-DJSON_NOEXCEPTION',
+  '-DOPENSSL_NO_FILENAMES',
 ]),
 language : 'cpp')
 
