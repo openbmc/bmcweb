@@ -21,6 +21,7 @@
 #include "pcie.hpp"
 #include "query.hpp"
 #include "redfish_util.hpp"
+#include "utils/time_utils.hpp"
 
 #include <app.hpp>
 #include <boost/container/flat_map.hpp>
@@ -1079,7 +1080,7 @@ inline void getLastResetTime(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
 
         // Convert to ISO 8601 standard
         aResp->res.jsonValue["LastResetTime"] =
-            crow::utility::getDateTimeUint(lastResetTimeStamp);
+            redfish::time_utils::getDateTimeUint(lastResetTimeStamp);
         });
 }
 
