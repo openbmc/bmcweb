@@ -239,9 +239,10 @@ class ConfigFile
                 session["username"] = p.second->username;
                 session["csrf_token"] = p.second->csrfToken;
                 session["client_ip"] = p.second->clientIp;
-#ifdef BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE
-                session["client_id"] = p.second->clientId;
-#endif
+                if (p.second->clientId)
+                {
+                    session["client_id"] = *p.second->clientId;
+                }
                 sessions.push_back(std::move(session));
             }
         }
