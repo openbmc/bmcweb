@@ -34,14 +34,18 @@ inline void fillSessionObject(crow::Response& res,
     res.jsonValue["UserName"] = session.username;
     res.jsonValue["@odata.id"] =
         "/redfish/v1/SessionService/Sessions/" + session.uniqueId;
-    res.jsonValue["@odata.type"] = "#Session.v1_3_0.Session";
+    res.jsonValue["@odata.type"] = "#Session.v1_5_0.Session";
     res.jsonValue["Name"] = "User Session";
     res.jsonValue["Description"] = "Manager User Session";
     res.jsonValue["ClientOriginIPAddress"] = session.clientIp;
+    if (session.clientId)
+    {
+        res.jsonValue["Context"] = *session.clientId;
+    }
 #ifdef BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE
     res.jsonValue["Oem"]["OpenBMC"]["@odata.type"] =
         "#OemSession.v1_0_0.Session";
-    res.jsonValue["Oem"]["OpenBMC"]["ClientID"] = session.clientId;
+    res.jsonValue["Oem"]["OpenBMC"]["ClientID"] = session.clientId.value_or("");
 #endif
 }
 
@@ -187,9 +191,10 @@ inline void handleSessionCollectionPost(
     std::string username;
     std::string password;
     std::optional<nlohmann::json> oemObject;
-    std::string clientId;
+    std::optional<std::string> clientId;
     if (!json_util::readJsonPatch(req, asyncResp->res, "UserName", username,
-                                  "Password", password, "Oem", oemObject))
+                                  "Password", password, "Context", clientId,
+                                  "Oem", oemObject))
     {
         return;
     }
@@ -226,10 +231,22 @@ inline void handleSessionCollectionPost(
         {
             return;
         }
-        if (!json_util::readJson(*bmcOem, asyncResp->res, "ClientID", clientId))
+
+        std::optional<std::string> oemClientId;
+        if (!json_util::readJson(*bmcOem, asyncResp->res, "ClientID",
+                                 oemClientId))
         {
             BMCWEB_LOG_ERROR << "Could not read ClientId";
             return;
+        }
+        if (oemClientId)
+        {
+            if (clientId)
+            {
+                messages::propertyValueConflict(*oemClientId, *clientId);
+                return;
+            }
+            clientId = *oemClientId;
         }
     }
 #endif

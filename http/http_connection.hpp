@@ -263,11 +263,10 @@ class Connection :
                 return true;
             }
             sslUser.resize(lastChar);
-            std::string unsupportedClientId;
             sessionIsFromTransport = true;
             userSession = persistent_data::SessionStore::getInstance()
                               .generateUserSession(
-                                  sslUser, req->ipAddress, unsupportedClientId,
+                                  sslUser, req->ipAddress, std::nullopt,
                                   persistent_data::PersistenceType::TIMEOUT);
             if (userSession != nullptr)
             {
