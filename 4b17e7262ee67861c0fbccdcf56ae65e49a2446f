@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "44fd46af_121c5969",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-04T17:17:18Z",
+      "side": 1,
+      "message": "Already in review here:\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/55031\n\nPlease work to get that review merged instead of opening another one.",
+      "revId": "4b17e7262ee67861c0fbccdcf56ae65e49a2446f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
