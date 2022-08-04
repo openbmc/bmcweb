@@ -119,6 +119,14 @@ option(
 )
 
 option(
+    'redfish-host-cper-log',
+    type: 'feature',
+    value: 'enabled',
+    description: '''Enable host CPER log service . Paths are under 
+                   /redfish/v1/Systems/system/LogServices/<HOST_CPER_LOGSERVICE_NAME>'''
+)
+
+option(
     'redfish-provisioning-feature',
     type: 'feature',
     value: 'disabled',
@@ -308,4 +316,24 @@ option(
                     limits of user-facing behavior.  It is not recommended to
                     enable on production systems at this time.  Other query
                     parameters such as only are not controlled by this option.'''
+)
+
+option(
+    'HOST_CPER_LOGSERVICE_NAME',
+    type : 'string',
+    value : 'HostCper',
+    description : 'Name of LogService for exposing host machine error logs in CPER format'
+)
+
+option(
+    'HOST_CPER_SERVICE',
+    type : 'string',
+    value : 'xyz.openbmc_project.HostCper.Manager',
+    description : 'D-Bus well-known bus name of service that logs host machine errors in CPER format'
+)
+option(
+    'HOST_CPER_OBJECT_MANAGER_PATH',
+    type : 'string',
+    value : '/xyz/openbmc_project/HostCper',
+    description : 'D-Bus object representing object manager for the service that logs host machine errors in CPER format. Also the base path of log objects.'
 )

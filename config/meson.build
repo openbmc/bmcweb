@@ -12,6 +12,9 @@ insecure_push_style_notification = get_option('insecure-push-style-notification'
 conf_data.set10('BMCWEB_INSECURE_ENABLE_HTTP_PUSH_STYLE_EVENTING', insecure_push_style_notification.enabled())
 conf_data.set('MESON_INSTALL_PREFIX', get_option('prefix'))
 conf_data.set('HTTPS_PORT', get_option('https_port'))
+conf_data.set('HOST_CPER_LOGSERVICE_NAME', get_option('HOST_CPER_LOGSERVICE_NAME'))
+conf_data.set('HOST_CPER_SERVICE', get_option('HOST_CPER_SERVICE'))
+conf_data.set('HOST_CPER_OBJECT_MANAGER_PATH', get_option('HOST_CPER_OBJECT_MANAGER_PATH'))
 
 conf_h_dep = declare_dependency(
     include_directories: include_directories('.'),
