@@ -20,6 +20,41 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8018343f_8fdff55e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-04T23:45:46Z",
+      "side": 1,
+      "message": "Yes.  Claire can add more details, but lots of system logs operate at that level of precision.",
+      "parentUuid": "ce158ae5_8d6d4f5b",
+      "revId": "344ab14ff3567ce20072900e70d4d3d0f91b8bb3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "adc1a683_5ab792fa",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-04T23:45:46Z",
+      "side": 1,
+      "message": "Claire, does this meet your needs for this stuff?",
+      "revId": "344ab14ff3567ce20072900e70d4d3d0f91b8bb3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e546f6aa_48b4a658",
         "filename": "http/ut/utility_test.cpp",
         "patchSetId": 10
@@ -31,6 +66,24 @@
       "writtenOn": "2022-08-04T18:20:40Z",
       "side": 1,
       "message": "This looks okay with Redfish \n\n.4.3. Date-Time values\n\nDate-Time values are strings according to the ISO 8601 extended format, including the time offset or UTC suffix. Date-Time values shall use the format:\n\nYYYY-MM-DDThh:mm:ss[.SSS](Z|(+|-)HH:MM)\n\nSSS \tThe decimal fraction of a second. One or more digits where the number of digits implies the precision.",
+      "revId": "344ab14ff3567ce20072900e70d4d3d0f91b8bb3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f38503ea_369dffba",
+        "filename": "http/ut/utility_test.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-04T23:45:46Z",
+      "side": 1,
+      "message": "👍  Thanks for looking.",
+      "parentUuid": "e546f6aa_48b4a658",
       "revId": "344ab14ff3567ce20072900e70d4d3d0f91b8bb3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
