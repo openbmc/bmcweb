@@ -536,6 +536,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0a21b100_12f2880b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-04T23:21:00Z",
+      "side": 1,
+      "message": "the gerrit-owners plugin works fine and has for a long time (that\u0027s how we maintain openbmc/openbmc).  It\u0027s the gerrit-owners-autoassign (that auto adds reviewers to a change) that\u0027s been broken for a while, but we have a replacement for that now too.",
+      "parentUuid": "30807f39_9dec25df",
+      "revId": "d8ea13a2b4dc7e0e9f450a66826add740a634c21",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "eb619265_ab2a9d10",
         "filename": "OWNERS",
         "patchSetId": 1
