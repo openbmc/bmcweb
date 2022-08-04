@@ -553,6 +553,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c61fae6d_c4c1875f",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-08-04T19:07:17Z",
+      "side": 1,
+      "message": "That thread was resolved by creating an array of strings to represent the segments.  That allowed me to still normalize the path and simplify the comparisons.",
+      "parentUuid": "4aefcb3e_9663bf24",
+      "range": {
+        "startLine": 252,
+        "startChar": 11,
+        "endLine": 252,
+        "endChar": 33
+      },
+      "revId": "6284e4cf53c2a60b2abc195bfea74a849cfdc13a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "837a73a8_71e2b554",
