@@ -249,6 +249,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b337bc57_3406eb82",
+        "filename": "redfish-core/include/query.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-08-04T17:24:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "87e5103c_740af2bf",
+      "revId": "6284e4cf53c2a60b2abc195bfea74a849cfdc13a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a9eabfe1_d33c9cc5",
@@ -382,6 +400,30 @@
       "side": 1,
       "message": "\u003e Sure if you wanted a string array, that would work too.\nI\u0027m going to opt for that since I ultimately need strings anyway, I can remove this initial copy, and I\u0027ll still get to normalize the path.",
       "parentUuid": "5893d24d_08abd9d5",
+      "range": {
+        "startLine": 247,
+        "startChar": 25,
+        "endLine": 247,
+        "endChar": 32
+      },
+      "revId": "6284e4cf53c2a60b2abc195bfea74a849cfdc13a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "53497b40_9f4eec4b",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-08-04T17:24:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9f1a3ba9_061d189a",
       "range": {
         "startLine": 247,
         "startChar": 25,
