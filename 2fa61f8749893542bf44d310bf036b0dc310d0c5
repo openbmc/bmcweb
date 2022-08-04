@@ -454,6 +454,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cbcb970b_77f48a27",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-08-04T20:46:35Z",
+      "side": 1,
+      "message": "This has been removed.  The segment matching is now being handled the same way it is being handled in the previous patch https://gerrit.openbmc.org/c/openbmc/bmcweb/+/56062/comments/a9eabfe1_d33c9cc5",
+      "parentUuid": "af81d5ba_d25ba89d",
+      "range": {
+        "startLine": 277,
+        "startChar": 12,
+        "endLine": 277,
+        "endChar": 28
+      },
+      "revId": "2fa61f8749893542bf44d310bf036b0dc310d0c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bd69ded1_26e9554d",
