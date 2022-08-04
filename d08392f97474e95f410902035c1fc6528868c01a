@@ -16,6 +16,23 @@
       "message": "Looks Good",
       "revId": "d08392f97474e95f410902035c1fc6528868c01a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b7cbc08c_e2c4ba5c",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 1992,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-08-04T15:10:33Z",
+      "side": 1,
+      "message": "Kind of unexpected a unsupported D-Bus state is Enabled/Ok but I guess I am okay, if someone adds a new BMCState, they will add an else if here and support the new state.",
+      "revId": "d08392f97474e95f410902035c1fc6528868c01a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
