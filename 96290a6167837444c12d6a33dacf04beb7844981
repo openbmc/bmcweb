@@ -505,6 +505,30 @@
       },
       "revId": "96290a6167837444c12d6a33dacf04beb7844981",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "43f9ce40_d1859b11",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 1971,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-08-04T14:44:54Z",
+      "side": 1,
+      "message": "I think Ed is talking about https://github.com/openbmc/docs/blob/master/designs/redfish-health-rolllup.md \nBut https://github.com/openbmc/bmcweb/search?q\u003dhealth-%3Epopulate is only used in some of the resources. It is in this resource on line 2102. Setting the Manager Health based on BMCState makes more sense to me then using redfish-health-rolllup.md",
+      "parentUuid": "d3a84d36_fe9189ea",
+      "range": {
+        "startLine": 1971,
+        "startChar": 0,
+        "endLine": 1971,
+        "endChar": 66
+      },
+      "revId": "96290a6167837444c12d6a33dacf04beb7844981",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
