@@ -817,6 +817,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5dbb1824_297f2fd8",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-08-04T21:14:12Z",
+      "side": 1,
+      "message": "\u003e \u003e \u003e I\u0027d much rather we make a list of \"things that don\u0027t make sense to aggregate\" and then just aggregate all the rest.  That seems far less brittle than an allow list.\n\u003e \u003e I\u0027m not sure I agree that an allow list is that brittle.  It\u0027s certainly not preferable for long term viability, but there\u0027s a better solution for that in the pipeline.\n\u003e \u003e \n\u003e \u003e We\u0027ll catch /redfish/v1/\u003cnot collection\u003e/ by virtue of the later aggregating collections patch that will ignore \"collection\" responses that don\u0027t include a Members array.\n\u003e but for say, /redfish/v1/Facilities that the bmc doesn\u0027t implement, we won\u0027t have a \"members\" to check, right?\nRight.  /redfish/v1/Facilities is not a collection, but it\u0027ll get forwarded like it is one.  However, when we process the response we just need to make sure the response has a \"Members\" array.  It won\u0027t since it\u0027s not a collection and that\u0027ll be our cue that we should ignore the response.\n\nIt\u0027s a slight issue that we send the request in the first place, but for the most part I think it\u0027s unavoidable until that patch I linked earlier in the thread where we\u0027ll be able to generate a list of all valid collections at runtime.  We could hard code that list ourselves, but we don\u0027t want to go down that road as discussed before.\n\n\u003e One thing I realized is that UpdateService needs explicit handling right?  The elements within the collection needs special handling to support the HttpPushURI I think?  Is the thing here that we just need explicit code for in the future, and this hardcoded bit goes away?\nI think you\u0027re referring to this discussion https://discord.com/channels/775381525260664832/855566794994221117/991035841633718395?  We wouldn\u0027t have to do anything special for HttpPushURI since it\u0027s only supposed to work on the local BMC.  We\u0027d have to do something special for MultipartHttpPushUri whenever support for that is added.  The handling for that might not even go in this aggregation flow.  So yes we\u0027ll need explicit code for it in the future, but I think the UpdateService hard coding will go away",
+      "parentUuid": "e8fe2f1b_1b1ab16d",
+      "range": {
+        "startLine": 258,
+        "startChar": 25,
+        "endLine": 258,
+        "endChar": 38
+      },
+      "revId": "6284e4cf53c2a60b2abc195bfea74a849cfdc13a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ed9d16c9_529bcdaf",
         "filename": "redfish-core/include/redfish_aggregator.hpp",
         "patchSetId": 3
