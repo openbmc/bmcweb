@@ -16,6 +16,24 @@
       "message": "Any downside to enabling this flag?",
       "revId": "ae47365acd3a9eed36fe09c6ea9cda8b123b7b5b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fe352689_9c3cd2c4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-04T16:54:35Z",
+      "side": 1,
+      "message": "Answered in the commit message.",
+      "parentUuid": "c1559abc_96ef90d6",
+      "revId": "ae47365acd3a9eed36fe09c6ea9cda8b123b7b5b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
