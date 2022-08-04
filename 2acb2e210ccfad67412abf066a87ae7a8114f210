@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "25e23ffd_be0dbdef",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 39
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-08-04T16:32:35Z",
+      "side": 1,
+      "message": "Do we have this association documented anywhere?",
+      "revId": "2acb2e210ccfad67412abf066a87ae7a8114f210",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b1779fe3_c13e118a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 39
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-08-04T16:32:35Z",
+      "side": 1,
+      "message": "This is looking a lot better. \n\nCan we add some testing like https://gerrit.openbmc.org/c/openbmc/bmcweb/+/41012/92/redfish-core/lib/ut/thermal_subsystem_test.cpp ?\n\nCan we add these properties to Redfish.md like https://gerrit.openbmc.org/c/openbmc/bmcweb/+/41012/92/Redfish.md  ?",
+      "revId": "2acb2e210ccfad67412abf066a87ae7a8114f210",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "82cc69e0_c91a383c",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 39
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-08-04T16:32:35Z",
+      "side": 1,
+      "message": "Huh? Why do we need this?",
+      "revId": "2acb2e210ccfad67412abf066a87ae7a8114f210",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
