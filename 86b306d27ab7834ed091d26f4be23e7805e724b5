@@ -16,6 +16,24 @@
       "message": "Sweet! Yeah, https://github.com/openbmc/bmcweb/blob/d5c80ad9c07b94465d8ea62d2b6f87c30cac765e/redfish-core/ut/time_utils_test.cpp",
       "revId": "86b306d27ab7834ed091d26f4be23e7805e724b5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a4198441_7ee09f4f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-04T17:07:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "804af46e_0a95e430",
+      "revId": "86b306d27ab7834ed091d26f4be23e7805e724b5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
