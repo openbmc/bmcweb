@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "47c830e3_17c9d7bf",
+        "filename": "http/utility.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 571,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-04T15:53:46Z",
+      "side": 1,
+      "message": "The std::abs is left over from another variation;  I\u0027ve removed it, but regardless, treating them as positive numbers is certainly not the \"correct\" behavior.\n\nI\u0027ve removed std::abs to make that behavior more clear.",
+      "parentUuid": "7d541de9_40ef18a0",
+      "range": {
+        "startLine": 571,
+        "startChar": 3,
+        "endLine": 571,
+        "endChar": 35
+      },
+      "revId": "42276c12961e842bbb4c86aa8c973cb43020ec23",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9ed295c4_079b38a7",
         "filename": "http/utility.hpp",
         "patchSetId": 9
@@ -95,6 +119,54 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e8956f3d_fd8c9b1c",
+        "filename": "http/utility.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 585,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-04T15:53:46Z",
+      "side": 1,
+      "message": "Considering this is in details, I generally try to put the documentation on the public facing functions, which is below.  That encourages users to use the intended overloads, and not the details functions.",
+      "parentUuid": "d9d0f850_5b4b5ebf",
+      "range": {
+        "startLine": 585,
+        "startChar": 12,
+        "endLine": 585,
+        "endChar": 32
+      },
+      "revId": "42276c12961e842bbb4c86aa8c973cb43020ec23",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "978d7605_2a9a185a",
+        "filename": "http/utility.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 585,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-04T15:53:46Z",
+      "side": 1,
+      "message": "Yep, this is written basically from scratch.  I wasn\u0027t really able to find one that handled all the constraints we had cleanly.  The call leading up to civilFromDays is taken from the civilFromDays docs, but that is already referenced.",
+      "parentUuid": "431f4655_f84bfbac",
+      "range": {
+        "startLine": 585,
+        "startChar": 12,
+        "endLine": 585,
+        "endChar": 32
+      },
+      "revId": "42276c12961e842bbb4c86aa8c973cb43020ec23",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fe0511c9_f2c6b65c",
         "filename": "http/utility.hpp",
         "patchSetId": 9
@@ -106,6 +178,30 @@
       "writtenOn": "2022-08-03T23:01:45Z",
       "side": 1,
       "message": "This is not a constraint previously, but not a big deal since we won\u0027t likely have a use case where time is before the epoch.",
+      "range": {
+        "startLine": 604,
+        "startChar": 60,
+        "endLine": 604,
+        "endChar": 80
+      },
+      "revId": "42276c12961e842bbb4c86aa8c973cb43020ec23",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce2f58c7_e9df6cbc",
+        "filename": "http/utility.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 604,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-04T15:53:46Z",
+      "side": 1,
+      "message": "Yep, that was my thinking as well.  I can\u0027t think of a use case where negative dates are required, and technically all our interfaces are defined as \"time SINCE epoch\", so I think negative should be fine.",
+      "parentUuid": "fe0511c9_f2c6b65c",
       "range": {
         "startLine": 604,
         "startChar": 60,
