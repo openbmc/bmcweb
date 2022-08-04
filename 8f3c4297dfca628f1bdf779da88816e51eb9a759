@@ -16,6 +16,23 @@
       "message": "I think this seems reasonable but let\u0027s wait a few days if others disagree",
       "revId": "8f3c4297dfca628f1bdf779da88816e51eb9a759",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "015b6bb0_47c7631a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2022-08-04T18:47:26Z",
+      "side": 1,
+      "message": "I\u0027ve definitely found the \"Internal Error\" log to be very useful. Currently we get something like this:\n\n[CRITICAL \"error_messages.cpp\":233] Internal Error ../git/redfish-core/include/../lib/oem/ibm/pcie_topology_refresh.hpp(30:40) `redfish::getPCIeTopologyRefresh(const std::shared_ptr\u003cbmcweb::AsyncResp\u003e\u0026)::\u003clambda(boost::system::error_code, std::variant\u003cbool\u003e\u0026)\u003e`:\n\nSo we\u0027d lose the \"pcie_topology_refresh.hpp(30:40)\" part but still have the function call at least (redfish::getPCIeTopologyRefresh)? The line number has been pretty useful for tracking down the calls causing error returns.",
+      "revId": "8f3c4297dfca628f1bdf779da88816e51eb9a759",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
