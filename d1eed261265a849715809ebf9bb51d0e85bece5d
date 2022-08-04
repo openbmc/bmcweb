@@ -65,6 +65,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "83f1e8d6_8fba33a6",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-04T17:21:37Z",
+      "side": 1,
+      "message": "I still think it\u0027s incorrect if we\u0027re #including it, but there\u0027s no usage, but sure, it\u0027s not that big of a deal.",
+      "parentUuid": "90eb69f6_191e50e8",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 18
+      },
+      "revId": "d1eed261265a849715809ebf9bb51d0e85bece5d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a755cda5_bafed9f5",
@@ -149,6 +173,30 @@
       "side": 1,
       "message": "Oh, you made a similar comment in previous patchset. I replied but I guess you missed that.\n\nWe do need a boolean to handle cases like properties\u003d{\"/a\", \"/a/b\"}. Where \"a\" has a child but we still need to select \"a\".",
       "parentUuid": "a280926c_805723c7",
+      "range": {
+        "startLine": 103,
+        "startChar": 0,
+        "endLine": 111,
+        "endChar": 5
+      },
+      "revId": "d1eed261265a849715809ebf9bb51d0e85bece5d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "02f6164c_301e71da",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-04T17:21:37Z",
+      "side": 1,
+      "message": "AH, I missed that.  ACK.  Makes sense.",
+      "parentUuid": "2f781ef7_0c5eb993",
       "range": {
         "startLine": 103,
         "startChar": 0,
