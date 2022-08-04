@@ -793,6 +793,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e8fe2f1b_1b1ab16d",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-04T20:41:05Z",
+      "side": 1,
+      "message": "\u003e \u003e I\u0027d much rather we make a list of \"things that don\u0027t make sense to aggregate\" and then just aggregate all the rest.  That seems far less brittle than an allow list.\n\u003e I\u0027m not sure I agree that an allow list is that brittle.  It\u0027s certainly not preferable for long term viability, but there\u0027s a better solution for that in the pipeline.\n\u003e \n\u003e We\u0027ll catch /redfish/v1/\u003cnot collection\u003e/ by virtue of the later aggregating collections patch that will ignore \"collection\" responses that don\u0027t include a Members array.\n\nbut for say, /redfish/v1/Facilities that the bmc doesn\u0027t implement, we won\u0027t have a \"members\" to check, right?\n\n\u003e  We\u0027re really just concerned about URIs that deviate from the general form of /redfish/v1/\u003ccollection\u003e/\u003cid\u003e.\n\u003e \n\u003e I think a block list would become a massive headache and it might even be more brittle.  We can\u0027t individually identify for certain if a request is for a collection.  It wouldn\u0027t be sufficient for the block list to just contain the non-top level collections that we don\u0027t want to aggregate.  We would end up with a massive number of false positives.\n\u003e \n\u003e Let\u0027s say we have a URI like /redfish/v1/Chassis/Phony.  It doesn\u0027t have a prefix so we know it\u0027s not for a satellite resource.  Phony doesn\u0027t show up in the list of blocked collections so we\u0027d send the request to the satellite.\n\nACK.  The above makes sense to me.\n\n\n\u003e \n\u003e Another consideration is a block list would be much larger than an allow list.  That could introduce significant latency due to all of the additional string comparisons.\n\nOne thing I realized is that UpdateService needs explicit handling right?  The elements within the collection needs special handling to support the HttpPushURI I think?  Is the thing here that we just need explicit code for in the future, and this hardcoded bit goes away?",
+      "parentUuid": "70549ca1_8b397371",
+      "range": {
+        "startLine": 258,
+        "startChar": 25,
+        "endLine": 258,
+        "endChar": 38
+      },
+      "revId": "6284e4cf53c2a60b2abc195bfea74a849cfdc13a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ed9d16c9_529bcdaf",
         "filename": "redfish-core/include/redfish_aggregator.hpp",
         "patchSetId": 3
@@ -876,6 +900,30 @@
       "side": 1,
       "message": "\u003e I still would like the enum, even if it\u0027s two state, as it makes this code more readable.  bool is error prone for things that aren\u0027t \"this is an error\"\nAlright no problem.  I\u0027ve added an enum and now we return the enum instead of the bool.  Let me know if this looks acceptable.",
       "parentUuid": "41497563_f23ee144",
+      "range": {
+        "startLine": 266,
+        "startChar": 23,
+        "endLine": 266,
+        "endChar": 28
+      },
+      "revId": "6284e4cf53c2a60b2abc195bfea74a849cfdc13a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "be887ba4_0f83ebdd",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-04T20:41:05Z",
+      "side": 1,
+      "message": "LGTM",
+      "parentUuid": "afbc1c64_ae523768",
       "range": {
         "startLine": 266,
         "startChar": 23,
