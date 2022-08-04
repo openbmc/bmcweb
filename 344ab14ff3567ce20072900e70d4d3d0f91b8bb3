@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce158ae5_8d6d4f5b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-08-04T18:20:40Z",
+      "side": 1,
+      "message": "There is really a usecase for microsecond precision ?",
+      "revId": "344ab14ff3567ce20072900e70d4d3d0f91b8bb3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e546f6aa_48b4a658",
+        "filename": "http/ut/utility_test.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-08-04T18:20:40Z",
+      "side": 1,
+      "message": "This looks okay with Redfish \n\n.4.3. Date-Time values\n\nDate-Time values are strings according to the ISO 8601 extended format, including the time offset or UTC suffix. Date-Time values shall use the format:\n\nYYYY-MM-DDThh:mm:ss[.SSS](Z|(+|-)HH:MM)\n\nSSS \tThe decimal fraction of a second. One or more digits where the number of digits implies the precision.",
+      "revId": "344ab14ff3567ce20072900e70d4d3d0f91b8bb3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
