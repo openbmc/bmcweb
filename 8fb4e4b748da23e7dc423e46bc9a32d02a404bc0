@@ -34,6 +34,24 @@
       "parentUuid": "e002cb1e_49470807",
       "revId": "8fb4e4b748da23e7dc423e46bc9a32d02a404bc0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9fdca259_62d30203",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-04T23:22:19Z",
+      "side": 1,
+      "message": "This comment seems like it was ignored on the latest patch?",
+      "parentUuid": "1e8a92d4_9beb95f7",
+      "revId": "8fb4e4b748da23e7dc423e46bc9a32d02a404bc0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
