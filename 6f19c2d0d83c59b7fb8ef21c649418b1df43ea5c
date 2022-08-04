@@ -16,6 +16,24 @@
       "message": "Why is this an else if? \nOther places present and functional are independent. Just make this an if?",
       "revId": "6f19c2d0d83c59b7fb8ef21c649418b1df43ea5c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eff584c7_655b3e75",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 60
+      },
+      "lineNbr": 955,
+      "author": {
+        "id": 1001369
+      },
+      "writtenOn": "2022-08-04T20:18:04Z",
+      "side": 1,
+      "message": "I am not sure if the original owner (George) did that intentionally. But yeah, I guess it should be a separate if check.",
+      "parentUuid": "1a77fa70_c0fdb636",
+      "revId": "6f19c2d0d83c59b7fb8ef21c649418b1df43ea5c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
