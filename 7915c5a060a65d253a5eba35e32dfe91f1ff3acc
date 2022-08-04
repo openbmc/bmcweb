@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f8235ee2_2fcfb4b7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-04T16:58:20Z",
+      "side": 1,
+      "message": "For this \"quick\" comparison, I just xz compress the bmcweb binary:\n\nxz -zc $BBPATH/tmp/work/qemuarm-openbmc-linux-gnueabi/obmc-phosphor-image/1.0-r0/rootfs/usr/bin/bmcweb | wc -c\n\nThat gives a pretty reliable measure of binary size, so long as the code we used isn\u0027t used in another daemon, which, if it is, that\u0027s not really a concern for bmcweb.\n\nIn cases where there\u0027s questions about the measurement, or there is known to be a lot of code shared, I use this tool:\nhttps://github.com/openbmc/openbmc-tools/tree/master/rootfs_size\n\nWhich on a very powerful machine takes about an hour to run.  It\u0027s not generally worth the time for each patchset, but I tend to run it once a year to do diffs.",
+      "parentUuid": "bb422fb0_a676c66a",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 66
+      },
+      "revId": "7915c5a060a65d253a5eba35e32dfe91f1ff3acc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d1a765f4_f3d6d17b",
@@ -37,6 +61,24 @@
       "writtenOn": "2022-08-03T23:13:56Z",
       "side": 1,
       "message": "Does RedfishServiceValidator check these headers?",
+      "revId": "7915c5a060a65d253a5eba35e32dfe91f1ff3acc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "60c59fef_22e7dba4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-04T16:58:20Z",
+      "side": 1,
+      "message": "I don\u0027t think so?  But I\u0027m not sure.",
+      "parentUuid": "d1a765f4_f3d6d17b",
       "revId": "7915c5a060a65d253a5eba35e32dfe91f1ff3acc",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
