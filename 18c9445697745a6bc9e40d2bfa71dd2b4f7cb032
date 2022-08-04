@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9f9ae660_429d9d23",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-08-04T13:56:17Z",
+      "side": 1,
+      "message": "Updated sizes in commit message, I just realized that previous version had enabled dbus logs",
+      "revId": "18c9445697745a6bc9e40d2bfa71dd2b4f7cb032",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
