@@ -146,6 +146,13 @@ class RedfishService
         requestRoutesFaultLogDumpClear(app);
 #endif
 
+#ifdef BMCWEB_ENABLE_REDFISH_HOST_CPER_LOG
+        requestRoutesHostCperService(app);
+        requestRoutesHostCperEntryCollection(app);
+        requestRoutesHostCperEntry(app);
+        requestRoutesHostCperClear(app);
+#endif
+
 #ifndef BMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES
         requestRoutesJournalEventLogEntryCollection(app);
         requestRoutesJournalEventLogEntry(app);
