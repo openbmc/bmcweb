@@ -518,6 +518,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "30807f39_9dec25df",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-08-04T20:29:13Z",
+      "side": 1,
+      "message": "\u003e yes, im not that worried about you guys will +2 changes you don’t own the source for,\nSG. Thank you.\n\n\u003e but the way the owners plugin works, you have to +2 a change to “approve as the maintainer.  it’s config file code, I’ll get it done by the end of the week.\n\nOh, so the owners plugin already works? Several months I was told it\u0027s still not working.",
+      "parentUuid": "a9e2485a_e4676808",
+      "revId": "d8ea13a2b4dc7e0e9f450a66826add740a634c21",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "eb619265_ab2a9d10",
         "filename": "OWNERS",
         "patchSetId": 1
