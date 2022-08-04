@@ -71,6 +71,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d62189e_b34e8ed5",
+        "filename": "http/utility.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 576,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-04T16:02:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9ed295c4_079b38a7",
+      "range": {
+        "startLine": 576,
+        "startChar": 9,
+        "endLine": 576,
+        "endChar": 10
+      },
+      "revId": "42276c12961e842bbb4c86aa8c973cb43020ec23",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "431f4655_f84bfbac",
