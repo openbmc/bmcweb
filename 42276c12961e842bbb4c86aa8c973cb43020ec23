@@ -189,6 +189,54 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "43bbf172_3f6d91d1",
+        "filename": "http/utility.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 585,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-08-04T16:49:53Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "978d7605_2a9a185a",
+      "range": {
+        "startLine": 585,
+        "startChar": 12,
+        "endLine": 585,
+        "endChar": 32
+      },
+      "revId": "42276c12961e842bbb4c86aa8c973cb43020ec23",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8281c1b1_91d56db4",
+        "filename": "http/utility.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 585,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-08-04T16:49:53Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "e8956f3d_fd8c9b1c",
+      "range": {
+        "startLine": 585,
+        "startChar": 12,
+        "endLine": 585,
+        "endChar": 32
+      },
+      "revId": "42276c12961e842bbb4c86aa8c973cb43020ec23",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fe0511c9_f2c6b65c",
@@ -226,6 +274,30 @@
       "side": 1,
       "message": "Yep, that was my thinking as well.  I can\u0027t think of a use case where negative dates are required, and technically all our interfaces are defined as \"time SINCE epoch\", so I think negative should be fine.",
       "parentUuid": "fe0511c9_f2c6b65c",
+      "range": {
+        "startLine": 604,
+        "startChar": 60,
+        "endLine": 604,
+        "endChar": 80
+      },
+      "revId": "42276c12961e842bbb4c86aa8c973cb43020ec23",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b34bac24_c9a6bf85",
+        "filename": "http/utility.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 604,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-08-04T16:49:53Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "ce2f58c7_e9df6cbc",
       "range": {
         "startLine": 604,
         "startChar": 60,
