@@ -74,6 +74,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b73bf72d_7df987db",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-04T18:11:26Z",
+      "side": 1,
+      "message": "because it includes the full path.  On my machine, it\u0027s going to be\n\n/home/edtanous/build/openbmcfolder/build/tmp/.....\n\n\nOn your machine, it\u0027s going to be something that includes your username.  This means that which machine/user/folder you build it on changes the resulting binary.\n\nAlso, (less important) it leaks information about the layout of the build machine, which ideally we shouldn\u0027t do.",
+      "parentUuid": "3b5a5ff6_78486167",
+      "range": {
+        "startLine": 9,
+        "startChar": 26,
+        "endLine": 9,
+        "endChar": 45
+      },
+      "revId": "69e6380db7fbcd4b6b0c02113bfbf2753a76a38e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4422a5ed_9ef8915b",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
