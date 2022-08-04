@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0cbc8b8c_077142b3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-04T15:16:07Z",
+      "side": 1,
+      "message": "For OpenBMC it\u0027s a concern because it throws a warning.\n\nI suspect in yocto it\u0027s a concern because it means that your builds are no longer reproducible, but I\u0027m not sure.",
+      "parentUuid": "6dfb41b1_60f58211",
+      "range": {
+        "startLine": 9,
+        "startChar": 26,
+        "endLine": 9,
+        "endChar": 45
+      },
+      "revId": "69e6380db7fbcd4b6b0c02113bfbf2753a76a38e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4422a5ed_9ef8915b",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -37,6 +61,30 @@
       "writtenOn": "2022-08-03T23:22:20Z",
       "side": 1,
       "message": "things",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 6
+      },
+      "revId": "69e6380db7fbcd4b6b0c02113bfbf2753a76a38e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4be58e07_520ef273",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-04T15:16:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4422a5ed_9ef8915b",
       "range": {
         "startLine": 11,
         "startChar": 0,
@@ -60,6 +108,30 @@
       "writtenOn": "2022-08-03T23:22:20Z",
       "side": 1,
       "message": "hpp?",
+      "range": {
+        "startLine": 15,
+        "startChar": 64,
+        "endLine": 15,
+        "endChar": 65
+      },
+      "revId": "69e6380db7fbcd4b6b0c02113bfbf2753a76a38e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ef25f6d0_fc3dcd4f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-04T15:16:07Z",
+      "side": 1,
+      "message": "Not a typo.  boost uses \"ipp\" for implementation files.",
+      "parentUuid": "ff725c0c_d70108b3",
       "range": {
         "startLine": 15,
         "startChar": 64,
