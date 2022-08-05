@@ -195,6 +195,24 @@
       "parentUuid": "1d191d2c_2a11dd5c",
       "revId": "906e051fe6cca08de7dc5eeb0846b2110e805b61",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eb850792_e51e4cae",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001093
+      },
+      "writtenOn": "2022-08-05T12:44:57Z",
+      "side": 1,
+      "message": "sure Ed I will ensure to use service validator for future redfish patches",
+      "parentUuid": "fde06304_fd2da035",
+      "revId": "906e051fe6cca08de7dc5eeb0846b2110e805b61",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
