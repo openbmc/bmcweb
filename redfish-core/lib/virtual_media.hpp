@@ -270,8 +270,7 @@ inline void getVmData(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
             return;
         }
 
-        messages::resourceNotFound(
-            aResp->res, "#VirtualMedia.v1_3_0.VirtualMedia", resName);
+        messages::resourceNotFound(aResp->res, "VirtualMedia", resName);
         },
         service, "/xyz/openbmc_project/VirtualMedia",
         "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");

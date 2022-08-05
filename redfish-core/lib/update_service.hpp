@@ -369,8 +369,7 @@ static void monitorForSoftwareAvailable(
                             "Image version already exists");
 
                         redfish::messages::resourceAlreadyExists(
-                            asyncResp->res,
-                            "UpdateService.v1_5_0.UpdateService", "Version",
+                            asyncResp->res, "UpdateService", "Version",
                             "uploaded version");
                     }
                     else if (

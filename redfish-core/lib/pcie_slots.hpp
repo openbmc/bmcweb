@@ -214,7 +214,7 @@ inline void
     }
     if (subtree.empty())
     {
-        messages::resourceNotFound(asyncResp->res, "#Chassis", chassisID);
+        messages::resourceNotFound(asyncResp->res, "Chassis", chassisID);
         return;
     }
 
