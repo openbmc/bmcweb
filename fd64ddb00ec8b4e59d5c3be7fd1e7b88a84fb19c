@@ -125,6 +125,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e26fcc8d_5fd21f94",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-08-05T18:12:12Z",
+      "side": 1,
+      "message": "\u003e It also means that bmcweb by default can talk to other bmcweb instances, which means it\u0027s a lot more likely that people actually test the aggregation stuff.\nAt least some of those those people would want to use https to talk to other bmcweb instances.  Support will need to be added for https with aggregation and that becomes a mess if the client itself doesn\u0027t support https.  Is that the issue with more people trying out aggregation?",
+      "parentUuid": "fb023547_f4e92ba3",
+      "revId": "fd64ddb00ec8b4e59d5c3be7fd1e7b88a84fb19c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "556c274d_714675c0",
