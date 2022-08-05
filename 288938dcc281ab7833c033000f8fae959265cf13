@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ee7e9d20_a195c54b",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 2217,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-05T18:31:35Z",
+      "side": 1,
+      "message": "This is kinda ugly, could we instead leave this block like it was, then below on line 2256 do\n\n#else\n   if (oem){\n      // Log error\n   }\n#endif\n\nThat seems like it keeps all the \"do oem\" stuff in one spot, and we don\u0027t have to do inline ifdefs, which make my head hurt to read.",
+      "range": {
+        "startLine": 2208,
+        "startChar": 0,
+        "endLine": 2217,
+        "endChar": 6
+      },
+      "revId": "288938dcc281ab7833c033000f8fae959265cf13",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
