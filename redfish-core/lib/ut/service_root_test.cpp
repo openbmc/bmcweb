@@ -99,8 +99,7 @@ void assertServiceRootGet(crow::Response& res)
         EXPECT_EQ(json["ProtocolFeaturesSupported"]["ExpandQuery"].size(), 4);
     }
     EXPECT_FALSE(json["ProtocolFeaturesSupported"]["FilterQuery"]);
-    EXPECT_EQ(json["ProtocolFeaturesSupported"]["OnlyMemberQuery"],
-              bmcwebInsecureEnableQueryParams);
+    EXPECT_TRUE(json["ProtocolFeaturesSupported"]["OnlyMemberQuery"]);
     EXPECT_EQ(json["ProtocolFeaturesSupported"]["SelectQuery"],
               bmcwebInsecureEnableQueryParams);
     EXPECT_FALSE(

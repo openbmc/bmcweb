@@ -94,7 +94,7 @@ inline void handleServiceRootGetImpl(
     protocolFeatures["ExpandQuery"]["NoLinks"] =
         bmcwebInsecureEnableQueryParams;
     protocolFeatures["FilterQuery"] = false;
-    protocolFeatures["OnlyMemberQuery"] = bmcwebInsecureEnableQueryParams;
+    protocolFeatures["OnlyMemberQuery"] = true;
     protocolFeatures["SelectQuery"] = bmcwebInsecureEnableQueryParams;
     protocolFeatures["DeepOperations"]["DeepPOST"] = false;
     protocolFeatures["DeepOperations"]["DeepPATCH"] = false;
