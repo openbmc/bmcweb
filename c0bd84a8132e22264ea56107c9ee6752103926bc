@@ -48,6 +48,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "0299f0b6_3bf80f03",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000157
+      },
+      "writtenOn": "2022-08-05T16:45:22Z",
+      "side": 1,
+      "message": "The specification that I\u0027m referring to is the IPMI Specification Second Generation v2.0, section 6.8 on page 52; https://www.intel.com/content/www/us/en/products/docs/servers/ipmi/ipmi-second-gen-interface-spec-v2-rev1-1.html.",
+      "parentUuid": "ae0d9bfd_53dc2e37",
+      "range": {
+        "startLine": 9,
+        "startChar": 11,
+        "endLine": 9,
+        "endChar": 25
+      },
+      "revId": "c0bd84a8132e22264ea56107c9ee6752103926bc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "0908a34d_02982ca0",
