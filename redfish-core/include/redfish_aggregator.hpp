@@ -1,10 +1,13 @@
 #pragma once
 
+#include "persistent_data.hpp"
+
 #include <dbus_utility.hpp>
 #include <error_messages.hpp>
 #include <http_client.hpp>
 #include <http_connection.hpp>
 
+#include <charconv>
 namespace redfish
 {
 
@@ -201,10 +204,29 @@ class RedfishAggregator
                         satelliteInfo.clear();
                         return;
                     }
+                    std::string uuid = persistent_data::getConfig().systemUuid;
+                    uuid = uuid.substr(0, 8);
+                    uuid += "0x";
+                    // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
+                    const char* end = uuid.data() + uuid.size();
+                    size_t hash = 0;
+                    std::from_chars_result ret =
+                        std::from_chars(uuid.data(), end, hash);
+
+                    if (ret.ec != std::errc())
+                    {
+                        BMCWEB_LOG_CRITICAL << "UUID WASNT HEX?";
+                        return;
+                    }
+                    // Hash combine with a random unique ID that represents the
+                    // first aggregaged resource.  Intentionally leave the last
+                    // few bits as 0 so that in theory we can have multiple
+                    // resource in the future by indexing
+                    hash ^= 0xed019500;
 
                     // For now assume there will only be one satellite config.
-                    // Assign it the name/prefix "aggregated0"
-                    addSatelliteConfig("aggregated0", interface.second,
+                    // Assign it the prefix
+                    addSatelliteConfig(std::to_string(hash), interface.second,
                                        satelliteInfo);
                 }
             }
