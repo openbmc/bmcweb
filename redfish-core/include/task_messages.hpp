@@ -13,112 +13,75 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 */
+#include "registries/task_event_message_registry.hpp"
 
+#include <nlohmann/json.hpp>
 namespace redfish
 {
 
 namespace messages
 {
 
-inline nlohmann::json taskAborted(const std::string& arg1)
+nlohmann::json getLogTaskEvent(redfish::registries::task_event::Index name,
+                               std::span<const std::string_view> args)
 {
-    return nlohmann::json{
-        {"@odata.type", "#Message.v1_0_0.Message"},
-        {"MessageId", "TaskEvent.1.0.1.TaskAborted"},
-        {"Message", "The task with id " + arg1 + " has been aborted."},
-        {"MessageArgs", {arg1}},
-        {"Severity", "Critical"},
-        {"Resolution", "None."}};
+    size_t index = static_cast<size_t>(name);
+    if (index >= redfish::registries::task_event::registry.size())
+    {
+        return {};
+    }
+    return getLogFromRegistry(redfish::registries::task_event::header,
+                              redfish::registries::task_event::registry, index,
+                              args);
 }
 
-inline nlohmann::json taskCancelled(const std::string& arg1)
+inline nlohmann::json taskAborted(std::string_view arg1)
 {
-    return nlohmann::json{
-        {"@odata.type", "#Message.v1_0_0.Message"},
-        {"MessageId", "TaskEvent.1.0.1.TaskCancelled"},
-        {"Message", "The task with id " + arg1 + " has been cancelled."},
-        {"MessageArgs", {arg1}},
-        {"Severity", "Warning"},
-        {"Resolution", "None."}};
+    return getLogTaskEvent(registries::task_event::Index::taskAborted, {arg1});
 }
 
-inline nlohmann::json taskCompletedOK(const std::string& arg1)
+inline nlohmann::json taskCancelled(std::string_view arg1)
 {
-    return nlohmann::json{
-        {"@odata.type", "#Message.v1_0_0.Message"},
-        {"MessageId", "TaskEvent.1.0.1.TaskCompletedOK"},
-        {"Message", "The task with id " + arg1 + " has Completed."},
-        {"MessageArgs", {arg1}},
-        {"Severity", "OK"},
-        {"Resolution", "None."}};
+    return getLogTaskEvent(registries::task_event::Index::taskCanceled, {arg1});
 }
 
-inline nlohmann::json taskCompletedWarning(const std::string& arg1)
+inline nlohmann::json taskCompletedOK(std::string_view arg1)
 {
-    return nlohmann::json{{"@odata.type", "#Message.v1_0_0.Message"},
-                          {"MessageId", "TaskEvent.1.0.1.TaskCompletedWarning"},
-                          {"Message", "The task with id " + arg1 +
-                                          " has completed with warnings."},
-                          {"MessageArgs", {arg1}},
-                          {"Severity", "Warning"},
-                          {"Resolution", "None."}};
+    return getLogTaskEvent(registries::task_event::Index::taskCompletedOK,
+                           {arg1});
 }
 
-inline nlohmann::json taskPaused(const std::string& arg1)
+inline nlohmann::json taskCompletedWarning(std::string_view arg1)
 {
-    return nlohmann::json{
-        {"@odata.type", "#Message.v1_0_0.Message"},
-        {"MessageId", "TaskEvent.1.0.1.TaskPaused"},
-        {"Message", "The task with id " + arg1 + " has been paused."},
-        {"MessageArgs", {arg1}},
-        {"Severity", "Warning"},
-        {"Resolution", "None."}};
+    return getLogTaskEvent(registries::task_event::Index::taskCompletedWarning,
+                           {arg1});
 }
 
-inline nlohmann::json taskProgressChanged(const std::string& arg1,
+inline nlohmann::json taskPaused(std::string_view arg1)
+{
+    return getLogTaskEvent(registries::task_event::Index::taskPaused, {arg1});
+}
+
+inline nlohmann::json taskProgressChanged(std::string_view arg1,
                                           const size_t arg2)
 {
-    return nlohmann::json{
-        {"@odata.type", "#Message.v1_0_0.Message"},
-        {"MessageId", "TaskEvent.1.0.1.TaskProgressChanged"},
-        {"Message", "The task with id " + arg1 + " has changed to progress " +
-                        std::to_string(arg2) + " percent complete."},
-        {"MessageArgs", {arg1, std::to_string(arg2)}},
-        {"Severity", "OK"},
-        {"Resolution", "None."}};
+    return getLogTaskEvent(registries::task_event::Index::taskProgressChanged,
+                           {arg1, std::to_string(arg2)});
 }
 
-inline nlohmann::json taskRemoved(const std::string& arg1)
+inline nlohmann::json taskRemoved(std::string_view arg1)
 {
-    return nlohmann::json{
-        {"@odata.type", "#Message.v1_0_0.Message"},
-        {"MessageId", "TaskEvent.1.0.1.TaskRemoved"},
-        {"Message", "The task with id " + arg1 + " has been removed."},
-        {"MessageArgs", {arg1}},
-        {"Severity", "Warning"},
-        {"Resolution", "None."}};
+    return getLogTaskEvent(registries::task_event::Index::taskRemoved, {arg1});
 }
 
-inline nlohmann::json taskResumed(const std::string& arg1)
+inline nlohmann::json taskResumed(std::string_view arg1)
 {
-    return nlohmann::json{
-        {"@odata.type", "#Message.v1_0_0.Message"},
-        {"MessageId", "TaskEvent.1.0.1.TaskResumed"},
-        {"Message", "The task with id " + arg1 + " has been resumed."},
-        {"MessageArgs", {arg1}},
-        {"Severity", "OK"},
-        {"Resolution", "None."}};
+    return getLogTaskEvent(registries::task_event::Index::taskResumed, {arg1});
 }
 
-inline nlohmann::json taskStarted(const std::string& arg1)
+inline nlohmann::json taskStarted(std::string_view arg1)
 {
-    return nlohmann::json{
-        {"@odata.type", "#Message.v1_0_0.Message"},
-        {"MessageId", "TaskEvent.1.0.1.TaskStarted"},
-        {"Message", "The task with id " + arg1 + " has started."},
-        {"MessageArgs", {arg1}},
-        {"Severity", "OK"},
-        {"Resolution", "None."}};
+    return getLogTaskEvent(registries::task_event::Index::taskStarted, {arg1});
 }
 
 } // namespace messages
