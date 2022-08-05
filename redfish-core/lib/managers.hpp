@@ -2063,8 +2063,10 @@ inline void requestRoutesManager(App& app)
         managerDiagnosticData["@odata.id"] =
             "/redfish/v1/Managers/bmc/ManagerDiagnosticData";
 
+#ifdef BMCWEB_ENABLE_REDFISH_OEM_MANAGER_FAN_DATA
         auto pids = std::make_shared<GetPIDValues>(asyncResp);
         pids->run();
+#endif
 
         getMainChassisId(asyncResp,
                          [](const std::string& chassisId,
@@ -2215,6 +2217,7 @@ inline void requestRoutesManager(App& app)
 
         if (oem)
         {
+#ifdef BMCWEB_ENABLE_REDFISH_OEM_MANAGER_FAN_DATA
             std::optional<nlohmann::json> openbmc;
             if (!redfish::json_util::readJson(*oem, asyncResp->res, "OpenBmc",
                                               openbmc))
@@ -2244,6 +2247,10 @@ inline void requestRoutesManager(App& app)
                     pid->run();
                 }
             }
+#else
+            messages::propertyUnknown(asyncResp->res, "Oem");
+            return;
+#endif
         }
         if (links)
         {
