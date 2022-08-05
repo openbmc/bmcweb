@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "4b07018c_3081ea2f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 39
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2022-08-05T13:12:09Z",
+      "side": 1,
+      "message": "Yes, I pushed a commit: https://gerrit.openbmc.org/c/openbmc/docs/+/44263",
+      "parentUuid": "25e23ffd_be0dbdef",
+      "revId": "2acb2e210ccfad67412abf066a87ae7a8114f210",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "b1779fe3_c13e118a",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 39
@@ -48,6 +66,24 @@
       "writtenOn": "2022-08-04T16:32:35Z",
       "side": 1,
       "message": "Huh? Why do we need this?",
+      "revId": "2acb2e210ccfad67412abf066a87ae7a8114f210",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3d0fecee_feb1e7fb",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 39
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2022-08-05T13:12:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "82cc69e0_c91a383c",
       "revId": "2acb2e210ccfad67412abf066a87ae7a8114f210",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
