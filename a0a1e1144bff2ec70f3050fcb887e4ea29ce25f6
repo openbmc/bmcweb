@@ -80,6 +80,24 @@
       "message": "#include \u003cnlohmann/json.hpp\u003e",
       "revId": "a0a1e1144bff2ec70f3050fcb887e4ea29ce25f6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "efbafec1_222dd8a1",
+        "filename": "redfish-core/include/resource_messages.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-05T23:05:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b7da1c59_8559f00b",
+      "revId": "a0a1e1144bff2ec70f3050fcb887e4ea29ce25f6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
