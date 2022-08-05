@@ -15,6 +15,8 @@
 */
 #pragma once
 
+#include "resource.hpp"
+
 #include <bmcweb_config.h>
 
 #include <app.hpp>
@@ -46,13 +48,9 @@ inline void
 inline void handleServiceRootGetImpl(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    asyncResp->res.addHeader(
-        boost::beast::http::field::link,
-        "</redfish/v1/JsonSchemas/ServiceRoot/ServiceRoot.json>; rel=describedby");
+    declareResource(asyncResp->res, "ServiceRoot", "1_11_0", "ServiceRoot");
 
     std::string uuid = persistent_data::getConfig().systemUuid;
-    asyncResp->res.jsonValue["@odata.type"] =
-        "#ServiceRoot.v1_11_0.ServiceRoot";
     asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1";
     asyncResp->res.jsonValue["Id"] = "RootService";
     asyncResp->res.jsonValue["Name"] = "Root Service";
