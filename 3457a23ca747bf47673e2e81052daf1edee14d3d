@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f6752fc_c1dec7c2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-08-05T00:47:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0d617546_d2e89773",
+      "revId": "3457a23ca747bf47673e2e81052daf1edee14d3d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b776e548_4c121ac6",
@@ -31,6 +49,30 @@
       "writtenOn": "2022-07-01T00:31:19Z",
       "side": 1,
       "message": "Does validator go to this URL and check its validity?",
+      "range": {
+        "startLine": 721,
+        "startChar": 40,
+        "endLine": 721,
+        "endChar": 49
+      },
+      "revId": "3457a23ca747bf47673e2e81052daf1edee14d3d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3d358997_ddfea6fa",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 721,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-08-05T00:47:21Z",
+      "side": 1,
+      "message": "Added the test result in the commit message.",
+      "parentUuid": "b776e548_4c121ac6",
       "range": {
         "startLine": 721,
         "startChar": 40,
