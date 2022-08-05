@@ -99,9 +99,8 @@ inline void handleMessageRoutesMessageRegistryFileGet(
     }
     else
     {
-        messages::resourceNotFound(
-            asyncResp->res, "#MessageRegistryFile.v1_1_0.MessageRegistryFile",
-            registry);
+        messages::resourceNotFound(asyncResp->res, "MessageRegistryFile",
+                                   registry);
         return;
     }
 
@@ -185,9 +184,8 @@ inline void handleMessageRegistryGet(
     }
     else
     {
-        messages::resourceNotFound(
-            asyncResp->res, "#MessageRegistryFile.v1_1_0.MessageRegistryFile",
-            registry);
+        messages::resourceNotFound(asyncResp->res, "MessageRegistryFile",
+                                   registry);
         return;
     }
 

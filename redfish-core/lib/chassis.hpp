@@ -429,8 +429,7 @@ inline void
         }
 
         // Couldn't find an object with that name.  return an error
-        messages::resourceNotFound(asyncResp->res, "#Chassis.v1_16_0.Chassis",
-                                   chassisId);
+        messages::resourceNotFound(asyncResp->res, "Chassis", chassisId);
         },
         "xyz.openbmc_project.ObjectMapper",
         "/xyz/openbmc_project/object_mapper",
@@ -557,8 +556,7 @@ inline void
             return;
         }
 
-        messages::resourceNotFound(asyncResp->res, "#Chassis.v1_14_0.Chassis",
-                                   chassisId);
+        messages::resourceNotFound(asyncResp->res, "Chassis", chassisId);
         },
         "xyz.openbmc_project.ObjectMapper",
         "/xyz/openbmc_project/object_mapper",
