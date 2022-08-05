@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "547603eb_f88cfa17",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-05T22:48:35Z",
+      "side": 1,
+      "message": "I didn\u0027t measure, but given the number of strings we dropped, it\u0027s possible, although we did it by adding about same amount of code, so it could go either way.",
+      "parentUuid": "216539b6_873deca4",
+      "range": {
+        "startLine": 9,
+        "startChar": 23,
+        "endLine": 9,
+        "endChar": 68
+      },
+      "revId": "a0a1e1144bff2ec70f3050fcb887e4ea29ce25f6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "fcecc6a8_6efb013a",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 6
