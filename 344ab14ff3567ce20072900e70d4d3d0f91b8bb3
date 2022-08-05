@@ -38,6 +38,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "8f4abc01_d2aae65c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-08-05T18:39:36Z",
+      "side": 1,
+      "message": "Yep, for fault log the back end (phosphor-debug-collector) already captures microsecond precision timestamps and we\u0027d like to be able to expose them in Redfish.",
+      "parentUuid": "8018343f_8fdff55e",
+      "revId": "344ab14ff3567ce20072900e70d4d3d0f91b8bb3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "adc1a683_5ab792fa",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 10
@@ -49,6 +67,24 @@
       "writtenOn": "2022-08-04T23:45:46Z",
       "side": 1,
       "message": "Claire, does this meet your needs for this stuff?",
+      "revId": "344ab14ff3567ce20072900e70d4d3d0f91b8bb3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "005bfc19_7b2a4d42",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-08-05T18:39:36Z",
+      "side": 1,
+      "message": "Looks good, thanks.",
+      "parentUuid": "adc1a683_5ab792fa",
       "revId": "344ab14ff3567ce20072900e70d4d3d0f91b8bb3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
