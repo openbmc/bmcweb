@@ -52,6 +52,24 @@
       "parentUuid": "1e8a92d4_9beb95f7",
       "revId": "8fb4e4b748da23e7dc423e46bc9a32d02a404bc0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "afea3953_4ff7ce41",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000157
+      },
+      "writtenOn": "2022-08-05T00:58:13Z",
+      "side": 1,
+      "message": "The operator privilege level is not supposed to be able to change configurations that can change the behavior of the out of band interfaces. Removing the IPMI privilege level of \"Operator\" from being able to launch KVM, SOL, or Remote Media access is taking a more conservative approach when accessing the host OS. The host OS being one of the most valuable assets needing to be protected. Understanding that others may have a different position, this should be a configurable policy control to allow for stricter policies.",
+      "parentUuid": "9fdca259_62d30203",
+      "revId": "8fb4e4b748da23e7dc423e46bc9a32d02a404bc0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
