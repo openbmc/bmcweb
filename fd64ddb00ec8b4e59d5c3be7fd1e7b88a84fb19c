@@ -89,6 +89,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2dadf479_b22b2069",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-08-05T17:22:45Z",
+      "side": 1,
+      "message": "Will the aggregation stuff have that much of an impact?  There are almost no changes to http client in the patches and you\u0027d just be adding a \"false\" argument where it calls the sendDataWithCallback() API.",
+      "parentUuid": "3ccd6508_fe010938",
+      "revId": "fd64ddb00ec8b4e59d5c3be7fd1e7b88a84fb19c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "556c274d_714675c0",
