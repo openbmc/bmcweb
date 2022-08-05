@@ -158,7 +158,14 @@ inline void handleSessionCollectionGet(
     crow::App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    handleSessionCollectionHead(app, req, asyncResp);
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+    asyncResp->res.addHeader(
+        boost::beast::http::field::link,
+        "</redfish/v1/JsonSchemas/SessionCollection.json>; rel=describedby");
+
     asyncResp->res.jsonValue["Members"] = getSessionCollectionMembers();
     asyncResp->res.jsonValue["Members@odata.count"] =
         asyncResp->res.jsonValue["Members"].size();

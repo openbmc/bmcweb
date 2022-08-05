@@ -47,6 +47,10 @@ inline void
 inline void handleServiceRootGetImpl(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
+    asyncResp->res.addHeader(
+        boost::beast::http::field::link,
+        "</redfish/v1/JsonSchemas/ServiceRoot/ServiceRoot.json>; rel=describedby");
+
     std::string uuid = persistent_data::getConfig().systemUuid;
     asyncResp->res.jsonValue["@odata.type"] =
         "#ServiceRoot.v1_15_0.ServiceRoot";
@@ -111,7 +115,11 @@ inline void
     handleServiceRootGet(App& app, const crow::Request& req,
                          const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    handleServiceRootHead(app, req, asyncResp);
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+
     handleServiceRootGetImpl(asyncResp);
 }
 
