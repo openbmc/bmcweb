@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4059f8fd_4658a3e4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 40
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000085
+      },
+      "writtenOn": "2022-08-05T18:08:44Z",
+      "side": 1,
+      "message": "I am quite possibly missing something, but best I can tell, the merge conflict I noted is resolved, and nothing jumps out at *me* as obviously bad, aside from the documentation for associations being on top of another aging review.",
+      "revId": "66dcee0870de39529d278ce784d123f85738d30c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
