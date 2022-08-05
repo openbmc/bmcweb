@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e785717_6ab90afc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-05T18:33:44Z",
+      "side": 1,
+      "message": "Totally in for this in theory, just some minor nits on the actual patch.  Arguably we should be doing this with ANY OEM schema we add, but alas, that\u0027s not how history played out, so we\u0027ll do the best we can.",
+      "revId": "288938dcc281ab7833c033000f8fae959265cf13",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ee7e9d20_a195c54b",
