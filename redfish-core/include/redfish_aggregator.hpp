@@ -1,5 +1,8 @@
 #pragma once
 
+#include "persistent_data.hpp"
+#include "utils/uri_utils.hpp"
+
 #include <boost/algorithm/string/predicate.hpp>
 #include <dbus_utility.hpp>
 #include <error_messages.hpp>
@@ -265,11 +268,10 @@ class RedfishAggregator
                         satelliteInfo.clear();
                         return;
                     }
+                    std::string hash = systemUniqueId(0xed019500);
 
-                    // For now assume there will only be one satellite config.
-                    // Assign it the name/prefix "5B247A"
-                    addSatelliteConfig("5B247A", interface.second,
-                                       satelliteInfo);
+                    // Assign it the prefix
+                    addSatelliteConfig(hash, interface.second, satelliteInfo);
                 }
             }
         }
