@@ -72,6 +72,23 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "66382efb_c777727e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-08-05T17:32:27Z",
+      "side": 1,
+      "message": "Setting as WIP for now since a different patch should fix these errors https://gerrit.openbmc.org/c/openbmc/bmcweb/+/55937.\n\nThis patch will get abandoned once that patch gets merged.",
+      "revId": "2ab3b2a9f02cef9aeeceb6a600f7b0f9ecc44c36",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bf9aa226_b7a4b50e",
