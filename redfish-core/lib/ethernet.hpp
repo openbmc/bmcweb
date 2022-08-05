@@ -1990,7 +1990,7 @@ inline void requestEthernetInterfacesRoutes(App& app)
                 // ... otherwise return error
                 // TODO(Pawel)consider distinguish between non
                 // existing object, and other errors
-                messages::resourceNotFound(asyncResp->res, "Ethernet Interface",
+                messages::resourceNotFound(asyncResp->res, "EthernetInterface",
                                            ifaceId);
                 return;
             }
@@ -2101,7 +2101,7 @@ inline void requestEthernetInterfacesRoutes(App& app)
                 // TODO(Pawel)consider distinguish between non
                 // existing object, and other errors
                 messages::resourceNotFound(asyncResp->res,
-                                           "VLAN Network Interface", ifaceId);
+                                           "VLanNetworkInterface", ifaceId);
             }
             });
         });
@@ -2120,7 +2120,7 @@ inline void requestEthernetInterfacesRoutes(App& app)
         }
         if (!verifyNames(parentIfaceId, ifaceId))
         {
-            messages::resourceNotFound(asyncResp->res, "VLAN Network Interface",
+            messages::resourceNotFound(asyncResp->res, "VLanNetworkInterface",
                                        ifaceId);
             return;
         }
@@ -2174,7 +2174,7 @@ inline void requestEthernetInterfacesRoutes(App& app)
                 // TODO(Pawel)consider distinguish between non
                 // existing object, and other errors
                 messages::resourceNotFound(asyncResp->res,
-                                           "VLAN Network Interface", ifaceId);
+                                           "VLanNetworkInterface", ifaceId);
                 return;
             }
             });
@@ -2194,7 +2194,7 @@ inline void requestEthernetInterfacesRoutes(App& app)
         }
         if (!verifyNames(parentIfaceId, ifaceId))
         {
-            messages::resourceNotFound(asyncResp->res, "VLAN Network Interface",
+            messages::resourceNotFound(asyncResp->res, "VLanNetworkInterface",
                                        ifaceId);
             return;
         }
@@ -2227,7 +2227,7 @@ inline void requestEthernetInterfacesRoutes(App& app)
                 // TODO(Pawel)consider distinguish between non
                 // existing object, and other errors
                 messages::resourceNotFound(asyncResp->res,
-                                           "VLAN Network Interface", ifaceId);
+                                           "VLanNetworkInterface", ifaceId);
             }
             });
         });

@@ -85,8 +85,7 @@ inline void hothGetSubtreeCallback(
     }
 
     // Couldn't find an object with that name.  return an error
-    redfish::messages::resourceNotFound(
-        asyncResp->res, "#RootOfTrust.v1_0_0.RootOfTrust", rotId);
+    redfish::messages::resourceNotFound(asyncResp->res, "RootOfTrust", rotId);
 }
 
 inline void resolveRoT(const std::string& command,

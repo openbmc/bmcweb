@@ -84,8 +84,7 @@ inline void jsonSchemaGet(App& app, const crow::Request& req,
 
     if (std::find(schemas.begin(), schemas.end(), schema) == schemas.end())
     {
-        messages::resourceNotFound(asyncResp->res,
-                                   "JsonSchemaFile.JsonSchemaFile", schema);
+        messages::resourceNotFound(asyncResp->res, "JsonSchemaFile", schema);
         return;
     }
 
