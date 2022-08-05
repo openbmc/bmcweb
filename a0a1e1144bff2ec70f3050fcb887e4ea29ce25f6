@@ -16,6 +16,23 @@
       "message": "It seems reasonable to me ",
       "revId": "a0a1e1144bff2ec70f3050fcb887e4ea29ce25f6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b7da1c59_8559f00b",
+        "filename": "redfish-core/include/resource_messages.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-08-05T18:19:03Z",
+      "side": 1,
+      "message": "#include \u003cnlohmann/json.hpp\u003e",
+      "revId": "a0a1e1144bff2ec70f3050fcb887e4ea29ce25f6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
