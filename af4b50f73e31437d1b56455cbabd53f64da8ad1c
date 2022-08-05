@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "21d22281_687fb1ad",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-08-05T17:15:09Z",
+      "side": 1,
+      "message": "Can we use the same code and do template here?",
+      "range": {
+        "startLine": 36,
+        "startChar": 19,
+        "endLine": 36,
+        "endChar": 27
+      },
+      "revId": "af4b50f73e31437d1b56455cbabd53f64da8ad1c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
