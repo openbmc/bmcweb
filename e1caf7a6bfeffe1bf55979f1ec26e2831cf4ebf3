@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4143c4de_ac3f8a22",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-05T15:52:27Z",
+      "side": 1,
+      "message": "\u003e Will need to bump the schema, still think we are waiting on Redfish\n\nYou mean hypothetically, if Redfish released a standard with a new Context parameter in it, we would need to bump this.  We\u0027ll have to see what new presents we get in 2022.2 😊",
+      "parentUuid": "c4b4f17c_91caa1bd",
+      "revId": "e1caf7a6bfeffe1bf55979f1ec26e2831cf4ebf3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d9e744ec_cf022308",
         "filename": "redfish-core/lib/redfish_sessions.hpp",
         "patchSetId": 4
