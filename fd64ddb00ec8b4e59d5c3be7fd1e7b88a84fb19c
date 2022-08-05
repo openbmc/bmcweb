@@ -107,6 +107,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb023547_f4e92ba3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-05T18:00:49Z",
+      "side": 1,
+      "message": "\u003e Will the aggregation stuff have that much of an impact?\n\nConsidering that we\u0027ll need to work through \"how do you determine the root cert for an aggregated connection\" yeah, it\u0027s going to change some API stuff, which admittedly, doesn\u0027t apply in your case, but is important anyway.\n\nIt also means that bmcweb by default can talk to other bmcweb instances, which means it\u0027s a lot more likely that people actually test the aggregation stuff.",
+      "parentUuid": "2dadf479_b22b2069",
+      "revId": "fd64ddb00ec8b4e59d5c3be7fd1e7b88a84fb19c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "556c274d_714675c0",
