@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d3851985_7cc1d9c8",
+        "filename": "http/utility.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 644,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-05T20:17:12Z",
+      "side": 1,
+      "message": "Nope, because padZeros takes an int, so you get an overflow error if you try to directly load ms.count() on a 32 bit system (I had a previous patch that did this).  In theory duration_cast is roughly the same as static_cast here, because at this point we know that we can have at most 999 milliseconds, or it would\u0027ve rolled over, so we can safely cast to a smaller size.",
+      "parentUuid": "2c37c6bf_09f49ce0",
+      "range": {
+        "startLine": 644,
+        "startChar": 52,
+        "endLine": 644,
+        "endChar": 55
+      },
+      "revId": "c8fccbda9deda2ffdd783d49c518df1f6ef23f5b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4c1ffe30_deab6dbe",
         "filename": "http/utility.hpp",
         "patchSetId": 11
@@ -37,6 +61,24 @@
       "writtenOn": "2022-08-05T18:39:36Z",
       "side": 1,
       "message": "nit: inconsistent extra line",
+      "revId": "c8fccbda9deda2ffdd783d49c518df1f6ef23f5b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "be14bc58_55b4b7aa",
+        "filename": "http/utility.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 651,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-05T20:17:12Z",
+      "side": 1,
+      "message": "Fixed.",
+      "parentUuid": "4c1ffe30_deab6dbe",
       "revId": "c8fccbda9deda2ffdd783d49c518df1f6ef23f5b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
