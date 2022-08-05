@@ -70,6 +70,24 @@
       "parentUuid": "9fdca259_62d30203",
       "revId": "8fb4e4b748da23e7dc423e46bc9a32d02a404bc0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5760ea51_0de0efbf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-05T15:44:28Z",
+      "side": 1,
+      "message": "That\u0027s a great explanation, and needs to go into the commit message.\n\nFWIW, given the community responses when we change this kind of thing, and the fact that it\u0027s been broken for a long time, I don\u0027t really see an issue changing the permissions and I\u0027m not sure many folks are using them, we just need to message it, and come up with a reason why we\u0027re doing it, so that someone 2 weeks from now doesn\u0027t change it back with and equivalently good explanation.",
+      "parentUuid": "afea3953_4ff7ce41",
+      "revId": "8fb4e4b748da23e7dc423e46bc9a32d02a404bc0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

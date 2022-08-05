@@ -16,6 +16,24 @@
       "message": "So today Readonly Users can\u0027t access KVM, VM, and SOL?\nI thought we still had a hole here and still needed https://gerrit.openbmc.org/c/openbmc/bmcweb/+/46992 and commits below? Did I forget about a commit that fixed that?",
       "revId": "503f3f9134db1788a3fd25ee0c98207047a163ad",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ff197891_c7afe3ff",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-05T15:44:28Z",
+      "side": 1,
+      "message": "+1, I was going to bring that up once we had the specs.  I\u0027m not sure how this could\u0027ve worked, given that the patchset above (or another equivalent one of mine) hasn\u0027t merged.\n\nMaybe you tested on a different fork?",
+      "parentUuid": "a820e047_4f61634a",
+      "revId": "503f3f9134db1788a3fd25ee0c98207047a163ad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
