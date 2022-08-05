@@ -627,7 +627,7 @@ static void getCertificateProperties(
         if (ec)
         {
             BMCWEB_LOG_ERROR << "DBUS response error: " << ec;
-            messages::resourceNotFound(asyncResp->res, name, certId);
+            messages::resourceNotFound(asyncResp->res, "Certificate", certId);
             return;
         }
         asyncResp->res.jsonValue["@odata.id"] = certURL;
@@ -820,7 +820,8 @@ inline void requestRoutesCertificateActionsReplaceCertificate(App& app)
                 if (ec.value() ==
                     boost::system::linux_error::bad_request_descriptor)
                 {
-                    messages::resourceNotFound(asyncResp->res, name, id);
+                    messages::resourceNotFound(asyncResp->res, "Certificate",
+                                               id);
                     return;
                 }
                 messages::internalError(asyncResp->res);
@@ -1205,8 +1206,7 @@ inline void requestRoutesTrustStoreCertificate(App& app)
             [asyncResp, id](const boost::system::error_code ec) {
             if (ec)
             {
-                messages::resourceNotFound(asyncResp->res,
-                                           "TrustStore Certificate", id);
+                messages::resourceNotFound(asyncResp->res, "Certificate", id);
                 return;
             }
             BMCWEB_LOG_INFO << "Certificate deleted";

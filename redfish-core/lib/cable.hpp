@@ -117,8 +117,7 @@ inline void requestRoutesCable(App& app)
                       const dbus::utility::MapperGetSubTreeResponse& subtree) {
             if (ec.value() == EBADR)
             {
-                messages::resourceNotFound(asyncResp->res,
-                                           "#Cable.v1_0_0.Cable", cableId);
+                messages::resourceNotFound(asyncResp->res, "Cable", cableId);
                 return;
             }
 

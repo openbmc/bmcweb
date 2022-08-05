@@ -343,7 +343,7 @@ inline void requestRoutesTaskMonitor(App& app)
 
         if (find == task::tasks.end())
         {
-            messages::resourceNotFound(asyncResp->res, "Monitor", strParam);
+            messages::resourceNotFound(asyncResp->res, "Task", strParam);
             return;
         }
         std::shared_ptr<task::TaskData>& ptr = *find;
@@ -384,7 +384,7 @@ inline void requestRoutesTask(App& app)
 
         if (find == task::tasks.end())
         {
-            messages::resourceNotFound(asyncResp->res, "Tasks", strParam);
+            messages::resourceNotFound(asyncResp->res, "Task", strParam);
             return;
         }
 

@@ -569,8 +569,7 @@ inline void
             {
                 // Dump status is not Complete
                 // return not found until status is changed to Completed
-                messages::resourceNotFound(asyncResp->res, dumpType + " dump",
-                                           entryID);
+                messages::resourceNotFound(asyncResp->res, "LogEntry", entryID);
                 return;
             }
 
@@ -1442,8 +1441,7 @@ inline void requestRoutesDBusEventLogEntry(App& app)
                                  const dbus::utility::DBusPropertiesMap& resp) {
             if (ec.value() == EBADR)
             {
-                messages::resourceNotFound(asyncResp->res, "EventLogEntry",
-                                           entryID);
+                messages::resourceNotFound(asyncResp->res, "LogEntry", entryID);
                 return;
             }
             if (ec)
