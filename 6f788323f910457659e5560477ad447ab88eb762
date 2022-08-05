@@ -70,6 +70,30 @@
       },
       "revId": "6f788323f910457659e5560477ad447ab88eb762",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "97b15b3f_099a20d1",
+        "filename": "redfish-core/lib/service_root.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-05T17:55:51Z",
+      "side": 1,
+      "message": "Also, FWIW, this doesn\u0027t break anyone following the spec (they just wont get select support), so it\u0027s not critical to get merged super fast, although I\u0027m ok with going fast here, because it\u0027s pretty trivial and correct.",
+      "parentUuid": "b6ae3cdc_4f687bb4",
+      "range": {
+        "startLine": 98,
+        "startChar": 38,
+        "endLine": 98,
+        "endChar": 69
+      },
+      "revId": "6f788323f910457659e5560477ad447ab88eb762",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
