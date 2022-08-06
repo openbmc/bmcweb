@@ -63,12 +63,10 @@ inline std::optional<IncorrectMetricUri> getChassisSensorNode(
         // Those 2 segments cannot be validated here, as we don't know which
         // sensors exist at the moment of parsing.
         std::string ignoredSenorId;
-        std::string ignoredSensorUnit;
 
         if (crow::utility::readUrlSegments(*parsed, "redfish", "v1", "Chassis",
                                            std::ref(chassis), "Sensors",
-                                           std::ref(ignoredSenorId),
-                                           std::ref(ignoredSensorUnit)))
+                                           std::ref(ignoredSenorId)))
         {
             matched.emplace(std::move(chassis), "Sensors");
             uriIdx++;
