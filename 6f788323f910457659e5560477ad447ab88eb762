@@ -118,6 +118,30 @@
       },
       "revId": "6f788323f910457659e5560477ad447ab88eb762",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d2636cb1_5369afc2",
+        "filename": "redfish-core/lib/service_root.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-06T16:08:53Z",
+      "side": 1,
+      "message": "\u003e \u003e We can\u0027t update the test, because this feature isn\u0027t enabled by default.  Also, and more importantly, I\u0027m not sure why they hardcoded those.  I can ask the maintainer.\n\u003e \n\u003e Apologize, I just meant https://gerrit.openbmc.org/c/openbmc/bmcweb/+/56329/1; we should update our unit test code to respect this. Otherwise, tests will fail with |bmcwebInsecureEnableQueryParams| setting to true.\n\nACK.  Your link was to the robot framework tests, which is why I was confused.\n\n\u003e \n\u003e Let me know if this makes sense.\n\u003e \n\u003e \u003e Also, FWIW, this doesn\u0027t break anyone following the spec (they just wont get select support), so it\u0027s not critical to get merged super fast, although I\u0027m ok with going fast here, because it\u0027s pretty trivial and correct.\n\u003e \n\u003e We (Google) do want this merge before Sunday when the weekly rebase happens if possible. But not a big deal if get delayed for a week\n\nAs you know, we are free to cherry pick whatever we need into our build to make our timelines;  Leaving patches in review (even simple ones like this) ensures that this project isn\u0027t _just_ a Google project, and allows time for community input, which is important, even on trivial looking things like this.",
+      "parentUuid": "1463f267_d347b7c0",
+      "range": {
+        "startLine": 98,
+        "startChar": 38,
+        "endLine": 98,
+        "endChar": 69
+      },
+      "revId": "6f788323f910457659e5560477ad447ab88eb762",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
