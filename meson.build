@@ -282,6 +282,16 @@ else
 endif
 bmcweb_dependencies += nlohmann_json
 
+if cxx.has_header('valijson/validator.hpp')
+    valijson = declare_dependency()
+else
+    valijson_proj = subproject('valijson', required: false)
+    valijson_inc = include_directories('subprojects/valijson/include/', is_system:true)
+    valijson = declare_dependency(include_directories : valijson_inc)
+    valijson = valijson.as_system('system')
+endif
+bmcweb_dependencies += valijson
+
 boost = dependency('boost',version : '>=1.78.0', required : false, include_type: 'system')
 if not boost.found()
   subproject('boost', required: false)

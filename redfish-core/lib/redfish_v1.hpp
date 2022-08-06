@@ -56,8 +56,6 @@ inline void
     }
     nlohmann::json& json = asyncResp->res.jsonValue;
     json["@odata.id"] = "/redfish/v1/JsonSchemas";
-    json["@odata.context"] =
-        "/redfish/v1/$metadata#JsonSchemaFileCollection.JsonSchemaFileCollection";
     json["@odata.type"] = "#JsonSchemaFileCollection.JsonSchemaFileCollection";
     json["Name"] = "JsonSchemaFile Collection";
     json["Description"] = "Collection of JsonSchemaFiles";
@@ -90,8 +88,6 @@ inline void jsonSchemaGet(App& app, const crow::Request& req,
     }
 
     nlohmann::json& json = asyncResp->res.jsonValue;
-    json["@odata.context"] =
-        "/redfish/v1/$metadata#JsonSchemaFile.JsonSchemaFile";
     json["@odata.id"] =
         crow::utility::urlFromPieces("redfish", "v1", "JsonSchemas", schema);
     json["@odata.type"] = "#JsonSchemaFile.v1_0_2.JsonSchemaFile";
