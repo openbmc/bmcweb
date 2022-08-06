@@ -58,7 +58,7 @@ static auto sensorPaths = std::to_array<std::string_view>({
     "/xyz/openbmc_project/sensors/power",
     "/xyz/openbmc_project/sensors/current",
     "/xyz/openbmc_project/sensors/airflow",
-               "/xyz/openbmc_project/sensors/humidity",
+    "/xyz/openbmc_project/sensors/humidity",
 #ifdef BMCWEB_NEW_POWERSUBSYSTEM_THERMALSUBSYSTEM
     "/xyz/openbmc_project/sensors/voltage",
     "/xyz/openbmc_project/sensors/fan_tach",
