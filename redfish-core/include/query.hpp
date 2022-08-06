@@ -13,7 +13,12 @@
 #include <boost/beast/http/verb.hpp>
 #include <boost/url/params_view.hpp>
 #include <boost/url/url_view.hpp>
+#include <valijson/adapters/nlohmann_json_adapter.hpp>
+#include <valijson/schema.hpp>
+#include <valijson/schema_parser.hpp>
+#include <valijson/validator.hpp>
 
+#include <fstream>
 #include <functional>
 #include <memory>
 #include <new>
@@ -29,6 +34,86 @@
 
 namespace redfish
 {
+
+inline std::map<std::string, nlohmann::json> jsonSchemas;
+
+inline const nlohmann::json* fetchDocument(const std::string& uri)
+{
+    if (!boost::starts_with(uri, "http://redfish.dmtf.org/schemas/v1/"))
+    {
+        std::cout << "Not a DMTF schema???\n";
+        return nullptr;
+    }
+    std::string folder = "/build/schemas/json-schema/";
+    std::filesystem::path filename(uri.substr(35));
+
+    folder += filename.string();
+    std::cout << "Fetching \"" << folder << "\"\n";
+    auto it = jsonSchemas.find(folder);
+    if (it == jsonSchemas.end())
+    {
+        std::cout << "Couldn't find " << folder << "\n";
+        return nullptr;
+    }
+    nlohmann::json* ret = &it->second;
+    return ret;
+}
+
+inline void freeDocument(const nlohmann::json* /*ptr*/)
+{}
+
+inline bool validateJson(const nlohmann::json& input)
+{
+    auto it = input.find("@odata.type");
+    if (it == input.end())
+    {
+        return false;
+    }
+    valijson::Schema schema;
+    valijson::SchemaParser parser;
+    std::cout << "Parsing schema\n";
+    nlohmann::json schemafile;
+    {
+        std::ifstream ifs("/build/schemas/json-schema/ServiceRoot.json");
+        schemafile = nlohmann::json::parse(ifs);
+    }
+    valijson::adapters::NlohmannJsonAdapter schemaAdapter(schemafile);
+    parser.populateSchema(schemaAdapter, schema, fetchDocument, freeDocument);
+
+    for (auto& file : std::filesystem::directory_iterator(
+             std::filesystem::path("/build/schemas/json-schema")))
+    {
+        std::cout << "Checking " << file.path().string() << "\n";
+        std::error_code ec;
+        if (!std::filesystem::is_regular_file(file.path(), ec))
+        {
+            continue;
+        }
+        std::ifstream inputFile(file.path().string());
+        std::cout << "Adding " << file.path().string() << "\n";
+
+        jsonSchemas[file.path().string()] =
+            nlohmann::json::parse(inputFile, nullptr, false);
+    }
+
+    valijson::Validator validator;
+    valijson::adapters::NlohmannJsonAdapter targetAdapter(input);
+    if (!validator.validate(schema, targetAdapter, nullptr))
+    {
+        std::cout << "Parsing failed\n";
+        return false;
+    }
+    std::cout << "Parsing succeeded\n";
+    return true;
+}
+
+inline void validateResponse(crow::Response& res)
+{
+    if (!validateJson(res.jsonValue))
+    {
+        messages::internalError(res);
+    }
+}
 
 // Sets up the Redfish Route and delegates some of the query parameter
 // processing. |queryCapabilities| stores which query parameters will be
@@ -75,6 +160,7 @@ namespace redfish
     asyncResp->res.setCompleteRequestHandler(
         [&app, handler(std::move(handler)),
          query{std::move(*queryOpt)}](crow::Response& resIn) mutable {
+        validateResponse(resIn);
         processAllParams(app, query, handler, resIn);
     });
 
