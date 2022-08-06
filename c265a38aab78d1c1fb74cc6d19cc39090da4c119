@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d4af744b_5b3aef8d",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 1061,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-06T22:09:50Z",
+      "side": 1,
+      "message": "Just for anyone watching, we should not be explicitly looking up the ObjectManager.  It needs defined at an interface level that:\n1. The inventory interfaces require an ObjectManager\n2. What path that object manager is at.\n\nGranted we do this pattern in the sensor collection because that was moving from code that didn\u0027t follow the PDI standard, to code that could at least operate correctly when someone followed the standard, so we accepted some amount of tech debt there, because the existing tree was already \"wrong\".  I\u0027m not willing to do it in this case where:\n1. The existing code works to the standard.\n2. This code is overly complex to support things that don\u0027t follow the standard.\n3. Unlike sensors, it\u0027s not documented anywhere that an ObjectManager is required (although I think we all agree it should be).\n4. The inventory system is used to generate 8-10 different APIs, where this pattern would need to be propagated (sensors generates 3 APIs, all that share identical code), thus significantly increasing the complexity of something already complex.\n\nNext steps on getting this merged are in review in PDI.  This section of this patchset needs amended to assume a mapper path of /xyz/openbmc_project/inventory, which can be done at any time.\n\nAfter that, we need to propagate the change to the various things in the system that put the ObjectManager at the root.",
+      "range": {
+        "startLine": 1061,
+        "startChar": 0,
+        "endLine": 1061,
+        "endChar": 74
+      },
+      "revId": "c265a38aab78d1c1fb74cc6d19cc39090da4c119",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
