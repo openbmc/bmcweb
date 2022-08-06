@@ -396,7 +396,6 @@ inline void requestRoutesMetricReportDefinitionCollection(App& app)
         {
             return;
         }
-
         auto addReportReq =
             std::make_shared<telemetry::AddReport>(std::move(args), asyncResp);
         for (const auto& [chassis, sensorType] : chassisSensors)
