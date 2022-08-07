@@ -454,12 +454,21 @@ class Connection :
         }
         if (res.body().empty() && !res.jsonValue.empty())
         {
-            if (http_helpers::requestPrefersHtml(req->getHeaderValue("Accept")))
+            using http_helpers::ContentType;
+            std::array<ContentType, 2> allowed{ContentType::HTML,
+                                               ContentType::JSON};
+            ContentType prefered =
+                getPreferedContentType(req->getHeaderValue("Accept"), allowed);
+
+            if (prefered == ContentType::HTML)
             {
                 prettyPrintJson(res);
             }
             else
             {
+                // Technically prefered could also be NoMatch here, but we'd
+                // like to default to something rather than return 400 for
+                // backward compatibility.
                 res.addHeader(boost::beast::http::field::content_type,
                               "application/json");
                 res.body() = res.jsonValue.dump(
