@@ -1,17 +1,8 @@
 #!/usr/bin/env python3
-import requests
-import zipfile
-from io import BytesIO
-import os
-from collections import defaultdict
-from collections import OrderedDict
-from distutils.version import StrictVersion
-import shutil
 import json
-import glob
-import subprocess
+import os
 
-import xml.etree.ElementTree as ET
+import requests
 
 WARNING = '''/****************************************************************
  *                 READ THIS WARNING FIRST
