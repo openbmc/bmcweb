@@ -454,11 +454,17 @@ class Connection :
         if (res.body().empty() && !res.jsonValue.empty())
         {
             using http_helpers::ContentType;
-            std::array<ContentType, 1> prefered{ContentType::HTML};
-            if (getPreferedContentType(req->getHeaderValue("Accept"),
-                                       prefered) == ContentType::HTML)
+            std::array<ContentType, 2> prefered{ContentType::HTML, ContentType::MsgPack};
+            ContentType type = getPreferedContentType(req->getHeaderValue("Accept"),
+                                       prefered);
+            if (type == ContentType::HTML)
             {
                 prettyPrintJson(res);
+            }
+            else if (type == ContentType::MsgPack){
+                res.addHeader(boost::beast::http::field::content_type,
+                              "application/x-msgpack");
+                nlohmann::json::to_msgpack(res.jsonValue, res.body());
             }
             else
             {
