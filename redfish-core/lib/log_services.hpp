@@ -1634,7 +1634,10 @@ inline void requestRoutesDBusEventLogEntryDownload(App& app)
         {
             return;
         }
-        if (!http_helpers::isOctetAccepted(req.getHeaderValue("Accept")))
+        using http_helpers::ContentType;
+        std::array<ContentType, 1> prefered{ContentType::OctetStream};
+        if (getPreferedContentType(req.getHeaderValue("Accept"), prefered) !=
+            ContentType::OctetStream)
         {
             asyncResp->res.result(boost::beast::http::status::bad_request);
             return;
@@ -3521,7 +3524,10 @@ inline void requestRoutesPostCodesEntryAdditionalData(App& app)
         {
             return;
         }
-        if (!http_helpers::isOctetAccepted(req.getHeaderValue("Accept")))
+        using http_helpers::ContentType;
+        std::array<ContentType, 1> prefered{ContentType::OctetStream};
+        if (getPreferedContentType(req.getHeaderValue("Accept"), prefered) !=
+            ContentType::OctetStream)
         {
             asyncResp->res.result(boost::beast::http::status::bad_request);
             return;

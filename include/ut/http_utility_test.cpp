@@ -13,24 +13,16 @@ namespace
 
 TEST(RequestPrefersHtml, ContainsHtmlReturnsTrue)
 {
-    EXPECT_TRUE(requestPrefersHtml("text/html, application/json"));
-}
-
-TEST(RequestPrefersHtml, NoHtmlReturnsFalse)
-{
-    EXPECT_FALSE(requestPrefersHtml("*/*, application/octet-stream"));
-    EXPECT_FALSE(requestPrefersHtml("application/json"));
+    std::array<ContentType, 1> prefered{ContentType::JSON};
+    EXPECT_EQ(getPreferedContentType("text/html, application/json", prefered),
+              ContentType::JSON);
 }
 
 TEST(IsOctetAccepted, ContainsOctetReturnsTrue)
 {
-    EXPECT_TRUE(isOctetAccepted("*/*, application/octet-stream"));
-}
-
-TEST(IsOctetAccepted, NoOctetReturnsFalse)
-{
-    EXPECT_FALSE(isOctetAccepted("text/html, application/json"));
-    EXPECT_FALSE(isOctetAccepted("application/json"));
+    std::array<ContentType, 1> prefered{ContentType::OctetStream};
+    EXPECT_EQ(getPreferedContentType("*/*, application/octet-stream", prefered),
+              ContentType::OctetStream);
 }
 
 } // namespace
