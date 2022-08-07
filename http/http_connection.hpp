@@ -453,7 +453,10 @@ class Connection :
         }
         if (res.body().empty() && !res.jsonValue.empty())
         {
-            if (http_helpers::requestPrefersHtml(req->getHeaderValue("Accept")))
+            using http_helpers::ContentType;
+            std::array<ContentType, 1> prefered{ContentType::HTML};
+            if (getPreferedContentType(req->getHeaderValue("Accept"),
+                                       prefered) == ContentType::HTML)
             {
                 prettyPrintJson(res);
             }
@@ -474,8 +477,8 @@ class Connection :
         if (res.result() == boost::beast::http::status::no_content)
         {
             // Boost beast throws if content is provided on a no-content
-            // response.  Ideally, this would never happen, but in the case that
-            // it does, we don't want to throw.
+            // response.  Ideally, this would never happen, but in the case
+            // that it does, we don't want to throw.
             BMCWEB_LOG_CRITICAL
                 << this << " Response content provided but code was no-content";
             res.body().clear();
@@ -696,8 +699,9 @@ class Connection :
         std::weak_ptr<Connection<Adaptor, Handler>> weakSelf = weak_from_this();
         timer.expires_after(timeout);
         timer.async_wait([weakSelf](const boost::system::error_code ec) {
-            // Note, we are ignoring other types of errors here;  If the timer
-            // failed for any reason, we should still close the connection
+            // Note, we are ignoring other types of errors here;  If the
+            // timer failed for any reason, we should still close the
+            // connection
 
             std::shared_ptr<Connection<Adaptor, Handler>> self =
                 weakSelf.lock();

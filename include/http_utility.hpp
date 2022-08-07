@@ -9,6 +9,7 @@
 #include <cctype>
 #include <iomanip>
 #include <ostream>
+#include <span>
 #include <string>
 #include <string_view>
 #include <vector>
@@ -29,32 +30,54 @@ inline std::vector<std::string> parseAccept(std::string_view header)
     return encodings;
 }
 
-inline bool requestPrefersHtml(std::string_view header)
+enum class ContentType
 {
-    for (const std::string& encoding : parseAccept(header))
-    {
-        if (encoding == "text/html")
-        {
-            return true;
-        }
-        if (encoding == "application/json")
-        {
-            return false;
-        }
-    }
-    return false;
-}
+    NoMatch,
+    HTML,
+    JSON,
+    MsgPack,
+    OctetStream,
+};
 
-inline bool isOctetAccepted(std::string_view header)
+struct ContentTypePair
+{
+    std::string_view contentTypeString;
+    ContentType contentTypeEnum;
+};
+
+constexpr std::array<ContentTypePair, 4> contentTypes{{
+    {"application/json", ContentType::JSON},
+    {"application/octet-stream", ContentType::OctetStream},
+    {"application/x-msgpack", ContentType::MsgPack},
+    {"text/html", ContentType::HTML},
+}};
+
+inline ContentType getPreferedContentType(std::string_view header,
+                                          std::span<ContentType> preferedOrder)
 {
     for (const std::string& encoding : parseAccept(header))
     {
-        if (encoding == "*/*" || encoding == "application/octet-stream")
+        auto knownContentType =
+            std::find_if(contentTypes.begin(), contentTypes.end(),
+                         [&encoding](const ContentTypePair& pair) {
+            return pair.contentTypeString == encoding;
+            });
+
+        if (knownContentType == contentTypes.end())
         {
-            return true;
+            // not able to find content type in list
+            continue;
         }
+
+        // Not one of the types requested
+        if (std::find(preferedOrder.begin(), preferedOrder.end(),
+                      knownContentType->contentTypeEnum) == preferedOrder.end())
+        {
+            continue;
+        }
+        return knownContentType->contentTypeEnum;
     }
-    return false;
+    return ContentType::NoMatch;
 }
 
 inline std::string urlEncode(const std::string_view value)
