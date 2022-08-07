@@ -41,7 +41,7 @@ constexpr std::array<ContentTypePair, 4> contentTypes{{
 }};
 
 inline ContentType getPreferedContentType(std::string_view header,
-                                          std::span<ContentType> preferedOrder)
+                                          std::span<const ContentType> preferedOrder)
 {
     size_t index = 0;
     size_t lastIndex = 0;

@@ -455,14 +455,20 @@ class Connection :
         if (res.body().empty() && !res.jsonValue.empty())
         {
             using http_helpers::ContentType;
-            std::array<ContentType, 2> allowed{ContentType::HTML,
-                                               ContentType::JSON};
+            constexpr const std::array<ContentType, 3> allowed{
+                ContentType::HTML, ContentType::CBOR, ContentType::JSON};
             ContentType prefered =
                 getPreferedContentType(req->getHeaderValue("Accept"), allowed);
 
             if (prefered == ContentType::HTML)
             {
                 prettyPrintJson(res);
+            }
+            else if (prefered == ContentType::CBOR)
+            {
+                res.addHeader(boost::beast::http::field::content_type,
+                              "application/cbor");
+                nlohmann::json::to_cbor(res.jsonValue, res.body());
             }
             else
             {
