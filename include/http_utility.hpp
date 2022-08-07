@@ -40,8 +40,9 @@ constexpr std::array<ContentTypePair, 4> contentTypes{{
     {"text/html", ContentType::HTML},
 }};
 
-inline ContentType getPreferedContentType(std::string_view header,
-                                          std::span<ContentType> preferedOrder)
+inline ContentType
+    getPreferedContentType(std::string_view header,
+                           std::span<const ContentType> preferedOrder)
 {
     size_t index = 0;
     size_t lastIndex = 0;
