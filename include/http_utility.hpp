@@ -2,53 +2,63 @@
 
 #include <boost/algorithm/string/classification.hpp>
 #include <boost/algorithm/string/constants.hpp>
-#include <boost/algorithm/string/split.hpp>
 #include <boost/iterator/iterator_facade.hpp>
 #include <boost/type_index/type_index_facade.hpp>
 
 #include <cctype>
 #include <iomanip>
 #include <ostream>
+#include <span>
 #include <string>
 #include <string_view>
 #include <vector>
 
 // IWYU pragma: no_include <ctype.h>
-// IWYU pragma: no_include <boost/algorithm/string/detail/classification.hpp>
 
 namespace http_helpers
 {
-inline std::vector<std::string> parseAccept(std::string_view header)
-{
-    std::vector<std::string> encodings;
-    // chrome currently sends 6 accepts headers, firefox sends 4.
-    encodings.reserve(6);
-    boost::split(encodings, header, boost::is_any_of(", "),
-                 boost::token_compress_on);
 
-    return encodings;
-}
-
-inline bool requestPrefersHtml(std::string_view header)
+enum class ContentType
 {
-    for (const std::string& encoding : parseAccept(header))
+    NoMatch,
+    CBOR,
+    HTML,
+    JSON,
+    OctetStream,
+};
+
+struct ContentTypePair
+{
+    std::string_view contentTypeString;
+    ContentType contentTypeEnum;
+};
+
+constexpr std::array<ContentTypePair, 4> contentTypes{{
+    {"application/cbor", ContentType::CBOR},
+    {"application/json", ContentType::JSON},
+    {"application/octet-stream", ContentType::OctetStream},
+    {"text/html", ContentType::HTML},
+}};
+
+inline ContentType getPreferedContentType(std::string_view header,
+                                          std::span<ContentType> preferedOrder)
+{
+    size_t index = 0;
+    size_t lastIndex = 0;
+    while (lastIndex < header.size() + 1)
     {
-        if (encoding == "text/html")
+        index = header.find(',', lastIndex);
+        if (index == std::string_view::npos)
         {
-            return true;
+            index = header.size();
         }
-        if (encoding == "application/json")
-        {
-            return false;
-        }
-    }
-    return false;
-}
+        std::string_view encoding = header.substr(lastIndex, index);
 
-inline bool isOctetAccepted(std::string_view header)
-{
-    for (std::string_view encoding : parseAccept(header))
-    {
+        if (!header.empty())
+        {
+            header.remove_prefix(1);
+        }
+        lastIndex = index + 1;
         // ignore any q-factor weighting (;q=)
         std::size_t separator = encoding.find(";q=");
 
@@ -56,12 +66,42 @@ inline bool isOctetAccepted(std::string_view header)
         {
             encoding = encoding.substr(0, separator);
         }
-        if (encoding == "*/*" || encoding == "application/octet-stream")
+        // If the client allows any encoding, given them the first one on the
+        // servers list
+        if (encoding == "*/*")
         {
-            return true;
+            if (!preferedOrder.empty())
+            {
+                return preferedOrder[0];
+            }
         }
+        auto knownContentType =
+            std::find_if(contentTypes.begin(), contentTypes.end(),
+                         [encoding](const ContentTypePair& pair) {
+            return pair.contentTypeString == encoding;
+            });
+
+        if (knownContentType == contentTypes.end())
+        {
+            // not able to find content type in list
+            continue;
+        }
+
+        // Not one of the types requested
+        if (std::find(preferedOrder.begin(), preferedOrder.end(),
+                      knownContentType->contentTypeEnum) == preferedOrder.end())
+        {
+            continue;
+        }
+        return knownContentType->contentTypeEnum;
     }
-    return false;
+    return ContentType::NoMatch;
+}
+
+inline bool isContentTypeAllowed(std::string_view header, ContentType type)
+{
+    auto types = std::to_array({type});
+    return getPreferedContentType(header, types) == type;
 }
 
 inline std::string urlEncode(const std::string_view value)
