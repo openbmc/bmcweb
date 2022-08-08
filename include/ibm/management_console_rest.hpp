@@ -33,7 +33,7 @@ constexpr const char* contentNotAcceptableMsg = "Content Not Acceptable";
 constexpr const char* internalServerError = "Internal Server Error";
 
 constexpr size_t maxSaveareaDirSize =
-    10000000; // Allow save area dir size to be max 10MB
+    25000000; // Allow save area dir size to be max 25MB
 constexpr size_t minSaveareaFileSize =
     100; // Allow save area file size of minimum 100B
 constexpr size_t maxSaveareaFileSize =
@@ -190,7 +190,7 @@ inline void handleFilePut(const crow::Request& req,
         asyncResp->res.result(boost::beast::http::status::bad_request);
         asyncResp->res.jsonValue["Description"] =
             "File size does not fit in the savearea "
-            "directory maximum allowed size[10MB]";
+            "directory maximum allowed size[25MB]";
         return;
     }
 
@@ -304,7 +304,7 @@ inline void handleFileGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         "/var/lib/bmcweb/ibm-management-console/configfiles/" + fileID);
     if (!std::filesystem::exists(loc))
     {
-        BMCWEB_LOG_ERROR << loc.string() << "Not found";
+        BMCWEB_LOG_ERROR << loc.string() << " Not found";
         asyncResp->res.result(boost::beast::http::status::not_found);
         asyncResp->res.jsonValue["Description"] = resourceNotFoundMsg;
         return;
@@ -313,7 +313,7 @@ inline void handleFileGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     std::ifstream readfile(loc.string());
     if (!readfile)
     {
-        BMCWEB_LOG_ERROR << loc.string() << "Not found";
+        BMCWEB_LOG_ERROR << loc.string() << " Not found";
         asyncResp->res.result(boost::beast::http::status::not_found);
         asyncResp->res.jsonValue["Description"] = resourceNotFoundMsg;
         return;
@@ -489,7 +489,7 @@ inline void
         if (validityStatus.first && (validityStatus.second == 1))
         {
             BMCWEB_LOG_DEBUG << "There is a conflict within itself";
-            asyncResp->res.result(boost::beast::http::status::bad_request);
+            asyncResp->res.result(boost::beast::http::status::conflict);
             return;
         }
     }
