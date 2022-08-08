@@ -70,6 +70,24 @@
       "parentUuid": "99e0514e_82915efd",
       "revId": "4a3a6a15780d91428236389dedeca03cc435c2bd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1c83919e_cfeb2e54",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-08T21:55:22Z",
+      "side": 1,
+      "message": "This commit as-written breaks rules 1, 2, 3, and 4.  Had it been just one, I would\u0027ve called it out, but I think it\u0027s more helpful for folks to read and understand the rules rather than me retyping them in a comment.",
+      "parentUuid": "ca03a5f0_52e72f78",
+      "revId": "4a3a6a15780d91428236389dedeca03cc435c2bd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
