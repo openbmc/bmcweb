@@ -46,6 +46,30 @@
       },
       "revId": "af4b50f73e31437d1b56455cbabd53f64da8ad1c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "77759e72_180860cb",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-08-08T15:53:55Z",
+      "side": 1,
+      "message": "Oh, I thought there\u0027s a duplication.\n\nhttps://github.com/openbmc/bmcweb/blob/9896eaed88332eca7334a564a2ea2e0baf135639/http/utility.hpp#L572\n\nI forgot you moved the codes in https://gerrit.openbmc.org/c/openbmc/bmcweb/+/56120/3.",
+      "parentUuid": "2c56cc3b_e8f8de88",
+      "range": {
+        "startLine": 36,
+        "startChar": 19,
+        "endLine": 36,
+        "endChar": 27
+      },
+      "revId": "af4b50f73e31437d1b56455cbabd53f64da8ad1c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
