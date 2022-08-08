@@ -1367,6 +1367,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c2dac218_bdb49faa",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 583,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-08-08T20:38:09Z",
+      "side": 1,
+      "message": "\u003e I agree connection pools can be beyond EventServiceManager( Even though its not today) but even then IP:PORT key can be unique for any such( Listeners can\u0027t run http \u0026 https with same IP:PORt combination). \nEd already pointed out they can, but even if you disregard that, this client is supposed to play nice with multiple entities using it.  It does this in its current state.  This patch shouldn\u0027t impact that capability.\n\n\u003e Ideally speaking when ever the subscription is created, it should be added to pool ( This is working fine) and when ever subscription is deleted, It should be removed form pool. \nWhen a subscription is created and it sends its first message a pool is created if one does not already exist for the associated IP:PORT.  Connections are added to the pool whenever we need to send multiple messages at a time to that IP:PORT.  You can have multiple subscriptions use the same IP:PORT so you wouldn\u0027t want to delete a pool unless you can verify that there is nothing else in the system using the pool.\n\n\u003e But today, I don\u0027t see deleting subscriptions is removing entry from pool. So Its existing problem irrespective of this SSL support patch. So that will be addressed as separate commit.\nIt is currently not a problem if deleting subscriptions does not delete the pool.  A new subscription could later be created and reuse the pool.  There is no break in functionality.\n\nThis change does introduce the issue where a connection pool cannot be reused depending on the use of SSL.  That needs to be fixed as part of this patch by allowing a pool to contain both SSL and non-SSL connections.",
+      "parentUuid": "69737b7a_2272f272",
+      "range": {
+        "startLine": 583,
+        "startChar": 0,
+        "endLine": 583,
+        "endChar": 22
+      },
+      "revId": "d739445adffb056cbb753730656f80ccc367b010",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a26b0535_265df071",
         "filename": "http/http_client.hpp",
         "patchSetId": 5
@@ -1521,6 +1545,30 @@
       "side": 1,
       "message": "Tracked in other comment which is mentioned above, So closing this.",
       "parentUuid": "c07f46fe_37d2f538",
+      "range": {
+        "startLine": 639,
+        "startChar": 12,
+        "endLine": 651,
+        "endChar": 13
+      },
+      "revId": "d739445adffb056cbb753730656f80ccc367b010",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bdfcf860_77229e31",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 651,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-08-08T20:38:09Z",
+      "side": 1,
+      "message": "\u003e Modified code with parsing useSSL makes sslConn and existing connection pool works for both SSL \u0026 non-SSL cases.\nThe connection pool forces all connections to be either SSL or non-SSL.  It needs to allow a mix of the two such as through the ability to reconfigure individual connections to switch from SSL to non-SSL or vice versa.\n\nThe issue you linked to has not been resolved.  My initial comment in this thread directly depends on the outcome of that linked issue.  Please do not close this thread before that issue\u0027s been resolved.",
+      "parentUuid": "7ff411f6_e64f7dd3",
       "range": {
         "startLine": 639,
         "startChar": 12,
@@ -1711,6 +1759,30 @@
       "side": 1,
       "message": "Tracked in above comment.",
       "parentUuid": "66e09848_59d8ff15",
+      "range": {
+        "startLine": 708,
+        "startChar": 0,
+        "endLine": 731,
+        "endChar": 13
+      },
+      "revId": "d739445adffb056cbb753730656f80ccc367b010",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6866f41a_31797360",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 731,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-08-08T20:38:09Z",
+      "side": 1,
+      "message": "The issue you linked to has not been resolved.  My initial comment in this thread directly depends on the outcome of that linked issue.  Please do not close this thread until it has been resolved.",
+      "parentUuid": "0b57b777_e8041573",
       "range": {
         "startLine": 708,
         "startChar": 0,

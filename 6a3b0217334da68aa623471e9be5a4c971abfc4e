@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "89b59dc5_fb5aa026",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 387,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-08-08T20:38:09Z",
+      "side": 1,
+      "message": "Mentioned in a later comment that this case likely shouldn\u0027t be handled by waitAndRetry() considering where the SSL initialization occurs.\n\nIf we do hit an sslInitFailed state then we wouldn\u0027t want to print error messages saying that we instead exceeded the maximum number of retries.  We\u0027d also want to return something like a 500 error rather than a 502.",
+      "range": {
+        "startLine": 386,
+        "startChar": 56,
+        "endLine": 387,
+        "endChar": 48
+      },
+      "revId": "6a3b0217334da68aa623471e9be5a4c971abfc4e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fd981d11_82a88781",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 454,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-08-08T20:38:09Z",
+      "side": 1,
+      "message": "It\u0027s confusing that you call close() inside of shutdownConn() and then later call async_shutdown() inside of doClose().  Is there a way to just combine shutdownConn() and doClose()?",
+      "range": {
+        "startLine": 454,
+        "startChar": 8,
+        "endLine": 454,
+        "endChar": 21
+      },
+      "revId": "6a3b0217334da68aa623471e9be5a4c971abfc4e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "945ddcd2_76850cc7",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 493,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-08-08T20:38:09Z",
+      "side": 1,
+      "message": "It\u0027s confusing that you call async_shutdown() inside of doClose() and then elsewhere you call close() inside of shutdownConn().  Is there a way to just combine shutdownConn and doClose() to make this easier to follow?",
+      "range": {
+        "startLine": 493,
+        "startChar": 8,
+        "endLine": 493,
+        "endChar": 31
+      },
+      "revId": "6a3b0217334da68aa623471e9be5a4c971abfc4e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d531c296_fdabeada",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 536,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-08-08T20:38:09Z",
+      "side": 1,
+      "message": "waitAndRetry() is meant to be called in response to one of the operations in the message sending flow failing.  We shouldn\u0027t be calling it here since we\u0027re just creating a new creation object.\n\nThis entire section should not be part of the constructor anyway since we also want to be able to reconfigure non-SSL connection object to become an SSL connection object and vice versa.",
+      "range": {
+        "startLine": 535,
+        "startChar": 16,
+        "endLine": 536,
+        "endChar": 31
+      },
+      "revId": "6a3b0217334da68aa623471e9be5a4c971abfc4e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
