@@ -1343,6 +1343,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "69737b7a_2272f272",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 583,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-08-08T19:23:22Z",
+      "side": 1,
+      "message": "Do you mean one can run http \u0026 https on same port number on same system? I don\u0027t think that is possible. Both requires its known port.",
+      "parentUuid": "215f03f7_b9af1ee6",
+      "range": {
+        "startLine": 583,
+        "startChar": 0,
+        "endLine": 583,
+        "endChar": 22
+      },
+      "revId": "d739445adffb056cbb753730656f80ccc367b010",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a26b0535_265df071",
         "filename": "http/http_client.hpp",
         "patchSetId": 5

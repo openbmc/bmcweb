@@ -214,6 +214,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "75891764_679f69fc",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-08-08T19:23:22Z",
+      "side": 1,
+      "message": "Done, Move this to common file.",
+      "parentUuid": "44eaba33_87c53ba2",
+      "revId": "fd64ddb00ec8b4e59d5c3be7fd1e7b88a84fb19c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7f5c71c3_9daa5388",
@@ -349,6 +367,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "31c79a47_c19a92a5",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-08-08T19:23:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1e5d1b6a_1d76a716",
+      "revId": "fd64ddb00ec8b4e59d5c3be7fd1e7b88a84fb19c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "25b21a98_03a0b7c0",
@@ -410,6 +446,30 @@
       "side": 1,
       "message": "\u003e  So currently its the method used for differentiating the connection SSL vs Non-SSL. \n\nShouldn\u0027t we be using sslConn, not sslCTx?",
       "parentUuid": "a7683117_866460bd",
+      "range": {
+        "startLine": 259,
+        "startChar": 0,
+        "endLine": 259,
+        "endChar": 19
+      },
+      "revId": "fd64ddb00ec8b4e59d5c3be7fd1e7b88a84fb19c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "70e8cdbf_9b0912c6",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-08-08T19:23:22Z",
+      "side": 1,
+      "message": "Depending on sslCtx, sslConn is set with appropriate context(Line no: 261).",
+      "parentUuid": "c3dc309f_86906ef7",
       "range": {
         "startLine": 259,
         "startChar": 0,
