@@ -52,6 +52,24 @@
       "parentUuid": "f155dae3_0a7cff0f",
       "revId": "4a3a6a15780d91428236389dedeca03cc435c2bd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca03a5f0_52e72f78",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-08-08T17:15:50Z",
+      "side": 1,
+      "message": "Just to learn the convention here: which part do we need to change according to https://gerrit.openbmc.org/c/openbmc/bmcweb/+/54350?\n\n\"Platform attestation error. Error reason: %1.\" is not human readable?",
+      "parentUuid": "99e0514e_82915efd",
+      "revId": "4a3a6a15780d91428236389dedeca03cc435c2bd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
