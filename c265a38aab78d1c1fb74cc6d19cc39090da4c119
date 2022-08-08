@@ -22,6 +22,30 @@
       },
       "revId": "c265a38aab78d1c1fb74cc6d19cc39090da4c119",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "584476d3_a42e9caa",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 1061,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-08-08T17:09:03Z",
+      "side": 1,
+      "message": "https://gerrit.openbmc.org/c/openbmc/bmcweb/+/53824 was merged.\n\n\u003e Next steps on getting this merged are in review in PDI.  This section of this patchset needs amended to assume a mapper path of /xyz/openbmc_project/inventory, which can be done at any time.\n\u003e \n\u003e After that, we need to propagate the change to the various things in the system that put the ObjectManager at the root.\n\nDoes this mean this is no blockers for the change now as long as we use the fixed ObjectManager path?",
+      "parentUuid": "d4af744b_5b3aef8d",
+      "range": {
+        "startLine": 1061,
+        "startChar": 0,
+        "endLine": 1061,
+        "endChar": 74
+      },
+      "revId": "c265a38aab78d1c1fb74cc6d19cc39090da4c119",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
