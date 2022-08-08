@@ -750,6 +750,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e98a98dd_d82371bd",
+        "filename": "OWNERS",
+        "patchSetId": 1
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-08-08T16:42:44Z",
+      "side": 1,
+      "message": "Do we want to merge this? Have you figured out what you want to do on the owner plugin?",
+      "parentUuid": "e5ea0a59_140478e9",
+      "revId": "d8ea13a2b4dc7e0e9f450a66826add740a634c21",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "868a86ff_988c3bca",
         "filename": "OWNERS",
         "patchSetId": 1
