@@ -488,7 +488,7 @@ inline void
         }
         if (validityStatus.first && (validityStatus.second == 1))
         {
-            BMCWEB_LOG_DEBUG << "There is a conflict within itself";
+            BMCWEB_LOG_ERROR << "There is a conflict within itself";
             asyncResp->res.result(boost::beast::http::status::conflict);
             return;
         }
@@ -529,7 +529,7 @@ inline void
         }
 
         returnJson["SegmentFlags"] = myarray;
-
+        BMCWEB_LOG_ERROR << "Conflicting lock record: " << returnJson;
         asyncResp->res.jsonValue["Record"] = returnJson;
         return;
     }
@@ -563,6 +563,7 @@ inline void
     if (!varReleaselock.first)
     {
         // validation Failed
+        BMCWEB_LOG_ERROR << "handleReleaseLockAPI: validation failed";
         asyncResp->res.result(boost::beast::http::status::bad_request);
         return;
     }
@@ -597,6 +598,7 @@ inline void
     }
 
     returnJson["SegmentFlags"] = myArray;
+    BMCWEB_LOG_DEBUG << "handleReleaseLockAPI: lockrecord: " << returnJson;
     asyncResp->res.jsonValue["Record"] = returnJson;
 }
 
