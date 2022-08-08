@@ -22,6 +22,30 @@
       },
       "revId": "00e27e779bc52470a42205a7ed1e3bfb0190601d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5e1cfbb4_71b1cd64",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 631,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-08-08T02:04:28Z",
+      "side": 1,
+      "message": "Ack. The \"schema name\" do should be the one without versioning, my understanding was wrong before.",
+      "parentUuid": "b0f5b586_8c4e5922",
+      "range": {
+        "startLine": 631,
+        "startChar": 45,
+        "endLine": 631,
+        "endChar": 64
+      },
+      "revId": "00e27e779bc52470a42205a7ed1e3bfb0190601d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
