@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "644a2741_b849da5d",
         "filename": "redfish-core/lib/environment_metrics.hpp",
@@ -14,8 +15,25 @@
       "side": 1,
       "message": "Please use the new privilege framework",
       "revId": "eaa2a56026680ede61ddaef99f00ca464f24a59b",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "19431b74_6d7e5c3a",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1001083
+      },
+      "writtenOn": "2022-08-08T14:01:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "644a2741_b849da5d",
+      "revId": "eaa2a56026680ede61ddaef99f00ca464f24a59b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
