@@ -1391,6 +1391,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "984690ce_1aeb8fd3",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 583,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-08-08T21:42:32Z",
+      "side": 1,
+      "message": "\u003e \u003e I agree connection pools can be beyond EventServiceManager( Even though its not today) but even then IP:PORT key can be unique for any such( Listeners can\u0027t run http \u0026 https with same IP:PORt combination). \n\u003e Ed already pointed out they can, but even if you disregard that, this client is supposed to play nice with multiple entities using it.  It does this in its current state.  This patch shouldn\u0027t impact that capability.\n\u003e \n\u003e \u003e Ideally speaking when ever the subscription is created, it should be added to pool ( This is working fine) and when ever subscription is deleted, It should be removed form pool. \n\u003e When a subscription is created and it sends its first message a pool is created if one does not already exist for the associated IP:PORT.  Connections are added to the pool whenever we need to send multiple messages at a time to that IP:PORT.  You can have multiple subscriptions use the same IP:PORT so you wouldn\u0027t want to delete a pool unless you can verify that there is nothing else in the system using the pool.\n\u003e \n\u003e \u003e But today, I don\u0027t see deleting subscriptions is removing entry from pool. So Its existing problem irrespective of this SSL support patch. So that will be addressed as separate commit.\n\u003e It is currently not a problem if deleting subscriptions does not delete the pool.  A new subscription could later be created and reuse the pool.  There is no break in functionality.\n\u003e \nNot connection pool when subscription is created can create the issue say if someone creates x (maxPoolSize i.e 4) subscriptions and delete them, Then connection pool is exhausted and will lead to add all request to queue and eventually fill up resources.\n\u003e This change does introduce the issue where a connection pool cannot be reused depending on the use of SSL.  That needs to be fixed as part of this patch by allowing a pool to contain both SSL and non-SSL connections.\n\nI couldn\u0027t think of a case where http \u0026 https uses same IP:PORT combination and lead to above said issue. But I agree that its better to differentiate SSL \u0026 Non-SSL. One way to do so by using common connection pool( Not having separate pool for SSL) is expand the map key from IP:PORT to http/https://IP:PORT. Please do suggest if you thought of any other method.",
+      "parentUuid": "c2dac218_bdb49faa",
+      "range": {
+        "startLine": 583,
+        "startChar": 0,
+        "endLine": 583,
+        "endChar": 22
+      },
+      "revId": "d739445adffb056cbb753730656f80ccc367b010",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a26b0535_265df071",
         "filename": "http/http_client.hpp",
         "patchSetId": 5

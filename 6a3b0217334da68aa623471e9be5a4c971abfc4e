@@ -49,6 +49,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "100b3683_edfa07cd",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 454,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-08-08T21:42:32Z",
+      "side": 1,
+      "message": "Previous code is combined and when we did it, It has lot of duplicate code for SSL and Non-SSL. So brake the function to 2 parts.\n\ndoClose() does async_shutdown in case of SSL and then does the connection shutdown which is common.  I see your point and agree. Let me see if this can be renamed more appropriate.",
+      "parentUuid": "fd981d11_82a88781",
+      "range": {
+        "startLine": 454,
+        "startChar": 8,
+        "endLine": 454,
+        "endChar": 21
+      },
+      "revId": "6a3b0217334da68aa623471e9be5a4c971abfc4e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "945ddcd2_76850cc7",
         "filename": "http/http_client.hpp",
         "patchSetId": 11
