@@ -190,6 +190,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "31fc26eb_cc7b161e",
+        "filename": "bmcweb_config.h.in",
+        "patchSetId": 5
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-08-08T11:45:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c162b95b_3500c356",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 84
+      },
+      "revId": "d739445adffb056cbb753730656f80ccc367b010",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c9475d4b_eee36c87",
@@ -428,6 +452,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "deb25929_092694b3",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-08-08T11:45:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6beb745f_95c68f25",
+      "range": {
+        "startLine": 154,
+        "startChar": 0,
+        "endLine": 154,
+        "endChar": 76
+      },
+      "revId": "d739445adffb056cbb753730656f80ccc367b010",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "02064a3e_7fdabfb8",
@@ -513,6 +561,30 @@
       "side": 1,
       "message": "Moved prepare context section to constructor and used context for differentiating the SSL connection and to create ssl_stream.",
       "parentUuid": "4b2480d5_dba9f1bf",
+      "range": {
+        "startLine": 193,
+        "startChar": 12,
+        "endLine": 193,
+        "endChar": 18
+      },
+      "revId": "d739445adffb056cbb753730656f80ccc367b010",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f99f9271_8f972f50",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-08-08T11:45:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d2297ce6_4527d4e1",
       "range": {
         "startLine": 193,
         "startChar": 12,
@@ -747,6 +819,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f42cabac_0d2845e2",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-08-08T11:45:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d4b34d45_317afaab",
+      "range": {
+        "startLine": 216,
+        "startChar": 16,
+        "endLine": 216,
+        "endChar": 28
+      },
+      "revId": "d739445adffb056cbb753730656f80ccc367b010",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "084a19e9_2d98a08d",
@@ -879,6 +975,30 @@
       "side": 1,
       "message": "ED, Thanks for offering help, I misunderstood your first comment, my bad. \n\nNow its moved to member function. There is one more existing code which need to be moved doResolvee() which i can move it in separate patch( Since its not touched in this).",
       "parentUuid": "a95b30d3_db67e305",
+      "range": {
+        "startLine": 283,
+        "startChar": 0,
+        "endLine": 294,
+        "endChar": 32
+      },
+      "revId": "d739445adffb056cbb753730656f80ccc367b010",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "38c5f525_f5f38c0f",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 294,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-08-08T11:45:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1cc82e71_4bb489fd",
       "range": {
         "startLine": 283,
         "startChar": 0,
@@ -1339,6 +1459,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ff411f6_e64f7dd3",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 651,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-08-08T11:45:53Z",
+      "side": 1,
+      "message": "Tracked in other comment which is mentioned above, So closing this.",
+      "parentUuid": "c07f46fe_37d2f538",
+      "range": {
+        "startLine": 639,
+        "startChar": 12,
+        "endLine": 651,
+        "endChar": 13
+      },
+      "revId": "d739445adffb056cbb753730656f80ccc367b010",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f49dc36a_4dfb482d",
@@ -1495,6 +1639,30 @@
       "side": 1,
       "message": "Same as above: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/54945/comments/09060fca_d5151bb2",
       "parentUuid": "f4fe1e21_642bbd28",
+      "range": {
+        "startLine": 708,
+        "startChar": 0,
+        "endLine": 731,
+        "endChar": 13
+      },
+      "revId": "d739445adffb056cbb753730656f80ccc367b010",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0b57b777_e8041573",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 731,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-08-08T11:45:53Z",
+      "side": 1,
+      "message": "Tracked in above comment.",
+      "parentUuid": "66e09848_59d8ff15",
       "range": {
         "startLine": 708,
         "startChar": 0,
