@@ -16,40 +16,41 @@ namespace ibm_mc
 
 TEST(IsValidConfigFileName, FileNameValidCharReturnsTrue)
 {
-    crow::Response res;
+    auto asyncResp = std::make_shared<bmcweb::AsyncResp>();
 
-    EXPECT_TRUE(isValidConfigFileName("GoodConfigFile", res));
+    EXPECT_TRUE(isValidConfigFileName("GoodConfigFile", asyncResp));
 }
 TEST(IsValidConfigFileName, FileNameInvalidCharReturnsFalse)
 {
-    crow::Response res;
+    auto asyncResp = std::make_shared<bmcweb::AsyncResp>();
 
-    EXPECT_FALSE(isValidConfigFileName("Bad@file", res));
+    EXPECT_FALSE(isValidConfigFileName("Bad@file", asyncResp));
 }
 TEST(IsValidConfigFileName, FileNameInvalidPathReturnsFalse)
 {
-    crow::Response res;
+    auto asyncResp = std::make_shared<bmcweb::AsyncResp>();
 
-    EXPECT_FALSE(isValidConfigFileName("/../../../../../etc/badpath", res));
-    EXPECT_FALSE(isValidConfigFileName("/../../etc/badpath", res));
-    EXPECT_FALSE(isValidConfigFileName("/mydir/configFile", res));
+    EXPECT_FALSE(
+        isValidConfigFileName("/../../../../../etc/badpath", asyncResp));
+    EXPECT_FALSE(isValidConfigFileName("/../../etc/badpath", asyncResp));
+    EXPECT_FALSE(isValidConfigFileName("/mydir/configFile", asyncResp));
 }
 
 TEST(IsValidConfigFileName, EmptyFileNameReturnsFalse)
 {
-    crow::Response res;
-    EXPECT_FALSE(isValidConfigFileName("", res));
+    auto asyncResp = std::make_shared<bmcweb::AsyncResp>();
+    EXPECT_FALSE(isValidConfigFileName("", asyncResp));
 }
 
 TEST(IsValidConfigFileName, SlashFileNameReturnsFalse)
 {
-    crow::Response res;
-    EXPECT_FALSE(isValidConfigFileName("/", res));
+    auto asyncResp = std::make_shared<bmcweb::AsyncResp>();
+    EXPECT_FALSE(isValidConfigFileName("/", asyncResp));
 }
 TEST(IsValidConfigFileName, FileNameMoreThan20CharReturnsFalse)
 {
-    crow::Response res;
-    EXPECT_FALSE(isValidConfigFileName("BadfileBadfileBadfile", res));
+    auto asyncResp = std::make_shared<bmcweb::AsyncResp>();
+    EXPECT_FALSE(isValidConfigFileName("BadfileBadfileBadfile", asyncResp));
 }
 
 } // namespace ibm_mc
