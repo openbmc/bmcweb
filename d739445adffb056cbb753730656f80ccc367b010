@@ -1319,6 +1319,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "215f03f7_b9af1ee6",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 583,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-08T14:35:16Z",
+      "side": 1,
+      "message": "\u003e ( Listeners can\u0027t run http \u0026 https with same IP:PORt combination). \n\nThey can, although it\u0027s far less common.",
+      "parentUuid": "96fa5a82_67e92f9e",
+      "range": {
+        "startLine": 583,
+        "startChar": 0,
+        "endLine": 583,
+        "endChar": 22
+      },
+      "revId": "d739445adffb056cbb753730656f80ccc367b010",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a26b0535_265df071",
         "filename": "http/http_client.hpp",
         "patchSetId": 5
