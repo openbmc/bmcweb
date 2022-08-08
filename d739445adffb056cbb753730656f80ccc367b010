@@ -309,6 +309,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "637abb1e_da2427ce",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-08-08T11:40:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5f15bf17_8cb8b6c0",
+      "range": {
+        "startLine": 54,
+        "startChar": 17,
+        "endLine": 58,
+        "endChar": 77
+      },
+      "revId": "d739445adffb056cbb753730656f80ccc367b010",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "74b6a827_130f695b",
@@ -1139,6 +1163,30 @@
       "side": 1,
       "message": "\u003e Yeah, I see and looks like the code is fine as is even for SSL. As i said before, each IP:PORT will have its own pool of connections and in that pool we can\u0027t have SSL \u0026 Non SSL both together( Reason: Either IP or PORT one of it will change between http or https)\nI don\u0027t think we can rely on this by itself.  The connection pools are meant to be shared by entities beyond just EventServiceManager.  EventServiceManager might be using a specific IP:PORT pair as an SSL connection, but that does not mean something else will not attempt to use the same IP:PORT pair as non-SSL.\n\n\u003e  I checked a case where https://\u003cIP\u003e:\u003chttps_port\u003e \u0026 http://\u003cSameIP\u003e:\u003chttp_port\u003e and both works. Also tested with multiple subscription(different path) and that also works fine.\nWhat about a case where a subscription is created for https://\u003cIP\u003e:\u003chttps_port\u003e and then one is created for http://\u003cIP\u003e:\u003chttps_port\u003e?  Maybe that shouldn\u0027t happen in practice, but I do not think it\u0027s a good idea to rely on that assumption rather than handling the possibility.\n\nFor example, let\u0027s say a subscription is supposed to be created as https, but for the first attempt it is accidentally created as http i.e (http://\u003cIP\u003e:\u003chttps_port\u003e).  The subscription is deleted and then a new subscription is created using https (i.e. https://\u003csame_IP\u003e:\u003csame_https_port\u003e).  The connection pool was originally created without SSL so any messages sent by the subscription would not use SSL, even though the subscription was recreated as https.",
       "parentUuid": "20808b5e_e3e3e0f5",
+      "range": {
+        "startLine": 583,
+        "startChar": 0,
+        "endLine": 583,
+        "endChar": 22
+      },
+      "revId": "d739445adffb056cbb753730656f80ccc367b010",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "96fa5a82_67e92f9e",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 583,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-08-08T11:40:18Z",
+      "side": 1,
+      "message": "\u003e \u003e Yeah, I see and looks like the code is fine as is even for SSL. As i said before, each IP:PORT will have its own pool of connections and in that pool we can\u0027t have SSL \u0026 Non SSL both together( Reason: Either IP or PORT one of it will change between http or https)\n\u003e I don\u0027t think we can rely on this by itself.  The connection pools are meant to be shared by entities beyond just EventServiceManager.  EventServiceManager might be using a specific IP:PORT pair as an SSL connection, but that does not mean something else will not attempt to use the same IP:PORT pair as non-SSL.\n\u003e\nI agree connection pools can be beyond EventServiceManager( Even though its not today) but even then IP:PORT key can be unique for any such( Listeners can\u0027t run http \u0026 https with same IP:PORt combination). \n\u003e \u003e  I checked a case where https://\u003cIP\u003e:\u003chttps_port\u003e \u0026 http://\u003cSameIP\u003e:\u003chttp_port\u003e and both works. Also tested with multiple subscription(different path) and that also works fine.\n\u003e What about a case where a subscription is created for https://\u003cIP\u003e:\u003chttps_port\u003e and then one is created for http://\u003cIP\u003e:\u003chttps_port\u003e?  Maybe that shouldn\u0027t happen in practice, but I do not think it\u0027s a good idea to rely on that assumption rather than handling the possibility.\n\u003e \n\u003e For example, let\u0027s say a subscription is supposed to be created as https, but for the first attempt it is accidentally created as http i.e (http://\u003cIP\u003e:\u003chttps_port\u003e).  The subscription is deleted and then a new subscription is created using https (i.e. https://\u003csame_IP\u003e:\u003csame_https_port\u003e).  The connection pool was originally created without SSL so any messages sent by the subscription would not use SSL, even though the subscription was recreated as https.\n\nIdeally speaking when ever the subscription is created, it should be added to pool ( This is working fine) and when ever subscription is deleted, It should be removed form pool. But today, I don\u0027t see deleting subscriptions is removing entry from pool. So Its existing problem irrespective of this SSL support patch. So that will be addressed as separate commit.",
+      "parentUuid": "2fa32c89_42b80eea",
       "range": {
         "startLine": 583,
         "startChar": 0,
