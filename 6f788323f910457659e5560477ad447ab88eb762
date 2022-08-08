@@ -142,6 +142,30 @@
       },
       "revId": "6f788323f910457659e5560477ad447ab88eb762",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "052450b3_48a5ce3b",
+        "filename": "redfish-core/lib/service_root.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-08-08T15:56:43Z",
+      "side": 1,
+      "message": "\u003e Your link was to the robot framework tests, which is why I was confused.\n\nReally, maybe you were looking at a wrong tab. \nthis is what I linked: https://github.com/openbmc/bmcweb/blob/master/redfish-core/lib/ut/service_root_test.cpp#L104\n\n\u003e As you know, we are free to cherry pick whatever we need into our build to make our timelines;  Leaving patches in review (even simple ones like this) ensures that this project isn\u0027t _just_ a Google project, and allows time for community input, which is important, even on trivial looking things like this.\n\nIt\u0027s totally fine for me to keep these 3 patches in review for another week.",
+      "parentUuid": "d2636cb1_5369afc2",
+      "range": {
+        "startLine": 98,
+        "startChar": 38,
+        "endLine": 98,
+        "endChar": 69
+      },
+      "revId": "6f788323f910457659e5560477ad447ab88eb762",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
