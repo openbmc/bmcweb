@@ -50,6 +50,24 @@
       "message": "I will update this commit as per https://github.com/DMTF/Redfish/issues/5121 once we have the redfish schema published",
       "revId": "07ef36dd3678e0f38b716cb728170711dcf9888d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "de2276c1_84b8b7b3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2022-08-09T09:26:01Z",
+      "side": 1,
+      "message": "The readonly flag on NTPServers property has been removed at the dbus repo.",
+      "parentUuid": "34dc6db5_aff25e55",
+      "revId": "07ef36dd3678e0f38b716cb728170711dcf9888d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
