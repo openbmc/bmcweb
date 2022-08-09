@@ -24,6 +24,7 @@
 #include <persistent_data.hpp>
 #include <query.hpp>
 #include <registries/privilege_registry.hpp>
+#include <utils/json_utils.hpp>
 #include <utils/systemd_utils.hpp>
 
 #include <filesystem>
@@ -65,6 +66,38 @@ inline void
     }
 }
 
+inline void
+    handleFileSystemPatch(App& app, const crow::Request& req,
+                          const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+{
+    std::cerr << "handleFileSystemPatch: " << req.url << "\n";
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+    std::optional<nlohmann::json> jsonRequest =
+        redfish::json_util::readJsonPatchHelper(req, asyncResp->res);
+    if (jsonRequest == std::nullopt)
+    {
+        return;
+    }
+
+    for (auto& item : jsonRequest->items())
+    {
+        std::filesystem::path path("/var" + std::string(req.url));
+        path /= (item.key() + ".rfp");
+
+        if (!std::filesystem::exists(path))
+        {
+            messages::propertyUnknown(asyncResp->res, item.key());
+            continue;
+        }
+
+        std::ofstream ofs(path, std::ios::out);
+        ofs << std::string(item.value());
+    }
+}
+
 inline void requestRoutesFromFilesystem(App& app)
 {
     const std::filesystem::path redfishDir = "/var/redfish/v1";
@@ -92,6 +125,10 @@ inline void requestRoutesFromFilesystem(App& app)
             .privileges(redfish::privileges::privilegeSetConfigureComponents)
             .methods(boost::beast::http::verb::get)(
                 std::bind_front(handleFileSystemGet, std::ref(app)));
+        app.template route<0>(std::move(url))
+            .privileges(redfish::privileges::privilegeSetConfigureComponents)
+            .methods(boost::beast::http::verb::patch)(
+                std::bind_front(handleFileSystemPatch, std::ref(app)));
     }
 }
 
