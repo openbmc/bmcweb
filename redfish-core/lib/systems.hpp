@@ -27,6 +27,8 @@
 #include <dbus_utility.hpp>
 #include <registries/privilege_registry.hpp>
 #include <sdbusplus/asio/property.hpp>
+#include <sdbusplus/unpack_properties.hpp>
+#include <utils/dbus_utils.hpp>
 #include <utils/json_utils.hpp>
 #include <utils/sw_utils.hpp>
 
@@ -163,37 +165,34 @@ inline void
         "xyz.openbmc_project.State.Decorator.OperationalStatus", "Functional",
         std::move(getCpuFunctionalState));
 
-    for (const auto& property : properties)
+    // TODO: Get Model
+
+    const uint16_t* coreCount = nullptr;
+
+    const bool success = sdbusplus::unpackPropertiesNoThrow(
+        dbus_utils::UnpackErrorPrinter(), properties, "CoreCount", coreCount);
+
+    if (!success)
     {
+        messages::internalError(aResp->res);
+        return;
+    }
 
-        // TODO: Get Model
+    // TODO: Get Model
 
-        // Get CoreCount
-        if (property.first == "CoreCount")
+    if (coreCount != nullptr)
+    {
+        nlohmann::json& coreCountJson =
+            aResp->res.jsonValue["ProcessorSummary"]["CoreCount"];
+        uint64_t* coreCountJsonPtr = coreCountJson.get_ptr<uint64_t*>();
+
+        if (coreCountJsonPtr == nullptr)
         {
-
-            // Get CPU CoreCount and add it to the total
-            const uint16_t* coreCountVal =
-                std::get_if<uint16_t>(&property.second);
-
-            if (coreCountVal == nullptr)
-            {
-                messages::internalError(aResp->res);
-                return;
-            }
-
-            nlohmann::json& coreCount =
-                aResp->res.jsonValue["ProcessorSummary"]["CoreCount"];
-            uint64_t* coreCountPtr = coreCount.get_ptr<uint64_t*>();
-
-            if (coreCountPtr == nullptr)
-            {
-                coreCount = *coreCountVal;
-            }
-            else
-            {
-                *coreCountPtr += *coreCountVal;
-            }
+            coreCountJson = *coreCount;
+        }
+        else
+        {
+            *coreCountJsonPtr += *coreCount;
         }
     }
 }
@@ -212,7 +211,9 @@ inline void getProcessorSummary(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
                                 const std::string& path)
 {
 
-    crow::connections::systemBus->async_method_call(
+    sdbusplus::asio::getAllProperties(
+        *crow::connections::systemBus, service, path,
+        "xyz.openbmc_project.Inventory.Item.Cpu",
         [aResp, service,
          path](const boost::system::error_code ec2,
                const dbus::utility::DBusPropertiesMap& properties) {
@@ -223,9 +224,7 @@ inline void getProcessorSummary(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
             return;
         }
         getProcessorProperties(aResp, service, path, properties);
-        },
-        service, path, "org.freedesktop.DBus.Properties", "GetAll",
-        "xyz.openbmc_project.Inventory.Item.Cpu");
+        });
 }
 
 /*
@@ -288,7 +287,9 @@ inline void
                         BMCWEB_LOG_DEBUG
                             << "Found Dimm, now get its properties.";
 
-                        crow::connections::systemBus->async_method_call(
+                        sdbusplus::asio::getAllProperties(
+                            *crow::connections::systemBus, connection.first,
+                            path, "xyz.openbmc_project.Inventory.Item.Dimm",
                             [aResp, service{connection.first},
                              path](const boost::system::error_code ec2,
                                    const dbus::utility::DBusPropertiesMap&
@@ -303,45 +304,7 @@ inline void
                             BMCWEB_LOG_DEBUG << "Got " << properties.size()
                                              << " Dimm properties.";
 
-                            if (!properties.empty())
-                            {
-                                for (const std::pair<
-                                         std::string,
-                                         dbus::utility::DbusVariantType>&
-                                         property : properties)
-                                {
-                                    if (property.first != "MemorySizeInKB")
-                                    {
-                                        continue;
-                                    }
-                                    const uint32_t* value =
-                                        std::get_if<uint32_t>(&property.second);
-                                    if (value == nullptr)
-                                    {
-                                        BMCWEB_LOG_DEBUG
-                                            << "Find incorrect type of MemorySize";
-                                        continue;
-                                    }
-                                    nlohmann::json& totalMemory =
-                                        aResp->res
-                                            .jsonValue["MemorySummary"]
-                                                      ["TotalSystemMemoryGiB"];
-                                    const uint64_t* preValue =
-                                        totalMemory.get_ptr<const uint64_t*>();
-                                    if (preValue == nullptr)
-                                    {
-                                        continue;
-                                    }
-                                    aResp->res
-                                        .jsonValue["MemorySummary"]
-                                                  ["TotalSystemMemoryGiB"] =
-                                        *value / (1024 * 1024) + *preValue;
-                                    aResp->res.jsonValue["MemorySummary"]
-                                                        ["Status"]["State"] =
-                                        "Enabled";
-                                }
-                            }
-                            else
+                            if (properties.empty())
                             {
                                 sdbusplus::asio::getProperty<bool>(
                                     *crow::connections::systemBus, service,
@@ -359,11 +322,50 @@ inline void
                                     }
                                     updateDimmProperties(aResp, dimmState);
                                     });
+                                return;
                             }
-                            },
-                            connection.first, path,
-                            "org.freedesktop.DBus.Properties", "GetAll",
-                            "xyz.openbmc_project.Inventory.Item.Dimm");
+
+                            const uint32_t* memorySizeInKB = nullptr;
+
+                            const bool success =
+                                sdbusplus::unpackPropertiesNoThrow(
+                                    dbus_utils::UnpackErrorPrinter(),
+                                    properties, "MemorySizeInKB",
+                                    memorySizeInKB);
+
+                            if (!success)
+                            {
+                                messages::internalError(aResp->res);
+                                return;
+                            }
+
+                            if (memorySizeInKB != nullptr)
+                            {
+                                nlohmann::json& totalMemory =
+                                    aResp->res
+                                        .jsonValue["MemorySummary"]
+                                                  ["TotalSystemMemoryGiB"];
+                                const uint64_t* preValue =
+                                    totalMemory.get_ptr<const uint64_t*>();
+                                if (preValue == nullptr)
+                                {
+                                    aResp->res
+                                        .jsonValue["MemorySummary"]
+                                                  ["TotalSystemMemoryGiB"] =
+                                        *memorySizeInKB / (1024 * 1024);
+                                }
+                                else
+                                {
+                                    aResp->res
+                                        .jsonValue["MemorySummary"]
+                                                  ["TotalSystemMemoryGiB"] =
+                                        *memorySizeInKB / (1024 * 1024) +
+                                        *preValue;
+                                }
+                                aResp->res.jsonValue["MemorySummary"]["Status"]
+                                                    ["State"] = "Enabled";
+                            }
+                            });
 
                         memoryHealth->inventory.emplace_back(path);
                     }
@@ -381,7 +383,10 @@ inline void
                     {
                         BMCWEB_LOG_DEBUG
                             << "Found UUID, now get its properties.";
-                        crow::connections::systemBus->async_method_call(
+
+                        sdbusplus::asio::getAllProperties(
+                            *crow::connections::systemBus, connection.first,
+                            path, "xyz.openbmc_project.Common.UUID",
                             [aResp](const boost::system::error_code ec3,
                                     const dbus::utility::DBusPropertiesMap&
                                         properties) {
@@ -394,42 +399,42 @@ inline void
                             }
                             BMCWEB_LOG_DEBUG << "Got " << properties.size()
                                              << " UUID properties.";
-                            for (const std::pair<
-                                     std::string,
-                                     dbus::utility::DbusVariantType>& property :
-                                 properties)
-                            {
-                                if (property.first == "UUID")
-                                {
-                                    const std::string* value =
-                                        std::get_if<std::string>(
-                                            &property.second);
 
-                                    if (value != nullptr)
-                                    {
-                                        std::string valueStr = *value;
-                                        if (valueStr.size() == 32)
-                                        {
-                                            valueStr.insert(8, 1, '-');
-                                            valueStr.insert(13, 1, '-');
-                                            valueStr.insert(18, 1, '-');
-                                            valueStr.insert(23, 1, '-');
-                                        }
-                                        BMCWEB_LOG_DEBUG << "UUID = "
-                                                         << valueStr;
-                                        aResp->res.jsonValue["UUID"] = valueStr;
-                                    }
-                                }
+                            const std::string* uUID = nullptr;
+
+                            const bool success =
+                                sdbusplus::unpackPropertiesNoThrow(
+                                    dbus_utils::UnpackErrorPrinter(),
+                                    properties, "UUID", uUID);
+
+                            if (!success)
+                            {
+                                messages::internalError(aResp->res);
+                                return;
                             }
-                            },
-                            connection.first, path,
-                            "org.freedesktop.DBus.Properties", "GetAll",
-                            "xyz.openbmc_project.Common.UUID");
+
+                            if (uUID != nullptr)
+                            {
+                                std::string valueStr = *uUID;
+                                if (valueStr.size() == 32)
+                                {
+                                    valueStr.insert(8, 1, '-');
+                                    valueStr.insert(13, 1, '-');
+                                    valueStr.insert(18, 1, '-');
+                                    valueStr.insert(23, 1, '-');
+                                }
+                                BMCWEB_LOG_DEBUG << "UUID = " << valueStr;
+                                aResp->res.jsonValue["UUID"] = valueStr;
+                            }
+                            });
                     }
                     else if (interfaceName ==
                              "xyz.openbmc_project.Inventory.Item.System")
                     {
-                        crow::connections::systemBus->async_method_call(
+                        sdbusplus::asio::getAllProperties(
+                            *crow::connections::systemBus, connection.first,
+                            path,
+                            "xyz.openbmc_project.Inventory.Decorator.Asset",
                             [aResp](const boost::system::error_code ec2,
                                     const dbus::utility::DBusPropertiesMap&
                                         propertiesList) {
@@ -441,38 +446,60 @@ inline void
                             }
                             BMCWEB_LOG_DEBUG << "Got " << propertiesList.size()
                                              << " properties for system";
-                            for (const std::pair<
-                                     std::string,
-                                     dbus::utility::DbusVariantType>& property :
-                                 propertiesList)
+
+                            const std::string* partNumber = nullptr;
+                            const std::string* serialNumber = nullptr;
+                            const std::string* manufacturer = nullptr;
+                            const std::string* model = nullptr;
+                            const std::string* subModel = nullptr;
+
+                            const bool success =
+                                sdbusplus::unpackPropertiesNoThrow(
+                                    dbus_utils::UnpackErrorPrinter(),
+                                    propertiesList, "PartNumber", partNumber,
+                                    "SerialNumber", serialNumber,
+                                    "Manufacturer", manufacturer, "Model",
+                                    model, "SubModel", subModel);
+
+                            if (!success)
                             {
-                                const std::string& propertyName =
-                                    property.first;
-                                if ((propertyName == "PartNumber") ||
-                                    (propertyName == "SerialNumber") ||
-                                    (propertyName == "Manufacturer") ||
-                                    (propertyName == "Model") ||
-                                    (propertyName == "SubModel"))
-                                {
-                                    const std::string* value =
-                                        std::get_if<std::string>(
-                                            &property.second);
-                                    if (value != nullptr)
-                                    {
-                                        aResp->res.jsonValue[propertyName] =
-                                            *value;
-                                    }
-                                }
+                                messages::internalError(aResp->res);
+                                return;
+                            }
+
+                            if (partNumber != nullptr)
+                            {
+                                aResp->res.jsonValue["PartNumber"] =
+                                    *partNumber;
+                            }
+
+                            if (serialNumber != nullptr)
+                            {
+                                aResp->res.jsonValue["SerialNumber"] =
+                                    *serialNumber;
+                            }
+
+                            if (manufacturer != nullptr)
+                            {
+                                aResp->res.jsonValue["Manufacturer"] =
+                                    *manufacturer;
+                            }
+
+                            if (model != nullptr)
+                            {
+                                aResp->res.jsonValue["Model"] = *model;
+                            }
+
+                            if (subModel != nullptr)
+                            {
+                                aResp->res.jsonValue["SubModel"] = *subModel;
                             }
 
                             // Grab the bios version
                             sw_util::populateSoftwareInformation(
                                 aResp, sw_util::biosPurpose, "BiosVersion",
                                 false);
-                            },
-                            connection.first, path,
-                            "org.freedesktop.DBus.Properties", "GetAll",
-                            "xyz.openbmc_project.Inventory.Decorator.Asset");
+                            });
 
                         sdbusplus::asio::getProperty<std::string>(
                             *crow::connections::systemBus, connection.first,
@@ -493,6 +520,7 @@ inline void
                             });
                     }
                 }
+                break;
             }
         }
         },
@@ -1793,7 +1821,9 @@ inline void
 inline void getProvisioningStatus(std::shared_ptr<bmcweb::AsyncResp> aResp)
 {
     BMCWEB_LOG_DEBUG << "Get OEM information.";
-    crow::connections::systemBus->async_method_call(
+    sdbusplus::asio::getAllProperties(
+        *crow::connections::systemBus, "xyz.openbmc_project.PFR.Manager",
+        "/xyz/openbmc_project/pfr", "xyz.openbmc_project.PFR.Attributes",
         [aResp](const boost::system::error_code ec,
                 const dbus::utility::DBusPropertiesMap& propertiesList) {
         nlohmann::json& oemPFR =
@@ -1812,17 +1842,15 @@ inline void getProvisioningStatus(std::shared_ptr<bmcweb::AsyncResp> aResp)
 
         const bool* provState = nullptr;
         const bool* lockState = nullptr;
-        for (const std::pair<std::string, dbus::utility::DbusVariantType>&
-                 property : propertiesList)
+
+        const bool success = sdbusplus::unpackPropertiesNoThrow(
+            dbus_utils::UnpackErrorPrinter(), "UfmProvisioned", provState,
+            "UfmLocked", lockState);
+
+        if (!success)
         {
-            if (property.first == "UfmProvisioned")
-            {
-                provState = std::get_if<bool>(&property.second);
-            }
-            else if (property.first == "UfmLocked")
-            {
-                lockState = std::get_if<bool>(&property.second);
-            }
+            messages::internalError(aResp->res);
+            return;
         }
 
         if ((provState == nullptr) || (lockState == nullptr))
@@ -1847,10 +1875,7 @@ inline void getProvisioningStatus(std::shared_ptr<bmcweb::AsyncResp> aResp)
         {
             oemPFR["ProvisioningStatus"] = "NotProvisioned";
         }
-        },
-        "xyz.openbmc_project.PFR.Manager", "/xyz/openbmc_project/pfr",
-        "org.freedesktop.DBus.Properties", "GetAll",
-        "xyz.openbmc_project.PFR.Attributes");
+        });
 }
 #endif
 
@@ -2166,7 +2191,10 @@ inline void
     getHostWatchdogTimer(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
 {
     BMCWEB_LOG_DEBUG << "Get host watchodg";
-    crow::connections::systemBus->async_method_call(
+    sdbusplus::asio::getAllProperties(
+        *crow::connections::systemBus, "xyz.openbmc_project.Watchdog",
+        "/xyz/openbmc_project/watchdog/host0",
+        "xyz.openbmc_project.State.Watchdog",
         [aResp](const boost::system::error_code ec,
                 const dbus::utility::DBusPropertiesMap& properties) {
         if (ec)
@@ -2184,44 +2212,35 @@ inline void
         // watchdog service is running/enabled
         hostWatchdogTimer["Status"]["State"] = "Enabled";
 
-        for (const auto& property : properties)
+        const bool* enabled = nullptr;
+        const std::string* expireAction = nullptr;
+
+        const bool success = sdbusplus::unpackPropertiesNoThrow(
+            dbus_utils::UnpackErrorPrinter(), properties, "Enabled", enabled,
+            "ExpireAction", expireAction);
+
+        if (!success)
         {
-            BMCWEB_LOG_DEBUG << "prop=" << property.first;
-            if (property.first == "Enabled")
-            {
-                const bool* state = std::get_if<bool>(&property.second);
-
-                if (state == nullptr)
-                {
-                    messages::internalError(aResp->res);
-                    return;
-                }
-
-                hostWatchdogTimer["FunctionEnabled"] = *state;
-            }
-            else if (property.first == "ExpireAction")
-            {
-                const std::string* s =
-                    std::get_if<std::string>(&property.second);
-                if (s == nullptr)
-                {
-                    messages::internalError(aResp->res);
-                    return;
-                }
-
-                std::string action = dbusToRfWatchdogAction(*s);
-                if (action.empty())
-                {
-                    messages::internalError(aResp->res);
-                    return;
-                }
-                hostWatchdogTimer["TimeoutAction"] = action;
-            }
+            messages::internalError(aResp->res);
+            return;
         }
-        },
-        "xyz.openbmc_project.Watchdog", "/xyz/openbmc_project/watchdog/host0",
-        "org.freedesktop.DBus.Properties", "GetAll",
-        "xyz.openbmc_project.State.Watchdog");
+
+        if (enabled != nullptr)
+        {
+            hostWatchdogTimer["FunctionEnabled"] = *enabled;
+        }
+
+        if (expireAction != nullptr)
+        {
+            std::string action = dbusToRfWatchdogAction(*expireAction);
+            if (action.empty())
+            {
+                messages::internalError(aResp->res);
+                return;
+            }
+            hostWatchdogTimer["TimeoutAction"] = action;
+        }
+        });
 }
 
 /**
@@ -2301,70 +2320,54 @@ using ipsPropertiesType =
 inline bool parseIpsProperties(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
                                const ipsPropertiesType& properties)
 {
-    for (const auto& property : properties)
+    const bool* enabled = nullptr;
+    const uint8_t* enterUtilizationPercent = nullptr;
+    const uint64_t* enterDwellTime = nullptr;
+    const uint8_t* exitUtilizationPercent = nullptr;
+    const uint64_t* exitDwellTime = nullptr;
+
+    const bool success = sdbusplus::unpackPropertiesNoThrow(
+        dbus_utils::UnpackErrorPrinter(), properties, "Enabled", enabled,
+        "EnterUtilizationPercent", enterUtilizationPercent,
+        "ExitUtilizationPercent", exitUtilizationPercent, "ExitDwellTime",
+        exitDwellTime);
+
+    if (!success)
     {
-        if (property.first == "Enabled")
-        {
-            const bool* state = std::get_if<bool>(&property.second);
-            if (state == nullptr)
-            {
-                return false;
-            }
-            aResp->res.jsonValue["IdlePowerSaver"][property.first] = *state;
-        }
-        else if (property.first == "EnterUtilizationPercent")
-        {
-            const uint8_t* util = std::get_if<uint8_t>(&property.second);
-            if (util == nullptr)
-            {
-                return false;
-            }
-            aResp->res.jsonValue["IdlePowerSaver"][property.first] = *util;
-        }
-        else if (property.first == "EnterDwellTime")
-        {
-            // Convert Dbus time from milliseconds to seconds
-            const uint64_t* timeMilliseconds =
-                std::get_if<uint64_t>(&property.second);
-            if (timeMilliseconds == nullptr)
-            {
-                return false;
-            }
-            const std::chrono::duration<uint64_t, std::milli> ms(
-                *timeMilliseconds);
-            aResp->res.jsonValue["IdlePowerSaver"]["EnterDwellTimeSeconds"] =
-                std::chrono::duration_cast<std::chrono::duration<uint64_t>>(ms)
-                    .count();
-        }
-        else if (property.first == "ExitUtilizationPercent")
-        {
-            const uint8_t* util = std::get_if<uint8_t>(&property.second);
-            if (util == nullptr)
-            {
-                return false;
-            }
-            aResp->res.jsonValue["IdlePowerSaver"][property.first] = *util;
-        }
-        else if (property.first == "ExitDwellTime")
-        {
-            // Convert Dbus time from milliseconds to seconds
-            const uint64_t* timeMilliseconds =
-                std::get_if<uint64_t>(&property.second);
-            if (timeMilliseconds == nullptr)
-            {
-                return false;
-            }
-            const std::chrono::duration<uint64_t, std::milli> ms(
-                *timeMilliseconds);
-            aResp->res.jsonValue["IdlePowerSaver"]["ExitDwellTimeSeconds"] =
-                std::chrono::duration_cast<std::chrono::duration<uint64_t>>(ms)
-                    .count();
-        }
-        else
-        {
-            BMCWEB_LOG_WARNING << "Unexpected IdlePowerSaver property: "
-                               << property.first;
-        }
+        return false;
+    }
+
+    if (enabled != nullptr)
+    {
+        aResp->res.jsonValue["IdlePowerSaver"]["Enabled"] = *enabled;
+    }
+
+    if (enterUtilizationPercent != nullptr)
+    {
+        aResp->res.jsonValue["IdlePowerSaver"]["EnterUtilizationPercent"] =
+            *enterUtilizationPercent;
+    }
+
+    if (enterDwellTime != nullptr)
+    {
+        const std::chrono::duration<uint64_t, std::milli> ms(*enterDwellTime);
+        aResp->res.jsonValue["IdlePowerSaver"]["EnterDwellTimeSeconds"] =
+            std::chrono::duration_cast<std::chrono::duration<uint64_t>>(ms)
+                .count();
+    }
+
+    if (exitUtilizationPercent != nullptr)
+    {
+        aResp->res.jsonValue["IdlePowerSaver"]["ExitUtilizationPercent"] =
+            *exitUtilizationPercent;
+    }
+
+    if (exitDwellTime != nullptr)
+    {
+        const std::chrono::duration<uint64_t, std::milli> ms(*exitDwellTime);
+        aResp->res.jsonValue["IdlePowerSaver"]["ExitDwellTimeSeconds"] =
+            std::chrono::duration_cast<std::chrono::duration<uint64_t>>(ms)
+                .count();
     }
 
     return true;
@@ -2426,7 +2429,9 @@ inline void getIdlePowerSaver(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
         }
 
         // Valid IdlePowerSaver object found, now read the current values
-        crow::connections::systemBus->async_method_call(
+        sdbusplus::asio::getAllProperties(
+            *crow::connections::systemBus, service, path,
+            "xyz.openbmc_project.Control.Power.IdlePowerSaver",
             [aResp](const boost::system::error_code ec2,
                     const ipsPropertiesType& properties) {
             if (ec2)
@@ -2442,9 +2447,7 @@ inline void getIdlePowerSaver(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
                 messages::internalError(aResp->res);
                 return;
             }
-            },
-            service, path, "org.freedesktop.DBus.Properties", "GetAll",
-            "xyz.openbmc_project.Control.Power.IdlePowerSaver");
+            });
         },
         "xyz.openbmc_project.ObjectMapper",
         "/xyz/openbmc_project/object_mapper",
