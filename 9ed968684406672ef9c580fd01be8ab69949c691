@@ -52,6 +52,24 @@
       "parentUuid": "bdd93029_df6bbacd",
       "revId": "9ed968684406672ef9c580fd01be8ab69949c691",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "195cc547_0b5ccb6c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-09T17:23:57Z",
+      "side": 1,
+      "message": "Upstream, we ask folks test manually when they make changes.  There are closed source and licensed pen testing tools that some folks pay for that do this testing, as mentioned in the common errors doc.\n\nIdeally there would be some open source tooling to test this, but thusfar it doesn\u0027t exist.  If anyone is interested in creating it and upstreaming to DMTF or obmc robot framework, that would help quite a bit.",
+      "parentUuid": "79f1d859_70a6f3ac",
+      "revId": "9ed968684406672ef9c580fd01be8ab69949c691",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
