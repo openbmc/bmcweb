@@ -46,7 +46,8 @@ static constexpr std::array<std::pair<const char*, const char*>, 3>
 
 inline void extractNTPServersAndDomainNamesData(
     const dbus::utility::ManagedObjectType& dbusData,
-    std::vector<std::string>& ntpData, std::vector<std::string>& dnData)
+    std::vector<std::string>& ntpData, std::vector<std::string>& dynamicNtpData,
+    std::vector<std::string>& dnData)
 {
     for (const auto& obj : dbusData)
     {
@@ -60,7 +61,7 @@ inline void extractNTPServersAndDomainNamesData(
 
             for (const auto& propertyPair : ifacePair.second)
             {
-                if (propertyPair.first == "NTPServers")
+                if (propertyPair.first == "StaticNTPServers")
                 {
                     const std::vector<std::string>* ntpServers =
                         std::get_if<std::vector<std::string>>(
@@ -70,6 +71,17 @@ inline void extractNTPServersAndDomainNamesData(
                         ntpData = *ntpServers;
                     }
                 }
+                else if (propertyPair.first == "NTPServers")
+                {
+                    const std::vector<std::string>* dynamicNtpServers =
+                        std::get_if<std::vector<std::string>>(
+                            &propertyPair.second);
+                    if (dynamicNtpServers != nullptr)
+                    {
+                        dynamicNtpData = *dynamicNtpServers;
+                    }
+                }
+
                 else if (propertyPair.first == "DomainName")
                 {
                     const std::vector<std::string>* domainNames =
@@ -94,17 +106,19 @@ void getEthernetIfaceData(CallbackFunc&& callback)
             const boost::system::error_code errorCode,
             const dbus::utility::ManagedObjectType& dbusData) {
         std::vector<std::string> ntpServers;
+        std::vector<std::string> dynamicNtpServers;
         std::vector<std::string> domainNames;
 
         if (errorCode)
         {
-            callback(false, ntpServers, domainNames);
+            callback(false, ntpServers, dynamicNtpServers, domainNames);
             return;
         }
 
-        extractNTPServersAndDomainNamesData(dbusData, ntpServers, domainNames);
+        extractNTPServersAndDomainNamesData(dbusData, ntpServers,
+                                            dynamicNtpServers, domainNames);
 
-        callback(true, ntpServers, domainNames);
+        callback(true, ntpServers, dynamicNtpServers, domainNames);
         },
         "xyz.openbmc_project.Network", "/xyz/openbmc_project/network",
         "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
@@ -140,6 +154,7 @@ inline void getNetworkData(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     getEthernetIfaceData(
         [hostName, asyncResp](const bool& success,
                               const std::vector<std::string>& ntpServers,
+                              const std::vector<std::string>& dynamicNtpServers,
                               const std::vector<std::string>& domainNames) {
         if (!success)
         {
@@ -148,6 +163,8 @@ inline void getNetworkData(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
             return;
         }
         asyncResp->res.jsonValue["NTP"]["NTPServers"] = ntpServers;
+        asyncResp->res.jsonValue["NTP"]["NetworkSuppliedServers"] =
+            dynamicNtpServers;
         if (!hostName.empty())
         {
             std::string fqdn = hostName;
@@ -349,7 +366,7 @@ inline void
                         }
                         },
                         service, objectPath, "org.freedesktop.DBus.Properties",
-                        "Set", interface, "NTPServers",
+                        "Set", interface, "StaticNTPServers",
                         dbus::utility::DbusVariantType{currentNtpServers});
                 }
             }
@@ -512,6 +529,7 @@ inline void requestRoutesNetworkProtocol(App& app)
                 [asyncResp, ntpServerObjects](
                     const bool success,
                     std::vector<std::string>& currentNtpServers,
+                    std::vector<std::string>& /*dynamicNtpServers*/,
                     const std::vector<std::string>& /*domainNames*/) {
                 if (!success)
                 {
