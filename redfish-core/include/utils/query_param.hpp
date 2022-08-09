@@ -142,6 +142,7 @@ struct SelectTrie
             return false;
         }
         SelectTrieNode* currNode = &root;
+        SelectTrieNode* previousNode = nullptr;
         size_t index = nestedProperty.find_first_of('/');
         while (!nestedProperty.empty())
         {
@@ -150,6 +151,7 @@ struct SelectTrie
             {
                 return false;
             }
+            previousNode = currNode;
             currNode = currNode->emplace(property);
             if (index == std::string::npos)
             {
@@ -160,6 +162,25 @@ struct SelectTrie
         }
 
         currNode->setToSelected();
+        // Per the Redfish spec section 7.3.3, the service shall select certain
+        // properties as if $select was omitted.
+        // This applies to every TrieNode that contains leaves and the root.
+        std::vector<SelectTrieNode*> nodes = {&root};
+        if (previousNode != nullptr)
+        {
+            nodes.push_back(previousNode);
+        }
+        for (auto& node : nodes)
+        {
+            constexpr std::array<std::string_view, 5> reservedProperties = {
+                "@odata.id", "@odata.type", "@odata.context", "@odata.etag",
+                "error"};
+            for (auto const& str : reservedProperties)
+            {
+                SelectTrieNode* child = node->emplace(str);
+                child->setToSelected();
+            }
+        }
         return true;
     }
 
@@ -371,14 +392,6 @@ inline bool getSelectParam(std::string_view value, Query& query)
         {
             return false;
         }
-    }
-    // Per the Redfish spec section 7.3.3, the service shall select certain
-    // properties as if $select was omitted.
-    constexpr std::array<std::string_view, 5> reservedProperties = {
-        "@odata.id", "@odata.type", "@odata.context", "@odata.etag", "error"};
-    for (auto const& str : reservedProperties)
-    {
-        query.selectTrie.insertNode(str.data());
     }
     return true;
 }
@@ -828,15 +841,24 @@ inline void recursiveSelect(nlohmann::json& currRoot,
             it = currRoot.erase(it);
         }
     }
+    nlohmann::json::array_t* array =
+        currRoot.get_ptr<nlohmann::json::array_t*>();
+    if (array != nullptr)
+    {
+        BMCWEB_LOG_DEBUG << "Current JSON is an array";
+        // Array index is omitted, so reuse the same Trie node
+        for (nlohmann::json& nextRoot : *array)
+        {
+            recursiveSelect(nextRoot, currNode);
+        }
+    }
 }
 
 // The current implementation of $select still has the following TODOs due to
 //  ambiguity and/or complexity.
-// 1. select properties in array of objects;
-// https://github.com/DMTF/Redfish/issues/5188 was created for clarification.
-// 2. combined with $expand; https://github.com/DMTF/Redfish/issues/5058 was
+// 1. combined with $expand; https://github.com/DMTF/Redfish/issues/5058 was
 // created for clarification.
-// 3. respect the full odata spec; e.g., deduplication, namespace, star (*),
+// 2. respect the full odata spec; e.g., deduplication, namespace, star (*),
 // etc.
 inline void processSelect(crow::Response& intermediateResponse,
                           const SelectTrieNode& trieRoot)
