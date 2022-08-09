@@ -34,6 +34,24 @@
       "parentUuid": "9a6a1d45_d973ee89",
       "revId": "9ed968684406672ef9c580fd01be8ab69949c691",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "79f1d859_70a6f3ac",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-08-09T17:20:40Z",
+      "side": 1,
+      "message": "Then how are responses that have error codes being tested?",
+      "parentUuid": "bdd93029_df6bbacd",
+      "revId": "9ed968684406672ef9c580fd01be8ab69949c691",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
