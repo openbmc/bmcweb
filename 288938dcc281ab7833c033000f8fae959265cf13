@@ -39,6 +39,30 @@
       },
       "revId": "288938dcc281ab7833c033000f8fae959265cf13",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1e7395a4_840d5174",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 2217,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-08-09T03:36:50Z",
+      "side": 1,
+      "message": "Structuring this way, seems reasonable, the only downside would be, have to write my own error.",
+      "parentUuid": "ee7e9d20_a195c54b",
+      "range": {
+        "startLine": 2208,
+        "startChar": 0,
+        "endLine": 2217,
+        "endChar": 6
+      },
+      "revId": "288938dcc281ab7833c033000f8fae959265cf13",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
