@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ce9f8a1b_6307ce8e",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 42
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2022-08-09T01:52:31Z",
+      "side": 1,
+      "message": "Done. Thanks",
+      "parentUuid": "475fb245_e9162408",
+      "range": {
+        "startLine": 3,
+        "startChar": 9,
+        "endLine": 3,
+        "endChar": 18
+      },
+      "revId": "a4d8bcb503763a0591ba5cf565feae563cda39d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "63fa934d_075c917c",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-08-08T17:22:11Z",
       "side": 1,
       "message": "`const auto\u0026 [propertyName, value]` is better here?",
+      "range": {
+        "startLine": 31,
+        "startChar": 19,
+        "endLine": 31,
+        "endChar": 68
+      },
+      "revId": "a4d8bcb503763a0591ba5cf565feae563cda39d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c7c54ada_611f1d43",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 42
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2022-08-09T01:52:31Z",
+      "side": 1,
+      "message": "When we use “auto”, we can\u0027t see the parameter type. So I prefer the current code.",
+      "parentUuid": "63fa934d_075c917c",
       "range": {
         "startLine": 31,
         "startChar": 19,
@@ -70,6 +118,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c2708c9e_a6bd0144",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 42
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2022-08-09T01:52:31Z",
+      "side": 1,
+      "message": "Done. Thanks",
+      "parentUuid": "d86e42e8_21d29627",
+      "range": {
+        "startLine": 130,
+        "startChar": 4,
+        "endLine": 131,
+        "endChar": 60
+      },
+      "revId": "a4d8bcb503763a0591ba5cf565feae563cda39d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a729cd7b_1da0b6e6",
@@ -83,6 +155,30 @@
       "writtenOn": "2022-08-08T17:22:11Z",
       "side": 1,
       "message": "Is there a type alias to use?",
+      "range": {
+        "startLine": 198,
+        "startChar": 16,
+        "endLine": 198,
+        "endChar": 79
+      },
+      "revId": "a4d8bcb503763a0591ba5cf565feae563cda39d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8615a251_85ad73df",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 42
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2022-08-09T01:52:31Z",
+      "side": 1,
+      "message": "Done. Thanks",
+      "parentUuid": "a729cd7b_1da0b6e6",
       "range": {
         "startLine": 198,
         "startChar": 16,
