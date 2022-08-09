@@ -88,6 +88,24 @@
       "parentUuid": "ca03a5f0_52e72f78",
       "revId": "4a3a6a15780d91428236389dedeca03cc435c2bd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b5c8b602_075f49eb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-08-09T01:13:04Z",
+      "side": 1,
+      "message": "I would expect the author to ask. But I will do that this time to learn. \n\nPart 4 now I understand. Need to bump the registry version accordingly. What are the other two?\n\n1: I believe what we have now is AttestationPanicReason, it\u0027s not HW specific, right?\n\n2: Which part is company specific?\n\nWhat I can also see is the commit message needs to be updated.",
+      "parentUuid": "1c83919e_cfeb2e54",
+      "revId": "4a3a6a15780d91428236389dedeca03cc435c2bd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
