@@ -435,21 +435,17 @@ void getConnections(std::shared_ptr<SensorsAsyncResp> sensorsAsyncResp,
  * made, and eliminate Power sensors when a Thermal request is made.
  */
 inline void reduceSensorList(
-    const std::shared_ptr<SensorsAsyncResp>& sensorsAsyncResp,
+    crow::Response& res, std::string_view chassisSubNode,
+    std::span<std::string_view> sensorTypes,
     const std::vector<std::string>* allSensors,
     const std::shared_ptr<std::set<std::string>>& activeSensors)
 {
-    if (sensorsAsyncResp == nullptr)
-    {
-        return;
-    }
     if ((allSensors == nullptr) || (activeSensors == nullptr))
     {
-        messages::resourceNotFound(
-            sensorsAsyncResp->asyncResp->res, sensorsAsyncResp->chassisSubNode,
-            sensorsAsyncResp->chassisSubNode == sensors::node::thermal
-                ? "Temperatures"
-                : "Voltages");
+        messages::resourceNotFound(res, chassisSubNode,
+                                   chassisSubNode == sensors::node::thermal
+                                       ? "Temperatures"
+                                       : "Voltages");
 
         return;
     }
@@ -459,7 +455,7 @@ inline void reduceSensorList(
         return;
     }
 
-    for (std::string_view type : sensorsAsyncResp->types)
+    for (std::string_view type : sensorTypes)
     {
         for (const std::string& sensor : *allSensors)
         {
@@ -471,31 +467,61 @@ inline void reduceSensorList(
     }
 }
 
+inline void populateChassisNode(crow::Response& res,
+                                std::string_view chassisSubNode)
+{
+    if (chassisSubNode == sensors::node::power)
+    {
+        res.jsonValue["@odata.type"] = "#Power.v1_5_2.Power";
+    }
+    else if (chassisSubNode == sensors::node::thermal)
+    {
+        res.jsonValue["@odata.type"] = "#Thermal.v1_4_0.Thermal";
+        res.jsonValue["Fans"] = nlohmann::json::array();
+        res.jsonValue["Temperatures"] = nlohmann::json::array();
+    }
+    else if (chassisSubNode == sensors::node::sensors)
+    {
+        res.jsonValue["@odata.type"] = "#SensorCollection.SensorCollection";
+        res.jsonValue["Description"] = "Collection of Sensors for this Chassis";
+        res.jsonValue["Members"] = nlohmann::json::array();
+        res.jsonValue["Members@odata.count"] = 0;
+    }
+
+    if (chassisSubNode != sensors::node::sensors)
+    {
+        res.jsonValue["Id"] = chassisSubNode;
+    }
+    res.jsonValue["Name"] = chassisSubNode;
+}
+
 /**
  * @brief Retrieves requested chassis sensors and redundancy data from DBus .
  * @param SensorsAsyncResp   Pointer to object holding response data
  * @param callback  Callback for next step in gathered sensor processing
  */
 template <typename Callback>
-void getChassis(const std::shared_ptr<SensorsAsyncResp>& sensorsAsyncResp,
-                Callback&& callback)
+void getChassis(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                std::string_view chassisId, std::string_view chassisSubNode,
+                std::span<std::string_view> sensorTypes, Callback&& callback)
 {
     BMCWEB_LOG_DEBUG << "getChassis enter";
     const std::array<const char*, 2> interfaces = {
         "xyz.openbmc_project.Inventory.Item.Board",
         "xyz.openbmc_project.Inventory.Item.Chassis"};
     auto respHandler =
-        [callback{std::forward<Callback>(callback)}, sensorsAsyncResp](
+        [callback{std::forward<Callback>(callback)}, asyncResp,
+         chassisId{std::string(chassisId)},
+         chassisSubNode{std::string(chassisSubNode)}, sensorTypes](
             const boost::system::error_code ec,
             const dbus::utility::MapperGetSubTreePathsResponse& chassisPaths) {
         BMCWEB_LOG_DEBUG << "getChassis respHandler enter";
         if (ec)
         {
             BMCWEB_LOG_ERROR << "getChassis respHandler DBUS error: " << ec;
-            messages::internalError(sensorsAsyncResp->asyncResp->res);
+            messages::internalError(asyncResp->res);
             return;
         }
-
         const std::string* chassisPath = nullptr;
         std::string chassisName;
         for (const std::string& chassis : chassisPaths)
@@ -507,7 +533,7 @@ void getChassis(const std::shared_ptr<SensorsAsyncResp>& sensorsAsyncResp,
                 BMCWEB_LOG_ERROR << "Failed to find '/' in " << chassis;
                 continue;
             }
-            if (chassisName == sensorsAsyncResp->chassisId)
+            if (chassisName == chassisId)
             {
                 chassisPath = &chassis;
                 break;
@@ -515,53 +541,20 @@ void getChassis(const std::shared_ptr<SensorsAsyncResp>& sensorsAsyncResp,
         }
         if (chassisPath == nullptr)
         {
-            messages::resourceNotFound(sensorsAsyncResp->asyncResp->res,
-                                       "Chassis", sensorsAsyncResp->chassisId);
+            messages::resourceNotFound(asyncResp->res, "Chassis", chassisId);
             return;
         }
+        populateChassisNode(asyncResp->res, chassisSubNode);
 
-        const std::string& chassisSubNode = sensorsAsyncResp->chassisSubNode;
-        if (chassisSubNode == sensors::node::power)
-        {
-            sensorsAsyncResp->asyncResp->res.jsonValue["@odata.type"] =
-                "#Power.v1_5_2.Power";
-        }
-        else if (chassisSubNode == sensors::node::thermal)
-        {
-            sensorsAsyncResp->asyncResp->res.jsonValue["@odata.type"] =
-                "#Thermal.v1_4_0.Thermal";
-            sensorsAsyncResp->asyncResp->res.jsonValue["Fans"] =
-                nlohmann::json::array();
-            sensorsAsyncResp->asyncResp->res.jsonValue["Temperatures"] =
-                nlohmann::json::array();
-        }
-        else if (chassisSubNode == sensors::node::sensors)
-        {
-            sensorsAsyncResp->asyncResp->res.jsonValue["@odata.type"] =
-                "#SensorCollection.SensorCollection";
-            sensorsAsyncResp->asyncResp->res.jsonValue["Description"] =
-                "Collection of Sensors for this Chassis";
-            sensorsAsyncResp->asyncResp->res.jsonValue["Members"] =
-                nlohmann::json::array();
-            sensorsAsyncResp->asyncResp->res.jsonValue["Members@odata.count"] =
-                0;
-        }
+        asyncResp->res.jsonValue["@odata.id"] =
+            "/redfish/v1/Chassis/" + chassisId + "/" + chassisSubNode;
 
-        if (chassisSubNode != sensors::node::sensors)
-        {
-            sensorsAsyncResp->asyncResp->res.jsonValue["Id"] = chassisSubNode;
-        }
-
-        sensorsAsyncResp->asyncResp->res.jsonValue["@odata.id"] =
-            "/redfish/v1/Chassis/" + sensorsAsyncResp->chassisId + "/" +
-            chassisSubNode;
-        sensorsAsyncResp->asyncResp->res.jsonValue["Name"] = chassisSubNode;
         // Get the list of all sensors for this Chassis element
         std::string sensorPath = *chassisPath + "/all_sensors";
         sdbusplus::asio::getProperty<std::vector<std::string>>(
             *crow::connections::systemBus, "xyz.openbmc_project.ObjectMapper",
             sensorPath, "xyz.openbmc_project.Association", "endpoints",
-            [sensorsAsyncResp,
+            [asyncResp, chassisSubNode, sensorTypes,
              callback{std::forward<const Callback>(callback)}](
                 const boost::system::error_code& e,
                 const std::vector<std::string>& nodeSensorList) {
@@ -569,14 +562,15 @@ void getChassis(const std::shared_ptr<SensorsAsyncResp>& sensorsAsyncResp,
             {
                 if (e.value() != EBADR)
                 {
-                    messages::internalError(sensorsAsyncResp->asyncResp->res);
+                    messages::internalError(asyncResp->res);
                     return;
                 }
             }
             const std::shared_ptr<std::set<std::string>> culledSensorList =
                 std::make_shared<std::set<std::string>>();
-            reduceSensorList(sensorsAsyncResp, &nodeSensorList,
-                             culledSensorList);
+            reduceSensorList(asyncResp->res, chassisSubNode, sensorTypes,
+                             &nodeSensorList, culledSensorList);
+            BMCWEB_LOG_DEBUG << "Finishing with " << culledSensorList->size();
             callback(culledSensorList);
             });
     };
@@ -2668,7 +2662,9 @@ inline void
             nlohmann::json::array();
     }
     // Get set of sensors in chassis
-    getChassis(sensorsAsyncResp, std::move(getChassisCb));
+    getChassis(sensorsAsyncResp->asyncResp, sensorsAsyncResp->chassisId,
+               sensorsAsyncResp->chassisSubNode, sensorsAsyncResp->types,
+               std::move(getChassisCb));
     BMCWEB_LOG_DEBUG << "getChassisData exit";
 }
 
@@ -2837,7 +2833,9 @@ inline void setSensorsOverride(
                                  std::move(getObjectsWithConnectionCb));
     };
     // get full sensor list for the given chassisId and cross verify the sensor.
-    getChassis(sensorAsyncResp, std::move(getChassisSensorListCb));
+    getChassis(sensorAsyncResp->asyncResp, sensorAsyncResp->chassisId,
+               sensorAsyncResp->chassisSubNode, sensorAsyncResp->types,
+               std::move(getChassisSensorListCb));
 }
 
 /**
@@ -2949,7 +2947,9 @@ inline void
 
     // We get all sensors as hyperlinkes in the chassis (this
     // implies we reply on the default query parameters handler)
-    getChassis(asyncResp,
+    getChassis(asyncResp->asyncResp, asyncResp->chassisId,
+               asyncResp->chassisSubNode, asyncResp->types,
+
                std::bind_front(sensors::getChassisCallback, asyncResp));
     BMCWEB_LOG_DEBUG << "SensorCollection doGet exit";
 }
