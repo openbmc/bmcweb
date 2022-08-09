@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "76ec5ee2_fc47fb5a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-08-09T23:23:20Z",
+      "side": 1,
+      "message": "Please also run against the validator.",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 6
+      },
+      "revId": "fdbc0b9f32ceb2c1b576817c0d72b281978d36f7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "58eac29f_1a20fcae",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1667,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-08-09T23:23:20Z",
+      "side": 1,
+      "message": "why do you change this?",
+      "range": {
+        "startLine": 1667,
+        "startChar": 4,
+        "endLine": 1667,
+        "endChar": 19
+      },
+      "revId": "fdbc0b9f32ceb2c1b576817c0d72b281978d36f7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
