@@ -85,7 +85,7 @@ static constexpr std::array<sensorPair, 3> paths = {
      {node::sensors, std::span<std::string_view>(dbus::sensorPaths)},
      {node::thermal, std::span<std::string_view>(dbus::thermalPaths)}}};
 
-inline const char* toReadingType(const std::string& sensorType)
+inline std::string_view toReadingType(std::string_view sensorType)
 {
     if (sensorType == "voltage")
     {
@@ -130,7 +130,7 @@ inline const char* toReadingType(const std::string& sensorType)
     return "";
 }
 
-inline const char* toReadingUnits(const std::string& sensorType)
+inline std::string_view toReadingUnits(std::string_view sensorType)
 {
     if (sensorType == "voltage")
     {
@@ -684,10 +684,9 @@ inline std::string getState(const InventoryItem* inventoryItem)
  * be nullptr if no associated inventory item was found.
  * @return Health value for sensor.
  */
-inline std::string
-    getHealth(nlohmann::json& sensorJson,
-              const dbus::utility::DBusInteracesMap& interfacesDict,
-              const InventoryItem* inventoryItem)
+inline std::string getHealth(nlohmann::json& sensorJson,
+                             const dbus::utility::DBusPropertiesMap& valuesDict,
+                             const InventoryItem* inventoryItem)
 {
     // Get current health value (if any) in the sensor JSON object.  Some JSON
     // objects contain multiple sensors (such as PowerSupplies).  We want to set
@@ -716,25 +715,18 @@ inline std::string
 
     // Check if sensor has critical threshold alarm
 
-    for (const auto& [interface, values] : interfacesDict)
+    for (const auto& [valueName, value] : valuesDict)
     {
-        if (interface == "xyz.openbmc_project.Sensor.Threshold.Critical")
+        if (valueName == "CriticalAlarmHigh" || valueName == "CriticalAlarmLow")
         {
-            for (const auto& [valueName, value] : values)
+            const bool* asserted = std::get_if<bool>(&value);
+            if (asserted == nullptr)
             {
-                if (valueName == "CriticalAlarmHigh" ||
-                    valueName == "CriticalAlarmLow")
-                {
-                    const bool* asserted = std::get_if<bool>(&value);
-                    if (asserted == nullptr)
-                    {
-                        BMCWEB_LOG_ERROR << "Illegal sensor threshold";
-                    }
-                    else if (*asserted)
-                    {
-                        return "Critical";
-                    }
-                }
+                BMCWEB_LOG_ERROR << "Illegal sensor threshold";
+            }
+            else if (*asserted)
+            {
+                return "Critical";
             }
         }
     }
@@ -753,25 +745,18 @@ inline std::string
     }
 
     // Check if sensor has warning threshold alarm
-    for (const auto& [interface, values] : interfacesDict)
+    for (const auto& [valueName, value] : valuesDict)
     {
-        if (interface == "xyz.openbmc_project.Sensor.Threshold.Warning")
+        if (valueName == "WarningAlarmHigh" || valueName == "WarningAlarmLow")
         {
-            for (const auto& [valueName, value] : values)
+            const bool* asserted = std::get_if<bool>(&value);
+            if (asserted == nullptr)
             {
-                if (valueName == "WarningAlarmHigh" ||
-                    valueName == "WarningAlarmLow")
-                {
-                    const bool* asserted = std::get_if<bool>(&value);
-                    if (asserted == nullptr)
-                    {
-                        BMCWEB_LOG_ERROR << "Illegal sensor threshold";
-                    }
-                    else if (*asserted)
-                    {
-                        return "Warning";
-                    }
-                }
+                BMCWEB_LOG_ERROR << "Illegal sensor threshold";
+            }
+            else if (*asserted)
+            {
+                return "Warning";
             }
         }
     }
@@ -806,45 +791,45 @@ inline void setLedState(nlohmann::json& sensorJson,
  * @param sensorName  The name of the sensor to be built
  * @param sensorType  The type (temperature, fan_tach, etc) of the sensor to
  * build
- * @param sensorsAsyncResp  Sensor metadata
- * @param interfacesDict  A dictionary of the interfaces and properties of said
- * interfaces to be built from
- * @param sensor_json  The json object to fill
+ * @param chassisSubNode The subnode (thermal, sensor, ect) of the sensor
+ * @param propertiesDict A dictionary of the properties to build the sensor
+ * from.
+ * @param sensorJson  The json object to fill
  * @param inventoryItem D-Bus inventory item associated with the sensor.  Will
  * be nullptr if no associated inventory item was found.
  */
-inline void objectInterfacesToJson(
-    const std::string& sensorName, const std::string& sensorType,
-    const std::shared_ptr<SensorsAsyncResp>& sensorsAsyncResp,
-    const dbus::utility::DBusInteracesMap& interfacesDict,
+inline void objectPropertiesToJson(
+    std::string sensorName, std::string_view sensorType,
+    std::string_view chassisSubNode,
+    const dbus::utility::DBusPropertiesMap& propertiesDict,
     nlohmann::json& sensorJson, InventoryItem* inventoryItem)
 {
     // Assume values exist as is (10^0 == 1) if no scale exists
     int64_t scaleMultiplier = 0;
-    for (const auto& [interface, values] : interfacesDict)
+    for (const auto& [valueName, value] : propertiesDict)
     {
-        if (interface == "xyz.openbmc_project.Sensor.Value")
+        if (valueName == "Scale")
         {
-            for (const auto& [valueName, value] : values)
+            const int64_t* int64Value = std::get_if<int64_t>(&value);
+            if (int64Value != nullptr)
             {
-                if (valueName == "Scale")
-                {
-                    const int64_t* int64Value = std::get_if<int64_t>(&value);
-                    if (int64Value != nullptr)
-                    {
-                        scaleMultiplier = *int64Value;
-                    }
-                }
+                scaleMultiplier = *int64Value;
             }
         }
     }
 
-    if (sensorsAsyncResp->chassisSubNode == sensors::node::sensors)
+    if (chassisSubNode == sensors::node::sensors)
     {
         // For sensors in SensorCollection we set Id instead of MemberId,
         // including power sensors.
-        sensorJson["Id"] = sensorName;
-        sensorJson["Name"] = boost::replace_all_copy(sensorName, "_", " ");
+        std::string subNodeEscaped(chassisSubNode);
+        subNodeEscaped.erase(
+            std::remove(subNodeEscaped.begin(), subNodeEscaped.end(), '_'),
+            subNodeEscaped.end());
+        sensorJson["Id"] = subNodeEscaped + '_' + sensorName;
+
+        std::replace(sensorName.begin(), sensorName.end(), '_', ' ');
+        sensorJson["Name"] = sensorName;
     }
     else if (sensorType != "power")
     {
@@ -852,12 +837,13 @@ inline void objectInterfacesToJson(
         // PowerControl, those properties have more general values because
         // multiple sensors can be stored in the same JSON object.
         sensorJson["MemberId"] = sensorName;
-        sensorJson["Name"] = boost::replace_all_copy(sensorName, "_", " ");
+        std::replace(sensorName.begin(), sensorName.end(), '_', ' ');
+        sensorJson["Name"] = sensorName;
     }
 
     sensorJson["Status"]["State"] = getState(inventoryItem);
     sensorJson["Status"]["Health"] =
-        getHealth(sensorJson, interfacesDict, inventoryItem);
+        getHealth(sensorJson, propertiesDict, inventoryItem);
 
     // Parameter to set to override the type we get from dbus, and force it to
     // int, regardless of what is available.  This is used for schemas like fan,
@@ -865,11 +851,11 @@ inline void objectInterfacesToJson(
     bool forceToInt = false;
 
     nlohmann::json::json_pointer unit("/Reading");
-    if (sensorsAsyncResp->chassisSubNode == sensors::node::sensors)
+    if (chassisSubNode == sensors::node::sensors)
     {
         sensorJson["@odata.type"] = "#Sensor.v1_2_0.Sensor";
 
-        const std::string& readingType = sensors::toReadingType(sensorType);
+        std::string_view readingType = sensors::toReadingType(sensorType);
         if (readingType.empty())
         {
             BMCWEB_LOG_ERROR << "Redfish cannot map reading type for "
@@ -880,7 +866,7 @@ inline void objectInterfacesToJson(
             sensorJson["ReadingType"] = readingType;
         }
 
-        const std::string& readingUnits = sensors::toReadingUnits(sensorType);
+        std::string_view readingUnits = sensors::toReadingUnits(sensorType);
         if (readingUnits.empty())
         {
             BMCWEB_LOG_ERROR << "Redfish cannot map reading unit for "
@@ -955,7 +941,7 @@ inline void objectInterfacesToJson(
 
     properties.emplace_back("xyz.openbmc_project.Sensor.Value", "Value", unit);
 
-    if (sensorsAsyncResp->chassisSubNode == sensors::node::sensors)
+    if (chassisSubNode == sensors::node::sensors)
     {
         properties.emplace_back(
             "xyz.openbmc_project.Sensor.Threshold.Warning", "WarningHigh",
@@ -988,7 +974,7 @@ inline void objectInterfacesToJson(
 
     // TODO Need to get UpperThresholdFatal and LowerThresholdFatal
 
-    if (sensorsAsyncResp->chassisSubNode == sensors::node::sensors)
+    if (chassisSubNode == sensors::node::sensors)
     {
         properties.emplace_back("xyz.openbmc_project.Sensor.Value", "MinValue",
                                 "/ReadingRangeMin"_json_pointer);
@@ -1013,65 +999,80 @@ inline void objectInterfacesToJson(
     for (const std::tuple<const char*, const char*,
                           nlohmann::json::json_pointer>& p : properties)
     {
-        for (const auto& [interface, values] : interfacesDict)
+        for (const auto& [valueName, valueVariant] : propertiesDict)
         {
-            if (interface != std::get<0>(p))
+            if (valueName != std::get<1>(p))
             {
                 continue;
             }
-            for (const auto& [valueName, valueVariant] : values)
+
+            // The property we want to set may be nested json, so use
+            // a json_pointer for easy indexing into the json structure.
+            const nlohmann::json::json_pointer& key = std::get<2>(p);
+
+            // Attempt to pull the int64 directly
+            const int64_t* int64Value = std::get_if<int64_t>(&valueVariant);
+
+            const double* doubleValue = std::get_if<double>(&valueVariant);
+            const uint32_t* uValue = std::get_if<uint32_t>(&valueVariant);
+            double temp = 0.0;
+            if (int64Value != nullptr)
             {
-                if (valueName != std::get<1>(p))
-                {
-                    continue;
-                }
-
-                // The property we want to set may be nested json, so use
-                // a json_pointer for easy indexing into the json structure.
-                const nlohmann::json::json_pointer& key = std::get<2>(p);
-
-                // Attempt to pull the int64 directly
-                const int64_t* int64Value = std::get_if<int64_t>(&valueVariant);
-
-                const double* doubleValue = std::get_if<double>(&valueVariant);
-                const uint32_t* uValue = std::get_if<uint32_t>(&valueVariant);
-                double temp = 0.0;
-                if (int64Value != nullptr)
-                {
-                    temp = static_cast<double>(*int64Value);
-                }
-                else if (doubleValue != nullptr)
-                {
-                    temp = *doubleValue;
-                }
-                else if (uValue != nullptr)
-                {
-                    temp = *uValue;
-                }
-                else
-                {
-                    BMCWEB_LOG_ERROR
-                        << "Got value interface that wasn't int or double";
-                    continue;
-                }
-                temp = temp * std::pow(10, scaleMultiplier);
-                if (forceToInt)
-                {
-                    sensorJson[key] = static_cast<int64_t>(temp);
-                }
-                else
-                {
-                    sensorJson[key] = temp;
-                }
+                temp = static_cast<double>(*int64Value);
+            }
+            else if (doubleValue != nullptr)
+            {
+                temp = *doubleValue;
+            }
+            else if (uValue != nullptr)
+            {
+                temp = *uValue;
+            }
+            else
+            {
+                BMCWEB_LOG_ERROR
+                    << "Got value interface that wasn't int or double";
+                continue;
+            }
+            temp = temp * std::pow(10, scaleMultiplier);
+            if (forceToInt)
+            {
+                sensorJson[key] = static_cast<int64_t>(temp);
+            }
+            else
+            {
+                sensorJson[key] = temp;
             }
         }
     }
 
-    sensorsAsyncResp->addMetadata(sensorJson, unit.to_string(),
-                                  "/xyz/openbmc_project/sensors/" + sensorType +
-                                      "/" + sensorName);
-
     BMCWEB_LOG_DEBUG << "Added sensor " << sensorName;
+}
+
+/**
+ * @brief Builds a json sensor representation of a sensor.
+ * @param sensorName  The name of the sensor to be built
+ * @param sensorType  The type (temperature, fan_tach, etc) of the sensor to
+ * build
+ * @param chassisSubNode The subnode (thermal, sensor, ect) of the sensor
+ * @param interfacesDict  A dictionary of the interfaces and properties of said
+ * interfaces to be built from
+ * @param sensorJson  The json object to fill
+ * @param inventoryItem D-Bus inventory item associated with the sensor.  Will
+ * be nullptr if no associated inventory item was found.
+ */
+inline void objectInterfacesToJson(
+    const std::string& sensorName, const std::string& sensorType,
+    const std::string& chassisSubNode,
+    const dbus::utility::DBusInteracesMap& interfacesDict,
+    nlohmann::json& sensorJson, InventoryItem* inventoryItem)
+{
+
+    for (const auto& [interface, valuesDict] : interfacesDict)
+    {
+        objectPropertiesToJson(sensorName, sensorType, chassisSubNode,
+                               valuesDict, sensorJson, inventoryItem);
+    }
 }
 
 inline void populateFanRedundancy(
@@ -2566,9 +2567,17 @@ inline void getSensorData(
 
                 if (sensorJson != nullptr)
                 {
-                    objectInterfacesToJson(
-                        sensorName, sensorType, sensorsAsyncResp,
-                        objDictEntry.second, *sensorJson, inventoryItem);
+                    objectInterfacesToJson(sensorName, sensorType,
+                                           sensorsAsyncResp->chassisSubNode,
+                                           objDictEntry.second, *sensorJson,
+                                           inventoryItem);
+
+                    std::string path = "/xyz/openbmc_project/sensors/";
+                    path += sensorType;
+                    path += "/";
+                    path += sensorName;
+                    sensorsAsyncResp->addMetadata(*sensorJson, sensorType,
+                                                  path);
                 }
             }
             if (sensorsAsyncResp.use_count() == 1)
