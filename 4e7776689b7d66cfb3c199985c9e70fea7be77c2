@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7979598f_2833330a",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-08-09T03:02:31Z",
+      "side": 1,
+      "message": "This was caused by a conflict of \nhttps://github.com/openbmc/bmcweb/commit/5deabed966f0ae5953dfb3a250a42b0046257ee8 and https://github.com/openbmc/bmcweb/commit/02da7c5a626a747ce93aead08ee050678a16c79b",
+      "revId": "4e7776689b7d66cfb3c199985c9e70fea7be77c2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
