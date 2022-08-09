@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "559eb1f7_fcccc742",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 85
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2022-08-09T10:05:22Z",
+      "side": 1,
+      "message": "Can you please rephrase this to something like below:\n\nDuring system boot, the BMC dump takes more than 3 minutes to complete and task expires with a timeout. This commit increases this timeout to be 6 minutes.",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 51
+      },
+      "revId": "16f6e60c3e1386b6dc8eaf6ab5ffe625a3301e0b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "efc6911a_70fa901b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 85
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2022-08-09T10:05:22Z",
+      "side": 1,
+      "message": "I think the output captures below are not needed. It should be good enough if its mentioned as GET on Task properties are checked for Task success and failure scenarios.",
+      "range": {
+        "startLine": 51,
+        "startChar": 0,
+        "endLine": 57,
+        "endChar": 5
+      },
+      "revId": "16f6e60c3e1386b6dc8eaf6ab5ffe625a3301e0b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
