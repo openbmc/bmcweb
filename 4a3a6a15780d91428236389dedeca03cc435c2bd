@@ -106,6 +106,24 @@
       "parentUuid": "1c83919e_cfeb2e54",
       "revId": "4a3a6a15780d91428236389dedeca03cc435c2bd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cdb93126_891ea52d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001213
+      },
+      "writtenOn": "2022-08-09T21:17:23Z",
+      "side": 1,
+      "message": "I guess I missed the rule 4 where sub minor version had to be incremented which is been updated now. Also, modified message string to comply with rule 3.\n\n@Ed could you please let me know if this would suffice and also I have the same question as Nan Zhou on how rule 1 and 2 are been missed ?\n\nCould you hint on the same !\n\nI do not see any hardware specific terms being used.\n\n@Nan : Updated my commit message!",
+      "parentUuid": "b5c8b602_075f49eb",
+      "revId": "4a3a6a15780d91428236389dedeca03cc435c2bd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
