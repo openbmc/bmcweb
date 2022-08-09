@@ -454,7 +454,7 @@ inline std::optional<Query>
                 return std::nullopt;
             }
         }
-        else if (key == "$select" && bmcwebInsecureEnableQueryParams)
+        else if (key == "$select")
         {
             if (!getSelectParam(value, ret))
             {
