@@ -358,16 +358,10 @@ TEST(RecursiveSelect, ReservedPropertiesAreSelected)
     ASSERT_TRUE(ret);
     crow::Response res;
     std::optional<Query> query = parseParameters(ret->params(), res);
-    if constexpr (bmcwebInsecureEnableQueryParams)
-    {
-        ASSERT_NE(query, std::nullopt);
-        recursiveSelect(root, query->selectTrie.root);
-        EXPECT_EQ(root, expected);
-    }
-    else
-    {
-        EXPECT_EQ(query, std::nullopt);
-    }
+
+    ASSERT_NE(query, std::nullopt);
+    recursiveSelect(root, query->selectTrie.root);
+    EXPECT_EQ(root, expected);
 }
 
 TEST(QueryParams, ParseParametersOnly)
