@@ -219,29 +219,33 @@ TEST(GetSelectParam, TrieNodesRespectAllProperties)
     ASSERT_TRUE(getSelectParam("foo/bar,bar", query));
     ASSERT_FALSE(query.selectTrie.root.empty());
 
-    ASSERT_NE(query.selectTrie.root.find("bar"), nullptr);
-    EXPECT_TRUE(query.selectTrie.root.find("bar")->isSelected());
-
-    ASSERT_NE(query.selectTrie.root.find("@odata.id"), nullptr);
-    EXPECT_TRUE(query.selectTrie.root.find("@odata.id")->isSelected());
-
-    ASSERT_NE(query.selectTrie.root.find("@odata.type"), nullptr);
-    EXPECT_TRUE(query.selectTrie.root.find("@odata.type")->isSelected());
-
-    ASSERT_NE(query.selectTrie.root.find("@odata.context"), nullptr);
-    EXPECT_TRUE(query.selectTrie.root.find("@odata.context")->isSelected());
-
-    ASSERT_NE(query.selectTrie.root.find("@odata.etag"), nullptr);
-    EXPECT_TRUE(query.selectTrie.root.find("@odata.etag")->isSelected());
-
-    ASSERT_NE(query.selectTrie.root.find("error"), nullptr);
-    EXPECT_TRUE(query.selectTrie.root.find("error")->isSelected());
-
     const SelectTrieNode* child = query.selectTrie.root.find("foo");
     ASSERT_NE(child, nullptr);
     EXPECT_FALSE(child->isSelected());
     ASSERT_NE(child->find("bar"), nullptr);
     EXPECT_TRUE(child->find("bar")->isSelected());
+
+    std::vector<const SelectTrieNode*> nodes = {&query.selectTrie.root, child};
+    for (const auto& node : nodes)
+    {
+        ASSERT_NE(node->find("bar"), nullptr);
+        EXPECT_TRUE(node->find("bar")->isSelected());
+
+        ASSERT_NE(node->find("@odata.id"), nullptr);
+        EXPECT_TRUE(node->find("@odata.id")->isSelected());
+
+        ASSERT_NE(node->find("@odata.type"), nullptr);
+        EXPECT_TRUE(node->find("@odata.type")->isSelected());
+
+        ASSERT_NE(node->find("@odata.context"), nullptr);
+        EXPECT_TRUE(node->find("@odata.context")->isSelected());
+
+        ASSERT_NE(node->find("@odata.etag"), nullptr);
+        EXPECT_TRUE(node->find("@odata.etag")->isSelected());
+
+        ASSERT_NE(node->find("error"), nullptr);
+        EXPECT_TRUE(node->find("error")->isSelected());
+    }
 }
 
 SelectTrie getTrie(std::span<std::string_view> properties)
@@ -267,7 +271,8 @@ TEST(RecursiveSelect, ExpectedKeysAreSelectInSimpleObject)
 TEST(RecursiveSelect, ExpectedKeysAreSelectInNestedObject)
 {
     std::vector<std::string_view> properties = {
-        "SelectMe", "Prefix0/ExplicitSelectMe", "Prefix1", "Prefix2"};
+        "SelectMe", "Prefix0/ExplicitSelectMe", "Prefix1", "Prefix2",
+        "Prefix4/ExplicitSelectMe"};
     SelectTrie trie = getTrie(properties);
     nlohmann::json root = R"(
 {
@@ -289,6 +294,12 @@ TEST(RecursiveSelect, ExpectedKeysAreSelectInNestedObject)
   ],
   "Prefix3":[
     "OmitMe"
+  ],
+  "Prefix4":[
+    {
+      "ExplicitSelectMe":"123",
+      "OmitMe": "456"
+    }
   ]
 }
 )"_json;
@@ -307,6 +318,11 @@ TEST(RecursiveSelect, ExpectedKeysAreSelectInNestedObject)
     {
       "ImplicitSelectMe":"123"
     }
+  ],
+  "Prefix4":[
+    {
+      "ExplicitSelectMe":"123"
+    }
   ]
 }
 )"_json;
@@ -314,7 +330,7 @@ TEST(RecursiveSelect, ExpectedKeysAreSelectInNestedObject)
     EXPECT_EQ(root, expected);
 }
 
-TEST(RecursiveSelect, OdataPropertiesAreSelected)
+TEST(RecursiveSelect, ReservedPropertiesAreSelected)
 {
     nlohmann::json root = R"(
 {
@@ -323,15 +339,17 @@ TEST(RecursiveSelect, OdataPropertiesAreSelected)
   "@odata.type":2,
   "@odata.context":3,
   "@odata.etag":4,
-  "prefix1":{
+  "Prefix1":{
     "OmitMe":"bar",
-    "@odata.id":1
+    "@odata.id":1,
+    "ExplicitSelectMe": 1
   },
   "Prefix2":[1, 2, 3],
   "Prefix3":[
     {
       "OmitMe":"bar",
-      "@odata.id":1
+      "@odata.id":1,
+      "ExplicitSelectMe": 1
     }
   ]
 }
@@ -341,10 +359,21 @@ TEST(RecursiveSelect, OdataPropertiesAreSelected)
   "@odata.id":1,
   "@odata.type":2,
   "@odata.context":3,
-  "@odata.etag":4
+  "@odata.etag":4,
+  "Prefix1":{
+    "@odata.id":1,
+    "ExplicitSelectMe": 1
+  },
+  "Prefix3":[
+    {
+      "@odata.id":1,
+      "ExplicitSelectMe": 1
+    }
+  ]
 }
 )"_json;
-    auto ret = boost::urls::parse_relative_ref("/redfish/v1?$select=abc");
+    auto ret = boost::urls::parse_relative_ref(
+        "/redfish/v1?$select=Prefix1/ExplicitSelectMe,Prefix3/ExplicitSelectMe");
     ASSERT_TRUE(ret);
     crow::Response res;
     std::optional<Query> query = parseParameters(ret->params(), res);
