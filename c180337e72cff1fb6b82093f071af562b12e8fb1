@@ -72,6 +72,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0d5a4e1d_d104dd93",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 851,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2022-08-09T06:12:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c9d63591_2582396d",
+      "range": {
+        "startLine": 851,
+        "startChar": 65,
+        "endLine": 851,
+        "endChar": 70
+      },
+      "revId": "c180337e72cff1fb6b82093f071af562b12e8fb1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "03212f4d_7ac393ea",
@@ -180,6 +204,30 @@
       "side": 1,
       "message": "urlFromPieces.",
       "parentUuid": "f8ff6db1_aa36aa9a",
+      "range": {
+        "startLine": 57,
+        "startChar": 0,
+        "endLine": 57,
+        "endChar": 55
+      },
+      "revId": "c180337e72cff1fb6b82093f071af562b12e8fb1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "655eec92_949ec0c5",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2022-08-09T06:12:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b61eb4e9_663a4252",
       "range": {
         "startLine": 57,
         "startChar": 0,
@@ -308,6 +356,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "406f3457_192df8a8",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2022-08-09T06:12:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "643cb3ae_dcc3fc7c",
+      "range": {
+        "startLine": 80,
+        "startChar": 0,
+        "endLine": 80,
+        "endChar": 33
+      },
+      "revId": "c180337e72cff1fb6b82093f071af562b12e8fb1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "56829915_b5198371",
@@ -426,6 +498,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2a4650fa_aa67e7f9",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2022-08-09T06:12:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c3a391f9_25c625e4",
+      "range": {
+        "startLine": 304,
+        "startChar": 0,
+        "endLine": 304,
+        "endChar": 67
+      },
+      "revId": "c180337e72cff1fb6b82093f071af562b12e8fb1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "de83f299_6811323a",
@@ -487,6 +583,30 @@
       "side": 1,
       "message": "You are free to modify it, you just need to redo the lookup from within the lambda.  References are invalidated if the underlying object changes.",
       "parentUuid": "44928bc5_e3ff69b0",
+      "range": {
+        "startLine": 490,
+        "startChar": 22,
+        "endLine": 490,
+        "endChar": 33
+      },
+      "revId": "c180337e72cff1fb6b82093f071af562b12e8fb1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d03de0e0_f5ba116e",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 490,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2022-08-09T06:12:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4680cdb9_239d3955",
       "range": {
         "startLine": 490,
         "startChar": 22,
@@ -568,6 +688,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cec7cfc7_c1460624",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 491,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2022-08-09T06:12:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b2850227_c217ece7",
+      "range": {
+        "startLine": 491,
+        "startChar": 0,
+        "endLine": 491,
+        "endChar": 76
+      },
+      "revId": "c180337e72cff1fb6b82093f071af562b12e8fb1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "11743f56_1e0bd4ec",
@@ -615,6 +759,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "85d0d8a3_f2ac7db3",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 618,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2022-08-09T06:12:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6fd1091c_328abdae",
+      "range": {
+        "startLine": 618,
+        "startChar": 0,
+        "endLine": 618,
+        "endChar": 42
+      },
+      "revId": "c180337e72cff1fb6b82093f071af562b12e8fb1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ee1d7d93_ad11e396",
@@ -652,6 +820,30 @@
       "side": 1,
       "message": "We need check whether the client already exists on the dbus. If it already exists, we need return resourceAlreadyExist error.",
       "parentUuid": "ee1d7d93_ad11e396",
+      "range": {
+        "startLine": 798,
+        "startChar": 0,
+        "endLine": 798,
+        "endChar": 58
+      },
+      "revId": "c180337e72cff1fb6b82093f071af562b12e8fb1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "317f9445_be036102",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 798,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2022-08-09T06:12:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "965495b6_a9930ea0",
       "range": {
         "startLine": 798,
         "startChar": 0,
@@ -723,6 +915,30 @@
       "side": 1,
       "message": "\"param\" and \"id\" are references to the same object of the same type.  You don\u0027t need two references to it with different names.\n\nThe line on 844 only exists in that nonsensical way because of migrations that have been done in the past.\n\n\u003e No,it is necessary. We need call getSnmpTrapClient before line 837.\n\nI made no comments about getSnmpTrapClient.  My comment was isolated to line 831.",
       "parentUuid": "4b7fcdf8_04a38c2d",
+      "range": {
+        "startLine": 832,
+        "startChar": 0,
+        "endLine": 832,
+        "endChar": 50
+      },
+      "revId": "c180337e72cff1fb6b82093f071af562b12e8fb1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f6137de3_faba8dfe",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 832,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2022-08-09T06:12:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "61aa0ec2_f8cc50bd",
       "range": {
         "startLine": 832,
         "startChar": 0,
