@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "df961557_ab4bc845",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 73
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1000857
+      },
+      "writtenOn": "2022-08-09T21:44:00Z",
+      "side": 1,
+      "message": "I think it should return a member collection pointing to /redfish/v1/Systems/system/Storage/, based on Swordfish spec. E.g.\n\n```\n$ curl -u root:0penBmc -X GET http://${bmc}/redfish/v1/Storage\n{\n  \"@odata.id\": \"/redfish/v1/Storage\",\n  \"@odata.type\": \"#StorageCollection.StorageCollection\",\n  \"Members\": [\n    {\n      \"@odata.id\": \"/redfish/v1/Systems/system/Storage/storage0\"\n    }\n  ],\n  \"Members@odata.count\": 1,\n  \"Name\": \"Storage Collection\"\n}\n```\n\n\nThe current one will return 2 resources (/redfish/v1/Storage/ and /redfish/v1/system/Storage/) on the same storage device. \n\nRefer to Figure 4 in https://www.snia.org/sites/default/files/technical-work/swordfish/draft/v1.2.2/pdf/Swordfish_v1.2.2_NVMeMappingGuide.pdf",
+      "range": {
+        "startLine": 67,
+        "startChar": 0,
+        "endLine": 67,
+        "endChar": 45
+      },
+      "revId": "5936d1e55deac09484127d3096880d54d385effa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
