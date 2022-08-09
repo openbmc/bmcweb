@@ -190,6 +190,30 @@
       },
       "revId": "6f788323f910457659e5560477ad447ab88eb762",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "06d76343_dc3fa484",
+        "filename": "redfish-core/lib/service_root.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-09T20:52:13Z",
+      "side": 1,
+      "message": "\u003e Really, maybe you were looking at a wrong tab. \n\n\nYeah, that looks like what happened.",
+      "parentUuid": "213080a9_d9eb4fe2",
+      "range": {
+        "startLine": 98,
+        "startChar": 38,
+        "endLine": 98,
+        "endChar": 69
+      },
+      "revId": "6f788323f910457659e5560477ad447ab88eb762",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
