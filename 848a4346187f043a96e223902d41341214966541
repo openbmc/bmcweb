@@ -48,6 +48,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "96d14793_c77e2116",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-08-10T22:19:47Z",
+      "side": 1,
+      "message": "The question is that, during the code review of memory expand codes, I went with GetAll for single item, GetManagedObjects for expand, you made a comment saying we should use the same code. So later I used GetManagedObjects for both case.\n\nNow in this patch, you are changing sensor to the previous option.\n\nThis is inconsistent. So I was asking for an explanation: what\u0027s the right direction and why is that?",
+      "parentUuid": "79ed71f1_7a00fc16",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 7
+      },
+      "revId": "848a4346187f043a96e223902d41341214966541",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "2787e972_de9512a4",
