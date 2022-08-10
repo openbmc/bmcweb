@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6a98ba64_dfc75efd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-10T14:49:43Z",
+      "side": 1,
+      "message": "Is recursion depth on the trie limited?\n\n(ie if I tried to select a.a.a.a.a.a.a.a.a.a.a (repeat N times to the limit) does the stack pop?",
+      "revId": "1a3a911086e9ac22626f167258408e7e7c72b88e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
