@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "79ed71f1_7a00fc16",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-10T22:12:52Z",
+      "side": 1,
+      "message": "I’m not sure I understand the question.  yes, in theory we could use the generic GetAll handler for the expand queries, but given your recent optimizations, I think they will result in more dbus calls, so I left the existing code.  In theory we could test if those performance increases are still needed, but I think it’d be better to push that to a later patch, given that this patch works fine and is an improvement for the non expand case.",
+      "parentUuid": "8a16fd8b_58c54f44",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 7
+      },
+      "revId": "848a4346187f043a96e223902d41341214966541",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "2787e972_de9512a4",
