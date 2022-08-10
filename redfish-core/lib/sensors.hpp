@@ -806,80 +806,7 @@ inline void objectPropertiesToJson(
     std::vector<PropertyJsonPair> properties;
     properties.reserve(7);
 
-    if (sensorType != "power")
-    {
-        // Set MemberId and Name for non-power sensors.  For PowerSupplies and
-        // PowerControl, those properties have more general values because
-        // multiple sensors can be stored in the same JSON object.
-        sensorJson["MemberId"] = sensorName;
-        std::replace(sensorName.begin(), sensorName.end(), '_', ' ');
-        sensorJson["Name"] = sensorName;
-        properties.emplace_back("WarningHigh", "/UpperThresholdNonCritical");
-        properties.emplace_back("WarningLow", "/LowerThresholdNonCritical");
-        properties.emplace_back("CriticalHigh", "/UpperThresholdCritical");
-        properties.emplace_back("CriticalLow", "/LowerThresholdCritical");
-        properties.emplace_back("MinValue", "/MinReadingRange");
-        properties.emplace_back("MaxValue", "/MaxReadingRange");
-    }
-
-    // TODO Need to get UpperThresholdFatal and LowerThresholdFatal
-
-    if (chassisSubNode == sensors::node::sensors)
-    {
-        // For sensors in SensorCollection we set Id instead of MemberId,
-        // including power sensors.
-        std::string subNodeEscaped(chassisSubNode);
-        subNodeEscaped.erase(
-            std::remove(subNodeEscaped.begin(), subNodeEscaped.end(), '_'),
-            subNodeEscaped.end());
-        sensorJson["Id"] = subNodeEscaped + '_' + sensorName;
-
-        std::replace(sensorName.begin(), sensorName.end(), '_', ' ');
-        sensorJson["Name"] = sensorName;
-        properties.emplace_back("Value", "/Reading");
-        sensorJson["@odata.type"] = "#Sensor.v1_2_0.Sensor";
-
-        std::string_view readingType = sensors::toReadingType(sensorType);
-        if (readingType.empty())
-        {
-            BMCWEB_LOG_ERROR << "Redfish cannot map reading type for "
-                             << sensorType;
-            return;
-        }
-        sensorJson["ReadingType"] = readingType;
-
-        std::string_view readingUnits = sensors::toReadingUnits(sensorType);
-        if (readingUnits.empty())
-        {
-            BMCWEB_LOG_ERROR << "Redfish cannot map reading unit for "
-                             << sensorType;
-            return;
-        }
-        sensorJson["ReadingUnits"] = readingUnits;
-        properties.emplace_back("WarningHigh",
-                                "/Thresholds/UpperCaution/Reading");
-        properties.emplace_back("WarningLow",
-                                "/Thresholds/LowerCaution/Reading");
-        properties.emplace_back("CriticalHigh",
-                                "/Thresholds/UpperCritical/Reading");
-        properties.emplace_back("CriticalLow",
-                                "/Thresholds/LowerCritical/Reading");
-        properties.emplace_back("MinValue", "/ReadingRangeMin");
-        properties.emplace_back("MaxValue", "/ReadingRangeMax");
-    }
-    else if (sensorType == "temperature")
-    {
-        properties.emplace_back("Value", "/ReadingCelsius");
-        sensorJson["@odata.type"] = "#Thermal.v1_3_0.Temperature";
-        properties.emplace_back("MinValue", "/MinReadingRangeTemp");
-        properties.emplace_back("MaxValue", "/MaxReadingRangeTemp");
-    }
-    else if (sensorType == "voltage")
-    {
-        properties.emplace_back("Value", "/ReadingVolts");
-        sensorJson["@odata.type"] = "#Power.v1_0_0.Voltage";
-    }
-    else if (sensorType == "power")
+    if (sensorType == "power")
     {
         std::string sensorNameLower =
             boost::algorithm::to_lower_copy(sensorName);
@@ -902,28 +829,125 @@ inline void objectPropertiesToJson(
             properties.emplace_back("Value", "/PowerOutputWatts");
         }
     }
-    else if (sensorType == "fan" || sensorType == "fan_tach")
-    {
-        // TODO(ed) Documentation says that path should be type fan_tach,
-        // implementation seems to implement fan
-        properties.emplace_back("Value", "/Reading");
-        sensorJson["ReadingUnits"] = "RPM";
-        sensorJson["@odata.type"] = "#Thermal.v1_3_0.Fan";
-        setLedState(sensorJson, inventoryItem);
-        forceToInt = true;
-    }
-    else if (sensorType == "fan_pwm")
-    {
-        properties.emplace_back("Value", "/Reading");
-        sensorJson["ReadingUnits"] = "Percent";
-        sensorJson["@odata.type"] = "#Thermal.v1_3_0.Fan";
-        setLedState(sensorJson, inventoryItem);
-        forceToInt = true;
-    }
     else
     {
-        BMCWEB_LOG_ERROR << "Redfish cannot map object type for " << sensorName;
-        return;
+        // Set MemberId and Name for non-power sensors.  For PowerSupplies and
+        // PowerControl, those properties have more general values because
+        // multiple sensors can be stored in the same JSON object.
+        sensorJson["MemberId"] = sensorName;
+        std::replace(sensorName.begin(), sensorName.end(), '_', ' ');
+        sensorJson["Name"] = sensorName;
+        properties.emplace_back("WarningHigh", "/UpperThresholdNonCritical");
+        properties.emplace_back("WarningLow", "/LowerThresholdNonCritical");
+        properties.emplace_back("CriticalHigh", "/UpperThresholdCritical");
+        properties.emplace_back("CriticalLow", "/LowerThresholdCritical");
+        properties.emplace_back("MinValue", "/MinReadingRange");
+        properties.emplace_back("MaxValue", "/MaxReadingRange");
+
+        // TODO Need to get UpperThresholdFatal and LowerThresholdFatal
+
+        if (chassisSubNode == sensors::node::sensors)
+        {
+            // For sensors in SensorCollection we set Id instead of MemberId,
+            // including power sensors.
+            std::string subNodeEscaped(chassisSubNode);
+            subNodeEscaped.erase(
+                std::remove(subNodeEscaped.begin(), subNodeEscaped.end(), '_'),
+                subNodeEscaped.end());
+            sensorJson["Id"] = subNodeEscaped + '_' + sensorName;
+
+            std::replace(sensorName.begin(), sensorName.end(), '_', ' ');
+            sensorJson["Name"] = sensorName;
+            properties.emplace_back("Value", "/Reading");
+            sensorJson["@odata.type"] = "#Sensor.v1_2_0.Sensor";
+
+            std::string_view readingType = sensors::toReadingType(sensorType);
+            if (readingType.empty())
+            {
+                BMCWEB_LOG_ERROR << "Redfish cannot map reading type for "
+                                 << sensorType;
+                return;
+            }
+            sensorJson["ReadingType"] = readingType;
+
+            std::string_view readingUnits = sensors::toReadingUnits(sensorType);
+            if (readingUnits.empty())
+            {
+                BMCWEB_LOG_ERROR << "Redfish cannot map reading unit for "
+                                 << sensorType;
+                return;
+            }
+            sensorJson["ReadingUnits"] = readingUnits;
+            properties.emplace_back("WarningHigh",
+                                    "/Thresholds/UpperCaution/Reading");
+            properties.emplace_back("WarningLow",
+                                    "/Thresholds/LowerCaution/Reading");
+            properties.emplace_back("CriticalHigh",
+                                    "/Thresholds/UpperCritical/Reading");
+            properties.emplace_back("CriticalLow",
+                                    "/Thresholds/LowerCritical/Reading");
+            properties.emplace_back("MinValue", "/ReadingRangeMin");
+            properties.emplace_back("MaxValue", "/ReadingRangeMax");
+        }
+        else if (sensorType == "temperature")
+        {
+            properties.emplace_back("Value", "/ReadingCelsius");
+            sensorJson["@odata.type"] = "#Thermal.v1_3_0.Temperature";
+            properties.emplace_back("MinValue", "/MinReadingRangeTemp");
+            properties.emplace_back("MaxValue", "/MaxReadingRangeTemp");
+        }
+        else if (sensorType == "voltage")
+        {
+            properties.emplace_back("Value", "/ReadingVolts");
+            sensorJson["@odata.type"] = "#Power.v1_0_0.Voltage";
+        }
+        else if (sensorType == "power")
+        {
+            std::string sensorNameLower =
+                boost::algorithm::to_lower_copy(sensorName);
+
+            if (sensorName == "total_power")
+            {
+                sensorJson["@odata.type"] = "#Power.v1_0_0.PowerControl";
+                // Put multiple "sensors" into a single PowerControl, so have
+                // generic names for MemberId and Name. Follows Redfish mockup.
+                sensorJson["MemberId"] = "0";
+                sensorJson["Name"] = "Chassis Power Control";
+                properties.emplace_back("Value", "/PowerConsumedWatts");
+            }
+            else if (sensorNameLower.find("input") != std::string::npos)
+            {
+                properties.emplace_back("Value", "/PowerInputWatts");
+            }
+            else
+            {
+                properties.emplace_back("Value", "/PowerOutputWatts");
+            }
+        }
+        else if (sensorType == "fan" || sensorType == "fan_tach")
+        {
+            // TODO(ed) Documentation says that path should be type fan_tach,
+            // implementation seems to implement fan
+            properties.emplace_back("Value", "/Reading");
+            sensorJson["ReadingUnits"] = "RPM";
+            sensorJson["@odata.type"] = "#Thermal.v1_3_0.Fan";
+            setLedState(sensorJson, inventoryItem);
+            forceToInt = true;
+        }
+        else if (sensorType == "fan_pwm")
+        {
+            properties.emplace_back("Value", "/Reading");
+            sensorJson["ReadingUnits"] = "Percent";
+            sensorJson["@odata.type"] = "#Thermal.v1_3_0.Fan";
+            setLedState(sensorJson, inventoryItem);
+            forceToInt = true;
+        }
+        else
+        {
+            BMCWEB_LOG_ERROR << "Redfish cannot map object type for "
+                             << sensorName;
+            return;
+        }
     }
 
     for (const PropertyJsonPair& p : properties)
@@ -937,7 +961,8 @@ inline void objectPropertiesToJson(
 
             // The property we want to set may be nested json, so use
             // a json_pointer for easy indexing into the json structure.
-            const nlohmann::json::json_pointer key(std::string(p.propertyToSet));
+            const nlohmann::json::json_pointer key(
+                std::string(p.propertyToSet));
 
             const double* doubleValue = std::get_if<double>(&valueVariant);
             if (doubleValue == nullptr)
