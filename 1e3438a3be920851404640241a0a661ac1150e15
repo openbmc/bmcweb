@@ -16,6 +16,24 @@
       "message": "My bad I wanted to set Ok-To-Test to +1, but set Code-Review instead.\nHow I can retrigger build? Previous one is aborted and I don\u0027t see any new build.",
       "revId": "1e3438a3be920851404640241a0a661ac1150e15",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "daa1f7ca_374f5849",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-08-10T09:55:42Z",
+      "side": 1,
+      "message": "My bad, new build was started after all I just didn\u0027t notice it.",
+      "parentUuid": "34d5c73d_bd3cf307",
+      "revId": "1e3438a3be920851404640241a0a661ac1150e15",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
