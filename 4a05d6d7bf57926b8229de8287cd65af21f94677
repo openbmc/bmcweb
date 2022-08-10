@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ff0fe3cc_e88cc931",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-08-10T17:33:14Z",
+      "side": 1,
+      "message": "This code is confusing. My understanding is that we are accumulating a number, and finally assign that number to res.jsonValue[\"ProcessorSummary\"][\"CoreCount\"]\n\nWhy not define a number with 0 outside the loop, do accumulation, and finally assign that number to the json?",
+      "range": {
+        "startLine": 191,
+        "startChar": 16,
+        "endLine": 191,
+        "endChar": 25
+      },
+      "revId": "4a05d6d7bf57926b8229de8287cd65af21f94677",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
