@@ -853,7 +853,7 @@ inline void objectPropertiesToJson(
     // that require integers, not floats.
     bool forceToInt = false;
 
-    nlohmann::json::json_pointer unit("/Reading");
+    std::string_view unit = "/Reading";
     if (chassisSubNode == sensors::node::sensors)
     {
         sensorJson["@odata.type"] = "#Sensor.v1_2_0.Sensor";
@@ -882,14 +882,14 @@ inline void objectPropertiesToJson(
     }
     else if (sensorType == "temperature")
     {
-        unit = "/ReadingCelsius"_json_pointer;
+        unit = "/ReadingCelsius";
         sensorJson["@odata.type"] = "#Thermal.v1_3_0.Temperature";
         // TODO(ed) Documentation says that path should be type fan_tach,
         // implementation seems to implement fan
     }
     else if (sensorType == "fan" || sensorType == "fan_tach")
     {
-        unit = "/Reading"_json_pointer;
+        unit = "/Reading";
         sensorJson["ReadingUnits"] = "RPM";
         sensorJson["@odata.type"] = "#Thermal.v1_3_0.Fan";
         setLedState(sensorJson, inventoryItem);
@@ -897,7 +897,7 @@ inline void objectPropertiesToJson(
     }
     else if (sensorType == "fan_pwm")
     {
-        unit = "/Reading"_json_pointer;
+        unit = "/Reading";
         sensorJson["ReadingUnits"] = "Percent";
         sensorJson["@odata.type"] = "#Thermal.v1_3_0.Fan";
         setLedState(sensorJson, inventoryItem);
@@ -905,7 +905,7 @@ inline void objectPropertiesToJson(
     }
     else if (sensorType == "voltage")
     {
-        unit = "/ReadingVolts"_json_pointer;
+        unit = "/ReadingVolts";
         sensorJson["@odata.type"] = "#Power.v1_0_0.Voltage";
     }
     else if (sensorType == "power")
@@ -917,15 +917,15 @@ inline void objectPropertiesToJson(
             // generic names for MemberId and Name. Follows Redfish mockup.
             sensorJson["MemberId"] = "0";
             sensorJson["Name"] = "Chassis Power Control";
-            unit = "/PowerConsumedWatts"_json_pointer;
+            unit = "/PowerConsumedWatts";
         }
         else if (boost::ifind_first(sensorName, "input").empty())
         {
-            unit = "/PowerInputWatts"_json_pointer;
+            unit = "/PowerInputWatts";
         }
         else
         {
-            unit = "/PowerOutputWatts"_json_pointer;
+            unit = "/PowerOutputWatts";
         }
     }
     else
@@ -933,82 +933,71 @@ inline void objectPropertiesToJson(
         BMCWEB_LOG_ERROR << "Redfish cannot map object type for " << sensorName;
         return;
     }
+
+    struct PropertyJsonPair
+    {
+        PropertyJsonPair(std::string_view dbusPropertyIn,
+                         std::string_view jsonPtrIn) :
+            dbusPropertyName(dbusPropertyIn),
+            locationToSet(jsonPtrIn)
+        {}
+
+        std::string_view dbusPropertyName;
+        std::string_view locationToSet;
+    };
+
     // Map of dbus interface name, dbus property name and redfish property_name
-    std::vector<
-        std::tuple<const char*, const char*, nlohmann::json::json_pointer>>
-        properties;
+    std::vector<PropertyJsonPair> properties;
     properties.reserve(7);
 
-    properties.emplace_back("xyz.openbmc_project.Sensor.Value", "Value", unit);
+    properties.emplace_back("Value", unit);
 
-    if (chassisSubNode == sensors::node::sensors)
+    if (sensorType != "power")
     {
-        properties.emplace_back(
-            "xyz.openbmc_project.Sensor.Threshold.Warning", "WarningHigh",
-            "/Thresholds/UpperCaution/Reading"_json_pointer);
-        properties.emplace_back(
-            "xyz.openbmc_project.Sensor.Threshold.Warning", "WarningLow",
-            "/Thresholds/LowerCaution/Reading"_json_pointer);
-        properties.emplace_back(
-            "xyz.openbmc_project.Sensor.Threshold.Critical", "CriticalHigh",
-            "/Thresholds/UpperCritical/Reading"_json_pointer);
-        properties.emplace_back(
-            "xyz.openbmc_project.Sensor.Threshold.Critical", "CriticalLow",
-            "/Thresholds/LowerCritical/Reading"_json_pointer);
-    }
-    else if (sensorType != "power")
-    {
-        properties.emplace_back("xyz.openbmc_project.Sensor.Threshold.Warning",
-                                "WarningHigh",
-                                "/UpperThresholdNonCritical"_json_pointer);
-        properties.emplace_back("xyz.openbmc_project.Sensor.Threshold.Warning",
-                                "WarningLow",
-                                "/LowerThresholdNonCritical"_json_pointer);
-        properties.emplace_back("xyz.openbmc_project.Sensor.Threshold.Critical",
-                                "CriticalHigh",
-                                "/UpperThresholdCritical"_json_pointer);
-        properties.emplace_back("xyz.openbmc_project.Sensor.Threshold.Critical",
-                                "CriticalLow",
-                                "/LowerThresholdCritical"_json_pointer);
+        properties.emplace_back("WarningHigh", "/UpperThresholdNonCritical");
+        properties.emplace_back("WarningLow", "/LowerThresholdNonCritical");
+        properties.emplace_back("CriticalHigh", "/UpperThresholdCritical");
+        properties.emplace_back("CriticalLow", "/LowerThresholdCritical");
     }
 
     // TODO Need to get UpperThresholdFatal and LowerThresholdFatal
 
     if (chassisSubNode == sensors::node::sensors)
     {
-        properties.emplace_back("xyz.openbmc_project.Sensor.Value", "MinValue",
-                                "/ReadingRangeMin"_json_pointer);
-        properties.emplace_back("xyz.openbmc_project.Sensor.Value", "MaxValue",
-                                "/ReadingRangeMax"_json_pointer);
+        properties.emplace_back("WarningHigh",
+                                "/Thresholds/UpperCaution/Reading");
+        properties.emplace_back("WarningLow",
+                                "/Thresholds/LowerCaution/Reading");
+        properties.emplace_back("CriticalHigh",
+                                "/Thresholds/UpperCritical/Reading");
+        properties.emplace_back("CriticalLow",
+                                "/Thresholds/LowerCritical/Reading");
+        properties.emplace_back("MinValue", "/ReadingRangeMin");
+        properties.emplace_back("MaxValue", "/ReadingRangeMax");
     }
     else if (sensorType == "temperature")
     {
-        properties.emplace_back("xyz.openbmc_project.Sensor.Value", "MinValue",
-                                "/MinReadingRangeTemp"_json_pointer);
-        properties.emplace_back("xyz.openbmc_project.Sensor.Value", "MaxValue",
-                                "/MaxReadingRangeTemp"_json_pointer);
+        properties.emplace_back("MinValue", "/MinReadingRangeTemp");
+        properties.emplace_back("MaxValue", "/MaxReadingRangeTemp");
     }
     else if (sensorType != "power")
     {
-        properties.emplace_back("xyz.openbmc_project.Sensor.Value", "MinValue",
-                                "/MinReadingRange"_json_pointer);
-        properties.emplace_back("xyz.openbmc_project.Sensor.Value", "MaxValue",
-                                "/MaxReadingRange"_json_pointer);
+        properties.emplace_back("MinValue", "/MinReadingRange");
+        properties.emplace_back("MaxValue", "/MaxReadingRange");
     }
 
-    for (const std::tuple<const char*, const char*,
-                          nlohmann::json::json_pointer>& p : properties)
+    for (const PropertyJsonPair& p : properties)
     {
         for (const auto& [valueName, valueVariant] : propertiesDict)
         {
-            if (valueName != std::get<1>(p))
+            if (valueName != p.dbusPropertyName)
             {
                 continue;
             }
 
             // The property we want to set may be nested json, so use
             // a json_pointer for easy indexing into the json structure.
-            const nlohmann::json::json_pointer& key = std::get<2>(p);
+            nlohmann::json::json_pointer key(std::string(p.locationToSet));
 
             // Attempt to pull the int64 directly
             const int64_t* int64Value = std::get_if<int64_t>(&valueVariant);
