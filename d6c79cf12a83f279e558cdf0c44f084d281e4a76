@@ -18,6 +18,23 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a5006d72_a1b21fee",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-08-10T20:42:54Z",
+      "side": 1,
+      "message": "Abandoning in favor of https://gerrit.openbmc.org/c/openbmc/bmcweb/+/55836 and https://gerrit.openbmc.org/c/openbmc/bmcweb/+/55837, which have now been merged.",
+      "revId": "d6c79cf12a83f279e558cdf0c44f084d281e4a76",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c6a321c0_f1013cdb",
