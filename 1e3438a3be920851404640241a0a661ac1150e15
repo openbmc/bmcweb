@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "34d5c73d_bd3cf307",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-08-10T09:51:48Z",
+      "side": 1,
+      "message": "My bad I wanted to set Ok-To-Test to +1, but set Code-Review instead.\nHow I can retrigger build? Previous one is aborted and I don\u0027t see any new build.",
+      "revId": "1e3438a3be920851404640241a0a661ac1150e15",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
