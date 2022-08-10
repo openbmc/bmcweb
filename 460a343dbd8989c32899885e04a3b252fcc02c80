@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "65a0feb1_161f3226",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 470,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-10T17:26:09Z",
+      "side": 1,
+      "message": "Ack. seems reasonable",
+      "parentUuid": "0b29371b_d012eebf",
+      "range": {
+        "startLine": 470,
+        "startChar": 32,
+        "endLine": 470,
+        "endChar": 51
+      },
+      "revId": "460a343dbd8989c32899885e04a3b252fcc02c80",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a01dd6e7_091f1a56",
         "filename": "redfish-core/lib/sensors.hpp",
         "patchSetId": 4
@@ -49,6 +73,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5448c74d_524654e1",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 514,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-10T17:26:09Z",
+      "side": 1,
+      "message": "the compiler doesn’t think so?  ACK, I can change the name.",
+      "parentUuid": "a01dd6e7_091f1a56",
+      "range": {
+        "startLine": 514,
+        "startChar": 9,
+        "endLine": 514,
+        "endChar": 18
+      },
+      "revId": "460a343dbd8989c32899885e04a3b252fcc02c80",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f830ba95_0b87b99b",
         "filename": "redfish-core/lib/sensors.hpp",
         "patchSetId": 4
@@ -60,6 +108,30 @@
       "writtenOn": "2022-08-10T17:23:56Z",
       "side": 1,
       "message": "nit: \"finishing with $d sensors\"?",
+      "range": {
+        "startLine": 573,
+        "startChar": 71,
+        "endLine": 573,
+        "endChar": 75
+      },
+      "revId": "460a343dbd8989c32899885e04a3b252fcc02c80",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f096cb1e_2e119f02",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 573,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-10T17:26:09Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "f830ba95_0b87b99b",
       "range": {
         "startLine": 573,
         "startChar": 71,
