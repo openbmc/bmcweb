@@ -787,6 +787,47 @@ inline void objectPropertiesToJson(
     const dbus::utility::DBusPropertiesMap& propertiesDict,
     nlohmann::json& sensorJson, InventoryItem* inventoryItem)
 {
+    sensorJson["Status"]["State"] = getState(inventoryItem);
+    sensorJson["Status"]["Health"] =
+        getHealth(sensorJson, propertiesDict, inventoryItem);
+
+    // Parameter to set to override the type we get from dbus, and force it to
+    // int, regardless of what is available.  This is used for schemas like fan,
+    // that require integers, not floats.
+    bool forceToInt = false;
+
+    struct PropertyJsonPair
+    {
+        std::string_view propertyName;
+        nlohmann::json::json_pointer propertyToSet;
+    };
+
+    // Map of dbus interface name, dbus property name and redfish property_name
+    std::vector<PropertyJsonPair> properties;
+    properties.reserve(7);
+
+    if (sensorType != "power")
+    {
+        // Set MemberId and Name for non-power sensors.  For PowerSupplies and
+        // PowerControl, those properties have more general values because
+        // multiple sensors can be stored in the same JSON object.
+        sensorJson["MemberId"] = sensorName;
+        std::replace(sensorName.begin(), sensorName.end(), '_', ' ');
+        sensorJson["Name"] = sensorName;
+        properties.emplace_back("WarningHigh",
+                                "/UpperThresholdNonCritical"_json_pointer);
+        properties.emplace_back("WarningLow",
+                                "/LowerThresholdNonCritical"_json_pointer);
+        properties.emplace_back("CriticalHigh",
+                                "/UpperThresholdCritical"_json_pointer);
+        properties.emplace_back("CriticalLow",
+                                "/LowerThresholdCritical"_json_pointer);
+        properties.emplace_back("MinValue", "/MinReadingRange"_json_pointer);
+        properties.emplace_back("MaxValue", "/MaxReadingRange"_json_pointer);
+    }
+
+    // TODO Need to get UpperThresholdFatal and LowerThresholdFatal
+
     if (chassisSubNode == sensors::node::sensors)
     {
         // For sensors in SensorCollection we set Id instead of MemberId,
@@ -799,29 +840,7 @@ inline void objectPropertiesToJson(
 
         std::replace(sensorName.begin(), sensorName.end(), '_', ' ');
         sensorJson["Name"] = sensorName;
-    }
-    else if (sensorType != "power")
-    {
-        // Set MemberId and Name for non-power sensors.  For PowerSupplies and
-        // PowerControl, those properties have more general values because
-        // multiple sensors can be stored in the same JSON object.
-        sensorJson["MemberId"] = sensorName;
-        std::replace(sensorName.begin(), sensorName.end(), '_', ' ');
-        sensorJson["Name"] = sensorName;
-    }
-
-    sensorJson["Status"]["State"] = getState(inventoryItem);
-    sensorJson["Status"]["Health"] =
-        getHealth(sensorJson, propertiesDict, inventoryItem);
-
-    // Parameter to set to override the type we get from dbus, and force it to
-    // int, regardless of what is available.  This is used for schemas like fan,
-    // that require integers, not floats.
-    bool forceToInt = false;
-
-    nlohmann::json::json_pointer unit("/Reading");
-    if (chassisSubNode == sensors::node::sensors)
-    {
+        properties.emplace_back("Value", "/Reading"_json_pointer);
         sensorJson["@odata.type"] = "#Sensor.v1_2_0.Sensor";
 
         std::string_view readingType = sensors::toReadingType(sensorType);
@@ -829,49 +848,41 @@ inline void objectPropertiesToJson(
         {
             BMCWEB_LOG_ERROR << "Redfish cannot map reading type for "
                              << sensorType;
+            return;
         }
-        else
-        {
-            sensorJson["ReadingType"] = readingType;
-        }
+        sensorJson["ReadingType"] = readingType;
 
         std::string_view readingUnits = sensors::toReadingUnits(sensorType);
         if (readingUnits.empty())
         {
             BMCWEB_LOG_ERROR << "Redfish cannot map reading unit for "
                              << sensorType;
+            return;
         }
-        else
-        {
-            sensorJson["ReadingUnits"] = readingUnits;
-        }
+        sensorJson["ReadingUnits"] = readingUnits;
+        properties.emplace_back(
+            "WarningHigh", "/Thresholds/UpperCaution/Reading"_json_pointer);
+        properties.emplace_back(
+            "WarningLow", "/Thresholds/LowerCaution/Reading"_json_pointer);
+        properties.emplace_back(
+            "CriticalHigh", "/Thresholds/UpperCritical/Reading"_json_pointer);
+        properties.emplace_back(
+            "CriticalLow", "/Thresholds/LowerCritical/Reading"_json_pointer);
+        properties.emplace_back("MinValue", "/ReadingRangeMin"_json_pointer);
+        properties.emplace_back("MaxValue", "/ReadingRangeMax"_json_pointer);
     }
     else if (sensorType == "temperature")
     {
-        unit = "/ReadingCelsius"_json_pointer;
+        properties.emplace_back("Value", "/ReadingCelsius"_json_pointer);
         sensorJson["@odata.type"] = "#Thermal.v1_3_0.Temperature";
-        // TODO(ed) Documentation says that path should be type fan_tach,
-        // implementation seems to implement fan
-    }
-    else if (sensorType == "fan" || sensorType == "fan_tach")
-    {
-        unit = "/Reading"_json_pointer;
-        sensorJson["ReadingUnits"] = "RPM";
-        sensorJson["@odata.type"] = "#Thermal.v1_3_0.Fan";
-        setLedState(sensorJson, inventoryItem);
-        forceToInt = true;
-    }
-    else if (sensorType == "fan_pwm")
-    {
-        unit = "/Reading"_json_pointer;
-        sensorJson["ReadingUnits"] = "Percent";
-        sensorJson["@odata.type"] = "#Thermal.v1_3_0.Fan";
-        setLedState(sensorJson, inventoryItem);
-        forceToInt = true;
+        properties.emplace_back("MinValue",
+                                "/MinReadingRangeTemp"_json_pointer);
+        properties.emplace_back("MaxValue",
+                                "/MaxReadingRangeTemp"_json_pointer);
     }
     else if (sensorType == "voltage")
     {
-        unit = "/ReadingVolts"_json_pointer;
+        properties.emplace_back("Value", "/ReadingVolts"_json_pointer);
         sensorJson["@odata.type"] = "#Power.v1_0_0.Voltage";
     }
     else if (sensorType == "power")
@@ -886,73 +897,40 @@ inline void objectPropertiesToJson(
             // generic names for MemberId and Name. Follows Redfish mockup.
             sensorJson["MemberId"] = "0";
             sensorJson["Name"] = "Chassis Power Control";
-            unit = "/PowerConsumedWatts"_json_pointer;
+            properties.emplace_back("Value",
+                                    "/PowerConsumedWatts"_json_pointer);
         }
         else if (sensorNameLower.find("input") != std::string::npos)
         {
-            unit = "/PowerInputWatts"_json_pointer;
+            properties.emplace_back("Value", "/PowerInputWatts"_json_pointer);
         }
         else
         {
-            unit = "/PowerOutputWatts"_json_pointer;
+            properties.emplace_back("Value", "/PowerOutputWatts"_json_pointer);
         }
+    }
+    else if (sensorType == "fan" || sensorType == "fan_tach")
+    {
+        // TODO(ed) Documentation says that path should be type fan_tach,
+        // implementation seems to implement fan
+        properties.emplace_back("Value", "/Reading"_json_pointer);
+        sensorJson["ReadingUnits"] = "RPM";
+        sensorJson["@odata.type"] = "#Thermal.v1_3_0.Fan";
+        setLedState(sensorJson, inventoryItem);
+        forceToInt = true;
+    }
+    else if (sensorType == "fan_pwm")
+    {
+        properties.emplace_back("Value", "/Reading"_json_pointer);
+        sensorJson["ReadingUnits"] = "Percent";
+        sensorJson["@odata.type"] = "#Thermal.v1_3_0.Fan";
+        setLedState(sensorJson, inventoryItem);
+        forceToInt = true;
     }
     else
     {
         BMCWEB_LOG_ERROR << "Redfish cannot map object type for " << sensorName;
         return;
-    }
-
-    struct PropertyJsonPair
-    {
-        std::string_view propertyName;
-        nlohmann::json::json_pointer propertyToSet;
-    };
-
-    // Map of dbus interface name, dbus property name and redfish property_name
-    std::vector<PropertyJsonPair> properties;
-    properties.reserve(7);
-
-    properties.emplace_back("Value", unit);
-
-    if (sensorType != "power")
-    {
-        properties.emplace_back("WarningHigh",
-                                "/UpperThresholdNonCritical"_json_pointer);
-        properties.emplace_back("WarningLow",
-                                "/LowerThresholdNonCritical"_json_pointer);
-        properties.emplace_back("CriticalHigh",
-                                "/UpperThresholdCritical"_json_pointer);
-        properties.emplace_back("CriticalLow",
-                                "/LowerThresholdCritical"_json_pointer);
-    }
-
-    // TODO Need to get UpperThresholdFatal and LowerThresholdFatal
-
-    if (chassisSubNode == sensors::node::sensors)
-    {
-        properties.emplace_back(
-            "WarningHigh", "/Thresholds/UpperCaution/Reading"_json_pointer);
-        properties.emplace_back(
-            "WarningLow", "/Thresholds/LowerCaution/Reading"_json_pointer);
-        properties.emplace_back(
-            "CriticalHigh", "/Thresholds/UpperCritical/Reading"_json_pointer);
-        properties.emplace_back(
-            "CriticalLow", "/Thresholds/LowerCritical/Reading"_json_pointer);
-        properties.emplace_back("MinValue", "/ReadingRangeMin"_json_pointer);
-        properties.emplace_back("MaxValue", "/ReadingRangeMax"_json_pointer);
-    }
-    else if (sensorType == "temperature")
-    {
-        properties.emplace_back("MinValue",
-                                "/MinReadingRangeTemp"_json_pointer);
-        properties.emplace_back("MaxValue",
-                                "/MaxReadingRangeTemp"_json_pointer);
-    }
-    else if (sensorType != "power")
-    {
-        properties.emplace_back("MinValue", "/MinReadingRange"_json_pointer);
-        properties.emplace_back("MaxValue", "/MaxReadingRange"_json_pointer);
     }
 
     for (const PropertyJsonPair& p : properties)
