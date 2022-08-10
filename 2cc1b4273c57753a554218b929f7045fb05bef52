@@ -34,6 +34,24 @@
       "parentUuid": "3f572279_0d7c6e02",
       "revId": "2cc1b4273c57753a554218b929f7045fb05bef52",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "22a13b64_2be6ede5",
+        "filename": "include/http_utility.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-08-10T17:19:48Z",
+      "side": 1,
+      "message": "\u003e I think we should, although I know that the requestPrefersHtml check works properly on browsers (which presumably send a q value) I kinda wonder why the octet check fails, but the http check doesn\u0027t?\n\nOn the system I tested, on firefox, Accept looks like:\nAccept: text/html,application/xhtml+xml,application/xml;q\u003d0.9,image/avif,image/webp,*/*;q\u003d0.8\n\nSo Html works because it has a separate text/html that does not have a q value.\n\nThe octet check is failing because the any MIME type (*/*) has a q value.",
+      "parentUuid": "dd0a5853_11cf2933",
+      "revId": "2cc1b4273c57753a554218b929f7045fb05bef52",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

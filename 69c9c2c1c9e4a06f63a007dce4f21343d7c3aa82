@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "9d4ccd78_308819b9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-08-10T17:19:48Z",
+      "side": 1,
+      "message": "Here is the GUI code attempting to download the additional data:\nhttps://github.com/openbmc/webui-vue/blob/9b79a6e7e3df3d3cbaf9a7750bbe343628022026/src/views/Logs/EventLogs/EventLogs.vue#L155\nhttps://github.com/openbmc/webui-vue/blob/9b79a6e7e3df3d3cbaf9a7750bbe343628022026/src/locales/en-US.json#L251\n\nToday this results in a 400 Bad Request due to isOctetAccepted failing even though firefox and chrome both have a ,*/*;q\u003d0.8",
+      "parentUuid": "9ce82a77_98fc1c2b",
+      "range": {
+        "startLine": 17,
+        "startChar": 27,
+        "endLine": 17,
+        "endChar": 34
+      },
+      "revId": "69c9c2c1c9e4a06f63a007dce4f21343d7c3aa82",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "a75d8d43_3ebba7d3",
@@ -101,6 +125,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "ba03b4be_ec81403f",
+        "filename": "include/http_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-08-10T17:19:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a37086e0_d4390b8e",
+      "range": {
+        "startLine": 37,
+        "startChar": 9,
+        "endLine": 37,
+        "endChar": 20
+      },
+      "revId": "69c9c2c1c9e4a06f63a007dce4f21343d7c3aa82",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "1563b9be_d9f172fb",
         "filename": "include/http_utility.hpp",
         "patchSetId": 3
@@ -112,6 +160,30 @@
       "writtenOn": "2022-02-03T20:52:19Z",
       "side": 1,
       "message": "Was about to comment this on the last patchset, but you already found it.",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 43
+      },
+      "revId": "69c9c2c1c9e4a06f63a007dce4f21343d7c3aa82",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f6a5ac3_a03f9af4",
+        "filename": "include/http_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-08-10T17:19:48Z",
+      "side": 1,
+      "message": "Ack.",
+      "parentUuid": "1563b9be_d9f172fb",
       "range": {
         "startLine": 41,
         "startChar": 0,
