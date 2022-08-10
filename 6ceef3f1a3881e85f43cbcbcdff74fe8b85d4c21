@@ -16,6 +16,24 @@
       "message": "Where is this association documented?  We have not finalized the dbus model for either core/threads nor the inventory associations.  We should not throw arbitrary strings buried in bmcweb and hope anyone is going to be able to reverse-engineer what is going on.",
       "revId": "6ceef3f1a3881e85f43cbcbcdff74fe8b85d4c21",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aefb7eda_7a4c8311",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 61
+      },
+      "lineNbr": 1096,
+      "author": {
+        "id": 1001369
+      },
+      "writtenOn": "2022-08-10T20:51:04Z",
+      "side": 1,
+      "message": "Thanks for the input. I have raised a CL to document the associations in phosphor-dbus-interfaces\nhttps://gerrit.openbmc.org/c/openbmc/phosphor-dbus-interfaces/+/56395",
+      "parentUuid": "088f8bae_96d13669",
+      "revId": "6ceef3f1a3881e85f43cbcbcdff74fe8b85d4c21",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
