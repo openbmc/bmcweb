@@ -22,6 +22,30 @@
       },
       "revId": "5809968cabb3dd335128f3243531100ffc026d7a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "026e2372_c88a09fe",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 813,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-10T01:03:47Z",
+      "side": 1,
+      "message": "The code changed to string view, which required some change here to use std equivalents (replace_all_copy doesn\u0027t seem to work with string view in my testing).",
+      "parentUuid": "c106c67d_6634c0d3",
+      "range": {
+        "startLine": 813,
+        "startChar": 20,
+        "endLine": 813,
+        "endChar": 34
+      },
+      "revId": "5809968cabb3dd335128f3243531100ffc026d7a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
