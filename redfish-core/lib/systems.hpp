@@ -188,7 +188,7 @@ inline void
 
             if (coreCountPtr == nullptr)
             {
-                coreCount = 0;
+                coreCount = *coreCountVal;
             }
             else
             {
