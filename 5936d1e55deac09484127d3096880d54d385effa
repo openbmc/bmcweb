@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cff212b9_4a251b6d",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 73
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-08-10T06:10:51Z",
+      "side": 1,
+      "message": "Thanks for the feedback. I\u0027ll take a closer look on how to model this to match that spec... if we want to do that.",
+      "parentUuid": "df961557_ab4bc845",
+      "range": {
+        "startLine": 67,
+        "startChar": 0,
+        "endLine": 67,
+        "endChar": 45
+      },
+      "revId": "5936d1e55deac09484127d3096880d54d385effa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "af723a9a_9e32b5df",
         "filename": "redfish-core/lib/storage.hpp",
         "patchSetId": 73
