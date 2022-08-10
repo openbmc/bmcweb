@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c122bcd0_f02754e9",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-10T14:47:55Z",
+      "side": 1,
+      "message": "Rather than add these parameters to every select trie, would it be more efficient to just add them as a special case on line 828 when we actually perform the select?  That way we\u0027re not having to construct strings for them on every select statement, and this code becomes simpler?",
+      "revId": "d2a56efa987c113b80550f9d06966604020e8667",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "01da5e22_de7fd003",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-10T14:47:55Z",
+      "side": 1,
+      "message": "While it does work in this case, this is an example of common error #2",
+      "range": {
+        "startLine": 180,
+        "startChar": 54,
+        "endLine": 180,
+        "endChar": 64
+      },
+      "revId": "d2a56efa987c113b80550f9d06966604020e8667",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
