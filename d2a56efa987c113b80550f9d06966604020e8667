@@ -39,6 +39,30 @@
       },
       "revId": "d2a56efa987c113b80550f9d06966604020e8667",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6823e7cc_5ce87b22",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-08-10T17:40:42Z",
+      "side": 1,
+      "message": "I believe this is from existing code. I have noticed it and am about to send out the fix.",
+      "parentUuid": "01da5e22_de7fd003",
+      "range": {
+        "startLine": 180,
+        "startChar": 54,
+        "endLine": 180,
+        "endChar": 64
+      },
+      "revId": "d2a56efa987c113b80550f9d06966604020e8667",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
