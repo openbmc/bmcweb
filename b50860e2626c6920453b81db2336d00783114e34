@@ -118,6 +118,30 @@
       },
       "revId": "b50860e2626c6920453b81db2336d00783114e34",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "492c9768_38c15342",
+        "filename": "include/http_utility.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-08-10T17:48:20Z",
+      "side": 1,
+      "message": "I could write some more complex code to reject */*;q\u003dFOOBAR, but I am struggling to see the value. We aren\u0027t doing anything with the q-factor weighting (;q\u003d).\n\nTrying to enable this GUI code (download the additional data when there is one):\nhttps://github.com/openbmc/webui-vue/blob/9b79a6e7e3df3d3cbaf9a7750bbe343628022026/src/views/Logs/EventLogs/EventLogs.vue#L155\nhttps://github.com/openbmc/webui-vue/blob/9b79a6e7e3df3d3cbaf9a7750bbe343628022026/src/locales/en-US.json#L251\nThe browser says it accepts all content types, we should honor that, which I think we all agree on. I am just struggling with writing code like \nhttps://github.com/openbmc/bmcweb/blob/d9f6c621036162e9071ce3c3a333b4544c6db870/redfish-core/lib/log_services.hpp#L284\nto do a test for if the q-factor weighting is really between 0-1",
+      "parentUuid": "2f2ceb87_8e1637ef",
+      "range": {
+        "startLine": 40,
+        "startChar": 47,
+        "endLine": 40,
+        "endChar": 51
+      },
+      "revId": "b50860e2626c6920453b81db2336d00783114e34",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
