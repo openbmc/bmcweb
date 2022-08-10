@@ -800,19 +800,6 @@ inline void objectPropertiesToJson(
     const dbus::utility::DBusPropertiesMap& propertiesDict,
     nlohmann::json& sensorJson, InventoryItem* inventoryItem)
 {
-    // Assume values exist as is (10^0 == 1) if no scale exists
-    int64_t scaleMultiplier = 0;
-
-    const int64_t* scale = nullptr;
-
-    const bool success = sdbusplus::unpackPropertiesNoThrow(
-        dbus_utils::UnpackErrorPrinter(), propertiesDict, "Scale", scale);
-
-    if (success && scale != nullptr)
-    {
-        scaleMultiplier = *scale;
-    }
-
     if (chassisSubNode == sensors::node::sensors)
     {
         std::string subNodeEscaped(chassisSubNode);
@@ -1007,38 +994,19 @@ inline void objectPropertiesToJson(
             // a json_pointer for easy indexing into the json structure.
             const nlohmann::json::json_pointer& key = std::get<2>(p);
 
-            // Attempt to pull the int64 directly
-            const int64_t* int64Value = std::get_if<int64_t>(&valueVariant);
-
             const double* doubleValue = std::get_if<double>(&valueVariant);
-            const uint32_t* uValue = std::get_if<uint32_t>(&valueVariant);
-            double temp = 0.0;
-            if (int64Value != nullptr)
+            if (doubleValue == nullptr)
             {
-                temp = static_cast<double>(*int64Value);
-            }
-            else if (doubleValue != nullptr)
-            {
-                temp = *doubleValue;
-            }
-            else if (uValue != nullptr)
-            {
-                temp = *uValue;
-            }
-            else
-            {
-                BMCWEB_LOG_ERROR
-                    << "Got value interface that wasn't int or double";
+                BMCWEB_LOG_ERROR << "Got value interface that wasn't double";
                 continue;
             }
-            temp = temp * std::pow(10, scaleMultiplier);
             if (forceToInt)
             {
-                sensorJson[key] = static_cast<int64_t>(temp);
+                sensorJson[key] = static_cast<int64_t>(*doubleValue);
             }
             else
             {
-                sensorJson[key] = temp;
+                sensorJson[key] = *doubleValue;
             }
         }
     }
