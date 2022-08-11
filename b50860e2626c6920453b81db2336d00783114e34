@@ -142,6 +142,30 @@
       },
       "revId": "b50860e2626c6920453b81db2336d00783114e34",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f48aeab8_b17a427d",
+        "filename": "include/http_utility.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-11T04:42:04Z",
+      "side": 1,
+      "message": "\u003e I could write some more complex code to reject */*;q\u003dFOOBAR, but I am struggling to see the value. We aren\u0027t doing anything with the q-factor weighting (;q\u003d).\n\n\nACK.  I can get behind this \"it\u0027s arguably wrong but not wrong in a way that matters\" logic.  I didn\u0027t mean for this to be a major blocking thing.\n\n\u003e \n\u003e Trying to enable this GUI code (download the additional data when there is one):\n\u003e https://github.com/openbmc/webui-vue/blob/9b79a6e7e3df3d3cbaf9a7750bbe343628022026/src/views/Logs/EventLogs/EventLogs.vue#L155\n\u003e https://github.com/openbmc/webui-vue/blob/9b79a6e7e3df3d3cbaf9a7750bbe343628022026/src/locales/en-US.json#L251\n\u003e The browser says it accepts all content types, we should honor that, which I think we all agree on. I am just struggling with writing code like \n\u003e https://github.com/openbmc/bmcweb/blob/d9f6c621036162e9071ce3c3a333b4544c6db870/redfish-core/lib/log_services.hpp#L284\n\u003e to do a test for if the q-factor weighting is really between 0-1\n\nq-factor was added later, and servers are allowed to ignore it if they choose, right?",
+      "parentUuid": "492c9768_38c15342",
+      "range": {
+        "startLine": 40,
+        "startChar": 47,
+        "endLine": 40,
+        "endChar": 51
+      },
+      "revId": "b50860e2626c6920453b81db2336d00783114e34",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

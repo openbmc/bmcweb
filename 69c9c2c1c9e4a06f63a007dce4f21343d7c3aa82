@@ -48,6 +48,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "7fe0c9d9_17553dc6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-11T04:42:04Z",
+      "side": 1,
+      "message": "I looked at that code, so far as I can tell.... it\u0027s literally trying to do explicitly what we intentionally tried in the API to disallow (downloading a binary payload to a file).  Maybe I misread it?\n\nIf that\u0027s the goal, it\u0027s possible there\u0027s some level of design we need to change here?  I don\u0027t recall the full discussion, but the normal security issue is:\n1. Nefarious user loads executable data into log message\n2. Unsuspecting user downloads, and executes.\n\n\nNow, maybe this is far-fetched these days with OSes not allowing execute by default, but it\u0027s probably worth discussing?",
+      "parentUuid": "9d4ccd78_308819b9",
+      "range": {
+        "startLine": 17,
+        "startChar": 27,
+        "endLine": 17,
+        "endChar": 34
+      },
+      "revId": "69c9c2c1c9e4a06f63a007dce4f21343d7c3aa82",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "a75d8d43_3ebba7d3",
