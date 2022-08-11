@@ -1,5 +1,7 @@
 #pragma once
 
+#include "utils/dbus_utils.hpp"
+
 #include <app.hpp>
 #include <async_resp.hpp>
 #include <boost/system/linux_error.hpp>
@@ -7,6 +9,8 @@
 #include <http_response.hpp>
 #include <query.hpp>
 #include <registries/privilege_registry.hpp>
+#include <sdbusplus/asio/property.hpp>
+#include <sdbusplus/unpack_properties.hpp>
 
 namespace redfish
 {
@@ -622,7 +626,8 @@ static void getCertificateProperties(
 {
     BMCWEB_LOG_DEBUG << "getCertificateProperties Path=" << objectPath
                      << " certId=" << certId << " certURl=" << certURL;
-    crow::connections::systemBus->async_method_call(
+    sdbusplus::asio::getAllProperties(
+        *crow::connections::systemBus, service, objectPath, certs::certPropIntf,
         [asyncResp, certURL, certId,
          name](const boost::system::error_code ec,
                const dbus::utility::DBusPropertiesMap& properties) {
@@ -632,13 +637,36 @@ static void getCertificateProperties(
             messages::resourceNotFound(asyncResp->res, name, certId);
             return;
         }
+
+        const std::string* certificateString = nullptr;
+        const std::vector<std::string>* keyUsage = nullptr;
+        const std::string* issuer = nullptr;
+        const std::string* subject = nullptr;
+        const uint64_t* validNotAfter = nullptr;
+        const uint64_t* validNotBefore = nullptr;
+
+        const bool success = sdbusplus::unpackPropertiesNoThrow(
+            dbus_utils::UnpackErrorPrinter(), properties, "CertificateString",
+            certificateString, "KeyUsage", keyUsage, "Issuer", issuer,
+            "Subject", subject, "ValidNotAfter", validNotAfter,
+            "ValidNotBefore", validNotBefore);
+
+        if (!success)
+        {
+            messages::internalError(asyncResp->res);
+            return;
+        }
+
         asyncResp->res.jsonValue["@odata.id"] = certURL;
         asyncResp->res.jsonValue["@odata.type"] =
             "#Certificate.v1_0_0.Certificate";
         asyncResp->res.jsonValue["Id"] = certId;
         asyncResp->res.jsonValue["Name"] = name;
         asyncResp->res.jsonValue["Description"] = name;
-        for (const auto& property : properties)
+        asyncResp->res.jsonValue["CertificateString"] = "";
+        asyncResp->res.jsonValue["KeyUsage"] = nlohmann::json::array();
+
+        if (certificateString != nullptr)
         {
             if (property.first == "CertificateString")
             {
@@ -702,13 +730,42 @@ static void getCertificateProperties(
                         redfish::time_utils::getDateTimeUint(*value);
                 }
             }
+            asyncResp->res.jsonValue["CertificateString"] = *certificateString;
         }
+
+        if (keyUsage != nullptr)
+        {
+            asyncResp->res.jsonValue["KeyUsage"] = *keyUsage;
+        }
+
+        if (issuer != nullptr)
+        {
+            updateCertIssuerOrSubject(asyncResp->res.jsonValue["Issuer"],
+                                      *issuer);
+        }
+
+        if (subject != nullptr)
+        {
+            updateCertIssuerOrSubject(asyncResp->res.jsonValue["Subject"],
+                                      *subject);
+        }
+
+        if (validNotAfter != nullptr)
+        {
+            asyncResp->res.jsonValue["ValidNotAfter"] =
+                crow::utility::getDateTimeUint(*validNotAfter);
+        }
+
+        if (validNotBefore != nullptr)
+        {
+            asyncResp->res.jsonValue["ValidNotBefore"] =
+                crow::utility::getDateTimeUint(*validNotBefore);
+        }
+
         asyncResp->res.addHeader(
             boost::beast::http::field::location,
             std::string_view(certURL.data(), certURL.size()));
-        },
-        service, objectPath, certs::dbusPropIntf, "GetAll",
-        certs::certPropIntf);
+        });
 }
 
 /**
