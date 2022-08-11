@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b3fab6d4_33ef45d5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000998
+      },
+      "writtenOn": "2022-08-11T15:55:01Z",
+      "side": 1,
+      "message": "This change in this link is abandoned, but I think this specific association is also documented here: https://github.com/openbmc/docs/blob/master/architecture/sensor-architecture.md#association-type-1-linking-a-chassis-to-all-sensors-within-the-chassis",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 77
+      },
+      "revId": "0b7b123bf6ad842f22e6cef4774d114006b38bba",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
