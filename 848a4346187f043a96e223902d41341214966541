@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "930d2d08_70cbb58b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000331
+      },
+      "writtenOn": "2022-08-11T17:24:14Z",
+      "side": 1,
+      "message": "Perhaps an alternative would be to use a pattern/regex to infer the D-Bus sensor category from the Redfish sensor name, such as .*[tT]emp.* -\u003e temperature, .*[vV]out* -\u003e voltage.  I don\u0027t know; that might lead to some false positives.  Just trying to think of an alternative.",
+      "parentUuid": "8ab05ff5_35c08adf",
+      "revId": "848a4346187f043a96e223902d41341214966541",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8a16fd8b_58c54f44",
         "filename": "/COMMIT_MSG",
         "patchSetId": 5
