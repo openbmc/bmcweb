@@ -281,6 +281,23 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "81481afe_c01d998c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-08-11T20:09:03Z",
+      "side": 1,
+      "message": "Do you need any telemetry changes here? Can that be quick part of the test?\n\nE.g.  \n\n/redfish/v1/TelemetryService/MetricDefinitions/Altitude\n{\n\"@odata.id\": \"/redfish/v1/TelemetryService/MetricDefinitions/Altitude\",\n\"@odata.type\": \"#MetricDefinition.v1_0_3.MetricDefinition\",\n\"Id\": \"Altitude\",\n\"IsLinear\": true,\n\"MetricDataType\": \"Decimal\",\n\"MetricProperties\": [\n\"/redfish/v1/Chassis/chassis/Sensors/Altitude/Reading\"\n],\n\"MetricType\": \"Numeric\",\n\"Name\": \"Altitude\",\n\"Units\": \"m\"\n}",
+      "revId": "848a4346187f043a96e223902d41341214966541",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "2787e972_de9512a4",
