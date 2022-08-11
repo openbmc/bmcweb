@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "04c92a99_1c85ad68",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 502,
+      "author": {
+        "id": 1000086
+      },
+      "writtenOn": "2022-08-11T04:44:00Z",
+      "side": 1,
+      "message": "dump create interface used xyz.openbmc_project.Time.EpochTime for the Dump creation time. This data is stored in Micro second format. Any specific reason for no enabling same format in all types of dumps?",
+      "revId": "fde8655fc26a0a68a613740cf60cadfc0e63e092",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
