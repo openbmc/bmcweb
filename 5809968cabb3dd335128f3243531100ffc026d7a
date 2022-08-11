@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8c44b389_f4bf5150",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 790,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-11T04:29:24Z",
+      "side": 1,
+      "message": "Yes I changed it on purpose, because we need a std::string that is mutable.  Making a copy inside the scope is no different than making a copy in the constructor, except that this is less code;",
+      "parentUuid": "bcd85a1d_384e61b4",
+      "range": {
+        "startLine": 790,
+        "startChar": 16,
+        "endLine": 790,
+        "endChar": 26
+      },
+      "revId": "5809968cabb3dd335128f3243531100ffc026d7a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c106c67d_6634c0d3",
         "filename": "redfish-core/lib/sensors.hpp",
         "patchSetId": 4
@@ -85,6 +109,30 @@
       "side": 1,
       "message": "Oh, I as asking the behavior change: sensorJson[\"Id\"] now is something else.",
       "parentUuid": "026e2372_c88a09fe",
+      "range": {
+        "startLine": 813,
+        "startChar": 20,
+        "endLine": 813,
+        "endChar": 34
+      },
+      "revId": "5809968cabb3dd335128f3243531100ffc026d7a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "562ce428_0a3d9344",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 813,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-11T04:29:24Z",
+      "side": 1,
+      "message": "Id is something else because the Id of the sensor has changed in the URI path, which I thought I documented in the commit message, but clearly I didn\u0027t make it clear enough.  Let me add it explicitly in the commit message so it\u0027s more obvious.\n\nACK.",
+      "parentUuid": "33f6f3b9_c1271fbd",
       "range": {
         "startLine": 813,
         "startChar": 20,
