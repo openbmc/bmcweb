@@ -110,6 +110,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "02d745f2_c529c523",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-11T19:19:26Z",
+      "side": 1,
+      "message": "\u003e This seems like confusing change for end users.\n\nThe URI isn\u0027t for end users.  Users should be relying on \"Name\", which through this patch remains the same, and user facing.  Also, in terms of it being confusing, the \"vdd\" portion comes from the naming convention in the per-machine config files, so users that are confused are free to pick less confusing names (given that the dbus path is already namespaced).  This just makes redfish expose more of the confusing dbus.\n\nFor the regex stuff, that scares me a little trying to keep that both correct and up to date with every possible naming convention, especially when users are free to pick their own.  If folks are using the URI ID for anything human facing in a non debug context, that\u0027s a bug in their implementation.\n\n\u003e   You can then search through the returned list of just D-Bus object paths to find the full path to the specified sensor name and do a GetObject on that.\n\nThis is almost exactly what the old code did and the reason it was very slow, because it had to pull hundreds of sensors just to find the one it was looking for.",
+      "parentUuid": "74fc8c66_ee421a05",
+      "revId": "848a4346187f043a96e223902d41341214966541",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8a16fd8b_58c54f44",
         "filename": "/COMMIT_MSG",
         "patchSetId": 5
