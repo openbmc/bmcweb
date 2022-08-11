@@ -141,6 +141,80 @@
       },
       "revId": "5809968cabb3dd335128f3243531100ffc026d7a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6e255cba_c78672ea",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 932,
+      "author": {
+        "id": 1000331
+      },
+      "writtenOn": "2022-08-11T16:11:06Z",
+      "side": 1,
+      "message": "Since you removed the interfaces from the input parameters, should they be removed from the properties vector too?  I don\u0027t think they are being used now.\n\nAs noted below, I am a bit concerned about hitting an issue where two sensor interfaces have a same-named property.  We might not be in that situation right now, but it seems possible in the future.  Maybe not a big enough issue to worry about right now though.",
+      "revId": "5809968cabb3dd335128f3243531100ffc026d7a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6924c5c6_a43fc3dd",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1045,
+      "author": {
+        "id": 1000331
+      },
+      "writtenOn": "2022-08-11T16:11:06Z",
+      "side": 1,
+      "message": "Nit: Not a parameter",
+      "revId": "5809968cabb3dd335128f3243531100ffc026d7a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d7968bc5_3cc381f3",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1048,
+      "author": {
+        "id": 1000331
+      },
+      "writtenOn": "2022-08-11T16:11:06Z",
+      "side": 1,
+      "message": "Nit: Wrong spelling",
+      "range": {
+        "startLine": 1048,
+        "startChar": 10,
+        "endLine": 1048,
+        "endChar": 23
+      },
+      "revId": "5809968cabb3dd335128f3243531100ffc026d7a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "82b75900_7c1c9712",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1059,
+      "author": {
+        "id": 1000331
+      },
+      "writtenOn": "2022-08-11T16:11:06Z",
+      "side": 1,
+      "message": "I think there is a hidden requirement in this design that no two interfaces on a sensor can have the same property name, right?\n\nPreviously the code looked for an interface name + property name.  So it didn\u0027t matter if two interfaces both had a \u0027Value\u0027 property, for example.\n\nNow, if two interfaces happen to have a same-named property, the code many not work properly if I am understanding this.\n\nNot sure how big of a problem this is, but it seems like it would be non-obvious to people making changes to phosphor-dbus-interfaces YAML files.",
+      "revId": "5809968cabb3dd335128f3243531100ffc026d7a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
