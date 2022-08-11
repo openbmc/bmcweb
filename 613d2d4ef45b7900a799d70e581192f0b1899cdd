@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "96fc4c7f_3027c7c9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2022-08-11T07:47:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "35555137_f9ac78db",
+      "revId": "613d2d4ef45b7900a799d70e581192f0b1899cdd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a357afc6_86173501",
@@ -31,6 +49,24 @@
       "writtenOn": "2021-08-02T21:31:37Z",
       "side": 1,
       "message": "Redfish Validator ?",
+      "revId": "613d2d4ef45b7900a799d70e581192f0b1899cdd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d3e7cac5_29ae9603",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2022-08-11T07:47:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a357afc6_86173501",
       "revId": "613d2d4ef45b7900a799d70e581192f0b1899cdd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -70,6 +106,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d5846eb0_98723398",
+        "filename": "redfish-core/lib/hypervisor_system.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2022-08-11T07:47:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "93d4c511_685a1e46",
+      "revId": "613d2d4ef45b7900a799d70e581192f0b1899cdd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "99563819_522caa92",
@@ -101,6 +155,24 @@
       "side": 1,
       "message": "this method is not used, removing",
       "parentUuid": "99563819_522caa92",
+      "revId": "613d2d4ef45b7900a799d70e581192f0b1899cdd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3e6007d0_bbe07f5a",
+        "filename": "redfish-core/lib/hypervisor_system.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2022-08-11T07:47:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5e32dba9_587e7543",
       "revId": "613d2d4ef45b7900a799d70e581192f0b1899cdd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },

@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0bcfbe2d_aea278b1",
+        "filename": "redfish-core/lib/hypervisor_system.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 448,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2022-08-11T07:47:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "20b6583c_9bebaa86",
+      "range": {
+        "startLine": 448,
+        "startChar": 8,
+        "endLine": 448,
+        "endChar": 63
+      },
+      "revId": "4adc37cf5a3a2c75d57e6fa10a6364df8ccba17f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7e2c5956_8de08eea",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-05-31T07:35:22Z",
       "side": 1,
       "message": "Please avoid use brace initialization. See https://gerrit.openbmc.org/c/openbmc/bmcweb/+/52022",
+      "range": {
+        "startLine": 665,
+        "startChar": 22,
+        "endLine": 669,
+        "endChar": 65
+      },
+      "revId": "4adc37cf5a3a2c75d57e6fa10a6364df8ccba17f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "91544661_4d698610",
+        "filename": "redfish-core/lib/hypervisor_system.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 669,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2022-08-11T07:47:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7e2c5956_8de08eea",
       "range": {
         "startLine": 665,
         "startChar": 22,
