@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c1f524f4_b99b729f",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 469,
+      "author": {
+        "id": 1000331
+      },
+      "writtenOn": "2022-08-11T16:45:11Z",
+      "side": 1,
+      "message": "Nit: Doxygen?",
+      "revId": "460a343dbd8989c32899885e04a3b252fcc02c80",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0b29371b_d012eebf",
         "filename": "redfish-core/lib/sensors.hpp",
         "patchSetId": 4
