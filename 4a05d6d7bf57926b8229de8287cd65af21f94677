@@ -87,6 +87,30 @@
       },
       "revId": "4a05d6d7bf57926b8229de8287cd65af21f94677",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7b157d7d_bd9ba207",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-08-11T16:06:36Z",
+      "side": 1,
+      "message": "I see. You kind of already used shared_ptr: AsyncResp.",
+      "parentUuid": "2a03bcc1_05dc61b1",
+      "range": {
+        "startLine": 191,
+        "startChar": 16,
+        "endLine": 191,
+        "endChar": 25
+      },
+      "revId": "4a05d6d7bf57926b8229de8287cd65af21f94677",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
