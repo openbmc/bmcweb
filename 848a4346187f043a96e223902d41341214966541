@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0b851445_34e0d330",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000331
+      },
+      "writtenOn": "2022-08-11T17:39:26Z",
+      "side": 1,
+      "message": "Another option would be to do a GetSubTreePaths call on \"/xyz/openbmc_project/sensors\".  That would be an extra D-Bus call unfortunately, but it should be a lot cheaper and more efficient than calling GetSubTree or GetManagedObjects.  You can then search through the returned list of just D-Bus object paths to find the full path to the specified sensor name and do a GetObject on that.",
+      "parentUuid": "930d2d08_70cbb58b",
+      "revId": "848a4346187f043a96e223902d41341214966541",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8a16fd8b_58c54f44",
         "filename": "/COMMIT_MSG",
         "patchSetId": 5
