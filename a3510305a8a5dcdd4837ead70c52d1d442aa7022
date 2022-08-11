@@ -49,6 +49,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b8e6357c_82e46e6c",
+        "filename": "redfish-core/include/utils/service_utils.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-08-11T06:07:32Z",
+      "side": 1,
+      "message": "One concern is that when the passed serviceName is a local string variable, there will be lifetime issue. the underlying variable will be destoryed before the callback is called.\n\n\u003e std::string::operator string_view\n\u003e It is the programmer\u0027s responsibility to ensure that the resulting string view does not outlive the string.\n\nThough it is not causing any issue in current code as serviceName is `static constexpr const char*`. Shall I add a comment to highlight this?",
+      "parentUuid": "afb9e78a_708ccc30",
+      "range": {
+        "startLine": 28,
+        "startChar": 27,
+        "endLine": 28,
+        "endChar": 33
+      },
+      "revId": "a3510305a8a5dcdd4837ead70c52d1d442aa7022",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "17807da2_86f224a7",
         "filename": "redfish-core/include/utils/service_utils.hpp",
         "patchSetId": 34
@@ -72,6 +96,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0b3aabb7_8771ec16",
+        "filename": "redfish-core/include/utils/service_utils.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-08-11T06:07:32Z",
+      "side": 1,
+      "message": "Setting \"Running\" is to stop/start the service, while setting \"Enabled\" is to enable/disable the service startup.\n\nSimilar to these 2 systemd commands when disabling one on redfish\nsystemctl stop my-service \u0026\u0026 systemctl disable my-service",
+      "parentUuid": "17807da2_86f224a7",
+      "range": {
+        "startLine": 62,
+        "startChar": 0,
+        "endLine": 66,
+        "endChar": 40
+      },
+      "revId": "a3510305a8a5dcdd4837ead70c52d1d442aa7022",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a6aa7028_3a986dd7",
         "filename": "redfish-core/include/utils/service_utils.hpp",
         "patchSetId": 34
@@ -83,6 +131,24 @@
       "writtenOn": "2022-08-11T05:21:32Z",
       "side": 1,
       "message": "should we just return a return code here?  Different usages will need to set different jsonPointers here",
+      "revId": "a3510305a8a5dcdd4837ead70c52d1d442aa7022",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a4fdbbc6_c3899c2a",
+        "filename": "redfish-core/include/utils/service_utils.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-08-11T06:07:32Z",
+      "side": 1,
+      "message": "It\u0027s async function, I think having an extra argument will be better here. Ack.",
+      "parentUuid": "a6aa7028_3a986dd7",
       "revId": "a3510305a8a5dcdd4837ead70c52d1d442aa7022",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
