@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "b235ec35_fd882c37",
         "filename": "/COMMIT_MSG",
@@ -14,10 +15,10 @@
       "side": 1,
       "message": "I think a better summary would be around adding these new properties. E.g. \nSoftwareInventory: Get Updatable and WriteProtected from new D-Bus interface\nor \nPopulate Software.State Updatable and WriteProtected\n\nBumping to 1_3_0 is a 1 line change.",
       "revId": "8e661c8dc43f22a4e11373d81c53a8f31a03d5ba",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "7fee6bf9_504e7b0e",
         "filename": "/COMMIT_MSG",
@@ -32,10 +33,10 @@
       "message": "Done. thanks.",
       "parentUuid": "b235ec35_fd882c37",
       "revId": "8e661c8dc43f22a4e11373d81c53a8f31a03d5ba",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "ece3e2ea_16c9316b",
         "filename": "/COMMIT_MSG",
@@ -55,10 +56,10 @@
         "endChar": 23
       },
       "revId": "8e661c8dc43f22a4e11373d81c53a8f31a03d5ba",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "4fe620eb_cb97d3f8",
         "filename": "/COMMIT_MSG",
@@ -79,10 +80,10 @@
         "endChar": 23
       },
       "revId": "8e661c8dc43f22a4e11373d81c53a8f31a03d5ba",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "8d9f2533_c6a2c90b",
         "filename": "/COMMIT_MSG",
@@ -103,10 +104,10 @@
         "endChar": 23
       },
       "revId": "8e661c8dc43f22a4e11373d81c53a8f31a03d5ba",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "f9944059_939de965",
         "filename": "/COMMIT_MSG",
@@ -120,8 +121,25 @@
       "side": 1,
       "message": "Cool!",
       "revId": "8e661c8dc43f22a4e11373d81c53a8f31a03d5ba",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2f81b7c9_994bc817",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-08-11T03:40:01Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "f9944059_939de965",
+      "revId": "8e661c8dc43f22a4e11373d81c53a8f31a03d5ba",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
