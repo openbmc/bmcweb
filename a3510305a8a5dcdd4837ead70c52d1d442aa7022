@@ -1,0 +1,107 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b3c4a54e_82e1e4b8",
+        "filename": "redfish-core/include/utils/service_utils.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-11T05:21:32Z",
+      "side": 1,
+      "message": "New code should prefer string_view.",
+      "range": {
+        "startLine": 18,
+        "startChar": 25,
+        "endLine": 18,
+        "endChar": 43
+      },
+      "revId": "a3510305a8a5dcdd4837ead70c52d1d442aa7022",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "afb9e78a_708ccc30",
+        "filename": "redfish-core/include/utils/service_utils.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-11T05:21:32Z",
+      "side": 1,
+      "message": "string_view here as well.",
+      "range": {
+        "startLine": 28,
+        "startChar": 27,
+        "endLine": 28,
+        "endChar": 33
+      },
+      "revId": "a3510305a8a5dcdd4837ead70c52d1d442aa7022",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "17807da2_86f224a7",
+        "filename": "redfish-core/include/utils/service_utils.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-11T05:21:32Z",
+      "side": 1,
+      "message": "Why do we need to set both of these?",
+      "range": {
+        "startLine": 62,
+        "startChar": 0,
+        "endLine": 66,
+        "endChar": 40
+      },
+      "revId": "a3510305a8a5dcdd4837ead70c52d1d442aa7022",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a6aa7028_3a986dd7",
+        "filename": "redfish-core/include/utils/service_utils.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-11T05:21:32Z",
+      "side": 1,
+      "message": "should we just return a return code here?  Different usages will need to set different jsonPointers here",
+      "revId": "a3510305a8a5dcdd4837ead70c52d1d442aa7022",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d504d386_cd9a72a5",
+        "filename": "redfish-core/include/utils/service_utils.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-11T05:21:32Z",
+      "side": 1,
+      "message": "This function is too complex to be contained entirely in a lambda.  Please move the logic to a normal method.",
+      "revId": "a3510305a8a5dcdd4837ead70c52d1d442aa7022",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
