@@ -36,6 +36,52 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "4142ab12_cd746c80",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1001292
+      },
+      "writtenOn": "2022-08-11T15:45:36Z",
+      "side": 1,
+      "message": "minor nit...\nmean?",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 5
+      },
+      "revId": "3b52c94d6dc09a562c30554a41cb4ef4db224b85",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "523dcff6_3e1beaee",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1001292
+      },
+      "writtenOn": "2022-08-11T15:45:36Z",
+      "side": 1,
+      "message": "minor nit...this says the same thing twice.  Maybe \"although this will be corrected in the future\"?",
+      "range": {
+        "startLine": 36,
+        "startChar": 23,
+        "endLine": 37,
+        "endChar": 9
+      },
+      "revId": "3b52c94d6dc09a562c30554a41cb4ef4db224b85",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "61a0cb73_4de8d81e",
@@ -49,6 +95,23 @@
       "writtenOn": "2022-08-02T17:09:09Z",
       "side": 1,
       "message": "Pending a test confirmation. Otherwise LGTM",
+      "revId": "3b52c94d6dc09a562c30554a41cb4ef4db224b85",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c5092424_044c66d6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001292
+      },
+      "writtenOn": "2022-08-11T15:45:36Z",
+      "side": 1,
+      "message": "Two minor nits.  Otherwise everything looks good.",
       "revId": "3b52c94d6dc09a562c30554a41cb4ef4db224b85",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
