@@ -72,6 +72,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "f195bed6_99db2585",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-11T04:26:23Z",
+      "side": 1,
+      "message": "I don\u0027t recall that specific conversation, but it\u0027s possible that I misspoke, intended a difference or was plain wrong.  With that said, there\u0027s a few things that differentiate sensors from inventory.\n\n1. There\u0027s realistically only 2 sensor producers, so it\u0027s a lot easier to make assumptions about what each implements compared to inventory, which has 10s of daemons implementing, not all upstream.  ObjectManager is a requirement in the sensor schema, it is not in the inventory schemas (well, until recently).\n2. This patchset does use the same code for all the parsing routines.  There is almost no duplication in the construction of the json object for sensor versus not.  The only primary additive difference is the code to actually do the GetAll call.\n3. This common code is used to construct 3 different schemas (Sensors, Power, Thermal), so in comparison to inventory, which has lots of code with very little reuse between daemons, as well as many more redfish routes to service in the long run (maybe 12 different inventory schemas?), duplication in sensor code doesn\u0027t lead to a large difference in binary size.",
+      "parentUuid": "96d14793_c77e2116",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 7
+      },
+      "revId": "848a4346187f043a96e223902d41341214966541",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "2787e972_de9512a4",
