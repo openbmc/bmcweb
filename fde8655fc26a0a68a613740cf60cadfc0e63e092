@@ -3,6 +3,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f052de7e_f80034b7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-08-11T16:49:15Z",
+      "side": 1,
+      "message": "Could you also link the PDI so reviewers can quickly verify it\u0027s microsecond-precision?",
+      "range": {
+        "startLine": 12,
+        "startChar": 19,
+        "endLine": 12,
+        "endChar": 28
+      },
+      "revId": "fde8655fc26a0a68a613740cf60cadfc0e63e092",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "38b0e729_27d69a4b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-08-11T16:49:15Z",
+      "side": 1,
+      "message": "For this kind of change, please run validator.",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 6
+      },
+      "revId": "fde8655fc26a0a68a613740cf60cadfc0e63e092",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "04c92a99_1c85ad68",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 3
@@ -14,6 +60,24 @@
       "writtenOn": "2022-08-11T04:44:00Z",
       "side": 1,
       "message": "dump create interface used xyz.openbmc_project.Time.EpochTime for the Dump creation time. This data is stored in Micro second format. Any specific reason for no enabling same format in all types of dumps?",
+      "revId": "fde8655fc26a0a68a613740cf60cadfc0e63e092",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6a58ed69_2010ecd6",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 502,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-08-11T16:49:15Z",
+      "side": 1,
+      "message": "I guess it\u0027s just to keep change as minimum as possible. The scope of this change is for FaultLog",
+      "parentUuid": "04c92a99_1c85ad68",
       "revId": "fde8655fc26a0a68a613740cf60cadfc0e63e092",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
