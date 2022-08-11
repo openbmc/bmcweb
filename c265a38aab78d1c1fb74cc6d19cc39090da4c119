@@ -46,6 +46,30 @@
       },
       "revId": "c265a38aab78d1c1fb74cc6d19cc39090da4c119",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "68668211_cc9edace",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 1061,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-11T23:15:18Z",
+      "side": 1,
+      "message": "This means that we need to send patches to all the inventory daemons to make sure they\u0027re adding an ObjectManager at /xyz/openbmc_project/inventory.  Now that the interface is approved, that is the next step.",
+      "parentUuid": "584476d3_a42e9caa",
+      "range": {
+        "startLine": 1061,
+        "startChar": 0,
+        "endLine": 1061,
+        "endChar": 74
+      },
+      "revId": "c265a38aab78d1c1fb74cc6d19cc39090da4c119",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
