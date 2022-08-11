@@ -146,6 +146,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5e717843_b9747d65",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-08-11T19:54:12Z",
+      "side": 1,
+      "message": "I need to more clear with Name and Id and which Name (D-bus or Redfish) I am referring too. Tried to be more clear here. \n\nRedfish IDs can\u0027t be assumed in Redfish (e.g. the path could be /redfish/v1/Chassis/\u003cchassis\u003e/Sensors/1) and Redfish gives other fields to identify a sensor (unfortunately most of those other fields aren\u0027t implemented) and Redfish name is set to the Redfish Id currently.\n\nWith this change it looks like Redfish Id would be temperature_Ambient_2_Temp for an example sensor from above. \nAnd Redfish Name continue to be Ambient_2_Temp, which the GUI would use Name on the Table. I still think we need some rules in https://github.com/openbmc/phosphor-dbus-interfaces/blob/master/yaml/xyz/openbmc_project/Sensor/Value.interface.yaml around D-Bus sensor names. Should the D-Bus sensor name contain the sensor type or not? If it doesn\u0027t then Redfish Name should probably also be temperature_my_sensor.",
+      "parentUuid": "b0f49f10_1157f9b0",
+      "revId": "848a4346187f043a96e223902d41341214966541",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8a16fd8b_58c54f44",
         "filename": "/COMMIT_MSG",
         "patchSetId": 5
