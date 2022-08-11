@@ -92,6 +92,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ea6e41ba_dee84e21",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000331
+      },
+      "writtenOn": "2022-08-11T19:19:24Z",
+      "side": 1,
+      "message": "Another complication, as I noted above, is that some devices provide multiple sensors that fall into a category.  A single voltage regulator may provide two temperature-oriented sensor values, 3 voltage values, 3 current values, etc.  So the sensor object path cannot be as simple as sensors/temperature/vdd1.",
+      "parentUuid": "74fc8c66_ee421a05",
+      "revId": "848a4346187f043a96e223902d41341214966541",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8a16fd8b_58c54f44",
         "filename": "/COMMIT_MSG",
         "patchSetId": 5
