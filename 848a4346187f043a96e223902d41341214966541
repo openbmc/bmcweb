@@ -74,6 +74,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "58f7fe68_8b06cc54",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-08-11T19:18:35Z",
+      "side": 1,
+      "message": "D-Bus: /xyz/openbmc_project/sensors/temperature/\u003csensor\u003e\nRedfish: /redfish/v1/Chassis/\u003cchassis\u003e/Sensors/\u003csensor\u003e\n\nThere is information in the D-Bus path (e.g. this is a temperature sensor) that isn\u0027t in the Redfish path so including temperature in the sensor name makes sense but this is a big change and needs to be documented, should not just be a bmcweb change.",
+      "parentUuid": "74fc8c66_ee421a05",
+      "revId": "848a4346187f043a96e223902d41341214966541",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8a16fd8b_58c54f44",
         "filename": "/COMMIT_MSG",
         "patchSetId": 5
