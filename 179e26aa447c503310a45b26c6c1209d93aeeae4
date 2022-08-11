@@ -16,6 +16,184 @@
       "message": "Haven\u0027t reviewed the latest;  Will try to get to it today or tomorrow.",
       "revId": "179e26aa447c503310a45b26c6c1209d93aeeae4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "42f5f632_fcc103f6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-11T05:15:44Z",
+      "side": 1,
+      "message": "Looking pretty good.",
+      "revId": "179e26aa447c503310a45b26c6c1209d93aeeae4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "51d52716_e8b4c60e",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-11T05:15:44Z",
+      "side": 1,
+      "message": "This doesn\u0027t look used anymore?",
+      "range": {
+        "startLine": 251,
+        "startChar": 0,
+        "endLine": 251,
+        "endChar": 68
+      },
+      "revId": "179e26aa447c503310a45b26c6c1209d93aeeae4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f1daffc_b98d6016",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-11T05:15:44Z",
+      "side": 1,
+      "message": "nit, I think this can be\n\nsegments.emplace_back(*it));\n\nor if that doesn\u0027t work\n\nsegments.emplace_back(std::string_view(it-\u003edata(), it-\u003esize()));\n\n\nBoth will prevent the string copy.",
+      "range": {
+        "startLine": 265,
+        "startChar": 0,
+        "endLine": 265,
+        "endChar": 60
+      },
+      "revId": "179e26aa447c503310a45b26c6c1209d93aeeae4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "43622c77_70600297",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-11T05:15:44Z",
+      "side": 1,
+      "message": "Duplicate?  Maybe make this a real example?",
+      "range": {
+        "startLine": 277,
+        "startChar": 0,
+        "endLine": 277,
+        "endChar": 33
+      },
+      "revId": "179e26aa447c503310a45b26c6c1209d93aeeae4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "247e25f4_a90bf722",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-11T05:15:44Z",
+      "side": 1,
+      "message": "We can review here or in my review, but I don\u0027t want to continue the pattern of allowing easy hardcoding of these things.  I can live with something temporary while we discuss the other patch so long as we\u0027re in agreement that this needs to change in short order after merge.",
+      "range": {
+        "startLine": 317,
+        "startChar": 0,
+        "endLine": 317,
+        "endChar": 54
+      },
+      "revId": "179e26aa447c503310a45b26c6c1209d93aeeae4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6b16a31d_8dd2cf7b",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-11T05:15:44Z",
+      "side": 1,
+      "message": "Do we need to make string copies of all these?  at the very least can we use string_view?",
+      "range": {
+        "startLine": 335,
+        "startChar": 0,
+        "endLine": 337,
+        "endChar": 42
+      },
+      "revId": "179e26aa447c503310a45b26c6c1209d93aeeae4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0847c485_e2176e37",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-11T05:15:44Z",
+      "side": 1,
+      "message": "Is there a way to deduplicate this a little with 310?  we already do most of these comparisons up there, and it looks like the logic could be combined?",
+      "range": {
+        "startLine": 338,
+        "startChar": 0,
+        "endLine": 347,
+        "endChar": 13
+      },
+      "revId": "179e26aa447c503310a45b26c6c1209d93aeeae4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2fdcb61f_911a8272",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-11T05:15:44Z",
+      "side": 1,
+      "message": "as written this needs to be starts_with(\"aggregated_\") (notice the extra underscore) right?",
+      "range": {
+        "startLine": 348,
+        "startChar": 0,
+        "endLine": 348,
+        "endChar": 54
+      },
+      "revId": "179e26aa447c503310a45b26c6c1209d93aeeae4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
