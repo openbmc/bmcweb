@@ -56,6 +56,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "74fc8c66_ee421a05",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-08-11T19:10:01Z",
+      "side": 1,
+      "message": "I don\u0027t like the sensor type in there twice either.\nE.g. \ntemperature_Ambient_2_Temp\ntemperature_vdd1_temperature\n\nI don\u0027t see any documentation in \nhttps://github.com/openbmc/phosphor-dbus-interfaces/blob/master/yaml/xyz/openbmc_project/Sensor/Value.interface.yaml\naround sensor naming, if we did go down this road, we need some. \nE.g. \"the sensor name should be lower case and not contain the sensor type\"?\n\nAs Shawn pointed out sensors had to be unique for Redfish Sensors output so why some contain the sensor type. :/",
+      "parentUuid": "0b851445_34e0d330",
+      "revId": "848a4346187f043a96e223902d41341214966541",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8a16fd8b_58c54f44",
         "filename": "/COMMIT_MSG",
         "patchSetId": 5
