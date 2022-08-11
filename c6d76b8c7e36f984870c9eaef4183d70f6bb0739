@@ -110,6 +110,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b5c3bb95_e23dcca7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-08-11T23:34:01Z",
+      "side": 1,
+      "message": "I have updated it to follow https://www.snia.org/sites/default/files/technical-work/swordfish/draft/v1.2.2/pdf/Swordfish_v1.2.2_NVMeMappingGuide.pdf#page\u003d17\n\nnow.",
+      "parentUuid": "21fbe4af_f180e425",
+      "revId": "c6d76b8c7e36f984870c9eaef4183d70f6bb0739",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7f61c448_088c3900",
         "filename": "redfish-core/lib/chassis.hpp",
         "patchSetId": 11
