@@ -96,6 +96,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "1b52659c_f629e1cd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-11T04:31:42Z",
+      "side": 1,
+      "message": "Once we\u0027ve made the prerequisite patches required for your Memory efficiency patch, lets take a look at it again and like I said before, it\u0027s quite possible I made a mistake about the amount of duplication between the inventory schemas.",
+      "parentUuid": "f195bed6_99db2585",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 7
+      },
+      "revId": "848a4346187f043a96e223902d41341214966541",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "2787e972_de9512a4",
