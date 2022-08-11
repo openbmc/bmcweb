@@ -162,6 +162,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2ff1e19c_7f98dcdb",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 932,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-11T16:27:08Z",
+      "side": 1,
+      "message": "\u003e Since you removed the interfaces from the input parameters, should they be removed from the properties vector too?  I don\u0027t think they are being used now.\n\nYes, but not in this patchset (to keep it small and easy to review).  See:\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/56414/1\n\nWhich does exactly what I think you intended.\n\n\u003e \n\u003e As noted below, I am a bit concerned about hitting an issue where two sensor interfaces have a same-named property.  We might not be in that situation right now, but it seems possible in the future.  Maybe not a big enough issue to worry about right now though.\n\nFWIW, in PDI review, we explicitly take this into account, and try to ensure the uniqueness of the parameter names, so at least for openbmc, that shouldn\u0027t be an issue (also, if it is, it\u0027ll pop up right away).",
+      "parentUuid": "6e255cba_c78672ea",
+      "revId": "5809968cabb3dd335128f3243531100ffc026d7a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6924c5c6_a43fc3dd",
         "filename": "redfish-core/lib/sensors.hpp",
         "patchSetId": 4
@@ -173,6 +191,24 @@
       "writtenOn": "2022-08-11T16:11:06Z",
       "side": 1,
       "message": "Nit: Not a parameter",
+      "revId": "5809968cabb3dd335128f3243531100ffc026d7a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7c51039d_e9f18654",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1045,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-11T16:27:08Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "6924c5c6_a43fc3dd",
       "revId": "5809968cabb3dd335128f3243531100ffc026d7a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -200,6 +236,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c680fbfb_c6c5aa2d",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1048,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-11T16:27:08Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "d7968bc5_3cc381f3",
+      "range": {
+        "startLine": 1048,
+        "startChar": 10,
+        "endLine": 1048,
+        "endChar": 23
+      },
+      "revId": "5809968cabb3dd335128f3243531100ffc026d7a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "82b75900_7c1c9712",
@@ -213,6 +273,24 @@
       "writtenOn": "2022-08-11T16:11:06Z",
       "side": 1,
       "message": "I think there is a hidden requirement in this design that no two interfaces on a sensor can have the same property name, right?\n\nPreviously the code looked for an interface name + property name.  So it didn\u0027t matter if two interfaces both had a \u0027Value\u0027 property, for example.\n\nNow, if two interfaces happen to have a same-named property, the code many not work properly if I am understanding this.\n\nNot sure how big of a problem this is, but it seems like it would be non-obvious to people making changes to phosphor-dbus-interfaces YAML files.",
+      "revId": "5809968cabb3dd335128f3243531100ffc026d7a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cdd60272_c1ee27fc",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1059,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-11T16:27:08Z",
+      "side": 1,
+      "message": "\u003e I think there is a hidden requirement in this design that no two interfaces on a sensor can have the same property name, right?\n\u003e \n\u003e Previously the code looked for an interface name + property name.  So it didn\u0027t matter if two interfaces both had a \u0027Value\u0027 property, for example.\n\u003e \n\u003e Now, if two interfaces happen to have a same-named property, the code many not work properly if I am understanding this.\n\u003e \n\u003e Not sure how big of a problem this is, but it seems like it would be non-obvious to people making changes to phosphor-dbus-interfaces YAML files.\n\n\n\nYep, but that\u0027s always been something we\u0027ve worried about.  My understanding is that for PDI generated servers, they literally can\u0027t have conflicts, or the code fails to compile given that you have two \"get_X\" methods.",
+      "parentUuid": "82b75900_7c1c9712",
       "revId": "5809968cabb3dd335128f3243531100ffc026d7a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
