@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a7e1a2b_388532d7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 87
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2022-08-11T03:21:36Z",
+      "side": 1,
+      "message": "With the last patchset, the dependency on the Progress interface is removed as discussed at discord. I think this is good to get merged now.",
+      "revId": "15090d4f7c146a17a928ad255321afac16d58374",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
