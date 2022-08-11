@@ -164,6 +164,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bfc71d43_c9a521c4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-11T20:38:07Z",
+      "side": 1,
+      "message": "\u003e Should the D-Bus sensor name contain the sensor type or not? \n\nI don\u0027t think we can specify this, as doing it would immediately break a bunch of systems, and one big use case for OpenBMC is \"I want my naming to exactly match my old stack\" which is why the name fields are free-form in the platform config.\n\nEarly in dbus-sensors, we shopped around the idea of \"lets just lock down all the sensor names on a consistent algorithm\" and that flew like a lead balloon.  Folks have strong opinions on naming that I don\u0027t think it\u0027s worth it as a community to try to solve.\n\n\n\u003e if it doesn\u0027t then Redfish Name should probably also be temperature_my_sensor.\n\nI wouldn\u0027t be an advocate for that, because we (the bmcweb maintainers) are messing with a users intent if we change the \"Name\" property from what they gave us.  If a user wants their sensor to be called \"Temperature at the north pole\" they should be allowed to do that, otherwise we\u0027ll end up on santas naughty list.  In a more real case, if a user wanted a name in a totally different language, they could.",
+      "parentUuid": "5e717843_b9747d65",
+      "revId": "848a4346187f043a96e223902d41341214966541",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8a16fd8b_58c54f44",
         "filename": "/COMMIT_MSG",
         "patchSetId": 5
