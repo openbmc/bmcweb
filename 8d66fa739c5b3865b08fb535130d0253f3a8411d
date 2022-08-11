@@ -1,0 +1,141 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4588375e_4fca926f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 19
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1001292
+      },
+      "writtenOn": "2022-08-11T16:24:31Z",
+      "side": 1,
+      "message": "Needs spacing",
+      "range": {
+        "startLine": 10,
+        "startChar": 5,
+        "endLine": 10,
+        "endChar": 14
+      },
+      "revId": "8d66fa739c5b3865b08fb535130d0253f3a8411d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5436fa98_52f69f7e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 19
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1001292
+      },
+      "writtenOn": "2022-08-11T16:24:31Z",
+      "side": 1,
+      "message": "Needs spacing",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 11
+      },
+      "revId": "8d66fa739c5b3865b08fb535130d0253f3a8411d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "659df1d5_0a6dd0b7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 19
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1001292
+      },
+      "writtenOn": "2022-08-11T16:24:31Z",
+      "side": 1,
+      "message": "remove extra space",
+      "range": {
+        "startLine": 18,
+        "startChar": 38,
+        "endLine": 18,
+        "endChar": 40
+      },
+      "revId": "8d66fa739c5b3865b08fb535130d0253f3a8411d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0af5cf7e_542dc124",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 19
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001292
+      },
+      "writtenOn": "2022-08-11T16:24:31Z",
+      "side": 1,
+      "message": "Requesting a few changes and clarifications to this latest draft.",
+      "revId": "8d66fa739c5b3865b08fb535130d0253f3a8411d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e8da5f90_0ec8ce9d",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 521,
+      "author": {
+        "id": 1001292
+      },
+      "writtenOn": "2022-08-11T16:24:31Z",
+      "side": 1,
+      "message": "General comment...when adding a new parameter, the @param to match should be added to the @brief section before each function.  This should be done throughout this file.",
+      "revId": "8d66fa739c5b3865b08fb535130d0253f3a8411d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d9528d5_270b51e4",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 3067,
+      "author": {
+        "id": 1001292
+      },
+      "writtenOn": "2022-08-11T16:24:31Z",
+      "side": 1,
+      "message": "Since we support PCIe devices on a per host basis in a multi-host configuration, wouldn\u0027t this function also need to pass computerSystemIndex?  There are some PCIe devices such as the NIC which can be shared, but some expansion cards are attached to a particular host in the multi-host environment.",
+      "revId": "8d66fa739c5b3865b08fb535130d0253f3a8411d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "36a0be73_f6937ba1",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 3257,
+      "author": {
+        "id": 1001292
+      },
+      "writtenOn": "2022-08-11T16:24:31Z",
+      "side": 1,
+      "message": "Was there a reason to remove the extra line at the end of file?",
+      "revId": "8d66fa739c5b3865b08fb535130d0253f3a8411d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
