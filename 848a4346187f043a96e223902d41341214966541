@@ -128,6 +128,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b0f49f10_1157f9b0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-11T19:22:46Z",
+      "side": 1,
+      "message": "\u003e around sensor naming, if we did go down this road, we need some. \n\nI\u0027m not quite following why this would be required.  The sensor \"Name\" isn\u0027t changing in this patch, only the URI and the associated \"Id\" both of which are under the direction of the Redfish implementation.  The fact that the URI even includes the name at all is an implementation detail, which we could debatably just base64 encode per the spec, but that seems unnecessarily pedantic for debug use cases.",
+      "parentUuid": "02d745f2_c529c523",
+      "revId": "848a4346187f043a96e223902d41341214966541",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8a16fd8b_58c54f44",
         "filename": "/COMMIT_MSG",
         "patchSetId": 5
