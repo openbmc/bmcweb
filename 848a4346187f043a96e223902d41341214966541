@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8ab05ff5_35c08adf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000331
+      },
+      "writtenOn": "2022-08-11T17:18:04Z",
+      "side": 1,
+      "message": "I think several sensor-providing applications already add a type suffix to the D-Bus sensor name.  It is used to differentiate the various sensors from a single device.\n\nFor example, the D-Bus sensor names from the phosphor-regulators app for voltage regulator \u0027vdd1\u0027 are:\n* vdd1_iout\n* vdd1_iout_peak\n* vdd1_iout_valley\n* vdd1_pout\n* vdd1_temperature\n* vdd1_temperature_peak\n* vdd1_vout\n* vdd1_vout_peak\n* vdd1_vout_valley\n\nI see similar D-Bus sensor names from other sensor-providing apps, such as:\n* ps0_temp0\n* Ambient_2_Temp\n\nSensor names had to be unique in the Redfish Sensors output and in the GUI.  There can also be several sensors that fall into the same D-Bus sensor category, such as 3 regulator sensors dealing with voltage.\n\nWith this change, the type will be in the Redfish sensor name/URI twice:\n* current_vdd1_iout\n* temperature_vdd1_temperature\n* voltage_vdd1_vout\n* temperature_Ambient_2_Temp\n\nThis seems like confusing change for end users.",
+      "revId": "848a4346187f043a96e223902d41341214966541",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8a16fd8b_58c54f44",
         "filename": "/COMMIT_MSG",
         "patchSetId": 5
