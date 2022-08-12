@@ -659,6 +659,61 @@ inline std::optional<std::string> formatQueryForExpand(const Query& query)
     return str;
 }
 
+// Propogates the worst error code to the final response.
+// The order of error code is (from high to low)
+// 500 Internal Server Error
+// 511 Network Authentication Required
+// 510 Not Extended
+// 508 Loop Detected
+// 507 Insufficient Storage
+// 506 Variant Also Negotiates
+// 505 HTTP Version Not Supported
+// 504 Gateway Timeout
+// 503 Service Unavailable
+// 502 Bad Gateway
+// 501 Not Implemented
+// 401 Unauthorized
+// 451 - 409 Error codes (not listed explictly)
+// 408 Request Timeout
+// 407 Proxy Authentication Required
+// 406 Not Acceptable
+// 405 Method Not Allowed
+// 404 Not Found
+// 403 Forbidden
+// 402 Payment Required
+// 400 Bad Request
+inline unsigned propogateErrorCode(unsigned finalCode, unsigned subResponseCode)
+{
+    if (subResponseCode == 500 || finalCode == 500)
+    {
+        return 500;
+    }
+    if (subResponseCode > 500 || finalCode > 500)
+    {
+        return std::max(finalCode, subResponseCode);
+    }
+    if (subResponseCode == 401)
+    {
+        return subResponseCode;
+    }
+    return std::max(finalCode, subResponseCode);
+}
+
+// Propogates all error messages into |finalResponse|
+inline void propogateError(crow::Response& finalResponse,
+                           crow::Response& subResponse)
+{
+    // no errors
+    if (subResponse.resultInt() >= 200 && subResponse.resultInt() < 400)
+    {
+        return;
+    }
+    messages::moveErrorsToErrorJson(finalResponse.jsonValue,
+                                    subResponse.jsonValue);
+    finalResponse.result(
+        propogateErrorCode(finalResponse.resultInt(), subResponse.resultInt()));
+}
+
 class MultiAsyncResp : public std::enable_shared_from_this<MultiAsyncResp>
 {
   public:
@@ -683,6 +738,12 @@ class MultiAsyncResp : public std::enable_shared_from_this<MultiAsyncResp>
     void placeResult(const nlohmann::json::json_pointer& locationToPlace,
                      crow::Response& res)
     {
+        BMCWEB_LOG_DEBUG << "placeResult for " << locationToPlace;
+        propogateError(finalRes->res, res);
+        if (!res.jsonValue.is_object() || res.jsonValue.empty())
+        {
+            return;
+        }
         nlohmann::json& finalObj = finalRes->res.jsonValue[locationToPlace];
         finalObj = std::move(res.jsonValue);
     }
