@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b129e72_0f3d722c",
+        "filename": "redfish-core/include/utils/service_utils.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-08-12T10:55:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b3c4a54e_82e1e4b8",
+      "range": {
+        "startLine": 18,
+        "startChar": 25,
+        "endLine": 18,
+        "endChar": 43
+      },
+      "revId": "a3510305a8a5dcdd4837ead70c52d1d442aa7022",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "afb9e78a_708ccc30",
@@ -153,6 +177,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3c8ad438_4515a224",
+        "filename": "redfish-core/include/utils/service_utils.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-08-12T10:55:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a4fdbbc6_c3899c2a",
+      "revId": "a3510305a8a5dcdd4837ead70c52d1d442aa7022",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d504d386_cd9a72a5",
@@ -166,6 +208,24 @@
       "writtenOn": "2022-08-11T05:21:32Z",
       "side": 1,
       "message": "This function is too complex to be contained entirely in a lambda.  Please move the logic to a normal method.",
+      "revId": "a3510305a8a5dcdd4837ead70c52d1d442aa7022",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "315b5207_6bba5c30",
+        "filename": "redfish-core/include/utils/service_utils.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-08-12T10:55:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d504d386_cd9a72a5",
       "revId": "a3510305a8a5dcdd4837ead70c52d1d442aa7022",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
