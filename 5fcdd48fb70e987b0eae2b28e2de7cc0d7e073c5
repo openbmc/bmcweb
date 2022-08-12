@@ -39,6 +39,30 @@
       },
       "revId": "5fcdd48fb70e987b0eae2b28e2de7cc0d7e073c5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f7571776_d39e3b28",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 78
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-08-12T13:59:58Z",
+      "side": 1,
+      "message": "I don\u0027t think we can use `urlFromPieces` for this.\n\n```\n../http/ut/utility_test.cpp:157: Failure\nExpected equality of these values:\n  std::string_view(url.data(), url.size())\n    Which is: \"/redfish/v1/Systems/system/Storage/storage0%23/StorageControllers/2\"\n  \"/redfish/v1/Systems/system/Storage/stroage0#/StorageControllers/2\"\n    Which is: 0x5622fac31f50\n[  FAILED  ] Utility.UrlFromPieces (0 ms)\n```\n\nIt turns `#` into ASCII `%23`.",
+      "parentUuid": "ced37bd2_41e9bcdc",
+      "range": {
+        "startLine": 160,
+        "startChar": 16,
+        "endLine": 161,
+        "endChar": 63
+      },
+      "revId": "5fcdd48fb70e987b0eae2b28e2de7cc0d7e073c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
