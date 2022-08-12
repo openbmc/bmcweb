@@ -370,6 +370,66 @@ TEST(RecursiveSelect, ReservedPropertiesAreSelected)
     }
 }
 
+TEST(PropogateError, IntermediateNoErrorMessageMakesNoChange)
+{
+    crow::Response intermediate;
+    intermediate.result(boost::beast::http::status::ok);
+
+    crow::Response final;
+    final.result(boost::beast::http::status::ok);
+    propogateError(final, intermediate);
+    EXPECT_EQ(final.result(), boost::beast::http::status::ok);
+    EXPECT_EQ(final.jsonValue.find("error"), final.jsonValue.end());
+}
+
+TEST(PropogateError, ErrorsArePropergatedWithErrorCode)
+{
+    crow::Response intermediate;
+    intermediate.result(boost::beast::http::status::internal_server_error);
+
+    nlohmann::json error = R"(
+{
+    "error": {
+        "@Message.ExtendedInfo": [],
+        "code": "Base.1.13.0.InternalError",
+        "message": "The request failed due to an internal service error.  The service is still operational."
+    }
+}
+)"_json;
+    nlohmann::json extendedInfo = R"(
+{
+    "@odata.type": "#Message.v1_1_1.Message",
+    "Message": "The request failed due to an internal service error.  The service is still operational.",
+    "MessageArgs": [],
+    "MessageId": "Base.1.13.0.InternalError",
+    "MessageSeverity": "Critical",
+    "Resolution": "Resubmit the request.  If the problem persists, consider resetting the service."
+}
+)"_json;
+
+    for (int i = 0; i < 10; ++i)
+    {
+        error["error"][messages::messageAnnotation].push_back(extendedInfo);
+    }
+    intermediate.jsonValue = error;
+    crow::Response final;
+    final.result(boost::beast::http::status::ok);
+
+    propogateError(final, intermediate);
+    EXPECT_EQ(final.jsonValue["error"][messages::messageAnnotation],
+              error["error"][messages::messageAnnotation]);
+    std::string errorCode = messages::messageVersionPrefix;
+    errorCode += "GeneralError";
+    std::string errorMessage =
+        "A general error has occurred. See Resolution for "
+        "information on how to resolve the error.";
+    EXPECT_EQ(final.jsonValue["error"]["code"].get<std::string>(), errorCode);
+    EXPECT_EQ(final.jsonValue["error"]["message"].get<std::string>(),
+              errorMessage);
+    EXPECT_EQ(final.result(),
+              boost::beast::http::status::internal_server_error);
+}
+
 TEST(QueryParams, ParseParametersOnly)
 {
     auto ret = boost::urls::parse_relative_ref("/redfish/v1?only");
