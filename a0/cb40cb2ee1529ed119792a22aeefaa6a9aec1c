@@ -1,0 +1,9 @@
+Code-Review+1: Willy Tu <wltu@google.com>
+Code-Review+1: John Wedig <johnwedig@google.com>
+Code-Review+2: Ed Tanous <ed@tanous.net>
+Verified+1: OpenBMC CI <openbmcbump-ci@yahoo.com>
+Submitted-by: Ed Tanous <ed@tanous.net>
+Submitted-at: Fri, 12 Aug 2022 21:54:57 +0000
+Reviewed-on: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/55031
+Project: openbmc/bmcweb
+Branch: refs/heads/master
