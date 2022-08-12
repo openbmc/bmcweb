@@ -51,6 +51,20 @@ static constexpr std::array<std::pair<std::string_view, std::string_view>, 3>
                               {"HTTPS", httpsServiceName},
                               {"IPMI", ipmiServiceName}}};
 
+inline void
+    getServiceStatus(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+{
+    for (const auto& [protocolName, serviceName] : protocolToService)
+    {
+        service_util::getServiceProperties(
+            asyncResp, serviceName,
+            nlohmann::json::json_pointer(std::string("/") + protocolName +
+                                         "/ProtocolEnabled"),
+            nlohmann::json::json_pointer(std::string("/") + protocolName +
+                                         "/Port"));
+    }
+}
+
 inline void extractNTPServersAndDomainNamesData(
     const dbus::utility::ManagedObjectType& dbusData,
     std::vector<std::string>& ntpData, std::vector<std::string>& dnData)
@@ -198,6 +212,7 @@ inline void getNetworkData(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     asyncResp->res.jsonValue["HostName"] = hostName;
 
     getNTPProtocolEnabled(asyncResp);
+    getServiceStatus(asyncResp);
 
     getEthernetIfaceData(
         [hostName, asyncResp](const bool& success,
@@ -234,10 +249,7 @@ inline void getNetworkData(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         asyncResp->res.jsonValue["HTTPS"]["Certificates"]["@odata.id"] =
             "/redfish/v1/Managers/bmc/NetworkProtocol/HTTPS/Certificates";
     }
-
-    getPortStatusAndPath(std::span(networkProtocolToDbus),
-                         std::bind_front(afterNetworkPortRequest, asyncResp));
-} // namespace redfish
+}
 
 inline void handleNTPProtocolEnabled(
     const bool& ntpEnabled, const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
