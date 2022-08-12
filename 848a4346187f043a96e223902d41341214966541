@@ -316,6 +316,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "e26017f6_25af7879",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-12T18:48:31Z",
+      "side": 1,
+      "message": "That\u0027s a really good point, I forgot they pulled this file in.  In the ideal case, some of this file needs broken out into \"sensor utils\" outside the lib folder so that it\u0027s more clear which parts are common between handlers, and which parts are independent.\n\n@krzysztof is there a good set of tests for Telemetry, or some use cases you can recommend?  I\u0027m not very familiar with the TelemetryService stuff, but Gunnar is totally right, I need to do some testing there (and it\u0027s quite possible this patch breaks telemetry service).\n\nI will take a look at this async and try to tease out what changes if any need made there.",
+      "parentUuid": "81481afe_c01d998c",
+      "revId": "848a4346187f043a96e223902d41341214966541",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "2787e972_de9512a4",
