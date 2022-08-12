@@ -23,6 +23,7 @@
 #include "redfish_util.hpp"
 #include "registries/privilege_registry.hpp"
 #include "utils/json_utils.hpp"
+#include "utils/service_utils.hpp"
 #include "utils/stl_utils.hpp"
 
 #include <boost/system/error_code.hpp>
@@ -384,57 +385,6 @@ inline void
     });
 }
 
-inline void
-    handleProtocolEnabled(const bool protocolEnabled,
-                          const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                          const std::string& netBasePath)
-{
-    constexpr std::array<std::string_view, 1> interfaces = {
-        "xyz.openbmc_project.Control.Service.Attributes"};
-    dbus::utility::getSubTree(
-        "/xyz/openbmc_project/control/service", 0, interfaces,
-        [protocolEnabled, asyncResp,
-         netBasePath](const boost::system::error_code& ec,
-                      const dbus::utility::MapperGetSubTreeResponse& subtree) {
-        if (ec)
-        {
-            messages::internalError(asyncResp->res);
-            return;
-        }
-
-        for (const auto& entry : subtree)
-        {
-            if (boost::algorithm::starts_with(entry.first, netBasePath))
-            {
-                sdbusplus::asio::setProperty(
-                    *crow::connections::systemBus, entry.second.begin()->first,
-                    entry.first,
-                    "xyz.openbmc_project.Control.Service.Attributes", "Running",
-                    protocolEnabled,
-                    [asyncResp](const boost::system::error_code& ec2) {
-                    if (ec2)
-                    {
-                        messages::internalError(asyncResp->res);
-                        return;
-                    }
-                });
-                sdbusplus::asio::setProperty(
-                    *crow::connections::systemBus, entry.second.begin()->first,
-                    entry.first,
-                    "xyz.openbmc_project.Control.Service.Attributes", "Enabled",
-                    protocolEnabled,
-                    [asyncResp](const boost::system::error_code& ec2) {
-                    if (ec2)
-                    {
-                        messages::internalError(asyncResp->res);
-                        return;
-                    }
-                });
-            }
-        }
-    });
-}
-
 inline std::string getHostName()
 {
     std::string hostName;
@@ -474,14 +424,6 @@ inline void
     });
 }
 
-inline std::string encodeServiceObjectPath(std::string_view serviceName)
-{
-    sdbusplus::message::object_path objPath(
-        "/xyz/openbmc_project/control/service");
-    objPath /= serviceName;
-    return objPath.str;
-}
-
 inline void handleBmcNetworkProtocolHead(
     crow::App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
@@ -510,16 +452,16 @@ inline void handleManagersNetworkProtocolPatch(
     std::optional<bool> sshEnabled;
 
     // clang-format off
-        if (!json_util::readJsonPatch(
-                req, asyncResp->res,
-                "HostName", newHostName,
-                "NTP/NTPServers", ntpServerObjects,
-                "NTP/ProtocolEnabled", ntpEnabled,
-                "IPMI/ProtocolEnabled", ipmiEnabled,
-                "SSH/ProtocolEnabled", sshEnabled))
-        {
-            return;
-        }
+    if (!json_util::readJsonPatch(
+            req, asyncResp->res,
+            "HostName", newHostName,
+            "NTP/NTPServers", ntpServerObjects,
+            "NTP/ProtocolEnabled", ntpEnabled,
+            "IPMI/ProtocolEnabled", ipmiEnabled,
+            "SSH/ProtocolEnabled", sshEnabled))
+    {
+        return;
+    }
     // clang-format on
 
     asyncResp->res.result(boost::beast::http::status::no_content);
@@ -551,15 +493,14 @@ inline void handleManagersNetworkProtocolPatch(
 
     if (ipmiEnabled)
     {
-        handleProtocolEnabled(
-            *ipmiEnabled, asyncResp,
-            encodeServiceObjectPath(std::string(ipmiServiceName) + '@'));
+        service_util::setEnabled(asyncResp, "IPMI/ProtocolEnabled",
+                                 ipmiServiceName, *ipmiEnabled);
     }
 
     if (sshEnabled)
     {
-        handleProtocolEnabled(*sshEnabled, asyncResp,
-                              encodeServiceObjectPath(sshServiceName));
+        service_util::setEnabled(asyncResp, "SSH/ProtocolEnabled",
+                                 sshServiceName, *sshEnabled);
     }
 }
 
