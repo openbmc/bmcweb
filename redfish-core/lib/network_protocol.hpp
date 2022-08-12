@@ -45,7 +45,8 @@ std::string getHostName();
 inline void
     getServiceStatus(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    service_util::getServiceProperties(asyncResp);
+    service_util::getServiceProperties(
+        asyncResp, service_util::ServiceEntryType::ManagerNetworkProtocol);
 }
 
 inline void extractNTPServersAndDomainNamesData(

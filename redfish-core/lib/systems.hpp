@@ -30,6 +30,7 @@
 #include "utils/dbus_utils.hpp"
 #include "utils/json_utils.hpp"
 #include "utils/pcie_util.hpp"
+#include "utils/service_utils.hpp"
 #include "utils/sw_utils.hpp"
 #include "utils/time_utils.hpp"
 
@@ -47,10 +48,6 @@
 
 namespace redfish
 {
-
-const static std::array<std::pair<std::string_view, std::string_view>, 2>
-    protocolToDBusForSystems{
-        {{"SSH", "obmc-console-ssh"}, {"IPMI", "phosphor-ipmi-net"}}};
 
 /**
  * @brief Updates the Functional State of DIMMs
@@ -2896,6 +2893,23 @@ inline void
     BMCWEB_LOG_DEBUG("EXIT: Set idle power saver parameters");
 }
 
+/**
+ * @brief Retrieves Serial console over properties
+ *
+ * @param[in] aResp     Shared pointer for completing asynchronous calls.
+ *
+ * @return None.
+ */
+inline void
+    getSerialConsoleStatus(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+{
+    service_util::getServiceProperties(
+        asyncResp, service_util::ServiceEntryType::ComputerSystem);
+    // https://github.com/openbmc/docs/blob/master/console.md
+    asyncResp->res.jsonValue["SerialConsole"]["SSH"]["HotKeySequenceDisplay"] =
+        "Press ~. to exit console";
+}
+
 inline void handleComputerSystemCollectionHead(
     crow::App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
@@ -3281,13 +3295,6 @@ inline void
     asyncResp->res.jsonValue["SerialConsole"]["MaxConcurrentSessions"] = 15;
     asyncResp->res.jsonValue["SerialConsole"]["IPMI"]["ServiceEnabled"] = true;
 
-    asyncResp->res.jsonValue["SerialConsole"]["SSH"]["ServiceEnabled"] = true;
-    asyncResp->res.jsonValue["SerialConsole"]["SSH"]["Port"] = 2200;
-    asyncResp->res.jsonValue["SerialConsole"]["SSH"]["HotKeySequenceDisplay"] =
-        "Press ~. to exit console";
-    getPortStatusAndPath(std::span{protocolToDBusForSystems},
-                         std::bind_front(afterPortRequest, asyncResp));
-
 #ifdef BMCWEB_ENABLE_KVM
     // Fill in GraphicalConsole info
     asyncResp->res.jsonValue["GraphicalConsole"]["ServiceEnabled"] = true;
@@ -3352,6 +3359,7 @@ inline void
     getTrustedModuleRequiredToBoot(asyncResp);
     getPowerMode(asyncResp);
     getIdlePowerSaver(asyncResp);
+    getSerialConsoleStatus(asyncResp);
 }
 
 inline void handleComputerSystemPatch(
@@ -3400,6 +3408,8 @@ inline void handleComputerSystemPatch(
     std::optional<uint64_t> ipsEnterTime;
     std::optional<uint8_t> ipsExitUtil;
     std::optional<uint64_t> ipsExitTime;
+    std::optional<bool> serialConsoleSshEnabled;
+    std::optional<uint16_t> serialConsoleSshPort;
 
     // clang-format off
                 if (!json_util::readJsonPatch(
@@ -3422,12 +3432,13 @@ inline void handleComputerSystemPatch(
                         "IdlePowerSaver/EnterUtilizationPercent", ipsEnterUtil,
                         "IdlePowerSaver/EnterDwellTimeSeconds", ipsEnterTime,
                         "IdlePowerSaver/ExitUtilizationPercent", ipsExitUtil,
-                        "IdlePowerSaver/ExitDwellTimeSeconds", ipsExitTime))
+                        "IdlePowerSaver/ExitDwellTimeSeconds", ipsExitTime,
+                        "SerialConsole/SSH/ServiceEnabled", serialConsoleSshEnabled,
+                        "SerialConsole/SSH/Port", serialConsoleSshPort))
                 {
                     return;
                 }
     // clang-format on
-
     asyncResp->res.result(boost::beast::http::status::no_content);
 
     if (assetTag)
@@ -3494,6 +3505,19 @@ inline void handleComputerSystemPatch(
     {
         setIdlePowerSaver(asyncResp, ipsEnable, ipsEnterUtil, ipsEnterTime,
                           ipsExitUtil, ipsExitTime);
+    }
+
+    if (serialConsoleSshEnabled)
+    {
+        service_util::setEnabled(asyncResp, "SerialConsole/SSH/ServiceEnabled",
+                                 serialConsoleSshServiceName,
+                                 *serialConsoleSshEnabled);
+    }
+    if (serialConsoleSshPort)
+    {
+        service_util::setPortNumber(asyncResp, "SerialConsole/SSH/Port",
+                                    serialConsoleSshServiceName,
+                                    *serialConsoleSshPort);
     }
 }
 
