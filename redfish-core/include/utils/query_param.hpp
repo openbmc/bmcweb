@@ -660,6 +660,28 @@ inline std::optional<std::string> formatQueryForExpand(const Query& query)
     return str;
 }
 
+// Returns true if after propogation |finalResponse| contains error messages
+inline bool checkAndPropogateError(crow::Response& finalResponse,
+                                   crow::Response& subResponse)
+{
+    if (finalResponse.resultInt() < 200 || finalResponse.resultInt() >= 400)
+    {
+        return true;
+    }
+    if (subResponse.resultInt() < 200 || subResponse.resultInt() >= 400)
+    {
+        auto errorIt = subResponse.jsonValue.find("error");
+        if (errorIt != subResponse.jsonValue.end())
+        {
+            finalResponse.jsonValue["error"] = std::move(*errorIt);
+            subResponse.jsonValue.erase("error");
+        }
+        finalResponse.result(subResponse.result());
+        return true;
+    }
+    return false;
+}
+
 class MultiAsyncResp : public std::enable_shared_from_this<MultiAsyncResp>
 {
   public:
@@ -684,6 +706,12 @@ class MultiAsyncResp : public std::enable_shared_from_this<MultiAsyncResp>
     void placeResult(const nlohmann::json::json_pointer& locationToPlace,
                      crow::Response& res)
     {
+        BMCWEB_LOG_DEBUG << "placeResult for " << locationToPlace;
+        // already errored out
+        if (checkAndPropogateError(finalRes->res, res))
+        {
+            return;
+        }
         nlohmann::json& finalObj = finalRes->res.jsonValue[locationToPlace];
         finalObj = std::move(res.jsonValue);
     }

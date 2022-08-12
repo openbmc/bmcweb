@@ -364,6 +364,61 @@ TEST(RecursiveSelect, ReservedPropertiesAreSelected)
     EXPECT_EQ(root, expected);
 }
 
+TEST(CheckAndPropogateError, SuccessfulIntermediateResponseReturnsFalse)
+{
+    crow::Response intermediate;
+    intermediate.result(boost::beast::http::status::ok);
+
+    crow::Response final;
+    EXPECT_FALSE(checkAndPropogateError(final, intermediate));
+}
+
+TEST(CheckAndPropogateError,
+     FinalResponseAlreadyErrorOutReturnTrueErrorUnchanged)
+{
+    crow::Response intermediate;
+    intermediate.result(boost::beast::http::status::bad_request);
+
+    crow::Response final;
+    final.result(boost::beast::http::status::not_implemented);
+    nlohmann::json error = R"({"xyz": "123"})"_json;
+    final.jsonValue["error"] = error;
+
+    ASSERT_TRUE(checkAndPropogateError(final, intermediate));
+    EXPECT_EQ(final.jsonValue["error"], error);
+    EXPECT_EQ(final.result(), boost::beast::http::status::not_implemented);
+}
+
+TEST(CheckAndPropogateError,
+     IntermediateResponsePropogatesErrorCodeWithoutMessage)
+{
+    crow::Response intermediate;
+    intermediate.result(boost::beast::http::status::bad_request);
+
+    crow::Response final;
+    final.result(boost::beast::http::status::ok);
+
+    ASSERT_TRUE(checkAndPropogateError(final, intermediate));
+    EXPECT_FALSE(final.jsonValue.contains("error"));
+    EXPECT_EQ(final.result(), boost::beast::http::status::bad_request);
+}
+
+TEST(CheckAndPropogateError, IntermediateResponsePropogatesErrorCodeWithMessage)
+{
+    crow::Response intermediate;
+    intermediate.result(boost::beast::http::status::bad_request);
+    nlohmann::json error = R"({"xyz": "123"})"_json;
+    intermediate.jsonValue["error"] = error;
+
+    crow::Response final;
+    final.result(boost::beast::http::status::ok);
+
+    ASSERT_TRUE(checkAndPropogateError(final, intermediate));
+    EXPECT_EQ(final.jsonValue["error"], error);
+    EXPECT_EQ(final.result(), boost::beast::http::status::bad_request);
+    EXPECT_FALSE(intermediate.jsonValue.contains("error"));
+}
+
 TEST(QueryParams, ParseParametersOnly)
 {
     auto ret = boost::urls::parse_relative_ref("/redfish/v1?only");
