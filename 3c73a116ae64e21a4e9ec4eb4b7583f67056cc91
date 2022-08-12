@@ -1,0 +1,124 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d6771115_e3f37d63",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-12T18:58:17Z",
+      "side": 1,
+      "message": "Lots more details needed here around how you\u0027re propagating errors, and what the intended logic is.\n\nHow are return codes handled?\nhow are error messages handled?\nWhat portions of the spec are we obeying here.",
+      "revId": "3c73a116ae64e21a4e9ec4eb4b7583f67056cc91",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "39c55a9b_3adc0ace",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 664,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-12T18:58:17Z",
+      "side": 1,
+      "message": "nit, do we want to just inline this code?  placeResult is a 4 line function, and given that this is doing things like checking return codes, you\u0027d think you\u0027d want that check in the calling scope.",
+      "range": {
+        "startLine": 664,
+        "startChar": 0,
+        "endLine": 664,
+        "endChar": 65
+      },
+      "revId": "3c73a116ae64e21a4e9ec4eb4b7583f67056cc91",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6acda340_35bb4c29",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 669,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-12T18:58:17Z",
+      "side": 1,
+      "message": "I think we can rely ONLY on the error field existing, we don\u0027t need to check return codes here for anything more than adding.",
+      "revId": "3c73a116ae64e21a4e9ec4eb4b7583f67056cc91",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e6a2dd72_368224cc",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 671,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-12T18:58:17Z",
+      "side": 1,
+      "message": "Duplicated check?",
+      "revId": "3c73a116ae64e21a4e9ec4eb4b7583f67056cc91",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "95e2d3aa_f0b4e0d9",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 676,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-12T18:58:17Z",
+      "side": 1,
+      "message": "This doesn\u0027t function if there are multiple errors.  There\u0027s code in error_messages.cpp that handles this case already, we should just reuse that logic, as we already know it\u0027s \"correct\" to what we intend, and I think handles this with:\n\n1. The first error gets propogated to the top level.\n2. Subsequent errors convert the top level error to a \"GeneralError\" and append the errors to the list.\n\nI think that\u0027s the same behavior we need here.",
+      "range": {
+        "startLine": 676,
+        "startChar": 0,
+        "endLine": 676,
+        "endChar": 67
+      },
+      "revId": "3c73a116ae64e21a4e9ec4eb4b7583f67056cc91",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1dda73ad_a8d87536",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 679,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-12T18:58:17Z",
+      "side": 1,
+      "message": "This needs more logic in it.  what if finalResponse is 500, and subResponse is 200?  The 500 will get overridden, right?\n\nwe probably need to handle it something to the effect of.\n\nIf (subresponse.resultInt() \u003e finalResponse.resultInt){\n   finalResponse.resultInt(subResponse.resultInt);\n}\n\nnow, I\u0027m not sure \u003e is the right operator above, we might need an explicit list of \"X error is greater than Y error\".  For example, 401 might be higher than 404.",
+      "range": {
+        "startLine": 679,
+        "startChar": 0,
+        "endLine": 679,
+        "endChar": 51
+      },
+      "revId": "3c73a116ae64e21a4e9ec4eb4b7583f67056cc91",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
