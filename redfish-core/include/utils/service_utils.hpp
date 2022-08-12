@@ -4,6 +4,7 @@
 #include "dbus_utility.hpp"
 #include "error_messages.hpp"
 
+#include <nlohmann/json.hpp>
 #include <sdbusplus/asio/property.hpp>
 #include <sdbusplus/message/types.hpp>
 
@@ -12,6 +13,15 @@
 
 namespace redfish
 {
+static constexpr std::string_view sshServiceName = "dropbear";
+static constexpr std::string_view httpsServiceName = "bmcweb";
+static constexpr std::string_view ipmiServiceName = "phosphor-ipmi-net";
+
+static constexpr std::array<std::pair<std::string_view, std::string_view>, 3>
+    networkProtocolToDbus = {{{"SSH", sshServiceName},
+                              {"HTTPS", httpsServiceName},
+                              {"IPMI", ipmiServiceName}}};
+
 namespace service_util
 {
 namespace details
@@ -83,6 +93,74 @@ void findMatchedServicePaths(std::string_view serviceName, Callback&& callback)
 }
 
 } // namespace details
+
+inline void afterGetServiceProperties(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code ec,
+    const dbus::utility::ManagedObjectType& objects)
+{
+    if (ec)
+    {
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    for (const auto& [path, interfaces] : objects)
+    {
+        for (const auto& [jsonPropName, serviceName] : networkProtocolToDbus)
+        {
+            if (!details::matchService(path, serviceName))
+            {
+                continue;
+            }
+
+            // For service with multiple instances, use the value of the
+            // first instances found as redfish only supports one, they
+            // should be same
+            for (const auto& [interface, properties] : interfaces)
+            {
+                if (interface ==
+                    "xyz.openbmc_project.Control.Service.Attributes")
+                {
+                    bool running = false;
+                    sdbusplus::unpackPropertiesNoThrow(
+                        dbus_utils::UnpackErrorPrinter(), properties, "Running",
+                        running);
+
+                    asyncResp->res.jsonValue[jsonPropName]["ProtocolEnabled"] =
+                        running;
+                }
+
+                if (interface ==
+                    "xyz.openbmc_project.Control.Service.SocketAttributes")
+                {
+                    uint16_t port = 0;
+                    sdbusplus::unpackPropertiesNoThrow(
+                        dbus_utils::UnpackErrorPrinter(), properties, "Port",
+                        port);
+                    // Port is optional
+                    if (port != 0)
+                    {
+                        asyncResp->res.jsonValue[jsonPropName]["Port"] = port;
+                    }
+                }
+            }
+        }
+    }
+}
+
+inline void
+    getServiceProperties(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+{
+    crow::connections::systemBus->async_method_call(
+        [asyncResp](const boost::system::error_code ec,
+                    const dbus::utility::ManagedObjectType& objects) {
+        afterGetServiceProperties(asyncResp, ec, objects);
+    },
+        "xyz.openbmc_project.Control.Service.Manager",
+        "/xyz/openbmc_project/control/service",
+        "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
+}
 
 inline void afterSetEnabled(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                             std::string_view propertyName, bool enabled,

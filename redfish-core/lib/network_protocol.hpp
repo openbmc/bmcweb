@@ -40,16 +40,13 @@ namespace redfish
 void getNTPProtocolEnabled(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp);
 std::string getHostName();
 
-static constexpr std::string_view sshServiceName = "dropbear";
-static constexpr std::string_view httpsServiceName = "bmcweb";
-static constexpr std::string_view ipmiServiceName = "phosphor-ipmi-net";
-
 // Mapping from Redfish NetworkProtocol key name to backend service that hosts
 // that protocol.
-static constexpr std::array<std::pair<std::string_view, std::string_view>, 3>
-    networkProtocolToDbus = {{{"SSH", sshServiceName},
-                              {"HTTPS", httpsServiceName},
-                              {"IPMI", ipmiServiceName}}};
+inline void
+    getServiceStatus(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+{
+    service_util::getServiceProperties(asyncResp);
+}
 
 inline void extractNTPServersAndDomainNamesData(
     const dbus::utility::ManagedObjectType& dbusData,
@@ -198,6 +195,7 @@ inline void getNetworkData(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     asyncResp->res.jsonValue["HostName"] = hostName;
 
     getNTPProtocolEnabled(asyncResp);
+    getServiceStatus(asyncResp);
 
     getEthernetIfaceData(
         [hostName, asyncResp](const bool& success,
@@ -234,10 +232,7 @@ inline void getNetworkData(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         asyncResp->res.jsonValue["HTTPS"]["Certificates"]["@odata.id"] =
             "/redfish/v1/Managers/bmc/NetworkProtocol/HTTPS/Certificates";
     }
-
-    getPortStatusAndPath(std::span(networkProtocolToDbus),
-                         std::bind_front(afterNetworkPortRequest, asyncResp));
-} // namespace redfish
+}
 
 inline void handleNTPProtocolEnabled(
     const bool& ntpEnabled, const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
