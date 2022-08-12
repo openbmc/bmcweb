@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "29e8579b_8db5c640",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000998
+      },
+      "writtenOn": "2022-08-12T00:13:05Z",
+      "side": 1,
+      "message": "Done. Updated message.",
+      "parentUuid": "76ec5ee2_fc47fb5a",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 6
+      },
+      "revId": "fdbc0b9f32ceb2c1b576817c0d72b281978d36f7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "58eac29f_1a20fcae",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-08-09T23:23:20Z",
       "side": 1,
       "message": "why do you change this?",
+      "range": {
+        "startLine": 1667,
+        "startChar": 4,
+        "endLine": 1667,
+        "endChar": 19
+      },
+      "revId": "fdbc0b9f32ceb2c1b576817c0d72b281978d36f7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "792ebb33_4223b422",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1667,
+      "author": {
+        "id": 1000998
+      },
+      "writtenOn": "2022-08-12T00:13:05Z",
+      "side": 1,
+      "message": "It\u0027s just so we don\u0027t need to also change the array size explicitly every time something gets added to the list. I guess this wasn\u0027t supported before we moved to C++20.",
+      "parentUuid": "58eac29f_1a20fcae",
       "range": {
         "startLine": 1667,
         "startChar": 4,
