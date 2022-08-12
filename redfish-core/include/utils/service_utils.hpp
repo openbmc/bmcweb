@@ -229,5 +229,42 @@ void setEnabled(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         });
 }
 
+void setPortNumber(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                   const std::string& propertyName,
+                   const std::string& serviceName, const uint16_t portNumber)
+{
+    details::findMatchedServices(
+        serviceName,
+        [asyncResp, propertyName, portNumber](
+            const details::FindError error,
+            const dbus::utility::ManagedObjectType::value_type* object) -> int {
+            if (error == details::FindError::DBusError)
+            {
+                messages::internalError(asyncResp->res);
+                return 0;
+            }
+            if (error == details::FindError::NotFound)
+            {
+                // The Redfish property will not be populated in if service is
+                // not found, return PropertyUnknown for PATCH request
+                messages::propertyUnknown(asyncResp->res, propertyName);
+                return 0;
+            }
+
+            sdbusplus::asio::setProperty(
+                *crow::connections::systemBus,
+                "xyz.openbmc_project.Control.Service.Manager", object->first,
+                "xyz.openbmc_project.Control.Service.SocketAttributes", "Port",
+                portNumber, [asyncResp](const boost::system::error_code ec) {
+                    if (ec)
+                    {
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+                });
+            return 0;
+        });
+}
+
 } // namespace service_util
 } // namespace redfish
