@@ -34,6 +34,24 @@
       "parentUuid": "1508cf4c_482fd6a7",
       "revId": "0d7702c0246c5948caf12a3e441f74952c7d0ccf",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a165a017_44f15b4d",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 556,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-08-12T16:44:24Z",
+      "side": 0,
+      "message": "The code move has been merged (https://gerrit.openbmc.org/c/openbmc/bmcweb/+/55468)",
+      "parentUuid": "ca09bf1d_4f75280c",
+      "revId": "0d7702c0246c5948caf12a3e441f74952c7d0ccf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
