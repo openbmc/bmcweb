@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "78c9f804_83e6ecb1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-12T23:06:55Z",
+      "side": 1,
+      "message": "super minor thing, then this looks good.",
+      "revId": "8fc455836c346ed8f77c141d52dcbca345e18631",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ddec8e2e_6317f771",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-12T23:06:55Z",
+      "side": 1,
+      "message": "Looks duplicated now?",
+      "range": {
+        "startLine": 168,
+        "startChar": 0,
+        "endLine": 168,
+        "endChar": 22
+      },
+      "revId": "8fc455836c346ed8f77c141d52dcbca345e18631",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
