@@ -74,7 +74,7 @@ static void addMessageToErrorJson(nlohmann::json& target,
                            "information on how to resolve the error.";
     }
 
-    // This check could technically be done in in the default construction
+    // This check could technically be done in the default construction
     // branch above, but because we need the pointer to the extended info field
     // anyway, it's more efficient to do it here.
     auto& extendedInfo = error[messages::messageAnnotation];
@@ -84,6 +84,39 @@ static void addMessageToErrorJson(nlohmann::json& target,
     }
 
     extendedInfo.push_back(message);
+}
+
+void moveErrorsToErrorJson(nlohmann::json& target, nlohmann::json& source)
+{
+    if (!source.is_object())
+    {
+        return;
+    }
+    auto errorIt = source.find("error");
+    if (errorIt == source.end())
+    {
+        // caller puts error message in root
+        messages::addMessageToErrorJson(target, source);
+        source.clear();
+        return;
+    }
+    auto extendedInfoIt = errorIt->find(messages::messageAnnotation);
+    if (extendedInfoIt == errorIt->end())
+    {
+        return;
+    }
+    const nlohmann::json::array_t* extendedInfo =
+        (*extendedInfoIt).get_ptr<const nlohmann::json::array_t*>();
+    if (extendedInfo == nullptr)
+    {
+        source.erase(errorIt);
+        return;
+    }
+    for (const nlohmann::json& message : *extendedInfo)
+    {
+        addMessageToErrorJson(target, message);
+    }
+    source.erase(errorIt);
 }
 
 static void addMessageToJsonRoot(nlohmann::json& target,
