@@ -72,6 +72,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fed7776e_1d263ef1",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 553,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-08-12T20:21:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1241175a_9d6a6e29",
+      "range": {
+        "startLine": 547,
+        "startChar": 0,
+        "endLine": 553,
+        "endChar": 74
+      },
+      "revId": "c10aa4610b3fba57904a210b6c7cb0b1cd493f6b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "941c7e71_9d93922a",
