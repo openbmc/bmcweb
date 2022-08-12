@@ -22,6 +22,12 @@ static constexpr std::array<std::pair<std::string_view, std::string_view>, 3>
                               {"HTTPS", httpsServiceName},
                               {"IPMI", ipmiServiceName}}};
 
+static constexpr const char* serialConsoleSshServiceName = "obmc-console-ssh";
+
+const static std::array<std::pair<std::string_view, std::string_view>, 2>
+    protocolToDBusForSystems{
+        {{"SSH", serialConsoleSshServiceName}, {"IPMI", ipmiServiceName}}};
+
 namespace service_util
 {
 namespace details
@@ -78,10 +84,16 @@ void findMatchedServicePaths(std::string_view serviceName, Callback&& callback)
 
 } // namespace details
 
+enum class ServiceEntryType
+{
+    ManagerNetworkProtocol,
+    ComputerSystem,
+};
+
 inline void afterGetServiceProperties(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const boost::system::error_code ec,
-    const dbus::utility::ManagedObjectType& objects)
+    const dbus::utility::ManagedObjectType& objects, ServiceEntryType entryType)
 {
     if (ec)
     {
@@ -91,7 +103,17 @@ inline void afterGetServiceProperties(
 
     for (const auto& [path, interfaces] : objects)
     {
-        for (const auto& [jsonPropName, serviceName] : networkProtocolToDbus)
+        std::span<const std::pair<std::string_view, std::string_view>> toCheck;
+        if (entryType == ServiceEntryType::ManagerNetworkProtocol)
+        {
+            toCheck = networkProtocolToDbus;
+        }
+        else
+        {
+            toCheck = protocolToDBusForSystems;
+        }
+
+        for (const auto& [jsonPropName, serviceName] : toCheck)
         {
             if (!details::matchService(path, serviceName))
             {
@@ -134,12 +156,14 @@ inline void afterGetServiceProperties(
 }
 
 inline void
-    getServiceProperties(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+    getServiceProperties(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                         ServiceEntryType entryType)
 {
     crow::connections::systemBus->async_method_call(
-        [asyncResp](const boost::system::error_code ec,
+        [asyncResp,
+         entryType](const boost::system::error_code ec,
                     const dbus::utility::ManagedObjectType& objects) {
-        afterGetServiceProperties(asyncResp, ec, objects);
+        afterGetServiceProperties(asyncResp, ec, objects, entryType);
     },
         "xyz.openbmc_project.Control.Service.Manager",
         "/xyz/openbmc_project/control/service",
