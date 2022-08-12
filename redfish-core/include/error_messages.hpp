@@ -38,6 +38,11 @@ constexpr const char* messageVersionPrefix = "Base.1.11.0.";
 constexpr const char* messageAnnotation = "@Message.ExtendedInfo";
 
 /**
+ * @brief Moves all error messages from the |source| JSON to |target|
+ */
+void moveErrorsToErrorJson(nlohmann::json& target, nlohmann::json& source);
+
+/**
  * @brief Formats ResourceInUse message into JSON
  * Message body: "The change to the requested resource failed because the
  * resource is in use or in transition."
