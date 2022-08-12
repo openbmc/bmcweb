@@ -82,9 +82,9 @@ template <typename Callback>
 void findMatchedServicePaths(std::string_view serviceName, Callback&& callback)
 {
     crow::connections::systemBus->async_method_call(
-        [serviceName{std::string(serviceName)},
-         callback](const boost::system::error_code& ec,
-                   const dbus::utility::ManagedObjectType& objects) {
+        [serviceName{std::string(serviceName)}, callback{std::move(callback)}](
+            const boost::system::error_code& ec,
+            const dbus::utility::ManagedObjectType& objects) {
         afterFindMatchedServicePaths(serviceName, callback, ec, objects);
     },
         "xyz.openbmc_project.Control.Service.Manager",
@@ -209,6 +209,47 @@ inline void setEnabled(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
             const details::FindError& error, const std::string& objectPath) {
         afterSetEnabled(asyncResp, propertyName, enabled, error, objectPath);
     });
+}
+
+inline void
+    afterSetPortNumber(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                       const std::string& propertyName, uint16_t portNumber,
+                       const details::FindError error,
+                       const std::string& objectPath)
+{
+    if (error == details::FindError::DBusError)
+    {
+        messages::internalError(asyncResp->res);
+        return;
+    }
+    if (error == details::FindError::NotFound)
+    {
+        // The Redfish property will not be populated in if service is
+        // not found, return PropertyUnknown for PATCH request
+        messages::propertyUnknown(asyncResp->res, propertyName);
+        return;
+    }
+
+    sdbusplus::asio::setProperty(
+        *crow::connections::systemBus,
+        "xyz.openbmc_project.Control.Service.Manager", objectPath,
+        "xyz.openbmc_project.Control.Service.SocketAttributes", "Port",
+        portNumber, [asyncResp](const boost::system::error_code ec) {
+        if (ec)
+        {
+            messages::internalError(asyncResp->res);
+            return;
+        }
+    });
+}
+
+inline void setPortNumber(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                          std::string_view propertyName,
+                          std::string_view serviceName, uint16_t portNumber)
+{
+    details::findMatchedServicePaths(
+        serviceName, std::bind_front(afterSetPortNumber, asyncResp,
+                                     std::string(propertyName), portNumber));
 }
 
 } // namespace service_util
