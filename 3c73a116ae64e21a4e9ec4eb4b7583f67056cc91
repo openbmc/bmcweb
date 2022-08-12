@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "22bcb9a3_6b9934d4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-12T19:31:36Z",
+      "side": 1,
+      "message": "\u003e This means finalResponse only respects the first error.\n\nThe last time this issue came up, that wasn\u0027t the conclusion, because we should be propogating all errors to the user.  Please take a look at the existing code, I think it can be reused as-is, and the behavior is already what we want I think.\n\n\u003e Is this behavior in the spec? \n\nYes, and this is the behavior bmcweb uses elsewhere, that had a lot of discussion put into it including talking with DMTF many years ago.  If we\u0027re breaking that behavior, I\u0027d like us to be clear WHY we\u0027re doing something different in expand compared to when we do async aggregation of errors.",
+      "parentUuid": "7b5b7e45_d54e9c34",
+      "revId": "3c73a116ae64e21a4e9ec4eb4b7583f67056cc91",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "39c55a9b_3adc0ace",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 2
@@ -107,6 +125,24 @@
       "side": 1,
       "message": "No. here is subResponse, the above is finalResponse",
       "parentUuid": "e6a2dd72_368224cc",
+      "revId": "3c73a116ae64e21a4e9ec4eb4b7583f67056cc91",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8ebe8481_f67fdc53",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 671,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-12T19:31:36Z",
+      "side": 1,
+      "message": "You\u0027re right, I missed that.  ACK.",
+      "parentUuid": "65384770_4a41efd8",
       "revId": "3c73a116ae64e21a4e9ec4eb4b7583f67056cc91",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
