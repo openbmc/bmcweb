@@ -660,6 +660,27 @@ inline std::optional<std::string> formatQueryForExpand(const Query& query)
     return str;
 }
 
+// Propogates all error messages into |finalResponse|
+inline void propogateError(crow::Response& finalResponse,
+                           crow::Response& subResponse)
+{
+    auto errorIt = subResponse.jsonValue.find("error");
+    if (errorIt == subResponse.jsonValue.end())
+    {
+        return;
+    }
+    messages::appendErrorsToErrorJson(finalResponse.jsonValue, *errorIt);
+    // avoid placing errors into subresponse
+    subResponse.jsonValue.erase(errorIt);
+
+    // TODO: combining error codes needs more clarification; we use the largest
+    // number as for now
+    if (finalResponse.resultInt() < subResponse.resultInt())
+    {
+        finalResponse.result(subResponse.result());
+    }
+}
+
 class MultiAsyncResp : public std::enable_shared_from_this<MultiAsyncResp>
 {
   public:
@@ -684,6 +705,12 @@ class MultiAsyncResp : public std::enable_shared_from_this<MultiAsyncResp>
     void placeResult(const nlohmann::json::json_pointer& locationToPlace,
                      crow::Response& res)
     {
+        BMCWEB_LOG_DEBUG << "placeResult for " << locationToPlace;
+        propogateError(finalRes->res, res);
+        if (!res.jsonValue.is_object())
+        {
+            return;
+        }
         nlohmann::json& finalObj = finalRes->res.jsonValue[locationToPlace];
         finalObj = std::move(res.jsonValue);
     }
