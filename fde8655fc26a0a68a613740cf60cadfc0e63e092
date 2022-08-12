@@ -98,6 +98,24 @@
       "parentUuid": "6a58ed69_2010ecd6",
       "revId": "fde8655fc26a0a68a613740cf60cadfc0e63e092",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2cf03bd5_6d2b9707",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 502,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-08-12T06:06:51Z",
+      "side": 1,
+      "message": "While testing today on my test system I saw that BMC dump and System dump are only populating the timestamp in D-Bus with second-precision.\n\nThe timestamp retrieval code in phosphor-debug-collector (dump_manager_system.cpp / dump_manager_bmc.cpp) is:\n\n\"std::time_t timeStamp \u003d std::time(nullptr);\"\n\nI believe std::time() typically returns seconds.\n\nSo I suggest we keep this patchset to be specific to fault log. After we update the back end code for System and BMC dumps to populate timestamps with microsecond-precision, we can create another patchset to output microsecond timestamps for all dump types. Is that okay?",
+      "parentUuid": "fb03fc3a_39b7b5d6",
+      "revId": "fde8655fc26a0a68a613740cf60cadfc0e63e092",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
