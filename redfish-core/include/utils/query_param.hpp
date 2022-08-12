@@ -660,6 +660,42 @@ inline std::optional<std::string> formatQueryForExpand(const Query& query)
     return str;
 }
 
+// Propogates the worst error code to the final response.
+inline unsigned propogateErrorCode(unsigned finalCode, unsigned subResponseCode)
+{
+    if (subResponseCode == 500 || finalCode == 500)
+    {
+        return 500;
+    }
+    if (subResponseCode > 500 || finalCode > 500)
+    {
+        return std::max(finalCode, subResponseCode);
+    }
+    if (subResponseCode == 401)
+    {
+        return subResponseCode;
+    }
+    return std::max(finalCode, subResponseCode);
+}
+
+// Propogates all error messages into |finalResponse|
+inline void propogateError(crow::Response& finalResponse,
+                           crow::Response& subResponse)
+{
+    auto errorIt = subResponse.jsonValue.find("error");
+    if (errorIt == subResponse.jsonValue.end())
+    {
+        return;
+    }
+    messages::appendErrorsToErrorJson(finalResponse.jsonValue, *errorIt);
+    // avoid placing errors into subresponse
+    subResponse.jsonValue.erase(errorIt);
+
+    // TODO: get this into the Redfish spec of $expand?
+    finalResponse.result(
+        propogateErrorCode(finalResponse.resultInt(), subResponse.resultInt()));
+}
+
 class MultiAsyncResp : public std::enable_shared_from_this<MultiAsyncResp>
 {
   public:
@@ -684,6 +720,12 @@ class MultiAsyncResp : public std::enable_shared_from_this<MultiAsyncResp>
     void placeResult(const nlohmann::json::json_pointer& locationToPlace,
                      crow::Response& res)
     {
+        BMCWEB_LOG_DEBUG << "placeResult for " << locationToPlace;
+        propogateError(finalRes->res, res);
+        if (!res.jsonValue.is_object())
+        {
+            return;
+        }
         nlohmann::json& finalObj = finalRes->res.jsonValue[locationToPlace];
         finalObj = std::move(res.jsonValue);
     }

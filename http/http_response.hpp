@@ -92,6 +92,11 @@ struct Response
         return *this;
     }
 
+    void result(unsigned v)
+    {
+        stringResponse->result(v);
+    }
+
     void result(boost::beast::http::status v)
     {
         stringResponse->result(v);
