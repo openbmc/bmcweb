@@ -182,6 +182,24 @@
       "parentUuid": "2cf03bd5_6d2b9707",
       "revId": "fde8655fc26a0a68a613740cf60cadfc0e63e092",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "def5285e_5582e39b",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 502,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-12T22:31:57Z",
+      "side": 1,
+      "message": "my take:\n1. BMC dump and system dump publishing EpochTime as seconds resolution is a bug.  That needs brought up with those that wrote the code so they can get it corrected.\n2. I\u0027m ok with this patchset only increasing the resolution for the existing, but we should add a comment that the other loggers don\u0027t do this correctly.\n3. I think this code breaks the existing loggers (see other comment).  I could be wrong, but if the old code worked, and we\u0027re not changing parseDumpEntryFromDbusObject, presumably the dump implementations aren\u0027t going to just change.",
+      "parentUuid": "d12f9c99_765a4266",
+      "revId": "fde8655fc26a0a68a613740cf60cadfc0e63e092",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
