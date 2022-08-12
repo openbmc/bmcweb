@@ -16,6 +16,23 @@
       "message": "With the last patchset, the dependency on the Progress interface is removed as discussed at discord. I think this is good to get merged now.",
       "revId": "15090d4f7c146a17a928ad255321afac16d58374",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b9eb77d_89d3f70e",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 87
+      },
+      "lineNbr": 675,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-08-12T02:34:38Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this be an internal error? Like we have the status but it doesn\u0027t have the correct type",
+      "revId": "15090d4f7c146a17a928ad255321afac16d58374",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
