@@ -96,6 +96,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2a3e3744_13b30a54",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 553,
+      "author": {
+        "id": 1001138
+      },
+      "writtenOn": "2022-08-12T22:02:43Z",
+      "side": 1,
+      "message": "Before populating \"Actions\" I am checking whether a drive is resettable.",
+      "parentUuid": "1241175a_9d6a6e29",
+      "range": {
+        "startLine": 547,
+        "startChar": 0,
+        "endLine": 553,
+        "endChar": 74
+      },
+      "revId": "c10aa4610b3fba57904a210b6c7cb0b1cd493f6b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "941c7e71_9d93922a",
@@ -133,6 +157,30 @@
       "side": 1,
       "message": "https://github.com/openbmc/phosphor-dbus-interfaces/blob/master/yaml/xyz/openbmc_project/State/Drive.interface.yaml\n\nThe Transition is the `State.Drive` and the `State.Drive.Transition` is one of the property for RequestedDriveTransition.\n\nThe actions supported is checked in `requestDriveResetAction`.",
       "parentUuid": "941c7e71_9d93922a",
+      "range": {
+        "startLine": 613,
+        "startChar": 0,
+        "endLine": 614,
+        "endChar": 71
+      },
+      "revId": "c10aa4610b3fba57904a210b6c7cb0b1cd493f6b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "79f4ae86_1b571eba",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 614,
+      "author": {
+        "id": 1001138
+      },
+      "writtenOn": "2022-08-12T22:02:43Z",
+      "side": 1,
+      "message": "Please take a look at the updated code.\n \nThis is searching for subtrees under /xyz/openbmc_project/inventory that implements\nxyz.openbmc_project.State.Drive interface. So as I understand, if a drive doesn\u0027t implement xyz.openbmc_project.State.Drive interface this will fail with resourceNotFound.",
+      "parentUuid": "1a8b4aec_f4287055",
       "range": {
         "startLine": 613,
         "startChar": 0,
@@ -274,6 +322,30 @@
       "side": 1,
       "message": "My thinking is that only drive that exist will get expose this URI. Maybe that is not correct. Let me take a closer look.",
       "parentUuid": "89cd74d4_3dd940ac",
+      "range": {
+        "startLine": 738,
+        "startChar": 0,
+        "endLine": 738,
+        "endChar": 68
+      },
+      "revId": "c10aa4610b3fba57904a210b6c7cb0b1cd493f6b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "920a9baa_df461b92",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 738,
+      "author": {
+        "id": 1001138
+      },
+      "writtenOn": "2022-08-12T22:02:43Z",
+      "side": 1,
+      "message": "Please take a look at the updated code.\n\n/redfish/v1/Systems/system/Storage/1/Drives/{}/Actions/Drive.Reset will not show up on Drive unless the drive is resettable.\n\nIf no drive is present,\n\n```\nwget --some_flags http://{port}/redfish/v1/Systems/system/Storage/1/Drives/{aDriveName}\n```\n\nwill return\n\n```\nwget: server returned error: HTTP/1.1 404 Not Found\n```",
+      "parentUuid": "1976cf37_59128a5d",
       "range": {
         "startLine": 738,
         "startChar": 0,
