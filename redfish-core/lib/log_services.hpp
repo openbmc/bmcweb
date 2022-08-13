@@ -2561,56 +2561,17 @@ inline void requestRoutesSystemDumpService(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/LogServices/Dump/")
         .privileges(redfish::privileges::getLogService)
-        .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-        if (!redfish::setUpRedfishRoute(app, req, asyncResp))
-        {
-            return;
-        }
-        asyncResp->res.jsonValue["@odata.id"] =
-            "/redfish/v1/Systems/system/LogServices/Dump";
-        asyncResp->res.jsonValue["@odata.type"] =
-            "#LogService.v1_2_0.LogService";
-        asyncResp->res.jsonValue["Name"] = "Dump LogService";
-        asyncResp->res.jsonValue["Description"] = "System Dump LogService";
-        asyncResp->res.jsonValue["Id"] = "Dump";
-        asyncResp->res.jsonValue["OverWritePolicy"] = "WrapsWhenFull";
-
-        std::pair<std::string, std::string> redfishDateTimeOffset =
-            crow::utility::getDateTimeOffsetNow();
-        asyncResp->res.jsonValue["DateTime"] = redfishDateTimeOffset.first;
-        asyncResp->res.jsonValue["DateTimeLocalOffset"] =
-            redfishDateTimeOffset.second;
-
-        asyncResp->res.jsonValue["Entries"]["@odata.id"] =
-            "/redfish/v1/Systems/system/LogServices/Dump/Entries";
-        asyncResp->res.jsonValue["Actions"]["#LogService.ClearLog"]["target"] =
-            "/redfish/v1/Systems/system/LogServices/Dump/Actions/LogService.ClearLog";
-
-        asyncResp->res.jsonValue["Actions"]["#LogService.CollectDiagnosticData"]
-                                ["target"] =
-            "/redfish/v1/Systems/system/LogServices/Dump/Actions/LogService.CollectDiagnosticData";
-        });
+        .methods(boost::beast::http::verb::get)(std::bind_front(
+            handleLogServicesDumpServiceGet, std::ref(app), "System"));
 }
 
 inline void requestRoutesSystemDumpEntryCollection(App& app)
 {
-
-    /**
-     * Functions triggers appropriate requests on DBus
-     */
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/LogServices/Dump/Entries/")
         .privileges(redfish::privileges::getLogEntryCollection)
         .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-        if (!redfish::setUpRedfishRoute(app, req, asyncResp))
-        {
-            return;
-        }
-        getDumpEntryCollection(asyncResp, "System");
-        });
+            std::bind_front(handleLogServicesDumpEntriesCollectionGet,
+                            std::ref(app), "System"));
 }
 
 inline void requestRoutesSystemDumpEntry(App& app)
@@ -2618,31 +2579,14 @@ inline void requestRoutesSystemDumpEntry(App& app)
     BMCWEB_ROUTE(app,
                  "/redfish/v1/Systems/system/LogServices/Dump/Entries/<str>/")
         .privileges(redfish::privileges::getLogEntry)
-
-        .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                   const std::string& param) {
-        if (!redfish::setUpRedfishRoute(app, req, asyncResp))
-        {
-            return;
-        }
-        getDumpEntryById(asyncResp, param, "System");
-        });
+        .methods(boost::beast::http::verb::get)(std::bind_front(
+            handleLogServicesDumpEntryGet, std::ref(app), "System"));
 
     BMCWEB_ROUTE(app,
                  "/redfish/v1/Systems/system/LogServices/Dump/Entries/<str>/")
         .privileges(redfish::privileges::deleteLogEntry)
-        .methods(boost::beast::http::verb::delete_)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                   const std::string& param) {
-        if (!redfish::setUpRedfishRoute(app, req, asyncResp))
-        {
-            return;
-        }
-        deleteDumpEntry(asyncResp, param, "system");
-        });
+        .methods(boost::beast::http::verb::delete_)(std::bind_front(
+            handleLogServicesDumpEntryDelete, std::ref(app), "System"));
 }
 
 inline void requestRoutesSystemDumpCreate(App& app)
@@ -2652,14 +2596,8 @@ inline void requestRoutesSystemDumpCreate(App& app)
         "/redfish/v1/Systems/system/LogServices/Dump/Actions/LogService.CollectDiagnosticData/")
         .privileges(redfish::privileges::postLogService)
         .methods(boost::beast::http::verb::post)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-        if (!redfish::setUpRedfishRoute(app, req, asyncResp))
-        {
-            return;
-        }
-        createDump(asyncResp, req, "System");
-        });
+            std::bind_front(handleLogServicesDumpCollectDiagnosticDataPost,
+                            std::ref(app), "System"));
 }
 
 inline void requestRoutesSystemDumpClear(App& app)
@@ -2668,17 +2606,8 @@ inline void requestRoutesSystemDumpClear(App& app)
         app,
         "/redfish/v1/Systems/system/LogServices/Dump/Actions/LogService.ClearLog/")
         .privileges(redfish::privileges::postLogService)
-        .methods(boost::beast::http::verb::post)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
-
-            {
-        if (!redfish::setUpRedfishRoute(app, req, asyncResp))
-        {
-            return;
-        }
-        clearDump(asyncResp, "System");
-        });
+        .methods(boost::beast::http::verb::post)(std::bind_front(
+            handleLogServicesDumpClearLogPost, std::ref(app), "System"));
 }
 
 inline void requestRoutesCrashdumpService(App& app)
