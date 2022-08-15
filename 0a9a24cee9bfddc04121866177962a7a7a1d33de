@@ -65,6 +65,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "69ab3eef_0a12e4b1",
+        "filename": "redfish-core/src/error_messages.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-08-15T20:35:47Z",
+      "side": 1,
+      "message": "Resolved for now. Please reopen if you don\u0027t agree.",
+      "parentUuid": "b829400c_6742dc69",
+      "range": {
+        "startLine": 83,
+        "startChar": 0,
+        "endLine": 83,
+        "endChar": 27
+      },
+      "revId": "0a9a24cee9bfddc04121866177962a7a7a1d33de",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "420d4998_02539435",
@@ -78,6 +102,24 @@
       "writtenOn": "2022-08-15T19:47:06Z",
       "side": 1,
       "message": "I don\u0027t think this handles all the cases.  An individual caller might:\n1. Put the error code on the root of the object\n2. Put the error code under the \"errors\" array.\n\nI think we need to search first at the root, looking for GeneralError.  If GeneralError is set, we need to iterate the error array.  If the root error is something other than GeneralError, we need to append that directly.",
+      "revId": "0a9a24cee9bfddc04121866177962a7a7a1d33de",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e2ac0fd4_7058100c",
+        "filename": "redfish-core/src/error_messages.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-08-15T20:35:47Z",
+      "side": 1,
+      "message": "What you have described are all handled.\n\nPlease take a look at the existing function addMessageToErrorJson.\n\nIf there\u0027s no error in root, root will get the message and code of the first message. Otherwise, root gets GeneralError and message is added to the exiting array. \n\n\nResolved for now. Please reopen if you don\u0027t agree.",
+      "parentUuid": "420d4998_02539435",
       "revId": "0a9a24cee9bfddc04121866177962a7a7a1d33de",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
