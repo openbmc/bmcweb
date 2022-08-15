@@ -122,6 +122,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "03d7ea82_b1cad321",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 553,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-15T15:27:20Z",
+      "side": 1,
+      "message": "Wow, sorry I missed this.  Generally ou would rely on the interface existing on the device to know if it\u0027s resettable (non resettable drives won\u0027t have a reset interface)",
+      "parentUuid": "fed7776e_1d263ef1",
+      "range": {
+        "startLine": 547,
+        "startChar": 0,
+        "endLine": 553,
+        "endChar": 74
+      },
+      "revId": "c10aa4610b3fba57904a210b6c7cb0b1cd493f6b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "941c7e71_9d93922a",
         "filename": "redfish-core/lib/storage.hpp",
         "patchSetId": 34
@@ -180,6 +204,30 @@
       "writtenOn": "2022-08-12T22:02:43Z",
       "side": 1,
       "message": "Please take a look at the updated code.\n \nThis is searching for subtrees under /xyz/openbmc_project/inventory that implements\nxyz.openbmc_project.State.Drive interface. So as I understand, if a drive doesn\u0027t implement xyz.openbmc_project.State.Drive interface this will fail with resourceNotFound.",
+      "parentUuid": "1a8b4aec_f4287055",
+      "range": {
+        "startLine": 613,
+        "startChar": 0,
+        "endLine": 614,
+        "endChar": 71
+      },
+      "revId": "c10aa4610b3fba57904a210b6c7cb0b1cd493f6b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "df6ba0fa_4538e5e4",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 614,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-15T15:27:20Z",
+      "side": 1,
+      "message": "Yep, but what if you have a drive that doesn\u0027t support the State.Drive or State.Drive.Transition interfaces?  Or hosts them from a different interface compared to the drive inventory item?",
       "parentUuid": "1a8b4aec_f4287055",
       "range": {
         "startLine": 613,
