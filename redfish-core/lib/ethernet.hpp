@@ -108,6 +108,9 @@ struct DHCPParameters
     std::optional<std::string> dhcpv6OperatingMode;
 };
 
+static constexpr std::string_view dbusNotAllowedError =
+    "xyz.openbmc_project.Common.Error.NotAllowed";
+
 // Helper function that changes bits netmask notation (i.e. /24)
 // into full dot notation
 inline std::string getNetmask(unsigned int bits)
@@ -1124,9 +1127,21 @@ inline void
                           const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     crow::connections::systemBus->async_method_call(
-        [asyncResp, macAddress](const boost::system::error_code ec) {
+        [asyncResp, macAddress](const boost::system::error_code ec,
+                                const sdbusplus::message::message& msg) {
         if (ec)
         {
+            const sd_bus_error* err = msg.get_error();
+            if (err == nullptr)
+            {
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            if (err->name == dbusNotAllowedError)
+            {
+                messages::propertyNotWritable(asyncResp->res, "MACAddress");
+                return;
+            }
             messages::internalError(asyncResp->res);
             return;
         }
