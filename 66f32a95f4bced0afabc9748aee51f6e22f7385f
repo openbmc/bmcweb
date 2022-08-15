@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "19787b00_a77e7c25",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-15T22:10:46Z",
+      "side": 1,
+      "message": "I\u0027m not sure if this is a typo on my part or not.  At one point I had the 405 and 404 handling in a single patch, but I broken them up a little, so that might explain it.  Let me reload on my system and retest and make sure this is a typo.",
+      "parentUuid": "4e22793d_1f6cf00b",
+      "range": {
+        "startLine": 21,
+        "startChar": 30,
+        "endLine": 21,
+        "endChar": 33
+      },
+      "revId": "66f32a95f4bced0afabc9748aee51f6e22f7385f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7d5f96f7_0bf5a88f",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-08-15T20:08:33Z",
       "side": 1,
       "message": "I\u0027m not sure in what context this code gets used.  Won\u0027t we always find a real route or a 404 route?  Or does this catch unsupported methods for known routes like PATCH to /redfish/v1?",
+      "range": {
+        "startLine": 1322,
+        "startChar": 8,
+        "endLine": 1336,
+        "endChar": 9
+      },
+      "revId": "66f32a95f4bced0afabc9748aee51f6e22f7385f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8efc8495_94419edd",
+        "filename": "http/routing.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1336,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-15T22:10:46Z",
+      "side": 1,
+      "message": "\u003e I\u0027m not sure in what context this code gets used.  Won\u0027t we always find a real route or a 404 route?\n\u003e  Or does this catch unsupported methods for known routes like PATCH to /redfish/v1?\n\n\nNot every tree declares a 404 route, so this is used in the case where we can\u0027t find either, which is most of the tree that isn\u0027t redfish right now.\n\nYes, for the moment it catches 405 as well, but that\u0027s getting changed in the next patch for custom 405 handlers",
+      "parentUuid": "7d5f96f7_0bf5a88f",
       "range": {
         "startLine": 1322,
         "startChar": 8,
