@@ -384,7 +384,7 @@ inline void parseDumpEntryFromDbusObject(
                         messages::internalError(asyncResp->res);
                         break;
                     }
-                    timestamp = *usecsTimeStamp;
+                    timestamp = (*usecsTimeStamp / 1000 / 1000);
                     break;
                 }
             }
