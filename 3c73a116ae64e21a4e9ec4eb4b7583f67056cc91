@@ -370,6 +370,30 @@
       },
       "revId": "3c73a116ae64e21a4e9ec4eb4b7583f67056cc91",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e9636e73_a5c8796b",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 679,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-08-15T22:30:35Z",
+      "side": 1,
+      "message": "max refers to when there are error codes like 501 and 502, the combination result is 502.\n\nI have implemented what you said.",
+      "parentUuid": "60bba0ba_a7d74c2a",
+      "range": {
+        "startLine": 679,
+        "startChar": 0,
+        "endLine": 679,
+        "endChar": 51
+      },
+      "revId": "3c73a116ae64e21a4e9ec4eb4b7583f67056cc91",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
