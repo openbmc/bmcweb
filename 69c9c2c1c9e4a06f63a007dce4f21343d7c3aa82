@@ -72,6 +72,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "6e9c602e_d0b2dff9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-08-15T17:03:35Z",
+      "side": 1,
+      "message": "\u003e I looked at that code, so far as I can tell.... it\u0027s literally trying to do explicitly what we intentionally tried in the API to disallow (downloading a binary payload to a file).  Maybe I misread it?\n\nIt is doing exactly that, it is downloading the attachment. But how is downloading the attachment via cURL or some other network tool, different than downloading it via the GUI? \n\nThe attachment is base 64 encoded, https://github.com/openbmc/bmcweb/blob/2b82937ecef572954b49569177b16831cbc09cfe/redfish-core/lib/log_services.hpp#L1756. \n\nI see the security concern but it is base 64 encoded, it is already allowed today via Wget, etc, this \" Nefarious user loads executable data; Unsuspecting user downloads, and executes\" isn\u0027t something special with OpenBMC, companies don\u0027t have to have this API (the GUI doesn\u0027t show this button unless there is an AdditionalDataUri on the log entry).",
+      "parentUuid": "7fe0c9d9_17553dc6",
+      "range": {
+        "startLine": 17,
+        "startChar": 27,
+        "endLine": 17,
+        "endChar": 34
+      },
+      "revId": "69c9c2c1c9e4a06f63a007dce4f21343d7c3aa82",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "a75d8d43_3ebba7d3",
