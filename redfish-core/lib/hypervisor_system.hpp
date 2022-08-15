@@ -1,5 +1,7 @@
 #pragma once
 
+#include "utils/ip_utils.hpp"
+
 #include <app.hpp>
 #include <boost/container/flat_set.hpp>
 #include <dbus_singleton.hpp>
@@ -607,7 +609,7 @@ inline void handleHypervisorIPv4StaticPatch(
         bool errorInEntry = false;
         if (address)
         {
-            if (!ipv4VerifyIpAndGetBitcount(*address))
+            if (!ip_util::ipv4VerifyIpAndGetBitcount(*address))
             {
                 messages::propertyValueFormatError(asyncResp->res, *address,
                                                    pathString + "/Address");
@@ -622,7 +624,8 @@ inline void handleHypervisorIPv4StaticPatch(
 
         if (subnetMask)
         {
-            if (!ipv4VerifyIpAndGetBitcount(*subnetMask, &prefixLength))
+            if (!ip_util::ipv4VerifyIpAndGetBitcount(*subnetMask,
+                                                     &prefixLength))
             {
                 messages::propertyValueFormatError(asyncResp->res, *subnetMask,
                                                    pathString + "/SubnetMask");
@@ -638,7 +641,7 @@ inline void handleHypervisorIPv4StaticPatch(
 
         if (gateway)
         {
-            if (!ipv4VerifyIpAndGetBitcount(*gateway))
+            if (!ip_util::ipv4VerifyIpAndGetBitcount(*gateway))
             {
                 messages::propertyValueFormatError(asyncResp->res, *gateway,
                                                    pathString + "/Gateway");
