@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b829400c_6742dc69",
+        "filename": "redfish-core/src/error_messages.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-08-15T20:33:05Z",
+      "side": 1,
+      "message": "If we don\u0027t do this here, we have to do conversion outside, right?\n\nSimilar checks appears a lot in this source.",
+      "parentUuid": "b9bc7490_990fb422",
+      "range": {
+        "startLine": 83,
+        "startChar": 0,
+        "endLine": 83,
+        "endChar": 27
+      },
+      "revId": "0a9a24cee9bfddc04121866177962a7a7a1d33de",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "420d4998_02539435",
         "filename": "redfish-core/src/error_messages.cpp",
         "patchSetId": 6
