@@ -179,6 +179,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "33211282_4a473bbc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 20
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2022-08-15T15:04:17Z",
+      "side": 1,
+      "message": "yep, you can manually set the BMC state over d-bus for testing",
+      "parentUuid": "d7451d21_654e58ba",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 65
+      },
+      "revId": "96290a6167837444c12d6a33dacf04beb7844981",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "4b38d45d_f2a875b8",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 20
@@ -521,6 +545,30 @@
       "side": 1,
       "message": "I think Ed is talking about https://github.com/openbmc/docs/blob/master/designs/redfish-health-rolllup.md \nBut https://github.com/openbmc/bmcweb/search?q\u003dhealth-%3Epopulate is only used in some of the resources. It is in this resource on line 2102. Setting the Manager Health based on BMCState makes more sense to me then using redfish-health-rolllup.md",
       "parentUuid": "d3a84d36_fe9189ea",
+      "range": {
+        "startLine": 1971,
+        "startChar": 0,
+        "endLine": 1971,
+        "endChar": 66
+      },
+      "revId": "96290a6167837444c12d6a33dacf04beb7844981",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "16e8924f_7d81c97b",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 1971,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2022-08-15T15:04:17Z",
+      "side": 1,
+      "message": "Commit message updated to document why health was done this way",
+      "parentUuid": "43f9ce40_d1859b11",
       "range": {
         "startLine": 1971,
         "startChar": 0,
