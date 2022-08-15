@@ -1127,7 +1127,14 @@ inline void
         [asyncResp, macAddress](const boost::system::error_code ec) {
         if (ec)
         {
-            messages::internalError(asyncResp->res);
+            if (ec.value() == boost::system::errc::io_error)
+            {
+                messages::propertyNotWritable(asyncResp->res, "MACAddress");
+            }
+            else
+            {
+                messages::internalError(asyncResp->res);
+            }
             return;
         }
         },
