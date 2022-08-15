@@ -72,6 +72,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "3e455b72_7fda0308",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-15T15:17:45Z",
+      "side": 1,
+      "message": "This is redfish,  the IPMI specification doesn\u0027t apply, and the ipmi specification certainly doesn\u0027t list out KVM or virtual media (considering I don\u0027t their either are supported by the specification) as this commit message states.\n\nJust for completeness, the section I\u0027m pretty sure you\u0027re talking about states:\nOperator: \"All BMC commands are allowed, except for configuration commands that can change the behavior of the out-of-band interfaces.  Operator privilege does not allow the capability to disable individual channels, or change user access privileges\"\n\nKVM, SOL, and virtual media do not allow the ability to change individual channels or user access privileges, so even per the IPMI spec, I\u0027m not sure why that applies?\n\nLets get the relevant detail added to the commit message, and we can go from there.",
+      "parentUuid": "0299f0b6_3bf80f03",
+      "range": {
+        "startLine": 9,
+        "startChar": 11,
+        "endLine": 9,
+        "endChar": 25
+      },
+      "revId": "c0bd84a8132e22264ea56107c9ee6752103926bc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "0908a34d_02982ca0",
