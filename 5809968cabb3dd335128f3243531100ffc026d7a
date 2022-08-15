@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a6ad5146_cd693d66",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 790,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-08-15T20:39:41Z",
+      "side": 1,
+      "message": "In case `sensorType \u003d\u003d power`, aren\u0027t we make an extra copy?",
+      "parentUuid": "8c44b389_f4bf5150",
+      "range": {
+        "startLine": 790,
+        "startChar": 16,
+        "endLine": 790,
+        "endChar": 26
+      },
+      "revId": "5809968cabb3dd335128f3243531100ffc026d7a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c106c67d_6634c0d3",
         "filename": "redfish-core/lib/sensors.hpp",
         "patchSetId": 4
