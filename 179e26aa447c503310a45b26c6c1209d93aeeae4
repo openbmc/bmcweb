@@ -58,6 +58,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "777f4693_54a51f73",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-08-15T20:43:19Z",
+      "side": 1,
+      "message": "Yeah I just missed removing that.  When I changed back to using strings.  It\u0027s gone now.",
+      "parentUuid": "51d52716_e8b4c60e",
+      "range": {
+        "startLine": 251,
+        "startChar": 0,
+        "endLine": 251,
+        "endChar": 68
+      },
+      "revId": "179e26aa447c503310a45b26c6c1209d93aeeae4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4f1daffc_b98d6016",
@@ -81,6 +105,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7955b315_5c5eaa73",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-08-15T20:43:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4f1daffc_b98d6016",
+      "range": {
+        "startLine": 265,
+        "startChar": 0,
+        "endLine": 265,
+        "endChar": 60
+      },
+      "revId": "179e26aa447c503310a45b26c6c1209d93aeeae4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "43622c77_70600297",
@@ -94,6 +142,30 @@
       "writtenOn": "2022-08-11T05:15:44Z",
       "side": 1,
       "message": "Duplicate?  Maybe make this a real example?",
+      "range": {
+        "startLine": 277,
+        "startChar": 0,
+        "endLine": 277,
+        "endChar": 33
+      },
+      "revId": "179e26aa447c503310a45b26c6c1209d93aeeae4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bcefa2d4_d08fb479",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-08-15T20:43:19Z",
+      "side": 1,
+      "message": "That was a leftover from when I wasn\u0027t sanitizing the path before parsing it.  I likely intended to delete the entire line and instead only deleted the trailing slash.  I\u0027ve changed it to an example path.",
+      "parentUuid": "43622c77_70600297",
       "range": {
         "startLine": 277,
         "startChar": 0,
@@ -129,6 +201,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ec03f262_47b0e93f",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-08-15T20:43:19Z",
+      "side": 1,
+      "message": "I think that\u0027s acceptable to unblock these patches.  That means the temporary solution is there will be at most one satellite BMC and it will be assigned the prefix \"aggregated0\".\n\nThat will be replaced by something like https://gerrit.openbmc.org/c/openbmc/bmcweb/+/56340 where the prefixes will be not be hardcoded and be as predictable.",
+      "parentUuid": "247e25f4_a90bf722",
+      "range": {
+        "startLine": 317,
+        "startChar": 0,
+        "endLine": 317,
+        "endChar": 54
+      },
+      "revId": "179e26aa447c503310a45b26c6c1209d93aeeae4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6b16a31d_8dd2cf7b",
         "filename": "redfish-core/include/redfish_aggregator.hpp",
         "patchSetId": 8
@@ -140,6 +236,30 @@
       "writtenOn": "2022-08-11T05:15:44Z",
       "side": 1,
       "message": "Do we need to make string copies of all these?  at the very least can we use string_view?",
+      "range": {
+        "startLine": 335,
+        "startChar": 0,
+        "endLine": 337,
+        "endChar": 42
+      },
+      "revId": "179e26aa447c503310a45b26c6c1209d93aeeae4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "116e5096_5bf48dbe",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-08-15T20:43:19Z",
+      "side": 1,
+      "message": "Actually all of those can just go away.  I meant to get rid of those by changing the later conditionals to use segments[] directly.  I\u0027ve removed them.",
+      "parentUuid": "6b16a31d_8dd2cf7b",
       "range": {
         "startLine": 335,
         "startChar": 0,
@@ -173,6 +293,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bd4ef204_668bf8e0",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-08-15T20:43:19Z",
+      "side": 1,
+      "message": "I\u0027ve created a singular function which checks if the provided path is associated with one of the collections under UpdateService.  I now call that function to performs the checks in the locations you pointed out.",
+      "parentUuid": "0847c485_e2176e37",
+      "range": {
+        "startLine": 338,
+        "startChar": 0,
+        "endLine": 347,
+        "endChar": 13
+      },
+      "revId": "179e26aa447c503310a45b26c6c1209d93aeeae4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2fdcb61f_911a8272",
@@ -186,6 +330,30 @@
       "writtenOn": "2022-08-11T05:15:44Z",
       "side": 1,
       "message": "as written this needs to be starts_with(\"aggregated_\") (notice the extra underscore) right?",
+      "range": {
+        "startLine": 348,
+        "startChar": 0,
+        "endLine": 348,
+        "endChar": 54
+      },
+      "revId": "179e26aa447c503310a45b26c6c1209d93aeeae4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "77e3247b_5fbbe57d",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-08-15T20:43:19Z",
+      "side": 1,
+      "message": "No because the prefix will be \"aggregated0_\".  In this location we\u0027re only checking if the request is for an aggregated resource.  We\u0027ll check if the entire prefix is known later in the flow after we retrieve the config information from D-Bus.",
+      "parentUuid": "2fdcb61f_911a8272",
       "range": {
         "startLine": 348,
         "startChar": 0,
