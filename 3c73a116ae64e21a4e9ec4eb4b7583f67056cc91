@@ -142,6 +142,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bbeaff34_893327e6",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 664,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-15T19:40:55Z",
+      "side": 1,
+      "message": "ACK.  Seems reasonable.",
+      "parentUuid": "0c11542a_c9541314",
+      "range": {
+        "startLine": 664,
+        "startChar": 0,
+        "endLine": 664,
+        "endChar": 65
+      },
+      "revId": "3c73a116ae64e21a4e9ec4eb4b7583f67056cc91",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6acda340_35bb4c29",
@@ -314,6 +338,30 @@
       "side": 1,
       "message": "\u003e what if finalResponse is 500, and subResponse is 200?  The 500 will get overridden, right?\n\nThe current code is correct. It will return early before we override a wrong code. But current code doesn\u0027t add multiple errors.\n\n\u003e now, I\u0027m not sure \u003e is the right operator above, we might need an explicit list of \"X error is greater than Y error\".  For example, 401 might be higher than 404.\n\nWhat\u0027s the relational? Report the worst code? Where can we get the explicit list of \"X error is greater than Y error\"? Do we accept max for now?",
       "parentUuid": "1dda73ad_a8d87536",
+      "range": {
+        "startLine": 679,
+        "startChar": 0,
+        "endLine": 679,
+        "endChar": 51
+      },
+      "revId": "3c73a116ae64e21a4e9ec4eb4b7583f67056cc91",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "60bba0ba_a7d74c2a",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 679,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-15T19:40:55Z",
+      "side": 1,
+      "message": "\u003e \u003e what if finalResponse is 500, and subResponse is 200?  The 500 will get overridden, right?\n\u003e \n\u003e The current code is correct. It will return early before we override a wrong code. But current code doesn\u0027t add multiple errors.\n\u003e \n\u003e \u003e now, I\u0027m not sure \u003e is the right operator above, we might need an explicit list of \"X error is greater than Y error\".  For example, 401 might be higher than 404.\n\u003e \n\u003e What\u0027s the relational? Report the worst code?\n\nYes.\n\n\u003e Where can we get the explicit list of \"X error is greater than Y error\"? \n\nWe make it.  There\u0027s only a dozen or so error codes that we use in bmcweb, it should be pretty easy to rank them in a way that works.  The important ones are\n\n500 is the highest priority\n5XX after that\n401 after that\n4XX after that\nthe rest.\n\n\u003e Do we accept max for now?\n\nI don\u0027t know what this question means.  What is \"max\"?",
+      "parentUuid": "dc2f12e5_09d4196a",
       "range": {
         "startLine": 679,
         "startChar": 0,
