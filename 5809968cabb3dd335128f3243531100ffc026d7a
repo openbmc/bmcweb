@@ -143,6 +143,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1a577cce_2f6aa0e8",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 813,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-15T19:59:43Z",
+      "side": 1,
+      "message": "Looking at this again, yes, it probably be pushed to a later patch so all the ID changes are in one place.  I\u0027ve removed this diff from this patchset.\n\nDone",
+      "parentUuid": "562ce428_0a3d9344",
+      "range": {
+        "startLine": 813,
+        "startChar": 20,
+        "endLine": 813,
+        "endChar": 34
+      },
+      "revId": "5809968cabb3dd335128f3243531100ffc026d7a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6e255cba_c78672ea",
