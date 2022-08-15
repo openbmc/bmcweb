@@ -146,6 +146,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fea3a71a_ffdba688",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 553,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-08-15T17:34:31Z",
+      "side": 1,
+      "message": "oh, so instead of https://github.com/openbmc/phosphor-dbus-interfaces/blob/master/yaml/xyz/openbmc_project/Inventory/Item/Drive.interface.yaml, it should have like `xyz.openbmc_project.Inventory.Item.ResettableDrive` or something similar to indicate that this is resetable?",
+      "parentUuid": "03d7ea82_b1cad321",
+      "range": {
+        "startLine": 547,
+        "startChar": 0,
+        "endLine": 553,
+        "endChar": 74
+      },
+      "revId": "c10aa4610b3fba57904a210b6c7cb0b1cd493f6b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "941c7e71_9d93922a",
         "filename": "redfish-core/lib/storage.hpp",
         "patchSetId": 34
@@ -229,6 +253,30 @@
       "side": 1,
       "message": "Yep, but what if you have a drive that doesn\u0027t support the State.Drive or State.Drive.Transition interfaces?  Or hosts them from a different interface compared to the drive inventory item?",
       "parentUuid": "1a8b4aec_f4287055",
+      "range": {
+        "startLine": 613,
+        "startChar": 0,
+        "endLine": 614,
+        "endChar": 71
+      },
+      "revId": "c10aa4610b3fba57904a210b6c7cb0b1cd493f6b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ac4ef143_ca4e9e55",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 614,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-08-15T17:34:31Z",
+      "side": 1,
+      "message": "um, I forgot if `GetSubTree`\u0027s interfaces mean that it returns if it matches at least one or all of them. I think it should be if it match one, right?\n\n----\n\nOk, I think I am now check if both interfaces exists before trying to do any ResetDrive stuff to make sure that everything will work if it is linked to the Drive.\n\n(I probably need to test it bit more to see if I missed anything else.).",
+      "parentUuid": "df6ba0fa_4538e5e4",
       "range": {
         "startLine": 613,
         "startChar": 0,
