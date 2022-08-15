@@ -100,6 +100,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0c11542a_c9541314",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 664,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-08-15T17:57:07Z",
+      "side": 1,
+      "message": "Separating it makes unit test much easier. So I prefer keeping it as is",
+      "parentUuid": "39c55a9b_3adc0ace",
+      "range": {
+        "startLine": 664,
+        "startChar": 0,
+        "endLine": 664,
+        "endChar": 65
+      },
+      "revId": "3c73a116ae64e21a4e9ec4eb4b7583f67056cc91",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6acda340_35bb4c29",
@@ -193,6 +217,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "01bb64d2_f1b0819f",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 676,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-08-15T17:57:07Z",
+      "side": 1,
+      "message": "Yes, I used `addMessageToErrorJson` here.",
+      "parentUuid": "95e2d3aa_f0b4e0d9",
+      "range": {
+        "startLine": 676,
+        "startChar": 0,
+        "endLine": 676,
+        "endChar": 67
+      },
+      "revId": "3c73a116ae64e21a4e9ec4eb4b7583f67056cc91",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1dda73ad_a8d87536",
@@ -206,6 +254,30 @@
       "writtenOn": "2022-08-12T18:58:17Z",
       "side": 1,
       "message": "This needs more logic in it.  what if finalResponse is 500, and subResponse is 200?  The 500 will get overridden, right?\n\nwe probably need to handle it something to the effect of.\n\nIf (subresponse.resultInt() \u003e finalResponse.resultInt){\n   finalResponse.resultInt(subResponse.resultInt);\n}\n\nnow, I\u0027m not sure \u003e is the right operator above, we might need an explicit list of \"X error is greater than Y error\".  For example, 401 might be higher than 404.",
+      "range": {
+        "startLine": 679,
+        "startChar": 0,
+        "endLine": 679,
+        "endChar": 51
+      },
+      "revId": "3c73a116ae64e21a4e9ec4eb4b7583f67056cc91",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dc2f12e5_09d4196a",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 679,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-08-15T17:57:07Z",
+      "side": 1,
+      "message": "\u003e what if finalResponse is 500, and subResponse is 200?  The 500 will get overridden, right?\n\nThe current code is correct. It will return early before we override a wrong code. But current code doesn\u0027t add multiple errors.\n\n\u003e now, I\u0027m not sure \u003e is the right operator above, we might need an explicit list of \"X error is greater than Y error\".  For example, 401 might be higher than 404.\n\nWhat\u0027s the relational? Report the worst code? Where can we get the explicit list of \"X error is greater than Y error\"? Do we accept max for now?",
+      "parentUuid": "1dda73ad_a8d87536",
       "range": {
         "startLine": 679,
         "startChar": 0,
