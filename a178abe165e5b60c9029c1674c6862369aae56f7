@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "748666d0_49f60683",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 26
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-15T15:49:07Z",
+      "side": 1,
+      "message": "In the above design, it calls out a obmc-bmc-service-quiesce.target that is used.  Considering that the existing code is already checking the systemd targets, why don\u0027t we just add that to the list and check it as well?  That seems more in line with what a normal linux distro would do.",
+      "revId": "a178abe165e5b60c9029c1674c6862369aae56f7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8dd6b535_165ac5bd",
         "filename": "/COMMIT_MSG",
         "patchSetId": 26
