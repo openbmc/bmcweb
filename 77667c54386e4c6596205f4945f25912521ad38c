@@ -70,6 +70,30 @@
       },
       "revId": "77667c54386e4c6596205f4945f25912521ad38c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1b34e1d8_d309fd59",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 503,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-15T19:47:47Z",
+      "side": 1,
+      "message": "Merged that one, this now needs rebased.",
+      "parentUuid": "2c3e202d_e30c3dc6",
+      "range": {
+        "startLine": 503,
+        "startChar": 63,
+        "endLine": 503,
+        "endChar": 75
+      },
+      "revId": "77667c54386e4c6596205f4945f25912521ad38c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
