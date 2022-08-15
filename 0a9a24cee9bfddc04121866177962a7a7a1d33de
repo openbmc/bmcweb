@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "39b416ff_aef32438",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-15T19:47:06Z",
+      "side": 1,
+      "message": "I need jason to look at this.  I don\u0027t remember all the corner cases here.\n\n@jmbills?",
+      "revId": "0a9a24cee9bfddc04121866177962a7a7a1d33de",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b9bc7490_990fb422",
+        "filename": "redfish-core/src/error_messages.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-15T19:47:06Z",
+      "side": 1,
+      "message": "Should we just pass error as nlohmann::json::object_t, then we can avoid this check?",
+      "range": {
+        "startLine": 83,
+        "startChar": 0,
+        "endLine": 83,
+        "endChar": 27
+      },
+      "revId": "0a9a24cee9bfddc04121866177962a7a7a1d33de",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "420d4998_02539435",
+        "filename": "redfish-core/src/error_messages.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-15T19:47:06Z",
+      "side": 1,
+      "message": "I don\u0027t think this handles all the cases.  An individual caller might:\n1. Put the error code on the root of the object\n2. Put the error code under the \"errors\" array.\n\nI think we need to search first at the root, looking for GeneralError.  If GeneralError is set, we need to iterate the error array.  If the root error is something other than GeneralError, we need to append that directly.",
+      "revId": "0a9a24cee9bfddc04121866177962a7a7a1d33de",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
