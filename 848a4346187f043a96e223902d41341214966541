@@ -182,6 +182,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "04125c80_1caa550c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-08-15T21:00:21Z",
+      "side": 1,
+      "message": "The downside here, is now these Redfish ids are a bit awkward, we for example are still going to put temp in the D-Bus sensor name (so we know the difference between vdd1_temperature and vdd1_vout) so then yeah, the ids will look like \n\ntemperature_Ambient_2_Temp\nor \ntemperature_vdd1_temperature\nwhich is a bit awkward but they are just Redfish ids, and they could be /redfish/v1/Chassis/\u003cchassis\u003e/Sensors/15\n\nI am good here.",
+      "parentUuid": "bfc71d43_c9a521c4",
+      "revId": "848a4346187f043a96e223902d41341214966541",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8a16fd8b_58c54f44",
         "filename": "/COMMIT_MSG",
         "patchSetId": 5
