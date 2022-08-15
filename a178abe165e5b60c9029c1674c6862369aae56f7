@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "293204a1_6936fbba",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 26
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2022-08-15T15:10:14Z",
+      "side": 1,
+      "message": "This latest patch was just a rebase due to merge conflict. CI fail was something infrastructure related so I retriggered.",
+      "revId": "a178abe165e5b60c9029c1674c6862369aae56f7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
