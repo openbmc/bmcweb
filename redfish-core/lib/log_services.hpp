@@ -2004,7 +2004,7 @@ inline void requestRoutesSystemHostLoggerLogEntry(App& app)
 
 constexpr char const* dumpManagerIface =
     "xyz.openbmc_project.Collection.DeleteAll";
-inline void handleLogServicesCollectionGet(
+inline void handleBMCLogServicesCollectionGet(
     crow::App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
@@ -2039,7 +2039,7 @@ inline void handleLogServicesCollectionGet(
         if (ec)
         {
             BMCWEB_LOG_ERROR
-                << "handleLogServicesCollectionGet respHandler got error "
+                << "handleBMCLogServicesCollectionGet respHandler got error "
                 << ec;
             // Assume that getting an error simply means there are no dump
             // LogServices. Return without adding any error response.
@@ -2083,7 +2083,7 @@ inline void requestRoutesBMCLogServiceCollection(App& app)
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/LogServices/")
         .privileges(redfish::privileges::getLogServiceCollection)
         .methods(boost::beast::http::verb::get)(
-            std::bind_front(handleLogServicesCollectionGet, std::ref(app)));
+            std::bind_front(handleBMCLogServicesCollectionGet, std::ref(app)));
 }
 
 inline void requestRoutesBMCJournalLogService(App& app)
