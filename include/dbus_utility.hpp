@@ -75,11 +75,6 @@ using DBusInteracesMap = std::vector<std::pair<std::string, DBusPropertiesMap>>;
 using ManagedObjectType =
     std::vector<std::pair<sdbusplus::message::object_path, DBusInteracesMap>>;
 
-using ManagedItem = std::pair<
-    sdbusplus::message::object_path,
-    std::vector<std::pair<
-        std::string, std::vector<std::pair<std::string, DbusVariantType>>>>>;
-
 // Map of service name to list of interfaces
 using MapperServiceMap =
     std::vector<std::pair<std::string, std::vector<std::string>>>;

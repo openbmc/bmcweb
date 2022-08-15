@@ -328,8 +328,8 @@ static bool
 }
 
 inline void parseDumpEntryFromDbusObject(
-    const dbus::utility::ManagedItem& object, std::string& dumpStatus,
-    uint64_t& size, uint64_t& timestamp,
+    const dbus::utility::ManagedObjectType::value_type& object,
+    std::string& dumpStatus, uint64_t& size, uint64_t& timestamp,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     for (const auto& interfaceMap : object.second)
