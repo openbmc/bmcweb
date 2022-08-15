@@ -1,6 +1,92 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "8dd6b535_165ac5bd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 26
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-15T15:46:55Z",
+      "side": 1,
+      "message": "Why does xyz.openbmc_project.State.BMC own this state?  Shouldn\u0027t the firmware update daemon (that bmcweb already interacts with) maintain this state?",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 56
+      },
+      "revId": "a178abe165e5b60c9029c1674c6862369aae56f7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "82b93c53_0d4c0a5f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 26
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-15T15:46:55Z",
+      "side": 1,
+      "message": "What logic?  Checking to see if a firmware update is in progress through the dbus APIs?  That doesn\u0027t really seem like logic.",
+      "range": {
+        "startLine": 28,
+        "startChar": 19,
+        "endLine": 28,
+        "endChar": 24
+      },
+      "revId": "a178abe165e5b60c9029c1674c6862369aae56f7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ff0fef7d_309b5ba7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 26
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-15T15:46:55Z",
+      "side": 1,
+      "message": "I\u0027m not quite understanding this statement.  Today, bmcweb lets systemd abstract away these complexities, which seems reasonable, given that in the design, that\u0027s systemds job.  What I don\u0027t see in the above is why we\u0027re adding yet another middle daemon to the design, and why this state can\u0027t exist from systemd, considering we already have code to do it, and systemd owns the concept of \"started\" for the system.",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 50
+      },
+      "revId": "a178abe165e5b60c9029c1674c6862369aae56f7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7c2811df_3ca4ca6d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 26
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-15T15:46:55Z",
+      "side": 1,
+      "message": "While this goes through quite a bit of history, and has a lot of good details, it still doesn\u0027t list WHY this change is being made.  To ask in other terms, if we didn\u0027t merge this patch, what does the user lose out on?",
+      "revId": "a178abe165e5b60c9029c1674c6862369aae56f7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "293204a1_6936fbba",
@@ -14,6 +100,29 @@
       "writtenOn": "2022-08-15T15:10:14Z",
       "side": 1,
       "message": "This latest patch was just a rebase due to merge conflict. CI fail was something infrastructure related so I retriggered.",
+      "revId": "a178abe165e5b60c9029c1674c6862369aae56f7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba876e0c_97c8c0f5",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 1929,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-15T15:46:55Z",
+      "side": 1,
+      "message": "So if bmcweb starts before xyz.openbmc_project.State.BMC, the user sees\n\n\"State\": \"Enabled\"\n\nthen immediately sees state \"Quiesced\".",
+      "range": {
+        "startLine": 1928,
+        "startChar": 0,
+        "endLine": 1929,
+        "endChar": 60
+      },
       "revId": "a178abe165e5b60c9029c1674c6862369aae56f7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
