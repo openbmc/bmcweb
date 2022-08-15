@@ -93,6 +93,30 @@
       },
       "revId": "66f32a95f4bced0afabc9748aee51f6e22f7385f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf03914d_395cb4ac",
+        "filename": "http/routing.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1336,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-08-15T22:25:24Z",
+      "side": 1,
+      "message": "I tried testing on my machine and I saw where query.hpp gets reached when a request of any type is sent to any route that is not supported at all:\nPOST /redfish/v1/Fake\nGET /redfish/v1/Fake\n\nThis is the behavior I want for Redfish Aggregation purposes.\n\nA PATCH request to /redfish/v1 did not hit query.hpp.  My guess is this check is the exit point for unsupported methods to recognized endpoints, but I don\u0027t know if there\u0027s a separate exit point for that situation.",
+      "parentUuid": "8efc8495_94419edd",
+      "range": {
+        "startLine": 1322,
+        "startChar": 8,
+        "endLine": 1336,
+        "endChar": 9
+      },
+      "revId": "66f32a95f4bced0afabc9748aee51f6e22f7385f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
