@@ -2288,8 +2288,6 @@ inline void setWDTProperties(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
     }
 }
 
-using ipsPropertiesType =
-    std::vector<std::pair<std::string, dbus::utility::DbusVariantType>>;
 /**
  * @brief Parse the Idle Power Saver properties into json
  *
@@ -2298,8 +2296,9 @@ using ipsPropertiesType =
  *
  * @return true if successful
  */
-inline bool parseIpsProperties(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
-                               const ipsPropertiesType& properties)
+inline bool
+    parseIpsProperties(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+                       const dbus::utility::DBusPropertiesMap& properties)
 {
     for (const auto& property : properties)
     {
@@ -2428,7 +2427,7 @@ inline void getIdlePowerSaver(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
         // Valid IdlePowerSaver object found, now read the current values
         crow::connections::systemBus->async_method_call(
             [aResp](const boost::system::error_code ec2,
-                    const ipsPropertiesType& properties) {
+                    const dbus::utility::DBusPropertiesMap& properties) {
             if (ec2)
             {
                 BMCWEB_LOG_ERROR
