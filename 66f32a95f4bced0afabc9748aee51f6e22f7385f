@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4e22793d_1f6cf00b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-08-15T20:08:33Z",
+      "side": 1,
+      "message": "nit, do you mean 404?",
+      "range": {
+        "startLine": 21,
+        "startChar": 30,
+        "endLine": 21,
+        "endChar": 33
+      },
+      "revId": "66f32a95f4bced0afabc9748aee51f6e22f7385f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7d5f96f7_0bf5a88f",
+        "filename": "http/routing.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1336,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-08-15T20:08:33Z",
+      "side": 1,
+      "message": "I\u0027m not sure in what context this code gets used.  Won\u0027t we always find a real route or a 404 route?  Or does this catch unsupported methods for known routes like PATCH to /redfish/v1?",
+      "range": {
+        "startLine": 1322,
+        "startChar": 8,
+        "endLine": 1336,
+        "endChar": 9
+      },
+      "revId": "66f32a95f4bced0afabc9748aee51f6e22f7385f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
