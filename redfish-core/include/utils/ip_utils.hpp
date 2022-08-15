@@ -1,7 +1,5 @@
 #pragma once
 
-#include <boost/algorithm/string/classification.hpp>
-#include <boost/algorithm/string/split.hpp>
 #include <boost/asio/ip/address.hpp>
 #include <boost/asio/ip/address_v4.hpp>
 #include <boost/asio/ip/address_v6.hpp>
@@ -43,80 +41,65 @@ inline std::string toString(const boost::asio::ip::address& ipAddr)
  * @return true in case of success, false otherwise
  */
 inline bool ipv4VerifyIpAndGetBitcount(const std::string& ip,
-                                       uint8_t* bits = nullptr)
+                                       uint8_t* prefixLength = nullptr)
 {
-    std::vector<std::string> bytesInMask;
-
-    boost::split(bytesInMask, ip, boost::is_any_of("."));
-
-    static const constexpr int ipV4AddressSectionsCount = 4;
-    if (bytesInMask.size() != ipV4AddressSectionsCount)
+    boost::system::error_code ec;
+    boost::asio::ip::address_v4 addr = boost::asio::ip::make_address_v4(ip, ec);
+    if (ec)
     {
         return false;
     }
 
-    if (bits != nullptr)
+    if (prefixLength != nullptr)
     {
-        *bits = 0;
-    }
-
-    char* endPtr = nullptr;
-    long previousValue = 255;
-    bool firstZeroInByteHit = false;
-    for (const std::string& byte : bytesInMask)
-    {
-        if (byte.empty())
+        uint8_t prefix = 0;
+        boost::asio::ip::address_v4::bytes_type maskBytes = addr.to_bytes();
+        bool maskFinished = false;
+        for (unsigned char byte : maskBytes)
         {
-            return false;
-        }
-
-        // Use strtol instead of stroi to avoid exceptions
-        long value = std::strtol(byte.c_str(), &endPtr, 10);
-
-        // endPtr should point to the end of the string, otherwise given string
-        // is not 100% number
-        if (*endPtr != '\0')
-        {
-            return false;
-        }
-
-        // Value should be contained in byte
-        if (value < 0 || value > 255)
-        {
-            return false;
-        }
-
-        if (bits != nullptr)
-        {
-            // Mask has to be continuous between bytes
-            if (previousValue != 255 && value != 0)
+            if (maskFinished)
             {
-                return false;
+                if (byte != 0U)
+                {
+                    return false;
+                }
+                continue;
             }
-
-            // Mask has to be continuous inside bytes
-            firstZeroInByteHit = false;
-
-            // Count bits
-            for (long bitIdx = 7; bitIdx >= 0; bitIdx--)
+            switch (byte)
             {
-                if ((value & (1L << bitIdx)) != 0)
-                {
-                    if (firstZeroInByteHit)
-                    {
-                        // Continuity not preserved
-                        return false;
-                    }
-                    (*bits)++;
-                }
-                else
-                {
-                    firstZeroInByteHit = true;
-                }
+                case 255:
+                    prefix += 8;
+                    break;
+                case 254: // prefixLength += 7
+                    prefix += 1;
+                    [[fallthrough]];
+                case 252: // prefixLength += 6
+                    prefix += 1;
+                    [[fallthrough]];
+                case 248: // prefixLength += 5
+                    prefix+= 1;
+                    [[fallthrough]];
+                case 240: // prefixLength += 4
+                    prefix+= 1;
+                    [[fallthrough]];
+                case 224: // prefixLength += 3
+                    prefix+= 1;
+                    [[fallthrough]];
+                case 192: // prefixLength += 2
+                    prefix+= 1;
+                    [[fallthrough]];
+                case 128: // prefixLength += 1
+                    prefix+= 1;
+                    [[fallthrough]];
+                case 0:
+                    maskFinished = true;
+                    break;
+                default:
+                    // Invalid netmask
+                    return false;
             }
         }
-
-        previousValue = value;
+        *prefixLength = prefix;
     }
 
     return true;
