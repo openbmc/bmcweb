@@ -54,6 +54,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "96c71124_00bfb543",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-16T23:42:56Z",
+      "side": 1,
+      "message": "Been a couple weeks.  Was there someone in particular you wanted to see this?\n\nI\u0027d be nice to get rid of the yocto warning.",
+      "parentUuid": "2c2acbdf_32390856",
+      "revId": "8f3c4297dfca628f1bdf779da88816e51eb9a759",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "015b6bb0_47c7631a",
