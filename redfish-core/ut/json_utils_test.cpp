@@ -354,5 +354,58 @@ TEST(ReadJsonAction, EmptyObjectReturnsTrueResponseOk)
     EXPECT_THAT(res.jsonValue, IsEmpty());
 }
 
+TEST(GetEstimatedJsonSize, NumberIs8Bytpes)
+{
+    EXPECT_EQ(getEstimatedJsonSize(nlohmann::json(123)), 8);
+    EXPECT_EQ(getEstimatedJsonSize(nlohmann::json(77777777777)), 8);
+    EXPECT_EQ(getEstimatedJsonSize(nlohmann::json(3.14)), 8);
+}
+
+TEST(GetEstimatedJsonSize, BooleanIs1Byte)
+{
+    EXPECT_EQ(getEstimatedJsonSize(nlohmann::json(true)), 1);
+    EXPECT_EQ(getEstimatedJsonSize(nlohmann::json(false)), 1);
+}
+
+TEST(GetEstimatedJsonSize, NullIs1Byte)
+{
+    EXPECT_EQ(getEstimatedJsonSize(nlohmann::json()), 1);
+}
+
+TEST(GetEstimatedJsonSize, StringAndBytesReturnsLength)
+{
+    EXPECT_EQ(getEstimatedJsonSize(nlohmann::json("1234")), 4);
+    EXPECT_EQ(getEstimatedJsonSize(nlohmann::json::binary({1, 2, 3, 4})), 4);
+}
+
+TEST(GetEstimatedJsonSize, ArrayReturnsSum)
+{
+    nlohmann::json arr = {1, 3.14, "123", nlohmann::json::binary({1, 2, 3, 4})};
+    EXPECT_EQ(getEstimatedJsonSize(arr), 8 + 8 + 3 + 4);
+}
+
+TEST(GetEstimatedJsonSize, ObjectsReturnsSumWithKeyAndValue)
+{
+    nlohmann::json obj = R"(
+{
+  "key0": 123,
+  "key1": "123",
+  "key2": [1, 2, 3],
+  "key3": {"key4": "123"}
+}
+)"_json;
+
+    uint64_t expected = 0;
+    // 5 keys of length 4
+    expected += uint64_t(5) * 4;
+    // 2 string values of length 3
+    expected += uint64_t(2) * 3;
+    // 1 number value
+    expected += 8;
+    // 1 array value of 3 numbers
+    expected += uint64_t(3) * 8;
+    EXPECT_EQ(getEstimatedJsonSize(obj), expected);
+}
+
 } // namespace
 } // namespace redfish::json_util
