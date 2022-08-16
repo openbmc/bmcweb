@@ -4,8 +4,10 @@
 #include "app.hpp"
 #include "async_resp.hpp"
 #include "error_messages.hpp"
+#include "http_connection.hpp"
 #include "http_request.hpp"
 #include "http_response.hpp"
+#include "json_utils.hpp"
 #include "logging.hpp"
 
 #include <sys/types.h>
@@ -750,73 +752,97 @@ class MultiAsyncResp : public std::enable_shared_from_this<MultiAsyncResp>
         finalRes(std::move(finalResIn))
     {}
 
-    void addAwaitingResponse(
-        const std::shared_ptr<bmcweb::AsyncResp>& res,
-        const nlohmann::json::json_pointer& finalExpandLocation)
+    // Starts subquery for the |nodeIndex| node.
+    void startSubquery(size_t nodeIndex)
     {
-        res->res.setCompleteRequestHandler(std::bind_front(
-            placeResultStatic, shared_from_this(), finalExpandLocation));
+        if (nodeIndex >= nodes.size())
+        {
+            return;
+        }
+        ExpandNode& node = nodes[nodeIndex];
+        const std::string subQuery = node.uri + queryStr;
+        BMCWEB_LOG_DEBUG << "URL of subquery:  " << subQuery;
+
+        std::error_code ec;
+        crow::Request newReq({boost::beast::http::verb::get, subQuery, 11}, ec);
+        if (ec)
+        {
+            messages::internalError(finalRes->res);
+            return;
+        }
+        auto asyncResp = std::make_shared<bmcweb::AsyncResp>();
+        BMCWEB_LOG_DEBUG << "setting completion handler on " << &asyncResp->res;
+        asyncResp->res.setCompleteRequestHandler(
+            std::bind_front(placeResultStatic, shared_from_this(),
+                            nodes[nodeIndex].location, nodeIndex));
+        app.handle(newReq, asyncResp);
     }
 
-    void placeResult(const nlohmann::json::json_pointer& locationToPlace,
+    // Places the current query result to |finalRes| and returns whether to
+    // continue the next query
+    bool placeResult(const nlohmann::json::json_pointer& locationToPlace,
                      crow::Response& res)
     {
         BMCWEB_LOG_DEBUG << "placeResult for " << locationToPlace;
         propogateError(finalRes->res, res);
         if (!res.jsonValue.is_object() || res.jsonValue.empty())
         {
-            return;
+            return true;
+        }
+        uint64_t newPayloadSize =
+            payloadSize + json_util::getEstimatedJsonSize(res.jsonValue);
+        BMCWEB_LOG_DEBUG << "newPayloadSize=" << newPayloadSize;
+        if (newPayloadSize >= crow::httpResponseBodyLimit)
+        {
+            BMCWEB_LOG_DEBUG << "insufficientStorage";
+            messages::insufficientStorage(finalRes->res);
+            return false;
         }
         nlohmann::json& finalObj = finalRes->res.jsonValue[locationToPlace];
         finalObj = std::move(res.jsonValue);
+        payloadSize = newPayloadSize;
+        return true;
     }
 
     // Handles the very first level of Expand, and starts a chain of sub-queries
     // for deeper levels.
     void startQuery(const Query& query)
     {
-        std::vector<ExpandNode> nodes =
+        nodes =
             findNavigationReferences(query.expandType, finalRes->res.jsonValue);
         BMCWEB_LOG_DEBUG << nodes.size() << " nodes to traverse";
-        const std::optional<std::string> queryStr = formatQueryForExpand(query);
-        if (!queryStr)
+
+        std::optional<std::string> queryStrOp = formatQueryForExpand(query);
+        if (!queryStrOp)
         {
-            messages::internalError(finalRes->res);
             return;
         }
-        for (const ExpandNode& node : nodes)
-        {
-            const std::string subQuery = node.uri + *queryStr;
-            BMCWEB_LOG_DEBUG << "URL of subquery:  " << subQuery;
-            std::error_code ec;
-            crow::Request newReq({boost::beast::http::verb::get, subQuery, 11},
-                                 ec);
-            if (ec)
-            {
-                messages::internalError(finalRes->res);
-                return;
-            }
-
-            auto asyncResp = std::make_shared<bmcweb::AsyncResp>();
-            BMCWEB_LOG_DEBUG << "setting completion handler on "
-                             << &asyncResp->res;
-
-            addAwaitingResponse(asyncResp, node.location);
-            app.handle(newReq, asyncResp);
-        }
+        queryStr = std::move(*queryStrOp);
+        payloadSize = json_util::getEstimatedJsonSize(finalRes->res.jsonValue);
+        startSubquery(0);
     }
 
   private:
     static void
         placeResultStatic(const std::shared_ptr<MultiAsyncResp>& multi,
                           const nlohmann::json::json_pointer& locationToPlace,
-                          crow::Response& res)
+                          size_t nodeIndex, crow::Response& res)
     {
-        multi->placeResult(locationToPlace, res);
+        if (!multi->placeResult(locationToPlace, res))
+        {
+            return;
+        }
+        if (nodeIndex + 1 < multi->nodes.size())
+        {
+            multi->startSubquery(nodeIndex + 1);
+        }
     }
 
     crow::App& app;
     std::shared_ptr<bmcweb::AsyncResp> finalRes;
+    uint64_t payloadSize = 0;
+    std::vector<ExpandNode> nodes;
+    std::string queryStr;
 };
 
 inline void processTopAndSkip(const Query& query, crow::Response& res)
