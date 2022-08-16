@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8533f1b2_f1ca8321",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 48
+      },
+      "lineNbr": 895,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2022-08-16T07:10:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "014b058c_27ad5399",
+      "range": {
+        "startLine": 895,
+        "startChar": 16,
+        "endLine": 895,
+        "endChar": 39
+      },
+      "revId": "de7b5d3b493671f8100eab4c3121dad2a3ce47f0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "baeb5a01_beaf2ac7",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-08-12T07:08:09Z",
       "side": 1,
       "message": "Does xyz.openbmc_project.Network.Client can have any of this string empty? Or is it only a check which verifies if both properties were present?\n\nIf it only verifies that loop above found your properties please use const std::string* address instead.\n\nI am asking this because I am in the middle of changing all usages loops like above one to sdbusplus::asio::unpackPropertiesNoThrow in most cases there are no checks if string is empty.\n\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/56039/8",
+      "range": {
+        "startLine": 94,
+        "startChar": 8,
+        "endLine": 94,
+        "endChar": 44
+      },
+      "revId": "de7b5d3b493671f8100eab4c3121dad2a3ce47f0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "51c11ce4_85bedc75",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 48
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2022-08-16T07:10:48Z",
+      "side": 1,
+      "message": "It only verifies the loop found the properties.\nI have changed this loop to sdbusplus::asio::unpackPropertiesNoThrow . Thanks.",
+      "parentUuid": "baeb5a01_beaf2ac7",
       "range": {
         "startLine": 94,
         "startChar": 8,
