@@ -4,8 +4,10 @@
 #include "app.hpp"
 #include "async_resp.hpp"
 #include "error_messages.hpp"
+#include "http_connection.hpp"
 #include "http_request.hpp"
 #include "http_response.hpp"
+#include "json_utils.hpp"
 #include "logging.hpp"
 
 #include <sys/types.h>
@@ -726,8 +728,18 @@ class MultiAsyncResp : public std::enable_shared_from_this<MultiAsyncResp>
         {
             return;
         }
+        uint64_t newPayloadSize =
+            payloadSize + json_util::getEstimatedJsonSize(res.jsonValue);
+        BMCWEB_LOG_DEBUG << "newPayloadSize=" << newPayloadSize;
+        if (newPayloadSize >= crow::httpResponseBodyLimit)
+        {
+            BMCWEB_LOG_DEBUG << "insufficientStorage";
+            messages::insufficientStorage(finalRes->res);
+            return;
+        }
         nlohmann::json& finalObj = finalRes->res.jsonValue[locationToPlace];
         finalObj = std::move(res.jsonValue);
+        payloadSize = newPayloadSize;
     }
 
     // Handles the very first level of Expand, and starts a chain of sub-queries
@@ -743,6 +755,7 @@ class MultiAsyncResp : public std::enable_shared_from_this<MultiAsyncResp>
             messages::internalError(finalRes->res);
             return;
         }
+        payloadSize = json_util::getEstimatedJsonSize(finalRes->res.jsonValue);
         for (const ExpandNode& node : nodes)
         {
             const std::string subQuery = node.uri + *queryStr;
@@ -776,6 +789,7 @@ class MultiAsyncResp : public std::enable_shared_from_this<MultiAsyncResp>
 
     crow::App& app;
     std::shared_ptr<bmcweb::AsyncResp> finalRes;
+    uint64_t payloadSize = 0;
 };
 
 inline void processTopAndSkip(const Query& query, crow::Response& res)
