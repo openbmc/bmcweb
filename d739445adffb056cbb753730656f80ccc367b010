@@ -1439,6 +1439,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7cfedafe_9e8d9eb7",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 583,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-08-16T17:50:51Z",
+      "side": 1,
+      "message": "\u003e \u003e Not connection pool when subscription is created can create the issue say if someone creates x (maxPoolSize i.e 4) subscriptions and delete them, Then connection pool is exhausted and will lead to add all request to queue and eventually fill up resources.\n\u003e I don\u0027t entirely understand what you are trying to say.  We don\u0027t delete pools so there\u0027s a possibility of a bad actor being able to create enough subscriptions to unique IP:PORT that we run out of memory due to creating a new connection pool for each.  However, that issue is completely separate from my concerns about how this patch handle SSL and non-SSL for the same connection pool.\n\u003e \n\u003e A pool can hold up to 4 connections.  I can create 4 subscriptions using the same IP:PORT.  I can delete and recreate those subscription as many times as I want and I won\u0027t run out of resources between that same connection pool will get reused each time.\n\u003e \n\u003e With your path I can create 4 subscriptions using non-SSL IP:PORT.  If I delete those subscriptions and then create 4 subscriptions using SSL with the same IP:PORT then none of those subscriptions will send correctly because the IP:PORT pool is already full of non-SSL connections and the pool itself only supports non-SSL connections.\n\u003e \n\u003e \u003e I couldn\u0027t think of a case where http \u0026 https uses same IP:PORT combination and lead to above said issue. But I agree that its better to differentiate SSL \u0026 Non-SSL.\n\u003e It might be unlikely, but it is a possibility.  With different entities able to share the client and connection pool we can\u0027t assume that they all coordinate to designate specific IP:PORT as SSL or non-SSL.\n\u003e \n\u003e \u003e One way to do so by using common connection pool( Not having separate pool for SSL) is expand the map key from IP:PORT to http/https://IP:PORT. Please do suggest if you thought of any other method\n\u003e Expanding the map key would in fact do the opposite and create separate pools for SSL.\nYes, It will have separate pools. Do you see any downside for having separate pools for SSL?\n\u003e \n\u003e My thought is we still only want to support 4 simultaneous connections for each IP:PORT (i.e. connection pool).  You would make these changes:\n\u003e - Remove useSSL from ConnectionPool.  We only need it in the individual connections to track if it\u0027s to be used for SSL or non-SSL communication.\n\u003e - In ConnectionInfo it looks like there are already separate connection objects for SSL and non-SSL.  It should be straightforward enough to modify doConnect() to choose the appropriate connection depending on the state of useSSL.\n\u003e - All of the ConnectionInfo methods that are common to the SSL and non-SSL flow should rely on useSSL to decide which one to use.\n\u003e - When grabbing an idle connection to send a message you must make sure the connection and message agree in terms of using SSL.\n\u003e - If you can\u0027t find an idle connection that matches then take one of the idle connections and modify it to use the type of connection that matches the message.  Make sure you close out the existing connection first if it\u0027s active due to being \"keep alive\".\nThe issues in above two points is what i am trying to resolve by having separate pool for SSL instead of mixing SSL \u0026 non-SSL in single. In that case, We don\u0027t need to decide it during run time and have extra logic to grab idle connections and close them if not matches and start connection from begging.\n\u003e I have pointed out the location for the latter two points in other comments.",
+      "parentUuid": "8e5fe85a_b20eeb10",
+      "range": {
+        "startLine": 583,
+        "startChar": 0,
+        "endLine": 583,
+        "endChar": 22
+      },
+      "revId": "d739445adffb056cbb753730656f80ccc367b010",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a26b0535_265df071",
         "filename": "http/http_client.hpp",
         "patchSetId": 5
