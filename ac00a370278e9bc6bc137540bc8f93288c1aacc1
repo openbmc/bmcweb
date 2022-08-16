@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "76a582db_0bee67a8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-16T15:08:12Z",
+      "side": 1,
+      "message": "Redfish service validator needs run, which would\u0027ve showed you the schema versions need bumped.",
+      "revId": "ac00a370278e9bc6bc137540bc8f93288c1aacc1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b604b7bb_acfa1fde",
         "filename": "redfish-core/lib/network_protocol.hpp",
         "patchSetId": 5
