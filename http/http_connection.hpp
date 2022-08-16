@@ -45,6 +45,11 @@ static int connectionCount = 0;
 constexpr uint64_t httpReqBodyLimit =
     1024UL * 1024UL * bmcwebHttpReqBodyLimitMb;
 
+// Response body limit size.
+// The limit is chosen by experience: can handle level<=5.
+// The limit is compared to size returned by |getEstimatedJsonSize|.
+constexpr uint64_t httpResponseBodyLimit = 300UL * 1024UL;
+
 constexpr uint64_t loggedOutPostBodyLimit = 4096;
 
 constexpr uint32_t httpHeaderLimit = 8192;
