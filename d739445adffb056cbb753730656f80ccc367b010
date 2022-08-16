@@ -1511,6 +1511,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "126835d6_28ce6e33",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 583,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-16T23:52:38Z",
+      "side": 1,
+      "message": "\u003e \u003e The issues in above two points is what i am trying to resolve by having separate pool for SSL instead of mixing SSL \u0026 non-SSL in single.\n\u003e Having completely separate pools (i.e. ConnectionPool objects) for SSL and non-SSL feels very wasteful since each individual connection object will already have full support to be used as SSL or non-SSL.\n\nI\u0027m not following this.  A connection object is going to be either TLS or not.  It can\u0027t switch mid-stream.  The only difference is that some are going to have a cipher suite set up and have an ssl_stream object, and some wont.  I really don\u0027t want to be changing TLS to non on the fly, and realistically, each connection doesn\u0027t have that much state that it tracks, so constructing a new one is relatively cheap.\n\n\u003e \n\u003e \u003e In that case, We don\u0027t need to decide it during run time and have extra logic to grab idle connections and close them if not matches and start connection from begging\n\u003e I don\u0027t see this as much extra work.  We already have logic to grab idle connections from the vector and conditionally handle if the connection is keep alive or not.  This would just be adding another check when determining if a given connection is available to send a message.\n\nAlso not following this.  Isn\u0027t it better to just categorize these?  Realistically, a given url/port is going to support TLS or not, so it\u0027s not like we\u0027re losing out on anything in any \"normal\" case.  In theory I could have a hybrid port that supports both, but no bmc I\u0027m aware of does that.\n\n\u003e \n\u003e Plus we already have to open and close a connection as part of each message sending event when the destination is not keep alive enabled so closing and then opening an idle connection to swap between SSL and non-SSL doesn\u0027t seem too out of the ordinary.\n\u003e  Needing to swap between SSL and non-SSL is more of an edge case that we need to support rather than a regular usecase so the number of swaps should be relatively minor.\n\nThis!  This is for sure an edge case, so why take on the complexity of swapping?\n\nAlso, FWIW, I would expect a number of systems to compile with only HTTPS or only HTTP, so in the base case, this isn\u0027t really an issue.\n\n\u003e \n\u003e When grabbing a new connection we could prioritize it so that we won\u0027t always take the first one we find.  Instead we\u0027d prioritize one that matches in terms of SSL/non-SSL.  If one does not exist then we\u0027ll swap one of the idle connection in the pool.\n\nBut...... if we do that, why not just make the keys on the connection map have that data, so we do the lookup once, instead of doing the lookup, then trying to hunt down a connection that meets our needs.  I don\u0027t think there\u0027s any case where we\u0027d say \"either TLS or non tls\", right?\n\n\u003e \n\u003e \u003e Having a separate variable for SSL connections versus not seems reasonable to me.\n\u003e \u003e \n\u003e \u003e Carson?  Does that address your concerns?\n\u003e Yes if you mean that in support of what I proposed in my previous comment.  I don\u0027t want to allow more than 4 active connections to a specific IP:PORT pair.  We\u0027ll double that number if have separate pools for SSL and non-SSL connections. \n\nDouble is 8, which is still pretty reasonable, and the likelihood that a user has both HTTP and HTTPS running on the same port is essentially zero.\n\n\u003e We avoid that if we have a single connection pool per IP:PORT pair and we can reconfigure individual connections as needed between SSL and non-SSL.\n\u003e \n\u003e Please correct me if you meant that in a different way.\n\nNo, I think you got it, but I\u0027m still kind of with Appu here.  If we encode the connection \"requirements\" in the map we look stuff up on, in the worst case (which will probably never happen in the real world) we get 8 connections, which is still not that bad.",
+      "parentUuid": "510fd661_6469de02",
+      "range": {
+        "startLine": 583,
+        "startChar": 0,
+        "endLine": 583,
+        "endChar": 22
+      },
+      "revId": "d739445adffb056cbb753730656f80ccc367b010",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a26b0535_265df071",
         "filename": "http/http_client.hpp",
         "patchSetId": 5
