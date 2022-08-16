@@ -45,6 +45,12 @@ static int connectionCount = 0;
 constexpr uint64_t httpReqBodyLimit =
     1024UL * 1024UL * bmcwebHttpReqBodyLimitMb;
 
+// Response body limit size.
+// The limit is chosen by experience: can handle level<=5 on the OpenBMC
+// reference board s7106.
+// The total peak memory usage in $expand handlers is limited by 30 MB.
+constexpr uint64_t httpResponseBodyLimit = 300UL * 1024UL;
+
 constexpr uint64_t loggedOutPostBodyLimit = 4096;
 
 constexpr uint32_t httpHeaderLimit = 8192;
