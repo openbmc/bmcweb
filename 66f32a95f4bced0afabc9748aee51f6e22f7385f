@@ -165,6 +165,30 @@
       },
       "revId": "66f32a95f4bced0afabc9748aee51f6e22f7385f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "832e1aae_77fe7949",
+        "filename": "http/routing.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1336,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-08-16T16:46:09Z",
+      "side": 1,
+      "message": "I want unsupported method and URI combinations to hit the redfish404 endpoint so that they can reach the aggregation hook that will be in query.hpp.\n\nThe only combination that exits early is when BMCWeb supports an endpoint, but not the provided method.  That\u0027s why POST /redfish/v1/Fake reaches query.hpp, but PATCH /redfish/v1 bails early.  We support /redfish/v1, but PATCH requests are not valid methods for that endpoint.\n\nI haven\u0027t yet run into a scenario in BMCWeb where we support an endpoint without also supporting all of the methods as required by the spec.",
+      "parentUuid": "79dfaa49_b7d76a55",
+      "range": {
+        "startLine": 1322,
+        "startChar": 8,
+        "endLine": 1336,
+        "endChar": 9
+      },
+      "revId": "66f32a95f4bced0afabc9748aee51f6e22f7385f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
