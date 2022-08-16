@@ -198,6 +198,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1e5214b2_aa85b72a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-16T16:53:09Z",
+      "side": 1,
+      "message": "\u003e which is a bit awkward but they are just Redfish ids, and they could be \n\u003e /redfish/v1/Chassis/\u003cchassis\u003e/Sensors/15\n\nWe intentionally didn\u0027t go that route originally because if sensor 14 disappears, what was previously sensor 15 becomes sensor 14, which isn\u0027t the best for clients, and against one of the \"should\" statements in the redfish spec.\n\nYeah, temperature_vdd1_temperature is a little awkward.  (in a future patch) We could try to detect that case, and if the sensor name ends with with the type \"temp\" or \"temperature\" or something that matches the type, we could just omit it from the front of the ID.  That\u0027s getting to be a little overill for my tastes for something that isn\u0027t supposed to be user facing.\n\nRegardless, I think we can close out this thread.",
+      "parentUuid": "04125c80_1caa550c",
+      "revId": "848a4346187f043a96e223902d41341214966541",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8a16fd8b_58c54f44",
@@ -348,6 +366,24 @@
       "side": 1,
       "message": "That\u0027s a really good point, I forgot they pulled this file in.  In the ideal case, some of this file needs broken out into \"sensor utils\" outside the lib folder so that it\u0027s more clear which parts are common between handlers, and which parts are independent.\n\n@krzysztof is there a good set of tests for Telemetry, or some use cases you can recommend?  I\u0027m not very familiar with the TelemetryService stuff, but Gunnar is totally right, I need to do some testing there (and it\u0027s quite possible this patch breaks telemetry service).\n\nI will take a look at this async and try to tease out what changes if any need made there.",
       "parentUuid": "81481afe_c01d998c",
+      "revId": "848a4346187f043a96e223902d41341214966541",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "15e4f168_dbeb2f76",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-16T16:53:09Z",
+      "side": 1,
+      "message": "This was a good callout, and definitely revealed some bugs.  One of the bugs I fixed in this patch I\u0027m pretty sure is already a bug on master to do with MetricReport on SensorCollection items, but it\u0027s resolved in this patch.  I\u0027ve added my test cases to the commit message, and they\u0027re now passing.",
+      "parentUuid": "e26017f6_25af7879",
       "revId": "848a4346187f043a96e223902d41341214966541",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
