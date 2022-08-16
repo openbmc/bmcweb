@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "91ca5a71_924ad67a",
+        "filename": "redfish-core/include/utils/telemetry_utils.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-16T17:22:34Z",
+      "side": 0,
+      "message": "FYI, I think this was a bug on existing master.  SensorCollection didn\u0027t include the unit, and this was expecting a uri like\n\n/redfish/v1/Chassis/my_chassis/Sensors/my_sensor/temperature\n\nwhich doesn\u0027t match what the current URIs are.",
+      "range": {
+        "startLine": 71,
+        "startChar": 0,
+        "endLine": 71,
+        "endChar": 72
+      },
+      "revId": "19f74f2082993a633de94ca25ea8a8763077f1c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
