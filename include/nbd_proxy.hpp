@@ -52,7 +52,9 @@ struct NbdProxyServer : std::enable_shared_from_this<NbdProxyServer>
         peerSocket(connIn.getIoContext()),
         acceptor(connIn.getIoContext(), stream_protocol::endpoint(socketId)),
         connection(connIn)
-    {}
+    {
+        BMCWEB_LOG_DEBUG << "NbdProxyServer constructor";
+    }
 
     NbdProxyServer(const NbdProxyServer&) = delete;
     NbdProxyServer(NbdProxyServer&&) = delete;
@@ -75,23 +77,25 @@ struct NbdProxyServer : std::enable_shared_from_this<NbdProxyServer>
 
     void run()
     {
-        acceptor.async_accept(
-            peerSocket, [weak(weak_from_this())](boost::system::error_code ec) {
-                if (ec)
-                {
-                    BMCWEB_LOG_ERROR << "UNIX socket: async_accept error = "
-                                     << ec.message();
-                    return;
-                }
+        BMCWEB_LOG_DEBUG << "NbdProxyServer::run() entry";
+        acceptor.async_accept(peerSocket, [weak(weak_from_this())](
+                                              boost::system::error_code ec) {
+            BMCWEB_LOG_DEBUG << "NbdProxyServer: Async accept callback entry";
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR << "UNIX socket: async_accept error = "
+                                 << ec.message();
+                return;
+            }
 
-                BMCWEB_LOG_DEBUG << "Connection opened";
-                std::shared_ptr<NbdProxyServer> self = weak.lock();
-                if (self == nullptr)
-                {
-                    return;
-                }
-                self->doRead();
-            });
+            BMCWEB_LOG_DEBUG << "Connection opened";
+            std::shared_ptr<NbdProxyServer> self = weak.lock();
+            if (self == nullptr)
+            {
+                return;
+            }
+            self->doRead();
+        });
 
         auto mountHandler =
             [weak(weak_from_this())](const boost::system::error_code ec,
@@ -117,10 +121,12 @@ struct NbdProxyServer : std::enable_shared_from_this<NbdProxyServer>
 
     void send(std::string_view buffer, std::function<void()>&& onDone)
     {
+        BMCWEB_LOG_DEBUG << "NbdProxyServer::send() entry";
         boost::asio::async_write(
             peerSocket, boost::asio::buffer(buffer),
             [weak(weak_from_this()), onDone{std::move(onDone)}](
                 boost::system::error_code ec, std::size_t /*bytesWritten*/) {
+            BMCWEB_LOG_DEBUG << "NbdProxyServer async write callback entry";
             if (ec)
             {
                 BMCWEB_LOG_ERROR << "UNIX: async_write error = "
@@ -140,11 +146,13 @@ struct NbdProxyServer : std::enable_shared_from_this<NbdProxyServer>
   private:
     void doRead()
     {
+        BMCWEB_LOG_DEBUG << "NbdProxyServer::doRead() entry";
         // Trigger async read
         peerSocket.async_read_some(
             boost::asio::buffer(ux2wsBuf),
             [weak(weak_from_this())](boost::system::error_code ec,
                                      std::size_t bytesRead) {
+            BMCWEB_LOG_DEBUG << "NbdProxyServer async read callback entry";
             if (ec)
             {
                 BMCWEB_LOG_ERROR << "UNIX socket: async_read_some error = "
@@ -196,6 +204,7 @@ void afterGetManagedObjects(crow::websocket::Connection& conn,
                             const boost::system::error_code ec,
                             const dbus::utility::ManagedObjectType& objects)
 {
+    BMCWEB_LOG_DEBUG << "afterGetManagedObjects() entry";
     const std::string* socketValue = nullptr;
     const std::string* endpointValue = nullptr;
     const std::string* endpointObjectPath = nullptr;
@@ -264,6 +273,10 @@ void afterGetManagedObjects(crow::websocket::Connection& conn,
     }
 
     std::shared_ptr<NbdProxyServer>& session = sessions[&conn];
+    if (!session)
+    {
+        BMCWEB_LOG_DEBUG << "Session is null for connection " << &conn;
+    }
     session = std::make_shared<NbdProxyServer>(
         conn, *socketValue, *endpointValue, *endpointObjectPath);
 
@@ -313,10 +326,13 @@ void onMessage(crow::websocket::Connection& conn, std::string_view data,
     auto session = sessions.find(&conn);
     if (session == sessions.end() || session->second == nullptr)
     {
+        BMCWEB_LOG_DEBUG
+            << "Couldn't find NbdProxyServer instance for connection " << &conn;
         conn.close("internal error");
         whenComplete();
         return;
     }
+    BMCWEB_LOG_DEBUG << "Calling send on NbdProxyServer instance";
     session->second->send(data, std::move(whenComplete));
 }
 

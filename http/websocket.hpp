@@ -220,9 +220,12 @@ class ConnectionImpl : public Connection
 
     void close(const std::string_view msg) override
     {
+        BMCWEB_LOG_DEBUG << "ConnectionImpl::close(\"" << msg << "\") entry";
         ws.async_close(
             {boost::beast::websocket::close_code::normal, msg},
             [self(shared_from_this())](boost::system::error_code ec) {
+            BMCWEB_LOG_DEBUG
+                << "ConnectionImpl: websocket async close callback entry";
             if (ec == boost::asio::error::operation_aborted)
             {
                 return;
@@ -230,6 +233,7 @@ class ConnectionImpl : public Connection
             if (ec)
             {
                 BMCWEB_LOG_ERROR << "Error closing websocket " << ec;
+                BMCWEB_LOG_DEBUG << "Error details: " << ec.what();
                 return;
             }
             });
@@ -249,15 +253,18 @@ class ConnectionImpl : public Connection
 
     void doRead()
     {
+        BMCWEB_LOG_DEBUG << "ConnectionImpl::doRead() entry";
         ws.async_read_some(
             boost::asio::buffer(inBuffer),
             [this, self(shared_from_this())](boost::beast::error_code ec,
                                              std::size_t bytesRead) {
+            BMCWEB_LOG_DEBUG << "ConnectionImpl async read callback entry";
             if (ec)
             {
                 if (ec != boost::beast::websocket::error::closed)
                 {
                     BMCWEB_LOG_ERROR << "doRead error " << ec;
+                    BMCWEB_LOG_DEBUG << "Error details: " << ec.what();
                 }
                 if (closeHandler)
                 {
