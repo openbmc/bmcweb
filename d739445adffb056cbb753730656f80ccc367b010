@@ -1487,6 +1487,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "510fd661_6469de02",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 583,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-08-16T21:37:55Z",
+      "side": 1,
+      "message": "\u003e The issues in above two points is what i am trying to resolve by having separate pool for SSL instead of mixing SSL \u0026 non-SSL in single.\nHaving completely separate pools (i.e. ConnectionPool objects) for SSL and non-SSL feels very wasteful since each individual connection object will already have full support to be used as SSL or non-SSL.\n\n\u003e In that case, We don\u0027t need to decide it during run time and have extra logic to grab idle connections and close them if not matches and start connection from begging\nI don\u0027t see this as much extra work.  We already have logic to grab idle connections from the vector and conditionally handle if the connection is keep alive or not.  This would just be adding another check when determining if a given connection is available to send a message.\n\nPlus we already have to open and close a connection as part of each message sending event when the destination is not keep alive enabled so closing and then opening an idle connection to swap between SSL and non-SSL doesn\u0027t seem too out of the ordinary.  Needing to swap between SSL and non-SSL is more of an edge case that we need to support rather than a regular usecase so the number of swaps should be relatively minor.\n\nWhen grabbing a new connection we could prioritize it so that we won\u0027t always take the first one we find.  Instead we\u0027d prioritize one that matches in terms of SSL/non-SSL.  If one does not exist then we\u0027ll swap one of the idle connection in the pool.\n\n\u003e Having a separate variable for SSL connections versus not seems reasonable to me.\n\u003e \n\u003e Carson?  Does that address your concerns?\nYes if you mean that in support of what I proposed in my previous comment.  I don\u0027t want to allow more than 4 active connections to a specific IP:PORT pair.  We\u0027ll double that number if have separate pools for SSL and non-SSL connections.  We avoid that if we have a single connection pool per IP:PORT pair and we can reconfigure individual connections as needed between SSL and non-SSL.\n\nPlease correct me if you meant that in a different way.",
+      "parentUuid": "5166722a_c3cf7e47",
+      "range": {
+        "startLine": 583,
+        "startChar": 0,
+        "endLine": 583,
+        "endChar": 22
+      },
+      "revId": "d739445adffb056cbb753730656f80ccc367b010",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a26b0535_265df071",
         "filename": "http/http_client.hpp",
         "patchSetId": 5
