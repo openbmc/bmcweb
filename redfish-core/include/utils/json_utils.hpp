@@ -16,10 +16,12 @@
 #pragma once
 
 #include "error_messages.hpp"
+#include "http_connection.hpp"
 #include "http_request.hpp"
 #include "http_response.hpp"
 #include "logging.hpp"
-#include "nlohmann/json.hpp"
+
+#include <nlohmann/json.hpp>
 
 #include <array>
 #include <cmath>
@@ -592,6 +594,19 @@ bool readJsonAction(const crow::Request& req, crow::Response& res,
     }
     return readJson(jsonRequest, res, key, std::forward<UnpackTypes&&>(in)...);
 }
+
+// Returns the estimated size of the JSON value
+// The implementation walks through every key and every value, accumulates the
+//  total size of keys and values.
+// When exceeding the limit (|httpResponseBodyLimit|), returns the limit.
+
+// Assumption made:
+//  1. number: 8 characters
+//  2. boolean: 5 characters (False)
+//  3. string: len(str) + 2 characters (quote)
+//  4. bytes: len(bytes) characters
+//  5. null: 4 characters (null)
+uint64_t getEstimatedJsonSize(const nlohmann::json& root);
 
 } // namespace json_util
 } // namespace redfish
