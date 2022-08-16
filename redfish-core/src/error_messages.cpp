@@ -1673,6 +1673,24 @@ void invalidUpload(crow::Response& res, std::string_view arg1,
 
 /**
  * @internal
+ * @brief Formats InsufficientStorage message into JSON
+ *
+ * See header file for more information
+ * @endinternal
+ */
+nlohmann::json insufficientStorage()
+{
+    return getLog(redfish::registries::base::Index::insufficientStorage, {});
+}
+
+void insufficientStorage(crow::Response& res)
+{
+    res.result(boost::beast::http::status::insufficient_storage);
+    addMessageToErrorJson(res.jsonValue, insufficientStorage());
+}
+
+/**
+ * @internal
  * @brief Formats Invalid File message into JSON
  *
  * See header file for more information
@@ -1693,6 +1711,7 @@ nlohmann::json invalidUpload(std::string_view arg1, std::string_view arg2)
         {"MessageSeverity", "Warning"},
         {"Resolution", "None."}};
 }
+
 } // namespace messages
 
 } // namespace redfish
