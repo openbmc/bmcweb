@@ -1024,6 +1024,15 @@ nlohmann::json invalidUpload(std::string_view arg1, std::string_view arg2);
 void invalidUpload(crow::Response& res, std::string_view arg1,
                    std::string_view arg2);
 
+/**
+ * @brief Formats InsufficientStorage message into JSON
+ * Message body: "Insufficent storage or memory available to complete the
+ *  request."
+ * @returns Message InsufficientStorage formatted to JSON */
+nlohmann::json insufficientStorage();
+
+void insufficientStorage(crow::Response& res);
+
 } // namespace messages
 
 } // namespace redfish
