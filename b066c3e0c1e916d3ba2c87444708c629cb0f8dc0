@@ -55,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "23beb164_918b0480",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-16T18:12:58Z",
+      "side": 1,
+      "message": "Excellent!  Thanks for testing it!",
+      "parentUuid": "8f10fc64_5ede06c7",
+      "revId": "b066c3e0c1e916d3ba2c87444708c629cb0f8dc0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8e9f7ef1_610af4d3",
         "filename": "include/nbd_proxy.hpp",
         "patchSetId": 5
@@ -89,6 +107,30 @@
       "writtenOn": "2022-08-16T11:31:17Z",
       "side": 1,
       "message": "In situation, when onMessage handler runs on parallel with onOpen, there might occur situation when NbdProxyServer instance is not yet created. In this situation, connection will immediately be closed even before onOpen handler completion. This can be observed in journal logs below (notice when onMessageEx is called, and when NbdProxyServer is actually constructed):\n\nAug 15 12:49:46 intel-obmc bmcweb[391]: (2022-08-15 12:49:46) [DEBUG \"websocket.hpp\":245] Websocket accepted connection\nAug 15 12:49:46 intel-obmc bmcweb[391]: (2022-08-15 12:49:46) [DEBUG \"websocket.hpp\":257] ConnectionImpl::doRead() entry\nAug 15 12:49:46 intel-obmc bmcweb[391]: (2022-08-15 12:49:46) [DEBUG \"nbd_proxy.hpp\":288] nbd-proxy.onopen(0x22e7120)\nAug 15 12:49:46 intel-obmc bmcweb[391]: (2022-08-15 12:49:46) [DEBUG \"websocket.hpp\":262] ConnectionImpl async read callback entry\nAug 15 12:49:46 intel-obmc bmcweb[391]: (2022-08-15 12:49:46) [DEBUG \"nbd_proxy.hpp\":318] nbd-proxy.onMessageEx(len \u003d 18)\nAug 15 12:49:46 intel-obmc bmcweb[391]: (2022-08-15 12:49:46) [DEBUG \"nbd_proxy.hpp\":329] Couldn\u0027t find NbdProxyServer instance for connection 0x22e7120\nAug 15 12:49:46 intel-obmc bmcweb[391]: (2022-08-15 12:49:46) [DEBUG \"websocket.hpp\":224] ConnectionImpl::close(\"internal error\") entry\nAug 15 12:49:46 intel-obmc bmcweb[391]: (2022-08-15 12:49:46) [DEBUG \"websocket.hpp\":257] ConnectionImpl::doRead() entry\nAug 15 12:49:46 intel-obmc bmcweb[391]: (2022-08-15 12:49:46) [DEBUG \"nbd_proxy.hpp\":207] afterGetManagedObjects() entry\nAug 15 12:49:46 intel-obmc bmcweb[391]: (2022-08-15 12:49:46) [DEBUG \"nbd_proxy.hpp\":278] Session is null for connection 0x22e7120\nAug 15 12:49:46 intel-obmc bmcweb[391]: (2022-08-15 12:49:46) [DEBUG \"nbd_proxy.hpp\":56] NbdProxyServer constructor\nAug 15 12:49:46 intel-obmc bmcweb[391]: (2022-08-15 12:49:46) [DEBUG \"nbd_proxy.hpp\":80] NbdProxyServer::run() entry\nAug 15 12:49:46 intel-obmc virtual-media[312]: [Info    ] [initial_state.hpp:283] operator()(): [App]: Mount called on /xyz/openbmc_project/VirtualMedia/Proxy/Slot_0\nAug 15 12:49:46 intel-obmc virtual-media[312]: [Info    ] [state_machine.hpp:68] emitEvent(): Slot_0 received MountEvent while in ReadyState\nAug 15 12:49:46 intel-obmc virtual-media[312]: [Info    ] [state_machine.hpp:58] changeState(): Slot_0 state changed to ActivatingState\nAug 15 12:49:46 intel-obmc bmcweb[391]: (2022-08-15 12:49:46) [DEBUG \"websocket.hpp\":228] ConnectionImpl: websocket async close callback entry\nAug 15 12:49:46 intel-obmc bmcweb[391]: (2022-08-15 12:49:46) [ERROR \"websocket.hpp\":236] Error closing websocket asio.ssl.stream:1\nAug 15 12:49:46 intel-obmc bmcweb[391]: (2022-08-15 12:49:46) [DEBUG \"websocket.hpp\":237] Error details: stream truncated [asio.ssl.stream:1]\nAug 15 12:49:46 intel-obmc bmcweb[391]: (2022-08-15 12:49:46) [DEBUG \"websocket.hpp\":262] ConnectionImpl async read callback entry\nAug 15 12:49:46 intel-obmc bmcweb[391]: (2022-08-15 12:49:46) [ERROR \"websocket.hpp\":267] doRead error system:125\nAug 15 12:49:46 intel-obmc bmcweb[391]: (2022-08-15 12:49:46) [DEBUG \"websocket.hpp\":268] Error details: Operation canceled [system:125]\nAug 15 12:49:46 intel-obmc bmcweb[391]: (2022-08-15 12:49:46) [DEBUG \"nbd_proxy.hpp\":303] nbd-proxy.onclose(reason \u003d \u0027internal error\u0027)\nAug 15 12:49:46 intel-obmc bmcweb[391]: (2022-08-15 12:49:46) [DEBUG \"nbd_proxy.hpp\":66] NbdProxyServer destructor\nAug 15 12:49:46 intel-obmc bmcweb[391]: (2022-08-15 12:49:46) [DEBUG \"nbd_proxy.hpp\":83] NbdProxyServer: Async accept callback entry\nAug 15 12:49:46 intel-obmc bmcweb[391]: (2022-08-15 12:49:46) [ERROR \"nbd_proxy.hpp\":86] UNIX socket: async_accept error \u003d Operation canceled\nAug 15 12:49:46 intel-obmc virtual-media[312]: [Info    ] [system.hpp:382] operator()(): [Process]: Start reading console from nbd-client\nAug 15 12:49:46 intel-obmc virtual-media[312]: [Info    ] [initial_state.hpp:214] operator()(): [App]: Unmount called on Slot_0\nAug 15 12:49:46 intel-obmc virtual-media[312]: [Info    ] [state_machine.hpp:68] emitEvent(): Slot_0 received UnmountEvent while in ActivatingState\nAug 15 12:49:46 intel-obmc virtual-media[312]: [Error   ] [activating_state.hpp:21] handleEvent(): Invalid event: UnmountEvent",
+      "range": {
+        "startLine": 314,
+        "startChar": 4,
+        "endLine": 319,
+        "endChar": 5
+      },
+      "revId": "b066c3e0c1e916d3ba2c87444708c629cb0f8dc0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c706ca37_1db2ddfd",
+        "filename": "include/nbd_proxy.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-16T18:12:58Z",
+      "side": 1,
+      "message": "In the above logs I\u0027m seeing ConnectionImpl::close(\"internal error\")\n\nWhich doesn\u0027t exist in bmcweb master.  \n\nSame thing with\n\n\u003e [DEBUG \"nbd_proxy.hpp\":329]\n\nWhich doesn\u0027t have a print statement on it.  If you\u0027ve made modifications to this patch, can you push them somewhere that I can seem them?  If not, are you sure that this is the patch you loaded?\n\n\n\u003e there might occur situation when NbdProxyServer instance is not yet created\n\ncan you describe this better?",
+      "parentUuid": "ce4b4e7c_0df3ec7d",
       "range": {
         "startLine": 314,
         "startChar": 4,
