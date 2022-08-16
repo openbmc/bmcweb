@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ae4de7d_bc294f9a",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 73
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2022-08-16T19:05:08Z",
+      "side": 1,
+      "message": "I think you need a \"#include \u003cboost/lexical_cast.hpp\u003e\" and a few other boost includes in here.",
+      "revId": "898ef05b5f534e0896119ce6e3f168449b48444e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
