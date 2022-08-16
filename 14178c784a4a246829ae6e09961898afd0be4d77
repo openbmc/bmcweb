@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8164fac7_4e59d53f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001220
+      },
+      "writtenOn": "2022-08-16T16:22:05Z",
+      "side": 1,
+      "message": "Is it guaranteed that an EIO error means that the MACAddress is read-only? Are there other situations that could result in an EIO error?",
+      "revId": "14178c784a4a246829ae6e09961898afd0be4d77",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
