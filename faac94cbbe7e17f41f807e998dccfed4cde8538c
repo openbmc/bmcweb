@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8d6d54ef_9ed2c3e6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-08-16T19:55:38Z",
+      "side": 1,
+      "message": "This commit corrects the behavior, so that the final response gets all\nerror message of subqueries and the \"highest priority\" HTTP code. ?",
+      "revId": "faac94cbbe7e17f41f807e998dccfed4cde8538c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
