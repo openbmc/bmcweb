@@ -16,6 +16,24 @@
       "message": "I think you need a \"#include \u003cboost/lexical_cast.hpp\u003e\" and a few other boost includes in here.",
       "revId": "898ef05b5f534e0896119ce6e3f168449b48444e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "15f5f521_79f42f01",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 73
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-16T19:10:44Z",
+      "side": 1,
+      "message": "The real answer is \"don\u0027t use lexical cast\" 😊\n\nI\u0027m not sure where it\u0027s used, but today in modern c++, there is always an alternative that\u0027s better (usually from_chars)",
+      "parentUuid": "7ae4de7d_bc294f9a",
+      "revId": "898ef05b5f534e0896119ce6e3f168449b48444e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
