@@ -16,6 +16,7 @@
 #pragma once
 
 #include "error_messages.hpp"
+#include "http_connection.hpp"
 #include "http_request.hpp"
 #include "http_response.hpp"
 #include "human_sort.hpp"
@@ -672,6 +673,19 @@ inline void sortJsonArrayByOData(nlohmann::json::array_t& array)
 {
     std::sort(array.begin(), array.end(), ODataObjectLess());
 }
+
+// Returns the estimated size of the JSON value
+// The implementation walks through every key and every value, accumulates the
+//  total size of keys and values.
+// Ideally, we should use a custom allocator that nlohmann JSON supports.
+
+// Assumption made:
+//  1. number: 8 characters
+//  2. boolean: 5 characters (False)
+//  3. string: len(str) + 2 characters (quote)
+//  4. bytes: len(bytes) characters
+//  5. null: 4 characters (null)
+uint64_t getEstimatedJsonSize(const nlohmann::json& root);
 
 } // namespace json_util
 } // namespace redfish
