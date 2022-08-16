@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "358076d3_a48f6210",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-08-16T17:20:23Z",
+      "side": 0,
+      "message": "I would like to see all newly protocols can be placed in separate file and call single API from here to filling in details of those protocols information. So keep the existing code as is and add a new API call say \"getSnmpSubscriptions(...)\" and have complete code is separate file. \n\nThere can be OEM protocol\u0027s support( Example kafka streaming) from different OEM and following this way will be easy for maintain the OEM code.",
+      "range": {
+        "startLine": 200,
+        "startChar": 2,
+        "endLine": 213,
+        "endChar": 9
+      },
+      "revId": "c21c64b6523d882c927c0e3e29d65c364b3aa1d5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
