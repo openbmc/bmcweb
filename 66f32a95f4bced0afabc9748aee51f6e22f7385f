@@ -189,6 +189,30 @@
       },
       "revId": "66f32a95f4bced0afabc9748aee51f6e22f7385f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5632d8df_8b23210f",
+        "filename": "http/routing.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1336,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-16T18:32:30Z",
+      "side": 1,
+      "message": "\u003e I want unsupported method and URI combinations to hit the redfish404 endpoint so that they can reach the aggregation hook that will be in query.hpp.\n\nThey hit a different hook, so we can handle 405 differently than 404, but I think both will hit query.hpp.  I\u0027m having a little trouble figuring out if you\u0027re ok with the next patch for 405, or if it needs amended.\n\n\u003e \n\u003e The only combination that exits early is when BMCWeb supports an endpoint, but not the provided method.  That\u0027s why POST /redfish/v1/Fake reaches query.hpp, but PATCH /redfish/v1 bails early.  We support /redfish/v1, but PATCH requests are not valid methods for that endpoint.\n\u003e \n\u003e I haven\u0027t yet run into a scenario in BMCWeb where we support an endpoint without also supporting all of the methods as required by the spec.\n\nWhat you wrote was \"as required\" of which you\u0027re right.  \"As allowed\" is a different story.  I think you have the advantage that you\u0027re aggregating bmcweb to bmcweb, so there\u0027s never going to be a mismatch there, but it\u0027s something real that could happen.",
+      "parentUuid": "832e1aae_77fe7949",
+      "range": {
+        "startLine": 1322,
+        "startChar": 8,
+        "endLine": 1336,
+        "endChar": 9
+      },
+      "revId": "66f32a95f4bced0afabc9748aee51f6e22f7385f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
