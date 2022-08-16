@@ -16,6 +16,24 @@
       "message": "Is it guaranteed that an EIO error means that the MACAddress is read-only? Are there other situations that could result in an EIO error?",
       "revId": "14178c784a4a246829ae6e09961898afd0be4d77",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aad07a5e_8a8d9fb3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000278
+      },
+      "writtenOn": "2022-08-16T16:27:42Z",
+      "side": 1,
+      "message": "I don\u0027t have an answer to that question. EIO is the error returned when the phosphor-network entry is R/O. I don\u0027t have an exhaustive list of other failure modes when patching this entry.\nI\u0027m hoping that I don\u0027t first have to make a change in phosphor-network to return some other error code, and that this commit handles the known \"non-critical\" failure case.",
+      "parentUuid": "8164fac7_4e59d53f",
+      "revId": "14178c784a4a246829ae6e09961898afd0be4d77",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
