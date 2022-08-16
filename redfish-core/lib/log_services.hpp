@@ -618,13 +618,27 @@ inline void deleteDumpEntry(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                             const std::string& dumpType)
 {
     auto respHandler =
-        [asyncResp, entryID](const boost::system::error_code ec) {
+        [asyncResp, entryID](const boost::system::error_code ec,
+                             const sdbusplus::message::message& msg) {
         BMCWEB_LOG_DEBUG << "Dump Entry doDelete callback: Done";
         if (ec)
         {
             if (ec.value() == EBADR)
             {
                 messages::resourceNotFound(asyncResp->res, "LogEntry", entryID);
+                return;
+            }
+            const sd_bus_error* dbusError = msg.get_error();
+            if (dbusError == nullptr)
+            {
+                messages::internalError(asyncResp->res);
+                return;
+            }
+
+            if (strcmp(dbusError->name, "xyz.openbmc_project.Common.Error."
+                                        "Unavailable") == 0)
+            {
+                messages::serviceTemporarilyUnavailable(asyncResp->res, "1");
                 return;
             }
             BMCWEB_LOG_ERROR << "Dump (DBus) doDelete respHandler got error "
