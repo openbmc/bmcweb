@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2d34a831_bd0d135f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-16T17:37:34Z",
+      "side": 1,
+      "message": "When does this error occur in practice?  Today it\u0027s handled by 500, which isn\u0027t \"not handled\"",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 8
+      },
+      "revId": "859a6b9979f0b828dbf8abb9be9b71d24d513139",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f637b99f_371bed6d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-16T17:37:34Z",
+      "side": 1,
+      "message": "More details needed on how this reproduces.",
+      "range": {
+        "startLine": 17,
+        "startChar": 21,
+        "endLine": 17,
+        "endChar": 56
+      },
+      "revId": "859a6b9979f0b828dbf8abb9be9b71d24d513139",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
