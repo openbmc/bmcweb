@@ -33,6 +33,24 @@
       "message": "nit: checking if (prefixLength \u003d\u003d nullptr) could save some indentation space.",
       "revId": "f0ca89156c8a34ed30c4e70c95896f771fa3a7e3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3ba1e619_e5e98ef8",
+        "filename": "redfish-core/include/utils/ip_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-16T18:19:29Z",
+      "side": 1,
+      "message": "There is nothing in the below that wraps to a second line, so saving indentation space in this case doesn\u0027t make it any cleaner, and both paths have the same return, so I prefer it the way it is.",
+      "parentUuid": "47bf7a91_3305c8e7",
+      "revId": "f0ca89156c8a34ed30c4e70c95896f771fa3a7e3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
