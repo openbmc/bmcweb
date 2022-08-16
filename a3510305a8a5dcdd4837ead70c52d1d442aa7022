@@ -192,6 +192,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8d3db68d_cb08c91d",
+        "filename": "redfish-core/include/utils/service_utils.hpp",
+        "patchSetId": 34
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-08-16T01:42:42Z",
+      "side": 1,
+      "message": "\u003e That doesn\u0027t answer the question.  \"Enabled\" implies that service control manager should start the service, right?  Is this a bug in service manager?\n\nI think it was some design issue. \"Enabled\" means start the serivice on startup, \"Running\" means the current status of the service. It is mapped to the systemd control properties, not Redfish property.",
+      "parentUuid": "86ff195a_9f73f31f",
+      "range": {
+        "startLine": 62,
+        "startChar": 0,
+        "endLine": 66,
+        "endChar": 40
+      },
+      "revId": "a3510305a8a5dcdd4837ead70c52d1d442aa7022",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a6aa7028_3a986dd7",
         "filename": "redfish-core/include/utils/service_utils.hpp",
         "patchSetId": 34
