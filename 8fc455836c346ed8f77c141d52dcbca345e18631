@@ -39,6 +39,30 @@
       },
       "revId": "8fc455836c346ed8f77c141d52dcbca345e18631",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "657bb640_b10add5e",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-08-17T07:16:51Z",
+      "side": 1,
+      "message": "Done, removed duplicated TODO",
+      "parentUuid": "ddec8e2e_6317f771",
+      "range": {
+        "startLine": 168,
+        "startChar": 0,
+        "endLine": 168,
+        "endChar": 22
+      },
+      "revId": "8fc455836c346ed8f77c141d52dcbca345e18631",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
