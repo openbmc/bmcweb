@@ -16,6 +16,24 @@
       "message": "This is all great stuff, anyway we could get the design doc merged here? \n\nhttps://gerrit.openbmc.org/c/openbmc/docs/+/44547\n",
       "revId": "cc34ff0910047ccdcb559c7dc3cb1201f138fc91",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e3f24e08_5a28bb29",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-17T16:55:04Z",
+      "side": 1,
+      "message": "IMO, that doc has outlived its usefulness, and got a lot less engagement than actually just starting to build the damn thing.\n\nFWIW, design docs are intended to make sure that someone doesn\u0027t waste their time in implementation on something that\u0027s a non-starter (like the mentioned \"use libredfish\" pattern in the original design).  The original author of that doc hasn\u0027t been related to the implementation in a while, so that\u0027s I think some of the confusion.\n\nAt this point, I think we need documentation in Redfish.md (which yes, Carson should build some portion of as part of this series), but in terms of the design, we have something that several from the community have attempted to use, and used successfully, based on pretty incremental patches to existing functions.  That seems like a win to me.  I think we got the right result in lieu of our design doc process being a mess, and I think the right approach is to start commenting on this series and pushing patches on top if there are folks interested in the implementation.",
+      "parentUuid": "72eb5ffa_84587f19",
+      "revId": "cc34ff0910047ccdcb559c7dc3cb1201f138fc91",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
