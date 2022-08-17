@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "500d5ccd_39696767",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-08-17T10:28:29Z",
+      "side": 1,
+      "message": "minor comments",
+      "revId": "1b49696c4f404128f3f5b5db088f4a356822125c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a08f83ed_d1869e07",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-08-17T10:28:29Z",
+      "side": 1,
+      "message": "If request session is nullprt, it should return the error. But ideally it should not.\n\nIf owner field is empty means, you can\u0027t create new subscription.",
+      "range": {
+        "startLine": 286,
+        "startChar": 8,
+        "endLine": 286,
+        "endChar": 35
+      },
+      "revId": "1b49696c4f404128f3f5b5db088f4a356822125c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "67fafa71_fb3515e6",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-08-17T10:28:29Z",
+      "side": 1,
+      "message": "Empty check for username is needed.\n\nif (req.session \u003d\u003d nullptr || req.session-\u003eusername.empty())\n{\n   // Log error\n   // return;\n}",
+      "range": {
+        "startLine": 288,
+        "startChar": 30,
+        "endLine": 288,
+        "endChar": 51
+      },
+      "revId": "1b49696c4f404128f3f5b5db088f4a356822125c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6a7ccb91_145bb3e8",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 598,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-08-17T10:28:29Z",
+      "side": 1,
+      "message": "You can fill the insufficient privilege response here itself and avoid passing asyncResp  to isConfigureManagerOrSelf() method.\n\nmessages::insufficientPrivilege(asyncResp-\u003eres);",
+      "revId": "1b49696c4f404128f3f5b5db088f4a356822125c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
