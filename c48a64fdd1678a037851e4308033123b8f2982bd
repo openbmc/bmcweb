@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "25225cc4_18834217",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-08-17T16:30:14Z",
+      "side": 1,
+      "message": "I\u0027m not sure what\u0027d causing this issue, but the routing seems to be broken by this patch.  I\u0027ve tested this patch locally and applied on top of the previous \"Allow custom 404 handlers\" patch.  I\u0027ve seeing this behavior:\n\n~# curl localhost:80/redfish\nMethod Not Allowed\n~# curl localhost:80/redfish/v1/Chassis\nMethod Not Allowed\n\nAll I can tell from the debug messages is we\u0027re bailing before we hit the actual endpoint handling.  If I use an invalid URI then I do reach the redfish404() handler:\n\n~# wget -qO- localhost:80/redfish/v1/Fake\nwget: server returned error: HTTP/1.1 404 Not Found\n\nI\u0027m not entirely sure what\u0027s causing this.  I\u0027ve left a comment on the section of code that seems to be getting hit.\n\n",
+      "revId": "c48a64fdd1678a037851e4308033123b8f2982bd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dde8905c_e36d667b",
+        "filename": "http/routing.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1351,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-08-17T16:30:14Z",
+      "side": 1,
+      "message": "In my testing, this seems to be getting hit for valid routes such as POST /redfish/v1",
+      "range": {
+        "startLine": 1347,
+        "startChar": 0,
+        "endLine": 1351,
+        "endChar": 13
+      },
+      "revId": "c48a64fdd1678a037851e4308033123b8f2982bd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
