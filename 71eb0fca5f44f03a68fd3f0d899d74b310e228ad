@@ -102,6 +102,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "de630cb4_0b575365",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-08-17T09:30:38Z",
+      "side": 1,
+      "message": "This also not needed as per https://gerrit.openbmc.org/c/openbmc/bmcweb/+/38599/comments/f6167c9a_47877c49 comment.\n\nIf we are adding data to bmcweb persistent store means, Must need synchronization.",
+      "revId": "71eb0fca5f44f03a68fd3f0d899d74b310e228ad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f6167c9a_47877c49",
         "filename": "redfish-core/lib/event_service.hpp",
         "patchSetId": 50
@@ -131,6 +148,41 @@
       "side": 1,
       "message": "\u003e Bmcweb EventService will have those newly added entries and SNMP service will not. Who will take care of sync between them in either case\n\nPlease see line 159. When these newly added entries are not Found in the SNMP service, we will delete the subscription in bmcweb EventService.\n\nIn fact, in the implementation of bmcweb SNMP subscription，we only use the bmc persistent data to store the \"context\" property, which does not exist in the SNMP service. \nSNMP service is the owner of SNMP subscriptions. When we get SNMP subscription properties, we will get them from SNMP service instead of bmcweb EventService. Therefore, it is not necessary to sync between the bmcweb EventService and the SNMP service. We only need the entries in the SNMP service.",
       "parentUuid": "f6167c9a_47877c49",
+      "revId": "71eb0fca5f44f03a68fd3f0d899d74b310e228ad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "00f4d541_6e6cc48b",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-08-17T09:30:38Z",
+      "side": 1,
+      "message": "\u003e \u003e Bmcweb EventService will have those newly added entries and SNMP service will not. Who will take care of sync between them in either case\n\u003e \n\u003e Please see line 159. When these newly added entries are not Found in the SNMP service, we will delete the subscription in bmcweb EventService.\nNo, That won\u0027t work as expected. Delete subscriptions ( Function call getSnmpTrapClient) as per current logic works only if user tries get individual subscriptions (/redfish/v1/EventService/Subscriptions/snmp\u003cx\u003e ) information. What if user doesn\u0027t get individual snmp subscription and only get subscriptions collections. This code logic won\u0027t work as expected as it stands. \n\u003e \n\u003e In fact, in the implementation of bmcweb SNMP subscription，we only use the bmc persistent data to store the \"context\" property, which does not exist in the SNMP service. \n\u003e SNMP service is the owner of SNMP subscriptions. When we get SNMP subscription properties, we will get them from SNMP service instead of bmcweb EventService. Therefore, it is not necessary to sync between the bmcweb EventService and the SNMP service. We only need the entries in the SNMP service.\n\n - What is use of \"context\" in this SNMP subscription case? If its not forwarded/used by SNMP service, I don\u0027t see a use of storing \"context\".\n - As per your comment above, no need of storing any SNMP data in bmcweb persistent store. bmcweb can always get all live information from SNMP service. So changes to addSubscription() is not needed.",
+      "parentUuid": "af93a03f_c2e0daa7",
+      "revId": "71eb0fca5f44f03a68fd3f0d899d74b310e228ad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b6a98937_1a562421",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-08-17T09:30:38Z",
+      "side": 1,
+      "message": "As per https://gerrit.openbmc.org/c/openbmc/bmcweb/+/38599/comments/f6167c9a_47877c49 comment, This is not needed.\n\nIf we are adding data to bmcweb persistent store means, Must need synchronization.",
       "revId": "71eb0fca5f44f03a68fd3f0d899d74b310e228ad",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -184,6 +236,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6dfac78d_40b94418",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-08-17T09:30:38Z",
+      "side": 1,
+      "message": "Thanks",
+      "parentUuid": "e6a3437d_39c3f82d",
+      "range": {
+        "startLine": 51,
+        "startChar": 0,
+        "endLine": 291,
+        "endChar": 1
+      },
+      "revId": "71eb0fca5f44f03a68fd3f0d899d74b310e228ad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1f8ae287_8f2de09b",
         "filename": "redfish-core/lib/event_service.hpp",
         "patchSetId": 50
@@ -213,6 +289,24 @@
       "side": 1,
       "message": "This is the correct format. I have already run clang-format",
       "parentUuid": "1f8ae287_8f2de09b",
+      "revId": "71eb0fca5f44f03a68fd3f0d899d74b310e228ad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7471857a_66515626",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 583,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-08-17T09:30:38Z",
+      "side": 1,
+      "message": "NIT: Looks like its better to wrap first condition also in ()..\n\nif ((*subscriptionType !\u003d \"RedfishEvent\") \u0026\u0026 (*subscriptionType !\u003d \"SNMPTrap\"))",
+      "parentUuid": "5fdce9a6_4feaa3e2",
       "revId": "71eb0fca5f44f03a68fd3f0d899d74b310e228ad",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -265,6 +359,24 @@
       "side": 1,
       "message": "\u003e and user will not see it anymore \n\nNo, user will see it. Please see the getSnmpTrapClient function. we get the SNMP subscription entry from dbus instead of bmcweb event service.",
       "parentUuid": "65858cf0_1c4063ad",
+      "revId": "71eb0fca5f44f03a68fd3f0d899d74b310e228ad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c30a7652_a512f3c9",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 974,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-08-17T09:30:38Z",
+      "side": 1,
+      "message": "No, That won\u0027t work as expected. Delete subscriptions ( Function call getSnmpTrapClient) as per current logic works only if user tries get individual subscriptions (/redfish/v1/EventService/Subscriptions/snmp\u003cx\u003e ) information. What if user doesn\u0027t get individual snmp subscription and only get subscriptions collections. This code logic won\u0027t work as expected as it stands.",
+      "parentUuid": "70510a96_dc220c13",
       "revId": "71eb0fca5f44f03a68fd3f0d899d74b310e228ad",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
