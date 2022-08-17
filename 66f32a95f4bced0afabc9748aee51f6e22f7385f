@@ -237,6 +237,30 @@
       },
       "revId": "66f32a95f4bced0afabc9748aee51f6e22f7385f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cf367db2_f5ea7c32",
+        "filename": "http/routing.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1336,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-17T16:59:14Z",
+      "side": 1,
+      "message": "\u003e \u003e They hit a different hook, so we can handle 405 differently than 404, but I think both will hit query.hpp.\n\u003e They will both still call redfish404() right?\n\nNope, this commit invents a separate method \"redfish405()\"\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/56032/3/redfish-core/lib/redfish_v1.hpp#49\n\n\u003e  That\u0027s what appears to be happening in this patch and it\u0027s also the behavior I want since that allows a path to query.hpp.\n\nTake a look at the above, while it doesn\u0027t do literally what you said you want (ie both call redfish404), it does enough of what you want (both call setupRedfishRoute) that I think it does what you need?  I could be mistaken though.\n\n\u003e \n\u003e \u003e I\u0027m having a little trouble figuring out if you\u0027re ok with the next patch for 405, or if it needs amended.\n\u003e I\u0027ve tried that patch and it doesn\u0027t seem to be working correctly.  I\u0027ve left a comment on it.  For my current needs this 404 patch is fine by itself.\n\nACK.\n\n\u003e \n\u003e \u003e What you wrote was \"as required\" of which you\u0027re right.  \"As allowed\" is a different story.  I think you have the advantage that you\u0027re aggregating bmcweb to bmcweb, so there\u0027s never going to be a mismatch there, but it\u0027s something real that could happen.\n\u003e ACK and good thing that\u0027s not a current issue.  I think we\u0027d need a different approach if we want to support forwarding requests types that are allowed but not implemented by BMCWeb.\n\nI think it\u0027s covered by the 405 patchset above, but yes, lets not worry about it just yet.\n\n\u003e \n\u003e My guess is would be we remove the early returns in routing.hpp so that we will always have to the handle the request.  redfish404() becomes a catch all for all endpoint and method combinations that are not explicitly handled by BMCWeb.  From the schema we\u0027d create a map of allowed methods for all resources and then we\u0027d have to determine if we receive a request that is allowed but not implemented.  If we did then we\u0027d call our aggregation hook.\n\nI was with you until the \"map of all allowed methods\" part.  I think we can just rely on the URL to know if we have to forward to the aggregated resource?\n\n\u003e \n\u003e That sounds like something that is a lot of work to solve what isn\u0027t currently an issue.  Is it alright to ignore that for now?\n\nYep, I think that\u0027s ok.",
+      "parentUuid": "ca703f91_b72e5a4e",
+      "range": {
+        "startLine": 1322,
+        "startChar": 8,
+        "endLine": 1336,
+        "endChar": 9
+      },
+      "revId": "66f32a95f4bced0afabc9748aee51f6e22f7385f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
