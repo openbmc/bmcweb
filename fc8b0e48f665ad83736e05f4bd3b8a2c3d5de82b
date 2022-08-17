@@ -16,6 +16,24 @@
       "message": "Everyone\u0027s tree is going to be different right ? Should this be a meson option like bmcwebHttpReqBodyLimitMb ?",
       "revId": "fc8b0e48f665ad83736e05f4bd3b8a2c3d5de82b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4bca363e_20f9a8a8",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-08-17T01:48:26Z",
+      "side": 1,
+      "message": "I would like to see everyone\u0027s opinion. Yes, I can make this limit a meson option if everyone agrees.\n\nIt\u0027s true the redfish tree is different, but we can use some experience values. I don\u0027t really see a deep level of expand on service root buys clients a lot. We need the new parameter in https://github.com/DMTF/Redfish/issues/5058 to be able to execute complex query at service root. So, to keep it safe so that we don\u0027t easily run out of memory when executing expand queries, it\u0027s better to start with a small value.",
+      "parentUuid": "fcafde21_31d18ed6",
+      "revId": "fc8b0e48f665ad83736e05f4bd3b8a2c3d5de82b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
