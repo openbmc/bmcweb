@@ -48,6 +48,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d3e08628_5b98e170",
+        "filename": "redfish-core/include/utils/service_utils.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-08-17T07:45:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9f2efce2_52dd0dc3",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 55
+      },
+      "revId": "62a2af4641b1a0f2c24ce5e49ee6ac89720728e8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ba301573_c7c2e957",
@@ -78,6 +102,30 @@
       "writtenOn": "2022-08-15T20:09:36Z",
       "side": 1,
       "message": "This is still too complex to be a lambda.  Please make it a normal function.",
+      "range": {
+        "startLine": 83,
+        "startChar": 0,
+        "endLine": 83,
+        "endChar": 78
+      },
+      "revId": "62a2af4641b1a0f2c24ce5e49ee6ac89720728e8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "926ba05c_55b3c558",
+        "filename": "redfish-core/include/utils/service_utils.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-08-17T07:45:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4e96c5cc_a50a89b4",
       "range": {
         "startLine": 83,
         "startChar": 0,
