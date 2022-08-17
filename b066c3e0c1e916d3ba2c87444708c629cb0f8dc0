@@ -139,6 +139,30 @@
       },
       "revId": "b066c3e0c1e916d3ba2c87444708c629cb0f8dc0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9a029681_3f6240d5",
+        "filename": "include/nbd_proxy.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 1001329
+      },
+      "writtenOn": "2022-08-17T09:28:11Z",
+      "side": 1,
+      "message": "\u003e Which doesn\u0027t have a print statement on it.  If you\u0027ve made modifications to this patch, can you push them somewhere that I can seem them?  If not, are you sure that this is the patch you loaded?\n\nThose additional logs have been by me in order to take a closer look on what might fail here. If You want, I\u0027ll open another work-in-progress article adding those traces for Your reference - of course with no intention to merge them later as I consider them debug-only.\n\n\n\u003e \n\u003e \u003e there might occur situation when NbdProxyServer instance is not yet created\n\u003e \n\u003e can you describe this better?\n\nI thought that attached logs describe this situation pretty well, but I might have been wrong. If You take a look at them, You\u0027ll notice that nbd-proxy.onopen and nbd-proxy.onmessageex start pretty much one after another. OnOpen handler, after confirming that endpoint parameters are OK, creates an instance of NbdProxyServer (nbd_proxy.hpp:267). The problem is that onMessage handler, which has been run on parallel with onOpen, tried to obtain the NbdProxyServer instance in a moment when it had not yet been created. This results with immediate connection close with message \"internal error\" (nbd_proxy.hpp:314-319).\n\nI hope that this describes the situation better.",
+      "parentUuid": "c706ca37_1db2ddfd",
+      "range": {
+        "startLine": 314,
+        "startChar": 4,
+        "endLine": 319,
+        "endChar": 5
+      },
+      "revId": "b066c3e0c1e916d3ba2c87444708c629cb0f8dc0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
