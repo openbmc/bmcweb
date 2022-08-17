@@ -41,6 +41,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f9acda48_ccc9da74",
+        "filename": "include/event_service_store.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1001186
+      },
+      "writtenOn": "2022-08-17T07:39:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "79fc7ee3_a1cb49d6",
+      "range": {
+        "startLine": 176,
+        "startChar": 39,
+        "endLine": 176,
+        "endChar": 56
+      },
+      "revId": "c7a2c972e15e7abe8d61addaac6bf2f09166d5e5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0419f2d6_8ae87a2f",
@@ -54,6 +78,30 @@
       "writtenOn": "2022-08-03T20:43:40Z",
       "side": 1,
       "message": "Please check session pointer for validity before dereferencing.",
+      "range": {
+        "startLine": 286,
+        "startChar": 49,
+        "endLine": 286,
+        "endChar": 51
+      },
+      "revId": "c7a2c972e15e7abe8d61addaac6bf2f09166d5e5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3966684b_454521aa",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 1001186
+      },
+      "writtenOn": "2022-08-17T07:39:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0419f2d6_8ae87a2f",
       "range": {
         "startLine": 286,
         "startChar": 49,
@@ -87,6 +135,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "360adaf0_ae550d52",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 575,
+      "author": {
+        "id": 1001186
+      },
+      "writtenOn": "2022-08-17T07:39:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0662b215_c7928ab7",
+      "range": {
+        "startLine": 568,
+        "startChar": 0,
+        "endLine": 575,
+        "endChar": 13
+      },
+      "revId": "c7a2c972e15e7abe8d61addaac6bf2f09166d5e5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cf240f95_110cce10",
@@ -100,6 +172,30 @@
       "writtenOn": "2022-08-03T20:43:40Z",
       "side": 1,
       "message": "This is I think the 4th place this block of code is used.  Please extract it to a method that at least this patchset can use.",
+      "range": {
+        "startLine": 658,
+        "startChar": 0,
+        "endLine": 690,
+        "endChar": 9
+      },
+      "revId": "c7a2c972e15e7abe8d61addaac6bf2f09166d5e5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "49a9c6cc_4f012c36",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 690,
+      "author": {
+        "id": 1001186
+      },
+      "writtenOn": "2022-08-17T07:39:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cf240f95_110cce10",
       "range": {
         "startLine": 658,
         "startChar": 0,
