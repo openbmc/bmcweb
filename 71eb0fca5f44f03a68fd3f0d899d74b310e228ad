@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "af93a03f_c2e0daa7",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2022-08-17T03:45:12Z",
+      "side": 1,
+      "message": "\u003e Bmcweb EventService will have those newly added entries and SNMP service will not. Who will take care of sync between them in either case\n\nPlease see line 159. When these newly added entries are not Found in the SNMP service, we will delete the subscription in bmcweb EventService.\n\nIn fact, in the implementation of bmcweb SNMP subscription，we only use the bmc persistent data to store the \"context\" property, which does not exist in the SNMP service. \nSNMP service is the owner of SNMP subscriptions. When we get SNMP subscription properties, we will get them from SNMP service instead of bmcweb EventService. Therefore, it is not necessary to sync between the bmcweb EventService and the SNMP service. We only need the entries in the SNMP service.",
+      "parentUuid": "f6167c9a_47877c49",
+      "revId": "71eb0fca5f44f03a68fd3f0d899d74b310e228ad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "09dbb505_b1f47bab",
         "filename": "redfish-core/lib/event_service.hpp",
         "patchSetId": 50
@@ -75,6 +93,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5fdce9a6_4feaa3e2",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 583,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2022-08-17T03:45:12Z",
+      "side": 1,
+      "message": "This is the correct format. I have already run clang-format",
+      "parentUuid": "1f8ae287_8f2de09b",
+      "revId": "71eb0fca5f44f03a68fd3f0d899d74b310e228ad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1350f1f4_262bd0f9",
@@ -105,6 +141,24 @@
       "writtenOn": "2022-08-16T17:20:23Z",
       "side": 1,
       "message": "BUG: what if above dbus call fails due to some reasons? SNMP service will have subscription entry and it will be sending traps but bmcweb event service subscription info is deleted and user will not see it anymore even though traps are being sent.",
+      "revId": "71eb0fca5f44f03a68fd3f0d899d74b310e228ad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "70510a96_dc220c13",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 974,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2022-08-17T03:45:12Z",
+      "side": 1,
+      "message": "\u003e and user will not see it anymore \n\nNo, user will see it. Please see the getSnmpTrapClient function. we get the SNMP subscription entry from dbus instead of bmcweb event service.",
+      "parentUuid": "65858cf0_1c4063ad",
       "revId": "71eb0fca5f44f03a68fd3f0d899d74b310e228ad",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }

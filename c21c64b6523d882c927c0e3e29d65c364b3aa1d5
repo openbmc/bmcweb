@@ -22,6 +22,30 @@
       },
       "revId": "c21c64b6523d882c927c0e3e29d65c364b3aa1d5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bc9bc700_c178c14d",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2022-08-17T03:45:12Z",
+      "side": 0,
+      "message": "It is difficult to keep the existing code unchanged. We cannot capture the “memberArray” in lambda. This is the previous discussion: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/38599/43/redfish-core/lib/event_service.hpp#490",
+      "parentUuid": "358076d3_a48f6210",
+      "range": {
+        "startLine": 200,
+        "startChar": 2,
+        "endLine": 213,
+        "endChar": 9
+      },
+      "revId": "c21c64b6523d882c927c0e3e29d65c364b3aa1d5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
