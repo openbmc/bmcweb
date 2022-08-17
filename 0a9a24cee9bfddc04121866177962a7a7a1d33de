@@ -89,6 +89,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "04c73d7a_2d4f0f70",
+        "filename": "redfish-core/src/error_messages.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-17T18:18:54Z",
+      "side": 1,
+      "message": "Just a note, if things are still under discussion, generally I try to leave them open and not resolved.  Resolving them with no changes made to the underlying code and outstanding questions being asked makes it much harder to track which items are still being discussed.\n\nKeep in mind, it\u0027s not your job as a submitter to close ALL comments, only the ones where you made the change requested.  It\u0027s perfectly reasonable for a question asker to resolve the comment.\n\nWith that said, yeah, I think you\u0027re correct the way the code is written now.  ACK.",
+      "parentUuid": "69ab3eef_0a12e4b1",
+      "range": {
+        "startLine": 83,
+        "startChar": 0,
+        "endLine": 83,
+        "endChar": 27
+      },
+      "revId": "0a9a24cee9bfddc04121866177962a7a7a1d33de",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "420d4998_02539435",
@@ -120,6 +144,24 @@
       "side": 1,
       "message": "What you have described are all handled.\n\nPlease take a look at the existing function addMessageToErrorJson.\n\nIf there\u0027s no error in root, root will get the message and code of the first message. Otherwise, root gets GeneralError and message is added to the exiting array. \n\n\nResolved for now. Please reopen if you don\u0027t agree.",
       "parentUuid": "420d4998_02539435",
+      "revId": "0a9a24cee9bfddc04121866177962a7a7a1d33de",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dd165db4_3f9ad683",
+        "filename": "redfish-core/src/error_messages.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-17T18:18:54Z",
+      "side": 1,
+      "message": "\u003e If there\u0027s no error in root, root will get the message and code of the first message. \n\nRight, and that root error message needs propagated.  This code is only looking at the error key, because that\u0027s all that was passed in.\n\nThe code as I\u0027m reading it:\nlooks for @Message.ExtendedInfo\ntries to open @Message.ExtendedInfo as an array\n\nLoops over each message.\n\nIn the case where the message is on the root, isn\u0027t the array empty?\n\n\nAlso, another thing we probably need to be doing here is filtering out the error message from the sub-request object, otherwise we\u0027re duplicating the error information in the tree, and putting \"error\" keys deep in the tree where they don\u0027t belong.",
+      "parentUuid": "e2ac0fd4_7058100c",
       "revId": "0a9a24cee9bfddc04121866177962a7a7a1d33de",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
