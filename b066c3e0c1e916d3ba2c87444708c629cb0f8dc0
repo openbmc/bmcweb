@@ -163,6 +163,30 @@
       },
       "revId": "b066c3e0c1e916d3ba2c87444708c629cb0f8dc0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f574e11_2e9acea6",
+        "filename": "include/nbd_proxy.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 1001329
+      },
+      "writtenOn": "2022-08-17T14:50:38Z",
+      "side": 1,
+      "message": "You can find the insertion of additonal log messages here: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/56587",
+      "parentUuid": "9a029681_3f6240d5",
+      "range": {
+        "startLine": 314,
+        "startChar": 4,
+        "endLine": 319,
+        "endChar": 5
+      },
+      "revId": "b066c3e0c1e916d3ba2c87444708c629cb0f8dc0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
