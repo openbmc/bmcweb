@@ -16,6 +16,24 @@
       "message": "Copy / paste error with the InsufficientPrivilege ?",
       "revId": "5ab23b597a7fedb934a73b2287e37a103b3df0e1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e2cbd8be_b8e64517",
+        "filename": "redfish-core/include/error_messages.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1028,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-08-17T01:49:26Z",
+      "side": 1,
+      "message": "Good catch! Yes, copied from the InsufficientPrivilege ones.\n\nDone",
+      "parentUuid": "bf15844b_c2ac199a",
+      "revId": "5ab23b597a7fedb934a73b2287e37a103b3df0e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
