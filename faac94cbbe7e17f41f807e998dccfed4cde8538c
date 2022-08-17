@@ -52,6 +52,29 @@
       "parentUuid": "c36d9b54_fb6e9bb9",
       "revId": "faac94cbbe7e17f41f807e998dccfed4cde8538c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5bc91ef9_d6e59f2b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-17T18:23:17Z",
+      "side": 1,
+      "message": "Can we walk through the commonly used return codes (at the very least the documented ones) and make this order explicit?\n\n\nAlso, I suspect we need some amount of handling for the caching return codes?\n\nIt doesn\u0027t have to be perfect order-wise, but lets make sure it\u0027s explicit.",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 8
+      },
+      "revId": "faac94cbbe7e17f41f807e998dccfed4cde8538c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
