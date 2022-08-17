@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0577fb3f_a5d66630",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 50
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2022-08-17T09:03:31Z",
+      "side": 1,
+      "message": "Can we put these in redfish-cheatsheet.md: https://github.com/openbmc/docs/blob/master/REDFISH-cheatsheet.md",
+      "parentUuid": "0c6c18ff_474b5fb5",
+      "revId": "71eb0fca5f44f03a68fd3f0d899d74b310e228ad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bec61d74_d1cff80c",
         "filename": "/COMMIT_MSG",
         "patchSetId": 50
@@ -31,6 +49,30 @@
       "writtenOn": "2022-08-17T07:51:51Z",
       "side": 1,
       "message": "What if one of the components is restarted? For example only bmcweb or only service that stores SNMP subscriptions. If this two additional scenarios will work fine it should prove that there are no synchronization issues.",
+      "range": {
+        "startLine": 62,
+        "startChar": 0,
+        "endLine": 62,
+        "endChar": 12
+      },
+      "revId": "71eb0fca5f44f03a68fd3f0d899d74b310e228ad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "472b91b5_fbd2b57a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 50
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2022-08-17T09:03:31Z",
+      "side": 1,
+      "message": "SNMP service is the owner of SNMP subscriptions. Please see this comment: \nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/38599/comments/f6167c9a_47877c49\n\nOnly the entries in SNMP service are useful. We dont need to sync between the bmcweb EventService and the SNMP service.",
+      "parentUuid": "bec61d74_d1cff80c",
       "range": {
         "startLine": 62,
         "startChar": 0,
@@ -106,6 +148,30 @@
       "writtenOn": "2022-08-16T17:20:23Z",
       "side": 1,
       "message": "Can you move All snmpTrap specific code to separate file and minimize the changes in existing eventService. Since SNMP protocol follow different code flow completely, Its good to have it separate file. Also in future if we add more mote protocol support to EventService, No need to touch other protocol data.",
+      "range": {
+        "startLine": 51,
+        "startChar": 0,
+        "endLine": 291,
+        "endChar": 1
+      },
+      "revId": "71eb0fca5f44f03a68fd3f0d899d74b310e228ad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e6a3437d_39c3f82d",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2022-08-17T09:03:31Z",
+      "side": 1,
+      "message": "\u003e Can you move All snmpTrap specific code to separate file and minimize the changes in existing eventService\n\nI agree with you. I will move those code to separate file.",
+      "parentUuid": "09dbb505_b1f47bab",
       "range": {
         "startLine": 51,
         "startChar": 0,
