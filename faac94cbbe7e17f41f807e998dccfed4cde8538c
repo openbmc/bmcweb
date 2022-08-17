@@ -34,6 +34,24 @@
       "parentUuid": "8d6d54ef_9ed2c3e6",
       "revId": "faac94cbbe7e17f41f807e998dccfed4cde8538c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bbb8ccbc_cf7b7510",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-17T18:21:19Z",
+      "side": 1,
+      "message": "\u003e Anything you wanna add?\n\nI think Gunnar was giving you the suggestion of what text to put there instead.  IMO, I agree, Gunnars wording is more clear.",
+      "parentUuid": "c36d9b54_fb6e9bb9",
+      "revId": "faac94cbbe7e17f41f807e998dccfed4cde8538c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
