@@ -57,6 +57,30 @@
       },
       "revId": "5ab23b597a7fedb934a73b2287e37a103b3df0e1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ed5c54bb_c740e9e7",
+        "filename": "redfish-core/src/error_messages.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1721,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-08-17T17:12:26Z",
+      "side": 1,
+      "message": "\u003e I don\u0027t personally like the doxygen headers we have on these, but we should be consistent.\n\nAdding doxygen comments in headers makes sense and I already did that. The existing comments in sources are really useless.\n\nBut I just added. Done.\n\n```\n\n/**\n * @internal\n * @brief Formats InsufficientPrivilege message into JSON\n *\n * See header file for more information\n * @endinternal\n */\nnlohmann::json insufficientPrivilege(void)\n{\n    return getLog(redfish::registries::base::Index::insufficientPrivilege, {});\n}\n```\n\n\u003e Also, can you please keep the invalidUpload() method at the bottom of the file?  It is a bug that needs cleaned up at some point, so I\u0027d like it to stay somewhat separate from the rest of the handlers.\n\nDone.",
+      "parentUuid": "2daadf7c_fdc5c7da",
+      "range": {
+        "startLine": 1721,
+        "startChar": 0,
+        "endLine": 1721,
+        "endChar": 36
+      },
+      "revId": "5ab23b597a7fedb934a73b2287e37a103b3df0e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
