@@ -92,6 +92,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "a7314700_ebb0cca3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-08-17T01:45:04Z",
+      "side": 1,
+      "message": "That\u0027s nothing in the Redfish spec clarified this errors propagating (I might miss things though). I implemented \"the behavior bmcweb uses elsewhere\".\n\nPlease see the above threads.",
+      "parentUuid": "ab392b05_923787fe",
+      "revId": "3c73a116ae64e21a4e9ec4eb4b7583f67056cc91",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "06243f23_f251488a",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
