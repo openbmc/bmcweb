@@ -1535,6 +1535,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3c37df86_0fdd844e",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 583,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-08-17T01:57:04Z",
+      "side": 1,
+      "message": "\u003e \u003e Plus we already have to open and close a connection as part of each message sending event when the destination is not keep alive enabled so closing and then opening an idle connection to swap between SSL and non-SSL doesn\u0027t seem too out of the ordinary.\n\u003e \u003e Needing to swap between SSL and non-SSL is more of an edge case that we need to support rather than a regular usecase so the number of swaps should be relatively minor.\n\u003e This!  This is for sure an edge case, so why take on the complexity of swapping?\n\u003e\n\u003e Also, FWIW, I would expect a number of systems to compile with only HTTPS or only HTTP, so in the base case, this isn\u0027t really an issue.\nIf we don\u0027t handle this then we are introducing a bug where you can lock a IP:PORT as only being used for SSL or non-SSL.  W/o this patch there isn\u0027t a way to lock a user out of being able to correctly send a message to a destination.  I don\u0027t want the patch to introduce this bug. In its current state the is only using the IP:PORT as the key for creating new connection pools.\n\n\u003e Double is 8, which is still pretty reasonable, and the likelihood that a user has both HTTP and HTTPS running on the same port is essentially zero.\n\u003e ...in the worst case (which will probably never happen in the real world) we get 8 connections, which is still not that bad\nAlright so if Ed\u0027s good with 8 then the simplest way forward would be to just have separate pools for SSL and non-SSL.  Connection pools need to account for SSL when they are created.  This will also cover my earlier concerns around locking IP:PORT to be SSL or non-SSL.  I\u0027ll mark where to do that in a separate comment.",
+      "parentUuid": "126835d6_28ce6e33",
+      "range": {
+        "startLine": 583,
+        "startChar": 0,
+        "endLine": 583,
+        "endChar": 22
+      },
+      "revId": "d739445adffb056cbb753730656f80ccc367b010",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a26b0535_265df071",
         "filename": "http/http_client.hpp",
         "patchSetId": 5
