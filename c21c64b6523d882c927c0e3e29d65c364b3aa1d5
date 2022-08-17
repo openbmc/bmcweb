@@ -46,6 +46,30 @@
       },
       "revId": "c21c64b6523d882c927c0e3e29d65c364b3aa1d5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "783ad0a4_6c2b0a81",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-08-17T07:51:51Z",
+      "side": 0,
+      "message": "I agree that keeping each protocol in separate file would be easier to maintain and I understand that adding new protocol may require changes in existing code. Can we move snmp specific functions to new file and keep other changes here?\n\nFunctions with snmp in name (doGetSnmpTrapClientdata, ...) looks like they can be moved to separate file.",
+      "parentUuid": "bc9bc700_c178c14d",
+      "range": {
+        "startLine": 200,
+        "startChar": 2,
+        "endLine": 213,
+        "endChar": 9
+      },
+      "revId": "c21c64b6523d882c927c0e3e29d65c364b3aa1d5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
