@@ -62,6 +62,47 @@
       "message": "Can we also add support for the other two errors - NotAllowed \u0026 InsufficientPermission, apart from Unavailable \u0026 InternalError?",
       "revId": "859a6b9979f0b828dbf8abb9be9b71d24d513139",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ad834684_97589560",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2022-08-17T07:20:38Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "19a00c0c_b51cfb6d",
+      "revId": "859a6b9979f0b828dbf8abb9be9b71d24d513139",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "00830f56_e300dcd6",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 645,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2022-08-17T07:20:38Z",
+      "side": 1,
+      "message": "Please move this trace to the top so that this will be printed in all the error cases",
+      "range": {
+        "startLine": 644,
+        "startChar": 0,
+        "endLine": 645,
+        "endChar": 61
+      },
+      "revId": "859a6b9979f0b828dbf8abb9be9b71d24d513139",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
