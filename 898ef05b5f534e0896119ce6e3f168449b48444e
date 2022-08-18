@@ -55,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2afe4295_088d1b89",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 73
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-08-18T18:23:51Z",
+      "side": 1,
+      "message": "I was using it to create a copy of the request\u0027s body so that I could pass the request\u0027s body to the http client\u0027s send message API and that function expects a string.  Turns out I didn\u0027t need lexical_cast at all and it\u0027s been removed.",
+      "parentUuid": "15f5f521_79f42f01",
+      "revId": "898ef05b5f534e0896119ce6e3f168449b48444e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "83d351f4_67bf29c0",
         "filename": "redfish-core/include/redfish_aggregator.hpp",
         "patchSetId": 73
