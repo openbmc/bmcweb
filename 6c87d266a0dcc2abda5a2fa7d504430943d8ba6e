@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d8c4aa13_79a8375c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-18T20:27:41Z",
+      "side": 1,
+      "message": "As always happy to discuss, but this kind of mechanical change has been discussed many times at length, and looks correct to me.",
+      "revId": "6c87d266a0dcc2abda5a2fa7d504430943d8ba6e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
