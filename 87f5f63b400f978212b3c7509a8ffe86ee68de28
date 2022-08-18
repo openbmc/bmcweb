@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "74805d8c_008f13b3",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 389,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-08-18T14:57:40Z",
+      "side": 1,
+      "message": "You can replace the AsyncResp with the JSON object in it",
+      "range": {
+        "startLine": 389,
+        "startChar": 26,
+        "endLine": 389,
+        "endChar": 77
+      },
+      "revId": "87f5f63b400f978212b3c7509a8ffe86ee68de28",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f66f2077_23323813",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 414,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-08-18T14:57:40Z",
+      "side": 1,
+      "message": "Is there an alias of this type?",
+      "range": {
+        "startLine": 413,
+        "startChar": 18,
+        "endLine": 414,
+        "endChar": 61
+      },
+      "revId": "87f5f63b400f978212b3c7509a8ffe86ee68de28",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "baf960c6_00ef9efb",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 1209,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-08-18T14:57:40Z",
+      "side": 1,
+      "message": "New code prefers using a dedicated function when registering route",
+      "range": {
+        "startLine": 1104,
+        "startChar": 8,
+        "endLine": 1209,
+        "endChar": 70
+      },
+      "revId": "87f5f63b400f978212b3c7509a8ffe86ee68de28",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
