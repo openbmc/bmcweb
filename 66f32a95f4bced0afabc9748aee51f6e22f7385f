@@ -333,6 +333,30 @@
       },
       "revId": "66f32a95f4bced0afabc9748aee51f6e22f7385f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c3138acc_462752fc",
+        "filename": "http/routing.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1336,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-08-18T21:50:45Z",
+      "side": 1,
+      "message": "\u003e It\u0027s intended to be applied before in the stackup\nSorry, but I\u0027m still confused on the intended patch order.  Is it:\n1. This patch\n2. Add Method Not Allowed (405) handler - https://gerrit.openbmc.org/c/openbmc/bmcweb/+/56031\n3. WIP: Add 405 handler for redfish - https://gerrit.openbmc.org/c/openbmc/bmcweb/+/56032\n\nThat\u0027s the order I was applying them and the order shown by the relation chain\n\n\u003e \u003e \u003e I was with you until the \"map of all allowed methods\" part.  I think we can just rely on the URL to know if we have to forward to the aggregated resource?\n\u003e \u003e That would work, but we\u0027d be able to also forward method/URI requests combinations that are not allowed by the spec.\n\u003e So, this is a funny case where in the spec it\u0027s \"not allowed\" but also that the spec REQUIRES behavior in the case of a not allowed method, so considering this is an error path, I think we\u0027ve save\nI agree after reading your comments.\n\n\u003e \u003e  My suggestion would prevent that, but it\u0027s probably more trouble than it\u0027s worth.\n\u003e +1 to the \"more trouble than it\u0027s worth\". It\u0027s an error path, lets do the easiest thing that gets us the correct result.   If we slowly return an error instead of quickly returning an error, who cares.\nSGTM",
+      "parentUuid": "13d91ff2_911059d7",
+      "range": {
+        "startLine": 1322,
+        "startChar": 8,
+        "endLine": 1336,
+        "endChar": 9
+      },
+      "revId": "66f32a95f4bced0afabc9748aee51f6e22f7385f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
