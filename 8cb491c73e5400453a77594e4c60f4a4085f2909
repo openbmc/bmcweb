@@ -22,6 +22,30 @@
       },
       "revId": "8cb491c73e5400453a77594e4c60f4a4085f2909",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "292e30ef_db0163d0",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 805,
+      "author": {
+        "id": 1000998
+      },
+      "writtenOn": "2022-08-18T16:49:09Z",
+      "side": 1,
+      "message": "This function does the conversion. The array is already there in inventoryItems.relatedItemIds. I\u0027ve renamed it so that is more clear from the name.",
+      "parentUuid": "819a56b2_c1aa2056",
+      "range": {
+        "startLine": 805,
+        "startChar": 0,
+        "endLine": 805,
+        "endChar": 14
+      },
+      "revId": "8cb491c73e5400453a77594e4c60f4a4085f2909",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
