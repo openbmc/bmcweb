@@ -16,6 +16,24 @@
       "message": "Like we talked about on discord, it\u0027s not clear why we\u0027re completely removing the systemd checker.  If systemd is still starting up, I suspect the state is still starting, right?",
       "revId": "1e5b7c8892238b5d17c269bfa0ecdaf60825e801",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b1838a6d_03a84c9a",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 2056,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2022-08-18T14:36:14Z",
+      "side": 0,
+      "message": "bmcweb tends to returns what it has available, or a reasonable default. This logic is already done in xyz.openbmc_project.State.BMC so return a reasonable default and simplify some bmcweb code. If we keep it, your next question will be, why not just look for quiesce and code update too :) (i.e. where do we draw the line)",
+      "parentUuid": "8f82e5da_f2f13a5b",
+      "revId": "1e5b7c8892238b5d17c269bfa0ecdaf60825e801",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
