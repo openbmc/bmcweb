@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f1ed5dee_c7539570",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 51
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-08-18T12:42:27Z",
+      "side": 1,
+      "message": "nit: I know context was already discussed and that you don\u0027t need it in dbus service, but keeping it in service may be easier to maintain. Bmcweb will be as dump as possible. Bmcwebwill will only read context from dbus instead of adding/reading/deleting subscriptions.\n\nSince this was already discussed I just wanted to add my opinion, just Ack this comment once you read it.",
+      "revId": "812228b5ac0353b7e9ed83d17c4c21e5e721932e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

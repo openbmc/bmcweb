@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b41cb6b8_cec488e5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 50
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-08-18T12:42:27Z",
+      "side": 1,
+      "message": "Sounds good",
+      "parentUuid": "0577fb3f_a5d66630",
+      "revId": "71eb0fca5f44f03a68fd3f0d899d74b310e228ad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bec61d74_d1cff80c",
         "filename": "/COMMIT_MSG",
         "patchSetId": 50
@@ -73,6 +91,30 @@
       "side": 1,
       "message": "SNMP service is the owner of SNMP subscriptions. Please see this comment: \nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/38599/comments/f6167c9a_47877c49\n\nOnly the entries in SNMP service are useful. We dont need to sync between the bmcweb EventService and the SNMP service.",
       "parentUuid": "bec61d74_d1cff80c",
+      "range": {
+        "startLine": 62,
+        "startChar": 0,
+        "endLine": 62,
+        "endChar": 12
+      },
+      "revId": "71eb0fca5f44f03a68fd3f0d899d74b310e228ad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "273c7e61_4d55694d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 50
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-08-18T12:42:27Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "472b91b5_fbd2b57a",
       "range": {
         "startLine": 62,
         "startChar": 0,
@@ -202,6 +244,24 @@
       "side": 1,
       "message": "\u003e No, That won\u0027t work as expected. Delete subscriptions ( Function call getSnmpTrapClient) as per current logic works only if user tries get individual subscriptions (/redfish/v1/EventService/Subscriptions/snmp\u003cx\u003e ) information. What if user doesn\u0027t get individual snmp subscription and only get subscriptions collections. This code logic won\u0027t work as expected as it stands. \n\nNo,This code will work as expected. We get SNMP subscriptions from dbus. SNMP subscription from bmcweb persistent store will be filtered out. Please see line 440. \n\n\u003e What is use of \"context\" in this SNMP subscription case? If its not forwarded/used by SNMP service, I don\u0027t see a use of storing \"context\".\n\nThe \"context\" is not necessary for SNMP service, but it is necessary for redfish. Without it, the redfish Validator will fail. Please see this discussion：\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/38599/comments/9407982f_e9c9ef31 \n\n\u003e As per your comment above, no need of storing any SNMP data in bmcweb persistent store. bmcweb can always get all live information from SNMP service. So changes to addSubscription() is not needed.\n\nThat\u0027s what we did. But, for the above reasons, we need save the \"context\" in the bmcweb persistent store",
       "parentUuid": "00f4d541_6e6cc48b",
+      "revId": "71eb0fca5f44f03a68fd3f0d899d74b310e228ad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e26b3511_423670c5",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-08-18T12:42:27Z",
+      "side": 1,
+      "message": "I looked at the tested section and it looks like deleting subscription works fine. Testcase 6 performs delete using dbus call which is not visible in event service and get produces correct result. I don\u0027t see any issues.",
+      "parentUuid": "9ba43c5c_f4b9a2e5",
       "revId": "71eb0fca5f44f03a68fd3f0d899d74b310e228ad",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
