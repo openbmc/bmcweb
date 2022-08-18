@@ -1583,6 +1583,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2dede985_490bf2c7",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 583,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-18T16:26:08Z",
+      "side": 1,
+      "message": "\u003e If we don\u0027t handle this then we are introducing a bug where you can lock a IP:PORT as only being used for SSL or non-SSL.\n\nI agree, we need to handle it, I\u0027m just saying handle it in the connection pool.\n\nTo be more concrete, I mean taking this variable here:\nhttps://github.com/openbmc/bmcweb/blob/17dcc312e534b33c2ea18a1dbf287e30ea79cfb5/http/http_client.hpp#L627\n\nAnd splitting it into:\n    std::unordered_map\u003cstd::string, std::shared_ptr\u003cConnectionPool\u003e\u003e\n        httpConnectionPools;\n    std::unordered_map\u003cstd::string, std::shared_ptr\u003cConnectionPool\u003e\u003e\n        httpsConnectionPools;\n        \nThen using the TLS-ness of the request in the lookup here:\nhttps://github.com/openbmc/bmcweb/blob/17dcc312e534b33c2ea18a1dbf287e30ea79cfb5/http/http_client.hpp#L682\n\nAlternatively, on the aformentioned line, we could also just include the \"http/https\" as part of the clientKey, which would give the same result.  (note after I wrote this commment, I see you proposed the same below.  We\u0027re on the same page I think)\n\nI think that would mean that we can no longer get a mixup, right?\n\n\n\u003e In its current state the is only using the IP:PORT as the key for creating new connection pools.\n\nCompletely agree, as-written, we have a bug that needs resolved.\n\n\u003e only down side is instead of 4 connections, we may have double connections but that too in corner case\n\nTo reiterate, we go from 4 to 8 connections, and it\u0027s a corner case that will probably never be hit in practice.  I\u0027m ok with this tradeoff.",
+      "parentUuid": "4fc663b6_5a853007",
+      "range": {
+        "startLine": 583,
+        "startChar": 0,
+        "endLine": 583,
+        "endChar": 22
+      },
+      "revId": "d739445adffb056cbb753730656f80ccc367b010",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a26b0535_265df071",
         "filename": "http/http_client.hpp",
         "patchSetId": 5
