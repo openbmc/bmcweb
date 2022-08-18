@@ -8,7 +8,7 @@ namespace redfish
 namespace messages
 {
 
-nlohmann::json
+inline nlohmann::json
     getLogResourceEvent(redfish::registries::resource_event::Index name,
                         std::span<const std::string_view> args)
 {
