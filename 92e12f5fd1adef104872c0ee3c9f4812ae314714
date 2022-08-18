@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a4d32289_56bfca71",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-18T18:01:07Z",
+      "side": 1,
+      "message": "Fixed most of the issues in this patchset, but haven\u0027t tested yet.  The biggest functional change is changing the location of the certs, for which we should be using the linux defaults.",
+      "revId": "92e12f5fd1adef104872c0ee3c9f4812ae314714",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
