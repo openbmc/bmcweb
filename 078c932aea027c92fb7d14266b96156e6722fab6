@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "002f160e_688791c5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-08-18T21:03:55Z",
+      "side": 1,
+      "message": "I don\u0027t really see the motivation for moving the action outside of the struct.  Now we have to pass two different variables in all of the locations we were previously just passing one.  I believe this came up during the refactoring and that\u0027s why the retry struct was created in the first place.\n\nWe already have to make a copy anyway of the retry struct/variables in ConnectionPool.sendData() when it calls setConnRetryConfig().  If you move that up to sendDataWithCallback() and lead the passed retryPolicyAction into the new RetryPolicyData struct then you can revert the rest of the changes to the http client.",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 70
+      },
+      "revId": "078c932aea027c92fb7d14266b96156e6722fab6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "7ca2e7fd_d25bcd69",
@@ -14,6 +37,29 @@
       "writtenOn": "2022-08-18T19:33:12Z",
       "side": 1,
       "message": "Apologies for missing this originally when you pushed it.  Looking at getting this in now.",
+      "revId": "078c932aea027c92fb7d14266b96156e6722fab6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7a98d6c1_4bbaa236",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 669,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-08-18T21:03:55Z",
+      "side": 1,
+      "message": "retryPolicyName is how the EventService files refer to this variable.  That didn\u0027t change after decoupling the retryPolicyAction.  My preference is just to leave it as is in this file as well.",
+      "range": {
+        "startLine": 669,
+        "startChar": 37,
+        "endLine": 669,
+        "endChar": 52
+      },
       "revId": "078c932aea027c92fb7d14266b96156e6722fab6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
