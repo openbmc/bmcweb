@@ -81,6 +81,10 @@ matchers:
       nanzhoumails@gmail.com
 
 # Redfish schemas
+- exact: redfish-core/include/query.hpp
+      nanzhoumails@gmail.com
+- exact: redfish-core/include/utils/query_param.hpp
+      nanzhoumails@gmail.com
 - exact: redfish-core/lib/certificate_service.hpp
       nanzhoumails@gmail.com
 - exact: redfish-core/lib/log_service.hpp
