@@ -13,16 +13,25 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 */
-#include "http_response.hpp"
-#include "registries/base_message_registry.hpp"
+#include "error_messages.hpp"
 
+#include "http_response.hpp"
+#include "logging.hpp"
+#include "nlohmann/json.hpp"
+#include "registries.hpp"
+#include "registries/base_message_registry.hpp"
+#include "source_location.hpp"
+
+#include <boost/beast/http/field.hpp>
 #include <boost/beast/http/status.hpp>
-#include <boost/url/url.hpp>
-#include <error_messages.hpp>
-#include <logging.hpp>
-#include <nlohmann/json.hpp>
 
 #include <array>
+#include <cstddef>
+#include <span>
+#include <string>
+#include <utility>
+
+// IWYU pragma: no_include <stddef.h>
 
 namespace redfish
 {

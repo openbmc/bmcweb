@@ -14,13 +14,19 @@
 // limitations under the License.
 */
 #pragma once
+
 #include "http_response.hpp"
+#include "source_location.hpp"
 
 #include <boost/url/url_view.hpp>
 #include <nlohmann/json.hpp>
-#include <source_location.hpp>
 
+#include <cstdint>
 #include <string>
+#include <string_view>
+
+// IWYU pragma: no_include <cstdint.h>
+// IWYU pragma: no_forward_declare crow::Response
 
 namespace redfish
 {
