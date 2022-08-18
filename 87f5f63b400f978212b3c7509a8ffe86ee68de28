@@ -95,6 +95,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "acf8053f_817000ba",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 414,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-08-18T17:26:26Z",
+      "side": 1,
+      "message": "done.",
+      "parentUuid": "1d2e797d_d5796068",
+      "range": {
+        "startLine": 413,
+        "startChar": 18,
+        "endLine": 414,
+        "endChar": 61
+      },
+      "revId": "87f5f63b400f978212b3c7509a8ffe86ee68de28",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "baf960c6_00ef9efb",
@@ -108,6 +132,30 @@
       "writtenOn": "2022-08-18T14:57:40Z",
       "side": 1,
       "message": "New code prefers using a dedicated function when registering route",
+      "range": {
+        "startLine": 1104,
+        "startChar": 8,
+        "endLine": 1209,
+        "endChar": 70
+      },
+      "revId": "87f5f63b400f978212b3c7509a8ffe86ee68de28",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dd944517_7200be9d",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 1209,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-08-18T17:26:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "baf960c6_00ef9efb",
       "range": {
         "startLine": 1104,
         "startChar": 8,
