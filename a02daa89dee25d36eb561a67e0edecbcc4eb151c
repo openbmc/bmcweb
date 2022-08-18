@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ffed4113_aa756614",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-08-18T14:52:56Z",
+      "side": 1,
+      "message": "Any reason that you use a C function?",
+      "range": {
+        "startLine": 275,
+        "startChar": 33,
+        "endLine": 275,
+        "endChar": 39
+      },
+      "revId": "a02daa89dee25d36eb561a67e0edecbcc4eb151c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "147e2a37_9a4ea3c4",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 6
