@@ -261,6 +261,30 @@
       },
       "revId": "66f32a95f4bced0afabc9748aee51f6e22f7385f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d0de8123_88b4ec0a",
+        "filename": "http/routing.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1336,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-08-18T00:24:02Z",
+      "side": 1,
+      "message": "\u003e \u003e \u003e They hit a different hook, so we can handle 405 differently than 404, but I think both will hit query.hpp.\n\u003e \u003e They will both still call redfish404() right?\n\u003e Nope, this commit invents a separate method \"redfish405()\"\n\u003e https://gerrit.openbmc.org/c/openbmc/bmcweb/+/56032/3/redfish-core/lib/redfish_v1.hpp#49\nI meant with only this patch they both hit redfish404().  That patch looks like what I need. You\u0027re right, I don\u0027t need them to call redfish404() so much as I need them to call setupRedfishRoute().  Is that patch supposed to be a replacement for this patch https://gerrit.openbmc.org/c/openbmc/bmcweb/+/56031 or applied on top of it?\n\n\u003e I was with you until the \"map of all allowed methods\" part.  I think we can just rely on the URL to know if we have to forward to the aggregated resource?\nThat would work, but we\u0027d be able to also forward method/URI requests combinations that are not allowed by the spec.  My suggestion would prevent that, but it\u0027s probably more trouble than it\u0027s worth.",
+      "parentUuid": "cf367db2_f5ea7c32",
+      "range": {
+        "startLine": 1322,
+        "startChar": 8,
+        "endLine": 1336,
+        "endChar": 9
+      },
+      "revId": "66f32a95f4bced0afabc9748aee51f6e22f7385f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
