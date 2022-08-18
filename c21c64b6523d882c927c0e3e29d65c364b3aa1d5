@@ -118,6 +118,30 @@
       },
       "revId": "c21c64b6523d882c927c0e3e29d65c364b3aa1d5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1fd5ef8e_b0b353f1",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2022-08-18T01:37:01Z",
+      "side": 0,
+      "message": "\u003e its difficult to un-touch the existing code but what i mentioned is keep changes as much as possible in separate file for SNMP protocol.\n\nOkay, I see. Thanks\n\n\u003e We have an OEM protocol which i added isolated code with minimal changes in existing EventService code. May be holds good for other OEM\u0027s/Protocols. It will be easy to maintain.\n\nIs this commit？https://gerrit.openbmc.org/c/openbmc/bmcweb/+/54945",
+      "parentUuid": "5d04532c_3fae59e5",
+      "range": {
+        "startLine": 200,
+        "startChar": 2,
+        "endLine": 213,
+        "endChar": 9
+      },
+      "revId": "c21c64b6523d882c927c0e3e29d65c364b3aa1d5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
