@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1544748e_5b1e9359",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 73
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-18T15:13:28Z",
+      "side": 1,
+      "message": "Shoot, forgot to post latest comments.\n\nJust FYI, I\u0027m checking out this series and testing it the next couple days.  Lets try to get it moving.",
+      "revId": "898ef05b5f534e0896119ce6e3f168449b48444e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7ae4de7d_bc294f9a",
@@ -32,6 +49,224 @@
       "side": 1,
       "message": "The real answer is \"don\u0027t use lexical cast\" 😊\n\nI\u0027m not sure where it\u0027s used, but today in modern c++, there is always an alternative that\u0027s better (usually from_chars)",
       "parentUuid": "7ae4de7d_bc294f9a",
+      "revId": "898ef05b5f534e0896119ce6e3f168449b48444e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "83d351f4_67bf29c0",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 73
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-18T15:13:28Z",
+      "side": 1,
+      "message": "nit, can we give this a better name?  We\u0027re in a class called \"redfish aggregator\" so we already know it\u0027s an aggregator function, and \"helper\" adds no value to describing what this does.",
+      "range": {
+        "startLine": 236,
+        "startChar": 8,
+        "endLine": 236,
+        "endChar": 25
+      },
+      "revId": "898ef05b5f534e0896119ce6e3f168449b48444e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "be7aa495_66600b6c",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 73
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-18T15:13:28Z",
+      "side": 1,
+      "message": "This is still making 2 copies of the request, one as \"req\" and one as \"localreq\"  \n\nI think you just want std::make_shared\u003ccrow::Request\u003e(thisReq.req, ec);\n\nAlternatively, if you really want the stack variable, make the line on 240 a reference, not a copy, but I think the former is still better, and drops a line of code.",
+      "range": {
+        "startLine": 243,
+        "startChar": 0,
+        "endLine": 243,
+        "endChar": 65
+      },
+      "revId": "898ef05b5f534e0896119ce6e3f168449b48444e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b31e451_bfa4ee72",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 73
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-18T15:13:28Z",
+      "side": 1,
+      "message": "nit, no need for const here.",
+      "range": {
+        "startLine": 261,
+        "startChar": 8,
+        "endLine": 261,
+        "endChar": 13
+      },
+      "revId": "898ef05b5f534e0896119ce6e3f168449b48444e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2d22dff0_dd153003",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 73
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-18T15:13:28Z",
+      "side": 1,
+      "message": "need to check for pointer validity before dereferencing.\n\nif (sharedReq \u003d\u003d nullptr){\n   return;\n}\n\nis enough.",
+      "range": {
+        "startLine": 266,
+        "startChar": 34,
+        "endLine": 266,
+        "endChar": 43
+      },
+      "revId": "898ef05b5f534e0896119ce6e3f168449b48444e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3fab9d41_30599fc2",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 73
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-18T15:13:28Z",
+      "side": 1,
+      "message": "This is a little confusing.  If it\u0027s a collection, why do we call aggregateAndHandle at all?  Maybe this makes more sense in a later patch?  In which case, I\u0027m ok with it.",
+      "range": {
+        "startLine": 270,
+        "startChar": 0,
+        "endLine": 278,
+        "endChar": 9
+      },
+      "revId": "898ef05b5f534e0896119ce6e3f168449b48444e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f9d86d57_2bcab3a0",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 73
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-18T15:13:28Z",
+      "side": 1,
+      "message": "this variable doesn\u0027t get used, maybe just loop over the iterator and check the length later?\n\nfor (const auto* segment: segments){\n   segments.emplace_back(std::string_view(*it));\n}\n\nAlso, as written, if I had something beyond 5 segments, doesn\u0027t this give the wrong result?",
+      "range": {
+        "startLine": 285,
+        "startChar": 31,
+        "endLine": 285,
+        "endChar": 36
+      },
+      "revId": "898ef05b5f534e0896119ce6e3f168449b48444e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eba07d0b_a7b52ebe",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 73
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-18T15:13:28Z",
+      "side": 1,
+      "message": "I\u0027m surprised clang didn\u0027t flag this, but the std::string you constructed is already an rvalue, calling std::move on it has no effect.\n\nI\u0027m pretty sure you want:\n\nsegments.emplace_back(std::string_view(*it));",
+      "range": {
+        "startLine": 291,
+        "startChar": 31,
+        "endLine": 291,
+        "endChar": 40
+      },
+      "revId": "898ef05b5f534e0896119ce6e3f168449b48444e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cb95feeb_4a21a367",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 73
+      },
+      "lineNbr": 294,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-18T15:13:28Z",
+      "side": 1,
+      "message": "nit, add a comment here with an example url of why 4 is important\n\nie\n\n/redfish/v1/UpdateService/FirmwareInventory",
+      "revId": "898ef05b5f534e0896119ce6e3f168449b48444e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fdb0d351_9852c7b8",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 73
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-18T15:13:28Z",
+      "side": 1,
+      "message": "nit, remove the \u0026.  This is a copy, which is fine, but we should be explicit about it.\n\nIdeally we\u0027d pull this out as a std::string_view",
+      "revId": "898ef05b5f534e0896119ce6e3f168449b48444e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fc27e28c_99d7fd9c",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 73
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-18T15:13:28Z",
+      "side": 1,
+      "message": "same thing, moving an already rvalue string.",
+      "range": {
+        "startLine": 307,
+        "startChar": 32,
+        "endLine": 307,
+        "endChar": 52
+      },
       "revId": "898ef05b5f534e0896119ce6e3f168449b48444e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }

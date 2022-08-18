@@ -1620,6 +1620,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "987d6235_74ec09d4",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 440,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-18T15:13:28Z",
+      "side": 1,
+      "message": "\u003e \u003e \u003e In this specific case I think we can set this as an error as long as long as the body is not empty.  I\u0027d expect responses to GET requests to always include a body, but what about other types of requests?\n\u003e \u003e interesting, there\u0027s several responses to GET requests that don\u0027t include a body that we probably need to handle.  i didn\u0027t think about that \n\u003e In those instances, will the \"Content-Type\" still appear as \"application/json\" even though the body is empty?\n\nNope.  empty in this case means \"\" with 204 no content, not empty json object \"{}\"\n\n\u003e \n\u003e \u003e how about this:\n\u003e \u003e if the content claimed to be json but wasn\u0027t, return 500 for the moment.  This for sure needs revisited when we start handling httppushuri and such.\n\u003e I\u0027m assuming this occurs when the \"Content-Type\" is \"application/json\", but the following call to nlohmann::json::parse(resp.body(), nullptr, false) fails.\n\nYep.\n\n\u003e \n\u003e Wouldn\u0027t we want to return a 502 since that would be on the satellite BMC for either mislabeling the Content-Type or not formatting resp.body() correctly?\n\nSure, this seems reasonable.\n\n\u003e  That is how it is currently set to be handled when we check jsonVal.is_discarded() in this function.",
+      "parentUuid": "c00ea427_d3519b87",
+      "range": {
+        "startLine": 439,
+        "startChar": 12,
+        "endLine": 440,
+        "endChar": 28
+      },
+      "revId": "2fa61f8749893542bf44d310bf036b0dc310d0c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1985d414_35632df2",
         "filename": "redfish-core/include/redfish_aggregator.hpp",
         "patchSetId": 53
