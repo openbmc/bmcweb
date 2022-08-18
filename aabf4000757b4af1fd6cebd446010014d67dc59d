@@ -22,6 +22,30 @@
       },
       "revId": "aabf4000757b4af1fd6cebd446010014d67dc59d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a9ad57bd_b9dd838c",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-08-18T19:32:37Z",
+      "side": 1,
+      "message": "I can try and see.  I\u0027ve had failures before due to trying to make functions like these to be class member functions rather than static free functions",
+      "parentUuid": "d279a1a0_1959c8f0",
+      "range": {
+        "startLine": 17,
+        "startChar": 4,
+        "endLine": 17,
+        "endChar": 29
+      },
+      "revId": "aabf4000757b4af1fd6cebd446010014d67dc59d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
