@@ -81,6 +81,30 @@
       },
       "revId": "c48a64fdd1678a037851e4308033123b8f2982bd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "50777a3c_c663bf71",
+        "filename": "http/routing.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1351,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-08-19T04:13:58Z",
+      "side": 1,
+      "message": "Sorry, that was supposed to say GET /redfish/v1 in my original comment.",
+      "parentUuid": "b968f48f_6ad401d0",
+      "range": {
+        "startLine": 1347,
+        "startChar": 0,
+        "endLine": 1351,
+        "endChar": 13
+      },
+      "revId": "c48a64fdd1678a037851e4308033123b8f2982bd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
