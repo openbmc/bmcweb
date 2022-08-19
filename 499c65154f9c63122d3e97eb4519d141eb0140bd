@@ -3,6 +3,75 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fc6ec926_586669d4",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-08-19T05:15:33Z",
+      "side": 1,
+      "message": "We can\u0027t rely on just updating \"@odata.id\" fields.  For example, we need to update the URIs under a Chassis\u0027 \"Action\" property\n\n\"Actions\": {\n    \"#Chassis.Reset\": {\n      \"@Redfish.ActionInfo\": \"/redfish/v1/Chassis/ChassisID/ResetActionInfo\",\n      \"target\": \"/redfish/v1/Chassis/ChassisID/Actions/Chassis.Reset\"\n    }\n\n\nThat\u0027s why earlier in previous patchsets I moved away from using \"@odata.id\" and instead attempted to add a prefix to any values that were strings.",
+      "range": {
+        "startLine": 102,
+        "startChar": 11,
+        "endLine": 102,
+        "endChar": 42
+      },
+      "revId": "499c65154f9c63122d3e97eb4519d141eb0140bd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a5488dce_5be32dce",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-08-19T05:15:33Z",
+      "side": 1,
+      "message": "Changing this to \"!\u003d\" gets rid of the segfault, but none of the prefixes get updated.",
+      "range": {
+        "startLine": 112,
+        "startChar": 14,
+        "endLine": 112,
+        "endChar": 16
+      },
+      "revId": "499c65154f9c63122d3e97eb4519d141eb0140bd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f064d13_3c53f2f9",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 360,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-08-19T05:15:33Z",
+      "side": 1,
+      "message": "nit, findSatellite",
+      "range": {
+        "startLine": 360,
+        "startChar": 16,
+        "endLine": 360,
+        "endChar": 29
+      },
+      "revId": "499c65154f9c63122d3e97eb4519d141eb0140bd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "31f536fa_f2b44ad6",
         "filename": "redfish-core/include/redfish_aggregator.hpp",
         "patchSetId": 32
