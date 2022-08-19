@@ -193,6 +193,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f7c9dc40_9ac9fc99",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-08-19T17:04:48Z",
+      "side": 1,
+      "message": "\u003e The thought that just came to my head was can we do case-insensitive .ends_with(\"Uri\"), and does that cover most or all of the cases?\nI think that will cover most cases if we do that in addition to \"@odata.id\", \"target\" and anything under \"Actions\".  I see \"target\" appear in a large number of schemas so I can\u0027t be sure they will only appear under \"Actions\".\n\n\u003e Other idea, in theory, any URI is going to start with /redfish/v1..... that\u0027s far less brittle if we did that check, although still attackable, although I\u0027m not sure how bad the impact would be.\nI think this would work as well.  I\u0027m also still not seeing how this is an attack concern.  Or at least how it only becomes a vulnerability if we apply a prefix.",
+      "parentUuid": "3242cbfe_2d213342",
+      "range": {
+        "startLine": 102,
+        "startChar": 11,
+        "endLine": 102,
+        "endChar": 42
+      },
+      "revId": "499c65154f9c63122d3e97eb4519d141eb0140bd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a5488dce_5be32dce",
         "filename": "redfish-core/include/redfish_aggregator.hpp",
         "patchSetId": 32
