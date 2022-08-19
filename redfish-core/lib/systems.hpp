@@ -1843,8 +1843,8 @@ inline void getProvisioningStatus(std::shared_ptr<bmcweb::AsyncResp> aResp)
         const bool* lockState = nullptr;
 
         const bool success = sdbusplus::unpackPropertiesNoThrow(
-            dbus_utils::UnpackErrorPrinter(), "UfmProvisioned", provState,
-            "UfmLocked", lockState);
+            dbus_utils::UnpackErrorPrinter(), propertiesList, "UfmProvisioned",
+            provState, "UfmLocked", lockState);
 
         if (!success)
         {
