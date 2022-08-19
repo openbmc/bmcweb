@@ -147,6 +147,12 @@ TEST(Utility, readUrlSegments)
 
     parsed = boost::urls::parse_relative_ref("not/absolute/url");
     EXPECT_FALSE(readUrlSegments(*parsed, "not", "absolute", "url"));
+
+    parsed = boost::urls::parse_relative_ref("/excellent/path");
+
+    EXPECT_TRUE(readUrlSegments(*parsed, "excellent", "path", OrMorePaths()));
+    EXPECT_TRUE(readUrlSegments(*parsed, "excellent", OrMorePaths()));
+    EXPECT_TRUE(readUrlSegments(*parsed, OrMorePaths()));
 }
 
 TEST(Utility, ValidateAndSplitUrlPositive)
