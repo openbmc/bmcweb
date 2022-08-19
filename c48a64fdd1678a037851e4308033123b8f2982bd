@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f5326ffc_b1c1047d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-19T01:36:27Z",
+      "side": 1,
+      "message": "Will take a look.  Thanks for testing!",
+      "parentUuid": "25225cc4_18834217",
+      "revId": "c48a64fdd1678a037851e4308033123b8f2982bd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "dde8905c_e36d667b",
         "filename": "http/routing.hpp",
         "patchSetId": 5
@@ -31,6 +49,30 @@
       "writtenOn": "2022-08-17T16:30:14Z",
       "side": 1,
       "message": "In my testing, this seems to be getting hit for valid routes such as POST /redfish/v1",
+      "range": {
+        "startLine": 1347,
+        "startChar": 0,
+        "endLine": 1351,
+        "endChar": 13
+      },
+      "revId": "c48a64fdd1678a037851e4308033123b8f2982bd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b968f48f_6ad401d0",
+        "filename": "http/routing.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1351,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-19T01:36:27Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "dde8905c_e36d667b",
       "range": {
         "startLine": 1347,
         "startChar": 0,
