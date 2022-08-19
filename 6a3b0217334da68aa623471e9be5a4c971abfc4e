@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7c76e894_d7369b61",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 387,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-19T18:19:09Z",
+      "side": 1,
+      "message": "\u003e Mentioned in a later comment that this case likely shouldn\u0027t be handled by waitAndRetry() considering where the SSL initialization occurs.\n\u003e \n\u003e If we do hit an sslInitFailed state then we wouldn\u0027t want to print error messages saying that we instead exceeded the maximum number of retries.  We\u0027d also want to return something like a 500 error rather than a 502.\n\nI\u0027m not following the above.  500 means \"internal to this bmc error\", 502 means \"something in the communication with the satellite failed\"  I would\u0027ve thought this would include SSL issues?  Arguably, it\u0027s less likely that we\u0027d be able to retry and succeed, but in theory if the SSL cert got updated in between the retries, it would work?",
+      "parentUuid": "89b59dc5_fb5aa026",
+      "range": {
+        "startLine": 386,
+        "startChar": 56,
+        "endLine": 387,
+        "endChar": 48
+      },
+      "revId": "6a3b0217334da68aa623471e9be5a4c971abfc4e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fd981d11_82a88781",
         "filename": "http/http_client.hpp",
         "patchSetId": 11
@@ -71,6 +95,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4fb57428_f3244dea",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 454,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-19T18:19:09Z",
+      "side": 1,
+      "message": "I think I fixed this in the latest patch?  (50% sure).",
+      "parentUuid": "100b3683_edfa07cd",
+      "range": {
+        "startLine": 454,
+        "startChar": 8,
+        "endLine": 454,
+        "endChar": 21
+      },
+      "revId": "6a3b0217334da68aa623471e9be5a4c971abfc4e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "945ddcd2_76850cc7",
@@ -94,6 +142,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a88b39fe_70b22a39",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 493,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-19T18:19:09Z",
+      "side": 1,
+      "message": "I think I resolved this (like 50% sure) in the latest patchset, which reorganizes the shutdown code.  Please reopen if this is still an issue.",
+      "parentUuid": "945ddcd2_76850cc7",
+      "range": {
+        "startLine": 493,
+        "startChar": 8,
+        "endLine": 493,
+        "endChar": 31
+      },
+      "revId": "6a3b0217334da68aa623471e9be5a4c971abfc4e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d531c296_fdabeada",
@@ -107,6 +179,30 @@
       "writtenOn": "2022-08-08T20:38:09Z",
       "side": 1,
       "message": "waitAndRetry() is meant to be called in response to one of the operations in the message sending flow failing.  We shouldn\u0027t be calling it here since we\u0027re just creating a new creation object.\n\nThis entire section should not be part of the constructor anyway since we also want to be able to reconfigure non-SSL connection object to become an SSL connection object and vice versa.",
+      "range": {
+        "startLine": 535,
+        "startChar": 16,
+        "endLine": 536,
+        "endChar": 31
+      },
+      "revId": "6a3b0217334da68aa623471e9be5a4c971abfc4e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f6c9431_b26690d2",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 536,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-19T18:19:09Z",
+      "side": 1,
+      "message": "ACK  This might still be an issue on latest.\n\nIn general, if the Connection object fails to construct, we have bigger problems than executing a retry.",
+      "parentUuid": "d531c296_fdabeada",
       "range": {
         "startLine": 535,
         "startChar": 16,
@@ -178,6 +274,30 @@
       "side": 1,
       "message": "👍",
       "parentUuid": "f61180d0_1168d472",
+      "range": {
+        "startLine": 811,
+        "startChar": 8,
+        "endLine": 811,
+        "endChar": 72
+      },
+      "revId": "6a3b0217334da68aa623471e9be5a4c971abfc4e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "88648b0a_4fd77605",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 811,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-19T18:19:09Z",
+      "side": 1,
+      "message": "This has been implemented in the latest patch.",
+      "parentUuid": "18f32293_ff1f59e5",
       "range": {
         "startLine": 811,
         "startChar": 8,

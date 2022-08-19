@@ -1795,6 +1795,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7d9918c2_0f4d45b7",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 651,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-19T18:19:09Z",
+      "side": 1,
+      "message": "I think we solved this in the other comment thread, and the clientKey now includes ssl or not, so I\u0027m going to close this.  Please reopen if this is still an issue.",
+      "parentUuid": "bdfcf860_77229e31",
+      "range": {
+        "startLine": 639,
+        "startChar": 12,
+        "endLine": 651,
+        "endChar": 13
+      },
+      "revId": "d739445adffb056cbb753730656f80ccc367b010",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f49dc36a_4dfb482d",
