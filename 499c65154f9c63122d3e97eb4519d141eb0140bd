@@ -241,6 +241,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "890ffc9c_44496b6a",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-08-19T21:44:12Z",
+      "side": 1,
+      "message": "\u003e We\u0027ve had instances before of people putting things like links in the field of an IPMI FRU, which then gets formatted, and turned into a link that the user could click on (or worse, injects some script).  \nI don\u0027t think that issue is addressed if we restrict the fields that we can attempt to add prefixes to.  An attacker could still change FRUs to include a malicious URI and we\u0027d return it since we\u0027re just forwarding the satellite\u0027s response to the user.\n\n\u003e It\u0027s pretty possible it\u0027s less of a concern in this case, and requiring it start with redfish/v1 SEVERELY limits what you could even potentially do with it, so I might be ok with that, although I like the explicitness of the \"target + actions + odata.id\" approach.\nThe latter is fine, we might just have to hotfix later if it turns out we missed an edge case.  My preference is the former so we don\u0027t have to worry about that.",
+      "parentUuid": "0f208f70_8a92aec6",
+      "range": {
+        "startLine": 102,
+        "startChar": 11,
+        "endLine": 102,
+        "endChar": 42
+      },
+      "revId": "499c65154f9c63122d3e97eb4519d141eb0140bd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a5488dce_5be32dce",
         "filename": "redfish-core/include/redfish_aggregator.hpp",
         "patchSetId": 32
