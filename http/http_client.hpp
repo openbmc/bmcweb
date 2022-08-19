@@ -157,30 +157,25 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
                          << std::to_string(port)
                          << ", id: " << std::to_string(connId);
 
-        auto respHandler =
-            [self(shared_from_this())](
-                const boost::beast::error_code ec,
-                const std::vector<boost::asio::ip::tcp::endpoint>&
-                    endpointList) {
-            if (ec || (endpointList.empty()))
-            {
-                BMCWEB_LOG_ERROR << "Resolve failed: " << ec.message();
-                self->state = ConnState::resolveFailed;
-                self->waitAndRetry();
-                return;
-            }
-            BMCWEB_LOG_DEBUG << "Resolved " << self->host << ":"
-                             << std::to_string(self->port)
-                             << ", id: " << std::to_string(self->connId);
-            self->doConnect(endpointList);
-        };
-
-        resolver.asyncResolve(host, port, std::move(respHandler));
+        resolver.asyncResolve(host, port,
+                              std::bind_front(&ConnectionInfo::afterResolve,
+                                              this, shared_from_this()));
     }
 
-    void doConnect(
+    void afterResolve(
+        const std::shared_ptr<ConnectionInfo>& /*self*/,
+        const boost::beast::error_code ec,
         const std::vector<boost::asio::ip::tcp::endpoint>& endpointList)
     {
+        if (ec || (endpointList.empty()))
+        {
+            BMCWEB_LOG_ERROR << "Resolve failed: " << ec.message();
+            state = ConnState::resolveFailed;
+            waitAndRetry();
+            return;
+        }
+        BMCWEB_LOG_DEBUG << "Resolved " << host << ":" << std::to_string(port)
+                         << ", id: " << std::to_string(connId);
         state = ConnState::connectInProgress;
 
         BMCWEB_LOG_DEBUG << "Trying to connect to: " << host << ":"
@@ -435,24 +430,28 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
                                 retryPolicy.retryIntervalSecs.count())
                          << " seconds. RetryCount = " << retryCount;
         timer.expires_after(retryPolicy.retryIntervalSecs);
-        timer.async_wait(
-            [self(shared_from_this())](const boost::system::error_code ec) {
-            if (ec == boost::asio::error::operation_aborted)
-            {
-                BMCWEB_LOG_DEBUG
-                    << "async_wait failed since the operation is aborted"
-                    << ec.message();
-            }
-            else if (ec)
-            {
-                BMCWEB_LOG_ERROR << "async_wait failed: " << ec.message();
-                // Ignore the error and continue the retry loop to attempt
-                // sending the event as per the retry policy
-            }
+        timer.async_wait(std::bind_front(&ConnectionInfo::onTimerDone, this,
+                                         shared_from_this()));
+    }
 
-            // Let's close the connection and restart from resolve.
-            self->doClose(true);
-        });
+    void onTimerDone(const std::shared_ptr<ConnectionInfo>& /*self*/,
+                     const boost::system::error_code& ec)
+    {
+        if (ec == boost::asio::error::operation_aborted)
+        {
+            BMCWEB_LOG_DEBUG
+                << "async_wait failed since the operation is aborted"
+                << ec.message();
+        }
+        else if (ec)
+        {
+            BMCWEB_LOG_ERROR << "async_wait failed: " << ec.message();
+            // Ignore the error and continue the retry loop to attempt
+            // sending the event as per the retry policy
+        }
+
+        // Let's close the connection and restart from resolve.
+        doClose(true);
     }
 
     void shutdownConn(bool retry)
@@ -690,27 +689,6 @@ class ConnectionPool : public std::enable_shared_from_this<ConnectionPool>
                   const RetryPolicyData& retryPolicy,
                   const std::function<void(Response&)>& resHandler)
     {
-        std::weak_ptr<ConnectionPool> weakSelf = weak_from_this();
-
-        // Callback to be called once the request has been sent
-        auto cb = [weakSelf, resHandler](bool keepAlive, uint32_t connId,
-                                         Response& res) {
-            // Allow provided callback to perform additional processing of the
-            // request
-            resHandler(res);
-
-            // If requests remain in the queue then we want to reuse this
-            // connection to send the next request
-            std::shared_ptr<ConnectionPool> self = weakSelf.lock();
-            if (!self)
-            {
-                BMCWEB_LOG_CRITICAL << self << " Failed to capture connection";
-                return;
-            }
-
-            self->sendNext(keepAlive, connId);
-        };
-
         // Construct the request to be sent
         boost::beast::http::request<boost::beast::http::string_body> thisReq(
             verb, destUri, 11, "", httpHeader);
@@ -718,7 +696,8 @@ class ConnectionPool : public std::enable_shared_from_this<ConnectionPool>
         thisReq.keep_alive(true);
         thisReq.body() = std::move(data);
         thisReq.prepare_payload();
-
+        auto cb = std::bind_front(&ConnectionPool::afterSendData,
+                                  weak_from_this(), resHandler);
         // Reuse an existing connection if one is available
         for (unsigned int i = 0; i < connections.size(); i++)
         {
@@ -772,6 +751,27 @@ class ConnectionPool : public std::enable_shared_from_this<ConnectionPool>
             BMCWEB_LOG_ERROR << destIP << ":" << std::to_string(destPort)
                              << " request queue full.  Dropping request.";
         }
+    }
+
+    // Callback to be called once the request has been sent
+    static void afterSendData(const std::weak_ptr<ConnectionPool>& weakSelf,
+                              const std::function<void(Response&)>& resHandler,
+                              bool keepAlive, uint32_t connId, Response& res)
+    {
+        // Allow provided callback to perform additional processing of the
+        // request
+        resHandler(res);
+
+        // If requests remain in the queue then we want to reuse this
+        // connection to send the next request
+        std::shared_ptr<ConnectionPool> self = weakSelf.lock();
+        if (!self)
+        {
+            BMCWEB_LOG_CRITICAL << self << " Failed to capture connection";
+            return;
+        }
+
+        self->sendNext(keepAlive, connId);
     }
 
     std::shared_ptr<ConnectionInfo>& addConnection()
