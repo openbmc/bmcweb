@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "41debbe0_d498d925",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-08-19T14:48:56Z",
+      "side": 1,
+      "message": "readUrlSegments() returns false when the number of segments are not of the same size.  We can\u0027t use it for this situation where we only need to match the first 3 or 4 segments of \"thisUrl\".  I\u0027m guessing we\u0027d want to make a duplicate function that attempts to match only the first X segments of a URL?",
+      "range": {
+        "startLine": 69,
+        "startChar": 8,
+        "endLine": 69,
+        "endChar": 38
+      },
+      "revId": "499c65154f9c63122d3e97eb4519d141eb0140bd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fc6ec926_586669d4",
         "filename": "redfish-core/include/redfish_aggregator.hpp",
         "patchSetId": 32
@@ -38,6 +61,30 @@
       "side": 1,
       "message": "Then we also need to detect when we\u0027re in an action.  (probably by looking for ActionInfo + target as the type.\n\nI don\u0027t think we can just parse all strings as URIs and if they parse, assume they need aggregated.  That leaves a lot to chance.",
       "parentUuid": "fc6ec926_586669d4",
+      "range": {
+        "startLine": 102,
+        "startChar": 11,
+        "endLine": 102,
+        "endChar": 42
+      },
+      "revId": "499c65154f9c63122d3e97eb4519d141eb0140bd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "513c980c_a89d7145",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-08-19T14:48:56Z",
+      "side": 1,
+      "message": "\u003e Then we also need to detect when we\u0027re in an action.  (probably by looking for ActionInfo + target as the type.\nActions aren\u0027t the only one.  I\u0027ve seen some sort of \"protects\" field under ComponentIntegrity that contains a URI and I wouldn\u0027t be surprised if there are other ones hidden in the schema.  Trying to maintain a complete list would be a headache.\n\n\n\u003e I don\u0027t think we can just parse all strings as URIs and if they parse, assume they need aggregated.  That leaves a lot to chance.But in this instance we\u0027re only parsing URIs that exist on the satellite BMC so there isn\u0027t a risk of overwriting a URI that actually points to a location on the aggregating BMC.\n\nWe perform the same matching here that we do in determining if we need to forward a request to the satellite BMC.  Worst case scenario, we\u0027re messing up the same edge cases here that we mess up when determining the initial routing.  \n\nI think we can use the proper solution to the initial aggregation check here as well where eventually we\u0027ll be able to build a list of aggregateable URIs at runtime from the schema files.  We can use that same information here to determine if we need to add the prefix to any string that\u0027s parsable as a URI.  That way we don\u0027t have to worry about checking for specific keys.",
+      "parentUuid": "1408274c_f02716cd",
       "range": {
         "startLine": 102,
         "startChar": 11,
@@ -179,6 +226,30 @@
       "side": 1,
       "message": "I should mention, I\u0027ve done zero testing on this yet.  We\u0027ll get there.",
       "parentUuid": "31f536fa_f2b44ad6",
+      "range": {
+        "startLine": 516,
+        "startChar": 12,
+        "endLine": 516,
+        "endChar": 41
+      },
+      "revId": "499c65154f9c63122d3e97eb4519d141eb0140bd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c5356ae5_98deea6e",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 516,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-08-19T14:48:56Z",
+      "side": 1,
+      "message": "No worries.  You mentioned offline you can\u0027t test yet so I was trying to help out a bit since I have setup handy.",
+      "parentUuid": "51bdc916_f415277a",
       "range": {
         "startLine": 516,
         "startChar": 12,
