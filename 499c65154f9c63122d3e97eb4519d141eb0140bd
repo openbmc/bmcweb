@@ -169,6 +169,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3242cbfe_2d213342",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-19T16:43:48Z",
+      "side": 1,
+      "message": "\u003e \u003e ComponentsProtected is what I\u0027m assuming you mean there?  Those are going to be NavigationReference types, so they\u0027ll have an odata.id key, so they should be caught by this check.\n\u003e You\u0027re right, I was misremembering.  The property is \"TargetComponentURI\" which is a property of ComponentIntegrity.  There is also the Task property \"TargetUri\".  There could be others as well.  We could look to fix \"@odata.id\", \"TargetComponentURI\", \"TargetUri\", and any strings under \"Actions\".\n\nThe thought that just came to my head was can we do case-insensitive .ends_with(\"Uri\"), and does that cover most or all of the cases?\n\nOther idea, in theory, any URI is going to start with /redfish/v1..... that\u0027s far less brittle if we did that check, although still attackable, although I\u0027m not sure how bad the impact would be.\n\n\u003e \n\u003e \u003e I don\u0027t want to maintain a full list, but I also don\u0027t want to try parsing every string as URI\n\u003e I completely agree.  However, I think we need to do one of those two options at least for now.\n\u003e \n\u003e \u003e but I also don\u0027t want to try parsing every string as URI, as it opens us up to possible attack vectors.  For example, what if I put a valid URL in a manufacturer field in a FRU?  This would try to aggregate it.\n\u003e We\u0027re not aggregating it though, we\u0027re just modifying the URL that gets returned to the user.  If an attacker put a valid URL in the manufacturer field in a FRU then we\u0027d still return that as part of the response even if we don\u0027t add a prefix to it.\n\u003e \n\u003e \u003e The difference is we do it on the URI of the payload, that we KNOW is a URI.  This is trying to do it on every string field in the system, of which some are very likely to parse as valid URIs.\n\u003e What if we make sure the first two segments are \"redfish\" and \"v1\" on top of checking if it parses as a valid URI?  That should prevent us from modifying strings that aren\u0027t actually Redfish URIs.",
+      "parentUuid": "5ec0ca53_b805b3aa",
+      "range": {
+        "startLine": 102,
+        "startChar": 11,
+        "endLine": 102,
+        "endChar": 42
+      },
+      "revId": "499c65154f9c63122d3e97eb4519d141eb0140bd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a5488dce_5be32dce",
         "filename": "redfish-core/include/redfish_aggregator.hpp",
         "patchSetId": 32
