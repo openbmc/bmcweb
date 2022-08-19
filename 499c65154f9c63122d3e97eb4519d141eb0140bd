@@ -121,6 +121,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "04228666_6f021946",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-19T15:54:18Z",
+      "side": 1,
+      "message": "\u003e \u003e Then we also need to detect when we\u0027re in an action.  (probably by looking for ActionInfo + target as the type.\n\u003e Actions aren\u0027t the only one.  I\u0027ve seen some sort of \"protects\" field under ComponentIntegrity that contains a URI and I wouldn\u0027t be surprised if there are other ones hidden in the schema.  Trying to maintain a complete list would be a headache.\n\nComponentsProtected is what I\u0027m assuming you mean there?  Those are going to be NavigationReference types, so they\u0027ll have an odata.id key, so they should be caught by this check.\n\nI think Actions is the only weird one, and only because it drops outside the redfish resource tree.  You\u0027re right, I don\u0027t want to maintain a full list, but I also don\u0027t want to try parsing every string as URI, as it opens us up to possible attack vectors.  For example, what if I put a valid URL in a manufacturer field in a FRU?  This would try to aggregate it.\n\n\u003e \n\u003e \n\u003e \u003e I don\u0027t think we can just parse all strings as URIs and if they parse, assume they need aggregated.  That leaves a lot to chance.But in this instance we\u0027re only parsing URIs that exist on the satellite BMC so there isn\u0027t a risk of overwriting a URI that actually points to a location on the aggregating BMC.\n\u003e \n\u003e We perform the same matching here that we do in determining if we need to forward a request to the satellite BMC.\n\nThe difference is we do it on the URI of the payload, that we KNOW is a URI.  This is trying to do it on every string field in the system, of which some are very likely to parse as valid URIs.\n\n\u003e  Worst case scenario, we\u0027re messing up the same edge cases here that we mess up when determining the initial routing.  \n\u003e \n\u003e I think we can use the proper solution to the initial aggregation check here as well where eventually we\u0027ll be able to build a list of aggregateable URIs at runtime from the schema files.  We can use that same information here to determine if we need to add the prefix to any string that\u0027s parsable as a URI.  That way we don\u0027t have to worry about checking for specific keys.\n\nI think it\u0027s simpler than that, but the above would work too.",
+      "parentUuid": "513c980c_a89d7145",
+      "range": {
+        "startLine": 102,
+        "startChar": 11,
+        "endLine": 102,
+        "endChar": 42
+      },
+      "revId": "499c65154f9c63122d3e97eb4519d141eb0140bd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a5488dce_5be32dce",
         "filename": "redfish-core/include/redfish_aggregator.hpp",
         "patchSetId": 32
