@@ -16,6 +16,24 @@
       "message": "nit: I know context was already discussed and that you don\u0027t need it in dbus service, but keeping it in service may be easier to maintain. Bmcweb will be as dump as possible. Bmcwebwill will only read context from dbus instead of adding/reading/deleting subscriptions.\n\nSince this was already discussed I just wanted to add my opinion, just Ack this comment once you read it.",
       "revId": "812228b5ac0353b7e9ed83d17c4c21e5e721932e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "60cfaa14_0722d5b9",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 51
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2022-08-19T00:45:21Z",
+      "side": 1,
+      "message": "Thank you. We tried what you said:\nhttps://gerrit.openbmc.org/c/openbmc/phosphor-dbus-interfaces/+/44374/comments/15bb22e7_2072c1b8\n\nIt was abandoned",
+      "parentUuid": "f1ed5dee_c7539570",
+      "revId": "812228b5ac0353b7e9ed83d17c4c21e5e721932e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
