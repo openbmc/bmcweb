@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bfd70b86_240df9ea",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-19T14:51:58Z",
+      "side": 1,
+      "message": "Yep, I realized that last night;  There\u0027s a fix coming momentarily.",
+      "parentUuid": "41debbe0_d498d925",
+      "range": {
+        "startLine": 69,
+        "startChar": 8,
+        "endLine": 69,
+        "endChar": 38
+      },
+      "revId": "499c65154f9c63122d3e97eb4519d141eb0140bd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fc6ec926_586669d4",
         "filename": "redfish-core/include/redfish_aggregator.hpp",
         "patchSetId": 32
