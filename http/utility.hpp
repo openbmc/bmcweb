@@ -573,6 +573,9 @@ inline boost::urls::url
 }
 } // namespace details
 
+class OrMorePaths
+{};
+
 template <typename... AV>
 inline boost::urls::url urlFromPieces(const AV... args)
 {
@@ -584,21 +587,37 @@ namespace details
 
 // std::reference_wrapper<std::string> - extracts segment to variable
 //                    std::string_view - checks if segment is equal to variable
-using UrlSegment =
-    std::variant<std::reference_wrapper<std::string>, std::string_view>;
+using UrlSegment = std::variant<std::reference_wrapper<std::string>,
+                                std::string_view, OrMorePaths>;
+
+enum class UrlParseResult
+{
+    Continue,
+    Fail,
+    Done,
+};
 
 class UrlSegmentMatcherVisitor
 {
   public:
-    bool operator()(std::string& output)
+    UrlParseResult operator()(std::string& output)
     {
         output = std::string_view(segment.data(), segment.size());
-        return true;
+        return UrlParseResult::Continue;
     }
 
-    bool operator()(std::string_view expected)
+    UrlParseResult operator()(std::string_view expected)
     {
-        return std::string_view(segment.data(), segment.size()) == expected;
+        if (std::string_view(segment.data(), segment.size()) == expected)
+        {
+            return UrlParseResult::Continue;
+        }
+        return UrlParseResult::Fail;
+    }
+
+    UrlParseResult operator()(OrMorePaths /*unused*/)
+    {
+        return UrlParseResult::Done;
     }
 
     explicit UrlSegmentMatcherVisitor(
@@ -615,7 +634,7 @@ inline bool readUrlSegments(const boost::urls::url_view& urlView,
 {
     const boost::urls::segments_view& urlSegments = urlView.segments();
 
-    if (!urlSegments.is_absolute() || segments.size() != urlSegments.size())
+    if (!urlSegments.is_absolute())
     {
         return false;
     }
@@ -625,13 +644,23 @@ inline bool readUrlSegments(const boost::urls::url_view& urlView,
 
     for (const auto& segment : segments)
     {
-        if (!std::visit(UrlSegmentMatcherVisitor(*it), segment))
+        if (it == end)
+        {
+            // If the request ends with an "any" path, this was successful
+            return std::holds_alternative<OrMorePaths>(segment);
+        }
+        UrlParseResult res = std::visit(UrlSegmentMatcherVisitor(*it), segment);
+        if (res == UrlParseResult::Done)
+        {
+            return true;
+        }
+        if (res == UrlParseResult::Fail)
         {
             return false;
         }
         it++;
     }
-    return true;
+    return it == end;
 }
 
 } // namespace details
