@@ -71,6 +71,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "178e00a0_d615e46d",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 73
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-19T00:36:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2afe4295_088d1b89",
+      "revId": "898ef05b5f534e0896119ce6e3f168449b48444e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "83d351f4_67bf29c0",
@@ -84,6 +102,30 @@
       "writtenOn": "2022-08-18T15:13:28Z",
       "side": 1,
       "message": "nit, can we give this a better name?  We\u0027re in a class called \"redfish aggregator\" so we already know it\u0027s an aggregator function, and \"helper\" adds no value to describing what this does.",
+      "range": {
+        "startLine": 236,
+        "startChar": 8,
+        "endLine": 236,
+        "endChar": 25
+      },
+      "revId": "898ef05b5f534e0896119ce6e3f168449b48444e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b74c116e_c8f901e4",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 73
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-19T00:36:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "83d351f4_67bf29c0",
       "range": {
         "startLine": 236,
         "startChar": 8,
@@ -117,6 +159,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd1a791b_b30484e5",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 73
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-19T00:36:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "be7aa495_66600b6c",
+      "range": {
+        "startLine": 243,
+        "startChar": 0,
+        "endLine": 243,
+        "endChar": 65
+      },
+      "revId": "898ef05b5f534e0896119ce6e3f168449b48444e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9b31e451_bfa4ee72",
@@ -130,6 +196,30 @@
       "writtenOn": "2022-08-18T15:13:28Z",
       "side": 1,
       "message": "nit, no need for const here.",
+      "range": {
+        "startLine": 261,
+        "startChar": 8,
+        "endLine": 261,
+        "endChar": 13
+      },
+      "revId": "898ef05b5f534e0896119ce6e3f168449b48444e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "60beacb6_652eb4c4",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 73
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-19T00:36:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9b31e451_bfa4ee72",
       "range": {
         "startLine": 261,
         "startChar": 8,
@@ -163,6 +253,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c77b733b_2714a5bd",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 73
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-19T00:36:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2d22dff0_dd153003",
+      "range": {
+        "startLine": 266,
+        "startChar": 34,
+        "endLine": 266,
+        "endChar": 43
+      },
+      "revId": "898ef05b5f534e0896119ce6e3f168449b48444e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3fab9d41_30599fc2",
@@ -176,6 +290,30 @@
       "writtenOn": "2022-08-18T15:13:28Z",
       "side": 1,
       "message": "This is a little confusing.  If it\u0027s a collection, why do we call aggregateAndHandle at all?  Maybe this makes more sense in a later patch?  In which case, I\u0027m ok with it.",
+      "range": {
+        "startLine": 270,
+        "startChar": 0,
+        "endLine": 278,
+        "endChar": 9
+      },
+      "revId": "898ef05b5f534e0896119ce6e3f168449b48444e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "27a54992_7264fe9f",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 73
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-19T00:36:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3fab9d41_30599fc2",
       "range": {
         "startLine": 270,
         "startChar": 0,
@@ -209,6 +347,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "088d2f1f_fc303b37",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 73
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-19T00:36:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f9d86d57_2bcab3a0",
+      "range": {
+        "startLine": 285,
+        "startChar": 31,
+        "endLine": 285,
+        "endChar": 36
+      },
+      "revId": "898ef05b5f534e0896119ce6e3f168449b48444e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "eba07d0b_a7b52ebe",
@@ -222,6 +384,30 @@
       "writtenOn": "2022-08-18T15:13:28Z",
       "side": 1,
       "message": "I\u0027m surprised clang didn\u0027t flag this, but the std::string you constructed is already an rvalue, calling std::move on it has no effect.\n\nI\u0027m pretty sure you want:\n\nsegments.emplace_back(std::string_view(*it));",
+      "range": {
+        "startLine": 291,
+        "startChar": 31,
+        "endLine": 291,
+        "endChar": 40
+      },
+      "revId": "898ef05b5f534e0896119ce6e3f168449b48444e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "82cb0cd5_dd6f365c",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 73
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-19T00:36:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eba07d0b_a7b52ebe",
       "range": {
         "startLine": 291,
         "startChar": 31,
@@ -249,6 +435,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b5055e8b_ed64b883",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 73
+      },
+      "lineNbr": 294,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-19T00:36:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cb95feeb_4a21a367",
+      "revId": "898ef05b5f534e0896119ce6e3f168449b48444e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fdb0d351_9852c7b8",
@@ -266,6 +470,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "49b8e792_3a343bec",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 73
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-19T00:36:14Z",
+      "side": 1,
+      "message": "NVM, I had this wrong.\n\nDone",
+      "parentUuid": "fdb0d351_9852c7b8",
+      "revId": "898ef05b5f534e0896119ce6e3f168449b48444e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fc27e28c_99d7fd9c",
@@ -279,6 +501,30 @@
       "writtenOn": "2022-08-18T15:13:28Z",
       "side": 1,
       "message": "same thing, moving an already rvalue string.",
+      "range": {
+        "startLine": 307,
+        "startChar": 32,
+        "endLine": 307,
+        "endChar": 52
+      },
+      "revId": "898ef05b5f534e0896119ce6e3f168449b48444e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "62a1ab14_d58d5729",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 73
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-19T00:36:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fc27e28c_99d7fd9c",
       "range": {
         "startLine": 307,
         "startChar": 32,
