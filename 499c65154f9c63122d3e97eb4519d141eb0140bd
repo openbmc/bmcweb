@@ -217,6 +217,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0f208f70_8a92aec6",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-19T19:54:13Z",
+      "side": 1,
+      "message": "\u003e \u003e The thought that just came to my head was can we do case-insensitive .ends_with(\"Uri\"), and does that cover most or all of the cases?\n\u003e I think that will cover most cases if we do that in addition to \"@odata.id\", \"target\" and anything under \"Actions\".  I see \"target\" appear in a large number of schemas so I can\u0027t be sure they will only appear under \"Actions\".\n\u003e \n\u003e \u003e Other idea, in theory, any URI is going to start with /redfish/v1..... that\u0027s far less brittle if we did that check, although still attackable, although I\u0027m not sure how bad the impact would be.\n\u003e I think this would work as well.  I\u0027m also still not seeing how this is an attack concern.  Or at least how it only becomes a vulnerability if we apply a prefix.\n\nWe\u0027ve had instances before of people putting things like links in the field of an IPMI FRU, which then gets formatted, and turned into a link that the user could click on (or worse, injects some script).  It\u0027s pretty possible it\u0027s less of a concern in this case, and requiring it start with redfish/v1 SEVERELY limits what you could even potentially do with it, so I might be ok with that, although I like the explicitness of the \"target + actions + odata.id\" approach.\n\nIDK, I\u0027m on the fence.",
+      "parentUuid": "f7c9dc40_9ac9fc99",
+      "range": {
+        "startLine": 102,
+        "startChar": 11,
+        "endLine": 102,
+        "endChar": 42
+      },
+      "revId": "499c65154f9c63122d3e97eb4519d141eb0140bd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a5488dce_5be32dce",
         "filename": "redfish-core/include/redfish_aggregator.hpp",
         "patchSetId": 32
