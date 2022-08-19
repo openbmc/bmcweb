@@ -2057,6 +2057,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f6cecd08_3626d989",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 731,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-19T18:20:54Z",
+      "side": 1,
+      "message": "I think this is solved now that ConnectionInfo is unique to SSL vs non-ssl",
+      "parentUuid": "6866f41a_31797360",
+      "range": {
+        "startLine": 708,
+        "startChar": 0,
+        "endLine": 731,
+        "endChar": 13
+      },
+      "revId": "d739445adffb056cbb753730656f80ccc367b010",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6e73ce50_a921c59a",
