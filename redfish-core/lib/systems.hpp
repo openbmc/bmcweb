@@ -1944,13 +1944,14 @@ inline std::optional<bool>
 /**
  * @brief Sets stopBootOnFault
  *
- * @param[in] aResp   Shared pointer for generating response message.
+ * @param[in] asyncResp   Shared pointer for generating response message.
  * @param[in] stopBootOnFault  "StopBootOnFault" from request.
  *
  * @return None.
  */
-inline void setStopBootOnFault(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
-                               const std::string& stopBootOnFault)
+inline void
+    setStopBootOnFault(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                       const std::string& stopBootOnFault)
 {
     BMCWEB_LOG_DEBUG("Set Stop Boot On Fault.");
 
@@ -1959,26 +1960,25 @@ inline void setStopBootOnFault(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
     {
         BMCWEB_LOG_DEBUG("Invalid property value for StopBootOnFault: {}",
                          stopBootOnFault);
-        messages::propertyValueNotInList(aResp->res, stopBootOnFault,
+        messages::propertyValueNotInList(asyncResp->res, stopBootOnFault,
                                          "StopBootOnFault");
         return;
     }
 
-    sdbusplus::asio::setProperty(*crow::connections::systemBus,
-                                 "xyz.openbmc_project.Settings",
-                                 "/xyz/openbmc_project/logging/settings",
-                                 "xyz.openbmc_project.Logging.Settings",
-                                 "QuiesceOnHwError", *stopBootEnabled,
-                                 [aResp](const boost::system::error_code& ec) {
-        if (ec)
-        {
-            if (ec.value() != EBADR)
+    sdbusplus::asio::setProperty(
+        *crow::connections::systemBus, "xyz.openbmc_project.Settings",
+        "/xyz/openbmc_project/logging/settings",
+        "xyz.openbmc_project.Logging.Settings", "QuiesceOnHwError",
+        *stopBootEnabled, [asyncResp](const boost::system::error_code& ec) {
+            if (ec)
             {
-                messages::internalError(aResp->res);
+                if (ec.value() != EBADR)
+                {
+                    messages::internalError(asyncResp->res);
+                }
+                return;
             }
-            return;
-        }
-    });
+        });
 }
 
 /**
