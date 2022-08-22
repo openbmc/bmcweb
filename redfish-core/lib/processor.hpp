@@ -33,9 +33,28 @@
 #include <utils/json_utils.hpp>
 
 #include <algorithm>
+#include <unordered_map>
 
 namespace redfish
 {
+
+using resourceIdToSubtreeRespMapType =
+    std::unordered_map<std::string,
+                       std::pair<std::string, dbus::utility::MapperServiceMap>>;
+
+inline void getSubProcessorThreadCollectionWithExpand(
+    const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+    const nlohmann::json::json_pointer& jsonPtr, uint8_t expandLevel,
+    const std::string& processorId, const std::string& coreId,
+    const std::string& corePath);
+
+inline void getSubProcessorCoreCollectionWithExpand(
+    const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+    const nlohmann::json::json_pointer& jsonPtr, uint8_t expandLevel,
+    const std::string& processorId, const std::string& cpuPath);
+
+inline void getProcessorCollectionWithExpand(
+    const std::shared_ptr<bmcweb::AsyncResp>& aResp, uint8_t expandLevel);
 
 // Interfaces which imply a D-Bus object represents a Processor
 constexpr std::array<const char*, 2> processorInterfaces = {
@@ -769,6 +788,7 @@ inline void getProcessorObject(const std::shared_ptr<bmcweb::AsyncResp>& resp,
 
 inline void getProcessorData(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
                              const nlohmann::json::json_pointer& jsonPtr,
+                             uint8_t expandLevel,
                              const std::string& processorId,
                              const std::string& objectPath,
                              const dbus::utility::MapperServiceMap& serviceMap)
@@ -777,10 +797,21 @@ inline void getProcessorData(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
         "#Processor.v1_11_0.Processor";
     aResp->res.jsonValue[jsonPtr]["@odata.id"] = crow::utility::urlFromPieces(
         "redfish", "v1", "Systems", "system", "Processors", processorId);
-    aResp->res.jsonValue[jsonPtr]["SubProcessors"]["@odata.id"] =
-        crow::utility::urlFromPieces("redfish", "v1", "Systems", "system",
-                                     "Processors", processorId,
-                                     "SubProcessors");
+
+    if (expandLevel > 0)
+    {
+        nlohmann::json::json_pointer subProcessorPtr =
+            jsonPtr / "SubProcessors";
+        getSubProcessorCoreCollectionWithExpand(
+            aResp, subProcessorPtr, expandLevel - 1, processorId, objectPath);
+    }
+    else
+    {
+        aResp->res.jsonValue[jsonPtr]["SubProcessors"]["@odata.id"] =
+            crow::utility::urlFromPieces("redfish", "v1", "Systems", "system",
+                                         "Processors", processorId,
+                                         "SubProcessors");
+    }
 
     for (const auto& [serviceName, interfaceList] : serviceMap)
     {
@@ -1239,9 +1270,10 @@ inline void getSubProcessorThreadMembers(
 inline void
     getCpuCoreDataByService(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
                             const nlohmann::json::json_pointer& jsonPtr,
-                            const std::string& processorId,
+                            uint8_t expandLevel, const std::string& processorId,
                             const std::string& coreId,
-                            const dbus::utility::DBusInteracesMap& interfaceMap)
+                            const dbus::utility::DBusInteracesMap& interfaceMap,
+                            const std::string& corePath)
 {
     aResp->res.jsonValue[jsonPtr]["@odata.type"] =
         "#Processor.v1_11_0.Processor";
@@ -1251,10 +1283,22 @@ inline void
 
     aResp->res.jsonValue[jsonPtr]["Name"] = "SubProcessor";
     aResp->res.jsonValue[jsonPtr]["Id"] = coreId;
-    aResp->res.jsonValue[jsonPtr]["SubProcessors"]["@odata.id"] =
-        crow::utility::urlFromPieces("redfish", "v1", "Systems", "system",
-                                     "Processors", processorId, "SubProcessors",
-                                     coreId, "SubProcessors");
+
+    if (expandLevel > 0)
+    {
+        nlohmann::json::json_pointer subProcessorPtr =
+            jsonPtr / "SubProcessors";
+        getSubProcessorThreadCollectionWithExpand(aResp, subProcessorPtr,
+                                                  expandLevel - 1, processorId,
+                                                  coreId, corePath);
+    }
+    else
+    {
+        aResp->res.jsonValue[jsonPtr]["SubProcessors"]["@odata.id"] =
+            crow::utility::urlFromPieces(
+                "redfish", "v1", "Systems", "system", "Processors", processorId,
+                "SubProcessors", coreId, "SubProcessors");
+    }
 
     aResp->res.jsonValue[jsonPtr]["Status"]["State"] = "Enabled";
     aResp->res.jsonValue[jsonPtr]["Status"]["Health"] = "OK";
@@ -1462,9 +1506,9 @@ inline void getSubProcessorCoreData(
                                 continue;
                             }
 
-                            getCpuCoreDataByService(aResp, ""_json_pointer,
+                            getCpuCoreDataByService(aResp, ""_json_pointer, 0,
                                                     processorId, coreId,
-                                                    interfaces);
+                                                    interfaces, corePath);
                             return;
                         }
                         // Object not found
@@ -1532,6 +1576,445 @@ inline void
         aResp, subProcessorsPath,
         std::vector<const char*>{"xyz.openbmc_project.Inventory.Item.CpuCore"},
         associationPath.c_str());
+}
+
+inline void getSubProcessorThreadCollectionWithExpand(
+    const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+    const nlohmann::json::json_pointer& jsonPtr, uint8_t expandLevel,
+    const std::string& processorId, const std::string& coreId,
+    const std::string& corePath)
+{
+    const std::string objPath = corePath + "/containing";
+    sdbusplus::asio::getProperty<std::vector<std::string>>(
+        *crow::connections::systemBus, "xyz.openbmc_project.ObjectMapper",
+        objPath, "xyz.openbmc_project.Association", "endpoints",
+        [aResp{aResp}, processorId, coreId, expandLevel, jsonPtr](
+            const boost::system::error_code ec,
+            const dbus::utility::MapperGetSubTreePathsResponse& objectPaths) {
+        if (ec == boost::system::errc::io_error)
+        {
+            aResp->res.jsonValue[jsonPtr]["Members"] = nlohmann::json::array();
+            aResp->res.jsonValue[jsonPtr]["Members@odata.count"] = 0;
+            return;
+        }
+
+        if (ec)
+        {
+            BMCWEB_LOG_DEBUG << "DBUS response error " << ec.value();
+            messages::internalError(aResp->res);
+            return;
+        }
+
+        const std::vector<const char*> cpuThreadInterfaces{
+            "xyz.openbmc_project.Inventory.Item.CpuThread"};
+
+        // For a given association endpoint path, there could be associated
+        // members with different interface types. Collect these object paths in
+        // an unordered_map to filter desired thread paths from the GetSubTree
+        // response.
+        std::unordered_map<std::string, std::string> objectPathsMap;
+
+        for (const std::string& path : objectPaths)
+        {
+            objectPathsMap.insert({path, path});
+        }
+
+        crow::connections::systemBus->async_method_call(
+            [coreId, processorId, objectPathsMap{std::move(objectPathsMap)},
+             jsonPtr, expandLevel, aResp{aResp}](
+                const boost::system::error_code ec2,
+                const dbus::utility::MapperGetSubTreeResponse& subtree) {
+            if (ec2 == boost::system::errc::io_error)
+            {
+                aResp->res.jsonValue[jsonPtr]["Members"] =
+                    nlohmann::json::array();
+                aResp->res.jsonValue[jsonPtr]["Members@odata.count"] = 0;
+                return;
+            }
+
+            if (ec2)
+            {
+                BMCWEB_LOG_DEBUG << "DBUS response error " << ec2.value();
+                messages::internalError(aResp->res);
+                return;
+            }
+
+            aResp->res.jsonValue[jsonPtr]["@odata.type"] =
+                "#ProcessorCollection.ProcessorCollection";
+            aResp->res.jsonValue[jsonPtr]["@odata.id"] =
+                crow::utility::urlFromPieces(
+                    "redfish", "v1", "Systems", "system", "Processors",
+                    processorId, "SubProcessors", coreId, "SubProcessors");
+
+            // Vector that stores numerically sorted thread IDs
+            std::vector<std::string> threads;
+
+            // Container that maps thread ID to [threadObjectPath,
+            // serviceMap]
+            resourceIdToSubtreeRespMapType threadIdToSubtreeRespMap;
+
+            for (const auto& [threadObjectPath, serviceMap] : subtree)
+            {
+                // Filter out the desired threads
+                if (objectPathsMap.find(threadObjectPath) ==
+                    objectPathsMap.end())
+                {
+                    continue;
+                }
+                sdbusplus::message::object_path threadPath(threadObjectPath);
+                const std::string& threadId = threadPath.filename();
+                threadIdToSubtreeRespMap.insert(
+                    {threadId, std::make_pair(threadObjectPath, serviceMap)});
+                threads.push_back(threadId);
+            }
+
+            std::string subProcessorsPath =
+                "/redfish/v1/Systems/system/Processors/" + processorId +
+                "/SubProcessors/" + coreId + "/SubProcessors";
+
+            // Get numerically sorted list of thread IDs
+            std::sort(threads.begin(), threads.end(),
+                      AlphanumLess<std::string>());
+            size_t threadCount = threads.size();
+
+            const dbus::utility::MapperServiceMap& serviceMap =
+                std::get<1>(threadIdToSubtreeRespMap.begin()->second);
+            if (serviceMap.empty())
+            {
+                BMCWEB_LOG_WARNING << "Error in finding the service name";
+                messages::internalError(aResp->res);
+                return;
+            }
+
+            std::string serviceName = serviceMap.begin()->first;
+
+            crow::connections::systemBus->async_method_call(
+                [processorId, coreId, threads{std::move(threads)},
+                 threadIdToSubtreeRespMap{std::move(threadIdToSubtreeRespMap)},
+                 jsonPtr, expandLevel, aResp](
+                    const boost::system::error_code ec3,
+                    const dbus::utility::ManagedObjectType& dbusData) mutable {
+                if (ec3)
+                {
+                    BMCWEB_LOG_DEBUG << "DBUS response error, ec3: "
+                                     << ec3.value();
+                    messages::internalError(aResp->res);
+                    return;
+                }
+
+                // Container to store mapping of threadPath to Interfaces
+                std::unordered_map<std::string, dbus::utility::DBusInteracesMap>
+                    threadPathToInterfacesMap;
+
+                // Collect the threadPath to Interfaces mapping, to avoid
+                // running GetManagedObjects call for each thread
+                for (const auto& [threadPath, interfaces] : dbusData)
+                {
+                    threadPathToInterfacesMap.insert({threadPath, interfaces});
+                }
+
+                size_t threadMemberCount = 0;
+                for (const std::string& threadId : threads)
+                {
+                    nlohmann::json::json_pointer threadMemberPtr =
+                        jsonPtr / "Members" / threadMemberCount;
+
+                    if (expandLevel > 0)
+                    {
+                        const std::string& threadPath =
+                            threadIdToSubtreeRespMap[threadId].first;
+                        const dbus::utility::MapperServiceMap& serviceMap2 =
+                            threadIdToSubtreeRespMap[threadId].second;
+
+                        if (serviceMap2.empty())
+                        {
+                            BMCWEB_LOG_WARNING
+                                << "Error in finding the service name";
+                            messages::internalError(aResp->res);
+                            return;
+                        }
+
+                        getCoreThreadDataByService(
+                            aResp, threadMemberPtr, processorId, coreId,
+                            threadId, threadPathToInterfacesMap[threadPath]);
+                    }
+                    else
+                    {
+                        aResp->res.jsonValue[threadMemberPtr]["@odata.id"] =
+                            crow::utility::urlFromPieces(
+                                "redfish", "v1", "Systems", "system",
+                                "Processors", processorId, "SubProcessors",
+                                coreId, "SubProcessors", threadId);
+                    }
+                    threadMemberCount++;
+                }
+                },
+                serviceName, "/xyz/openbmc_project/inventory",
+                "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
+
+            aResp->res.jsonValue[jsonPtr]["Members@odata.count"] = threadCount;
+            aResp->res.jsonValue[jsonPtr]["Name"] = "SubProcessor Collection";
+            },
+            "xyz.openbmc_project.ObjectMapper",
+            "/xyz/openbmc_project/object_mapper",
+            "xyz.openbmc_project.ObjectMapper", "GetSubTree",
+            "/xyz/openbmc_project/inventory", 0, cpuThreadInterfaces);
+        });
+}
+
+inline void getSubProcessorCoreCollectionWithExpand(
+    const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+    const nlohmann::json::json_pointer& jsonPtr, uint8_t expandLevel,
+    const std::string& processorId, const std::string& cpuPath)
+{
+    const std::string objPath = cpuPath + "/containing";
+    sdbusplus::asio::getProperty<std::vector<std::string>>(
+        *crow::connections::systemBus, "xyz.openbmc_project.ObjectMapper",
+        objPath, "xyz.openbmc_project.Association", "endpoints",
+        [aResp{aResp}, processorId, expandLevel, jsonPtr](
+            const boost::system::error_code ec,
+            const dbus::utility::MapperGetSubTreePathsResponse& objectPaths) {
+        if (ec == boost::system::errc::io_error)
+        {
+            aResp->res.jsonValue[jsonPtr]["Members"] = nlohmann::json::array();
+            aResp->res.jsonValue[jsonPtr]["Members@odata.count"] = 0;
+            return;
+        }
+
+        if (ec)
+        {
+            BMCWEB_LOG_DEBUG << "DBUS response error " << ec.value();
+            messages::internalError(aResp->res);
+            return;
+        }
+
+        const std::vector<const char*> cpuCoreInterfaces{
+            "xyz.openbmc_project.Inventory.Item.CpuCore"};
+
+        // For a given association endpoint path, there could be associated
+        // members with different interface types. Collect these object paths in
+        // an unordered_map to filter desired core paths from the GetSubTree
+        // response.
+        std::unordered_map<std::string, std::string> objectPathsMap;
+
+        for (const std::string& path : objectPaths)
+        {
+            objectPathsMap.insert({path, path});
+        }
+
+        crow::connections::systemBus->async_method_call(
+            [processorId, objectPathsMap{std::move(objectPathsMap)}, jsonPtr,
+             expandLevel, aResp{aResp}](
+                const boost::system::error_code ec2,
+                const dbus::utility::MapperGetSubTreeResponse& subtree) {
+            if (ec2 == boost::system::errc::io_error)
+            {
+                aResp->res.jsonValue[jsonPtr]["Members"] =
+                    nlohmann::json::array();
+                aResp->res.jsonValue[jsonPtr]["Members@odata.count"] = 0;
+                return;
+            }
+
+            if (ec2)
+            {
+                BMCWEB_LOG_DEBUG << "DBUS response error " << ec2.value();
+                messages::internalError(aResp->res);
+                return;
+            }
+
+            aResp->res.jsonValue[jsonPtr]["@odata.type"] =
+                "#ProcessorCollection.ProcessorCollection";
+            aResp->res.jsonValue[jsonPtr]["@odata.id"] =
+                crow::utility::urlFromPieces("redfish", "v1", "Systems",
+                                             "system", "Processors",
+                                             processorId, "SubProcessors");
+
+            // Vector that stores  numerically sorted core IDs
+            std::vector<std::string> cores;
+
+            // Container that maps core ID to [coreObjectPath,
+            // serviceMap]
+            resourceIdToSubtreeRespMapType coreIdToSubtreeRespMap;
+            for (const auto& [coreObjectPath, serviceMap] : subtree)
+            {
+                // Filter out the desired cores
+                if (objectPathsMap.find(coreObjectPath) == objectPathsMap.end())
+                {
+                    continue;
+                }
+                sdbusplus::message::object_path corePath(coreObjectPath);
+                const std::string& coreId = corePath.filename();
+                coreIdToSubtreeRespMap.insert(
+                    {coreId, std::make_pair(coreObjectPath, serviceMap)});
+                cores.push_back(coreId);
+            }
+
+            std::string subProcessorsPath =
+                "/redfish/v1/Systems/system/Processors/" + processorId +
+                "/SubProcessors";
+
+            // Get numerically sorted list of core IDs
+            std::sort(cores.begin(), cores.end(), AlphanumLess<std::string>());
+            size_t coreCount = cores.size();
+
+            const dbus::utility::MapperServiceMap& serviceMap =
+                std::get<1>(coreIdToSubtreeRespMap.begin()->second);
+            if (serviceMap.empty())
+            {
+                BMCWEB_LOG_WARNING << "Error in finding the service name";
+                messages::internalError(aResp->res);
+                return;
+            }
+
+            std::string serviceName = serviceMap.begin()->first;
+
+            crow::connections::systemBus->async_method_call(
+                [processorId, cores{std::move(cores)},
+                 coreIdToSubtreeRespMap{std::move(coreIdToSubtreeRespMap)},
+                 jsonPtr, expandLevel, aResp](
+                    const boost::system::error_code ec3,
+                    const dbus::utility::ManagedObjectType& dbusData) mutable {
+                if (ec3)
+                {
+                    BMCWEB_LOG_DEBUG << "DBUS response error, ec3: "
+                                     << ec3.value();
+                    messages::internalError(aResp->res);
+                    return;
+                }
+
+                // Container to store mapping of corePath to Interfaces
+                std::unordered_map<std::string, dbus::utility::DBusInteracesMap>
+                    corePathToInterfacesMap;
+
+                // Collect the corePath to Interfaces mapping, to avoid
+                // running GetManagedObjects call for each core
+                for (const auto& [corePath, interfaces] : dbusData)
+                {
+                    corePathToInterfacesMap.insert({corePath, interfaces});
+                }
+
+                size_t coreMemberCount = 0;
+                // for (const std::string& coreId : *coresPtr)
+                for (const std::string& coreId : cores)
+                {
+                    nlohmann::json::json_pointer coreMemberPtr =
+                        jsonPtr / "Members" / coreMemberCount;
+                    if (expandLevel > 0)
+                    {
+
+                        const std::string& corePath =
+                            (coreIdToSubtreeRespMap[coreId]).first;
+                        const dbus::utility::MapperServiceMap& serviceMap2 =
+                            (coreIdToSubtreeRespMap[coreId]).second;
+
+                        if (serviceMap2.empty())
+                        {
+                            BMCWEB_LOG_WARNING
+                                << "Error in finding the service name";
+                            messages::internalError(aResp->res);
+                            return;
+                        }
+
+                        getCpuCoreDataByService(
+                            aResp, coreMemberPtr, expandLevel - 1, processorId,
+                            coreId, corePathToInterfacesMap[corePath],
+                            corePath);
+                    }
+                    else
+                    {
+                        aResp->res.jsonValue[coreMemberPtr]["@odata.id"] =
+                            crow::utility::urlFromPieces(
+                                "redfish", "v1", "Systems", "system",
+                                "Processors", processorId, "SubProcessors",
+                                coreId);
+                    }
+                    coreMemberCount++;
+                }
+                },
+                serviceName, "/xyz/openbmc_project/inventory",
+                "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
+
+            aResp->res.jsonValue[jsonPtr]["Members@odata.count"] = coreCount;
+            aResp->res.jsonValue[jsonPtr]["Name"] = "SubProcessor Collection";
+            },
+            "xyz.openbmc_project.ObjectMapper",
+            "/xyz/openbmc_project/object_mapper",
+            "xyz.openbmc_project.ObjectMapper", "GetSubTree",
+            "/xyz/openbmc_project/inventory", 0, cpuCoreInterfaces);
+        });
+}
+
+inline void getProcessorCollectionWithExpand(
+    const std::shared_ptr<bmcweb::AsyncResp>& aResp, uint8_t expandLevel)
+{
+
+    crow::connections::systemBus->async_method_call(
+        [expandLevel,
+         aResp{aResp}](const boost::system::error_code ec,
+                       const dbus::utility::MapperGetSubTreeResponse& subtree) {
+        if (ec == boost::system::errc::io_error)
+        {
+            aResp->res.jsonValue["Members"] = nlohmann::json::array();
+            aResp->res.jsonValue["Members@odata.count"] = 0;
+            return;
+        }
+
+        if (ec)
+        {
+            BMCWEB_LOG_DEBUG << "DBUS response error " << ec.value();
+            messages::internalError(aResp->res);
+            return;
+        }
+        aResp->res.jsonValue["@odata.id"] =
+            "/redfish/v1/Systems/system/Processors";
+        aResp->res.jsonValue["@odata.type"] =
+            "#ProcessorCollection.ProcessorCollection";
+
+        // Vector to store numerically sorted cpu IDs
+        std::vector<std::string> cpus;
+
+        // Container to map cpu ID to [cpuObjectPath, serviceMap]
+        std::unordered_map<
+            std::string,
+            std::pair<std::string, dbus::utility::MapperServiceMap>>
+            cpuNameToSubtreeRespMap;
+        for (const auto& [objectPath, serviceMap] : subtree)
+        {
+            sdbusplus::message::object_path cpuPath(objectPath);
+            const std::string& cpuId = cpuPath.filename();
+            cpuNameToSubtreeRespMap.insert(
+                {cpuId, std::make_pair(objectPath, serviceMap)});
+            cpus.push_back(cpuId);
+        }
+
+        // Get numerically sorted list of cpu IDs
+        std::sort(cpus.begin(), cpus.end(), AlphanumLess<std::string>());
+
+        size_t cpuMemberCount = 0;
+        for (std::string& cpu : cpus)
+        {
+            nlohmann::json::json_pointer cpuMemberPtr =
+                "/Members"_json_pointer / cpuMemberCount;
+            std::string& objectPath = (cpuNameToSubtreeRespMap[cpu]).first;
+            dbus::utility::MapperServiceMap& serviceMap =
+                (cpuNameToSubtreeRespMap[cpu]).second;
+            getProcessorData(aResp, cpuMemberPtr, expandLevel - 1, cpu,
+                             objectPath, serviceMap);
+
+            cpuMemberCount++;
+        }
+
+        aResp->res.jsonValue["Members@odata.count"] = cpuMemberCount;
+        aResp->res.jsonValue["Name"] = "Processor Collection";
+        },
+        "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetSubTree",
+        "/xyz/openbmc_project/inventory", 0,
+        std::array<const char*, 3>{
+            "xyz.openbmc_project.Inventory.Item.Cpu",
+            "xyz.openbmc_project.Inventory.Item.Accelerator",
+            "xyz.openbmc_project.Inventory.Decorator.UniqueIdentifier"});
 }
 
 /**
@@ -1902,7 +2385,12 @@ inline void requestRoutesProcessorCollection(App& app)
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                    const std::string& systemName) {
-        if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+        query_param::Query delegated;
+        query_param::QueryCapabilities capabilities = {
+            .canDelegateExpandLevel = 6,
+        };
+        if (!redfish::setUpRedfishRouteWithDelegation(app, req, asyncResp,
+                                                      delegated, capabilities))
         {
             return;
         }
@@ -1920,11 +2408,22 @@ inline void requestRoutesProcessorCollection(App& app)
         asyncResp->res.jsonValue["@odata.id"] =
             "/redfish/v1/Systems/system/Processors";
 
-        collection_util::getCollectionMembers(
-            asyncResp,
-            boost::urls::url("/redfish/v1/Systems/system/Processors"),
-            std::vector<const char*>(processorInterfaces.begin(),
-                                     processorInterfaces.end()));
+        if ((delegated.expandLevel > 0) &&
+            delegated.expandType != query_param::ExpandType::None)
+        {
+            BMCWEB_LOG_DEBUG << "Use efficient processor expand handler";
+            getProcessorCollectionWithExpand(asyncResp, delegated.expandLevel);
+        }
+        else
+        {
+            BMCWEB_LOG_DEBUG << "Use default processor expand handler";
+            collection_util::getCollectionMembers(
+                asyncResp,
+                crow::utility::urlFromPieces("redfish", "v1", "Systems",
+                                             "system", "Processors"),
+                std::vector<const char*>(processorInterfaces.begin(),
+                                         processorInterfaces.end()));
+        }
         });
 }
 
@@ -1954,7 +2453,7 @@ inline void requestRoutesProcessor(App& app)
 
         getProcessorObject(asyncResp, processorId,
                            std::bind_front(getProcessorData, asyncResp,
-                                           ""_json_pointer, processorId));
+                                           ""_json_pointer, 0, processorId));
         });
 
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/Processors/<str>/")
