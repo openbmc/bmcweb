@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ef57fb1d_dbc2db1f",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 684,
+      "author": {
+        "id": 1000331
+      },
+      "writtenOn": "2022-08-22T18:22:43Z",
+      "side": 1,
+      "message": "Nit: Needs name/description update",
+      "revId": "acfaa46a22d36c1186e991e28448cf24714bf6d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
