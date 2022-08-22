@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3fd34823_83faece3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-08-22T20:17:10Z",
+      "side": 1,
+      "message": "Supposed to cover https://gerrit.openbmc.org/c/openbmc/bmcweb/+/50879 (Remove q-factor weighting on Accept Header)?",
+      "revId": "dfd91fcb7dd8c1ac292e1a3136a6a85e9b5dd23d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c97d512a_13159125",
         "filename": "include/forward_unauthorized.hpp",
         "patchSetId": 2
