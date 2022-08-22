@@ -234,6 +234,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4c999a81_0e45a1ec",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000331
+      },
+      "writtenOn": "2022-08-22T18:40:15Z",
+      "side": 1,
+      "message": "Sorry, in looking at the URI documentation, a comma is not a recommended character, so that is not a good suggestion.  But perhaps a period or tilde?\n\n\ntemperature~vdd1_temperature\ntemperature~vdd1_temperature_peak\nvoltage~vdd1_vout\nvoltage~vdd1_vout_valley",
+      "parentUuid": "ddd3feba_99711071",
+      "revId": "848a4346187f043a96e223902d41341214966541",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8a16fd8b_58c54f44",
