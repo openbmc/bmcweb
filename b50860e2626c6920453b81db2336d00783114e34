@@ -190,6 +190,30 @@
       },
       "revId": "b50860e2626c6920453b81db2336d00783114e34",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "47346bd9_1d14f6e1",
+        "filename": "include/http_utility.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-22T20:26:04Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c2135d9a_1c8f5b70",
+      "range": {
+        "startLine": 40,
+        "startChar": 47,
+        "endLine": 40,
+        "endChar": 51
+      },
+      "revId": "b50860e2626c6920453b81db2336d00783114e34",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

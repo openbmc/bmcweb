@@ -98,6 +98,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "1db058f8_e3d84e39",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-22T20:26:04Z",
+      "side": 1,
+      "message": "\u003e \u003e I looked at that code, so far as I can tell.... it\u0027s literally trying to do explicitly what we intentionally tried in the API to disallow (downloading a binary payload to a file).  Maybe I misread it?\n\u003e \n\u003e It is doing exactly that, it is downloading the attachment. But how is downloading the attachment via cURL or some other network tool, different than downloading it via the GUI? \n\u003e \n\u003e The attachment is base 64 encoded, https://github.com/openbmc/bmcweb/blob/2b82937ecef572954b49569177b16831cbc09cfe/redfish-core/lib/log_services.hpp#L1756. \n\u003e \n\u003e I see the security concern but it is base 64 encoded, it is already allowed today via Wget, etc, this \" Nefarious user loads executable data; Unsuspecting user downloads, and executes\" isn\u0027t something special with OpenBMC, companies don\u0027t have to have this API (the GUI doesn\u0027t show this button unless there is an AdditionalDataUri on the log entry).\n\n\n\u003e Unsuspecting user downloads, and executes\" isn\u0027t something special with OpenBMC\n\nYes and no.  We have a lot of APIs that are likely to be able to have injection attacks, and we have no ability to run any kind of site-wide anti-virus or injection mitigation, so we differ pretty significantly from say, a website that hosts binaries.\n\nFWIW, I\u0027m going to close out this thread.  Happy to keep talking about it somewhere, but holding up your review for it for behavior that\u0027s already on master doesn\u0027t make sense to me.",
+      "parentUuid": "6e9c602e_d0b2dff9",
+      "range": {
+        "startLine": 17,
+        "startChar": 27,
+        "endLine": 17,
+        "endChar": 34
+      },
+      "revId": "69c9c2c1c9e4a06f63a007dce4f21343d7c3aa82",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "a75d8d43_3ebba7d3",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 3
