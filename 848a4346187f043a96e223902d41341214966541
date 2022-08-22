@@ -254,6 +254,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "26e86c20_5204840c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-22T20:16:56Z",
+      "side": 1,
+      "message": "A comma would have to be escaped as %2C i\u0027m pretty sure.  Tilde would also need escaped as temperature%7Evdd1_temperature, so both of those seem worse when we account for what the http rfc requirements.",
+      "parentUuid": "4c999a81_0e45a1ec",
+      "revId": "848a4346187f043a96e223902d41341214966541",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8a16fd8b_58c54f44",
         "filename": "/COMMIT_MSG",
         "patchSetId": 5
