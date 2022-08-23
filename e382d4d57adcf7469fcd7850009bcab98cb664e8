@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f2c224b7_35fb72d1",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-08-23T20:42:32Z",
+      "side": 1,
+      "message": "nit, should this be doSslHandshake like how it\u0027s afterSslHandshake() instead of afterSSLHandshake()?",
+      "range": {
+        "startLine": 226,
+        "startChar": 9,
+        "endLine": 226,
+        "endChar": 23
+      },
+      "revId": "e382d4d57adcf7469fcd7850009bcab98cb664e8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bd42c362_f6ae4555",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-08-23T20:42:32Z",
+      "side": 1,
+      "message": "Do you need to start the timer before this is called?  You cancel it at the start of afterSslHandlshake().",
+      "range": {
+        "startLine": 233,
+        "startChar": 0,
+        "endLine": 236,
+        "endChar": 49
+      },
+      "revId": "e382d4d57adcf7469fcd7850009bcab98cb664e8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b7ecd326_6343c177",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-08-23T20:42:32Z",
+      "side": 1,
+      "message": "Remove this if you do not need to start a timer in doSSLHandshake()",
+      "range": {
+        "startLine": 242,
+        "startChar": 8,
+        "endLine": 242,
+        "endChar": 23
+      },
+      "revId": "e382d4d57adcf7469fcd7850009bcab98cb664e8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "544d5c4b_1a8eef10",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 397,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-08-23T20:42:32Z",
+      "side": 1,
+      "message": "I think you want to call \"self-\u003ewaitAndRetry()\" here instead so that you can try again as part of the retry flow.",
+      "range": {
+        "startLine": 396,
+        "startChar": 0,
+        "endLine": 397,
+        "endChar": 24
+      },
+      "revId": "e382d4d57adcf7469fcd7850009bcab98cb664e8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ebf30f39_035d65cc",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 403,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-08-23T20:42:32Z",
+      "side": 1,
+      "message": "Do we not want to retry if the SSL init failed?",
+      "range": {
+        "startLine": 403,
+        "startChar": 13,
+        "endLine": 403,
+        "endChar": 46
+      },
+      "revId": "e382d4d57adcf7469fcd7850009bcab98cb664e8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
