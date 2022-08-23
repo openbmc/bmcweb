@@ -48,6 +48,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5e9fd9e7_c54e2473",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-23T21:54:54Z",
+      "side": 1,
+      "message": "Going to close this out.  Nan, I\u0027m always happy to talk, and I\u0027m happy to make whatever changes are needed here to this comment, but I think this is the last open and I don\u0027t want to hold up 10 patches on a commit message, so I\u0027m going to close it.",
+      "parentUuid": "fdc99763_abd9f7ee",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 76
+      },
+      "revId": "aabf4000757b4af1fd6cebd446010014d67dc59d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d279a1a0_1959c8f0",
@@ -109,6 +133,30 @@
       "side": 1,
       "message": "Making it static member function should work, right? What\u0027s the error like?",
       "parentUuid": "a9ad57bd_b9dd838c",
+      "range": {
+        "startLine": 17,
+        "startChar": 4,
+        "endLine": 17,
+        "endChar": 29
+      },
+      "revId": "aabf4000757b4af1fd6cebd446010014d67dc59d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9a6af679_cff1df1d",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-23T21:54:54Z",
+      "side": 1,
+      "message": "This class no longer exists in the latest implementation. \n\nDone.",
+      "parentUuid": "b8e91688_9cd1ef56",
       "range": {
         "startLine": 17,
         "startChar": 4,
