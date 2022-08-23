@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e6c76cb5_b059123b",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1023,
+      "author": {
+        "id": 1000998
+      },
+      "writtenOn": "2022-08-23T16:47:29Z",
+      "side": 1,
+      "message": "Typo. I\u0027m guessing this needs to be run through Redfish service validator (or maybe the service it was tested against didn\u0027t have any \"Embedded\" locations.)",
+      "range": {
+        "startLine": 1023,
+        "startChar": 21,
+        "endLine": 1023,
+        "endChar": 28
+      },
+      "revId": "a9a3f27f1bd76b8ad8675745121d61ccadd8eedc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
