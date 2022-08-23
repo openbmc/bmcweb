@@ -362,6 +362,14 @@ class RedfishAggregator
                          const crow::Request& thisReq,
                          const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
     {
+        if ((isCollection == AggregationType::Collection) &&
+            (thisReq.method() != boost::beast::http::verb::get))
+        {
+            BMCWEB_LOG_DEBUG
+                << "Only aggregate GET requests to top level collections";
+            return;
+        }
+
         // Create a copy of thisReq so we we can still locally process the req
         std::error_code ec;
         auto localReq = std::make_shared<crow::Request>(thisReq.req, ec);
@@ -379,7 +387,7 @@ class RedfishAggregator
                                             localReq, asyncResp));
     }
 
-    static void findSatelite(
+    static void findSatellite(
         const crow::Request& req,
         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         const std::unordered_map<std::string, boost::urls::url>& satelliteInfo,
@@ -412,10 +420,12 @@ class RedfishAggregator
         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         const std::unordered_map<std::string, boost::urls::url>& satelliteInfo)
     {
-        if (sharedReq == nullptr)
+        // No satellite configs means Redfish Aggregation isn't enabled
+        if ((sharedReq == nullptr) || satelliteInfo.empty())
         {
             return;
         }
+
         const crow::Request& thisReq = *sharedReq;
         BMCWEB_LOG_DEBUG << "Aggregation is enabled, begin processing of "
                          << thisReq.target();
@@ -440,7 +450,7 @@ class RedfishAggregator
                 crow::utility::OrMorePaths()))
         {
             // Must be FirmwareInventory or SoftwareInventory
-            findSatelite(thisReq, asyncResp, satelliteInfo, memberName);
+            findSatellite(thisReq, asyncResp, satelliteInfo, memberName);
             return;
         }
 
@@ -449,7 +459,7 @@ class RedfishAggregator
                 thisReq.urlView, "redfish", "v1", std::ref(collectionName),
                 std::ref(memberName), crow::utility::OrMorePaths()))
         {
-            findSatelite(thisReq, asyncResp, satelliteInfo, memberName);
+            findSatellite(thisReq, asyncResp, satelliteInfo, memberName);
         }
     }
 
