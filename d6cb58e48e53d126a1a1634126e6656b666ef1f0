@@ -22,6 +22,29 @@
       },
       "revId": "d6cb58e48e53d126a1a1634126e6656b666ef1f0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "88d23908_720bf532",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1024,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-23T17:31:51Z",
+      "side": 1,
+      "message": "Please do this redfish to dbus conversion in a function, like we handle similar conversions.",
+      "range": {
+        "startLine": 1013,
+        "startChar": 0,
+        "endLine": 1024,
+        "endChar": 13
+      },
+      "revId": "d6cb58e48e53d126a1a1634126e6656b666ef1f0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
