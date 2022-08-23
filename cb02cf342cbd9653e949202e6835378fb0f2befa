@@ -196,6 +196,24 @@
       "parentUuid": "c03aca1a_5dfaadf8",
       "revId": "cb02cf342cbd9653e949202e6835378fb0f2befa",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c9812850_830f1928",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-08-23T17:55:29Z",
+      "side": 1,
+      "message": "Redfish Validator did not show any errors from this change.",
+      "parentUuid": "03652330_6ee70629",
+      "revId": "cb02cf342cbd9653e949202e6835378fb0f2befa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
