@@ -48,6 +48,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b8e0cb4f_7868c64c",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 387,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-23T22:04:39Z",
+      "side": 1,
+      "message": "I think this got covered already.",
+      "parentUuid": "7c76e894_d7369b61",
+      "range": {
+        "startLine": 386,
+        "startChar": 56,
+        "endLine": 387,
+        "endChar": 48
+      },
+      "revId": "6a3b0217334da68aa623471e9be5a4c971abfc4e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fd981d11_82a88781",
@@ -203,6 +227,30 @@
       "side": 1,
       "message": "ACK  This might still be an issue on latest.\n\nIn general, if the Connection object fails to construct, we have bigger problems than executing a retry.",
       "parentUuid": "d531c296_fdabeada",
+      "range": {
+        "startLine": 535,
+        "startChar": 16,
+        "endLine": 536,
+        "endChar": 31
+      },
+      "revId": "6a3b0217334da68aa623471e9be5a4c971abfc4e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3e81b918_ed4548e7",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 536,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-23T22:04:39Z",
+      "side": 1,
+      "message": "Fixed on latest.",
+      "parentUuid": "3f6c9431_b26690d2",
       "range": {
         "startLine": 535,
         "startChar": 16,
