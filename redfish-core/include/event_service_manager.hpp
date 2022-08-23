@@ -362,7 +362,9 @@ inline bool
     return true;
 }
 
-class Subscription : public persistent_data::UserSubscription
+class Subscription :
+    public persistent_data::UserSubscription,
+    std::enable_shared_from_this<Subscription>
 {
   public:
     Subscription(const Subscription&) = delete;
@@ -373,7 +375,8 @@ class Subscription : public persistent_data::UserSubscription
     Subscription(const std::string& inHost, uint16_t inPort,
                  const std::string& inPath, const std::string& inUriProto) :
         eventSeqNum(1),
-        host(inHost), port(inPort), path(inPath), uriProto(inUriProto)
+        host(inHost), port(inPort), path(inPath), uriProto(inUriProto),
+        retryTimer(crow::connections::systemBus->get_io_context())
     {
         // Subscription constructor
     }
@@ -381,13 +384,18 @@ class Subscription : public persistent_data::UserSubscription
     explicit Subscription(
         const std::shared_ptr<boost::asio::ip::tcp::socket>& adaptor) :
         eventSeqNum(1),
-        sseConn(std::make_shared<crow::ServerSentEvents>(adaptor))
+        sseConn(std::make_shared<crow::ServerSentEvents>(adaptor)),
+        retryTimer(crow::connections::systemBus->get_io_context())
     {}
 
     ~Subscription() = default;
 
-    bool sendEvent(std::string& msg)
+    bool sendEvent(const std::string& msg, int attempts = -1)
     {
+        if (attempts <= 0)
+        {
+            attempts = retryAttempts;
+        }
         persistent_data::EventServiceConfig eventServiceConfig =
             persistent_data::EventServiceStore::getInstance()
                 .getEventServiceConfig();
@@ -398,9 +406,11 @@ class Subscription : public persistent_data::UserSubscription
 
         bool useSSL = (uriProto == "https");
         // A connection pool will be created if one does not already exist
-        crow::HttpClient::getInstance().sendData(
-            msg, id, host, port, path, useSSL, httpHeaders,
-            boost::beast::http::verb::post, retryPolicyName);
+        crow::HttpClient::getInstance().sendDataWithCallback(
+            std::string(msg), id, host, port, path, useSSL, httpHeaders,
+            boost::beast::http::verb::post,
+            std::bind_front(Subscription::retryRespHandler, weak_from_this(),
+                            msg, attempts));
         eventSeqNum++;
 
         if (sseConn != nullptr)
@@ -546,18 +556,10 @@ class Subscription : public persistent_data::UserSubscription
         this->sendEvent(strMsg);
     }
 
-    void updateRetryConfig(const uint32_t retryAttempts,
-                           const uint32_t retryTimeoutInterval)
+    void updateRetryConfig(int retryAttemptsIn, int retryTimeoutIntervalIn)
     {
-        crow::HttpClient::getInstance().setRetryConfig(
-            retryAttempts, retryTimeoutInterval, retryRespHandler,
-            retryPolicyName);
-    }
-
-    void updateRetryPolicy()
-    {
-        crow::HttpClient::getInstance().setRetryPolicy(retryPolicy,
-                                                       retryPolicyName);
+        retryAttempts = retryAttemptsIn;
+        retryTimeoutInterval = retryTimeoutIntervalIn;
     }
 
     uint64_t getEventSeqNum() const
@@ -572,23 +574,81 @@ class Subscription : public persistent_data::UserSubscription
     std::string path;
     std::string uriProto;
     std::shared_ptr<crow::ServerSentEvents> sseConn = nullptr;
-    std::string retryPolicyName = "SubscriptionEvent";
+    int retryAttempts;
+    int retryTimeoutInterval;
 
+    bool timerRunning = false;
+    boost::asio::steady_timer retryTimer;
+    boost::container::devector<std::pair<std::string, int>> pendingMessages;
     // Check used to indicate what response codes are valid as part of our retry
     // policy.  2XX is considered acceptable
-    static boost::system::error_code retryRespHandler(unsigned int respCode)
+    static void retryRespHandler(std::weak_ptr<Subscription> weakSelf,
+                                 const std::string& message,
+                                 uint32_t retryAttempts, crow::Response&& res)
     {
+        std::shared_ptr<Subscription> self = weakSelf.lock();
+        if (self == nullptr)
+        {
+            // Subscription has been destroyed, no need to retry.
+            return;
+        }
+        unsigned int respCode = res.resultInt();
         BMCWEB_LOG_DEBUG
             << "Checking response code validity for SubscriptionEvent";
+
         if ((respCode < 200) || (respCode >= 300))
         {
-            return boost::system::errc::make_error_code(
-                boost::system::errc::result_out_of_range);
+            retryAttempts--;
+            if (retryAttempts <= 0)
+            {
+                // handle done
+                return;
+            }
+            self->pendingMessages.emplace_back(
+                std::make_pair(message, retryAttempts));
+            if (!self->timerRunning)
+            {
+                self->timerRunning = true;
+                self->retryTimer.expires_after(
+                    std::chrono::seconds(self->retryTimeoutInterval));
+                self->retryTimer.async_wait(
+                    std::bind_front(onTimerDone, self->weak_from_this()));
+            }
+            return;
         }
 
-        // Return 0 if the response code is valid
-        return boost::system::errc::make_error_code(
-            boost::system::errc::success);
+        // succeeded
+        return;
+    }
+
+    void flushQueue()
+    {
+        for (const auto& element : pendingMessages)
+        {
+            sendEvent(element.first, element.second);
+        }
+    }
+
+    static void onTimerDone(std::weak_ptr<Subscription> weakSelf,
+                            const boost::system::error_code& ec)
+    {
+        if (ec == boost::asio::error::operation_aborted)
+        {
+            return;
+        }
+        if (ec)
+        {
+            BMCWEB_LOG_CRITICAL << ec;
+            return;
+        }
+
+        std::shared_ptr<Subscription> self = weakSelf.lock();
+        if (self == nullptr)
+        {
+            return;
+        }
+        self->timerRunning = false;
+        self->flushQueue();
     }
 };
 
@@ -596,8 +656,8 @@ class EventServiceManager
 {
   private:
     bool serviceEnabled = false;
-    uint32_t retryAttempts = 0;
-    uint32_t retryTimeoutInterval = 0;
+    int retryAttempts = 0;
+    int retryTimeoutInterval = 0;
 
     EventServiceManager()
     {
@@ -636,8 +696,9 @@ class EventServiceManager
                 .getEventServiceConfig();
 
         serviceEnabled = eventServiceConfig.enabled;
-        retryAttempts = eventServiceConfig.retryAttempts;
-        retryTimeoutInterval = eventServiceConfig.retryTimeoutInterval;
+        retryAttempts = static_cast<int>(eventServiceConfig.retryAttempts);
+        retryTimeoutInterval =
+            static_cast<int>(eventServiceConfig.retryTimeoutInterval);
 
         for (const auto& it : persistent_data::EventServiceStore::getInstance()
                                   .subscriptionsConfigMap)
@@ -689,7 +750,6 @@ class EventServiceManager
 #endif
             // Update retry configuration.
             subValue->updateRetryConfig(retryAttempts, retryTimeoutInterval);
-            subValue->updateRetryPolicy();
         }
     }
 
@@ -778,9 +838,10 @@ class EventServiceManager
         persistent_data::EventServiceStore::getInstance()
             .eventServiceConfig.enabled = serviceEnabled;
         persistent_data::EventServiceStore::getInstance()
-            .eventServiceConfig.retryAttempts = retryAttempts;
+            .eventServiceConfig.retryAttempts = static_cast<int>(retryAttempts);
         persistent_data::EventServiceStore::getInstance()
-            .eventServiceConfig.retryTimeoutInterval = retryTimeoutInterval;
+            .eventServiceConfig.retryTimeoutInterval =
+            static_cast<int>(retryTimeoutInterval);
 
         persistent_data::getConfig().writeData();
     }
@@ -943,7 +1004,6 @@ class EventServiceManager
 #endif
         // Update retry configuration.
         subValue->updateRetryConfig(retryAttempts, retryTimeoutInterval);
-        subValue->updateRetryPolicy();
 
         return id;
     }

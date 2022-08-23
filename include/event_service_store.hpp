@@ -199,8 +199,8 @@ struct UserSubscription
 struct EventServiceConfig
 {
     bool enabled = true;
-    uint32_t retryAttempts = 3;
-    uint32_t retryTimeoutInterval = 30;
+    int retryAttempts = 3;
+    int retryTimeoutInterval = 30;
 
     void fromJson(const nlohmann::json& j)
     {
@@ -220,22 +220,22 @@ struct EventServiceConfig
                 const uint64_t* value =
                     element.value().get_ptr<const uint64_t*>();
                 if ((value == nullptr) ||
-                    (*value > std::numeric_limits<uint32_t>::max()))
+                    (*value > std::numeric_limits<int>::max()))
                 {
                     continue;
                 }
-                retryAttempts = static_cast<uint32_t>(*value);
+                retryAttempts = static_cast<int>(*value);
             }
             else if (element.key() == "DeliveryRetryIntervalSeconds")
             {
                 const uint64_t* value =
                     element.value().get_ptr<const uint64_t*>();
                 if ((value == nullptr) ||
-                    (*value > std::numeric_limits<uint32_t>::max()))
+                    (*value > std::numeric_limits<int>::max()))
                 {
                     continue;
                 }
-                retryTimeoutInterval = static_cast<uint32_t>(*value);
+                retryTimeoutInterval = static_cast<int>(*value);
             }
         }
     }
