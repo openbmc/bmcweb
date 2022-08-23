@@ -362,6 +362,14 @@ class RedfishAggregator
                          const crow::Request& thisReq,
                          const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
     {
+        if ((isCollection == AggregationType::Collection) &&
+            (thisReq.method() != boost::beast::http::verb::get))
+        {
+            BMCWEB_LOG_DEBUG
+                << "Only aggregate GET requests to top level collections";
+            return;
+        }
+
         // Create a copy of thisReq so we we can still locally process the req
         std::error_code ec;
         auto localReq = std::make_shared<crow::Request>(thisReq.req, ec);
@@ -379,7 +387,7 @@ class RedfishAggregator
                                             localReq, asyncResp));
     }
 
-    static void findSatelite(
+    static void findSatellite(
         const crow::Request& req,
         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         const std::unordered_map<std::string, boost::urls::url>& satelliteInfo,
@@ -402,6 +410,11 @@ class RedfishAggregator
                 return;
             }
         }
+
+        // We didn't recognize the prefix and need to return a 404
+        boost::urls::string_value name = req.urlView.segments().back();
+        std::string_view nameStr(name.data(), name.size());
+        messages::resourceNotFound(asyncResp->res, "", nameStr);
     }
 
     // Intended to handle an incoming request based on if Redfish Aggregation
@@ -416,6 +429,23 @@ class RedfishAggregator
         {
             return;
         }
+
+        // No satellite configs means we don't need to keep attempting to
+        // aggregate
+        if (satelliteInfo.empty())
+        {
+            // For collections we'll also handle the request locally so we
+            // don't need to write an error code
+            if (isCollection == AggregationType::Resource)
+            {
+                boost::urls::string_value name =
+                    sharedReq->urlView.segments().back();
+                std::string_view nameStr(name.data(), name.size());
+                messages::resourceNotFound(asyncResp->res, "", nameStr);
+            }
+            return;
+        }
+
         const crow::Request& thisReq = *sharedReq;
         BMCWEB_LOG_DEBUG << "Aggregation is enabled, begin processing of "
                          << thisReq.target();
@@ -440,7 +470,7 @@ class RedfishAggregator
                 crow::utility::OrMorePaths()))
         {
             // Must be FirmwareInventory or SoftwareInventory
-            findSatelite(thisReq, asyncResp, satelliteInfo, memberName);
+            findSatellite(thisReq, asyncResp, satelliteInfo, memberName);
             return;
         }
 
@@ -449,8 +479,15 @@ class RedfishAggregator
                 thisReq.urlView, "redfish", "v1", std::ref(collectionName),
                 std::ref(memberName), crow::utility::OrMorePaths()))
         {
-            findSatelite(thisReq, asyncResp, satelliteInfo, memberName);
+            findSatellite(thisReq, asyncResp, satelliteInfo, memberName);
+            return;
         }
+
+        // We should've hit one of the previous exits.  If we somehow didn't
+        // then we need to return a 404
+        boost::urls::string_value name = sharedReq->urlView.segments().back();
+        std::string_view nameStr(name.data(), name.size());
+        messages::resourceNotFound(asyncResp->res, "", nameStr);
     }
 
     // Attempt to forward a request to the satellite BMC associated with the
