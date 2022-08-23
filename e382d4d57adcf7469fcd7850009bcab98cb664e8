@@ -48,6 +48,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7f252232_d3f79353",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-23T21:45:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b395cbda_f91529bf",
+      "range": {
+        "startLine": 226,
+        "startChar": 9,
+        "endLine": 226,
+        "endChar": 23
+      },
+      "revId": "e382d4d57adcf7469fcd7850009bcab98cb664e8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bd42c362_f6ae4555",
@@ -85,6 +109,30 @@
       "side": 1,
       "message": "Yep.  Good catch.  Not sure how I did both.",
       "parentUuid": "bd42c362_f6ae4555",
+      "range": {
+        "startLine": 233,
+        "startChar": 0,
+        "endLine": 236,
+        "endChar": 49
+      },
+      "revId": "e382d4d57adcf7469fcd7850009bcab98cb664e8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e8adbc91_83f7be79",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-23T21:45:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1e06ec1c_ee9f2fa2",
       "range": {
         "startLine": 233,
         "startChar": 0,
@@ -189,6 +237,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a2868d63_64373f5e",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 397,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-23T21:45:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "40f85c70_200efe36",
+      "range": {
+        "startLine": 396,
+        "startChar": 0,
+        "endLine": 397,
+        "endChar": 24
+      },
+      "revId": "e382d4d57adcf7469fcd7850009bcab98cb664e8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ebf30f39_035d65cc",
@@ -226,6 +298,30 @@
       "side": 1,
       "message": "IDK, I pulled this from the original patch, but that\u0027s fair, that\u0027s probably not the behavior we want.  Will fix.",
       "parentUuid": "ebf30f39_035d65cc",
+      "range": {
+        "startLine": 403,
+        "startChar": 13,
+        "endLine": 403,
+        "endChar": 46
+      },
+      "revId": "e382d4d57adcf7469fcd7850009bcab98cb664e8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fbe658c9_7a5ec5e7",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 403,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-23T21:45:24Z",
+      "side": 1,
+      "message": "Ah, sorry, sslInitFailed means that we failed to construct the object, which is unlikely, and arguably needs a better error handling path.  Given that would be a different patch, I\u0027m going to go with this one for now.",
+      "parentUuid": "b6f0a4bf_6175beb4",
       "range": {
         "startLine": 403,
         "startChar": 13,
