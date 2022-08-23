@@ -102,8 +102,8 @@ inline void requestRoutesEventService(App& app)
             return;
         }
         std::optional<bool> serviceEnabled;
-        std::optional<uint32_t> retryAttemps;
-        std::optional<uint32_t> retryInterval;
+        std::optional<int> retryAttemps;
+        std::optional<int> retryInterval;
 
         if (!json_util::readJsonPatch(
                 req, asyncResp->res, "ServiceEnabled", serviceEnabled,
@@ -601,7 +601,6 @@ inline void requestRoutesEventDestination(App& app)
                 return;
             }
             subValue->retryPolicy = *retryPolicy;
-            subValue->updateRetryPolicy();
         }
 
         EventServiceManager::getInstance().updateSubscriptionData();

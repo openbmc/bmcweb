@@ -133,38 +133,11 @@ static void addPrefixes(nlohmann::json& json, std::string_view prefix)
 class RedfishAggregator
 {
   private:
-    const std::string retryPolicyName = "RedfishAggregation";
-    const std::string retryPolicyAction = "TerminateAfterRetries";
-    const uint32_t retryAttempts = 1;
-    const uint32_t retryTimeoutInterval = 0;
     const std::string id = "Aggregator";
 
     RedfishAggregator()
     {
         getSatelliteConfigs(constructorCallback);
-
-        // Setup the retry policy to be used by Redfish Aggregation
-        crow::HttpClient::getInstance().setRetryConfig(
-            retryAttempts, retryTimeoutInterval, aggregationRetryHandler,
-            retryPolicyName);
-        crow::HttpClient::getInstance().setRetryPolicy(retryPolicyAction,
-                                                       retryPolicyName);
-    }
-
-    static inline boost::system::error_code
-        aggregationRetryHandler(unsigned int respCode)
-    {
-        // As a default, assume 200X is alright.
-        // We don't need to retry on a 404
-        if ((respCode < 200) || ((respCode >= 300) && (respCode != 404)))
-        {
-            return boost::system::errc::make_error_code(
-                boost::system::errc::result_out_of_range);
-        }
-
-        // Return 0 if the response code is valid
-        return boost::system::errc::make_error_code(
-            boost::system::errc::success);
     }
 
     // Dummy callback used by the Constructor so that it can report the number
@@ -380,8 +353,7 @@ class RedfishAggregator
     }
 
     static void findSatelite(
-        const crow::Request& req,
-        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+        crow::Request& req, const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         const std::unordered_map<std::string, boost::urls::url>& satelliteInfo,
         std::string_view memberName)
     {
@@ -416,7 +388,7 @@ class RedfishAggregator
         {
             return;
         }
-        const crow::Request& thisReq = *sharedReq;
+        crow::Request& thisReq = *sharedReq;
         BMCWEB_LOG_DEBUG << "Aggregation is enabled, begin processing of "
                          << thisReq.target();
 
@@ -456,7 +428,7 @@ class RedfishAggregator
     // Attempt to forward a request to the satellite BMC associated with the
     // prefix.
     void forwardRequest(
-        const crow::Request& thisReq,
+        crow::Request& thisReq,
         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         const std::string& prefix,
         const std::unordered_map<std::string, boost::urls::url>& satelliteInfo)
@@ -484,14 +456,13 @@ class RedfishAggregator
         }
         targetURI.erase(pos, prefix.size() + 1);
 
-        std::function<void(crow::Response&)> cb =
+        std::function<void(crow::Response &&)> cb =
             std::bind_front(processResponse, prefix, asyncResp);
 
-        std::string data = thisReq.req.body();
         crow::HttpClient::getInstance().sendDataWithCallback(
-            data, id, std::string(sat->second.host()),
+            std::move(thisReq.req.body()), id, std::string(sat->second.host()),
             sat->second.port_number(), targetURI, false /*useSSL*/,
-            thisReq.fields, thisReq.method(), retryPolicyName, cb);
+            thisReq.fields, thisReq.method(), cb);
     }
 
     // Forward a request for a collection URI to each known satellite BMC
@@ -502,15 +473,15 @@ class RedfishAggregator
     {
         for (const auto& sat : satelliteInfo)
         {
-            std::function<void(crow::Response&)> cb = std::bind_front(
+            std::function<void(crow::Response &&)> cb = std::bind_front(
                 processCollectionResponse, sat.first, asyncResp);
 
             std::string targetURI(thisReq.target());
             std::string data = thisReq.req.body();
             crow::HttpClient::getInstance().sendDataWithCallback(
-                data, id, std::string(sat.second.host()),
+                std::move(data), id, std::string(sat.second.host()),
                 sat.second.port_number(), targetURI, false /*useSSL*/,
-                thisReq.fields, thisReq.method(), retryPolicyName, cb);
+                thisReq.fields, thisReq.method(), cb);
         }
     }
 
@@ -519,10 +490,12 @@ class RedfishAggregator
     static void
         processResponse(std::string_view prefix,
                         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                        crow::Response& resp)
+                        crow::Response resp)
     {
-        // No processing needed if the request wasn't successful
-        if (resp.resultInt() != 200)
+        // As a default, assume 200X is alright.
+        // We don't need to retry on a 404
+        unsigned int respCode = resp.resultInt();
+        if ((respCode < 200) || ((respCode >= 300) && (respCode != 404)))
         {
             BMCWEB_LOG_DEBUG << "No need to parse satellite response";
             asyncResp->res.stringResponse = std::move(resp.stringResponse);
@@ -577,7 +550,7 @@ class RedfishAggregator
     static void processCollectionResponse(
         const std::string& prefix,
         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-        crow::Response& resp)
+        crow::Response resp)
     {
         if (resp.resultInt() != 200)
         {
