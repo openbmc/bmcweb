@@ -48,6 +48,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7b80d9ee_a3aadacd",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 519,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-23T22:03:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da313e46_1750c06c",
+      "range": {
+        "startLine": 512,
+        "startChar": 0,
+        "endLine": 519,
+        "endChar": 0
+      },
+      "revId": "6fb145f7b4671493b7a81c5d88613cb0516586de",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4b44c9e5_bc0a735f",
@@ -85,6 +109,30 @@
       "side": 1,
       "message": "This same situation exists in the earlier router patch (https://gerrit.openbmc.org/c/openbmc/bmcweb/+/53310).  For now I\u0027ll use the same function call I created for that patch.  I\u0027ll come back to this an update it with the final version of what I use in that patch.",
       "parentUuid": "4b44c9e5_bc0a735f",
+      "range": {
+        "startLine": 522,
+        "startChar": 32,
+        "endLine": 522,
+        "endChar": 34
+      },
+      "revId": "6fb145f7b4671493b7a81c5d88613cb0516586de",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9aa1de17_6d352359",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 522,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-23T22:03:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "11454ce5_766041f9",
       "range": {
         "startLine": 522,
         "startChar": 32,
@@ -298,6 +346,30 @@
       "side": 1,
       "message": "\u003e Generally I\u0027m a fan of just inserting in order in this case.  \"do action when all things are done\" is a really hard concept in bmcweb (and async daemons in general) and involve reference counting and a bunch of other mess, simply making sure that you insert by AlphaNumLess (probably by using std::upper_bound) would shortcut the need for reference counting an destructors.\n\u003e \n\u003e I think in the other thread we\u0027ve decided that dbus isn\u0027t going to own the prefix definition, so we can skip 1.\n\u003e \n\u003e step 2 can be replaced by the above \"insert in place\" operation.\n\u003e which removes the need to have any step 3\n\u003e \n\u003e WDYT?\nI said response in my original reply, but I meant AsyncResp.  I feel like most of those concerns would be covered by waiting to sort until the completion handler of the AsyncResp since that wouldn\u0027t get called until all things are done.\n\nHowever I think your insert in place method is preferable since I wouldn\u0027t have to modify the completion handler.  I\u0027ll add this change and also assume that:\n1. local resources do not have a prefix\n2. aggregated resources will contain the prefix \"aggregated\u003c#\u003e_\" at the start of their resource ID.\nThose assumptions align with this thread https://gerrit.openbmc.org/c/openbmc/bmcweb/+/53797/comments/cbfc9dd5_5c1a8918",
       "parentUuid": "e05eef40_1fc85414",
+      "range": {
+        "startLine": 601,
+        "startChar": 14,
+        "endLine": 601,
+        "endChar": 71
+      },
+      "revId": "6fb145f7b4671493b7a81c5d88613cb0516586de",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2c79add1_d9f4f79e",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 601,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-23T22:03:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c6b07c04_ff2e9f29",
       "range": {
         "startLine": 601,
         "startChar": 14,
