@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1fc2b972_6613180d",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 417,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-08-24T16:55:47Z",
+      "side": 1,
+      "message": "In the existing form we don\u0027t have a way to return a response if we don\u0027t have any satellite configs and we send a request to a valid satellite resource such as /redfish/v1/Systems/5B247A_system.  We\u0027d get past the initial check in beginAggregation().  Then we\u0027d reach this point and not find a matching prefix.\n\nTo handle this I added a check to aggregateAndHandle() to catch when there are no satellite configs found.  However, this check won\u0027t be sufficient when we add support for multiple satellites.\n\nThat initial check in beginAggregation() will only match the portion of the prefix that indicates it\u0027s tied to Redfish Aggregation.  In findSatellite() we\u0027ll try to match the entire prefix to a known satellite config.  This error statement would be reached when the prefix in the request looks valid, but does not actually exist.\n\nAdmittedly we don\u0027t need this error statement right now.  I added it since we\u0027ll need it in the future and it seems like a subtlety that could be forgotten when support for multiple satellite BMCs gets added.",
+      "parentUuid": "eb73ee14_6256ffdd",
+      "range": {
+        "startLine": 414,
+        "startChar": 8,
+        "endLine": 417,
+        "endChar": 63
+      },
+      "revId": "9b00f417df3ec6b4884d27505ac0505f36c5d013",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "51d0bff4_0d1204ea",
         "filename": "redfish-core/include/redfish_aggregator.hpp",
         "patchSetId": 3
@@ -37,6 +61,30 @@
       "writtenOn": "2022-08-24T16:21:29Z",
       "side": 1,
       "message": "Should this be 500 if we don\u0027t expect it?",
+      "range": {
+        "startLine": 487,
+        "startChar": 36,
+        "endLine": 487,
+        "endChar": 39
+      },
+      "revId": "9b00f417df3ec6b4884d27505ac0505f36c5d013",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f9e11217_5da4c72f",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 487,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-08-24T16:55:47Z",
+      "side": 1,
+      "message": "Yeah you\u0027re right.  If this function gets called we expect it to be for either a collection or resource.  Really we shouldn\u0027t be able to hit this error statement since we already had to pass the above checks in beginAggregation() before we can call aggregateAndHandle().",
+      "parentUuid": "51d0bff4_0d1204ea",
       "range": {
         "startLine": 487,
         "startChar": 36,
