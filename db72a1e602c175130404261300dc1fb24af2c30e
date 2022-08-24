@@ -16,6 +16,24 @@
       "message": "Is this check in https://jenkins.openbmc.org/job/ci-repository/49778/consoleFull?\n\nWhat are the keywords that we can search on?",
       "revId": "db72a1e602c175130404261300dc1fb24af2c30e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0bbc2b89_211de222",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-24T22:18:48Z",
+      "side": 1,
+      "message": "\u003e Is this check in https://jenkins.openbmc.org/job/ci-repository/49778/consoleFull?\n\u003e \n\u003e What are the keywords that we can search on?\n\nIf you pass the check, there\u0027s no keywords you can search on.  I\u0027ve pushed:\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/56758\n\nWhich fails the check if you\u0027re curious what the log looks like.",
+      "parentUuid": "76989bf0_120cb5bd",
+      "revId": "db72a1e602c175130404261300dc1fb24af2c30e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
