@@ -104,6 +104,24 @@
       "parentUuid": "135f0db2_ea549e29",
       "revId": "14178c784a4a246829ae6e09961898afd0be4d77",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "616b3bed_13f4c177",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1130,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-24T21:35:40Z",
+      "side": 1,
+      "message": "Gunnar, were your questions answered to your satisfaction?  (I don\u0027t see context here, but I\u0027m assuming all of these questions were answered out of band if this is getting marked done).",
+      "parentUuid": "4998ca26_68fae86b",
+      "revId": "14178c784a4a246829ae6e09961898afd0be4d77",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "508b492d_f325f675",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-24T21:35:40Z",
+      "side": 1,
+      "message": "Can you link the setting in phosphor-networkd just for reference please?",
+      "range": {
+        "startLine": 10,
+        "startChar": 21,
+        "endLine": 11,
+        "endChar": 25
+      },
+      "revId": "929d81eba36f820f60a524be435af73933d17ada",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "2b034315_1b1a5c37",
@@ -14,6 +37,29 @@
       "writtenOn": "2022-08-24T20:38:40Z",
       "side": 1,
       "message": "Thank you for making it more selective, lgtm.",
+      "revId": "929d81eba36f820f60a524be435af73933d17ada",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "502b81dc_12cbb352",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-24T21:35:40Z",
+      "side": 1,
+      "message": "Please just inline this if there\u0027s only a single user.  the ethernet namespace should not be exposing a dbus-specific string.",
+      "range": {
+        "startLine": 111,
+        "startChar": 0,
+        "endLine": 111,
+        "endChar": 55
+      },
       "revId": "929d81eba36f820f60a524be435af73933d17ada",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
