@@ -83,11 +83,8 @@ TEST_F(MultipartTest, TestBadMultipartParser1)
 
     crow::Request reqIn(req, ec);
     ParserError rc = parser.parse(reqIn);
-    ASSERT_EQ(rc, ParserError::PARSER_SUCCESS);
 
-    EXPECT_EQ(parser.boundary,
-              "\r\n-----------------------------d74496d66958873e");
-    EXPECT_EQ(parser.mime_fields.size(), 1);
+    ASSERT_EQ(rc, ParserError::ERROR_UNEXPECTED_END_OF_INPUT);
 }
 
 TEST_F(MultipartTest, TestBadMultipartParser2)
@@ -103,11 +100,8 @@ TEST_F(MultipartTest, TestBadMultipartParser2)
 
     crow::Request reqIn(req, ec);
     ParserError rc = parser.parse(reqIn);
-    ASSERT_EQ(rc, ParserError::PARSER_SUCCESS);
 
-    EXPECT_EQ(parser.boundary,
-              "\r\n-----------------------------d74496d66958873e");
-    EXPECT_EQ(parser.mime_fields.size(), 1);
+    ASSERT_EQ(rc, ParserError::ERROR_UNEXPECTED_END_OF_INPUT);
 }
 
 TEST_F(MultipartTest, TestErrorBoundaryFormat)
@@ -253,4 +247,194 @@ TEST_F(MultipartTest, TestErrorHeaderEnding)
     crow::Request reqIn(req, ec);
     EXPECT_EQ(parser.parse(reqIn), ParserError::ERROR_HEADER_ENDING);
 }
+
+TEST_F(MultipartTest, TestGoodMultipartParserMultipleHeaders)
+{
+    req.set("Content-Type",
+            "multipart/form-data; "
+            "boundary=---------------------------d74496d66958873e");
+
+    req.body() = "-----------------------------d74496d66958873e\r\n"
+                 "Content-Disposition: form-data; name=\"Test1\"\r\n"
+                 "Other-Header: value=\"v1\"\r\n"
+                 "\r\n"
+                 "Data1\r\n"
+                 "-----------------------------d74496d66958873e--";
+
+    crow::Request reqIn(req, ec);
+    ParserError rc = parser.parse(reqIn);
+    ASSERT_EQ(rc, ParserError::PARSER_SUCCESS);
+
+    ASSERT_EQ(parser.boundary,
+              "\r\n-----------------------------d74496d66958873e");
+    ASSERT_EQ(parser.mime_fields.size(), 1);
+
+    ASSERT_EQ(parser.mime_fields[0].fields.at("Content-Disposition"),
+              "form-data; name=\"Test1\"");
+    ASSERT_EQ(parser.mime_fields[0].fields.at("Other-Header"), "value=\"v1\"");
+    ASSERT_EQ(parser.mime_fields[0].content, "Data1");
+}
+
+TEST_F(MultipartTest, TestErrorHeaderWithoutColon)
+{
+    req.set("Content-Type", "multipart/form-data; "
+                            "boundary=--end");
+
+    req.body() = "----end\r\n"
+                 "abc\r\n"
+                 "\r\n"
+                 "Data1\r\n"
+                 "----end--\r\n";
+
+    crow::Request reqIn(req, ec);
+    ASSERT_EQ(parser.parse(reqIn), ParserError::ERROR_UNEXPECTED_END_OF_HEADER);
+}
+
+TEST_F(MultipartTest, TestUnknownHeaderIsCorrectlyParsed)
+{
+    req.set("Content-Type", "multipart/form-data; "
+                            "boundary=--end");
+
+    req.body() =
+        "----end\r\n"
+        "t-DiPpcccc:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccgcccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccaaaaaa\r\n"
+        "\r\n"
+        "Data1\r\n"
+        "----end--\r\n";
+
+    crow::Request reqIn(req, ec);
+    ParserError rc = parser.parse(reqIn);
+
+    ASSERT_EQ(rc, ParserError::PARSER_SUCCESS);
+
+    EXPECT_EQ(parser.boundary, "\r\n----end");
+    ASSERT_EQ(parser.mime_fields.size(), 1);
+
+    ASSERT_EQ(
+        parser.mime_fields[0].fields.at("t-DiPpcccc"),
+        "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccgcccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccaaaaaa");
+    EXPECT_EQ(parser.mime_fields[0].content, "Data1");
+}
+
+TEST_F(MultipartTest, TestErrorMissingSeparatorBetweenMimeFieldsAndData)
+{
+    req.set(
+        "Content-Type",
+        "multipart/form-data; boundary=---------------------------d74496d66958873e");
+
+    req.body() =
+        "-----------------------------d74496d66958873e\r\n"
+        "t-DiPpcccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccgcccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccaaaaaa\r\n"
+        "Data1"
+        "-----------------------------d74496d66958873e--";
+
+    crow::Request reqIn(req, ec);
+    ParserError rc = parser.parse(reqIn);
+
+    EXPECT_EQ(rc, ParserError::ERROR_UNEXPECTED_END_OF_HEADER);
+}
+
+TEST_F(MultipartTest, TestDataWithoutMimeFields)
+{
+    req.set(
+        "Content-Type",
+        "multipart/form-data; boundary=---------------------------d74496d66958873e");
+
+    req.body() = "-----------------------------d74496d66958873e\r\n"
+                 "\r\n"
+                 "Data1\r\n"
+                 "-----------------------------d74496d66958873e--";
+
+    crow::Request reqIn(req, ec);
+    ParserError rc = parser.parse(reqIn);
+
+    ASSERT_EQ(rc, ParserError::PARSER_SUCCESS);
+
+    EXPECT_EQ(parser.boundary,
+              "\r\n-----------------------------d74496d66958873e");
+    ASSERT_EQ(parser.mime_fields.size(), 1);
+
+    EXPECT_EQ(std::distance(parser.mime_fields[0].fields.begin(),
+                            parser.mime_fields[0].fields.end()),
+              0);
+    EXPECT_EQ(parser.mime_fields[0].content, "Data1");
+}
+
+TEST_F(MultipartTest, TestErrorMissingFinalBoundry)
+{
+    req.set("Content-Type", "multipart/form-data; boundary=--XX");
+
+    req.body() =
+        "----XX\r\n"
+        "Content-Disposition: form-data; name=\"Test2\"\r\n\r\n"
+        "t-DiPpccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccAAAAAAAAAAAAAAABCDz\r\n"
+        "\335\r\n\r\n";
+
+    crow::Request reqIn(req, ec);
+    ParserError rc = parser.parse(reqIn);
+
+    ASSERT_EQ(rc, ParserError::ERROR_UNEXPECTED_END_OF_INPUT);
+
+    EXPECT_EQ(parser.boundary, "\r\n----XX");
+    EXPECT_EQ(parser.mime_fields.size(), 1);
+
+    EXPECT_EQ(parser.mime_fields[0].fields.at("Content-Disposition"),
+              "form-data; name=\"Test2\"");
+    EXPECT_EQ(
+        parser.mime_fields[0].content,
+        "t-DiPpccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccAAAAAAAAAAAAAAABCDz\r\n"
+        "\335\r\n");
+}
+
+TEST_F(MultipartTest, TestIgnoreDataAfterFinalBoundary)
+{
+    req.set("Content-Type", "multipart/form-data; boundary=--XX");
+
+    req.body() = "----XX\r\n"
+                 "Content-Disposition: form-data; name=\"Test1\"\r\n\r\n"
+                 "Data1\r\n"
+                 "----XX--\r\n"
+                 "Content-Disposition: form-data; name=\"Test2\"\r\n\r\n"
+                 "Data2\r\n"
+                 "----XX--\r\n";
+
+    crow::Request reqIn(req, ec);
+    ParserError rc = parser.parse(reqIn);
+
+    ASSERT_EQ(rc, ParserError::PARSER_SUCCESS);
+
+    EXPECT_EQ(parser.boundary, "\r\n----XX");
+    EXPECT_EQ(parser.mime_fields.size(), 1);
+
+    EXPECT_EQ(parser.mime_fields[0].fields.at("Content-Disposition"),
+              "form-data; name=\"Test1\"");
+    EXPECT_EQ(parser.mime_fields[0].content, "Data1");
+}
+
+TEST_F(MultipartTest, TestFinalBoundaryIsCorrectlyRecognized)
+{
+    req.set("Content-Type", "multipart/form-data; boundary=--XX");
+
+    req.body() = "----XX\r\n"
+                 "Content-Disposition: form-data; name=\"Test1\"\r\n\r\n"
+                 "Data1\r\n"
+                 "----XX-abc-\r\n"
+                 "StillData1\r\n"
+                 "----XX--\r\n";
+
+    crow::Request reqIn(req, ec);
+    ParserError rc = parser.parse(reqIn);
+
+    ASSERT_EQ(rc, ParserError::PARSER_SUCCESS);
+
+    EXPECT_EQ(parser.boundary, "\r\n----XX");
+    EXPECT_EQ(parser.mime_fields.size(), 1);
+
+    EXPECT_EQ(parser.mime_fields[0].fields.at("Content-Disposition"),
+              "form-data; name=\"Test1\"");
+    EXPECT_EQ(parser.mime_fields[0].content, "Data1\r\n"
+                                             "----XX-abc-\r\n"
+                                             "StillData1");
+}
+
 } // namespace
