@@ -16,7 +16,10 @@ enum class ParserError
     ERROR_EMPTY_HEADER,
     ERROR_HEADER_NAME,
     ERROR_HEADER_VALUE,
-    ERROR_HEADER_ENDING
+    ERROR_HEADER_ENDING,
+    ERROR_UNEXPECTED_END_OF_HEADER,
+    ERROR_UNEXPECTED_END_OF_INPUT,
+    ERROR_OUT_OF_RANGE
 };
 
 enum class State
@@ -72,7 +75,6 @@ class MultipartParser
 
         const char* buffer = req.body.data();
         size_t len = req.body.size();
-        size_t prevIndex = index;
         char cl = 0;
 
         for (size_t i = 0; i < len; i++)
@@ -182,6 +184,10 @@ class MultipartParser
                     {
                         return ParserError::ERROR_HEADER_ENDING;
                     }
+                    if (index > 0)
+                    {
+                        return ParserError::ERROR_UNEXPECTED_END_OF_HEADER;
+                    }
                     state = State::PART_DATA_START;
                     break;
                 case State::PART_DATA_START:
@@ -189,6 +195,7 @@ class MultipartParser
                     partDataMark = i;
                     [[fallthrough]];
                 case State::PART_DATA:
+                {
                     if (index == 0)
                     {
                         skipNonBoundary(buffer, len, boundary.size() - 1, i);
@@ -196,12 +203,23 @@ class MultipartParser
                         // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
                         c = buffer[i];
                     }
-                    processPartData(prevIndex, buffer, i, c);
+                    const ParserError ec = processPartData(buffer, i, c);
+                    if (ec != ParserError::PARSER_SUCCESS)
+                    {
+                        return ec;
+                    }
                     break;
+                }
                 case State::END:
                     break;
             }
         }
+
+        if (state != State::END)
+        {
+            return ParserError::ERROR_UNEXPECTED_END_OF_INPUT;
+        }
+
         return ParserError::PARSER_SUCCESS;
     }
     std::vector<FormPart> mime_fields;
@@ -242,10 +260,9 @@ class MultipartParser
         }
     }
 
-    void processPartData(size_t& prevIndex, const char* buffer, size_t& i,
-                         char c)
+    ParserError processPartData(const char* buffer, size_t& i, char c)
     {
-        prevIndex = index;
+        size_t prevIndex = index;
 
         if (index < boundary.size())
         {
@@ -295,7 +312,7 @@ class MultipartParser
                     flags = Boundary::NON_BOUNDARY;
                     mime_fields.push_back({});
                     state = State::HEADER_FIELD_START;
-                    return;
+                    return ParserError::PARSER_SUCCESS;
                 }
             }
             if (flags == Boundary::END_BOUNDARY)
@@ -304,11 +321,21 @@ class MultipartParser
                 {
                     state = State::END;
                 }
+                else
+                {
+                    flags = Boundary::NON_BOUNDARY;
+                    index = 0;
+                }
             }
         }
 
         if (index > 0)
         {
+            if ((index - 1) >= lookbehind.size())
+            {
+                // Should never happen, but when it does it won't cause crash
+                return ParserError::ERROR_OUT_OF_RANGE;
+            }
             lookbehind[index - 1] = c;
         }
         else if (prevIndex > 0)
@@ -317,13 +344,13 @@ class MultipartParser
             // lookbehind belongs to partData
 
             mime_fields.rbegin()->content += lookbehind.substr(0, prevIndex);
-            prevIndex = 0;
             partDataMark = i;
 
             // reconsider the current character even so it interrupted
             // the sequence it could be the beginning of a new sequence
             i--;
         }
+        return ParserError::PARSER_SUCCESS;
     }
 
     std::string currentHeaderName;
