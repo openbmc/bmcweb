@@ -22,6 +22,7 @@ void validateServiceRootGet(crow::Response& res)
     EXPECT_EQ(json["Version"], "1.0.0");
     EXPECT_EQ(json["RootOfTrustCollection"]["@odata.id"],
               "/google/v1/RootOfTrustCollection");
+    EXPECT_EQ(json["NVMe"]["@odata.id"], "/google/v1/NVMe");
 }
 
 TEST(HandleGoogleV1Get, OnSuccess)
