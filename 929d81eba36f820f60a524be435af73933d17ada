@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "f48641fc_a2085fdf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000278
+      },
+      "writtenOn": "2022-08-24T22:10:46Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "508b492d_f325f675",
+      "range": {
+        "startLine": 10,
+        "startChar": 21,
+        "endLine": 11,
+        "endChar": 25
+      },
+      "revId": "929d81eba36f820f60a524be435af73933d17ada",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "2b034315_1b1a5c37",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 3
@@ -54,6 +78,30 @@
       "writtenOn": "2022-08-24T21:35:40Z",
       "side": 1,
       "message": "Please just inline this if there\u0027s only a single user.  the ethernet namespace should not be exposing a dbus-specific string.",
+      "range": {
+        "startLine": 111,
+        "startChar": 0,
+        "endLine": 111,
+        "endChar": 55
+      },
+      "revId": "929d81eba36f820f60a524be435af73933d17ada",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eab7acd0_329cb8f7",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1000278
+      },
+      "writtenOn": "2022-08-24T22:10:46Z",
+      "side": 1,
+      "message": "I like having the string_view to be able to use operator\u003d\u003d in favor of strcmp. Moving this definintion into the method scope per our Discord chat.",
+      "parentUuid": "502b81dc_12cbb352",
       "range": {
         "startLine": 111,
         "startChar": 0,

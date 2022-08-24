@@ -122,6 +122,24 @@
       "parentUuid": "4998ca26_68fae86b",
       "revId": "14178c784a4a246829ae6e09961898afd0be4d77",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e3b01085_bd5ceff2",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1130,
+      "author": {
+        "id": 1000278
+      },
+      "writtenOn": "2022-08-24T22:10:46Z",
+      "side": 1,
+      "message": "Per Discord:\nphos-net only returns NotAllowed when the MAC addr is not writable.\nThis code traps explicitly on that D-Bus return.",
+      "parentUuid": "616b3bed_13f4c177",
+      "revId": "14178c784a4a246829ae6e09961898afd0be4d77",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
