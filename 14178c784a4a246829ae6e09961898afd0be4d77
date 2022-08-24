@@ -86,6 +86,24 @@
       "message": "io_error seems also what the mapper returns when it doesn\u0027t find an object? \n\nhttps://github.com/openbmc/bmcweb/blob/002d39b4a7a5ed7166e2acad84e0943c3def9492/redfish-core/include/utils/collection.hpp#L36\n \nIs there a different error for NotFound or could multiple failures end up here?\n\nWould checking for the xyz.openbmc_project.Common.Error.NotAllowed be better? \n\nIt does look like phosphor-networkd does throw it https://github.com/openbmc/phosphor-networkd/blob/c38b07102f67751ebd6aa46814c9d65c36b89812/src/ethernet_interface.cpp#L1232 \n\nE.g.\nhttps://github.com/openbmc/phosphor-dbus-interfaces/blob/master/yaml/xyz/openbmc_project/Common.errors.yaml#L9\n\nhttps://github.com/openbmc/bmcweb/blob/351053f210e8b233f680bde66d9ea9760c22d848/redfish-core/lib/processor.hpp#L937",
       "revId": "14178c784a4a246829ae6e09961898afd0be4d77",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4998ca26_68fae86b",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1130,
+      "author": {
+        "id": 1000278
+      },
+      "writtenOn": "2022-08-24T20:13:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "135f0db2_ea549e29",
+      "revId": "14178c784a4a246829ae6e09961898afd0be4d77",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
