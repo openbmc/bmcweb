@@ -28,6 +28,8 @@ inline void
     asyncResp->res.jsonValue["Version"] = "1.0.0";
     asyncResp->res.jsonValue["RootOfTrustCollection"]["@odata.id"] =
         "/google/v1/RootOfTrustCollection";
+    asyncResp->res.jsonValue["NVMeSubsystemControllerCollection"]["@odata.id"] =
+        "/google/v1/NVMeSubsystemControllerCollection";
 }
 
 inline void handleRootOfTrustCollectionGet(

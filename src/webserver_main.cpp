@@ -6,6 +6,7 @@
 #include <cors_preflight.hpp>
 #include <dbus_monitor.hpp>
 #include <dbus_singleton.hpp>
+#include <google/google_nvme_log.hpp>
 #include <google/google_service_root.hpp>
 #include <hostname_monitor.hpp>
 #include <ibm/management_console_rest.hpp>
@@ -116,6 +117,10 @@ static int run()
 
 #ifdef BMCWEB_ENABLE_GOOGLE_API
     crow::google_api::requestRoutes(app);
+    crow::google_api::requestGoogleNVMeControllerCollection(app);
+    crow::google_api::requestGoogleNVMeController(app);
+    crow::google_api::requestGoogleNVMeControllerActionIdentify(app);
+    crow::google_api::requestGoogleNVMeControllerActionLog(app);
 #endif
 
     if (bmcwebInsecureDisableXssPrevention != 0)
