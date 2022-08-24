@@ -1,5 +1,5 @@
 #include "async_resp.hpp"
-#include "google_service_root.hpp"
+#include "google_service_nvme.hpp"
 #include "http_request.hpp"
 #include "nlohmann/json.hpp"
 
@@ -10,7 +10,7 @@ namespace crow::google_api
 namespace
 {
 
-void validateServiceRootGet(crow::Response& res)
+void validateGoogleNVMeCollectionGet(crow::Response& res)
 {
     nlohmann::json& json = res.jsonValue;
     EXPECT_EQ(json["@odata.id"], "/google/v1");
@@ -22,7 +22,6 @@ void validateServiceRootGet(crow::Response& res)
     EXPECT_EQ(json["Version"], "1.0.0");
     EXPECT_EQ(json["RootOfTrustCollection"]["@odata.id"],
               "/google/v1/RootOfTrustCollection");
-    EXPECT_EQ(json["NVMe"]["@odata.id"], "/google/v1/NVMe");
 }
 
 TEST(HandleGoogleV1Get, OnSuccess)
