@@ -393,6 +393,7 @@ executable(
 srcfiles_unittest = [
   'http/ut/utility_test.cpp',
   'http/ut/router_test.cpp',
+  'include/google/google_service_nvme_test.cpp',
   'include/google/google_service_root_test.cpp',
   'include/ut/dbus_utility_test.cpp',
   'include/ut/http_utility_test.cpp',
