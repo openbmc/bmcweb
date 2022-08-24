@@ -72,6 +72,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "be365e59_a4e5c678",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-08-24T16:11:20Z",
+      "side": 1,
+      "message": "I rebased and confirmed that PATCH /redfish/v1/foo return 404 Not found.  I also confirmed that this patch works as intended with Redfish Aggregation.  I\u0027ve updated the commit message with this info.",
+      "parentUuid": "7470077a_7e6b8b81",
+      "range": {
+        "startLine": 21,
+        "startChar": 30,
+        "endLine": 21,
+        "endChar": 33
+      },
+      "revId": "66f32a95f4bced0afabc9748aee51f6e22f7385f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7d5f96f7_0bf5a88f",
