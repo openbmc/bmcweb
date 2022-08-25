@@ -33,6 +33,23 @@
       "message": "Needs documentation updates to Redfish.md?",
       "revId": "379d76ae8080d1c25d2e5b6220da8a7b225d1721",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ffe2202_0929d5e8",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 515,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-08-25T16:26:18Z",
+      "side": 1,
+      "message": "Using nested if else is hard to read.\n\nPlease return at line 514. This applies to other branches that could return earlier.",
+      "revId": "379d76ae8080d1c25d2e5b6220da8a7b225d1721",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
