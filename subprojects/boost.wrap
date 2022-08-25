@@ -1,4 +1,4 @@
 [wrap-file]
-source_url = https://downloads.yoctoproject.org/mirror/sources/boost_1_78_0.tar.bz2
-source_hash = 8681f175d4bdb26c52222665793eef08490d7758529330f98d3b29dd0735bccc
-source_filename = 1_78_0.tar.bz2
+source_url = https://downloads.yoctoproject.org/mirror/sources/boost_1_80_0.tar.bz2
+source_hash = 1e19565d82e43bc59209a168f5ac899d3ba471d55c7610c677d4ccf2c9c500c0
+source_filename = 1_80_0.tar.bz2
