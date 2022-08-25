@@ -79,8 +79,8 @@ inline void requestRoutesSystemPCIeDeviceCollection(App& app)
     /**
      * Functions triggers appropriate requests on DBus
      */
-    BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/PCIeDevices/")
-        .privileges(redfish::privileges::getPCIeDeviceCollection)
+    BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/PCIeDevices/",
+                 redfish::privileges::getPCIeDeviceCollection)
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
@@ -142,8 +142,8 @@ inline std::optional<std::string>
 
 inline void requestRoutesSystemPCIeDevice(App& app)
 {
-    BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/PCIeDevices/<str>/")
-        .privileges(redfish::privileges::getPCIeDevice)
+    BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/PCIeDevices/<str>/",
+                 redfish::privileges::getPCIeDevice)
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -244,8 +244,8 @@ inline void requestRoutesSystemPCIeFunctionCollection(App& app)
      * Functions triggers appropriate requests on DBus
      */
     BMCWEB_ROUTE(app,
-                 "/redfish/v1/Systems/system/PCIeDevices/<str>/PCIeFunctions/")
-        .privileges(redfish::privileges::getPCIeFunctionCollection)
+                 "/redfish/v1/Systems/system/PCIeDevices/<str>/PCIeFunctions/",
+                 redfish::privileges::getPCIeFunctionCollection)
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -330,8 +330,8 @@ inline void requestRoutesSystemPCIeFunction(App& app)
 {
     BMCWEB_ROUTE(
         app,
-        "/redfish/v1/Systems/system/PCIeDevices/<str>/PCIeFunctions/<str>/")
-        .privileges(redfish::privileges::getPCIeFunction)
+        "/redfish/v1/Systems/system/PCIeDevices/<str>/PCIeFunctions/<str>/",
+        redfish::privileges::getPCIeFunction)
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,

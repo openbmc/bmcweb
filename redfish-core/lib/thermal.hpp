@@ -26,8 +26,8 @@ namespace redfish
 
 inline void requestRoutesThermal(App& app)
 {
-    BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/Thermal/")
-        .privileges(redfish::privileges::getThermal)
+    BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/Thermal/",
+                 redfish::privileges::getThermal)
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -45,8 +45,8 @@ inline void requestRoutesThermal(App& app)
         getChassisData(sensorAsyncResp);
         });
 
-    BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/Thermal/")
-        .privileges(redfish::privileges::patchThermal)
+    BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/Thermal/",
+                 redfish::privileges::patchThermal)
         .methods(boost::beast::http::verb::patch)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,

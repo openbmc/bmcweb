@@ -15,35 +15,6 @@
 
 namespace redfish::privileges
 {
-const std::array<Privileges, 1> privilegeSetLogin = {{
-    {"Login"}
-}};
-const std::array<Privileges, 1> privilegeSetConfigureComponents = {{
-    {"ConfigureComponents"}
-}};
-const std::array<Privileges, 1> privilegeSetConfigureUsers = {{
-    {"ConfigureUsers"}
-}};
-const std::array<Privileges, 1> privilegeSetConfigureManager = {{
-    {"ConfigureManager"}
-}};
-const std::array<Privileges, 2> privilegeSetConfigureManagerOrConfigureComponents = {{
-    {"ConfigureManager"},
-    {"ConfigureComponents"}
-}};
-const std::array<Privileges, 2> privilegeSetConfigureManagerOrConfigureSelf = {{
-    {"ConfigureManager"},
-    {"ConfigureSelf"}
-}};
-const std::array<Privileges, 3> privilegeSetConfigureManagerOrConfigureUsersOrConfigureSelf = {{
-    {"ConfigureManager"},
-    {"ConfigureUsers"},
-    {"ConfigureSelf"}
-}};
-const std::array<Privileges, 2> privilegeSetLoginOrNoAuth = {{
-    {"Login"},
-    {}
-}};
 // AccelerationFunction
 const static auto& getAccelerationFunction = privilegeSetLogin;
 const static auto& headAccelerationFunction = privilegeSetLogin;
