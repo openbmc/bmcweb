@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "92ef8f8b_a0410e76",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-08-25T15:46:41Z",
+      "side": 1,
+      "message": "I will update commit message and also clean up the patch a bit.\n\n\nI am currently working on implementing the \"Certificates\" \u0026 \"VerifyCertificate\" which are part of DMTF EventService schema. But for now, I disabled the certificate verification till it implemented.\n\nAlso as per DTMF redfish schema description, default value for \"VerifyCertificate\" is \"false\". So till it is implemented, We assume the default value as \"false\". But this code need some clean-up which i will do it.\n\nAs per \"VerifyCertificate\" schema description:\n\"This property shall indicate whether whether the service will verify the certificate of the server referenced by the Destination property prior to sending the event. If this property is not supported by the service or specified by the client in the create request, it shall be assumed to be `false`.\"",
+      "parentUuid": "65b0fa80_dcf33d16",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 56
+      },
+      "revId": "28d7e4700db38fab51b4969df4eee094f899d8cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "978ba506_79eea537",
@@ -37,6 +61,24 @@
       "writtenOn": "2022-08-25T14:32:02Z",
       "side": 1,
       "message": "FWIW, in looking at this, there were a lot of bugs that I saw in the retry behavior.  My intent is to finish:\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/56711\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/56735\n\nWhich would make this patch no longer required, but this is pretty simple, so lets get it cleaned up and merged.",
+      "revId": "28d7e4700db38fab51b4969df4eee094f899d8cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c905d6ec_c4ba1a83",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-08-25T15:46:41Z",
+      "side": 1,
+      "message": "Sure, I will clean this patch. Just an FYI:\n\nI will review other two patches by today",
+      "parentUuid": "978ba506_79eea537",
       "revId": "28d7e4700db38fab51b4969df4eee094f899d8cb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -66,6 +108,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fcf7bc96_6680087f",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-08-25T15:46:41Z",
+      "side": 1,
+      "message": "Do you mean why sslConn check needed? If so, We would like to make sure setup SSL connection is successfully created. If not, state is set to sslInitFailed and and appropriate action (Terminate subscription) is taken care accordingly.",
+      "parentUuid": "be14a0bf_3275db5f",
+      "range": {
+        "startLine": 215,
+        "startChar": 0,
+        "endLine": 219,
+        "endChar": 13
+      },
+      "revId": "28d7e4700db38fab51b4969df4eee094f899d8cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "dbdb9fe2_cdde84c6",
         "filename": "include/ssl_key_handler.hpp",
         "patchSetId": 1
@@ -77,6 +143,30 @@
       "writtenOn": "2022-08-25T14:32:02Z",
       "side": 1,
       "message": "Remove.  This looks like debug code.",
+      "range": {
+        "startLine": 510,
+        "startChar": 0,
+        "endLine": 510,
+        "endChar": 5
+      },
+      "revId": "28d7e4700db38fab51b4969df4eee094f899d8cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e317cb73_d8b4a6cf",
+        "filename": "include/ssl_key_handler.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 510,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-08-25T15:46:41Z",
+      "side": 1,
+      "message": "This is currently breaking the http client SSL connections with certificate error. So added it as quick fix. I will clean this up.",
+      "parentUuid": "dbdb9fe2_cdde84c6",
       "range": {
         "startLine": 510,
         "startChar": 0,
