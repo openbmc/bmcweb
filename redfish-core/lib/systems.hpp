@@ -2627,8 +2627,8 @@ inline void setIdlePowerSaver(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
  */
 inline void requestRoutesSystemsCollection(App& app)
 {
-    BMCWEB_ROUTE(app, "/redfish/v1/Systems/")
-        .privileges(redfish::privileges::getComputerSystemCollection)
+    BMCWEB_ROUTE(app, "/redfish/v1/Systems/",
+                 redfish::privileges::getComputerSystemCollection)
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
@@ -2702,8 +2702,8 @@ inline void requestRoutesSystemActionsReset(App& app)
      * Analyzes POST body message before sends Reset request data to D-Bus.
      */
     BMCWEB_ROUTE(app,
-                 "/redfish/v1/Systems/system/Actions/ComputerSystem.Reset/")
-        .privileges(redfish::privileges::postComputerSystem)
+                 "/redfish/v1/Systems/system/Actions/ComputerSystem.Reset/",
+                 redfish::privileges::postComputerSystem)
         .methods(boost::beast::http::verb::post)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
@@ -2829,8 +2829,8 @@ inline void requestRoutesSystems(App& app)
     /**
      * Functions triggers appropriate requests on DBus
      */
-    BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/")
-        .privileges(redfish::privileges::getComputerSystem)
+    BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/",
+                 redfish::privileges::getComputerSystem)
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
@@ -2954,8 +2954,8 @@ inline void requestRoutesSystems(App& app)
         getIdlePowerSaver(asyncResp);
         });
 
-    BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/")
-        .privileges(redfish::privileges::patchComputerSystem)
+    BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/",
+                 redfish::privileges::patchComputerSystem)
         .methods(boost::beast::http::verb::patch)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
@@ -3076,8 +3076,8 @@ inline void requestRoutesSystemResetActionInfo(App& app)
     /**
      * Functions triggers appropriate requests on DBus
      */
-    BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/ResetActionInfo/")
-        .privileges(redfish::privileges::getActionInfo)
+    BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/ResetActionInfo/",
+                 redfish::privileges::getActionInfo)
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {

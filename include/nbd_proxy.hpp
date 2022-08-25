@@ -253,7 +253,7 @@ static boost::container::flat_map<crow::websocket::Connection*,
 
 inline void requestRoutes(App& app)
 {
-    BMCWEB_ROUTE(app, "/nbd/<str>")
+    BMCWEB_ROUTE(app, "/nbd/<str>", redfish::privilegeSetNoAuth)
         .websocket()
         .onopen([](crow::websocket::Connection& conn) {
             BMCWEB_LOG_DEBUG << "nbd-proxy.onopen(" << &conn << ")";

@@ -240,6 +240,43 @@ inline const Privileges& getUserPrivileges(const std::string& userRole)
     return noaccess;
 }
 
+const std::array<Privileges, 1> privilegeSetLogin = {{
+    {"Login"}
+}};
+const std::array<Privileges, 1> privilegeSetConfigureComponents = {{
+    {"ConfigureComponents"}
+}};
+const std::array<Privileges, 1> privilegeSetConfigureUsers = {{
+    {"ConfigureUsers"}
+}};
+const std::array<Privileges, 1> privilegeSetConfigureManager = {{
+    {"ConfigureManager"}
+}};
+const std::array<Privileges, 2> privilegeSetNoAuth = {{
+    {}
+}};
+const std::array<Privileges, 2> privilegeSetConfigureManagerOrConfigureComponents = {{
+    {"ConfigureManager"},
+    {"ConfigureComponents"}
+}};
+const std::array<Privileges, 2> privilegeSetConfigureManagerOrConfigureSelf = {{
+    {"ConfigureManager"},
+    {"ConfigureSelf"}
+}};
+const std::array<Privileges, 2> privilegeSetConfigureUsersOrConfigureSelf = {{
+    {"ConfigureUsers"},
+    {"ConfigureSelf"}
+}};
+const std::array<Privileges, 3> privilegeSetConfigureManagerOrConfigureUsersOrConfigureSelf = {{
+    {"ConfigureManager"},
+    {"ConfigureUsers"},
+    {"ConfigureSelf"}
+}};
+const std::array<Privileges, 2> privilegeSetLoginOrNoAuth = {{
+    {"Login"},
+    {}
+}};
+
 /**
  * @brief The OperationMap represents the privileges required for a
  * single entity (URI).  It maps from the allowable verbs to the
