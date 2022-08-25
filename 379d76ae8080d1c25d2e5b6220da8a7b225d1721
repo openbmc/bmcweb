@@ -73,6 +73,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7d5360a4_fb5da55a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-25T17:54:52Z",
+      "side": 1,
+      "message": "Didn\u0027t mean to open this as resolved.",
+      "parentUuid": "4251afd4_4fffccd3",
+      "revId": "379d76ae8080d1c25d2e5b6220da8a7b225d1721",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8ffe2202_0929d5e8",
         "filename": "redfish-core/lib/storage.hpp",
         "patchSetId": 13
