@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "65155725_01169995",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-25T16:21:52Z",
+      "side": 1,
+      "message": "Also looks like you added PredictedMediaLifeLeftPercent?",
+      "revId": "379d76ae8080d1c25d2e5b6220da8a7b225d1721",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4251afd4_4fffccd3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-25T16:21:52Z",
+      "side": 1,
+      "message": "Needs documentation updates to Redfish.md?",
+      "revId": "379d76ae8080d1c25d2e5b6220da8a7b225d1721",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
