@@ -123,20 +123,21 @@ inline void jsonSchemaGet(App& app, const crow::Request& req,
 
 inline void requestRoutesRedfish(App& app)
 {
-    BMCWEB_ROUTE(app, "/redfish/")
+    BMCWEB_ROUTE(app, "/redfish/", redfish::privilegeSetNoAuth)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(redfishGet, std::ref(app)));
 
-    BMCWEB_ROUTE(app, "/redfish/v1/JsonSchemas/<str>/")
+    BMCWEB_ROUTE(app, "/redfish/v1/JsonSchemas/<str>/",
+                 redfish::privilegeSetNoAuth)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(jsonSchemaGet, std::ref(app)));
 
-    BMCWEB_ROUTE(app, "/redfish/v1/JsonSchemas/")
+    BMCWEB_ROUTE(app, "/redfish/v1/JsonSchemas/", redfish::privilegeSetNoAuth)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(jsonSchemaIndexGet, std::ref(app)));
 
     // Note, this route must always be registered last
-    BMCWEB_ROUTE(app, "/redfish/<path>")
+    BMCWEB_ROUTE(app, "/redfish/<path>", redfish::privilegeSetNoAuth)
     (std::bind_front(redfish404, std::ref(app)));
 }
 

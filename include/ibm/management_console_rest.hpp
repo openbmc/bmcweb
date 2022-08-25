@@ -680,8 +680,8 @@ inline void requestRoutes(App& app)
 {
 
     // allowed only for admin
-    BMCWEB_ROUTE(app, "/ibm/v1/")
-        .privileges({{"ConfigureComponents", "ConfigureManager"}})
+    BMCWEB_ROUTE(app, "/ibm/v1/",
+                 redfish::privilegeSetConfigureManagerOrConfigureComponents)
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
@@ -698,8 +698,8 @@ inline void requestRoutes(App& app)
             "/ibm/v1/HMC/BroadcastService";
         });
 
-    BMCWEB_ROUTE(app, "/ibm/v1/Host/ConfigFiles")
-        .privileges({{"ConfigureComponents", "ConfigureManager"}})
+    BMCWEB_ROUTE(app, "/ibm/v1/Host/ConfigFiles",
+                 redfish::privilegeSetConfigureManagerOrConfigureComponents)
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
@@ -707,16 +707,16 @@ inline void requestRoutes(App& app)
         });
 
     BMCWEB_ROUTE(app,
-                 "/ibm/v1/Host/ConfigFiles/Actions/IBMConfigFiles.DeleteAll")
-        .privileges({{"ConfigureComponents", "ConfigureManager"}})
+                 "/ibm/v1/Host/ConfigFiles/Actions/IBMConfigFiles.DeleteAll",
+                 redfish::privilegeSetConfigureManagerOrConfigureComponents)
         .methods(boost::beast::http::verb::post)(
             [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
         deleteConfigFiles(asyncResp);
         });
 
-    BMCWEB_ROUTE(app, "/ibm/v1/Host/ConfigFiles/<str>")
-        .privileges({{"ConfigureComponents", "ConfigureManager"}})
+    BMCWEB_ROUTE(app, "/ibm/v1/Host/ConfigFiles/<str>",
+                 redfish::privilegeSetConfigureManagerOrConfigureComponents)
         .methods(boost::beast::http::verb::put, boost::beast::http::verb::get,
                  boost::beast::http::verb::delete_)(
             [](const crow::Request& req,
@@ -732,16 +732,16 @@ inline void requestRoutes(App& app)
         handleFileUrl(req, asyncResp, fileName);
         });
 
-    BMCWEB_ROUTE(app, "/ibm/v1/HMC/LockService")
-        .privileges({{"ConfigureComponents", "ConfigureManager"}})
+    BMCWEB_ROUTE(app, "/ibm/v1/HMC/LockService",
+                 redfish::privilegeSetConfigureManagerOrConfigureComponents)
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
         getLockServiceData(asyncResp);
         });
 
-    BMCWEB_ROUTE(app, "/ibm/v1/HMC/LockService/Actions/LockService.AcquireLock")
-        .privileges({{"ConfigureComponents", "ConfigureManager"}})
+    BMCWEB_ROUTE(app, "/ibm/v1/HMC/LockService/Actions/LockService.AcquireLock",
+                 redfish::privilegeSetConfigureManagerOrConfigureComponents)
         .methods(boost::beast::http::verb::post)(
             [](const crow::Request& req,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
@@ -755,8 +755,8 @@ inline void requestRoutes(App& app)
         }
         handleAcquireLockAPI(req, asyncResp, body);
         });
-    BMCWEB_ROUTE(app, "/ibm/v1/HMC/LockService/Actions/LockService.ReleaseLock")
-        .privileges({{"ConfigureComponents", "ConfigureManager"}})
+    BMCWEB_ROUTE(app, "/ibm/v1/HMC/LockService/Actions/LockService.ReleaseLock",
+                 redfish::privilegeSetConfigureManagerOrConfigureComponents)
         .methods(boost::beast::http::verb::post)(
             [](const crow::Request& req,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
@@ -786,8 +786,8 @@ inline void requestRoutes(App& app)
                                                       "Type");
         }
         });
-    BMCWEB_ROUTE(app, "/ibm/v1/HMC/LockService/Actions/LockService.GetLockList")
-        .privileges({{"ConfigureComponents", "ConfigureManager"}})
+    BMCWEB_ROUTE(app, "/ibm/v1/HMC/LockService/Actions/LockService.GetLockList",
+                 redfish::privilegeSetConfigureManagerOrConfigureComponents)
         .methods(boost::beast::http::verb::post)(
             [](const crow::Request& req,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
@@ -802,8 +802,8 @@ inline void requestRoutes(App& app)
         handleGetLockListAPI(asyncResp, listSessionIds);
         });
 
-    BMCWEB_ROUTE(app, "/ibm/v1/HMC/BroadcastService")
-        .privileges({{"ConfigureComponents", "ConfigureManager"}})
+    BMCWEB_ROUTE(app, "/ibm/v1/HMC/BroadcastService",
+                 redfish::privilegeSetConfigureManagerOrConfigureComponents)
         .methods(boost::beast::http::verb::post)(
             [](const crow::Request& req,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {

@@ -114,8 +114,8 @@ inline void requestRoutesManagerResetAction(App& app)
      * OpenBMC supports ResetType "GracefulRestart" and "ForceRestart".
      */
 
-    BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/Actions/Manager.Reset/")
-        .privileges(redfish::privileges::postManager)
+    BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/Actions/Manager.Reset/",
+                 redfish::privileges::postManager)
         .methods(boost::beast::http::verb::post)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
@@ -174,8 +174,8 @@ inline void requestRoutesManagerResetToDefaultsAction(App& app)
      */
 
     BMCWEB_ROUTE(app,
-                 "/redfish/v1/Managers/bmc/Actions/Manager.ResetToDefaults/")
-        .privileges(redfish::privileges::postManager)
+                 "/redfish/v1/Managers/bmc/Actions/Manager.ResetToDefaults/",
+                 redfish::privileges::postManager)
         .methods(boost::beast::http::verb::post)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
@@ -235,8 +235,8 @@ inline void requestRoutesManagerResetActionInfo(App& app)
      * Functions triggers appropriate requests on DBus
      */
 
-    BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/ResetActionInfo/")
-        .privileges(redfish::privileges::getActionInfo)
+    BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/ResetActionInfo/",
+                 redfish::privileges::getActionInfo)
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
@@ -1917,8 +1917,8 @@ inline void requestRoutesManager(App& app)
 {
     std::string uuid = persistent_data::getConfig().systemUuid;
 
-    BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/")
-        .privileges(redfish::privileges::getManager)
+    BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/",
+                 redfish::privileges::getManager)
         .methods(boost::beast::http::verb::get)(
             [&app, uuid](const crow::Request& req,
                          const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
@@ -2190,8 +2190,8 @@ inline void requestRoutesManager(App& app)
                 "xyz.openbmc_project.Inventory.Item.Bmc"});
         });
 
-    BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/")
-        .privileges(redfish::privileges::patchManager)
+    BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/",
+                 redfish::privileges::patchManager)
         .methods(boost::beast::http::verb::patch)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
@@ -2279,8 +2279,8 @@ inline void requestRoutesManager(App& app)
 
 inline void requestRoutesManagerCollection(App& app)
 {
-    BMCWEB_ROUTE(app, "/redfish/v1/Managers/")
-        .privileges(redfish::privileges::getManagerCollection)
+    BMCWEB_ROUTE(app, "/redfish/v1/Managers/",
+                 redfish::privileges::getManagerCollection)
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {

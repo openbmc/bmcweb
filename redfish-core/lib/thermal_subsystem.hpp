@@ -50,8 +50,8 @@ inline void handleThermalSubsystemCollectionGet(
 
 inline void requestRoutesThermalSubsystem(App& app)
 {
-    BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/ThermalSubsystem/")
-        .privileges(redfish::privileges::getThermalSubsystem)
+    BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/ThermalSubsystem/",
+                 redfish::privileges::getThermalSubsystem)
         .methods(boost::beast::http::verb::get)(std::bind_front(
             handleThermalSubsystemCollectionGet, std::ref(app)));
 }

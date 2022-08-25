@@ -297,8 +297,8 @@ inline bool fillTrigger(
 
 inline void requestRoutesTriggerCollection(App& app)
 {
-    BMCWEB_ROUTE(app, "/redfish/v1/TelemetryService/Triggers/")
-        .privileges(redfish::privileges::getTriggersCollection)
+    BMCWEB_ROUTE(app, "/redfish/v1/TelemetryService/Triggers/",
+                 redfish::privileges::getTriggersCollection)
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
@@ -319,8 +319,8 @@ inline void requestRoutesTriggerCollection(App& app)
 
 inline void requestRoutesTrigger(App& app)
 {
-    BMCWEB_ROUTE(app, "/redfish/v1/TelemetryService/Triggers/<str>/")
-        .privileges(redfish::privileges::getTriggers)
+    BMCWEB_ROUTE(app, "/redfish/v1/TelemetryService/Triggers/<str>/",
+                 redfish::privileges::getTriggers)
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -357,8 +357,8 @@ inline void requestRoutesTrigger(App& app)
             telemetry::triggerInterface);
         });
 
-    BMCWEB_ROUTE(app, "/redfish/v1/TelemetryService/Triggers/<str>/")
-        .privileges(redfish::privileges::deleteTriggers)
+    BMCWEB_ROUTE(app, "/redfish/v1/TelemetryService/Triggers/<str>/",
+                 redfish::privileges::deleteTriggers)
         .methods(boost::beast::http::verb::delete_)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,

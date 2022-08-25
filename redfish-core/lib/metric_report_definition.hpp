@@ -351,8 +351,8 @@ class AddReport
 
 inline void requestRoutesMetricReportDefinitionCollection(App& app)
 {
-    BMCWEB_ROUTE(app, "/redfish/v1/TelemetryService/MetricReportDefinitions/")
-        .privileges(redfish::privileges::getMetricReportDefinitionCollection)
+    BMCWEB_ROUTE(app, "/redfish/v1/TelemetryService/MetricReportDefinitions/",
+                 redfish::privileges::getMetricReportDefinitionCollection)
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
@@ -373,8 +373,8 @@ inline void requestRoutesMetricReportDefinitionCollection(App& app)
             "/xyz/openbmc_project/Telemetry/Reports/TelemetryService");
         });
 
-    BMCWEB_ROUTE(app, "/redfish/v1/TelemetryService/MetricReportDefinitions/")
-        .privileges(redfish::privileges::postMetricReportDefinitionCollection)
+    BMCWEB_ROUTE(app, "/redfish/v1/TelemetryService/MetricReportDefinitions/",
+                 redfish::privileges::postMetricReportDefinitionCollection)
         .methods(boost::beast::http::verb::post)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
@@ -422,8 +422,8 @@ inline void requestRoutesMetricReportDefinitionCollection(App& app)
 inline void requestRoutesMetricReportDefinition(App& app)
 {
     BMCWEB_ROUTE(app,
-                 "/redfish/v1/TelemetryService/MetricReportDefinitions/<str>/")
-        .privileges(redfish::privileges::getMetricReportDefinition)
+                 "/redfish/v1/TelemetryService/MetricReportDefinitions/<str>/",
+                 redfish::privileges::getMetricReportDefinition)
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -459,8 +459,8 @@ inline void requestRoutesMetricReportDefinition(App& app)
             telemetry::reportInterface);
         });
     BMCWEB_ROUTE(app,
-                 "/redfish/v1/TelemetryService/MetricReportDefinitions/<str>/")
-        .privileges(redfish::privileges::deleteMetricReportDefinitionCollection)
+                 "/redfish/v1/TelemetryService/MetricReportDefinitions/<str>/",
+                 redfish::privileges::deleteMetricReportDefinitionCollection)
         .methods(boost::beast::http::verb::delete_)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
