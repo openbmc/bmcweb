@@ -87,6 +87,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "eb913a16_a0b2cf62",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-08-25T21:43:19Z",
+      "side": 1,
+      "message": "- Added comment in PDI recommending dump managers to implement DeleteAll  (https://github.com/openbmc/phosphor-dbus-interfaces/commit/7311efe3cbabaa6e86c3b33997cb6ef48e52180b)\n- Added patchset 3 to check for DeleteAll interface when deciding whether to populate the ClearLog action for a dump LogService.",
+      "parentUuid": "80416cfb_dab04232",
+      "revId": "7037d69c5dbcb87cd2b1dbc516e785d4c598571e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cc000d98_cecc1c88",
