@@ -44,7 +44,7 @@ TEST(Router, AllowHeader)
     router.validate();
     EXPECT_EQ(router.buildAllowHeader(req), "");
 
-    router.newRuleTagged<getParameterTag(url)>(std::string(url))
+    router.newRuleTagged<getParameterTag(url)>(std::string(url), {{}})
         .methods(boost::beast::http::verb::get)(nullCallback);
     router.validate();
     EXPECT_EQ(router.buildAllowHeader(req), "GET");

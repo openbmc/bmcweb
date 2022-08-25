@@ -205,21 +205,21 @@ inline void handleRoTSendCommandPost(
 
 inline void requestRoutes(App& app)
 {
-    BMCWEB_ROUTE(app, "/google/v1/")
+    BMCWEB_ROUTE(app, "/google/v1/", redfish::privilegeSetNoAuth)
         .methods(boost::beast::http::verb::get)(handleGoogleV1Get);
 
-    BMCWEB_ROUTE(app, "/google/v1/RootOfTrustCollection")
-        .privileges({{"ConfigureManager"}})
+    BMCWEB_ROUTE(app, "/google/v1/RootOfTrustCollection",
+                 redfish::privilegeSetConfigureManager)
         .methods(boost::beast::http::verb::get)(handleRootOfTrustCollectionGet);
 
-    BMCWEB_ROUTE(app, "/google/v1/RootOfTrustCollection/<str>")
-        .privileges({{"ConfigureManager"}})
+    BMCWEB_ROUTE(app, "/google/v1/RootOfTrustCollection/<str>",
+                 redfish::privilegeSetConfigureManager)
         .methods(boost::beast::http::verb::get)(handleRootOfTrustGet);
 
     BMCWEB_ROUTE(
         app,
-        "/google/v1/RootOfTrustCollection/<str>/Actions/RootOfTrust.SendCommand")
-        .privileges({{"ConfigureManager"}})
+        "/google/v1/RootOfTrustCollection/<str>/Actions/RootOfTrust.SendCommand",
+        redfish::privilegeSetConfigureManager)
         .methods(boost::beast::http::verb::post)(handleRoTSendCommandPost);
 }
 

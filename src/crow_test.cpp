@@ -124,10 +124,10 @@ TEST(Crow, PathRouting)
 {
     SimpleApp app;
 
-    BMCWEB_ROUTE(app, "/file")
+    BMCWEB_ROUTE(app, "/file", redfish::privilegeSetNoAuth)
     ([] { return "file"; });
 
-    BMCWEB_ROUTE(app, "/path/")
+    BMCWEB_ROUTE(app, "/path/", redfish::privilegeSetNoAuth)
     ([] { return "path"; });
 
     {
@@ -182,20 +182,21 @@ TEST(Crow, RoutingTest)
     string D{};
     string E{};
 
-    BMCWEB_ROUTE(app, "/0/<uint>")
+    BMCWEB_ROUTE(app, "/0/<uint>", redfish::privilegeSetNoAuth)
     ([&](uint32_t b) {
         b = b;
         return "OK";
     });
 
-    BMCWEB_ROUTE(app, "/1/<int>/<uint>")
+    BMCWEB_ROUTE(app, "/1/<int>/<uint>", redfish::privilegeSetNoAuth)
     ([&](int a, uint32_t b) {
         A = a;
         b = b;
         return "OK";
     });
 
-    BMCWEB_ROUTE(app, "/4/<int>/<uint>/<double>/<string>")
+    BMCWEB_ROUTE(app, "/4/<int>/<uint>/<double>/<string>",
+                 redfish::privilegeSetNoAuth)
     ([&](int a, uint32_t b, double c, string d) {
         A = a;
         b = b;
@@ -204,7 +205,8 @@ TEST(Crow, RoutingTest)
         return "OK";
     });
 
-    BMCWEB_ROUTE(app, "/5/<int>/<uint>/<double>/<string>/<path>")
+    BMCWEB_ROUTE(app, "/5/<int>/<uint>/<double>/<string>/<path>",
+                 redfish::privilegeSetNoAuth)
     ([&](int a, uint32_t b, double c, string d, string e) {
         A = a;
         b = b;
@@ -317,31 +319,32 @@ TEST(Crow, simple_response_RoutingParams)
 TEST(Crow, handler_with_response)
 {
     SimpleApp app;
-    BMCWEB_ROUTE(app, "/")([](const crow::Request&, crow::Response&) {});
+    BMCWEB_ROUTE(app, "/", redfish::privilegeSetNoAuth)
+    ([](const crow::Request&, crow::Response&) {});
 }
 
 TEST(Crow, http_method)
 {
     SimpleApp app;
 
-    BMCWEB_ROUTE(app, "/").methods(boost::beast::http::verb::post,
-                                   boost::beast::http::verb::get)(
-        [](const Request& req) {
-        if (req.method() == boost::beast::http::verb::get)
-            return "2";
-        else
-            return "1";
-    });
+    BMCWEB_ROUTE(app, "/", redfish::privilegeSetNoAuth)
+        .methods(boost::beast::http::verb::post,
+                 boost::beast::http::verb::get)([](const Request& req) {
+            if (req.method() == boost::beast::http::verb::get)
+                return "2";
+            else
+                return "1";
+        });
 
-    BMCWEB_ROUTE(app, "/get_only")
+    BMCWEB_ROUTE(app, "/get_only", redfish::privilegeSetNoAuth)
         .methods(boost::beast::http::verb::get)(
             [](const Request& /*req*/) { return "get"; });
-    BMCWEB_ROUTE(app, "/post_only")
+    BMCWEB_ROUTE(app, "/post_only", redfish::privilegeSetNoAuth)
         .methods(boost::beast::http::verb::post)(
             [](const Request& /*req*/) { return "post"; });
 
     // cannot have multiple handlers for the same url
-    // BMCWEB_ROUTE(app, "/")
+    // BMCWEB_ROUTE(app, "/", redfish::privilegeSetNoAuth)
     //.methods(boost::beast::http::verb::get)
     //([]{ return "2"; });
 
@@ -395,7 +398,7 @@ TEST(Crow, server_handling_error_request)
 {
     static char buf[2048];
     SimpleApp app;
-    BMCWEB_ROUTE(app, "/")([] { return "A"; });
+    BMCWEB_ROUTE(app, "/", redfish::privilegeSetNoAuth)([] { return "A"; });
     Server<SimpleApp> server(&app, LOCALHOST_ADDRESS, 45451);
     auto _ = async(launch::async, [&] { server.run(); });
     std::string sendmsg = "POX";
@@ -424,12 +427,12 @@ TEST(Crow, multi_server)
 {
     static char buf[2048];
     SimpleApp app1, app2;
-    BMCWEB_ROUTE(app1, "/").methods(boost::beast::http::verb::get,
-                                    boost::beast::http::verb::post)(
-        [] { return "A"; });
-    BMCWEB_ROUTE(app2, "/").methods(boost::beast::http::verb::get,
-                                    boost::beast::http::verb::post)(
-        [] { return "B"; });
+    BMCWEB_ROUTE(app1, "/", redfish::privilegeSetNoAuth)
+        .methods(boost::beast::http::verb::get,
+                 boost::beast::http::verb::post)([] { return "A"; });
+    BMCWEB_ROUTE(app2, "/", redfish::privilegeSetNoAuth)
+        .methods(boost::beast::http::verb::get,
+                 boost::beast::http::verb::post)([] { return "B"; });
 
     Server<SimpleApp> server1(&app1, LOCALHOST_ADDRESS, 45451);
     Server<SimpleApp> server2(&app2, LOCALHOST_ADDRESS, 45452);
@@ -516,7 +519,7 @@ TEST(Crow, middleware_simple)
 {
     App<NullMiddleware, NullSimpleMiddleware> app;
     decltype(app)::server_t server(&app, LOCALHOST_ADDRESS, 45451);
-    BMCWEB_ROUTE(app, "/")
+    BMCWEB_ROUTE(app, "/", redfish::privilegeSetNoAuth)
     ([&](const crow::Request& req) {
         app.getContext<NullMiddleware>(req);
         app.getContext<NullSimpleMiddleware>(req);
@@ -614,7 +617,7 @@ TEST(Crow, middlewareContext)
     App<IntSettingMiddleware, FirstMW, SecondMW, ThirdMW> app;
 
     int x{};
-    BMCWEB_ROUTE(app, "/")
+    BMCWEB_ROUTE(app, "/", redfish::privilegeSetNoAuth)
     ([&](const Request& req) {
         {
             auto& ctx = app.getContext<IntSettingMiddleware>(req);
@@ -627,7 +630,7 @@ TEST(Crow, middlewareContext)
 
         return "";
     });
-    BMCWEB_ROUTE(app, "/break")
+    BMCWEB_ROUTE(app, "/break", redfish::privilegeSetNoAuth)
     ([&](const Request& req) {
         {
             auto& ctx = app.getContext<FirstMW>(req);
@@ -691,7 +694,8 @@ TEST(Crow, bug_quick_repeated_request)
 
     SimpleApp app;
 
-    BMCWEB_ROUTE(app, "/")([&] { return "hello"; });
+    BMCWEB_ROUTE(app, "/", redfish::privilegeSetNoAuth)
+    ([&] { return "hello"; });
 
     decltype(app)::server_t server(&app, LOCALHOST_ADDRESS, 45451);
     auto _ = async(launch::async, [&] { server.run(); });
@@ -729,7 +733,7 @@ TEST(Crow, simple_url_params)
 
     QueryString lastUrlParams;
 
-    BMCWEB_ROUTE(app, "/params")
+    BMCWEB_ROUTE(app, "/params", redfish::privilegeSetNoAuth)
     ([&lastUrlParams](const crow::Request& req) {
         lastUrlParams = std::move(req.urlParams);
         return "OK";
