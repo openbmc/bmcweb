@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "3ff8e613_8c5c9902",
         "filename": "/COMMIT_MSG",
@@ -20,10 +21,10 @@
         "endChar": 71
       },
       "revId": "8d0e77f08b98ec3720a567b3d9bfe39a0c8c077d",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "dd9b7f0c_ffce9f46",
         "filename": "http/routing.hpp",
@@ -43,10 +44,10 @@
         "endChar": 31
       },
       "revId": "8d0e77f08b98ec3720a567b3d9bfe39a0c8c077d",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "eaf9ee80_b8c61a0f",
         "filename": "http/routing.hpp",
@@ -67,10 +68,10 @@
         "endChar": 31
       },
       "revId": "8d0e77f08b98ec3720a567b3d9bfe39a0c8c077d",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "3086c795_05ad7703",
         "filename": "http/routing.hpp",
@@ -91,10 +92,10 @@
         "endChar": 31
       },
       "revId": "8d0e77f08b98ec3720a567b3d9bfe39a0c8c077d",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "42bf73b6_2bbf8f7a",
         "filename": "http/routing.hpp",
@@ -115,10 +116,10 @@
         "endChar": 31
       },
       "revId": "8d0e77f08b98ec3720a567b3d9bfe39a0c8c077d",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "c1f97948_9bd86075",
         "filename": "http/routing.hpp",
@@ -139,8 +140,31 @@
         "endChar": 31
       },
       "revId": "8d0e77f08b98ec3720a567b3d9bfe39a0c8c077d",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "537f5d61_be6aa10d",
+        "filename": "http/routing.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 1000907
+      },
+      "writtenOn": "2022-08-25T12:46:04Z",
+      "side": 1,
+      "message": "@Ed: Moving privileges to BMCWEB_ROUTE sounds like an awesome idea.\nImplemented the same.\nCould you please re-review the commit",
+      "parentUuid": "c1f97948_9bd86075",
+      "range": {
+        "startLine": 321,
+        "startChar": 7,
+        "endLine": 321,
+        "endChar": 31
+      },
+      "revId": "8d0e77f08b98ec3720a567b3d9bfe39a0c8c077d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
