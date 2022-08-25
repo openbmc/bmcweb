@@ -480,8 +480,8 @@ inline void handleBmcNetworkProtocolHead(
 
 inline void requestRoutesNetworkProtocol(App& app)
 {
-    BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/NetworkProtocol/")
-        .privileges(redfish::privileges::patchManagerNetworkProtocol)
+    BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/NetworkProtocol/",
+                 redfish::privileges::patchManagerNetworkProtocol)
         .methods(boost::beast::http::verb::patch)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
@@ -550,13 +550,13 @@ inline void requestRoutesNetworkProtocol(App& app)
         }
         });
 
-    BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/NetworkProtocol/")
-        .privileges(redfish::privileges::headManagerNetworkProtocol)
+    BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/NetworkProtocol/",
+                 redfish::privileges::headManagerNetworkProtocol)
         .methods(boost::beast::http::verb::head)(
             std::bind_front(handleBmcNetworkProtocolHead, std::ref(app)));
 
-    BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/NetworkProtocol/")
-        .privileges(redfish::privileges::getManagerNetworkProtocol)
+    BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/NetworkProtocol/",
+                 redfish::privileges::getManagerNetworkProtocol)
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {

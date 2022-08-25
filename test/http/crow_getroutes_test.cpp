@@ -38,7 +38,8 @@ TEST(GetRoutes, TestOneRoute)
 {
     App app;
 
-    BMCWEB_ROUTE(app, "/")([]() { return boost::beast::http::status::ok; });
+    BMCWEB_ROUTE(app, "/", redfish::privilegeSetNoAuth)
+    ([]() { return boost::beast::http::status::ok; });
 
     // TODO: "/" doesn't get reported in |getRoutes| today. Uncomment this once
     // it is fixed
@@ -50,12 +51,18 @@ TEST(GetRoutes, TestOneRoute)
 TEST(GetRoutes, TestlotsOfRoutes)
 {
     App app;
-    BMCWEB_ROUTE(app, "/")([]() { return boost::beast::http::status::ok; });
-    BMCWEB_ROUTE(app, "/foo")([]() { return boost::beast::http::status::ok; });
-    BMCWEB_ROUTE(app, "/bar")([]() { return boost::beast::http::status::ok; });
-    BMCWEB_ROUTE(app, "/baz")([]() { return boost::beast::http::status::ok; });
-    BMCWEB_ROUTE(app, "/boo")([]() { return boost::beast::http::status::ok; });
-    BMCWEB_ROUTE(app, "/moo")([]() { return boost::beast::http::status::ok; });
+    BMCWEB_ROUTE(app, "/", redfish::privilegeSetNoAuth)
+    ([]() { return boost::beast::http::status::ok; });
+    BMCWEB_ROUTE(app, "/foo", redfish::privilegeSetNoAuth)
+    ([]() { return boost::beast::http::status::ok; });
+    BMCWEB_ROUTE(app, "/bar", redfish::privilegeSetNoAuth)
+    ([]() { return boost::beast::http::status::ok; });
+    BMCWEB_ROUTE(app, "/baz", redfish::privilegeSetNoAuth)
+    ([]() { return boost::beast::http::status::ok; });
+    BMCWEB_ROUTE(app, "/boo", redfish::privilegeSetNoAuth)
+    ([]() { return boost::beast::http::status::ok; });
+    BMCWEB_ROUTE(app, "/moo", redfish::privilegeSetNoAuth)
+    ([]() { return boost::beast::http::status::ok; });
 
     app.validate();
 
