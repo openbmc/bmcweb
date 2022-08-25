@@ -72,6 +72,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "b2e92bcd_ca3c405e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-08-25T18:09:31Z",
+      "side": 1,
+      "message": "Agree with your point. I modified the http client code in such a way that its passed from caller to http client and so that http client code is clean.\n\nAdd code in EventService to pass VerifyCertificate to client. In Event service code, Its set to default value as per redfish schema description.",
+      "parentUuid": "c12f9e8c_1daec936",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 56
+      },
+      "revId": "28d7e4700db38fab51b4969df4eee094f899d8cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "978ba506_79eea537",
@@ -121,6 +145,24 @@
       "side": 1,
       "message": "My patches are WIP, so there\u0027s no rush to review them (they\u0027re still pretty rough).  I just wanted to make you aware of them so you know there\u0027s a larger direction I\u0027m looking at going here, and to get your opinion on it.",
       "parentUuid": "c905d6ec_c4ba1a83",
+      "revId": "28d7e4700db38fab51b4969df4eee094f899d8cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b5a41ff9_52aad0a0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-08-25T18:09:31Z",
+      "side": 1,
+      "message": "Sure Ed, I will check and my opinion.",
+      "parentUuid": "24b03b72_cce87ca2",
       "revId": "28d7e4700db38fab51b4969df4eee094f899d8cb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -209,6 +251,30 @@
       "side": 1,
       "message": "This is currently breaking the http client SSL connections with certificate error. So added it as quick fix. I will clean this up.",
       "parentUuid": "dbdb9fe2_cdde84c6",
+      "range": {
+        "startLine": 510,
+        "startChar": 0,
+        "endLine": 510,
+        "endChar": 5
+      },
+      "revId": "28d7e4700db38fab51b4969df4eee094f899d8cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb0f2129_6377c5c0",
+        "filename": "include/ssl_key_handler.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 510,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-08-25T18:09:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e317cb73_d8b4a6cf",
       "range": {
         "startLine": 510,
         "startChar": 0,
