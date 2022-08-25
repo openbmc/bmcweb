@@ -20,7 +20,7 @@ namespace login_routes
 
 inline void requestRoutes(App& app)
 {
-    BMCWEB_ROUTE(app, "/login")
+    BMCWEB_ROUTE(app, "/login", redfish::privilegeSetNoAuth)
         .methods(boost::beast::http::verb::post)(
             [](const crow::Request& req,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
@@ -228,7 +228,7 @@ inline void requestRoutes(App& app)
         }
         });
 
-    BMCWEB_ROUTE(app, "/logout")
+    BMCWEB_ROUTE(app, "/logout", redfish::privilegeSetNoAuth)
         .methods(boost::beast::http::verb::post)(
             [](const crow::Request& req,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {

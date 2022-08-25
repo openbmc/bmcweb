@@ -44,12 +44,12 @@ TEST(Router, AllowHeader)
     router.validate();
     EXPECT_EQ(router.buildAllowHeader(req), "");
 
-    router.newRuleTagged<getParameterTag(url)>(std::string(url))
+    router.newRuleTagged<getParameterTag(url)>(std::string(url), redfish::privilegeSetNoAuth)
         .methods(boost::beast::http::verb::get)(nullCallback);
     router.validate();
     EXPECT_EQ(router.buildAllowHeader(req), "GET");
 
-    router.newRuleTagged<getParameterTag(url)>(std::string(url))
+    router.newRuleTagged<getParameterTag(url)>(std::string(url), redfish::privilegeSetNoAuth)
         .methods(boost::beast::http::verb::patch)(nullCallback);
     router.validate();
     EXPECT_EQ(router.buildAllowHeader(req), "GET, PATCH");
