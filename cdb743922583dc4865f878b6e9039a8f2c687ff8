@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "642a856b_c3ae73a2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-25T14:42:05Z",
+      "side": 1,
+      "message": "Some minor changes, but this is looking much better.  I\u0027m guessing it can merge soon.",
+      "revId": "cdb743922583dc4865f878b6e9039a8f2c687ff8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2fdcd52e_332c1e08",
+        "filename": "http/routing.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1236,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-25T14:42:05Z",
+      "side": 1,
+      "message": "Possible nullptr dereference.  Pass by reference maybe?",
+      "range": {
+        "startLine": 1236,
+        "startChar": 20,
+        "endLine": 1236,
+        "endChar": 23
+      },
+      "revId": "cdb743922583dc4865f878b6e9039a8f2c687ff8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fc4bb8f7_8c9797b6",
+        "filename": "http/routing.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1249,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-25T14:42:05Z",
+      "side": 1,
+      "message": "This is far too long to be a lambda on its own.  Please put this into its own function.",
+      "range": {
+        "startLine": 1155,
+        "startChar": 0,
+        "endLine": 1249,
+        "endChar": 24
+      },
+      "revId": "cdb743922583dc4865f878b6e9039a8f2c687ff8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "273e9b6d_4eb1a73b",
+        "filename": "http/routing.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1283,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-25T14:42:05Z",
+      "side": 1,
+      "message": "Why was this copied?  Websockets don\u0027t need to return an allow header, and don\u0027t really have a verb, so an allow header doesn\u0027t make sense.",
+      "range": {
+        "startLine": 1272,
+        "startChar": 0,
+        "endLine": 1283,
+        "endChar": 9
+      },
+      "revId": "cdb743922583dc4865f878b6e9039a8f2c687ff8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "27b175f0_cc424b62",
+        "filename": "http/routing.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1308,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-25T14:42:05Z",
+      "side": 1,
+      "message": "?",
+      "range": {
+        "startLine": 1308,
+        "startChar": 32,
+        "endLine": 1308,
+        "endChar": 40
+      },
+      "revId": "cdb743922583dc4865f878b6e9039a8f2c687ff8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c33303cb_d7d9e058",
+        "filename": "http/routing.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1348,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-25T14:42:05Z",
+      "side": 1,
+      "message": "This shouldnt\u0027 be a lambda either.  Use a normal function with bind_front",
+      "range": {
+        "startLine": 1326,
+        "startChar": 0,
+        "endLine": 1348,
+        "endChar": 13
+      },
+      "revId": "cdb743922583dc4865f878b6e9039a8f2c687ff8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
