@@ -2640,13 +2640,13 @@ inline void handleComputerSystemHead(
  */
 inline void requestRoutesSystemsCollection(App& app)
 {
-    BMCWEB_ROUTE(app, "/redfish/v1/Systems/")
-        .privileges(redfish::privileges::headComputerSystemCollection)
+    BMCWEB_ROUTE(app, "/redfish/v1/Systems/",
+                 redfish::privileges::headComputerSystemCollection)
         .methods(boost::beast::http::verb::head)(
             std::bind_front(handleComputerSystemHead, std::ref(app)));
 
-    BMCWEB_ROUTE(app, "/redfish/v1/Systems/")
-        .privileges(redfish::privileges::getComputerSystemCollection)
+    BMCWEB_ROUTE(app, "/redfish/v1/Systems/",
+                 redfish::privileges::getComputerSystemCollection)
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
@@ -2724,8 +2724,8 @@ inline void requestRoutesSystemActionsReset(App& app)
      * Analyzes POST body message before sends Reset request data to D-Bus.
      */
     BMCWEB_ROUTE(app,
-                 "/redfish/v1/Systems/system/Actions/ComputerSystem.Reset/")
-        .privileges(redfish::privileges::postComputerSystem)
+                 "/redfish/v1/Systems/system/Actions/ComputerSystem.Reset/",
+                 redfish::privileges::postComputerSystem)
         .methods(boost::beast::http::verb::post)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
@@ -2862,15 +2862,15 @@ void handleComputerSystemCollectionHead(
 inline void requestRoutesSystems(App& app)
 {
 
-    BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/")
-        .privileges(redfish::privileges::headComputerSystem)
+    BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/",
+                 redfish::privileges::headComputerSystem)
         .methods(boost::beast::http::verb::head)(
             std::bind_front(handleComputerSystemCollectionHead, std::ref(app)));
     /**
      * Functions triggers appropriate requests on DBus
      */
-    BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/")
-        .privileges(redfish::privileges::getComputerSystem)
+    BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/",
+                 redfish::privileges::getComputerSystem)
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
@@ -2997,8 +2997,8 @@ inline void requestRoutesSystems(App& app)
         getIdlePowerSaver(asyncResp);
         });
 
-    BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/")
-        .privileges(redfish::privileges::patchComputerSystem)
+    BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/",
+                 redfish::privileges::patchComputerSystem)
         .methods(boost::beast::http::verb::patch)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
@@ -3133,15 +3133,15 @@ void handleSystemCollectionResetActionHead(
  */
 inline void requestRoutesSystemResetActionInfo(App& app)
 {
-    BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/ResetActionInfo/")
-        .privileges(redfish::privileges::headActionInfo)
+    BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/ResetActionInfo/",
+                 redfish::privileges::headActionInfo)
         .methods(boost::beast::http::verb::head)(std::bind_front(
             handleSystemCollectionResetActionHead, std::ref(app)));
     /**
      * Functions triggers appropriate requests on DBus
      */
-    BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/ResetActionInfo/")
-        .privileges(redfish::privileges::getActionInfo)
+    BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/ResetActionInfo/",
+                 redfish::privileges::getActionInfo)
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {

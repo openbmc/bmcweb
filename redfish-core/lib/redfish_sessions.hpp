@@ -333,28 +333,28 @@ inline void handleSessionServicePatch(
 
 inline void requestRoutesSession(App& app)
 {
-    BMCWEB_ROUTE(app, "/redfish/v1/SessionService/Sessions/<str>/")
-        .privileges(redfish::privileges::headSession)
+    BMCWEB_ROUTE(app, "/redfish/v1/SessionService/Sessions/<str>/",
+                 redfish::privileges::headSession)
         .methods(boost::beast::http::verb::head)(
             std::bind_front(handleSessionHead, std::ref(app)));
 
-    BMCWEB_ROUTE(app, "/redfish/v1/SessionService/Sessions/<str>/")
-        .privileges(redfish::privileges::getSession)
+    BMCWEB_ROUTE(app, "/redfish/v1/SessionService/Sessions/<str>/",
+                 redfish::privileges::getSession)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handleSessionGet, std::ref(app)));
 
-    BMCWEB_ROUTE(app, "/redfish/v1/SessionService/Sessions/<str>/")
-        .privileges(redfish::privileges::deleteSession)
+    BMCWEB_ROUTE(app, "/redfish/v1/SessionService/Sessions/<str>/",
+                 redfish::privileges::deleteSession)
         .methods(boost::beast::http::verb::delete_)(
             std::bind_front(handleSessionDelete, std::ref(app)));
 
-    BMCWEB_ROUTE(app, "/redfish/v1/SessionService/Sessions/")
-        .privileges(redfish::privileges::headSessionCollection)
+    BMCWEB_ROUTE(app, "/redfish/v1/SessionService/Sessions/",
+                 redfish::privileges::headSessionCollection)
         .methods(boost::beast::http::verb::head)(
             std::bind_front(handleSessionCollectionHead, std::ref(app)));
 
-    BMCWEB_ROUTE(app, "/redfish/v1/SessionService/Sessions/")
-        .privileges(redfish::privileges::getSessionCollection)
+    BMCWEB_ROUTE(app, "/redfish/v1/SessionService/Sessions/",
+                 redfish::privileges::getSessionCollection)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handleSessionCollectionGet, std::ref(app)));
 
@@ -363,28 +363,28 @@ inline void requestRoutesSession(App& app)
     // registry lists this endpoint as requiring login privilege, but because
     // this is the endpoint responsible for giving the login privilege, and it
     // is itself its own route, it needs to not require Login
-    BMCWEB_ROUTE(app, "/redfish/v1/SessionService/Sessions/")
-        .privileges({})
+    BMCWEB_ROUTE(app, "/redfish/v1/SessionService/Sessions/",
+                 redfish::privilegeSetNoAuth)
         .methods(boost::beast::http::verb::post)(
             std::bind_front(handleSessionCollectionPost, std::ref(app)));
 
-    BMCWEB_ROUTE(app, "/redfish/v1/SessionService/Sessions/Members/")
-        .privileges({})
+    BMCWEB_ROUTE(app, "/redfish/v1/SessionService/Sessions/Members/",
+                 redfish::privilegeSetNoAuth)
         .methods(boost::beast::http::verb::post)(
             std::bind_front(handleSessionCollectionPost, std::ref(app)));
 
-    BMCWEB_ROUTE(app, "/redfish/v1/SessionService/")
-        .privileges(redfish::privileges::headSessionService)
+    BMCWEB_ROUTE(app, "/redfish/v1/SessionService/",
+                 redfish::privileges::headSessionService)
         .methods(boost::beast::http::verb::head)(
             std::bind_front(handleSessionServiceHead, std::ref(app)));
 
-    BMCWEB_ROUTE(app, "/redfish/v1/SessionService/")
-        .privileges(redfish::privileges::getSessionService)
+    BMCWEB_ROUTE(app, "/redfish/v1/SessionService/",
+                 redfish::privileges::getSessionService)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handleSessionServiceGet, std::ref(app)));
 
-    BMCWEB_ROUTE(app, "/redfish/v1/SessionService/")
-        .privileges(redfish::privileges::patchSessionService)
+    BMCWEB_ROUTE(app, "/redfish/v1/SessionService/",
+                 redfish::privileges::patchSessionService)
         .methods(boost::beast::http::verb::patch)(
             std::bind_front(handleSessionServicePatch, std::ref(app)));
 }

@@ -12,7 +12,8 @@ TEST(SecurityHeaders, TestHeadersExist)
 {
     App<SecurityHeadersMiddleware> app;
     app.bindaddr("127.0.0.1").port(45451);
-    BMCWEB_ROUTE(app, "/")([]() { return boost::beast::http::status::ok; });
+    BMCWEB_ROUTE(app, "/", redfish::privilegeSetNoAuth)
+    ([]() { return boost::beast::http::status::ok; });
     auto _ = async(launch::async, [&] { app.run(); });
 
     asio::io_context is;

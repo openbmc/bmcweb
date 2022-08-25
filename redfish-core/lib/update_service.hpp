@@ -397,8 +397,8 @@ static void monitorForSoftwareAvailable(
 inline void requestRoutesUpdateServiceActionsSimpleUpdate(App& app)
 {
     BMCWEB_ROUTE(
-        app, "/redfish/v1/UpdateService/Actions/UpdateService.SimpleUpdate/")
-        .privileges(redfish::privileges::postUpdateService)
+        app, "/redfish/v1/UpdateService/Actions/UpdateService.SimpleUpdate/",
+        redfish::privileges::postUpdateService)
         .methods(boost::beast::http::verb::post)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
@@ -543,8 +543,8 @@ inline void
 
 inline void requestRoutesUpdateService(App& app)
 {
-    BMCWEB_ROUTE(app, "/redfish/v1/UpdateService/")
-        .privileges(redfish::privileges::getUpdateService)
+    BMCWEB_ROUTE(app, "/redfish/v1/UpdateService/",
+                 redfish::privileges::getUpdateService)
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
@@ -619,8 +619,8 @@ inline void requestRoutesUpdateService(App& app)
             }
             });
         });
-    BMCWEB_ROUTE(app, "/redfish/v1/UpdateService/")
-        .privileges(redfish::privileges::patchUpdateService)
+    BMCWEB_ROUTE(app, "/redfish/v1/UpdateService/",
+                 redfish::privileges::patchUpdateService)
         .methods(boost::beast::http::verb::patch)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
@@ -708,8 +708,8 @@ inline void requestRoutesUpdateService(App& app)
 // temporarily to allow the old behavior until Q4 2022, at which time it will be
 // removed.
 #ifdef BMCWEB_ENABLE_REDFISH_UPDATESERVICE_OLD_POST_URL
-    BMCWEB_ROUTE(app, "/redfish/v1/UpdateService/")
-        .privileges(redfish::privileges::postUpdateService)
+    BMCWEB_ROUTE(app, "/redfish/v1/UpdateService/",
+                 redfish::privileges::postUpdateService)
         .methods(boost::beast::http::verb::post)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
@@ -720,16 +720,16 @@ inline void requestRoutesUpdateService(App& app)
         handleUpdateServicePost(app, req, asyncResp);
         });
 #endif
-    BMCWEB_ROUTE(app, "/redfish/v1/UpdateService/update/")
-        .privileges(redfish::privileges::postUpdateService)
+    BMCWEB_ROUTE(app, "/redfish/v1/UpdateService/update/",
+                 redfish::privileges::postUpdateService)
         .methods(boost::beast::http::verb::post)(
             std::bind_front(handleUpdateServicePost, std::ref(app)));
 }
 
 inline void requestRoutesSoftwareInventoryCollection(App& app)
 {
-    BMCWEB_ROUTE(app, "/redfish/v1/UpdateService/FirmwareInventory/")
-        .privileges(redfish::privileges::getSoftwareInventoryCollection)
+    BMCWEB_ROUTE(app, "/redfish/v1/UpdateService/FirmwareInventory/",
+                 redfish::privileges::getSoftwareInventoryCollection)
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
@@ -888,8 +888,8 @@ inline void
 
 inline void requestRoutesSoftwareInventory(App& app)
 {
-    BMCWEB_ROUTE(app, "/redfish/v1/UpdateService/FirmwareInventory/<str>/")
-        .privileges(redfish::privileges::getSoftwareInventory)
+    BMCWEB_ROUTE(app, "/redfish/v1/UpdateService/FirmwareInventory/<str>/",
+                 redfish::privileges::getSoftwareInventory)
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
