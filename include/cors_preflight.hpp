@@ -8,7 +8,7 @@ namespace cors_preflight
 {
 inline void requestRoutes(App& app)
 {
-    BMCWEB_ROUTE(app, "<str>")
+    BMCWEB_ROUTE(app, "<str>", redfish::privilegeSetNoAuth)
         .methods(boost::beast::http::verb::options)(
             [](const crow::Request& /*req*/,
                const std::shared_ptr<bmcweb::AsyncResp>&, const std::string&) {

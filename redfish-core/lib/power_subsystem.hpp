@@ -79,13 +79,13 @@ inline void handlePowerSubsystemCollectionGet(
 
 inline void requestRoutesPowerSubsystem(App& app)
 {
-    BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/PowerSubsystem/")
-        .privileges(redfish::privileges::headPowerSubsystem)
+    BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/PowerSubsystem/",
+                 redfish::privileges::headPowerSubsystem)
         .methods(boost::beast::http::verb::head)(
             std::bind_front(handlePowerSubsystemCollectionHead, std::ref(app)));
 
-    BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/PowerSubsystem/")
-        .privileges(redfish::privileges::getPowerSubsystem)
+    BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/PowerSubsystem/",
+                 redfish::privileges::getPowerSubsystem)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handlePowerSubsystemCollectionGet, std::ref(app)));
 }

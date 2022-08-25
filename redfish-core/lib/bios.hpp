@@ -40,8 +40,8 @@ inline void
 
 inline void requestRoutesBiosService(App& app)
 {
-    BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/Bios/")
-        .privileges(redfish::privileges::getBios)
+    BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/Bios/",
+                 redfish::privileges::getBios)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handleBiosServiceGet, std::ref(app)));
 }
@@ -85,8 +85,8 @@ inline void
 
 inline void requestRoutesBiosReset(App& app)
 {
-    BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/Bios/Actions/Bios.ResetBios/")
-        .privileges(redfish::privileges::postBios)
+    BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/Bios/Actions/Bios.ResetBios/",
+                 redfish::privileges::postBios)
         .methods(boost::beast::http::verb::post)(
             std::bind_front(handleBiosResetPost, std::ref(app)));
 }

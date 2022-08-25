@@ -850,27 +850,27 @@ inline void
 
 inline void requestRoutesCertificateService(App& app)
 {
-    BMCWEB_ROUTE(app, "/redfish/v1/CertificateService/")
-        .privileges(redfish::privileges::getCertificateService)
+    BMCWEB_ROUTE(app, "/redfish/v1/CertificateService/",
+                 redfish::privileges::getCertificateService)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handleCertificateServiceGet, std::ref(app)));
 
-    BMCWEB_ROUTE(app, "/redfish/v1/CertificateService/CertificateLocations/")
-        .privileges(redfish::privileges::getCertificateLocations)
+    BMCWEB_ROUTE(app, "/redfish/v1/CertificateService/CertificateLocations/",
+                 redfish::privileges::getCertificateLocations)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handleCertificateLocationsGet, std::ref(app)));
 
     BMCWEB_ROUTE(
         app,
-        "/redfish/v1/CertificateService/Actions/CertificateService.ReplaceCertificate/")
-        .privileges(redfish::privileges::postCertificateService)
+        "/redfish/v1/CertificateService/Actions/CertificateService.ReplaceCertificate/",
+        redfish::privileges::postCertificateService)
         .methods(boost::beast::http::verb::post)(
             std::bind_front(handleReplaceCertificateAction, std::ref(app)));
 
     BMCWEB_ROUTE(
         app,
-        "/redfish/v1/CertificateService/Actions/CertificateService.GenerateCSR/")
-        .privileges(redfish::privileges::postCertificateService)
+        "/redfish/v1/CertificateService/Actions/CertificateService.GenerateCSR/",
+        redfish::privileges::postCertificateService)
         .methods(boost::beast::http::verb::post)(
             std::bind_front(handleGenerateCSRAction, std::ref(app)));
 } // requestRoutesCertificateService
@@ -968,21 +968,21 @@ inline void handleHTTPSCertificateGet(
 inline void requestRoutesHTTPSCertificate(App& app)
 {
     BMCWEB_ROUTE(app,
-                 "/redfish/v1/Managers/bmc/NetworkProtocol/HTTPS/Certificates/")
-        .privileges(redfish::privileges::getCertificateCollection)
+                 "/redfish/v1/Managers/bmc/NetworkProtocol/HTTPS/Certificates/",
+                 redfish::privileges::getCertificateCollection)
         .methods(boost::beast::http::verb::get)(std::bind_front(
             handleHTTPSCertificateCollectionGet, std::ref(app)));
 
     BMCWEB_ROUTE(app,
-                 "/redfish/v1/Managers/bmc/NetworkProtocol/HTTPS/Certificates/")
-        .privileges(redfish::privileges::postCertificateCollection)
+                 "/redfish/v1/Managers/bmc/NetworkProtocol/HTTPS/Certificates/",
+                 redfish::privileges::postCertificateCollection)
         .methods(boost::beast::http::verb::post)(std::bind_front(
             handleHTTPSCertificateCollectionPost, std::ref(app)));
 
     BMCWEB_ROUTE(
         app,
-        "/redfish/v1/Managers/bmc/NetworkProtocol/HTTPS/Certificates/<str>/")
-        .privileges(redfish::privileges::getCertificate)
+        "/redfish/v1/Managers/bmc/NetworkProtocol/HTTPS/Certificates/<str>/",
+        redfish::privileges::getCertificate)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handleHTTPSCertificateGet, std::ref(app)));
 }
@@ -1088,23 +1088,23 @@ inline void handleLDAPCertificateDelete(
 
 inline void requestRoutesLDAPCertificate(App& app)
 {
-    BMCWEB_ROUTE(app, "/redfish/v1/AccountService/LDAP/Certificates/")
-        .privileges(redfish::privileges::getCertificateCollection)
+    BMCWEB_ROUTE(app, "/redfish/v1/AccountService/LDAP/Certificates/",
+                 redfish::privileges::getCertificateCollection)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handleLDAPCertificateCollectionGet, std::ref(app)));
 
-    BMCWEB_ROUTE(app, "/redfish/v1/AccountService/LDAP/Certificates/")
-        .privileges(redfish::privileges::postCertificateCollection)
+    BMCWEB_ROUTE(app, "/redfish/v1/AccountService/LDAP/Certificates/",
+                 redfish::privileges::postCertificateCollection)
         .methods(boost::beast::http::verb::post)(std::bind_front(
             handleLDAPCertificateCollectionPost, std::ref(app)));
 
-    BMCWEB_ROUTE(app, "/redfish/v1/AccountService/LDAP/Certificates/<str>/")
-        .privileges(redfish::privileges::getCertificate)
+    BMCWEB_ROUTE(app, "/redfish/v1/AccountService/LDAP/Certificates/<str>/",
+                 redfish::privileges::getCertificate)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handleLDAPCertificateGet, std::ref(app)));
 
-    BMCWEB_ROUTE(app, "/redfish/v1/AccountService/LDAP/Certificates/<str>/")
-        .privileges(redfish::privileges::deleteCertificate)
+    BMCWEB_ROUTE(app, "/redfish/v1/AccountService/LDAP/Certificates/<str>/",
+                 redfish::privileges::deleteCertificate)
         .methods(boost::beast::http::verb::delete_)(
             std::bind_front(handleLDAPCertificateDelete, std::ref(app)));
 } // requestRoutesLDAPCertificate
@@ -1211,23 +1211,23 @@ inline void handleTrustStoreCertificateDelete(
 
 inline void requestRoutesTrustStoreCertificate(App& app)
 {
-    BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/Truststore/Certificates/")
-        .privileges(redfish::privileges::getCertificate)
+    BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/Truststore/Certificates/",
+                 redfish::privileges::getCertificate)
         .methods(boost::beast::http::verb::get)(std::bind_front(
             handleTrustStoreCertificateCollectionGet, std::ref(app)));
 
-    BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/Truststore/Certificates/")
-        .privileges(redfish::privileges::postCertificateCollection)
+    BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/Truststore/Certificates/",
+                 redfish::privileges::postCertificateCollection)
         .methods(boost::beast::http::verb::post)(std::bind_front(
             handleTrustStoreCertificateCollectionPost, std::ref(app)));
 
-    BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/Truststore/Certificates/<str>/")
-        .privileges(redfish::privileges::getCertificate)
+    BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/Truststore/Certificates/<str>/",
+                 redfish::privileges::getCertificate)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handleTrustStoreCertificateGet, std::ref(app)));
 
-    BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/Truststore/Certificates/<str>/")
-        .privileges(redfish::privileges::deleteCertificate)
+    BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/Truststore/Certificates/<str>/",
+                 redfish::privileges::deleteCertificate)
         .methods(boost::beast::http::verb::delete_)(
             std::bind_front(handleTrustStoreCertificateDelete, std::ref(app)));
 } // requestRoutesTrustStoreCertificate
