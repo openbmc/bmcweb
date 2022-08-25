@@ -125,6 +125,8 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
     std::string subId;
     std::string host;
     uint16_t port;
+    bool useSSL;
+    bool verifyCert;
     uint32_t connId;
 
     // Retry policy information
@@ -149,6 +151,31 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
     boost::asio::steady_timer timer;
 
     friend class ConnectionPool;
+
+    void setupSSLConn()
+    {
+        if (useSSL)
+        {
+            std::optional<boost::asio::ssl::context> sslCtx =
+                ensuressl::getSSLClientContext(verifyCert);
+
+            if (!sslCtx)
+            {
+                BMCWEB_LOG_ERROR << "prepareSSLContext failed - " << host << ":"
+                                 << port << ", id: " << std::to_string(connId);
+                // Don't retry if failure occurs while preparing SSL context
+                // such as certificate is invalid or set cipher failure or set
+                // host name failure etc... Setting conn state to sslInitFailed
+                // and connection state will be transitioned to next state
+                // depending on retry policy set by subscription.
+                state = ConnState::sslInitFailed;
+                sslConn = std::nullopt;
+                return;
+            }
+            sslConn.emplace(conn, *sslCtx);
+            setCipherSuiteTLSext();
+        }
+    }
 
     void doResolve()
     {
@@ -182,6 +209,16 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
         const std::vector<boost::asio::ip::tcp::endpoint>& endpointList)
     {
         state = ConnState::connectInProgress;
+
+        if (useSSL)
+        {
+            setupSSLConn();
+            if (!sslConn)
+            {
+                waitAndRetry();
+                return;
+            }
+        }
 
         BMCWEB_LOG_DEBUG << "Trying to connect to: " << host << ":"
                          << std::to_string(port)
@@ -559,33 +596,12 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
     explicit ConnectionInfo(boost::asio::io_context& iocIn,
                             const std::string& idIn,
                             const std::string& destIPIn, uint16_t destPortIn,
-                            bool useSSL, unsigned int connIdIn) :
+                            bool useSSLIn, bool verifyCertIn,
+                            unsigned int connIdIn) :
         subId(idIn),
-        host(destIPIn), port(destPortIn), connId(connIdIn), conn(iocIn),
-        timer(iocIn)
-    {
-        if (useSSL)
-        {
-            std::optional<boost::asio::ssl::context> sslCtx =
-                ensuressl::getSSLClientContext();
-
-            if (!sslCtx)
-            {
-                BMCWEB_LOG_ERROR << "prepareSSLContext failed - " << host << ":"
-                                 << port << ", id: " << std::to_string(connId);
-                // Don't retry if failure occurs while preparing SSL context
-                // such as certificate is invalid or set cipher failure or set
-                // host name failure etc... Setting conn state to sslInitFailed
-                // and connection state will be transitioned to next state
-                // depending on retry policy set by subscription.
-                state = ConnState::sslInitFailed;
-                waitAndRetry();
-                return;
-            }
-            sslConn.emplace(conn, *sslCtx);
-            setCipherSuiteTLSext();
-        }
-    }
+        host(destIPIn), port(destPortIn), useSSL(useSSLIn),
+        verifyCert(verifyCertIn), connId(connIdIn), conn(iocIn), timer(iocIn)
+    {}
 };
 
 class ConnectionPool : public std::enable_shared_from_this<ConnectionPool>
@@ -596,6 +612,7 @@ class ConnectionPool : public std::enable_shared_from_this<ConnectionPool>
     std::string destIP;
     uint16_t destPort;
     bool useSSL;
+    bool verifyCert;
     std::vector<std::shared_ptr<ConnectionInfo>> connections;
     boost::container::devector<PendingRequest> requestQueue;
 
@@ -780,7 +797,7 @@ class ConnectionPool : public std::enable_shared_from_this<ConnectionPool>
         unsigned int newId = static_cast<unsigned int>(connections.size());
 
         auto& ret = connections.emplace_back(std::make_shared<ConnectionInfo>(
-            ioc, id, destIP, destPort, useSSL, newId));
+            ioc, id, destIP, destPort, useSSL, verifyCert, newId));
 
         BMCWEB_LOG_DEBUG << "Added connection "
                          << std::to_string(connections.size() - 1)
@@ -794,9 +811,10 @@ class ConnectionPool : public std::enable_shared_from_this<ConnectionPool>
     explicit ConnectionPool(boost::asio::io_context& iocIn,
                             const std::string& idIn,
                             const std::string& destIPIn, uint16_t destPortIn,
-                            bool useSSLIn) :
+                            bool useSSLIn, bool verifyCertIn) :
         ioc(iocIn),
-        id(idIn), destIP(destIPIn), destPort(destPortIn), useSSL(useSSLIn)
+        id(idIn), destIP(destIPIn), destPort(destPortIn), useSSL(useSSLIn),
+        verifyCert(verifyCertIn)
     {
         BMCWEB_LOG_DEBUG << "Initializing connection pool for " << destIP << ":"
                          << std::to_string(destPort);
@@ -841,14 +859,14 @@ class HttpClient
     // result is not required
     void sendData(std::string& data, const std::string& id,
                   const std::string& destIP, uint16_t destPort,
-                  const std::string& destUri, bool useSSL,
+                  const std::string& destUri, bool useSSL, bool verifyCert,
                   const boost::beast::http::fields& httpHeader,
                   const boost::beast::http::verb verb,
                   const std::string& retryPolicyName)
     {
         const std::function<void(Response&)> cb = genericResHandler;
         sendDataWithCallback(data, id, destIP, destPort, destUri, useSSL,
-                             httpHeader, verb, retryPolicyName, cb);
+                             verifyCert, httpHeader, verb, retryPolicyName, cb);
     }
 
     // Send request to destIP:destPort and use the provided callback to
@@ -856,6 +874,7 @@ class HttpClient
     void sendDataWithCallback(std::string& data, const std::string& id,
                               const std::string& destIP, uint16_t destPort,
                               const std::string& destUri, bool useSSL,
+                              bool verifyCert,
                               const boost::beast::http::fields& httpHeader,
                               const boost::beast::http::verb verb,
                               const std::string& retryPolicyName,
@@ -872,7 +891,7 @@ class HttpClient
             // Now actually create the ConnectionPool shared_ptr since it does
             // not already exist
             conn = std::make_shared<ConnectionPool>(ioc, id, destIP, destPort,
-                                                    useSSL);
+                                                    useSSL, verifyCert);
             BMCWEB_LOG_DEBUG << "Created connection pool for " << clientKey;
         }
         else

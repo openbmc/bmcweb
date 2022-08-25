@@ -399,7 +399,7 @@ class Subscription : public persistent_data::UserSubscription
         bool useSSL = (uriProto == "https");
         // A connection pool will be created if one does not already exist
         crow::HttpClient::getInstance().sendData(
-            msg, id, host, port, path, useSSL, httpHeaders,
+            msg, id, host, port, path, useSSL, verifyCertificate, httpHeaders,
             boost::beast::http::verb::post, retryPolicyName);
         eventSeqNum++;
 
@@ -573,6 +573,11 @@ class Subscription : public persistent_data::UserSubscription
     std::string uriProto;
     std::shared_ptr<crow::ServerSentEvents> sseConn = nullptr;
     std::string retryPolicyName = "SubscriptionEvent";
+
+    // As per DMTF Redfish EventDestination schema, if 'VerifyCertificate'
+    // is not supported by service, It shall be assumed 'false'. So setting
+    // this value to false default till EventService add support it.
+    bool verifyCertificate = false;
 
     // Check used to indicate what response codes are valid as part of our retry
     // policy.  2XX is considered acceptable

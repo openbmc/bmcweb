@@ -475,7 +475,8 @@ inline std::shared_ptr<boost::asio::ssl::context>
     return mSslContext;
 }
 
-inline std::optional<boost::asio::ssl::context> getSSLClientContext()
+inline std::optional<boost::asio::ssl::context>
+    getSSLClientContext(const bool verifyCertificate)
 {
     boost::asio::ssl::context sslCtx(boost::asio::ssl::context::tls_client);
 
@@ -504,8 +505,13 @@ inline std::optional<boost::asio::ssl::context> getSSLClientContext()
         return std::nullopt;
     }
 
-    // Verify the remote server's certificate
-    sslCtx.set_verify_mode(boost::asio::ssl::verify_peer, ec);
+    int mode = boost::asio::ssl::verify_peer;
+    if (!verifyCertificate)
+    {
+        mode = boost::asio::ssl::verify_none;
+    }
+    // Set Verify the remote server's certificate mode
+    sslCtx.set_verify_mode(mode, ec);
     if (ec)
     {
         BMCWEB_LOG_ERROR << "SSL context set_verify_mode failed";
