@@ -107,8 +107,7 @@ inline int onPropertyUpdate(sd_bus_message* m, void* userdata,
 
 inline void requestRoutes(App& app)
 {
-    BMCWEB_ROUTE(app, "/subscribe")
-        .privileges({{"Login"}})
+    BMCWEB_ROUTE(app, "/subscribe", redfish::privilegeSetLogin)
         .websocket()
         .onopen([&](crow::websocket::Connection& conn) {
             BMCWEB_LOG_DEBUG << "Connection " << &conn << " opened";

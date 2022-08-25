@@ -64,8 +64,8 @@ inline bool fillReport(nlohmann::json& json, const std::string& id,
 
 inline void requestRoutesMetricReportCollection(App& app)
 {
-    BMCWEB_ROUTE(app, "/redfish/v1/TelemetryService/MetricReports/")
-        .privileges(redfish::privileges::getMetricReportCollection)
+    BMCWEB_ROUTE(app, "/redfish/v1/TelemetryService/MetricReports/",
+                 redfish::privileges::getMetricReportCollection)
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
@@ -87,8 +87,8 @@ inline void requestRoutesMetricReportCollection(App& app)
 
 inline void requestRoutesMetricReport(App& app)
 {
-    BMCWEB_ROUTE(app, "/redfish/v1/TelemetryService/MetricReports/<str>/")
-        .privileges(redfish::privileges::getMetricReport)
+    BMCWEB_ROUTE(app, "/redfish/v1/TelemetryService/MetricReports/<str>/",
+                 redfish::privileges::getMetricReport)
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,

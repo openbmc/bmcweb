@@ -75,8 +75,8 @@ inline bool getAssignedPrivFromRole(std::string_view role,
 
 inline void requestRoutesRoles(App& app)
 {
-    BMCWEB_ROUTE(app, "/redfish/v1/AccountService/Roles/<str>/")
-        .privileges(redfish::privileges::getRole)
+    BMCWEB_ROUTE(app, "/redfish/v1/AccountService/Roles/<str>/",
+                 redfish::privileges::getRole)
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -108,8 +108,8 @@ inline void requestRoutesRoles(App& app)
 
 inline void requestRoutesRoleCollection(App& app)
 {
-    BMCWEB_ROUTE(app, "/redfish/v1/AccountService/Roles/")
-        .privileges(redfish::privileges::getRoleCollection)
+    BMCWEB_ROUTE(app, "/redfish/v1/AccountService/Roles/",
+                 redfish::privileges::getRoleCollection)
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
