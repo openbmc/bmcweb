@@ -166,6 +166,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7c7972ca_efd5f224",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 511,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-08-25T17:38:22Z",
+      "side": 1,
+      "message": "I added a nullptr check.",
+      "parentUuid": "310f8b32_70b60af2",
+      "range": {
+        "startLine": 511,
+        "startChar": 13,
+        "endLine": 511,
+        "endChar": 29
+      },
+      "revId": "911517131be4e816743cebc28dcadf99cb47aac3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2258f104_391e89d2",
@@ -203,6 +227,30 @@
       "side": 1,
       "message": "This seems fixed now. If |isLocked \u003d\u003d nullptr|, we won\u0027t go into this branch.",
       "parentUuid": "2258f104_391e89d2",
+      "range": {
+        "startLine": 514,
+        "startChar": 17,
+        "endLine": 514,
+        "endChar": 25
+      },
+      "revId": "911517131be4e816743cebc28dcadf99cb47aac3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "072e4c5d_749c8166",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 514,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-08-25T17:38:22Z",
+      "side": 1,
+      "message": "yep, that was the intent.\n(resolved)",
+      "parentUuid": "5036a072_1005334f",
       "range": {
         "startLine": 514,
         "startChar": 17,
