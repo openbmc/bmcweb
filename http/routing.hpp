@@ -35,6 +35,20 @@ class BaseRule
     explicit BaseRule(const std::string& thisRule) : rule(thisRule)
     {}
 
+    template <size_t N>
+    BaseRule(const std::string& thisRule,
+             const std::array<redfish::Privileges, N>& priv) :
+        rule(thisRule)
+    {
+        privilegesSet.insert(privilegesSet.begin(), priv.begin(), priv.end());
+    }
+
+    BaseRule(const std::string& thisRule,
+             std::vector<redfish::Privileges>& privSet) :
+        privilegesSet(std::move(privSet)),
+        rule(thisRule)
+    {}
+
     virtual ~BaseRule() = default;
 
     BaseRule(const BaseRule&) = delete;
@@ -332,7 +346,9 @@ class WebSocketRule : public BaseRule
     using self_t = WebSocketRule;
 
   public:
-    explicit WebSocketRule(const std::string& ruleIn) : BaseRule(ruleIn)
+    explicit WebSocketRule(const std::string& ruleIn,
+                           std::vector<redfish::Privileges>& privSet) :
+        BaseRule(ruleIn, privSet)
     {}
 
     void validate() override
@@ -417,7 +433,7 @@ struct RuleParameterTraits
     WebSocketRule& websocket()
     {
         self_t* self = static_cast<self_t*>(this);
-        WebSocketRule* p = new WebSocketRule(self->rule);
+        WebSocketRule* p = new WebSocketRule(self->rule, self->privilegesSet);
         self->ruleToUpgrade.reset(p);
         return *p;
     }
@@ -464,28 +480,6 @@ struct RuleParameterTraits
     {
         self_t* self = static_cast<self_t*>(this);
         self->methodsBitfield = 1U << methodNotAllowedIndex;
-        return *self;
-    }
-
-    self_t& privileges(
-        const std::initializer_list<std::initializer_list<const char*>>& p)
-    {
-        self_t* self = static_cast<self_t*>(this);
-        for (const std::initializer_list<const char*>& privilege : p)
-        {
-            self->privilegesSet.emplace_back(privilege);
-        }
-        return *self;
-    }
-
-    template <size_t N, typename... MethodArgs>
-    self_t& privileges(const std::array<redfish::Privileges, N>& p)
-    {
-        self_t* self = static_cast<self_t*>(this);
-        for (const redfish::Privileges& privilege : p)
-        {
-            self->privilegesSet.emplace_back(privilege);
-        }
         return *self;
     }
 };
@@ -571,7 +565,10 @@ class TaggedRule :
   public:
     using self_t = TaggedRule<Args...>;
 
-    explicit TaggedRule(const std::string& ruleIn) : BaseRule(ruleIn)
+    template <size_t N>
+    explicit TaggedRule(const std::string& ruleIn,
+                        const std::array<redfish::Privileges, N>& priv) :
+        BaseRule(ruleIn, priv)
     {}
 
     void validate() override
@@ -1104,13 +1101,14 @@ class Router
         return *ptr;
     }
 
-    template <uint64_t N>
+    template <uint64_t N, size_t M>
     typename black_magic::Arguments<N>::type::template rebind<TaggedRule>&
-        newRuleTagged(const std::string& rule)
+        newRuleTagged(const std::string& rule,
+                      const std::array<redfish::Privileges, M>& priv)
     {
         using RuleT = typename black_magic::Arguments<N>::type::template rebind<
             TaggedRule>;
-        std::unique_ptr<RuleT> ruleObject = std::make_unique<RuleT>(rule);
+        std::unique_ptr<RuleT> ruleObject = std::make_unique<RuleT>(rule, priv);
         RuleT* ptr = ruleObject.get();
         allRules.emplace_back(std::move(ruleObject));
 

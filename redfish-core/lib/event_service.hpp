@@ -47,8 +47,8 @@ static constexpr const uint8_t maxNoOfSubscriptions = 20;
 
 inline void requestRoutesEventService(App& app)
 {
-    BMCWEB_ROUTE(app, "/redfish/v1/EventService/")
-        .privileges(redfish::privileges::getEventService)
+    BMCWEB_ROUTE(app, "/redfish/v1/EventService/",
+                 redfish::privileges::getEventService)
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
@@ -95,8 +95,8 @@ inline void requestRoutesEventService(App& app)
             std::move(supportedSSEFilters);
         });
 
-    BMCWEB_ROUTE(app, "/redfish/v1/EventService/")
-        .privileges(redfish::privileges::patchEventService)
+    BMCWEB_ROUTE(app, "/redfish/v1/EventService/",
+                 redfish::privileges::patchEventService)
         .methods(boost::beast::http::verb::patch)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
@@ -164,8 +164,8 @@ inline void requestRoutesSubmitTestEvent(App& app)
 {
 
     BMCWEB_ROUTE(
-        app, "/redfish/v1/EventService/Actions/EventService.SubmitTestEvent/")
-        .privileges(redfish::privileges::postEventService)
+        app, "/redfish/v1/EventService/Actions/EventService.SubmitTestEvent/",
+        redfish::privileges::postEventService)
         .methods(boost::beast::http::verb::post)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
@@ -185,8 +185,8 @@ inline void requestRoutesSubmitTestEvent(App& app)
 
 inline void requestRoutesEventDestinationCollection(App& app)
 {
-    BMCWEB_ROUTE(app, "/redfish/v1/EventService/Subscriptions/")
-        .privileges(redfish::privileges::getEventDestinationCollection)
+    BMCWEB_ROUTE(app, "/redfish/v1/EventService/Subscriptions/",
+                 redfish::privileges::getEventDestinationCollection)
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
@@ -215,8 +215,8 @@ inline void requestRoutesEventDestinationCollection(App& app)
             memberArray.push_back(std::move(member));
         }
         });
-    BMCWEB_ROUTE(app, "/redfish/v1/EventService/Subscriptions/")
-        .privileges(redfish::privileges::postEventDestinationCollection)
+    BMCWEB_ROUTE(app, "/redfish/v1/EventService/Subscriptions/",
+                 redfish::privileges::postEventDestinationCollection)
         .methods(boost::beast::http::verb::post)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
@@ -485,8 +485,8 @@ inline void requestRoutesEventDestinationCollection(App& app)
 
 inline void requestRoutesEventDestination(App& app)
 {
-    BMCWEB_ROUTE(app, "/redfish/v1/EventService/Subscriptions/<str>/")
-        .privileges(redfish::privileges::getEventDestination)
+    BMCWEB_ROUTE(app, "/redfish/v1/EventService/Subscriptions/<str>/",
+                 redfish::privileges::getEventDestination)
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -533,12 +533,12 @@ inline void requestRoutesEventDestination(App& app)
         }
         asyncResp->res.jsonValue["MetricReportDefinitions"] = mrdJsonArray;
         });
-    BMCWEB_ROUTE(app, "/redfish/v1/EventService/Subscriptions/<str>/")
+    BMCWEB_ROUTE(app, "/redfish/v1/EventService/Subscriptions/<str>/",
+                 redfish::privilegeSetConfigureManager)
         // The below privilege is wrong, it should be ConfigureManager OR
         // ConfigureSelf
         // https://github.com/openbmc/bmcweb/issues/220
         //.privileges(redfish::privileges::patchEventDestination)
-        .privileges({{"ConfigureManager"}})
         .methods(boost::beast::http::verb::patch)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -609,12 +609,12 @@ inline void requestRoutesEventDestination(App& app)
 
         EventServiceManager::getInstance().updateSubscriptionData();
         });
-    BMCWEB_ROUTE(app, "/redfish/v1/EventService/Subscriptions/<str>/")
+    BMCWEB_ROUTE(app, "/redfish/v1/EventService/Subscriptions/<str>/",
+                 redfish::privilegeSetConfigureManager)
         // The below privilege is wrong, it should be ConfigureManager OR
         // ConfigureSelf
         // https://github.com/openbmc/bmcweb/issues/220
         //.privileges(redfish::privileges::deleteEventDestination)
-        .privileges({{"ConfigureManager"}})
         .methods(boost::beast::http::verb::delete_)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,

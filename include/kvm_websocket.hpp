@@ -160,8 +160,8 @@ inline void requestRoutes(App& app)
 {
     sessions.reserve(maxSessions);
 
-    BMCWEB_ROUTE(app, "/kvm/0")
-        .privileges({{"ConfigureComponents", "ConfigureManager"}})
+    BMCWEB_ROUTE(app, "/kvm/0",
+                 redfish::privilegeSetConfigureManagerOrConfigureComponents)
         .websocket()
         .onopen([](crow::websocket::Connection& conn) {
             BMCWEB_LOG_DEBUG << "Connection " << &conn << " opened";
