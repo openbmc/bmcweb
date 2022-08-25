@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6a95ab02_b0ba5fae",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 522,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-08-25T16:43:24Z",
+      "side": 1,
+      "message": "Why does this work? Is it because this points to string literals which are static?",
+      "range": {
+        "startLine": 522,
+        "startChar": 54,
+        "endLine": 522,
+        "endChar": 65
+      },
+      "revId": "a527185f153738e1d8ac46d752b0203a2531c163",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
