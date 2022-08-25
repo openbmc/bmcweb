@@ -504,6 +504,10 @@ inline std::optional<boost::asio::ssl::context> getSSLClientContext()
         return std::nullopt;
     }
 
+// Avoiding strict verification SSL peer certificate. This will be enabled once
+// certificate upload capability is added. Now it will connect to the servers
+// which has self-signed ceritficates.
+#if 0
     // Verify the remote server's certificate
     sslCtx.set_verify_mode(boost::asio::ssl::verify_peer, ec);
     if (ec)
@@ -511,7 +515,7 @@ inline std::optional<boost::asio::ssl::context> getSSLClientContext()
         BMCWEB_LOG_ERROR << "SSL context set_verify_mode failed";
         return std::nullopt;
     }
-
+#endif
     // All cipher suites are set as per OWASP datasheet.
     // https://cheatsheetseries.owasp.org/cheatsheets/TLS_Cipher_String_Cheat_Sheet.html
     constexpr const char* sslCiphers = "ECDHE-ECDSA-AES128-GCM-SHA256:"

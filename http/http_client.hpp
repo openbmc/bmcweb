@@ -125,6 +125,7 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
     std::string subId;
     std::string host;
     uint16_t port;
+    bool useSSL;
     uint32_t connId;
 
     // Retry policy information
@@ -149,6 +150,31 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
     boost::asio::steady_timer timer;
 
     friend class ConnectionPool;
+
+    void setupSSLConn()
+    {
+        if (useSSL)
+        {
+            std::optional<boost::asio::ssl::context> sslCtx =
+                ensuressl::getSSLClientContext();
+
+            if (!sslCtx)
+            {
+                BMCWEB_LOG_ERROR << "prepareSSLContext failed - " << host << ":"
+                                 << port << ", id: " << std::to_string(connId);
+                // Don't retry if failure occurs while preparing SSL context
+                // such as certificate is invalid or set cipher failure or set
+                // host name failure etc... Setting conn state to sslInitFailed
+                // and connection state will be transitioned to next state
+                // depending on retry policy set by subscription.
+                state = ConnState::sslInitFailed;
+                sslConn = std::nullopt;
+                return;
+            }
+            sslConn.emplace(conn, *sslCtx);
+            setCipherSuiteTLSext();
+        }
+    }
 
     void doResolve()
     {
@@ -182,6 +208,16 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
         const std::vector<boost::asio::ip::tcp::endpoint>& endpointList)
     {
         state = ConnState::connectInProgress;
+
+        if (useSSL)
+        {
+            setupSSLConn();
+            if (!sslConn)
+            {
+                waitAndRetry();
+                return;
+            }
+        }
 
         BMCWEB_LOG_DEBUG << "Trying to connect to: " << host << ":"
                          << std::to_string(port)
@@ -559,33 +595,11 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
     explicit ConnectionInfo(boost::asio::io_context& iocIn,
                             const std::string& idIn,
                             const std::string& destIPIn, uint16_t destPortIn,
-                            bool useSSL, unsigned int connIdIn) :
+                            bool useSSLIn, unsigned int connIdIn) :
         subId(idIn),
-        host(destIPIn), port(destPortIn), connId(connIdIn), conn(iocIn),
-        timer(iocIn)
-    {
-        if (useSSL)
-        {
-            std::optional<boost::asio::ssl::context> sslCtx =
-                ensuressl::getSSLClientContext();
-
-            if (!sslCtx)
-            {
-                BMCWEB_LOG_ERROR << "prepareSSLContext failed - " << host << ":"
-                                 << port << ", id: " << std::to_string(connId);
-                // Don't retry if failure occurs while preparing SSL context
-                // such as certificate is invalid or set cipher failure or set
-                // host name failure etc... Setting conn state to sslInitFailed
-                // and connection state will be transitioned to next state
-                // depending on retry policy set by subscription.
-                state = ConnState::sslInitFailed;
-                waitAndRetry();
-                return;
-            }
-            sslConn.emplace(conn, *sslCtx);
-            setCipherSuiteTLSext();
-        }
-    }
+        host(destIPIn), port(destPortIn), useSSL(useSSLIn), connId(connIdIn),
+        conn(iocIn), timer(iocIn)
+    {}
 };
 
 class ConnectionPool : public std::enable_shared_from_this<ConnectionPool>
