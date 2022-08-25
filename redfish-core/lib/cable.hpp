@@ -100,8 +100,8 @@ inline void
  */
 inline void requestRoutesCable(App& app)
 {
-    BMCWEB_ROUTE(app, "/redfish/v1/Cables/<str>/")
-        .privileges(redfish::privileges::getCable)
+    BMCWEB_ROUTE(app, "/redfish/v1/Cables/<str>/",
+                 redfish::privileges::getCable)
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -164,8 +164,8 @@ inline void requestRoutesCable(App& app)
  */
 inline void requestRoutesCableCollection(App& app)
 {
-    BMCWEB_ROUTE(app, "/redfish/v1/Cables/")
-        .privileges(redfish::privileges::getCableCollection)
+    BMCWEB_ROUTE(app, "/redfish/v1/Cables/",
+                 redfish::privileges::getCableCollection)
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {

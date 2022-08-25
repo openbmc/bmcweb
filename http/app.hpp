@@ -24,8 +24,8 @@
 #include <utility>
 
 // NOLINTNEXTLINE(cppcoreguidelines-macro-usage)
-#define BMCWEB_ROUTE(app, url)                                                 \
-    app.template route<crow::black_magic::getParameterTag(url)>(url)
+#define BMCWEB_ROUTE(app, url, priv)                                           \
+    app.template route<crow::black_magic::getParameterTag(url)>(url, priv)
 
 namespace crow
 {
@@ -74,10 +74,11 @@ class App
         return router.newRuleDynamic(rule);
     }
 
-    template <uint64_t Tag>
-    auto& route(std::string&& rule)
+    template <uint64_t Tag, size_t N>
+    auto& route(std::string&& rule,
+                const std::array<redfish::Privileges, N>& priv)
     {
-        return router.newRuleTagged<Tag>(std::move(rule));
+        return router.newRuleTagged<Tag>(std::move(rule), priv);
     }
 
     App& socket(int existingSocket)

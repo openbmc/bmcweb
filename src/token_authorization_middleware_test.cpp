@@ -28,7 +28,7 @@ TEST_F(TokenAuth, SpecialResourcesAreAcceptedWithoutAuth)
 {
     App app(io);
     crow::token_authorization::requestRoutes(app);
-    BMCWEB_ROUTE(app, "/redfish/v1")
+    BMCWEB_ROUTE(app, "/redfish/v1", redfish::privilegeSetNoAuth)
     ([]() { return boost::beast::http::status::ok; });
     auto _ = std::async(std::launch::async, [&] {
         app.port(testPort).run();
@@ -73,7 +73,8 @@ TEST(TokenAuthentication, TestRejectedResource)
 {
     App app;
     app.bindaddr("127.0.0.1").port(45451);
-    BMCWEB_ROUTE(app, "/")([]() { return boost::beast::http::status::ok; });
+    BMCWEB_ROUTE(app, "/", redfish::privilegeSetNoAuth)
+    ([]() { return boost::beast::http::status::ok; });
     auto _ = async(std::launch::async, [&] { app.run(); });
 
     asio::io_context is;
@@ -107,7 +108,8 @@ TEST(TokenAuthentication, TestGetLoginUrl)
 {
     App app;
     app.bindaddr("127.0.0.1").port(45451);
-    BMCWEB_ROUTE(app, "/")([]() { return boost::beast::http::status::ok; });
+    BMCWEB_ROUTE(app, "/", redfish::privilegeSetNoAuth)
+    ([]() { return boost::beast::http::status::ok; });
     auto _ = async(std::launch::async, [&] { app.run(); });
 
     asio::io_context is;
@@ -141,7 +143,8 @@ TEST(TokenAuthentication, TestPostBadLoginUrl)
 {
     App app;
     app.bindaddr("127.0.0.1").port(45451);
-    BMCWEB_ROUTE(app, "/")([]() { return boost::beast::http::status::ok; });
+    BMCWEB_ROUTE(app, "/", redfish::privilegeSetNoAuth)
+    ([]() { return boost::beast::http::status::ok; });
     auto _ = async(std::launch::async, [&] { app.run(); });
 
     asio::io_context is;
@@ -231,7 +234,8 @@ TEST(TokenAuthentication, TestSuccessfulLogin)
 {
     App app;
     app.bindaddr("127.0.0.1").port(45451);
-    BMCWEB_ROUTE(app, "/")([]() { return boost::beast::http::status::ok; });
+    BMCWEB_ROUTE(app, "/", redfish::privilegeSetNoAuth)
+    ([]() { return boost::beast::http::status::ok; });
     auto _ = async(std::launch::async, [&] { app.run(); });
 
     asio::io_context is;

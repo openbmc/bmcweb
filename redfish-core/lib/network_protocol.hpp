@@ -467,8 +467,8 @@ inline std::string encodeServiceObjectPath(const std::string& serviceName)
 
 inline void requestRoutesNetworkProtocol(App& app)
 {
-    BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/NetworkProtocol/")
-        .privileges(redfish::privileges::patchManagerNetworkProtocol)
+    BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/NetworkProtocol/",
+                 redfish::privileges::patchManagerNetworkProtocol)
         .methods(boost::beast::http::verb::patch)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
@@ -537,8 +537,8 @@ inline void requestRoutesNetworkProtocol(App& app)
         }
         });
 
-    BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/NetworkProtocol/")
-        .privileges(redfish::privileges::getManagerNetworkProtocol)
+    BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/NetworkProtocol/",
+                 redfish::privileges::getManagerNetworkProtocol)
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {

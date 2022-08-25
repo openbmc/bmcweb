@@ -45,7 +45,9 @@ TEST(Router, AllowHeader)
     EXPECT_EQ(router.findRoute(req).allowHeader, "");
     EXPECT_EQ(router.findRoute(req).route.rule, nullptr);
 
-    router.newRuleTagged<getParameterTag(url)>(std::string(url))
+    router
+        .newRuleTagged<getParameterTag(url)>(std::string(url),
+                                             redfish::privilegeSetNoAuth)
         .methods(boost::beast::http::verb::get)(nullCallback);
     router.validate();
     EXPECT_EQ(router.findRoute(req).allowHeader, "GET");
@@ -54,7 +56,9 @@ TEST(Router, AllowHeader)
     Request patchReq{{boost::beast::http::verb::patch, url, 11}, ec};
     EXPECT_EQ(router.findRoute(patchReq).route.rule, nullptr);
 
-    router.newRuleTagged<getParameterTag(url)>(std::string(url))
+    router
+        .newRuleTagged<getParameterTag(url)>(std::string(url),
+                                             redfish::privilegeSetNoAuth)
         .methods(boost::beast::http::verb::patch)(nullCallback);
     router.validate();
     EXPECT_EQ(router.findRoute(req).allowHeader, "GET, PATCH");

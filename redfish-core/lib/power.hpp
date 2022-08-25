@@ -118,8 +118,8 @@ inline void setPowerCapOverride(
 inline void requestRoutesPower(App& app)
 {
 
-    BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/Power/")
-        .privileges(redfish::privileges::getPower)
+    BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/Power/",
+                 redfish::privileges::getPower)
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -305,8 +305,8 @@ inline void requestRoutesPower(App& app)
                 "xyz.openbmc_project.Inventory.Item.Chassis"});
         });
 
-    BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/Power/")
-        .privileges(redfish::privileges::patchPower)
+    BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/Power/",
+                 redfish::privileges::patchPower)
         .methods(boost::beast::http::verb::patch)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
