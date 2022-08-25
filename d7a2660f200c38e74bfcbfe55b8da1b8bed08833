@@ -46,6 +46,29 @@
       },
       "revId": "d7a2660f200c38e74bfcbfe55b8da1b8bed08833",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "76fc5aca_8381be80",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 385,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-25T19:31:33Z",
+      "side": 1,
+      "message": "Continues to not be fixed.",
+      "range": {
+        "startLine": 385,
+        "startChar": 12,
+        "endLine": 385,
+        "endChar": 32
+      },
+      "revId": "d7a2660f200c38e74bfcbfe55b8da1b8bed08833",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
