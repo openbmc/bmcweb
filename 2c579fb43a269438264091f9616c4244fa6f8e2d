@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "33d1ef52_40d4c3de",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-25T14:36:05Z",
+      "side": 1,
+      "message": "This isn\u0027t true.  Examples of some routes without privileges assigned:\n\nhttps://github.com/openbmc/bmcweb/blob/0442ef92689d7719c89474a4fc81fbdaca7a4a96/redfish-core/lib/redfish_v1.hpp#L126\n\n\nThat\u0027s not to say I\u0027m against this patch, but lets get the commit message to be accurate.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 59
+      },
+      "revId": "2c579fb43a269438264091f9616c4244fa6f8e2d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
