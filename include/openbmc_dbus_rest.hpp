@@ -2422,8 +2422,7 @@ inline void
 
 inline void requestRoutes(App& app)
 {
-    BMCWEB_ROUTE(app, "/bus/")
-        .privileges({{"Login"}})
+    BMCWEB_ROUTE(app, "/bus/", redfish::privilegeSetLogin)
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
@@ -2434,8 +2433,7 @@ inline void requestRoutes(App& app)
         asyncResp->res.jsonValue["status"] = "ok";
         });
 
-    BMCWEB_ROUTE(app, "/bus/system/")
-        .privileges({{"Login"}})
+    BMCWEB_ROUTE(app, "/bus/system/", redfish::privilegeSetLogin)
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
@@ -2465,16 +2463,14 @@ inline void requestRoutes(App& app)
             "org.freedesktop.DBus", "ListNames");
         });
 
-    BMCWEB_ROUTE(app, "/list/")
-        .privileges({{"Login"}})
+    BMCWEB_ROUTE(app, "/list/", redfish::privilegeSetLogin)
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
         handleList(asyncResp, "/");
         });
 
-    BMCWEB_ROUTE(app, "/xyz/<path>")
-        .privileges({{"Login"}})
+    BMCWEB_ROUTE(app, "/xyz/<path>", redfish::privilegeSetLogin)
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request& req,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -2483,8 +2479,8 @@ inline void requestRoutes(App& app)
         handleDBusUrl(req, asyncResp, objectPath);
         });
 
-    BMCWEB_ROUTE(app, "/xyz/<path>")
-        .privileges({{"ConfigureComponents", "ConfigureManager"}})
+    BMCWEB_ROUTE(app, "/xyz/<path>",
+                 redfish::privilegeSetConfigureManagerOrConfigureComponents)
         .methods(boost::beast::http::verb::put, boost::beast::http::verb::post,
                  boost::beast::http::verb::delete_)(
             [](const crow::Request& req,
@@ -2494,8 +2490,7 @@ inline void requestRoutes(App& app)
         handleDBusUrl(req, asyncResp, objectPath);
         });
 
-    BMCWEB_ROUTE(app, "/org/<path>")
-        .privileges({{"Login"}})
+    BMCWEB_ROUTE(app, "/org/<path>", redfish::privilegeSetLogin)
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request& req,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -2504,8 +2499,8 @@ inline void requestRoutes(App& app)
         handleDBusUrl(req, asyncResp, objectPath);
         });
 
-    BMCWEB_ROUTE(app, "/org/<path>")
-        .privileges({{"ConfigureComponents", "ConfigureManager"}})
+    BMCWEB_ROUTE(app, "/org/<path>",
+                 redfish::privilegeSetConfigureManagerOrConfigureComponents)
         .methods(boost::beast::http::verb::put, boost::beast::http::verb::post,
                  boost::beast::http::verb::delete_)(
             [](const crow::Request& req,
@@ -2515,8 +2510,8 @@ inline void requestRoutes(App& app)
         handleDBusUrl(req, asyncResp, objectPath);
         });
 
-    BMCWEB_ROUTE(app, "/download/dump/<str>/")
-        .privileges({{"ConfigureManager"}})
+    BMCWEB_ROUTE(app, "/download/dump/<str>/",
+                 redfish::privilegeSetConfigureManager)
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -2579,9 +2574,7 @@ inline void requestRoutes(App& app)
         return;
         });
 
-    BMCWEB_ROUTE(app, "/bus/system/<str>/")
-        .privileges({{"Login"}})
-
+    BMCWEB_ROUTE(app, "/bus/system/<str>/", redfish::privilegeSetLogin)
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -2589,8 +2582,8 @@ inline void requestRoutes(App& app)
         introspectObjects(connection, "/", asyncResp);
         });
 
-    BMCWEB_ROUTE(app, "/bus/system/<str>/<path>")
-        .privileges({{"ConfigureComponents", "ConfigureManager"}})
+    BMCWEB_ROUTE(app, "/bus/system/<str>/<path>",
+                 redfish::privilegeSetConfigureManagerOrConfigureComponents)
         .methods(boost::beast::http::verb::get,
                  boost::beast::http::verb::post)(handleBusSystemPost);
 }
