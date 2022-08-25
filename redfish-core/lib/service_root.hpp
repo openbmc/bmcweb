@@ -109,12 +109,10 @@ inline void
 
 inline void requestRoutesServiceRoot(App& app)
 {
-    BMCWEB_ROUTE(app, "/redfish/v1/")
-        .privileges(redfish::privileges::headServiceRoot)
+    BMCWEB_ROUTE(app, "/redfish/v1/", redfish::privileges::headServiceRoot)
         .methods(boost::beast::http::verb::head)(
             std::bind_front(handleServiceRootHead, std::ref(app)));
-    BMCWEB_ROUTE(app, "/redfish/v1/")
-        .privileges(redfish::privileges::getServiceRoot)
+    BMCWEB_ROUTE(app, "/redfish/v1/", redfish::privileges::getServiceRoot)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handleServiceRootGet, std::ref(app)));
 }

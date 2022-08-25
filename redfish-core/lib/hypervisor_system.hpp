@@ -728,8 +728,8 @@ inline void requestRoutesHypervisorSystems(App& app)
      * Hypervisor Systems derived class for delivering Computer Systems Schema.
      */
 
-    BMCWEB_ROUTE(app, "/redfish/v1/Systems/hypervisor/")
-        .privileges(redfish::privileges::getComputerSystem)
+    BMCWEB_ROUTE(app, "/redfish/v1/Systems/hypervisor/",
+                 redfish::privileges::getComputerSystem)
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
@@ -778,8 +778,8 @@ inline void requestRoutesHypervisorSystems(App& app)
      * Hypervisor Interface
      */
 
-    BMCWEB_ROUTE(app, "/redfish/v1/Systems/hypervisor/EthernetInterfaces/")
-        .privileges(redfish::privileges::getEthernetInterfaceCollection)
+    BMCWEB_ROUTE(app, "/redfish/v1/Systems/hypervisor/EthernetInterfaces/",
+                 redfish::privileges::getEthernetInterfaceCollection)
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
@@ -835,8 +835,8 @@ inline void requestRoutesHypervisorSystems(App& app)
         });
 
     BMCWEB_ROUTE(app,
-                 "/redfish/v1/Systems/hypervisor/EthernetInterfaces/<str>/")
-        .privileges(redfish::privileges::getEthernetInterface)
+                 "/redfish/v1/Systems/hypervisor/EthernetInterfaces/<str>/",
+                 redfish::privileges::getEthernetInterface)
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -867,8 +867,8 @@ inline void requestRoutesHypervisorSystems(App& app)
         });
 
     BMCWEB_ROUTE(app,
-                 "/redfish/v1/Systems/hypervisor/EthernetInterfaces/<str>/")
-        .privileges(redfish::privileges::patchEthernetInterface)
+                 "/redfish/v1/Systems/hypervisor/EthernetInterfaces/<str>/",
+                 redfish::privileges::patchEthernetInterface)
         .methods(boost::beast::http::verb::patch)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -984,8 +984,8 @@ inline void requestRoutesHypervisorSystems(App& app)
         asyncResp->res.result(boost::beast::http::status::accepted);
         });
 
-    BMCWEB_ROUTE(app, "/redfish/v1/Systems/hypervisor/ResetActionInfo/")
-        .privileges(redfish::privileges::getActionInfo)
+    BMCWEB_ROUTE(app, "/redfish/v1/Systems/hypervisor/ResetActionInfo/",
+                 redfish::privileges::getActionInfo)
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
@@ -1050,8 +1050,8 @@ inline void requestRoutesHypervisorSystems(App& app)
         });
 
     BMCWEB_ROUTE(app,
-                 "/redfish/v1/Systems/hypervisor/Actions/ComputerSystem.Reset/")
-        .privileges(redfish::privileges::postComputerSystem)
+                 "/redfish/v1/Systems/hypervisor/Actions/ComputerSystem.Reset/",
+                 redfish::privileges::postComputerSystem)
         .methods(boost::beast::http::verb::post)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
