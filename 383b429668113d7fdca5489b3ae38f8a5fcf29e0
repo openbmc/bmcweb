@@ -22,6 +22,30 @@
       },
       "revId": "383b429668113d7fdca5489b3ae38f8a5fcf29e0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4b8e38d3_c621ffb9",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 47
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-08-26T21:46:12Z",
+      "side": 1,
+      "message": "this is not needed since it will return if it goes inside the function.",
+      "parentUuid": "3a2c6467_e34d10df",
+      "range": {
+        "startLine": 179,
+        "startChar": 4,
+        "endLine": 179,
+        "endChar": 7
+      },
+      "revId": "383b429668113d7fdca5489b3ae38f8a5fcf29e0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
