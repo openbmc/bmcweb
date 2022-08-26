@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "43560e8a_ef33c294",
         "filename": "/COMMIT_MSG",
@@ -20,10 +21,27 @@
         "endChar": 16
       },
       "revId": "fea4ce3e39087e05a8238401fc89c08700bba770",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9f664056_902cfa72",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001084
+      },
+      "writtenOn": "2022-08-26T04:58:26Z",
+      "side": 1,
+      "message": "Do we need this change any more? \n\nSeems like this is already taken care of in the following commit by Krzysztof Grobelny:\nbc1d29de\n\nGunner, Ed - Any thoughts?",
+      "revId": "fea4ce3e39087e05a8238401fc89c08700bba770",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "006fadbd_1ab7bc7c",
         "filename": "redfish-core/lib/systems.hpp",
@@ -43,10 +61,10 @@
         "endChar": 41
       },
       "revId": "fea4ce3e39087e05a8238401fc89c08700bba770",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "5e0fb83f_5d71314e",
         "filename": "redfish-core/lib/systems.hpp",
@@ -60,8 +78,7 @@
       "side": 1,
       "message": "I pointed this out in the first patch, which I\u0027m regretting a little bit not following up on, because clearly this caused a bug.\n\nLets write the code like this:\n\nif (coreCount.is_null()){\n    coreCount \u003d 0U;\n}\nuint64_t* coreCountPtr \u003d coreCount.get_ptr\u003cuint64_t*\u003e();\nif (coreCountPtr \u003d\u003d nullptr)\n{\n      internalError();\n}\n\n*coreCountPtr +\u003d *coreCountVal;\n\n\n\nThat way, we\u0027re not taking a special case path for the single core case, and it\u0027s very obvious (via the internal error) if something goes wrong.\n\nAlso, I\u0027ve left things as unsigned, because the existing interface is unsigned, so I\u0027d like to keep aligned on that.\n\nDoes the above work for you?",
       "revId": "fea4ce3e39087e05a8238401fc89c08700bba770",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
