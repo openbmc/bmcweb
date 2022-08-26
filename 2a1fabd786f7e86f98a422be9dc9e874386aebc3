@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "80333232_9b21f429",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001093
+      },
+      "writtenOn": "2022-08-26T13:59:58Z",
+      "side": 1,
+      "message": "We have tested this change with our multihost system including the multi host systems patch:\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/52075\n\nI believe the errors reported are related to the platform specific to us\nrather than the bmcweb framework functionality.\n \nThe following is the summary of service validator\n```\n5 err.ComputerSystem.ComputerSystem errors in /redfish/v1/Systems\n5 failMandatoryProp errors in /redfish/v1/Systems\n1 failGet errors in /redfish/v1/Systems/system\n1 failGet errors in /redfish/v1/Systems/system2\n1 failGet errors in /redfish/v1/Systems/system3\n1 failGet errors in /redfish/v1/Systems/system4\n1 err.ComputerSystem.ComputerSystem errors in /redfish/v1/Chassis/Yosemite_V2_Baseboard\n1 err.Power.Power errors in /redfish/v1/Chassis/Yosemite_V2_Baseboard\n2 failProp errors in /redfish/v1/Chassis/Yosemite_V2_Baseboard\n1 failGet errors in /redfish/v1/Chassis/Yosemite_V2_Baseboard/Power\n1 err.ComputerSystem.ComputerSystem errors in /redfish/v1/Managers/bmc\n1 failProp errors in /redfish/v1/Managers/bmc\nerr.ComputerSystem.ComputerSystem: 7   \nerr.Power.Power: 1   \nfailGet: 5   \nfailMandatoryProp: 5   \nfailProp: 3   \ninvalidPropertyValue: 1   \nmetadataNamespaces: 2405   \npass: 4975   \npassAction: 7   \npassGet: 186   \npassRedfishUri: 167   \nreflink: 1   \nrepeat: 6   \nskipNoSchema: 3   \nskipOptional: 3360   \nunvalidated: 5   \nwarnAllowHeader: 1   \nwarnDeprecated: 4   \nwarningPresent: 8   \nValidation has failed: 13 problems found\n```",
+      "revId": "2a1fabd786f7e86f98a422be9dc9e874386aebc3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
