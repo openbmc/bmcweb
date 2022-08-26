@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "48d981a5_9444a4a7",
+        "filename": "include/google/google_nvme_log.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1000857
+      },
+      "writtenOn": "2022-08-26T17:18:13Z",
+      "side": 1,
+      "message": "GetLogPage?",
+      "range": {
+        "startLine": 115,
+        "startChar": 57,
+        "endLine": 115,
+        "endChar": 60
+      },
+      "revId": "03a44c5ccfb8ecf7c93de8803521cd6137c8df04",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "35944fcb_d376c166",
+        "filename": "include/google/google_nvme_log.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1000857
+      },
+      "writtenOn": "2022-08-26T17:18:13Z",
+      "side": 1,
+      "message": "If this is controllerCollection, you need to link to StorageController.",
+      "range": {
+        "startLine": 128,
+        "startChar": 59,
+        "endLine": 128,
+        "endChar": 66
+      },
+      "revId": "03a44c5ccfb8ecf7c93de8803521cd6137c8df04",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e982f7f2_6e6c8aba",
+        "filename": "include/google/google_nvme_log.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 1000857
+      },
+      "writtenOn": "2022-08-26T17:18:13Z",
+      "side": 1,
+      "message": "I would suggest we remain the same resource structure as Redfish, i.e. /redfish/v1/Storage/{StorageId}/Controllers/{ControllerId} -\u003e /google/v1/nvme/{subsys}/Controllers/{controller}",
+      "range": {
+        "startLine": 237,
+        "startChar": 20,
+        "endLine": 237,
+        "endChar": 53
+      },
+      "revId": "03a44c5ccfb8ecf7c93de8803521cd6137c8df04",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
