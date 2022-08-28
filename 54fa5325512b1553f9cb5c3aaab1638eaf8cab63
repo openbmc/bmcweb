@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b005b58b_ed144fd7",
+        "filename": "include/multipart_parser.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-28T19:27:24Z",
+      "side": 1,
+      "message": "Style thing, because we have to break this into two lines anyway, can we just write it as\n\nParserError ec \u003d processPartData(buffer, i, c);\nif (ec !\u003d ParserError::PARSER_SUCCESS){\n....\n\nI don\u0027t think there\u0027s anything gained here by ensuring that ec is in a new scope.",
+      "range": {
+        "startLine": 205,
+        "startChar": 0,
+        "endLine": 206,
+        "endChar": 58
+      },
+      "revId": "54fa5325512b1553f9cb5c3aaab1638eaf8cab63",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1d54f23e_7d1be70e",
         "filename": "include/multipart_parser.hpp",
         "patchSetId": 1
