@@ -93,6 +93,30 @@
       },
       "revId": "d7a2660f200c38e74bfcbfe55b8da1b8bed08833",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a4c7a5c2_cf332375",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 385,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-28T17:19:03Z",
+      "side": 1,
+      "message": "\u003e Ed, I did checked the SSE documentation (W3C) and also googled, i don\u0027t see differentiating factor in request with Normal GET request vs SSE GET request?\n\nWhich documents did you look at?  Please link them.\n\n\u003e So other than URL itself, I don\u0027t see any request header(or some other) which can differentiate between Normal Vs SSE GET request. \n\u003e \n\u003e Websocket connections will have authorization header for identify and upgrade connection. But SSE, I can see only URL itself for identification. So used it. Did you come across any other way? Can you please suggest, if any?\n\nThe problem isn\u0027t that you used the URL, it\u0027s that you hardcoded ONE SPECIFIC url outside of the router.  The whole point of the router abstraction is to find a handler for a url, and there\u0027s where I\u0027d like the routes kept for abstraction purposes, otherwise, this causes a hard dependency on the http layer for all possible protocols (redfish, rest-dbus, ect) which doesn\u0027t scale.",
+      "parentUuid": "deff07c1_dc1c1792",
+      "range": {
+        "startLine": 385,
+        "startChar": 12,
+        "endLine": 385,
+        "endChar": 32
+      },
+      "revId": "d7a2660f200c38e74bfcbfe55b8da1b8bed08833",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
