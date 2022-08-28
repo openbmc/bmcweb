@@ -52,6 +52,24 @@
       "parentUuid": "1d2f0a86_f2db9d9f",
       "revId": "161ae5da8cdf7efccf9e579aaf0af6dcceda54ba",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d4fe552a_914854b4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-28T17:28:50Z",
+      "side": 1,
+      "message": "https://gerrit.openbmc.org/c/openbmc/openbmc/+/56708\n\nWill update to 1.80 in the very near future.  I didn\u0027t see a good reason to check in 1.79, then immediately change it to 1.80 when the rebase happens.",
+      "parentUuid": "85193dd7_66266aaa",
+      "revId": "161ae5da8cdf7efccf9e579aaf0af6dcceda54ba",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
