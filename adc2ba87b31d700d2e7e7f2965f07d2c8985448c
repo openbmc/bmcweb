@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ad5ae9f_a19235f9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-28T17:37:09Z",
+      "side": 1,
+      "message": "As written, this patch\nA. doesn\u0027t meet the intent of the redifsh spec.  See discussion on the github about what VerifyCertificate is supposed to represent for more details.\nB. Causes a security issue.  SSL verification is set by a user per-subscription, but the connection pooling is currently global for all of bmcweb, so a simple way to bypass verification would be\n\n1. Create a subscription with VerifyCertificate \u003d false\n2. Send a test event.\n3. Create a subscription to the same url with VerifyCertificate \u003d true\n4. send a test event.\n\nThe second event will be sent without certificate verification, which a security problem.",
+      "revId": "adc2ba87b31d700d2e7e7f2965f07d2c8985448c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
