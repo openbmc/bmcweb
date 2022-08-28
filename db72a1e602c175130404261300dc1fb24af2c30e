@@ -34,6 +34,24 @@
       "parentUuid": "76989bf0_120cb5bd",
       "revId": "db72a1e602c175130404261300dc1fb24af2c30e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bda9a0bc_bf850d6f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-28T21:57:01Z",
+      "side": 1,
+      "message": "Question answered.",
+      "parentUuid": "0bbc2b89_211de222",
+      "revId": "db72a1e602c175130404261300dc1fb24af2c30e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
