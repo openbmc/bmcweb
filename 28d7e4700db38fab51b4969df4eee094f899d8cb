@@ -96,6 +96,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "f12f112c_ab19a147",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-28T17:38:03Z",
+      "side": 1,
+      "message": "\u003e Agree with your point. I modified the http client code in such a way that its passed from caller to http client and so that http client code is clean.\n\u003e \n\u003e Add code in EventService to pass VerifyCertificate to client. In Event service code, Its set to default value as per redfish schema description.\n\nI\u0027ve discussed with DMTF, what\u0027s implemented here is not the intent of that parameter.  Please see the discussion on the Redfish repo for more information.",
+      "parentUuid": "b2e92bcd_ca3c405e",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 56
+      },
+      "revId": "28d7e4700db38fab51b4969df4eee094f899d8cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "978ba506_79eea537",
