@@ -264,6 +264,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "18956a12_fbadbb28",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-28T22:01:35Z",
+      "side": 1,
+      "message": "Can\u0027t this just be\n\nif (sslConn){\n   setupSSLConn();\n}\n\nand omit the useSSL variable entirely?",
+      "parentUuid": "42cfb1cf_55af3933",
+      "range": {
+        "startLine": 215,
+        "startChar": 0,
+        "endLine": 219,
+        "endChar": 13
+      },
+      "revId": "28d7e4700db38fab51b4969df4eee094f899d8cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "dbdb9fe2_cdde84c6",
         "filename": "include/ssl_key_handler.hpp",
         "patchSetId": 1
