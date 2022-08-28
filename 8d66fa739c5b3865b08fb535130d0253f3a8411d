@@ -123,6 +123,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "922eeb3c_1c4db6d2",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 3067,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-28T17:39:42Z",
+      "side": 1,
+      "message": "\u003e Since we support PCIe devices on a per host basis in a multi-host configuration, wouldn\u0027t this function also need to pass computerSystemIndex?\n\n+1 ACK\n \n\u003e  There are some PCIe devices such as the NIC which can be shared, but some expansion cards are attached to a particular host in the multi-host environment.\n\nThis does require some abstraction.",
+      "parentUuid": "6d9528d5_270b51e4",
+      "revId": "8d66fa739c5b3865b08fb535130d0253f3a8411d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "36a0be73_f6937ba1",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 19
