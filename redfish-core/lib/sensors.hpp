@@ -993,6 +993,12 @@ inline void objectPropertiesToJson(
                     << "Got value interface that wasn't int or double";
                 continue;
             }
+            if (!std::isfinite(*doubleValue))
+            {
+                BMCWEB_LOG_WARNING << "Sensor value for " << valueName
+                                   << " was unexpectedly NAN, or inf";
+                continue;
+            }
             if (forceToInt)
             {
                 sensorJson[key] = static_cast<int64_t>(*doubleValue);
