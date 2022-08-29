@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "021d06ac_45e8f862",
+        "filename": "redfish-core/src/error_messages.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 893,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-08-29T20:55:12Z",
+      "side": 0,
+      "message": "This status doesn\u0027t look correct but don\u0027t we still want a status here?",
+      "revId": "8298098ffbe8316ea82a2d3178267054fea56b0c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
