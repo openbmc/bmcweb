@@ -150,19 +150,25 @@ inline void requestRoutesRedfish(App& app)
             std::bind_front(redfishGet, std::ref(app)));
 
     BMCWEB_ROUTE(app, "/redfish/v1/JsonSchemas/<str>/")
+        .privileges(redfish::privileges::getJsonSchemaFileCollection)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(jsonSchemaGet, std::ref(app)));
 
     BMCWEB_ROUTE(app, "/redfish/v1/JsonSchemas/")
+        .privileges(redfish::privileges::getJsonSchemaFile)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(jsonSchemaIndexGet, std::ref(app)));
 
     // Note, this route must always be registered last
     BMCWEB_ROUTE(app, "/redfish/<path>")
-        .notFound()(std::bind_front(redfish404, std::ref(app)));
+        .notFound()
+        .privileges(redfish::privileges::privilegeSetLogin)(
+            std::bind_front(redfish404, std::ref(app)));
 
     BMCWEB_ROUTE(app, "/redfish/<path>")
-        .methodNotAllowed()(std::bind_front(redfish405, std::ref(app)));
+        .methodNotAllowed()
+        .privileges(redfish::privileges::privilegeSetLogin)(
+            std::bind_front(redfish405, std::ref(app)));
 }
 
 } // namespace redfish
