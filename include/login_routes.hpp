@@ -24,6 +24,7 @@ inline void requestRoutes(App& app)
         .methods(boost::beast::http::verb::post)(
             [](const crow::Request& req,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+        MultipartParser parser;
         std::string_view contentType = req.getHeaderValue("content-type");
         std::string_view username;
         std::string_view password;
@@ -119,7 +120,6 @@ inline void requestRoutes(App& app)
         else if (contentType.starts_with("multipart/form-data"))
         {
             looksLikePhosphorRest = true;
-            MultipartParser parser;
             ParserError ec = parser.parse(req);
             if (ec != ParserError::PARSER_SUCCESS)
             {
