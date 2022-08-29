@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "82bcfd45_751de9fc",
+        "filename": "redfish-core/lib/ut/log_services_dump_test.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-08-29T23:26:11Z",
+      "side": 1,
+      "message": "Thanks for adding unit tests",
+      "range": {
+        "startLine": 17,
+        "startChar": 5,
+        "endLine": 17,
+        "endChar": 36
+      },
+      "revId": "400e5a70643e9008b2c03179dcc79df082a5c5df",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
