@@ -16,6 +16,24 @@
       "message": "This status doesn\u0027t look correct but don\u0027t we still want a status here?",
       "revId": "8298098ffbe8316ea82a2d3178267054fea56b0c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3ed9a518_354614f2",
+        "filename": "redfish-core/src/error_messages.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 893,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-29T21:29:33Z",
+      "side": 0,
+      "message": "Yeah, I messed this up in the change to operationNotAllowed.\n\nDone.",
+      "parentUuid": "021d06ac_45e8f862",
+      "revId": "8298098ffbe8316ea82a2d3178267054fea56b0c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
