@@ -1,0 +1,8 @@
+Code-Review+2: Ed Tanous <ed@tanous.net>
+Code-Review+1: Shawn McCarney <shawnmm@us.ibm.com>
+Verified+1: OpenBMC CI <openbmcbump-ci@yahoo.com>
+Submitted-by: Ed Tanous <ed@tanous.net>
+Submitted-at: Mon, 29 Aug 2022 16:24:26 +0000
+Reviewed-on: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/56407
+Project: openbmc/bmcweb
+Branch: refs/heads/master
