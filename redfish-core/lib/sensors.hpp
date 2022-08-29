@@ -24,6 +24,8 @@
 #include <query.hpp>
 #include <registries/privilege_registry.hpp>
 #include <sdbusplus/asio/property.hpp>
+#include <sdbusplus/unpack_properties.hpp>
+#include <utils/dbus_utils.hpp>
 #include <utils/json_utils.hpp>
 #include <utils/query_param.hpp>
 
@@ -1122,22 +1124,36 @@ inline void populateFanRedundancy(
                 {
                     return;
                 }
-                crow::connections::systemBus->async_method_call(
+                sdbusplus::asio::getAllProperties(
+                    *crow::connections::systemBus, owner, path,
+                    "xyz.openbmc_project.Control.FanRedundancy",
                     [path, sensorsAsyncResp](
                         const boost::system::error_code& err,
-                        const std::map<std::string,
-                                       dbus::utility::DbusVariantType>& ret) {
+                        const dbus::utility::DBusPropertiesMap& ret) {
                     if (err)
                     {
                         return; // don't have to have this
                                 // interface
                     }
-                    auto findFailures = ret.find("AllowedFailures");
-                    auto findCollection = ret.find("Collection");
-                    auto findStatus = ret.find("Status");
 
-                    if (findFailures == ret.end() ||
-                        findCollection == ret.end() || findStatus == ret.end())
+                    const uint8_t* allowedFailures = nullptr;
+                    const std::vector<std::string>* collection = nullptr;
+                    const std::string* status = nullptr;
+
+                    const bool success = sdbusplus::unpackPropertiesNoThrow(
+                        dbus_utils::UnpackErrorPrinter(), ret,
+                        "AllowedFailures", allowedFailures, "Collection",
+                        collection, "Status", status);
+
+                    if (!success)
+                    {
+                        messages::internalError(
+                            sensorsAsyncResp->asyncResp->res);
+                        return;
+                    }
+
+                    if (allowedFailures == nullptr || collection == nullptr ||
+                        status == nullptr)
                     {
                         BMCWEB_LOG_ERROR << "Invalid redundancy interface";
                         messages::internalError(
@@ -1145,24 +1161,6 @@ inline void populateFanRedundancy(
                         return;
                     }
 
-                    const uint8_t* allowedFailures =
-                        std::get_if<uint8_t>(&(findFailures->second));
-                    const std::vector<std::string>* collection =
-                        std::get_if<std::vector<std::string>>(
-                            &(findCollection->second));
-                    const std::string* status =
-                        std::get_if<std::string>(&(findStatus->second));
-
-                    if (allowedFailures == nullptr || collection == nullptr ||
-                        status == nullptr)
-                    {
-
-                        BMCWEB_LOG_ERROR
-                            << "Invalid redundancy interface types";
-                        messages::internalError(
-                            sensorsAsyncResp->asyncResp->res);
-                        return;
-                    }
                     sdbusplus::message::object_path objectPath(path);
                     std::string name = objectPath.filename();
                     if (name.empty())
@@ -1247,9 +1245,7 @@ inline void populateFanRedundancy(
                     redundancy["Status"]["State"] = "Enabled";
 
                     jResp.push_back(std::move(redundancy));
-                    },
-                    owner, path, "org.freedesktop.DBus.Properties", "GetAll",
-                    "xyz.openbmc_project.Control.FanRedundancy");
+                    });
                 });
         }
         },
