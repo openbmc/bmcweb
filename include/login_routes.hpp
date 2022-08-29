@@ -25,8 +25,8 @@ inline void requestRoutes(App& app)
             [](const crow::Request& req,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
         std::string_view contentType = req.getHeaderValue("content-type");
-        std::string_view username;
-        std::string_view password;
+        std::string username;
+        std::string password;
 
         bool looksLikePhosphorRest = false;
 
