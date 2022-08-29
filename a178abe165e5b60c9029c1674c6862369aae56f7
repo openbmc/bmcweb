@@ -274,6 +274,30 @@
       },
       "revId": "a178abe165e5b60c9029c1674c6862369aae56f7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1911dc2b_6acf52a6",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 1929,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-08-29T16:47:00Z",
+      "side": 1,
+      "message": "So if bmcweb is up before  xyz.openbmc_project.State.BMC, the user would see Enabled.. But when xyz.openbmc_project.State.BMC comes up, the user would then see \"Starting\" / \"Quiesced\" / \"Enabled\" based now on the information coming from xyz.openbmc_project.State.BMC.. so yes, it could go from \"Enabled\" to \"Quiesced\" but that seems reasonable to me based on the old behavior and what we want here.",
+      "parentUuid": "687f3812_af0bf599",
+      "range": {
+        "startLine": 1928,
+        "startChar": 0,
+        "endLine": 1929,
+        "endChar": 60
+      },
+      "revId": "a178abe165e5b60c9029c1674c6862369aae56f7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
