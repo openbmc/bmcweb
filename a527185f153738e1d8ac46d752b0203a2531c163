@@ -22,6 +22,30 @@
       },
       "revId": "a527185f153738e1d8ac46d752b0203a2531c163",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ebb8981e_f200a4cf",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 522,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-29T16:21:57Z",
+      "side": 1,
+      "message": "Yes, that\u0027s why it works.  The old code used a capture by span\u003cstring_view\u003e as well.\n\nhttps://github.com/openbmc/bmcweb/blob/86d89ed7ad605b0f7dbe2c11200363fd34c6364c/redfish-core/lib/sensors.hpp#L286\n\nwhich is why this does it.  With that said, this is certainly a place to be improved to use an owning object, even if it\u0027s a copy;  I can take a look at it in another patch.",
+      "parentUuid": "6a95ab02_b0ba5fae",
+      "range": {
+        "startLine": 522,
+        "startChar": 54,
+        "endLine": 522,
+        "endChar": 65
+      },
+      "revId": "a527185f153738e1d8ac46d752b0203a2531c163",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
