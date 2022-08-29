@@ -33,6 +33,7 @@
 
 #include <cmath>
 #include <iterator>
+#include <limits>
 #include <map>
 #include <set>
 #include <utility>
@@ -998,6 +999,20 @@ inline void objectPropertiesToJson(
             if (doubleValue == nullptr)
             {
                 BMCWEB_LOG_ERROR << "Got value interface that wasn't double";
+                continue;
+            }
+            if (*doubleValue == std::numeric_limits<double>::quiet_NaN() &&
+                p.jsonPathToSet == "Value")
+            {
+                // Readings are allowed to be NAN for unavailable;  coerce them
+                // to null in the json response.
+                sensorJson[key] = nullptr;
+                continue;
+            }
+            if (!std::isfinite(*doubleValue))
+            {
+                BMCWEB_LOG_WARNING << "Sensor value for " << valueName
+                                   << " was unexpectedly " << *doubleValue;
                 continue;
             }
             if (forceToInt)
