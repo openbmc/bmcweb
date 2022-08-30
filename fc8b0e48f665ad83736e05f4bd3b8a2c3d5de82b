@@ -34,6 +34,24 @@
       "parentUuid": "fcafde21_31d18ed6",
       "revId": "fc8b0e48f665ad83736e05f4bd3b8a2c3d5de82b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4127d7d4_cb5da574",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-30T02:46:28Z",
+      "side": 1,
+      "message": "\u003e Should this be a meson option like bmcwebHttpReqBodyLimitMb ?\n\nMy opinion, no.  This is a security parameter, intended to prevent folks from making queries that they know will run the BMC out of resources.  If someone is requesting something that generates something of this size, they\u0027re effectively attacking the BMC, and we should be able to have a default that works for all of us, given that most BMC trees aren\u0027t THAT different in size system to system (should be same order of magnitude).\n\nLets try without it, and see what issues we hit trying to tune this.",
+      "parentUuid": "4bca363e_20f9a8a8",
+      "revId": "fc8b0e48f665ad83736e05f4bd3b8a2c3d5de82b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

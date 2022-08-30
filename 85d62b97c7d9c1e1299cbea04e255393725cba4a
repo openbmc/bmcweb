@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a460c485_d5471c70",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 604,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-30T02:46:28Z",
+      "side": 1,
+      "message": "nit, can we call these characters?",
+      "range": {
+        "startLine": 604,
+        "startChar": 17,
+        "endLine": 604,
+        "endChar": 22
+      },
+      "revId": "85d62b97c7d9c1e1299cbea04e255393725cba4a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d6465184_ac7f3449",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 605,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-30T02:46:28Z",
+      "side": 1,
+      "message": "?  bool is either \"true\" or \"false\" so this should be estimated as 5 bytes",
+      "range": {
+        "startLine": 605,
+        "startChar": 0,
+        "endLine": 605,
+        "endChar": 22
+      },
+      "revId": "85d62b97c7d9c1e1299cbea04e255393725cba4a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ee25ca2_82057be9",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 606,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-30T02:46:28Z",
+      "side": 1,
+      "message": "+2 for quotes.",
+      "range": {
+        "startLine": 606,
+        "startChar": 22,
+        "endLine": 606,
+        "endChar": 23
+      },
+      "revId": "85d62b97c7d9c1e1299cbea04e255393725cba4a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "95e22cbf_5c98b7aa",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 608,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-30T02:46:28Z",
+      "side": 1,
+      "message": "same here, \"null\" is 4 characters in an output json string.",
+      "range": {
+        "startLine": 608,
+        "startChar": 0,
+        "endLine": 608,
+        "endChar": 19
+      },
+      "revId": "85d62b97c7d9c1e1299cbea04e255393725cba4a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d622c1f9_08ccf10d",
+        "filename": "redfish-core/src/utils/json_utils.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-30T02:46:28Z",
+      "side": 1,
+      "message": "Please use get_ptr\u003cnlohmann::json::array_t\u003e() to remove the duplicated \"is_array()\" lookup",
+      "range": {
+        "startLine": 59,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 24
+      },
+      "revId": "85d62b97c7d9c1e1299cbea04e255393725cba4a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "913b7509_e8a8bad0",
+        "filename": "redfish-core/src/utils/json_utils.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-30T02:46:28Z",
+      "side": 1,
+      "message": "This is a little odd.  In the expand case, we need to measure the cumulative size, not a size that\u0027s clamped on the body limit.  Was this a case that was hit in practice?",
+      "range": {
+        "startLine": 65,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 13
+      },
+      "revId": "85d62b97c7d9c1e1299cbea04e255393725cba4a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cca2293d_0d71d54f",
+        "filename": "redfish-core/src/utils/json_utils.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-30T02:46:28Z",
+      "side": 1,
+      "message": "Need to add 4 here for the quotes, colon, and space.",
+      "range": {
+        "startLine": 77,
+        "startChar": 12,
+        "endLine": 77,
+        "endChar": 54
+      },
+      "revId": "85d62b97c7d9c1e1299cbea04e255393725cba4a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
