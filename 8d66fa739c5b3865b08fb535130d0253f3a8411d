@@ -106,6 +106,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7c16e50b_657b92b8",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 2731,
+      "author": {
+        "id": 1001264
+      },
+      "writtenOn": "2022-08-30T06:36:19Z",
+      "side": 1,
+      "message": "Is there any specific reason that the systemName of first node must be \"system\"?\n\nIn Bletchley, we have host[1-6], and the systemName of host1 will become \"system\" instead of \"system1\".\n\nCould it be something like this?\n```\nif (nodeStr.find(\"host0\") !\u003d std::string::npos)\n{\n  // single host\n  systemName \u003d \"system\";\n}\nelse\n{\n  // multi host\n  systemName \u003d \"system\" + computerSystemIndex;\n}\n```",
+      "range": {
+        "startLine": 2727,
+        "startChar": 16,
+        "endLine": 2731,
+        "endChar": 17
+      },
+      "revId": "8d66fa739c5b3865b08fb535130d0253f3a8411d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8c6fcdbc_3019197f",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 2906,
+      "author": {
+        "id": 1001264
+      },
+      "writtenOn": "2022-08-30T06:36:19Z",
+      "side": 1,
+      "message": "is this should be getChassisServiceName() which will return a string as below?\n\"xyz.openbmc_project.State.Chassis\" + computerSystemIndex",
+      "range": {
+        "startLine": 2906,
+        "startChar": 33,
+        "endLine": 2906,
+        "endChar": 51
+      },
+      "revId": "8d66fa739c5b3865b08fb535130d0253f3a8411d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6d9528d5_270b51e4",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 19
