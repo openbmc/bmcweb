@@ -164,6 +164,24 @@
       "parentUuid": "e2ac0fd4_7058100c",
       "revId": "0a9a24cee9bfddc04121866177962a7a7a1d33de",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b169eef0_c1db592d",
+        "filename": "redfish-core/src/error_messages.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-08-30T04:48:59Z",
+      "side": 1,
+      "message": "Oh, are you saying the error of subquery can be just be a single error object without \"@Message.ExtendedInfo\".\n\nDone. Handled error as root.\n\n\u003e Also, another thing we probably need to be doing here is filtering out the error message from the sub-request object\n\nthis is already considered in this patch. See\n\n```\nsubResponse.jsonValue.erase(errorIt)\n```",
+      "parentUuid": "dd165db4_3f9ad683",
+      "revId": "0a9a24cee9bfddc04121866177962a7a7a1d33de",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

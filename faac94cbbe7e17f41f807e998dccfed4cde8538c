@@ -54,6 +54,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a5ac35a_6b65b6b3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-08-30T04:48:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bbb8ccbc_cf7b7510",
+      "revId": "faac94cbbe7e17f41f807e998dccfed4cde8538c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5bc91ef9_d6e59f2b",
@@ -67,6 +85,30 @@
       "writtenOn": "2022-08-17T18:23:17Z",
       "side": 1,
       "message": "Can we walk through the commonly used return codes (at the very least the documented ones) and make this order explicit?\n\n\nAlso, I suspect we need some amount of handling for the caching return codes?\n\nIt doesn\u0027t have to be perfect order-wise, but lets make sure it\u0027s explicit.",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 8
+      },
+      "revId": "faac94cbbe7e17f41f807e998dccfed4cde8538c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4b495601_87bb651b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-08-30T04:48:59Z",
+      "side": 1,
+      "message": "\u003e Also, I suspect we need some amount of handling for the caching return codes?\n\nWhich code? You mean https://en.wikipedia.org/wiki/List_of_HTTP_status_codes#Caching_warning_codes? \n\nI saw that \"Unlike the other status codes above, these are not sent as the response status in the HTTP protocol, but as part of the \"Warning\" HTTP header\". Do we still to handle them?\n\n\u003e Can we walk through the commonly used return codes (at the very least the documented ones) and make this order explicit?\n\nYes, I have documented the explicit order in related code.",
+      "parentUuid": "5bc91ef9_d6e59f2b",
       "range": {
         "startLine": 17,
         "startChar": 0,
