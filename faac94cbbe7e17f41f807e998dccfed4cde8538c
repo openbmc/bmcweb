@@ -117,6 +117,30 @@
       },
       "revId": "faac94cbbe7e17f41f807e998dccfed4cde8538c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "248101f9_40bc58a4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-30T15:31:07Z",
+      "side": 1,
+      "message": "No, I mean: https://github.com/openbmc/bmcweb/blob/master/DEVELOPING.md#error-handling\n\n\u003e Yes, I have documented the explicit order in related code.\n\nyou have documented an order for ranges of codes, but I\u0027d like at least the common ones explicitly ordered before any of the ranges.\n\n\n\ngit grep -h -o boost::beast::http::status::\\[a-z_]\\* | sort | uniq                                                                                         \nboost::beast::http::status::\nboost::beast::http::status::accepted\nboost::beast::http::status::bad_gateway\nboost::beast::http::status::bad_request\nboost::beast::http::status::conflict\nboost::beast::http::status::continue_\nboost::beast::http::status::created\nboost::beast::http::status::forbidden\nboost::beast::http::status::insufficient_storage\nboost::beast::http::status::internal_server_error\nboost::beast::http::status::method_not_allowed\nboost::beast::http::status::no_content\nboost::beast::http::status::not_acceptable\nboost::beast::http::status::not_found\nboost::beast::http::status::not_implemented\nboost::beast::http::status::ok\nboost::beast::http::status::precondition_failed\nboost::beast::http::status::service_unavailable\nboost::beast::http::status::temporary_redirect\nboost::beast::http::status::unauthorized\n\n\nThose are all the codes we use currently, and I think should be on a list that gets aggregated up.",
+      "parentUuid": "4b495601_87bb651b",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 8
+      },
+      "revId": "faac94cbbe7e17f41f807e998dccfed4cde8538c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
