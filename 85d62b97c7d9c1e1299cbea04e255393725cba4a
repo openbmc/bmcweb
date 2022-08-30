@@ -141,6 +141,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "af7b21e9_dad3e4c4",
+        "filename": "redfish-core/src/utils/json_utils.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-08-30T04:50:42Z",
+      "side": 1,
+      "message": "I just worry about overflow if we don\u0027t clamp. Any ideas about avoiding overflow?",
+      "parentUuid": "913b7509_e8a8bad0",
+      "range": {
+        "startLine": 65,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 13
+      },
+      "revId": "85d62b97c7d9c1e1299cbea04e255393725cba4a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cca2293d_0d71d54f",
         "filename": "redfish-core/src/utils/json_utils.cpp",
         "patchSetId": 2
