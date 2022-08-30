@@ -63,6 +63,24 @@
       "message": "Isn\u0027t there an Unknown here \nhttps://github.com/openbmc/phosphor-dbus-interfaces/blob/0f97c461bd0dd7486b29cc07cb721f7b9f94256e/yaml/xyz/openbmc_project/Inventory/Item/Drive.interface.yaml#L91\n?\n\nE.g. if you have a drive with xyz.openbmc_project.Drive.DriveEncryptionState.Unknown, it shows as Unencrypted with this logic",
       "revId": "e4ba93a21993de8fb03c84418b9de233b9eddff3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4b8932df_9497fcb4",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 521,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-08-30T02:18:04Z",
+      "side": 1,
+      "message": "fixed",
+      "parentUuid": "f3f862cc_8284e53e",
+      "revId": "e4ba93a21993de8fb03c84418b9de233b9eddff3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
