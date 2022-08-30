@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "309ad843_395fbb74",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-30T02:49:25Z",
+      "side": 1,
+      "message": "LGTM as an initial attempt.  I suspect this is going to require some tuning over time, but the defaults you picked seem reasonabe",
+      "revId": "22d54ea9511a74a120300f9807fb63339b0c55d4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
