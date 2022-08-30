@@ -37,11 +37,7 @@
 #include <vector>
 
 // IWYU pragma: no_include <stdint.h>
-
-namespace crow
-{
-struct Request;
-} // namespace crow
+// IWYU pragma: no_forward_declare crow::Request
 
 namespace redfish
 {
