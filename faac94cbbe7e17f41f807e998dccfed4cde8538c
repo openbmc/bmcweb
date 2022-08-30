@@ -141,6 +141,30 @@
       },
       "revId": "faac94cbbe7e17f41f807e998dccfed4cde8538c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7f5a1189_6e877086",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-08-30T17:26:34Z",
+      "side": 1,
+      "message": "Done. Added an explicit list",
+      "parentUuid": "248101f9_40bc58a4",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 8
+      },
+      "revId": "faac94cbbe7e17f41f807e998dccfed4cde8538c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
