@@ -16,6 +16,24 @@
       "message": "Isn\u0027t this moving /redfish/v1/ to require login? Or does https://github.com/openbmc/bmcweb/blob/3acced2ce93ab735f147ba8204afcc18bdc0c3ea/include/authentication.hpp#L230 overwrite this? either way, I guess I don\u0027t see why this line is wanted",
       "revId": "93b58b7e930caee15505c6638afb1e61d76ad4c8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "441c692a_d68d9123",
+        "filename": "redfish-core/lib/redfish_v1.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-08-31T15:11:54Z",
+      "side": 1,
+      "message": "The code you linked effectively already requires the Login privilege.  In theory that code isn\u0027t required, the privilege system is enough, but it\u0027s more of a pants and suspenders model to keep minor mistakes from becoming pre-authentication CVEs.\n\n\nThis line is wanted more for documentation purposes.  You must be logged in to get here, so this line coveys as much.",
+      "parentUuid": "e5271e3d_3c757650",
+      "revId": "93b58b7e930caee15505c6638afb1e61d76ad4c8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
