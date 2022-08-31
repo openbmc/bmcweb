@@ -1496,7 +1496,7 @@ inline void findActionOnInterface(
                             m,
                             [transaction,
                              returnType](boost::system::error_code ec2,
-                                         sdbusplus::message_t& m2) {
+                                         sdbusplus::message_t m2) {
                             if (ec2)
                             {
                                 transaction->methodFailed = true;
@@ -1752,7 +1752,7 @@ inline void handleGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                 crow::connections::systemBus->async_send(
                     m, [asyncResp, response,
                         propertyName](const boost::system::error_code ec2,
-                                      sdbusplus::message_t& msg) {
+                                      sdbusplus::message_t msg) {
                         if (ec2)
                         {
                             BMCWEB_LOG_ERROR << "Bad dbus request error: "
@@ -1985,7 +1985,7 @@ inline void handlePut(const crow::Request& req,
                                 crow::connections::systemBus->async_send(
                                     m,
                                     [transaction](boost::system::error_code ec,
-                                                  sdbusplus::message_t& m2) {
+                                                  sdbusplus::message_t m2) {
                                     BMCWEB_LOG_DEBUG << "sent";
                                     if (ec)
                                     {
@@ -2373,7 +2373,7 @@ inline void
                     crow::connections::systemBus->async_send(
                         m, [&propertyItem,
                             asyncResp](const boost::system::error_code& e,
-                                       sdbusplus::message_t& msg) {
+                                       sdbusplus::message_t msg) {
                             if (e)
                             {
                                 return;
