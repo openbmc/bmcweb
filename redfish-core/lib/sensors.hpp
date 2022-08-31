@@ -713,21 +713,24 @@ inline std::string getHealth(nlohmann::json& sensorJson,
         return "Critical";
     }
 
-    // Check if sensor has critical threshold alarm
+    const bool* criticalAlarmHigh = nullptr;
+    const bool* criticalAlarmLow = nullptr;
+    const bool* warningAlarmHigh = nullptr;
+    const bool* warningAlarmLow = nullptr;
 
-    for (const auto& [valueName, value] : valuesDict)
+    const bool success = sdbusplus::unpackPropertiesNoThrow(
+        dbus_utils::UnpackErrorPrinter(), valuesDict, "CriticalAlarmHigh",
+        criticalAlarmHigh, "CriticalAlarmLow", criticalAlarmLow,
+        "WarningAlarmHigh", warningAlarmHigh, "WarningAlarmLow",
+        warningAlarmLow);
+
+    if (success)
     {
-        if (valueName == "CriticalAlarmHigh" || valueName == "CriticalAlarmLow")
+        // Check if sensor has critical threshold alarm
+        if ((criticalAlarmHigh != nullptr && *criticalAlarmHigh) ||
+            (criticalAlarmLow != nullptr && *criticalAlarmLow))
         {
-            const bool* asserted = std::get_if<bool>(&value);
-            if (asserted == nullptr)
-            {
-                BMCWEB_LOG_ERROR << "Illegal sensor threshold";
-            }
-            else if (*asserted)
-            {
-                return "Critical";
-            }
+            return "Critical";
         }
     }
 
@@ -737,27 +740,20 @@ inline std::string getHealth(nlohmann::json& sensorJson,
         return "Critical";
     }
 
-    // If current health in JSON object is already Warning, return that.  This
+    // If current health in JSON object is already Warning, return that. This
     // should override the sensor status, which might be less severe.
     if (currentHealth == "Warning")
     {
         return "Warning";
     }
 
-    // Check if sensor has warning threshold alarm
-    for (const auto& [valueName, value] : valuesDict)
+    if (success)
     {
-        if (valueName == "WarningAlarmHigh" || valueName == "WarningAlarmLow")
+        // Check if sensor has warning threshold alarm
+        if ((warningAlarmHigh != nullptr && *warningAlarmHigh) ||
+            (warningAlarmLow != nullptr && *warningAlarmLow))
         {
-            const bool* asserted = std::get_if<bool>(&value);
-            if (asserted == nullptr)
-            {
-                BMCWEB_LOG_ERROR << "Illegal sensor threshold";
-            }
-            else if (*asserted)
-            {
-                return "Warning";
-            }
+            return "Warning";
         }
     }
 
@@ -806,16 +802,15 @@ inline void objectPropertiesToJson(
 {
     // Assume values exist as is (10^0 == 1) if no scale exists
     int64_t scaleMultiplier = 0;
-    for (const auto& [valueName, value] : propertiesDict)
+
+    const int64_t* scale = nullptr;
+
+    const bool success = sdbusplus::unpackPropertiesNoThrow(
+        dbus_utils::UnpackErrorPrinter(), propertiesDict, "Scale", scale);
+
+    if (success && scale != nullptr)
     {
-        if (valueName == "Scale")
-        {
-            const int64_t* int64Value = std::get_if<int64_t>(&value);
-            if (int64Value != nullptr)
-            {
-                scaleMultiplier = *int64Value;
-            }
-        }
+        scaleMultiplier = *scale;
     }
 
     if (chassisSubNode == sensors::node::sensors)
@@ -2990,7 +2985,9 @@ inline void
     const std::string& connectionName = valueIface.first;
     BMCWEB_LOG_DEBUG << "Looking up " << connectionName;
     BMCWEB_LOG_DEBUG << "Path " << sensorPath;
-    crow::connections::systemBus->async_method_call(
+
+    sdbusplus::asio::getAllProperties(
+        *crow::connections::systemBus, connectionName, sensorPath, "",
         [asyncResp,
          sensorPath](const boost::system::error_code ec,
                      const ::dbus::utility::DBusPropertiesMap& valuesDict) {
@@ -3005,9 +3002,7 @@ inline void
         std::string type = path.filename();
         objectPropertiesToJson(name, type, sensors::node::sensors, valuesDict,
                                asyncResp->res.jsonValue, nullptr);
-        },
-        connectionName, sensorPath, "org.freedesktop.DBus.Properties", "GetAll",
-        "");
+        });
 }
 
 inline void handleSensorGet(App& app, const crow::Request& req,
