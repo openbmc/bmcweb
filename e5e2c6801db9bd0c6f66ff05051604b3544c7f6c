@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bf5daf5b_a7faaa2d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-08-31T17:49:30Z",
+      "side": 1,
+      "message": "Nit:\n\nI don\u0027t like the \"signed-off-by\" sperated by the \"change-Id\"\nBoth signe-offs above or below the change-Id",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 46
+      },
+      "revId": "e5e2c6801db9bd0c6f66ff05051604b3544c7f6c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7471124a_6bf4e9e9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-08-31T17:49:30Z",
+      "side": 1,
+      "message": "looks fine",
+      "revId": "e5e2c6801db9bd0c6f66ff05051604b3544c7f6c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
