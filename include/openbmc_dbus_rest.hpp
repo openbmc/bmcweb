@@ -36,6 +36,7 @@
 #include <dbus_utility.hpp>
 #include <nlohmann/json.hpp>
 #include <sdbusplus/asio/connection.hpp>
+#include <sdbusplus/asio/property.hpp>
 #include <sdbusplus/exception.hpp>
 #include <sdbusplus/message.hpp>
 #include <sdbusplus/message/native_types.hpp>
@@ -184,7 +185,8 @@ inline void getPropertiesForEnumerate(
     BMCWEB_LOG_DEBUG << "getPropertiesForEnumerate " << objectPath << " "
                      << service << " " << interface;
 
-    crow::connections::systemBus->async_method_call(
+    sdbusplus::asio::getAllProperties(
+        *crow::connections::systemBus, service, objectPath, interface,
         [asyncResp, objectPath, service,
          interface](const boost::system::error_code ec,
                     const dbus::utility::DBusPropertiesMap& propertiesList) {
@@ -221,9 +223,7 @@ inline void getPropertiesForEnumerate(
                 },
                 value);
         }
-        },
-        service, objectPath, "org.freedesktop.DBus.Properties", "GetAll",
-        interface);
+        });
 }
 
 // Find any results that weren't picked up by ObjectManagers, to be
