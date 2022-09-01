@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8cf002ac_65a28a06",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1001084
+      },
+      "writtenOn": "2022-09-01T21:14:34Z",
+      "side": 1,
+      "message": "@gmills or @ed, need some help here as I don\u0027t know exactly what it is breaking, and way to address...",
+      "parentUuid": "257edfb0_45573758",
+      "range": {
+        "startLine": 10,
+        "startChar": 37,
+        "endLine": 13,
+        "endChar": 0
+      },
+      "revId": "7d8e7a3fa0fd273268ede5216735c8533b903eac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fe9b6381_aaaf5692",
         "filename": "/COMMIT_MSG",
         "patchSetId": 4
@@ -61,6 +85,30 @@
       "side": 1,
       "message": "this has always been what the \u0027DBUS LOG\u0027 section in bmcweb log_services.hpp did.  Eventually we hope to improve it.",
       "parentUuid": "fe9b6381_aaaf5692",
+      "range": {
+        "startLine": 36,
+        "startChar": 18,
+        "endLine": 36,
+        "endChar": 57
+      },
+      "revId": "7d8e7a3fa0fd273268ede5216735c8533b903eac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dd2ce2ff_ff9bbe81",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1001084
+      },
+      "writtenOn": "2022-09-01T21:14:34Z",
+      "side": 1,
+      "message": "What is the plan here? \nWhile I understand the issue, but it is not the side effect of adding \u0027Resolution\u0027 property. So, not sure what is expected.",
+      "parentUuid": "0ffb15f4_9bb6e8ba",
       "range": {
         "startLine": 36,
         "startChar": 18,
@@ -204,6 +252,30 @@
       "side": 1,
       "message": "\u003e Yeah in a Redfish meeting, we (Matt and I) explained we might have \"multiple resolutions\" and Redfish said, it is a free form string meant to be read by a human so if you truly have multiple \"how to resolve the situation that caused the log entry\" then it is appropriate they are all in there. \n\nYes, it\u0027s a freeform string, but that doesn\u0027t mean it doesn\u0027t need to have a message registry entry for each element, or can contain variable data that doesn\u0027t match the MessageId entry.  That\u0027s different than what I\u0027m pointing out here.\n\n\u003e \n\u003e That said, not sure what is going on with the \\n in here, also this is a pretty standard Redfish property so this seems like a bad example since it is very company specific.. Can we just use a generic, better example for the Resolution string \"Check manager network.\", \"Replace failing Dimm.\", etc ?\n\n+1",
       "parentUuid": "8b6011ba_02763bac",
+      "range": {
+        "startLine": 39,
+        "startChar": 21,
+        "endLine": 40,
+        "endChar": 50
+      },
+      "revId": "7d8e7a3fa0fd273268ede5216735c8533b903eac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "36504184_db4b0539",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1001084
+      },
+      "writtenOn": "2022-09-01T21:14:34Z",
+      "side": 1,
+      "message": "Resolution property is read from D-Bus object, is there anything we can do here since it is suppose to be holding company specific resolution message?",
+      "parentUuid": "a1c2ac09_384a2d77",
       "range": {
         "startLine": 39,
         "startChar": 21,

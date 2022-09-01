@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "c9fb8673_577bc572",
         "filename": "/COMMIT_MSG",
@@ -20,10 +21,10 @@
         "endChar": 7
       },
       "revId": "455075cc4b7350ed0682c70f29142ed7dd95cc0b",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "e1519a04_d5c4f65b",
         "filename": "redfish-core/lib/log_services.hpp",
@@ -37,10 +38,10 @@
       "side": 1,
       "message": "I think this check was added for properties that are required or needed for the LogEntry to be useful (message). I am kind of guessing here though. \nWhy should resolution be here?\n\n            \"required\": [\n                \"EntryType\",\n                \"@odata.id\",\n                \"@odata.type\",\n                \"Id\",\n                \"Name\"\n\nResolution should not be nullptr since it is part of\nhttps://github.com/openbmc/phosphor-dbus-interfaces/blob/39bdb4711855ed9caf18b55427691c80e8e8ac8e/yaml/xyz/openbmc_project/Logging/Entry.interface.yaml#L37\n\nand that is the interface we are looking for \n                            if (interfaceMap.first \u003d\u003d\n                                \"xyz.openbmc_project.Logging.Entry\")\n\nso I guess I am okay with this.. just seems like this expands this check to be for all properties in https://github.com/openbmc/phosphor-dbus-interfaces/blob/39bdb4711855ed9caf18b55427691c80e8e8ac8e/yaml/xyz/openbmc_project/Logging/Entry.interface.yaml#L37",
       "revId": "455075cc4b7350ed0682c70f29142ed7dd95cc0b",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "ba7ad046_8b3b38d0",
         "filename": "redfish-core/lib/log_services.hpp",
@@ -55,10 +56,10 @@
       "message": "\u003e I think this check was added for properties that are required or needed for the LogEntry to be useful (message). I am kind of guessing here though. \n\u003e Why should resolution be here?\n\u003e \n\u003e             \"required\": [\n\u003e                 \"EntryType\",\n\u003e                 \"@odata.id\",\n\u003e                 \"@odata.type\",\n\u003e                 \"Id\",\n\u003e                 \"Name\"\n\u003e \n\u003e Resolution should not be nullptr since it is part of\n\u003e https://github.com/openbmc/phosphor-dbus-interfaces/blob/39bdb4711855ed9caf18b55427691c80e8e8ac8e/yaml/xyz/openbmc_project/Logging/Entry.interface.yaml#L37\n\nConsidering that the initial version of Entry didn\u0027t have that, lets do our best to not require it, especially considering it\u0027s less code to not require it, and there\u0027s other fields that we already don\u0027t check.  id, message, and severity are explicitly checked here because they\u0027re required by the redfish schema, so we prefer to return Internal error rather than produce an incorrect redfish schema.  Resolution is not required, so it shouldn\u0027t be in this check.\n\n\u003e \n\u003e and that is the interface we are looking for \n\u003e                             if (interfaceMap.first \u003d\u003d\n\u003e                                 \"xyz.openbmc_project.Logging.Entry\")\n\u003e \n\u003e so I guess I am okay with this.. just seems like this expands this check to be for all properties in https://github.com/openbmc/phosphor-dbus-interfaces/blob/39bdb4711855ed9caf18b55427691c80e8e8ac8e/yaml/xyz/openbmc_project/Logging/Entry.interface.yaml#L37",
       "parentUuid": "e1519a04_d5c4f65b",
       "revId": "455075cc4b7350ed0682c70f29142ed7dd95cc0b",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "a3d60727_0e93b048",
         "filename": "redfish-core/lib/log_services.hpp",
@@ -73,10 +74,10 @@
       "message": "I have seen in some cases on HW a different version of code the interface \"xyz.openbmc_project.Logging.Entry\" did not have resolution property. In that case access in line 1495 would crash system. The intent is to check it here since line 1426 will not be executed. I can move this check to line 1495 if that is OK? but I want to check for the validity of nullptr",
       "parentUuid": "ba7ad046_8b3b38d0",
       "revId": "455075cc4b7350ed0682c70f29142ed7dd95cc0b",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "95cc278c_bc046f85",
         "filename": "redfish-core/lib/log_services.hpp",
@@ -91,10 +92,10 @@
       "message": "Yeah, I would be okay with this line on 1495 / 1651",
       "parentUuid": "a3d60727_0e93b048",
       "revId": "455075cc4b7350ed0682c70f29142ed7dd95cc0b",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "13744566_9b9a6945",
         "filename": "redfish-core/lib/log_services.hpp",
@@ -109,10 +110,28 @@
       "message": "Check for validity right before the dereference, no need to set internal error to do that.",
       "parentUuid": "a3d60727_0e93b048",
       "revId": "455075cc4b7350ed0682c70f29142ed7dd95cc0b",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fa383b85_83400955",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1455,
+      "author": {
+        "id": 1001084
+      },
+      "writtenOn": "2022-09-01T21:14:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "13744566_9b9a6945",
+      "revId": "455075cc4b7350ed0682c70f29142ed7dd95cc0b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "3ca0ebb4_426729a0",
         "filename": "redfish-core/lib/log_services.hpp",
@@ -126,10 +145,10 @@
       "side": 1,
       "message": "We typically don\u0027t check for empty.. \nWhy do you need to here?",
       "revId": "455075cc4b7350ed0682c70f29142ed7dd95cc0b",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "81da7b40_35494115",
         "filename": "redfish-core/lib/log_services.hpp",
@@ -144,10 +163,10 @@
       "message": "This is an interesting question;  How do you know the difference between \"Resolution not populated for this log\" and \"Resolution not supported\"?",
       "parentUuid": "3ca0ebb4_426729a0",
       "revId": "455075cc4b7350ed0682c70f29142ed7dd95cc0b",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "1dbb5ed9_aefbdd41",
         "filename": "redfish-core/lib/log_services.hpp",
@@ -162,10 +181,10 @@
       "message": "The reason I put the check in here is to make sure we don\u0027t return empty string. When I ran the validator it gave me warning saying value is empty and check for spelling. Also this aligns with what we discussed on ServiceProviderNotify property. If the property is not supported then we don\u0027t return it. In this case it is not populated. Not all PEL\u0027s have resolution field populated. @ed, the value is empty by default and I assume no one populated the value or in a system which does not support i we would read back empty string. I am open to suggestions here",
       "parentUuid": "81da7b40_35494115",
       "revId": "455075cc4b7350ed0682c70f29142ed7dd95cc0b",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "cf80ee45_34d5f2e0",
         "filename": "redfish-core/lib/log_services.hpp",
@@ -180,10 +199,28 @@
       "message": "We typically just put the property out even if it is empty. \nI guess I don\u0027t understand the difference from this and \nhttps://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/38044\n\nResolution is a property on the interface, so put it out on Redfish. \n\nIf it isn\u0027t supported then \n\"Then that interface needs split up into interfaces that are fully implementable\".\n\nAll that said, I could live with an empty check",
       "parentUuid": "1dbb5ed9_aefbdd41",
       "revId": "455075cc4b7350ed0682c70f29142ed7dd95cc0b",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bb26c58a_89b86631",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1495,
+      "author": {
+        "id": 1001084
+      },
+      "writtenOn": "2022-09-01T21:14:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cf80ee45_34d5f2e0",
+      "revId": "455075cc4b7350ed0682c70f29142ed7dd95cc0b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "b1d0a56c_5448b5ec",
         "filename": "redfish-core/lib/log_services.hpp",
@@ -197,8 +234,7 @@
       "side": 1,
       "message": "Why the check for empty?",
       "revId": "455075cc4b7350ed0682c70f29142ed7dd95cc0b",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
