@@ -16,6 +16,24 @@
       "message": "1.5 MB..? Thats a ton..\n\nls -lh /usr/bin/bmcweb\n-rwxr-xr-x    1 root     root        2.5M Apr  5  2011 /usr/bin/bmcweb",
       "revId": "254608d44c925445a603f9722508e6722799f186",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "894cc0d3_0162fe80",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-01T19:21:13Z",
+      "side": 1,
+      "message": "Whoops, yeah, missed a . in that.  Made the commit message more clear and gave both in bytes and kB.",
+      "parentUuid": "bc42bd9e_5103e8de",
+      "revId": "254608d44c925445a603f9722508e6722799f186",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
