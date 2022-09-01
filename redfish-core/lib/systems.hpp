@@ -2842,7 +2842,7 @@ inline void requestRoutesSystemActionsReset(App& app)
         });
 }
 
-void handleComputerSystemCollectionHead(
+inline void handleComputerSystemCollectionHead(
     App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
@@ -3114,7 +3114,7 @@ inline void requestRoutesSystems(App& app)
         });
 }
 
-void handleSystemCollectionResetActionHead(
+inline void handleSystemCollectionResetActionHead(
     crow::App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
