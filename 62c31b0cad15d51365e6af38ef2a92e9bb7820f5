@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "489c43ad_5648a6bd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-09-01T16:59:02Z",
+      "side": 1,
+      "message": "Seems reasonable ",
+      "revId": "62c31b0cad15d51365e6af38ef2a92e9bb7820f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b323d494_abfa20c9",
+        "filename": "include/http_utility.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-09-01T16:59:02Z",
+      "side": 1,
+      "message": "A lot of custom parsing, I think we looked into this on the q-factor weighting and not a lot of boost support..?",
+      "revId": "62c31b0cad15d51365e6af38ef2a92e9bb7820f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "35065273_3008be7f",
+        "filename": "include/ut/http_utility_test.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-09-01T16:59:02Z",
+      "side": 1,
+      "message": "I don\u0027t see how these test new branches.. What if you removed some of those \"text/html, application/json\" and changed the result? oh well. \n\nE.g \n\n\n    EXPECT_EQ(\n        getPreferedContentType(\"text/json, application/html\"),\n        ContentType::JSON);\n        \n    std::array\u003cContentType, 2\u003e htmlJson{ContentType::HTML, ContentType::JSON};\n    EXPECT_EQ(getPreferedContentType(htmlJson, \"text/html, application/json\"),\n              ContentType::HTML);\n\n    std::array\u003cContentType, 2\u003e jsonHtml{ContentType::JSON, ContentType::HTML};\n    EXPECT_EQ(getPreferedContentType(jsonHtml),\n              ContentType::JSON);",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 63,
+        "endChar": 33
+      },
+      "revId": "62c31b0cad15d51365e6af38ef2a92e9bb7820f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
