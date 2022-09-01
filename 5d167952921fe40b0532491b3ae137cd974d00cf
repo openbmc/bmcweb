@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "5357c63d_08ad9e5f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-09-01T19:12:09Z",
+      "side": 1,
+      "message": "Could you just do a normal sanity check on sensors? And then set D-Bus to these values? Oh well, I think code inspection here is good enough.",
+      "revId": "5d167952921fe40b0532491b3ae137cd974d00cf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "b5b596f1_a3f6af67",
