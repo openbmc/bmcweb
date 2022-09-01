@@ -322,6 +322,30 @@
       },
       "revId": "a178abe165e5b60c9029c1674c6862369aae56f7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3359e55c_7445d849",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 1929,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-09-01T19:21:32Z",
+      "side": 1,
+      "message": "What is the alternative? don\u0027t have a default here? i.e. if don\u0027t get back something from xyz.openbmc_project.State.BMC, just leave these properties off? Leave off State and Health, have PowerState still?\n\nI am fine with that but this did have a default before.. \n\n\n\u003e That seems like it would completely defeat the purpose of this if it\u0027s inconsistent?\n\nFor hoststate, you could move from some Enabled/On/Poweringon state to Quiesced (e.g. hoststate is on, then hoststate goes to that Quiesced target.). Why is inconsistent such a concern here for bmc state?",
+      "parentUuid": "32fcc6e2_c4b7c537",
+      "range": {
+        "startLine": 1928,
+        "startChar": 0,
+        "endLine": 1929,
+        "endChar": 60
+      },
+      "revId": "a178abe165e5b60c9029c1674c6862369aae56f7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
