@@ -35,6 +35,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0f881c64_c7032f67",
+        "filename": "include/http_utility.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-01T20:32:46Z",
+      "side": 1,
+      "message": "I talked to the beast maintainer about this a little;\n\nhttps://cpplang.slack.com/archives/CD7BDP8AX/p1662060317273309\n\nThe short version is that there\u0027s some grammar tools, but they have some issues.  I\u0027m going to try to poke at it at some point, but I think the naive one is the right answer for the moment.",
+      "parentUuid": "b323d494_abfa20c9",
+      "revId": "62c31b0cad15d51365e6af38ef2a92e9bb7820f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "35065273_3008be7f",
@@ -48,6 +66,30 @@
       "writtenOn": "2022-09-01T16:59:02Z",
       "side": 1,
       "message": "I don\u0027t see how these test new branches.. What if you removed some of those \"text/html, application/json\" and changed the result? oh well. \n\nE.g \n\n\n    EXPECT_EQ(\n        getPreferedContentType(\"text/json, application/html\"),\n        ContentType::JSON);\n        \n    std::array\u003cContentType, 2\u003e htmlJson{ContentType::HTML, ContentType::JSON};\n    EXPECT_EQ(getPreferedContentType(htmlJson, \"text/html, application/json\"),\n              ContentType::HTML);\n\n    std::array\u003cContentType, 2\u003e jsonHtml{ContentType::JSON, ContentType::HTML};\n    EXPECT_EQ(getPreferedContentType(jsonHtml),\n              ContentType::JSON);",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 63,
+        "endChar": 33
+      },
+      "revId": "62c31b0cad15d51365e6af38ef2a92e9bb7820f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "23e046d5_81d1d832",
+        "filename": "include/ut/http_utility_test.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-01T20:32:46Z",
+      "side": 1,
+      "message": "This was trying to test the order invariance of the input types.  It doesn\u0027t hit different branches, but it enforces the idea that the jsonHtml variable is applied before iterating the content type header.",
+      "parentUuid": "35065273_3008be7f",
       "range": {
         "startLine": 53,
         "startChar": 0,
