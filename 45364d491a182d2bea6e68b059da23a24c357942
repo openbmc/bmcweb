@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f21edf60_9006b2bf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-02T01:07:04Z",
+      "side": 1,
+      "message": "Can\u0027t really review the logic here, because it\u0027s not clear what this lock system accomplishes, but +1 for the code looking relatively clean.",
+      "revId": "45364d491a182d2bea6e68b059da23a24c357942",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
