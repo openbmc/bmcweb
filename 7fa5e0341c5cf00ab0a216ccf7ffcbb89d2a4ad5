@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f40a9719_75b671a6",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1001322
+      },
+      "writtenOn": "2022-09-05T06:07:33Z",
+      "side": 1,
+      "message": "where is the object \"handler\" getting created for which getInstance is getting called? As far as I understand, this is working as singleton, so where are you making sure that there is only one object getting created. Correct me if I understood it wrong",
+      "revId": "7fa5e0341c5cf00ab0a216ccf7ffcbb89d2a4ad5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
