@@ -3,6 +3,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a3f9d46b_76048b4c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 18
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-09-05T17:21:02Z",
+      "side": 1,
+      "message": "NIT: Is it redfish? 😊",
+      "range": {
+        "startLine": 31,
+        "startChar": 12,
+        "endLine": 31,
+        "endChar": 17
+      },
+      "revId": "29eb207524ebc5bbcfb0c29830a2365aa72cac1a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d92c38a_ac55d293",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 525,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-09-05T17:21:02Z",
+      "side": 1,
+      "message": "I didn\u0027t find a condition which covers \"Encrypted but not locked\" case? Isn\u0027t that valid case?",
+      "range": {
+        "startLine": 519,
+        "startChar": 0,
+        "endLine": 525,
+        "endChar": 9
+      },
+      "revId": "29eb207524ebc5bbcfb0c29830a2365aa72cac1a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e8666f9f_a7c17ff5",
         "filename": "redfish-core/lib/storage.hpp",
         "patchSetId": 18
@@ -20,6 +66,47 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6cd489c4_3180da16",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 530,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-09-05T17:21:02Z",
+      "side": 1,
+      "message": "No Ankita, It should follow DMTF redfish \"Drive\" schema. Property name should be \"EncryptionStatus\" and value should be one of below enum.\n        \"EncryptionStatus\": {\n            \"enum\": [\n                \"Unecrypted\",\n                \"Unlocked\",\n                \"Locked\",\n                \"Foreign\",\n                \"Unencrypted\"\n            ],\n            \nhttps://redfish.dmtf.org/schemas/Drive_v1.xml",
+      "parentUuid": "e8666f9f_a7c17ff5",
+      "revId": "29eb207524ebc5bbcfb0c29830a2365aa72cac1a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d5c0cbd5_1d375f03",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 533,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-09-05T17:21:02Z",
+      "side": 1,
+      "message": "It should be else or Since you are returning in above conditions(line no: 531), you can make it as default. without any block.\n\n if (*isLocked)\n        {\n            //\"The drive is currently encrypted and the data is not\n            // accessible to the user.\"\n            asyncResp-\u003eres.jsonValue[\"EncryptionStatus\"] \u003d \"Locked\";\n            return;\n        }\nasyncResp-\u003eres.jsonValue[\"EncryptionStatus\"] \u003d \"Unlocked\";",
+      "range": {
+        "startLine": 533,
+        "startChar": 8,
+        "endLine": 533,
+        "endChar": 23
+      },
+      "revId": "29eb207524ebc5bbcfb0c29830a2365aa72cac1a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8a526c7c_626d71a0",
         "filename": "redfish-core/lib/storage.hpp",
         "patchSetId": 18
@@ -31,6 +118,24 @@
       "writtenOn": "2022-09-05T07:06:59Z",
       "side": 1,
       "message": "same comment as above..\"Encrypted and Unlocked\"",
+      "revId": "29eb207524ebc5bbcfb0c29830a2365aa72cac1a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e8c66c0f_4f8a03c8",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 537,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-09-05T17:21:02Z",
+      "side": 1,
+      "message": "Same as above, Should follow DMTF Redfish schema. And its fine.",
+      "parentUuid": "8a526c7c_626d71a0",
       "revId": "29eb207524ebc5bbcfb0c29830a2365aa72cac1a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
