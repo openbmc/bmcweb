@@ -117,6 +117,30 @@
       },
       "revId": "54fa5325512b1553f9cb5c3aaab1638eaf8cab63",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c6c1c7d4_c83694b8",
+        "filename": "include/multipart_parser.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-09-05T08:36:28Z",
+      "side": 1,
+      "message": "If you want I can revert this change, but please take a look how it was used before in whole context:\n\nprevIndex was local variable in parse method then it was passed to processPartData as reference and immediately assigned new value.\n\nMy change doesn\u0027t change any functionality, just removes needless complication, provessPartData is still called repeatedly. All unit tests are still passing, if you think UTs don\u0027t cover this feature I can write another unit test to confirm it.",
+      "parentUuid": "98546a86_8f5582a6",
+      "range": {
+        "startLine": 263,
+        "startChar": 0,
+        "endLine": 263,
+        "endChar": 33
+      },
+      "revId": "54fa5325512b1553f9cb5c3aaab1638eaf8cab63",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
