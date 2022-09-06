@@ -277,6 +277,24 @@
       "parentUuid": "b1d0a56c_5448b5ec",
       "revId": "455075cc4b7350ed0682c70f29142ed7dd95cc0b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d29c749f_738de1a6",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1651,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-09-06T20:45:45Z",
+      "side": 1,
+      "message": "I think we should have the empty check for company\u0027s/ service\u0027s /log entries that don\u0027t support this.",
+      "parentUuid": "805d3c33_598e41b8",
+      "revId": "455075cc4b7350ed0682c70f29142ed7dd95cc0b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
