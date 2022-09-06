@@ -332,6 +332,30 @@
       },
       "revId": "7d8e7a3fa0fd273268ede5216735c8533b903eac",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "232ab1e8_55ec2bdd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-09-06T20:50:36Z",
+      "side": 1,
+      "message": "\u003e Define a message registry to the intent of the redfish spec.  If it\u0027s OEM, build out the infrastructure for adding OEM registries and enabling them at compile time.\n\nRedfish added this property, we have it on D-Bus, this is implementing this property. I guess I don\u0027t understand the need for a registry?",
+      "parentUuid": "2d7fc8f8_0429a8b9",
+      "range": {
+        "startLine": 39,
+        "startChar": 21,
+        "endLine": 40,
+        "endChar": 50
+      },
+      "revId": "7d8e7a3fa0fd273268ede5216735c8533b903eac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
