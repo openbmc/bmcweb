@@ -510,6 +510,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "272646b4_4de1638c",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 1001084
+      },
+      "writtenOn": "2022-09-06T21:17:00Z",
+      "side": 1,
+      "message": "If the account say \u0027abc\u0027 is disabled, we get \"Unauthorized\" message when the account, \u0027abc\u0027,  tries to Set/Get AccountTypes. This I believe is expected.\n\nHowever, another user with admin privilege can set AccountTypes to \u0027abc\u0027 even when the \u0027abc\u0027 is disabled\n\nIt is probably hard to say when or under what condition the Set fails. Have seen throwing InternalError for Set related async method calls in other areas.\n\nAnything to do here to address this issue - other than resolving merge conflict?",
+      "parentUuid": "c277a6aa_67863cd4",
+      "range": {
+        "startLine": 275,
+        "startChar": 0,
+        "endLine": 275,
+        "endChar": 56
+      },
+      "revId": "b6dea0c53142e394db03b57b9283179fd5b3a666",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "020ce214_c41cf4f5",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 14
