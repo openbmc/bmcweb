@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e3583139_9f5cdd34",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000907
+      },
+      "writtenOn": "2022-09-06T09:08:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3ff8e613_8c5c9902",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 71
+      },
+      "revId": "8d0e77f08b98ec3720a567b3d9bfe39a0c8c077d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dd9b7f0c_ffce9f46",
@@ -157,6 +181,30 @@
       "side": 1,
       "message": "@Ed: Moving privileges to BMCWEB_ROUTE sounds like an awesome idea.\nImplemented the same.\nCould you please re-review the commit",
       "parentUuid": "c1f97948_9bd86075",
+      "range": {
+        "startLine": 321,
+        "startChar": 7,
+        "endLine": 321,
+        "endChar": 31
+      },
+      "revId": "8d0e77f08b98ec3720a567b3d9bfe39a0c8c077d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "57cb7f4a_7a1333dc",
+        "filename": "http/routing.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 1000907
+      },
+      "writtenOn": "2022-09-06T09:08:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "537f5d61_be6aa10d",
       "range": {
         "startLine": 321,
         "startChar": 7,
