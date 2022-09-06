@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "46829c5a_f4b33a00",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1001084
+      },
+      "writtenOn": "2022-09-06T16:34:33Z",
+      "side": 1,
+      "message": "Removed old test results...",
+      "parentUuid": "c9fb8673_577bc572",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 7
+      },
+      "revId": "455075cc4b7350ed0682c70f29142ed7dd95cc0b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e1519a04_d5c4f65b",
@@ -233,6 +257,24 @@
       "writtenOn": "2021-10-08T17:52:46Z",
       "side": 1,
       "message": "Why the check for empty?",
+      "revId": "455075cc4b7350ed0682c70f29142ed7dd95cc0b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "805d3c33_598e41b8",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1651,
+      "author": {
+        "id": 1001084
+      },
+      "writtenOn": "2022-09-06T16:34:33Z",
+      "side": 1,
+      "message": "Validator gives the following warning:\n\"WARNING - Resolution: Empty string found - Services should omit properties if not supported\"\n\nAdded this check to avoid that warning...",
+      "parentUuid": "b1d0a56c_5448b5ec",
       "revId": "455075cc4b7350ed0682c70f29142ed7dd95cc0b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
