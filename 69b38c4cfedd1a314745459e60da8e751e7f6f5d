@@ -34,6 +34,24 @@
       "parentUuid": "f5e661e2_62c48509",
       "revId": "69b38c4cfedd1a314745459e60da8e751e7f6f5d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0f7bf8e3_a1fa01f0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-06T21:06:55Z",
+      "side": 1,
+      "message": "\u003e Yeah, I think further discord discussion noted that because we have a bmcweb.socket, it will auto start whenever someone needs it so there\u0027s no real need to have it restart on fail.\n\u003e \n\u003e The only reasons I can think that the restart is good:\n\u003e - Startup time, there is a non-0 time to get bmcweb up and running and respond\n\nYes, it\u0027s non-zero, but it\u0027s so close to zero the last time I measured it\u0027s almost not worth mentioning;  It\u0027s heavily outweighed by the TLS startup time for a user opening a connection.\n\n\u003e - Errors, if bmcweb is broke, lets get it restarted it\u0027s max times (3 within 30 sec) and get the BMC into a Quiesce state indicating to our users that we have an issue (of course you need bmcweb to report that error out ...)\n\nWon\u0027t that happen anyway though if the user is requesting it?  Yes, it might take a little longer, but we avoid the case of a transient thing causing a permanent problem.  Also, considering the user is probably going to get the Quiesce state through bmcweb......  does it matter?\n\n\u003e - Events - Users can request events be generated (i.e. when a error is created, or a boot progress changes). bmcweb needs to be running to see these and generate the event.\n\nFWIW, this is why in the early days of EventService planning, I advocated for it being a totally separate process to avoid this problem of having two processes with different SLAs sharing code.  Also, in theory the EventService sockets could be attacked by a nefarious server, and either run bmcweb out of resources, or expose other vulnerabilities that don\u0027t need to be part of the attack surface.\n\n\u003e With satellite BMC\u0027s and event monitoring of them, this will becomes more critical.\n\nNothing changes with satellite BMCs.  When a user requests an aggregated resource, socket activation will still queue up a bmcweb launch, which will then construct the sockets to the satellite.... or I\u0027m not understanding what you mean about this use case.\n\n\u003e \n\u003e Only that last one seems like a solid reason to me to do this restart.\n\n\n\n\nFWIW, I would really like to get us to the point where bmcweb.service doesn\u0027t need to be run as part of the startup, because I think if we can do that for all user-facing services it has a potential to significantly reduce our boot time, and ideally reduce the memory footprint for folks that don\u0027t use certain services.  Admittedly, that\u0027s a dream that\u0027s a ways off.",
+      "parentUuid": "624193c9_6fb5e9eb",
+      "revId": "69b38c4cfedd1a314745459e60da8e751e7f6f5d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
