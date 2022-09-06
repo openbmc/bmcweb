@@ -16,6 +16,24 @@
       "message": "Any idea why they don\u0027t do releases ? https://github.com/CPPAlliance/url\nToo much work? I guess it doesn\u0027t matter, it is just unexpected, I would expect more like a \"moving from version a to version b\" and have to do these changes.",
       "revId": "98d3d84a7d835f3edb35e4466d1b2cfb6d9c636b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "afba8b4c_2f444e6b",
+        "filename": "subprojects/boost-url.wrap",
+        "patchSetId": 4
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-06T14:45:49Z",
+      "side": 1,
+      "message": "Because the intent is that for this library to be included as part of Boost, and what we\u0027re using is an incremental development version that\u0027s non-final.  I suspect that getting the \"final\" version just took a little longer than the authors intended, because we\u0027ve been using this for a couple years now.",
+      "parentUuid": "a80399a6_b0ed81ac",
+      "revId": "98d3d84a7d835f3edb35e4466d1b2cfb6d9c636b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
