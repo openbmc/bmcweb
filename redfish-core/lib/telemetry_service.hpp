@@ -6,6 +6,9 @@
 #include <dbus_utility.hpp>
 #include <query.hpp>
 #include <registries/privilege_registry.hpp>
+#include <sdbusplus/asio/property.hpp>
+#include <sdbusplus/unpack_properties.hpp>
+#include <utils/dbus_utils.hpp>
 
 namespace redfish
 {
@@ -31,7 +34,10 @@ inline void handleTelemetryServiceGet(
     asyncResp->res.jsonValue["Triggers"]["@odata.id"] =
         "/redfish/v1/TelemetryService/Triggers";
 
-    crow::connections::systemBus->async_method_call(
+    sdbusplus::asio::getAllProperties(
+        *crow::connections::systemBus, telemetry::service,
+        "/xyz/openbmc_project/Telemetry/Reports",
+        "xyz.openbmc_project.Telemetry.ReportManager",
         [asyncResp](const boost::system::error_code ec,
                     const dbus::utility::DBusPropertiesMap& ret) {
         if (ec == boost::system::errc::host_unreachable)
@@ -50,32 +56,29 @@ inline void handleTelemetryServiceGet(
 
         const size_t* maxReports = nullptr;
         const uint64_t* minInterval = nullptr;
-        for (const auto& [key, var] : ret)
+
+        const bool success = sdbusplus::unpackPropertiesNoThrow(
+            dbus_utils::UnpackErrorPrinter(), ret, "MaxReports", maxReports,
+            "MinInterval", minInterval);
+
+        if (!success)
         {
-            if (key == "MaxReports")
-            {
-                maxReports = std::get_if<size_t>(&var);
-            }
-            else if (key == "MinInterval")
-            {
-                minInterval = std::get_if<uint64_t>(&var);
-            }
-        }
-        if (maxReports == nullptr || minInterval == nullptr)
-        {
-            BMCWEB_LOG_ERROR << "Property type mismatch or property is missing";
             messages::internalError(asyncResp->res);
             return;
         }
 
-        asyncResp->res.jsonValue["MaxReports"] = *maxReports;
-        asyncResp->res.jsonValue["MinCollectionInterval"] =
-            time_utils::toDurationString(
-                std::chrono::milliseconds(static_cast<time_t>(*minInterval)));
-        },
-        telemetry::service, "/xyz/openbmc_project/Telemetry/Reports",
-        "org.freedesktop.DBus.Properties", "GetAll",
-        "xyz.openbmc_project.Telemetry.ReportManager");
+        if (maxReports != nullptr)
+        {
+            asyncResp->res.jsonValue["MaxReports"] = *maxReports;
+        }
+
+        if (minInterval != nullptr)
+        {
+            asyncResp->res.jsonValue["MinCollectionInterval"] =
+                time_utils::toDurationString(std::chrono::milliseconds(
+                    static_cast<time_t>(*minInterval)));
+        }
+        });
 }
 
 inline void requestRoutesTelemetryService(App& app)

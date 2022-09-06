@@ -6,6 +6,9 @@
 #include <app.hpp>
 #include <query.hpp>
 #include <registries/privilege_registry.hpp>
+#include <sdbusplus/asio/property.hpp>
+#include <sdbusplus/unpack_properties.hpp>
+#include <utils/dbus_utils.hpp>
 
 #include <tuple>
 #include <variant>
@@ -188,107 +191,99 @@ inline bool fillTrigger(
     const bool* discrete = nullptr;
     const TriggerSensorsParams* sensors = nullptr;
     const std::vector<sdbusplus::message::object_path>* reports = nullptr;
-    const std::vector<std::string>* actions = nullptr;
+    const std::vector<std::string>* triggerActions = nullptr;
     const TriggerThresholdParamsExt* thresholds = nullptr;
 
-    for (const auto& [key, var] : properties)
-    {
-        if (key == "Name")
-        {
-            name = std::get_if<std::string>(&var);
-        }
-        else if (key == "Discrete")
-        {
-            discrete = std::get_if<bool>(&var);
-        }
-        else if (key == "Sensors")
-        {
-            sensors = std::get_if<TriggerSensorsParams>(&var);
-        }
-        else if (key == "Reports")
-        {
-            reports =
-                std::get_if<std::vector<sdbusplus::message::object_path>>(&var);
-        }
-        else if (key == "TriggerActions")
-        {
-            actions = std::get_if<std::vector<std::string>>(&var);
-        }
-        else if (key == "Thresholds")
-        {
-            thresholds = std::get_if<TriggerThresholdParamsExt>(&var);
-        }
-    }
+    const bool success = sdbusplus::unpackPropertiesNoThrow(
+        dbus_utils::UnpackErrorPrinter(), properties, "Name", name, "Discrete",
+        discrete, "Sensors", sensors, "Reports", reports, "TriggerActions",
+        triggerActions, "Thresholds", thresholds);
 
-    if (name == nullptr || discrete == nullptr || sensors == nullptr ||
-        reports == nullptr || actions == nullptr || thresholds == nullptr)
+    if (!success)
     {
-        BMCWEB_LOG_ERROR
-            << "Property type mismatch or property is missing in Trigger: "
-            << id;
         return false;
     }
 
-    std::optional<std::vector<std::string>> triggerActions =
-        getTriggerActions(*actions);
-    if (!triggerActions)
+    if (triggerActions != nullptr)
     {
-        BMCWEB_LOG_ERROR << "Property TriggerActions is invalid in Trigger: "
-                         << id;
-        return false;
-    }
-
-    std::optional<nlohmann::json> linkedReports =
-        getMetricReportDefinitions(*reports);
-    if (!linkedReports)
-    {
-        BMCWEB_LOG_ERROR << "Property Reports is invalid in Trigger: " << id;
-        return false;
-    }
-
-    if (*discrete)
-    {
-        std::optional<nlohmann::json::array_t> discreteTriggers =
-            getDiscreteTriggers(*thresholds);
-
-        if (!discreteTriggers)
+        std::optional<std::vector<std::string>> redfishTriggerActions =
+            getTriggerActions(*triggerActions);
+        if (!redfishTriggerActions)
         {
-            BMCWEB_LOG_ERROR << "Property Thresholds is invalid for discrete "
-                                "triggers in Trigger: "
+            BMCWEB_LOG_ERROR
+                << "Property TriggerActions is invalid in Trigger: " << id;
+            return false;
+        }
+        json["TriggerActions"] = *triggerActions;
+    }
+
+    if (reports != nullptr)
+    {
+        std::optional<nlohmann::json> linkedReports =
+            getMetricReportDefinitions(*reports);
+        if (!linkedReports)
+        {
+            BMCWEB_LOG_ERROR << "Property Reports is invalid in Trigger: "
                              << id;
             return false;
         }
-
-        json["DiscreteTriggers"] = *discreteTriggers;
-        json["DiscreteTriggerCondition"] =
-            discreteTriggers->empty() ? "Changed" : "Specified";
-        json["MetricType"] = "Discrete";
+        json["Links"]["MetricReportDefinitions"] = *linkedReports;
     }
-    else
+
+    if (discrete != nullptr)
     {
-        std::optional<nlohmann::json> numericThresholds =
-            getNumericThresholds(*thresholds);
-
-        if (!numericThresholds)
+        if (*discrete)
         {
-            BMCWEB_LOG_ERROR << "Property Thresholds is invalid for numeric "
-                                "thresholds in Trigger: "
-                             << id;
-            return false;
-        }
+            std::optional<nlohmann::json::array_t> discreteTriggers =
+                getDiscreteTriggers(*thresholds);
 
-        json["NumericThresholds"] = *numericThresholds;
-        json["MetricType"] = "Numeric";
+            if (!discreteTriggers)
+            {
+                BMCWEB_LOG_ERROR
+                    << "Property Thresholds is invalid for discrete "
+                       "triggers in Trigger: "
+                    << id;
+                return false;
+            }
+
+            json["DiscreteTriggers"] = *discreteTriggers;
+            json["DiscreteTriggerCondition"] =
+                discreteTriggers->empty() ? "Changed" : "Specified";
+            json["MetricType"] = "Discrete";
+        }
+        else
+        {
+            std::optional<nlohmann::json> numericThresholds =
+                getNumericThresholds(*thresholds);
+
+            if (!numericThresholds)
+            {
+                BMCWEB_LOG_ERROR
+                    << "Property Thresholds is invalid for numeric "
+                       "thresholds in Trigger: "
+                    << id;
+                return false;
+            }
+
+            json["NumericThresholds"] = *numericThresholds;
+            json["MetricType"] = "Numeric";
+        }
+    }
+
+    if (name != nullptr)
+    {
+        json["Name"] = *name;
+    }
+
+    if (sensors != nullptr)
+    {
+        json["MetricProperties"] = getMetricProperties(*sensors);
     }
 
     json["@odata.type"] = "#Triggers.v1_2_0.Triggers";
     json["@odata.id"] = crow::utility::urlFromPieces(
         "redfish", "v1", "TelemetryService", "Triggers", id);
     json["Id"] = id;
-    json["Name"] = *name;
-    json["TriggerActions"] = *triggerActions;
-    json["MetricProperties"] = getMetricProperties(*sensors);
-    json["Links"]["MetricReportDefinitions"] = *linkedReports;
 
     return true;
 }
@@ -329,7 +324,9 @@ inline void requestRoutesTrigger(App& app)
         {
             return;
         }
-        crow::connections::systemBus->async_method_call(
+        sdbusplus::asio::getAllProperties(
+            *crow::connections::systemBus, telemetry::service,
+            telemetry::getDbusTriggerPath(id), telemetry::triggerInterface,
             [asyncResp,
              id](const boost::system::error_code ec,
                  const std::vector<std::pair<
@@ -351,10 +348,7 @@ inline void requestRoutesTrigger(App& app)
             {
                 messages::internalError(asyncResp->res);
             }
-            },
-            telemetry::service, telemetry::getDbusTriggerPath(id),
-            "org.freedesktop.DBus.Properties", "GetAll",
-            telemetry::triggerInterface);
+            });
         });
 
     BMCWEB_ROUTE(app, "/redfish/v1/TelemetryService/Triggers/<str>/")
