@@ -16,6 +16,23 @@
       "message": "I\u0027ve +2ed this commit;  I\u0027m not sure if the previously mentioned patchsets are required to merge before this or not.  Feel free to merge this when the dependencies are met.",
       "revId": "71909f9b21a0eb3acbc632a65deacf653d429ff6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "93cec676_f6b9dde6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000044
+      },
+      "writtenOn": "2022-09-06T05:39:32Z",
+      "side": 1,
+      "message": "I think this is good to go even without https://gerrit.openbmc.org/c/openbmc/phosphor-user-manager/+/52363.\nNot supporting \"NoAccess\" user makes more sense.\nOtherwise:\n1. A user with no access could be created\n2. The user could login to webui, but get errors on all the pages, except KVM/SOL\n3. WebUI does not know if the user is \"NoAccess\" because it will get failure when it\u0027s trying to get the user\u0027s role.\n\nSo let\u0027s just not support \"NoAccess\".",
+      "revId": "71909f9b21a0eb3acbc632a65deacf653d429ff6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
