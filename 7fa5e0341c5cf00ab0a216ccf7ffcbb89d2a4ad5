@@ -16,6 +16,24 @@
       "message": "where is the object \"handler\" getting created for which getInstance is getting called? As far as I understand, this is working as singleton, so where are you making sure that there is only one object getting created. Correct me if I understood it wrong",
       "revId": "7fa5e0341c5cf00ab0a216ccf7ffcbb89d2a4ad5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eb11fad8_de626d5b",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-09-06T16:24:24Z",
+      "side": 1,
+      "message": "I\u0027m assuming you mean making sure there is only one RedfishAggregator object that gets created.  It\u0027s a singleton so by design that\u0027s guaranteed.  The constructor is private and only gets called by \"getInstance()\".  \n```\n    static RedfishAggregator\u0026 getInstance()\n    {\n        static RedfishAggregator handler;\n        return handler;\n    }\n```  \nThe use of static means that handler will only be created the first time \"getInstance()\" is called from anywhere.  All future calls will just point to that original handler and not invoke the constructor.\n\nThe first ever call to RedfishAggregator\u0027s getInstance() will occur in src/webserver_main.cpp as part of \"run()\" https://github.com/openbmc/bmcweb/blob/master/src/webserver_main.cpp#L94.\n\nPlease reopen this issue if I misunderstood and did not answer your question.",
+      "parentUuid": "f40a9719_75b671a6",
+      "revId": "7fa5e0341c5cf00ab0a216ccf7ffcbb89d2a4ad5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
