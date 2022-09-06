@@ -1,6 +1,9 @@
 #pragma once
 #include <dbus_utility.hpp>
 #include <query.hpp>
+#include <sdbusplus/asio/property.hpp>
+#include <sdbusplus/unpack_properties.hpp>
+#include <utils/dbus_utils.hpp>
 #include <utils/json_utils.hpp>
 
 namespace redfish
@@ -23,40 +26,37 @@ inline void
         return;
     }
 
-    for (const auto& [propKey, propVariant] : properties)
+    const std::string* cableTypeDescription = nullptr;
+    const double* length = nullptr;
+
+    const bool success = sdbusplus::unpackPropertiesNoThrow(
+        dbus_utils::UnpackErrorPrinter(), properties, "CableTypeDescription",
+        cableTypeDescription, "Length", length);
+
+    if (!success)
     {
-        if (propKey == "CableTypeDescription")
-        {
-            const std::string* cableTypeDescription =
-                std::get_if<std::string>(&propVariant);
-            if (cableTypeDescription == nullptr)
-            {
-                messages::internalError(resp);
-                return;
-            }
-            resp.jsonValue["CableType"] = *cableTypeDescription;
-        }
-        else if (propKey == "Length")
-        {
-            const double* cableLength = std::get_if<double>(&propVariant);
-            if (cableLength == nullptr)
-            {
-                messages::internalError(resp);
-                return;
-            }
+        messages::internalError(resp);
+        return;
+    }
 
-            if (!std::isfinite(*cableLength))
+    if (cableTypeDescription != nullptr)
+    {
+        resp.jsonValue["CableType"] = *cableTypeDescription;
+    }
+
+    if (length != nullptr)
+    {
+        if (!std::isfinite(*length))
+        {
+            if (std::isnan(*length))
             {
-                if (std::isnan(*cableLength))
-                {
-                    continue;
-                }
-                messages::internalError(resp);
                 return;
             }
-
-            resp.jsonValue["LengthMeters"] = *cableLength;
+            messages::internalError(resp);
+            return;
         }
+
+        resp.jsonValue["LengthMeters"] = *length;
     }
 }
 
@@ -83,14 +83,14 @@ inline void
                 continue;
             }
 
-            crow::connections::systemBus->async_method_call(
+            sdbusplus::asio::getAllProperties(
+                *crow::connections::systemBus, service, cableObjectPath,
+                interface,
                 [asyncResp](
                     const boost::system::error_code ec,
                     const dbus::utility::DBusPropertiesMap& properties) {
                 fillCableProperties(asyncResp->res, ec, properties);
-                },
-                service, cableObjectPath, "org.freedesktop.DBus.Properties",
-                "GetAll", interface);
+                });
         }
     }
 }

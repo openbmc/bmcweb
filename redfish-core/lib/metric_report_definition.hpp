@@ -9,6 +9,9 @@
 #include <dbus_utility.hpp>
 #include <query.hpp>
 #include <registries/privilege_registry.hpp>
+#include <sdbusplus/asio/property.hpp>
+#include <sdbusplus/unpack_properties.hpp>
+#include <utils/dbus_utils.hpp>
 
 #include <map>
 #include <tuple>
@@ -49,66 +52,61 @@ inline void
 
     const bool* emitsReadingsUpdate = nullptr;
     const bool* logToMetricReportsCollection = nullptr;
-    const ReadingParameters* readingParams = nullptr;
+    const ReadingParameters* readingParameters = nullptr;
     const std::string* reportingType = nullptr;
     const uint64_t* interval = nullptr;
-    for (const auto& [key, var] : ret)
+
+    const bool success = sdbusplus::unpackPropertiesNoThrow(
+        dbus_utils::UnpackErrorPrinter(), ret, "EmitsReadingsUpdate",
+        emitsReadingsUpdate, "LogToMetricReportsCollection",
+        logToMetricReportsCollection, "ReadingParameters", readingParameters,
+        "ReportingType", reportingType, "Interval", interval);
+
+    if (!success)
     {
-        if (key == "EmitsReadingsUpdate")
-        {
-            emitsReadingsUpdate = std::get_if<bool>(&var);
-        }
-        else if (key == "LogToMetricReportsCollection")
-        {
-            logToMetricReportsCollection = std::get_if<bool>(&var);
-        }
-        else if (key == "ReadingParameters")
-        {
-            readingParams = std::get_if<ReadingParameters>(&var);
-        }
-        else if (key == "ReportingType")
-        {
-            reportingType = std::get_if<std::string>(&var);
-        }
-        else if (key == "Interval")
-        {
-            interval = std::get_if<uint64_t>(&var);
-        }
-    }
-    if (emitsReadingsUpdate == nullptr ||
-        logToMetricReportsCollection == nullptr || readingParams == nullptr ||
-        reportingType == nullptr || interval == nullptr)
-    {
-        BMCWEB_LOG_ERROR << "Property type mismatch or property is missing";
         messages::internalError(asyncResp->res);
         return;
     }
 
     std::vector<std::string> redfishReportActions;
     redfishReportActions.reserve(2);
-    if (*emitsReadingsUpdate)
+    if (emitsReadingsUpdate != nullptr && *emitsReadingsUpdate)
     {
         redfishReportActions.emplace_back("RedfishEvent");
     }
-    if (*logToMetricReportsCollection)
+
+    if (logToMetricReportsCollection != nullptr &&
+        *logToMetricReportsCollection)
     {
         redfishReportActions.emplace_back("LogToMetricReportsCollection");
     }
 
     nlohmann::json metrics = nlohmann::json::array();
-    for (const auto& [sensorPath, operationType, metricId, metadata] :
-         *readingParams)
+    if (readingParameters != nullptr)
     {
-        metrics.push_back({
-            {"MetricId", metricId},
-            {"MetricProperties", {metadata}},
-        });
+        for (const auto& [sensorPath, operationType, metricId, metadata] :
+             *readingParameters)
+        {
+            metrics.push_back({
+                {"MetricId", metricId},
+                {"MetricProperties", {metadata}},
+            });
+        }
     }
+
+    if (reportingType != nullptr)
+    {
+        asyncResp->res.jsonValue["MetricReportDefinitionType"] = *reportingType;
+    }
+
+    if (interval != nullptr)
+    {
+        asyncResp->res.jsonValue["Schedule"]["RecurrenceInterval"] =
+            time_utils::toDurationString(std::chrono::milliseconds(*interval));
+    }
+
     asyncResp->res.jsonValue["Metrics"] = metrics;
-    asyncResp->res.jsonValue["MetricReportDefinitionType"] = *reportingType;
     asyncResp->res.jsonValue["ReportActions"] = redfishReportActions;
-    asyncResp->res.jsonValue["Schedule"]["RecurrenceInterval"] =
-        time_utils::toDurationString(std::chrono::milliseconds(*interval));
 }
 
 struct AddReportArgs
@@ -433,7 +431,9 @@ inline void requestRoutesMetricReportDefinition(App& app)
             return;
         }
 
-        crow::connections::systemBus->async_method_call(
+        sdbusplus::asio::getAllProperties(
+            *crow::connections::systemBus, telemetry::service,
+            telemetry::getDbusReportPath(id), telemetry::reportInterface,
             [asyncResp,
              id](const boost::system::error_code ec,
                  const std::vector<std::pair<
@@ -453,10 +453,7 @@ inline void requestRoutesMetricReportDefinition(App& app)
             }
 
             telemetry::fillReportDefinition(asyncResp, id, ret);
-            },
-            telemetry::service, telemetry::getDbusReportPath(id),
-            "org.freedesktop.DBus.Properties", "GetAll",
-            telemetry::reportInterface);
+            });
         });
     BMCWEB_ROUTE(app,
                  "/redfish/v1/TelemetryService/MetricReportDefinitions/<str>/")
