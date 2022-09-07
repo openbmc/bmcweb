@@ -1,5 +1,6 @@
 #pragma once
 
+#include <boost/algorithm/string/find.hpp>
 #include <dbus_utility.hpp>
 #include <error_messages.hpp>
 #include <http_client.hpp>
@@ -14,7 +15,7 @@ enum class Result
     NoLocalHandle
 };
 
-static void addPrefixToItem(nlohmann::json& item, std::string_view prefix)
+       static void addPrefixToItem(nlohmann::json& item, std::string_view prefix)
 {
     std::string* strValue = item.get_ptr<std::string*>();
     if (strValue == nullptr)
@@ -32,8 +33,21 @@ static void addPrefixToItem(nlohmann::json& item, std::string_view prefix)
 
     boost::urls::url_view thisUrl = *parsed;
 
+    // We don't need to aggregate JsonSchemas due to potential issues such as
+    // version mismatches between aggregator and satellite BMCs.  For now
+    // assume that the aggregator has all the schemas and versions that the
+    // aggregated server has.
+    std::string collectionItem;
+    if (crow::utility::readUrlSegments(thisUrl, "redfish", "v1", "JsonSchemas",
+                                       std::ref(collectionItem),
+                                       crow::utility::OrMorePaths()))
+    {
+        BMCWEB_LOG_DEBUG << "Skipping JsonSchemas URI prefix fixing";
+        return;
+    }
+
     // We don't need to add prefixes to these URIs since
-    // /redfish/v1/UpdateService/ itself is not a collection
+    // /redfish/v1/UpdateService/ itself is not a collection:
     // /redfish/v1/UpdateService/FirmwareInventory
     // /redfish/v1/UpdateService/SoftwareInventory
     if (crow::utility::readUrlSegments(thisUrl, "redfish", "v1",
@@ -45,31 +59,32 @@ static void addPrefixToItem(nlohmann::json& item, std::string_view prefix)
         return;
     }
 
-    // We also need to aggregate FirmwareInventory and
-    // SoftwareInventory so add an extra offset
+    // We need to add a prefix to FirmwareInventory and SoftwareInventory
+    // resources:
     // /redfish/v1/UpdateService/FirmwareInventory/<id>
     // /redfish/v1/UpdateService/SoftwareInventory/<id>
     std::string collectionName;
-    std::string softwareItem;
     if (crow::utility::readUrlSegments(
             thisUrl, "redfish", "v1", "UpdateService", std::ref(collectionName),
-            std::ref(softwareItem), crow::utility::OrMorePaths()))
+            std::ref(collectionItem), crow::utility::OrMorePaths()))
     {
-        softwareItem.insert(0, "_");
-        softwareItem.insert(0, prefix);
-        item = crow::utility::replaceUrlSegment(thisUrl, 4, softwareItem);
+        collectionItem.insert(0, "_");
+        collectionItem.insert(0, prefix);
+        item = crow::utility::replaceUrlSegment(thisUrl, 4, collectionItem);
+        return;
     }
 
-    // A collection URI that ends with "/" such as
-    // "/redfish/v1/Chassis/" will have 4 segments so we need to
-    // make sure we don't try to add a prefix to an empty segment
+    // If we reach here then we need to add a prefix to resource IDs that take
+    // the general form of "/redfish/v1/<collection>/<id> such as:
+    // /redfish/v1/Chassis/foo
+    // /redfish/v1/JsonSchemas/bar
     if (crow::utility::readUrlSegments(
             thisUrl, "redfish", "v1", std::ref(collectionName),
-            std::ref(softwareItem), crow::utility::OrMorePaths()))
+            std::ref(collectionItem), crow::utility::OrMorePaths()))
     {
-        softwareItem.insert(0, "_");
-        softwareItem.insert(0, prefix);
-        item = crow::utility::replaceUrlSegment(thisUrl, 3, softwareItem);
+        collectionItem.insert(0, "_");
+        collectionItem.insert(0, prefix);
+        item = crow::utility::replaceUrlSegment(thisUrl, 3, collectionItem);
     }
 }
 
@@ -111,7 +126,8 @@ static void addPrefixes(nlohmann::json& json, std::string_view prefix)
                 continue;
             }
 
-            if ((item.first == "@odata.id") || (item.first.ends_with("URI")))
+            if ((item.first == "@odata.id") ||
+                boost::algorithm::iends_with(item.first, "uri"))
             {
                 addPrefixToItem(item.second, prefix);
             }
@@ -761,6 +777,17 @@ class RedfishAggregator
         {
             return Result::LocalHandle;
         }
+
+        // We don't need to aggregate JsonSchemas due to potential issues such
+        // as version mismatches between aggregator and satellite BMCs.  For
+        // now assume that the aggregator has all the schemas and versions that
+        // the aggregated server has.
+        if (crow::utility::readUrlSegments(url, "redfish", "v1", "JsonSchemas",
+                                           crow::utility::OrMorePaths()))
+        {
+            return Result::LocalHandle;
+        }
+
         if (readUrlSegments(url, "redfish", "v1", "UpdateService",
                             "SoftwareInventory") ||
             readUrlSegments(url, "redfish", "v1", "UpdateService",
