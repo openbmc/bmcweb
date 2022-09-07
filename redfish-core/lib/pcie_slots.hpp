@@ -6,6 +6,9 @@
 #include <app.hpp>
 #include <pcie.hpp>
 #include <registries/privilege_registry.hpp>
+#include <sdbusplus/asio/property.hpp>
+#include <sdbusplus/unpack_properties.hpp>
+#include <utils/dbus_utils.hpp>
 #include <utils/json_utils.hpp>
 
 namespace redfish
@@ -85,66 +88,56 @@ inline void
 
     nlohmann::json::object_t slot;
 
-    for (const auto& property : propertiesList)
-    {
-        const std::string& propertyName = property.first;
+    const std::string* generation = nullptr;
+    const size_t* lanes = nullptr;
+    const std::string* slotType = nullptr;
+    const bool* hotPluggable = nullptr;
 
-        if (propertyName == "Generation")
-        {
-            const std::string* value =
-                std::get_if<std::string>(&property.second);
-            if (value == nullptr)
-            {
-                messages::internalError(asyncResp->res);
-                return;
-            }
-            std::optional<std::string> pcieType =
-                redfishPcieGenerationFromDbus(*value);
-            if (!pcieType)
-            {
-                messages::internalError(asyncResp->res);
-                return;
-            }
-            slot["PCIeType"] = !pcieType;
-        }
-        else if (propertyName == "Lanes")
-        {
-            const size_t* value = std::get_if<size_t>(&property.second);
-            if (value == nullptr)
-            {
-                messages::internalError(asyncResp->res);
-                return;
-            }
-            slot["Lanes"] = *value;
-        }
-        else if (propertyName == "SlotType")
-        {
-            const std::string* value =
-                std::get_if<std::string>(&property.second);
-            if (value == nullptr)
-            {
-                messages::internalError(asyncResp->res);
-                return;
-            }
-            std::string slotType = dbusSlotTypeToRf(*value);
-            if (!slotType.empty())
-            {
-                messages::internalError(asyncResp->res);
-                return;
-            }
-            slot["SlotType"] = slotType;
-        }
-        else if (propertyName == "HotPluggable")
-        {
-            const bool* value = std::get_if<bool>(&property.second);
-            if (value == nullptr)
-            {
-                messages::internalError(asyncResp->res);
-                return;
-            }
-            slot["HotPluggable"] = *value;
-        }
+    const bool success = sdbusplus::unpackPropertiesNoThrow(
+        dbus_utils::UnpackErrorPrinter(), propertiesList, "Generation",
+        generation, "Lanes", lanes, "SlotType", slotType, "HotPluggable",
+        hotPluggable);
+
+    if (!success)
+    {
+        messages::internalError(asyncResp->res);
+        return;
     }
+
+    if (generation != nullptr)
+    {
+        std::optional<std::string> pcieType =
+            redfishPcieGenerationFromDbus(*generation);
+        if (!pcieType)
+        {
+            messages::internalError(asyncResp->res);
+            return;
+        }
+        slot["PCIeType"] = !pcieType;
+    }
+
+    if (lanes != nullptr)
+    {
+
+        slot["Lanes"] = *lanes;
+    }
+
+    if (slotType != nullptr)
+    {
+        std::string redfishSlotType = dbusSlotTypeToRf(*slotType);
+        if (!slotType.empty())
+        {
+            messages::internalError(asyncResp->res);
+            return;
+        }
+        slot["SlotType"] = redfishSlotType;
+    }
+
+    if (hotPluggable != nullptr)
+    {
+        slot["HotPluggable"] = *hotPluggable;
+    }
+
     slots.emplace_back(std::move(slot));
 }
 
@@ -191,13 +184,13 @@ inline void onMapperAssociationDone(
         return;
     }
 
-    crow::connections::systemBus->async_method_call(
+    sdbusplus::asio::getAllProperties(
+        *crow::connections::systemBus, connectionName, pcieSlotPath,
+        "xyz.openbmc_project.Inventory.Item.PCIeSlot",
         [asyncResp](const boost::system::error_code ec,
                     const dbus::utility::DBusPropertiesMap& propertiesList) {
         onPcieSlotGetAllDone(asyncResp, ec, propertiesList);
-        },
-        connectionName, pcieSlotPath, "org.freedesktop.DBus.Properties",
-        "GetAll", "xyz.openbmc_project.Inventory.Item.PCIeSlot");
+        });
 }
 
 inline void
