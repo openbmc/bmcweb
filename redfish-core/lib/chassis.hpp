@@ -278,8 +278,6 @@ inline void
             asyncResp->res
                 .jsonValue["Actions"]["#Chassis.Reset"]["@Redfish.ActionInfo"] =
                 "/redfish/v1/Chassis/" + chassisId + "/ResetActionInfo";
-            asyncResp->res.jsonValue["PCIeDevices"]["@odata.id"] =
-                "/redfish/v1/Systems/system/PCIeDevices";
 
             sdbusplus::asio::getProperty<std::vector<std::string>>(
                 *crow::connections::systemBus,
