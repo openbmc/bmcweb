@@ -179,6 +179,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b23935b1_6ee5f5f7",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-09-07T13:07:22Z",
+      "side": 1,
+      "message": "I don\u0027t think this \"web\" option does anything https://github.com/openbmc/phosphor-user-manager/blob/f1b69fa62c5ceafeec1f084bfbf78402124833bb/user_mgr.hpp#L201 \n\nI think options:\n\n1. We could tie webUI to redfish probably should hardcode StrictAccountTypes to true so a PATCH to redfish or webUI requires both included in the PATCH or you get a fail \n2. We just leave off webUI.\n3. We fix this web permission in user management and bmcweb to actually control the GUI (I am not sure how that would exactly work)\n\n\"StrictAccountTypes\": {\n                    \"description\": \"Indicates if the service needs to use the account types exactly as specified when the account is created or updated.\",\n                    \"longDescription\": \"This property shall indicate if the service needs to use the value of AccountTypes and OEMAccountTypes values exactly as specified.  A `true` value shall indicate the service needs to either accept the value without changes or reject the request.  A `false` value shall indicate the service may add additional `AccountTypes` and `OEMAccountTypes` values as needed to support limitations it has in separately controlling access to individual services.  If this property is not present, the value shall be assumed to be `false`.  An update of the service can cause account types to be added to or removed from the AccountTypes and OEMAccountTypes properties, regardless of the value of this property.  After a service update, clients should inspect all accounts where the value of this property is `true` and perform maintenance as needed.\",\n                    \"readonly\": false,\n                    \"type\": [\n                        \"boolean\",\n                        \"null\"\n                    ],\n                    \"versionAdded\": \"v1_7_0\"\n                },",
+      "parentUuid": "bfadf1a6_c7a86535",
+      "range": {
+        "startLine": 129,
+        "startChar": 1,
+        "endLine": 129,
+        "endChar": 27
+      },
+      "revId": "32ffd1f8558449686c7ea9cf08c68fcd6ecbe20e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2318e3d1_428af59d",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 11
