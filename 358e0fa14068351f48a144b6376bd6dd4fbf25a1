@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f34d39f4_87fb1d08",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-07T18:28:07Z",
+      "side": 1,
+      "message": "Couple minor things, then this looks fine.",
+      "revId": "358e0fa14068351f48a144b6376bd6dd4fbf25a1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c28a09ab_9eef7096",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-07T18:28:07Z",
+      "side": 1,
+      "message": "I\u0027m assuming this is for iends_with?  that function is in \u003cboost/algorithm/string/predicate.hpp\u003e\n\nplease use the most specific header you can, as it keeps our compile times down.",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 3,
+        "endChar": 42
+      },
+      "revId": "358e0fa14068351f48a144b6376bd6dd4fbf25a1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f6beb397_d6034ff1",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-07T18:28:07Z",
+      "side": 1,
+      "message": "I\u0027m ok with merging this now, but can you put a \"TODO update with the uri naming language from the specification when it gets released in 1.17\" here.",
+      "range": {
+        "startLine": 130,
+        "startChar": 0,
+        "endLine": 130,
+        "endChar": 64
+      },
+      "revId": "358e0fa14068351f48a144b6376bd6dd4fbf25a1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
