@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "27d1a795_a4bfe613",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-09-07T19:04:11Z",
+      "side": 1,
+      "message": "and comments as well",
+      "range": {
+        "startLine": 173,
+        "startChar": 29,
+        "endLine": 173,
+        "endChar": 48
+      },
+      "revId": "2ee877bb0469935cbdf1c561531eb5965b6ebf7e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "457315ac_2f515cef",
         "filename": "redfish-core/lib/managers.hpp",
         "patchSetId": 1
