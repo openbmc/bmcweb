@@ -3,6 +3,46 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "172ad22f_927095cd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-09-07T18:27:55Z",
+      "side": 1,
+      "message": "What about built-in objects? Any difference there between constructor call and brace initialization?",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 25
+      },
+      "revId": "94cc09e7beeaa43bf97dec2a65b8adb37c157045",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2f8b7736_b0eda4e8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-09-07T18:27:55Z",
+      "side": 1,
+      "message": "maybe also mention how you find all the places?",
+      "revId": "94cc09e7beeaa43bf97dec2a65b8adb37c157045",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3992e45f_b8538b93",
         "filename": "/COMMIT_MSG",
         "patchSetId": 12
@@ -32,6 +72,23 @@
       "side": 1,
       "message": "Ack",
       "parentUuid": "3992e45f_b8538b93",
+      "revId": "94cc09e7beeaa43bf97dec2a65b8adb37c157045",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3bdacd1e_d1faa1c1",
+        "filename": "redfish-core/src/error_messages.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 1734,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-09-07T18:27:55Z",
+      "side": 1,
+      "message": "nit, put ret near to where it is firstly used?",
       "revId": "94cc09e7beeaa43bf97dec2a65b8adb37c157045",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
