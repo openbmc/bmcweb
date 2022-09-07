@@ -100,7 +100,7 @@ inline nlohmann::json::object_t
     // Intentionally make a copy of the string, so we can append in the
     // parameters.
     std::string msg = entry.second.message;
-    redfish::registries::fillMessageArgs(args, msg);
+    msg = redfish::registries::fillMessageArgs(args, msg);
     nlohmann::json jArgs = nlohmann::json::array();
     for (const std::string_view arg : args)
     {
