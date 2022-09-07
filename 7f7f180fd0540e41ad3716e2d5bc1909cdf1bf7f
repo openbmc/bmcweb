@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "023be53e_768d4421",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-09-07T16:16:12Z",
+      "side": 1,
+      "message": "-: UC1 Line exceeds max length (86\u003e72).\n    It\u0027s possible you intended to use one of the following exceptions:\n    1. Put logs or shell script in a quoted section with triple quotes (\u0027\u0027\u0027) before and after the section\n    2. Put a long link at the bottom in a footnote.  example: [1] https://my_long_link.com\n    Line that was too long:\n: \"https://github.com/openbmc/bmcweb/blob/master/redfish-core/lib/update_service.hpp#L488\"",
+      "revId": "7f7f180fd0540e41ad3716e2d5bc1909cdf1bf7f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
