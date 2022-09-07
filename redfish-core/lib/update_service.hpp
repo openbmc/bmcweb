@@ -22,6 +22,8 @@
 #include <query.hpp>
 #include <registries/privilege_registry.hpp>
 #include <sdbusplus/asio/property.hpp>
+#include <sdbusplus/unpack_properties.hpp>
+#include <utils/dbus_utils.hpp>
 #include <utils/sw_utils.hpp>
 
 namespace redfish
@@ -818,7 +820,9 @@ inline void
                        const std::string& service, const std::string& path,
                        const std::string& swId)
 {
-    crow::connections::systemBus->async_method_call(
+    sdbusplus::asio::getAllProperties(
+        *crow::connections::systemBus, service, path,
+        "xyz.openbmc_project.Software.Version",
         [asyncResp,
          swId](const boost::system::error_code errorCode,
                const dbus::utility::DBusPropertiesMap& propertiesList) {
@@ -827,18 +831,18 @@ inline void
             messages::internalError(asyncResp->res);
             return;
         }
+
         const std::string* swInvPurpose = nullptr;
         const std::string* version = nullptr;
-        for (const auto& property : propertiesList)
+
+        const bool success = sdbusplus::unpackPropertiesNoThrow(
+            dbus_utils::UnpackErrorPrinter(), propertiesList, "Purpose",
+            swInvPurpose, "Version", version);
+
+        if (!success)
         {
-            if (property.first == "Purpose")
-            {
-                swInvPurpose = std::get_if<std::string>(&property.second);
-            }
-            else if (property.first == "Version")
-            {
-                version = std::get_if<std::string>(&property.second);
-            }
+            messages::internalError(asyncResp->res);
+            return;
         }
 
         if (swInvPurpose == nullptr)
@@ -880,9 +884,7 @@ inline void
         std::string formatDesc = swInvPurpose->substr(endDesc);
         asyncResp->res.jsonValue["Description"] = formatDesc + " image";
         getRelatedItems(asyncResp, *swInvPurpose);
-        },
-        service, path, "org.freedesktop.DBus.Properties", "GetAll",
-        "xyz.openbmc_project.Software.Version");
+        });
 }
 
 inline void requestRoutesSoftwareInventory(App& app)

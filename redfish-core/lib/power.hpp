@@ -23,6 +23,7 @@
 #include <dbus_utility.hpp>
 #include <query.hpp>
 #include <registries/privilege_registry.hpp>
+#include <sdbusplus/asio/property.hpp>
 
 namespace redfish
 {
@@ -288,11 +289,11 @@ inline void requestRoutesPower(App& app)
                 }
             };
 
-            crow::connections::systemBus->async_method_call(
-                std::move(valueHandler), "xyz.openbmc_project.Settings",
+            sdbusplus::asio::getAllProperties(
+                *crow::connections::systemBus, "xyz.openbmc_project.Settings",
                 "/xyz/openbmc_project/control/host0/power_cap",
-                "org.freedesktop.DBus.Properties", "GetAll",
-                "xyz.openbmc_project.Control.Power.Cap");
+                "xyz.openbmc_project.Control.Power.Cap",
+                std::move(valueHandler));
         };
 
         crow::connections::systemBus->async_method_call(
