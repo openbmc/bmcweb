@@ -201,6 +201,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "18b931e1_4ab55328",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1001084
+      },
+      "writtenOn": "2022-09-07T20:33:07Z",
+      "side": 1,
+      "message": "GET will now include both \u0027Redfish\u0027 and \u0027WebUI\u0027",
+      "parentUuid": "b23935b1_6ee5f5f7",
+      "range": {
+        "startLine": 129,
+        "startChar": 1,
+        "endLine": 129,
+        "endChar": 27
+      },
+      "revId": "32ffd1f8558449686c7ea9cf08c68fcd6ecbe20e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2318e3d1_428af59d",
