@@ -2,6 +2,8 @@
 #include <async_resp.hpp>
 #include <dbus_utility.hpp>
 #include <sdbusplus/asio/property.hpp>
+#include <sdbusplus/unpack_properties.hpp>
+#include <utils/dbus_utils.hpp>
 
 #include <algorithm>
 #include <string>
@@ -122,7 +124,9 @@ inline void
                 }
 
                 // Now grab its version info
-                crow::connections::systemBus->async_method_call(
+                sdbusplus::asio::getAllProperties(
+                    *crow::connections::systemBus, obj.second[0].first,
+                    obj.first, "xyz.openbmc_project.Software.Version",
                     [aResp, swId, runningImage, swVersionPurpose,
                      activeVersionPropName, populateLinkToImages](
                         const boost::system::error_code ec3,
@@ -148,48 +152,34 @@ inline void
                     // "IBM-witherspoon-OP9-v2.0.10-2.22" "Purpose"
                     // s
                     // "xyz.openbmc_project.Software.Version.VersionPurpose.Host"
-                    std::string version;
-                    std::string swInvPurpose;
-                    for (const auto& propertyPair : propertiesList)
-                    {
-                        if (propertyPair.first == "Purpose")
-                        {
-                            const std::string* purpose =
-                                std::get_if<std::string>(&propertyPair.second);
-                            if (purpose == nullptr)
-                            {
-                                messages::internalError(aResp->res);
-                                return;
-                            }
-                            swInvPurpose = *purpose;
-                        }
-                        if (propertyPair.first == "Version")
-                        {
-                            const std::string* versionPtr =
-                                std::get_if<std::string>(&propertyPair.second);
-                            if (versionPtr == nullptr)
-                            {
-                                messages::internalError(aResp->res);
-                                return;
-                            }
-                            version = *versionPtr;
-                        }
-                    }
+                    const std::string* version = nullptr;
+                    const std::string* swInvPurpose = nullptr;
 
-                    BMCWEB_LOG_DEBUG << "Image ID: " << swId;
-                    BMCWEB_LOG_DEBUG << "Image purpose: " << swInvPurpose;
-                    BMCWEB_LOG_DEBUG << "Running image: " << runningImage;
+                    const bool success = sdbusplus::unpackPropertiesNoThrow(
+                        dbus_utils::UnpackErrorPrinter(), propertiesList,
+                        "Purpose", swInvPurpose, "Version", version);
 
-                    if (version.empty())
+                    if (!success)
                     {
                         messages::internalError(aResp->res);
                         return;
                     }
-                    if (swInvPurpose != swVersionPurpose)
+
+                    if (version == nullptr || version->empty())
+                    {
+                        messages::internalError(aResp->res);
+                        return;
+                    }
+                    if (swInvPurpose == nullptr ||
+                        *swInvPurpose != swVersionPurpose)
                     {
                         // Not purpose we're looking for
                         return;
                     }
+
+                    BMCWEB_LOG_DEBUG << "Image ID: " << swId;
+                    BMCWEB_LOG_DEBUG << "Running image: " << runningImage;
+                    BMCWEB_LOG_DEBUG << "Image purpose: " << *swInvPurpose;
 
                     if (populateLinkToImages)
                     {
@@ -218,12 +208,9 @@ inline void
                     }
                     if (!activeVersionPropName.empty() && runningImage)
                     {
-                        aResp->res.jsonValue[activeVersionPropName] = version;
+                        aResp->res.jsonValue[activeVersionPropName] = *version;
                     }
-                    },
-                    obj.second[0].first, obj.first,
-                    "org.freedesktop.DBus.Properties", "GetAll",
-                    "xyz.openbmc_project.Software.Version");
+                    });
             }
             },
             "xyz.openbmc_project.ObjectMapper",
@@ -305,7 +292,10 @@ inline void getSwStatus(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 {
     BMCWEB_LOG_DEBUG << "getSwStatus: swId " << *swId << " svc " << dbusSvc;
 
-    crow::connections::systemBus->async_method_call(
+    sdbusplus::asio::getAllProperties(
+        *crow::connections::systemBus, dbusSvc,
+        "/xyz/openbmc_project/software/" + *swId,
+        "xyz.openbmc_project.Software.Activation",
         [asyncResp,
          swId](const boost::system::error_code errorCode,
                const dbus::utility::DBusPropertiesMap& propertiesList) {
@@ -315,30 +305,31 @@ inline void getSwStatus(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
             asyncResp->res.jsonValue["Status"]["State"] = "Enabled";
             return;
         }
+
         const std::string* swInvActivation = nullptr;
-        for (const auto& property : propertiesList)
+
+        const bool success = sdbusplus::unpackPropertiesNoThrow(
+            dbus_utils::UnpackErrorPrinter(), propertiesList, "Activation",
+            swInvActivation);
+
+        if (!success)
         {
-            if (property.first == "Activation")
-            {
-                swInvActivation = std::get_if<std::string>(&property.second);
-            }
+            messages::internalError(asyncResp->res);
+            return;
         }
 
         if (swInvActivation == nullptr)
         {
-            BMCWEB_LOG_DEBUG << "wrong types for property\"Activation\"!";
             messages::internalError(asyncResp->res);
             return;
         }
+
         BMCWEB_LOG_DEBUG << "getSwStatus: Activation " << *swInvActivation;
         asyncResp->res.jsonValue["Status"]["State"] =
             getRedfishSwState(*swInvActivation);
         asyncResp->res.jsonValue["Status"]["Health"] =
             getRedfishSwHealth(*swInvActivation);
-        },
-        dbusSvc, "/xyz/openbmc_project/software/" + *swId,
-        "org.freedesktop.DBus.Properties", "GetAll",
-        "xyz.openbmc_project.Software.Activation");
+        });
 }
 
 /**

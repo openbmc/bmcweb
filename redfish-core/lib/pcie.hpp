@@ -21,6 +21,9 @@
 #include <dbus_utility.hpp>
 #include <query.hpp>
 #include <registries/privilege_registry.hpp>
+#include <sdbusplus/asio/property.hpp>
+#include <sdbusplus/unpack_properties.hpp>
+#include <utils/dbus_utils.hpp>
 
 namespace redfish
 {
@@ -174,6 +177,49 @@ inline void requestRoutesSystemPCIeDevice(App& app)
                 return;
             }
 
+            const std::string* manufacturer = nullptr;
+            const std::string* deviceType = nullptr;
+            const std::string* generationInUse = nullptr;
+
+            const bool success = sdbusplus::unpackPropertiesNoThrow(
+                dbus_utils::UnpackErrorPrinter(), pcieDevProperties,
+                "Manufacturer", manufacturer, "DeviceType", deviceType,
+                "GenerationInUse", generationInUse);
+
+            if (!success)
+            {
+                messages::internalError(asyncResp->res);
+                return;
+            }
+
+            if (generationInUse != nullptr)
+            {
+                std::optional<std::string> redfishGenerationInUse =
+                    redfishPcieGenerationFromDbus(*generationInUse);
+                if (!redfishGenerationInUse)
+                {
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                if (redfishGenerationInUse->empty())
+                {
+                    // unknown, no need to handle
+                    return;
+                }
+                asyncResp->res.jsonValue["PCIeInterface"]["PCIeType"] =
+                    *redfishGenerationInUse;
+            }
+
+            if (manufacturer != nullptr)
+            {
+                asyncResp->res.jsonValue["Manufacturer"] = *manufacturer;
+            }
+
+            if (deviceType != nullptr)
+            {
+                asyncResp->res.jsonValue["DeviceType"] = *deviceType;
+            }
+
             asyncResp->res.jsonValue["@odata.type"] =
                 "#PCIeDevice.v1_4_0.PCIeDevice";
             asyncResp->res.jsonValue["@odata.id"] =
@@ -184,57 +230,12 @@ inline void requestRoutesSystemPCIeDevice(App& app)
             asyncResp->res.jsonValue["PCIeFunctions"]["@odata.id"] =
                 "/redfish/v1/Systems/system/PCIeDevices/" + device +
                 "/PCIeFunctions";
-            for (const auto& property : pcieDevProperties)
-            {
-                const std::string* propertyString =
-                    std::get_if<std::string>(&property.second);
-                if (property.first == "Manufacturer")
-                {
-                    if (propertyString == nullptr)
-                    {
-                        messages::internalError(asyncResp->res);
-                        return;
-                    }
-                    asyncResp->res.jsonValue["Manufacturer"] = *propertyString;
-                }
-                if (property.first == "DeviceType")
-                {
-                    if (propertyString == nullptr)
-                    {
-                        messages::internalError(asyncResp->res);
-                        return;
-                    }
-                    asyncResp->res.jsonValue["DeviceType"] = *propertyString;
-                }
-                if (property.first == "GenerationInUse")
-                {
-                    if (propertyString == nullptr)
-                    {
-                        messages::internalError(asyncResp->res);
-                        return;
-                    }
-                    std::optional<std::string> generationInUse =
-                        redfishPcieGenerationFromDbus(*propertyString);
-                    if (!generationInUse)
-                    {
-                        messages::internalError(asyncResp->res);
-                        return;
-                    }
-                    if (generationInUse->empty())
-                    {
-                        // unknown, no need to handle
-                        return;
-                    }
-                    asyncResp->res.jsonValue["PCIeInterface"]["PCIeType"] =
-                        *generationInUse;
-                }
-            }
         };
         std::string escapedPath = std::string(pciePath) + "/" + device;
         dbus::utility::escapePathForDbus(escapedPath);
-        crow::connections::systemBus->async_method_call(
-            std::move(getPCIeDeviceCallback), pcieService, escapedPath,
-            "org.freedesktop.DBus.Properties", "GetAll", pcieDeviceInterface);
+        sdbusplus::asio::getAllProperties(
+            *crow::connections::systemBus, pcieService, escapedPath,
+            pcieDeviceInterface, std::move(getPCIeDeviceCallback));
         });
 }
 
@@ -320,9 +321,9 @@ inline void requestRoutesSystemPCIeFunctionCollection(App& app)
         };
         std::string escapedPath = std::string(pciePath) + "/" + device;
         dbus::utility::escapePathForDbus(escapedPath);
-        crow::connections::systemBus->async_method_call(
-            std::move(getPCIeDeviceCallback), pcieService, escapedPath,
-            "org.freedesktop.DBus.Properties", "GetAll", pcieDeviceInterface);
+        sdbusplus::asio::getAllProperties(
+            *crow::connections::systemBus, pcieService, escapedPath,
+            pcieDeviceInterface, std::move(getPCIeDeviceCallback));
         });
 }
 
@@ -435,9 +436,9 @@ inline void requestRoutesSystemPCIeFunction(App& app)
         };
         std::string escapedPath = std::string(pciePath) + "/" + device;
         dbus::utility::escapePathForDbus(escapedPath);
-        crow::connections::systemBus->async_method_call(
-            std::move(getPCIeDeviceCallback), pcieService, escapedPath,
-            "org.freedesktop.DBus.Properties", "GetAll", pcieDeviceInterface);
+        sdbusplus::asio::getAllProperties(
+            *crow::connections::systemBus, pcieService, escapedPath,
+            pcieDeviceInterface, std::move(getPCIeDeviceCallback));
         });
 }
 
