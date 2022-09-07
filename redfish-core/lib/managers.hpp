@@ -170,7 +170,7 @@ inline void requestRoutesManagerResetToDefaultsAction(App& app)
      * BMC code updater factory reset wipes the whole BMC read-write
      * filesystem which includes things like the network settings.
      *
-     * OpenBMC only supports ResetToDefaultsType "ResetAll".
+     * OpenBMC only supports ResetType "ResetAll".
      */
 
     BMCWEB_ROUTE(app,
@@ -188,22 +188,22 @@ inline void requestRoutesManagerResetToDefaultsAction(App& app)
         std::string resetType;
 
         if (!json_util::readJsonAction(req, asyncResp->res,
-                                       "ResetToDefaultsType", resetType))
+                                       "ResetType", resetType))
         {
-            BMCWEB_LOG_DEBUG << "Missing property ResetToDefaultsType.";
+            BMCWEB_LOG_DEBUG << "Missing property ResetType.";
 
             messages::actionParameterMissing(asyncResp->res, "ResetToDefaults",
-                                             "ResetToDefaultsType");
+                                             "ResetType");
             return;
         }
 
         if (resetType != "ResetAll")
         {
             BMCWEB_LOG_DEBUG
-                << "Invalid property value for ResetToDefaultsType: "
+                << "Invalid property value for ResetType: "
                 << resetType;
             messages::actionParameterNotSupported(asyncResp->res, resetType,
-                                                  "ResetToDefaultsType");
+                                                  "ResetType");
             return;
         }
 
