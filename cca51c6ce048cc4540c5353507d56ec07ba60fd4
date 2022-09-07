@@ -253,6 +253,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0200c35b_b180d472",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-07T18:04:33Z",
+      "side": 1,
+      "message": "Gunnar, are you ok just merging this to get it off the plate?  I don\u0027t think it hurts anything as-is.",
+      "parentUuid": "dbb14d6a_6642e51e",
+      "revId": "cca51c6ce048cc4540c5353507d56ec07ba60fd4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9f42157b_68278340",
         "filename": "redfish-core/lib/ethernet.hpp",
         "patchSetId": 3
