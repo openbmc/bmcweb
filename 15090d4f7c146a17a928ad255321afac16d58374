@@ -53,6 +53,40 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "218d88bc_8caa39c9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 87
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-09-07T01:47:47Z",
+      "side": 1,
+      "message": "Couple minor things then I am okay",
+      "revId": "15090d4f7c146a17a928ad255321afac16d58374",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eda44297_83cd2f1b",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 87
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-09-07T01:47:47Z",
+      "side": 1,
+      "message": "Need a #include \u003ctinyxml2.h\u003e ?",
+      "revId": "15090d4f7c146a17a928ad255321afac16d58374",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2b9eb77d_89d3f70e",
@@ -84,6 +118,47 @@
       "side": 1,
       "message": "These are task status. DUMP_CREATE_FAILED is returned here and is mapped to taskData-\u003estate \u003d \"Cancelled\" at line 781 \u0026 782.",
       "parentUuid": "2b9eb77d_89d3f70e",
+      "revId": "15090d4f7c146a17a928ad255321afac16d58374",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9fe79dc1_5aef6827",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 87
+      },
+      "lineNbr": 675,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-09-07T01:47:47Z",
+      "side": 1,
+      "message": "Ack.",
+      "parentUuid": "096492b7_77a8e766",
+      "revId": "15090d4f7c146a17a928ad255321afac16d58374",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f4b6830a_32303e08",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 87
+      },
+      "lineNbr": 754,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-09-07T01:47:47Z",
+      "side": 1,
+      "message": "IMO a comment here or 2 what this is doing/why would help.",
+      "range": {
+        "startLine": 725,
+        "startChar": 0,
+        "endLine": 754,
+        "endChar": 9
+      },
       "revId": "15090d4f7c146a17a928ad255321afac16d58374",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
