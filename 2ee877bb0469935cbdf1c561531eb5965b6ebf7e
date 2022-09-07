@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "457315ac_2f515cef",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-09-07T19:03:33Z",
+      "side": 1,
+      "message": "This looks correct to me. Other maintainers, WDYT?",
+      "range": {
+        "startLine": 191,
+        "startChar": 40,
+        "endLine": 191,
+        "endChar": 49
+      },
+      "revId": "2ee877bb0469935cbdf1c561531eb5965b6ebf7e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2a17f66b_ca1171cc",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-09-07T19:03:33Z",
+      "side": 1,
+      "message": "Shall we fix all the ResetToDefaultsType in this file?",
+      "range": {
+        "startLine": 203,
+        "startChar": 47,
+        "endLine": 203,
+        "endChar": 66
+      },
+      "revId": "2ee877bb0469935cbdf1c561531eb5965b6ebf7e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
