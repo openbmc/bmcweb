@@ -63,6 +63,30 @@
       },
       "revId": "6da593e6ec5e6dbb649f44511f28507bedb16721",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5bad05a5_d5a35711",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-09-08T19:09:27Z",
+      "side": 1,
+      "message": "Thanks for these information.\n\nI actually meant object_t vs object, array_t vs array",
+      "parentUuid": "01f3c88e_8b0546ac",
+      "range": {
+        "startLine": 86,
+        "startChar": 24,
+        "endLine": 86,
+        "endChar": 32
+      },
+      "revId": "6da593e6ec5e6dbb649f44511f28507bedb16721",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
