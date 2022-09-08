@@ -271,6 +271,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "939e5a7a_a79cebe3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-09-08T03:20:41Z",
+      "side": 1,
+      "message": "Yeah, I agree it doesn\u0027t hurt anything, I don\u0027t care much but I thought we were following Redfish\u0027s advice and not bumping versions until they are needed? That said it will be needed as part of https://gerrit.openbmc.org/c/openbmc/bmcweb/+/53186 so if it goes early, 🤷. For next time, the bump should probably just be part of when the property is implemented.",
+      "parentUuid": "0200c35b_b180d472",
+      "revId": "cca51c6ce048cc4540c5353507d56ec07ba60fd4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9f42157b_68278340",
         "filename": "redfish-core/lib/ethernet.hpp",
         "patchSetId": 3
