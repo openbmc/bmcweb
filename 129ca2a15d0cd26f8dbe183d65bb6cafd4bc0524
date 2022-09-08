@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b16bec6_dc6c13b1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-08T20:27:36Z",
+      "side": 1,
+      "message": "I can\u0027t say I understand this explanation.  If there\u0027s no way to know if the link layer is up, I\u0027m not sure how you could implement a TCP stack that handled plug/unplug properly without knowing the link status, but I have no problem supporting the end result if that\u0027s what you guys want to do.",
+      "revId": "129ca2a15d0cd26f8dbe183d65bb6cafd4bc0524",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2e4c9821_766e8a79",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-08T20:27:36Z",
+      "side": 1,
+      "message": "If this property is optional and can\u0027t be represented properly, bmcweb is not the place to make that businesss-logic decision.  phosphor-network needs to publish a status to dbus a link status of for \"indeterminite\" or \"unsupported\" for which bmcweb can use as an indication that it shouldn\u0027t be populated.\n\nThis is to prevent putting system/hardware-specific code into bmcweb, which would explode the complexity in a hurry.",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 10
+      },
+      "revId": "129ca2a15d0cd26f8dbe183d65bb6cafd4bc0524",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "add18811_04f19fb5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-08T20:27:36Z",
+      "side": 1,
+      "message": "Redfish-service-validator?  I\u0027m pretty sure it\u0027ll error out on the code as you\u0027ve written it.",
+      "revId": "129ca2a15d0cd26f8dbe183d65bb6cafd4bc0524",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1f0009d7_88965941",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1624,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-08T20:27:36Z",
+      "side": 1,
+      "message": "Pretty sure this field is required.",
+      "range": {
+        "startLine": 1624,
+        "startChar": 0,
+        "endLine": 1624,
+        "endChar": 52
+      },
+      "revId": "129ca2a15d0cd26f8dbe183d65bb6cafd4bc0524",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
