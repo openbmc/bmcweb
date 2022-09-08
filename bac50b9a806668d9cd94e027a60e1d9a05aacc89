@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1f3edf9e_4dade693",
+        "filename": "DBUS_USAGE.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-09-08T17:01:28Z",
+      "side": 1,
+      "message": "bmcweb\u0027s?",
+      "range": {
+        "startLine": 1,
+        "startChar": 33,
+        "endLine": 1,
+        "endChar": 40
+      },
+      "revId": "bac50b9a806668d9cd94e027a60e1d9a05aacc89",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ca02d72_8a0defaf",
+        "filename": "DBUS_USAGE.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-09-08T17:01:28Z",
+      "side": 1,
+      "message": "Nit: if add a newline between bullet points, it will be more readable",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 1
+      },
+      "revId": "bac50b9a806668d9cd94e027a60e1d9a05aacc89",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "845e6f06_1cbfb2ce",
+        "filename": "DBUS_USAGE.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-09-08T17:01:28Z",
+      "side": 1,
+      "message": "nit: comma?",
+      "range": {
+        "startLine": 23,
+        "startChar": 31,
+        "endLine": 23,
+        "endChar": 32
+      },
+      "revId": "bac50b9a806668d9cd94e027a60e1d9a05aacc89",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
