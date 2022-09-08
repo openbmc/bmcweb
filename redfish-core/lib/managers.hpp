@@ -1309,9 +1309,17 @@ struct GetPIDValues : std::enable_shared_from_this<GetPIDValues>
 
                         calledConnections.insert(connectionGroup.first);
 
-                        asyncPopulatePid(findObjMgr->first, findObjMgr->second,
-                                         currentProfile, supportedProfiles,
-                                         asyncResp);
+                        try
+                        {
+                            asyncPopulatePid(findObjMgr->first,
+                                             findObjMgr->second, currentProfile,
+                                             supportedProfiles, asyncResp);
+                        }
+                        catch (...)
+                        {
+                            BMCWEB_LOG_CRITICAL
+                                << "asyncPopulatePid threw exception";
+                        }
                         break;
                     }
                 }

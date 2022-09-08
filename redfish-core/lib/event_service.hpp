@@ -573,7 +573,7 @@ inline void requestRoutesEventDestination(App& app)
             boost::beast::http::fields fields;
             for (const nlohmann::json& headerChunk : *headers)
             {
-                for (auto& it : headerChunk.items())
+                for (const auto& it : headerChunk.items())
                 {
                     const std::string* value =
                         it.value().get_ptr<const std::string*>();
