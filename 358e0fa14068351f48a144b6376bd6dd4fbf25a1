@@ -41,6 +41,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "078c1eab_17873dae",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-09-08T01:19:32Z",
+      "side": 1,
+      "message": "My bad, I thought it was defined in find.hpp.  I\u0027ve made the change.\n\nInteresting side note, predicate.hpp directly includes find.hpp while find.hpp does not directly include predicate.hpp.  I guess there\u0027s some circular relation that allowed me to compile when I included find.hpp.",
+      "parentUuid": "c28a09ab_9eef7096",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 3,
+        "endChar": 42
+      },
+      "revId": "358e0fa14068351f48a144b6376bd6dd4fbf25a1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f6beb397_d6034ff1",
@@ -54,6 +78,30 @@
       "writtenOn": "2022-09-07T18:28:07Z",
       "side": 1,
       "message": "I\u0027m ok with merging this now, but can you put a \"TODO update with the uri naming language from the specification when it gets released in 1.17\" here.",
+      "range": {
+        "startLine": 130,
+        "startChar": 0,
+        "endLine": 130,
+        "endChar": 64
+      },
+      "revId": "358e0fa14068351f48a144b6376bd6dd4fbf25a1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c9a2dcde_6478ccef",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-09-08T01:19:32Z",
+      "side": 1,
+      "message": "Sure no problem.  It\u0027s been added.",
+      "parentUuid": "f6beb397_d6034ff1",
       "range": {
         "startLine": 130,
         "startChar": 0,
