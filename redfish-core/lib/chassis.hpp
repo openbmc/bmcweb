@@ -392,6 +392,11 @@ inline void
 
                 asyncResp->res.jsonValue["Name"] = chassisId;
                 asyncResp->res.jsonValue["Id"] = chassisId;
+
+#ifdef BMCWEB_ENABLE_REDFISH_AGGREGATION
+            // Determine if this Chassis contains an aggregated Chassis
+            RedfishAggregator::getInstance().beginContainsRelation(asyncResp);
+#endif
 #ifdef BMCWEB_ALLOW_DEPRECATED_POWER_THERMAL
                 asyncResp->res.jsonValue["Thermal"]["@odata.id"] =
                     "/redfish/v1/Chassis/" + chassisId + "/Thermal";

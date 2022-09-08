@@ -15,6 +15,19 @@ enum class Result
     NoLocalHandle
 };
 
+struct SatelliteConfig
+{
+    boost::urls::url url;
+    std::string aggChassis;
+    std::string satRootChassis;
+    SatelliteConfig(const boost::urls::url& urlIn,
+                    const std::string& aggChassisIn,
+                    const std::string& satRootChassisIn) :
+        url(urlIn),
+        aggChassis(aggChassisIn), satRootChassis(satRootChassisIn)
+    {}
+};
+
 static void addPrefixToItem(nlohmann::json& item, std::string_view prefix)
 {
     std::string* strValue = item.get_ptr<std::string*>();
@@ -187,7 +200,7 @@ class RedfishAggregator
     // Dummy callback used by the Constructor so that it can report the number
     // of satellite configs when the class is first created
     static void constructorCallback(
-        const std::unordered_map<std::string, boost::urls::url>& satelliteInfo)
+        const std::unordered_map<std::string, SatelliteConfig>& satelliteInfo)
     {
         BMCWEB_LOG_DEBUG << "There were "
                          << std::to_string(satelliteInfo.size())
@@ -198,7 +211,7 @@ class RedfishAggregator
     // Expects a handler which interacts with the returned configs
     static void getSatelliteConfigs(
         const std::function<void(
-            const std::unordered_map<std::string, boost::urls::url>&)>& handler)
+            const std::unordered_map<std::string, SatelliteConfig>&)>& handler)
     {
         BMCWEB_LOG_DEBUG << "Gathering satellite configs";
         crow::connections::systemBus->async_method_call(
@@ -214,7 +227,7 @@ class RedfishAggregator
             // Maps a chosen alias representing a satellite BMC to a url
             // containing the information required to create a http
             // connection to the satellite
-            std::unordered_map<std::string, boost::urls::url> satelliteInfo;
+            std::unordered_map<std::string, SatelliteConfig> satelliteInfo;
 
             findSatelliteConfigs(objects, satelliteInfo);
 
@@ -239,7 +252,7 @@ class RedfishAggregator
     // information if valid
     static void findSatelliteConfigs(
         const dbus::utility::ManagedObjectType& objects,
-        std::unordered_map<std::string, boost::urls::url>& satelliteInfo)
+        std::unordered_map<std::string, SatelliteConfig>& satelliteInfo)
     {
         for (const auto& objectPath : objects)
         {
@@ -274,9 +287,11 @@ class RedfishAggregator
     static void addSatelliteConfig(
         const std::string& name,
         const dbus::utility::DBusPropertiesMap& properties,
-        std::unordered_map<std::string, boost::urls::url>& satelliteInfo)
+        std::unordered_map<std::string, SatelliteConfig>& satelliteInfo)
     {
         boost::urls::url url;
+        std::string aggChassis;
+        std::string satRootChassis;
 
         for (const auto& prop : properties)
         {
@@ -330,6 +345,30 @@ class RedfishAggregator
                 }
                 url.set_scheme("http");
             }
+
+            else if (prop.first == "AggChassis")
+            {
+                const std::string* propVal =
+                    std::get_if<std::string>(&prop.second);
+                if (propVal == nullptr)
+                {
+                    BMCWEB_LOG_ERROR << "Invalid AggChassis value";
+                    return;
+                }
+                aggChassis = *propVal;
+            }
+
+            else if (prop.first == "SatRootChassis")
+            {
+                const std::string* propVal =
+                    std::get_if<std::string>(&prop.second);
+                if (propVal == nullptr)
+                {
+                    BMCWEB_LOG_ERROR << "Invalid SatRootChassis value";
+                    return;
+                }
+                satRootChassis = *propVal;
+            }
         } // Finished reading properties
 
         // Make sure all required config information was made available
@@ -352,8 +391,31 @@ class RedfishAggregator
             return;
         }
 
+        // We can still perform aggregation if only AggChassis or only
+        // SatRootChassis was provided.  Just ignore the one that was provided
+        if (aggChassis.empty() && !satRootChassis.empty())
+        {
+            BMCWEB_LOG_CRITICAL
+                << "No AggChassis found, ignoring satRootChassis";
+            satRootChassis.clear();
+        }
+
+        if (!aggChassis.empty() && satRootChassis.empty())
+        {
+            BMCWEB_LOG_CRITICAL
+                << "No SatRootChassis found, ignoring AggChassis";
+            aggChassis.clear();
+        }
+
+        if (!aggChassis.empty() && !satRootChassis.empty())
+        {
+            BMCWEB_LOG_DEBUG << "In satellite config " << name << ": "
+                             << aggChassis << " Contains " << satRootChassis;
+        }
+
         std::string resultString;
-        auto result = satelliteInfo.insert_or_assign(name, std::move(url));
+        SatelliteConfig config(url, aggChassis, satRootChassis);
+        auto result = satelliteInfo.insert_or_assign(name, std::move(config));
         if (result.second)
         {
             resultString = "Added new satellite config ";
@@ -364,8 +426,8 @@ class RedfishAggregator
         }
 
         BMCWEB_LOG_DEBUG << resultString << name << " at "
-                         << result.first->second.scheme() << "://"
-                         << result.first->second.encoded_host_and_port();
+                         << result.first->second.url.scheme() << "://"
+                         << result.first->second.url.encoded_host_and_port();
     }
 
     enum AggregationType
@@ -407,7 +469,7 @@ class RedfishAggregator
     static void findSatellite(
         const crow::Request& req,
         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-        const std::unordered_map<std::string, boost::urls::url>& satelliteInfo,
+        const std::unordered_map<std::string, SatelliteConfig>& satelliteInfo,
         std::string_view memberName)
     {
         // Determine if the resource ID begins with a known prefix
@@ -440,7 +502,7 @@ class RedfishAggregator
         AggregationType isCollection,
         const std::shared_ptr<crow::Request>& sharedReq,
         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-        const std::unordered_map<std::string, boost::urls::url>& satelliteInfo)
+        const std::unordered_map<std::string, SatelliteConfig>& satelliteInfo)
     {
         if (sharedReq == nullptr)
         {
@@ -511,7 +573,7 @@ class RedfishAggregator
         const crow::Request& thisReq,
         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         const std::string& prefix,
-        const std::unordered_map<std::string, boost::urls::url>& satelliteInfo)
+        const std::unordered_map<std::string, SatelliteConfig>& satelliteInfo)
     {
         const auto& sat = satelliteInfo.find(prefix);
         if (sat == satelliteInfo.end())
@@ -541,8 +603,8 @@ class RedfishAggregator
 
         std::string data = thisReq.req.body();
         crow::HttpClient::getInstance().sendDataWithCallback(
-            data, id, std::string(sat->second.host()),
-            sat->second.port_number(), targetURI, false /*useSSL*/,
+            data, id, std::string(sat->second.url.host()),
+            sat->second.url.port_number(), targetURI, false /*useSSL*/,
             thisReq.fields, thisReq.method(), retryPolicyName, cb);
     }
 
@@ -550,7 +612,7 @@ class RedfishAggregator
     void forwardCollectionRequests(
         const crow::Request& thisReq,
         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-        const std::unordered_map<std::string, boost::urls::url>& satelliteInfo)
+        const std::unordered_map<std::string, SatelliteConfig>& satelliteInfo)
     {
         for (const auto& sat : satelliteInfo)
         {
@@ -560,8 +622,8 @@ class RedfishAggregator
             std::string targetURI(thisReq.target());
             std::string data = thisReq.req.body();
             crow::HttpClient::getInstance().sendDataWithCallback(
-                data, id, std::string(sat.second.host()),
-                sat.second.port_number(), targetURI, false /*useSSL*/,
+                data, id, std::string(sat.second.url.host()),
+                sat.second.url.port_number(), targetURI, false /*useSSL*/,
                 thisReq.fields, thisReq.method(), retryPolicyName, cb);
         }
     }
@@ -750,6 +812,37 @@ class RedfishAggregator
         }
     } // End processCollectionResponse()
 
+    // Determines if the Chassis resource associated with asyncResp is supposed
+    // to contain a Chassis located on a satellite BMC
+    static void beginContainsCallback(
+        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+        const std::unordered_map<std::string, SatelliteConfig>& satelliteInfo)
+    {
+        BMCWEB_LOG_DEBUG << "Processing " << satelliteInfo.size()
+                         << " satellite configs for Contains";
+        const std::string& chassisId = asyncResp->res.jsonValue["Name"];
+        for (const auto& [prefix, config] : satelliteInfo)
+        {
+            if (config.aggChassis == chassisId)
+            {
+                BMCWEB_LOG_DEBUG << "Adding Contains link";
+                nlohmann::json& contains =
+                    asyncResp->res.jsonValue["Links"]["Contains"];
+                if (!contains.is_array())
+                {
+                    contains = nlohmann::json::array();
+                }
+
+                std::string satChassis = prefix + "_" + config.satRootChassis;
+                nlohmann::json::object_t member;
+                member["@odata.id"] = crow::utility::urlFromPieces(
+                    "redfish", "v1", "Chassis", satChassis);
+                contains.push_back(std::move(member));
+                BMCWEB_LOG_DEBUG << chassisId << " contains " << satChassis;
+            }
+        }
+    }
+
   public:
     RedfishAggregator(const RedfishAggregator&) = delete;
     RedfishAggregator& operator=(const RedfishAggregator&) = delete;
@@ -840,6 +933,12 @@ class RedfishAggregator
 
         BMCWEB_LOG_DEBUG << "Aggregation not required";
         return Result::LocalHandle;
+    }
+
+    static void beginContainsRelation(
+        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+    {
+        getSatelliteConfigs(std::bind_front(beginContainsCallback, asyncResp));
     }
 };
 
