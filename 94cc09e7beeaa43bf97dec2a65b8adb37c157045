@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2d7ca8b3_3ff2cd8f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-08T15:23:43Z",
+      "side": 1,
+      "message": "I\u0027m not sure I understand the question.  What is an example of a built-in object?",
+      "parentUuid": "172ad22f_927095cd",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 25
+      },
+      "revId": "94cc09e7beeaa43bf97dec2a65b8adb37c157045",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2f8b7736_b0eda4e8",
         "filename": "/COMMIT_MSG",
         "patchSetId": 12
@@ -37,6 +61,24 @@
       "writtenOn": "2022-09-07T18:27:55Z",
       "side": 1,
       "message": "maybe also mention how you find all the places?",
+      "revId": "94cc09e7beeaa43bf97dec2a65b8adb37c157045",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c4254098_06945bdb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-08T15:23:43Z",
+      "side": 1,
+      "message": "manual inspection of all nlohmann::json objects and jsonValue objects;  I guess I can put that in the commit message, but it\u0027s not that interesting (it\u0027s not like I decompiled the binary or anything).\n\nupdated the commit message",
+      "parentUuid": "2f8b7736_b0eda4e8",
       "revId": "94cc09e7beeaa43bf97dec2a65b8adb37c157045",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -89,6 +131,24 @@
       "writtenOn": "2022-09-07T18:27:55Z",
       "side": 1,
       "message": "nit, put ret near to where it is firstly used?",
+      "revId": "94cc09e7beeaa43bf97dec2a65b8adb37c157045",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "12b3b0f6_c139676d",
+        "filename": "redfish-core/src/error_messages.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 1734,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-08T15:23:43Z",
+      "side": 1,
+      "message": "Fixed.",
+      "parentUuid": "3bdacd1e_d1faa1c1",
       "revId": "94cc09e7beeaa43bf97dec2a65b8adb37c157045",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
