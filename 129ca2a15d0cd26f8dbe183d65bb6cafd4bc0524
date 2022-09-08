@@ -67,6 +67,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "362759e9_eb5ec0ac",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-08T21:40:54Z",
+      "side": 1,
+      "message": "If there\u0027s cases where the link state is indeterminate, we need a definition change here to make this an enum with Up, Down, and Unsupported as options (at least that\u0027s my off-the-cuff idea for what the API should look like)\nhttps://github.com/openbmc/phosphor-dbus-interfaces/blob/master/yaml/xyz/openbmc_project/Network/EthernetInterface.interface.yaml#L89\n\nThen you need to go to phosphor-network, here:\nhttps://github.com/openbmc/phosphor-networkd/blob/8e61ca9dac86cfb669fa297a04436129dc446a70/src/ethernet_interface.cpp#L113\n\nAnd add some logic.  If you look at the line 3 lines below, there\u0027s already some logic for a compile-time omission of properties, so presumably your new option would just be another instance of that, but talk to those maintainers and they should be able to give you an idea of what they\u0027re looking for.\n\nI\u0027m guessing in the ideal case, that \"link state isn\u0027t supported by this driver\" probably needs pulled from the kernel driver itself.  I\u0027m a little surprised that a kernel driver that doesn\u0027t support this would read a value, but meh, not my area of expertise.",
+      "parentUuid": "6357aea5_9bc350ac",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 10
+      },
+      "revId": "129ca2a15d0cd26f8dbe183d65bb6cafd4bc0524",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "add18811_04f19fb5",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -96,6 +120,24 @@
       "side": 1,
       "message": "It did not. Both of these objects are listed \"optional\"",
       "parentUuid": "add18811_04f19fb5",
+      "revId": "129ca2a15d0cd26f8dbe183d65bb6cafd4bc0524",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c20eba8f_9a4af368",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-08T21:40:54Z",
+      "side": 1,
+      "message": "I could\u0027ve sworn [State][Status] wasn\u0027t optional, but sure, if the test passes, that\u0027s fine then.",
+      "parentUuid": "95d0f744_d8f9e990",
       "revId": "129ca2a15d0cd26f8dbe183d65bb6cafd4bc0524",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -154,6 +196,30 @@
       "side": 1,
       "message": "Service val indicates it is optional.",
       "parentUuid": "1f0009d7_88965941",
+      "range": {
+        "startLine": 1624,
+        "startChar": 0,
+        "endLine": 1624,
+        "endChar": 52
+      },
+      "revId": "129ca2a15d0cd26f8dbe183d65bb6cafd4bc0524",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f5564cf2_cf089acc",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1624,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-08T21:40:54Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "8660851b_1d6c90fb",
       "range": {
         "startLine": 1624,
         "startChar": 0,
