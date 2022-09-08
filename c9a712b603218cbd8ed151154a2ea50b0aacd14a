@@ -20,6 +20,70 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a8c2e6d8_474d41d3",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-09-08T16:51:27Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "de646aeb_fba6078c",
+      "revId": "c9a712b603218cbd8ed151154a2ea50b0aacd14a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "711d6e92_c7260980",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-09-08T16:51:27Z",
+      "side": 1,
+      "message": "What does this return value mean?",
+      "range": {
+        "startLine": 130,
+        "startChar": 7,
+        "endLine": 130,
+        "endChar": 11
+      },
+      "revId": "c9a712b603218cbd8ed151154a2ea50b0aacd14a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "43ae439c_9c61c333",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-09-08T16:51:27Z",
+      "side": 1,
+      "message": "What about using the pattern in https://gerrit.openbmc.org/c/openbmc/bmcweb/+/55229: create a temp array, modify it, and only move it to the json on success. In this way, you don\u0027t get a partial invalid JSON in the response.",
+      "range": {
+        "startLine": 133,
+        "startChar": 0,
+        "endLine": 133,
+        "endChar": 65
+      },
+      "revId": "c9a712b603218cbd8ed151154a2ea50b0aacd14a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ee5b27c2_c642e9c3",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 14
