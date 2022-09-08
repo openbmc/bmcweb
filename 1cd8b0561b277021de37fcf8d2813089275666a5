@@ -22,6 +22,30 @@
       },
       "revId": "1cd8b0561b277021de37fcf8d2813089275666a5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "286efa2b_54642694",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 505,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-09-08T20:20:24Z",
+      "side": 1,
+      "message": "Yes the eventual goal is to have a single path. This is an intermediate change to increase the fault log timestamp precision while we get the back end (phosphor-debug-collector) timestamps fixed for other dump types. \n\nPlease see the note in the commit message and the prior discussion at patchset 3 line 502 (https://gerrit.openbmc.org/c/openbmc/bmcweb/+/55402/3/redfish-core/lib/log_services.hpp#b502)",
+      "parentUuid": "47b4c719_29ee46c3",
+      "range": {
+        "startLine": 504,
+        "startChar": 0,
+        "endLine": 505,
+        "endChar": 47
+      },
+      "revId": "1cd8b0561b277021de37fcf8d2813089275666a5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
