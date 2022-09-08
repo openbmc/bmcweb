@@ -309,3 +309,9 @@ option(
                     enable on production systems at this time.  Other query
                     parameters such as only are not controlled by this option.'''
 )
+
+option(
+    'enable-link-status',
+    type: 'feature', value: 'enabled',
+    description: 'Display the network interface link status.'
+)

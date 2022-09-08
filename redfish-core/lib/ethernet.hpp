@@ -1617,9 +1617,10 @@ inline void parseInterfaceData(
 
     health->populate();
 
+#ifdef BMCWEB_ENABLE_LINK_STATUS
     if (ethData.nicEnabled)
     {
-        jsonResponse["LinkStatus"] = "LinkUp";
+        jsonResponse["LinkStatus"] = ethData.linkUp ? "LinkUp" : "LinkDown";
         jsonResponse["Status"]["State"] = "Enabled";
     }
     else
@@ -1627,8 +1628,8 @@ inline void parseInterfaceData(
         jsonResponse["LinkStatus"] = "NoLink";
         jsonResponse["Status"]["State"] = "Disabled";
     }
+#endif
 
-    jsonResponse["LinkStatus"] = ethData.linkUp ? "LinkUp" : "LinkDown";
     jsonResponse["SpeedMbps"] = ethData.speed;
     jsonResponse["MTUSize"] = ethData.mtuSize;
     jsonResponse["MACAddress"] = ethData.macAddress;
