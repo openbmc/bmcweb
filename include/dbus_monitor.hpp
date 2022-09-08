@@ -84,7 +84,7 @@ inline int onPropertyUpdate(sd_bus_message* m, void* userdata,
         }
 
         // data is type oa{sa{sv}} which is an array[2] of string, object
-        for (auto& entry : data[1].items())
+        for (const auto& entry : data[1].items())
         {
             auto it = thisSession->second.interfaces.find(entry.key());
             if (it != thisSession->second.interfaces.end())
