@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "47b4c719_29ee46c3",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 505,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-08T16:43:33Z",
+      "side": 1,
+      "message": "Should all 3 of these just do the same thing?  It seems odd that we have an interface that supports uS resolution on all 3, but we nerf 2 of them down to seconds precision, especially because it duplicates code between the 3 paths.",
+      "range": {
+        "startLine": 504,
+        "startChar": 0,
+        "endLine": 505,
+        "endChar": 47
+      },
+      "revId": "1cd8b0561b277021de37fcf8d2813089275666a5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
