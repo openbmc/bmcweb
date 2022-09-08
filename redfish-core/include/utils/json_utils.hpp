@@ -410,7 +410,7 @@ inline bool readJsonHelper(nlohmann::json& jsonRequest, crow::Response& res,
         messages::unrecognizedRequestBody(res);
         return false;
     }
-    for (auto& item : jsonRequest.items())
+    for (const auto& item : jsonRequest.items())
     {
         size_t unpackIndex = 0;
         for (; unpackIndex < toUnpack.size(); unpackIndex++)
