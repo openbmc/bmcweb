@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1740560e_67137c16",
+        "filename": "DBUS_USAGE.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-08T17:36:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1f3edf9e_4dade693",
+      "range": {
+        "startLine": 1,
+        "startChar": 33,
+        "endLine": 1,
+        "endChar": 40
+      },
+      "revId": "bac50b9a806668d9cd94e027a60e1d9a05aacc89",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3ca02d72_8a0defaf",
@@ -47,6 +71,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f8f41dd_35296daf",
+        "filename": "DBUS_USAGE.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-08T17:36:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3ca02d72_8a0defaf",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 1
+      },
+      "revId": "bac50b9a806668d9cd94e027a60e1d9a05aacc89",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "845e6f06_1cbfb2ce",
@@ -60,6 +108,30 @@
       "writtenOn": "2022-09-08T17:01:28Z",
       "side": 1,
       "message": "nit: comma?",
+      "range": {
+        "startLine": 23,
+        "startChar": 31,
+        "endLine": 23,
+        "endChar": 32
+      },
+      "revId": "bac50b9a806668d9cd94e027a60e1d9a05aacc89",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e7d1d67c_c365844c",
+        "filename": "DBUS_USAGE.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-08T17:36:26Z",
+      "side": 1,
+      "message": "Reworded to make the comma unnecessary.",
+      "parentUuid": "845e6f06_1cbfb2ce",
       "range": {
         "startLine": 23,
         "startChar": 31,
