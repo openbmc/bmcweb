@@ -1173,6 +1173,12 @@ inline CreatePIDRet createPidInterface(
 }
 struct GetPIDValues : std::enable_shared_from_this<GetPIDValues>
 {
+    struct CompletionValues
+    {
+        std::vector<std::string> supportedProfiles;
+        std::string currentProfile;
+        dbus::utility::MapperGetSubTreeResponse subtree;
+    };
 
     explicit GetPIDValues(
         const std::shared_ptr<bmcweb::AsyncResp>& asyncRespIn) :
@@ -1195,7 +1201,7 @@ struct GetPIDValues : std::enable_shared_from_this<GetPIDValues>
                 messages::internalError(self->asyncResp->res);
                 return;
             }
-            self->subtree = subtreeLocal;
+            self->complete.subtree = subtreeLocal;
             },
             "xyz.openbmc_project.ObjectMapper",
             "/xyz/openbmc_project/object_mapper",
@@ -1257,8 +1263,8 @@ struct GetPIDValues : std::enable_shared_from_this<GetPIDValues>
                     messages::internalError(self->asyncResp->res);
                     return;
                 }
-                self->currentProfile = *current;
-                self->supportedProfiles = *supported;
+                self->complete.currentProfile = *current;
+                self->complete.supportedProfiles = *supported;
                 });
             },
             "xyz.openbmc_project.ObjectMapper",
@@ -1267,16 +1273,23 @@ struct GetPIDValues : std::enable_shared_from_this<GetPIDValues>
             std::array<const char*, 1>{thermalModeIface});
     }
 
-    ~GetPIDValues()
+    static void
+        processingComplete(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                           const CompletionValues& completion)
     {
         if (asyncResp->res.result() != boost::beast::http::status::ok)
         {
             return;
         }
         // create map of <connection, path to objMgr>>
-        boost::container::flat_map<std::string, std::string> objectMgrPaths;
-        boost::container::flat_set<std::string> calledConnections;
-        for (const auto& pathGroup : subtree)
+        boost::container::flat_map<
+            std::string, std::string, std::less<>,
+            std::vector<std::pair<std::string, std::string>>>
+            objectMgrPaths;
+        boost::container::flat_set<std::string, std::less<>,
+                                   std::vector<std::string>>
+            calledConnections;
+        for (const auto& pathGroup : completion.subtree)
         {
             for (const auto& connectionGroup : pathGroup.second)
             {
@@ -1310,7 +1323,8 @@ struct GetPIDValues : std::enable_shared_from_this<GetPIDValues>
                         calledConnections.insert(connectionGroup.first);
 
                         asyncPopulatePid(findObjMgr->first, findObjMgr->second,
-                                         currentProfile, supportedProfiles,
+                                         completion.currentProfile,
+                                         completion.supportedProfiles,
                                          asyncResp);
                         break;
                     }
@@ -1319,15 +1333,20 @@ struct GetPIDValues : std::enable_shared_from_this<GetPIDValues>
         }
     }
 
+    ~GetPIDValues()
+    {
+        boost::asio::post(crow::connections::systemBus->get_io_context(),
+                          std::bind_front(&processingComplete, asyncResp,
+                                          std::move(complete)));
+    }
+
     GetPIDValues(const GetPIDValues&) = delete;
     GetPIDValues(GetPIDValues&&) = delete;
     GetPIDValues& operator=(const GetPIDValues&) = delete;
     GetPIDValues& operator=(GetPIDValues&&) = delete;
 
-    std::vector<std::string> supportedProfiles;
-    std::string currentProfile;
-    dbus::utility::MapperGetSubTreeResponse subtree;
     std::shared_ptr<bmcweb::AsyncResp> asyncResp;
+    CompletionValues complete;
 };
 
 struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
