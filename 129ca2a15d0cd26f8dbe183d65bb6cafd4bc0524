@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6357aea5_9bc350ac",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000278
+      },
+      "writtenOn": "2022-09-08T21:25:03Z",
+      "side": 1,
+      "message": "Do you mind disentangling the syntax of this sentence for me?\n\"phosphor-network needs to publish a status to dbus a link status of for \"indeterminite\" or \"unsupported\" for which bmcweb can use as an indication that it shouldn\u0027t be populated.\"\n\nI\u0027m not really following what your trying to convey.",
+      "parentUuid": "2e4c9821_766e8a79",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 10
+      },
+      "revId": "129ca2a15d0cd26f8dbe183d65bb6cafd4bc0524",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "add18811_04f19fb5",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -60,6 +84,41 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "95d0f744_d8f9e990",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000278
+      },
+      "writtenOn": "2022-09-08T21:25:03Z",
+      "side": 1,
+      "message": "It did not. Both of these objects are listed \"optional\"",
+      "parentUuid": "add18811_04f19fb5",
+      "revId": "129ca2a15d0cd26f8dbe183d65bb6cafd4bc0524",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3bff0a0e_10b15bbb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000278
+      },
+      "writtenOn": "2022-09-08T21:25:03Z",
+      "side": 1,
+      "message": "A few responses.\n\nPerhaps I should push a separate commit without the compile logic?\nI believe line 1631 is placed in a way that overrides what is in the \"if\" clause above it.",
+      "revId": "129ca2a15d0cd26f8dbe183d65bb6cafd4bc0524",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1f0009d7_88965941",
         "filename": "redfish-core/lib/ethernet.hpp",
         "patchSetId": 1
@@ -71,6 +130,30 @@
       "writtenOn": "2022-09-08T20:27:36Z",
       "side": 1,
       "message": "Pretty sure this field is required.",
+      "range": {
+        "startLine": 1624,
+        "startChar": 0,
+        "endLine": 1624,
+        "endChar": 52
+      },
+      "revId": "129ca2a15d0cd26f8dbe183d65bb6cafd4bc0524",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8660851b_1d6c90fb",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1624,
+      "author": {
+        "id": 1000278
+      },
+      "writtenOn": "2022-09-08T21:25:03Z",
+      "side": 1,
+      "message": "Service val indicates it is optional.",
+      "parentUuid": "1f0009d7_88965941",
       "range": {
         "startLine": 1624,
         "startChar": 0,
