@@ -249,6 +249,8 @@ static void
                 "xyz.openbmc_project.ObjectMapper", "GetObject", objPath.str,
                 std::array<const char*, 1>{
                     "xyz.openbmc_project.Software.Activation"});
+
+            break;
         }
     }
 }

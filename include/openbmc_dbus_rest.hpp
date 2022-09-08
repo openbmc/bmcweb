@@ -1768,7 +1768,7 @@ inline void handleGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                             }
                             else
                             {
-                                for (auto& prop : properties.items())
+                                for (const auto& prop : properties.items())
                                 {
                                     // if property name is empty, or
                                     // matches our search query, add it
