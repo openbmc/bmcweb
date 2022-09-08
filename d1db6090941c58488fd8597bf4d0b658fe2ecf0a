@@ -104,6 +104,24 @@
       "message": "d",
       "revId": "d1db6090941c58488fd8597bf4d0b658fe2ecf0a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8302cd91_a77dc972",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-08T22:08:18Z",
+      "side": 1,
+      "message": "\u003e 1. There is a task returned after this write, untar, inotify fire, and\n\u003e creation of a software D-Bus object, we could move this task, so a task is returned right after the upload is complete (before write, untar, inotify fire and creation of software D-Bus Object), but there would be a few disadvantages, and I am not convinced it makes things better. \n\u003e \n\u003e The main disadvantage is, it is easier to see why the update failed (e.g., we return ImageFailure, ManifestFileFailure, AlreadyExists, BusyFailure messages) vs. a task.\n\nI\u0027m not following.  The value of the response is returned as part of the Task, right?  The Messages array on the task contains the same information?\n\n\u003e In my experience, most of the code update fails happen here. We could still accomplish the same thing via a task, but it is an extra step, and for a smaller image on a fast connection, now you have to read that task.\n\nMy proposal was essentially:\nSend the payload to disk\nWait 10 seconds\nif after 10 seconds, the payload still isn\u0027t unzipped, spin off a task.\n\nThis keeps the behavior identical for the small binary fast upload case, but still lets us keep a crazy long timeout for the folks that are going to a little overboard on their max size config 😊\n\n\u003e Another disadvantage would be the complexity of having a task monitor the write, untar, etc but I think that can be done. \n\nWe already do this complexity today.  The Task object in bmcweb accepts a match expression, which this code already has to watch for.\n\nhttps://github.com/openbmc/bmcweb/blob/07ffa4e8ce8bdf6822df702872eade16d1bb5184/redfish-core/lib/task.hpp#L89\n\nI think it\u0027s just a matter of passing the match expression to the TaskMonitor... but maybe I\u0027m oversimplifying it.\n\n\u003e \n\u003e So this POST (image upload), given a 125 MB image and a 100 Mbits/s upload is going to take 10 seconds to upload. At 50 Mbits/s, double that to 20 seconds.. I guess I am fine with the extra 6-10 seconds for the write/untar/etc, given that the upload is already long for an image this size :/. \n\nMost folks are uploading images in the 40MB range, for which the math makes it 4 seconds, + this 10 second timer gets us ~14 seconds, which is the timeout target, and I think how we arrived at this math originally (way back when).\n\n\u003e For a small image, this whole thing is most likely much faster. \n\u003e We are looking to see what we can do to decrease our image size and looking at performance (only a few systems hit this, not sure the untar got the cycles it needed) but we are right against this 10 seconds and hitting this is really bad (code update failing). \n\nYeah.... i get it, it\u0027s not a great thing.\n\n\u003e \n\u003e 2. If you think we should move the task, certainly can, and yeah we can up to something VERY large, 30 seconds, 45 seconds, 1 min. I am just not sure for the broader code base, it is the best course of action.\n\nTo be clear, I\u0027m probably ok to accept either solution;  I do think that TaskService is a better answer overall, as it makes clear that bmcweb hasn\u0027t locked up/timed out (so we don\u0027t get bugs on that) by returning a reply, while still keeping the \"something is taking a lot longer than normal, but lets keep it moving\" behavior we want here.\n\nIn the ideal we would\u0027ve returned a Task from the beginning, but that ship has probably sailed.",
+      "parentUuid": "0d635764_9c1fbadd",
+      "revId": "d1db6090941c58488fd8597bf4d0b658fe2ecf0a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
