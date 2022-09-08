@@ -65,6 +65,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "77d9a895_c320cc26",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-08T16:44:22Z",
+      "side": 1,
+      "message": "Yeah, predicate.hpp is included elsewhere, which is why your code compiled (i think)",
+      "parentUuid": "078c1eab_17873dae",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 3,
+        "endChar": 42
+      },
+      "revId": "358e0fa14068351f48a144b6376bd6dd4fbf25a1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f6beb397_d6034ff1",
