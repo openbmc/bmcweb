@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0d72c24d_0e6b0c2d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-08T21:54:54Z",
+      "side": 1,
+      "message": "No on several levels.\n\n1. The \"aggregated chassis\" is the chassis that the entity-manager config is attached to.  That\u0027s why it was put in that file.  If it needs to be attached to a different config, make another config file.\n(yes, we\u0027ll need to do some conversion from dbus path to Redfish chassis here;  I think we know how to do that).\n\n2. SatRootChassis is something we should be getting from Redfish itself.  We should not be hardcoding it here for a particular implementation.\n\n3. You\u0027re hardcoding IDs in both these fields, in direct opposition to the redfish spec.  What if the next firmware changes the ID Foo, to abcde123?  what if the ID is different system to system (as is true on many bmcs)?\n\n\nTo accomplish what you\u0027re trying to accomplish:\n1. Make sure your Satellite config is in an appropriate EM config file that represents the physical component that the aggregated source lives on.\n2. Query the satellite controller for what its \"main\" chassis is using the redfish protocol (There\u0027s a way to do it that I don\u0027t remember, we\u0027ll have to open an issue with DMTF.)\n\nNow, I could see something of a half measure were we hardcode in some kind of matching expression, like \"Find the chassis with Model\u003dFoo, and Manufacturer\u003dBar\", because at least those things are specified, unchanging over time, and tied to that particular piece of hardware.  I would still much rather we use the redfish spec to find the top level chassis and aggregate that directly.",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 37
+      },
+      "revId": "73cdaa618f8bdb657ac811d94c04f976599342a6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
