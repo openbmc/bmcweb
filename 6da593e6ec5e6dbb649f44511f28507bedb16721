@@ -39,6 +39,30 @@
       },
       "revId": "6da593e6ec5e6dbb649f44511f28507bedb16721",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "01f3c88e_8b0546ac",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-08T17:33:46Z",
+      "side": 1,
+      "message": "You mean using nlohmann::json::object_t instead of nlohmann::json?\n\nI\u0027ve been doing that because the size of object_t/array_t is smaller, and more constrained in the types it can represent.\n\nnlohmann::json foo \u003d 0.1f;\nis completely legal, which for most APIs that are passing a nlohmann type around would be a contract break.\n\nnlohmann::json::object_t foo \u003d 0.1f;  Wouldn\u0027t compile.\n\nkeep in mind, object_t is an alias to std::map\u003cstd::string, nlohmann::json, and array_t is an alias to std::vector\u003cnlohmann::json\u003e, so they\u0027re relatively simple objects, even if they\u0027re a complex alias.\n\nwhen you do things like:\nfor (auto\u0026 element: nlohman::json foo())\n\nto iterate an array or object, you incidentally construct a nlohmann::json::iteration_proxy object, which can technically throw if your type is incorrect.  When iterating an array_t or an object_t, there\u0027s no possibility to throw.\n\nNow, all of the above are super micro optimizations that do decrease the binary size, but not by a ratio that actually matters..  The biggest thing for me is that there\u0027s exception safety and in code you\u0027re making your intent clear.",
+      "parentUuid": "cbc27122_c3e3436c",
+      "range": {
+        "startLine": 86,
+        "startChar": 24,
+        "endLine": 86,
+        "endChar": 32
+      },
+      "revId": "6da593e6ec5e6dbb649f44511f28507bedb16721",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

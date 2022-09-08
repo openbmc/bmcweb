@@ -122,6 +122,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "aa5715e1_a05cacfb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-08T17:33:46Z",
+      "side": 1,
+      "message": "\u003e Any idea why brace initialization in nlohmann increases binary size?\n\nBecause you\u0027re constructing a non-trivial object, and there\u0027s some limit to the level of complexity that the compiler can optimize.\n\n\u003e Is this a bug in that library?\n\nDefinitely not.  MAYBE could be argued that it\u0027s a missing feature in the gcc optimizer, where one might argue that it should be able to optimize these to the same thing, but I\u0027m guessing there\u0027s some code path where the intermediate object COULD throw an exception, so therefore the optimizer can\u0027t optimize it away.",
+      "parentUuid": "a40271dc_c77c0832",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 25
+      },
+      "revId": "94cc09e7beeaa43bf97dec2a65b8adb37c157045",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2f8b7736_b0eda4e8",
         "filename": "/COMMIT_MSG",
         "patchSetId": 12
