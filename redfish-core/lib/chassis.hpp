@@ -246,6 +246,11 @@ inline void
 
             auto health = std::make_shared<HealthPopulate>(asyncResp);
 
+#ifdef BMCWEB_ENABLE_REDFISH_AGGREGATION
+            // Determine if this Chassis contains an aggregated Chassis
+            RedfishAggregator::getInstance().beginContainsRelation(asyncResp);
+#endif
+
             sdbusplus::asio::getProperty<std::vector<std::string>>(
                 *crow::connections::systemBus,
                 "xyz.openbmc_project.ObjectMapper", path + "/all_sensors",
