@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "453e7977_bd864d3b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2022-09-08T14:19:40Z",
+      "side": 1,
+      "message": "And one issue we\u0027re discovering with this is that\u0027s it\u0027s a \"From\" firmware level type issue. i.e. you could be fine when you first ship a system with the smaller timeout, but if the image grows past a certain size in your next release, you now have no way to fix this issue without doing some intermediate firmware release that bumps the timeout. So best to have a large timeout that covers all possible growth in the future.\n\nFor us, we package the host firmware in our image, and that\u0027s where all of the growth occurred.",
+      "revId": "d1db6090941c58488fd8597bf4d0b658fe2ecf0a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
