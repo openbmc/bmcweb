@@ -39,6 +39,29 @@
       },
       "revId": "ecf84148a2edec621ce15c26af520b15ff22b1a9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "45141070_fea6480e",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1526,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-09-09T21:29:03Z",
+      "side": 1,
+      "message": "why not just use ptr-\u003e",
+      "range": {
+        "startLine": 1526,
+        "startChar": 25,
+        "endLine": 1526,
+        "endChar": 26
+      },
+      "revId": "ecf84148a2edec621ce15c26af520b15ff22b1a9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
