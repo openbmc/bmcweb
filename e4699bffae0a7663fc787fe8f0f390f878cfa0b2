@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7910bfb2_4e6d978b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-09T00:50:08Z",
+      "side": 1,
+      "message": "LGTM except for the one that I probably prefer my solution on, as it cleans up the whole \"call methods from the constructor\" thing, which should have better behavior on shutdown.",
+      "revId": "e4699bffae0a7663fc787fe8f0f390f878cfa0b2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "610f2a78_a05b9124",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1312,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-09T00:50:08Z",
+      "side": 1,
+      "message": "Solved this one a different way.\n\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/57035",
+      "revId": "e4699bffae0a7663fc787fe8f0f390f878cfa0b2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
