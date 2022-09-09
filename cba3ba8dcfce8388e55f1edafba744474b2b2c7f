@@ -16,6 +16,24 @@
       "message": "BTW, if you still prefer your way, happy to talk about it, but I dropped my patch on master just to get the build unbroken.",
       "revId": "cba3ba8dcfce8388e55f1edafba744474b2b2c7f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e043bb0a_b542190f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2022-09-09T10:53:16Z",
+      "side": 1,
+      "message": "I have no preference.  Was just trying to get something up so people could keep moving since I probably broke it with the GCC update.  Trying to uphold the \"fix what you break\" principle.\n\nI\u0027ve rebased to pick up your fix for the throw (and removed it from the commit message).",
+      "parentUuid": "ef77c8dc_25119212",
+      "revId": "cba3ba8dcfce8388e55f1edafba744474b2b2c7f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
