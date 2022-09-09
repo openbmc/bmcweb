@@ -307,6 +307,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5792e683_f20a7c8e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-09-09T03:05:40Z",
+      "side": 1,
+      "message": "https://gerrit.openbmc.org/q/topic:vlan-feature This patchset need the bump. But I think the bump should be merged when other patches got +2.",
+      "parentUuid": "7858a774_7b95855c",
+      "revId": "cca51c6ce048cc4540c5353507d56ec07ba60fd4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9f42157b_68278340",
         "filename": "redfish-core/lib/ethernet.hpp",
         "patchSetId": 3
