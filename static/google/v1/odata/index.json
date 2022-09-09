@@ -25,6 +25,11 @@
             "kind": "Singleton",
             "name": "RootOfTrustCollection",
             "url": "/google/v1/RootOfTrustCollection"
+        },
+        {
+            "kind": "Singleton",
+            "name": "NVMe",
+            "url": "/google/v1/NVMe"
         }
     ]
 }
