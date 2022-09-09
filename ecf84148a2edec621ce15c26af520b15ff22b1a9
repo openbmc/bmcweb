@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6dcf607d_ef11481d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-09-09T21:26:45Z",
+      "side": 1,
+      "message": "nit: I would add a subcomponent to the subject. Here I would use processor",
+      "revId": "ecf84148a2edec621ce15c26af520b15ff22b1a9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
