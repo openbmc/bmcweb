@@ -43,6 +43,11 @@
           <Annotation Term="OData.Description" String="The link to a Google Root Of Trust collection."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain a link to a Google RootOfTrust collection."/>
         </NavigationProperty>
+        <NavigationProperty Name="NVMe" Type="NVMeCollection.NVMeCollection" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The link to a Google NVMe device collection."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a Google NVMe device collection."/>
+        </NavigationProperty>
       </EntityType>
 
     </Schema>
