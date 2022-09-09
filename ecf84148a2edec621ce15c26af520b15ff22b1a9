@@ -16,6 +16,29 @@
       "message": "nit: I would add a subcomponent to the subject. Here I would use processor",
       "revId": "ecf84148a2edec621ce15c26af520b15ff22b1a9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "40710893_a836ead1",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-09-09T21:27:38Z",
+      "side": 1,
+      "message": "Like other codes we did for sensors and memories, this change can be split into smaller pieces.",
+      "range": {
+        "startLine": 222,
+        "startChar": 37,
+        "endLine": 222,
+        "endChar": 44
+      },
+      "revId": "ecf84148a2edec621ce15c26af520b15ff22b1a9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
