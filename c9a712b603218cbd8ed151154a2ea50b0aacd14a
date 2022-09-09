@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b935dc84_627ceec5",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1001084
+      },
+      "writtenOn": "2022-09-09T15:23:57Z",
+      "side": 1,
+      "message": "std::vector, std::string, and std::optional variables were already used at several places in this file.\n\nI don\u0027t see the need to add those includes...",
+      "parentUuid": "a8c2e6d8_474d41d3",
+      "revId": "c9a712b603218cbd8ed151154a2ea50b0aacd14a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "711d6e92_c7260980",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 14
@@ -49,6 +67,30 @@
       "writtenOn": "2022-09-08T16:51:27Z",
       "side": 1,
       "message": "What does this return value mean?",
+      "range": {
+        "startLine": 130,
+        "startChar": 7,
+        "endLine": 130,
+        "endChar": 11
+      },
+      "revId": "c9a712b603218cbd8ed151154a2ea50b0aacd14a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fe1d57d4_5748d864",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1001084
+      },
+      "writtenOn": "2022-09-09T15:23:57Z",
+      "side": 1,
+      "message": "If the UserGroups contain an invalid group name, we throw an exception. This method returns false in such cases. The caller throws an internal error exception. \n\nHave added a brief doc to the method to give clarity.",
+      "parentUuid": "711d6e92_c7260980",
       "range": {
         "startLine": 130,
         "startChar": 7,
@@ -82,6 +124,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "15f9e120_beb92d2a",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1001084
+      },
+      "writtenOn": "2022-09-09T15:23:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "43ae439c_9c61c333",
+      "range": {
+        "startLine": 133,
+        "startChar": 0,
+        "endLine": 133,
+        "endChar": 65
+      },
+      "revId": "c9a712b603218cbd8ed151154a2ea50b0aacd14a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ee5b27c2_c642e9c3",
@@ -95,6 +161,24 @@
       "writtenOn": "2022-09-08T14:56:05Z",
       "side": 1,
       "message": "This is unexpected, could you add a sentence or 2 to the commit msg on why this is needed and maybe a comment here. \nI opened https://github.com/openbmc/phosphor-user-manager/issues/14 to fix this but for now, maybe we can continue to ignore \"web\"",
+      "revId": "c9a712b603218cbd8ed151154a2ea50b0aacd14a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ab231a83_a2b5d581",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1001084
+      },
+      "writtenOn": "2022-09-09T15:23:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ee5b27c2_c642e9c3",
       "revId": "c9a712b603218cbd8ed151154a2ea50b0aacd14a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
