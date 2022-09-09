@@ -160,6 +160,24 @@
       "parentUuid": "7e1a9987_e79b7ac2",
       "revId": "4a3a6a15780d91428236389dedeca03cc435c2bd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b8246448_4ea5f68a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-09T03:26:19Z",
+      "side": 1,
+      "message": "Yep.... this still ignores the documented rules about version numbers.  It\u0027s updating the patch version, not the subminor version, which tells me the comment wasn\u0027t read, so that\u0027s where I stopped reviewing.",
+      "parentUuid": "1905e6fe_78a096d9",
+      "revId": "4a3a6a15780d91428236389dedeca03cc435c2bd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
