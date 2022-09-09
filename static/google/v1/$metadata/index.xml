@@ -11,5 +11,16 @@
         <edmx:Include Namespace="RootOfTrust"/>
         <edmx:Include Namespace="RootOfTrust.v1_0_0"/>
     </edmx:Reference>
+
+    <edmx:Reference Uri="/google/v1/schema/NVMeCollection_v1.xml">
+        <edmx:Include Namespace="NVMeCollection"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/google/v1/schema/NVMe_v1.xml">
+        <edmx:Include Namespace="NVMe"/>
+        <edmx:Include Namespace="NVMe.v1_0_0"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/google/v1/schema/NVMeController_v1.xml">
+        <edmx:Include Namespace="NVMeController"/>
+        <edmx:Include Namespace="NVMeController.v1_0_0"/>
     </edmx:Reference>
 </edmx:Edmx>
