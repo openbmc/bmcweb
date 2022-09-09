@@ -141,6 +141,30 @@
       },
       "revId": "54fa5325512b1553f9cb5c3aaab1638eaf8cab63",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "734edd73_4ef20539",
+        "filename": "include/multipart_parser.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-09-09T17:40:34Z",
+      "side": 1,
+      "message": "Jump into this discussion.\n\nI haven\u0027t fully read the while header. But just blindly look at this function.\n\nhttps://github1s.com/openbmc/bmcweb/blob/master/include/multipart_parser.hpp#L248-L249\n\n1. |prevIndex| is a argument of function |processPartData| before, however, at the very first line, it was assigned a new value, which is equal to the member variable |index|.\n\n2. |processPartData| is a private member function, the only place which uses it is https://github1s.com/openbmc/bmcweb/blob/master/include/multipart_parser.hpp#L199-L200, the public |parse| function.\n\n3. |prevIndex| in the |parse| function is initialized once to index, then passed into |processPartData|, and not used anywhere else inside |parse|.\n\nI agree with |Krzysztof|. I don\u0027t see how moving definition of |prevIndex| from |parse| to |processPartData| changes the behavior.\n\nEd, did we miss something?",
+      "parentUuid": "c6c1c7d4_c83694b8",
+      "range": {
+        "startLine": 263,
+        "startChar": 0,
+        "endLine": 263,
+        "endChar": 33
+      },
+      "revId": "54fa5325512b1553f9cb5c3aaab1638eaf8cab63",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
