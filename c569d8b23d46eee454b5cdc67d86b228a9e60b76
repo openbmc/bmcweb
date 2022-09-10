@@ -43,6 +43,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c41ce092_fa412b25",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000206
+      },
+      "writtenOn": "2022-09-10T14:52:50Z",
+      "side": 1,
+      "message": "\u003e How many of these audit::audit_acct_event would we add to bmcweb?\n\nI don\u0027t have anything else in mind as of now, but audit frame work could be used log various type of events [not just login type].\n\nVarious user space audit record types that are supported as of today are at :  https://github.com/linux-audit/audit-userspace/blob/94efd7da510bf58aed15f82652b3f481e0d5cc61/lib/libaudit.h#L48\n\nWe could just start with login events for now - and could add various other events if required [in that sense it is pretty scalable].",
+      "parentUuid": "13344d12_1e3b8ac1",
+      "revId": "c569d8b23d46eee454b5cdc67d86b228a9e60b76",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d37b45f3_7436aa4a",
         "filename": "/COMMIT_MSG",
         "patchSetId": 5
@@ -210,6 +228,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "afec344b_8dce7c24",
+        "filename": "include/audit_events.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000206
+      },
+      "writtenOn": "2022-09-10T14:52:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1733476e_73e9c83d",
+      "range": {
+        "startLine": 9,
+        "startChar": 34,
+        "endLine": 9,
+        "endChar": 51
+      },
+      "revId": "c569d8b23d46eee454b5cdc67d86b228a9e60b76",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a8cd782e_b79fa553",
@@ -235,6 +277,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9654fa07_c5c04da9",
+        "filename": "include/audit_events.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000206
+      },
+      "writtenOn": "2022-09-10T14:52:50Z",
+      "side": 1,
+      "message": "well, I have not thought about this when I was working for the proof of concept.\n\naudit_open creates a NETLINK_AUDIT socket for communication with the kernel part of the Linux Audit Subsystem. If it is just an event or two this might not be any problem , but if we are okay \u0026 agree to use this framework for the audit events \u0026 probably for much more events than just login events, then definitely opening and closing is an overhead that could be avoided if we could - open the fd and pass it across from the main app ...or may be some sort of single ton that always returns the same fd instance ?",
+      "parentUuid": "a8cd782e_b79fa553",
+      "range": {
+        "startLine": 16,
+        "startChar": 14,
+        "endLine": 16,
+        "endChar": 24
+      },
+      "revId": "c569d8b23d46eee454b5cdc67d86b228a9e60b76",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7f8f98fc_e279da65",
         "filename": "meson_options.txt",
         "patchSetId": 5
@@ -246,6 +312,24 @@
       "writtenOn": "2022-08-02T14:48:42Z",
       "side": 1,
       "message": "Can you add a bit more here.",
+      "revId": "c569d8b23d46eee454b5cdc67d86b228a9e60b76",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3644fef9_8933a904",
+        "filename": "meson_options.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1000206
+      },
+      "writtenOn": "2022-09-10T14:52:50Z",
+      "side": 1,
+      "message": "can you give me pointers as to what additional information would you like to see here ? I believe I have added good amount of information in commit message but if you like anything else to be added ..I can definitely add that here as well.",
+      "parentUuid": "7f8f98fc_e279da65",
       "revId": "c569d8b23d46eee454b5cdc67d86b228a9e60b76",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
