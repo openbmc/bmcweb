@@ -53,7 +53,8 @@ incdir = include_directories(
   'include',
   'redfish-core/include',
   'redfish-core/lib',
-  'http'
+  'http',
+  '.',
 )
 
 # Get the options and enable the respective features
@@ -304,18 +305,6 @@ else
 endif
 bmcweb_dependencies += boost_url
 
-if get_option('tests').enabled()
-  gtest = dependency('gtest', main: true,disabler: true, required : false)
-  gmock = dependency('gmock', required : false)
-  if not gtest.found() and get_option('tests').enabled()
-    gtest_proj = subproject('gtest', required: true)
-    gtest = gtest_proj.get_variable('gtest_main_dep')
-    gmock = gtest_proj.get_variable('gmock_dep')
-  endif
-  gtest = gtest.as_system('system')
-  gmock = gmock.as_system('system')
-endif
-
 # Gather the Configuration data
 
 conf_data = configuration_data()
@@ -390,43 +379,6 @@ executable(
   install_dir:bindir
 )
 
-srcfiles_unittest = [
-  'test/http/crow_getroutes_test.cpp',
-  'test/http/router_test.cpp',
-  'test/http/utility_test.cpp',
-  'test/include/dbus_utility_test.cpp',
-  'test/include/google/google_service_root_test.cpp',
-  'test/include/http_utility_test.cpp',
-  'test/include/human_sort_test.cpp',
-  'test/include/ibm/configfile_test.cpp',
-  'test/include/ibm/lock_test.cpp',
-  'test/include/multipart_test.cpp',
-  'test/include/openbmc_dbus_rest_test.cpp',
-  'test/redfish-core/include/privileges_test.cpp',
-  'test/redfish-core/include/registries_test.cpp',
-  'test/redfish-core/include/utils/hex_utils_test.cpp',
-  'test/redfish-core/include/utils/ip_utils_test.cpp',
-  'test/redfish-core/include/utils/json_utils_test.cpp',
-  'test/redfish-core/include/utils/query_param_test.cpp',
-  'test/redfish-core/include/utils/stl_utils_test.cpp',
-  'test/redfish-core/include/utils/time_utils_test.cpp',
-  'test/redfish-core/lib/chassis_test.cpp',
-  'test/redfish-core/lib/log_services_dump_test.cpp',
-  'test/redfish-core/lib/service_root_test.cpp',
-  'test/redfish-core/lib/thermal_subsystem_test.cpp',
-]
-
 if(get_option('tests').enabled())
-    # generate the test executable
-    ut_bin = executable(
-      'bmcweb_unit_test',
-      srcfiles_unittest + srcfiles_bmcweb,
-      include_directories : incdir,
-      install_dir: bindir,
-      dependencies: bmcweb_dependencies + [
-        gtest,
-        gmock,
-      ]
-    )
-    test('bmcweb_unit_test', ut_bin)
+  subdir('test')
 endif
