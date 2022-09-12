@@ -87,6 +87,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cfa6d787_3e995587",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 87
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2022-09-12T08:38:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eda44297_83cd2f1b",
+      "revId": "15090d4f7c146a17a928ad255321afac16d58374",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2b9eb77d_89d3f70e",
@@ -153,6 +171,30 @@
       "writtenOn": "2022-09-07T01:47:47Z",
       "side": 1,
       "message": "IMO a comment here or 2 what this is doing/why would help.",
+      "range": {
+        "startLine": 725,
+        "startChar": 0,
+        "endLine": 754,
+        "endChar": 9
+      },
+      "revId": "15090d4f7c146a17a928ad255321afac16d58374",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e0af04b5_c0791aa4",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 87
+      },
+      "lineNbr": 754,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2022-09-12T08:38:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f4b6830a_32303e08",
       "range": {
         "startLine": 725,
         "startChar": 0,

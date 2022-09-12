@@ -74,6 +74,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a6dd70fe_e13b3308",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 716,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2022-09-12T08:38:27Z",
+      "side": 1,
+      "message": "Line 811?\n\nThe bmc dump creation took some amount of time to complete when I was testing it months ago. So have set it to a maximum to avoid missing the dump creation.",
+      "parentUuid": "a8b1294b_61d4224f",
+      "range": {
+        "startLine": 716,
+        "startChar": 0,
+        "endLine": 716,
+        "endChar": 67
+      },
+      "revId": "3c52a20a78d1b1eda5d3ffdea2441553a0d00905",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a972e623_cb308050",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 2
