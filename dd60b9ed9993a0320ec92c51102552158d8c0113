@@ -22,6 +22,30 @@
       },
       "revId": "dd60b9ed9993a0320ec92c51102552158d8c0113",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1ad20dff_9979f7d2",
+        "filename": "include/ut/multipart_test.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-09-12T06:18:29Z",
+      "side": 0,
+      "message": "Before my change It was returning success, now with additional checks added this causes an error and my though was since there is an error we should not check anything else.",
+      "parentUuid": "effd66e8_f1b1d664",
+      "range": {
+        "startLine": 88,
+        "startChar": 0,
+        "endLine": 90,
+        "endChar": 44
+      },
+      "revId": "dd60b9ed9993a0320ec92c51102552158d8c0113",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
