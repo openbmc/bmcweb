@@ -312,6 +312,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ce1850ff_383e1c58",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-12T15:16:46Z",
+      "side": 1,
+      "message": "Understood.  Please take a look at my patches that move these connection objects to the same model we have in http server, where connection objects destroy when they\u0027re completed or errored instead of restarting.  I think that saves quite a bit of code.",
+      "parentUuid": "a95a798a_8976cacb",
+      "range": {
+        "startLine": 215,
+        "startChar": 0,
+        "endLine": 219,
+        "endChar": 13
+      },
+      "revId": "28d7e4700db38fab51b4969df4eee094f899d8cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "dbdb9fe2_cdde84c6",
         "filename": "include/ssl_key_handler.hpp",
         "patchSetId": 1

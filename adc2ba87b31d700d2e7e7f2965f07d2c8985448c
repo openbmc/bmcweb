@@ -52,6 +52,24 @@
       "parentUuid": "b4b4d2d3_3683cfe5",
       "revId": "adc2ba87b31d700d2e7e7f2965f07d2c8985448c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4c5b315f_47cd5120",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-12T15:16:46Z",
+      "side": 1,
+      "message": "\u003e Hmm Yeah, I see the what you are saying.\n\u003e \n\u003e I am working on adding support for VerifyCertificate so that user can 1) Upload certificate per individual subscriptions 2) Can enabled/disable verifyCertificate as per need.\n\u003e \n\u003e Since that VerifyCertificate is not implemented fully in bmcweb, It uses the default value as \"false\" which is what done here. \n\nVerifyCertificate \u003d False does not mean \"Do no verification on the certificate\" it means \"don\u0027t verify the certificate against the subscriptions certificate list\" which are very different.  The latest spec clarifies that.\n\nOtherwise, we would have a situation where we would default to insecure, which is against our security principles.\n\n\u003e \n\u003e \n\u003e \u003e A. doesn\u0027t meet the intent of the redifsh spec.  See discussion on the github about what VerifyCertificate is supposed to represent for more details.\n\u003e \n\u003e I referred the Redfish schema: https://redfish.dmtf.org/schemas/EventDestination_v1.xml\n\u003e \n\u003e \u003cProperty Name\u003d\"VerifyCertificate\" Type\u003d\"Edm.Boolean\"\u003e\n\u003e \u003cAnnotation Term\u003d\"OData.Permissions\" EnumMember\u003d\"OData.Permission/ReadWrite\"/\u003e\n\u003e \u003cAnnotation Term\u003d\"OData.Description\" String\u003d\"An indication of whether the service will verify the certificate of the server referenced by the Destination property prior to sending the event.\"/\u003e\n\u003e \u003cAnnotation Term\u003d\"OData.LongDescription\" String\u003d\"This property shall indicate whether whether the service will verify the certificate of the server referenced by the Destination property prior to sending the event. If this property is not supported by the service or specified by the client in the create request, it shall be assumed to be `false`.\"/\u003e\n\u003e \u003c/Property\u003e\n\nI helped write the addendum to that description that makes that more clear.  It will likely be released in the next version of the spec.  Please take a look at the in-development tree.\n\n\u003e \n\u003e Can you please point me to github link which you are talking? May be i am missing something here.\n\nhttps://github.com/dmtf/redfish contains the new language.",
+      "parentUuid": "82fbb4af_738f2794",
+      "revId": "adc2ba87b31d700d2e7e7f2965f07d2c8985448c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
