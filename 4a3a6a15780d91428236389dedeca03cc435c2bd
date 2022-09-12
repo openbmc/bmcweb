@@ -178,6 +178,24 @@
       "parentUuid": "1905e6fe_78a096d9",
       "revId": "4a3a6a15780d91428236389dedeca03cc435c2bd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "64e83b51_c75552e4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001213
+      },
+      "writtenOn": "2022-09-12T06:07:47Z",
+      "side": 1,
+      "message": "Sorry for the miss. I think got confused between patch and subminor version.",
+      "parentUuid": "b8246448_4ea5f68a",
+      "revId": "4a3a6a15780d91428236389dedeca03cc435c2bd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
