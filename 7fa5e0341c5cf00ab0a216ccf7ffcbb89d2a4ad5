@@ -34,6 +34,29 @@
       "parentUuid": "f40a9719_75b671a6",
       "revId": "7fa5e0341c5cf00ab0a216ccf7ffcbb89d2a4ad5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5032a6f7_ddee2813",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-09-12T17:15:58Z",
+      "side": 1,
+      "message": "This is not really the ping of satellites. Its does much more such as resolve config and connect to IP:Port. So may be, we need to implement the network IP ping first to make sure IP is reachable and then do establish the http connection.",
+      "range": {
+        "startLine": 187,
+        "startChar": 4,
+        "endLine": 202,
+        "endChar": 5
+      },
+      "revId": "7fa5e0341c5cf00ab0a216ccf7ffcbb89d2a4ad5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
