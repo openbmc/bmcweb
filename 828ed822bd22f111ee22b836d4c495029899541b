@@ -1,0 +1,147 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0517d6e3_ef4feb0e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-09-12T17:03:00Z",
+      "side": 1,
+      "message": "This will have performance impact and can be used as Denial of service attack. \n\nWith this current implementation, I see resolve and connect is being attempted continuously without  1) Any time delay 2) No exhaust of retry \u0026 terminate/abort subscription.  So this make service busy always doing resolve \u0026 connect and Impact overall bmcweb performance \u0026 even BMC.( Ex: If someone created  max subscriptions to different IP:PORT which are not reachable.",
+      "range": {
+        "startLine": 18,
+        "startChar": 58,
+        "endLine": 20,
+        "endChar": 10
+      },
+      "revId": "828ed822bd22f111ee22b836d4c495029899541b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e904604a_ba075bf0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-09-12T17:03:00Z",
+      "side": 1,
+      "message": "Should cover some positive test cases as well.",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 11
+      },
+      "revId": "828ed822bd22f111ee22b836d4c495029899541b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9aaf9040_aa12c6a7",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-09-12T17:03:00Z",
+      "side": 1,
+      "message": "Who can abort the connection?  I we have transition states in sequential manner and when some connection is in specific stage( Say connectInProgress or HandShakeInprogress, We don\u0027t allow other connection).  So When exactly this case can hit?",
+      "range": {
+        "startLine": 206,
+        "startChar": 44,
+        "endLine": 206,
+        "endChar": 61
+      },
+      "revId": "828ed822bd22f111ee22b836d4c495029899541b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9537700d_0a44ac5c",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-09-12T17:03:00Z",
+      "side": 1,
+      "message": "Async timer has to be cancelled first irrespective if ec code. So this has to be moved above operation_aborted check.",
+      "revId": "828ed822bd22f111ee22b836d4c495029899541b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d620d655_6ff02ac0",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-09-12T17:03:00Z",
+      "side": 1,
+      "message": "BMCWEB_LOG_ERROR",
+      "range": {
+        "startLine": 223,
+        "startChar": 16,
+        "endLine": 223,
+        "endChar": 32
+      },
+      "revId": "828ed822bd22f111ee22b836d4c495029899541b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c75cf1db_4453e964",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-09-12T17:03:00Z",
+      "side": 1,
+      "message": "For safer side(To avoid race conditions), Set state to failed before performing any operation. (state \u003d ConnState::connectFailed;)",
+      "revId": "828ed822bd22f111ee22b836d4c495029899541b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "19dc29ad_c1267b5c",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 442,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-09-12T17:03:00Z",
+      "side": 1,
+      "message": "Why only during connectInProgress? What if connection is made unreachable during write/read operations?",
+      "revId": "828ed822bd22f111ee22b836d4c495029899541b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
