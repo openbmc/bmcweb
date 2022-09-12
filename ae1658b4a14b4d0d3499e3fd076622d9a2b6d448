@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "75a2c945_8a062eb7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-12T02:48:19Z",
+      "side": 1,
+      "message": "Because it\u0027s private, given that it\u0027s a CVE.  CI is open to anyone.  We will run CI on this in private before it\u0027s merged.",
+      "parentUuid": "016b9ea0_274025b3",
+      "revId": "ae1658b4a14b4d0d3499e3fd076622d9a2b6d448",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "75c458ef_74dd7706",
@@ -31,6 +49,30 @@
       "writtenOn": "2022-09-09T17:43:34Z",
       "side": 1,
       "message": "Please use EXPECT_EQ here, since no other EXPECT are relying on any ASSERT",
+      "range": {
+        "startLine": 87,
+        "startChar": 4,
+        "endLine": 87,
+        "endChar": 13
+      },
+      "revId": "ae1658b4a14b4d0d3499e3fd076622d9a2b6d448",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "01cba2a7_dc645f40",
+        "filename": "include/ut/multipart_test.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-12T02:48:19Z",
+      "side": 1,
+      "message": "I would actually expect this to be assert, given that it\u0027s a return code, we shouldn\u0027t be running any other comparisons on the parser if the parse has failed, as it might trigger undefined behavior.",
+      "parentUuid": "75c458ef_74dd7706",
       "range": {
         "startLine": 87,
         "startChar": 4,
@@ -66,6 +108,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3fe52def_16d2b3f6",
+        "filename": "include/ut/multipart_test.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-12T02:48:19Z",
+      "side": 1,
+      "message": "ditto",
+      "parentUuid": "0ffd45df_845c4dc4",
+      "range": {
+        "startLine": 104,
+        "startChar": 4,
+        "endLine": 104,
+        "endChar": 13
+      },
+      "revId": "ae1658b4a14b4d0d3499e3fd076622d9a2b6d448",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ca4872f7_fe280603",
         "filename": "include/ut/multipart_test.cpp",
         "patchSetId": 2
@@ -77,6 +143,30 @@
       "writtenOn": "2022-09-09T17:43:34Z",
       "side": 1,
       "message": "I would use EXPECT_EQ here to be able to execute more test codes.\n\nPlease see EXPECT vs ASSERT here: https://testing.googleblog.com/2008/07/tott-expect-vs-assert.html",
+      "range": {
+        "startLine": 268,
+        "startChar": 4,
+        "endLine": 268,
+        "endChar": 13
+      },
+      "revId": "ae1658b4a14b4d0d3499e3fd076622d9a2b6d448",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7c988efe_199e7c11",
+        "filename": "include/ut/multipart_test.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-12T02:48:19Z",
+      "side": 1,
+      "message": "Given this is new code, sure, this should probably be EXPECT",
+      "parentUuid": "ca4872f7_fe280603",
       "range": {
         "startLine": 268,
         "startChar": 4,
