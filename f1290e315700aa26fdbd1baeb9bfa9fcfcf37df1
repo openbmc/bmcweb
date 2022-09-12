@@ -92,6 +92,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "aefbb34e_10d98a81",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-12T22:15:01Z",
+      "side": 1,
+      "message": "\u003e So this OCP IMA is a proposed project for an inline management agent not related at all to the Linux integrity management architecture that has used the IMA acronym since at least 2009.\n\nCorrect..... I didn\u0027t name it 😊\n\n\u003e \n\u003e not that I object to the patch.  \n\u003e \n\u003e Do they intend to offer more than telemetry?    Things like storage or network?   How will it get it\u0027s data model to export without dbus?\n\nProbably better answered in the OCP forums, but the short version is that sysfs (or windows COM APIs) gives quite a bit of telemetry and control that we would want to model in redfish, and make available out of band.  The theory is that it would get it directly from sysfs.",
+      "parentUuid": "a0360823_78f75dc5",
+      "revId": "f1290e315700aa26fdbd1baeb9bfa9fcfcf37df1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d6b85eb7_800e65f9",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
