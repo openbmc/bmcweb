@@ -288,6 +288,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a95a798a_8976cacb",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-09-12T10:32:43Z",
+      "side": 1,
+      "message": "It can\u0027t be relied on if(sslConn) {setupSSLConn() }, because during sslConn itself is set during connect. We tried( In previous patch sets where we discussed it) moving the setupSSLConn() to construction of ConnectionInfo but that did gave error. So we need to relay on useSSL flag to setup the connection and if SSLConn fails, It should return error.",
+      "parentUuid": "18956a12_fbadbb28",
+      "range": {
+        "startLine": 215,
+        "startChar": 0,
+        "endLine": 219,
+        "endChar": 13
+      },
+      "revId": "28d7e4700db38fab51b4969df4eee094f899d8cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "dbdb9fe2_cdde84c6",
         "filename": "include/ssl_key_handler.hpp",
         "patchSetId": 1

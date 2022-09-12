@@ -34,6 +34,24 @@
       "parentUuid": "1ad5ae9f_a19235f9",
       "revId": "adc2ba87b31d700d2e7e7f2965f07d2c8985448c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "82fbb4af_738f2794",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-09-12T10:32:43Z",
+      "side": 1,
+      "message": "Hmm Yeah, I see the what you are saying.\n\nI am working on adding support for VerifyCertificate so that user can 1) Upload certificate per individual subscriptions 2) Can enabled/disable verifyCertificate as per need.\n\nSince that VerifyCertificate is not implemented fully in bmcweb, It uses the default value as \"false\" which is what done here. \n\n\n\u003e A. doesn\u0027t meet the intent of the redifsh spec.  See discussion on the github about what VerifyCertificate is supposed to represent for more details.\n\nI referred the Redfish schema: https://redfish.dmtf.org/schemas/EventDestination_v1.xml\n\n\u003cProperty Name\u003d\"VerifyCertificate\" Type\u003d\"Edm.Boolean\"\u003e\n\u003cAnnotation Term\u003d\"OData.Permissions\" EnumMember\u003d\"OData.Permission/ReadWrite\"/\u003e\n\u003cAnnotation Term\u003d\"OData.Description\" String\u003d\"An indication of whether the service will verify the certificate of the server referenced by the Destination property prior to sending the event.\"/\u003e\n\u003cAnnotation Term\u003d\"OData.LongDescription\" String\u003d\"This property shall indicate whether whether the service will verify the certificate of the server referenced by the Destination property prior to sending the event. If this property is not supported by the service or specified by the client in the create request, it shall be assumed to be `false`.\"/\u003e\n\u003c/Property\u003e\n\nCan you please point me to github link which you are talking? May be i am missing something here.",
+      "parentUuid": "b4b4d2d3_3683cfe5",
+      "revId": "adc2ba87b31d700d2e7e7f2965f07d2c8985448c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
