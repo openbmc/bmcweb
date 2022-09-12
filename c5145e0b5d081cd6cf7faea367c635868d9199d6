@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "86edf4a5_d2e2924a",
+        "filename": ".gitignore",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-12T15:11:54Z",
+      "side": 1,
+      "message": "Can you talk about why this is needed?  bmcweb_persistent_data.json is created in the build directory, which is already ignored on line 1.  I\u0027m not saying it\u0027s incorrect, I would just like to understand it.",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 8,
+        "endChar": 27
+      },
+      "revId": "c5145e0b5d081cd6cf7faea367c635868d9199d6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ede72dd_928a81c8",
+        "filename": ".gitignore",
+        "patchSetId": 1
+      },
+      "lineNbr": 676,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-12T15:11:54Z",
+      "side": 1,
+      "message": "I don\u0027t see pycharm in this list anymore.  What am I missing?",
+      "range": {
+        "startLine": 676,
+        "startChar": 0,
+        "endLine": 676,
+        "endChar": 124
+      },
+      "revId": "c5145e0b5d081cd6cf7faea367c635868d9199d6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

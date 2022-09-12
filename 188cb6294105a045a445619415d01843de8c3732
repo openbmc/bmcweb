@@ -34,6 +34,24 @@
       "parentUuid": "36648b23_f87dc7d8",
       "revId": "188cb6294105a045a445619415d01843de8c3732",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "137d402c_0d26e6e0",
+        "filename": ".gitignore",
+        "patchSetId": 1
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-12T15:11:54Z",
+      "side": 0,
+      "message": "\u003eWhy do we want to keep unused codes at all?\n\nLets back up, the intent here is to make the minimum number of changes from gitignore.io, because over the life of the project, it changes quite often and adds capability, and it helps us to keep up to date if we can regenerate this whole block trivially.  This patch as written breaks that.\n\nWe keep the commented settings because they don\u0027t hurt anything, and it\u0027s what gitignore does, so when we want to update, it\u0027s simpler.\n\n\u003e I didn\u0027t delete CLion.\n\nAgreed, I misspoke;  This patch does appear to remove pycharm.  I left a comment where it looks like pycharm is missing.\n\n\u003e  the lines I deleted in this patch are still commented\n\nI meant it doesn\u0027t comment out ALL lines.  Yes, you are correct, it doesn\u0027t comment the lines you removed, but that does still cause a diff.",
+      "parentUuid": "8501c879_44b2d639",
+      "revId": "188cb6294105a045a445619415d01843de8c3732",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
