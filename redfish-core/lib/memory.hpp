@@ -119,6 +119,10 @@ inline std::string translateMemoryTypeToRedfish(const std::string& memoryType)
     {
         return "HBM2";
     }
+    if (memoryType == "xyz.openbmc_project.Inventory.Item.Dimm.DeviceType.HBM3")
+    {
+        return "HBM3";
+    }
     // This is values like Other or Unknown
     // Also D-Bus values:
     // DRAM
