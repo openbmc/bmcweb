@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "614d456d_fbc8a4c1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-09-13T23:22:47Z",
+      "side": 1,
+      "message": "I see..\n\nShould we just use std::string for username and password, and accept copy? It\u0027s much safer IMO",
+      "parentUuid": "7028731a_a806076b",
+      "range": {
+        "startLine": 11,
+        "startChar": 21,
+        "endLine": 12,
+        "endChar": 42
+      },
+      "revId": "1b8c16c35e55f2b412b95bcb9f82b5e67fbba1db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cf115585_70d63444",
         "filename": "/COMMIT_MSG",
         "patchSetId": 4
