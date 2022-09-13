@@ -39,6 +39,40 @@
       "message": "Looks reasonable\n\nYou might have to update https://github.com/openbmc/bmcweb/blob/master/Redfish.md#sensor",
       "revId": "4afa52e9c54718f202e1679b74bceb940f53098d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "493db7c7_9ddb313c",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1519,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-09-13T20:36:33Z",
+      "side": 1,
+      "message": "Where are you actually checking for that \"inventory\" association?",
+      "revId": "4afa52e9c54718f202e1679b74bceb940f53098d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb1d876e_99174635",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1673,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-09-13T20:36:33Z",
+      "side": 1,
+      "message": "So for each different inventory item we have a related item to, we will have to add that interface here..?",
+      "revId": "4afa52e9c54718f202e1679b74bceb940f53098d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
