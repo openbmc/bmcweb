@@ -371,6 +371,7 @@ PowerControl Voltages PowerSupplies Redundancy
 - DHCPv4
 - DHCPv6
 - Description
+- EthernetInterfaceType
 - FQDN
 - HostName
 - IPv4Addresses
@@ -386,7 +387,11 @@ PowerControl Voltages PowerSupplies Redundancy
 - SpeedMbps
 - StaticNameServers
 - Status
-- VLANs
+- VLAN (Only populated on VLAN interfaces)
+  - VLANEnable
+  - VLANId
+  - Tagged
+- VLANs (Only populated on physical interfaces)
 
 #### /redfish/v1/Managers/bmc/EthernetInterfaces/{EthernetInterfaceId}/VLANs/
 ##### VLanNetworkInterfaceCollection
