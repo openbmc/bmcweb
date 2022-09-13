@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "75e223fe_2dbbca17",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1001369
+      },
+      "writtenOn": "2022-09-13T22:17:23Z",
+      "side": 1,
+      "message": "Hmm, I tried adding both. I am not sure if if made any difference.\n\n\"```\n```\"\n\nand\n\n```\n```",
+      "parentUuid": "14008df0_e042caac",
+      "revId": "a0ea78f18bf7a14101fbdf393e9f1de18f957cf9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "8cd8302c_04878394",
@@ -48,6 +66,30 @@
       "writtenOn": "2022-09-13T21:56:17Z",
       "side": 1,
       "message": "Can we make sure all the above pointers are referenced now?",
+      "range": {
+        "startLine": 422,
+        "startChar": 24,
+        "endLine": 422,
+        "endChar": 36
+      },
+      "revId": "a0ea78f18bf7a14101fbdf393e9f1de18f957cf9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6531facd_d112b4a1",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 422,
+      "author": {
+        "id": 1001369
+      },
+      "writtenOn": "2022-09-13T22:17:23Z",
+      "side": 1,
+      "message": "I verified that all of them are referenced.",
+      "parentUuid": "da99ab3b_c7b0e450",
       "range": {
         "startLine": 422,
         "startChar": 24,
