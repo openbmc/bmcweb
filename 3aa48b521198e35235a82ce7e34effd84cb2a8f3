@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "09e5d38f_90e47405",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001585
+      },
+      "writtenOn": "2022-09-13T23:34:20Z",
+      "side": 1,
+      "message": "Following up schema change to support HBM3.",
+      "revId": "3aa48b521198e35235a82ce7e34effd84cb2a8f3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
