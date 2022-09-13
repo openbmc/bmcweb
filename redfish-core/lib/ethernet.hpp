@@ -2009,7 +2009,7 @@ inline void requestEthernetInterfacesRoutes(App& app)
                     "/redfish/v1/Managers/bmc/EthernetInterfaces/" +
                     parentIfaceId + "/VLANs/" + ifaceId;
 
-                asyncResp->res.jsonValue["VLANEnable"] = true;
+                asyncResp->res.jsonValue["VLANEnable"] = ethData.nicEnabled;
                 asyncResp->res.jsonValue["VLANId"] = *ethData.vlanId;
             }
             else
@@ -2067,23 +2067,22 @@ inline void requestEthernetInterfacesRoutes(App& app)
                 const boost::container::flat_set<IPv6AddressData>&) {
             if (success && ethData.vlanId)
             {
-                auto callback =
-                    [asyncResp](const boost::system::error_code ec) {
-                    if (ec)
-                    {
-                        messages::internalError(asyncResp->res);
-                        return;
-                    }
-                };
-
-                if (vlanEnable && !(*vlanEnable))
+                if (vlanEnable)
                 {
-                    BMCWEB_LOG_DEBUG << "vlanEnable is false. Deleting the "
-                                        "vlan interface";
                     crow::connections::systemBus->async_method_call(
-                        std::move(callback), "xyz.openbmc_project.Network",
-                        std::string("/xyz/openbmc_project/network/") + ifaceId,
-                        "xyz.openbmc_project.Object.Delete", "Delete");
+                        [asyncResp](const boost::system::error_code ec) {
+                        if (ec)
+                        {
+                            messages::internalError(asyncResp->res);
+                            return;
+                        }
+                        },
+                        "xyz.openbmc_project.Network",
+                        "/xyz/openbmc_project/network/" + ifaceId,
+                        "org.freedesktop.DBus.Properties", "Set",
+                        "xyz.openbmc_project.Network.EthernetInterface",
+                        "NICEnabled",
+                        dbus::utility::DbusVariantType(*vlanEnable));
                 }
             }
             else
