@@ -52,6 +52,24 @@
       "parentUuid": "8501c879_44b2d639",
       "revId": "188cb6294105a045a445619415d01843de8c3732",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "66ceef7c_325d4b79",
+        "filename": ".gitignore",
+        "patchSetId": 1
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-09-13T00:49:55Z",
+      "side": 0,
+      "message": "\u003e Lets back up, the intent here is to make the minimum number of changes from gitignore.io, because over the life of the project, it changes quite often and adds capability, and it helps us to keep up to date if we can regenerate this whole block trivially.  This patch as written breaks that.\n\nYou must have missed things. This patch that I wrote is generated from \"https://www.toptal.com/developers/gitignore/api/osx,linux,clion,meson,eclipse,windows,visualstudio,visualstudiocode\". What I did, is just deleting two IDEs that contain now relevant settings.\n\n\u003e This patch as written breaks that.\n\nNo. This is not true.\n\nYou also missed this comment\n\n\"If in the future magically we have Java codes in this project, we can always go to gitignore.io, generate Gradle and Maven gitignore settings, and add them back, right?\"\n\nSo, go to \"https://www.toptal.com/developers/gitignore/api/osx,linux,clion,meson,eclipse,windows,visualstudio,visualstudiocode\", add pycharm and intelij back, when you find bmcweb uses Gradle and Maven.",
+      "parentUuid": "137d402c_0d26e6e0",
+      "revId": "188cb6294105a045a445619415d01843de8c3732",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
