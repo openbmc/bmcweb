@@ -436,6 +436,7 @@ Fields common to all schemas
 - DHCPv4
 - DHCPv6
 - Description
+- EthernetInterfaceType
 - FQDN
 - HostName
 - IPv4Addresses
@@ -451,7 +452,11 @@ Fields common to all schemas
 - SpeedMbps
 - StaticNameServers
 - Status
-- VLANs
+- VLAN (Only populated on VLAN interfaces)
+  - VLANEnable
+  - VLANId
+  - Tagged
+- VLANs (Only populated on physical interfaces)
 
 ### /redfish/v1/Managers/bmc/EthernetInterfaces/{EthernetInterfaceId}/VLANs/
 
