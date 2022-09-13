@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8fc8bf65_c6ba9486",
+        "filename": ".gitignore",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-09-13T00:51:04Z",
+      "side": 1,
+      "message": "Starting from here, all settings below are created by gitignore.io. Both before, and AFTER, this change.",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 125
+      },
+      "revId": "e8ceda698ee31fb0c43649f4e52c004efcdc5b3f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
