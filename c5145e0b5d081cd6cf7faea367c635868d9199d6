@@ -93,6 +93,30 @@
       },
       "revId": "c5145e0b5d081cd6cf7faea367c635868d9199d6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c0e0e4e8_92605a2f",
+        "filename": ".gitignore",
+        "patchSetId": 1
+      },
+      "lineNbr": 676,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-09-13T00:57:39Z",
+      "side": 1,
+      "message": "Let me make this explicit. Take a look at the CLion section\n\n```\n# User-specific stuff\n.idea/**/workspace.xml\n.idea/**/tasks.xml\n.idea/**/usage.statistics.xml\n.idea/**/dictionaries\n.idea/**/shelf\n```\n\nLook at the Pycharm section \n\n```\n### PyCharm ###\n# Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio, WebStorm and Rider\n# Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839\n\n# User-specific stuff\n\n# AWS User-specific\n\n# Generated files\n\n# Sensitive or high-churn files\n\n# Gradle\n```\n\nIt doesn\u0027t have \"User-specific stuff\" at all.\n\nOn the other hand when you go to https://www.toptal.com/developers/gitignore/api/pycharm. It does have \"User-specific stuff\". So, Clion section already covers the pycharm use settings. All Jetbrain IDEs share the same name is my best guess.\n\nEven gitignore.io doesn\u0027t repeat this, why should us repeat?\n\nAm I able to convince you on this trivial modification this time?",
+      "parentUuid": "85707cd8_9e5b59c5",
+      "range": {
+        "startLine": 676,
+        "startChar": 0,
+        "endLine": 676,
+        "endChar": 124
+      },
+      "revId": "c5145e0b5d081cd6cf7faea367c635868d9199d6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
