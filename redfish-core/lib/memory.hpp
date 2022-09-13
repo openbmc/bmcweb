@@ -422,9 +422,10 @@ inline void
     const bool success = sdbusplus::unpackPropertiesNoThrow(
         dbus_utils::UnpackErrorPrinter(), properties, "MemoryDataWidth",
         memoryDataWidth, "MemorySizeInKB", memorySizeInKB, "PartNumber",
-        partNumber, "SerialNumber", serialNumber, "Present", present,
-        "MemoryTotalWidth", memoryTotalWidth, "ECC", ecc, "FormFactor",
-        formFactor, "AllowedSpeedsMT", allowedSpeedsMT, "MemoryAttributes",
+        partNumber, "SerialNumber", serialNumber, "Manufacturer", manufacturer,
+        "RevisionCode", revisionCode, "Present", present, "MemoryTotalWidth",
+        memoryTotalWidth, "ECC", ecc, "FormFactor", formFactor,
+        "AllowedSpeedsMT", allowedSpeedsMT, "MemoryAttributes",
         memoryAttributes, "MemoryConfiguredSpeedInMhz",
         memoryConfiguredSpeedInMhz, "MemoryType", memoryType, "Channel",
         channel, "MemoryController", memoryController, "Slot", slot, "Socket",
