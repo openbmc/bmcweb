@@ -33,6 +33,23 @@
       "message": "I think this is good to go even without https://gerrit.openbmc.org/c/openbmc/phosphor-user-manager/+/52363.\nNot supporting \"NoAccess\" user makes more sense.\nOtherwise:\n1. A user with no access could be created\n2. The user could login to webui, but get errors on all the pages, except KVM/SOL\n3. WebUI does not know if the user is \"NoAccess\" because it will get failure when it\u0027s trying to get the user\u0027s role.\n\nSo let\u0027s just not support \"NoAccess\".",
       "revId": "71909f9b21a0eb3acbc632a65deacf653d429ff6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e08fed19_0a7b34a5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-09-13T17:33:47Z",
+      "side": 1,
+      "message": "should we rebase this change?",
+      "revId": "71909f9b21a0eb3acbc632a65deacf653d429ff6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
