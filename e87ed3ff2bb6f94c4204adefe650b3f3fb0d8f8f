@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ab3cd8d7_c9c7e4d8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-09-13T01:18:53Z",
+      "side": 1,
+      "message": "If you keep the same change-id as https://gerrit.openbmc.org/c/openbmc/bmcweb/+/56995/3, Gerrit know you are creating a new patchset, not a new change",
+      "range": {
+        "startLine": 20,
+        "startChar": 11,
+        "endLine": 20,
+        "endChar": 52
+      },
+      "revId": "e87ed3ff2bb6f94c4204adefe650b3f3fb0d8f8f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bcac735d_7e4e0335",
         "filename": "/MERGE_LIST",
         "patchSetId": 1
