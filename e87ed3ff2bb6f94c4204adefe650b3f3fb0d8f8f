@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bcac735d_7e4e0335",
+        "filename": "/MERGE_LIST",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-09-13T01:18:11Z",
+      "side": 1,
+      "message": "Wait, could you just rebase your change instead? I don\u0027t believe we normally do merge.",
+      "range": {
+        "startLine": 3,
+        "startChar": 2,
+        "endLine": 3,
+        "endChar": 10
+      },
+      "revId": "e87ed3ff2bb6f94c4204adefe650b3f3fb0d8f8f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "faac058f_fd88caac",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 1
