@@ -455,8 +455,8 @@ class Connection :
         if (res.body().empty() && !res.jsonValue.empty())
         {
             using http_helpers::ContentType;
-            std::array<ContentType, 2> allowed{ContentType::HTML,
-                                               ContentType::JSON};
+            std::array<ContentType, 2> allowed{ContentType::JSON,
+                                               ContentType::HTML};
             ContentType prefered =
                 getPreferedContentType(req->getHeaderValue("Accept"), allowed);
 
