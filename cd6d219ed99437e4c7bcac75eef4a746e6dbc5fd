@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b95aea74_d3b51a57",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-09-13T22:54:05Z",
+      "side": 1,
+      "message": "This might be a mistake, \n\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/39970\nwas revert by \nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/54689\n\nbut most of the logic is already here?",
+      "revId": "cd6d219ed99437e4c7bcac75eef4a746e6dbc5fd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a4e64272_36f21dea",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 590,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-09-13T22:54:05Z",
+      "side": 1,
+      "message": "not going to work, must add below block to handleChassisGet function",
+      "range": {
+        "startLine": 590,
+        "startChar": 11,
+        "endLine": 590,
+        "endChar": 44
+      },
+      "revId": "cd6d219ed99437e4c7bcac75eef4a746e6dbc5fd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a7f9f0f9_1dc56100",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-09-13T22:54:05Z",
+      "side": 1,
+      "message": "logic exist above, in a cleaner format?",
+      "range": {
+        "startLine": 140,
+        "startChar": 0,
+        "endLine": 140,
+        "endChar": 47
+      },
+      "revId": "cd6d219ed99437e4c7bcac75eef4a746e6dbc5fd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
