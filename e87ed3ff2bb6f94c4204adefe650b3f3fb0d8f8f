@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "faac058f_fd88caac",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-09-13T01:17:32Z",
+      "side": 1,
+      "message": "Wait, why do you abandon https://gerrit.openbmc.org/c/openbmc/bmcweb/+/56995/3? I left a few comments there I believe we\u0027d better to keep.",
+      "revId": "e87ed3ff2bb6f94c4204adefe650b3f3fb0d8f8f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
