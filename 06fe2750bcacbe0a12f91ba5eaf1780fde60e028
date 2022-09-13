@@ -16,6 +16,24 @@
       "message": "Want a unit test for this behavior ? Seems fine to me though. ",
       "revId": "06fe2750bcacbe0a12f91ba5eaf1780fde60e028",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a44068c0_2d2d53a8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-13T20:40:30Z",
+      "side": 1,
+      "message": "Technically we already have a unit test for the getPreferedContentType behavior.  Because of some poor maintainership on my part, we can no longer test HttpConnection as a class in isolation because of some of the recent code we\u0027ve added in the last few years.  That\u0027s on my list to fix some day.  Until then, I think we just need to live with this patch without unit tests.",
+      "parentUuid": "c2101b6b_46b6b058",
+      "revId": "06fe2750bcacbe0a12f91ba5eaf1780fde60e028",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
