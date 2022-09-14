@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1261fc0f_40f76cb2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1001585
+      },
+      "writtenOn": "2022-09-14T00:18:47Z",
+      "side": 1,
+      "message": "Fixed, apologies.",
+      "parentUuid": "51e33c38_3cb04031",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 64
+      },
+      "revId": "3aa48b521198e35235a82ce7e34effd84cb2a8f3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9ca5ca5a_b423a870",
@@ -37,6 +61,24 @@
       "writtenOn": "2022-09-13T23:56:22Z",
       "side": 1,
       "message": "Please see DEVELOPMENT.md and TESTING.md, every test should be tested",
+      "revId": "3aa48b521198e35235a82ce7e34effd84cb2a8f3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "949a82cb_302edf59",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1001585
+      },
+      "writtenOn": "2022-09-14T00:18:47Z",
+      "side": 1,
+      "message": "Sounds good.  I looked for similar tests for HBM2 etc but did not find any.\n\nWhere should the tests go in this case?\n\nThank you,\nTyson",
+      "parentUuid": "9ca5ca5a_b423a870",
       "revId": "3aa48b521198e35235a82ce7e34effd84cb2a8f3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -71,6 +113,30 @@
       "writtenOn": "2022-09-13T23:57:06Z",
       "side": 1,
       "message": "Is there a backend daemon producing this DeviceType already?",
+      "range": {
+        "startLine": 122,
+        "startChar": 74,
+        "endLine": 122,
+        "endChar": 78
+      },
+      "revId": "3aa48b521198e35235a82ce7e34effd84cb2a8f3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "446a1b82_d9e6c55d",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1001585
+      },
+      "writtenOn": "2022-09-14T00:18:47Z",
+      "side": 1,
+      "message": "Not yet, we will be producing one internally.",
+      "parentUuid": "2a562c12_4ce1f692",
       "range": {
         "startLine": 122,
         "startChar": 74,
