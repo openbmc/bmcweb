@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ed3d4da_ca989e4f",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-09-14T18:29:06Z",
+      "side": 1,
+      "message": "Can we do \nif (*value !\u003d 0)\n{\n  aResp-\u003eres.jsonValue[\"ProcessorId\"][\"EffectiveModel\"] \u003d  ...     \n\n}\n\nLike we do below?",
+      "revId": "068ff7f2822839daa580188ded805ebca3fc2e3f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
