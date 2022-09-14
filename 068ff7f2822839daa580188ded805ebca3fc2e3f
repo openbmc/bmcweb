@@ -90,6 +90,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4d98cbe7_a2c9eda8",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-09-14T18:55:24Z",
+      "side": 1,
+      "message": "There\u0027s race condition. I didn\u0027t see your reply \"yeah, this is a bug.\" when  I send out \"Maybe I missed something\".\n\n\u003e They are already documented in phosphor-dbus-interfaces.  I don\u0027t really think it makes sense to document it again here.\n\nOkay",
+      "parentUuid": "dc4a3ec5_777c0ac9",
+      "revId": "068ff7f2822839daa580188ded805ebca3fc2e3f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "aaab94d3_123350f1",
