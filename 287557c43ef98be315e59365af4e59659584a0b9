@@ -212,6 +212,52 @@
       },
       "revId": "287557c43ef98be315e59365af4e59659584a0b9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "992e0232_77f92b8b",
+        "filename": "redfish-core/include/utils/chassis_utils.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-09-14T14:17:28Z",
+      "side": 1,
+      "message": "Why template. Are there any case where callback takes something other than std::string? Use std::function instead.",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 69
+      },
+      "revId": "287557c43ef98be315e59365af4e59659584a0b9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "73650d8f_6c4c4750",
+        "filename": "redfish-core/include/utils/chassis_utils.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-09-14T14:17:28Z",
+      "side": 1,
+      "message": "I wonder why optional. If there is error you should not check returned valued, if there is no error this value will be always present. But from the API point of view you are supposed to check any optional before it is used. How about using empty object instead?",
+      "range": {
+        "startLine": 49,
+        "startChar": 8,
+        "endLine": 49,
+        "endChar": 34
+      },
+      "revId": "287557c43ef98be315e59365af4e59659584a0b9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
