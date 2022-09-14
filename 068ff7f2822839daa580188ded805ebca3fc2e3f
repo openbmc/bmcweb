@@ -153,6 +153,30 @@
       },
       "revId": "068ff7f2822839daa580188ded805ebca3fc2e3f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f0013a2_6f13f5e5",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-09-14T19:27:05Z",
+      "side": 1,
+      "message": "That\u0027s just because I was lazy to type the brackets.\n\n```\nif (*value \u003d\u003d 0)\n{\n  continue;\n}\naResp-\u003eres.jsonValue[\"ProcessorId\"][\"MicrocodeInfo\"] \u003d\n  \"0x\" + intToHexString(*value, 8);\n```\n\nIn this way, you don\u0027t see a diff on the line of aResp-\u003eres.jsonValue at all.\n\nIt\u0027s also alligned with existing branches\n\n\n```\nif (value \u003d\u003d nullptr)\n{\n  messages::internalError(aResp-\u003eres);\n  return;\n}\n```\n\nIt\u0027s a nit. Up to you.",
+      "parentUuid": "eca11110_4568b028",
+      "range": {
+        "startLine": 187,
+        "startChar": 16,
+        "endLine": 187,
+        "endChar": 18
+      },
+      "revId": "068ff7f2822839daa580188ded805ebca3fc2e3f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
