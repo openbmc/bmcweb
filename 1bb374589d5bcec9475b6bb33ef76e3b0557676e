@@ -34,6 +34,24 @@
       "parentUuid": "28e13243_d2bec18d",
       "revId": "1bb374589d5bcec9475b6bb33ef76e3b0557676e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f3cf23bf_d18991d3",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 2815,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-09-14T20:51:48Z",
+      "side": 1,
+      "message": "This matches what we have elsewhere, all schemas are the same versions.",
+      "parentUuid": "7f9c378c_775cfc28",
+      "revId": "1bb374589d5bcec9475b6bb33ef76e3b0557676e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
