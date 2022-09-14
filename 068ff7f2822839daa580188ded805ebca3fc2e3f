@@ -72,6 +72,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dc4a3ec5_777c0ac9",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2022-09-14T18:53:13Z",
+      "side": 1,
+      "message": "\u003e Maybe I missed something?\n\nI don\u0027t think you missed anything - I meant that you spotted a bug in what I did.  I\u0027ve fixed it in PS2.\n\n\u003e Does it make sense to document the dbus default value here as a comment?\n\nThey are already documented in phosphor-dbus-interfaces.  I don\u0027t really think it makes sense to document it again here.",
+      "parentUuid": "596931b1_a966bd6f",
+      "revId": "068ff7f2822839daa580188ded805ebca3fc2e3f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "aaab94d3_123350f1",
