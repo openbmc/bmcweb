@@ -74,6 +74,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b3ae5c67_2f2afdc4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-09-14T07:18:09Z",
+      "side": 1,
+      "message": "IMO both approaches involve same risks. In case of std::string it is possible that someone will optimize it and introduce std::string_view. In case of moving variable into higher scope it can be also refactored and moved to scope where it is used.",
+      "parentUuid": "614d456d_fbc8a4c1",
+      "range": {
+        "startLine": 11,
+        "startChar": 21,
+        "endLine": 12,
+        "endChar": 42
+      },
+      "revId": "1b8c16c35e55f2b412b95bcb9f82b5e67fbba1db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cf115585_70d63444",
         "filename": "/COMMIT_MSG",
         "patchSetId": 4
