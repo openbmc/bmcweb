@@ -149,7 +149,7 @@ inline void getCpuDataByInterface(
             else if (property.first == "EffectiveFamily")
             {
                 const uint16_t* value = std::get_if<uint16_t>(&property.second);
-                if (value != nullptr)
+                if (value != nullptr && *value != 2)
                 {
                     aResp->res.jsonValue["ProcessorId"]["EffectiveFamily"] =
                         "0x" + intToHexString(*value, 4);
@@ -158,7 +158,7 @@ inline void getCpuDataByInterface(
             else if (property.first == "EffectiveModel")
             {
                 const uint16_t* value = std::get_if<uint16_t>(&property.second);
-                if (value == nullptr)
+                if (value == nullptr && *value != 0)
                 {
                     messages::internalError(aResp->res);
                     return;
@@ -184,8 +184,11 @@ inline void getCpuDataByInterface(
                     messages::internalError(aResp->res);
                     return;
                 }
-                aResp->res.jsonValue["ProcessorId"]["MicrocodeInfo"] =
-                    "0x" + intToHexString(*value, 8);
+                if (*value != 0)
+                {
+                    aResp->res.jsonValue["ProcessorId"]["MicrocodeInfo"] =
+                        "0x" + intToHexString(*value, 8);
+                }
             }
             else if (property.first == "Step")
             {
@@ -195,8 +198,11 @@ inline void getCpuDataByInterface(
                     messages::internalError(aResp->res);
                     return;
                 }
-                aResp->res.jsonValue["ProcessorId"]["Step"] =
-                    "0x" + intToHexString(*value, 4);
+                if (*value != 0)
+                {
+                    aResp->res.jsonValue["ProcessorId"]["Step"] =
+                        "0x" + intToHexString(*value, 4);
+                }
             }
         }
     }
@@ -344,7 +350,7 @@ inline void getCpuAssetData(std::shared_ptr<bmcweb::AsyncResp> aResp,
             aResp->res.jsonValue["PartNumber"] = *partNumber;
         }
 
-        if (sparePartNumber != nullptr)
+        if (sparePartNumber != nullptr && !sparePartNumber->empty())
         {
             aResp->res.jsonValue["SparePartNumber"] = *sparePartNumber;
         }
