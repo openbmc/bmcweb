@@ -72,6 +72,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "20e3e18b_62a9674a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-14T18:40:58Z",
+      "side": 1,
+      "message": "Yep.  I have tested this now;  Will get the commit message updated once the discussion with DMTF concludes about the right behavior here.",
+      "parentUuid": "2d07e994_649d8e16",
+      "revId": "5d167952921fe40b0532491b3ae137cd974d00cf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "b5b596f1_a3f6af67",
