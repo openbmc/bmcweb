@@ -129,6 +129,30 @@
       },
       "revId": "068ff7f2822839daa580188ded805ebca3fc2e3f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eca11110_4568b028",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2022-09-14T18:55:30Z",
+      "side": 1,
+      "message": "if (*value \u003d\u003d 0) continue;\n\nI\u0027m not sure if that ^ looks better or not but it doesn\u0027t comply with the style guidelines.",
+      "parentUuid": "aaab94d3_123350f1",
+      "range": {
+        "startLine": 187,
+        "startChar": 16,
+        "endLine": 187,
+        "endChar": 18
+      },
+      "revId": "068ff7f2822839daa580188ded805ebca3fc2e3f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
