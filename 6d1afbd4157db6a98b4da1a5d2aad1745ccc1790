@@ -120,6 +120,30 @@
       },
       "revId": "6d1afbd4157db6a98b4da1a5d2aad1745ccc1790",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e767748b_4fc7f97b",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1001,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-14T18:42:08Z",
+      "side": 1,
+      "message": "I think Nans comment was just that this isn\u0027t an int, so saying \"int or double\" is technically incorrect.  I can get that updated.\n\nACK",
+      "parentUuid": "c64237f2_183a5a2a",
+      "range": {
+        "startLine": 1001,
+        "startChar": 56,
+        "endLine": 1001,
+        "endChar": 59
+      },
+      "revId": "6d1afbd4157db6a98b4da1a5d2aad1745ccc1790",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
