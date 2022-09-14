@@ -33,6 +33,24 @@
       "message": "Isn\u0027t there also https://github.com/openbmc/bmcweb/blob/master/src/crow_test.cpp and https://github.com/openbmc/bmcweb/blob/master/src/token_authorization_middleware_test.cpp ?",
       "revId": "0536054080e7b39ec9d9896a7c240cb1d8a48f37",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "db4b9e34_52c310f9",
+        "filename": "test/http/crow_getroutes_test.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-09-14T05:03:15Z",
+      "side": 1,
+      "message": "It\u0027s answered in the commit message: \"Unused tests are untouched.\"\n\nThe two test you listed are tests that are disabled and need fixing",
+      "parentUuid": "2484809f_4199378e",
+      "revId": "0536054080e7b39ec9d9896a7c240cb1d8a48f37",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
