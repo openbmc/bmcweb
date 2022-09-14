@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "838cf161_7ceb6dd3",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 389,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-09-14T13:51:46Z",
+      "side": 1,
+      "message": "Unless I am missing something this doesn\u0027t look like resolved. Instead of using addResetLinks(asyncResp, ...); use addResetLinks(asyncResp.jsonValue);",
+      "parentUuid": "34c0ddcf_a6623341",
+      "range": {
+        "startLine": 389,
+        "startChar": 26,
+        "endLine": 389,
+        "endChar": 77
+      },
+      "revId": "87f5f63b400f978212b3c7509a8ffe86ee68de28",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f66f2077_23323813",
         "filename": "redfish-core/lib/storage.hpp",
         "patchSetId": 53
@@ -114,6 +138,53 @@
         "startChar": 18,
         "endLine": 414,
         "endChar": 61
+      },
+      "revId": "87f5f63b400f978212b3c7509a8ffe86ee68de28",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "96c20fe0_2a60883a",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 414,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-09-14T13:51:46Z",
+      "side": 1,
+      "message": "Unless I am missing something dbus::utility::DBusPropertiesMap is not used.",
+      "parentUuid": "acf8053f_817000ba",
+      "range": {
+        "startLine": 413,
+        "startChar": 18,
+        "endLine": 414,
+        "endChar": 61
+      },
+      "revId": "87f5f63b400f978212b3c7509a8ffe86ee68de28",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ad386290_f4c8a98e",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 487,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-09-14T13:51:46Z",
+      "side": 1,
+      "message": "There is no need to explain in comment what code below does. It quite self explanatory.",
+      "range": {
+        "startLine": 486,
+        "startChar": 12,
+        "endLine": 487,
+        "endChar": 57
       },
       "revId": "87f5f63b400f978212b3c7509a8ffe86ee68de28",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
