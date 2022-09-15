@@ -69,6 +69,24 @@
       "message": "Hi Ed, Are the shared service validater results are fine any additional thing needs to be checked regarding this change? ",
       "revId": "2a1fabd786f7e86f98a422be9dc9e874386aebc3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "463935b0_2d0561c2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-15T21:28:29Z",
+      "side": 1,
+      "message": "I think this patch can go forward, but there have been several build breaks that have pushed it to lower priority.  I\u0027ll likely get back to it next week.",
+      "parentUuid": "6367c3cd_298ef427",
+      "revId": "2a1fabd786f7e86f98a422be9dc9e874386aebc3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
