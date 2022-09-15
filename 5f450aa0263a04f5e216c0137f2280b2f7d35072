@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e1c177c8_66f8c0a9",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1000,
+      "author": {
+        "id": 1001322
+      },
+      "writtenOn": "2022-09-15T06:25:19Z",
+      "side": 1,
+      "message": "It wont be caught unless BMCWEB_ENABLE_LOGGING is enabled. So, there are chances it might be missed. So, as Mills pointed - better to raise an internalError for better understanding.",
+      "revId": "5f450aa0263a04f5e216c0137f2280b2f7d35072",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "95c03f76_1d1c66cb",
         "filename": "redfish-core/lib/sensors.hpp",
         "patchSetId": 4
