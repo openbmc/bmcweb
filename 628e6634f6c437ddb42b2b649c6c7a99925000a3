@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "36640a49_29d5747c",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2547,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-15T21:45:15Z",
+      "side": 1,
+      "message": "Yeah, this probably needs broken out to a method.  I\u0027ll take a look as part of the remaining refactoring of this stuff.",
+      "parentUuid": "f07866fc_9c4ecac0",
+      "range": {
+        "startLine": 2547,
+        "startChar": 36,
+        "endLine": 2547,
+        "endChar": 53
+      },
+      "revId": "628e6634f6c437ddb42b2b649c6c7a99925000a3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4549b6b1_0a59f604",
         "filename": "redfish-core/lib/sensors.hpp",
         "patchSetId": 3
@@ -37,6 +61,30 @@
       "writtenOn": "2022-09-15T21:14:14Z",
       "side": 1,
       "message": "Wait, could you help me understand this,\n\nsensorId contains a \"_\" for sure, right? From line 2553, we also get 404 back?",
+      "range": {
+        "startLine": 3026,
+        "startChar": 19,
+        "endLine": 3026,
+        "endChar": 27
+      },
+      "revId": "628e6634f6c437ddb42b2b649c6c7a99925000a3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7bbb1ad3_f1d22126",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 3026,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-15T21:45:15Z",
+      "side": 1,
+      "message": "sensorId is somthing like\n\nfantach_my_sensor_name.\n\nThis is trying to separate out the \"fantach\" portion, from \"my_sensor_name\"",
+      "parentUuid": "4549b6b1_0a59f604",
       "range": {
         "startLine": 3026,
         "startChar": 19,
