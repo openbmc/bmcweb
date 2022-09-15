@@ -16,6 +16,24 @@
       "message": "is there a limit to the length of the resolution? my confusion is, how will the other service know what kind of resolution is to be suggested.",
       "revId": "68f8f19a823a62802e063fe1953560ab95abd4f3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e8d22df7_c84fe576",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1376,
+      "author": {
+        "id": 1001084
+      },
+      "writtenOn": "2022-09-15T15:54:20Z",
+      "side": 1,
+      "message": "This property is retrieved from D-Bus object, and used here as is. I\u0027m not sure if there is a limit on the length while updating the Resolution property in D-Bus object. \n\nRegarding \u0027what kind of resolution is to be suggested\": Per schema definition/description for the resolution, it\u0027s a free form and depends on the type of issue logged and how it was resolved(?). Here is the description from schema for Resolution:\n\u0027String\u003d\"Used to provide suggestions on how to resolve the situation that caused the log entry.\"\u0027",
+      "parentUuid": "3c956000_3dd54a3e",
+      "revId": "68f8f19a823a62802e063fe1953560ab95abd4f3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
