@@ -48,6 +48,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1dd8ae99_05c0ae3d",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-15T21:21:15Z",
+      "side": 1,
+      "message": "ACK.  Comment was written before the patchset was present, but submitted later.",
+      "parentUuid": "f74c1725_57a2b644",
+      "range": {
+        "startLine": 161,
+        "startChar": 37,
+        "endLine": 161,
+        "endChar": 51
+      },
+      "revId": "068ff7f2822839daa580188ded805ebca3fc2e3f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3ed3d4da_ca989e4f",
@@ -234,6 +258,30 @@
       "side": 1,
       "message": "That\u0027s just because I was lazy to type the brackets.\n\n```\nif (*value \u003d\u003d 0)\n{\n  continue;\n}\naResp-\u003eres.jsonValue[\"ProcessorId\"][\"MicrocodeInfo\"] \u003d\n  \"0x\" + intToHexString(*value, 8);\n```\n\nIn this way, you don\u0027t see a diff on the line of aResp-\u003eres.jsonValue at all.\n\nIt\u0027s also alligned with existing branches\n\n\n```\nif (value \u003d\u003d nullptr)\n{\n  messages::internalError(aResp-\u003eres);\n  return;\n}\n```\n\nIt\u0027s a nit. Up to you.",
       "parentUuid": "eca11110_4568b028",
+      "range": {
+        "startLine": 187,
+        "startChar": 16,
+        "endLine": 187,
+        "endChar": 18
+      },
+      "revId": "068ff7f2822839daa580188ded805ebca3fc2e3f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bd16ee00_ad382025",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-15T21:21:15Z",
+      "side": 1,
+      "message": "I\u0027m of the opinion that it\u0027s not worthwhile enforcing style to the level above.  Both are functionally correct, and reasonably readable.  If Brad wants to change it, he should feel free, but I\u0027m not sure I want to hold up a patch for a minor change like this.",
+      "parentUuid": "8f0013a2_6f13f5e5",
       "range": {
         "startLine": 187,
         "startChar": 16,
