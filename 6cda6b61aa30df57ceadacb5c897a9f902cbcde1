@@ -16,6 +16,24 @@
       "message": "Looks like no need to bump \"HBM3\": \"v1_11_0\",",
       "revId": "6cda6b61aa30df57ceadacb5c897a9f902cbcde1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0d79a997_d477329f",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 752,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-15T21:13:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9133dd2a_49fa8c52",
+      "revId": "6cda6b61aa30df57ceadacb5c897a9f902cbcde1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
