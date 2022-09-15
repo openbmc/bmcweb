@@ -2544,11 +2544,20 @@ inline void getSensorData(
                     }
                     else if (fieldName == "Members")
                     {
+                        std::string sensorTypeEscaped(sensorType);
+                        sensorTypeEscaped.erase(
+                            std::remove(sensorTypeEscaped.begin(),
+                                        sensorTypeEscaped.end(), '_'),
+                            sensorTypeEscaped.end());
+                        std::string sensorId(sensorTypeEscaped);
+                        sensorId += "_";
+                        sensorId += sensorName;
+
                         nlohmann::json::object_t member;
-                        member["@odata.id"] =
-                            "/redfish/v1/Chassis/" +
-                            sensorsAsyncResp->chassisId + "/" +
-                            sensorsAsyncResp->chassisSubNode + "/" + sensorName;
+                        member["@odata.id"] = crow::utility::urlFromPieces(
+                            "redfish", "v1", "Chassis",
+                            sensorsAsyncResp->chassisId,
+                            sensorsAsyncResp->chassisSubNode, sensorId);
                         tempArray.push_back(std::move(member));
                         sensorJson = &(tempArray.back());
                     }
@@ -3007,7 +3016,7 @@ inline void
 
 inline void handleSensorGet(App& app, const crow::Request& req,
                             const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                            const std::string& /*chassisId*/,
+                            const std::string& chassisId,
                             const std::string& sensorId)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
@@ -3020,6 +3029,8 @@ inline void handleSensorGet(App& app, const crow::Request& req,
         messages::resourceNotFound(asyncResp->res, sensorId, "Sensor");
         return;
     }
+    asyncResp->res.jsonValue["@odata.id"] = crow::utility::urlFromPieces(
+        "redfish", "v1", "Chassis", chassisId, "Sensors", sensorId);
     std::string sensorType = sensorId.substr(0, index);
     std::string sensorName = sensorId.substr(index + 1);
     // fan_pwm and fan_tach need special handling
