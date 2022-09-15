@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0dd231c4_5131c2fd",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-15T21:23:34Z",
+      "side": 1,
+      "message": "because get_error() returns a c string, and we\u0027d prefer to not construct another object to do this comparison.  Ideally we\u0027d use string_view now that we have it, but there\u0027s old code from before we had string_view that I\u0027m assuming this was copied from.",
+      "parentUuid": "ffed4113_aa756614",
+      "range": {
+        "startLine": 275,
+        "startChar": 33,
+        "endLine": 275,
+        "endChar": 39
+      },
+      "revId": "a02daa89dee25d36eb561a67e0edecbcc4eb151c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "147e2a37_9a4ea3c4",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 6
