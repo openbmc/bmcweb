@@ -141,6 +141,30 @@
       },
       "revId": "628e6634f6c437ddb42b2b649c6c7a99925000a3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6238ed04_91d5be4f",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 3026,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-15T22:36:59Z",
+      "side": 1,
+      "message": "nbd.  Thanks for the question.",
+      "parentUuid": "6d31ff57_80564e40",
+      "range": {
+        "startLine": 3026,
+        "startChar": 19,
+        "endLine": 3026,
+        "endChar": 27
+      },
+      "revId": "628e6634f6c437ddb42b2b649c6c7a99925000a3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
