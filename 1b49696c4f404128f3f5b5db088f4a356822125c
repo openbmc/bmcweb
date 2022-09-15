@@ -65,6 +65,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c17fc1e5_10777482",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-09-15T05:49:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "097b9954_ec1bd3d2",
+      "range": {
+        "startLine": 286,
+        "startChar": 8,
+        "endLine": 286,
+        "endChar": 35
+      },
+      "revId": "1b49696c4f404128f3f5b5db088f4a356822125c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "67fafa71_fb3515e6",
@@ -112,6 +136,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "005b40d0_f81203d2",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-09-15T05:49:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a423c51e_45a35022",
+      "range": {
+        "startLine": 288,
+        "startChar": 30,
+        "endLine": 288,
+        "endChar": 51
+      },
+      "revId": "1b49696c4f404128f3f5b5db088f4a356822125c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6a7ccb91_145bb3e8",
@@ -143,6 +191,24 @@
       "side": 1,
       "message": "Done",
       "parentUuid": "6a7ccb91_145bb3e8",
+      "revId": "1b49696c4f404128f3f5b5db088f4a356822125c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a32801a_88f7c811",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 598,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-09-15T05:49:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fd42db43_79731171",
       "revId": "1b49696c4f404128f3f5b5db088f4a356822125c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
