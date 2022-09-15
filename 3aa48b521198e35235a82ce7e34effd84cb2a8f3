@@ -83,6 +83,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "65a23e6e_09b81806",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-09-15T20:02:34Z",
+      "side": 1,
+      "message": "Should have a \"Tested:\" line with a statement about the testing performed, e.g. \"Redfish Validator passed with this value set. See this value in the response.\"\n\nhttps://github.com/openbmc/docs/blob/fa1cca721c824446929705bac1654ec7ae0973fe/CONTRIBUTING.md#testing\n\nSince this is a change to a GET resource on Redfish, should run the Redfish Validator. \nhttps://github.com/openbmc/bmcweb/blob/master/TESTING.md#redfish-validator\n\nNow this is so straightforward, I am okay with this going in without testing, but for next time, please be sure to include a Testing tag and run the validator on any Redfish GET changes.\n\nAs for unit tests, there hasn\u0027t been as many unit tests for functions like translateMemoryTypeToRedfish so I am okay with one not being added here.",
+      "parentUuid": "949a82cb_302edf59",
+      "revId": "3aa48b521198e35235a82ce7e34effd84cb2a8f3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "09e5d38f_90e47405",
