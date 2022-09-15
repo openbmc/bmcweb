@@ -48,6 +48,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd154994_c090f272",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2547,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-09-15T21:56:49Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "36640a49_29d5747c",
+      "range": {
+        "startLine": 2547,
+        "startChar": 36,
+        "endLine": 2547,
+        "endChar": 53
+      },
+      "revId": "628e6634f6c437ddb42b2b649c6c7a99925000a3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4549b6b1_0a59f604",
@@ -85,6 +109,30 @@
       "side": 1,
       "message": "sensorId is somthing like\n\nfantach_my_sensor_name.\n\nThis is trying to separate out the \"fantach\" portion, from \"my_sensor_name\"",
       "parentUuid": "4549b6b1_0a59f604",
+      "range": {
+        "startLine": 3026,
+        "startChar": 19,
+        "endLine": 3026,
+        "endChar": 27
+      },
+      "revId": "628e6634f6c437ddb42b2b649c6c7a99925000a3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6d31ff57_80564e40",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 3026,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-09-15T21:56:49Z",
+      "side": 1,
+      "message": "Oh, I misread it.",
+      "parentUuid": "7bbb1ad3_f1d22126",
       "range": {
         "startLine": 3026,
         "startChar": 19,
