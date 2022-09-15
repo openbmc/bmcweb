@@ -356,6 +356,30 @@
       },
       "revId": "7d8e7a3fa0fd273268ede5216735c8533b903eac",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5e8318da_98e8b827",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-15T21:37:05Z",
+      "side": 1,
+      "message": "Right, but the LogService being modified doesn\u0027t have a MessageRegistry implemented, so isn\u0027t this code incorrect, because Resolution is supposed to match the MessageRegistry?",
+      "parentUuid": "232ab1e8_55ec2bdd",
+      "range": {
+        "startLine": 39,
+        "startChar": 21,
+        "endLine": 40,
+        "endChar": 50
+      },
+      "revId": "7d8e7a3fa0fd273268ede5216735c8533b903eac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
