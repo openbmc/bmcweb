@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4f6f492f_8a30535c",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-09-15T14:29:23Z",
+      "side": 1,
+      "message": "That is the default here: https://github.com/openbmc/phosphor-dbus-interfaces/blob/a1a46a94405db4fc29d9ad695dee44e2214e4262/yaml/xyz/openbmc_project/Inventory/Item/Cpu.interface.yaml#L23",
+      "parentUuid": "aa0e638e_b20da9fe",
+      "revId": "9e5a58c3e970a90fbfb58ee4ce66974aee569efe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2772a7db_0ed7d159",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 2
@@ -31,6 +49,24 @@
       "writtenOn": "2022-09-15T07:22:37Z",
       "side": 1,
       "message": "I see formatting issue here. Please reformat the code.",
+      "revId": "9e5a58c3e970a90fbfb58ee4ce66974aee569efe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ea82eb7_d72a75d3",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-09-15T14:29:23Z",
+      "side": 1,
+      "message": "Clang-format passed.. What is the concern with the format?",
+      "parentUuid": "2772a7db_0ed7d159",
       "revId": "9e5a58c3e970a90fbfb58ee4ce66974aee569efe",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
