@@ -22,6 +22,30 @@
       },
       "revId": "6d1afbd4157db6a98b4da1a5d2aad1745ccc1790",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "807c5d56_4fb9f311",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 943,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-15T04:12:31Z",
+      "side": 0,
+      "message": "Yep, that looks like a logic error.  I wonder why the validator didn\u0027t catch that... ACK.",
+      "parentUuid": "6b6bb11f_8f66b35d",
+      "range": {
+        "startLine": 928,
+        "startChar": 4,
+        "endLine": 943,
+        "endChar": 35
+      },
+      "revId": "6d1afbd4157db6a98b4da1a5d2aad1745ccc1790",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
