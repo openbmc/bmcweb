@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aa0e638e_b20da9fe",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1001322
+      },
+      "writtenOn": "2022-09-15T07:22:37Z",
+      "side": 1,
+      "message": "why specifically are we checking *value!\u003d2?",
+      "revId": "9e5a58c3e970a90fbfb58ee4ce66974aee569efe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2772a7db_0ed7d159",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1001322
+      },
+      "writtenOn": "2022-09-15T07:22:37Z",
+      "side": 1,
+      "message": "I see formatting issue here. Please reformat the code.",
+      "revId": "9e5a58c3e970a90fbfb58ee4ce66974aee569efe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f22c9dd_6d1c7cb1",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1001322
+      },
+      "writtenOn": "2022-09-15T07:22:37Z",
+      "side": 1,
+      "message": "formatting issue.",
+      "revId": "9e5a58c3e970a90fbfb58ee4ce66974aee569efe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
