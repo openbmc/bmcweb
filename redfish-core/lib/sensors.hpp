@@ -2544,11 +2544,20 @@ inline void getSensorData(
                     }
                     else if (fieldName == "Members")
                     {
+                        std::string sensorTypeEscaped(sensorType);
+                        sensorTypeEscaped.erase(
+                            std::remove(sensorTypeEscaped.begin(),
+                                        sensorTypeEscaped.end(), '_'),
+                            sensorTypeEscaped.end());
+                        std::string sensorId(sensorTypeEscaped);
+                        sensorId += "_";
+                        sensorId += sensorName;
+
                         nlohmann::json::object_t member;
-                        member["@odata.id"] =
-                            "/redfish/v1/Chassis/" +
-                            sensorsAsyncResp->chassisId + "/" +
-                            sensorsAsyncResp->chassisSubNode + "/" + sensorName;
+                        member["@odata.id"] = crow::utility::urlFromPieces(
+                            "redfish", "v1", "Chassis",
+                            sensorsAsyncResp->chassisId,
+                            sensorsAsyncResp->chassisSubNode, sensorId);
                         tempArray.push_back(std::move(member));
                         sensorJson = &(tempArray.back());
                     }
