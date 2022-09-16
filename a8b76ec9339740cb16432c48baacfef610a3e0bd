@@ -46,6 +46,30 @@
       },
       "revId": "a8b76ec9339740cb16432c48baacfef610a3e0bd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "884cc20e_2ed4e32a",
+        "filename": "redfish-core/include/error_messages.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 680,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-09-16T18:39:43Z",
+      "side": 1,
+      "message": "I would have been fine with you doing it here where you use it but since you broke it out I\u0027m good with that too.",
+      "parentUuid": "7c67b9c2_1dcfded5",
+      "range": {
+        "startLine": 680,
+        "startChar": 15,
+        "endLine": 680,
+        "endChar": 33
+      },
+      "revId": "a8b76ec9339740cb16432c48baacfef610a3e0bd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
