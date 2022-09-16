@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "574bd83f_f81a4f93",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 23
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-09-16T18:39:01Z",
+      "side": 1,
+      "message": "be careful about custom line wrapping. ;)",
+      "revId": "b0d2b947455ff43ccdde9bf58685cf2684e19210",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c3778aa5_c00da75e",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-09-16T18:39:01Z",
+      "side": 1,
+      "message": "So if there is an invalid group name, we don\u0027t add anything, return false and the caller returns an internal error. \nI guess that works for now. Later if companies want to support oem groups, etc, that support can be added.",
+      "revId": "b0d2b947455ff43ccdde9bf58685cf2684e19210",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "16a9b9b1_14070467",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-09-16T18:39:01Z",
+      "side": 1,
+      "message": "Seems to follow https://gerrit.openbmc.org/c/openbmc/bmcweb/+/55229 so seems reasonable.",
+      "revId": "b0d2b947455ff43ccdde9bf58685cf2684e19210",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
