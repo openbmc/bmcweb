@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "733b0b0e_238743c3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-16T23:52:32Z",
+      "side": 1,
+      "message": "As always, happy to discuss, but would like to get this regression ahead of the autobump so we don\u0027t have issues.",
+      "revId": "628e6634f6c437ddb42b2b649c6c7a99925000a3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f07866fc_9c4ecac0",
