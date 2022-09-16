@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e17ae005_29d11163",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-09-16T19:03:29Z",
+      "side": 1,
+      "message": "Maybe quote where the spec specifies this error type?",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 18
+      },
+      "revId": "5fa3ad60449adaba91cfca3d1f5d9af497023315",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0d47e091_1a62c437",
+        "filename": "redfish-core/src/error_messages.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1118,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-09-16T19:03:29Z",
+      "side": 1,
+      "message": "you missed Formats?",
+      "range": {
+        "startLine": 1118,
+        "startChar": 10,
+        "endLine": 1118,
+        "endChar": 16
+      },
+      "revId": "5fa3ad60449adaba91cfca3d1f5d9af497023315",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
