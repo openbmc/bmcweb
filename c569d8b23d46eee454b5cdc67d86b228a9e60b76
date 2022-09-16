@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1b25625e_4f45cc07",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000206
+      },
+      "writtenOn": "2022-09-16T08:43:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "66e3c60a_2a309f31",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 40
+      },
+      "revId": "c569d8b23d46eee454b5cdc67d86b228a9e60b76",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "13344d12_1e3b8ac1",
@@ -120,6 +144,30 @@
       "side": 1,
       "message": "Spelling on auditd.",
       "parentUuid": "ab1dbedc_9c6b0b56",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 67
+      },
+      "revId": "c569d8b23d46eee454b5cdc67d86b228a9e60b76",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f973f26_003a58e6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000206
+      },
+      "writtenOn": "2022-09-16T08:43:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "93d13d4d_efdcef03",
       "range": {
         "startLine": 23,
         "startChar": 0,
@@ -243,6 +291,24 @@
       "side": 1,
       "message": "\u003e this library would only send messages over netlink_audit socket\n\u003e so in that sense it is already separated ? \n\nSockets can block the same as the filesystem can.  In this case the daemon on the other end is writing to the filesystem, so it\u0027s quite possible to lock up and backpressure the socket.\n\n\n\u003e And also auditd has a configuration option where we could tell it to not flush the data into the file immediately\n\nI\u0027m not sure this solves it, and I don\u0027t really understand what we\u0027re avoiding here.  We have mechanisms for pushing to a socket async that we use every day.  We should use them.\n\n\n\u003e  think that we would probably not need this change if we use systemd logind , \n\nFWIW, I think that\u0027s the intent of this library.  I don\u0027t see openSSH directly pulling this in, but the fact that openssh relies on pam/logind to manage sessions means that it doesn\u0027t have to, and logind/pam can have the auditd hooks.  That seems like the direction to pursue IMO.",
       "parentUuid": "9e1cd6a6_53749bef",
+      "revId": "c569d8b23d46eee454b5cdc67d86b228a9e60b76",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fe6179f1_15080e5c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000206
+      },
+      "writtenOn": "2022-09-16T08:43:38Z",
+      "side": 1,
+      "message": "\u003e \u003e this library would only send messages over netlink_audit socket\n\u003e \u003e so in that sense it is already separated ? \n\u003e \n\u003e Sockets can block the same as the filesystem can.  In this case the daemon on the other end is writing to the filesystem, so it\u0027s quite possible to lock up and backpressure the socket.\n\nwell, so my understanding is that when bmcweb sends the message to kernel audit subsystem - it gets netlink-ack response back immediately, the ack is used to let user know if there was a problem such as lack of permissions e.t.c and bmcweb will be blocked till then. Is this what you are concerned about ? \n\nThe design principle for audit events is that - user should not be able to the operation that they are doing if we fail to log an error.we cannot let the operation continue \u0026 also in parallel keep logging audit events.\n\nBut bmcweb will not be blocked until some [another user space daemon - like audid] pulls out the message from kernel \u0026 writes into the file system - I think auditd polls on the fd \u0026 based on events..it parses things out to put in readable form on the file system. So there is no back pressure as such to bmcweb.\n\nI am not really much concerned about waiting for the ACK form the kernel audit system. kernel audit subsystem is there since kernel 2.6 and pretty mature at this stage to hit nasty bugs where bmcweb can be blocked for very long time[milli seconds]. But if think of it in other way let me know.\n\n\u003e \n\u003e \n\u003e \u003e And also auditd has a configuration option where we could tell it to not flush the data into the file immediately\n\u003e \n\u003e I\u0027m not sure this solves it, and I don\u0027t really understand what we\u0027re avoiding here.  We have mechanisms for pushing to a socket async that we use every day.  We should use them.\n\u003e \n\u003e \n\u003e \u003e  think that we would probably not need this change if we use systemd logind , \n\u003e \n\u003e FWIW, I think that\u0027s the intent of this library.  I don\u0027t see openSSH directly pulling this in, but the fact that openssh relies on pam/logind to manage sessions means that it doesn\u0027t have to, and logind/pam can have the auditd hooks.  That seems like the direction to pursue IMO.\n\nlogin deamon - sure, but pam I am not 100 percent sure that the pluggable modules can have all the necessary information needed for audit events.",
+      "parentUuid": "7767c7e7_929eaaf2",
       "revId": "c569d8b23d46eee454b5cdc67d86b228a9e60b76",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -390,6 +456,24 @@
       "side": 1,
       "message": "Just a little more from the commit msg here. E.g.\n\n\u0027\u0027\u0027Enable audit events support for bmcweb. This uses libaudit. security-relevant events are wrote as entries in /var/log/audit/audit.log. Tools such as aureport  can be used to produce reports. \u0027\u0027\u0027\n\nLooking for more than 6 words here.",
       "parentUuid": "3644fef9_8933a904",
+      "revId": "c569d8b23d46eee454b5cdc67d86b228a9e60b76",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2c688a8d_d7c89859",
+        "filename": "meson_options.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1000206
+      },
+      "writtenOn": "2022-09-16T08:43:38Z",
+      "side": 1,
+      "message": "ah , makes sense. thank you for the words :), added.",
+      "parentUuid": "b70a82bb_b01a98e8",
       "revId": "c569d8b23d46eee454b5cdc67d86b228a9e60b76",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }

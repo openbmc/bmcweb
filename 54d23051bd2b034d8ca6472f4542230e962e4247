@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e902e6d6_524a968c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000206
+      },
+      "writtenOn": "2022-09-16T08:43:38Z",
+      "side": 1,
+      "message": "Done\n\n@Gunnar just to re-iterate - I have couple of patches in meta-* and also openbmc-build-scripts that enables getting the audit package, required headers e.t.c,which we would want for the CI \u0026 clang to work on this commit.I was just waiting to see if we agree we should take this path rather than any home cooked solution.",
+      "parentUuid": "11cd51ff_64f5cc01",
+      "revId": "54d23051bd2b034d8ca6472f4542230e962e4247",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9a237b47_df9db931",
@@ -31,6 +49,24 @@
       "writtenOn": "2022-09-13T21:16:41Z",
       "side": 1,
       "message": "I believe the style guide says these should be on separate lines",
+      "revId": "54d23051bd2b034d8ca6472f4542230e962e4247",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3528b111_a8566bdf",
+        "filename": "include/audit_events.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000206
+      },
+      "writtenOn": "2022-09-16T08:43:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a237b47_df9db931",
       "revId": "54d23051bd2b034d8ca6472f4542230e962e4247",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -52,6 +88,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "afad4fab_70992d1d",
+        "filename": "include/audit_events.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000206
+      },
+      "writtenOn": "2022-09-16T08:43:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ae724294_2a3ab245",
+      "revId": "54d23051bd2b034d8ca6472f4542230e962e4247",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "523384f0_29bbbbcd",
@@ -65,6 +119,24 @@
       "writtenOn": "2022-09-13T21:16:41Z",
       "side": 1,
       "message": "Typically we don\u0027t use the ternary operator  (?)",
+      "revId": "54d23051bd2b034d8ca6472f4542230e962e4247",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ed3b9c35_ce4d649e",
+        "filename": "include/audit_events.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000206
+      },
+      "writtenOn": "2022-09-16T08:43:38Z",
+      "side": 1,
+      "message": "I have not seem this rule anywhere, I guess ternary operator does not seem to be an intuitive thing to understand, which is probably why we don\u0027t use it much [I think]. But this is a simple condition which I though ternary operator could make sense , rather than coming up with 5-7 lines of if-else block. I can definitely change it if needed though if you think otherwise.",
+      "parentUuid": "523384f0_29bbbbcd",
       "revId": "54d23051bd2b034d8ca6472f4542230e962e4247",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
