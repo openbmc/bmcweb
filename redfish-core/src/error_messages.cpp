@@ -1115,6 +1115,25 @@ void sourceDoesNotSupportProtocol(crow::Response& res,
 
 /**
  * @internal
+ * @brief Formats StrictAccountTypes message into JSON
+ *
+ * See header file for more information
+ * @endinternal
+ */
+nlohmann::json strictAccountTypes(std::string_view arg1)
+{
+    return getLog(redfish::registries::base::Index::strictAccountTypes,
+                  std::to_array({arg1}));
+}
+
+void strictAccountTypes(crow::Response& res, std::string_view arg1)
+{
+    res.result(boost::beast::http::status::bad_request);
+    addMessageToErrorJson(res.jsonValue, strictAccountTypes(arg1));
+}
+
+/**
+ * @internal
  * @brief Formats AccountRemoved message into JSON
  *
  * See header file for more information
