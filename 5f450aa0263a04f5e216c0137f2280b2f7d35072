@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5b471616_d92f5a04",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1000,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-19T16:59:11Z",
+      "side": 1,
+      "message": "See explanation below.",
+      "parentUuid": "3f8ad0a8_64f8e4cd",
+      "revId": "5f450aa0263a04f5e216c0137f2280b2f7d35072",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "95c03f76_1d1c66cb",
@@ -67,6 +85,24 @@
       "side": 1,
       "message": "Lets talk about that in another patch.",
       "parentUuid": "95c03f76_1d1c66cb",
+      "revId": "5f450aa0263a04f5e216c0137f2280b2f7d35072",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f5d3acb2_df63e25e",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1001,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-19T16:59:11Z",
+      "side": 1,
+      "message": "I tried to do this other patchset, and another thing that came up is that in this context, the res object isn\u0027t available, so adding a 500 error message is a much more invasive change, which would need to modify the prototype of this function, and while I\u0027m not against that, considering that we\u0027re matching the old behavior, that seems best for another patchset.",
+      "parentUuid": "e1b81a28_0974c346",
       "revId": "5f450aa0263a04f5e216c0137f2280b2f7d35072",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
