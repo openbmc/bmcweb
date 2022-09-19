@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3f8ad0a8_64f8e4cd",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1000,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-19T16:52:26Z",
+      "side": 1,
+      "message": "That\u0027s a discussion I\u0027m happy to have, but not in this patch.  The old code didn\u0027t raise a 500 error on a bad interface, so this patchset doesn\u0027t either.  I\u0027ll open another patchset that does set an error.",
+      "parentUuid": "e1c177c8_66f8c0a9",
+      "revId": "5f450aa0263a04f5e216c0137f2280b2f7d35072",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "95c03f76_1d1c66cb",
         "filename": "redfish-core/lib/sensors.hpp",
         "patchSetId": 4
@@ -31,6 +49,24 @@
       "writtenOn": "2022-09-14T20:49:22Z",
       "side": 1,
       "message": "I think continue is fine, the other choice would be internalError/return",
+      "revId": "5f450aa0263a04f5e216c0137f2280b2f7d35072",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e1b81a28_0974c346",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1001,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-19T16:52:26Z",
+      "side": 1,
+      "message": "Lets talk about that in another patch.",
+      "parentUuid": "95c03f76_1d1c66cb",
       "revId": "5f450aa0263a04f5e216c0137f2280b2f7d35072",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
