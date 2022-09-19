@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ca61525_eb38656f",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1001195
+      },
+      "writtenOn": "2022-09-19T05:29:02Z",
+      "side": 1,
+      "message": "I think, in else we should add some error logs",
+      "revId": "1043abbbd89f0635fcc3c4ce3905343f0ebaf7bc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
