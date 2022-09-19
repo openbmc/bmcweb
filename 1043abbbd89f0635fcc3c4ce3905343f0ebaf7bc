@@ -16,6 +16,24 @@
       "message": "I think, in else we should add some error logs",
       "revId": "1043abbbd89f0635fcc3c4ce3905343f0ebaf7bc",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7851f9d6_70cb126e",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-19T16:07:32Z",
+      "side": 1,
+      "message": "Why?  The else on this statement is still a perfectly valid path if the user has mTLS and any other auth mechanism enabled.  If the user tries to log in with, say, basic auth here, this will hit the else.  I\u0027m not sure that needs logged, because it would happen on every connection attempt.",
+      "parentUuid": "8ca61525_eb38656f",
+      "revId": "1043abbbd89f0635fcc3c4ce3905343f0ebaf7bc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
