@@ -3,6 +3,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "64c2adc3_f85538ef",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-09-19T16:45:11Z",
+      "side": 1,
+      "message": "The old way does save indents.\n```\nif (!preverified) {\n  return true\n}\nusrSession \u003d verifyMtlsUser(req-\u003eipAddress, ctx);\n```",
+      "range": {
+        "startLine": 101,
+        "startChar": 12,
+        "endLine": 101,
+        "endChar": 23
+      },
+      "revId": "1043abbbd89f0635fcc3c4ce3905343f0ebaf7bc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b9b45791_30f98d36",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-09-19T16:45:11Z",
+      "side": 1,
+      "message": "The behavior changed here, previously |sessionIsFromTransport| is set to true no matter what the |generateUserSession| returns",
+      "range": {
+        "startLine": 104,
+        "startChar": 16,
+        "endLine": 104,
+        "endChar": 27
+      },
+      "revId": "1043abbbd89f0635fcc3c4ce3905343f0ebaf7bc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8ca61525_eb38656f",
         "filename": "http/http_connection.hpp",
         "patchSetId": 10
@@ -32,6 +78,52 @@
       "side": 1,
       "message": "Why?  The else on this statement is still a perfectly valid path if the user has mTLS and any other auth mechanism enabled.  If the user tries to log in with, say, basic auth here, this will hit the else.  I\u0027m not sure that needs logged, because it would happen on every connection attempt.",
       "parentUuid": "8ca61525_eb38656f",
+      "revId": "1043abbbd89f0635fcc3c4ce3905343f0ebaf7bc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "17e5711e_f6724781",
+        "filename": "http/mutual_tls.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-09-19T16:45:11Z",
+      "side": 1,
+      "message": "For new codes, follow the include convention?\n\n```\n#include \"logging.hpp\"\n#include \"persistent_data.hpp\"\n```",
+      "range": {
+        "startLine": 3,
+        "startChar": 9,
+        "endLine": 3,
+        "endChar": 10
+      },
+      "revId": "1043abbbd89f0635fcc3c4ce3905343f0ebaf7bc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f796c4d1_e4123920",
+        "filename": "http/mutual_tls.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-09-19T16:45:11Z",
+      "side": 1,
+      "message": "Up to you whether to IWYI or not",
+      "range": {
+        "startLine": 6,
+        "startChar": 12,
+        "endLine": 6,
+        "endChar": 22
+      },
       "revId": "1043abbbd89f0635fcc3c4ce3905343f0ebaf7bc",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
