@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f565b888_d9f4bb91",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-09-19T20:59:54Z",
+      "side": 1,
+      "message": "Be careful with custom line wrapping.",
+      "revId": "e7a82a7d7da56a075d797747d30bfb83d746826b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9fa6b156_af482f5d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-09-19T20:59:54Z",
+      "side": 1,
+      "message": "This had a +2 before, I think we are just waiting on https://gerrit.openbmc.org/c/openbmc/phosphor-user-manager/+/52363?",
+      "revId": "e7a82a7d7da56a075d797747d30bfb83d746826b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
