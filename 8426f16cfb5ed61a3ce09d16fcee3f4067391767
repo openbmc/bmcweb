@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2a30f516_3757a564",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-19T16:45:18Z",
+      "side": 1,
+      "message": "\u003e How does this play with webui-vue? \n\nI\u0027d be surprised if anything were broken.  The http 1.1 paths are still present and functional (given we\u0027re required to have them for Redfish compliance).\n\n\u003e webui-vue uses Axios which doesn\u0027t appear to have HTTP/2 support. \n\u003e \n\u003e https://github.com/axios/axios/issues/1175\n\nNot sure what to do about that, but it looks like someone has a transport adapter to do http/2.  FWIW, I\u0027m not sure if we\u0027d see a significant improvement in webui performance with this, given everything is happening at human speed.  This patch is mainly targetting stuff that polls the bmc quite often during monitoring tasks.",
+      "parentUuid": "d2d52d7a_f0fc8787",
+      "revId": "8426f16cfb5ed61a3ce09d16fcee3f4067391767",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "45234503_b0744d6e",
         "filename": "/COMMIT_MSG",
         "patchSetId": 13
@@ -37,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "704e4cf1_900e67ca",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-19T16:45:18Z",
+      "side": 1,
+      "message": "\u003e signed off before the WIP is removed. Also, please explain why this is needed, why this 53.4KB is worth adding. Also, a couple sentences on HTTP/2 differences.\n\u003e \n\u003e \n\u003e Part some examples of what I might expect:\n\u003e \n\u003e \"HTTP/2 changes do not require any changes to how existing web applications work, but new applications can take advantage of new features for increased speed. HTTP/2 leaves all of HTTP/1.1\u0027s high-level semantics, such as methods, status codes, header fields, and URIs, the same. What is new in HTTP/2 is how the data is framed and transported between the client and the server.\" \u003cTook from Wikipedia: \u003e\n\u003e \n\nACK, totally reasonable.  This patch is still in the \"Is this possible and reasonable\" phase.\n\n\u003e ....\n\u003e \n\u003e bmcweb will only support HTTP/2 over TLS...\n\u003e \n\u003e ...\n\u003e \n\u003e HTTP/2 should allow for improvements in the speed of..\n\u003e Improvements seen in speed at ... when :\n\nACK.\n\n\u003e \n\u003e ...\n\u003e Redfish is adding support for HTTP/2, see issue 5260\n\nCan\u0027t link internal-only Redfish discussions in public according to our rules.  (Although we should revisit that rule, because I think it hurts more than it helps).\n\n\u003e \n\u003e ...",
+      "parentUuid": "45234503_b0744d6e",
+      "revId": "8426f16cfb5ed61a3ce09d16fcee3f4067391767",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0270a6ae_1439fd44",
         "filename": "/COMMIT_MSG",
         "patchSetId": 13
@@ -48,6 +84,24 @@
       "writtenOn": "2022-09-19T16:38:09Z",
       "side": 1,
       "message": "A big TESTing statement. ;)",
+      "revId": "8426f16cfb5ed61a3ce09d16fcee3f4067391767",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "571cc3a4_3d7a3233",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-19T16:45:18Z",
+      "side": 1,
+      "message": "heh.....",
+      "parentUuid": "0270a6ae_1439fd44",
       "revId": "8426f16cfb5ed61a3ce09d16fcee3f4067391767",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -88,6 +142,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0fb24f9c_eb118abd",
+        "filename": "meson_options.txt",
+        "patchSetId": 13
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-19T16:45:18Z",
+      "side": 1,
+      "message": "ACK.  Short version, because we enable all generic, non-experimental, non-oem features by default;  It\u0027s up to users to disable things if they choose to, but once http/2 is in the Redfish standard, I can\u0027t think of a reason anyone would want to disable it, except maybe binary size, but even that is marginal in difference.",
+      "parentUuid": "bcddd7ec_3f129691",
+      "revId": "8426f16cfb5ed61a3ce09d16fcee3f4067391767",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "788ad920_987faba0",
         "filename": "meson_options.txt",
         "patchSetId": 13
@@ -99,6 +171,30 @@
       "writtenOn": "2022-09-19T16:38:09Z",
       "side": 1,
       "message": "I though it was always styled \"HTTP/2\". Can you add another sentence here about HTTP/2, maybe mentioned we use nghttp2",
+      "range": {
+        "startLine": 255,
+        "startChar": 25,
+        "endLine": 255,
+        "endChar": 31
+      },
+      "revId": "8426f16cfb5ed61a3ce09d16fcee3f4067391767",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "395878a4_647cb0c9",
+        "filename": "meson_options.txt",
+        "patchSetId": 13
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-19T16:45:18Z",
+      "side": 1,
+      "message": "ACK",
+      "parentUuid": "788ad920_987faba0",
       "range": {
         "startLine": 255,
         "startChar": 25,
