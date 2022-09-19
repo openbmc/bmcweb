@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "931a1c9e_36ae5f32",
+        "filename": "redfish-core/src/utils/json_utils.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-09-19T09:42:22Z",
+      "side": 1,
+      "message": "nit: Prefer self commenting code over comments\nconstexpr uint64_t quotesSize \u003d 2;\nreturn root.get\u003cstd::string\u003e().size() + quotesSize;",
+      "range": {
+        "startLine": 57,
+        "startChar": 8,
+        "endLine": 57,
+        "endChar": 50
+      },
+      "revId": "a99504fbf72dfa3c004089a4888e6a0951fee141",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0ea4e2a4_ad811a88",
+        "filename": "redfish-core/src/utils/json_utils.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-09-19T09:42:22Z",
+      "side": 1,
+      "message": "nit: Prefer self commenting code over comments\nconstexpr uint64_t colonQuoteSpaceSize \u003d 4;\nsum +\u003d k.size() + getEstimatedJsonSize(v) + colonQuoteSpaceSize;",
+      "range": {
+        "startLine": 82,
+        "startChar": 12,
+        "endLine": 82,
+        "endChar": 58
+      },
+      "revId": "a99504fbf72dfa3c004089a4888e6a0951fee141",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
