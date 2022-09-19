@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c5e407b0_592302f7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-09-19T16:48:55Z",
+      "side": 1,
+      "message": "Seems mostly reasonable, thanks for documenting ",
+      "revId": "46b23dcab5c480b89a1ef1dc1cd92c30614da6c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a41aff7a_01626b67",
+        "filename": "DBUS_USAGE.md",
+        "patchSetId": 7
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-09-19T16:48:55Z",
+      "side": 1,
+      "message": "Is that all upstream openbmc implementers?\nIf you add a property to an existing interface at https://github.com/openbmc/phosphor-dbus-interfaces, then don\u0027t all implementers of that interface now have that property, they would get the default if they aren\u0027t setting but they would still have it?",
+      "revId": "46b23dcab5c480b89a1ef1dc1cd92c30614da6c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "55562f0f_87273d34",
+        "filename": "DBUS_USAGE.md",
+        "patchSetId": 7
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-09-19T16:48:55Z",
+      "side": 1,
+      "message": "Redfish sometimes has an unknown..\nhttps://github.com/openbmc/bmcweb/blob/b7ff344535c42af074c60bfb272ef66a2ba157b4/static/redfish/v1/JsonSchemas/LogService/LogService.json#L342\nhttps://github.com/openbmc/bmcweb/blob/10f270b41dee295f90dccac091883b94b82dd0d9/static/redfish/v1/JsonSchemas/Power/Power.json#L181\n\nBut I understand your point so I am fine with this (in most cases, an unknown should just be omitted)",
+      "revId": "46b23dcab5c480b89a1ef1dc1cd92c30614da6c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
