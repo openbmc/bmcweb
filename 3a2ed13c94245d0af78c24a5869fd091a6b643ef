@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "be6fb065_a695453a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-19T18:33:10Z",
+      "side": 1,
+      "message": "It looks like no reviewers were attached to this?  Is this patchset still needed?",
+      "revId": "3a2ed13c94245d0af78c24a5869fd091a6b643ef",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
