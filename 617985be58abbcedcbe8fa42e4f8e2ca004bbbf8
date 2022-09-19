@@ -58,6 +58,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5afaac6f_3726abce",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-19T16:08:36Z",
+      "side": 1,
+      "message": "yeah, they said that unavailable should be null.",
+      "parentUuid": "a07f324f_c5d8b4b3",
+      "revId": "617985be58abbcedcbe8fa42e4f8e2ca004bbbf8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6a63c5f7_accbd49d",
