@@ -33,6 +33,24 @@
       "message": "As we can see in the above, opening and closing curly bracket and \"string\" all are in same line. You can also put all in the same line.",
       "revId": "9d09d5f99386a4f4f7899ec15f8e8271632d8f70",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e8c473cd_84867baa",
+        "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 577,
+      "author": {
+        "id": 1000416
+      },
+      "writtenOn": "2022-09-19T18:58:35Z",
+      "side": 1,
+      "message": "Fixed. Thanks",
+      "parentUuid": "f805801b_fd2812df",
+      "revId": "9d09d5f99386a4f4f7899ec15f8e8271632d8f70",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
