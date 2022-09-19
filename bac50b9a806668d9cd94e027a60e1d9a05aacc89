@@ -143,6 +143,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ae86cf5b_0c138ed0",
+        "filename": "DBUS_USAGE.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-09-19T16:37:30Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "84f1b7a4_f13a71f8",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 1
+      },
+      "revId": "bac50b9a806668d9cd94e027a60e1d9a05aacc89",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "845e6f06_1cbfb2ce",
