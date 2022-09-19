@@ -16,6 +16,24 @@
       "message": "Hi Reviewers, FYI i was unable to rebase this change from GUI due to merge conflicts. In the latest PS5, i have just rebased the change on the latest master. So have lost all the +1s and +2. Can you please vote again, so that we can take it to merge?",
       "revId": "0a547aba1fab352002f72204dab85a395034e337",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "42d6ab17_2b33c25a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2022-09-19T12:31:36Z",
+      "side": 1,
+      "message": "I am unable to re-trigger the CI. It failed as my commit message was too long. I have corrected it from GUI, as well as pushed a new PS to see if the CI is re-triggered, but no.",
+      "parentUuid": "8c26d54a_37e04b4f",
+      "revId": "0a547aba1fab352002f72204dab85a395034e337",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
