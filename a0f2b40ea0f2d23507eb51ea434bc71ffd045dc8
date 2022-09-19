@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f10596b2_c5cf7d5c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1001195
+      },
+      "writtenOn": "2022-09-19T04:49:54Z",
+      "side": 1,
+      "message": "*it has",
+      "revId": "a0f2b40ea0f2d23507eb51ea434bc71ffd045dc8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2e998adf_cf05a619",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1001195
+      },
+      "writtenOn": "2022-09-19T04:49:54Z",
+      "side": 1,
+      "message": "*tons",
+      "revId": "a0f2b40ea0f2d23507eb51ea434bc71ffd045dc8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fc756405_b086ee35",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1001195
+      },
+      "writtenOn": "2022-09-19T04:49:54Z",
+      "side": 1,
+      "message": "What does this number 5 denotes after libaudit ?",
+      "revId": "a0f2b40ea0f2d23507eb51ea434bc71ffd045dc8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8b7adff4_e140227b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1001195
+      },
+      "writtenOn": "2022-09-19T04:49:54Z",
+      "side": 1,
+      "message": "Typo Error- Capital I",
+      "revId": "a0f2b40ea0f2d23507eb51ea434bc71ffd045dc8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "757d587e_0311a6fd",
+        "filename": "include/audit_events.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1001195
+      },
+      "writtenOn": "2022-09-19T04:49:54Z",
+      "side": 1,
+      "message": "You can use some meaningful variable name instead of op",
+      "revId": "a0f2b40ea0f2d23507eb51ea434bc71ffd045dc8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e32b610d_2ba77eb8",
+        "filename": "include/audit_events.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1001195
+      },
+      "writtenOn": "2022-09-19T04:49:54Z",
+      "side": 1,
+      "message": "If you are using ternary operator you should keep condition inside bracket ().",
+      "revId": "a0f2b40ea0f2d23507eb51ea434bc71ffd045dc8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
