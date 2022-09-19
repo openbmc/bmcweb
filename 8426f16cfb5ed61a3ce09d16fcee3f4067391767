@@ -1,0 +1,112 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d2d52d7a_f0fc8787",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-09-19T16:38:09Z",
+      "side": 1,
+      "message": "How does this play with webui-vue? \nwebui-vue uses Axios which doesn\u0027t appear to have HTTP/2 support. \n\nhttps://github.com/axios/axios/issues/1175",
+      "revId": "8426f16cfb5ed61a3ce09d16fcee3f4067391767",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "45234503_b0744d6e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-09-19T16:38:09Z",
+      "side": 1,
+      "message": "signed off before the WIP is removed. Also, please explain why this is needed, why this 53.4KB is worth adding. Also, a couple sentences on HTTP/2 differences.\n\n\nPart some examples of what I might expect:\n\n\"HTTP/2 changes do not require any changes to how existing web applications work, but new applications can take advantage of new features for increased speed. HTTP/2 leaves all of HTTP/1.1\u0027s high-level semantics, such as methods, status codes, header fields, and URIs, the same. What is new in HTTP/2 is how the data is framed and transported between the client and the server.\" \u003cTook from Wikipedia: \u003e\n\n....\n\nbmcweb will only support HTTP/2 over TLS...\n\n...\n\nHTTP/2 should allow for improvements in the speed of..\nImprovements seen in speed at ... when :\n\n...\nRedfish is adding support for HTTP/2, see issue 5260\n\n...",
+      "revId": "8426f16cfb5ed61a3ce09d16fcee3f4067391767",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0270a6ae_1439fd44",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-09-19T16:38:09Z",
+      "side": 1,
+      "message": "A big TESTing statement. ;)",
+      "revId": "8426f16cfb5ed61a3ce09d16fcee3f4067391767",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9ff859cb_be59f67b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-09-19T16:38:09Z",
+      "side": 1,
+      "message": "Cool stuff! ",
+      "revId": "8426f16cfb5ed61a3ce09d16fcee3f4067391767",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bcddd7ec_3f129691",
+        "filename": "meson_options.txt",
+        "patchSetId": 13
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-09-19T16:38:09Z",
+      "side": 1,
+      "message": "In the commit msg can you explain why this should be enabled by default?",
+      "revId": "8426f16cfb5ed61a3ce09d16fcee3f4067391767",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "788ad920_987faba0",
+        "filename": "meson_options.txt",
+        "patchSetId": 13
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-09-19T16:38:09Z",
+      "side": 1,
+      "message": "I though it was always styled \"HTTP/2\". Can you add another sentence here about HTTP/2, maybe mentioned we use nghttp2",
+      "range": {
+        "startLine": 255,
+        "startChar": 25,
+        "endLine": 255,
+        "endChar": 31
+      },
+      "revId": "8426f16cfb5ed61a3ce09d16fcee3f4067391767",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
