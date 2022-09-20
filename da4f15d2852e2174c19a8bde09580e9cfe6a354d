@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "27f41ff7_c24ed4e2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-20T21:06:26Z",
+      "side": 1,
+      "message": "I have one comment, that\u0027s arguably a nit.  I don\u0027t think we need to hold this up any longer.",
+      "revId": "da4f15d2852e2174c19a8bde09580e9cfe6a354d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf9e7833_c89c978e",
+        "filename": "redfish-core/include/error_messages.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-20T21:06:26Z",
+      "side": 1,
+      "message": "Source should be const, right?  Should both be nlohmann::json::object_t?",
+      "range": {
+        "startLine": 43,
+        "startChar": 51,
+        "endLine": 43,
+        "endChar": 73
+      },
+      "revId": "da4f15d2852e2174c19a8bde09580e9cfe6a354d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
