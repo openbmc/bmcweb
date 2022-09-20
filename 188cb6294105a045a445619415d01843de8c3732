@@ -70,6 +70,24 @@
       "parentUuid": "137d402c_0d26e6e0",
       "revId": "188cb6294105a045a445619415d01843de8c3732",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "50d75614_da46d479",
+        "filename": ".gitignore",
+        "patchSetId": 1
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-20T17:09:25Z",
+      "side": 0,
+      "message": "I see..... you removed pycharm because it didn\u0027t have any effect on the output?\n\nI guess I\u0027m fine with this, and this discussion has gone on longer than is warranted for a .gitignore change, so I\u0027m ok with it.  marking resolved.",
+      "parentUuid": "66ceef7c_325d4b79",
+      "revId": "188cb6294105a045a445619415d01843de8c3732",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
