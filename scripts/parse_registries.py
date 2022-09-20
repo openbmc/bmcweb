@@ -19,7 +19,9 @@ WARNING = '''/****************************************************************
  ***************************************************************/'''
 
 REGISTRY_HEADER = PRAGMA_ONCE + WARNING + '''
-#include <registries.hpp>
+#include "registries.hpp"
+
+#include <array>
 
 // clang-format off
 
@@ -166,7 +168,9 @@ def get_variable_name_for_privilege_set(privilege_list):
 
 
 PRIVILEGE_HEADER = PRAGMA_ONCE + WARNING + '''
-#include <privileges.hpp>
+#include "privileges.hpp"
+
+#include <array>
 
 // clang-format off
 
