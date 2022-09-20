@@ -98,6 +98,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3da349f0_d2a7aa10",
+        "filename": ".gitignore",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-20T17:07:16Z",
+      "side": 1,
+      "message": "\u003e I haven\u0027t heard of \"build BMCweb on local workstation, and run it there (./build/bmcweb)\", why are you running on your local workstation? \n\n\nLots of us do that;  bmcweb has supported that use case since basically the beginning, given that a lot of the http core debugging was done on my desktop not on a bmc since basically commit 1, and it\u0027s something I still do quite often for protocol-level problems.\n\nWhat I don\u0027t understand is why the bmcweb_persistent_data.json file is ending up in bmcweb/bmcweb_persistent_data.json\nI would expect it to show up in bmcweb/build/bmcweb_persistent_data.json, which is already ignored.",
+      "parentUuid": "0d064087_8308e9f0",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 8,
+        "endChar": 27
+      },
+      "revId": "c5145e0b5d081cd6cf7faea367c635868d9199d6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8ede72dd_928a81c8",
         "filename": ".gitignore",
         "patchSetId": 1
