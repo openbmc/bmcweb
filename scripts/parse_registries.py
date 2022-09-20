@@ -4,6 +4,9 @@ import os
 
 import requests
 
+PRAGMA_ONCE = '''#pragma once
+'''
+
 WARNING = '''/****************************************************************
  *                 READ THIS WARNING FIRST
  * This is an auto-generated header which contains definitions
@@ -15,8 +18,7 @@ WARNING = '''/****************************************************************
  * github organization.
  ***************************************************************/'''
 
-REGISTRY_HEADER = WARNING + '''
-#pragma once
+REGISTRY_HEADER = PRAGMA_ONCE + WARNING + '''
 #include <registries.hpp>
 
 // clang-format off
@@ -163,23 +165,22 @@ def get_variable_name_for_privilege_set(privilege_list):
     return "Or".join(names)
 
 
+PRIVILEGE_HEADER = PRAGMA_ONCE + WARNING + '''
+#include <privileges.hpp>
+
+// clang-format off
+
+namespace redfish::privileges
+{
+'''
+
+
 def make_privilege_registry():
     path, json_file, type_name, url = \
         make_getter('Redfish_1.3.0_PrivilegeRegistry.json',
                     'privilege_registry.hpp', 'privilege')
     with open(path, 'w') as registry:
-        registry.write(
-            "#pragma once\n"
-            "{WARNING}\n"
-            "// clang-format off\n"
-            "\n"
-            "#include <privileges.hpp>\n"
-            "\n"
-            "namespace redfish::privileges\n"
-            "{{\n"
-            .format(
-                WARNING=WARNING,
-                filename=os.path.basename(path)))
+        registry.write(PRIVILEGE_HEADER)
 
         privilege_dict = {}
         for mapping in json_file["Mappings"]:

@@ -1,3 +1,4 @@
+#pragma once
 /****************************************************************
  *                 READ THIS WARNING FIRST
  * This is an auto-generated header which contains definitions
@@ -8,7 +9,6 @@
  * should be first pushed to the relevant registry in the DMTF
  * github organization.
  ***************************************************************/
-#pragma once
 #include <registries.hpp>
 
 // clang-format off
