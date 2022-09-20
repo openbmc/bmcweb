@@ -57,6 +57,30 @@
       },
       "revId": "7fa5e0341c5cf00ab0a216ccf7ffcbb89d2a4ad5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e02a20e3_8e722fcc",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-09-20T21:43:51Z",
+      "side": 1,
+      "message": "I called it ping for lack of a better term.  An actual network IP ping won\u0027t tell us what we need to know.  We\u0027re specifically interested in if we can establish an http connection with the destination or if the connection attempt will timeout.  This is to potentially save us from having to wait for our initial message sending attempt to timeout during the connection attempt so that we know the destination is unreachable.\n\nI\u0027ve updated the naming conventions to remove the use of \"ping\" make the purpose clearer",
+      "parentUuid": "5032a6f7_ddee2813",
+      "range": {
+        "startLine": 187,
+        "startChar": 4,
+        "endLine": 202,
+        "endChar": 5
+      },
+      "revId": "7fa5e0341c5cf00ab0a216ccf7ffcbb89d2a4ad5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
