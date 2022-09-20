@@ -3,6 +3,7 @@ import json
 import os
 
 import requests
+import argparse
 
 WARNING = '''/****************************************************************
  *                 READ THIS WARNING FIRST
@@ -51,90 +52,80 @@ def make_getter(dmtf_name, header_name, type_name):
     return (path, json_file, type_name, url)
 
 
-files = []
-files.append(make_getter('Base.1.13.0.json',
-                         'base_message_registry.hpp',
-                         'base'))
-files.append(make_getter('TaskEvent.1.0.3.json',
-                         'task_event_message_registry.hpp',
-                         'task_event'))
-files.append(make_getter('ResourceEvent.1.0.3.json',
-                         'resource_event_message_registry.hpp',
-                         'resource_event'))
+def update_registries(files):
+    # Remove the old files
+    for file, json_dict, namespace, url in files:
+        try:
+            os.remove(file)
+        except BaseException:
+            print("{} not found".format(file))
 
-# Remove the old files
-for file, json_dict, namespace, url in files:
-    try:
-        os.remove(file)
-    except BaseException:
-        print("{} not found".format(file))
-
-    with open(file, 'w') as registry:
-        registry.write(REGISTRY_HEADER.format(namespace))
-        # Parse the Registry header info
-        registry.write(
-            "const Header header = {{\n"
-            "    \"{json_dict[@Redfish.Copyright]}\",\n"
-            "    \"{json_dict[@odata.type]}\",\n"
-            "    \"{json_dict[Id]}\",\n"
-            "    \"{json_dict[Name]}\",\n"
-            "    \"{json_dict[Language]}\",\n"
-            "    \"{json_dict[Description]}\",\n"
-            "    \"{json_dict[RegistryPrefix]}\",\n"
-            "    \"{json_dict[RegistryVersion]}\",\n"
-            "    \"{json_dict[OwningEntity]}\",\n"
-            "}};\n"
-            "constexpr const char* url =\n"
-            "    \"{url}\";\n"
-            "\n"
-            "constexpr std::array registry =\n"
-            "{{\n".format(
-                json_dict=json_dict,
-                url=url,
-            ))
-
-        messages_sorted = sorted(json_dict["Messages"].items())
-        for messageId, message in messages_sorted:
+        with open(file, 'w') as registry:
+            registry.write(REGISTRY_HEADER.format(namespace))
+            # Parse the Registry header info
             registry.write(
-                "    MessageEntry{{\n"
-                "        \"{messageId}\",\n"
-                "        {{\n"
-                "            \"{message[Description]}\",\n"
-                "            \"{message[Message]}\",\n"
-                "            \"{message[MessageSeverity]}\",\n"
-                "            {message[NumberOfArgs]},\n"
-                "            {{".format(
-                    messageId=messageId,
-                    message=message
+                "const Header header = {{\n"
+                "    \"{json_dict[@Redfish.Copyright]}\",\n"
+                "    \"{json_dict[@odata.type]}\",\n"
+                "    \"{json_dict[Id]}\",\n"
+                "    \"{json_dict[Name]}\",\n"
+                "    \"{json_dict[Language]}\",\n"
+                "    \"{json_dict[Description]}\",\n"
+                "    \"{json_dict[RegistryPrefix]}\",\n"
+                "    \"{json_dict[RegistryVersion]}\",\n"
+                "    \"{json_dict[OwningEntity]}\",\n"
+                "}};\n"
+                "constexpr const char* url =\n"
+                "    \"{url}\";\n"
+                "\n"
+                "constexpr std::array registry =\n"
+                "{{\n".format(
+                    json_dict=json_dict,
+                    url=url,
                 ))
-            paramTypes = message.get("ParamTypes")
-            if paramTypes:
-                for paramType in paramTypes:
-                    registry.write(
-                        "\n"
-                        "                \"{}\",".format(paramType)
-                    )
-                registry.write("\n            },\n")
-            else:
-                registry.write("},\n")
-            registry.write(
-                "            \"{message[Resolution]}\",\n"
-                "        }}}},\n".format(message=message))
 
-        registry.write(
-            "\n};\n"
-            "\n"
-            "enum class Index\n"
-            "{\n"
-        )
-        for index, (messageId, message) in enumerate(messages_sorted):
-            messageId = messageId[0].lower() + messageId[1:]
+            messages_sorted = sorted(json_dict["Messages"].items())
+            for messageId, message in messages_sorted:
+                registry.write(
+                    "    MessageEntry{{\n"
+                    "        \"{messageId}\",\n"
+                    "        {{\n"
+                    "            \"{message[Description]}\",\n"
+                    "            \"{message[Message]}\",\n"
+                    "            \"{message[MessageSeverity]}\",\n"
+                    "            {message[NumberOfArgs]},\n"
+                    "            {{".format(
+                        messageId=messageId,
+                        message=message
+                    ))
+                paramTypes = message.get("ParamTypes")
+                if paramTypes:
+                    for paramType in paramTypes:
+                        registry.write(
+                            "\n"
+                            "                \"{}\",".format(paramType)
+                        )
+                    registry.write("\n            },\n")
+                else:
+                    registry.write("},\n")
+                registry.write(
+                    "            \"{message[Resolution]}\",\n"
+                    "        }}}},\n".format(message=message))
+
             registry.write(
-                "    {} = {},\n".format(messageId, index))
-        registry.write(
-            "}};\n"
-            "}} // namespace redfish::registries::{}\n"
-            .format(namespace))
+                "\n};\n"
+                "\n"
+                "enum class Index\n"
+                "{\n"
+            )
+            for index, (messageId, message) in enumerate(messages_sorted):
+                messageId = messageId[0].lower() + messageId[1:]
+                registry.write(
+                    "    {} = {},\n".format(messageId, index))
+            registry.write(
+                "}};\n"
+                "}} // namespace redfish::registries::{}\n"
+                .format(namespace))
 
 
 def get_privilege_string_from_list(privilege_list):
@@ -220,4 +211,40 @@ def make_privilege_registry():
             "// clang-format on\n")
 
 
-make_privilege_registry()
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        '--base', action=argparse.BooleanOptionalAction,    default=False, help="Update base_message_registry or not")
+    parser.add_argument(
+        '--task_event', action=argparse.BooleanOptionalAction,    default=False, help="Update task_event_message_registry or not")
+    parser.add_argument(
+        '--resource_event', action=argparse.BooleanOptionalAction,    default=False, help="Update resource_event_message_registry or not")
+    parser.add_argument(
+        '--privileges', action=argparse.BooleanOptionalAction,    default=False, help="Update privilege_registry or not")
+    parser.add_argument("--all", action='store_true',
+                        help="Update all the registries")
+
+    args = parser.parse_args()
+
+    files = []
+    if args.base or args.all:
+        files.append(make_getter('Base.1.13.0.json',
+                                 'base_message_registry.hpp',
+                                 'base'))
+    if args.task_event or args.all:
+        files.append(make_getter('TaskEvent.1.0.3.json',
+                                 'task_event_message_registry.hpp',
+                                 'task_event'))
+    if args.resource_event or args.all:
+        files.append(make_getter('ResourceEvent.1.0.3.json',
+                                 'resource_event_message_registry.hpp',
+                                 'resource_event'))
+
+    update_registries(files)
+
+    if args.privileges or args.all:
+        make_privilege_registry()
+
+
+if __name__ == "__main__":
+    main()
