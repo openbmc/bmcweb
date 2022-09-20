@@ -16,6 +16,24 @@
       "message": "Why move clang-format off down for this?",
       "revId": "bd880dfee8c14208abea69d8e9d29b6092732174",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b33460ce_b66854ab",
+        "filename": "redfish-core/include/registries/privilege_registry.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-09-20T20:27:27Z",
+      "side": 1,
+      "message": "It\u0027s explained in the commit message, to keep consistent with the other 3 existing files.\n\nMy understanding is this is better, since we might want to format the headers automatically.",
+      "parentUuid": "c7703a77_42af8774",
+      "revId": "bd880dfee8c14208abea69d8e9d29b6092732174",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
