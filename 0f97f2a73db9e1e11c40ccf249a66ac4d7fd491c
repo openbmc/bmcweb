@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "194444b4_11172d2b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-20T20:58:37Z",
+      "side": 1,
+      "message": "Why?  parse_registries is meant to be run to update all registries published from dmtf;  Selectively running it might mean that we get one version of one registry, and a different version of another, which we don\u0027t want, and defeats some of the intent of automating this.\n\nPlease add a little more details on what you\u0027re trying to accomplish here.",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 44
+      },
+      "revId": "0f97f2a73db9e1e11c40ccf249a66ac4d7fd491c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3b29bc9c_851f825d",
         "filename": "/COMMIT_MSG",
         "patchSetId": 6
@@ -32,6 +55,24 @@
       "side": 1,
       "message": "I don\u0027t have strong opinion. IMO it\u0027s not a big deal to just add \"--all\". I am not aware of any automation script that we need to change.",
       "parentUuid": "3b29bc9c_851f825d",
+      "revId": "0f97f2a73db9e1e11c40ccf249a66ac4d7fd491c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "36e5e4f4_2aeb1604",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-20T20:58:37Z",
+      "side": 1,
+      "message": "https://github.com/openbmc/bmcweb/blob/master/run-ci#L7\n\nWould need to change for sure.  I\u0027m not really sure how this passed CI (maybe it\u0027s not returning the correct exit codes on bad input?)\n\nI\u0027m with gunnar, defaults here should be to just do everything, because that\u0027s the most common operation.  I\u0027d still like to understand why anyone would want to do anything OTHER than all, but lets follow up on the other thread.",
+      "parentUuid": "a8e89300_47242587",
       "revId": "0f97f2a73db9e1e11c40ccf249a66ac4d7fd491c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
