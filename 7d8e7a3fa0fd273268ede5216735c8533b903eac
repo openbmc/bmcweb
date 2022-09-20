@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1cb61eec_c47f654b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-09-20T21:03:44Z",
+      "side": 1,
+      "message": "paraphrased from what I heard a redfish co-chair: \n\nResolution property is a free-form string intended only for humans to read.\n\nHave a look at Redfish #5057 and #4440",
+      "parentUuid": "8cf002ac_65a28a06",
+      "range": {
+        "startLine": 10,
+        "startChar": 37,
+        "endLine": 13,
+        "endChar": 0
+      },
+      "revId": "7d8e7a3fa0fd273268ede5216735c8533b903eac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fe9b6381_aaaf5692",
         "filename": "/COMMIT_MSG",
         "patchSetId": 4
@@ -372,6 +396,30 @@
       "side": 1,
       "message": "Right, but the LogService being modified doesn\u0027t have a MessageRegistry implemented, so isn\u0027t this code incorrect, because Resolution is supposed to match the MessageRegistry?",
       "parentUuid": "232ab1e8_55ec2bdd",
+      "range": {
+        "startLine": 39,
+        "startChar": 21,
+        "endLine": 40,
+        "endChar": 50
+      },
+      "revId": "7d8e7a3fa0fd273268ede5216735c8533b903eac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e0295efc_b103e97f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-09-20T21:03:44Z",
+      "side": 1,
+      "message": "\u003e  Resolution is supposed to match the MessageRegistry?\n\nAs I understand it from discussion when this was added, no. This Resolution is a free-form string intended only for humans to read. It is meant to have the implementation\u0027s \"how to resolve this event\", it isn\u0027t intended to match the MessageRegistry\u0027s Resolution and would supersede it as I understand it from discussion when this was added.\n\n\u003e LogService being modified doesn\u0027t have a MessageRegistry implemented, so isn\u0027t this code incorrect\n\nThis is separate  but I do agree, this LogService should have a MessageRegistry if it doesn\u0027t already",
+      "parentUuid": "5e8318da_98e8b827",
       "range": {
         "startLine": 39,
         "startChar": 21,

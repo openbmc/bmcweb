@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b4e22e5c_c23b40b7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-09-20T21:03:44Z",
+      "side": 1,
+      "message": "I still think this is a bad example, oh well. A better example might be \"Replace fan 0\" or a lot of others.",
+      "revId": "68f8f19a823a62802e063fe1953560ab95abd4f3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3c956000_3dd54a3e",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 8
