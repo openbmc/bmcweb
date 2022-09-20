@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b29bc9c_851f825d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-09-20T19:38:48Z",
+      "side": 1,
+      "message": "Could we default it to all? I.e. if you run it like it was before, it is the same behavior",
+      "revId": "0f97f2a73db9e1e11c40ccf249a66ac4d7fd491c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
