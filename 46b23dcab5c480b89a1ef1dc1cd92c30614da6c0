@@ -55,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4bd7496b_4ecf81d9",
+        "filename": "DBUS_USAGE.md",
+        "patchSetId": 7
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-09-20T20:08:37Z",
+      "side": 1,
+      "message": "I guess I would prefer it says \"_all_ upstream implementers of the interface support that property.\" Do we have any plans to move all daemons to use PDI?",
+      "parentUuid": "33940d5e_207b7d8b",
+      "revId": "46b23dcab5c480b89a1ef1dc1cd92c30614da6c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "55562f0f_87273d34",
         "filename": "DBUS_USAGE.md",
         "patchSetId": 7
@@ -84,6 +102,24 @@
       "side": 1,
       "message": "If there\u0027s a way to write this down in a way that makes that more clear, I\u0027m happy to do so, but to some extent, that\u0027s why this file is \"guidelines\" and not \"rules\" and I\u0027d like to avoid being overly lawyerly in some of these descriptions to make them reasonable to read.  there\u0027s subtlety in a lot of this stuff that\u0027s captured in code.",
       "parentUuid": "55562f0f_87273d34",
+      "revId": "46b23dcab5c480b89a1ef1dc1cd92c30614da6c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "87658ce4_744ebf4e",
+        "filename": "DBUS_USAGE.md",
+        "patchSetId": 7
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-09-20T20:08:37Z",
+      "side": 1,
+      "message": "Ack. I am good here.",
+      "parentUuid": "d1cb0ba3_962d4892",
       "revId": "46b23dcab5c480b89a1ef1dc1cd92c30614da6c0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
