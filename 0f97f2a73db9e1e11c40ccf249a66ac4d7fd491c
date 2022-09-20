@@ -16,6 +16,24 @@
       "message": "Could we default it to all? I.e. if you run it like it was before, it is the same behavior",
       "revId": "0f97f2a73db9e1e11c40ccf249a66ac4d7fd491c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a8e89300_47242587",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-09-20T19:59:09Z",
+      "side": 1,
+      "message": "I don\u0027t have strong opinion. IMO it\u0027s not a big deal to just add \"--all\". I am not aware of any automation script that we need to change.",
+      "parentUuid": "3b29bc9c_851f825d",
+      "revId": "0f97f2a73db9e1e11c40ccf249a66ac4d7fd491c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
