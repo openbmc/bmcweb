@@ -9,7 +9,9 @@
  * github organization.
  ***************************************************************/
 #pragma once
-#include <privileges.hpp>
+#include "privileges.hpp"
+
+#include <array>
 
 // clang-format off
 

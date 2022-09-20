@@ -14,7 +14,10 @@
 // limitations under the License.
 */
 #pragma once
-#include <registries.hpp>
+
+#include "registries.hpp"
+
+#include <array>
 
 /*
     Please read this before making edits to the structure below.

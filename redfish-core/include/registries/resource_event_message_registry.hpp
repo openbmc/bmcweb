@@ -9,7 +9,9 @@
  * github organization.
  ***************************************************************/
 #pragma once
-#include <registries.hpp>
+#include "registries.hpp"
+
+#include <array>
 
 // clang-format off
 
