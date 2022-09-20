@@ -1,4 +1,3 @@
-#pragma once
 /****************************************************************
  *                 READ THIS WARNING FIRST
  * This is an auto-generated header which contains definitions
@@ -9,9 +8,10 @@
  * should be first pushed to the relevant registry in the DMTF
  * github organization.
  ***************************************************************/
-// clang-format off
-
+#pragma once
 #include <privileges.hpp>
+
+// clang-format off
 
 namespace redfish::privileges
 {
