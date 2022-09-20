@@ -46,6 +46,30 @@
       },
       "revId": "c22fafc22e1da8808c144fdb82809eeceb270835",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1df99bea_26ed7c84",
+        "filename": "redfish-core/include/utils/query_param_test.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 420,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-09-20T22:05:59Z",
+      "side": 1,
+      "message": "Thanks! Somehow I missed this comment.",
+      "parentUuid": "b4549d6e_0a85dfec",
+      "range": {
+        "startLine": 420,
+        "startChar": 19,
+        "endLine": 420,
+        "endChar": 24
+      },
+      "revId": "c22fafc22e1da8808c144fdb82809eeceb270835",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
