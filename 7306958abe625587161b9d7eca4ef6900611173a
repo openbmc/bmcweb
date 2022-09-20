@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e9cc937d_af4623a4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 90
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-09-20T20:40:04Z",
+      "side": 1,
+      "message": "Seems good, been in review for a while. ",
+      "revId": "7306958abe625587161b9d7eca4ef6900611173a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2794e8ca_43b25154",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 90
+      },
+      "lineNbr": 745,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-09-20T20:40:04Z",
+      "side": 1,
+      "message": "No internalError on this or the  (pRoot \u003d\u003d nullptr) ?",
+      "revId": "7306958abe625587161b9d7eca4ef6900611173a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
