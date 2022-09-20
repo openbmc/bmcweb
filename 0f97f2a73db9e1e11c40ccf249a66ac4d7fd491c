@@ -75,6 +75,52 @@
       "parentUuid": "a8e89300_47242587",
       "revId": "0f97f2a73db9e1e11c40ccf249a66ac4d7fd491c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb655af2_3e613a3c",
+        "filename": "scripts/parse_registries.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-20T21:02:42Z",
+      "side": 1,
+      "message": "If this goes forward, Could we just make this a list of registries?  Or some kind of parser that allows multiple inputs without having to have each one in-turn.  I\u0027m not sure having each registry have its own -- argument scales beyond the 3 we have today, and I think redfish and swordfish have ~10 potential ones we could add.",
+      "range": {
+        "startLine": 216,
+        "startChar": 0,
+        "endLine": 224,
+        "endChar": 76
+      },
+      "revId": "0f97f2a73db9e1e11c40ccf249a66ac4d7fd491c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8053ab69_df71373b",
+        "filename": "scripts/parse_registries.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-20T21:02:42Z",
+      "side": 1,
+      "message": "Pretty sure we want default\u003dTrue on everything.  Just running the script with no args should do the old behavior.",
+      "range": {
+        "startLine": 227,
+        "startChar": 16,
+        "endLine": 227,
+        "endChar": 21
+      },
+      "revId": "0f97f2a73db9e1e11c40ccf249a66ac4d7fd491c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
