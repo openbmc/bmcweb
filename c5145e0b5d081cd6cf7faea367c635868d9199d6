@@ -122,6 +122,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5bbc6d7d_34eb787d",
+        "filename": ".gitignore",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-09-20T17:18:48Z",
+      "side": 1,
+      "message": "It\u0027s from https://github.com/openbmc/bmcweb/blob/f1eac5775ed6593fe7148118304bdecec08af1ef/include/persistent_data.hpp#L198\n\nif you run it inside build, I would assume it goes to build/.",
+      "parentUuid": "3da349f0_d2a7aa10",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 8,
+        "endChar": 27
+      },
+      "revId": "c5145e0b5d081cd6cf7faea367c635868d9199d6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8ede72dd_928a81c8",
         "filename": ".gitignore",
         "patchSetId": 1
@@ -205,6 +229,30 @@
       "side": 1,
       "message": "\u003e \n\u003e Am I able to convince you on this trivial modification this time?  \n\nOverall, I don\u0027t like that we\u0027re losing intent here, because we INTEND for pycharm to work, but it\u0027s not worth arguing about, we have bigger issues and if this is a problem later, we can solve it then.",
       "parentUuid": "c0e0e4e8_92605a2f",
+      "range": {
+        "startLine": 676,
+        "startChar": 0,
+        "endLine": 676,
+        "endChar": 124
+      },
+      "revId": "c5145e0b5d081cd6cf7faea367c635868d9199d6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b6844f80_532a6081",
+        "filename": ".gitignore",
+        "patchSetId": 1
+      },
+      "lineNbr": 676,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-09-20T17:18:48Z",
+      "side": 1,
+      "message": "👍",
+      "parentUuid": "547c113d_4208c1b6",
       "range": {
         "startLine": 676,
         "startChar": 0,
