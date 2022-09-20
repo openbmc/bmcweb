@@ -1423,7 +1423,8 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
             }
             self->managedObj = mObj;
             },
-            "xyz.openbmc_project.EntityManager", "/", objectManagerIface,
+            "xyz.openbmc_project.EntityManager",
+            "/xyz/openbmc_project/inventory", objectManagerIface,
             "GetManagedObjects");
 
         // at the same time get the profile information
