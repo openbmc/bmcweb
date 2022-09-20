@@ -74,6 +74,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0d064087_8308e9f0",
+        "filename": ".gitignore",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-09-20T16:30:41Z",
+      "side": 1,
+      "message": "\u003e why are you running on your local workstation? \n\nThis is for fast iteration without cross-compile and reflash images.\n\n\u003e This is something we think we should support?\n\nWhy not? I know many engineers inside Google build daemons directly, not cross-compile. If you two strongly dislike this, I am fine just to remove it.",
+      "parentUuid": "2d05b080_9635b9e5",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 8,
+        "endChar": 27
+      },
+      "revId": "c5145e0b5d081cd6cf7faea367c635868d9199d6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8ede72dd_928a81c8",
         "filename": ".gitignore",
         "patchSetId": 1
