@@ -39,6 +39,30 @@
       },
       "revId": "da4f15d2852e2174c19a8bde09580e9cfe6a354d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "039a0c9e_5f69e8cb",
+        "filename": "redfish-core/include/error_messages.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-09-20T21:33:01Z",
+      "side": 1,
+      "message": "\u003e Source should be const, right?\n\nNo. Source is modified. Its errors will be removed once propagated to |target|.\n\n\u003e  Should both be nlohmann::json::object_t?\n\nThis requires changing existing codes. I can clean up this in the future.",
+      "parentUuid": "bf9e7833_c89c978e",
+      "range": {
+        "startLine": 43,
+        "startChar": 51,
+        "endLine": 43,
+        "endChar": 73
+      },
+      "revId": "da4f15d2852e2174c19a8bde09580e9cfe6a354d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
