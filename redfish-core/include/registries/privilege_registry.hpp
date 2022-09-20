@@ -9,7 +9,9 @@
  * should be first pushed to the relevant registry in the DMTF
  * github organization.
  ***************************************************************/
-#include <privileges.hpp>
+#include "privileges.hpp"
+
+#include <array>
 
 // clang-format off
 
