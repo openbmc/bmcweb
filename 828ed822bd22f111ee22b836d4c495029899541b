@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d16e8c2a_0dda6ecf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-09-20T20:51:24Z",
+      "side": 1,
+      "message": "\u003e This will have performance impact \nThe performance impact is pretty minimal since you just have a single connection per IP:PORT asynchronously attempting to establish a connection.\n\n\u003e can be used as Denial of service attack.\n\u003e \n\u003e So this make service busy always doing resolve \u0026 connect and Impact overall bmcweb performance \u0026 even BMC.( Ex: If someone created  max subscriptions to different IP:PORT which are not reachable.\nI don\u0027t think that\u0027s true about DoS.  At a minimum this is not worse than what we have now.  Ignoring this change, BMCWeb should already be able to handle sending max subscriptions worth of simultaneous messages.\n\nFollowing your example, someone could create max subscriptions which use a retry policy with no time delay and a large enough number of retry attempts that they effectively won\u0027t be exhausted.  That would be the same idea as having an internal polling routine.  What\u0027s worse is the existing code does not ignore the retry policy for connection timeouts.  That means you could have an entire connection pool always trying to connect (i.e. MAX_SUBSCRIPTIONS * 4).\n\nAs events get triggered the message queues will expand until they reach the max number and start getting dropped.  At least with this change we\u0027ll be able to handle those future messages immediately rather than adding them to an ever growing queue.\n\n\u003e I see resolve and connect is being attempted continuously without  1) Any time delay 2) No exhaust of retry \u0026 terminate/abort subscription.\nWe do this because we want the internal polling routine to be able to detect the moment the destination becomes reachable.  If we 1) add a delay then there will be dead periods where we won\u0027t detect a destination has become reachable and thus erroneously return a 504.\n\nIf we 2) can exhaust the number of retry attempts then we won\u0027t be able to mark the destination as unreachable.  We would give up attempting to reach the destination at some point and then not be able to catch when it does become reachable.  We\u0027d have to clear the bool and allow future message sending attempts to attempt establish a connection to an unreachable destination.  At that point we\u0027re really not getting any benefit out of the changes in this patch.",
+      "parentUuid": "0517d6e3_ef4feb0e",
+      "range": {
+        "startLine": 18,
+        "startChar": 58,
+        "endLine": 20,
+        "endChar": 10
+      },
+      "revId": "828ed822bd22f111ee22b836d4c495029899541b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e904604a_ba075bf0",
         "filename": "/COMMIT_MSG",
         "patchSetId": 7
@@ -37,6 +61,30 @@
       "writtenOn": "2022-09-12T17:03:00Z",
       "side": 1,
       "message": "Should cover some positive test cases as well.",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 11
+      },
+      "revId": "828ed822bd22f111ee22b836d4c495029899541b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5cd2d4cf_845f55f0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-09-20T20:51:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e904604a_ba075bf0",
       "range": {
         "startLine": 28,
         "startChar": 0,
