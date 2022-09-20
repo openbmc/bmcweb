@@ -3,6 +3,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5f9ade18_cf283dc4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-20T20:50:27Z",
+      "side": 1,
+      "message": "This doesn\u0027t explain why pragma once was moved.  I would\u0027ve expected that to stay at the top of the file.",
+      "range": {
+        "startLine": 10,
+        "startChar": 30,
+        "endLine": 12,
+        "endChar": 17
+      },
+      "revId": "bd880dfee8c14208abea69d8e9d29b6092732174",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6296bf44_b0f21149",
+        "filename": "redfish-core/include/registries/privilege_registry.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-20T20:50:27Z",
+      "side": 1,
+      "message": "Moved intentionally?  I would expect pragma once to stay the first line in the file, and I though we had a coding standard for that.",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 12
+      },
+      "revId": "bd880dfee8c14208abea69d8e9d29b6092732174",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c7703a77_42af8774",
         "filename": "redfish-core/include/registries/privilege_registry.hpp",
         "patchSetId": 1
@@ -32,6 +78,24 @@
       "side": 1,
       "message": "It\u0027s explained in the commit message, to keep consistent with the other 3 existing files.\n\nMy understanding is this is better, since we might want to format the headers automatically.",
       "parentUuid": "c7703a77_42af8774",
+      "revId": "bd880dfee8c14208abea69d8e9d29b6092732174",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b0977d58_d5145887",
+        "filename": "redfish-core/include/registries/privilege_registry.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-20T20:50:27Z",
+      "side": 1,
+      "message": "\u003e It\u0027s explained in the commit message, to keep consistent with the other 3 existing files.\n\u003e \n\u003e My understanding is this is better, since we might want to format the headers automatically.\n\nI think there\u0027s a misunderstanding here.  The problem we hit on these generated files is that we want them to exactly match what the script does, and the script doesn\u0027t directly call clang-format.  In theory, if the script picked a different header formatting than clang-format, (which is a little unlikely we wouldn\u0027t just fix it) we would want the clang-format off where it is, because those lines were generated.",
+      "parentUuid": "b33460ce_b66854ab",
       "revId": "bd880dfee8c14208abea69d8e9d29b6092732174",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
