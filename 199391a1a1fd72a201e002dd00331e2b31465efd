@@ -56,6 +56,23 @@
       "message": "Overall, this patchset roughly mimicks my feelings when these docker images were merged, that they would go out of date quickly, and not be useful to folks.  That seems to have been accurate, so overall, I\u0027m fine with removing this stuff.  build_x86.sh actually predates bmcweb being an OpenBMC-specific application, so this might hold the record for the oldest file to be deleted 🎉 😂",
       "revId": "199391a1a1fd72a201e002dd00331e2b31465efd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4824a2bf_55469fd3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-20T20:54:25Z",
+      "side": 1,
+      "message": "Overall, I\u0027m in support of this.  Going to leave in review for a bit to see if someone still wants to maintain this, but if it doesn\u0027t build, and there\u0027s no process for keeping it maintained, there\u0027s no sense in having it.  If someone wants to maintain it later, it\u0027s in the git history, so it isn\u0027t lost.\n\nThanks for this cleanup!",
+      "revId": "199391a1a1fd72a201e002dd00331e2b31465efd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
