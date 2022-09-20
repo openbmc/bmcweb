@@ -16,6 +16,24 @@
       "message": "We want \"Accepts: */*\" to default to CBOR ?",
       "revId": "b0d7697e2a1fff97b4cf5df4dcac9501614cb699",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e5cc655d_29187cea",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 458,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-20T15:53:03Z",
+      "side": 1,
+      "message": "I wrote this patch before I knew that anyone actually set content-type */*;  This patchset needs reworked a bit to handle that case.  The behavior I think we want here is:\n\n*/* \u003d json,\ncbor + json \u003d cbor (because it\u0027s more efficient)\njson \u003d json (obviously)",
+      "parentUuid": "51971e1d_ccbc3750",
+      "revId": "b0d7697e2a1fff97b4cf5df4dcac9501614cb699",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
