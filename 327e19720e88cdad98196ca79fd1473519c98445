@@ -16,6 +16,24 @@
       "message": "These are being flagged by CI, \n\n-: UC1 Line exceeds max length (77\u003e72).\n    It\u0027s possible you intended to use one of the following exceptions:\n    1. Put logs or shell script in a quoted section with triple quotes (\u0027\u0027\u0027) before and after the section\n    2. Put a long link at the bottom in a footnote.  example: [1] https://my_long_link.com\n    Line that was too long:\n: \"https://gerrit.openbmc-project.xyz/c/openbmc/phosphor-dbus-interfaces/+/36331\"\n\n\n\nCan you do\n\n[1] https://.....",
       "revId": "327e19720e88cdad98196ca79fd1473519c98445",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cba599c6_9a5c03fd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 89
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2022-09-20T05:03:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "648aa366_49ab19f6",
+      "revId": "327e19720e88cdad98196ca79fd1473519c98445",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
