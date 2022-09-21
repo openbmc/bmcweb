@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b87a9a57_689be6d7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-21T17:01:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5f9ade18_cf283dc4",
+      "range": {
+        "startLine": 10,
+        "startChar": 30,
+        "endLine": 12,
+        "endChar": 17
+      },
+      "revId": "bd880dfee8c14208abea69d8e9d29b6092732174",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6296bf44_b0f21149",
@@ -85,6 +109,30 @@
       "side": 1,
       "message": "\u003e I fixed all. So that #pragma is the very first statement.\n\nThat seems reasonable to me.",
       "parentUuid": "7879f46d_28795cdb",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 12
+      },
+      "revId": "bd880dfee8c14208abea69d8e9d29b6092732174",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c519b081_a9ecabdf",
+        "filename": "redfish-core/include/registries/privilege_registry.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-21T17:01:03Z",
+      "side": 1,
+      "message": "+1, seems reasonable.  Resolving.",
+      "parentUuid": "a2eebb0e_7e566a25",
       "range": {
         "startLine": 11,
         "startChar": 0,
@@ -216,6 +264,24 @@
       "side": 1,
       "message": "This matches the other registries.",
       "parentUuid": "43575b0b_a1dfec3b",
+      "revId": "bd880dfee8c14208abea69d8e9d29b6092732174",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "41067498_b7945ed5",
+        "filename": "redfish-core/include/registries/privilege_registry.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-21T17:01:03Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "4f79901a_6be8bbe9",
       "revId": "bd880dfee8c14208abea69d8e9d29b6092732174",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
