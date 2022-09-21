@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ef48ed36_89608e56",
+        "filename": "build_x86.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-09-21T00:29:28Z",
+      "side": 0,
+      "message": "These are assumptions the script made: only these dependencies are missing.\n\nHowever, it really depends what base image the workstation is using. For example, what if the base image is missing Python3?\n\nSee the Dockerfile, it installed more dependencies\n\n```\nRUN apt-get update \u0026\u0026 DEBIAN_FRONTEND\u003dnoninteractive \\\n    apt-get install -y libpam0g-dev libssl-dev zlib1g-dev pkg-config xxd cmake \\\n    libgtest-dev libgmock-dev ninja-build python3 autoconf-archive autoconf \\\n    build-essential git libsystemd-dev systemd libtinyxml2-dev python3-wheel python3-pip \\\n    python3-yaml python3-mako python3-inflection python3-setuptools \u0026\u0026 \\\n    pip3 install meson\n```",
+      "range": {
+        "startLine": 2,
+        "startChar": 0,
+        "endLine": 2,
+        "endChar": 58
+      },
+      "revId": "6e5a32691a861ef54f7b2e9abd90181a369085d6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
