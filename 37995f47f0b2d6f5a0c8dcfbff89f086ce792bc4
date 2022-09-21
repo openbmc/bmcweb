@@ -34,6 +34,24 @@
       "parentUuid": "97a64f4a_4d70b98b",
       "revId": "37995f47f0b2d6f5a0c8dcfbff89f086ce792bc4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e2334482_399cfb22",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000998
+      },
+      "writtenOn": "2022-09-21T22:20:03Z",
+      "side": 1,
+      "message": "Large parts of this change will likely be superseded by something else now that the physical topology stuff is accepted (that\u0027s why it\u0027s WIP). I\u0027m not sure who is taking this over yet, but we are working on figuring that out.",
+      "parentUuid": "b1968952_51ba9dd4",
+      "revId": "37995f47f0b2d6f5a0c8dcfbff89f086ce792bc4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
