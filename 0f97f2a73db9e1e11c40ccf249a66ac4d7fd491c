@@ -170,6 +170,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f9942682_dd99e730",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-21T18:03:30Z",
+      "side": 1,
+      "message": "\u003e For faster development of this script.\n\nThis is what I\u0027m not understanding.  The generation takes almost no time to run, so why is it faster?\n\n\u003e Ideally we should modularize this script and unit test it\n\nThis is a different discussion about how complex we want this script to become.  It\u0027s a compile-time-run tool that generates a static c++ file;  In terms of priorities, unit testing this script is pretty low on my list.\n\n\u003e such that I won\u0027t care line 47 to line 140 at all when modifying line 141\n\nIf you haven\u0027t modified line 47 to line 140, why, in the current model that just does everything do you have to worry about it today?\n\n\n\u003e can save more time at that time. \n\nI don\u0027t understand what time we\u0027re saving here, can you be more specific?  Is it runtime of the script each time you make an edit? Generating each registry is an imperceptible amount of time compared to the HTTP GET to get the zip and unzip it, so that doesn\u0027t really track for me.",
+      "parentUuid": "a1be71bc_a5c1ded1",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 44
+      },
+      "revId": "0f97f2a73db9e1e11c40ccf249a66ac4d7fd491c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3b29bc9c_851f825d",
         "filename": "/COMMIT_MSG",
         "patchSetId": 6
