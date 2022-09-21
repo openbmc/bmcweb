@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "af094f45_81cf7f3c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 43
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-09-21T21:07:07Z",
+      "side": 1,
+      "message": "Would like the associations to get figured out more, would like some additional tests, would prefer this uses unpackPropertiesNoThrow but this sets behind a compile flag and Redfish has had these new PowerSubsystem/ThermalSubsystem out for some time. It would be good to get this merged. ",
+      "revId": "72871c3fd7e68800e96e6cd1d7c0edb320c494b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bfab3cb6_b7021007",
         "filename": "redfish-core/lib/power_supply.hpp",
         "patchSetId": 43
