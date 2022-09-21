@@ -113,6 +113,9 @@ void getEthernetIfaceData(CallbackFunc&& callback)
 inline void getNetworkData(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                            const crow::Request& req)
 {
+    asyncResp->res.addHeader(
+        boost::beast::http::field::link,
+        "</redfish/v1/JsonSchemas/ManagerNetworkProtocol/NetworkProtocol.json>; rel=describedby");
     asyncResp->res.jsonValue["@odata.type"] =
         "#ManagerNetworkProtocol.v1_5_0.ManagerNetworkProtocol";
     asyncResp->res.jsonValue["@odata.id"] =
@@ -465,6 +468,19 @@ inline std::string encodeServiceObjectPath(const std::string& serviceName)
     return objPath.str;
 }
 
+void handleBmcNetworkProtocolHead(
+    crow::App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+    asyncResp->res.addHeader(
+        boost::beast::http::field::link,
+        "</redfish/v1/JsonSchemas/ManagerNetworkProtocol/ManagerNetworkProtocol.json>; rel=describedby");
+}
+
 inline void requestRoutesNetworkProtocol(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/NetworkProtocol/")
@@ -536,6 +552,11 @@ inline void requestRoutesNetworkProtocol(App& app)
                                   encodeServiceObjectPath(sshServiceName));
         }
         });
+
+    BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/NetworkProtocol/")
+        .privileges(redfish::privileges::headManagerNetworkProtocol)
+        .methods(boost::beast::http::verb::head)(
+            std::bind_front(handleBmcNetworkProtocolHead, std::ref(app)));
 
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/NetworkProtocol/")
         .privileges(redfish::privileges::getManagerNetworkProtocol)
