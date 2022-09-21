@@ -240,6 +240,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1d55f76d_0fc129d0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-09-21T19:44:48Z",
+      "side": 1,
+      "message": "\u003e Ideally this \"why\" of \"it drops the script runtime from 1.5 seconds to 600ms, and that helps my workflow\" would\u0027ve been in the commit message originally 😊\n\nDone. Added. 👍",
+      "parentUuid": "7ad1f5c8_0a2fe227",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 44
+      },
+      "revId": "0f97f2a73db9e1e11c40ccf249a66ac4d7fd491c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3b29bc9c_851f825d",
