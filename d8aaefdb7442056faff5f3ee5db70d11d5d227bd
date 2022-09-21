@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e354e4e_99e0e5d6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-09-21T20:39:18Z",
+      "side": 1,
+      "message": "These are special cases where we call Entity Manager directly? For aggregation and OEM PID.. I am assuming Entity Manager is not a binary we typically call directly (i.e. should call mapper first since not everyone uses Entity Manager (Inventory Manager))",
+      "revId": "d8aaefdb7442056faff5f3ee5db70d11d5d227bd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
