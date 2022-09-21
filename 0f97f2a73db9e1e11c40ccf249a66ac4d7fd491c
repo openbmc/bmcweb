@@ -216,6 +216,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ad1f5c8_0a2fe227",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-21T19:29:13Z",
+      "side": 1,
+      "message": "\u003e ```\n\u003e [hi on] nanzhou@nanzhou:~/Desktop/bmcweb$ time scripts/parse_registries.py \n\u003e \n\u003e real    0m1.493s\n\u003e user    0m0.401s\n\u003e sys     0m0.046s\n\u003e [hi on] nanzhou@nanzhou:~/Desktop/bmcweb$ time scripts/parse_registries.py --registries privilege\n\u003e \n\u003e real    0m0.667s\n\u003e user    0m0.213s\n\u003e sys     0m0.030s\n\u003e ```\n\u003e \n\nOk, that\u0027s what I was missing.  1.5 seconds to 600s matters to you, which is pretty different compared to myself, where those two are essentially equivalent as far as I\u0027m concerned.\n\n\u003e Right.. I understand the absolute time spent is small. Just this comes to my mind that being able to update a single part of the whole registries is good to have. Thus I spent 10 minutes or so to develop a main function for this script. It shows it cuts more than 50% of the time.\n\n50% of something already very small, but now I understand, it\u0027s just a case of:\nhttps://xkcd.com/1205/\n\nI think i understand what you\u0027re getting at, and it\u0027s fine.\n\n\u003e \n\u003e Now I spent more then 10 minutes to convince you this is good, which is not something I really want to do. 😊 \n\nIdeally this \"why\" of \"it drops the script runtime from 1.5 seconds to 600ms, and that helps my workflow\" would\u0027ve been in the commit message originally 😊\n\n\u003e \n\u003e I don\u0027t quite understand the downside: you worry about people misunderstood the arguments?\n\nI\u0027m worried about people expecting that they can send in a code review that only updates one portion of the registry pack.  That\u0027s fine, we\u0027ll deal with it when and if the issue arises.\n\n\u003e Can I just add a comment to this script to say when submitting final changes, run with the full list?\n\nI don\u0027t even think that\u0027s needed in this case.  If it\u0027s a problem, we\u0027ll remove the parser later.\n\nThanks for indulging me.",
+      "parentUuid": "460e1809_5fdd427b",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 44
+      },
+      "revId": "0f97f2a73db9e1e11c40ccf249a66ac4d7fd491c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3b29bc9c_851f825d",
