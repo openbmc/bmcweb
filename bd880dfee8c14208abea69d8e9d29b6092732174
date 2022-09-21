@@ -73,6 +73,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a2eebb0e_7e566a25",
+        "filename": "redfish-core/include/registries/privilege_registry.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-09-21T15:21:31Z",
+      "side": 1,
+      "message": "\u003e I fixed all. So that #pragma is the very first statement.\n\nThat seems reasonable to me.",
+      "parentUuid": "7879f46d_28795cdb",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 12
+      },
+      "revId": "bd880dfee8c14208abea69d8e9d29b6092732174",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c7703a77_42af8774",
         "filename": "redfish-core/include/registries/privilege_registry.hpp",
         "patchSetId": 1
@@ -174,6 +198,24 @@
       "side": 1,
       "message": "\u003e Basically I want all four generated headers to be consistent with each other.\n\nSure, consistency is fine, but it doesn\u0027t really solve any engineering problems here.\n\n\n\u003e and the other two files?\n\nIf we must be consistent, yeah, that would be my preference.",
       "parentUuid": "85a90217_47bf11d7",
+      "revId": "bd880dfee8c14208abea69d8e9d29b6092732174",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f79901a_6be8bbe9",
+        "filename": "redfish-core/include/registries/privilege_registry.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-09-21T15:21:31Z",
+      "side": 1,
+      "message": "This matches the other registries.",
+      "parentUuid": "43575b0b_a1dfec3b",
       "revId": "bd880dfee8c14208abea69d8e9d29b6092732174",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
