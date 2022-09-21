@@ -49,6 +49,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7879f46d_28795cdb",
+        "filename": "redfish-core/include/registries/privilege_registry.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-09-21T00:45:17Z",
+      "side": 1,
+      "message": "Then do you want to fix https://github.com/openbmc/bmcweb/blob/master/redfish-core/include/registries/base_message_registry.hpp and the other two files?\n\nI fixed all. So that #pragma is the very first statement.",
+      "parentUuid": "6296bf44_b0f21149",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 12
+      },
+      "revId": "bd880dfee8c14208abea69d8e9d29b6092732174",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c7703a77_42af8774",
         "filename": "redfish-core/include/registries/privilege_registry.hpp",
         "patchSetId": 1
@@ -114,6 +138,24 @@
       "side": 1,
       "message": "Then do you want to fix https://github.com/openbmc/bmcweb/blob/master/redfish-core/include/registries/base_message_registry.hpp#L11 and the other two files?",
       "parentUuid": "b0977d58_d5145887",
+      "revId": "bd880dfee8c14208abea69d8e9d29b6092732174",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "85a90217_47bf11d7",
+        "filename": "redfish-core/include/registries/privilege_registry.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-09-21T00:45:17Z",
+      "side": 1,
+      "message": "Wait, I mixed two problems (pre-processor and clang-format macro)\n\nBasically I want all four generated headers to be consistent with each other.\n\nSee the other three headers. clang-format off are after includes.",
+      "parentUuid": "6c594ce4_d00ccb46",
       "revId": "bd880dfee8c14208abea69d8e9d29b6092732174",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
