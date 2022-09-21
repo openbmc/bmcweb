@@ -34,6 +34,24 @@
       "parentUuid": "51971e1d_ccbc3750",
       "revId": "b0d7697e2a1fff97b4cf5df4dcac9501614cb699",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dbdd8808_9b18bfd3",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 458,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-09-21T15:32:52Z",
+      "side": 1,
+      "message": "\u003e */* \u003d json,\n\u003e cbor + json \u003d cbor (because it\u0027s more efficient)\n\u003e json \u003d json (obviously)\n\nI thought based on https://github.com/openbmc/bmcweb/commit/99351cd856038475cac146029e5db03767a1459c\n\ncbor + json \u003d cbor (because it is first in the list) \njson + cbor \u003d json (because it is first in the list)\n\nI.e. we would use the PreferedContentType",
+      "parentUuid": "e5cc655d_29187cea",
+      "revId": "b0d7697e2a1fff97b4cf5df4dcac9501614cb699",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
