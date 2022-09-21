@@ -74,6 +74,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "49edc339_2f21bd63",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-21T17:13:58Z",
+      "side": 1,
+      "message": "\u003e Say I am only interested in making changes to Privilege registry and its script during development,\n\nI read your commit message, and I\u0027m still not really sure why this is helpful.  Part of the intent of what we have is that running the tool should produce the same reproducible output every time, so even if you only care about privilege registry, generating the rest of the files should have no effect, and the actual generation takes a trivial amount of time.\n\nThere\u0027s something I\u0027m missing here, but I\u0027m not sure what it is.\n\nMy worry here is that folks see these command line options, and start running just the registry they care about when a new version comes out, instead of updating us to the complete Redfish pack.  Updating everything is the intent of the script, to keep us consistent to released versions.  This partial update has happened in the past, so this isn\u0027t hypothetical.  In theory, the CI would catch that, but it\u0027s not perfect.",
+      "parentUuid": "b64ba1cc_70ce74f2",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 44
+      },
+      "revId": "0f97f2a73db9e1e11c40ccf249a66ac4d7fd491c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3b29bc9c_851f825d",
         "filename": "/COMMIT_MSG",
         "patchSetId": 6
