@@ -48,6 +48,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b64ba1cc_70ce74f2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-09-21T01:02:56Z",
+      "side": 1,
+      "message": "Done. Added intuition.",
+      "parentUuid": "f0d63d31_25a24102",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 44
+      },
+      "revId": "0f97f2a73db9e1e11c40ccf249a66ac4d7fd491c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3b29bc9c_851f825d",
@@ -115,6 +139,24 @@
       "side": 1,
       "message": "Oh, I don\u0027t know we have that hooked up. I see now https://github.com/openbmc/openbmc-build-scripts/blob/82aaba037aa922a6aa0e118f8cc04531becc42cd/scripts/unit-test.py#L1255\n\nYes, I can make all by default.",
       "parentUuid": "36e5e4f4_2aeb1604",
+      "revId": "0f97f2a73db9e1e11c40ccf249a66ac4d7fd491c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "83b35ea4_3fdc03c9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-09-21T01:02:56Z",
+      "side": 1,
+      "message": "See what I have now.",
+      "parentUuid": "08586f6f_669d7834",
       "revId": "0f97f2a73db9e1e11c40ccf249a66ac4d7fd491c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
