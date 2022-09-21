@@ -16,6 +16,24 @@
       "message": "Tests? Redfish.md changes?",
       "revId": "37995f47f0b2d6f5a0c8dcfbff89f086ce792bc4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b1968952_51ba9dd4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-09-21T22:05:37Z",
+      "side": 1,
+      "message": "Zhenwei left the team, I don\u0027t know how is taking over.\n\nShounak, do you know?",
+      "parentUuid": "97a64f4a_4d70b98b",
+      "revId": "37995f47f0b2d6f5a0c8dcfbff89f086ce792bc4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
