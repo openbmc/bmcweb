@@ -92,6 +92,30 @@
       },
       "revId": "a02daa89dee25d36eb561a67e0edecbcc4eb151c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce9df904_25817fe9",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 655,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2022-09-21T14:24:21Z",
+      "side": 1,
+      "message": "+1\n\nif (dbusError-\u003ename \u003d\u003d std::string_view(xyz.openbmc_project.Common.Error.InvalidArgument\"))",
+      "parentUuid": "0d3d29ce_c3d53c8a",
+      "range": {
+        "startLine": 655,
+        "startChar": 24,
+        "endLine": 655,
+        "endChar": 74
+      },
+      "revId": "a02daa89dee25d36eb561a67e0edecbcc4eb151c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
