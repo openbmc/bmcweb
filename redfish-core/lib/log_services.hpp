@@ -1675,7 +1675,7 @@ inline void requestRoutesDBusEventLogEntryDownload(App& app)
         }
         if (http_helpers::isContentTypeAllowed(
                 req.getHeaderValue("Accept"),
-                http_helpers::ContentType::OctetStream))
+                http_helpers::ContentType::OctetStream, true))
         {
             asyncResp->res.result(boost::beast::http::status::bad_request);
             return;
@@ -3495,7 +3495,7 @@ inline void requestRoutesPostCodesEntryAdditionalData(App& app)
         }
         if (http_helpers::isContentTypeAllowed(
                 req.getHeaderValue("Accept"),
-                http_helpers::ContentType::OctetStream))
+                http_helpers::ContentType::OctetStream, true))
         {
             asyncResp->res.result(boost::beast::http::status::bad_request);
             return;
