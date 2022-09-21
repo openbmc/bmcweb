@@ -22,6 +22,30 @@
       },
       "revId": "6e5a32691a861ef54f7b2e9abd90181a369085d6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5baeb2a7_1a9c7294",
+        "filename": "build_x86.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-21T03:50:01Z",
+      "side": 0,
+      "message": "\u003e For example, what if the base image is missing Python3?\n\nThe build doesn\u0027t use python3 anywhere in bmcweb, so I\u0027m not sure why this would matter?\n\nAs far as the dockerfile, a lot of them look like dev dependencies that someone copy-pasted from another one.  We are missing systemd-dev for sure, so that\u0027s at least one.  Gotcha.",
+      "parentUuid": "ef48ed36_89608e56",
+      "range": {
+        "startLine": 2,
+        "startChar": 0,
+        "endLine": 2,
+        "endChar": 58
+      },
+      "revId": "6e5a32691a861ef54f7b2e9abd90181a369085d6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
