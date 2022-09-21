@@ -22,6 +22,30 @@
       },
       "revId": "669d481d634b4b7a995a15f2b27fbd73c90a7f84",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "11186b0b_da3df53f",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2395,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-09-21T20:30:55Z",
+      "side": 1,
+      "message": "Using introspect sounds doable, I will work on the change.",
+      "parentUuid": "5994c7cb_a997c4b3",
+      "range": {
+        "startLine": 2395,
+        "startChar": 34,
+        "endLine": 2395,
+        "endChar": 51
+      },
+      "revId": "669d481d634b4b7a995a15f2b27fbd73c90a7f84",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
