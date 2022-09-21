@@ -14,8 +14,8 @@ inline void sendUnauthorized(std::string_view url,
 {
     // If it's a browser connecting, don't send the HTTP authenticate
     // header, to avoid possible CSRF attacks with basic auth
-    if (http_helpers::isContentTypeAllowed(accept,
-                                           http_helpers::ContentType::HTML))
+    if (http_helpers::isContentTypeAllowed(
+            accept, http_helpers::ContentType::HTML, false /*allowWildcard*/))
     {
         // If we have a webui installed, redirect to that login page
         if (hasWebuiRoute)

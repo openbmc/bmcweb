@@ -13,38 +13,42 @@ namespace
 
 TEST(isContentTypeAllowed, PositiveTest)
 {
-    EXPECT_TRUE(isContentTypeAllowed("*/*, application/octet-stream",
-                                     ContentType::OctetStream));
+    EXPECT_TRUE(isContentTypeAllowed("*/*", ContentType::HTML, true));
     EXPECT_TRUE(isContentTypeAllowed("application/octet-stream",
-                                     ContentType::OctetStream));
-    EXPECT_TRUE(isContentTypeAllowed("text/html", ContentType::HTML));
-    EXPECT_TRUE(isContentTypeAllowed("application/json", ContentType::JSON));
-    EXPECT_TRUE(isContentTypeAllowed("application/cbor", ContentType::CBOR));
+                                     ContentType::OctetStream, false));
+    EXPECT_TRUE(isContentTypeAllowed("text/html", ContentType::HTML, false));
     EXPECT_TRUE(
-        isContentTypeAllowed("application/json, text/html", ContentType::HTML));
+        isContentTypeAllowed("application/json", ContentType::JSON, false));
+    EXPECT_TRUE(
+        isContentTypeAllowed("application/cbor", ContentType::CBOR, false));
+    EXPECT_TRUE(isContentTypeAllowed("application/json, text/html",
+                                     ContentType::HTML, false));
 }
 
 TEST(isContentTypeAllowed, NegativeTest)
 {
+    EXPECT_FALSE(isContentTypeAllowed("application/octet-stream",
+                                      ContentType::HTML, false));
     EXPECT_FALSE(
-        isContentTypeAllowed("application/octet-stream", ContentType::HTML));
-    EXPECT_FALSE(isContentTypeAllowed("application/html", ContentType::JSON));
-    EXPECT_FALSE(isContentTypeAllowed("application/json", ContentType::CBOR));
-    EXPECT_FALSE(isContentTypeAllowed("application/cbor", ContentType::HTML));
+        isContentTypeAllowed("application/html", ContentType::JSON, false));
+    EXPECT_FALSE(
+        isContentTypeAllowed("application/json", ContentType::CBOR, false));
+    EXPECT_FALSE(
+        isContentTypeAllowed("application/cbor", ContentType::HTML, false));
     EXPECT_FALSE(isContentTypeAllowed("application/json, text/html",
-                                      ContentType::OctetStream));
+                                      ContentType::OctetStream, false));
 }
 
 TEST(isContentTypeAllowed, ContainsAnyMimeTypeReturnsTrue)
 {
     EXPECT_TRUE(
-        isContentTypeAllowed("text/html, */*", ContentType::OctetStream));
+        isContentTypeAllowed("text/html, */*", ContentType::OctetStream, true));
 }
 
 TEST(isContentTypeAllowed, ContainsQFactorWeightingReturnsTrue)
 {
-    EXPECT_TRUE(
-        isContentTypeAllowed("text/html, */*;q=0.8", ContentType::OctetStream));
+    EXPECT_TRUE(isContentTypeAllowed("text/html, */*;q=0.8",
+                                     ContentType::OctetStream, true));
 }
 
 TEST(getPreferedContentType, PositiveTest)
@@ -69,6 +73,7 @@ TEST(getPreferedContentType, PositiveTest)
 
     EXPECT_EQ(getPreferedContentType("application/json", cborJson),
               ContentType::JSON);
+    EXPECT_EQ(getPreferedContentType("*/*", cborJson), ContentType::ANY);
 }
 
 TEST(getPreferedContentType, NegativeTest)
