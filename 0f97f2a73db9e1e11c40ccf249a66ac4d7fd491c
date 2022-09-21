@@ -194,6 +194,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "460e1809_5fdd427b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-09-21T18:54:49Z",
+      "side": 1,
+      "message": "```\n[hi on] nanzhou@nanzhou:~/Desktop/bmcweb$ time scripts/parse_registries.py \n\nreal    0m1.493s\nuser    0m0.401s\nsys     0m0.046s\n[hi on] nanzhou@nanzhou:~/Desktop/bmcweb$ time scripts/parse_registries.py --registries privilege\n\nreal    0m0.667s\nuser    0m0.213s\nsys     0m0.030s\n```\n\nRight.. I understand the absolute time spent is small. Just this comes to my mind that being able to update a single part of the whole registries is good to have. Thus I spent 10 minutes or so to develop a main function for this script. It shows it cuts more than 50% of the time.\n\nNow I spent more then 10 minutes to convince you this is good, which is not something I really want to do. 😊 \n\nI don\u0027t quite understand the downside: you worry about people misunderstood the arguments? Can I just add a comment to this script to say when submitting final changes, run with the full list?",
+      "parentUuid": "f9942682_dd99e730",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 44
+      },
+      "revId": "0f97f2a73db9e1e11c40ccf249a66ac4d7fd491c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3b29bc9c_851f825d",
         "filename": "/COMMIT_MSG",
         "patchSetId": 6
