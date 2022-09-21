@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "97d0ebd6_f18081c8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 25
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-09-21T15:45:19Z",
+      "side": 1,
+      "message": "Not sure why you have the double signed-off. Oh well.",
+      "revId": "829a1fe6d4ef11545daba3b43bd872f6183b11a1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "46338e84_e9c5c0c4",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 25
@@ -14,6 +31,74 @@
       "writtenOn": "2022-08-11T07:47:52Z",
       "side": 1,
       "message": "Apart from the comment to return 500 to exit early on failure, i think other changes looks good.",
+      "revId": "829a1fe6d4ef11545daba3b43bd872f6183b11a1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d8742047_554231b1",
+        "filename": "redfish-core/lib/hypervisor_system.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-09-21T15:45:19Z",
+      "side": 1,
+      "message": "Please move these to:\nif (dhcpEnabled \u003d\u003d nullptr)\n{\n   internalError ;\n   return\n}",
+      "revId": "829a1fe6d4ef11545daba3b43bd872f6183b11a1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7588d8ab_38dc22cc",
+        "filename": "redfish-core/lib/hypervisor_system.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 342,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-09-21T15:45:19Z",
+      "side": 1,
+      "message": "You don\u0027t want different messages for these?",
+      "revId": "829a1fe6d4ef11545daba3b43bd872f6183b11a1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c22df533_8b70d97d",
+        "filename": "redfish-core/lib/hypervisor_system.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-09-21T15:45:19Z",
+      "side": 1,
+      "message": "The styling in bmcweb would more likely to be \n\n            if ((ec \u003d\u003d boost::system::errc::invalid_argument) ||\n                (ec \u003d\u003d boost::system::errc::argument_list_too_long))\n            {\n                messages::invalidObject(asyncResp-\u003eres,\n                                        crow::utility::urlFromPieces(\n                                            \"redfish\", \"v1\", \"Systems\",\n                                            \"hypervisor\", \"EthernetInterfaces\",\n                                            ifaceId));\n             return;\n             }\n\n             internalError...;\n             return;",
+      "revId": "829a1fe6d4ef11545daba3b43bd872f6183b11a1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7317909f_437726c2",
+        "filename": "redfish-core/lib/hypervisor_system.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 546,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-09-21T15:45:19Z",
+      "side": 1,
+      "message": "Please be careful with the extra white space changes. :)",
       "revId": "829a1fe6d4ef11545daba3b43bd872f6183b11a1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
