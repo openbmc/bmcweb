@@ -199,6 +199,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "dc013997_d422ae4b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-21T17:08:04Z",
+      "side": 1,
+      "message": "\u003e \u003e Can you please check and understand how CI was able to pass with the change prior?\n\u003e \n\u003e Patch set 1?\n\u003e \n\u003e The previous script does nothing if no arguments are given, thus no diff, thus no CI error.\n\nRight, and the \"do nothing\" is I think the problem on that patchset, because it does nothing without setting a return code.  With that said, now that the default is to do the old behavior, I think we\u0027re ok.\n\n\u003e \n\u003e https://github.com/openbmc/bmcweb/blob/master/run-ci#L9",
+      "parentUuid": "87047821_1ffe807f",
+      "revId": "0f97f2a73db9e1e11c40ccf249a66ac4d7fd491c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fb655af2_3e613a3c",
         "filename": "scripts/parse_registries.py",
         "patchSetId": 6
