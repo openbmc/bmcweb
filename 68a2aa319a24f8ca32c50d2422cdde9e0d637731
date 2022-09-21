@@ -16,6 +16,24 @@
       "message": "I am kind of surprised it also didn\u0027t flag propertiesMatchString",
       "revId": "68a2aa319a24f8ca32c50d2422cdde9e0d637731",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7fa06c64_b9e803cf",
+        "filename": "include/dbus_monitor.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-21T16:19:09Z",
+      "side": 1,
+      "message": "I\u0027m a little surprised as well.  Maybe it overcame the complexity of what cppcheck could handle?  I can move this as well.\n\nACK",
+      "parentUuid": "f628c698_92e3d2c6",
+      "revId": "68a2aa319a24f8ca32c50d2422cdde9e0d637731",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
