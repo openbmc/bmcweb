@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "983044ff_1801b384",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2022-09-21T15:29:20Z",
+      "side": 1,
+      "message": "modified to use string_View",
+      "parentUuid": "0dd231c4_5131c2fd",
+      "range": {
+        "startLine": 275,
+        "startChar": 33,
+        "endLine": 275,
+        "endChar": 39
+      },
+      "revId": "a02daa89dee25d36eb561a67e0edecbcc4eb151c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "147e2a37_9a4ea3c4",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 6
@@ -61,6 +85,30 @@
       "writtenOn": "2022-08-18T14:18:08Z",
       "side": 1,
       "message": "because of how this is indented, this code block is unreadable.  please break these out into their own methods.",
+      "range": {
+        "startLine": 273,
+        "startChar": 0,
+        "endLine": 284,
+        "endChar": 29
+      },
+      "revId": "a02daa89dee25d36eb561a67e0edecbcc4eb151c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "969849b1_972fa12c",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2022-09-21T15:29:20Z",
+      "side": 1,
+      "message": "seems better with string_view\ndo we still need to break out?",
+      "parentUuid": "147e2a37_9a4ea3c4",
       "range": {
         "startLine": 273,
         "startChar": 0,
@@ -108,6 +156,30 @@
       "side": 1,
       "message": "+1\n\nif (dbusError-\u003ename \u003d\u003d std::string_view(xyz.openbmc_project.Common.Error.InvalidArgument\"))",
       "parentUuid": "0d3d29ce_c3d53c8a",
+      "range": {
+        "startLine": 655,
+        "startChar": 24,
+        "endLine": 655,
+        "endChar": 74
+      },
+      "revId": "a02daa89dee25d36eb561a67e0edecbcc4eb151c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "50f062f0_a0226e78",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 655,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2022-09-21T15:29:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ce9df904_25817fe9",
       "range": {
         "startLine": 655,
         "startChar": 24,
