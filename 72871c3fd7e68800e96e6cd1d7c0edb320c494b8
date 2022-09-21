@@ -18,6 +18,23 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bc6b175e_2ec8bdd0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 43
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-09-21T21:19:14Z",
+      "side": 1,
+      "message": "\u003e Patch Set 15:\n\u003e \n\u003e \u003e Patch Set 15:\n\u003e \u003e \n\u003e \u003e \u003e Patch Set 14:\n\u003e \u003e \u003e \n\u003e \u003e \u003e \u003e Patch Set 14:\n\u003e \u003e \u003e \u003e \n\u003e \u003e \u003e \u003e From discord discussion today (5/18) in the general channel. \n\u003e \u003e \u003e \u003e Would be good to get a measurement of how much the new Powersubsystem/ ThermalSubsystem schemas increase a full tree dump (what the validator does).\n\u003e \u003e \u003e \n\u003e \u003e \u003e Okay.. and if it\u0027s more ?. then what ?\n\u003e \u003e \n\u003e \u003e 10% was the number Ed threw out as if it is equal to or more than 10% need to put behind a compile flag\n\u003e \n\u003e \n\u003e Lets get the numbers and understand the impact to users.  There\u0027s no point in speculating about \"what if\" until we have some numbers.  After that, we can figure out what to do.\n\nI don\u0027t think this matters anymore because these sit behind a compile flag (there was some performance testing done on our systems when we pulled this in downstream, this and ThermalSubsystem didn\u0027t add any real time to the validator time but adding the additional sensors did a bit (our tree was already big so a few %, i\u0027m guessing if others enable this flag it would be the same. It wouldn\u0027t be caused by this code but by this ifdef https://github.com/openbmc/bmcweb/blob/master/redfish-core/lib/sensors.hpp#L66. expand query parameters help here when you want all the sensors ). \n\nFor the future please please respond to all comments, it is a rule in OpenBMC and it helps reviewers and maintainers a lot",
+      "revId": "72871c3fd7e68800e96e6cd1d7c0edb320c494b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bfab3cb6_b7021007",
