@@ -146,6 +146,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a1be71bc_a5c1ded1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-09-21T17:55:25Z",
+      "side": 1,
+      "message": "The reason has been answered. For faster development of this script. Ideally we should modularize this script and unit test it, such that I won\u0027t care line 47 to line 140 at all when modifying line 141 and below. That\u0027s not supported today. This patch I did at least allows me to only generate privilege register. You\u0027ve said there might be one day there are 10+ registries. Being able to update one of them probably can save more time at that time. \n\nI heard your opinion and agreed by default all should be updated at once.",
+      "parentUuid": "92d05315_d493e077",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 44
+      },
+      "revId": "0f97f2a73db9e1e11c40ccf249a66ac4d7fd491c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3b29bc9c_851f825d",
         "filename": "/COMMIT_MSG",
         "patchSetId": 6
