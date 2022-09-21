@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "61184cd3_b8776493",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-09-21T21:09:19Z",
+      "side": 1,
+      "message": "The reason we have a check for empty for SparePartNumber and not other properties is empty is the default state of SparePartNumber and SparePartNumber is not used by all companies",
+      "parentUuid": "bfab3cb6_b7021007",
+      "revId": "72871c3fd7e68800e96e6cd1d7c0edb320c494b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "861ea189_ccd70a07",
         "filename": "redfish-core/lib/power_supply.hpp",
         "patchSetId": 43
