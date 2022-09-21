@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a2090ad_886d199b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-21T23:56:34Z",
+      "side": 1,
+      "message": "Still haven\u0027t really tested this well enough.  Feel free to ignore the latest patchset, which only partially fixes the issues.",
+      "revId": "1043abbbd89f0635fcc3c4ce3905343f0ebaf7bc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "64c2adc3_f85538ef",
