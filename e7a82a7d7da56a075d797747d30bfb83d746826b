@@ -38,6 +38,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "3179b6d7_65ded3ec",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-09-21T15:16:30Z",
+      "side": 1,
+      "message": "By custom line wrapping i mean wrapping before 72, like this looks to wrap at more like ~60. e.g. \"but\" could fit on the line before.",
+      "parentUuid": "4c4bfd6a_347ea833",
+      "revId": "e7a82a7d7da56a075d797747d30bfb83d746826b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "9fa6b156_af482f5d",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 9
