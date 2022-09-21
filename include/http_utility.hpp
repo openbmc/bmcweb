@@ -21,6 +21,7 @@ namespace http_helpers
 enum class ContentType
 {
     NoMatch,
+    ANY, // Accepts: */*
     CBOR,
     HTML,
     JSON,
@@ -70,10 +71,7 @@ inline ContentType getPreferedContentType(std::string_view header,
         // servers list
         if (encoding == "*/*")
         {
-            if (!preferedOrder.empty())
-            {
-                return preferedOrder[0];
-            }
+            return ContentType::ANY;
         }
         const auto* knownContentType =
             std::find_if(contentTypes.begin(), contentTypes.end(),
@@ -98,10 +96,17 @@ inline ContentType getPreferedContentType(std::string_view header,
     return ContentType::NoMatch;
 }
 
-inline bool isContentTypeAllowed(std::string_view header, ContentType type)
+inline bool isContentTypeAllowed(std::string_view header, ContentType type,
+                                 bool allowWildcard)
 {
     auto types = std::to_array({type});
-    return getPreferedContentType(header, types) == type;
+    ContentType allowed = getPreferedContentType(header, types);
+    if (allowed == ContentType::ANY)
+    {
+        return allowWildcard;
+    }
+
+    return type == allowed;
 }
 
 inline std::string urlEncode(const std::string_view value)
