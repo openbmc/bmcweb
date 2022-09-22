@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  ComputerSystem v1.18.0                                              -->
+<!--# Redfish Schema:  ComputerSystem v1.19.0                                              -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -78,6 +78,9 @@
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/ResourceBlock_v1.xml">
     <edmx:Include Namespace="ResourceBlock"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/TrustedComponent_v1.xml">
+    <edmx:Include Namespace="TrustedComponent"/>
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/BootOptionCollection_v1.xml">
     <edmx:Include Namespace="BootOptionCollection"/>
@@ -297,6 +300,17 @@
               <Record>
                 <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
                 <PropertyValue Property="Version" String="v1_5_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="Recovery">
+          <Annotation Term="OData.Description" String="Boot to a system-designated recovery process or image."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_19_0"/>
               </Record>
             </Collection>
           </Annotation>
@@ -769,6 +783,15 @@
         <Property Name="TrustedModules" Type="Collection(ComputerSystem.v1_1_0.TrustedModules)" Nullable="false">
           <Annotation Term="OData.Description" String="An array of trusted modules in the system."/>
           <Annotation Term="OData.LongDescription" String="This object shall contain an array of objects with properties that describe the trusted modules for this resource."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
+                <PropertyValue Property="Version" String="v1_19_0"/>
+                <PropertyValue Property="Description" String="This property has been deprecated in favor of the TrustedComponents property in Links."/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Property>
         <NavigationProperty Name="SecureBoot" Type="SecureBoot.SecureBoot" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -2720,6 +2743,23 @@
           <Annotation Term="OData.LongDescription" String="This value shall indicate the computer system supports expandable system composition and is associated with a resource block."/>
         </Member>
       </EnumType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_19_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2022.2"/>
+      <Annotation Term="OData.Description" String="This version was created to add `Recovery` to BootSource."/>
+
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_18_0.ComputerSystem"/>
+
+      <ComplexType Name="Links" BaseType="ComputerSystem.v1_17_0.Links">
+        <NavigationProperty Name="TrustedComponents" Type="Collection(TrustedComponent.TrustedComponent)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An array of links to the trusted components for this system."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of link to resources of type TrustedComponent."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </ComplexType>
     </Schema>
 
   </edmx:DataServices>

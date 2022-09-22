@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Processor v1.14.0                                                   -->
+<!--# Redfish Schema:  Processor v1.16.0                                                   -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -150,6 +150,20 @@
             <Record>
               <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
               <PropertyValue Property="Version" String="v1_6_0"/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </Action>
+
+      <Action Name="ResetToDefaults" IsBound="true">
+        <Annotation Term="OData.Description" String="The action resets the values of writable properties to factory defaults."/>
+        <Annotation Term="OData.LongDescription" String="This action shall reset the values of writable properties in this resource to their default values as specified by the manufacturer."/>
+        <Parameter Name="Processor" Type="Processor.v1_1_0.Actions"/>
+        <Annotation Term="Redfish.Revisions">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+              <PropertyValue Property="Version" String="v1_15_0"/>
             </Record>
           </Collection>
         </Annotation>
@@ -1662,6 +1676,58 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain the additional firmware versions of the processor."/>
         </Property>
       </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_16_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2022.2"/>
+      <Annotation Term="OData.Description" String="This version was created to add the ResetToDefaults action."/>
+
+      <EntityType Name="Processor" BaseType="Processor.v1_15_0.Processor">
+        <Property Name="Replaceable" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An indication of whether this component can be independently replaced as allowed by the vendor's replacement policy."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether this component can be independently replaced as allowed by the vendor's replacement policy.  A value of `false` indicates the component needs to be replaced by policy, as part of another component.  If the `LocationType` property of this component contains `Embedded`, this property shall contain `false`."/>
+        </Property>
+        <Property Name="Throttled" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An indication of whether the processor is throttled."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the processor is throttled."/>
+        </Property>
+        <Property Name="ThrottleCauses" Type="Collection(Processor.v1_16_0.ThrottleCause)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The causes of the processor being throttled."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the causes of the processor being throttled.  If Throttled contains `false`, this property shall contain an empty array."/>
+        </Property>
+        <Property Name="ProcessorIndex" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The logical index of this processor within the system."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the zero-based index of the processor, indexed within the next unit of containment.  The value of this property shall match the ordering in the operating system topology interfaces, with offset adjustments, if needed."/>
+        </Property>
+        <Property Name="Family" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The processor family."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a string that identifies the processor family, as specified by the combination of the EffectiveFamily and EffectiveModel properties."/>
+        </Property>
+      </EntityType>
+
+      <EnumType Name="ThrottleCause">
+        <Member Name="PowerLimit">
+          <Annotation Term="OData.Description" String="The cause of the processor being throttled is a power limit."/>
+        </Member>
+        <Member Name="ThermalLimit">
+          <Annotation Term="OData.Description" String="The cause of the processor being throttled is a thermal limit."/>
+        </Member>
+        <Member Name="ClockLimit">
+          <Annotation Term="OData.Description" String="The cause of the processor being throttled is a clock limit."/>
+        </Member>
+        <Member Name="Unknown">
+          <Annotation Term="OData.Description" String="The cause of the processor being throttled is not known."/>
+        </Member>
+        <Member Name="OEM">
+          <Annotation Term="OData.Description" String="The cause of the processor being throttled is OEM-specific."/>
+        </Member>
+      </EnumType>
     </Schema>
 
   </edmx:DataServices>

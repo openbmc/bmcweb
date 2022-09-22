@@ -1,8 +1,8 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/MetricReportDefinition.v1_4_1.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/MetricReportDefinition.v1_4_2.json",
     "$ref": "#/definitions/MetricReportDefinition",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2021 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
@@ -116,8 +116,8 @@
         },
         "Metric": {
             "additionalProperties": false,
-            "description": "Specifies a metric to include in the metric report.  The metrics are derived by applying a calculation on each of the listed metric properties.",
-            "longDescription": "The properties shall specify a metric to include in the metric report.  The metrics shall be derived by applying the algorithm specified in the CollectionFunction property to each of the metric properties listed in the MetricProperties property.",
+            "description": "Specifies a set of metrics to include in the metric report.  Calculation parameters, if present, are applied to the metrics prior to being included in the metric report.",
+            "longDescription": "The properties shall specify a set of metrics to include in the metric report.  The algorithm specified by CollectionFunction, if present, shall be applied to each of the metric properties listed in the MetricProperties property or the metric properties specified in the MetricDefinition referenced by the MetricId property prior to being included in the metric report.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -152,8 +152,8 @@
                             "type": "null"
                         }
                     ],
-                    "description": "Specifies the function to perform on each of the metric properties listed in the MetricProperties property.",
-                    "longDescription": "The property shall specify the function to perform on each of the metric properties listed in the MetricProperties property.",
+                    "description": "Specifies the function to perform on each of the metric properties listed in the MetricProperties property or the metric properties specified in the MetricDefinition referenced by the MetricId property.  If not specified, calculations are not performed on the metric properties.",
+                    "longDescription": "The property shall specify the function to perform on each of the metric properties listed in the MetricProperties property or the metric properties specified in the MetricDefinition referenced by the MetricId property.  If not specified, calculations shall not be performed on the metric properties.",
                     "readonly": false
                 },
                 "CollectionTimeScope": {
@@ -170,8 +170,8 @@
                     "readonly": false
                 },
                 "MetricId": {
-                    "description": "The label for the metric definition that is derived by applying the CollectionFunction to the metric property.  It matches the Id property of the corresponding metric definition.",
-                    "longDescription": "This property shall specify the label for the metric definition that is derived by applying the algorithm specified in the CollectionFunction property to the metric property.  This property shall match the Id property of the corresponding metric definition.",
+                    "description": "The metric definition identifier that contains the metric properties to include in the metric report.",
+                    "longDescription": "This property shall contain the value of the Id property of the MetricDefinition resource that contains the metric properties to include in the metric report.  This property should not be present if MetricProperties is present.",
                     "readonly": false,
                     "type": [
                         "string",
@@ -179,7 +179,7 @@
                     ]
                 },
                 "MetricProperties": {
-                    "description": "The set of URIs for the properties on which this metric is collected.",
+                    "description": "The list of URIs with wildcards and property identifiers to include in the metric report.  If a URI has wildcards, the wildcards are substituted as specified in the Wildcards property.",
                     "format": "uri-reference",
                     "items": {
                         "type": [
@@ -187,7 +187,7 @@
                             "null"
                         ]
                     },
-                    "longDescription": "Each value can contain one or more wildcard names enclosed in curly braces.  Wildcard value entries shall be substituted for each Wildcard name found.  If two or more wild names are found, the same wildcard index is used for each in one substitution pass.  After substituting the wildcard values entries, each value shall contain a URI for a property in a resource that matches a property declaration in the corresponding metric definition.",
+                    "longDescription": "This property shall contain a list of URIs with wildcards and property identifiers to include in the metric report.  A set of curly braces shall delimit each wildcard in the URI.  The corresponding entry in the Wildcard property shall replace each wildcard.  After each wildcard is replaced, it shall describe a resource property to include in the metric report.  The property identifiers portion of the URI shall follow RFC6901-specified JSON pointer notation rules.  This property should not be present if MetricId is present.",
                     "readonly": false,
                     "type": "array"
                 },
@@ -238,7 +238,7 @@
                 },
                 "AppendLimit": {
                     "description": "The maximum number of entries that can be appended to a metric report.  When the metric report reaches its limit, its behavior is dictated by the ReportUpdates property.",
-                    "longDescription": "This property shall contain a number that indicates the maximum number of entries that can be appended to a metric report.  When the metric report reaches its limit, its behavior shall be dictated by the ReportUpdates property.  This property shall be required if ReportUpdates is either AppendWrapsWhenFull or AppendStopsWhenFull.",
+                    "longDescription": "This property shall contain a number that indicates the maximum number of entries that can be appended to a metric report.  When the metric report reaches its limit, its behavior shall be dictated by the ReportUpdates property.  This property shall be required if ReportUpdates contains `AppendWrapsWhenFull` or `AppendStopsWhenFull`.",
                     "minimum": 0,
                     "readonly": true,
                     "type": "integer"
@@ -273,14 +273,14 @@
                             "null"
                         ]
                     },
-                    "longDescription": "This property shall contain a list of URIs with wildcards and property identifiers to include in the metric report.  A set of curly braces shall delimit each wildcard in the URI.  The corresponding entry in the Wildcard property shall replace each wildcard.  After a URI with wildcards replaces each wildcard, it shall describe a resource property to include in the metric report.  The property identifiers portion of the URI shall follow RFC6901-specified JSON fragment notation rules.",
+                    "longDescription": "This property shall contain a list of URIs with wildcards and property identifiers to include in the metric report.  A set of curly braces shall delimit each wildcard in the URI.  The corresponding entry in the Wildcard property shall replace each wildcard.  After each wildcard is replaced, it shall describe a resource property to include in the metric report.  The property identifiers portion of the URI shall follow RFC6901-specified JSON pointer notation rules.",
                     "readonly": false,
                     "type": "array"
                 },
                 "MetricReport": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/MetricReport.json#/definitions/MetricReport",
-                    "description": "The location where the resultant metric report is placed.",
-                    "longDescription": "This property shall contain a link to a resource of type MetricReport where the resultant metric report is placed.",
+                    "description": "The most recent metric report produced by this metric report definition.",
+                    "longDescription": "This property shall contain a link to a resource of type MetricReport that represents the most recent metric report produced by this metric report definition.",
                     "readonly": true
                 },
                 "MetricReportDefinitionEnabled": {
@@ -318,11 +318,11 @@
                     "versionAdded": "v1_2_0"
                 },
                 "Metrics": {
-                    "description": "The list of metrics to include in the metric report.  The metrics may include metric properties or calculations applied to a metric property.",
+                    "description": "The list of metrics to include in the metric report.  The metrics may include calculations to apply to metric properties.",
                     "items": {
                         "$ref": "#/definitions/Metric"
                     },
-                    "longDescription": "The property shall contain a list of metrics to include in the metric report.  The metrics may include metric properties or calculations that are applied to a metric property.",
+                    "longDescription": "The property shall contain a list of metrics to include in the metric report.  The metrics may include calculations to apply to metric properties.",
                     "type": "array"
                 },
                 "Name": {
@@ -356,7 +356,7 @@
                 },
                 "ReportUpdates": {
                     "$ref": "#/definitions/ReportUpdatesEnum",
-                    "description": "The behavior for how subsequent metric reports are handled in relationship to an existing metric report created from the metric report definition.  Namely, whether to overwrite, append, or create a report resource.",
+                    "description": "The behavior for how subsequent metric reports are handled in relationship to an existing metric report created from the metric report definition.  Namely, whether to overwrite, append, or create a metric report.",
                     "longDescription": "This property shall contain the behavior for how subsequent metric reports are handled in relationship to an existing metric report created from the metric report definition.  This property should be ignored if MetricReportDefinitionType contains the value `OnRequest`.",
                     "readonly": false
                 },
@@ -461,13 +461,13 @@
             "enumDescriptions": {
                 "AppendStopsWhenFull": "New information is appended to the metric report.  The service stops adding entries when the metric report has reached its maximum capacity.",
                 "AppendWrapsWhenFull": "New information is appended to the metric report.  The metric report entries are overwritten with new entries when the metric report has reached its maximum capacity.",
-                "NewReport": "A new metric report is created, whose resource name is the metric report resource name concatenated with the timestamp.",
+                "NewReport": "A new metric report is created, whose identifier is a service-defined identifier concatenated with the timestamp.",
                 "Overwrite": "Overwrite the metric report."
             },
             "enumLongDescriptions": {
                 "AppendStopsWhenFull": "This value shall indicate the service appends new information to the metric report referenced by the MetricReport property.  The service shall stop adding entries when the metric report has reached its maximum capacity.  The State property within Status should be set to `Disabled` and the MetricReportDefinitionEnabled property should be set to `false` when the append limit is reached.",
                 "AppendWrapsWhenFull": "This value shall indicate the service appends new information to the metric report referenced by the MetricReport property.  The service shall overwrite entries in the metric report with new entries when the metric report has reached its maximum capacity.",
-                "NewReport": "This value shall indicate the service creates a new metric report resource, whose resource name is the metric report resource name concatenated with the timestamp.",
+                "NewReport": "This value shall indicate the service creates a new metric report resource, whose Id property is a service-defined identifier concatenated with the timestamp.  The metric report referenced by the MetricReport property shall reference the metric report most recently created by this metric report definition.",
                 "Overwrite": "This value shall indicate the service overwrites the metric report referenced by the MetricReport property."
             },
             "longDescription": "This type shall indicate how the service handles subsequent metric reports when a metric report exists.",
@@ -534,5 +534,5 @@
     },
     "owningEntity": "DMTF",
     "release": "2020.4",
-    "title": "#MetricReportDefinition.v1_4_1.MetricReportDefinition"
+    "title": "#MetricReportDefinition.v1_4_2.MetricReportDefinition"
 }
