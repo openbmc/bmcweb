@@ -1,8 +1,8 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Processor.v1_14_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Processor.v1_16_0.json",
     "$ref": "#/definitions/Processor",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2021 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
@@ -25,6 +25,9 @@
             "properties": {
                 "#Processor.Reset": {
                     "$ref": "#/definitions/Reset"
+                },
+                "#Processor.ResetToDefaults": {
+                    "$ref": "#/definitions/ResetToDefaults"
                 },
                 "Oem": {
                     "$ref": "#/definitions/OemActions",
@@ -551,6 +554,12 @@
                     "longDescription": "This property shall contain the available actions for this resource.",
                     "versionAdded": "v1_1_0"
                 },
+                "AdditionalFirmwareVersions": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/SoftwareInventory.json#/definitions/AdditionalVersions",
+                    "description": "The additional firmware versions of the processor.",
+                    "longDescription": "This property shall contain the additional firmware versions of the processor.",
+                    "versionAdded": "v1_15_0"
+                },
                 "AppliedOperatingConfig": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/OperatingConfig.json#/definitions/OperatingConfig",
                     "description": "The link to the operating configuration that is applied to this processor.",
@@ -628,6 +637,16 @@
                     "description": "The properties for processors of the FPGA type.",
                     "longDescription": "This property shall contain an object containing properties for processors of type FPGA.",
                     "versionAdded": "v1_4_0"
+                },
+                "Family": {
+                    "description": "The processor family.",
+                    "longDescription": "This property shall contain a string that identifies the processor family, as specified by the combination of the EffectiveFamily and EffectiveModel properties.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_16_0"
                 },
                 "FirmwareVersion": {
                     "description": "The firmware version of the processor.",
@@ -839,6 +858,16 @@
                     "description": "The identification information for this processor.",
                     "longDescription": "This object shall contain identification information for this processor."
                 },
+                "ProcessorIndex": {
+                    "description": "The logical index of this processor within the system.",
+                    "longDescription": "This property shall contain the zero-based index of the processor, indexed within the next unit of containment.  The value of this property shall match the ordering in the operating system topology interfaces, with offset adjustments, if needed.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_16_0"
+                },
                 "ProcessorMemory": {
                     "description": "The memory directly attached or integrated within this processor.",
                     "items": {
@@ -860,6 +889,16 @@
                     "description": "The type of processor.",
                     "longDescription": "This property shall contain the string that identifies the type of processor contained in this socket.",
                     "readonly": true
+                },
+                "Replaceable": {
+                    "description": "An indication of whether this component can be independently replaced as allowed by the vendor's replacement policy.",
+                    "longDescription": "This property shall indicate whether this component can be independently replaced as allowed by the vendor's replacement policy.  A value of `false` indicates the component needs to be replaced by policy, as part of another component.  If the `LocationType` property of this component contains `Embedded`, this property shall contain `false`.",
+                    "readonly": true,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_16_0"
                 },
                 "SerialNumber": {
                     "description": "The serial number of the processor.",
@@ -919,7 +958,7 @@
                 },
                 "SubProcessors": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/ProcessorCollection.json#/definitions/ProcessorCollection",
-                    "description": "The link to the collection of sub-processors associated with this system, such as cores or threads, that are part of a processor.",
+                    "description": "The link to the collection of sub-processors associated with this processor, such as cores or threads, that are part of a processor.",
                     "longDescription": "This property shall contain a link to a resource collection of type ProcessorCollection.",
                     "readonly": true,
                     "versionAdded": "v1_3_0"
@@ -940,6 +979,33 @@
                     ],
                     "units": "W",
                     "versionAdded": "v1_4_0"
+                },
+                "ThrottleCauses": {
+                    "description": "The causes of the processor being throttled.",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/ThrottleCause"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ]
+                    },
+                    "longDescription": "This property shall contain the causes of the processor being throttled.  If Throttled contains `false`, this property shall contain an empty array.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_16_0"
+                },
+                "Throttled": {
+                    "description": "An indication of whether the processor is throttled.",
+                    "longDescription": "This property shall indicate whether the processor is throttled.",
+                    "readonly": true,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_16_0"
                 },
                 "TotalCores": {
                     "description": "The total number of cores that this processor contains.",
@@ -1366,6 +1432,39 @@
             "type": "object",
             "versionAdded": "v1_6_0"
         },
+        "ResetToDefaults": {
+            "additionalProperties": false,
+            "description": "The action resets the values of writable properties to factory defaults.",
+            "longDescription": "This action shall reset the values of writable properties in this resource to their default values as specified by the manufacturer.",
+            "parameters": {},
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "target": {
+                    "description": "Link to invoke action",
+                    "format": "uri-reference",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "Friendly action name",
+                    "type": "string"
+                }
+            },
+            "type": "object",
+            "versionAdded": "v1_15_0"
+        },
         "SystemInterfaceType": {
             "enum": [
                 "QPI",
@@ -1394,6 +1493,23 @@
             },
             "type": "string"
         },
+        "ThrottleCause": {
+            "enum": [
+                "PowerLimit",
+                "ThermalLimit",
+                "ClockLimit",
+                "Unknown",
+                "OEM"
+            ],
+            "enumDescriptions": {
+                "ClockLimit": "The cause of the processor being throttled is a clock limit.",
+                "OEM": "The cause of the processor being throttled is OEM-specific.",
+                "PowerLimit": "The cause of the processor being throttled is a power limit.",
+                "ThermalLimit": "The cause of the processor being throttled is a thermal limit.",
+                "Unknown": "The cause of the processor being throttled is not known."
+            },
+            "type": "string"
+        },
         "TurboState": {
             "enum": [
                 "Enabled",
@@ -1407,6 +1523,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2021.4",
-    "title": "#Processor.v1_14_0.Processor"
+    "release": "2022.2",
+    "title": "#Processor.v1_16_0.Processor"
 }

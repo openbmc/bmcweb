@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Resource v1.14.0                                                    -->
+<!--# Redfish Schema:  Resource v1.14.1                                                    -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2021 DMTF.                                                            -->
+<!--# Copyright 2014-2022 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -584,7 +584,7 @@
       <EnumType Name="DurableNameFormat">
         <Member Name="NAA">
           <Annotation Term="OData.Description" String="The Name Address Authority (NAA) format."/>
-          <Annotation Term="OData.LongDescription" String="This durable name shall contain a hexadecimal representation of the Name Address Authority structure, as defined in the T11 Fibre Channel - Framing and Signaling - 3 (FC-FS-3) specification.  The DurableName property shall follow the pattern '^(([0-9A-Fa-f]{2}){8}){1,2}$', where the most significant octet is first."/>
+          <Annotation Term="OData.LongDescription" String="This durable name shall contain a hexadecimal representation of the Name Address Authority structure, as defined in the T11 Fibre Channel - Framing and Signaling - 3 (FC-FS-3) specification.  The DurableName property shall follow the regular expression pattern '^(([0-9A-Fa-f]{2}){8}){1,2}$', where the most significant octet is first."/>
         </Member>
         <Member Name="iQN">
           <Annotation Term="OData.Description" String="The iSCSI Qualified Name (iQN)."/>
@@ -592,15 +592,15 @@
         </Member>
         <Member Name="FC_WWN">
           <Annotation Term="OData.Description" String="The Fibre Channel (FC) World Wide Name (WWN)."/>
-          <Annotation Term="OData.LongDescription" String="This durable name shall contain a hexadecimal representation of the World-Wide Name (WWN) format, as defined in the T11 Fibre Channel Physical and Signaling Interface Specification.  The DurableName property shall follow the pattern '^([0-9A-Fa-f]{2}[:-]){7}([0-9A-Fa-f]{2})$', where the most significant octet is first."/>
+          <Annotation Term="OData.LongDescription" String="This durable name shall contain a hexadecimal representation of the World-Wide Name (WWN) format, as defined in the T11 Fibre Channel Physical and Signaling Interface Specification.  The DurableName property shall follow the regular expression pattern '^([0-9A-Fa-f]{2}[:-]){7}([0-9A-Fa-f]{2})$', where the most significant octet is first."/>
         </Member>
         <Member Name="UUID">
           <Annotation Term="OData.Description" String="The Universally Unique Identifier (UUID)."/>
-          <Annotation Term="OData.LongDescription" String="This durable name shall contain the hexadecimal representation of the UUID, as defined by RFC4122.  The DurableName property shall follow the pattern '([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})'."/>
+          <Annotation Term="OData.LongDescription" String="This durable name shall contain the hexadecimal representation of the UUID, as defined by RFC4122.  The DurableName property shall follow the regular expression pattern '([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})'."/>
         </Member>
         <Member Name="EUI">
           <Annotation Term="OData.Description" String="The IEEE-defined 64-bit Extended Unique Identifier (EUI)."/>
-          <Annotation Term="OData.LongDescription" String="This durable name shall contain the hexadecimal representation of the IEEE-defined 64-bit Extended Unique Identifier (EUI), as defined in the IEEE's Guidelines for 64-bit Global Identifier (EUI-64) Specification.  The DurableName property shall follow the pattern '^([0-9A-Fa-f]{2}[:-]){7}([0-9A-Fa-f]{2})$', where the most significant octet is first."/>
+          <Annotation Term="OData.LongDescription" String="This durable name shall contain the hexadecimal representation of the IEEE-defined 64-bit Extended Unique Identifier (EUI), as defined in the IEEE's Guidelines for 64-bit Global Identifier (EUI-64) Specification.  The DurableName property shall follow the regular expression pattern '^([0-9A-Fa-f]{2}[:-]){7}([0-9A-Fa-f]{2})$', where the most significant octet is first."/>
         </Member>
         <Member Name="NQN">
           <Annotation Term="OData.Description" String="The NVMe Qualified Name (NQN)."/>
@@ -633,7 +633,7 @@
         </Member>
         <Member Name="NGUID">
           <Annotation Term="OData.Description" String="The Namespace Globally Unique Identifier (NGUID)."/>
-          <Annotation Term="OData.LongDescription" String="This durable name shall be in the Namespace Globally Unique Identifier (NGUID), as defined in the NVN Express Specification.  The DurableName property shall follow the pattern '^([0-9A-Fa-f]{2}){16}$', where the most significant octet is first."/>
+          <Annotation Term="OData.LongDescription" String="This durable name shall be in the Namespace Globally Unique Identifier (NGUID), as defined in the NVN Express Specification.  The DurableName property shall follow the regular expression pattern '^([0-9A-Fa-f]{2}){16}$', where the most significant octet is first."/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
@@ -645,7 +645,7 @@
         </Member>
         <Member Name="MACAddress">
           <Annotation Term="OData.Description" String="The media access control address (MAC address)."/>
-          <Annotation Term="OData.LongDescription" String="This durable name shall be a media access control address (MAC address), which is a unique identifier assigned to a network interface controller (NIC) for use as a network address.  This value should not be used if a more specific type of identifier is available.  The DurableName property shall follow the pattern '^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$', where the most significant octet is first."/>
+          <Annotation Term="OData.LongDescription" String="This durable name shall be a media access control address (MAC address), which is a unique identifier assigned to a network interface controller (NIC) for use as a network address.  This value should not be used if a more specific type of identifier is available.  The DurableName property shall follow the regular expression pattern '^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$', where the most significant octet is first."/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
@@ -728,6 +728,11 @@
       <Annotation Term="OData.Description" String="This version was created to clarify the descriptions for Id, Name, Description, and MemberId to be consistent with usage in the specification."/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_1_15">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to enhance the description of DurableNameFormat values to indicate that the patterns shown are regular expressions."/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2016.2"/>
@@ -797,6 +802,11 @@
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_2_13">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify the descriptions for Id, Name, Description, and MemberId to be consistent with usage in the specification."/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_2_14">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to enhance the description of DurableNameFormat values to indicate that the patterns shown are regular expressions."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_3_0">
@@ -1098,6 +1108,11 @@
       <Annotation Term="OData.Description" String="This version was created to clarify the descriptions for Id, Name, Description, and MemberId to be consistent with usage in the specification."/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_3_13">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to enhance the description of DurableNameFormat values to indicate that the patterns shown are regular expressions."/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_4_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.1"/>
@@ -1157,6 +1172,11 @@
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_4_11">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify the descriptions for Id, Name, Description, and MemberId to be consistent with usage in the specification."/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_4_12">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to enhance the description of DurableNameFormat values to indicate that the patterns shown are regular expressions."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_5_0">
@@ -1359,6 +1379,11 @@
       <Annotation Term="OData.Description" String="This version was created to correct the description for LocationType within PartLocation.  It was also created to clarify the descriptions for Id, Name, Description, and MemberId to be consistent with usage in the specification."/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_5_11">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to enhance the description of DurableNameFormat values to indicate that the patterns shown are regular expressions."/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_6_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.3"/>
@@ -1434,6 +1459,11 @@
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_6_10">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to enhance the description of AltitudeMeters."/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_6_11">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to enhance the description of DurableNameFormat values to indicate that the patterns shown are regular expressions."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_7_0">
@@ -1530,6 +1560,11 @@
       <Annotation Term="OData.Description" String="This version was created to enhance the description of AltitudeMeters."/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_7_10">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to enhance the description of DurableNameFormat values to indicate that the patterns shown are regular expressions."/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_8_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.3"/>
@@ -1581,6 +1616,11 @@
       <Annotation Term="OData.Description" String="This version was created to enhance the description of AltitudeMeters."/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_8_10">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to enhance the description of DurableNameFormat values to indicate that the patterns shown are regular expressions."/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_9_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.4"/>
@@ -1622,6 +1662,11 @@
       <Annotation Term="OData.Description" String="This version was created to enhance the description of AltitudeMeters."/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_9_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to enhance the description of DurableNameFormat values to indicate that the patterns shown are regular expressions."/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_10_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.3"/>
@@ -1648,6 +1693,11 @@
       <Annotation Term="OData.Description" String="This version was created to enhance the description of AltitudeMeters."/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_10_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to enhance the description of DurableNameFormat values to indicate that the patterns shown are regular expressions."/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_11_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.4"/>
@@ -1669,6 +1719,11 @@
       <Annotation Term="OData.Description" String="This version was created to enhance the description of AltitudeMeters.  It was also added to improve the description of Conditions."/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_11_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to enhance the description of DurableNameFormat values to indicate that the patterns shown are regular expressions."/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_12_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.1"/>
@@ -1685,6 +1740,11 @@
       <Annotation Term="OData.Description" String="This version was created to enhance the description of AltitudeMeters.  It was also added to improve the description of Conditions."/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_12_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to enhance the description of DurableNameFormat values to indicate that the patterns shown are regular expressions."/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_13_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.2"/>
@@ -1696,10 +1756,20 @@
       <Annotation Term="OData.Description" String="This version was created to enhance the description of AltitudeMeters.  It was also added to improve the description of Conditions."/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_13_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to enhance the description of DurableNameFormat values to indicate that the patterns shown are regular expressions."/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_14_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.4"/>
       <Annotation Term="OData.Description" String="This version was created to add Resolution to the Conditions property in Status.  It was also was created to add `MACAddress` to DurableNameFormat."/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_14_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to enhance the description of DurableNameFormat values to indicate that the patterns shown are regular expressions."/>
     </Schema>
 
   </edmx:DataServices>

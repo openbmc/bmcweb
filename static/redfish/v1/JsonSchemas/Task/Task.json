@@ -1,13 +1,13 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Task.v1_5_1.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Task.v1_6_1.json",
     "$ref": "#/definitions/Task",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
-            "description": "The available actions for this Resource.",
-            "longDescription": "This type shall contain the available actions for this Resource.",
+            "description": "The available actions for this resource.",
+            "longDescription": "This type shall contain the available actions for this resource.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -25,8 +25,8 @@
             "properties": {
                 "Oem": {
                     "$ref": "#/definitions/OemActions",
-                    "description": "The available OEM-specific actions for this Resource.",
-                    "longDescription": "This property shall contain the available OEM-specific actions for this Resource.",
+                    "description": "The available OEM-specific actions for this resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this resource.",
                     "versionAdded": "v1_1_0"
                 }
             },
@@ -34,8 +34,8 @@
         },
         "OemActions": {
             "additionalProperties": true,
-            "description": "The available OEM-specific actions for this Resource.",
-            "longDescription": "This type shall contain the available OEM-specific actions for this Resource.",
+            "description": "The available OEM-specific actions for this resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this resource.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -56,7 +56,7 @@
         "Payload": {
             "additionalProperties": false,
             "description": "The HTTP and JSON payload details for this Task.",
-            "longDescription": "This type shall contain information detailing the HTTP and JSON payload information for executing this Task.",
+            "longDescription": "This type shall contain information detailing the HTTP and JSON payload information for executing this task.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -109,8 +109,8 @@
         },
         "Task": {
             "additionalProperties": false,
-            "description": "The Task schema contains information about a task that the Redfish Task Service schedules or executes.  Tasks represent operations that take more time than a client typically wants to wait.",
-            "longDescription": "This Resource contains a Task for a Redfish implementation.",
+            "description": "The Task schema contains information about a task that the Redfish task service schedules or executes.  Tasks represent operations that take more time than a client typically wants to wait.",
+            "longDescription": "This resource contains a task for a Redfish implementation.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -140,8 +140,8 @@
                 },
                 "Actions": {
                     "$ref": "#/definitions/Actions",
-                    "description": "The available actions for this Resource.",
-                    "longDescription": "This property shall contain the available actions for this Resource.",
+                    "description": "The available actions for this resource.",
+                    "longDescription": "The actions property shall contain the available actions for this resource.",
                     "versionAdded": "v1_1_0"
                 },
                 "Description": {
@@ -161,6 +161,17 @@
                     "longDescription": "This property shall indicate the date and time when the task was completed.  This property shall not appear if the task is running or otherwise has not been completed.  This property shall appear only if the TaskState is Completed, Killed, Cancelled, or Exception.",
                     "readonly": true,
                     "type": "string"
+                },
+                "EstimatedDuration": {
+                    "description": "The estimated total time required to complete the task.",
+                    "longDescription": "This property shall indicate the estimated total time needed to complete the task.  The value is not expected to change while the task is in progress, but the service may update the value if it obtains new information that significantly changes the expected duration.  Services should be conservative in the reported estimate and clients should treat this value as an estimate.",
+                    "pattern": "-?P(\\d+D)?(T(\\d+H)?(\\d+M)?(\\d+(.\\d+)?S)?)?",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_6_0"
                 },
                 "HidePayload": {
                     "description": "An indication of whether the contents of the payload are hidden from view after the task has been created.  If `true`, responses do not return the payload.  If `false`, responses return the payload.  If this property is not present when the task is created, the default is `false`.",
@@ -193,7 +204,7 @@
                 "Payload": {
                     "$ref": "#/definitions/Payload",
                     "description": "The HTTP and JSON payload details for this task, unless they are hidden from view by the service.",
-                    "longDescription": "This object shall contain information detailing the HTTP and JSON payload information for executing this task.  This object shall not be included in the response if the HidePayload property is `true`.",
+                    "longDescription": "This object shall contain information detailing the HTTP and JSON payload information for executing this task.  This property shall not be included in the response if the HidePayload property is `true`.",
                     "versionAdded": "v1_3_0"
                 },
                 "PercentComplete": {
@@ -224,7 +235,7 @@
                 "TaskMonitor": {
                     "description": "The URI of the Task Monitor for this task.",
                     "format": "uri-reference",
-                    "longDescription": "This property shall contain a URI to Task Monitor as defined in the Redfish Specification.",
+                    "longDescription": "This property shall contain a URI to task monitor as defined in the Redfish Specification.",
                     "readonly": true,
                     "type": "string",
                     "versionAdded": "v1_2_0"
@@ -238,7 +249,7 @@
                 "TaskStatus": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Health",
                     "description": "The completion status of the task.",
-                    "longDescription": "This property shall contain the completion status of the task, as defined in the Status section of the Redfish Specification and shall not be set until the task completes.",
+                    "longDescription": "This property shall contain the completion status of the task and shall not be set until the task completes.  This property should contain `Critical` if one or more messages in the Messages array contains the severity `Critical`.  This property should contain `Warning` if one or more messages in the Messages array contains the severity `Warning` and no messages contain the severity `Critical`.  This property should contain `OK` if all messages in the Messages array contain the severity `OK` or the array is empty.",
                     "readonly": true
                 }
             },
@@ -267,7 +278,7 @@
                 "Cancelled"
             ],
             "enumDeprecated": {
-                "Killed": "This value has been deprecated and is being replaced by the Cancelled value, which has more determinate semantics."
+                "Killed": "This value has been deprecated and is being replaced by the `Cancelled` value, which has more determinate semantics."
             },
             "enumDescriptions": {
                 "Cancelled": "Task has been cancelled by an operator or internal process.",
@@ -285,7 +296,7 @@
                 "Suspended": "Task has been suspended."
             },
             "enumLongDescriptions": {
-                "Cancelled": "This value shall represent that either a DELETE operation on a Task Monitor or Task Resource or by an internal process cancelled the task.",
+                "Cancelled": "This value shall represent that either a DELETE operation on a task monitor or Task resource or by an internal process cancelled the task.",
                 "Cancelling": "This value shall represent that the task is in the process of being cancelled.",
                 "Completed": "This value shall represent that the task completed successfully or with warnings.",
                 "Exception": "This value shall represent that the task completed with errors.",
@@ -310,6 +321,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2020.3",
-    "title": "#Task.v1_5_1.Task"
+    "release": "2022.1",
+    "title": "#Task.v1_6_1.Task"
 }

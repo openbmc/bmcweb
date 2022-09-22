@@ -5,7 +5,7 @@
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2021 DMTF.                                                            -->
+<!--# Copyright 2014-2022 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -37,7 +37,7 @@
         <Annotation Term="OData.LongDescription" String="This resource shall represent a resource collection of EthernetInterface instances for a Redfish implementation."/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
-            <PropertyValue Property="Insertable" Bool="false"/>
+            <PropertyValue Property="Insertable" Bool="true"/>
           </Record>
         </Annotation>
         <Annotation Term="Capabilities.UpdateRestrictions">
