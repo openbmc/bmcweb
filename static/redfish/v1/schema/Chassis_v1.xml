@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Chassis v1.19.0                                                     -->
+<!--# Redfish Schema:  Chassis v1.21.0                                                     -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2021 DMTF.                                                            -->
+<!--# Copyright 2014-2022 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -114,6 +114,21 @@
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Outlet_v1.xml">
     <edmx:Include Namespace="Outlet"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/PowerSupply_v1.xml">
+    <edmx:Include Namespace="PowerSupply"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/FabricAdapterCollection_v1.xml">
+    <edmx:Include Namespace="FabricAdapterCollection"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Fan_v1.xml">
+    <edmx:Include Namespace="Fan"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/PowerDistribution_v1.xml">
+    <edmx:Include Namespace="PowerDistribution"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/TrustedComponentCollection_v1.xml">
+    <edmx:Include Namespace="TrustedComponentCollection"/>
   </edmx:Reference>
 
   <edmx:DataServices>
@@ -296,12 +311,30 @@
           <Annotation Term="OData.Description" String="An array of links to resources or objects that power this chassis.  Normally, the link is for either a chassis or a specific set of power supplies."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources or objects that power this chassis."/>
           <Annotation Term="OData.AutoExpandReferences"/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
+                <PropertyValue Property="Version" String="v1_20_0"/>
+                <PropertyValue Property="Description" String="This property has been deprecated in favor of the PowerOutlets and PowerSupplies link properties, and details provided in the PowerSubsystem resource."/>
+              </Record>
+            </Collection>
+          </Annotation>
         </NavigationProperty>
         <NavigationProperty Name="CooledBy" Type="Collection(Resource.Item)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="An array of links to resources or objects that cool this chassis.  Normally, the link is for either a chassis or a specific set of fans."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources or objects that cool this chassis."/>
           <Annotation Term="OData.AutoExpandReferences"/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
+                <PropertyValue Property="Version" String="v1_20_0"/>
+                <PropertyValue Property="Description" String="This property has been deprecated in favor of the Fans link property, and details provided in the ThermalSubsystem resource."/>
+              </Record>
+            </Collection>
+          </Annotation>
         </NavigationProperty>
       </ComplexType>
 
@@ -1259,7 +1292,7 @@
 
       <EntityType Name="Chassis" BaseType="Chassis.v1_8_1.Chassis">
         <Property Name="EnvironmentalClass" Type="Chassis.v1_9_0.EnvironmentalClass">
-          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The ASHRAE Environmental Class for this chassis."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the ASHRAE Environmental Class for this chassis, as defined by ASHRAE Thermal Guidelines for Data Processing Environments.  These classes define respective environmental limits that include temperature, relative humidity, dew point, and maximum allowable elevation."/>
         </Property>
@@ -1332,6 +1365,12 @@
       <EntityType Name="Chassis" BaseType="Chassis.v1_9_5.Chassis"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_9_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to change the permissions of EnvironmentalClass to be read-write."/>
+      <EntityType Name="Chassis" BaseType="Chassis.v1_9_6.Chassis"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_10_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.2"/>
@@ -1370,6 +1409,12 @@
       <EntityType Name="Chassis" BaseType="Chassis.v1_10_3.Chassis"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_10_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to change the permissions of EnvironmentalClass to be read-write."/>
+      <EntityType Name="Chassis" BaseType="Chassis.v1_10_4.Chassis"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_11_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.4"/>
@@ -1379,6 +1424,15 @@
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to the collection of media controllers located in this chassis."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type MediaControllerCollection."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
+                <PropertyValue Property="Version" String="v1_20_0"/>
+                <PropertyValue Property="Description" String="This property has been deprecated in favor of FabricAdapters."/>
+              </Record>
+            </Collection>
+          </Annotation>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="Memory" Type="MemoryCollection.MemoryCollection" ContainsTarget="true" Nullable="false">
@@ -1429,6 +1483,12 @@
       <EntityType Name="Chassis" BaseType="Chassis.v1_11_3.Chassis"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_11_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to change the permissions of EnvironmentalClass to be read-write."/>
+      <EntityType Name="Chassis" BaseType="Chassis.v1_11_4.Chassis"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_12_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.1"/>
@@ -1468,6 +1528,12 @@
       <EntityType Name="Chassis" BaseType="Chassis.v1_12_2.Chassis"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_12_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to change the permissions of EnvironmentalClass to be read-write."/>
+      <EntityType Name="Chassis" BaseType="Chassis.v1_12_3.Chassis"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_13_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.2"/>
@@ -1486,6 +1552,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various description to use proper normative terminology."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_13_1.Chassis"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_13_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to change the permissions of EnvironmentalClass to be read-write."/>
+      <EntityType Name="Chassis" BaseType="Chassis.v1_13_2.Chassis"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_14_0">
@@ -1511,6 +1583,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various description to use proper normative terminology."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_14_0.Chassis"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_14_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to change the permissions of EnvironmentalClass to be read-write."/>
+      <EntityType Name="Chassis" BaseType="Chassis.v1_14_1.Chassis"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_15_0">
@@ -1565,6 +1643,12 @@
       <EntityType Name="Chassis" BaseType="Chassis.v1_15_0.Chassis"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_15_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to change the permissions of EnvironmentalClass to be read-write."/>
+      <EntityType Name="Chassis" BaseType="Chassis.v1_15_1.Chassis"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_16_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.1"/>
@@ -1577,6 +1661,12 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain the spare part number of the chassis."/>
         </Property>
       </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_16_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to change the permissions of EnvironmentalClass to be read-write."/>
+      <EntityType Name="Chassis" BaseType="Chassis.v1_16_0.Chassis"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_17_0">
@@ -1602,6 +1692,12 @@
       </ComplexType>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_17_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to change the permissions of EnvironmentalClass to be read-write."/>
+      <EntityType Name="Chassis" BaseType="Chassis.v1_17_0.Chassis"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_18_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.3"/>
@@ -1624,10 +1720,16 @@
         <NavigationProperty Name="PowerOutlets" Type="Collection(Outlet.Outlet)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="An array of links to the outlets that provide power to this chassis."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type Outlet that represent the outlets that provide power to this chassis."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type Outlet that represent the outlets that provide power to this chassis.  This property shall not be present if the PoweredByParent property contains `true`."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_18_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to change the permissions of EnvironmentalClass to be read-write."/>
+      <EntityType Name="Chassis" BaseType="Chassis.v1_18_0.Chassis"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_19_0">
@@ -1636,6 +1738,111 @@
       <Annotation Term="OData.Description" String="This version was created to deprecate Measurements in favor of measurement reporting in the ComponentIntegrity resource."/>
 
       <EntityType Name="Chassis" BaseType="Chassis.v1_18_0.Chassis"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_19_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to change the permissions of EnvironmentalClass to be read-write."/>
+      <EntityType Name="Chassis" BaseType="Chassis.v1_19_0.Chassis"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_20_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2022.1"/>
+      <Annotation Term="OData.Description" String="This version was created to deprecate MediaControllers in favor of FabricAdapters.  It was also created to deprecate PoweredBy in favor of PowerOutlets, PowerSupplies, and details provided in the PowerSubsystem resource."/>
+
+      <EntityType Name="Chassis" BaseType="Chassis.v1_19_1.Chassis">
+        <NavigationProperty Name="FabricAdapters" Type="FabricAdapterCollection.FabricAdapterCollection" ContainsTarget="true" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The link to the collection of fabric adapters located in this chassis."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type FabricAdapterCollection."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+        <Property Name="PoweredByParent" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Indicates that the chassis receives power from the containing chassis."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the chassis receives power from the chassis that contains it.  The value `true` shall indicate that the containing chassis provides power.  The value `false` shall indicate the chassis receives power from its own power subsystem, another chassis instance's power supplies, or outlets."/>
+        </Property>
+        <Property Name="ThermalManagedByParent" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Indicates that the chassis is thermally managed by the parent chassis."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the chassis relies on the containing chassis to provide thermal management.  The value `true` shall indicate that the chassis relies on the containing chassis to provide thermal management.  The value `false` shall indicate the chassis provides thermal management, and may provide details in a ThermalSubsystem resource, or by populating the Fans property in Links."/>
+        </Property>
+        <Property Name="ThermalDirection" Type="Chassis.v1_20_0.ThermalDirection">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Indicates the thermal management path through the chassis."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate the general direction of the thermal management path through the chassis."/>
+        </Property>
+      </EntityType>
+
+      <EnumType Name="ThermalDirection">
+        <Member Name="FrontToBack">
+          <Annotation Term="OData.Description" String="A chassis with the air intake in the front and exhaust out the back."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate a chassis with the air intake generally from the front of the chassis and the air exhaust out the back of the chassis."/>
+        </Member>
+        <Member Name="BackToFront">
+          <Annotation Term="OData.Description" String="A chassis with the air intake in the back and exhaust out the front."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate a chassis with the air intake generally from the back of the chassis and the air exhaust out the front of the chassis."/>
+        </Member>
+        <Member Name="TopExhaust">
+          <Annotation Term="OData.Description" String="A chassis with air exhaust on the top."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate a chassis with the air exhaust out the top of the chassis."/>
+        </Member>
+        <Member Name="Sealed">
+          <Annotation Term="OData.Description" String="A sealed chassis with no air pathway."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate a sealed chassis with no air pathway through the chassis."/>
+        </Member>
+      </EnumType>
+
+      <ComplexType Name="Links" BaseType="Chassis.v1_18_0.Links">
+        <NavigationProperty Name="PowerSupplies" Type="Collection(PowerSupply.PowerSupply)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An array of links to the power supplies that provide power to this chassis."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type PowerSupply that represent the power supplies that provide power to this chassis.  This property shall not be present if the PoweredByParent property contains `true` or the power supplies are contained in the PowerSubsystem resource for this chassis."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+        <NavigationProperty Name="Fans" Type="Collection(Fan.Fan)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An array of links to the fans that cool this chassis."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type Fan that represent the fans that provide cooling to this chassis.  This property shall not be present if the ThermalManagedByParent property contains `true` or if the fans are contained in the ThermalSubsystem resource for this chassis."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+        <NavigationProperty Name="PowerDistribution" Type="PowerDistribution.PowerDistribution">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="A link to power distribution functionality contained in this chassis."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type PowerDistribution that represents the power distribution functionality contained within this chassis."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_21_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2022.2"/>
+
+      <EntityType Name="Chassis" BaseType="Chassis.v1_20_0.Chassis">
+        <NavigationProperty Name="TrustedComponents" Type="TrustedComponentCollection.TrustedComponentCollection" ContainsTarget="true" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The link to the trusted components in this chassis."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type TrustedComponentCollection."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+        <Property Name="Version" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The hardware version of this chassis."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the hardware version of this chassis as determined by the vendor or supplier."/>
+        </Property>
+        <Property Name="HotPluggable" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An indication of whether this component can be inserted or removed while the equipment is in operation."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the component can be inserted or removed while the underlying equipment otherwise remains in its current operational state.  Components indicated as hot-pluggable shall allow the component to become operable without altering the operational state of the underlying equipment.  Components that cannot be inserted or removed from equipment in operation, or components that cannot become operable without affecting the operational state of that equipment, shall be indicated as not hot-pluggable."/>
+        </Property>
+        <Property Name="Replaceable" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An indication of whether this component can be independently replaced as allowed by the vendor's replacement policy."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether this component can be independently replaced as allowed by the vendor's replacement policy.  A value of `false` indicates the component needs to be replaced by policy, as part of another component.  If the `LocationType` property of this component contains `Embedded`, this property shall contain `false`."/>
+        </Property>
+      </EntityType>
     </Schema>
 
   </edmx:DataServices>

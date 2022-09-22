@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Certificate v1.5.0                                                  -->
+<!--# Redfish Schema:  Certificate v1.6.0                                                  -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2021 DMTF.                                                            -->
+<!--# Copyright 2014-2022 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -115,9 +115,15 @@
             <String>/redfish/v1/UpdateService/RemoteServerCertificates/{CertificateId}</String>
             <String>/redfish/v1/UpdateService/ClientCertificates/{CertificateId}</String>
             <String>/redfish/v1/Managers/{ManagerId}/Certificates/{CertificateId}</String>            
-            <String>/redfish/v1/Systems/{ComputerSystemId}/KeyManagement/KMIPCertificates</String>
-            <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/KeyManagement/KMIPCertificates</String>
-            <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/KeyManagement/KMIPCertificates</String>
+            <String>/redfish/v1/Systems/{ComputerSystemId}/KeyManagement/KMIPCertificates/{CertificateId}</String>
+            <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/KeyManagement/KMIPCertificates/{CertificateId}</String>
+            <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/KeyManagement/KMIPCertificates/{CertificateId}</String>
+            <String>/redfish/v1/Managers/{ManagerId}/SecurityPolicy/SPDM/TrustedCertificates/{CertificateId}</String>
+            <String>/redfish/v1/Managers/{ManagerId}/SecurityPolicy/SPDM/RevokedCertificates/{CertificateId}</String>
+            <String>/redfish/v1/Managers/{ManagerId}/SecurityPolicy/TLS/Client/TrustedCertificates/{CertificateId}</String>
+            <String>/redfish/v1/Managers/{ManagerId}/SecurityPolicy/TLS/Client/RevokedCertificates/{CertificateId}</String>
+            <String>/redfish/v1/Managers/{ManagerId}/SecurityPolicy/TLS/Server/TrustedCertificates/{CertificateId}</String>
+            <String>/redfish/v1/Managers/{ManagerId}/SecurityPolicy/TLS/Server/RevokedCertificates/{CertificateId}</String>
           </Collection>
         </Annotation>
       </EntityType>
@@ -299,38 +305,38 @@
         <Annotation Term="OData.LongDescription" String="This type shall contain the properties that identifies the issuer or subject of a certificate."/>
         <Property Name="CommonName" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The fully qualified domain name of the entity."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the fully qualified domain name of the entity."/>
+          <Annotation Term="OData.Description" String="The common name of the entity."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the common name of the entity, as defined by the RFC5280 'commonName' attribute."/>
         </Property>
         <Property Name="Organization" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The name of the organization of the entity."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the name of the organization of the entity."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the name of the organization of the entity, as defined by the RFC5280 'organizationName' attribute."/>
         </Property>
         <Property Name="OrganizationalUnit" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The name of the unit or division of the organization of the entity."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the name of the unit or division of the organization of the entity."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the name of the unit or division of the organization of the entity, as defined by the RFC5280 'organizationalUnitName' attribute."/>
         </Property>
         <Property Name="City" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The city or locality of the organization of the entity."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the city or locality of the organization of the entity."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the city or locality of the organization of the entity, as defined by the RFC5280 'localityName' attribute."/>
         </Property>
         <Property Name="State" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The state, province, or region of the organization of the entity."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the state, province, or region of the organization of the entity."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the state, province, or region of the organization of the entity, as defined by the RFC5280 'stateOrProvinceName' attribute."/>
         </Property>
         <Property Name="Country" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The country of the organization of the entity."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the two-letter ISO code for the country of the organization of the entity."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the two-letter ISO code for the country of the organization of the entity, as defined by the RFC5280 'countryName' attribute."/>
         </Property>
         <Property Name="Email" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The email address of the contact within the organization of the entity."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the email address of the contact within the organization of the entity."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the email address of the contact within the organization of the entity, as defined by the RFC2985 'emailAddress' attribute."/>
         </Property>
       </ComplexType>
 
@@ -373,6 +379,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="Certificate" BaseType="Certificate.v1_0_3.Certificate"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Certificate.v1_0_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions to reference attributes defined in RFC2985 and RFC5280."/>
+      <EntityType Name="Certificate" BaseType="Certificate.v1_0_4.Certificate"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Certificate.v1_1_0">
@@ -436,6 +448,12 @@
       <EntityType Name="Certificate" BaseType="Certificate.v1_1_2.Certificate"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Certificate.v1_1_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions to reference attributes defined in RFC2985 and RFC5280."/>
+      <EntityType Name="Certificate" BaseType="Certificate.v1_1_3.Certificate"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Certificate.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.1"/>
@@ -467,6 +485,12 @@
       <EntityType Name="Certificate" BaseType="Certificate.v1_2_2.Certificate"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Certificate.v1_2_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions to reference attributes defined in RFC2985 and RFC5280."/>
+      <EntityType Name="Certificate" BaseType="Certificate.v1_2_3.Certificate"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Certificate.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.1"/>
@@ -495,6 +519,12 @@
           <Annotation Term="OData.LongDescription" String="The value of this property shall be a string containing the algorithm used for generating the signature of the certificate, as defined by the RFC5280 'signatureAlgorithm' field.  The value shall be a string representing the ASN.1 OID of the signature algorithm as defined in, but not limited to, RFC3279, RFC4055, or RFC4491."/>
         </Property>
       </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Certificate.v1_3_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions to reference attributes defined in RFC2985 and RFC5280."/>
+      <EntityType Name="Certificate" BaseType="Certificate.v1_3_0.Certificate"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Certificate.v1_4_0">
@@ -552,6 +582,12 @@
       </EnumType>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Certificate.v1_4_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions to reference attributes defined in RFC2985 and RFC5280."/>
+      <EntityType Name="Certificate" BaseType="Certificate.v1_4_0.Certificate"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Certificate.v1_5_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.3"/>
@@ -571,6 +607,42 @@
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="Slot identifier of the certificate."/>
           <Annotation Term="OData.LongDescription" String="The value of this property shall contain an integer between 0 and 7, inclusive, that represents the slot identifier for an SPDM-provided certificate."/>
+        </Property>
+      </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Certificate.v1_5_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions to reference attributes defined in RFC2985 and RFC5280."/>
+      <EntityType Name="Certificate" BaseType="Certificate.v1_5_0.Certificate"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Certificate.v1_6_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2022.1"/>
+
+      <EntityType Name="Certificate" BaseType="Certificate.v1_5_1.Certificate"/>
+
+      <ComplexType Name="Identifier" BaseType="Certificate.v1_0_0.Identifier">
+        <Property Name="DisplayString" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="A human-readable string for this identifier."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall contain a display string that represents the entire identifier.  The string should be formatted using industry conventions, such as the single-line human-readable string described by RFC2253 and preserving the field order as shown in the certificate."/>
+        </Property>
+        <Property Name="DomainComponents" Type="Collection(Edm.String)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The domain components of the entity."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall contain an array of domain component fields for the entity, as defined by the RFC4519 'domainComponent' attribute, in array order as they appear in the certificate."/>
+        </Property>
+        <Property Name="AdditionalCommonNames" Type="Collection(Edm.String)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Additional common names of the entity."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall contain an array of additional common names for the entity, as defined by the RFC5280 'commonName' attribute, in array order as they appear in the certificate.  This property shall not be present if only one common name is found.  The first common name shall not appear in this property."/>
+        </Property>
+        <Property Name="AdditionalOrganizationalUnits" Type="Collection(Edm.String)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Additional organizational units of the entity."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall contain an array of additional organizational units for the entity, as defined by the RFC5280 'organizationalUnitName' attribute, in array order as they appear in the certificate.  This property shall not be present if only one organizational unit is found.  The first organizational unit shall not appear in this property."/>
         </Property>
       </ComplexType>
     </Schema>

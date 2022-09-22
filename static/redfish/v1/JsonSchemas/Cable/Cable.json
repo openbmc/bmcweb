@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Cable.v1_2_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Cable.v1_1_0.json",
     "$ref": "#/definitions/Cable",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2021 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -346,20 +346,16 @@
                 "SFPPlus",
                 "USBA",
                 "USBC",
-                "QSFP",
-                "CDFP",
-                "OSFP"
+                "QSFP"
             ],
             "enumDescriptions": {
                 "ACPower": "This cable connects to a AC power connector.",
-                "CDFP": "This cable connects to a CDFP connector.",
                 "DB9": "This cable connects to a DB9 connector.",
                 "DCPower": "This cable connects to a DC power connector.",
                 "DisplayPort": "This cable connects to a DisplayPort power connector.",
                 "HDMI": "This cable connects to an HDMI connector.",
                 "ICI": "This cable connects to an ICI connector.",
                 "IPASS": "This cable connects to an IPASS connector.",
-                "OSFP": "This cable connects to a OSFP connector.",
                 "PCIe": "This cable connects to a PCIe connector.",
                 "Proprietary": "This cable connects to a proprietary connector.",
                 "QSFP": "This cable connects to a QSFP connector.",
@@ -371,10 +367,6 @@
                 "SlimSAS": "This cable connects to a SlimSAS connector.",
                 "USBA": "This cable connects to a USB-A connector.",
                 "USBC": "This cable connects to a USB-C connector."
-            },
-            "enumVersionAdded": {
-                "CDFP": "v1_2_0",
-                "OSFP": "v1_2_0"
             },
             "type": "string"
         },
@@ -500,6 +492,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2021.4",
-    "title": "#Cable.v1_2_0.Cable"
+    "release": "2021.3",
+    "title": "#Cable.v1_1_0.Cable"
 }
