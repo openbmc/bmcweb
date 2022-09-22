@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################                   -->
-<!--# Redfish Schema:  Drive v1.14.0                                                                   -->
+<!--# Redfish Schema:  Drive v1.15.0                                                                   -->
 <!--#                                                                                                  -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,                  -->
 <!--# available at http://www.dmtf.org/standards/redfish                                               -->
-<!--# Copyright 2014-2021 DMTF in cooperation with the Storage Networking Industry Association (SNIA). -->
+<!--# Copyright 2014-2022 DMTF in cooperation with the Storage Networking Industry Association (SNIA). -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright             -->
 <!--################################################################################                   -->
 <!---->
@@ -109,6 +109,30 @@
         <Annotation Term="OData.Description" String="This action securely erases the contents of the drive."/>
         <Annotation Term="OData.LongDescription" String="This action shall securely erase the drive."/>
         <Parameter Name="Drive" Type="Drive.v1_0_0.Actions"/>
+        <Parameter Name="SanitizationType" Type="Drive.v1_15_0.DataSanitizationType">
+          <Annotation Term="OData.Description" String="The type of data sanitization to perform."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the type of data sanitization to perform for the secure erase request.  The service can accept a request without the parameter and perform an implementation specific default secure erase."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_15_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Parameter>
+        <Parameter Name="OverwritePasses" Type="Edm.Int64">
+          <Annotation Term="OData.Description" String="The number of times to overwrite the drive if performing an overwrite type of sanitization."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the number of times to overwrite the drive if the SanitizationType parameter contains the value `Overwrite`.  This parameter shall be ignored if the SanitizationType parameter does not contain the value `Overwrite`.  If the client does not provide this parameter, the service shall perform an implementation specific number of passes."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_15_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Parameter>
       </Action>
 
       <Action Name="Reset" IsBound="true">
@@ -1295,6 +1319,29 @@
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_15_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2022.1"/>
+      <Annotation Term="OData.Description" String="This version was created to add parameters to the SecureErase action for NVMe use cases."/>
+
+      <EntityType Name="Drive" BaseType="Drive.v1_14_0.Drive"/>
+
+      <EnumType Name="DataSanitizationType">
+        <Member Name="BlockErase">
+          <Annotation Term="OData.Description" String="Delete all logical block addresses, including those that are not currently mapping to active addresses, but leaving the data on the drive."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate sanitization is performed by deleting all logical block addresses, including those that are not currently mapping to active addresses, but leaving the data on the drive."/>
+        </Member>
+        <Member Name="CryptographicErase">
+          <Annotation Term="OData.Description" String="Erase the target data's encryption key leaving only the ciphertext on the drive.  For more information, see NIST800-88 and ISO/IEC 27040."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate sanitization is performed by erasing the target data's encryption key leaving only the ciphertext on the drive.  For more information, see NIST800-88 and ISO/IEC 27040."/>
+        </Member>
+        <Member Name="Overwrite">
+          <Annotation Term="OData.Description" String="Overwrite data by writing an implementation specific pattern onto all sectors of the drive."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate sanitization is performed by overwriting data by writing an implementation specific pattern onto all sectors of the drive."/>
+        </Member>
+      </EnumType>
     </Schema>
 
   </edmx:DataServices>

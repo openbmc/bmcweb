@@ -1,13 +1,13 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/VLanNetworkInterface.v1_3_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/VLanNetworkInterface.v1_1_4.json",
     "$ref": "#/definitions/VLanNetworkInterface",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2021 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2019 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
-            "description": "The available actions for this resource.",
-            "longDescription": "This type shall contain the available actions for this resource.",
+            "description": "The available actions for this Resource.",
+            "longDescription": "This type shall contain the available actions for this Resource.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -25,8 +25,8 @@
             "properties": {
                 "Oem": {
                     "$ref": "#/definitions/OemActions",
-                    "description": "The available OEM-specific actions for this resource.",
-                    "longDescription": "This property shall contain the available OEM-specific actions for this resource.",
+                    "description": "The available OEM-specific actions for this Resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this Resource.",
                     "versionAdded": "v1_1_0"
                 }
             },
@@ -34,8 +34,8 @@
         },
         "OemActions": {
             "additionalProperties": true,
-            "description": "The available OEM-specific actions for this resource.",
-            "longDescription": "This type shall contain the available OEM-specific actions for this resource.",
+            "description": "The available OEM-specific actions for this Resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this Resource.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -72,16 +72,6 @@
                 }
             },
             "properties": {
-                "Tagged": {
-                    "description": "An indication of whether this VLAN is tagged or untagged for this interface.",
-                    "longDescription": "This property shall indicate whether this VLAN is tagged or untagged for this interface.",
-                    "readonly": false,
-                    "type": [
-                        "boolean",
-                        "null"
-                    ],
-                    "versionAdded": "v1_3_0"
-                },
                 "VLANEnable": {
                     "description": "An indication of whether this VLAN is enabled for this VLAN network interface.",
                     "longDescription": "This property shall indicate whether this VLAN is enabled for this VLAN network interface.",
@@ -103,20 +93,6 @@
                     "description": "The ID for this VLAN.",
                     "longDescription": "This property shall contain the ID for this VLAN.",
                     "readonly": false
-                },
-                "VLANPriority": {
-                    "anyOf": [
-                        {
-                            "$ref": "#/definitions/VLANPriority"
-                        },
-                        {
-                            "type": "null"
-                        }
-                    ],
-                    "description": "The priority for this VLAN.",
-                    "longDescription": "This property shall contain the priority for this VLAN.",
-                    "readonly": false,
-                    "versionAdded": "v1_2_0"
                 }
             },
             "requiredOnCreate": [
@@ -130,16 +106,10 @@
             "minimum": 0,
             "type": "integer"
         },
-        "VLANPriority": {
-            "maximum": 7,
-            "minimum": 0,
-            "type": "integer"
-        },
         "VLanNetworkInterface": {
             "additionalProperties": false,
-            "deprecated": "This schema has been deprecated in favor of using individual EthernetInterface resources to show VLAN information.",
-            "description": "The VLanNetworkInterface schema describes a VLAN network instance that is available on a manager, system, or other device.",
-            "longDescription": "This resource contains information for a VLAN network instance that is available on a manager, system, or other device for a Redfish implementation.",
+            "description": "The attributes of a VLAN.",
+            "longDescription": "The VLanNetworkInterface Schema shall contain any attributes of a VLAN.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -169,8 +139,8 @@
                 },
                 "Actions": {
                     "$ref": "#/definitions/Actions",
-                    "description": "The available actions for this resource.",
-                    "longDescription": "This property shall contain the available actions for this resource.",
+                    "description": "The available actions for this Resource.",
+                    "longDescription": "This property shall contain the available actions for this Resource.",
                     "versionAdded": "v1_1_0"
                 },
                 "Description": {
@@ -218,20 +188,6 @@
                     "description": "The ID for this VLAN.",
                     "longDescription": "This property shall contain the ID for this VLAN.",
                     "readonly": false
-                },
-                "VLANPriority": {
-                    "anyOf": [
-                        {
-                            "$ref": "#/definitions/VLANPriority"
-                        },
-                        {
-                            "type": "null"
-                        }
-                    ],
-                    "description": "The priority for this VLAN.",
-                    "longDescription": "This property shall contain the priority for this VLAN.",
-                    "readonly": false,
-                    "versionAdded": "v1_2_0"
                 }
             },
             "required": [
@@ -244,11 +200,10 @@
                 "VLANEnable",
                 "VLANId"
             ],
-            "type": "object",
-            "versionDeprecated": "v1_3_0"
+            "type": "object"
         }
     },
     "owningEntity": "DMTF",
-    "release": "2021.2",
-    "title": "#VLanNetworkInterface.v1_3_0.VLanNetworkInterface"
+    "release": "2017.1",
+    "title": "#VLanNetworkInterface.v1_1_4.VLanNetworkInterface"
 }

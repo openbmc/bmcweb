@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  ManagerAccount v1.8.1                                               -->
+<!--# Redfish Schema:  ManagerAccount v1.9.0                                               -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2021 DMTF.                                                            -->
+<!--# Copyright 2014-2022 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -30,6 +30,9 @@
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/CertificateCollection_v1.xml">
     <edmx:Include Namespace="CertificateCollection"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/KeyCollection_v1.xml">
+    <edmx:Include Namespace="KeyCollection"/>
   </edmx:Reference>
 
   <edmx:DataServices>
@@ -737,6 +740,19 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update the descriptions of the resource and the AccountTypes property to clarify intended usage."/>
       <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_8_0.ManagerAccount"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_9_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2022.1"/>
+
+      <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_8_1.ManagerAccount">
+        <NavigationProperty Name="Keys" Type="KeyCollection.KeyCollection" ContainsTarget="true" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The link to the collection of keys that can be used to authenticate this account.  For example, an SSH public key could be added to this collection to allow for SSH public key authentication."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type KeyCollection that contains the keys that can be used to authenticate this account."/>
+        </NavigationProperty>
+      </EntityType>
     </Schema>
 
   </edmx:DataServices>
