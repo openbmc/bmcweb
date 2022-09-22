@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a48472c1_97a54566",
+        "filename": "http/mutual_tls.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-09-22T19:20:03Z",
+      "side": 1,
+      "message": "boost::asio::ip::address needs a head, right? I also see openssl headers are missing.\n \nI am fine with what we have now. Adding them manually is not a smart choice. In future IWYU runs, we can fix it",
+      "revId": "ccd9fcd1cd529a383feba3b653ad5ce93f4acfc3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

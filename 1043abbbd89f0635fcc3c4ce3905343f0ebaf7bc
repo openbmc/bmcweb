@@ -65,6 +65,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c9efe69d_a23cf800",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-09-22T19:20:03Z",
+      "side": 1,
+      "message": "Just nit, doesn\u0027t really matter.",
+      "parentUuid": "7b06a6f4_5920c5ec",
+      "range": {
+        "startLine": 101,
+        "startChar": 12,
+        "endLine": 101,
+        "endChar": 23
+      },
+      "revId": "1043abbbd89f0635fcc3c4ce3905343f0ebaf7bc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b9b45791_30f98d36",
@@ -102,6 +126,30 @@
       "side": 1,
       "message": "I think the behavior that\u0027s here is correct.  if the user session doesn\u0027t exist, it can\u0027t be from the transport.  I think in code this is more correct, and behaviorally has no difference.",
       "parentUuid": "b9b45791_30f98d36",
+      "range": {
+        "startLine": 104,
+        "startChar": 16,
+        "endLine": 104,
+        "endChar": 27
+      },
+      "revId": "1043abbbd89f0635fcc3c4ce3905343f0ebaf7bc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1bf822cb_5cd003b9",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-09-22T19:20:03Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "0fc57608_a03bee6f",
       "range": {
         "startLine": 104,
         "startChar": 16,
