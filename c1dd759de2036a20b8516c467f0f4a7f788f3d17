@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f87c7c4c_54aef93a",
+        "filename": "include/http_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-09-22T19:45:02Z",
+      "side": 1,
+      "message": "Should you default this to true?",
+      "revId": "c1dd759de2036a20b8516c467f0f4a7f788f3d17",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "204d1a4b_45fb4e86",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1678,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-09-22T19:45:02Z",
+      "side": 1,
+      "message": "I think we would want this true, we would allow the wildcard character to mean we accept ContentType::OctetStream",
+      "revId": "c1dd759de2036a20b8516c467f0f4a7f788f3d17",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6981c283_8158fc4a",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 3569,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-09-22T19:45:02Z",
+      "side": 1,
+      "message": "Same here, I think we would want this as true",
+      "revId": "c1dd759de2036a20b8516c467f0f4a7f788f3d17",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
