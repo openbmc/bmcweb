@@ -1,0 +1,7 @@
+Verified+1: OpenBMC CI <openbmcbump-ci@yahoo.com>
+Code-Review+2: Ed Tanous <ed@tanous.net>
+Submitted-by: Ed Tanous <ed@tanous.net>
+Submitted-at: Thu, 22 Sep 2022 00:04:06 +0000
+Reviewed-on: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/57069
+Project: openbmc/bmcweb
+Branch: refs/heads/master
