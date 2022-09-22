@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Task v1.6.0                                                         -->
+<!--# Redfish Schema:  Task v1.6.1                                                         -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -40,8 +40,8 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
 
       <EntityType Name="Task" BaseType="Resource.v1_0_0.Resource" Abstract="true">
-        <Annotation Term="OData.Description" String="The Task schema contains information about a task that the Redfish Task Service schedules or executes.  Tasks represent operations that take more time than a client typically wants to wait."/>
-        <Annotation Term="OData.LongDescription" String="This Resource contains a Task for a Redfish implementation."/>
+        <Annotation Term="OData.Description" String="The Task schema contains information about a task that the Redfish task service schedules or executes.  Tasks represent operations that take more time than a client typically wants to wait."/>
+        <Annotation Term="OData.LongDescription" String="This resource contains a task for a Redfish implementation."/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
             <PropertyValue Property="Insertable" Bool="false"/>
@@ -65,7 +65,6 @@
           </Collection>
         </Annotation>
       </EntityType>
-
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Task.v1_0_0">
@@ -91,7 +90,7 @@
         <Property Name="TaskStatus" Type="Resource.Health" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The completion status of the task."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the completion status of the task, as defined in the Status section of the Redfish Specification and shall not be set until the task completes."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the completion status of the task and shall not be set until the task completes.  This property should contain `Critical` if one or more messages in the Messages array contains the severity `Critical`.  This property should contain `Warning` if one or more messages in the Messages array contains the severity `Warning` and no messages contain the severity `Critical`.  This property should contain `OK` if all messages in the Messages array contain the severity `OK` or the array is empty."/>
         </Property>
         <Property Name="Messages" Type="Collection(Message.Message)" Nullable="false">
           <Annotation Term="OData.Description" String="An array of messages associated with the task."/>
@@ -140,7 +139,7 @@
               <Record>
                 <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
                 <PropertyValue Property="Version" String="v1_2_0"/>
-                <PropertyValue Property="Description" String="This value has been deprecated and is being replaced by the Cancelled value, which has more determinate semantics."/>
+                <PropertyValue Property="Description" String="This value has been deprecated and is being replaced by the `Cancelled` value, which has more determinate semantics."/>
               </Record>
             </Collection>
           </Annotation>
@@ -167,7 +166,7 @@
         </Member>
         <Member Name="Cancelled">
           <Annotation Term="OData.Description" String="Task has been cancelled by an operator or internal process."/>
-          <Annotation Term="OData.LongDescription" String="This value shall represent that either a DELETE operation on a Task Monitor or Task Resource or by an internal process cancelled the task."/>
+          <Annotation Term="OData.LongDescription" String="This value shall represent that either a DELETE operation on a task monitor or Task resource or by an internal process cancelled the task."/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
@@ -212,7 +211,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Task.v1_0_7">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format.  It was also created to correct the Resource description."/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format.  It was also created to correct the resource description."/>
       <EntityType Name="Task" BaseType="Task.v1_0_6.Task"/>
     </Schema>
 
@@ -228,30 +227,37 @@
       <EntityType Name="Task" BaseType="Task.v1_0_8.Task"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Task.v1_0_10">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the mapping of TaskStatus."/>
+      <EntityType Name="Task" BaseType="Task.v1_0_9.Task"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Task.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.1"/>
+
       <EntityType Name="Task" BaseType="Task.v1_0_3.Task">
         <Property Name="Actions" Type="Task.v1_1_0.Actions" Nullable="false">
-          <Annotation Term="OData.Description" String="The available actions for this Resource."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this Resource."/>
+          <Annotation Term="OData.Description" String="The available actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="The actions property shall contain the available actions for this resource."/>
         </Property>
       </EntityType>
 
       <ComplexType Name="Actions">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
-        <Annotation Term="OData.Description" String="The available actions for this Resource."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this Resource."/>
+        <Annotation Term="OData.Description" String="The available actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
         <Property Name="Oem" Type="Task.v1_1_0.OemActions" Nullable="false">
-          <Annotation Term="OData.Description" String="The available OEM-specific actions for this Resource."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this Resource."/>
+          <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this resource."/>
         </Property>
       </ComplexType>
 
       <ComplexType Name="OemActions">
         <Annotation Term="OData.AdditionalProperties" Bool="true"/>
-        <Annotation Term="OData.Description" String="The available OEM-specific actions for this Resource."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this Resource."/>
+        <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this resource."/>
       </ComplexType>
     </Schema>
 
@@ -269,13 +275,13 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Task.v1_1_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to use the new Revisions annotation."/>
+      <Annotation Term="OData.Description" String="This version was created to use the new revisions annotation."/>
       <EntityType Name="Task" BaseType="Task.v1_1_2.Task"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Task.v1_1_4">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format.  It was also created to correct the Resource description."/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format.  It was also created to correct the resource description."/>
       <EntityType Name="Task" BaseType="Task.v1_1_3.Task"/>
     </Schema>
 
@@ -291,15 +297,22 @@
       <EntityType Name="Task" BaseType="Task.v1_1_5.Task"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Task.v1_1_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the mapping of TaskStatus."/>
+      <EntityType Name="Task" BaseType="Task.v1_1_6.Task"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Task.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.1"/>
-      <Annotation Term="OData.Description" String="This version was created to add the TaskMonitor property.  This version was also created to add the Cancelled and Cancelling to TaskState, and deprecates Killed."/>
+      <Annotation Term="OData.Description" String="This version was created to add the TaskMonitor property.  This version was also created to add the `Cancelled` and `Cancelling` values to TaskState, and deprecate `Killed`."/>
+
       <EntityType Name="Task" BaseType="Task.v1_1_1.Task">
         <Property Name="TaskMonitor" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The URI of the Task Monitor for this task."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a URI to Task Monitor as defined in the Redfish Specification."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a URI to task monitor as defined in the Redfish Specification."/>
           <Annotation Term="OData.IsURL"/>
         </Property>
       </EntityType>
@@ -313,13 +326,13 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Task.v1_2_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to use the new Revisions annotation."/>
+      <Annotation Term="OData.Description" String="This version was created to use the new revisions annotation."/>
       <EntityType Name="Task" BaseType="Task.v1_2_1.Task"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Task.v1_2_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format.  It was also created to correct the Resource description."/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format.  It was also created to correct the resource description."/>
       <EntityType Name="Task" BaseType="Task.v1_2_2.Task"/>
     </Schema>
 
@@ -335,6 +348,12 @@
       <EntityType Name="Task" BaseType="Task.v1_2_4.Task"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Task.v1_2_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the mapping of TaskStatus."/>
+      <EntityType Name="Task" BaseType="Task.v1_2_5.Task"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Task.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.2"/>
@@ -343,7 +362,7 @@
       <EntityType Name="Task" BaseType="Task.v1_2_1.Task">
         <Property Name="Payload" Type="Task.v1_3_0.Payload" Nullable="false">
           <Annotation Term="OData.Description" String="The HTTP and JSON payload details for this task, unless they are hidden from view by the service."/>
-          <Annotation Term="OData.LongDescription" String="This object shall contain information detailing the HTTP and JSON payload information for executing this task.  This object shall not be included in the response if the HidePayload property is `true`."/>
+          <Annotation Term="OData.LongDescription" String="This object shall contain information detailing the HTTP and JSON payload information for executing this task.  This property shall not be included in the response if the HidePayload property is `true`."/>
         </Property>
         <Property Name="HidePayload" Type="Edm.Boolean" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -354,7 +373,7 @@
 
       <ComplexType Name="Payload">
         <Annotation Term="OData.Description" String="The HTTP and JSON payload details for this Task."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain information detailing the HTTP and JSON payload information for executing this Task."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain information detailing the HTTP and JSON payload information for executing this task."/>
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
         <Property Name="TargetUri" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -378,18 +397,17 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain JSON formatted payload used for this task."/>
         </Property>
       </ComplexType>
-
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Task.v1_3_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to use the new Revisions annotation."/>
+      <Annotation Term="OData.Description" String="This version was created to use the new revisions annotation."/>
       <EntityType Name="Task" BaseType="Task.v1_3_0.Task"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Task.v1_3_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format.  It was also created to correct the Resource description."/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format.  It was also created to correct the resource description."/>
       <EntityType Name="Task" BaseType="Task.v1_3_1.Task"/>
     </Schema>
 
@@ -411,6 +429,12 @@
       <EntityType Name="Task" BaseType="Task.v1_3_4.Task"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Task.v1_3_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the mapping of TaskStatus."/>
+      <EntityType Name="Task" BaseType="Task.v1_3_5.Task"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Task.v1_4_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.3"/>
@@ -428,7 +452,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Task.v1_4_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format.  It was also created to correct the Resource description."/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format.  It was also created to correct the resource description."/>
       <EntityType Name="Task" BaseType="Task.v1_4_0.Task"/>
     </Schema>
 
@@ -448,6 +472,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
       <EntityType Name="Task" BaseType="Task.v1_4_3.Task"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Task.v1_4_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the mapping of TaskStatus."/>
+      <EntityType Name="Task" BaseType="Task.v1_4_4.Task"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Task.v1_5_0">
@@ -470,6 +500,12 @@
       <EntityType Name="Task" BaseType="Task.v1_5_0.Task"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Task.v1_5_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the mapping of TaskStatus."/>
+      <EntityType Name="Task" BaseType="Task.v1_5_1.Task"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Task.v1_6_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2022.1"/>
@@ -481,6 +517,12 @@
           <Annotation Term="OData.LongDescription" String="This property shall indicate the estimated total time needed to complete the task.  The value is not expected to change while the task is in progress, but the service may update the value if it obtains new information that significantly changes the expected duration.  Services should be conservative in the reported estimate and clients should treat this value as an estimate."/>
         </Property>
       </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Task.v1_6_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the mapping of TaskStatus."/>
+      <EntityType Name="Task" BaseType="Task.v1_6_0.Task"/>
     </Schema>
 
   </edmx:DataServices>

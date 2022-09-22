@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/ComputerSystem.v1_18_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/ComputerSystem.v1_19_0.json",
     "$ref": "#/definitions/ComputerSystem",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -1038,13 +1038,15 @@
                     "readonly": true
                 },
                 "TrustedModules": {
+                    "deprecated": "This property has been deprecated in favor of the TrustedComponents property in Links.",
                     "description": "An array of trusted modules in the system.",
                     "items": {
                         "$ref": "#/definitions/TrustedModules"
                     },
                     "longDescription": "This object shall contain an array of objects with properties that describe the trusted modules for this resource.",
                     "type": "array",
-                    "versionAdded": "v1_1_0"
+                    "versionAdded": "v1_1_0",
+                    "versionDeprecated": "v1_19_0"
                 },
                 "USBControllers": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/USBControllerCollection.json#/definitions/USBControllerCollection",
@@ -1643,6 +1645,19 @@
                     "versionAdded": "v1_5_0"
                 },
                 "SupplyingComputerSystems@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "TrustedComponents": {
+                    "description": "An array of links to the trusted components for this system.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/TrustedComponent.json#/definitions/TrustedComponent"
+                    },
+                    "longDescription": "This property shall contain an array of link to resources of type TrustedComponent.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_19_0"
+                },
+                "TrustedComponents@odata.count": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
                 }
             },
@@ -2387,6 +2402,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2022.1",
-    "title": "#ComputerSystem.v1_18_0.ComputerSystem"
+    "release": "2022.2",
+    "title": "#ComputerSystem.v1_19_0.ComputerSystem"
 }

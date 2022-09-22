@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  MetricReportDefinition v1.4.1                                       -->
+<!--# Redfish Schema:  MetricReportDefinition v1.4.2                                       -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -89,13 +89,13 @@
         </Property>
         <Property Name="ReportUpdates" Type="MetricReportDefinition.v1_0_0.ReportUpdatesEnum" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="The behavior for how subsequent metric reports are handled in relationship to an existing metric report created from the metric report definition.  Namely, whether to overwrite, append, or create a report resource."/>
+          <Annotation Term="OData.Description" String="The behavior for how subsequent metric reports are handled in relationship to an existing metric report created from the metric report definition.  Namely, whether to overwrite, append, or create a metric report."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the behavior for how subsequent metric reports are handled in relationship to an existing metric report created from the metric report definition.  This property should be ignored if MetricReportDefinitionType contains the value `OnRequest`."/>
         </Property>
         <Property Name="AppendLimit" Type="Edm.Int64" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The maximum number of entries that can be appended to a metric report.  When the metric report reaches its limit, its behavior is dictated by the ReportUpdates property."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a number that indicates the maximum number of entries that can be appended to a metric report.  When the metric report reaches its limit, its behavior shall be dictated by the ReportUpdates property.  This property shall be required if ReportUpdates is either AppendWrapsWhenFull or AppendStopsWhenFull."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a number that indicates the maximum number of entries that can be appended to a metric report.  When the metric report reaches its limit, its behavior shall be dictated by the ReportUpdates property.  This property shall be required if ReportUpdates contains `AppendWrapsWhenFull` or `AppendStopsWhenFull`."/>
           <Annotation Term="Validation.Minimum" Int="0"/>
         </Property>
         <Property Name="Status" Type="Resource.Status" Nullable="false">
@@ -109,20 +109,19 @@
         <Property Name="MetricProperties" Type="Collection(Edm.String)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The list of URIs with wildcards and property identifiers to include in the metric report.  If a URI has wildcards, the wildcards are substituted as specified in the Wildcards property."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a list of URIs with wildcards and property identifiers to include in the metric report.  A set of curly braces shall delimit each wildcard in the URI.  The corresponding entry in the Wildcard property shall replace each wildcard.  After a URI with wildcards replaces each wildcard, it shall describe a resource property to include in the metric report.  The property identifiers portion of the URI shall follow RFC6901-specified JSON fragment notation rules."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a list of URIs with wildcards and property identifiers to include in the metric report.  A set of curly braces shall delimit each wildcard in the URI.  The corresponding entry in the Wildcard property shall replace each wildcard.  After each wildcard is replaced, it shall describe a resource property to include in the metric report.  The property identifiers portion of the URI shall follow RFC6901-specified JSON pointer notation rules."/>
           <Annotation Term="OData.IsURL"/>
         </Property>
         <Property Name="Metrics" Type="Collection(MetricReportDefinition.v1_0_0.Metric)" Nullable="false">
-          <Annotation Term="OData.Description" String="The list of metrics to include in the metric report.  The metrics may include metric properties or calculations applied to a metric property."/>
-          <Annotation Term="OData.LongDescription" String="The property shall contain a list of metrics to include in the metric report.  The metrics may include metric properties or calculations that are applied to a metric property."/>
+          <Annotation Term="OData.Description" String="The list of metrics to include in the metric report.  The metrics may include calculations to apply to metric properties."/>
+          <Annotation Term="OData.LongDescription" String="The property shall contain a list of metrics to include in the metric report.  The metrics may include calculations to apply to metric properties."/>
         </Property>
         <NavigationProperty Name="MetricReport" Type="MetricReport.MetricReport" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The location where the resultant metric report is placed."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type MetricReport where the resultant metric report is placed."/>
+          <Annotation Term="OData.Description" String="The most recent metric report produced by this metric report definition."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type MetricReport that represents the most recent metric report produced by this metric report definition."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
-
         <Property Name="Actions" Type="MetricReportDefinition.v1_0_0.Actions" Nullable="false">
           <Annotation Term="OData.Description" String="The available actions for this resource."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this resource."/>
@@ -156,24 +155,23 @@
 
       <ComplexType Name="Metric">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
-        <Annotation Term="OData.Description" String="Specifies a metric to include in the metric report.  The metrics are derived by applying a calculation on each of the listed metric properties."/>
-        <Annotation Term="OData.LongDescription" String="The properties shall specify a metric to include in the metric report.  The metrics shall be derived by applying the algorithm specified in the CollectionFunction property to each of the metric properties listed in the MetricProperties property."/>
-
+        <Annotation Term="OData.Description" String="Specifies a set of metrics to include in the metric report.  Calculation parameters, if present, are applied to the metrics prior to being included in the metric report."/>
+        <Annotation Term="OData.LongDescription" String="The properties shall specify a set of metrics to include in the metric report.  The algorithm specified by CollectionFunction, if present, shall be applied to each of the metric properties listed in the MetricProperties property or the metric properties specified in the MetricDefinition referenced by the MetricId property prior to being included in the metric report."/>
         <Property Name="MetricId" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="The label for the metric definition that is derived by applying the CollectionFunction to the metric property.  It matches the Id property of the corresponding metric definition."/>
-          <Annotation Term="OData.LongDescription" String="This property shall specify the label for the metric definition that is derived by applying the algorithm specified in the CollectionFunction property to the metric property.  This property shall match the Id property of the corresponding metric definition."/>
+          <Annotation Term="OData.Description" String="The metric definition identifier that contains the metric properties to include in the metric report."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the value of the Id property of the MetricDefinition resource that contains the metric properties to include in the metric report.  This property should not be present if MetricProperties is present."/>
         </Property>
         <Property Name="MetricProperties" Type="Collection(Edm.String)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="The set of URIs for the properties on which this metric is collected."/>
-          <Annotation Term="OData.LongDescription" String="Each value can contain one or more wildcard names enclosed in curly braces.  Wildcard value entries shall be substituted for each Wildcard name found.  If two or more wild names are found, the same wildcard index is used for each in one substitution pass.  After substituting the wildcard values entries, each value shall contain a URI for a property in a resource that matches a property declaration in the corresponding metric definition."/>
+          <Annotation Term="OData.Description" String="The list of URIs with wildcards and property identifiers to include in the metric report.  If a URI has wildcards, the wildcards are substituted as specified in the Wildcards property."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a list of URIs with wildcards and property identifiers to include in the metric report.  A set of curly braces shall delimit each wildcard in the URI.  The corresponding entry in the Wildcard property shall replace each wildcard.  After each wildcard is replaced, it shall describe a resource property to include in the metric report.  The property identifiers portion of the URI shall follow RFC6901-specified JSON pointer notation rules.  This property should not be present if MetricId is present."/>
           <Annotation Term="OData.IsURL"/>
         </Property>
         <Property Name="CollectionFunction" Type="MetricReportDefinition.v1_0_0.CalculationAlgorithmEnum">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="Specifies the function to perform on each of the metric properties listed in the MetricProperties property."/>
-          <Annotation Term="OData.LongDescription" String="The property shall specify the function to perform on each of the metric properties listed in the MetricProperties property."/>
+          <Annotation Term="OData.Description" String="Specifies the function to perform on each of the metric properties listed in the MetricProperties property or the metric properties specified in the MetricDefinition referenced by the MetricId property.  If not specified, calculations are not performed on the metric properties."/>
+          <Annotation Term="OData.LongDescription" String="The property shall specify the function to perform on each of the metric properties listed in the MetricProperties property or the metric properties specified in the MetricDefinition referenced by the MetricId property.  If not specified, calculations shall not be performed on the metric properties."/>
         </Property>
         <Property Name="CollectionDuration" Type="Edm.Duration">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
@@ -230,8 +228,8 @@
           <Annotation Term="OData.LongDescription" String="This value shall indicate the service appends new information to the metric report referenced by the MetricReport property.  The service shall stop adding entries when the metric report has reached its maximum capacity.  The State property within Status should be set to `Disabled` and the MetricReportDefinitionEnabled property should be set to `false` when the append limit is reached."/>
         </Member>
         <Member Name="NewReport">
-          <Annotation Term="OData.Description" String="A new metric report is created, whose resource name is the metric report resource name concatenated with the timestamp."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate the service creates a new metric report resource, whose resource name is the metric report resource name concatenated with the timestamp."/>
+          <Annotation Term="OData.Description" String="A new metric report is created, whose identifier is a service-defined identifier concatenated with the timestamp."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the service creates a new metric report resource, whose Id property is a service-defined identifier concatenated with the timestamp.  The metric report referenced by the MetricReport property shall reference the metric report most recently created by this metric report definition."/>
         </Member>
       </EnumType>
 
@@ -338,11 +336,19 @@
       <EntityType Name="MetricReportDefinition" BaseType="MetricReportDefinition.v1_0_7.MetricReportDefinition"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MetricReportDefinition.v1_0_9">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the behavior of the MetricReport property, clarify the identifier formatting for when `NewReport` is configured, and the usage of MetricId."/>
+      <EntityType Name="MetricReportDefinition" BaseType="MetricReportDefinition.v1_0_8.MetricReportDefinition"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MetricReportDefinition.v1_1_0">
       <Annotation Term="OData.Description" String="This version was created to add the Values property to the Wildcard property."/>
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.3"/>
+
       <EntityType Name="MetricReportDefinition" BaseType="MetricReportDefinition.v1_0_1.MetricReportDefinition"/>
+
       <ComplexType Name="Wildcard" BaseType="MetricReportDefinition.v1_0_0.Wildcard">
         <Property Name="Values" Type="Collection(Edm.String)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
@@ -392,6 +398,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various description to use proper normative terminology."/>
       <EntityType Name="MetricReportDefinition" BaseType="MetricReportDefinition.v1_1_6.MetricReportDefinition"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MetricReportDefinition.v1_1_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the behavior of the MetricReport property, clarify the identifier formatting for when `NewReport` is configured, and the usage of MetricId."/>
+      <EntityType Name="MetricReportDefinition" BaseType="MetricReportDefinition.v1_1_7.MetricReportDefinition"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MetricReportDefinition.v1_2_0">
@@ -468,6 +480,12 @@
       <EntityType Name="MetricReportDefinition" BaseType="MetricReportDefinition.v1_2_5.MetricReportDefinition"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MetricReportDefinition.v1_2_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the behavior of the MetricReport property, clarify the identifier formatting for when `NewReport` is configured, and the usage of MetricId."/>
+      <EntityType Name="MetricReportDefinition" BaseType="MetricReportDefinition.v1_2_6.MetricReportDefinition"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MetricReportDefinition.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.2"/>
@@ -511,6 +529,12 @@
       <EntityType Name="MetricReportDefinition" BaseType="MetricReportDefinition.v1_3_4.MetricReportDefinition"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MetricReportDefinition.v1_3_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the behavior of the MetricReport property, clarify the identifier formatting for when `NewReport` is configured, and the usage of MetricId."/>
+      <EntityType Name="MetricReportDefinition" BaseType="MetricReportDefinition.v1_3_5.MetricReportDefinition"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MetricReportDefinition.v1_4_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.4"/>
@@ -529,6 +553,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct various description to use proper normative terminology."/>
       <EntityType Name="MetricReportDefinition" BaseType="MetricReportDefinition.v1_4_0.MetricReportDefinition"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MetricReportDefinition.v1_4_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the behavior of the MetricReport property, clarify the identifier formatting for when `NewReport` is configured, and the usage of MetricId."/>
+      <EntityType Name="MetricReportDefinition" BaseType="MetricReportDefinition.v1_4_1.MetricReportDefinition"/>
     </Schema>
 
   </edmx:DataServices>

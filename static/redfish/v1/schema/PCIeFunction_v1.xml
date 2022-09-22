@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  PCIeFunction v1.3.0                                                 -->
+<!--# Redfish Schema:  PCIeFunction v1.4.0                                                 -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -39,8 +39,11 @@
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Storage_v1.xml">
     <edmx:Include Namespace="Storage"/>
   </edmx:Reference>
-    <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/NetworkDeviceFunction_v1.xml">
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/NetworkDeviceFunction_v1.xml">
     <edmx:Include Namespace="NetworkDeviceFunction"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Processor_v1.xml">
+    <edmx:Include Namespace="Processor"/>
   </edmx:Reference>
 
   <edmx:DataServices>
@@ -76,7 +79,6 @@
           </Collection>
         </Annotation>
       </EntityType>
-
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PCIeFunction.v1_0_0">
@@ -135,12 +137,10 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain the PCI Subsystem Vendor ID of the PCIe device function."/>
           <Annotation Term="Validation.Pattern" String="^0[xX](([a-fA-F]|[0-9]){2}){2}$"/>
         </Property>
-
         <Property Name="Status" Type="Resource.Status" Nullable="false">
           <Annotation Term="OData.Description" String="The status and health of the Resource and its subordinate or dependent Resources."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain any status or health properties of the Resource."/>
         </Property>
-
         <Property Name="Links" Type="PCIeFunction.v1_0_0.Links" Nullable="false">
           <Annotation Term="OData.Description" String="The links to other Resources that are related to this Resource."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain links to Resources that are related to but are not contained by, or subordinate to, this Resource."/>
@@ -256,7 +256,6 @@
           <Annotation Term="OData.Description" String="A virtual PCIe function."/>
         </Member>
       </EnumType>
-      
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PCIeFunction.v1_0_1">
@@ -298,6 +297,7 @@
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PCIeFunction.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.1"/>
+
       <EntityType Name="PCIeFunction" BaseType="PCIeFunction.v1_0_2.PCIeFunction">
         <Property Name="Actions" Type="PCIeFunction.v1_1_0.Actions" Nullable="false">
           <Annotation Term="OData.Description" String="The available actions for this Resource."/>
@@ -350,7 +350,9 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.1"/>
       <Annotation Term="OData.Description" String="This version was created to add NetworkDeviceFunctions to the Links section."/>
+
       <EntityType Name="PCIeFunction" BaseType="PCIeFunction.v1_1_1.PCIeFunction"/>
+
       <ComplexType Name="Links" BaseType="PCIeFunction.v1_0_0.Links">
         <Annotation Term="OData.Description" String="The links to other Resources that are related to this Resource."/>
         <Annotation Term="OData.LongDescription" String="This Redfish Specification-described type shall contain links to Resources that are related to but are not contained by or subordinate to this Resource."/>
@@ -393,6 +395,22 @@
           <Annotation Term="OData.LongDescription" String="The value of this property shall indicate if this PCIe device function is enabled."/>
         </Property>
       </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PCIeFunction.v1_4_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2022.2"/>
+
+      <EntityType Name="PCIeFunction" BaseType="PCIeFunction.v1_3_0.PCIeFunction"/>
+
+      <ComplexType Name="Links" BaseType="PCIeFunction.v1_2_0.Links">
+        <NavigationProperty Name="Processor" Type="Processor.Processor">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The link to a processor that is hosted on this PCIe device function."/>
+          <Annotation Term="OData.LongDescription" String="This property shall link to a resource of type Processor that is hosted on this PCIe device function."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </ComplexType>
     </Schema>
 
   </edmx:DataServices>
