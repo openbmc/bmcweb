@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "209d4b57_ddc339b8",
+        "filename": "include/http_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-09-22T20:07:32Z",
+      "side": 1,
+      "message": "That is fine.",
+      "parentUuid": "282dee23_408aaa2a",
+      "revId": "c1dd759de2036a20b8516c467f0f4a7f788f3d17",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "204d1a4b_45fb4e86",
@@ -67,6 +85,24 @@
       "side": 1,
       "message": "We should be setting it explicitly, right?  Otherwise it defeats the purpose if you can just give a user a url to point at and make them download a binary thing.",
       "parentUuid": "204d1a4b_45fb4e86",
+      "revId": "c1dd759de2036a20b8516c467f0f4a7f788f3d17",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "760485b0_b42a5b22",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1678,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-09-22T20:07:32Z",
+      "side": 1,
+      "message": "Having this be false, defeats the purpose of https://gerrit.openbmc.org/c/openbmc/bmcweb/+/50879 which I did to allow the GUI to download the event log. Firefox\u0027s Accept header looks like \n\"Accept: text/html,application/xhtml+xml,application/xml;q\u003d0.9,image/avif,image/webp,*/*;q\u003d0.8\"\n\nAnd the GUI has code to download the additional data URI: \nHere is the GUI code attempting to download the additional data:\nhttps://github.com/openbmc/webui-vue/blob/9b79a6e7e3df3d3cbaf9a7750bbe343628022026/src/views/Logs/EventLogs/EventLogs.vue#L155\nhttps://github.com/openbmc/webui-vue/blob/9b79a6e7e3df3d3cbaf9a7750bbe343628022026/src/locales/en-US.json#L251",
+      "parentUuid": "b61e4209_31e9bcdc",
       "revId": "c1dd759de2036a20b8516c467f0f4a7f788f3d17",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
