@@ -119,6 +119,12 @@
             <String>/redfish/v1/Systems/{ComputerSystemId}/KeyManagement/KMIPCertificates</String>
             <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/KeyManagement/KMIPCertificates</String>
             <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/KeyManagement/KMIPCertificates</String>
+            <String>/redfish/v1/Managers/{ManagerId}/SecurityPolicy/SPDM/TrustedCertificates</String>
+            <String>/redfish/v1/Managers/{ManagerId}/SecurityPolicy/SPDM/RevokedCertificates</String>
+            <String>/redfish/v1/Managers/{ManagerId}/SecurityPolicy/TLS/Client/TrustedCertificates</String>
+            <String>/redfish/v1/Managers/{ManagerId}/SecurityPolicy/TLS/Client/RevokedCertificates</String>
+            <String>/redfish/v1/Managers/{ManagerId}/SecurityPolicy/TLS/Server/TrustedCertificates</String>
+            <String>/redfish/v1/Managers/{ManagerId}/SecurityPolicy/TLS/Server/RevokedCertificates</String>
           </Collection>
         </Annotation>
         <NavigationProperty Name="Members" Type="Collection(Certificate.Certificate)">

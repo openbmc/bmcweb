@@ -1,8 +1,8 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/MetricReport.v1_4_2.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/MetricReport.v1_5_0.json",
     "$ref": "#/definitions/MetricReport",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2021 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
@@ -161,13 +161,15 @@
             "properties": {
                 "MetricDefinition": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/MetricDefinition.json#/definitions/MetricDefinition",
+                    "deprecated": "This property has been deprecated in favor of the MetricId property.",
                     "description": "The link to the metric definition for this metric.",
                     "longDescription": "This property shall contain a link to a resource of type MetricDefinition that describes what this metric value captures.",
-                    "readonly": true
+                    "readonly": true,
+                    "versionDeprecated": "v1_5_0"
                 },
                 "MetricId": {
-                    "description": "The metric definitions identifier for this metric.",
-                    "longDescription": "This property shall contain the same value as the Id property of the source metric within the associated metric definition.",
+                    "description": "The metric definitions identifier that contains additional information for the source metric.",
+                    "longDescription": "This property shall contain the value of the Id property of the MetricDefinition resource that contains additional information for the source metric.",
                     "readonly": true,
                     "type": [
                         "string",
@@ -177,7 +179,7 @@
                 "MetricProperty": {
                     "description": "The URI for the property from which this metric is derived.",
                     "format": "uri-reference",
-                    "longDescription": "The value shall be URI to the property following the JSON fragment notation, as defined by RFC6901, to identify an individual property in a Redfish resource.",
+                    "longDescription": "This property shall contain a URI following RFC6901-specified JSON pointer notation to the property from which this metric is derived.  The value of MetricValue may contain additional calculations performed on the property based upon the configuration of the MetricReportDefinition.",
                     "readonly": true,
                     "type": [
                         "string",
@@ -235,6 +237,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2020.2",
-    "title": "#MetricReport.v1_4_2.MetricReport"
+    "release": "2022.2",
+    "title": "#MetricReport.v1_5_0.MetricReport"
 }

@@ -1,8 +1,8 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/EthernetInterface.v1_8_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/EthernetInterface.v1_9_0.json",
     "$ref": "#/definitions/EthernetInterface",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2021 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
@@ -595,6 +595,20 @@
                     "description": "The status and health of the resource and its subordinate or dependent resources.",
                     "longDescription": "This property shall contain any status or health properties of the resource."
                 },
+                "TeamMode": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/TeamMode"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The team mode for this interface.",
+                    "longDescription": "This property shall contain the team mode for this interface.  If this property is not present, the value shall be assumed to be `None`.",
+                    "readonly": false,
+                    "versionAdded": "v1_9_0"
+                },
                 "UefiDevicePath": {
                     "description": "The UEFI device path for this interface.",
                     "longDescription": "This property shall contain the UEFI device path to the device that implements this interface, or port.",
@@ -623,6 +637,9 @@
                 "@odata.type",
                 "Id",
                 "Name"
+            ],
+            "requiredOnCreate": [
+                "Links"
             ],
             "type": "object"
         },
@@ -771,8 +788,37 @@
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
                     "description": "The OEM extension property.",
                     "longDescription": "This property shall contain the OEM extensions.  All values for properties contained in this object shall conform to the Redfish Specification-described requirements."
+                },
+                "Ports": {
+                    "description": "The links to the ports providing this Ethernet interface.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Port.json#/definitions/Port"
+                    },
+                    "longDescription": "This property shall contain an array of links to resources of type Port that represent the ports providing this Ethernet interface.  This property shall not be present if the Ethernet interface is not directly associated to a physical port.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_9_0"
+                },
+                "Ports@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "RelatedInterfaces": {
+                    "description": "The links to the Ethernet interfaces that comprise this Ethernet interface.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/EthernetInterface.json#/definitions/EthernetInterface"
+                    },
+                    "longDescription": "This property shall contain an array of links to resources of type EthernetInterface.  If TeamMode contains `None`, this property shall contain one member that represents the parent interface for the VLAN.  For other values of TeamMode, this property shall contain the members of the team.",
+                    "readonly": false,
+                    "type": "array",
+                    "versionAdded": "v1_9_0"
+                },
+                "RelatedInterfaces@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
                 }
             },
+            "requiredOnCreate": [
+                "RelatedInterfaces"
+            ],
             "type": "object"
         },
         "MACAddress": {
@@ -841,9 +887,32 @@
                 }
             },
             "type": "object"
+        },
+        "TeamMode": {
+            "enum": [
+                "None",
+                "RoundRobin",
+                "ActiveBackup",
+                "XOR",
+                "Broadcast",
+                "IEEE802_3ad",
+                "AdaptiveTransmitLoadBalancing",
+                "AdaptiveLoadBalancing"
+            ],
+            "enumDescriptions": {
+                "ActiveBackup": "One interface in the team is active and the others are kept in standby until a failure occurs.",
+                "AdaptiveLoadBalancing": "Packets are transmitted and received based upon the current load of each interface in the team.",
+                "AdaptiveTransmitLoadBalancing": "Packets are transmitted based upon the current load of each interface in the team.",
+                "Broadcast": "Packets are transmitted on all interfaces in the team.",
+                "IEEE802_3ad": "The interfaces in the team create an IEEE802.3ad link aggregation group.",
+                "None": "No teaming.",
+                "RoundRobin": "Packets are transmitted in sequential order from the teamed interfaces.",
+                "XOR": "Transmitting is determined based upon a hash policy."
+            },
+            "type": "string"
         }
     },
     "owningEntity": "DMTF",
-    "release": "2021.2",
-    "title": "#EthernetInterface.v1_8_0.EthernetInterface"
+    "release": "2022.2",
+    "title": "#EthernetInterface.v1_9_0.EthernetInterface"
 }

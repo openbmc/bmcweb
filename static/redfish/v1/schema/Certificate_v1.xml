@@ -118,6 +118,12 @@
             <String>/redfish/v1/Systems/{ComputerSystemId}/KeyManagement/KMIPCertificates/{CertificateId}</String>
             <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/KeyManagement/KMIPCertificates/{CertificateId}</String>
             <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/KeyManagement/KMIPCertificates/{CertificateId}</String>
+            <String>/redfish/v1/Managers/{ManagerId}/SecurityPolicy/SPDM/TrustedCertificates/{CertificateId}</String>
+            <String>/redfish/v1/Managers/{ManagerId}/SecurityPolicy/SPDM/RevokedCertificates/{CertificateId}</String>
+            <String>/redfish/v1/Managers/{ManagerId}/SecurityPolicy/TLS/Client/TrustedCertificates/{CertificateId}</String>
+            <String>/redfish/v1/Managers/{ManagerId}/SecurityPolicy/TLS/Client/RevokedCertificates/{CertificateId}</String>
+            <String>/redfish/v1/Managers/{ManagerId}/SecurityPolicy/TLS/Server/TrustedCertificates/{CertificateId}</String>
+            <String>/redfish/v1/Managers/{ManagerId}/SecurityPolicy/TLS/Server/RevokedCertificates/{CertificateId}</String>
           </Collection>
         </Annotation>
       </EntityType>

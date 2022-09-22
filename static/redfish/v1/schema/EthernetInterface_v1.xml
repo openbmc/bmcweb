@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  EthernetInterface v1.8.0                                            -->
+<!--# Redfish Schema:  EthernetInterface v1.9.0                                            -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -49,6 +49,9 @@
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/NetworkDeviceFunction_v1.xml">
     <edmx:Include Namespace="NetworkDeviceFunction"/>
   </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Port_v1.xml">
+    <edmx:Include Namespace="Port"/>
+  </edmx:Reference>
 
   <edmx:DataServices>
 
@@ -71,7 +74,7 @@
         </Annotation>
         <Annotation Term="Capabilities.DeleteRestrictions">
           <Record>
-            <PropertyValue Property="Deletable" Bool="false"/>
+            <PropertyValue Property="Deletable" Bool="true"/>
           </Record>
         </Annotation>
         <Annotation Term="Redfish.Uris">
@@ -317,6 +320,7 @@
         <Property Name="Links" Type="EthernetInterface.v1_1_0.Links" Nullable="false">
           <Annotation Term="OData.Description" String="The links to other resources that are related to this resource."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."/>
+          <Annotation Term="Redfish.RequiredOnCreate"/>
         </Property>
       </EntityType>
 
@@ -941,6 +945,62 @@
       <Annotation Term="OData.Description" String="This version was created to deprecate the `Stateless` and `Stateful` values for DHCPv6 OperatingMode and add `Enabled` to DHCPv6 OperatingMode."/>
 
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_7_0.EthernetInterface"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_9_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2022.2"/>
+
+      <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_8_0.EthernetInterface">
+        <Property Name="TeamMode" Type="EthernetInterface.v1_9_0.TeamMode">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The team mode for this interface."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the team mode for this interface.  If this property is not present, the value shall be assumed to be `None`."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="Links" BaseType="EthernetInterface.v1_7_0.Links">
+        <NavigationProperty Name="Ports" Type="Collection(Port.Port)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The links to the ports providing this Ethernet interface."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type Port that represent the ports providing this Ethernet interface.  This property shall not be present if the Ethernet interface is not directly associated to a physical port."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+        <NavigationProperty Name="RelatedInterfaces" Type="Collection(EthernetInterface.EthernetInterface)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The links to the Ethernet interfaces that comprise this Ethernet interface."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type EthernetInterface.  If TeamMode contains `None`, this property shall contain one member that represents the parent interface for the VLAN.  For other values of TeamMode, this property shall contain the members of the team."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+          <Annotation Term="Redfish.RequiredOnCreate"/>
+        </NavigationProperty>
+      </ComplexType>
+
+      <EnumType Name="TeamMode">
+        <Member Name="None">
+          <Annotation Term="OData.Description" String="No teaming."/>
+        </Member>
+        <Member Name="RoundRobin">
+          <Annotation Term="OData.Description" String="Packets are transmitted in sequential order from the teamed interfaces."/>
+        </Member>
+        <Member Name="ActiveBackup">
+          <Annotation Term="OData.Description" String="One interface in the team is active and the others are kept in standby until a failure occurs."/>
+        </Member>
+        <Member Name="XOR">
+          <Annotation Term="OData.Description" String="Transmitting is determined based upon a hash policy."/>
+        </Member>
+        <Member Name="Broadcast">
+          <Annotation Term="OData.Description" String="Packets are transmitted on all interfaces in the team."/>
+        </Member>
+        <Member Name="IEEE802_3ad">
+          <Annotation Term="OData.Description" String="The interfaces in the team create an IEEE802.3ad link aggregation group."/>
+        </Member>
+        <Member Name="AdaptiveTransmitLoadBalancing">
+          <Annotation Term="OData.Description" String="Packets are transmitted based upon the current load of each interface in the team."/>
+        </Member>
+        <Member Name="AdaptiveLoadBalancing">
+          <Annotation Term="OData.Description" String="Packets are transmitted and received based upon the current load of each interface in the team."/>
+        </Member>
+      </EnumType>
     </Schema>
 
   </edmx:DataServices>

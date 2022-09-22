@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  ManagerDiagnosticData v1.0.0                                        -->
+<!--# Redfish Schema:  ManagerDiagnosticData v1.1.0                                        -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -279,6 +279,31 @@
         <Annotation Term="OData.AdditionalProperties" Bool="true"/>
         <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
         <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this resource."/>
+      </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerDiagnosticData.v1_1_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2021.4"/>
+
+      <EntityType Name="ManagerDiagnosticData" BaseType="ManagerDiagnosticData.v1_0_0.ManagerDiagnosticData"/>
+
+      <ComplexType Name="ProcessStatistics" BaseType="ManagerDiagnosticData.v1_0_0.ProcessStatistics">
+        <Property Name="UptimeSeconds" Type="Edm.Decimal">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The wall-clock time this process has been running in seconds."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the wall-clock time this process has been running in seconds."/>
+        </Property>
+        <Property Name="RestartCount" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The number of times this process has restarted."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number of times this process has restarted with the same command line including arguments."/>
+        </Property>
+        <Property Name="RestartAfterFailureCount" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The number of times this process has restarted unexpectedly."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number of times this process has restarted unexpectedly, such as due to unintentional failures, restarts, or shutdowns, with the same command line including arguments."/>
+        </Property>
       </ComplexType>
     </Schema>
 
