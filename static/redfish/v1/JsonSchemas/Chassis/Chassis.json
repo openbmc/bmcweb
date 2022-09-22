@@ -1,8 +1,8 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Chassis.v1_19_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Chassis.v1_21_0.json",
     "$ref": "#/definitions/Chassis",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2021 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
@@ -180,8 +180,15 @@
                     ],
                     "description": "The ASHRAE Environmental Class for this chassis.",
                     "longDescription": "This property shall contain the ASHRAE Environmental Class for this chassis, as defined by ASHRAE Thermal Guidelines for Data Processing Environments.  These classes define respective environmental limits that include temperature, relative humidity, dew point, and maximum allowable elevation.",
-                    "readonly": true,
+                    "readonly": false,
                     "versionAdded": "v1_9_0"
+                },
+                "FabricAdapters": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/FabricAdapterCollection.json#/definitions/FabricAdapterCollection",
+                    "description": "The link to the collection of fabric adapters located in this chassis.",
+                    "longDescription": "This property shall contain a link to a resource collection of type FabricAdapterCollection.",
+                    "readonly": true,
+                    "versionAdded": "v1_20_0"
                 },
                 "HeightMm": {
                     "description": "The height of the chassis.",
@@ -194,6 +201,16 @@
                     ],
                     "units": "mm",
                     "versionAdded": "v1_4_0"
+                },
+                "HotPluggable": {
+                    "description": "An indication of whether this component can be inserted or removed while the equipment is in operation.",
+                    "longDescription": "This property shall indicate whether the component can be inserted or removed while the underlying equipment otherwise remains in its current operational state.  Components indicated as hot-pluggable shall allow the component to become operable without altering the operational state of the underlying equipment.  Components that cannot be inserted or removed from equipment in operation, or components that cannot become operable without affecting the operational state of that equipment, shall be indicated as not hot-pluggable.",
+                    "readonly": true,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_21_0"
                 },
                 "Id": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
@@ -274,10 +291,12 @@
                 },
                 "MediaControllers": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/MediaControllerCollection.json#/definitions/MediaControllerCollection",
+                    "deprecated": "This property has been deprecated in favor of FabricAdapters.",
                     "description": "The link to the collection of media controllers located in this chassis.",
                     "longDescription": "This property shall contain a link to a resource collection of type MediaControllerCollection.",
                     "readonly": true,
-                    "versionAdded": "v1_11_0"
+                    "versionAdded": "v1_11_0",
+                    "versionDeprecated": "v1_20_0"
                 },
                 "Memory": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/MemoryCollection.json#/definitions/MemoryCollection",
@@ -387,6 +406,26 @@
                     "readonly": true,
                     "versionAdded": "v1_15_0"
                 },
+                "PoweredByParent": {
+                    "description": "Indicates that the chassis receives power from the containing chassis.",
+                    "longDescription": "This property shall indicate whether the chassis receives power from the chassis that contains it.  The value `true` shall indicate that the containing chassis provides power.  The value `false` shall indicate the chassis receives power from its own power subsystem, another chassis instance's power supplies, or outlets.",
+                    "readonly": true,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_20_0"
+                },
+                "Replaceable": {
+                    "description": "An indication of whether this component can be independently replaced as allowed by the vendor's replacement policy.",
+                    "longDescription": "This property shall indicate whether this component can be independently replaced as allowed by the vendor's replacement policy.  A value of `false` indicates the component needs to be replaced by policy, as part of another component.  If the `LocationType` property of this component contains `Embedded`, this property shall contain `false`.",
+                    "readonly": true,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_21_0"
+                },
                 "SKU": {
                     "description": "The SKU of the chassis.",
                     "longDescription": "This property shall contain the stock-keeping unit number for this chassis.",
@@ -435,12 +474,43 @@
                     "readonly": true,
                     "versionDeprecated": "v1_15_0"
                 },
+                "ThermalDirection": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/ThermalDirection"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "Indicates the thermal management path through the chassis.",
+                    "longDescription": "This property shall indicate the general direction of the thermal management path through the chassis.",
+                    "readonly": true,
+                    "versionAdded": "v1_20_0"
+                },
+                "ThermalManagedByParent": {
+                    "description": "Indicates that the chassis is thermally managed by the parent chassis.",
+                    "longDescription": "This property shall indicate whether the chassis relies on the containing chassis to provide thermal management.  The value `true` shall indicate that the chassis relies on the containing chassis to provide thermal management.  The value `false` shall indicate the chassis provides thermal management, and may provide details in a ThermalSubsystem resource, or by populating the Fans property in Links.",
+                    "readonly": true,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_20_0"
+                },
                 "ThermalSubsystem": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/ThermalSubsystem.json#/definitions/ThermalSubsystem",
                     "description": "The link to the thermal subsystem properties for this chassis.",
                     "longDescription": "This property shall contain a link to a resource of type ThermalSubsystem that represents the thermal subsystem information for this chassis.",
                     "readonly": true,
                     "versionAdded": "v1_15_0"
+                },
+                "TrustedComponents": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/TrustedComponentCollection.json#/definitions/TrustedComponentCollection",
+                    "description": "The link to the trusted components in this chassis.",
+                    "longDescription": "This property shall contain a link to a resource collection of type TrustedComponentCollection.",
+                    "readonly": true,
+                    "versionAdded": "v1_21_0"
                 },
                 "UUID": {
                     "anyOf": [
@@ -455,6 +525,16 @@
                     "longDescription": "This property shall contain the universal unique identifier number for this chassis.",
                     "readonly": true,
                     "versionAdded": "v1_7_0"
+                },
+                "Version": {
+                    "description": "The hardware version of this chassis.",
+                    "longDescription": "This property shall contain the hardware version of this chassis as determined by the vendor or supplier.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_21_0"
                 },
                 "WeightKg": {
                     "description": "The weight of the chassis.",
@@ -673,13 +753,15 @@
                     "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
                 },
                 "CooledBy": {
+                    "deprecated": "This property has been deprecated in favor of the Fans link property, and details provided in the ThermalSubsystem resource.",
                     "description": "An array of links to resources or objects that cool this chassis.  Normally, the link is for either a chassis or a specific set of fans.",
                     "items": {
                         "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
                     },
                     "longDescription": "This property shall contain an array of links to resources or objects that cool this chassis.",
                     "readonly": true,
-                    "type": "array"
+                    "type": "array",
+                    "versionDeprecated": "v1_20_0"
                 },
                 "CooledBy@odata.count": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
@@ -703,6 +785,19 @@
                     "longDescription": "This property shall contain a link to the resource of type Facility and shall represent the smallest facility that contains this chassis.  This property shall not appear in resources that include a ContainedBy property within the Links property.",
                     "readonly": false,
                     "versionAdded": "v1_11_0"
+                },
+                "Fans": {
+                    "description": "An array of links to the fans that cool this chassis.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Fan.json#/definitions/Fan"
+                    },
+                    "longDescription": "This property shall contain an array of links to resources of type Fan that represent the fans that provide cooling to this chassis.  This property shall not be present if the ThermalManagedByParent property contains `true` or if the fans are contained in the ThermalSubsystem resource for this chassis.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_20_0"
+                },
+                "Fans@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
                 },
                 "ManagedBy": {
                     "description": "An array of links to the managers responsible for managing this chassis.",
@@ -749,12 +844,26 @@
                 "PCIeDevices@odata.count": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
                 },
+                "PowerDistribution": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/PowerDistribution.json#/definitions/PowerDistribution"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "A link to power distribution functionality contained in this chassis.",
+                    "longDescription": "This property shall contain a link to a resource of type PowerDistribution that represents the power distribution functionality contained within this chassis.",
+                    "readonly": true,
+                    "versionAdded": "v1_20_0"
+                },
                 "PowerOutlets": {
                     "description": "An array of links to the outlets that provide power to this chassis.",
                     "items": {
                         "$ref": "http://redfish.dmtf.org/schemas/v1/Outlet.json#/definitions/Outlet"
                     },
-                    "longDescription": "This property shall contain an array of links to resources of type Outlet that represent the outlets that provide power to this chassis.",
+                    "longDescription": "This property shall contain an array of links to resources of type Outlet that represent the outlets that provide power to this chassis.  This property shall not be present if the PoweredByParent property contains `true`.",
                     "readonly": false,
                     "type": "array",
                     "versionAdded": "v1_18_0"
@@ -762,14 +871,29 @@
                 "PowerOutlets@odata.count": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
                 },
+                "PowerSupplies": {
+                    "description": "An array of links to the power supplies that provide power to this chassis.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/PowerSupply.json#/definitions/PowerSupply"
+                    },
+                    "longDescription": "This property shall contain an array of links to resources of type PowerSupply that represent the power supplies that provide power to this chassis.  This property shall not be present if the PoweredByParent property contains `true` or the power supplies are contained in the PowerSubsystem resource for this chassis.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_20_0"
+                },
+                "PowerSupplies@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
                 "PoweredBy": {
+                    "deprecated": "This property has been deprecated in favor of the PowerOutlets and PowerSupplies link properties, and details provided in the PowerSubsystem resource.",
                     "description": "An array of links to resources or objects that power this chassis.  Normally, the link is for either a chassis or a specific set of power supplies.",
                     "items": {
                         "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
                     },
                     "longDescription": "This property shall contain an array of links to resources or objects that power this chassis.",
                     "readonly": true,
-                    "type": "array"
+                    "type": "array",
+                    "versionDeprecated": "v1_20_0"
                 },
                 "PoweredBy@odata.count": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
@@ -962,9 +1086,30 @@
                 }
             },
             "type": "object"
+        },
+        "ThermalDirection": {
+            "enum": [
+                "FrontToBack",
+                "BackToFront",
+                "TopExhaust",
+                "Sealed"
+            ],
+            "enumDescriptions": {
+                "BackToFront": "A chassis with the air intake in the back and exhaust out the front.",
+                "FrontToBack": "A chassis with the air intake in the front and exhaust out the back.",
+                "Sealed": "A sealed chassis with no air pathway.",
+                "TopExhaust": "A chassis with air exhaust on the top."
+            },
+            "enumLongDescriptions": {
+                "BackToFront": "This value shall indicate a chassis with the air intake generally from the back of the chassis and the air exhaust out the front of the chassis.",
+                "FrontToBack": "This value shall indicate a chassis with the air intake generally from the front of the chassis and the air exhaust out the back of the chassis.",
+                "Sealed": "This value shall indicate a sealed chassis with no air pathway through the chassis.",
+                "TopExhaust": "This value shall indicate a chassis with the air exhaust out the top of the chassis."
+            },
+            "type": "string"
         }
     },
     "owningEntity": "DMTF",
-    "release": "2021.4",
-    "title": "#Chassis.v1_19_0.Chassis"
+    "release": "2022.2",
+    "title": "#Chassis.v1_21_0.Chassis"
 }

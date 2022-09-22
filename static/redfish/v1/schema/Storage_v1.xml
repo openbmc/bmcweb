@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################                   -->
-<!--# Redfish Schema:  Storage v1.12.0                                                                 -->
+<!--# Redfish Schema:  Storage v1.13.0                                                                 -->
 <!--#                                                                                                  -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,                  -->
 <!--# available at http://www.dmtf.org/standards/redfish                                               -->
-<!--# Copyright 2014-2021 DMTF in cooperation with the Storage Networking Industry Association (SNIA). -->
+<!--# Copyright 2014-2022 DMTF in cooperation with the Storage Networking Industry Association (SNIA). -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright             -->
 <!--################################################################################                   -->
 <!---->
@@ -175,6 +175,15 @@
           <Annotation Term="OData.Description" String="The set of storage controllers that this resource represents."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain a set of the storage controllers that this resource represents."/>
           <Annotation Term="OData.AutoExpand"/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
+                <PropertyValue Property="Version" String="v1_13_0"/>
+                <PropertyValue Property="Description" String="This property has been deprecated in favor of Controllers to allow for storage controllers to be represented as their own resources."/>
+              </Record>
+            </Collection>
+          </Annotation>
         </NavigationProperty>
         <NavigationProperty Name="Drives" Type="Collection(Drive.Drive)" ContainsTarget="true">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -1106,6 +1115,14 @@
       <Annotation Term="OData.Description" String="This version was created to deprecate Measurements in favor of measurement reporting in the ComponentIntegrity resource."/>
 
       <EntityType Name="Storage" BaseType="Storage.v1_11_0.Storage"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Storage.v1_13_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2022.1"/>
+      <Annotation Term="OData.Description" String="This version was created to deprecate the StorageControllers array property in favor of the StorageController resource collection provided by the Controllers property."/>
+
+      <EntityType Name="Storage" BaseType="Storage.v1_12_0.Storage"/>
     </Schema>
 
   </edmx:DataServices>
