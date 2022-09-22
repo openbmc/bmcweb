@@ -5,7 +5,7 @@
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2021 DMTF.                                                            -->
+<!--# Copyright 2014-2022 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -86,8 +86,8 @@
       </Action>
 
       <Action Name="CollectDiagnosticData" IsBound="true">
-        <Annotation Term="OData.Description" String="The action to collect the diagnostic data for the given type."/>
-        <Annotation Term="OData.LongDescription" String="This action shall collect the diagnostic data for the given type.  The `Location` header in the response shall contain a URI to a resource of type LogEntry that contains the diagnostic data."/>
+        <Annotation Term="OData.Description" String="The action to collect the diagnostic data for the given type.  When the diagnostic data is collected, a new log entry will be created and the additional data referenced by the new log entry will contain the diagnostic data."/>
+        <Annotation Term="OData.LongDescription" String="This action shall collect the diagnostic data for the given type.  The `Location` header in the response shall contain a URI to a resource of type LogEntry that contains the diagnostic data.  The AdditionalDataURI property in the referenced LogEntry resource shall contain the URI to download the diagnostic data."/>
         <Parameter Name="LogService" Type="LogService.v1_0_0.Actions"/>
         <Parameter Name="DiagnosticDataType" Type="LogService.v1_2_0.LogDiagnosticDataTypes" Nullable="false">
           <Annotation Term="OData.Description" String="The type of diagnostic data to collect."/>
@@ -445,6 +445,12 @@
       <EntityType Name="LogService" BaseType="LogService.v1_2_0.LogService"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogService.v1_2_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add behavioral descriptions to the CollectDiagnosticData action."/>
+      <EntityType Name="LogService" BaseType="LogService.v1_2_1.LogService"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogService.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.2"/>
@@ -457,6 +463,12 @@
           <Annotation Term="OData.LongDescription" String="This property shall indicate whether the log service is configured for automatic Daylight Saving Time (DST) adjustment.  DST adjustment shall not modify the timestamp of existing log entries."/>
         </Property>
       </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogService.v1_3_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add behavioral descriptions to the CollectDiagnosticData action."/>
+      <EntityType Name="LogService" BaseType="LogService.v1_3_0.LogService"/>
     </Schema>
 
   </edmx:DataServices>

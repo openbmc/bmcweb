@@ -1,8 +1,8 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/ComputerSystem.v1_17_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/ComputerSystem.v1_19_0.json",
     "$ref": "#/definitions/ComputerSystem",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2021 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
@@ -356,6 +356,16 @@
                 }
             },
             "properties": {
+                "LastBootTimeSeconds": {
+                    "description": "The number of seconds the system spent booting to the operating system during the last boot.",
+                    "longDescription": "This property shall contain the number of seconds that elapsed between system reset or power on and LastState transitioning to `OSRunning`.  If LastState contains `OSRunning`, this property shall contain the most recent boot time.  For other values of LastState, this property shall contain the boot time for the previous boot.",
+                    "readonly": true,
+                    "type": [
+                        "number",
+                        "null"
+                    ],
+                    "versionAdded": "v1_18_0"
+                },
                 "LastState": {
                     "anyOf": [
                         {
@@ -469,6 +479,60 @@
             },
             "type": "string"
         },
+        "Composition": {
+            "additionalProperties": false,
+            "description": "Information about the composition capabilities and state of a computer system.",
+            "longDescription": "This type shall contain information about the composition capabilities and state of a computer system.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "UseCases": {
+                    "description": "The composition use cases in which this computer system can participate.",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/CompositionUseCase"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ]
+                    },
+                    "longDescription": "This property shall contain the composition use cases in which this computer system can participate.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_18_0"
+                }
+            },
+            "type": "object"
+        },
+        "CompositionUseCase": {
+            "enum": [
+                "ResourceBlockCapable",
+                "ExpandableSystem"
+            ],
+            "enumDescriptions": {
+                "ExpandableSystem": "This computer system supports expandable system composition and is associated with a resource block.",
+                "ResourceBlockCapable": "This computer system supports being registered as a resource block in order for it to participate in composition requests."
+            },
+            "enumLongDescriptions": {
+                "ExpandableSystem": "This value shall indicate the computer system supports expandable system composition and is associated with a resource block.",
+                "ResourceBlockCapable": "This value shall indicate the computer system supports being registered as a resource block in order for it to participate in composition requests."
+            },
+            "type": "string"
+        },
         "ComputerSystem": {
             "additionalProperties": false,
             "description": "The ComputerSystem schema represents a computer or system instance and the software-visible resources, or items within the data plane, such as memory, CPU, and other devices that it can access.  Details of those resources or subsystems are also linked through this resource.",
@@ -554,6 +618,19 @@
                     "longDescription": "This property shall contain a link to a resource collection of type CertificateCollection that contains certificates for device identity and attestation.",
                     "readonly": true,
                     "versionAdded": "v1_14_0"
+                },
+                "Composition": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/Composition"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "Information about the composition capabilities and state of the computer system.",
+                    "longDescription": "This property shall contain information about the composition capabilities and state of the computer system.",
+                    "versionAdded": "v1_18_0"
                 },
                 "Description": {
                     "anyOf": [
@@ -705,6 +782,16 @@
                         "string",
                         "null"
                     ]
+                },
+                "ManufacturingMode": {
+                    "description": "An indication of whether the system is in manufacturing mode.  Manufacturing mode is a special boot mode, not normally available to end users, that modifies features and settings for use while the system is being manufactured and tested.",
+                    "longDescription": "This property shall indicate whether the system is in manufacturing mode.  If the system supports SMBIOS, the value shall match the 'Manufacturing mode is enabled' setting from the 'BIOS Characteristics' entry.",
+                    "readonly": true,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_18_0"
                 },
                 "Measurements": {
                     "deprecated": "This property has been deprecated in favor of the ComponentIntegrity resource.",
@@ -951,13 +1038,15 @@
                     "readonly": true
                 },
                 "TrustedModules": {
+                    "deprecated": "This property has been deprecated in favor of the TrustedComponents property in Links.",
                     "description": "An array of trusted modules in the system.",
                     "items": {
                         "$ref": "#/definitions/TrustedModules"
                     },
                     "longDescription": "This object shall contain an array of objects with properties that describe the trusted modules for this resource.",
                     "type": "array",
-                    "versionAdded": "v1_1_0"
+                    "versionAdded": "v1_1_0",
+                    "versionDeprecated": "v1_19_0"
                 },
                 "USBControllers": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/USBControllerCollection.json#/definitions/USBControllerCollection",
@@ -1557,6 +1646,19 @@
                 },
                 "SupplyingComputerSystems@odata.count": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "TrustedComponents": {
+                    "description": "An array of links to the trusted components for this system.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/TrustedComponent.json#/definitions/TrustedComponent"
+                    },
+                    "longDescription": "This property shall contain an array of link to resources of type TrustedComponent.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_19_0"
+                },
+                "TrustedComponents@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
                 }
             },
             "type": "object"
@@ -1863,7 +1965,7 @@
         "Reset": {
             "additionalProperties": false,
             "description": "This action resets the system.",
-            "longDescription": "This action shall reset the system represented by the resource.  For systems that implement ACPI Power Button functionality, the PushPowerButton value shall perform or emulate an ACPI Power Button Push.  The ForceOff value shall remove power from the system or perform an ACPI Power Button Override, commonly known as a four-second hold of the Power Button.  The ForceRestart value shall perform a ForceOff action, followed by an On action.",
+            "longDescription": "This action shall reset the system represented by the resource.  For systems that implement ACPI Power Button functionality, the PushPowerButton value shall perform or emulate an ACPI Power Button Push, and the ForceOff value shall perform an ACPI Power Button Override, commonly known as a four-second hold of the power button.",
             "parameters": {
                 "ResetType": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/ResetType",
@@ -2300,6 +2402,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2021.4",
-    "title": "#ComputerSystem.v1_17_0.ComputerSystem"
+    "release": "2022.2",
+    "title": "#ComputerSystem.v1_19_0.ComputerSystem"
 }

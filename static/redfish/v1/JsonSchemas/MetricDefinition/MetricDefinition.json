@@ -1,8 +1,8 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/MetricDefinition.v1_2_1.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/MetricDefinition.v1_3_1.json",
     "$ref": "#/definitions/MetricDefinition",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2021 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
@@ -72,8 +72,8 @@
         },
         "CalculationParamsType": {
             "additionalProperties": false,
-            "description": "The usage of the parameter in the calculation.",
-            "longDescription": "The list element shall contain the usage of the parameter in the calculation.",
+            "description": "The parameters for a metric calculation.",
+            "longDescription": "This type shall contain the parameters for a metric calculation.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -90,8 +90,8 @@
             },
             "properties": {
                 "ResultMetric": {
-                    "description": "The link to a metric property that stores the result of the calculation.  If the link has wildcards, the wildcards are substituted as specified in the Wildcards array property.",
-                    "longDescription": "This property shall contain a link to a metric property that stores the result of the calculation.  A set of curly braces shall delimit each wildcard in the URI.  The corresponding entry in the Wildcard property shall replace each wildcard.  After a URI with wildcards replaces its wildcards, it shall identify a resource property to which the metric definition applies.  The property identifiers portion of the URI shall follow RFC6901-defined JSON fragment notation rules.",
+                    "description": "The URI with wildcards and property identifiers of the metric property that stores the result of the calculation.  If the URI has wildcards, the wildcards are substituted as specified in the Wildcards property.",
+                    "longDescription": "This property shall contain a URI with wildcards and property identifiers of the metric property that stores the result of the calculation.  A set of curly braces shall delimit each wildcard in the URI.  The corresponding entry in the Wildcard property shall replace each wildcard.  After each wildcard is replaced, it shall identify a resource property to which the metric definition applies.  The property identifiers portion of the URI shall follow RFC6901-defined JSON pointer notation rules.",
                     "readonly": true,
                     "type": [
                         "string",
@@ -99,8 +99,8 @@
                     ]
                 },
                 "SourceMetric": {
-                    "description": "The metric property used as the input into the calculation.  If the link has wildcards, the wildcards are substituted as specified in the Wildcards array property.",
-                    "longDescription": "This property shall contain a link to a metric property used in a calculation.  A set of curly braces shall delimit each wildcard in the URI.  The corresponding entry in the Wildcard property shall replace each wildcard.  After a URI with wildcards replaces its wildcards, it shall identify a resource property to which the metric definition applies.  The property identifiers portion of the URI shall follow RFC6901-defined JSON fragment notation rules.",
+                    "description": "The URI with wildcards and property identifiers of the metric property used as the input into the calculation.  If the URI has wildcards, the wildcards are substituted as specified in the Wildcards property.",
+                    "longDescription": "This property shall contain a URI with wildcards and property identifiers of the metric property used as the input into the calculation.  A set of curly braces shall delimit each wildcard in the URI.  The corresponding entry in the Wildcard property shall replace each wildcard.  After each wildcard is replaced, it shall identify a resource property to which the metric definition applies.  The property identifiers portion of the URI shall follow RFC6901-defined JSON pointer notation rules.",
                     "readonly": true,
                     "type": [
                         "string",
@@ -218,7 +218,7 @@
                     "readonly": true
                 },
                 "CalculationParameters": {
-                    "description": "The metric properties that are part of a calculation.",
+                    "description": "The metric properties that are part of a calculation that this metric definition defines.",
                     "items": {
                         "anyOf": [
                             {
@@ -229,7 +229,7 @@
                             }
                         ]
                     },
-                    "longDescription": "This property shall list the metric properties that are part of a calculation.  This property should be present when the value of the ImplementationType property is `Synthesized` or `Calculated`.",
+                    "longDescription": "This property shall list the metric properties that are part of a calculation that this metric definition defines.  This property should be present if ImplementationType contains `Synthesized` or `Calculated`.",
                     "type": "array"
                 },
                 "CalculationTimeInterval": {
@@ -300,6 +300,16 @@
                         "null"
                     ]
                 },
+                "LogicalContexts": {
+                    "description": "The logical contexts related to the metric.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/PhysicalContext.json#/definitions/LogicalContext"
+                    },
+                    "longDescription": "This property shall contain the logical contexts related to the metric.  This property should be present when the PhysicalContext property does not provide complete information and additional context information is needed.  For example, if the metric refers to capacity or performance.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_3_0"
+                },
                 "MaxReadingRange": {
                     "description": "Maximum value for metric reading.",
                     "longDescription": "The value shall indicate the highest possible value for a related MetricValue.  The value shall have the units specified in the property Units.  The property is not meaningful when the MetricType property is `Discrete`.",
@@ -323,7 +333,7 @@
                     "readonly": false
                 },
                 "MetricProperties": {
-                    "description": "The list of URIs with wildcards and property identifiers that this metric definition defines.  If a URI has wildcards, the wildcards are substituted as specified in the Wildcards array property.",
+                    "description": "The list of URIs with wildcards and property identifiers that this metric definition defines.  If a URI has wildcards, the wildcards are substituted as specified in the Wildcards property.",
                     "format": "uri-reference",
                     "items": {
                         "type": [
@@ -331,7 +341,7 @@
                             "null"
                         ]
                     },
-                    "longDescription": "This array property shall list the URIs with wildcards and property identifiers that this metric defines.  A set of curly braces shall delimit each wildcard in the URI.  The corresponding entry in the Wildcard property shall replace each wildcard.  After a URI with wildcards replaces its wildcards, it shall identify a resource property to which the metric definition applies.  The property identifiers portion of the URI shall follow RFC6901-defined JSON fragment notation rules.",
+                    "longDescription": "This array property shall list the URIs with wildcards and property identifiers that this metric defines.  A set of curly braces shall delimit each wildcard in the URI.  The corresponding entry in the Wildcard property shall replace each wildcard.  After each wildcard is replaced, it shall identify a resource property to which the metric definition applies.  The property identifiers portion of the URI shall follow RFC6901-defined JSON pointer notation rules.  This property should not be present if ImplementationType contains `Synthesized` or `Calculated`.",
                     "readonly": false,
                     "type": "array"
                 },
@@ -537,6 +547,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2021.1",
-    "title": "#MetricDefinition.v1_2_1.MetricDefinition"
+    "release": "2022.1",
+    "title": "#MetricDefinition.v1_3_1.MetricDefinition"
 }

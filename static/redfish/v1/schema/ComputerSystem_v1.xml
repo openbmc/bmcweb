@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  ComputerSystem v1.17.0                                              -->
+<!--# Redfish Schema:  ComputerSystem v1.19.0                                              -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2021 DMTF.                                                            -->
+<!--# Copyright 2014-2022 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -79,6 +79,9 @@
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/ResourceBlock_v1.xml">
     <edmx:Include Namespace="ResourceBlock"/>
   </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/TrustedComponent_v1.xml">
+    <edmx:Include Namespace="TrustedComponent"/>
+  </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/BootOptionCollection_v1.xml">
     <edmx:Include Namespace="BootOptionCollection"/>
   </edmx:Reference>
@@ -149,7 +152,7 @@
 
       <Action Name="Reset" IsBound="true">
         <Annotation Term="OData.Description" String="This action resets the system."/>
-        <Annotation Term="OData.LongDescription" String="This action shall reset the system represented by the resource.  For systems that implement ACPI Power Button functionality, the PushPowerButton value shall perform or emulate an ACPI Power Button Push.  The ForceOff value shall remove power from the system or perform an ACPI Power Button Override, commonly known as a four-second hold of the Power Button.  The ForceRestart value shall perform a ForceOff action, followed by an On action."/>
+        <Annotation Term="OData.LongDescription" String="This action shall reset the system represented by the resource.  For systems that implement ACPI Power Button functionality, the PushPowerButton value shall perform or emulate an ACPI Power Button Push, and the ForceOff value shall perform an ACPI Power Button Override, commonly known as a four-second hold of the power button."/>
         <Parameter Name="ComputerSystem" Type="ComputerSystem.v1_0_0.Actions"/>
         <Parameter Name="ResetType" Type="Resource.ResetType">
           <Annotation Term="OData.Description" String="The type of reset."/>
@@ -297,6 +300,17 @@
               <Record>
                 <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
                 <PropertyValue Property="Version" String="v1_5_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="Recovery">
+          <Annotation Term="OData.Description" String="Boot to a system-designated recovery process or image."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_19_0"/>
               </Record>
             </Collection>
           </Annotation>
@@ -755,6 +769,12 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_0_16.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_0_18">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to align the description of the Reset action with the descriptions of the values of ResetType in the Resource schema."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_0_17.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2016.1"/>
@@ -763,6 +783,15 @@
         <Property Name="TrustedModules" Type="Collection(ComputerSystem.v1_1_0.TrustedModules)" Nullable="false">
           <Annotation Term="OData.Description" String="An array of trusted modules in the system."/>
           <Annotation Term="OData.LongDescription" String="This object shall contain an array of objects with properties that describe the trusted modules for this resource."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
+                <PropertyValue Property="Version" String="v1_19_0"/>
+                <PropertyValue Property="Description" String="This property has been deprecated in favor of the TrustedComponents property in Links."/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Property>
         <NavigationProperty Name="SecureBoot" Type="SecureBoot.SecureBoot" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -955,6 +984,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created correct various description to use proper normative terminology and clarify the behavior of the BootSourceOverrideTarget property."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_1_14.ComputerSystem"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_1_16">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to align the description of the Reset action with the descriptions of the values of ResetType in the Resource schema."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_1_15.ComputerSystem"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_2_0">
@@ -1158,6 +1193,12 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_2_13.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_2_15">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to align the description of the Reset action with the descriptions of the values of ResetType in the Resource schema."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_2_14.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2016.3"/>
@@ -1280,6 +1321,12 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_3_12.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_3_14">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to align the description of the Reset action with the descriptions of the values of ResetType in the Resource schema."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_3_13.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_4_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.1"/>
@@ -1376,6 +1423,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created correct various description to use proper normative terminology.  It was also created to clarify the behavior of the BootSourceOverrideTarget property."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_4_11.ComputerSystem"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_4_13">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to align the description of the Reset action with the descriptions of the values of ResetType in the Resource schema."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_4_12.ComputerSystem"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_5_0">
@@ -1582,6 +1635,12 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_5_10.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_5_12">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to align the description of the Reset action with the descriptions of the values of ResetType in the Resource schema."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_5_11.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_6_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.3"/>
@@ -1685,6 +1744,12 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_6_8.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_6_10">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to align the description of the Reset action with the descriptions of the values of ResetType in the Resource schema."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_6_9.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_7_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.1"/>
@@ -1757,6 +1822,12 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_7_7.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_7_9">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to align the description of the Reset action with the descriptions of the values of ResetType in the Resource schema."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_7_8.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_8_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.2"/>
@@ -1812,6 +1883,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify the BootOrder property might be controlled with a settings resource."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_8_6.ComputerSystem"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_8_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to align the description of the Reset action with the descriptions of the values of ResetType in the Resource schema."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_8_7.ComputerSystem"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_9_0">
@@ -1872,6 +1949,12 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_9_6.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_9_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to align the description of the Reset action with the descriptions of the values of ResetType in the Resource schema."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_9_7.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_10_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.4"/>
@@ -1921,6 +2004,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify the BootOrder property might be controlled with a settings resource."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_10_5.ComputerSystem"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_10_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to align the description of the Reset action with the descriptions of the values of ResetType in the Resource schema."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_10_6.ComputerSystem"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_11_0">
@@ -1996,6 +2085,12 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_11_4.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_11_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to align the description of the Reset action with the descriptions of the values of ResetType in the Resource schema."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_11_5.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_12_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.2"/>
@@ -2032,6 +2127,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify the BootOrder property might be controlled with a settings resource."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_12_3.ComputerSystem"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_12_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to align the description of the Reset action with the descriptions of the values of ResetType in the Resource schema."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_12_4.ComputerSystem"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_13_0">
@@ -2293,6 +2394,12 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_13_2.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_13_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to align the description of the Reset action with the descriptions of the values of ResetType in the Resource schema."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_13_3.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_14_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.4"/>
@@ -2359,6 +2466,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify the BootOrder property might be controlled with a settings resource."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_14_1.ComputerSystem"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_14_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to align the description of the Reset action with the descriptions of the values of ResetType in the Resource schema."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_14_2.ComputerSystem"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_15_0">
@@ -2445,6 +2558,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify the BootOrder property might be controlled with a settings resource."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_15_0.ComputerSystem"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_15_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to align the description of the Reset action with the descriptions of the values of ResetType in the Resource schema."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_15_1.ComputerSystem"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_16_0">
@@ -2551,6 +2670,12 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_16_0.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_16_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to align the description of the Reset action with the descriptions of the values of ResetType in the Resource schema."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_16_1.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_17_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.4"/>
@@ -2563,6 +2688,75 @@
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The network device functions to which this system performs offload computation, such as with a SmartNIC."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type NetworkDeviceFunction that represent the network device functions to which this system performs offload computation, such as with a SmartNIC.  This property shall not be present if the SystemType property does not contain `DPU`."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_17_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to align the description of the Reset action with the descriptions of the values of ResetType in the Resource schema."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_17_0.ComputerSystem"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_18_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2022.1"/>
+
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_17_1.ComputerSystem">
+        <Property Name="Composition" Type="ComputerSystem.v1_18_0.Composition">
+          <Annotation Term="OData.Description" String="Information about the composition capabilities and state of the computer system."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain information about the composition capabilities and state of the computer system."/>
+        </Property>
+        <Property Name="ManufacturingMode" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An indication of whether the system is in manufacturing mode.  Manufacturing mode is a special boot mode, not normally available to end users, that modifies features and settings for use while the system is being manufactured and tested."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the system is in manufacturing mode.  If the system supports SMBIOS, the value shall match the 'Manufacturing mode is enabled' setting from the 'BIOS Characteristics' entry."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="BootProgress" BaseType="ComputerSystem.v1_13_0.BootProgress">
+        <Property Name="LastBootTimeSeconds" Type="Edm.Decimal">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The number of seconds the system spent booting to the operating system during the last boot."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number of seconds that elapsed between system reset or power on and LastState transitioning to `OSRunning`.  If LastState contains `OSRunning`, this property shall contain the most recent boot time.  For other values of LastState, this property shall contain the boot time for the previous boot."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="Composition">
+        <Annotation Term="OData.Description" String="Information about the composition capabilities and state of a computer system."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain information about the composition capabilities and state of a computer system."/>
+        <Property Name="UseCases" Type="Collection(ComputerSystem.v1_18_0.CompositionUseCase)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The composition use cases in which this computer system can participate."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the composition use cases in which this computer system can participate."/>
+        </Property>
+      </ComplexType>
+
+      <EnumType Name="CompositionUseCase">
+        <Member Name="ResourceBlockCapable">
+          <Annotation Term="OData.Description" String="This computer system supports being registered as a resource block in order for it to participate in composition requests."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the computer system supports being registered as a resource block in order for it to participate in composition requests."/>
+        </Member>
+        <Member Name="ExpandableSystem">
+          <Annotation Term="OData.Description" String="This computer system supports expandable system composition and is associated with a resource block."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the computer system supports expandable system composition and is associated with a resource block."/>
+        </Member>
+      </EnumType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_19_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2022.2"/>
+      <Annotation Term="OData.Description" String="This version was created to add `Recovery` to BootSource."/>
+
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_18_0.ComputerSystem"/>
+
+      <ComplexType Name="Links" BaseType="ComputerSystem.v1_17_0.Links">
+        <NavigationProperty Name="TrustedComponents" Type="Collection(TrustedComponent.TrustedComponent)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An array of links to the trusted components for this system."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of link to resources of type TrustedComponent."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
