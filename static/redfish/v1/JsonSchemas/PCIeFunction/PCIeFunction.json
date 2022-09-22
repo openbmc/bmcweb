@@ -1,8 +1,8 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/PCIeFunction.v1_3_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/PCIeFunction.v1_4_0.json",
     "$ref": "#/definitions/PCIeFunction",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2021 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
@@ -162,6 +162,20 @@
                     "description": "The link to the PCIe device on which this function resides.",
                     "longDescription": "This property shall contain a link to a Resource of type PCIeDevice of which this function is a part.",
                     "readonly": true
+                },
+                "Processor": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Processor.json#/definitions/Processor"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The link to a processor that is hosted on this PCIe device function.",
+                    "longDescription": "This property shall link to a resource of type Processor that is hosted on this PCIe device function.",
+                    "readonly": true,
+                    "versionAdded": "v1_4_0"
                 },
                 "StorageControllers": {
                     "description": "An array of links to the storage controllers that the PCIe device produces.",
@@ -369,6 +383,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2021.1",
-    "title": "#PCIeFunction.v1_3_0.PCIeFunction"
+    "release": "2022.2",
+    "title": "#PCIeFunction.v1_4_0.PCIeFunction"
 }

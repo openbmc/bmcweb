@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  ManagerNetworkProtocol v1.8.0                                       -->
+<!--# Redfish Schema:  ManagerNetworkProtocol v1.9.0                                       -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2021 DMTF.                                                            -->
+<!--# Copyright 2014-2022 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -291,8 +291,8 @@
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
         <Property Name="NTPServers" Type="Collection(Edm.String)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="Indicates to which NTP servers this manager is subscribed."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain all the NTP servers for which this manager is using to obtain time."/>
+          <Annotation Term="OData.Description" String="Indicates to which user-supplied NTP servers this manager is subscribed."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain all the user-supplied NTP servers for which this manager is using to obtain time.  NetworkSuppliedServers is used for NTP servers supplied by other network protocols such as DHCP."/>
         </Property>
       </ComplexType>
 
@@ -510,7 +510,7 @@
           <Annotation Term="Validation.Pattern" String="^([A-Fa-f0-9]{2} ){3}[A-Fa-f0-9]{2}$"/>
         </Property>
         <Property Name="EnterpriseSpecificMethod" Type="Edm.String">
-          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The enterprise specific method."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the enterprise specific method as described in item 2 of the snmpEngineID syntax of RFC3411.  The full RFC3411-defined snmpEngineID is form from the concatenation of the value in the PrivateEnterpriseId property and the value in this property.  If the most significant bit in PrivateEnterpriseId is set to one, this property shall not be present."/>
           <Annotation Term="Validation.Pattern" String="^([A-Fa-f0-9]{2} ){7}[A-Fa-f0-9]{2}$"/>
@@ -633,6 +633,12 @@
       <EntityType Name="ManagerNetworkProtocol" BaseType="ManagerNetworkProtocol.v1_5_2.ManagerNetworkProtocol"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerNetworkProtocol.v1_5_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to make EnterpriseSpecificMethod writable."/>
+      <EntityType Name="ManagerNetworkProtocol" BaseType="ManagerNetworkProtocol.v1_5_3.ManagerNetworkProtocol"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerNetworkProtocol.v1_6_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.1"/>
@@ -641,7 +647,7 @@
 
       <ComplexType Name="EngineId" BaseType="ManagerNetworkProtocol.v1_5_0.EngineId">
         <Property Name="ArchitectureId" Type="Edm.String">
-          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The architecture identifier."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the architecture identifier as described in item 3 of the snmpEngineID syntax of RFC3411.  The full RFC3411-defined snmpEngineID is form from the concatenation of the value in the PrivateEnterpriseId property and the value in this property.  If the most significant bit in PrivateEnterpriseId is set to zero, this property shall not be present."/>
           <Annotation Term="Validation.Pattern" String="^([A-Fa-f0-9]{2} ){0,27}[A-Fa-f0-9]{2}$"/>
@@ -661,12 +667,24 @@
       <EntityType Name="ManagerNetworkProtocol" BaseType="ManagerNetworkProtocol.v1_6_1.ManagerNetworkProtocol"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerNetworkProtocol.v1_6_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to make EnterpriseSpecificMethod and ArchitectureId writable."/>
+      <EntityType Name="ManagerNetworkProtocol" BaseType="ManagerNetworkProtocol.v1_6_2.ManagerNetworkProtocol"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerNetworkProtocol.v1_7_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.4"/>
       <Annotation Term="OData.Description" String="This version was created to add additional SNMP authentication protocols."/>
 
       <EntityType Name="ManagerNetworkProtocol" BaseType="ManagerNetworkProtocol.v1_6_2.ManagerNetworkProtocol"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerNetworkProtocol.v1_7_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to make EnterpriseSpecificMethod and ArchitectureId writable."/>
+      <EntityType Name="ManagerNetworkProtocol" BaseType="ManagerNetworkProtocol.v1_7_0.ManagerNetworkProtocol"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerNetworkProtocol.v1_8_0">
@@ -721,6 +739,27 @@
           <Annotation Term="OData.Description" String="The URI used to access a proxy auto-configuration (PAC) file."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the URI at which to access a proxy auto-configuration (PAC) file containing one or more JavaScript functions for configuring proxy usage for this manager."/>
           <Annotation Term="OData.IsURL"/>
+        </Property>
+      </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerNetworkProtocol.v1_8_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to make EnterpriseSpecificMethod and ArchitectureId writable."/>
+      <EntityType Name="ManagerNetworkProtocol" BaseType="ManagerNetworkProtocol.v1_8_0.ManagerNetworkProtocol"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerNetworkProtocol.v1_9_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2022.2"/>
+
+      <EntityType Name="ManagerNetworkProtocol" BaseType="ManagerNetworkProtocol.v1_8_1.ManagerNetworkProtocol"/>
+
+      <ComplexType Name="NTPProtocol" BaseType="ManagerNetworkProtocol.v1_2_0.NTPProtocol">
+        <Property Name="NetworkSuppliedServers" Type="Collection(Edm.String)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The NTP servers supplied by other network protocols to this manager."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the NTP servers supplied by other network protocols to this manager.  DHCP is an example of a protocol that can supply NTP servers to this manager."/>
         </Property>
       </ComplexType>
     </Schema>

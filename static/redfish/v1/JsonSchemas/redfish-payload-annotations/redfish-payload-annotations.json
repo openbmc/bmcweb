@@ -1,7 +1,7 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/redfish-payload-annotations.v1_1_1.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/redfish-payload-annotations.v1_2_0.json",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "properties": {
         "@Redfish.ActionInfo": {
             "description": "The term can be applied to an action to specify a URI to an ActionInfo resource that describes the parameters supported by this instance of the action.",
@@ -64,25 +64,33 @@
             },
             "readonly": true
         },
+        "@Redfish.WriteableProperties": {
+            "description": "The term specifies the properties supported as read-write.  The values contained shall be the names of the writeable properties as defined in the Redfish schema that are available as read-write given the implementation, current configuration, and state of the resource.  This term may appear at the root level of a resource, or within an object.  For arrays of objects, the term may only appear in the first element of the array to indicate identical capabilities for every element in the array.",
+            "type": "array",
+            "items": {
+                "type": "string"
+            },
+            "readonly": true
+        },
         "@odata.context": {
             "type": "string",
             "format": "uri-reference",
             "readonly": true,
             "description": "The OData description of a payload.",
-            "longDescription": "The value of this property shall be the context URL that describes the resource according to OData-Protocol and shall be of the form defined in the Redfish specification."
+            "longDescription": "The value of this property shall be the context URL that describes the resource according to OData-Protocol and shall be of the form defined in the Redfish Specification."
         },
         "@odata.id": {
             "type": "string",
             "format": "uri-reference",
             "readonly": true,
             "description": "The unique identifier for a resource.",
-            "longDescription": "The value of this property shall be the unique identifier for the resource and it shall be of the form defined in the Redfish specification."
+            "longDescription": "The value of this property shall be the unique identifier for the resource and it shall be of the form defined in the Redfish Specification."
         },
         "@odata.type": {
             "type": "string",
             "readonly": true,
             "description": "The type of a resource.",
-            "longDescription": "The value of this property shall be a URI fragment that specifies the type of the resource and it shall be of the form defined in the Redfish specification."
+            "longDescription": "The value of this property shall be a URI fragment that specifies the type of the resource and it shall be of the form defined in the Redfish Specification."
         },
         "@odata.etag": {
             "type": "string",
@@ -122,6 +130,19 @@
         },
         "^([a-zA-Z_][a-zA-Z0-9_]*)?@Redfish.Deprecated$": {
             "description": "The term shall be applied to a property or value to specify that the property or value is deprecated.  The string value should explain the deprecation, including new property or properties or value to use.  The property or value can be supported in new and existing implementations, but usage in new implementations is discouraged.  Deprecated properties and values are likely to be removed in a future major version of the schema.",
+            "type": "string",
+            "readonly": true
+        },
+        "^([a-zA-Z_][a-zA-Z0-9_]*)?@Redfish.AllowableNumbers$": {
+            "description": "The term specifies the numeric values or duration values, inclusive ranges of values, and incremental step values for a read-write property that are supported by the service, as defined in the 'Allowable values for numbers and durations' clause of the Redfish Specification.",
+            "type": "array",
+            "items": {
+                "type": "string"
+            },
+            "readonly": true
+        },
+        "^([a-zA-Z_][a-zA-Z0-9_]*)?@Redfish.AllowablePattern$": {
+            "description": "The term specifies a regular expression that describes the allowable values for a read-write property as supported by the service.",
             "type": "string",
             "readonly": true
         },
