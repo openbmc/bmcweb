@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "282dee23_408aaa2a",
+        "filename": "include/http_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-22T19:52:04Z",
+      "side": 1,
+      "message": "I really dislike default params, especially in this case because if you\u0027re calling this, you REALLY should be explicit about what you want the behavior to be.  Because of the problems we\u0027ve been seeing with this, I would probably argue that anything new should use false, just because that\u0027s what the security guidelines say you\u0027re supposed to do.",
+      "parentUuid": "f87c7c4c_54aef93a",
+      "revId": "c1dd759de2036a20b8516c467f0f4a7f788f3d17",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "204d1a4b_45fb4e86",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 3
@@ -37,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b61e4209_31e9bcdc",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1678,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-22T19:52:04Z",
+      "side": 1,
+      "message": "We should be setting it explicitly, right?  Otherwise it defeats the purpose if you can just give a user a url to point at and make them download a binary thing.",
+      "parentUuid": "204d1a4b_45fb4e86",
+      "revId": "c1dd759de2036a20b8516c467f0f4a7f788f3d17",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6981c283_8158fc4a",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 3
@@ -48,6 +84,24 @@
       "writtenOn": "2022-09-22T19:45:02Z",
       "side": 1,
       "message": "Same here, I think we would want this as true",
+      "revId": "c1dd759de2036a20b8516c467f0f4a7f788f3d17",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2a878461_1a1d9c4f",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 3569,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-22T19:52:04Z",
+      "side": 1,
+      "message": "Tracking in the other thread.",
+      "parentUuid": "6981c283_8158fc4a",
       "revId": "c1dd759de2036a20b8516c467f0f4a7f788f3d17",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
