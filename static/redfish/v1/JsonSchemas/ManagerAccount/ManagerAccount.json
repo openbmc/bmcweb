@@ -1,8 +1,8 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/ManagerAccount.v1_8_1.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/ManagerAccount.v1_9_0.json",
     "$ref": "#/definitions/ManagerAccount",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2021 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
@@ -164,6 +164,13 @@
                 "Id": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
                     "readonly": true
+                },
+                "Keys": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/KeyCollection.json#/definitions/KeyCollection",
+                    "description": "The link to the collection of keys that can be used to authenticate this account.  For example, an SSH public key could be added to this collection to allow for SSH public key authentication.",
+                    "longDescription": "This property shall contain a link to a resource collection of type KeyCollection that contains the keys that can be used to authenticate this account.",
+                    "readonly": true,
+                    "versionAdded": "v1_9_0"
                 },
                 "Links": {
                     "$ref": "#/definitions/Links",
@@ -441,6 +448,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2021.1",
-    "title": "#ManagerAccount.v1_8_1.ManagerAccount"
+    "release": "2022.1",
+    "title": "#ManagerAccount.v1_9_0.ManagerAccount"
 }
