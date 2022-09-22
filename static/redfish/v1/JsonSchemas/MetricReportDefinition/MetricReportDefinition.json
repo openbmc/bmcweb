@@ -1,8 +1,8 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/MetricReportDefinition.v1_4_1.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/MetricReportDefinition.v1_3_2.json",
     "$ref": "#/definitions/MetricReportDefinition",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2021 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
@@ -170,9 +170,9 @@
                     "readonly": false
                 },
                 "MetricId": {
-                    "description": "The label for the metric definition that is derived by applying the CollectionFunction to the metric property.  It matches the Id property of the corresponding metric definition.",
+                    "description": "The label for the metric definition that is derived by applying the collectionFunction to the metric property.  It matches the Id property of the corresponding metric definition.",
                     "longDescription": "This property shall specify the label for the metric definition that is derived by applying the algorithm specified in the CollectionFunction property to the metric property.  This property shall match the Id property of the corresponding metric definition.",
-                    "readonly": false,
+                    "readonly": true,
                     "type": [
                         "string",
                         "null"
@@ -190,12 +190,6 @@
                     "longDescription": "Each value can contain one or more wildcard names enclosed in curly braces.  Wildcard value entries shall be substituted for each Wildcard name found.  If two or more wild names are found, the same wildcard index is used for each in one substitution pass.  After substituting the wildcard values entries, each value shall contain a URI for a property in a resource that matches a property declaration in the corresponding metric definition.",
                     "readonly": false,
                     "type": "array"
-                },
-                "Oem": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
-                    "description": "The OEM extension property.",
-                    "longDescription": "This property shall contain the OEM extensions.  All values for properties contained in this object shall conform to the Redfish Specification-described requirements.",
-                    "versionAdded": "v1_4_0"
                 }
             },
             "type": "object"
@@ -318,11 +312,11 @@
                     "versionAdded": "v1_2_0"
                 },
                 "Metrics": {
-                    "description": "The list of metrics to include in the metric report.  The metrics may include metric properties or calculations applied to a metric property.",
+                    "description": "The list of metrics to include in the metric report.  The metrics might include metric properties or calculations applied to a metric property.",
                     "items": {
                         "$ref": "#/definitions/Metric"
                     },
-                    "longDescription": "The property shall contain a list of metrics to include in the metric report.  The metrics may include metric properties or calculations that are applied to a metric property.",
+                    "longDescription": "The property shall contain a list of metrics to include in the metric report.  The metrics might include metric properties or calculations that are applied to a metric property.",
                     "type": "array"
                 },
                 "Name": {
@@ -340,7 +334,7 @@
                         "$ref": "#/definitions/ReportActionsEnum"
                     },
                     "longDescription": "This property shall contain the set of actions to perform when the metric report is generated.  This property should be ignored if MetricReportDefinitionType contains the value `OnRequest`.",
-                    "readonly": false,
+                    "readonly": true,
                     "type": "array"
                 },
                 "ReportTimespan": {
@@ -358,7 +352,7 @@
                     "$ref": "#/definitions/ReportUpdatesEnum",
                     "description": "The behavior for how subsequent metric reports are handled in relationship to an existing metric report created from the metric report definition.  Namely, whether to overwrite, append, or create a report resource.",
                     "longDescription": "This property shall contain the behavior for how subsequent metric reports are handled in relationship to an existing metric report created from the metric report definition.  This property should be ignored if MetricReportDefinitionType contains the value `OnRequest`.",
-                    "readonly": false
+                    "readonly": true
                 },
                 "Schedule": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Schedule.json#/definitions/Schedule",
@@ -371,8 +365,8 @@
                     "longDescription": "This property shall contain any status or health properties of the resource."
                 },
                 "SuppressRepeatedMetricValue": {
-                    "description": "An indication of whether any metrics are suppressed from the generated metric report.  If `true`, any metric that equals the same value in the previously generated metric report is suppressed from the current report.  Also, duplicate metrics are suppressed.  If `false`, no metrics are suppressed from the current report.  The current report may contain no metrics if all metrics equal the values in the previously generated metric report.",
-                    "longDescription": "This property shall indicate whether any metrics are suppressed from the generated metric report.  If `true`, any metric that equals the same value in the previously generated metric report is suppressed from the current report.  Also, duplicate metrics are suppressed.  If `false`, no metrics are suppressed from the current report.  The current report may contain no metrics if all metrics equal the values in the previously generated metric report.",
+                    "description": "An indication of whether any metrics are suppressed from the generated metric report.  If `true`, any metric that equals the same value in the previously generated metric report is suppressed from the current report.  Also, duplicate metrics are suppressed.  If `false`, no metrics are suppressed from the current report.  The current report might contain no metrics if all metrics equal the values in the previously generated metric report.",
+                    "longDescription": "This property shall indicate whether any metrics are suppressed from the generated metric report.  If `true`, any metric that equals the same value in the previously generated metric report is suppressed from the current report.  Also, duplicate metrics are suppressed.  If `false`, no metrics are suppressed from the current report.  The current report might contain no metrics if all metrics equal the values in the previously generated metric report.",
                     "readonly": false,
                     "type": [
                         "boolean",
@@ -502,14 +496,14 @@
                         ]
                     },
                     "longDescription": "This property shall contain the list of values to substitute for the wildcard.",
-                    "readonly": false,
+                    "readonly": true,
                     "type": "array",
                     "versionDeprecated": "v1_1_0"
                 },
                 "Name": {
                     "description": "The string used as a wildcard.",
                     "longDescription": "This property shall contain the string used as a wildcard.",
-                    "readonly": false,
+                    "readonly": true,
                     "type": [
                         "string",
                         "null"
@@ -524,7 +518,7 @@
                         ]
                     },
                     "longDescription": "This property shall contain the list of values to substitute for the wildcard.",
-                    "readonly": false,
+                    "readonly": true,
                     "type": "array",
                     "versionAdded": "v1_1_0"
                 }
@@ -533,6 +527,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2020.4",
-    "title": "#MetricReportDefinition.v1_4_1.MetricReportDefinition"
+    "release": "2019.2",
+    "title": "#MetricReportDefinition.v1_3_2.MetricReportDefinition"
 }

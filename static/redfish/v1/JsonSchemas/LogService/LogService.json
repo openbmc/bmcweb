@@ -1,8 +1,8 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/LogService.v1_3_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/LogService.v1_2_2.json",
     "$ref": "#/definitions/LogService",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2021 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
@@ -41,14 +41,7 @@
             "additionalProperties": false,
             "description": "The action to clear the log for this log service.",
             "longDescription": "This action shall delete all entries found in the LogEntryCollection resource for this log service.",
-            "parameters": {
-                "LogEntriesETag": {
-                    "description": "The ETag of the log entry collection within this log service.  If the provided ETag does not match the current ETag of the log entry collection, the request is rejected.",
-                    "longDescription": "This parameter shall contain the ETag of the LogEntryCollection resource for this log service.  If the client-provided ETag does not match the current ETag of the LogEntryCollection resource for this log service, the service shall return the HTTP 428 (Precondition Required) status code to reject the request.",
-                    "type": "string",
-                    "versionAdded": "v1_3_0"
-                }
-            },
+            "parameters": {},
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -78,8 +71,8 @@
         },
         "CollectDiagnosticData": {
             "additionalProperties": false,
-            "description": "The action to collect the diagnostic data for the given type.",
-            "longDescription": "This action shall collect the diagnostic data for the given type.  The `Location` header in the response shall contain a URI to a resource of type LogEntry that contains the diagnostic data.",
+            "description": "The action to collect the diagnostic data for the given type.  When the diagnostic data is collected, a new log entry will be created and the additional data referenced by the new log entry will contain the diagnostic data.",
+            "longDescription": "This action shall collect the diagnostic data for the given type.  The `Location` header in the response shall contain a URI to a resource of type LogEntry that contains the diagnostic data.  The AdditionalDataURI property in the referenced LogEntry resource shall contain the URI to download the diagnostic data.",
             "parameters": {
                 "DiagnosticDataType": {
                     "$ref": "#/definitions/LogDiagnosticDataTypes",
@@ -186,13 +179,6 @@
                     "$ref": "#/definitions/Actions",
                     "description": "The available actions for this resource.",
                     "longDescription": "This property shall contain the available actions for this resource."
-                },
-                "AutoDSTEnabled": {
-                    "description": "An indication of whether the log service is configured for automatic Daylight Saving Time (DST) adjustment.",
-                    "longDescription": "This property shall indicate whether the log service is configured for automatic Daylight Saving Time (DST) adjustment.  DST adjustment shall not modify the timestamp of existing log entries.",
-                    "readonly": false,
-                    "type": "boolean",
-                    "versionAdded": "v1_3_0"
                 },
                 "DateTime": {
                     "description": "The current date and time with UTC offset of the log service.",
@@ -483,6 +469,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2021.2",
-    "title": "#LogService.v1_3_0.LogService"
+    "release": "2020.3",
+    "title": "#LogService.v1_2_2.LogService"
 }

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Session v1.3.0                                                      -->
+<!--# Redfish Schema:  Session v1.5.0                                                      -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2021 DMTF.                                                            -->
+<!--# Copyright 2014-2022 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -30,8 +30,8 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
 
       <EntityType Name="Session" BaseType="Resource.v1_0_0.Resource" Abstract="true">
-        <Annotation Term="OData.Description" String="The Session Resource describes a single connection (session) between a client and a Redfish Service instance."/>
-        <Annotation Term="OData.LongDescription" String="This Resource shall represent a session for a Redfish implementation."/>
+        <Annotation Term="OData.Description" String="The Session resource describes a single connection (session) between a client and a Redfish service instance."/>
+        <Annotation Term="OData.LongDescription" String="This resource shall represent a session for a Redfish implementation."/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
             <PropertyValue Property="Insertable" Bool="false"/>
@@ -45,7 +45,7 @@
         <Annotation Term="Capabilities.DeleteRestrictions">
           <Record>
             <PropertyValue Property="Deletable" Bool="true"/>
-            <Annotation Term="OData.Description" String="Delete the Session Resource to remove a session."/>
+            <Annotation Term="OData.Description" String="Delete the Session resource to remove a session."/>
           </Record>
         </Annotation>
         <Annotation Term="Redfish.Uris">
@@ -65,8 +65,8 @@
         <Property Name="UserName" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="Redfish.RequiredOnCreate"/>
-          <Annotation Term="OData.Description" String="The UserName for the account for this session."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the user name that matches an account recognized by the Account Service."/>
+          <Annotation Term="OData.Description" String="The username for the account for this session."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the username that matches an account recognized by the account service."/>
         </Property>
         <Property Name="Password" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -75,7 +75,6 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain the password for this session.  The value shall be `null` in responses."/>
         </Property>
       </EntityType>
-
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Session.v1_0_2">
@@ -108,30 +107,37 @@
       <EntityType Name="Session" BaseType="Session.v1_0_5.Session"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Session.v1_0_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Session" BaseType="Session.v1_0_6.Session"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Session.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.1"/>
+
       <EntityType Name="Session" BaseType="Session.v1_0_3.Session">
         <Property Name="Actions" Type="Session.v1_1_0.Actions" Nullable="false">
-          <Annotation Term="OData.Description" String="The available actions for this Resource."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this Resource."/>
+          <Annotation Term="OData.Description" String="The available actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this resource."/>
         </Property>
       </EntityType>
 
       <ComplexType Name="Actions">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
-        <Annotation Term="OData.Description" String="The available actions for this Resource."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this Resource."/>
+        <Annotation Term="OData.Description" String="The available actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
         <Property Name="Oem" Type="Session.v1_1_0.OemActions" Nullable="false">
-          <Annotation Term="OData.Description" String="The available OEM-specific actions for this Resource."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this Resource."/>
+          <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this resource."/>
         </Property>
       </ComplexType>
 
       <ComplexType Name="OemActions">
         <Annotation Term="OData.AdditionalProperties" Bool="true"/>
-        <Annotation Term="OData.Description" String="The available OEM-specific actions for this Resource."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this Resource."/>
+        <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this resource."/>
       </ComplexType>
     </Schema>
 
@@ -153,6 +159,12 @@
       <EntityType Name="Session" BaseType="Session.v1_1_2.Session"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Session.v1_1_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Session" BaseType="Session.v1_1_3.Session"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Session.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.1"/>
@@ -166,7 +178,7 @@
         <Property Name="OemSessionType" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The active OEM-defined session type."/>
-          <Annotation Term="OData.LongDescription" String="When SessionType is reported as OEM, this property should report the OEM-specific session type.  Thus, this property shall represent the type of OEM session that is currently active."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the OEM-specific session type that is currently active if SessionType contains `OEM`."/>
         </Property>
       </EntityType>
 
@@ -184,7 +196,7 @@
           <Annotation Term="OData.Description" String="Keyboard-Video-Mouse over IP Session."/>
         </Member>
         <Member Name="OEM">
-          <Annotation Term="OData.Description" String="OEM Type.  For OEM session types, see the OemSessionType property."/>
+          <Annotation Term="OData.Description" String="OEM type.  For OEM session types, see the OemSessionType property."/>
         </Member>
         <Member Name="Redfish">
           <Annotation Term="OData.Description" String="A Redfish session."/>
@@ -204,6 +216,12 @@
       <EntityType Name="Session" BaseType="Session.v1_2_0.Session"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Session.v1_2_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Session" BaseType="Session.v1_2_1.Session"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Session.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.3"/>
@@ -213,6 +231,38 @@
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The IP address of the client that created the session."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the IP address of the client that created the session."/>
+        </Property>
+      </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Session.v1_3_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Session" BaseType="Session.v1_3_0.Session"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Session.v1_4_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2022.1"/>
+
+      <EntityType Name="Session" BaseType="Session.v1_3_1.Session">
+        <Property Name="CreatedTime" Type="Edm.DateTimeOffset">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The date and time when the session was created."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the date and time when the session was created."/>
+        </Property>
+      </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Session.v1_5_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2022.2"/>
+
+      <EntityType Name="Session" BaseType="Session.v1_4_0.Session">
+        <Property Name="Context" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="A client-supplied string that is stored with the session."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a client-supplied context that remains with the session through the session's lifetime."/>
         </Property>
       </EntityType>
     </Schema>
