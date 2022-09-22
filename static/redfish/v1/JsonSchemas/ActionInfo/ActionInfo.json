@@ -1,8 +1,8 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/ActionInfo.v1_2_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/ActionInfo.v1_3_0.json",
     "$ref": "#/definitions/ActionInfo",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2021 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "ActionInfo": {
             "additionalProperties": false,
@@ -116,6 +116,29 @@
                 }
             },
             "properties": {
+                "AllowableNumbers": {
+                    "description": "The allowable numeric values or duration values, inclusive ranges of values, and incremental step values for this parameter as applied to this action target.",
+                    "items": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "longDescription": "This property shall indicate the allowable numeric values, inclusive ranges of values, and incremental step values values for this parameter as applied to this action target, as defined in the 'Allowable values for numbers and durations' clause of the Redfish Specification.  For arrays, this property shall represent the allowable values for each array member.  This property shall only be present for numeric parameters or string parameters that specify a duration.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_3_0"
+                },
+                "AllowablePattern": {
+                    "description": "The allowable pattern for this parameter as applied to this action target.",
+                    "longDescription": "This property shall contain a regular expression that describes the allowable values for this parameter as applied to this action target.  For arrays, this property shall represent the allowable values for each array member.  This property shall only be present for string parameters.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_3_0"
+                },
                 "AllowableValues": {
                     "description": "The allowable values for this parameter as applied to this action target.",
                     "items": {
@@ -210,6 +233,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2021.2",
-    "title": "#ActionInfo.v1_2_0.ActionInfo"
+    "release": "2022.2",
+    "title": "#ActionInfo.v1_3_0.ActionInfo"
 }
