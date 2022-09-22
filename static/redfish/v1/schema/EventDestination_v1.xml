@@ -1290,7 +1290,7 @@
         <Property Name="ExcludeMessageIds" Type="Collection(Edm.String)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The list of MessageIds that are not sent to this event destination."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of exculded MessageIds that are not allowed values for the MessageId property within an event sent to the subscriber.  The MessageId shall be in the `MessageRegistry.MessageId` format.  If included, the MessageId major and minor version details should be ignored.  Events with a MessageId that is contained in this array shall not be sent to the subscriber.  If this property is an empty array or is absent, no exclusive filtering based upon the MessageId of an event is performed."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of excluded MessageIds that are not allowed values for the MessageId property within an event sent to the subscriber.  The MessageId shall be in the `MessageRegistry.MessageId` format.  If included, the MessageId major and minor version details should be ignored.  Events with a MessageId that is contained in this array shall not be sent to the subscriber.  If this property is an empty array or is absent, no exclusive filtering based upon the MessageId of an event is performed."/>
         </Property>
       </EntityType>
     </Schema>

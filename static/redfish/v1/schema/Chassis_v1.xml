@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Chassis v1.20.0                                                     -->
+<!--# Redfish Schema:  Chassis v1.21.0                                                     -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -126,6 +126,9 @@
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/PowerDistribution_v1.xml">
     <edmx:Include Namespace="PowerDistribution"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/TrustedComponentCollection_v1.xml">
+    <edmx:Include Namespace="TrustedComponentCollection"/>
   </edmx:Reference>
 
   <edmx:DataServices>
@@ -1769,7 +1772,7 @@
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="Indicates the thermal management path through the chassis."/>
           <Annotation Term="OData.LongDescription" String="This property shall indicate the general direction of the thermal management path through the chassis."/>
-        </Property>        
+        </Property>
       </EntityType>
 
       <EnumType Name="ThermalDirection">
@@ -1811,6 +1814,35 @@
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_21_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2022.2"/>
+
+      <EntityType Name="Chassis" BaseType="Chassis.v1_20_0.Chassis">
+        <NavigationProperty Name="TrustedComponents" Type="TrustedComponentCollection.TrustedComponentCollection" ContainsTarget="true" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The link to the trusted components in this chassis."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type TrustedComponentCollection."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+        <Property Name="Version" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The hardware version of this chassis."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the hardware version of this chassis as determined by the vendor or supplier."/>
+        </Property>
+        <Property Name="HotPluggable" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An indication of whether this component can be inserted or removed while the equipment is in operation."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the component can be inserted or removed while the underlying equipment otherwise remains in its current operational state.  Components indicated as hot-pluggable shall allow the component to become operable without altering the operational state of the underlying equipment.  Components that cannot be inserted or removed from equipment in operation, or components that cannot become operable without affecting the operational state of that equipment, shall be indicated as not hot-pluggable."/>
+        </Property>
+        <Property Name="Replaceable" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An indication of whether this component can be independently replaced as allowed by the vendor's replacement policy."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether this component can be independently replaced as allowed by the vendor's replacement policy.  A value of `false` indicates the component needs to be replaced by policy, as part of another component.  If the `LocationType` property of this component contains `Embedded`, this property shall contain `false`."/>
+        </Property>
+      </EntityType>
     </Schema>
 
   </edmx:DataServices>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Settings v1.3.4                                                     -->
+<!--# Redfish Schema:  Settings v1.3.5                                                     -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -48,8 +48,8 @@
           </Collection>
         </Annotation>
         <Member Name="Immediate">
-          <Annotation Term="OData.Description" String="The requested operation is applied immediately."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate the requested create, delete, or action operation is applied immediately."/>
+          <Annotation Term="OData.Description" String="The requested operation is applied immediately.  This value might result in an immediate host reset, manager reset, or other side effects."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the requested create, delete, or action operation is applied immediately.  This value may result in an immediate host reset, manager reset, or other side effects."/>
         </Member>
         <Member Name="OnReset">
           <Annotation Term="OData.Description" String="The requested operation is applied on a reset."/>
@@ -181,8 +181,8 @@
 
       <EnumType Name="ApplyTime">
         <Member Name="Immediate">
-          <Annotation Term="OData.Description" String="Apply immediately."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate the values within the settings resource are applied immediately."/>
+          <Annotation Term="OData.Description" String="Apply immediately.  This value might result in an immediate host reset, manager reset, or other side effects."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the values within the settings resource are applied immediately.  This value may result in an immediate host reset, manager reset, or other side effects."/>
         </Member>
         <Member Name="OnReset">
           <Annotation Term="OData.Description" String="Apply on a reset."/>
@@ -239,6 +239,13 @@
       <Annotation Term="OData.Description" String="This version was created to clarify the default behavior of MaintenanceWindowStartTime."/>
       <ComplexType Name="Settings" BaseType="Settings.v1_1_5.Settings"/>
       <ComplexType Name="PreferredApplyTime" BaseType="Settings.v1_1_5.PreferredApplyTime"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Settings.v1_1_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the behavior of `Immediate` in SettingsApplyTime to allow for side effects."/>
+      <ComplexType Name="Settings" BaseType="Settings.v1_1_6.Settings"/>
+      <ComplexType Name="PreferredApplyTime" BaseType="Settings.v1_1_6.PreferredApplyTime"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Settings.v1_2_0">
@@ -357,6 +364,15 @@
       <ComplexType Name="MaintenanceWindow" BaseType="Settings.v1_2_5.MaintenanceWindow"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Settings.v1_2_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the behavior of `Immediate` in SettingsApplyTime and OperationApplyTime to allow for side effects."/>
+      <ComplexType Name="Settings" BaseType="Settings.v1_2_6.Settings"/>
+      <ComplexType Name="PreferredApplyTime" BaseType="Settings.v1_2_6.PreferredApplyTime"/>
+      <ComplexType Name="OperationApplyTimeSupport" BaseType="Settings.v1_2_6.OperationApplyTimeSupport"/>
+      <ComplexType Name="MaintenanceWindow" BaseType="Settings.v1_2_6.MaintenanceWindow"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Settings.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.3"/>
@@ -402,6 +418,15 @@
       <ComplexType Name="PreferredApplyTime" BaseType="Settings.v1_3_3.PreferredApplyTime"/>
       <ComplexType Name="OperationApplyTimeSupport" BaseType="Settings.v1_3_3.OperationApplyTimeSupport"/>
       <ComplexType Name="MaintenanceWindow" BaseType="Settings.v1_3_3.MaintenanceWindow"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Settings.v1_3_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the behavior of `Immediate` in SettingsApplyTime and OperationApplyTime to allow for side effects."/>
+      <ComplexType Name="Settings" BaseType="Settings.v1_3_4.Settings"/>
+      <ComplexType Name="PreferredApplyTime" BaseType="Settings.v1_3_4.PreferredApplyTime"/>
+      <ComplexType Name="OperationApplyTimeSupport" BaseType="Settings.v1_3_4.OperationApplyTimeSupport"/>
+      <ComplexType Name="MaintenanceWindow" BaseType="Settings.v1_3_4.MaintenanceWindow"/>
     </Schema>
 
   </edmx:DataServices>

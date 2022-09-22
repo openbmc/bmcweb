@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Sensor v1.5.0                                                       -->
+<!--# Redfish Schema:  Sensor v1.6.0                                                       -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -79,6 +79,20 @@
         <Annotation Term="OData.Description" String="Resets metrics related to this sensor."/>
         <Annotation Term="OData.LongDescription" String="This action shall reset any time intervals or counted values for this sensor.  The SensorResetTime property shall be updated to reflect the time that this action was performed."/>
         <Parameter Name="Sensor" Type="Sensor.v1_0_0.Actions"/>
+      </Action>
+
+      <Action Name="ResetToDefaults" IsBound="true">
+        <Annotation Term="OData.Description" String="The action resets the values of writable properties to factory defaults."/>
+        <Annotation Term="OData.LongDescription" String="This action shall reset the values of writable properties in this resource to their default values as specified by the manufacturer."/>
+        <Parameter Name="Sensor" Type="Sensor.v1_0_0.Actions"/>
+        <Annotation Term="Redfish.Revisions">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+              <PropertyValue Property="Version" String="v1_6_0"/>
+            </Record>
+          </Collection>
+        </Annotation>
       </Action>
 
       <EnumType Name="VoltageType">
@@ -858,6 +872,14 @@
           <Annotation Term="Redfish.Excerpt" String="Power,PowerArray"/>
         </Property>
       </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Sensor.v1_6_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2022.2"/>
+      <Annotation Term="OData.Description" String="This version was created to add the ResetToDefaults action."/>
+
+      <EntityType Name="Sensor" BaseType="Sensor.v1_5_0.Sensor"/>
     </Schema>
 
   </edmx:DataServices>

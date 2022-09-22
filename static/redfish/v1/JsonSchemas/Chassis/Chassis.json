@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Chassis.v1_20_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Chassis.v1_21_0.json",
     "$ref": "#/definitions/Chassis",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -201,6 +201,16 @@
                     ],
                     "units": "mm",
                     "versionAdded": "v1_4_0"
+                },
+                "HotPluggable": {
+                    "description": "An indication of whether this component can be inserted or removed while the equipment is in operation.",
+                    "longDescription": "This property shall indicate whether the component can be inserted or removed while the underlying equipment otherwise remains in its current operational state.  Components indicated as hot-pluggable shall allow the component to become operable without altering the operational state of the underlying equipment.  Components that cannot be inserted or removed from equipment in operation, or components that cannot become operable without affecting the operational state of that equipment, shall be indicated as not hot-pluggable.",
+                    "readonly": true,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_21_0"
                 },
                 "Id": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
@@ -406,6 +416,16 @@
                     ],
                     "versionAdded": "v1_20_0"
                 },
+                "Replaceable": {
+                    "description": "An indication of whether this component can be independently replaced as allowed by the vendor's replacement policy.",
+                    "longDescription": "This property shall indicate whether this component can be independently replaced as allowed by the vendor's replacement policy.  A value of `false` indicates the component needs to be replaced by policy, as part of another component.  If the `LocationType` property of this component contains `Embedded`, this property shall contain `false`.",
+                    "readonly": true,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_21_0"
+                },
                 "SKU": {
                     "description": "The SKU of the chassis.",
                     "longDescription": "This property shall contain the stock-keeping unit number for this chassis.",
@@ -485,6 +505,13 @@
                     "readonly": true,
                     "versionAdded": "v1_15_0"
                 },
+                "TrustedComponents": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/TrustedComponentCollection.json#/definitions/TrustedComponentCollection",
+                    "description": "The link to the trusted components in this chassis.",
+                    "longDescription": "This property shall contain a link to a resource collection of type TrustedComponentCollection.",
+                    "readonly": true,
+                    "versionAdded": "v1_21_0"
+                },
                 "UUID": {
                     "anyOf": [
                         {
@@ -498,6 +525,16 @@
                     "longDescription": "This property shall contain the universal unique identifier number for this chassis.",
                     "readonly": true,
                     "versionAdded": "v1_7_0"
+                },
+                "Version": {
+                    "description": "The hardware version of this chassis.",
+                    "longDescription": "This property shall contain the hardware version of this chassis as determined by the vendor or supplier.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_21_0"
                 },
                 "WeightKg": {
                     "description": "The weight of the chassis.",
@@ -1073,6 +1110,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2022.1",
-    "title": "#Chassis.v1_20_0.Chassis"
+    "release": "2022.2",
+    "title": "#Chassis.v1_21_0.Chassis"
 }

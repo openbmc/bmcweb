@@ -63,6 +63,50 @@
             </Collection>
           </Annotation>
         </Member>
+        <Member Name="AdministrateSystems">
+          <Annotation Term="OData.Description" String="Adminsitrator for systems found in the systems collection.  Able to manage boot configuration, keys, and certificates for systems."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="2022.2"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="OperateSystems">
+          <Annotation Term="OData.Description" String="Operator for systems found in the systems colletion.  Able to perform resets and configure interfaces."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="2022.2"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="AdministrateStorage">
+          <Annotation Term="OData.Description" String="Administrator for storage subsystems and storage systems found in the storage collection and storage system collection respectively."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="2022.2"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="OperateStorageBackup">
+          <Annotation Term="OData.Description" String="Operator for storage backup functionality for storage subsystems and storage systems found in the storage collection and storage system collection respectively."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="2022.2"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
       </EnumType>
     </Schema>
 
