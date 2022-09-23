@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  EventService v1.7.2                                                 -->
+<!--# Redfish Schema:  EventService v1.8.0                                                 -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2021 DMTF.                                                            -->
+<!--# Copyright 2014-2022 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -340,8 +340,8 @@
       <EntityType Name="EventService" BaseType="EventService.v1_1_1.EventService">
         <Property Name="RegistryPrefixes" Type="Collection(Edm.String)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The list of the prefixes of the message registries that can be used for the RegistryPrefix property on a subscription.  If this property is absent or contains an empty array, the service does not support RegistryPrefix-based subscriptions."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the array of the prefixes of the message registries that shall be allowed for an event subscription."/>
+          <Annotation Term="OData.Description" String="The list of the prefixes of the message registries that can be used for the RegistryPrefixes or ExcludeRegistryPrefixes properties on a subscription.  If this property is absent or contains an empty array, the service does not support RegistryPrefix-based subscriptions."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the array of the prefixes of the message registries that shall be allowed or excluded for an event subscription."/>
         </Property>
         <Property Name="ResourceTypes" Type="Collection(Edm.String)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -370,8 +370,8 @@
         <Annotation Term="OData.LongDescription" String="The type shall contain a set of properties that are supported in the `$filter` query parameter for the URI indicated by the ServerSentEventUri property, as described by the Redfish Specification."/>
         <Property Name="EventType" Type="Edm.Boolean" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="An indication of whether the service supports filtering by the EventType property."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate whether this service supports filtering by the EventType property."/>
+          <Annotation Term="OData.Description" String="An indication of whether the service supports filtering by the EventTypes property."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether this service supports filtering by the EventTypes property."/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
@@ -384,18 +384,18 @@
         </Property>
         <Property Name="MetricReportDefinition" Type="Edm.Boolean" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="An indication of whether the service supports filtering by the MetricReportDefinition property."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate whether this service supports filtering by the MetricReportDefinition property."/>
+          <Annotation Term="OData.Description" String="An indication of whether the service supports filtering by the MetricReportDefinitions property."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether this service supports filtering by the MetricReportDefinitions property."/>
         </Property>
         <Property Name="RegistryPrefix" Type="Edm.Boolean" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="An indication of whether the service supports filtering by the RegistryPrefix property."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate whether this service supports filtering by the RegistryPrefix property."/>
+          <Annotation Term="OData.Description" String="An indication of whether the service supports filtering by the RegistryPrefixes property."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether this service supports filtering by the RegistryPrefixes property."/>
         </Property>
         <Property Name="ResourceType" Type="Edm.Boolean" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="An indication of whether the service supports filtering by the ResourceType property."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate whether this service supports filtering by the ResourceType property."/>
+          <Annotation Term="OData.Description" String="An indication of whether the service supports filtering by the ResourceTypes property."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether this service supports filtering by the ResourceTypes property."/>
         </Property>
         <Property Name="EventFormatType" Type="Edm.Boolean" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -404,13 +404,13 @@
         </Property>
         <Property Name="MessageId" Type="Edm.Boolean" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="An indication of whether the service supports filtering by the MessageId property."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate whether this service supports filtering by the MessageId property."/>
+          <Annotation Term="OData.Description" String="An indication of whether the service supports filtering by the MessageIds property."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether this service supports filtering by the MessageIds property."/>
         </Property>
         <Property Name="OriginResource" Type="Edm.Boolean" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="An indication of whether the service supports filtering by the OriginResource property."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate whether this service supports filtering by the OriginResource property."/>
+          <Annotation Term="OData.Description" String="An indication of whether the service supports filtering by the OriginResources property."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether this service supports filtering by the OriginResources property."/>
         </Property>
       </ComplexType>
     </Schema>
@@ -451,6 +451,12 @@
       <EntityType Name="EventService" BaseType="EventService.v1_2_5.EventService"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventService.v1_2_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct filter property references in EventDestination."/>
+      <EntityType Name="EventService" BaseType="EventService.v1_2_6.EventService"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventService.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.1"/>
@@ -487,6 +493,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify the behavior of the event service when it is disabled."/>
       <EntityType Name="EventService" BaseType="EventService.v1_3_4.EventService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventService.v1_3_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct filter property references in EventDestination."/>
+      <EntityType Name="EventService" BaseType="EventService.v1_3_5.EventService"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventService.v1_4_0">
@@ -526,6 +538,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify the behavior of the event service when it is disabled."/>
       <EntityType Name="EventService" BaseType="EventService.v1_4_3.EventService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventService.v1_4_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct filter property references in EventDestination."/>
+      <EntityType Name="EventService" BaseType="EventService.v1_4_5.EventService"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventService.v1_5_0">
@@ -663,6 +681,12 @@
       <EntityType Name="EventService" BaseType="EventService.v1_5_3.EventService"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventService.v1_5_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct filter property references in EventDestination."/>
+      <EntityType Name="EventService" BaseType="EventService.v1_5_4.EventService"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventService.v1_6_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.1"/>
@@ -694,6 +718,12 @@
       <EntityType Name="EventService" BaseType="EventService.v1_6_2.EventService"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventService.v1_6_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct filter property references in EventDestination."/>
+      <EntityType Name="EventService" BaseType="EventService.v1_6_3.EventService"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventService.v1_7_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.2"/>
@@ -712,6 +742,30 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify the behavior of the event service when it is disabled."/>
       <EntityType Name="EventService" BaseType="EventService.v1_7_1.EventService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventService.v1_7_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct filter property references in EventDestination."/>
+      <EntityType Name="EventService" BaseType="EventService.v1_7_2.EventService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventService.v1_8_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2022.1"/>
+
+      <EntityType Name="EventService" BaseType="EventService.v1_7_3.EventService">
+        <Property Name="ExcludeRegistryPrefix" Type="Edm.Boolean" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An indication of whether the service supports filtering by the ExcludeRegistryPrefixes property."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether this service supports filtering by the ExcludeRegistryPrefixes property."/>
+        </Property>
+        <Property Name="ExcludeMessageId" Type="Edm.Boolean" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An indication of whether the service supports filtering by the ExcludeMessageIds property."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether this service supports filtering by the ExcludeMessageIds property."/>
+        </Property>
+      </EntityType>
     </Schema>
 
   </edmx:DataServices>

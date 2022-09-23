@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  SoftwareInventory v1.6.0                                            -->
+<!--# Redfish Schema:  SoftwareInventory v1.7.0                                            -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2021 DMTF.                                                            -->
+<!--# Copyright 2014-2022 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -61,6 +61,12 @@
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
         <Annotation Term="OData.Description" String="The DSP0274-defined measurement block information."/>
         <Annotation Term="OData.LongDescription" String="This type shall describe a DSP0274-defined measurement block."/>
+      </ComplexType>
+
+      <ComplexType Name="AdditionalVersions" Abstract="true">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="Additional versions."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain additional versions."/>
       </ComplexType>
     </Schema>
 
@@ -302,6 +308,40 @@
       <Annotation Term="OData.Description" String="This version was created to deprecate Measurement in favor of measurement reporting in the ComponentIntegrity resource."/>
 
       <EntityType Name="SoftwareInventory" BaseType="SoftwareInventory.v1_5_0.SoftwareInventory"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SoftwareInventory.v1_7_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2022.1"/>
+
+      <EntityType Name="SoftwareInventory" BaseType="SoftwareInventory.v1_6_0.SoftwareInventory">
+        <Property Name="AdditionalVersions" Type="SoftwareInventory.v1_7_0.AdditionalVersions" Nullable="false">
+          <Annotation Term="OData.Description" String="The additional versions of this software."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the additional versions of this software."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="AdditionalVersions" BaseType="SoftwareInventory.AdditionalVersions">
+        <Property Name="Bootloader" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The bootloader version contained in this software, such as U-Boot or UEFI."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the bootloader version contained in this software."/>
+        </Property>
+        <Property Name="Microcode" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The microcode version contained in this software, such as processor microcode."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the microcode version contained in this software."/>
+        </Property>
+        <Property Name="Kernel" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The kernel version contained in this software."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the kernel version contained in this software.  For strict POSIX software, the value shall contain the output of `uname -srm`.  For Microsoft Windows, the value shall contain the output of `ver`."/>
+        </Property>
+        <Property Name="Oem" Type="Resource.Oem" Nullable="false">
+          <Annotation Term="OData.Description" String="The OEM extension property."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the OEM extensions.  All values for properties contained in this object shall conform to the Redfish Specification-described requirements."/>
+        </Property>
+      </ComplexType>
     </Schema>
 
   </edmx:DataServices>
