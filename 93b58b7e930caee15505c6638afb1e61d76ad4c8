@@ -34,6 +34,24 @@
       "parentUuid": "e5271e3d_3c757650",
       "revId": "93b58b7e930caee15505c6638afb1e61d76ad4c8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "875174cc_e49e0501",
+        "filename": "redfish-core/lib/redfish_v1.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-09-23T18:46:27Z",
+      "side": 1,
+      "message": "Huh? \nI thought GET of service root (redfish/v1/) was unauthed (as the code in https://github.com/openbmc/bmcweb/blob/3acced2ce93ab735f147ba8204afcc18bdc0c3ea/include/authentication.hpp#L230 does.)\n\nsection 7.2.3 of redfish spec (I am looking at DSP0266 version 1.15.1)\n\n\"Service root request\n\nThe root URL for Redfish version 1.x services shall be /redfish/v1/.\n\nThe service returns the ServiceRoot resource, as defined by this specification, as a response for the root URL.\n\nServices shall not require authentication to retrieve the service root and /redfish resources.\"",
+      "parentUuid": "441c692a_d68d9123",
+      "revId": "93b58b7e930caee15505c6638afb1e61d76ad4c8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
