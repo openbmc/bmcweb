@@ -2,8 +2,10 @@
 import requests
 import zipfile
 from io import BytesIO
+from packaging.version import Version, parse
+
 import os
-from collections import OrderedDict
+from collections import OrderedDict, defaultdict
 import shutil
 import json
 
@@ -156,7 +158,37 @@ metadata_index_path = os.path.join(static_path, "$metadata", "index.xml")
 zipBytesIO = BytesIO(r.content)
 zip_ref = zipfile.ZipFile(zipBytesIO)
 
+
+def version_sort_key(key):
+    """
+    Method that computes a sort key that zero pads all numbers, such that
+    version sorting like
+    0_2_0
+    0_10_0
+    sorts in the way humans expect.
+    it also does case insenitive comparisons.
+    """
+    key = str.casefold(key)
+
+    # Decription of this class calls it "Version numbering for anarchists and
+    # software realists.".  That seems like exactly what we need here.
+
+    if not any(char.isdigit() for char in key):
+        split_tup = os.path.splitext(key)
+        key = split_tup[0] + ".v1_1_1" + split_tup[1]
+
+    # special case some files that don't seem to follow the naming convention,
+    # and cause sort problems.  These need brought up with DMTF TODO(Ed)
+    if key == "odata.4.0.0.json":
+        key = "odata.v4_0_0.json"
+    if key == "redfish-schema.1.0.0.json":
+        key = "redfish-schema.v1_0_0.json"
+
+    return parse(key)
+
+
 # Remove the old files
+
 skip_prefixes = "Oem"
 if os.path.exists(schema_path):
     files = [
@@ -177,13 +209,44 @@ if os.path.exists(json_schema_path):
             os.remove(f)
         else:
             shutil.rmtree(f)
-os.remove(metadata_index_path)
+try:
+    os.remove(metadata_index_path)
+except FileNotFoundError:
+    pass
 
 if not os.path.exists(schema_path):
     os.makedirs(schema_path)
 if not os.path.exists(json_schema_path):
     os.makedirs(json_schema_path)
 
+csdl_filenames = []
+json_schema_files = defaultdict(list)
+
+for zip_filepath in zip_ref.namelist():
+    if zip_filepath.startswith("csdl/") and (zip_filepath != "csdl/"):
+        csdl_filenames.append(os.path.basename(zip_filepath))
+    elif zip_filepath.startswith("json-schema/"):
+        filename = os.path.basename(zip_filepath)
+        filenamesplit = filename.split(".")
+        # exclude schemas again to save flash space
+        if filenamesplit[0] not in include_list:
+            continue
+        json_schema_files[filenamesplit[0]].append(filename)
+    elif zip_filepath.startswith("openapi/"):
+        pass
+    elif zip_filepath.startswith("dictionaries/"):
+        pass
+
+# sort the json files by version
+for key, value in json_schema_files.items():
+    value.sort(key=version_sort_key, reverse=True)
+
+# Create a dictionary ordered by schema name
+json_schema_files = OrderedDict(
+    sorted(json_schema_files.items(), key=lambda x: version_sort_key(x[0]))
+)
+
+csdl_filenames.sort(key=version_sort_key)
 with open(metadata_index_path, "w") as metadata_index:
 
     metadata_index.write('<?xml version="1.0" encoding="UTF-8"?>\n')
@@ -193,55 +256,48 @@ with open(metadata_index_path, "w") as metadata_index:
         ' Version="4.0">\n'
     )
 
-    for zip_filepath in zip_ref.namelist():
-        if (
-            zip_filepath.startswith("csdl/")
-            and (zip_filepath != VERSION + "/csdl/")
-            and (zip_filepath != "csdl/")
-        ):
-            filename = os.path.basename(zip_filepath)
+    for filename in csdl_filenames:
+        # filename looks like Zone_v1.xml
+        filenamesplit = filename.split("_")
+        if filenamesplit[0] not in include_list:
+            print("excluding schema: " + filename)
+            continue
 
-            # filename looks like Zone_v1.xml
-            filenamesplit = filename.split("_")
-            if filenamesplit[0] not in include_list:
-                print("excluding schema: " + filename)
-                continue
+        with open(os.path.join(schema_path, filename), "wb") as schema_out:
 
-            with open(os.path.join(schema_path, filename), "wb") as schema_out:
+            metadata_index.write(
+                '    <edmx:Reference Uri="/redfish/v1/schema/'
+                + filename
+                + '">\n'
+            )
 
-                metadata_index.write(
-                    '    <edmx:Reference Uri="/redfish/v1/schema/'
-                    + filename
-                    + '">\n'
-                )
+            content = zip_ref.read(os.path.join("csdl", filename))
+            content = content.replace(b"\r\n", b"\n")
+            xml_root = ET.fromstring(content)
+            edmx = "{http://docs.oasis-open.org/odata/ns/edmx}"
+            edm = "{http://docs.oasis-open.org/odata/ns/edm}"
+            for edmx_child in xml_root:
+                if edmx_child.tag == edmx + "DataServices":
+                    for data_child in edmx_child:
+                        if data_child.tag == edm + "Schema":
+                            namespace = data_child.attrib["Namespace"]
+                            if namespace.startswith("RedfishExtensions"):
+                                metadata_index.write(
+                                    "        "
+                                    '<edmx:Include Namespace="'
+                                    + namespace
+                                    + '"  Alias="Redfish"/>\n'
+                                )
 
-                content = zip_ref.read(zip_filepath)
-                content = content.replace(b"\r\n", b"\n")
-                xml_root = ET.fromstring(content)
-                edmx = "{http://docs.oasis-open.org/odata/ns/edmx}"
-                edm = "{http://docs.oasis-open.org/odata/ns/edm}"
-                for edmx_child in xml_root:
-                    if edmx_child.tag == edmx + "DataServices":
-                        for data_child in edmx_child:
-                            if data_child.tag == edm + "Schema":
-                                namespace = data_child.attrib["Namespace"]
-                                if namespace.startswith("RedfishExtensions"):
-                                    metadata_index.write(
-                                        "        "
-                                        '<edmx:Include Namespace="'
-                                        + namespace
-                                        + '"  Alias="Redfish"/>\n'
-                                    )
-
-                                else:
-                                    metadata_index.write(
-                                        "        "
-                                        '<edmx:Include Namespace="'
-                                        + namespace
-                                        + '"/>\n'
-                                    )
-                schema_out.write(content)
-                metadata_index.write("    </edmx:Reference>\n")
+                            else:
+                                metadata_index.write(
+                                    "        "
+                                    '<edmx:Include Namespace="'
+                                    + namespace
+                                    + '"/>\n'
+                                )
+            schema_out.write(content)
+            metadata_index.write("    </edmx:Reference>\n")
 
     metadata_index.write(
         "    <edmx:DataServices>\n"
@@ -307,38 +363,9 @@ with open(metadata_index_path, "w") as metadata_index:
 
     metadata_index.write("</edmx:Edmx>\n")
 
-schema_files = {}
-for zip_filepath in zip_ref.namelist():
-    if zip_filepath.startswith(os.path.join("json-schema/")):
-        filename = os.path.basename(zip_filepath)
-        filenamesplit = filename.split(".")
 
-        # exclude schemas again to save flash space
-        if filenamesplit[0] not in include_list:
-            continue
-
-        if len(filenamesplit) == 3:
-            thisSchemaVersion = schema_files.get(filenamesplit[0], None)
-            if thisSchemaVersion is None:
-                schema_files[filenamesplit[0]] = filenamesplit[1]
-            else:
-                # need to see if we're a newer version.
-                if list(map(int, filenamesplit[1][1:].split("_"))) > list(
-                    map(int, thisSchemaVersion[1:].split("_"))
-                ):
-                    schema_files[filenamesplit[0]] = filenamesplit[1]
-        else:
-            # Unversioned schema include directly.  Invent a version so it can
-            # still be sorted against
-            schema_files[filenamesplit[0]] = "v0_0_0"
-
-for schema, version in schema_files.items():
-    basename = schema
-    if version != "v0_0_0":
-        basename += "." + version
-    basename += ".json"
-
-    zip_filepath = os.path.join("json-schema", basename)
+for schema, version in json_schema_files.items():
+    zip_filepath = os.path.join("json-schema", version[0])
     schemadir = os.path.join(json_schema_path, schema)
     os.makedirs(schemadir)
 
@@ -355,7 +382,7 @@ with open(os.path.join(cpp_path, "schemas.hpp"), "w") as hpp_file:
         "{{\n"
         "    constexpr std::array schemas {{\n".format(WARNING=WARNING)
     )
-    for schema_file in schema_files:
+    for schema_file in json_schema_files:
         hpp_file.write('        "{}",\n'.format(schema_file))
 
     hpp_file.write("    };\n" "}\n")
