@@ -72,6 +72,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d1e8739_8b2f2538",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 39
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2022-09-23T11:54:23Z",
+      "side": 1,
+      "message": "\u003e Can you update this? I think we moved a bit towards these going in PDI, Push this \u003e to PDI? like https://github.com/openbmc/phosphor-dbus-interfaces/commit/df55704398ec8fc3cc608206f05a2226f134c786\n\nHi Gunnar, do you mean to let me add the associations to Chassis.interface.yaml and PowerSupply.interface.yaml ?",
+      "parentUuid": "c11b9133_78277b7e",
+      "revId": "2acb2e210ccfad67412abf066a87ae7a8114f210",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "b1779fe3_c13e118a",
