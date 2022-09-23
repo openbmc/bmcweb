@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d6c29579_809b405d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-23T18:44:56Z",
+      "side": 1,
+      "message": "I\u0027ve removed the managers stuff.\n\nDone",
+      "parentUuid": "9e11e7e4_9b581202",
+      "revId": "3b52c94d6dc09a562c30554a41cb4ef4db224b85",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4142ab12_cd746c80",
@@ -59,6 +77,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0b730e03_612ecd8c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-23T18:44:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4142ab12_cd746c80",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 5
+      },
+      "revId": "3b52c94d6dc09a562c30554a41cb4ef4db224b85",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "523dcff6_3e1beaee",
@@ -72,6 +114,30 @@
       "writtenOn": "2022-08-11T15:45:36Z",
       "side": 1,
       "message": "minor nit...this says the same thing twice.  Maybe \"although this will be corrected in the future\"?",
+      "range": {
+        "startLine": 36,
+        "startChar": 23,
+        "endLine": 37,
+        "endChar": 9
+      },
+      "revId": "3b52c94d6dc09a562c30554a41cb4ef4db224b85",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ec38bb72_00bdf5bd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-23T18:44:56Z",
+      "side": 1,
+      "message": "Language added.",
+      "parentUuid": "523dcff6_3e1beaee",
       "range": {
         "startLine": 36,
         "startChar": 23,
