@@ -193,7 +193,7 @@ with open(metadata_index_path, "w") as metadata_index:
         ' Version="4.0">\n'
     )
 
-    for zip_filepath in zip_ref.namelist():
+    for zip_filepath in sorted(zip_ref.namelist(), key=str.casefold):
         if (
             zip_filepath.startswith("csdl/")
             and (zip_filepath != VERSION + "/csdl/")
@@ -332,10 +332,14 @@ for zip_filepath in zip_ref.namelist():
             # still be sorted against
             schema_files[filenamesplit[0]] = "v0_0_0"
 
+schema_files = OrderedDict(
+    sorted(schema_files.items(), key=lambda x: str.casefold(x[0]))
+)
+
 for schema, version in schema_files.items():
     basename = schema
     if version != "v0_0_0":
-        basename += "." + version
+        basename += "." + str(version)
     basename += ".json"
 
     zip_filepath = os.path.join("json-schema", basename)
