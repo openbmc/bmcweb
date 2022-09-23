@@ -169,6 +169,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "422d4c65_fd521176",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 491,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-09-23T20:59:05Z",
+      "side": 1,
+      "message": "I believe we still hardcode the system path?",
+      "parentUuid": "9ea2657a_cb2ab19e",
+      "range": {
+        "startLine": 491,
+        "startChar": 57,
+        "endLine": 491,
+        "endChar": 72
+      },
+      "revId": "6641333e5f4f193c04cda2c849c90d7792f64aa5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bc2c15a2_55ba330e",
         "filename": "redfish-core/lib/redfish_util.hpp",
         "patchSetId": 43
