@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "28620cc0_ba5021f0",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 80
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-09-23T20:58:14Z",
+      "side": 1,
+      "message": "When you can, I prefer unit test it.\n\nThis function seems like unit testable.",
+      "range": {
+        "startLine": 47,
+        "startChar": 12,
+        "endLine": 47,
+        "endChar": 26
+      },
+      "revId": "afbfacdbea06114afc1452aeac3769a003c21260",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "59889bd7_4e5903e5",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 80
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-09-23T20:58:14Z",
+      "side": 1,
+      "message": "Do you expect an empty array to this attribute? If not, we can create count and the array first, if non-empty, assign them to the json.",
+      "range": {
+        "startLine": 61,
+        "startChar": 0,
+        "endLine": 61,
+        "endChar": 80
+      },
+      "revId": "afbfacdbea06114afc1452aeac3769a003c21260",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
