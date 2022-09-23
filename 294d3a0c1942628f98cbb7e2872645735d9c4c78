@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "858094c3_3b4df827",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-09-23T21:05:22Z",
+      "side": 1,
+      "message": "wait, should be 2022.2?",
+      "range": {
+        "startLine": 7,
+        "startChar": 8,
+        "endLine": 7,
+        "endChar": 14
+      },
+      "revId": "294d3a0c1942628f98cbb7e2872645735d9c4c78",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8d133be8_19fe8d80",
         "filename": "static/redfish/v1/JsonSchemas/AccountService/AccountService.json",
         "patchSetId": 7
@@ -14,6 +37,30 @@
       "writtenOn": "2022-09-23T19:34:50Z",
       "side": 1,
       "message": "There\u0027s a bug in the script that\u0027s causing us to revert to old schema pack versions.  In this case we\u0027re going from 1.10.0 to 1.8.1, which probably wasn\u0027t intended.  We need to get that sorted out.",
+      "range": {
+        "startLine": 2,
+        "startChar": 65,
+        "endLine": 2,
+        "endChar": 68
+      },
+      "revId": "294d3a0c1942628f98cbb7e2872645735d9c4c78",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ea3dcf80_29e326c6",
+        "filename": "static/redfish/v1/JsonSchemas/AccountService/AccountService.json",
+        "patchSetId": 7
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-09-23T21:05:22Z",
+      "side": 1,
+      "message": "Good catch, this should be a blocker to submit this change, right?",
+      "parentUuid": "8d133be8_19fe8d80",
       "range": {
         "startLine": 2,
         "startChar": 65,
