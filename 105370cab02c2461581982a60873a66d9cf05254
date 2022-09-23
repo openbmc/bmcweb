@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b33c2a0a_9a35a70c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-23T22:06:32Z",
+      "side": 1,
+      "message": "Yes.",
+      "parentUuid": "c99217dc_06eb0e2f",
+      "range": {
+        "startLine": 7,
+        "startChar": 4,
+        "endLine": 7,
+        "endChar": 19
+      },
+      "revId": "105370cab02c2461581982a60873a66d9cf05254",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "77b00981_4f6542df",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -37,6 +61,30 @@
       "writtenOn": "2022-09-23T21:00:45Z",
       "side": 1,
       "message": "We do have python format check in this repo, don\u0027t we?",
+      "range": {
+        "startLine": 9,
+        "startChar": 43,
+        "endLine": 9,
+        "endChar": 59
+      },
+      "revId": "105370cab02c2461581982a60873a66d9cf05254",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8dd51084_d01000d8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-23T22:06:32Z",
+      "side": 1,
+      "message": "We do, but I think it uses autopep8 instead of black.  I don\u0027t recall the details.  Not important to this patchset.",
+      "parentUuid": "77b00981_4f6542df",
       "range": {
         "startLine": 9,
         "startChar": 43,
