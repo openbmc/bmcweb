@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Manager v1.14.0                                                     -->
+<!--# Redfish Schema:  Manager v1.15.0                                                     -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2021 DMTF.                                                            -->
+<!--# Copyright 2014-2022 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -1311,6 +1311,23 @@
           <Annotation Term="OData.Description" String="The diagnostic data for this manager."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type ManagerDiagnosticData that represents the diagnostic data for this manager."/>
         </NavigationProperty>
+      </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_15_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2022.1"/>
+
+      <EntityType Name="Manager" BaseType="Manager.v1_14_0.Manager">
+        <Property Name="ServiceIdentification" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="A product instance identifier displayed in the Redfish service root."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a vendor or user-provided value that identifies and associates a discovered Redfish service with a particular product instance.  This property shall only be present if the manager provides a ServiceRoot resource.  The value of this property can be used during deployment processes to match user credentials or other a priori product instance information to the appropriate Redfish service."/>
+        </Property>
+        <Property Name="AdditionalFirmwareVersions" Type="SoftwareInventory.AdditionalVersions" Nullable="false">
+          <Annotation Term="OData.Description" String="The additional firmware versions of the manager."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the additional firmware versions of the manager."/>
+        </Property>
       </EntityType>
     </Schema>
 

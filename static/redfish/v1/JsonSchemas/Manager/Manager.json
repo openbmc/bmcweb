@@ -1,8 +1,8 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Manager.v1_14_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Manager.v1_15_0.json",
     "$ref": "#/definitions/Manager",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2021 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
@@ -349,6 +349,12 @@
                     "description": "The available actions for this resource.",
                     "longDescription": "The actions property shall contain the available actions for this resource."
                 },
+                "AdditionalFirmwareVersions": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/SoftwareInventory.json#/definitions/AdditionalVersions",
+                    "description": "The additional firmware versions of the manager.",
+                    "longDescription": "This property shall contain the additional firmware versions of the manager.",
+                    "versionAdded": "v1_15_0"
+                },
                 "AutoDSTEnabled": {
                     "description": "An indication of whether the manager is configured for automatic Daylight Saving Time (DST) adjustment.",
                     "longDescription": "This property shall indicate whether the manager is configured for automatic Daylight Saving Time (DST) adjustment.",
@@ -619,6 +625,16 @@
                     "description": "The UUID of the Redfish service that is hosted by this manager.",
                     "longDescription": "This property shall contain the UUID of the Redfish service that is hosted by this manager.  Each manager providing an entry point to the same Redfish service shall report the same UUID value, even though the name of the property may imply otherwise.  This property shall not be present if this manager does not provide a Redfish service entry point.",
                     "readonly": true
+                },
+                "ServiceIdentification": {
+                    "description": "A product instance identifier displayed in the Redfish service root.",
+                    "longDescription": "This property shall contain a vendor or user-provided value that identifies and associates a discovered Redfish service with a particular product instance.  This property shall only be present if the manager provides a ServiceRoot resource.  The value of this property can be used during deployment processes to match user credentials or other a priori product instance information to the appropriate Redfish service.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_15_0"
                 },
                 "SparePartNumber": {
                     "description": "The spare part number of the manager.",
@@ -956,6 +972,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2021.4",
-    "title": "#Manager.v1_14_0.Manager"
+    "release": "2022.1",
+    "title": "#Manager.v1_15_0.Manager"
 }
