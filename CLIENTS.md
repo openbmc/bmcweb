@@ -24,7 +24,7 @@ with the Redfish wire-protocol, and checks those against the Redfish
 specification.
 git@github.com:DMTF/Redfish-Protocol-Validator.git
 
-Status: 95+% of assertions passing.  No CI integration.
+Status: 100% of assertions passing.  No CI integration.
 
 
 OpenBMC-test-automation: A tool based on robot framework for testing some
