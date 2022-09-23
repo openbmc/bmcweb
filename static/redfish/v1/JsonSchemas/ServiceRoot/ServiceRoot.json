@@ -1,8 +1,8 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/ServiceRoot.v1_13_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/ServiceRoot.v1_14_0.json",
     "$ref": "#/definitions/ServiceRoot",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2021 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "DeepOperations": {
             "additionalProperties": false,
@@ -188,6 +188,13 @@
                     "readonly": true,
                     "type": "boolean",
                     "versionAdded": "v1_3_0"
+                },
+                "MultipleHTTPRequests": {
+                    "description": "An indication of whether the service supports multiple outstanding HTTP requests.",
+                    "longDescription": "This property shall indicate whether this service supports multiple outstanding HTTP requests.",
+                    "readonly": true,
+                    "type": "boolean",
+                    "versionAdded": "v1_14_0"
                 },
                 "OnlyMemberQuery": {
                     "description": "An indication of whether the service supports the only query parameter.",
@@ -430,6 +437,13 @@
                     "readonly": true,
                     "versionAdded": "v1_13_0"
                 },
+                "ServiceIdentification": {
+                    "description": "The vendor or user-provided product and service identifier.",
+                    "longDescription": "This property shall contain a vendor or user-provided value that identifies and associates a discovered Redfish service with a particular product instance.  The value of the property shall contain the value of the `ServiceIdentification` property in the Manager resource providing the Redfish service root resource.  The value of this property can be used during deployment processes to match user credentials or other a priori product instance information to the appropriate Redfish service.",
+                    "readonly": true,
+                    "type": "string",
+                    "versionAdded": "v1_14_0"
+                },
                 "SessionService": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/SessionService.json#/definitions/SessionService",
                     "description": "The link to the Sessions Service.",
@@ -518,6 +532,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2021.4",
-    "title": "#ServiceRoot.v1_13_0.ServiceRoot"
+    "release": "2022.1",
+    "title": "#ServiceRoot.v1_14_0.ServiceRoot"
 }

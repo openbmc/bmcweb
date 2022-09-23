@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Event v1.7.0                                                        -->
+<!--# Redfish Schema:  Event v1.7.1                                                        -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2021 DMTF.                                                            -->
+<!--# Copyright 2014-2022 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -194,7 +194,7 @@
         <NavigationProperty Name="OriginOfCondition" Type="Resource.Item" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="A link to the resource or object that originated the condition that caused the event to be generated."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to the resource or object that originated the condition that caused the event to be generated.  If the event subscription has the IncludeOriginOfCondition property set to `true`, it shall include the entire resource or object referenced by the link."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to the resource or object that originated the condition that caused the event to be generated.  If the event subscription has the IncludeOriginOfCondition property set to `true`, it shall include the entire resource or object referenced by the link.  For events that represent the creation or deletion of a resource, this property should reference the created or deleted resource and not the collection that contains the resource."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </EntityType>
@@ -282,6 +282,13 @@
       <Annotation Term="OData.Description" String="This version was created to correct the description for MessageId, and to align descriptions between the Message and Event schemas.  It was also updated to remove language in the long description for EventId to align with the specification."/>
       <EntityType Name="Event" BaseType="Event.v1_0_12.Event"/>
       <EntityType Name="EventRecord" BaseType="Event.v1_0_12.EventRecord"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Event.v1_0_14">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of OriginOfCondition for creation and deletion events."/>
+      <EntityType Name="Event" BaseType="Event.v1_0_13.Event"/>
+      <EntityType Name="EventRecord" BaseType="Event.v1_0_13.EventRecord"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Event.v1_1_0">
@@ -374,6 +381,13 @@
       <Annotation Term="OData.Description" String="This version was created to correct the description for MessageId, and to align descriptions between the Message and Event schemas.  It was also updated to remove language in the long description for EventId to align with the specification."/>
       <EntityType Name="Event" BaseType="Event.v1_1_10.Event"/>
       <EntityType Name="EventRecord" BaseType="Event.v1_1_10.EventRecord"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Event.v1_1_12">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of OriginOfCondition for creation and deletion events."/>
+      <EntityType Name="Event" BaseType="Event.v1_1_11.Event"/>
+      <EntityType Name="EventRecord" BaseType="Event.v1_1_11.EventRecord"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Event.v1_2_0">
@@ -483,6 +497,13 @@
       <EntityType Name="EventRecord" BaseType="Event.v1_2_7.EventRecord"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Event.v1_2_9">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of OriginOfCondition for creation and deletion events."/>
+      <EntityType Name="Event" BaseType="Event.v1_2_8.Event"/>
+      <EntityType Name="EventRecord" BaseType="Event.v1_2_8.EventRecord"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Event.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.2"/>
@@ -541,6 +562,13 @@
       <EntityType Name="EventRecord" BaseType="Event.v1_3_5.EventRecord"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Event.v1_3_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of OriginOfCondition for creation and deletion events."/>
+      <EntityType Name="Event" BaseType="Event.v1_3_6.Event"/>
+      <EntityType Name="EventRecord" BaseType="Event.v1_3_6.EventRecord"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Event.v1_4_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.1"/>
@@ -579,6 +607,13 @@
       <EntityType Name="EventRecord" BaseType="Event.v1_4_3.EventRecord"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Event.v1_4_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of OriginOfCondition for creation and deletion events."/>
+      <EntityType Name="Event" BaseType="Event.v1_4_4.Event"/>
+      <EntityType Name="EventRecord" BaseType="Event.v1_4_4.EventRecord"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Event.v1_5_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.2"/>
@@ -609,6 +644,13 @@
       <EntityType Name="EventRecord" BaseType="Event.v1_5_1.EventRecord"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Event.v1_5_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of OriginOfCondition for creation and deletion events."/>
+      <EntityType Name="Event" BaseType="Event.v1_5_2.Event"/>
+      <EntityType Name="EventRecord" BaseType="Event.v1_5_2.EventRecord"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Event.v1_6_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.3"/>
@@ -631,6 +673,13 @@
       <EntityType Name="EventRecord" BaseType="Event.v1_6_0.EventRecord"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Event.v1_6_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of OriginOfCondition for creation and deletion events."/>
+      <EntityType Name="Event" BaseType="Event.v1_6_1.Event"/>
+      <EntityType Name="EventRecord" BaseType="Event.v1_6_1.EventRecord"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Event.v1_7_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.2"/>
@@ -645,6 +694,13 @@
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Event.v1_7_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of OriginOfCondition for creation and deletion events."/>
+      <EntityType Name="Event" BaseType="Event.v1_7_0.Event"/>
+      <EntityType Name="EventRecord" BaseType="Event.v1_7_0.EventRecord"/>
     </Schema>
 
   </edmx:DataServices>

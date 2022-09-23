@@ -11,7 +11,7 @@ import json
 
 import xml.etree.ElementTree as ET
 
-VERSION = "DSP8010_2021.4"
+VERSION = "DSP8010_2022.1"
 
 WARNING = """/****************************************************************
  *                 READ THIS WARNING FIRST
