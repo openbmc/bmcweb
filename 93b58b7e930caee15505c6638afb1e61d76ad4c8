@@ -52,6 +52,24 @@
       "parentUuid": "441c692a_d68d9123",
       "revId": "93b58b7e930caee15505c6638afb1e61d76ad4c8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f8c9c99f_dfa0817f",
+        "filename": "redfish-core/lib/redfish_v1.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-23T18:59:08Z",
+      "side": 1,
+      "message": "\u003e I thought GET of service root (redfish/v1/) was unauthed\n\ncorrect.  But that\u0027s not this handler, the handler for redfish/v1 is here:\nhttps://github.com/openbmc/bmcweb/blob/4a0e1a0cf378e7bf4909c2ea8fc6e77e0d77ca6d/redfish-core/lib/service_root.hpp#L116\n\nThis is the 404 handler.  I rebased this to master, which makes this a lot more clear that this isn\u0027t the GET handler, but the \"route not found\" handler.  Let me know if that makes more sense.",
+      "parentUuid": "875174cc_e49e0501",
+      "revId": "93b58b7e930caee15505c6638afb1e61d76ad4c8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
