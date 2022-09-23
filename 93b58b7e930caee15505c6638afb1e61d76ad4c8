@@ -70,6 +70,24 @@
       "parentUuid": "875174cc_e49e0501",
       "revId": "93b58b7e930caee15505c6638afb1e61d76ad4c8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "402a5d76_7ade1c94",
+        "filename": "redfish-core/lib/redfish_v1.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-09-23T21:12:06Z",
+      "side": 1,
+      "message": "Let me understand this, what will we get here?\n\n1. GET /redfish/abc with login privilege\n2. POST /redfish/abc with login privilege\n3. GET /redfish/abc without login privilege\n4. POST /redfish/abc without login privilege\n\nMy understanding is \n\n1. 404\n2. 405\n3. 401\n4. 401\n\nWhere do we set the methods?",
+      "parentUuid": "f8c9c99f_dfa0817f",
+      "revId": "93b58b7e930caee15505c6638afb1e61d76ad4c8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
