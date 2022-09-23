@@ -331,7 +331,7 @@ with open(os.path.join(cpp_path, "schemas.hpp"), 'w') as hpp_file:
         "    constexpr std::array schemas {{\n"
         .format(
             WARNING=WARNING))
-    for schema_file in schema_files:
+    for schema_file in sorted(schema_files, key=str.casefold):
         hpp_file.write("        \"{}\",\n".format(schema_file))
 
     hpp_file.write(
