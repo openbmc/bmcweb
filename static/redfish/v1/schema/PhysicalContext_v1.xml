@@ -5,7 +5,7 @@
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2021 DMTF.                                                            -->
+<!--# Copyright 2014-2022 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -403,6 +403,34 @@
         </Member>
       </EnumType>
 
+      <EnumType Name="LogicalContext">
+        <Annotation Term="Redfish.Revisions">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+              <PropertyValue Property="Version" String="2022.1"/>
+            </Record>
+          </Collection>
+        </Annotation>
+        <Member Name="Capacity">
+          <Annotation Term="OData.Description" String="Capacity related logical context."/>
+        </Member>
+        <Member Name="Environment">
+          <Annotation Term="OData.Description" String="Environment related logical context."/>
+        </Member>
+        <Member Name="Network">
+          <Annotation Term="OData.Description" String="Network related logical context."/>
+        </Member>
+        <Member Name="Performance">
+          <Annotation Term="OData.Description" String="Performance related logical context."/>
+        </Member>
+        <Member Name="Security">
+          <Annotation Term="OData.Description" String="Security related logical context."/>
+        </Member>
+        <Member Name="Storage">
+          <Annotation Term="OData.Description" String="Storage related logical context."/>
+        </Member>
+      </EnumType>
     </Schema>
 
   </edmx:DataServices>

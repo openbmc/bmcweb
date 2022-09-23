@@ -1,8 +1,8 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/StorageController.v1_5_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/StorageController.v1_6_0.json",
     "$ref": "#/definitions/StorageController",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2021 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "ANAAccessState": {
             "enum": [
@@ -168,6 +168,19 @@
                     "type": "array"
                 },
                 "AttachedVolumes@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "Batteries": {
+                    "description": "The batteries that provide power to this storage controller during a power loss event.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Battery.json#/definitions/Battery"
+                    },
+                    "longDescription": "This property shall contain an array of links to resources of type Battery that represent the batteries that provide power to this storage controller during a power loss event, such as with battery-backed RAID controllers.  This property shall not be present if the batteries power the containing chassis as a whole rather than the individual storage controller.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_6_0"
+                },
+                "Batteries@odata.count": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
                 },
                 "Endpoints": {
@@ -864,6 +877,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2021.4",
-    "title": "#StorageController.v1_5_0.StorageController"
+    "release": "2022.1",
+    "title": "#StorageController.v1_6_0.StorageController"
 }

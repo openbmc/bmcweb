@@ -1,13 +1,13 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Session.v1_3_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Session.v1_4_0.json",
     "$ref": "#/definitions/Session",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
-            "description": "The available actions for this Resource.",
-            "longDescription": "This type shall contain the available actions for this Resource.",
+            "description": "The available actions for this resource.",
+            "longDescription": "This type shall contain the available actions for this resource.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -25,8 +25,8 @@
             "properties": {
                 "Oem": {
                     "$ref": "#/definitions/OemActions",
-                    "description": "The available OEM-specific actions for this Resource.",
-                    "longDescription": "This property shall contain the available OEM-specific actions for this Resource.",
+                    "description": "The available OEM-specific actions for this resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this resource.",
                     "versionAdded": "v1_1_0"
                 }
             },
@@ -34,8 +34,8 @@
         },
         "OemActions": {
             "additionalProperties": true,
-            "description": "The available OEM-specific actions for this Resource.",
-            "longDescription": "This type shall contain the available OEM-specific actions for this Resource.",
+            "description": "The available OEM-specific actions for this resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this resource.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -55,8 +55,8 @@
         },
         "Session": {
             "additionalProperties": false,
-            "description": "The Session Resource describes a single connection (session) between a client and a Redfish Service instance.",
-            "longDescription": "This Resource shall represent a session for a Redfish implementation.",
+            "description": "The Session resource describes a single connection (session) between a client and a Redfish service instance.",
+            "longDescription": "This resource shall represent a session for a Redfish implementation.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -86,8 +86,8 @@
                 },
                 "Actions": {
                     "$ref": "#/definitions/Actions",
-                    "description": "The available actions for this Resource.",
-                    "longDescription": "This property shall contain the available actions for this Resource.",
+                    "description": "The available actions for this resource.",
+                    "longDescription": "This property shall contain the available actions for this resource.",
                     "versionAdded": "v1_1_0"
                 },
                 "ClientOriginIPAddress": {
@@ -99,6 +99,17 @@
                         "null"
                     ],
                     "versionAdded": "v1_3_0"
+                },
+                "CreatedTime": {
+                    "description": "The date and time when the session was created.",
+                    "format": "date-time",
+                    "longDescription": "This property shall contain the date and time when the session was created.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_4_0"
                 },
                 "Description": {
                     "anyOf": [
@@ -126,7 +137,7 @@
                 },
                 "OemSessionType": {
                     "description": "The active OEM-defined session type.",
-                    "longDescription": "When SessionType is reported as OEM, this property should report the OEM-specific session type.  Thus, this property shall represent the type of OEM session that is currently active.",
+                    "longDescription": "This property shall contain the OEM-specific session type that is currently active if SessionType contains `OEM`.",
                     "readonly": true,
                     "type": [
                         "string",
@@ -158,8 +169,8 @@
                     "versionAdded": "v1_2_0"
                 },
                 "UserName": {
-                    "description": "The UserName for the account for this session.",
-                    "longDescription": "This property shall contain the user name that matches an account recognized by the Account Service.",
+                    "description": "The username for the account for this session.",
+                    "longDescription": "This property shall contain the username that matches an account recognized by the account service.",
                     "readonly": true,
                     "type": [
                         "string",
@@ -195,7 +206,7 @@
                 "IPMI": "Intelligent Platform Management Interface.",
                 "KVMIP": "Keyboard-Video-Mouse over IP Session.",
                 "ManagerConsole": "The manager's console, which could be connected through Telnet, SSH, SM CLP, or other protocol.",
-                "OEM": "OEM Type.  For OEM session types, see the OemSessionType property.",
+                "OEM": "OEM type.  For OEM session types, see the OemSessionType property.",
                 "Redfish": "A Redfish session.",
                 "VirtualMedia": "Virtual media.",
                 "WebUI": "A non-Redfish web user interface session, such as a graphical interface or another web-based protocol."
@@ -204,6 +215,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2020.3",
-    "title": "#Session.v1_3_0.Session"
+    "release": "2022.1",
+    "title": "#Session.v1_4_0.Session"
 }
