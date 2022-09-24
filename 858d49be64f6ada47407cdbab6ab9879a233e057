@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ab286f13_d41c8da9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-24T16:43:50Z",
+      "side": 1,
+      "message": "Need to poll the folks looking at this review for a sec;  We need a way to compare version numbers, and every option I can find has some compromise.  The options that I can find are:\n\n1. https://pypi.org/project/packaging/ version.parse.  That\u0027s what the current patchset does, but requires a python dependency that isn\u0027t installed by default, so that needs added to the build script.\n2. distutils.LooseVersion.  Installed by default, so keeps our dependencies down, but gives a warning on using it that distutils is being deprecated soon.\n3. Write/copy our own function.  No dependencies, but requires us to maintain more code.\n\n\nWhat do folks think is the right answer here?",
+      "revId": "858d49be64f6ada47407cdbab6ab9879a233e057",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
