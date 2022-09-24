@@ -49,6 +49,53 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cb7dbe39_771443ac",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 80
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-24T17:31:08Z",
+      "side": 1,
+      "message": "we\u0027re not very consistent in this regard, but generally for the things we support we tend to do what will has done here, and expose the tree links regardless, and in the case where there are no devices, we have an empty array.\n\nWith that said, I do think you\u0027re right, we should do something like\n\nnlohmann::json::array_t storages;\n\nfor (....){\n...\nstorages.push_back(...)\n}\n\nasyncResp-\u003eres.jsonValue[\"Links\"][\"Storage@odata.count\"] \u003d storages.size();\nasyncResp-\u003eres.jsonValue[\"Links\"][\"Storage\"] \u003d std::move(storages);",
+      "parentUuid": "59889bd7_4e5903e5",
+      "range": {
+        "startLine": 61,
+        "startChar": 0,
+        "endLine": 61,
+        "endChar": 80
+      },
+      "revId": "afbfacdbea06114afc1452aeac3769a003c21260",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "845bf423_f456cc91",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 80
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-24T17:31:08Z",
+      "side": 1,
+      "message": "nlohmann::json\u0026 please.",
+      "range": {
+        "startLine": 63,
+        "startChar": 8,
+        "endLine": 63,
+        "endChar": 12
+      },
+      "revId": "afbfacdbea06114afc1452aeac3769a003c21260",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e04cc880_2e514cba",
         "filename": "redfish-core/lib/chassis.hpp",
         "patchSetId": 80
@@ -60,6 +107,30 @@
       "writtenOn": "2022-09-23T20:59:05Z",
       "side": 1,
       "message": "here we hardcode the system path.",
+      "range": {
+        "startLine": 76,
+        "startChar": 51,
+        "endLine": 76,
+        "endChar": 57
+      },
+      "revId": "afbfacdbea06114afc1452aeac3769a003c21260",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "298d847e_3626fbde",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 80
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-24T17:31:08Z",
+      "side": 1,
+      "message": "This line also uses brace initialization, which we\u0027ve gotten rid of from the codebase.\n\nWe need to have a discussion about how this patch works after the multi-host things are merged.  Right now it\u0027s assuming all storages belong to one host, which already would have issues with other patchsets in review.",
+      "parentUuid": "e04cc880_2e514cba",
       "range": {
         "startLine": 76,
         "startChar": 51,
