@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b7929a50_7920760f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-24T16:32:03Z",
+      "side": 1,
+      "message": "Yep.  Fixed the typo.",
+      "parentUuid": "858094c3_3b4df827",
+      "range": {
+        "startLine": 7,
+        "startChar": 8,
+        "endLine": 7,
+        "endChar": 14
+      },
+      "revId": "294d3a0c1942628f98cbb7e2872645735d9c4c78",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8d133be8_19fe8d80",
@@ -61,6 +85,30 @@
       "side": 1,
       "message": "Good catch, this should be a blocker to submit this change, right?",
       "parentUuid": "8d133be8_19fe8d80",
+      "range": {
+        "startLine": 2,
+        "startChar": 65,
+        "endLine": 2,
+        "endChar": 68
+      },
+      "revId": "294d3a0c1942628f98cbb7e2872645735d9c4c78",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e47b5f5_e7e4e854",
+        "filename": "static/redfish/v1/JsonSchemas/AccountService/AccountService.json",
+        "patchSetId": 7
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-24T16:32:03Z",
+      "side": 1,
+      "message": "It would be, but I now have it fixed.  This patch is now #4 in the series.  Patch #2 fixes this issue.",
+      "parentUuid": "ea3dcf80_29e326c6",
       "range": {
         "startLine": 2,
         "startChar": 65,

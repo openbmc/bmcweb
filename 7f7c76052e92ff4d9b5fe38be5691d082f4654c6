@@ -22,6 +22,30 @@
       },
       "revId": "7f7c76052e92ff4d9b5fe38be5691d082f4654c6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "517b1423_ea0e6464",
+        "filename": "static/redfish/v1/JsonSchemas/Cable/Cable.json",
+        "patchSetId": 9
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-24T16:32:03Z",
+      "side": 1,
+      "message": "Yep, DMTF randomized the order of the zip file, which we were relying on.  The new script fixes this.\n\nMarking complete.",
+      "parentUuid": "930d113f_8ce0f6e3",
+      "range": {
+        "startLine": 2,
+        "startChar": 53,
+        "endLine": 2,
+        "endChar": 59
+      },
+      "revId": "7f7c76052e92ff4d9b5fe38be5691d082f4654c6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
