@@ -88,6 +88,24 @@
       "parentUuid": "f8c9c99f_dfa0817f",
       "revId": "93b58b7e930caee15505c6638afb1e61d76ad4c8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f25f006e_57e0dc65",
+        "filename": "redfish-core/lib/redfish_v1.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-24T16:51:11Z",
+      "side": 1,
+      "message": "\u003e Let me understand this, what will we get here?\n\u003e \n\u003e 1. GET /redfish/abc with login privilege\n\u003e 2. POST /redfish/abc with login privilege\n\u003e 3. GET /redfish/abc without login privilege\n\u003e 4. POST /redfish/abc without login privilege\n\u003e \n\u003e My understanding is \n\u003e \n\u003e 1. 404\n\u003e 2. 405\n\u003e 3. 401\n\u003e 4. 401\n\nCorrect.\n\n\u003e \n\u003e Where do we set the methods?\n\n1 and 2 are set in redfish_v1.hpp\n\n3 and 4 are set in http_connection.hpp",
+      "parentUuid": "402a5d76_7ade1c94",
+      "revId": "93b58b7e930caee15505c6638afb1e61d76ad4c8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
