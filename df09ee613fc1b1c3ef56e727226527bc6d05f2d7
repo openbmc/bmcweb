@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1641bda6_49e8c5bd",
+        "filename": "static/redfish/v1/JsonSchemas/CertificateLocations/CertificateLocations.json",
+        "patchSetId": 7
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-24T16:15:58Z",
+      "side": 1,
+      "message": "This needs looked at in more detail...... json schema has abstract classes now?",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 57
+      },
+      "revId": "df09ee613fc1b1c3ef56e727226527bc6d05f2d7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
