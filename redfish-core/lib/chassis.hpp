@@ -274,16 +274,21 @@ inline void
             asyncResp->res.jsonValue["@odata.type"] =
                 "#Chassis.v1_16_0.Chassis";
             asyncResp->res.jsonValue["@odata.id"] =
-                "/redfish/v1/Chassis/" + chassisId;
+                crow::utility::urlFromPieces("redfish", "v1", "Chassis",
+                                             chassisId);
             asyncResp->res.jsonValue["Name"] = "Chassis Collection";
             asyncResp->res.jsonValue["ChassisType"] = "RackMount";
             asyncResp->res.jsonValue["Actions"]["#Chassis.Reset"]["target"] =
-                "/redfish/v1/Chassis/" + chassisId + "/Actions/Chassis.Reset";
+                crow::utility::urlFromPieces("redfish", "v1", "Chassis",
+                                             chassisId, "Actions",
+                                             "Chassis.Reset");
             asyncResp->res
                 .jsonValue["Actions"]["#Chassis.Reset"]["@Redfish.ActionInfo"] =
-                "/redfish/v1/Chassis/" + chassisId + "/ResetActionInfo";
+                crow::utility::urlFromPieces("redfish", "v1", "Chassis",
+                                             chassisId, "ResetActionInfo");
             asyncResp->res.jsonValue["PCIeDevices"]["@odata.id"] =
-                "/redfish/v1/Systems/system/PCIeDevices";
+                crow::utility::urlFromPieces("redfish", "v1", "Systems",
+                                             "system", "PCIeDevices");
 
             sdbusplus::asio::getProperty<std::vector<std::string>>(
                 *crow::connections::systemBus,
@@ -398,10 +403,12 @@ inline void
                 asyncResp->res.jsonValue["Id"] = chassisId;
 #ifdef BMCWEB_ALLOW_DEPRECATED_POWER_THERMAL
                 asyncResp->res.jsonValue["Thermal"]["@odata.id"] =
-                    "/redfish/v1/Chassis/" + chassisId + "/Thermal";
+                    crow::utility::urlFromPieces("redfish", "v1", "Chassis",
+                                                 chassisId, "Thermal");
                 // Power object
                 asyncResp->res.jsonValue["Power"]["@odata.id"] =
-                    "/redfish/v1/Chassis/" + chassisId + "/Power";
+                    crow::utility::urlFromPieces("redfish", "v1", "Chassis",
+                                                 chassisId, "Power");
 #endif
 #ifdef BMCWEB_NEW_POWERSUBSYSTEM_THERMALSUBSYSTEM
                 asyncResp->res.jsonValue["ThermalSubsystem"]["@odata.id"] =
@@ -417,7 +424,8 @@ inline void
 #endif
                 // SensorCollection
                 asyncResp->res.jsonValue["Sensors"]["@odata.id"] =
-                    "/redfish/v1/Chassis/" + chassisId + "/Sensors";
+                    crow::utility::urlFromPieces("redfish", "v1", "Chassis",
+                                                 chassisId, "Sensors");
                 asyncResp->res.jsonValue["Status"]["State"] = "Enabled";
 
                 nlohmann::json::array_t computerSystems;
@@ -707,8 +715,8 @@ inline void handleChassisResetActionInfoGet(
         return;
     }
     asyncResp->res.jsonValue["@odata.type"] = "#ActionInfo.v1_1_2.ActionInfo";
-    asyncResp->res.jsonValue["@odata.id"] =
-        "/redfish/v1/Chassis/" + chassisId + "/ResetActionInfo";
+    asyncResp->res.jsonValue["@odata.id"] = crow::utility::urlFromPieces(
+        "redfish", "v1", "Chassis", chassisId, "ResetActionInfo");
     asyncResp->res.jsonValue["Name"] = "Reset Action Info";
 
     asyncResp->res.jsonValue["Id"] = "ResetActionInfo";
