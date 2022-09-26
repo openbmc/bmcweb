@@ -94,6 +94,25 @@ TEST(Utility, UrlFromPieces)
 
     url = urlFromPieces("/", "bad&tring");
     EXPECT_EQ(std::string_view(url.data(), url.size()), "/%2f/bad&tring");
+
+    url = urlFromPieces("my-user");
+    EXPECT_EQ(std::string_view(url.data(), url.size()), "/my-user");
+
+    url = urlFromPieces("my_user");
+    EXPECT_EQ(std::string_view(url.data(), url.size()), "/my_user");
+
+    url = urlFromPieces("my_93user");
+    EXPECT_EQ(std::string_view(url.data(), url.size()), "/my_93user");
+
+    url = urlFromPieces("my_93user");
+    EXPECT_EQ(std::string_view(url.data(), url.size()), "/my_93user");
+
+    // The following characters will be converted to ASCII number
+    // `[{]}\|"<>/?#%^
+    url =
+        urlFromPieces("~1234567890-_=+qwertyuiopasdfghjklzxcvbnm;:',.!@$&*()");
+    EXPECT_EQ(std::string_view(url.data(), url.size()),
+              "/~1234567890-_=+qwertyuiopasdfghjklzxcvbnm;:',.!@$&*()");
 }
 
 TEST(Utility, readUrlSegments)
@@ -233,25 +252,6 @@ TEST(AppendUrlFromPieces, PiecesAreAppendedViaDelimiters)
     appendUrlPieces(url, "/", "bad&tring");
     EXPECT_EQ(std::string_view(url.data(), url.size()),
               "/redfish/v1/foo/bar/%2f/bad&tring");
-}
-
-TEST(SetFragment, FragmentsAreCreatedWithValidJsonPointer)
-{
-    boost::urls::url url = urlFromPieces("redfish", "v1", "foo");
-    setFragment(url, "/test_fragement"_json_pointer);
-    EXPECT_EQ(std::string_view(url.data(), url.size()),
-              "/redfish/v1/foo#/test_fragement");
-
-    url = urlFromPieces("redfish", "v1", "foo");
-    setFragment(url, "/test_fragement/1"_json_pointer);
-    EXPECT_EQ(std::string_view(url.data(), url.size()),
-              "/redfish/v1/foo#/test_fragement/1");
-
-    url = urlFromPieces("test", "fragment");
-    std::string hello = "hello";
-    setFragment(url, ""_json_pointer / hello / "world");
-    EXPECT_EQ(std::string_view(url.data(), url.size()),
-              "/test/fragment#/hello/world");
 }
 
 } // namespace
