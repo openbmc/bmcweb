@@ -33,6 +33,24 @@
       "message": "Why can\u0027t you fill in the params or atleast some of the params?\n\nCould you still have the schema here? E.g. resourceNotFound(asyncResp-\u003eres, ComputerSystem, \"\")\n\nOr why can\u0027t you include the systemName too? \n\nresourceNotFound(asyncResp-\u003eres, ComputerSystem, systemName)?\n\n\n        \"ResourceNotFound\": {\n            \"Description\": \"Indicates that the operation expected a resource identifier that corresponds to an existing resource but one was not found.\",\n            \"LongDescription\": \"This message shall be used to indicate that the operation expected a resource identifier that corresponds to an existing resource but one was not found.\",\n            \"Message\": \"The requested resource of type \u0027%1\u0027 named \u0027%2\u0027 was not found.\",\n            \"Severity\": \"Critical\",\n            \"MessageSeverity\": \"Critical\",\n            \"VersionAdded\": \"1.2.0\",\n            \"NumberOfArgs\": 2,\n            \"ParamTypes\": [\n                \"string\",\n                \"string\"\n            ],\n            \"ArgDescriptions\": [\n                \"The type of resource.\",\n                \"The `Id` of the resource.\"\n            ],\n            \"ArgLongDescriptions\": [\n                \"This argument shall contain the schema name of the resource.\",\n                \"This argument shall contain the value of the `Id` property of the requested resource.\"\n            ],\n            \"Resolution\": \"Provide a valid resource identifier and resubmit the request.\"\n        },",
       "revId": "0583dee3ef90ded229847a6c2d46117ca391caef",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "be16a2bc_9fea2fe7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-26T20:35:15Z",
+      "side": 1,
+      "message": "This seems like a reasonable request.  My theory here was \"this is no worse than what we have, and unblocks some of the multi-host stuff\".  If you\u0027d like to see the above filled out, I can do that, it\u0027ll just delay this series a little more (which is probably fine).\n\n@Naveen, feel free to push patchsets to fix the above if I don\u0027t get to it in time for when you need it.",
+      "parentUuid": "98cda449_c04f8b53",
+      "revId": "0583dee3ef90ded229847a6c2d46117ca391caef",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

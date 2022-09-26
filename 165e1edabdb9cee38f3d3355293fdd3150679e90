@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "02d2af9e_8704f979",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-26T20:35:15Z",
+      "side": 1,
+      "message": "It looks like some recent log service refactoring is causing us some problems, given that there\u0027s a common routine.  I got it rebased, but it duplicated quite a bit of code.  NOt sure how I feel about that.",
+      "revId": "165e1edabdb9cee38f3d3355293fdd3150679e90",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
