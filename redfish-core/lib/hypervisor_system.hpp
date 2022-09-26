@@ -487,7 +487,8 @@ inline void parseInterfaceData(
 {
     jsonResponse["Id"] = ifaceId;
     jsonResponse["@odata.id"] =
-        "/redfish/v1/Systems/hypervisor/EthernetInterfaces/" + ifaceId;
+        crow::utility::urlFromPieces("redfish", "v1", "Systems", "hypervisor",
+                                     "EthernetInterfaces", ifaceId);
     jsonResponse["InterfaceEnabled"] = true;
     jsonResponse["MACAddress"] = ethData.macAddress;
 
@@ -822,8 +823,9 @@ inline void requestRoutesHypervisorSystems(App& app)
                     continue;
                 }
                 nlohmann::json::object_t ethIface;
-                ethIface["@odata.id"] =
-                    "/redfish/v1/Systems/hypervisor/EthernetInterfaces/" + name;
+                ethIface["@odata.id"] = crow::utility::urlFromPieces(
+                    "redfish", "v1", "Systems", "hypervisor",
+                    "EthernetInterfaces", name);
                 ifaceArray.push_back(std::move(ethIface));
             }
             asyncResp->res.jsonValue["Members@odata.count"] = ifaceArray.size();

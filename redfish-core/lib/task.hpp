@@ -402,8 +402,8 @@ inline void requestRoutesTask(App& app)
         }
         asyncResp->res.jsonValue["TaskStatus"] = ptr->status;
         asyncResp->res.jsonValue["Messages"] = ptr->messages;
-        asyncResp->res.jsonValue["@odata.id"] =
-            "/redfish/v1/TaskService/Tasks/" + strParam;
+        asyncResp->res.jsonValue["@odata.id"] = crow::utility::urlFromPieces(
+            "redfish", "v1", "TaskService", "Tasks", strParam);
         if (!ptr->gave204)
         {
             asyncResp->res.jsonValue["TaskMonitor"] =
@@ -449,8 +449,9 @@ inline void requestRoutesTaskCollection(App& app)
                 continue; // shouldn't be possible
             }
             nlohmann::json::object_t member;
-            member["@odata.id"] =
-                "redfish/v1/TaskService/Tasks/" + std::to_string(task->index);
+            member["@odata.id"] = crow::utility::urlFromPieces(
+                "redfish", "v1", "TaskService", "Tasks",
+                std::to_string(task->index));
             members.emplace_back(std::move(member));
         }
         });
