@@ -45,16 +45,12 @@ inline bool fillReport(nlohmann::json& json, const std::string& id,
                        const TimestampReadings& timestampReadings)
 {
     json["@odata.type"] = "#MetricReport.v1_3_0.MetricReport";
-    json["@odata.id"] =
-        crow::utility::urlFromPieces("redfish", "v1", "TelemetryService",
-                                     "MetricReports", id)
-            .string();
+    json["@odata.id"] = crow::utility::urlFromPieces(
+        "redfish", "v1", "TelemetryService", "MetricReports", id);
     json["Id"] = id;
     json["Name"] = id;
-    json["MetricReportDefinition"]["@odata.id"] =
-        crow::utility::urlFromPieces("redfish", "v1", "TelemetryService",
-                                     "MetricReportDefinitions", id)
-            .string();
+    json["MetricReportDefinition"]["@odata.id"] = crow::utility::urlFromPieces(
+        "redfish", "v1", "TelemetryService", "MetricReportDefinitions", id);
 
     const auto& [timestamp, readings] = timestampReadings;
     json["Timestamp"] = redfish::time_utils::getDateTimeUintMs(timestamp);

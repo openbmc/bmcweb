@@ -1544,8 +1544,8 @@ inline void handleAccountCollectionGet(
             if (userCanSeeAllAccounts || (thisUser == user && userCanSeeSelf))
             {
                 nlohmann::json::object_t member;
-                member["@odata.id"] =
-                    "/redfish/v1/AccountService/Accounts/" + user;
+                member["@odata.id"] = crow::utility::urlFromPieces(
+                    "redfish", "v1", "AccountService", "Accounts", user);
                 memberArray.push_back(std::move(member));
             }
         }
@@ -1801,8 +1801,8 @@ inline void
 
                         nlohmann::json& roleEntry =
                             asyncResp->res.jsonValue["Links"]["Role"];
-                        roleEntry["@odata.id"] =
-                            "/redfish/v1/AccountService/Roles/" + role;
+                        roleEntry["@odata.id"] = crow::utility::urlFromPieces(
+                            "redfish", "v1", "AccountService", "Roles", role);
                     }
                     else if (property.first == "UserPasswordExpired")
                     {
@@ -1822,8 +1822,8 @@ inline void
             }
         }
 
-        asyncResp->res.jsonValue["@odata.id"] =
-            "/redfish/v1/AccountService/Accounts/" + accountName;
+        asyncResp->res.jsonValue["@odata.id"] = crow::utility::urlFromPieces(
+            "redfish", "v1", "AccountService", "Accounts", accountName);
         asyncResp->res.jsonValue["Id"] = accountName;
         asyncResp->res.jsonValue["UserName"] = accountName;
         },
