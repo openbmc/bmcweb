@@ -118,8 +118,8 @@ inline void populateRootOfTrustEntity(
     const ResolvedEntity& resolvedEntity)
 {
     asyncResp->res.jsonValue["@odata.type"] = "#RootOfTrust.v1_0_0.RootOfTrust";
-    asyncResp->res.jsonValue["@odata.id"] =
-        "/google/v1/RootOfTrustCollection/" + resolvedEntity.id;
+    asyncResp->res.jsonValue["@odata.id"] = crow::utility::urlFromPieces(
+        "google", "v1", "RootOfTrustCollection", resolvedEntity.id);
 
     asyncResp->res.jsonValue["Status"]["State"] = "Enabled";
     asyncResp->res.jsonValue["Id"] = resolvedEntity.id;
