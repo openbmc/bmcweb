@@ -32,8 +32,8 @@ inline void fillSessionObject(crow::Response& res,
 {
     res.jsonValue["Id"] = session.uniqueId;
     res.jsonValue["UserName"] = session.username;
-    res.jsonValue["@odata.id"] =
-        "/redfish/v1/SessionService/Sessions/" + session.uniqueId;
+    res.jsonValue["@odata.id"] = crow::utility::urlFromPieces(
+        "redfish", "SessionService", "Sessions", session.uniqueId);
     res.jsonValue["@odata.type"] = "#Session.v1_3_0.Session";
     res.jsonValue["Name"] = "User Session";
     res.jsonValue["Description"] = "Manager User Session";
@@ -129,7 +129,8 @@ inline nlohmann::json getSessionCollectionMembers()
     for (const std::string* uid : sessionIds)
     {
         nlohmann::json::object_t session;
-        session["@odata.id"] = "/redfish/v1/SessionService/Sessions/" + *uid;
+        session["@odata.id"] = crow::utility::urlFromPieces(
+            "redfish", "SessionService", "Sessions", *uid);
         ret.push_back(std::move(session));
     }
     return ret;

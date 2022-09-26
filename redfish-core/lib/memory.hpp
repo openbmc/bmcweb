@@ -751,8 +751,8 @@ inline void getDimmData(std::shared_ptr<bmcweb::AsyncResp> aResp,
         }
         // Set @odata only if object is found
         aResp->res.jsonValue["@odata.type"] = "#Memory.v1_11_0.Memory";
-        aResp->res.jsonValue["@odata.id"] =
-            "/redfish/v1/Systems/system/Memory/" + dimmId;
+        aResp->res.jsonValue["@odata.id"] = crow::utility::urlFromPieces(
+            "redfish", "v1", "Systems", "system", "Memory", dimmId);
         return;
         },
         "xyz.openbmc_project.ObjectMapper",
