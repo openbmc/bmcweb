@@ -102,9 +102,9 @@ inline void getDrives(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
             }
 
             nlohmann::json::object_t driveJson;
-            driveJson["@odata.id"] =
-                "/redfish/v1/Systems/system/Storage/1/Drives/" +
-                object.filename();
+            driveJson["@odata.id"] = crow::utility::urlFromPieces(
+                "redfish", "v1", "Systems", "system", "Storage", "1", "Drives",
+                object.filename());
             driveArray.push_back(std::move(driveJson));
         }
 
@@ -158,8 +158,10 @@ inline void
             storageController["@odata.type"] =
                 "#Storage.v1_7_0.StorageController";
             storageController["@odata.id"] =
-                "/redfish/v1/Systems/system/Storage/1#/StorageControllers/" +
-                std::to_string(index);
+                crow::utility::urlFromPieces("redfish", "v1", "Systems",
+                                             "system", "Storage", "1")
+                    .set_fragment(("/StorageControllers"_json_pointer / index)
+                                      .to_string());
             storageController["Name"] = id;
             storageController["MemberId"] = id;
             storageController["Status"]["State"] = "Enabled";
@@ -607,7 +609,9 @@ inline void requestRoutesDrive(App& app)
 
             asyncResp->res.jsonValue["@odata.type"] = "#Drive.v1_7_0.Drive";
             asyncResp->res.jsonValue["@odata.id"] =
-                "/redfish/v1/Systems/system/Storage/1/Drives/" + driveId;
+                crow::utility::urlFromPieces("redfish", "v1", "Systems",
+                                             "system", "Storage", "1", "Drives",
+                                             driveId);
             asyncResp->res.jsonValue["Name"] = driveId;
             asyncResp->res.jsonValue["Id"] = driveId;
 
@@ -623,7 +627,8 @@ inline void requestRoutesDrive(App& app)
                 asyncResp, [](const std::string& chassisId,
                               const std::shared_ptr<bmcweb::AsyncResp>& aRsp) {
                     aRsp->res.jsonValue["Links"]["Chassis"]["@odata.id"] =
-                        "/redfish/v1/Chassis/" + chassisId;
+                        crow::utility::urlFromPieces("redfish", "v1", "Chassis",
+                                                     chassisId);
                 });
 
             // default it to Enabled

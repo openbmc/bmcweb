@@ -3,6 +3,7 @@
 #include "dbus_utility.hpp"
 #include "error_messages.hpp"
 #include "generated/enums/resource.hpp"
+#include "http/utility.hpp"
 #include "utils/dbus_utils.hpp"
 
 #include <boost/system/error_code.hpp>
@@ -198,9 +199,9 @@ inline void
                         // /redfish/v1/UpdateService/FirmwareInventory/<Id>
                         // e.g. .../FirmwareInventory/82d3ec86
                         nlohmann::json::object_t member;
-                        member["@odata.id"] = "/redfish/v1/UpdateService/"
-                                              "FirmwareInventory/" +
-                                              swId;
+                        member["@odata.id"] = crow::utility::urlFromPieces(
+                            "redfish", "v1", "UpdateService",
+                            "FirmwareInventory", swId);
                         softwareImageMembers.push_back(std::move(member));
                         aResp->res
                             .jsonValue["Links"]["SoftwareImages@odata.count"] =
@@ -210,9 +211,9 @@ inline void
                         {
                             nlohmann::json::object_t runningMember;
                             runningMember["@odata.id"] =
-                                "/redfish/v1/UpdateService/"
-                                "FirmwareInventory/" +
-                                swId;
+                                crow::utility::urlFromPieces(
+                                    "redfish", "v1", "UpdateService",
+                                    "FirmwareInventory", swId);
                             // Create the link to the running image
                             aResp->res
                                 .jsonValue["Links"]["ActiveSoftwareImage"] =
