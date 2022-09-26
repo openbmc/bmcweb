@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e457cd6d_62f80557",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 19
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1001093
+      },
+      "writtenOn": "2022-09-26T10:53:32Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "4588375e_4fca926f",
+      "range": {
+        "startLine": 10,
+        "startChar": 5,
+        "endLine": 10,
+        "endChar": 14
+      },
+      "revId": "8d66fa739c5b3865b08fb535130d0253f3a8411d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5436fa98_52f69f7e",
@@ -47,6 +71,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "40cceef2_8aa7acd5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 19
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1001093
+      },
+      "writtenOn": "2022-09-26T10:53:32Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "5436fa98_52f69f7e",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 11
+      },
+      "revId": "8d66fa739c5b3865b08fb535130d0253f3a8411d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "659df1d5_0a6dd0b7",
@@ -60,6 +108,30 @@
       "writtenOn": "2022-08-11T16:24:31Z",
       "side": 1,
       "message": "remove extra space",
+      "range": {
+        "startLine": 18,
+        "startChar": 38,
+        "endLine": 18,
+        "endChar": 40
+      },
+      "revId": "8d66fa739c5b3865b08fb535130d0253f3a8411d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "461df3d9_d9263580",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 19
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1001093
+      },
+      "writtenOn": "2022-09-26T10:53:32Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "659df1d5_0a6dd0b7",
       "range": {
         "startLine": 18,
         "startChar": 38,
@@ -104,6 +176,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e6f5cf32_48d315e5",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 521,
+      "author": {
+        "id": 1001093
+      },
+      "writtenOn": "2022-09-26T10:53:32Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "e8da5f90_0ec8ce9d",
+      "revId": "8d66fa739c5b3865b08fb535130d0253f3a8411d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7c16e50b_657b92b8",
@@ -127,6 +217,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d10fc6e8_91ef2e8e",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 2731,
+      "author": {
+        "id": 1001093
+      },
+      "writtenOn": "2022-09-26T10:53:32Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "7c16e50b_657b92b8",
+      "range": {
+        "startLine": 2727,
+        "startChar": 16,
+        "endLine": 2731,
+        "endChar": 17
+      },
+      "revId": "8d66fa739c5b3865b08fb535130d0253f3a8411d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8c6fcdbc_3019197f",
@@ -140,6 +254,30 @@
       "writtenOn": "2022-08-30T06:36:19Z",
       "side": 1,
       "message": "is this should be getChassisServiceName() which will return a string as below?\n\"xyz.openbmc_project.State.Chassis\" + computerSystemIndex",
+      "range": {
+        "startLine": 2906,
+        "startChar": 33,
+        "endLine": 2906,
+        "endChar": 51
+      },
+      "revId": "8d66fa739c5b3865b08fb535130d0253f3a8411d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eaad2722_9ed8753a",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 2906,
+      "author": {
+        "id": 1001093
+      },
+      "writtenOn": "2022-09-26T10:53:32Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "8c6fcdbc_3019197f",
       "range": {
         "startLine": 2906,
         "startChar": 33,
@@ -185,6 +323,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "29343fb5_ed4dd7b9",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 3067,
+      "author": {
+        "id": 1001093
+      },
+      "writtenOn": "2022-09-26T10:53:32Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "922eeb3c_1c4db6d2",
+      "revId": "8d66fa739c5b3865b08fb535130d0253f3a8411d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "36a0be73_f6937ba1",
@@ -198,6 +354,24 @@
       "writtenOn": "2022-08-11T16:24:31Z",
       "side": 1,
       "message": "Was there a reason to remove the extra line at the end of file?",
+      "revId": "8d66fa739c5b3865b08fb535130d0253f3a8411d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c041f4f3_f61a8308",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 3257,
+      "author": {
+        "id": 1001093
+      },
+      "writtenOn": "2022-09-26T10:53:32Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "36a0be73_f6937ba1",
       "revId": "8d66fa739c5b3865b08fb535130d0253f3a8411d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
