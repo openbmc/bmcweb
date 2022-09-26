@@ -94,6 +94,11 @@ TEST(Utility, UrlFromPieces)
 
     url = urlFromPieces("/", "bad&tring");
     EXPECT_EQ(std::string_view(url.data(), url.size()), "/%2f/bad&tring");
+
+    url = urlFromPieces("test", "fragment")
+              .set_fragment(urlFromPieces("hello", "world").string());
+    EXPECT_EQ(std::string_view(url.data(), url.size()),
+              "/test/fragment#/hello/world");
 }
 
 TEST(Utility, AppendUrlFromPieces)
@@ -120,6 +125,11 @@ TEST(Utility, SetFragment)
     setFragment(url, "test_fragement", "1");
     EXPECT_EQ(std::string_view(url.data(), url.size()),
               "/redfish/v1/foo#/test_fragement/1");
+
+    url = urlFromPieces("redfish", "v1", "foo");
+    setFragment(url, "test_fragement", "");
+    EXPECT_EQ(std::string_view(url.data(), url.size()),
+              "/redfish/v1/foo#/test_fragement/");
 }
 
 TEST(Utility, readUrlSegments)

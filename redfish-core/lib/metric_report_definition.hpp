@@ -37,16 +37,13 @@ inline void
 {
     asyncResp->res.jsonValue["@odata.type"] =
         "#MetricReportDefinition.v1_3_0.MetricReportDefinition";
-    asyncResp->res.jsonValue["@odata.id"] =
-        crow::utility::urlFromPieces("redfish", "v1", "TelemetryService",
-                                     "MetricReportDefinitions", id)
-            .string();
+    asyncResp->res.jsonValue["@odata.id"] = crow::utility::urlFromPieces(
+        "redfish", "v1", "TelemetryService", "MetricReportDefinitions", id);
     asyncResp->res.jsonValue["Id"] = id;
     asyncResp->res.jsonValue["Name"] = id;
     asyncResp->res.jsonValue["MetricReport"]["@odata.id"] =
         crow::utility::urlFromPieces("redfish", "v1", "TelemetryService",
-                                     "MetricReports", id)
-            .string();
+                                     "MetricReports", id);
     asyncResp->res.jsonValue["Status"]["State"] = "Enabled";
     asyncResp->res.jsonValue["ReportUpdates"] = "Overwrite";
 

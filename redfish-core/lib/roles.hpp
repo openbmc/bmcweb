@@ -100,8 +100,8 @@ inline void requestRoutesRoles(App& app)
         asyncResp->res.jsonValue["IsPredefined"] = true;
         asyncResp->res.jsonValue["Id"] = roleId;
         asyncResp->res.jsonValue["RoleId"] = roleId;
-        asyncResp->res.jsonValue["@odata.id"] =
-            "/redfish/v1/AccountService/Roles/" + roleId;
+        asyncResp->res.jsonValue["@odata.id"] = crow::utility::urlFromPieces(
+            "redfish", "v1", "AccountService", "Roles", roleId);
         asyncResp->res.jsonValue["AssignedPrivileges"] = std::move(privArray);
         });
 }
@@ -145,7 +145,8 @@ inline void requestRoutesRoleCollection(App& app)
                 {
                     nlohmann::json::object_t member;
                     member["@odata.id"] =
-                        "/redfish/v1/AccountService/Roles/" + role;
+                        crow::utility::urlFromPieces(
+                            "redfish", "v1", "AccountService", "Roles", role);
                     memberArray.push_back(std::move(member));
                 }
             }
