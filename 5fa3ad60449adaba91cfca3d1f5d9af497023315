@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e2fb2a95_e6ee039e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-26T21:47:29Z",
+      "side": 1,
+      "message": "I\u0027m not going to hold up the patch for this, but this is a description of the next patch.  in this patch, you\u0027re JUST adding the message, which is fine, and I\u0027m glad you split it up.",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 72
+      },
+      "revId": "5fa3ad60449adaba91cfca3d1f5d9af497023315",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e17ae005_29d11163",
@@ -26,6 +49,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6b5a0b54_d316f858",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-26T21:47:29Z",
+      "side": 1,
+      "message": "This isn\u0027t called out in the redfish spec, but the base message registry, which we already automate the creation of.",
+      "parentUuid": "e17ae005_29d11163",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 18
+      },
+      "revId": "5fa3ad60449adaba91cfca3d1f5d9af497023315",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0d47e091_1a62c437",
         "filename": "redfish-core/src/error_messages.cpp",
         "patchSetId": 2
@@ -37,6 +84,30 @@
       "writtenOn": "2022-09-16T19:03:29Z",
       "side": 1,
       "message": "you missed Formats?",
+      "range": {
+        "startLine": 1118,
+        "startChar": 10,
+        "endLine": 1118,
+        "endChar": 16
+      },
+      "revId": "5fa3ad60449adaba91cfca3d1f5d9af497023315",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3acd86cf_6dbbf6f7",
+        "filename": "redfish-core/src/error_messages.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1118,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-26T21:47:29Z",
+      "side": 1,
+      "message": "+1.  These doxygen comments are kind of a pain, and don\u0027t add a lot of value.  We should think about getting rid of them.",
+      "parentUuid": "0d47e091_1a62c437",
       "range": {
         "startLine": 1118,
         "startChar": 10,
