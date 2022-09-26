@@ -23,8 +23,8 @@ namespace redfish
 namespace telemetry
 {
 
-constexpr const char* metricReportDefinitionUri =
-    "/redfish/v1/TelemetryService/MetricReportDefinitions";
+const boost::urls::url metricReportDefinitionUri = crow::utility::urlFromPieces(
+    "redfish", "v1", "TelemetryService", "MetricReportDefinitions");
 
 using ReadingParameters =
     std::vector<std::tuple<sdbusplus::message::object_path, std::string,
@@ -37,16 +37,13 @@ inline void
 {
     asyncResp->res.jsonValue["@odata.type"] =
         "#MetricReportDefinition.v1_3_0.MetricReportDefinition";
-    asyncResp->res.jsonValue["@odata.id"] =
-        crow::utility::urlFromPieces("redfish", "v1", "TelemetryService",
-                                     "MetricReportDefinitions", id)
-            .string();
+    asyncResp->res.jsonValue["@odata.id"] = crow::utility::urlFromPieces(
+        "redfish", "v1", "TelemetryService", "MetricReportDefinitions", id);
     asyncResp->res.jsonValue["Id"] = id;
     asyncResp->res.jsonValue["Name"] = id;
     asyncResp->res.jsonValue["MetricReport"]["@odata.id"] =
         crow::utility::urlFromPieces("redfish", "v1", "TelemetryService",
-                                     "MetricReports", id)
-            .string();
+                                     "MetricReports", id);
     asyncResp->res.jsonValue["Status"]["State"] = "Enabled";
     asyncResp->res.jsonValue["ReportUpdates"] = "Overwrite";
 

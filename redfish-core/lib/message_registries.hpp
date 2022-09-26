@@ -112,7 +112,7 @@ inline void handleMessageRoutesMessageRegistryFileGet(
     }
 
     asyncResp->res.jsonValue["@odata.id"] =
-        "/redfish/v1/Registries/" + registry;
+        crow::utility::urlFromPieces("redfish", "v1", "Registries", registry);
     asyncResp->res.jsonValue["@odata.type"] =
         "#MessageRegistryFile.v1_1_0.MessageRegistryFile";
     asyncResp->res.jsonValue["Name"] = registry + " Message Registry File";

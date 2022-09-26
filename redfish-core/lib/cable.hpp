@@ -138,7 +138,8 @@ inline void requestRoutesCable(App& app)
 
                 asyncResp->res.jsonValue["@odata.type"] = "#Cable.v1_0_0.Cable";
                 asyncResp->res.jsonValue["@odata.id"] =
-                    "/redfish/v1/Cables/" + cableId;
+                    crow::utility::urlFromPieces("redfish", "v1", "Cables",
+                                                 cableId);
                 asyncResp->res.jsonValue["Id"] = cableId;
                 asyncResp->res.jsonValue["Name"] = "Cable";
 
@@ -179,7 +180,7 @@ inline void requestRoutesCableCollection(App& app)
         asyncResp->res.jsonValue["Description"] = "Collection of Cable Entries";
 
         collection_util::getCollectionMembers(
-            asyncResp, "/redfish/v1/Cables",
+            asyncResp, crow::utility::urlFromPieces("redfish", "v1", "Cables"),
             {"xyz.openbmc_project.Inventory.Item.Cable"});
         });
 }

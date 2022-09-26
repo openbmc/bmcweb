@@ -38,7 +38,8 @@ inline void handleRootOfTrustCollectionGet(
     asyncResp->res.jsonValue["@odata.type"] =
         "#RootOfTrustCollection.RootOfTrustCollection";
     redfish::collection_util::getCollectionMembers(
-        asyncResp, "/google/v1/RootOfTrustCollection",
+        asyncResp,
+        crow::utility::urlFromPieces("google", "v1", "RootOfTrustCollection"),
         {"xyz.openbmc_project.Control.Hoth"}, "/xyz/openbmc_project");
 }
 
@@ -117,8 +118,8 @@ inline void populateRootOfTrustEntity(
     const ResolvedEntity& resolvedEntity)
 {
     asyncResp->res.jsonValue["@odata.type"] = "#RootOfTrust.v1_0_0.RootOfTrust";
-    asyncResp->res.jsonValue["@odata.id"] =
-        "/google/v1/RootOfTrustCollection/" + resolvedEntity.id;
+    asyncResp->res.jsonValue["@odata.id"] = crow::utility::urlFromPieces(
+        "google", "v1", "RootOfTrustCollection", resolvedEntity.id);
 
     asyncResp->res.jsonValue["Status"]["State"] = "Enabled";
     asyncResp->res.jsonValue["Id"] = resolvedEntity.id;

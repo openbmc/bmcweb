@@ -400,11 +400,15 @@ inline void
                         chassis = "#IllegalValue";
                     }
                     nlohmann::json& zone = zones[name];
-                    zone["Chassis"]["@odata.id"] =
-                        "/redfish/v1/Chassis/" + chassis;
+                    zone["Chassis"]["@odata.id"] = crow::utility::urlFromPieces(
+                        "redfish", "v1", "Chassis", chassis);
                     zone["@odata.id"] =
-                        "/redfish/v1/Managers/bmc#/Oem/OpenBmc/Fan/FanZones/" +
-                        name;
+                        crow::utility::urlFromPieces("redfish", "v1",
+                                                     "Managers", "bmc")
+                            .set_fragment(
+                                crow::utility::urlFromPieces(
+                                    "Oem", "OpenBmc", "Fan", "FanZones", name)
+                                    .string());
                     zone["@odata.type"] = "#OemManager.FanZone";
                     config = &zone;
                 }
@@ -421,9 +425,11 @@ inline void
                     nlohmann::json& controller = stepwise[name];
                     config = &controller;
 
-                    controller["@odata.id"] =
-                        "/redfish/v1/Managers/bmc#/Oem/OpenBmc/Fan/StepwiseControllers/" +
-                        name;
+                    controller["@odata.id"] = crow::utility::urlFromPieces(
+                        "redfish", "v1", "Managers", "bmc").set_fragment(
+                            crow::utility::urlFromPieces(
+                                "Oem", "OpenBmc", "Fan", "StepwiseControllers", name)
+                                .string());
                     controller["@odata.type"] =
                         "#OemManager.StepwiseController";
 
@@ -446,15 +452,23 @@ inline void
                     if (isFan)
                     {
                         element["@odata.id"] =
-                            "/redfish/v1/Managers/bmc#/Oem/OpenBmc/Fan/FanControllers/" +
-                            name;
+                            crow::utility::urlFromPieces("redfish", "v1",
+                                                         "Managers", "bmc")
+                                .set_fragment(crow::utility::urlFromPieces(
+                                                  "Oem", "OpenBmc", "Fan",
+                                                  "FanControllers", name)
+                                                  .string());
                         element["@odata.type"] = "#OemManager.FanController";
                     }
                     else
                     {
                         element["@odata.id"] =
-                            "/redfish/v1/Managers/bmc#/Oem/OpenBmc/Fan/PidControllers/" +
-                            name;
+                            crow::utility::urlFromPieces("redfish", "v1",
+                                                         "Managers", "bmc")
+                                .set_fragment(crow::utility::urlFromPieces(
+                                                  "Oem", "OpenBmc", "Fan",
+                                                  "PidControllers", name)
+                                                  .string());
                         element["@odata.type"] = "#OemManager.PidController";
                     }
                 }
@@ -578,8 +592,13 @@ inline void
                                 dbus::utility::escapePathForDbus(itemCopy);
                                 nlohmann::json::object_t input;
                                 input["@odata.id"] =
-                                    "/redfish/v1/Managers/bmc#/Oem/OpenBmc/Fan/FanZones/" +
-                                    itemCopy;
+                                    crow::utility::urlFromPieces(
+                                        "redfish", "v1", "Managers", "bmc")
+                                        .set_fragment(
+                                            crow::utility::urlFromPieces(
+                                                "Oem", "OpenBmc", "Fan",
+                                                "FanZones", itemCopy)
+                                                .string());
                                 data.push_back(std::move(input));
                             }
                         }
@@ -2063,12 +2082,14 @@ inline void requestRoutesManager(App& app)
             aRsp->res.jsonValue["Links"]["ManagerForChassis@odata.count"] = 1;
             nlohmann::json::array_t managerForChassis;
             nlohmann::json::object_t managerObj;
-            managerObj["@odata.id"] = "/redfish/v1/Chassis/" + chassisId;
+            managerObj["@odata.id"] = crow::utility::urlFromPieces(
+                "redfish", "v1", "Chassis", chassisId);
             managerForChassis.push_back(std::move(managerObj));
             aRsp->res.jsonValue["Links"]["ManagerForChassis"] =
                 std::move(managerForChassis);
             aRsp->res.jsonValue["Links"]["ManagerInChassis"]["@odata.id"] =
-                "/redfish/v1/Chassis/" + chassisId;
+                crow::utility::urlFromPieces("redfish", "v1", "Chassis",
+                                             chassisId);
         });
 
         static bool started = false;

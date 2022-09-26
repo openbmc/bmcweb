@@ -547,10 +547,10 @@ inline void getCpuConfigData(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
         if (appliedConfig != nullptr)
         {
             const std::string& dbusPath = appliedConfig->str;
-            std::string uri = "/redfish/v1/Systems/system/Processors/" + cpuId +
-                              "/OperatingConfigs";
             nlohmann::json::object_t operatingConfig;
-            operatingConfig["@odata.id"] = uri;
+            operatingConfig["@odata.id"] = crow::utility::urlFromPieces(
+                "redfish", "v1", "Systems", "system", "Processors", cpuId,
+                "OperatingConfigs");
             json["OperatingConfigs"] = std::move(operatingConfig);
 
             // Reuse the D-Bus config object name for the Redfish
@@ -565,10 +565,10 @@ inline void getCpuConfigData(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
                 messages::internalError(aResp->res);
                 return;
             }
-            uri += '/';
-            uri += dbusPath.substr(baseNamePos + 1);
             nlohmann::json::object_t appliedOperatingConfig;
-            appliedOperatingConfig["@odata.id"] = uri;
+            appliedOperatingConfig["@odata.id"] = crow::utility::urlFromPieces(
+                "redfish", "v1", "Systems", "system", "Processors", cpuId,
+                "OperatingConfigs", dbusPath.substr(baseNamePos + 1));
             json["AppliedOperatingConfig"] = std::move(appliedOperatingConfig);
 
             // Once we found the current applied config, queue another
@@ -1074,8 +1074,9 @@ inline void requestRoutesOperatingConfigCollection(App& app)
                 // Collection of all Config objects under this CPU.
                 collection_util::getCollectionMembers(
                     asyncResp,
-                    "/redfish/v1/Systems/system/Processors/" + cpuName +
-                        "/OperatingConfigs",
+                    crow::utility::urlFromPieces("redfish", "v1", "Systems",
+                                                 "system", "Processors",
+                                                 cpuName, "OperatingConfigs"),
                     {"xyz.openbmc_project.Inventory.Item.Cpu.OperatingConfig"},
                     object.c_str());
                 return;
@@ -1173,7 +1174,9 @@ inline void requestRoutesProcessorCollection(App& app)
             "/redfish/v1/Systems/system/Processors";
 
         collection_util::getCollectionMembers(
-            asyncResp, "/redfish/v1/Systems/system/Processors",
+            asyncResp,
+            crow::utility::urlFromPieces("redfish", "v1", "Systems", "system",
+                                         "Processors"),
             std::vector<const char*>(processorInterfaces.begin(),
                                      processorInterfaces.end()));
         });
@@ -1197,8 +1200,8 @@ inline void requestRoutesProcessor(App& app)
         }
         asyncResp->res.jsonValue["@odata.type"] =
             "#Processor.v1_11_0.Processor";
-        asyncResp->res.jsonValue["@odata.id"] =
-            "/redfish/v1/Systems/system/Processors/" + processorId;
+        asyncResp->res.jsonValue["@odata.id"] = crow::utility::urlFromPieces(
+            "redfish", "v1", "Systems", "system", "Processors", processorId);
 
         getProcessorObject(
             asyncResp, processorId,

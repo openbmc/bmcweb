@@ -582,6 +582,14 @@ inline boost::urls::url urlFromPieces(const AV... args)
     return details::urlFromPiecesDetail({args...});
 }
 
+inline boost::urls::url appendUrl(const boost::urls::url& url,
+                                  std::string_view arg)
+{
+    boost::urls::url urlCopy = url;
+    urlCopy.segments().push_back(arg);
+    return urlCopy;
+}
+
 namespace details
 {
 

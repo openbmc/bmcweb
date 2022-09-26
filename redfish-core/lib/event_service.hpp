@@ -210,8 +210,8 @@ inline void requestRoutesEventDestinationCollection(App& app)
         for (const std::string& id : subscripIds)
         {
             nlohmann::json::object_t member;
-            member["@odata.id"] =
-                "/redfish/v1/EventService/Subscriptions/" + id;
+            member["@odata.id"] = crow::utility::urlFromPieces(
+                "redfish", "v1", "EventService", "Subscriptions", id);
             memberArray.push_back(std::move(member));
         }
         });
@@ -507,8 +507,8 @@ inline void requestRoutesEventDestination(App& app)
         asyncResp->res.jsonValue["@odata.type"] =
             "#EventDestination.v1_7_0.EventDestination";
         asyncResp->res.jsonValue["Protocol"] = "Redfish";
-        asyncResp->res.jsonValue["@odata.id"] =
-            "/redfish/v1/EventService/Subscriptions/" + id;
+        asyncResp->res.jsonValue["@odata.id"] = crow::utility::urlFromPieces(
+            "redfish", "v1", "EventService", "Subscriptions", id);
         asyncResp->res.jsonValue["Id"] = id;
         asyncResp->res.jsonValue["Name"] = "Event Destination " + id;
         asyncResp->res.jsonValue["Destination"] = subValue->destinationUrl;
