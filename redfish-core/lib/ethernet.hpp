@@ -1636,8 +1636,8 @@ inline void parseInterfaceData(
 
     nlohmann::json& jsonResponse = asyncResp->res.jsonValue;
     jsonResponse["Id"] = ifaceId;
-    jsonResponse["@odata.id"] =
-        "/redfish/v1/Managers/bmc/EthernetInterfaces/" + ifaceId;
+    jsonResponse["@odata.id"] = crow::utility::urlFromPieces(
+        "redfish", "v1", "Managers", "bmc", "EthernetInterfaces", ifaceId);
     jsonResponse["InterfaceEnabled"] = ethData.nicEnabled;
 
     auto health = std::make_shared<HealthPopulate>(asyncResp);
@@ -1810,9 +1810,9 @@ inline void requestEthernetInterfacesRoutes(App& app)
                 if (found == std::string::npos)
                 {
                     nlohmann::json::object_t iface;
-                    iface["@odata.id"] =
-                        "/redfish/v1/Managers/bmc/EthernetInterfaces/" +
-                        ifaceItem;
+                    iface["@odata.id"] = crow::utility::urlFromPieces(
+                        "redfish", "v1", "Managers", "bmc",
+                        "EthernetInterfaces", ifaceItem);
                     ifaceArray.push_back(std::move(iface));
                 }
             }
@@ -2044,8 +2044,9 @@ inline void requestEthernetInterfacesRoutes(App& app)
             {
                 asyncResp->res.jsonValue["Id"] = ifaceId;
                 asyncResp->res.jsonValue["@odata.id"] =
-                    "/redfish/v1/Managers/bmc/EthernetInterfaces/" +
-                    parentIfaceId + "/VLANs/" + ifaceId;
+                    crow::utility::urlFromPieces(
+                        "redfish", "v1", "Managers", "bmc",
+                        "EthernetInterfaces", parentIfaceId, "VLANs", ifaceId);
 
                 asyncResp->res.jsonValue["VLANEnable"] = ethData.nicEnabled;
                 asyncResp->res.jsonValue["VLANId"] = *ethData.vlanId;
@@ -2230,13 +2231,11 @@ inline void requestEthernetInterfacesRoutes(App& app)
             {
                 if (ifaceItem.starts_with(rootInterfaceName + "_"))
                 {
-                    std::string path =
-                        "/redfish/v1/Managers/bmc/EthernetInterfaces/";
-                    path += rootInterfaceName;
-                    path += "/VLANs/";
-                    path += ifaceItem;
                     nlohmann::json::object_t iface;
-                    iface["@odata.id"] = std::move(path);
+                    iface["@odata.id"] = crow::utility::urlFromPieces(
+                        "redfish", "v1", "Managers", "bmc",
+                        "EthernetInterfaces", rootInterfaceName, "VLANs",
+                        ifaceItem);
                     ifaceArray.push_back(std::move(iface));
                 }
             }
@@ -2244,8 +2243,9 @@ inline void requestEthernetInterfacesRoutes(App& app)
             asyncResp->res.jsonValue["Members@odata.count"] = ifaceArray.size();
             asyncResp->res.jsonValue["Members"] = std::move(ifaceArray);
             asyncResp->res.jsonValue["@odata.id"] =
-                "/redfish/v1/Managers/bmc/EthernetInterfaces/" +
-                rootInterfaceName + "/VLANs";
+                crow::utility::urlFromPieces("redfish", "v1", "Managers", "bmc",
+                                             "EthernetInterfaces",
+                                             rootInterfaceName, "VLANs");
         });
         });
 
