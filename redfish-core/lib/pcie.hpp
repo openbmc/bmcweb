@@ -64,8 +64,8 @@ static inline void
                 continue;
             }
             nlohmann::json::object_t pcieDevice;
-            pcieDevice["@odata.id"] =
-                "/redfish/v1/Systems/system/PCIeDevices/" + devName;
+            pcieDevice["@odata.id"] = crow::utility::urlFromPieces(
+                "redfish", "v1", "Systems", "system", "PCIeDevices", devName);
             pcieDeviceList.push_back(std::move(pcieDevice));
         }
         asyncResp->res.jsonValue[name + "@odata.count"] = pcieDeviceList.size();
@@ -223,13 +223,15 @@ inline void requestRoutesSystemPCIeDevice(App& app)
             asyncResp->res.jsonValue["@odata.type"] =
                 "#PCIeDevice.v1_4_0.PCIeDevice";
             asyncResp->res.jsonValue["@odata.id"] =
-                "/redfish/v1/Systems/system/PCIeDevices/" + device;
+                crow::utility::urlFromPieces("redfish", "v1", "Systems",
+                                             "system", "PCIeDevices", device);
             asyncResp->res.jsonValue["Name"] = "PCIe Device";
             asyncResp->res.jsonValue["Id"] = device;
 
             asyncResp->res.jsonValue["PCIeFunctions"]["@odata.id"] =
-                "/redfish/v1/Systems/system/PCIeDevices/" + device +
-                "/PCIeFunctions";
+                crow::utility::urlFromPieces("redfish", "v1", "Systems",
+                                             "system", "PCIeDevices", device,
+                                             "PCIeFunctions");
         };
         std::string escapedPath = std::string(pciePath) + "/" + device;
         dbus::utility::escapePathForDbus(escapedPath);
@@ -258,9 +260,9 @@ inline void requestRoutesSystemPCIeFunctionCollection(App& app)
 
         asyncResp->res.jsonValue["@odata.type"] =
             "#PCIeFunctionCollection.PCIeFunctionCollection";
-        asyncResp->res.jsonValue["@odata.id"] =
-            "/redfish/v1/Systems/system/PCIeDevices/" + device +
-            "/PCIeFunctions";
+        asyncResp->res.jsonValue["@odata.id"] = crow::utility::urlFromPieces(
+            "redfish", "v1", "Systems", "system", "PCIeDevices", device,
+            "PCIeFunctions");
         asyncResp->res.jsonValue["Name"] = "PCIe Function Collection";
         asyncResp->res.jsonValue["Description"] =
             "Collection of PCIe Functions for PCIe Device " + device;
@@ -311,9 +313,9 @@ inline void requestRoutesSystemPCIeFunctionCollection(App& app)
                     return;
                 }
                 nlohmann::json::object_t pcieFunction;
-                pcieFunction["@odata.id"] =
-                    "/redfish/v1/Systems/system/PCIeDevices/" + device +
-                    "/PCIeFunctions/" + std::to_string(functionNum);
+                pcieFunction["@odata.id"] = crow::utility::urlFromPieces(
+                    "redfish", "v1", "Systems", "system", "PCIeDevices", device,
+                    "PCIeFunctions", std::to_string(functionNum));
                 pcieFunctionList.push_back(std::move(pcieFunction));
             }
             asyncResp->res.jsonValue["Members@odata.count"] =
@@ -387,13 +389,15 @@ inline void requestRoutesSystemPCIeFunction(App& app)
             asyncResp->res.jsonValue["@odata.type"] =
                 "#PCIeFunction.v1_2_0.PCIeFunction";
             asyncResp->res.jsonValue["@odata.id"] =
-                "/redfish/v1/Systems/system/PCIeDevices/" + device +
-                "/PCIeFunctions/" + function;
+                crow::utility::urlFromPieces("redfish", "v1", "Systems",
+                                             "system", "PCIeDevices", device,
+                                             "PCIeFunctions", function);
             asyncResp->res.jsonValue["Name"] = "PCIe Function";
             asyncResp->res.jsonValue["Id"] = function;
             asyncResp->res.jsonValue["FunctionId"] = std::stoi(function);
             asyncResp->res.jsonValue["Links"]["PCIeDevice"]["@odata.id"] =
-                "/redfish/v1/Systems/system/PCIeDevices/" + device;
+                crow::utility::urlFromPieces("redfish", "v1", "Systems",
+                                             "system", "PCIeDevices", device);
 
             for (const auto& property : pcieDevProperties)
             {

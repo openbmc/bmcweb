@@ -2973,7 +2973,8 @@ inline void requestRoutesSystems(App& app)
                             const std::shared_ptr<bmcweb::AsyncResp>& aRsp) {
             nlohmann::json::array_t chassisArray;
             nlohmann::json& chassis = chassisArray.emplace_back();
-            chassis["@odata.id"] = "/redfish/v1/Chassis/" + chassisId;
+            chassis["@odata.id"] = crow::utility::urlFromPieces(
+                "redfish", "v1", "Chassis", chassisId);
             aRsp->res.jsonValue["Links"]["Chassis"] = std::move(chassisArray);
         });
 
