@@ -96,6 +96,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "94a804a1_d9dcc63f",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 80
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1000411
+      },
+      "writtenOn": "2022-09-26T06:39:55Z",
+      "side": 1,
+      "message": "\u003e nlohmann::json\u0026 please.\n\n+1",
+      "parentUuid": "845bf423_f456cc91",
+      "range": {
+        "startLine": 63,
+        "startChar": 8,
+        "endLine": 63,
+        "endChar": 12
+      },
+      "revId": "afbfacdbea06114afc1452aeac3769a003c21260",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e04cc880_2e514cba",
         "filename": "redfish-core/lib/chassis.hpp",
         "patchSetId": 80
@@ -136,6 +160,29 @@
         "startChar": 51,
         "endLine": 76,
         "endChar": 57
+      },
+      "revId": "afbfacdbea06114afc1452aeac3769a003c21260",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f305afe8_6f7a5244",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 80
+      },
+      "lineNbr": 376,
+      "author": {
+        "id": 1000411
+      },
+      "writtenOn": "2022-09-26T06:39:55Z",
+      "side": 1,
+      "message": "nit: typo",
+      "range": {
+        "startLine": 376,
+        "startChar": 36,
+        "endLine": 376,
+        "endChar": 43
       },
       "revId": "afbfacdbea06114afc1452aeac3769a003c21260",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
