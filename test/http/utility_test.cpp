@@ -94,6 +94,24 @@ TEST(Utility, UrlFromPieces)
 
     url = urlFromPieces("/", "bad&tring");
     EXPECT_EQ(url.buffer(), "/%2F/bad&tring");
+
+    EXPECT_EQ(std::string_view(url.data(), url.size()), "/%2F/bad&tring");
+
+    url = urlFromPieces("my-user");
+    EXPECT_EQ(std::string_view(url.data(), url.size()), "/my-user");
+
+    url = urlFromPieces("my_user");
+    EXPECT_EQ(std::string_view(url.data(), url.size()), "/my_user");
+
+    url = urlFromPieces("my_93user");
+    EXPECT_EQ(std::string_view(url.data(), url.size()), "/my_93user");
+
+    // The following characters will be converted to ASCII number
+    // `[{]}\|"<>/?#%^
+    url =
+        urlFromPieces("~1234567890-_=+qwertyuiopasdfghjklzxcvbnm;:',.!@$&*()");
+    EXPECT_EQ(std::string_view(url.data(), url.size()),
+              "/~1234567890-_=+qwertyuiopasdfghjklzxcvbnm;:',.!@$&*()");
 }
 
 TEST(Utility, readUrlSegments)

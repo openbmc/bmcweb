@@ -394,6 +394,8 @@ inline void
                     }
                 }
 
+                boost::urls::url url = crow::utility::urlFromPieces(
+                    "redfish", "v1", "Managers", "bmc");
                 if (intfPair.first == pidZoneConfigurationIface)
                 {
                     std::string chassis;
@@ -403,11 +405,12 @@ inline void
                         chassis = "#IllegalValue";
                     }
                     nlohmann::json& zone = zones[name];
-                    zone["Chassis"]["@odata.id"] =
-                        "/redfish/v1/Chassis/" + chassis;
-                    zone["@odata.id"] =
-                        "/redfish/v1/Managers/bmc#/Oem/OpenBmc/Fan/FanZones/" +
-                        name;
+                    zone["Chassis"]["@odata.id"] = crow::utility::urlFromPieces(
+                        "redfish", "v1", "Chassis", chassis);
+                    url.set_fragment(
+                        ("/Oem/OpenBmc/Fan/FanZones"_json_pointer / name)
+                            .to_string());
+                    zone["@odata.id"] = std::move(url);
                     zone["@odata.type"] = "#OemManager.FanZone";
                     config = &zone;
                 }
@@ -423,10 +426,11 @@ inline void
 
                     nlohmann::json& controller = stepwise[name];
                     config = &controller;
-
-                    controller["@odata.id"] =
-                        "/redfish/v1/Managers/bmc#/Oem/OpenBmc/Fan/StepwiseControllers/" +
-                        name;
+                    url.set_fragment(
+                        ("/Oem/OpenBmc/Fan/StepwiseControllers"_json_pointer /
+                         name)
+                            .to_string());
+                    controller["@odata.id"] = std::move(url);
                     controller["@odata.type"] =
                         "#OemManager.StepwiseController";
 
@@ -448,16 +452,20 @@ inline void
                     config = &element;
                     if (isFan)
                     {
-                        element["@odata.id"] =
-                            "/redfish/v1/Managers/bmc#/Oem/OpenBmc/Fan/FanControllers/" +
-                            name;
+                        url.set_fragment(
+                            ("/Oem/OpenBmc/Fan/FanControllers"_json_pointer /
+                             name)
+                                .to_string());
+                        element["@odata.id"] = std::move(url);
                         element["@odata.type"] = "#OemManager.FanController";
                     }
                     else
                     {
-                        element["@odata.id"] =
-                            "/redfish/v1/Managers/bmc#/Oem/OpenBmc/Fan/PidControllers/" +
-                            name;
+                        url.set_fragment(
+                            ("/Oem/OpenBmc/Fan/PidControllers"_json_pointer /
+                             name)
+                                .to_string());
+                        element["@odata.id"] = std::move(url);
                         element["@odata.type"] = "#OemManager.PidController";
                     }
                 }
@@ -580,9 +588,14 @@ inline void
                             {
                                 dbus::utility::escapePathForDbus(itemCopy);
                                 nlohmann::json::object_t input;
-                                input["@odata.id"] =
-                                    "/redfish/v1/Managers/bmc#/Oem/OpenBmc/Fan/FanZones/" +
-                                    itemCopy;
+                                boost::urls::url managerUrl =
+                                    crow::utility::urlFromPieces(
+                                        "redfish", "v1", "Managers", "bmc");
+                                managerUrl.set_fragment(
+                                    ("/Oem/OpenBmc/Fan/FanZones"_json_pointer /
+                                     itemCopy)
+                                        .to_string());
+                                input["@odata.id"] = std::move(managerUrl);
                                 data.push_back(std::move(input));
                             }
                         }
@@ -2043,12 +2056,14 @@ inline void requestRoutesManager(App& app)
             aRsp->res.jsonValue["Links"]["ManagerForChassis@odata.count"] = 1;
             nlohmann::json::array_t managerForChassis;
             nlohmann::json::object_t managerObj;
-            managerObj["@odata.id"] = "/redfish/v1/Chassis/" + chassisId;
+            boost::urls::url chassiUrl = crow::utility::urlFromPieces(
+                "redfish", "v1", "Chassis", chassisId);
+            managerObj["@odata.id"] = chassiUrl;
             managerForChassis.push_back(std::move(managerObj));
             aRsp->res.jsonValue["Links"]["ManagerForChassis"] =
                 std::move(managerForChassis);
             aRsp->res.jsonValue["Links"]["ManagerInChassis"]["@odata.id"] =
-                "/redfish/v1/Chassis/" + chassisId;
+                chassiUrl;
         });
 
         static bool started = false;
