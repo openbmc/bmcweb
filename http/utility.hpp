@@ -596,6 +596,12 @@ inline void appendUrlPieces(boost::urls::url& url, const AV... args)
     details::appendUrlPieces(url, {args...});
 }
 
+inline void setFragment(boost::urls::url& url,
+                        nlohmann::json::json_pointer fragment)
+{
+    url.set_fragment(fragment.to_string());
+}
+
 namespace details
 {
 
