@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "de8b7956_c40a777f",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 512,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-27T17:49:15Z",
+      "side": 1,
+      "message": "Generally we take the approach of not populating a parameter if the thing is not supported.\n\nI suspect this needs to be\n\nif (encryptionStatus \u003d\u003d nullptr || isLocked \u003d\u003d nullptr){\n    return;\n}",
+      "range": {
+        "startLine": 512,
+        "startChar": 12,
+        "endLine": 512,
+        "endChar": 65
+      },
+      "revId": "5d668b6309e9907662ec088d1f143af593979cd7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

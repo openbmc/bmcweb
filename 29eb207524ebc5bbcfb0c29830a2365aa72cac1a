@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7c830121_a1b34c4f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 18
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-27T17:49:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a3f9d46b_76048b4c",
+      "range": {
+        "startLine": 31,
+        "startChar": 12,
+        "endLine": 31,
+        "endChar": 17
+      },
+      "revId": "29eb207524ebc5bbcfb0c29830a2365aa72cac1a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6d92c38a_ac55d293",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-09-05T17:21:02Z",
       "side": 1,
       "message": "I didn\u0027t find a condition which covers \"Encrypted but not locked\" case? Isn\u0027t that valid case?",
+      "range": {
+        "startLine": 519,
+        "startChar": 0,
+        "endLine": 525,
+        "endChar": 9
+      },
+      "revId": "29eb207524ebc5bbcfb0c29830a2365aa72cac1a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d54a4548_b61945f1",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 525,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-27T17:49:15Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "6d92c38a_ac55d293",
       "range": {
         "startLine": 519,
         "startChar": 0,
@@ -136,6 +184,24 @@
       "side": 1,
       "message": "Same as above, Should follow DMTF Redfish schema. And its fine.",
       "parentUuid": "8a526c7c_626d71a0",
+      "revId": "29eb207524ebc5bbcfb0c29830a2365aa72cac1a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bcdf0196_42e9af3f",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 537,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-27T17:49:15Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "e8c66c0f_4f8a03c8",
       "revId": "29eb207524ebc5bbcfb0c29830a2365aa72cac1a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
