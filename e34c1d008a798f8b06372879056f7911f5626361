@@ -35,6 +35,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "174a2035_8b7ff0d1",
+        "filename": "redfish-core/include/schemas.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-27T03:12:01Z",
+      "side": 1,
+      "message": "Good callout.\n\nopened: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/57442\n\nMarking this comment resolved, and following up on the review.",
+      "parentUuid": "66ccb545_0bfe4aff",
+      "revId": "e34c1d008a798f8b06372879056f7911f5626361",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d3d99c7a_af2ceee8",
