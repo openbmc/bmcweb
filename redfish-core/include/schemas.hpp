@@ -10,6 +10,7 @@
  * github organization.
  ***************************************************************/
 // clang-format off
+#include <array>
 
 namespace redfish
 {

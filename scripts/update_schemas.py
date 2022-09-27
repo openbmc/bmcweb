@@ -379,6 +379,7 @@ with open(os.path.join(cpp_path, "schemas.hpp"), "w") as hpp_file:
         "#pragma once\n"
         "{WARNING}\n"
         "// clang-format off\n"
+        "#include <array>\n"
         "\n"
         "namespace redfish\n"
         "{{\n"
