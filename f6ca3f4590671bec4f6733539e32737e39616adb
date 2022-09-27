@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a5e7097c_a53f350e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-09-27T17:41:03Z",
+      "side": 1,
+      "message": "We have plenty of flash on our systems, this looks like a lot of changes but they all look small so assuming the flash increase was small (and IMO worth it to pick up new schemas)",
+      "revId": "f6ca3f4590671bec4f6733539e32737e39616adb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "741d2b0d_4a794f23",
+        "filename": "scripts/update_schemas.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-09-27T17:41:03Z",
+      "side": 1,
+      "message": "Redfish must have finally stopped changing the zip directory structure. :)",
+      "revId": "f6ca3f4590671bec4f6733539e32737e39616adb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
