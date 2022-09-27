@@ -39,10 +39,14 @@ std::string getHostName();
 static constexpr const char* sshServiceName = "dropbear";
 static constexpr const char* httpsServiceName = "bmcweb";
 static constexpr const char* ipmiServiceName = "phosphor-ipmi-net";
-static constexpr std::array<std::pair<const char*, const char*>, 3>
+static constexpr const char* kvmServiceName = "start-ipkvm";
+static constexpr const char* virtualMediaServiceName = "xyz.openbmc_project.VirtualMedia";
+static constexpr std::array<std::pair<const char*, const char*>, 5>
     protocolToService = {{{"SSH", sshServiceName},
                           {"HTTPS", httpsServiceName},
-                          {"IPMI", ipmiServiceName}}};
+                          {"IPMI", ipmiServiceName},
+                          {"KVMIP", kvmServiceName},
+                          {"VirtualMedia", virtualMediaServiceName}}};
 
 inline void extractNTPServersAndDomainNamesData(
     const dbus::utility::ManagedObjectType& dbusData,
