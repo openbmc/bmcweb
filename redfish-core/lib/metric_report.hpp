@@ -16,8 +16,8 @@ namespace redfish
 namespace telemetry
 {
 
-constexpr const char* metricReportUri =
-    "/redfish/v1/TelemetryService/MetricReports";
+const boost::urls::url metricReportUri = crow::utility::urlFromPieces(
+    "redfish", "v1", "TelemetryService", "MetricReports");
 
 using Readings =
     std::vector<std::tuple<std::string, std::string, double, uint64_t>>;

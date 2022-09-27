@@ -1074,8 +1074,9 @@ inline void requestRoutesOperatingConfigCollection(App& app)
                 // Collection of all Config objects under this CPU.
                 collection_util::getCollectionMembers(
                     asyncResp,
-                    "/redfish/v1/Systems/system/Processors/" + cpuName +
-                        "/OperatingConfigs",
+                    crow::utility::urlFromPieces("redfish", "v1", "Systems",
+                                                 "system", "Processors",
+                                                 cpuName, "OperatingConfigs"),
                     {"xyz.openbmc_project.Inventory.Item.Cpu.OperatingConfig"},
                     object.c_str());
                 return;
@@ -1173,7 +1174,9 @@ inline void requestRoutesProcessorCollection(App& app)
             "/redfish/v1/Systems/system/Processors";
 
         collection_util::getCollectionMembers(
-            asyncResp, "/redfish/v1/Systems/system/Processors",
+            asyncResp,
+            crow::utility::urlFromPieces("redfish", "v1", "Systems", "system",
+                                         "Processors"),
             std::vector<const char*>(processorInterfaces.begin(),
                                      processorInterfaces.end()));
         });

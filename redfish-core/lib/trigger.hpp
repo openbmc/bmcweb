@@ -20,7 +20,8 @@ namespace telemetry
 {
 constexpr const char* triggerInterface =
     "xyz.openbmc_project.Telemetry.Trigger";
-constexpr const char* triggerUri = "/redfish/v1/TelemetryService/Triggers";
+const boost::urls::url triggerUri = crow::utility::urlFromPieces(
+    "redfish", "v1", "TelemetryService", "Triggers");
 
 using NumericThresholdParams =
     std::tuple<std::string, uint64_t, std::string, double>;
