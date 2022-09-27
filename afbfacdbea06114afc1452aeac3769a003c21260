@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "861fef94_1233d23d",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 80
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-09-27T21:05:39Z",
+      "side": 1,
+      "message": "oh, do you mean mocking the dbus call to return the Association?\n\nLet me move this onto a separate change before this to test that.",
+      "parentUuid": "28620cc0_ba5021f0",
+      "range": {
+        "startLine": 47,
+        "startChar": 12,
+        "endLine": 47,
+        "endChar": 26
+      },
+      "revId": "afbfacdbea06114afc1452aeac3769a003c21260",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "59889bd7_4e5903e5",
         "filename": "redfish-core/lib/chassis.hpp",
         "patchSetId": 80
