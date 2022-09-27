@@ -235,5 +235,24 @@ TEST(AppendUrlFromPieces, PiecesAreAppendedViaDelimiters)
               "/redfish/v1/foo/bar/%2f/bad&tring");
 }
 
+TEST(SetFragment, FragmentsAreCreatedWithValidJsonPointer)
+{
+    boost::urls::url url = urlFromPieces("redfish", "v1", "foo");
+    setFragment(url, "/test_fragement"_json_pointer);
+    EXPECT_EQ(std::string_view(url.data(), url.size()),
+              "/redfish/v1/foo#/test_fragement");
+
+    url = urlFromPieces("redfish", "v1", "foo");
+    setFragment(url, "/test_fragement/1"_json_pointer);
+    EXPECT_EQ(std::string_view(url.data(), url.size()),
+              "/redfish/v1/foo#/test_fragement/1");
+
+    url = urlFromPieces("test", "fragment");
+    std::string hello = "hello";
+    setFragment(url, ""_json_pointer / hello / "world");
+    EXPECT_EQ(std::string_view(url.data(), url.size()),
+              "/test/fragment#/hello/world");
+}
+
 } // namespace
 } // namespace crow::utility
