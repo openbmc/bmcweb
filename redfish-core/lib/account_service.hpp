@@ -1278,7 +1278,7 @@ inline void
     json["Accounts"]["@odata.id"] = "/redfish/v1/AccountService/Accounts";
     json["Roles"]["@odata.id"] = "/redfish/v1/AccountService/Roles";
     json["Oem"]["OpenBMC"]["@odata.type"] =
-        "#OemAccountService.v1_0_0.AccountService";
+        "#OpenBMCAccountService.v1_0_0.AccountService";
     json["Oem"]["OpenBMC"]["@odata.id"] =
         "/redfish/v1/AccountService#/Oem/OpenBMC";
     json["Oem"]["OpenBMC"]["AuthMethods"]["BasicAuth"] =
