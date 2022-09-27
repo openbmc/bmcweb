@@ -77,6 +77,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "44d17dde_94da60be",
+        "filename": "include/event_service_store.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-09-27T06:43:23Z",
+      "side": 1,
+      "message": "Good catch Ed, Current code can\u0027t handle the case if user is renamed. But in such cases, self control will be lost by keep Admin users control intact(Admin\u0027s can patch/delete the existing subscription). That said this improve the existing performance anyway, so IMO can be merged as is. Renamed user case can be handled separately and broadly.\n\nThis trigger other opens: Do we handle web sessions for renamed user cases? (I mean do we logout the existing open sessions if user is renamed?). Is there any other places also this has to be handled? I will point out if i come across any such.",
+      "parentUuid": "40517e94_42eeb251",
+      "range": {
+        "startLine": 178,
+        "startChar": 0,
+        "endLine": 184,
+        "endChar": 41
+      },
+      "revId": "ab3fca60696b111c86e54f085624d4695ec38ca8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f0eafaa7_06f9b607",
         "filename": "redfish-core/lib/event_service.hpp",
         "patchSetId": 11
