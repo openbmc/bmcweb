@@ -785,7 +785,9 @@ inline void requestRoutesMemoryCollection(App& app)
             "/redfish/v1/Systems/system/Memory";
 
         collection_util::getCollectionMembers(
-            asyncResp, "/redfish/v1/Systems/system/Memory",
+            asyncResp,
+            crow::utility::urlFromPieces("redfish", "v1", "Systems", "system",
+                                         "Memory"),
             {"xyz.openbmc_project.Inventory.Item.Dimm"});
         });
 }

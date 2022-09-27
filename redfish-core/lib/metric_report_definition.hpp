@@ -23,8 +23,8 @@ namespace redfish
 namespace telemetry
 {
 
-constexpr const char* metricReportDefinitionUri =
-    "/redfish/v1/TelemetryService/MetricReportDefinitions";
+const boost::urls::url metricReportDefinitionUri = crow::utility::urlFromPieces(
+    "redfish", "v1", "TelemetryService", "MetricReportDefinitions");
 
 using ReadingParameters =
     std::vector<std::tuple<sdbusplus::message::object_path, std::string,

@@ -24,11 +24,12 @@ namespace collection_util
  */
 inline void
     getCollectionMembers(std::shared_ptr<bmcweb::AsyncResp> aResp,
-                         const std::string& collectionPath,
+                         const boost::urls::url& collectionPath,
                          const std::vector<const char*>& interfaces,
                          const char* subtree = "/xyz/openbmc_project/inventory")
 {
-    BMCWEB_LOG_DEBUG << "Get collection members for: " << collectionPath;
+    BMCWEB_LOG_DEBUG << "Get collection members for: "
+                     << collectionPath.string();
     crow::connections::systemBus->async_method_call(
         [collectionPath, aResp{std::move(aResp)}](
             const boost::system::error_code ec,
@@ -65,11 +66,10 @@ inline void
         members = nlohmann::json::array();
         for (const std::string& leaf : pathNames)
         {
-            std::string newPath = collectionPath;
-            newPath += '/';
-            newPath += leaf;
+            boost::urls::url url = collectionPath;
+            crow::utility::appendUrlFromPieces(url, leaf);
             nlohmann::json::object_t member;
-            member["@odata.id"] = std::move(newPath);
+            member["@odata.id"] = std::move(url);
             members.push_back(std::move(member));
         }
         aResp->res.jsonValue["Members@odata.count"] = members.size();
