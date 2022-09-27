@@ -194,12 +194,12 @@ class SchemaVersion:
 
 
 # Remove the old files
-skip_prefixes = "Oem"
+skip_prefixes = ["Oem", "OpenBMC"]
 if os.path.exists(schema_path):
     files = [
         os.path.join(schema_path, f)
         for f in os.listdir(schema_path)
-        if not f.startswith(skip_prefixes)
+        if not any([f.startswith(prefix) for prefix in skip_prefixes])
     ]
     for f in files:
         os.remove(f)
@@ -207,7 +207,7 @@ if os.path.exists(json_schema_path):
     files = [
         os.path.join(json_schema_path, f)
         for f in os.listdir(json_schema_path)
-        if not f.startswith(skip_prefixes)
+        if not any([f.startswith(prefix) for prefix in skip_prefixes])
     ]
     for f in files:
         if os.path.isfile(f):
@@ -392,7 +392,7 @@ if os.path.exists(schema_path):
     files = [
         os.path.join(schema_path, f)
         for f in os.listdir(schema_path)
-        if not f.startswith(skip_prefixes)
+        if not any([f.startswith(prefix) for prefix in skip_prefixes])
     ]
     for filename in files:
         # filename will include the absolute path
