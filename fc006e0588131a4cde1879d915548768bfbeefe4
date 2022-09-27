@@ -55,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "32e5e536_003b5350",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-09-27T17:49:54Z",
+      "side": 1,
+      "message": "I have this as a function originally in order to move all URI updates into `utility.hpp` so that when we need to update the URI we just need to update the one function. Instead of finding all of the random places to update it.\n\nThis was for the dbus encode/decode stuff, but if we don\u0027t need that then this is also not necessary.",
+      "parentUuid": "782e1657_b041fe92",
+      "revId": "fc006e0588131a4cde1879d915548768bfbeefe4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "53a99412_da5a8872",
         "filename": "http/utility.hpp",
         "patchSetId": 1
@@ -66,6 +84,30 @@
       "writtenOn": "2022-09-27T16:54:08Z",
       "side": 1,
       "message": "Nit pick, it\u0027s not really \"From\" if you\u0027re doing an append.",
+      "range": {
+        "startLine": 593,
+        "startChar": 21,
+        "endLine": 593,
+        "endChar": 25
+      },
+      "revId": "fc006e0588131a4cde1879d915548768bfbeefe4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6fa2cc60_9837f184",
+        "filename": "http/utility.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 593,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-09-27T17:49:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "53a99412_da5a8872",
       "range": {
         "startLine": 593,
         "startChar": 21,
@@ -89,6 +131,30 @@
       "writtenOn": "2022-09-27T16:54:08Z",
       "side": 1,
       "message": "?  Looks like this didn\u0027t get escaped properly?",
+      "range": {
+        "startLine": 109,
+        "startChar": 42,
+        "endLine": 109,
+        "endChar": 43
+      },
+      "revId": "fc006e0588131a4cde1879d915548768bfbeefe4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b99b44a0_be5b80c2",
+        "filename": "test/http/utility_test.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-09-27T17:49:54Z",
+      "side": 1,
+      "message": "this was from the example in UrlFromPieces which has the same output.",
+      "parentUuid": "8f5468d0_63a4418a",
       "range": {
         "startLine": 109,
         "startChar": 42,
