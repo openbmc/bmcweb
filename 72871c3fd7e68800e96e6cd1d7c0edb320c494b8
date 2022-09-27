@@ -35,6 +35,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e9f5683d_c5e155a1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 43
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2022-09-27T07:32:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "af094f45_81cf7f3c",
+      "revId": "72871c3fd7e68800e96e6cd1d7c0edb320c494b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bfab3cb6_b7021007",
@@ -70,6 +88,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "596aef87_84788bd2",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2022-09-27T07:32:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "61184cd3_b8776493",
+      "revId": "72871c3fd7e68800e96e6cd1d7c0edb320c494b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "861ea189_ccd70a07",
@@ -87,6 +123,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2b5b3217_999b7751",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2022-09-27T07:32:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "861ea189_ccd70a07",
+      "revId": "72871c3fd7e68800e96e6cd1d7c0edb320c494b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7eed71a7_924bc388",
@@ -100,6 +154,24 @@
       "writtenOn": "2022-09-21T20:53:59Z",
       "side": 1,
       "message": "Could you also test the PowerSupplies ?",
+      "revId": "72871c3fd7e68800e96e6cd1d7c0edb320c494b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "35c13a5c_aff2ae6a",
+        "filename": "redfish-core/lib/ut/power_subsystem_test.cpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2022-09-27T07:32:00Z",
+      "side": 1,
+      "message": "I tried, but the functions of powersupplies all need call dbus to get some values, which will cause the test to fail.",
+      "parentUuid": "7eed71a7_924bc388",
       "revId": "72871c3fd7e68800e96e6cd1d7c0edb320c494b8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
