@@ -109,6 +109,24 @@ TEST(Utility, AppendUrlFromPieces)
               "/redfish/v1/foo/bar/%2f/bad&tring");
 }
 
+TEST(Utility, SetFragment)
+{
+    boost::urls::url url = urlFromPieces("redfish", "v1", "foo");
+    setFragment(url, "test_fragement");
+    EXPECT_EQ(std::string_view(url.data(), url.size()),
+              "/redfish/v1/foo#/test_fragement");
+
+    url = urlFromPieces("redfish", "v1", "foo");
+    setFragment(url, "test_fragement", "1");
+    EXPECT_EQ(std::string_view(url.data(), url.size()),
+              "/redfish/v1/foo#/test_fragement/1");
+
+    url = urlFromPieces("test", "fragment")
+              .set_fragment(urlFromPieces("hello", "world").string());
+    EXPECT_EQ(std::string_view(url.data(), url.size()),
+              "/test/fragment#/hello/world");
+}
+
 TEST(Utility, readUrlSegments)
 {
     boost::urls::result<boost::urls::url_view> parsed =
