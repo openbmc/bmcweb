@@ -2598,9 +2598,9 @@
         <edmx:Include Namespace="OemVirtualMedia"/>
         <edmx:Include Namespace="OemVirtualMedia.v1_0_0"/>
     </edmx:Reference>
-    <edmx:Reference Uri="/redfish/v1/schema/OemAccountService_v1.xml">
-        <edmx:Include Namespace="OemAccountService"/>
-        <edmx:Include Namespace="OemAccountService.v1_0_0"/>
+    <edmx:Reference Uri="/redfish/v1/schema/OpenBMCAccountService_v1.xml">
+        <edmx:Include Namespace="OpenBMCAccountService"/>
+        <edmx:Include Namespace="OpenBMCAccountService.v1_0_0"/>
     </edmx:Reference>
     <edmx:Reference Uri="/redfish/v1/schema/OemSession_v1.xml">
         <edmx:Include Namespace="OemSession"/>

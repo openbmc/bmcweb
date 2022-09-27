@@ -189,12 +189,12 @@ def version_sort_key(key):
 
 # Remove the old files
 
-skip_prefixes = "Oem"
+skip_prefixes = ["Oem", "OpenBMC"]
 if os.path.exists(schema_path):
     files = [
         os.path.join(schema_path, f)
         for f in os.listdir(schema_path)
-        if not f.startswith(skip_prefixes)
+        if not any([f.startswith(prefix) for prefix in skip_prefixes])
     ]
     for f in files:
         os.remove(f)
@@ -202,7 +202,7 @@ if os.path.exists(json_schema_path):
     files = [
         os.path.join(json_schema_path, f)
         for f in os.listdir(json_schema_path)
-        if not f.startswith(skip_prefixes)
+        if not any([f.startswith(prefix) for prefix in skip_prefixes])
     ]
     for f in files:
         if os.path.isfile(f):
@@ -342,13 +342,13 @@ with open(metadata_index_path, "w") as metadata_index:
 
     metadata_index.write(
         '    <edmx:Reference Uri="'
-        '/redfish/v1/schema/OemAccountService_v1.xml">\n'
+        '/redfish/v1/schema/OpenBMCAccountService_v1.xml">\n'
     )
     metadata_index.write(
-        '        <edmx:Include Namespace="OemAccountService"/>\n'
+        '        <edmx:Include Namespace="OpenBMCAccountService"/>\n'
     )
     metadata_index.write(
-        '        <edmx:Include Namespace="OemAccountService.v1_0_0"/>\n'
+        '        <edmx:Include Namespace="OpenBMCAccountService.v1_0_0"/>\n'
     )
     metadata_index.write("    </edmx:Reference>\n")
 
