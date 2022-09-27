@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ab78da01_9c861410",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 80
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-09-27T23:49:06Z",
+      "side": 1,
+      "message": "I spent some time trying to mock out the bus for `sdbusplus::asio::getProperty`, but it seems like `crow::connections::systemBus`.\n\nI was trying to mock it with\n```\n    sdbusplus::SdBusMock mock;\n    sdbusplus::bus_t bus \u003d sdbusplus::get_mocked_new(\u0026mock);\n    crow::connections::systemBus \u003d\n        reinterpret_cast\u003csdbusplus::asio::connection*\u003e(\u0026bus);\n```\n\nBut it seems like it is using the lower level `sd_bus` instead of `sdbusplus::bus_t` that we are mocking.\n```\nconnection(boost::asio::io_context\u0026 io, sd_bus* bus) :\n        sdbusplus::bus_t(bus), io_(io), socket(io_)\n    {\n        socket.assign(get_fd());\n        read_wait();\n    }\n```\n\nSo I am not too sure how to test this properly.\n\nI converted into synchronous call and was able test it, but the async one with `getProperty` failed.",
+      "parentUuid": "861fef94_1233d23d",
+      "range": {
+        "startLine": 47,
+        "startChar": 12,
+        "endLine": 47,
+        "endChar": 26
+      },
+      "revId": "afbfacdbea06114afc1452aeac3769a003c21260",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "59889bd7_4e5903e5",
         "filename": "redfish-core/lib/chassis.hpp",
         "patchSetId": 80
@@ -85,6 +109,30 @@
       "side": 1,
       "message": "we\u0027re not very consistent in this regard, but generally for the things we support we tend to do what will has done here, and expose the tree links regardless, and in the case where there are no devices, we have an empty array.\n\nWith that said, I do think you\u0027re right, we should do something like\n\nnlohmann::json::array_t storages;\n\nfor (....){\n...\nstorages.push_back(...)\n}\n\nasyncResp-\u003eres.jsonValue[\"Links\"][\"Storage@odata.count\"] \u003d storages.size();\nasyncResp-\u003eres.jsonValue[\"Links\"][\"Storage\"] \u003d std::move(storages);",
       "parentUuid": "59889bd7_4e5903e5",
+      "range": {
+        "startLine": 61,
+        "startChar": 0,
+        "endLine": 61,
+        "endChar": 80
+      },
+      "revId": "afbfacdbea06114afc1452aeac3769a003c21260",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "db9c771f_fff638ea",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 80
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-09-27T23:49:06Z",
+      "side": 1,
+      "message": "Updated.",
+      "parentUuid": "cb7dbe39_771443ac",
       "range": {
         "startLine": 61,
         "startChar": 0,
@@ -142,6 +190,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "33155fca_182c0a0f",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 80
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-09-27T23:49:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "94a804a1_d9dcc63f",
+      "range": {
+        "startLine": 63,
+        "startChar": 8,
+        "endLine": 63,
+        "endChar": 12
+      },
+      "revId": "afbfacdbea06114afc1452aeac3769a003c21260",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e04cc880_2e514cba",
@@ -179,6 +251,30 @@
       "side": 1,
       "message": "This line also uses brace initialization, which we\u0027ve gotten rid of from the codebase.\n\nWe need to have a discussion about how this patch works after the multi-host things are merged.  Right now it\u0027s assuming all storages belong to one host, which already would have issues with other patchsets in review.",
       "parentUuid": "e04cc880_2e514cba",
+      "range": {
+        "startLine": 76,
+        "startChar": 51,
+        "endLine": 76,
+        "endChar": 57
+      },
+      "revId": "afbfacdbea06114afc1452aeac3769a003c21260",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "73423e85_48fe73e7",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 80
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-09-27T23:49:06Z",
+      "side": 1,
+      "message": "Done. for the brace initialization.\n\nOh yeah... multi-hosts will be rough.",
+      "parentUuid": "298d847e_3626fbde",
       "range": {
         "startLine": 76,
         "startChar": 51,
