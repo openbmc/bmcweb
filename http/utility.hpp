@@ -595,6 +595,12 @@ inline void appendUrlFromPieces(boost::urls::url& url, const AV... args)
     details::appendUrlFromPiecesDetail(url, {args...});
 }
 
+template <typename... AV>
+inline void setFragment(boost::urls::url& url, const AV... args)
+{
+    url.set_fragment(urlFromPieces(args...).string());
+}
+
 namespace details
 {
 
