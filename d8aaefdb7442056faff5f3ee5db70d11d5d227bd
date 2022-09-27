@@ -16,6 +16,24 @@
       "message": "These are special cases where we call Entity Manager directly? For aggregation and OEM PID.. I am assuming Entity Manager is not a binary we typically call directly (i.e. should call mapper first since not everyone uses Entity Manager (Inventory Manager))",
       "revId": "d8aaefdb7442056faff5f3ee5db70d11d5d227bd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "52f1fbe4_f3b681cd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-27T21:18:31Z",
+      "side": 1,
+      "message": "The two cases are:\nGetting per-entity configurations, for which any other daemon exposing it would be nonsensical, so we can go direct to EM in that case.\n\nChanging the per-entity configurations for PID control, which, ideally phosphor-pid-control would do like we do with sensors, and have a dbus API for all the pid parameters and loops, that would then \"write through\" to EM like dbus-sensors does for thresholds.  If we did it the \"right\" way, yeah, we\u0027d go to the mapper, but not a lot of effort has been put in these APIs since James wrote them.  I\u0027m not sure they\u0027re used anymore.",
+      "parentUuid": "2e354e4e_99e0e5d6",
+      "revId": "d8aaefdb7442056faff5f3ee5db70d11d5d227bd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
