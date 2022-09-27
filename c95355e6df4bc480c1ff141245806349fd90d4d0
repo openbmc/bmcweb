@@ -1,0 +1,169 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9ea71dd6_30c73b75",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-09-27T19:09:53Z",
+      "side": 1,
+      "message": "We lose a little search-ability here. I think this is well outweighed by fixing \"bad characters are not being encoded correctly\" which is what we had using std::string::operator+\u003d. A big change. Might have been good to breaking this up. Oh well. \nThe URIs that changed need addressed but overall I am good with this. ",
+      "revId": "c95355e6df4bc480c1ff141245806349fd90d4d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f71dbfef_ca1598e9",
+        "filename": "include/google/google_service_root.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-09-27T19:09:53Z",
+      "side": 1,
+      "message": "Wish this wasn\u0027t in the crow name space, oh well, something we can fix one day. \n\nhttps://github.com/openbmc/bmcweb/commit/eae855c74b30085f6ac1094f6087c6b3913a9a69",
+      "range": {
+        "startLine": 121,
+        "startChar": 44,
+        "endLine": 121,
+        "endChar": 48
+      },
+      "revId": "c95355e6df4bc480c1ff141245806349fd90d4d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f5156509_38715d6e",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 2728,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-09-27T19:09:53Z",
+      "side": 1,
+      "message": "This changed",
+      "revId": "c95355e6df4bc480c1ff141245806349fd90d4d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c50dab8d_fe3e5875",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 3281,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-09-27T19:09:53Z",
+      "side": 1,
+      "message": "This changed",
+      "revId": "c95355e6df4bc480c1ff141245806349fd90d4d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2dbc30e5_83b158a0",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 586,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-09-27T19:09:53Z",
+      "side": 1,
+      "message": "Can use url  from above?",
+      "revId": "c95355e6df4bc480c1ff141245806349fd90d4d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e754958d_6caf68c3",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 2078,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-09-27T19:09:53Z",
+      "side": 1,
+      "message": "Use managerForChassis ? Or do it the same way for both of these?",
+      "revId": "c95355e6df4bc480c1ff141245806349fd90d4d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bd7ff575_da7d8018",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 570,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-09-27T19:09:53Z",
+      "side": 1,
+      "message": "I guess repeating it, matches more with what is other places, but then again on https://gerrit.openbmc.org/c/openbmc/bmcweb/+/57444/5/redfish-core/lib/managers.hpp you have                 boost::urls::url url \u003d crow::utility::urlFromPieces(\n                    \"redfish\", \"v1\", \"Managers\", \"bmc\"); \nBut maybe that makes sense since in that file you add a bunch of fragments.\nNitpicking here.",
+      "revId": "c95355e6df4bc480c1ff141245806349fd90d4d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4bd6b7a2_d9a6bb9a",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 2576,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-09-27T19:09:53Z",
+      "side": 1,
+      "message": "I guess I don\u0027t see why we need this but the / was there before so oh well",
+      "range": {
+        "startLine": 2576,
+        "startChar": 67,
+        "endLine": 2576,
+        "endChar": 69
+      },
+      "revId": "c95355e6df4bc480c1ff141245806349fd90d4d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4495481d_3bcf47da",
+        "filename": "test/http/utility_test.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-09-27T19:09:53Z",
+      "side": 1,
+      "message": "Why move this up here? I guess oh well. \n\nSeem like the same test as \n\n    url \u003d urlFromPieces(\"redfish\", \"v1\", \"foo\");\n    setFragment(url, \"test_fragement\", \"1\");\n    EXPECT_EQ(std::string_view(url.data(), url.size()),\n              \"/redfish/v1/foo#/test_fragement/1\");",
+      "revId": "c95355e6df4bc480c1ff141245806349fd90d4d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
