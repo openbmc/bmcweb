@@ -139,6 +139,24 @@
       "message": "There\u0027s no reason to hold this up further.  We should continue to discuss solving this in a better way.",
       "revId": "d1db6090941c58488fd8597bf4d0b658fe2ecf0a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3e978a65_387807fc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-09-27T19:45:13Z",
+      "side": 1,
+      "message": "\u003e \u003e 1. There is a task returned after this write, untar, inotify fire, and creation of a software D-Bus object, we could move this task, so a task is returned right after the upload is complete (before write, untar, inotify fire and creation of software D-Bus Object), but there would be a few disadvantages, and I am not convinced it makes things better. \n\n\u003e \u003e The main disadvantage is, it is easier to see why the update failed (e.g., we return ImageFailure, ManifestFileFailure, AlreadyExists, BusyFailure messages) vs. a task.\n\n\u003e The value of the response is returned as part of the Task, right?  The Messages array on the task contains the same information?\n\nYeah, we would have to make the task do that. \n\n\u003e To be clear, I\u0027m probably ok to accept either solution;  I do think that TaskService is a better answer overall, as it makes clear that bmcweb hasn\u0027t locked up/timed out (so we don\u0027t get bugs on that) by returning a reply, while still keeping the \"something is taking a lot longer than normal, but lets keep it moving\" behavior we want here.\n\n\nThis could be reworked in the future to return a task from the start (before the the write, untar, inotify fire, and creation of a software D-Bus object).\n\nThis is all good discussion. \nFor now (as mentioned in the latest comment, let\u0027s move ahead with this).",
+      "parentUuid": "8302cd91_a77dc972",
+      "revId": "d1db6090941c58488fd8597bf4d0b658fe2ecf0a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
