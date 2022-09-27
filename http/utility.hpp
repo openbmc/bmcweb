@@ -561,14 +561,21 @@ struct ConstantTimeCompare
 
 namespace details
 {
-inline boost::urls::url
-    urlFromPiecesDetail(const std::initializer_list<std::string_view> args)
+inline boost::urls::url appendUrlFromPiecesDetail(
+    boost::urls::url& url, const std::initializer_list<std::string_view> args)
 {
-    boost::urls::url url("/");
     for (const std::string_view& arg : args)
     {
         url.segments().push_back(arg);
     }
+    return url;
+}
+
+inline boost::urls::url
+    urlFromPiecesDetail(const std::initializer_list<std::string_view> args)
+{
+    boost::urls::url url("/");
+    appendUrlFromPiecesDetail(url, args);
     return url;
 }
 } // namespace details
@@ -580,6 +587,12 @@ template <typename... AV>
 inline boost::urls::url urlFromPieces(const AV... args)
 {
     return details::urlFromPiecesDetail({args...});
+}
+
+template <typename... AV>
+inline void appendUrlFromPieces(boost::urls::url& url, const AV... args)
+{
+    details::appendUrlFromPiecesDetail(url, {args...});
 }
 
 namespace details
