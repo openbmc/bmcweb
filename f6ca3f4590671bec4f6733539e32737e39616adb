@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "9e04be38_815a309c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-09-27T17:58:13Z",
+      "side": 1,
+      "message": "\u003e We have plenty of flash on our systems\n\nOh, is this true for all OpenBMC platforms?",
+      "parentUuid": "a5e7097c_a53f350e",
+      "revId": "f6ca3f4590671bec4f6733539e32737e39616adb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "741d2b0d_4a794f23",
         "filename": "scripts/update_schemas.py",
         "patchSetId": 3
