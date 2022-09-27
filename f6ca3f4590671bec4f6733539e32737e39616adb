@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "c0153d95_70ed768b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-27T18:03:09Z",
+      "side": 1,
+      "message": "\u003e Oh, is this true for all OpenBMC platforms?\n\nNo.  Not even true for all Google platforms.  S7106 has pretty limited flash space, although I think Gunnars right here, I see a VERY small increase in compressed size that I don\u0027t think will matter.",
+      "parentUuid": "9e04be38_815a309c",
+      "revId": "f6ca3f4590671bec4f6733539e32737e39616adb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "741d2b0d_4a794f23",
@@ -49,6 +67,24 @@
       "writtenOn": "2022-09-27T17:41:03Z",
       "side": 1,
       "message": "Redfish must have finally stopped changing the zip directory structure. :)",
+      "revId": "f6ca3f4590671bec4f6733539e32737e39616adb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0fd4e332_f42efe94",
+        "filename": "scripts/update_schemas.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-27T18:03:09Z",
+      "side": 1,
+      "message": ".........  The minute you say that, 2022.3 is going to completely change it again.",
+      "parentUuid": "741d2b0d_4a794f23",
       "revId": "f6ca3f4590671bec4f6733539e32737e39616adb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
