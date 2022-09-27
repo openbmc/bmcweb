@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "782e1657_b041fe92",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-27T16:54:08Z",
+      "side": 1,
+      "message": "Given that the most common usage of this seems to be appending one \"thing\", does this need to be a function at all?\n\nurl.segments().push_back(\"thing\");\n\nSeems like it does the same thing, and even in the rare case where we had two, duplicating that doesn\u0027t seem that bad?",
+      "revId": "fc006e0588131a4cde1879d915548768bfbeefe4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "53a99412_da5a8872",
+        "filename": "http/utility.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 593,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-27T16:54:08Z",
+      "side": 1,
+      "message": "Nit pick, it\u0027s not really \"From\" if you\u0027re doing an append.",
+      "range": {
+        "startLine": 593,
+        "startChar": 21,
+        "endLine": 593,
+        "endChar": 25
+      },
+      "revId": "fc006e0588131a4cde1879d915548768bfbeefe4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f5468d0_63a4418a",
+        "filename": "test/http/utility_test.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-27T16:54:08Z",
+      "side": 1,
+      "message": "?  Looks like this didn\u0027t get escaped properly?",
+      "range": {
+        "startLine": 109,
+        "startChar": 42,
+        "endLine": 109,
+        "endChar": 43
+      },
+      "revId": "fc006e0588131a4cde1879d915548768bfbeefe4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
