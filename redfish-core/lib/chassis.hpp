@@ -148,7 +148,7 @@ inline void handleChassisCollectionGet(
     asyncResp->res.jsonValue["Name"] = "Chassis Collection";
 
     collection_util::getCollectionMembers(
-        asyncResp, "/redfish/v1/Chassis",
+        asyncResp, boost::urls::url("/redfish/v1/Chassis"),
         {"xyz.openbmc_project.Inventory.Item.Board",
          "xyz.openbmc_project.Inventory.Item.Chassis"});
 }
