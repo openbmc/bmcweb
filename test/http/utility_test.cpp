@@ -222,5 +222,18 @@ TEST(URL, JsonEncoding)
     EXPECT_EQ(nlohmann::json(boost::urls::url_view(urlString)), urlString);
 }
 
+TEST(AppendUrlFromPieces, PiecesAreAppendedViaDelimiters)
+{
+    boost::urls::url url = urlFromPieces("redfish", "v1", "foo");
+    EXPECT_EQ(std::string_view(url.data(), url.size()), "/redfish/v1/foo");
+
+    appendUrlPieces(url, "bar");
+    EXPECT_EQ(std::string_view(url.data(), url.size()), "/redfish/v1/foo/bar");
+
+    appendUrlPieces(url, "/", "bad&tring");
+    EXPECT_EQ(std::string_view(url.data(), url.size()),
+              "/redfish/v1/foo/bar/%2f/bad&tring");
+}
+
 } // namespace
 } // namespace crow::utility
