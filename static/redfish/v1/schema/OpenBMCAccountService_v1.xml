@@ -17,15 +17,30 @@
 
   <edmx:DataServices>
 
-    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="OemAccountService">
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="OpenBMCAccountService">
       <Annotation Term="Redfish.OwningEntity" String="OpenBMC"/>
+      <Annotation Term="OData.Description" String="OpenBMC extensions to the standard account service."/>
+      <Annotation Term="Redfish.Uris">
+        <Collection>
+          <String>/redfish/v1/AccountService#/OpenBMCAccountService</String>
+        </Collection>
+      </Annotation>
     </Schema>
 
-    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="OemAccountService.v1_0_0">
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="OpenBMCAccountService.v1_0_0">
       <Annotation Term="Redfish.OwningEntity" String="OpenBMC"/>
-      <Annotation Term="Redfish.Release" String="1.0"/>
 
-      <ComplexType Name="AuthMethodsConfig" BaseType="Resource.OemObject">
+      <ComplexType Name="AccountService" BaseType="Resource.OemObject">
+        <Annotation Term="OData.Description" String="OpenBMC OEM Extension for AccountService."/>
+        <Annotation Term="OData.LongDescription" String="OpenBMC OEM Extension for AccountService providing info about authentication methods."/>
+
+        <Property Name="AuthMethods" Type="OpenBMCAccountService.v1_0_0.AuthMethodsConfig">
+          <Annotation Term="OData.Description" String="Authorization Methods configuration."/>
+          <Annotation Term="OData.LongDescription" String="Configuration describing which auth methods are enabled."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="AuthMethodsConfig">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
         <Annotation Term="OData.Description" String="Authorization Methods configuration."/>
         <Annotation Term="OData.LongDescription" String="Configuration describing which auth methods are enabled."/>
@@ -61,17 +76,8 @@
         </Property>
       </ComplexType>
 
-      <!--Base entity type for array members-->
-      <EntityType Name="AccountService" BaseType="Resource.OemObject" Abstract="true">
-        <Annotation Term="OData.Description" String="OEM Extension for AccountService"/>
-        <Annotation Term="OData.LongDescription" String="OEM Extension for AccountService providing info about TLS Auth."/>
-
-        <Property Name="AuthMethods" Type="OemAccountService.v1_0_0.AuthMethodsConfig">
-          <Annotation Term="OData.Description" String="Authorization Methods configuration."/>
-          <Annotation Term="OData.LongDescription" String="Configuration describing which auth methods are enabled."/>
-        </Property>
-      </EntityType>
     </Schema>
 
   </edmx:DataServices>
 </edmx:Edmx>
+
