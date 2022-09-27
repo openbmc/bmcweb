@@ -35,6 +35,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2c0a3b35_fa7f905d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-09-27T17:30:04Z",
+      "side": 1,
+      "message": "I didn\u0027t need to write an actual url append function.  I have ones like this (https://github.com/openbmc/bmcweb/blob/master/redfish-core/include/redfish_aggregator.hpp#L18) where I ultimately prepend to an existing segment.  I also do the opposite where I remove the prefix from an existing segment.\n\nIn both instances I use a combination of readUrlSegments() and string manipulation.",
+      "parentUuid": "cf61eb6c_d64613f1",
+      "revId": "fc006e0588131a4cde1879d915548768bfbeefe4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "53a99412_da5a8872",
