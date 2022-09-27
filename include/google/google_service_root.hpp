@@ -38,7 +38,7 @@ inline void handleRootOfTrustCollectionGet(
     asyncResp->res.jsonValue["@odata.type"] =
         "#RootOfTrustCollection.RootOfTrustCollection";
     redfish::collection_util::getCollectionMembers(
-        asyncResp, "/google/v1/RootOfTrustCollection",
+        asyncResp, boost::urls::url("/google/v1/RootOfTrustCollection"),
         {"xyz.openbmc_project.Control.Hoth"}, "/xyz/openbmc_project");
 }
 

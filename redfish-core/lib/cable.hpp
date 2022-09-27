@@ -179,7 +179,7 @@ inline void requestRoutesCableCollection(App& app)
         asyncResp->res.jsonValue["Description"] = "Collection of Cable Entries";
 
         collection_util::getCollectionMembers(
-            asyncResp, "/redfish/v1/Cables",
+            asyncResp, boost::urls::url("/redfish/v1/Cables"),
             {"xyz.openbmc_project.Inventory.Item.Cable"});
         });
 }

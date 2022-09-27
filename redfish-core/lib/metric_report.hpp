@@ -16,9 +16,6 @@ namespace redfish
 namespace telemetry
 {
 
-constexpr const char* metricReportUri =
-    "/redfish/v1/TelemetryService/MetricReports";
-
 using Readings =
     std::vector<std::tuple<std::string, std::string, double, uint64_t>>;
 using TimestampReadings = std::tuple<uint64_t, Readings>;
@@ -77,11 +74,14 @@ inline void requestRoutesMetricReportCollection(App& app)
 
         asyncResp->res.jsonValue["@odata.type"] =
             "#MetricReportCollection.MetricReportCollection";
-        asyncResp->res.jsonValue["@odata.id"] = telemetry::metricReportUri;
+        asyncResp->res.jsonValue["@odata.id"] =
+            "/redfish/v1/TelemetryService/MetricReports";
         asyncResp->res.jsonValue["Name"] = "Metric Report Collection";
         const std::vector<const char*> interfaces{telemetry::reportInterface};
         collection_util::getCollectionMembers(
-            asyncResp, telemetry::metricReportUri, interfaces,
+            asyncResp,
+            boost::urls::url("/redfish/v1/TelemetryService/MetricReports"),
+            interfaces,
             "/xyz/openbmc_project/Telemetry/Reports/TelemetryService");
         });
 }
