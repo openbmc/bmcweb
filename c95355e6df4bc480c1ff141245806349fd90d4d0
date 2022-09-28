@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "10021597_fbd9269b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-09-28T15:42:39Z",
+      "side": 1,
+      "message": "yeah, it seems like we prefered using `urlFromPieces` going forward, so I just went ahead and fix the older ones. Also thought about fixing each resource individually, but probably easier to revert is this turns out to be an issue to revert all changes later.",
+      "parentUuid": "9ea71dd6_30c73b75",
+      "revId": "c95355e6df4bc480c1ff141245806349fd90d4d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "f71dbfef_ca1598e9",
         "filename": "include/google/google_service_root.hpp",
         "patchSetId": 5
@@ -58,6 +76,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e35ea7ed_bbf7deb6",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 2728,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-09-28T15:42:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f5156509_38715d6e",
+      "revId": "c95355e6df4bc480c1ff141245806349fd90d4d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c50dab8d_fe3e5875",
@@ -75,6 +111,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f0ccb89a_7fde59f7",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 3281,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-09-28T15:42:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c50dab8d_fe3e5875",
+      "revId": "c95355e6df4bc480c1ff141245806349fd90d4d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2dbc30e5_83b158a0",
@@ -88,6 +142,24 @@
       "writtenOn": "2022-09-27T19:09:53Z",
       "side": 1,
       "message": "Can use url  from above?",
+      "revId": "c95355e6df4bc480c1ff141245806349fd90d4d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a5862d76_b6c774ed",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 586,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-09-28T15:42:39Z",
+      "side": 1,
+      "message": "the `url` above is moved. So we can\u0027t use it anymore.",
+      "parentUuid": "2dbc30e5_83b158a0",
       "revId": "c95355e6df4bc480c1ff141245806349fd90d4d0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -151,6 +223,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "efd013c2_b2a8fd87",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 2576,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-09-28T15:42:39Z",
+      "side": 1,
+      "message": "yeah, this one is kind of weird. The index is appended after somewhere below.\n\nLike \n\n`#/Temperature/0` and `#/Temperature/1`...",
+      "parentUuid": "4bd6b7a2_d9a6bb9a",
+      "range": {
+        "startLine": 2576,
+        "startChar": 67,
+        "endLine": 2576,
+        "endChar": 69
+      },
+      "revId": "c95355e6df4bc480c1ff141245806349fd90d4d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "4495481d_3bcf47da",
         "filename": "test/http/utility_test.cpp",
         "patchSetId": 5
@@ -162,6 +258,24 @@
       "writtenOn": "2022-09-27T19:09:53Z",
       "side": 1,
       "message": "Why move this up here? I guess oh well. \n\nSeem like the same test as \n\n    url \u003d urlFromPieces(\"redfish\", \"v1\", \"foo\");\n    setFragment(url, \"test_fragement\", \"1\");\n    EXPECT_EQ(std::string_view(url.data(), url.size()),\n              \"/redfish/v1/foo#/test_fragement/1\");",
+      "revId": "c95355e6df4bc480c1ff141245806349fd90d4d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "322f95b2_5941f21a",
+        "filename": "test/http/utility_test.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-09-28T15:42:39Z",
+      "side": 1,
+      "message": "oops. I was rebasing different changes. Will remove this.",
+      "parentUuid": "4495481d_3bcf47da",
       "revId": "c95355e6df4bc480c1ff141245806349fd90d4d0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
