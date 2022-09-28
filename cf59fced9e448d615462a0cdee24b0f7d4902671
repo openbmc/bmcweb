@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "30d82b02_6ce039a6",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 56
+      },
+      "lineNbr": 422,
+      "author": {
+        "id": 1001322
+      },
+      "writtenOn": "2022-09-28T08:54:38Z",
+      "side": 1,
+      "message": "why is Storage hard coded for 1? What if we have more than one drives? Am I understanding something wrong?",
+      "revId": "cf59fced9e448d615462a0cdee24b0f7d4902671",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "75d0a82e_07bec38f",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 56
+      },
+      "lineNbr": 433,
+      "author": {
+        "id": 1001322
+      },
+      "writtenOn": "2022-09-28T08:54:38Z",
+      "side": 1,
+      "message": "\"hasDriveState\" - are we just checking any drive is available or not through this boolean? If yes, then can we name it to \"hasDrive\" for better readability?",
+      "revId": "cf59fced9e448d615462a0cdee24b0f7d4902671",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
