@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "c56da5e1_36273ca1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-28T17:16:59Z",
+      "side": 1,
+      "message": "One sentence is rarely enough description in a commit message.  How are these used?",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 15
+      },
+      "revId": "67e2599ce7b092d6a09184ab751ec41916088bfd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "2ee111f4_262ce725",
@@ -14,6 +37,29 @@
       "writtenOn": "2022-09-12T20:23:20Z",
       "side": 1,
       "message": "I do see minor version was updated. ",
+      "revId": "67e2599ce7b092d6a09184ab751ec41916088bfd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d259727b_d7e35f79",
+        "filename": "redfish-core/include/registries/openbmc_message_registry.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-28T17:16:59Z",
+      "side": 1,
+      "message": "This is a little odd in terms of descriptions.\n\nThis message is described as an \"attestation failure\", but the next message is \"Indicates platform encountered attestation failure\"\n\nWhen would one be used over the other?  It\u0027s not very clear from either your commit message or the descriptions here.\n\nPanic and Error are roughly similar here.",
+      "range": {
+        "startLine": 175,
+        "startChar": 0,
+        "endLine": 175,
+        "endChar": 43
+      },
       "revId": "67e2599ce7b092d6a09184ab751ec41916088bfd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
