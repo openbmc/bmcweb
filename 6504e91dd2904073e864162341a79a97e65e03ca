@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b7807d36_899a0647",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 45
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-09-28T08:25:41Z",
+      "side": 1,
+      "message": "I think it is necessary for us to refactor the association after the patch below is merged.\n\nhttps://gerrit.openbmc.org/c/openbmc/phosphor-dbus-interfaces/+/57428",
+      "revId": "6504e91dd2904073e864162341a79a97e65e03ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
