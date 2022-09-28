@@ -259,7 +259,7 @@ class SessionStore
             std::string(clientId), redfish::ip_util::toString(clientIp),
             std::chrono::steady_clock::now(), persistence, false,
             isConfigureSelfOnly});
-        auto it = authTokens.emplace(std::make_pair(sessionToken, session));
+        auto it = authTokens.emplace(sessionToken, session);
         // Only need to write to disk if session isn't about to be destroyed.
         needWrite = persistence == PersistenceType::TIMEOUT;
         return it.first->second;
