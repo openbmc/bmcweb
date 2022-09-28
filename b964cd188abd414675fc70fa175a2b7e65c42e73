@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9abb75e1_636491f2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-09-28T09:44:54Z",
+      "side": 1,
+      "message": "Why we need this port for KVM? Port 5900 only accepts connections from localhost (BMC itself). It is unusable by users.\n\nIn our case, bmcweb will act as a proxy which passes the requests/responses between its kvm websocket and port 5900 (where libvncserver listens, since it cannot listen a unix socket, we have to do so).\n\nAnd, enabling/disabling KVM makes no sense from my point. Unlike java-based one which has another port and some private protocol (maybe unencrypted?), OpenBMC\u0027s kvm is just a payload of HTTPS/WSS, it won\u0027t bring extra security issues.",
+      "range": {
+        "startLine": 24,
+        "startChar": 16,
+        "endLine": 24,
+        "endChar": 20
+      },
+      "revId": "b964cd188abd414675fc70fa175a2b7e65c42e73",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "52c0d930_729400df",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-09-28T09:44:54Z",
+      "side": 1,
+      "message": "Virtual media is also the same, if you are using the https://github.com/Intel-BMC/virtual-media, there is even no port 5901. When redirecting local file, bmcweb proxies request between websocket and unix socket of nbd-client.",
+      "revId": "b964cd188abd414675fc70fa175a2b7e65c42e73",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
