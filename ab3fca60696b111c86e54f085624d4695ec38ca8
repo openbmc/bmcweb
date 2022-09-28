@@ -125,6 +125,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5addf6c9_10125c29",
+        "filename": "include/event_service_store.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-28T17:53:19Z",
+      "side": 1,
+      "message": "I don\u0027t see how this could go on master as-written.  If you have a design for handling renamed users, please, put up a patch describing what you\u0027re thinking, or describe it here.",
+      "parentUuid": "7e91d336_a00a277c",
+      "range": {
+        "startLine": 178,
+        "startChar": 0,
+        "endLine": 184,
+        "endChar": 41
+      },
+      "revId": "ab3fca60696b111c86e54f085624d4695ec38ca8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f0eafaa7_06f9b607",
         "filename": "redfish-core/lib/event_service.hpp",
         "patchSetId": 11
