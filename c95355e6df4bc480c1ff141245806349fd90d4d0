@@ -164,6 +164,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "04d8c5fe_4421a199",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 586,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-09-28T19:46:39Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a5862d76_b6c774ed",
+      "revId": "c95355e6df4bc480c1ff141245806349fd90d4d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e754958d_6caf68c3",
@@ -177,6 +195,24 @@
       "writtenOn": "2022-09-27T19:09:53Z",
       "side": 1,
       "message": "Use managerForChassis ? Or do it the same way for both of these?",
+      "revId": "c95355e6df4bc480c1ff141245806349fd90d4d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d730c90b_64104d11",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 2078,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-09-28T19:46:39Z",
+      "side": 1,
+      "message": "Address this?",
+      "parentUuid": "e754958d_6caf68c3",
       "revId": "c95355e6df4bc480c1ff141245806349fd90d4d0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -235,6 +271,30 @@
       "side": 1,
       "message": "yeah, this one is kind of weird. The index is appended after somewhere below.\n\nLike \n\n`#/Temperature/0` and `#/Temperature/1`...",
       "parentUuid": "4bd6b7a2_d9a6bb9a",
+      "range": {
+        "startLine": 2576,
+        "startChar": 67,
+        "endLine": 2576,
+        "endChar": 69
+      },
+      "revId": "c95355e6df4bc480c1ff141245806349fd90d4d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b29ea3b5_3644eac6",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 2576,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-09-28T19:46:39Z",
+      "side": 1,
+      "message": "Ack.",
+      "parentUuid": "efd013c2_b2a8fd87",
       "range": {
         "startLine": 2576,
         "startChar": 67,
