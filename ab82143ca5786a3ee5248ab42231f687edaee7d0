@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ccf0f5a9_5554b579",
+        "filename": "include/google/google_service_nvme.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 461,
+      "author": {
+        "id": 1001504
+      },
+      "writtenOn": "2022-09-28T23:39:15Z",
+      "side": 1,
+      "message": "According to NVMe spec, the correct size for the 3 parameters should be:\n```\n  uint32_t nsid;   // Namespace Identifier\n  uint16_t cntid;  // Controller Identifier\n  uint8_t cns;     // Controller or Namespace Structure\n```",
+      "range": {
+        "startLine": 459,
+        "startChar": 0,
+        "endLine": 461,
+        "endChar": 23
+      },
+      "revId": "ab82143ca5786a3ee5248ab42231f687edaee7d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0eb51c51_d19de06d",
+        "filename": "include/google/google_service_nvme.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 465,
+      "author": {
+        "id": 1001504
+      },
+      "writtenOn": "2022-09-28T23:39:15Z",
+      "side": 1,
+      "message": "The name and mapping looks weird:\n```\nCNS \u003c-\u003e controllerNamespace    \nNSID \u003c-\u003e controllerNamespaceId (just use namespaceId)\nCNTID \u003c-\u003e IdentifyId           (should be controllerId)\n```\n\nAlternately, how about use the `cns`, `nsid`, `cntid` abbreviations directly? Less typing, easy to associate with NVMe spec.",
+      "range": {
+        "startLine": 464,
+        "startChar": 33,
+        "endLine": 465,
+        "endChar": 54
+      },
+      "revId": "ab82143ca5786a3ee5248ab42231f687edaee7d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
