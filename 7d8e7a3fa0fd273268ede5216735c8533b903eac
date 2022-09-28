@@ -72,6 +72,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2275b46b_6953c39e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1001084
+      },
+      "writtenOn": "2022-09-28T22:38:05Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "1cb61eec_c47f654b",
+      "range": {
+        "startLine": 10,
+        "startChar": 37,
+        "endLine": 13,
+        "endChar": 0
+      },
+      "revId": "7d8e7a3fa0fd273268ede5216735c8533b903eac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fe9b6381_aaaf5692",
@@ -157,6 +181,30 @@
       "side": 1,
       "message": "Any changes to Message seems beyond this commit.",
       "parentUuid": "dd2ce2ff_ff9bbe81",
+      "range": {
+        "startLine": 36,
+        "startChar": 18,
+        "endLine": 36,
+        "endChar": 57
+      },
+      "revId": "7d8e7a3fa0fd273268ede5216735c8533b903eac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4539ec72_d0dcb146",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1001084
+      },
+      "writtenOn": "2022-09-28T22:38:05Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "fbeed120_5e3a045f",
       "range": {
         "startLine": 36,
         "startChar": 18,
@@ -420,6 +468,30 @@
       "side": 1,
       "message": "\u003e  Resolution is supposed to match the MessageRegistry?\n\nAs I understand it from discussion when this was added, no. This Resolution is a free-form string intended only for humans to read. It is meant to have the implementation\u0027s \"how to resolve this event\", it isn\u0027t intended to match the MessageRegistry\u0027s Resolution and would supersede it as I understand it from discussion when this was added.\n\n\u003e LogService being modified doesn\u0027t have a MessageRegistry implemented, so isn\u0027t this code incorrect\n\nThis is separate  but I do agree, this LogService should have a MessageRegistry if it doesn\u0027t already",
       "parentUuid": "5e8318da_98e8b827",
+      "range": {
+        "startLine": 39,
+        "startChar": 21,
+        "endLine": 40,
+        "endChar": 50
+      },
+      "revId": "7d8e7a3fa0fd273268ede5216735c8533b903eac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "07e61de7_fbfbee53",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1001084
+      },
+      "writtenOn": "2022-09-28T22:38:05Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "e0295efc_b103e97f",
       "range": {
         "startLine": 39,
         "startChar": 21,
