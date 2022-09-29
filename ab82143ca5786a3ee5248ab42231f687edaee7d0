@@ -45,6 +45,23 @@
       },
       "revId": "ab82143ca5786a3ee5248ab42231f687edaee7d0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "25b9a540_bf2641c3",
+        "filename": "include/google/google_service_nvme.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 569,
+      "author": {
+        "id": 1001504
+      },
+      "writtenOn": "2022-09-29T18:40:24Z",
+      "side": 1,
+      "message": "The name and mapping should be updated according to:\n```\n  uint8_t lid;    // Log Page Identifier, Command Dword 10 bits[07:00]\n  uint8_t lsp;    // Log Specific Field,  Command Dword 10 bits[14:08]\n  uint16_t lsi;   // Log Specific Identifier, Command Dword 11 bits[31:16]\n```",
+      "revId": "ab82143ca5786a3ee5248ab42231f687edaee7d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
