@@ -37,6 +37,8 @@ namespace redfish
         "EventDestination",
         "EventDestinationCollection",
         "EventService",
+        "Fan",
+        "FanCollection",
         "IPAddresses",
         "JsonSchemaFile",
         "JsonSchemaFileCollection",
