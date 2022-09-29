@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1d907378_9f66f653",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2022-09-29T10:24:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6b2869a5_d9832d43",
+      "revId": "24a992dc4762c15154fd5484030096d1c9370b5d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ddcb3195_f5355d53",
@@ -65,6 +83,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e817f0df_ff7a7628",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2022-09-29T10:24:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8684d102_8c04a745",
+      "range": {
+        "startLine": 265,
+        "startChar": 8,
+        "endLine": 265,
+        "endChar": 74
+      },
+      "revId": "24a992dc4762c15154fd5484030096d1c9370b5d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e4c3fe56_16ff7b36",
@@ -78,6 +120,30 @@
       "writtenOn": "2022-09-21T09:43:37Z",
       "side": 1,
       "message": "And, since the three lines are common for both if statements, can we have it like:\nif ((x \u0026\u0026 !y) || (a \u0026\u0026 !b))",
+      "range": {
+        "startLine": 270,
+        "startChar": 8,
+        "endLine": 272,
+        "endChar": 15
+      },
+      "revId": "24a992dc4762c15154fd5484030096d1c9370b5d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aadf29d4_38417c1c",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2022-09-29T10:24:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e4c3fe56_16ff7b36",
       "range": {
         "startLine": 270,
         "startChar": 8,
@@ -125,6 +191,30 @@
       "side": 1,
       "message": "+1",
       "parentUuid": "5329a289_1c288cb0",
+      "range": {
+        "startLine": 276,
+        "startChar": 12,
+        "endLine": 276,
+        "endChar": 24
+      },
+      "revId": "24a992dc4762c15154fd5484030096d1c9370b5d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1fb7c24e_944bd859",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2022-09-29T10:24:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c63aaf83_1bea7f7e",
       "range": {
         "startLine": 276,
         "startChar": 12,
