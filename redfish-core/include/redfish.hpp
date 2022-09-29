@@ -23,6 +23,7 @@
 #include "environment_metrics.hpp"
 #include "ethernet.hpp"
 #include "event_service.hpp"
+#include "fan.hpp"
 #include "hypervisor_system.hpp"
 #include "log_services.hpp"
 #include "manager_diagnostic_data.hpp"
@@ -83,6 +84,7 @@ class RedfishService
         requestRoutesEnvironmentMetrics(app);
         requestRoutesPowerSubsystem(app);
         requestRoutesThermalSubsystem(app);
+        requestRoutesFanCollection(app);
 #endif
         requestRoutesManagerCollection(app);
         requestRoutesManager(app);
