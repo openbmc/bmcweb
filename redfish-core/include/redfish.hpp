@@ -26,6 +26,7 @@
 #include "event_service.hpp"
 #include "eventservice_sse.hpp"
 #include "fabric_adapters.hpp"
+#include "fan.hpp"
 #include "hypervisor_system.hpp"
 #include "log_services.hpp"
 #include "manager_diagnostic_data.hpp"
@@ -95,6 +96,7 @@ class RedfishService
         requestRoutesPowerSupply(app);
         requestRoutesPowerSupplyCollection(app);
         requestRoutesThermalSubsystem(app);
+        requestRoutesFanCollection(app);
 #endif
         requestRoutesManagerCollection(app);
         requestRoutesManager(app);
