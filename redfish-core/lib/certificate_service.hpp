@@ -1110,6 +1110,24 @@ inline void requestRoutesLDAPCertificate(App& app)
         getCertificateProperties(asyncResp, objPath, certs::ldapServiceName, id,
                                  certURL, "LDAP Certificate");
         });
+
+    BMCWEB_ROUTE(app, "/redfish/v1/AccountService/LDAP/Certificates/<str>/")
+        .privileges(redfish::privileges::deleteCertificate)
+        .methods(boost::beast::http::verb::delete_)(
+            [&app](const crow::Request& req,
+                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                   const std::string& id) {
+        if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+        {
+            return;
+        }
+
+        BMCWEB_LOG_DEBUG << "Delete LDAP Certificate ID=" << id;
+        std::string objPath =
+            sdbusplus::message::object_path(certs::ldapObjectPath) / id;
+
+        deleteCertificate(asyncResp, certs::ldapServiceName, objPath);
+        });
 } // requestRoutesLDAPCertificate
 /**
  * Collection of TrustStoreCertificate certificates
