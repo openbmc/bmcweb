@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6a225cfe_ac91522e",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1537,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-09-29T14:06:09Z",
+      "side": 1,
+      "message": "This should be `#ProcessorMetrics.v1_3_0.ProcessorMetrics`?",
+      "range": {
+        "startLine": 1537,
+        "startChar": 47,
+        "endLine": 1537,
+        "endChar": 77
+      },
+      "revId": "0cb8ff77fd703a309478344ef846a36bdb387926",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
