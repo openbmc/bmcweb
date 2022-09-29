@@ -311,6 +311,14 @@ Fields common to all schemas
 
 - Status
 
+#### /redfish/v1/Chassis/{ChassisId}/ThermalSubsystem/Fans
+
+##### Fans
+
+- Description
+- Members
+- Members@odata.count
+
 ### /redfish/v1/Chassis/{ChassisId}/Power#/PowerControl/{ControlName}/
 
 #### PowerControl
