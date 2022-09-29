@@ -1068,6 +1068,22 @@ inline void handleLDAPCertificateGet(
                              certURL, "LDAP Certificate");
 }
 
+inline void handleLDAPCertificateDelete(
+    App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, const std::string& id)
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+
+    BMCWEB_LOG_DEBUG << "Delete LDAP Certificate ID=" << id;
+    std::string objPath =
+        sdbusplus::message::object_path(certs::ldapObjectPath) / id;
+
+    deleteCertificate(asyncResp, certs::ldapServiceName, objPath);
+}
+
 inline void requestRoutesLDAPCertificate(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/AccountService/LDAP/Certificates/")
@@ -1084,6 +1100,11 @@ inline void requestRoutesLDAPCertificate(App& app)
         .privileges(redfish::privileges::getCertificate)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handleLDAPCertificateGet, std::ref(app)));
+
+    BMCWEB_ROUTE(app, "/redfish/v1/AccountService/LDAP/Certificates/<str>/")
+        .privileges(redfish::privileges::deleteCertificate)
+        .methods(boost::beast::http::verb::delete_)(
+            std::bind_front(handleLDAPCertificateDelete, std::ref(app)));
 } // requestRoutesLDAPCertificate
 
 inline void handleTrustStoreCertificateCollectionGet(
