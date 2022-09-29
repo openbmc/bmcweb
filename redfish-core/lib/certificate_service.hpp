@@ -708,6 +708,33 @@ static void getCertificateProperties(
 }
 
 /**
+ * @brief Delete an installed certificate on system
+ *
+ * @param[in] asyncResp Shared pointer to the response message
+ * @param[in] service D-Bus service name
+ * @param[in] objectPath  Path of the certificate object
+ * @return None
+ */
+static void
+    deleteCertificate(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                      const std::string& service,
+                      const sdbusplus::message::object_path& objectPath)
+{
+    crow::connections::systemBus->async_method_call(
+        [asyncResp, objectPath](const boost::system::error_code ec) {
+        if (ec)
+        {
+            messages::resourceNotFound(asyncResp->res, "Certificate",
+                                       objectPath.filename());
+            return;
+        }
+        BMCWEB_LOG_INFO << "Certificate deleted";
+        asyncResp->res.result(boost::beast::http::status::no_content);
+        },
+        service, objectPath, certs::objDeleteIntf, "Delete");
+}
+
+/**
  * Action to replace an existing certificate
  */
 inline void requestRoutesCertificateActionsReplaceCertificate(App& app)
@@ -1201,18 +1228,7 @@ inline void requestRoutesTrustStoreCertificate(App& app)
         std::string objPath =
             sdbusplus::message::object_path(certs::authorityObjectPath) / id;
 
-        crow::connections::systemBus->async_method_call(
-            [asyncResp, id](const boost::system::error_code ec) {
-            if (ec)
-            {
-                messages::resourceNotFound(asyncResp->res, "Certificate", id);
-                return;
-            }
-            BMCWEB_LOG_INFO << "Certificate deleted";
-            asyncResp->res.result(boost::beast::http::status::no_content);
-            },
-            certs::authorityServiceName, objPath, certs::objDeleteIntf,
-            "Delete");
+        deleteCertificate(asyncResp, certs::authorityServiceName, objPath);
         });
 } // requestRoutesTrustStoreCertificate
 } // namespace redfish
