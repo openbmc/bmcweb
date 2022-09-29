@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "06b48d90_86672f5c",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 711,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-09-29T17:44:37Z",
+      "side": 1,
+      "message": "I don\u0027t believe we need this docxgen string",
+      "range": {
+        "startLine": 711,
+        "startChar": 0,
+        "endLine": 711,
+        "endChar": 51
+      },
+      "revId": "34a3a5fd4c6d353524fc2c3e9b654aeeb21588fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e42e750_6ad7e301",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 721,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-09-29T17:44:37Z",
+      "side": 1,
+      "message": "The names already explained a lot IMO",
+      "range": {
+        "startLine": 721,
+        "startChar": 0,
+        "endLine": 721,
+        "endChar": 72
+      },
+      "revId": "34a3a5fd4c6d353524fc2c3e9b654aeeb21588fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
