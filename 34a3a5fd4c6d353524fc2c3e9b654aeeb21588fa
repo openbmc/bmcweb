@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "0359d933_91d4e4a4",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 711,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-29T19:31:55Z",
+      "side": 1,
+      "message": "This file seems to have doxygen strings elsewhere in it, so he\u0027s just following what the code around it does, which is best practice.  This should be fine.",
+      "parentUuid": "06b48d90_86672f5c",
+      "range": {
+        "startLine": 711,
+        "startChar": 0,
+        "endLine": 711,
+        "endChar": 51
+      },
+      "revId": "34a3a5fd4c6d353524fc2c3e9b654aeeb21588fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "4e42e750_6ad7e301",
@@ -65,6 +89,29 @@
         "startChar": 20,
         "endLine": 724,
         "endChar": 30
+      },
+      "revId": "34a3a5fd4c6d353524fc2c3e9b654aeeb21588fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "08a1060a_10a1ec79",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1219,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-29T19:31:55Z",
+      "side": 1,
+      "message": "The pattern we have been doing elsewhere is to break out the entire handlers into a function, and not rely on a lambda at all (search for bind_front for examples).  I supsect that\u0027s what we should be doing here.",
+      "range": {
+        "startLine": 1219,
+        "startChar": 0,
+        "endLine": 1219,
+        "endChar": 44
       },
       "revId": "34a3a5fd4c6d353524fc2c3e9b654aeeb21588fa",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
