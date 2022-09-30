@@ -63,6 +63,30 @@
       },
       "revId": "cfe1b4c02a457cee4687bddd7c84e9bd662c89e8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "70a2f661_d2d8f48d",
+        "filename": "scripts/update_schemas.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-09-30T03:57:56Z",
+      "side": 1,
+      "message": "Ack.",
+      "parentUuid": "e606c422_3eaa90e9",
+      "range": {
+        "startLine": 52,
+        "startChar": 5,
+        "endLine": 53,
+        "endChar": 10
+      },
+      "revId": "cfe1b4c02a457cee4687bddd7c84e9bd662c89e8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
