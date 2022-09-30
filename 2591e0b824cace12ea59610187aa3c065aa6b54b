@@ -55,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "20b6861a_3ef537c7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-30T00:46:37Z",
+      "side": 1,
+      "message": "Please include that as review (with a smaller patchset) as part of the change so we can retain the comments.  Feel free to break up the patches, and make one of them a patchset on 41086, but I\u0027m not interested in making the same comments that were already made in that other gerrit review, and would like to see responses to them.\n\nIt takes up review time to push the same code to another review without the comments being addressed.",
+      "parentUuid": "9b4ed8b5_94bc9133",
+      "revId": "2591e0b824cace12ea59610187aa3c065aa6b54b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8323f36f_0bdecc7b",
         "filename": "redfish-core/lib/fan.hpp",
         "patchSetId": 1
