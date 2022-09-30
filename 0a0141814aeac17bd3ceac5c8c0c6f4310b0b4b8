@@ -136,6 +136,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "983fbb5e_8afe26a9",
+        "filename": "include/openbmc_dbus_rest.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1534,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-30T23:05:57Z",
+      "side": 1,
+      "message": "This has been consolidated into a single helper function in the newest patch.",
+      "parentUuid": "83a962a1_694c3bdc",
+      "range": {
+        "startLine": 1533,
+        "startChar": 4,
+        "endLine": 1534,
+        "endChar": 61
+      },
+      "revId": "0a0141814aeac17bd3ceac5c8c0c6f4310b0b4b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6d02834e_958a5422",
@@ -244,6 +268,30 @@
       "side": 1,
       "message": "Just check for both strings directly.\n\nfrom the redfish spec:\n\"Services shall accept the ContentType header set to either\napplication/json or application/json;charset\u003dutf-8.\"\n\n\nso just write the code to accept either.",
       "parentUuid": "8472713a_d913b07b",
+      "range": {
+        "startLine": 56,
+        "startChar": 12,
+        "endLine": 56,
+        "endChar": 64
+      },
+      "revId": "0a0141814aeac17bd3ceac5c8c0c6f4310b0b4b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "32331409_7bbaba0e",
+        "filename": "redfish-core/lib/task.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-30T23:05:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "059c0883_312dd91d",
       "range": {
         "startLine": 56,
         "startChar": 12,
