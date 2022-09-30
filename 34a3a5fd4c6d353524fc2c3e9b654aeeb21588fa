@@ -50,6 +50,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "4aa01b5f_1485d2c8",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 711,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-09-30T06:19:24Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "0359d933_91d4e4a4",
+      "range": {
+        "startLine": 711,
+        "startChar": 0,
+        "endLine": 711,
+        "endChar": 51
+      },
+      "revId": "34a3a5fd4c6d353524fc2c3e9b654aeeb21588fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "4e42e750_6ad7e301",
         "filename": "redfish-core/lib/certificate_service.hpp",
         "patchSetId": 1
@@ -94,6 +118,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c8b4f1dd_3157f047",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 724,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-09-30T06:19:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "28bad4b3_5618850c",
+      "range": {
+        "startLine": 724,
+        "startChar": 20,
+        "endLine": 724,
+        "endChar": 30
+      },
+      "revId": "34a3a5fd4c6d353524fc2c3e9b654aeeb21588fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "08a1060a_10a1ec79",
@@ -107,6 +155,30 @@
       "writtenOn": "2022-09-29T19:31:55Z",
       "side": 1,
       "message": "The pattern we have been doing elsewhere is to break out the entire handlers into a function, and not rely on a lambda at all (search for bind_front for examples).  I supsect that\u0027s what we should be doing here.",
+      "range": {
+        "startLine": 1219,
+        "startChar": 0,
+        "endLine": 1219,
+        "endChar": 44
+      },
+      "revId": "34a3a5fd4c6d353524fc2c3e9b654aeeb21588fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1386e02e_bf3dd28d",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1219,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-09-30T06:19:24Z",
+      "side": 1,
+      "message": "Done at https://gerrit.openbmc.org/c/openbmc/bmcweb/+/57576",
+      "parentUuid": "08a1060a_10a1ec79",
       "range": {
         "startLine": 1219,
         "startChar": 0,
