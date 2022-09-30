@@ -190,14 +190,8 @@ class RedfishService
         requestRoutesMessageRegistry(app);
 
         requestRoutesCertificateService(app);
-        requestRoutesCertificateActionGenerateCSR(app);
-        requestRoutesCertificateActionsReplaceCertificate(app);
         requestRoutesHTTPSCertificate(app);
-        requestRoutesHTTPSCertificateCollection(app);
-        requestRoutesCertificateLocations(app);
-        requestRoutesLDAPCertificateCollection(app);
         requestRoutesLDAPCertificate(app);
-        requestRoutesTrustStoreCertificateCollection(app);
         requestRoutesTrustStoreCertificate(app);
 
         requestRoutesSystemPCIeFunctionCollection(app);
