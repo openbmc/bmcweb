@@ -1,0 +1,9 @@
+Code-Review+2: Gunnar Mills <gmills@us.ibm.com>
+Code-Review+1: AppaRao Puli <apparao.puli@intel.com>
+Code-Review+1: Nan Zhou <nanzhoumails@gmail.com>
+Verified+1: OpenBMC CI <openbmcbump-ci@yahoo.com>
+Submitted-by: Ed Tanous <ed@tanous.net>
+Submitted-at: Fri, 30 Sep 2022 17:14:38 +0000
+Reviewed-on: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/57442
+Project: openbmc/bmcweb
+Branch: refs/heads/master
