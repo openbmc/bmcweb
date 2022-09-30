@@ -95,6 +95,7 @@ class RedfishService
         requestRoutesPowerSupply(app);
         requestRoutesPowerSupplyCollection(app);
         requestRoutesThermalSubsystem(app);
+        requestRoutesFan(app);
         requestRoutesFanCollection(app);
 #endif
         requestRoutesManagerCollection(app);
