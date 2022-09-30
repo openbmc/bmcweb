@@ -86,6 +86,9 @@ include_list = [
     "PhysicalContext",
     "PCIeSlots",
     "Power",
+    "PowerSubsystem",
+    "PowerSupply",
+    "PowerSupplyCollection",
     "Privileges",  # Used in Role
     "Processor",
     "ProcessorCollection",
