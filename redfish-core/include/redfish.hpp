@@ -80,6 +80,7 @@ class RedfishService
 #endif
 #ifdef BMCWEB_NEW_POWERSUBSYSTEM_THERMALSUBSYSTEM
         requestRoutesThermalSubsystem(app);
+        requestRoutesFan(app);
         requestRoutesFanCollection(app);
 #endif
         requestRoutesManagerCollection(app);
