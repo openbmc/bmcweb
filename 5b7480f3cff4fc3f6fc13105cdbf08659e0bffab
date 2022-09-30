@@ -34,6 +34,24 @@
       "parentUuid": "ebb8fd22_da096b8d",
       "revId": "5b7480f3cff4fc3f6fc13105cdbf08659e0bffab",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "86ba7b00_7e1f755c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-30T16:00:56Z",
+      "side": 1,
+      "message": "\u003eAs long as we have ClientId returned as IBM Oem, no use case will break on IBM systems. \n\nCan we remove the OpenBMC OEM if it\u0027s implemented in IBM OEM?",
+      "parentUuid": "4e099958_ed343913",
+      "revId": "5b7480f3cff4fc3f6fc13105cdbf08659e0bffab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
