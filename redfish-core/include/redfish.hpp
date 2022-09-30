@@ -84,6 +84,7 @@ class RedfishService
         requestRoutesEnvironmentMetrics(app);
         requestRoutesPowerSubsystem(app);
         requestRoutesThermalSubsystem(app);
+        requestRoutesFan(app);
         requestRoutesFanCollection(app);
 #endif
         requestRoutesManagerCollection(app);
