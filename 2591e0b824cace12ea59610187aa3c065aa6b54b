@@ -109,6 +109,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9b4aca2f_09cf386e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-30T18:04:30Z",
+      "side": 1,
+      "message": "Comment unreplied to.",
+      "parentUuid": "79eff81b_b21c7ad4",
+      "revId": "2591e0b824cace12ea59610187aa3c065aa6b54b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8323f36f_0bdecc7b",
         "filename": "redfish-core/lib/fan.hpp",
         "patchSetId": 1
@@ -191,6 +209,30 @@
       "side": 1,
       "message": "\u003e Where was this association documented.\n\nThere is an association doc: https://github.com/openbmc/docs/blob/2bc8dac01353d130358c3be48e7fb5d5282ef0db/architecture/object-mapper.md#associations\n\nAnd here is also an introduction to Fan: https://gerrit.openbmc.org/c/openbmc/docs/+/41468/4/architecture/dbus-inventory.md#56",
       "parentUuid": "fc67e0a8_1ca426cc",
+      "range": {
+        "startLine": 125,
+        "startChar": 50,
+        "endLine": 125,
+        "endChar": 57
+      },
+      "revId": "2591e0b824cace12ea59610187aa3c065aa6b54b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d49ab552_9cf1086c",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-30T18:04:30Z",
+      "side": 1,
+      "message": "I see no mention of a chassis-fan association in the docs you linked.  Maybe I missed it?",
+      "parentUuid": "267cd94d_d09b277b",
       "range": {
         "startLine": 125,
         "startChar": 50,
