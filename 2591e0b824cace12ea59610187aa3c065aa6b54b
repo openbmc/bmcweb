@@ -91,6 +91,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d83313e0_67d10edd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-09-30T18:02:40Z",
+      "side": 1,
+      "message": "You\u0027ve pushed another patchset to this review, instead of updating 41086 like I asked.  This comment is definitely not resolved.\n\nComments on https://gerrit.openbmc.org/c/openbmc/bmcweb/+/41086 have not been replied to.",
+      "parentUuid": "3fe546e1_03a9c3d4",
+      "revId": "2591e0b824cace12ea59610187aa3c065aa6b54b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8323f36f_0bdecc7b",
         "filename": "redfish-core/lib/fan.hpp",
         "patchSetId": 1
