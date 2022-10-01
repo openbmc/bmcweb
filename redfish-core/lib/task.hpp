@@ -39,10 +39,9 @@ constexpr bool completed = true;
 
 struct Payload
 {
-    explicit Payload(const crow::Request& req) :
-        targetUri(req.url), httpOperation(req.methodString()),
-        httpHeaders(nlohmann::json::array()),
-        jsonBody(nlohmann::json::parse(req.body, nullptr, false))
+    explicit Payload(const crow::Request& req, nlohmann::json&& jsonBodyIn) :
+        targetUri(req.urlView), httpOperation(req.method()),
+        jsonBody(std::move(jsonBodyIn))
     {
         using field_ns = boost::beast::http::field;
         constexpr const std::array<boost::beast::http::field, 7>
@@ -50,13 +49,8 @@ struct Payload
                                field_ns::user_agent, field_ns::host,
                                field_ns::connection, field_ns::content_length,
                                field_ns::upgrade};
-
-        if (jsonBody.is_discarded())
-        {
-            jsonBody = nullptr;
-        }
-
-        for (const auto& field : req.fields)
+        httpHeaders.reserve(headerWhitelist.size());
+        for (const boost::beast::http::fields::value_type& field : req.fields)
         {
             if (std::find(headerWhitelist.begin(), headerWhitelist.end(),
                           field.name()) == headerWhitelist.end())
@@ -74,9 +68,9 @@ struct Payload
     }
     Payload() = delete;
 
-    std::string targetUri;
-    std::string httpOperation;
-    nlohmann::json httpHeaders;
+    boost::urls::url targetUri;
+    boost::beast::http::verb httpOperation;
+    std::vector<std::string> httpHeaders;
     nlohmann::json jsonBody;
 };
 
@@ -414,7 +408,7 @@ inline void requestRoutesTask(App& app)
             const task::Payload& p = *(ptr->payload);
             asyncResp->res.jsonValue["Payload"]["TargetUri"] = p.targetUri;
             asyncResp->res.jsonValue["Payload"]["HttpOperation"] =
-                p.httpOperation;
+                boost::beast::http::to_string(p.httpOperation);
             asyncResp->res.jsonValue["Payload"]["HttpHeaders"] = p.httpHeaders;
             asyncResp->res.jsonValue["Payload"]["JsonBody"] = p.jsonBody.dump(
                 2, ' ', true, nlohmann::json::error_handler_t::replace);
