@@ -30,7 +30,9 @@ limitations under the License.
 #include <boost/url/format.hpp>
 #include <sdbusplus/bus/match.hpp>
 
+#include <algorithm>
 #include <chrono>
+#include <format>
 #include <memory>
 #include <ranges>
 #include <variant>
@@ -50,12 +52,11 @@ constexpr bool completed = true;
 struct Payload
 {
     explicit Payload(const crow::Request& req) :
-        targetUri(req.url().encoded_path()), httpOperation(req.methodString()),
-        httpHeaders(nlohmann::json::array())
+        targetUri(req.url().encoded_path()), httpOperation(req.method())
     {
         using field_ns = boost::beast::http::field;
         constexpr const std::array<boost::beast::http::field, 7>
-            headerWhitelist = {field_ns::accept,     field_ns::accept_encoding,
+            headerAllowList = {field_ns::accept,     field_ns::accept_encoding,
                                field_ns::user_agent, field_ns::host,
                                field_ns::connection, field_ns::content_length,
                                field_ns::upgrade};
@@ -68,25 +69,21 @@ struct Payload
 
         for (const auto& field : req.fields())
         {
-            if (std::ranges::find(headerWhitelist, field.name()) ==
-                headerWhitelist.end())
+            if (std::ranges::find(headerAllowList, field.name()) ==
+                headerAllowList.end())
             {
                 continue;
             }
-            std::string header;
-            header.reserve(
-                field.name_string().size() + 2 + field.value().size());
-            header += field.name_string();
-            header += ": ";
-            header += field.value();
+            std::string header =
+                std::format("{}: {}", field.name_string(), field.value());
             httpHeaders.emplace_back(std::move(header));
         }
     }
     Payload() = delete;
 
-    std::string targetUri;
-    std::string httpOperation;
-    nlohmann::json httpHeaders;
+    boost::urls::url targetUri;
+    boost::beast::http::verb httpOperation;
+    nlohmann::json::array_t httpHeaders;
     nlohmann::json jsonBody;
 };
 
@@ -425,7 +422,7 @@ inline void requestRoutesTask(App& app)
                     asyncResp->res.jsonValue["Payload"]["TargetUri"] =
                         p.targetUri;
                     asyncResp->res.jsonValue["Payload"]["HttpOperation"] =
-                        p.httpOperation;
+                        boost::beast::http::to_string(p.httpOperation);
                     asyncResp->res.jsonValue["Payload"]["HttpHeaders"] =
                         p.httpHeaders;
                     asyncResp->res.jsonValue["Payload"]["JsonBody"] =
