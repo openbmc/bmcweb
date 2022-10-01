@@ -722,9 +722,16 @@ inline void createDump(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     std::optional<std::string> diagnosticDataType;
     std::optional<std::string> oemDiagnosticDataType;
 
-    if (!redfish::json_util::readJsonAction(
-            req, asyncResp->res, "DiagnosticDataType", diagnosticDataType,
-            "OEMDiagnosticDataType", oemDiagnosticDataType))
+    nlohmann::json jsonRequest;
+    if (!json_util::processJsonFromRequest(asyncResp->res, req, jsonRequest))
+    {
+        BMCWEB_LOG_DEBUG << "Json value not readable";
+        return;
+    }
+    nlohmann::json jsonRequestCopy = jsonRequest;
+    if (!redfish::json_util::readJson(
+            jsonRequestCopy, asyncResp->res, "DiagnosticDataType",
+            diagnosticDataType, "OEMDiagnosticDataType", oemDiagnosticDataType))
     {
         return;
     }
@@ -776,10 +783,10 @@ inline void createDump(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     }
 
     crow::connections::systemBus->async_method_call(
-        [asyncResp, payload(task::Payload(req)), dumpPath,
-         dumpType](const boost::system::error_code ec,
-                   const sdbusplus::message::message& msg,
-                   const uint32_t& dumpId) mutable {
+        [asyncResp, payload(task::Payload(req, std::move(jsonRequest))),
+         dumpPath, dumpType](const boost::system::error_code ec,
+                             const sdbusplus::message::message& msg,
+                             const uint32_t& dumpId) mutable {
         if (ec)
         {
             BMCWEB_LOG_ERROR << "CreateDump resp_handler got error " << ec;
@@ -2961,11 +2968,21 @@ inline void requestRoutesCrashdumpCollect(App& app)
         {
             return;
         }
+
+        nlohmann::json jsonRequest;
+        if (!json_util::processJsonFromRequest(asyncResp->res, req,
+                                               jsonRequest))
+        {
+            BMCWEB_LOG_DEBUG << "Json value not readable";
+            return;
+        }
         std::string diagnosticDataType;
         std::string oemDiagnosticDataType;
-        if (!redfish::json_util::readJsonAction(
-                req, asyncResp->res, "DiagnosticDataType", diagnosticDataType,
-                "OEMDiagnosticDataType", oemDiagnosticDataType))
+        nlohmann::json jsonRequestCopy = jsonRequest;
+        if (!redfish::json_util::readJson(
+                jsonRequestCopy, asyncResp->res, "DiagnosticDataType",
+                diagnosticDataType, "OEMDiagnosticDataType",
+                oemDiagnosticDataType))
         {
             return;
         }
@@ -3015,7 +3032,7 @@ inline void requestRoutesCrashdumpCollect(App& app)
         }
 
         auto collectCrashdumpCallback =
-            [asyncResp, payload(task::Payload(req)),
+            [asyncResp, payload(task::Payload(req, std::move(jsonRequest))),
              taskMatchStr](const boost::system::error_code ec,
                            const std::string&) mutable {
             if (ec)

@@ -298,7 +298,7 @@ static void monitorForSoftwareAvailable(
             redfish::messages::internalError(asyncResp->res);
         }
     });
-    task::Payload payload(req);
+    task::Payload payload(req, nlohmann::json::object_t());
     auto callback = [asyncResp, payload](sdbusplus::message_t& m) mutable {
         BMCWEB_LOG_DEBUG << "Match fired";
         softwareInterfaceAdded(asyncResp, m, std::move(payload));
