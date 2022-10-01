@@ -20,6 +20,8 @@
 #include "app.hpp"
 #include "dbus_singleton.hpp"
 #include "dbus_utility.hpp"
+#include "flat_map.hpp"
+#include "generated/enums/computer_system.hpp"
 #include "health.hpp"
 #include "hypervisor_system.hpp"
 #include "led.hpp"
@@ -33,7 +35,6 @@
 #include "utils/time_utils.hpp"
 
 #include <boost/asio/error.hpp>
-#include <boost/container/flat_map.hpp>
 #include <boost/system/error_code.hpp>
 #include <boost/url/format.hpp>
 #include <sdbusplus/asio/property.hpp>
@@ -1347,6 +1348,30 @@ inline void setAutomaticRetryAttempts(
         std::variant<uint32_t>(retryAttempts));
 }
 
+computer_system::PowerRestorePolicyTypes
+    redfishPowerRestorePolicyFromDbus(std::string_view value)
+{
+    if (value ==
+        "xyz.openbmc_project.Control.Power.RestorePolicy.Policy.AlwaysOn")
+    {
+        return computer_system::PowerRestorePolicyTypes::AlwaysOn;
+    }
+    if (value ==
+        "xyz.openbmc_project.Control.Power.RestorePolicy.Policy.AlwaysOff")
+    {
+        return computer_system::PowerRestorePolicyTypes::AlwaysOff;
+    }
+    if (value ==
+        "xyz.openbmc_project.Control.Power.RestorePolicy.Policy.AlwaysRestore")
+    {
+        return computer_system::PowerRestorePolicyTypes::LastState;
+    }
+    if (value == "xyz.openbmc_project.Control.Power.RestorePolicy.Policy.None")
+    {
+        return computer_system::PowerRestorePolicyTypes::AlwaysOff;
+    }
+    return computer_system::PowerRestorePolicyTypes::Invalid;
+}
 /**
  * @brief Retrieves power restore policy over DBUS.
  *
@@ -1370,26 +1395,15 @@ inline void
             BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
             return;
         }
-
-        const boost::container::flat_map<std::string, std::string> policyMaps = {
-            {"xyz.openbmc_project.Control.Power.RestorePolicy.Policy.AlwaysOn",
-             "AlwaysOn"},
-            {"xyz.openbmc_project.Control.Power.RestorePolicy.Policy.AlwaysOff",
-             "AlwaysOff"},
-            {"xyz.openbmc_project.Control.Power.RestorePolicy.Policy.Restore",
-             "LastState"},
-            // Return `AlwaysOff` when power restore policy set to "None"
-            {"xyz.openbmc_project.Control.Power.RestorePolicy.Policy.None",
-             "AlwaysOff"}};
-
-        auto policyMapsIt = policyMaps.find(policy);
-        if (policyMapsIt == policyMaps.end())
+        computer_system::PowerRestorePolicyTypes restore =
+            redfishPowerRestorePolicyFromDbus(policy);
+        if (restore == computer_system::PowerRestorePolicyTypes::Invalid)
         {
             messages::internalError(asyncResp->res);
             return;
         }
 
-        asyncResp->res.jsonValue["PowerRestorePolicy"] = policyMapsIt->second;
+        asyncResp->res.jsonValue["PowerRestorePolicy"] = restore;
         });
 }
 
@@ -1931,6 +1945,23 @@ inline void
         dbus::utility::DbusVariantType(autoRebootEnabled));
 }
 
+std::string dbusPowerRestorePolicyFromRedfish(std::string_view policy)
+{
+    if (policy == "AlwaysOn")
+    {
+        return "xyz.openbmc_project.Control.Power.RestorePolicy.Policy.AlwaysOn";
+    }
+    if (policy == "AlwaysOff")
+    {
+        return "xyz.openbmc_project.Control.Power.RestorePolicy.Policy.AlwaysOff";
+    }
+    if (policy == "LastState")
+    {
+        return "xyz.openbmc_project.Control.Power.RestorePolicy.Policy.Restore";
+    }
+    return "";
+}
+
 /**
  * @brief Sets power restore policy properties.
  *
@@ -1941,29 +1972,18 @@ inline void
  */
 inline void
     setPowerRestorePolicy(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                          const std::string& policy)
+                          std::string_view policy)
 {
     BMCWEB_LOG_DEBUG << "Set power restore policy.";
 
-    const boost::container::flat_map<std::string, std::string> policyMaps = {
-        {"AlwaysOn",
-         "xyz.openbmc_project.Control.Power.RestorePolicy.Policy.AlwaysOn"},
-        {"AlwaysOff",
-         "xyz.openbmc_project.Control.Power.RestorePolicy.Policy.AlwaysOff"},
-        {"LastState",
-         "xyz.openbmc_project.Control.Power.RestorePolicy.Policy.Restore"}};
+    std::string powerRestorePolicy = dbusPowerRestorePolicyFromRedfish(policy);
 
-    std::string powerRestorPolicy;
-
-    auto policyMapsIt = policyMaps.find(policy);
-    if (policyMapsIt == policyMaps.end())
+    if (powerRestorePolicy.empty())
     {
         messages::propertyValueNotInList(asyncResp->res, policy,
                                          "PowerRestorePolicy");
         return;
     }
-
-    powerRestorPolicy = policyMapsIt->second;
 
     crow::connections::systemBus->async_method_call(
         [asyncResp](const boost::system::error_code& ec) {
@@ -1977,7 +1997,7 @@ inline void
         "/xyz/openbmc_project/control/host0/power_restore_policy",
         "org.freedesktop.DBus.Properties", "Set",
         "xyz.openbmc_project.Control.Power.RestorePolicy", "PowerRestorePolicy",
-        dbus::utility::DbusVariantType(powerRestorPolicy));
+        dbus::utility::DbusVariantType(powerRestorePolicy));
 }
 
 #ifdef BMCWEB_ENABLE_REDFISH_PROVISIONING_FEATURE

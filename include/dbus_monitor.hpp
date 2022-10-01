@@ -2,11 +2,11 @@
 #include "app.hpp"
 #include "async_resp.hpp"
 #include "dbus_singleton.hpp"
+#include "flat_map.hpp"
+#include "flat_set.hpp"
 #include "openbmc_dbus_rest.hpp"
 #include "websocket.hpp"
 
-#include <boost/container/flat_map.hpp>
-#include <boost/container/flat_set.hpp>
 #include <sdbusplus/bus/match.hpp>
 #include <sdbusplus/message/types.hpp>
 
@@ -20,9 +20,7 @@ namespace dbus_monitor
 struct DbusWebsocketSession
 {
     std::vector<std::unique_ptr<sdbusplus::bus::match_t>> matches;
-    boost::container::flat_set<std::string, std::less<>,
-                               std::vector<std::string>>
-        interfaces;
+    crow::flat_set<std::string> interfaces;
 };
 
 using SessionMap = boost::container::flat_map<crow::websocket::Connection*,
@@ -115,7 +113,7 @@ inline void requestRoutes(App& app)
         .websocket()
         .onopen([&](crow::websocket::Connection& conn) {
             BMCWEB_LOG_DEBUG << "Connection " << &conn << " opened";
-            sessions.try_emplace(&conn);
+            sessions.emplace(&conn, DbusWebsocketSession());
         })
         .onclose([&](crow::websocket::Connection& conn, const std::string&) {
             sessions.erase(&conn);

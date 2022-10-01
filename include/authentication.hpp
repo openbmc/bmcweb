@@ -1,14 +1,13 @@
 #pragma once
 
 #include "common.hpp"
+#include "flat_set.hpp"
 #include "forward_unauthorized.hpp"
 #include "http_request.hpp"
 #include "http_response.hpp"
 #include "http_utility.hpp"
 #include "pam_authenticate.hpp"
 #include "webroutes.hpp"
-
-#include <boost/container/flat_set.hpp>
 
 #include <random>
 #include <utility>
