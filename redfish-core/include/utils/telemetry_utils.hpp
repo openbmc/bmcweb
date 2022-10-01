@@ -1,13 +1,12 @@
 #pragma once
 
 #include "dbus_utility.hpp"
+#include "flat_set.hpp"
 #include "generated/enums/metric_report_definition.hpp"
 #include "http/utility.hpp"
 #include "logging.hpp"
 #include "utility.hpp"
 
-#include <boost/container/flat_map.hpp>
-#include <boost/container/flat_set.hpp>
 #include <sdbusplus/message/native_types.hpp>
 
 #include <string>
@@ -61,7 +60,7 @@ struct IncorrectMetricUri
 
 inline std::optional<IncorrectMetricUri> getChassisSensorNode(
     std::span<const std::string> uris,
-    boost::container::flat_set<std::pair<std::string, std::string>>& matched)
+    bmcweb::FlatSet<std::pair<std::string, std::string>>& matched)
 {
     size_t uriIdx = 0;
     for (const std::string& uri : uris)

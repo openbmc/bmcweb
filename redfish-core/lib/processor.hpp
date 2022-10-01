@@ -27,7 +27,6 @@
 #include "utils/dbus_utils.hpp"
 #include "utils/json_utils.hpp"
 
-#include <boost/container/flat_map.hpp>
 #include <boost/system/error_code.hpp>
 #include <boost/url/format.hpp>
 #include <sdbusplus/asio/property.hpp>
