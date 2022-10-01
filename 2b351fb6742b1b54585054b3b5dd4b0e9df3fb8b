@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eab9ae31_b58525f2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-10-01T17:00:49Z",
+      "side": 1,
+      "message": "What does this mean exactly?",
+      "range": {
+        "startLine": 10,
+        "startChar": 54,
+        "endLine": 11,
+        "endChar": 25
+      },
+      "revId": "2b351fb6742b1b54585054b3b5dd4b0e9df3fb8b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "da0ff8e2_41b090a1",
+        "filename": "include/google/google_service_root.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-10-01T17:00:49Z",
+      "side": 1,
+      "message": "There\u0027s a misunderstanding of what \"urlFromPieces\" is for here.  It\u0027s intended for the case where you need to construct a url from some pieces of variable data.  If you know the full URI at compile time, you\u0027d generally just use the boost::urls::url constructor, and skip the intermediates, or just keep it as a string.",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 78
+      },
+      "revId": "2b351fb6742b1b54585054b3b5dd4b0e9df3fb8b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ffb1408_689903a9",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-10-01T17:00:49Z",
+      "side": 1,
+      "message": "Non-trivial global variables are something we try to avoid, and are technically disallowed in the coding standard.  I suspect you want to be constructing this on the fly.",
+      "range": {
+        "startLine": 23,
+        "startChar": 6,
+        "endLine": 23,
+        "endChar": 22
+      },
+      "revId": "2b351fb6742b1b54585054b3b5dd4b0e9df3fb8b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
