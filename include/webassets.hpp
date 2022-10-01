@@ -6,7 +6,7 @@
 #include "routing.hpp"
 #include "webroutes.hpp"
 
-#include <boost/container/flat_set.hpp>
+#include <boost/unordered/unordered_flat_set.hpp>
 
 #include <filesystem>
 #include <fstream>
@@ -110,7 +110,7 @@ inline void requestRoutes(App& app)
                 }
             }
 
-            std::pair<boost::container::flat_set<std::string>::iterator, bool>
+            std::pair<boost::unordered_flat_set<std::string>::iterator, bool>
                 inserted = webroutes::routes.insert(webpath);
 
             if (!inserted.second)

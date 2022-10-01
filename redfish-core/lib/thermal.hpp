@@ -57,7 +57,7 @@ inline void requestRoutesThermal(App& app)
 
         std::optional<std::vector<nlohmann::json>> temperatureCollections;
         std::optional<std::vector<nlohmann::json>> fanCollections;
-        std::unordered_map<std::string, std::vector<nlohmann::json>>
+        boost::unordered_flat_map<std::string, std::vector<nlohmann::json>>
             allCollections;
 
         auto sensorsAsyncResp = std::make_shared<SensorsAsyncResp>(

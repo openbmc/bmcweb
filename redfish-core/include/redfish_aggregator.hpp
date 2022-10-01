@@ -388,7 +388,8 @@ class RedfishAggregator
     // of satellite configs when the class is first created
     static void constructorCallback(
         const boost::system::error_code& ec,
-        const std::unordered_map<std::string, boost::urls::url>& satelliteInfo)
+        const boost::unordered_flat_map<std::string, boost::urls::url>&
+            satelliteInfo)
     {
         if (ec)
         {
@@ -404,7 +405,7 @@ class RedfishAggregator
     // information if valid
     static void findSatelliteConfigs(
         const dbus::utility::ManagedObjectType& objects,
-        std::unordered_map<std::string, boost::urls::url>& satelliteInfo)
+        boost::unordered_flat_map<std::string, boost::urls::url>& satelliteInfo)
     {
         for (const auto& objectPath : objects)
         {
@@ -439,7 +440,7 @@ class RedfishAggregator
     static void addSatelliteConfig(
         const std::string& name,
         const dbus::utility::DBusPropertiesMap& properties,
-        std::unordered_map<std::string, boost::urls::url>& satelliteInfo)
+        boost::unordered_flat_map<std::string, boost::urls::url>& satelliteInfo)
     {
         boost::urls::url url;
 
@@ -580,7 +581,8 @@ class RedfishAggregator
     static void findSatellite(
         const crow::Request& req,
         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-        const std::unordered_map<std::string, boost::urls::url>& satelliteInfo,
+        const boost::unordered_flat_map<std::string, boost::urls::url>&
+            satelliteInfo,
         std::string_view memberName)
     {
         // Determine if the resource ID begins with a known prefix
@@ -612,7 +614,8 @@ class RedfishAggregator
         const std::shared_ptr<crow::Request>& sharedReq,
         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         const boost::system::error_code& ec,
-        const std::unordered_map<std::string, boost::urls::url>& satelliteInfo)
+        const boost::unordered_flat_map<std::string, boost::urls::url>&
+            satelliteInfo)
     {
         if (sharedReq == nullptr)
         {
@@ -703,7 +706,8 @@ class RedfishAggregator
         const crow::Request& thisReq,
         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         const std::string& prefix,
-        const std::unordered_map<std::string, boost::urls::url>& satelliteInfo)
+        const boost::unordered_flat_map<std::string, boost::urls::url>&
+            satelliteInfo)
     {
         const auto& sat = satelliteInfo.find(prefix);
         if (sat == satelliteInfo.end())
@@ -746,7 +750,8 @@ class RedfishAggregator
     void forwardCollectionRequests(
         const crow::Request& thisReq,
         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-        const std::unordered_map<std::string, boost::urls::url>& satelliteInfo)
+        const boost::unordered_flat_map<std::string, boost::urls::url>&
+            satelliteInfo)
     {
         for (const auto& sat : satelliteInfo)
         {
@@ -770,7 +775,8 @@ class RedfishAggregator
     void forwardContainsSubordinateRequests(
         const crow::Request& thisReq,
         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-        const std::unordered_map<std::string, boost::urls::url>& satelliteInfo)
+        const boost::unordered_flat_map<std::string, boost::urls::url>&
+            satelliteInfo)
     {
         for (const auto& sat : satelliteInfo)
         {
@@ -813,9 +819,9 @@ class RedfishAggregator
     // Polls D-Bus to get all available satellite config information
     // Expects a handler which interacts with the returned configs
     static void getSatelliteConfigs(
-        std::function<
-            void(const boost::system::error_code&,
-                 const std::unordered_map<std::string, boost::urls::url>&)>
+        std::function<void(
+            const boost::system::error_code&,
+            const boost::unordered_flat_map<std::string, boost::urls::url>&)>
             handler)
     {
         BMCWEB_LOG_DEBUG("Gathering satellite configs");
@@ -825,7 +831,8 @@ class RedfishAggregator
             [handler{std::move(handler)}](
                 const boost::system::error_code& ec,
                 const dbus::utility::ManagedObjectType& objects) {
-            std::unordered_map<std::string, boost::urls::url> satelliteInfo;
+            boost::unordered_flat_map<std::string, boost::urls::url>
+                satelliteInfo;
             if (ec)
             {
                 BMCWEB_LOG_ERROR("DBUS response error {}, {}", ec.value(),

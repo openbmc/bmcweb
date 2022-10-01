@@ -30,10 +30,10 @@
 
 #include <boost/beast/http/status.hpp>
 #include <boost/beast/http/verb.hpp>
-#include <boost/container/flat_map.hpp>
 #include <boost/container/vector.hpp>
 #include <boost/iterator/iterator_facade.hpp>
 #include <boost/system/error_code.hpp>
+#include <boost/unordered/unordered_flat_map.hpp>
 #include <nlohmann/json.hpp>
 #include <sdbusplus/asio/connection.hpp>
 #include <sdbusplus/asio/property.hpp>
@@ -52,7 +52,6 @@
 #include <initializer_list>
 #include <iterator>
 #include <limits>
-#include <map>
 #include <memory>
 #include <ranges>
 #include <regex>
@@ -427,10 +426,7 @@ inline void getObjectAndEnumerate(
 
         // Map indicating connection name, and the path where the object
         // manager exists
-        boost::container::flat_map<
-            std::string, std::string, std::less<>,
-            std::vector<std::pair<std::string, std::string>>>
-            connections;
+        boost::unordered_flat_map<std::string, std::string> connections;
 
         for (const auto& object : *(transaction->subtree))
         {

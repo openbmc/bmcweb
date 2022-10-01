@@ -67,7 +67,8 @@ inline void requestRoutesAggregationService(App& app)
 inline void populateAggregationSourceCollection(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const boost::system::error_code& ec,
-    const std::unordered_map<std::string, boost::urls::url>& satelliteInfo)
+    const boost::unordered_flat_map<std::string, boost::urls::url>&
+        satelliteInfo)
 {
     // Something went wrong while querying dbus
     if (ec)
@@ -139,7 +140,8 @@ inline void populateAggregationSource(
     const std::string& aggregationSourceId,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const boost::system::error_code& ec,
-    const std::unordered_map<std::string, boost::urls::url>& satelliteInfo)
+    const boost::unordered_flat_map<std::string, boost::urls::url>&
+        satelliteInfo)
 {
     asyncResp->res.addHeader(
         boost::beast::http::field::link,

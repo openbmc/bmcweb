@@ -30,6 +30,7 @@
 #include "utils/time_utils.hpp"
 
 #include <boost/system/error_code.hpp>
+#include <boost/unordered/unordered_flat_set.hpp>
 #include <boost/url/format.hpp>
 #include <sdbusplus/asio/property.hpp>
 #include <sdbusplus/unpack_properties.hpp>
@@ -901,7 +902,7 @@ inline CreatePIDRet createPidInterface(
         std::optional<std::vector<nlohmann::json>> zones;
         std::optional<std::vector<std::string>> inputs;
         std::optional<std::vector<std::string>> outputs;
-        std::map<std::string, std::optional<double>> doubles;
+        boost::unordered_flat_map<std::string, std::optional<double>> doubles;
         std::optional<std::string> setpointOffset;
         if (!redfish::json_util::readJson(
                 it.value(), response->res, "Inputs", inputs, "Outputs", outputs,
@@ -1244,13 +1245,8 @@ struct GetPIDValues : std::enable_shared_from_this<GetPIDValues>
             return;
         }
         // create map of <connection, path to objMgr>>
-        boost::container::flat_map<
-            std::string, std::string, std::less<>,
-            std::vector<std::pair<std::string, std::string>>>
-            objectMgrPaths;
-        boost::container::flat_set<std::string, std::less<>,
-                                   std::vector<std::string>>
-            calledConnections;
+        boost::unordered_flat_map<std::string, std::string> objectMgrPaths;
+        boost::unordered_flat_set<std::string> calledConnections;
         for (const auto& pathGroup : completion.subtree)
         {
             for (const auto& connectionGroup : pathGroup.second)

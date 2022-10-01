@@ -22,6 +22,7 @@
 #include "human_sort.hpp"
 #include "logging.hpp"
 
+#include <boost/unordered/unordered_flat_map.hpp>
 #include <nlohmann/json.hpp>
 
 #include <algorithm>
@@ -30,7 +31,6 @@
 #include <cstddef>
 #include <cstdint>
 #include <limits>
-#include <map>
 #include <optional>
 #include <ranges>
 #include <span>

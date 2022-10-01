@@ -30,7 +30,7 @@
 #include <sys/inotify.h>
 
 #include <boost/asio/io_context.hpp>
-#include <boost/container/flat_map.hpp>
+#include <boost/unordered/unordered_flat_map.hpp>
 #include <boost/url/format.hpp>
 #include <sdbusplus/bus/match.hpp>
 
@@ -596,7 +596,7 @@ class EventServiceManager
     size_t noOfEventLogSubscribers{0};
     size_t noOfMetricReportSubscribers{0};
     std::shared_ptr<sdbusplus::bus::match_t> matchTelemetryMonitor;
-    boost::container::flat_map<std::string, std::shared_ptr<Subscription>>
+    boost::unordered_flat_map<std::string, std::shared_ptr<Subscription>>
         subscriptionsMap;
 
     uint64_t eventId{1};

@@ -3,8 +3,8 @@
 #include "ibm/utils.hpp"
 #include "logging.hpp"
 
-#include <boost/container/flat_map.hpp>
 #include <boost/endian/conversion.hpp>
+#include <boost/unordered/unordered_flat_map.hpp>
 #include <nlohmann/json.hpp>
 
 #include <filesystem>
@@ -41,7 +41,7 @@ using ListOfSessionIds = std::vector<std::string>;
 class Lock
 {
     uint32_t transactionId = 0;
-    boost::container::flat_map<uint32_t, LockRequests> lockTable;
+    boost::unordered_flat_map<uint32_t, LockRequests> lockTable;
 
   protected:
     /*

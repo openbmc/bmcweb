@@ -507,7 +507,7 @@ class HTTP2Connection :
     }
 
     // A mapping from http2 stream ID to Stream Data
-    std::map<int32_t, Http2StreamData> streams;
+    boost::unordered_flat_map<int32_t, Http2StreamData> streams;
 
     std::array<uint8_t, 8192> inBuffer{};
 

@@ -5,8 +5,8 @@
 #include "openbmc_dbus_rest.hpp"
 #include "websocket.hpp"
 
-#include <boost/container/flat_map.hpp>
-#include <boost/container/flat_set.hpp>
+#include <boost/unordered/unordered_flat_map.hpp>
+#include <boost/unordered/unordered_flat_set.hpp>
 #include <sdbusplus/bus/match.hpp>
 #include <sdbusplus/message/types.hpp>
 
@@ -19,14 +19,12 @@ namespace dbus_monitor
 
 struct DbusWebsocketSession
 {
-    std::vector<std::unique_ptr<sdbusplus::bus::match_t>> matches;
-    boost::container::flat_set<std::string, std::less<>,
-                               std::vector<std::string>>
-        interfaces;
+    std::vector<std::shared_ptr<sdbusplus::bus::match_t>> matches;
+    boost::unordered_flat_set<std::string> interfaces;
 };
 
-using SessionMap = boost::container::flat_map<crow::websocket::Connection*,
-                                              DbusWebsocketSession>;
+using SessionMap = boost::unordered_flat_map<crow::websocket::Connection*,
+                                             DbusWebsocketSession>;
 
 // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
 static SessionMap sessions;
@@ -115,7 +113,7 @@ inline void requestRoutes(App& app)
         .websocket()
         .onopen([&](crow::websocket::Connection& conn) {
         BMCWEB_LOG_DEBUG("Connection {} opened", logPtr(&conn));
-        sessions.try_emplace(&conn);
+        sessions.emplace(&conn, DbusWebsocketSession());
     })
         .onclose([&](crow::websocket::Connection& conn, const std::string&) {
         sessions.erase(&conn);
@@ -206,7 +204,7 @@ inline void requestRoutes(App& app)
                 BMCWEB_LOG_DEBUG("Creating match {}", propertiesMatchString);
 
                 thisSession.matches.emplace_back(
-                    std::make_unique<sdbusplus::bus::match_t>(
+                    std::make_shared<sdbusplus::bus::match_t>(
                         *crow::connections::systemBus, propertiesMatchString,
                         onPropertyUpdate, &conn));
             }
@@ -229,7 +227,7 @@ inline void requestRoutes(App& app)
                     ifaceMatchString += "'";
                     BMCWEB_LOG_DEBUG("Creating match {}", ifaceMatchString);
                     thisSession.matches.emplace_back(
-                        std::make_unique<sdbusplus::bus::match_t>(
+                        std::make_shared<sdbusplus::bus::match_t>(
                             *crow::connections::systemBus, ifaceMatchString,
                             onPropertyUpdate, &conn));
                 }
@@ -243,7 +241,7 @@ inline void requestRoutes(App& app)
                  "member='InterfacesAdded'");
             BMCWEB_LOG_DEBUG("Creating match {}", objectManagerMatchString);
             thisSession.matches.emplace_back(
-                std::make_unique<sdbusplus::bus::match_t>(
+                std::make_shared<sdbusplus::bus::match_t>(
                     *crow::connections::systemBus, objectManagerMatchString,
                     onPropertyUpdate, &conn));
         }

@@ -43,7 +43,7 @@ namespace task
 constexpr size_t maxTaskCount = 100; // arbitrary limit
 
 // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
-static std::deque<std::shared_ptr<struct TaskData>> tasks;
+static boost::container::devector<std::shared_ptr<struct TaskData>> tasks;
 
 constexpr bool completed = true;
 
@@ -337,7 +337,7 @@ inline void requestRoutesTaskMonitor(App& app)
         {
             return;
         }
-        auto find = std::ranges::find_if(
+        auto* find = std::ranges::find_if(
             task::tasks,
             [&strParam](const std::shared_ptr<task::TaskData>& task) {
             if (!task)
@@ -378,7 +378,7 @@ inline void requestRoutesTask(App& app)
         {
             return;
         }
-        auto find = std::ranges::find_if(
+        auto* find = std::ranges::find_if(
             task::tasks,
             [&strParam](const std::shared_ptr<task::TaskData>& task) {
             if (!task)

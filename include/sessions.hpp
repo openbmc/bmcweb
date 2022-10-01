@@ -5,6 +5,7 @@
 #include "utility.hpp"
 #include "utils/ip_utils.hpp"
 
+#include <boost/unordered/unordered_flat_map.hpp>
 #include <nlohmann/json.hpp>
 
 #include <algorithm>
@@ -329,7 +330,7 @@ class SessionStore
 
     void removeSessionsByUsername(std::string_view username)
     {
-        std::erase_if(authTokens, [username](const auto& value) {
+        boost::unordered::erase_if(authTokens, [username](const auto& value) {
             if (value.second == nullptr)
             {
                 return false;
@@ -410,9 +411,9 @@ class SessionStore
     SessionStore& operator=(const SessionStore&&) = delete;
     ~SessionStore() = default;
 
-    std::unordered_map<std::string, std::shared_ptr<UserSession>,
-                       std::hash<std::string>,
-                       crow::utility::ConstantTimeCompare>
+    boost::unordered_flat_map<std::string, std::shared_ptr<UserSession>,
+                              std::hash<std::string>,
+                              crow::utility::ConstantTimeCompare>
         authTokens;
 
     std::chrono::time_point<std::chrono::steady_clock> lastTimeoutUpdate;

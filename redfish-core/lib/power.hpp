@@ -332,7 +332,7 @@ inline void requestRoutesPower(App& app)
         }
         if (voltageCollections)
         {
-            std::unordered_map<std::string, std::vector<nlohmann::json>>
+            boost::unordered_flat_map<std::string, std::vector<nlohmann::json>>
                 allCollections;
             allCollections.emplace("Voltages", *std::move(voltageCollections));
             setSensorsOverride(sensorAsyncResp, allCollections);

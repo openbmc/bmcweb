@@ -11,13 +11,13 @@
 #include "utils/telemetry_utils.hpp"
 #include "utils/time_utils.hpp"
 
-#include <boost/container/flat_map.hpp>
+#include <boost/unordered/unordered_flat_map.hpp>
+#include <boost/unordered/unordered_flat_set.hpp>
 #include <boost/url/format.hpp>
 #include <sdbusplus/asio/property.hpp>
 #include <sdbusplus/unpack_properties.hpp>
 
 #include <array>
-#include <map>
 #include <optional>
 #include <span>
 #include <string>
@@ -638,7 +638,7 @@ inline bool getUserParameters(crow::Response& res, const crow::Request& req,
 inline bool getChassisSensorNodeFromMetrics(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     std::span<const AddReportArgs::MetricArgs> metrics,
-    boost::container::flat_set<std::pair<std::string, std::string>>& matched)
+    boost::unordered_flat_set<std::pair<std::string, std::string>>& matched)
 {
     for (const auto& metric : metrics)
     {
@@ -674,7 +674,7 @@ class AddReport
     static void performAddReport(
         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         const AddReportArgs& args,
-        const boost::container::flat_map<std::string, std::string>& uriToDbus)
+        const boost::unordered_flat_map<std::string, std::string>& uriToDbus)
     {
         if (asyncResp->res.result() != boost::beast::http::status::ok)
         {
@@ -761,7 +761,7 @@ class AddReport
     AddReport& operator=(const AddReport&) = delete;
     AddReport& operator=(AddReport&&) = delete;
 
-    void insert(const std::map<std::string, std::string>& el)
+    void insert(const boost::unordered_flat_map<std::string, std::string>& el)
     {
         uriToDbus.insert(el.begin(), el.end());
     }
@@ -769,7 +769,7 @@ class AddReport
   private:
     std::shared_ptr<bmcweb::AsyncResp> asyncResp;
     AddReportArgs args;
-    boost::container::flat_map<std::string, std::string> uriToDbus{};
+    boost::unordered_flat_map<std::string, std::string> uriToDbus{};
 };
 
 class UpdateMetrics
@@ -803,9 +803,10 @@ class UpdateMetrics
     UpdateMetrics& operator=(UpdateMetrics&&) = delete;
 
     std::string id;
-    std::map<std::string, std::string> metricPropertyToDbusPaths;
+    boost::unordered_flat_map<std::string, std::string>
+        metricPropertyToDbusPaths;
 
-    void insert(const std::map<std::string, std::string>&
+    void insert(const boost::unordered_flat_map<std::string, std::string>&
                     additionalMetricPropertyToDbusPaths)
     {
         metricPropertyToDbusPaths.insert(
@@ -989,7 +990,7 @@ inline void
 
         auto updateMetricsReq = std::make_shared<UpdateMetrics>(id, asyncResp);
 
-        boost::container::flat_set<std::pair<std::string, std::string>>
+        boost::unordered_flat_set<std::pair<std::string, std::string>>
             chassisSensors;
 
         size_t index = 0;
@@ -1042,7 +1043,8 @@ inline void
                 chassis, sensorType,
                 [asyncResp, updateMetricsReq](
                     const boost::beast::http::status status,
-                    const std::map<std::string, std::string>& uriToDbus) {
+                    const boost::unordered_flat_map<std::string, std::string>&
+                        uriToDbus) {
                 if (status != boost::beast::http::status::ok)
                 {
                     BMCWEB_LOG_ERROR(
@@ -1227,7 +1229,7 @@ inline void afterRetrieveUriToDbusMap(
     const std::shared_ptr<bmcweb::AsyncResp>& /*asyncResp*/,
     const std::shared_ptr<telemetry::AddReport>& addReportReq,
     const boost::beast::http::status status,
-    const std::map<std::string, std::string>& uriToDbus)
+    const boost::unordered_flat_map<std::string, std::string>& uriToDbus)
 {
     if (status != boost::beast::http::status::ok)
     {
@@ -1254,7 +1256,7 @@ inline void handleMetricReportDefinitionsPost(
         return;
     }
 
-    boost::container::flat_set<std::pair<std::string, std::string>>
+    boost::unordered_flat_set<std::pair<std::string, std::string>>
         chassisSensors;
     if (!telemetry::getChassisSensorNodeFromMetrics(asyncResp, args.metrics,
                                                     chassisSensors))

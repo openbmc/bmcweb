@@ -38,6 +38,7 @@
 #include <boost/beast/version.hpp>
 #include <boost/container/devector.hpp>
 #include <boost/system/error_code.hpp>
+#include <boost/unordered/unordered_flat_map.hpp>
 #include <boost/url/format.hpp>
 #include <boost/url/url.hpp>
 #include <boost/url/url_view.hpp>
@@ -850,7 +851,7 @@ class ConnectionPool : public std::enable_shared_from_this<ConnectionPool>
 class HttpClient
 {
   private:
-    std::unordered_map<std::string, std::shared_ptr<ConnectionPool>>
+    boost::unordered_flat_map<std::string, std::shared_ptr<ConnectionPool>>
         connectionPools;
     boost::asio::io_context& ioc;
     std::shared_ptr<ConnectionPolicy> connPolicy;

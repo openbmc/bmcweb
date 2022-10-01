@@ -1,8 +1,8 @@
 #include "verb.hpp"
 
 #include <boost/beast/http/verb.hpp>
+#include <boost/unordered/unordered_flat_map.hpp>
 
-#include <map>
 #include <optional>
 #include <string_view>
 
@@ -12,7 +12,7 @@ using BoostVerb = boost::beast::http::verb;
 
 TEST(BoostToHttpVerb, ValidCase)
 {
-    std::map<HttpVerb, BoostVerb> verbMap = {
+    boost::unordered_flat_map<HttpVerb, BoostVerb> verbMap = {
         {HttpVerb::Delete, BoostVerb::delete_},
         {HttpVerb::Get, BoostVerb::get},
         {HttpVerb::Head, BoostVerb::head},
@@ -39,7 +39,7 @@ TEST(BoostToHttpVerbTest, InvalidCase)
 
 TEST(HttpVerbToStringTest, ValidCase)
 {
-    std::map<HttpVerb, std::string_view> verbMap = {
+    boost::unordered_flat_map<HttpVerb, std::string_view> verbMap = {
         {HttpVerb::Delete, "DELETE"}, {HttpVerb::Get, "GET"},
         {HttpVerb::Head, "HEAD"},     {HttpVerb::Options, "OPTIONS"},
         {HttpVerb::Patch, "PATCH"},   {HttpVerb::Post, "POST"},

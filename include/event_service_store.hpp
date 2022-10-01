@@ -2,7 +2,7 @@
 #include "logging.hpp"
 
 #include <boost/beast/http/fields.hpp>
-#include <boost/container/flat_map.hpp>
+#include <boost/unordered/unordered_flat_map.hpp>
 #include <boost/url/parse.hpp>
 #include <nlohmann/json.hpp>
 
@@ -251,7 +251,7 @@ struct EventServiceConfig
 class EventServiceStore
 {
   public:
-    boost::container::flat_map<std::string, std::shared_ptr<UserSubscription>>
+    boost::unordered_flat_map<std::string, std::shared_ptr<UserSubscription>>
         subscriptionsConfigMap;
     EventServiceConfig eventServiceConfig;
 

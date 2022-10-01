@@ -21,7 +21,7 @@
 #include "websocket.hpp"
 
 #include <boost/beast/ssl/ssl_stream.hpp>
-#include <boost/container/flat_map.hpp>
+#include <boost/unordered/unordered_flat_map.hpp>
 #include <boost/url/format.hpp>
 #include <sdbusplus/unpack_properties.hpp>
 
@@ -46,9 +46,7 @@ class Trie
         unsigned ruleIndex{};
         std::array<size_t, static_cast<size_t>(ParamType::MAX)>
             paramChildrens{};
-        using ChildMap = boost::container::flat_map<
-            std::string, unsigned, std::less<>,
-            std::vector<std::pair<std::string, unsigned>>>;
+        using ChildMap = boost::unordered_flat_map<std::string, unsigned>;
         ChildMap children;
 
         bool isSimpleNode() const

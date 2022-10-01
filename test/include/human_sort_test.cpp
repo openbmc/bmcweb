@@ -1,6 +1,7 @@
 #include "human_sort.hpp"
 
-#include <set>
+#include <boost/unordered/unordered_flat_set.hpp>
+
 #include <string>
 
 #include <gmock/gmock.h> // IWYU pragma: keep
@@ -51,8 +52,8 @@ TEST(AlphaNum, NumberTests)
 
 TEST(AlphaNum, LessTest)
 {
-    std::set<std::string, AlphanumLess<std::string>> sorted{"Alpha 10",
-                                                            "Alpha 2"};
+    std::vector<std::string> sorted{"Alpha 10", "Alpha 2"};
+    std::ranges::sort(sorted, AlphanumLess<std::string>());
     EXPECT_THAT(sorted, ElementsAreArray({"Alpha 2", "Alpha 10"}));
 }
 } // namespace

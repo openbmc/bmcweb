@@ -14,6 +14,7 @@
 #include <boost/beast/http/message.hpp> // IWYU pragma: keep
 #include <boost/beast/http/status.hpp>
 #include <boost/beast/http/verb.hpp>
+#include <boost/unordered/unordered_flat_map.hpp>
 #include <boost/url/params_view.hpp>
 #include <nlohmann/json.hpp>
 
@@ -26,7 +27,6 @@
 #include <functional>
 #include <iterator>
 #include <limits>
-#include <map>
 #include <memory>
 #include <optional>
 #include <ranges>
@@ -102,7 +102,7 @@ class SelectTrieNode
     }
 
   private:
-    std::map<std::string, SelectTrieNode, std::less<>> children;
+    boost::unordered_flat_map<std::string, SelectTrieNode> children;
     bool selected = false;
 };
 
