@@ -1,10 +1,10 @@
 #pragma once
 
+#include "flat_map.hpp"
 #include "ibm/utils.hpp"
 #include "logging.hpp"
 
 #include <boost/algorithm/string/predicate.hpp>
-#include <boost/container/flat_map.hpp>
 #include <boost/endian/conversion.hpp>
 #include <nlohmann/json.hpp>
 
@@ -42,7 +42,7 @@ using ListOfSessionIds = std::vector<std::string>;
 class Lock
 {
     uint32_t transactionId = 0;
-    boost::container::flat_map<uint32_t, LockRequests> lockTable;
+    bmcweb::FlatMap<uint32_t, LockRequests> lockTable;
 
   protected:
     /*

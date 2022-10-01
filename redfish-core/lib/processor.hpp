@@ -19,6 +19,7 @@
 #include "dbus_singleton.hpp"
 #include "dbus_utility.hpp"
 #include "error_messages.hpp"
+#include "flat_map.hpp"
 #include "generated/enums/processor.hpp"
 #include "health.hpp"
 #include "query.hpp"
@@ -27,7 +28,6 @@
 #include "utils/dbus_utils.hpp"
 #include "utils/json_utils.hpp"
 
-#include <boost/container/flat_map.hpp>
 #include <boost/system/error_code.hpp>
 #include <boost/url/format.hpp>
 #include <sdbusplus/asio/property.hpp>
