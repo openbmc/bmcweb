@@ -50,8 +50,7 @@ constexpr bool completed = true;
 struct Payload
 {
     explicit Payload(const crow::Request& req) :
-        targetUri(req.url().encoded_path()), httpOperation(req.methodString()),
-        httpHeaders(nlohmann::json::array())
+        targetUri(req.url().encoded_path()), httpOperation(req.method())
     {
         using field_ns = boost::beast::http::field;
         constexpr const std::array<boost::beast::http::field, 7>
@@ -84,9 +83,9 @@ struct Payload
     }
     Payload() = delete;
 
-    std::string targetUri;
-    std::string httpOperation;
-    nlohmann::json httpHeaders;
+    boost::urls::url targetUri;
+    boost::beast::http::verb httpOperation;
+    std::vector<std::string> httpHeaders;
     nlohmann::json jsonBody;
 };
 
@@ -427,7 +426,7 @@ inline void requestRoutesTask(App& app)
             const task::Payload& p = *(ptr->payload);
             asyncResp->res.jsonValue["Payload"]["TargetUri"] = p.targetUri;
             asyncResp->res.jsonValue["Payload"]["HttpOperation"] =
-                p.httpOperation;
+                boost::beast::http::to_string(p.httpOperation);
             asyncResp->res.jsonValue["Payload"]["HttpHeaders"] = p.httpHeaders;
             asyncResp->res.jsonValue["Payload"]["JsonBody"] = p.jsonBody.dump(
                 2, ' ', true, nlohmann::json::error_handler_t::replace);
