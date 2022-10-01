@@ -2,13 +2,12 @@
 
 #include "app.hpp"
 #include "common.hpp"
+#include "flat_set.hpp"
 #include "http_request.hpp"
 #include "http_response.hpp"
 #include "multipart_parser.hpp"
 #include "pam_authenticate.hpp"
 #include "webassets.hpp"
-
-#include <boost/container/flat_set.hpp>
 
 #include <random>
 

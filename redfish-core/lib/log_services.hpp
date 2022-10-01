@@ -18,6 +18,7 @@
 #include "app.hpp"
 #include "dbus_utility.hpp"
 #include "error_messages.hpp"
+#include "flat_map.hpp"
 #include "generated/enums/log_entry.hpp"
 #include "gzfile.hpp"
 #include "http_utility.hpp"
@@ -40,7 +41,6 @@
 #include <boost/algorithm/string/replace.hpp>
 #include <boost/algorithm/string/split.hpp>
 #include <boost/beast/http/verb.hpp>
-#include <boost/container/flat_map.hpp>
 #include <boost/system/linux_error.hpp>
 #include <boost/url/format.hpp>
 #include <sdbusplus/asio/property.hpp>
@@ -3688,8 +3688,8 @@ inline static bool parsePostCode(const std::string& postCodeID,
 
 static bool fillPostCodeEntry(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const boost::container::flat_map<
-        uint64_t, std::tuple<uint64_t, std::vector<uint8_t>>>& postcode,
+    const crow::flat_map<uint64_t, std::tuple<uint64_t, std::vector<uint8_t>>>&
+        postcode,
     const uint16_t bootIndex, const uint64_t codeIndex = 0,
     const uint64_t skip = 0, const uint64_t top = 0)
 {
@@ -3842,11 +3842,11 @@ static void
     }
 
     crow::connections::systemBus->async_method_call(
-        [asyncResp, entryId, bootIndex,
-         codeIndex](const boost::system::error_code& ec,
-                    const boost::container::flat_map<
-                        uint64_t, std::tuple<uint64_t, std::vector<uint8_t>>>&
-                        postcode) {
+        [asyncResp, entryId, bootIndex, codeIndex](
+            const boost::system::error_code& ec,
+            const crow::flat_map<uint64_t,
+                                 std::tuple<uint64_t, std::vector<uint8_t>>>&
+                postcode) {
         if (ec)
         {
             BMCWEB_LOG_DEBUG << "DBUS POST CODE PostCode response error";
@@ -3880,8 +3880,8 @@ static void
     crow::connections::systemBus->async_method_call(
         [asyncResp, bootIndex, bootCount, entryCount, skip,
          top](const boost::system::error_code& ec,
-              const boost::container::flat_map<
-                  uint64_t, std::tuple<uint64_t, std::vector<uint8_t>>>&
+              const crow::flat_map<uint64_t,
+                                   std::tuple<uint64_t, std::vector<uint8_t>>>&
                   postcode) {
         if (ec)
         {
