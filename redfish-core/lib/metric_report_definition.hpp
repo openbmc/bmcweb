@@ -2,6 +2,8 @@
 
 #include "app.hpp"
 #include "dbus_utility.hpp"
+#include "flat_map.hpp"
+#include "flat_set.hpp"
 #include "generated/enums/metric_report_definition.hpp"
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
@@ -11,7 +13,6 @@
 #include "utils/telemetry_utils.hpp"
 #include "utils/time_utils.hpp"
 
-#include <boost/container/flat_map.hpp>
 #include <boost/url/format.hpp>
 #include <sdbusplus/asio/property.hpp>
 #include <sdbusplus/unpack_properties.hpp>
@@ -607,7 +608,7 @@ inline bool getUserParameters(crow::Response& res, const crow::Request& req,
 inline bool getChassisSensorNodeFromMetrics(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     std::span<const AddReportArgs::MetricArgs> metrics,
-    boost::container::flat_set<std::pair<std::string, std::string>>& matched)
+    bmcweb::FlatSet<std::pair<std::string, std::string>>& matched)
 {
     for (const auto& metric : metrics)
     {
@@ -643,7 +644,7 @@ class AddReport
     static void performAddReport(
         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         const AddReportArgs& args,
-        const boost::container::flat_map<std::string, std::string>& uriToDbus)
+        const bmcweb::FlatMap<std::string, std::string>& uriToDbus)
     {
         if (asyncResp->res.result() != boost::beast::http::status::ok)
         {
@@ -738,7 +739,7 @@ class AddReport
   private:
     std::shared_ptr<bmcweb::AsyncResp> asyncResp;
     AddReportArgs args;
-    boost::container::flat_map<std::string, std::string> uriToDbus{};
+    bmcweb::FlatMap<std::string, std::string> uriToDbus{};
 };
 } // namespace telemetry
 
@@ -894,8 +895,7 @@ inline void requestRoutesMetricReportDefinitionCollection(App& app)
             return;
         }
 
-        boost::container::flat_set<std::pair<std::string, std::string>>
-            chassisSensors;
+        bmcweb::FlatSet<std::pair<std::string, std::string>> chassisSensors;
         if (!telemetry::getChassisSensorNodeFromMetrics(asyncResp, args.metrics,
                                                         chassisSensors))
         {

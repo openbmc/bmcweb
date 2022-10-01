@@ -33,7 +33,9 @@ TEST(PrivilegeTest, PrivilegeCheckForNoPrivilegesRequired)
 {
     Privileges userPrivileges{"Login"};
 
-    OperationMap entityPrivileges{{boost::beast::http::verb::get, {{"Login"}}}};
+    OperationMap entityPrivileges;
+    entityPrivileges.emplace(boost::beast::http::verb::get,
+                             std::vector<Privileges>({{"Login"}}));
 
     EXPECT_TRUE(isMethodAllowedWithPrivileges(
         boost::beast::http::verb::get, entityPrivileges, userPrivileges));
@@ -42,7 +44,9 @@ TEST(PrivilegeTest, PrivilegeCheckForNoPrivilegesRequired)
 TEST(PrivilegeTest, PrivilegeCheckForSingleCaseSuccess)
 {
     auto userPrivileges = Privileges{"Login"};
-    OperationMap entityPrivileges{{boost::beast::http::verb::get, {}}};
+    OperationMap entityPrivileges;
+    entityPrivileges.emplace(boost::beast::http::verb::get,
+                             std::vector<Privileges>());
 
     EXPECT_TRUE(isMethodAllowedWithPrivileges(
         boost::beast::http::verb::get, entityPrivileges, userPrivileges));
@@ -51,8 +55,9 @@ TEST(PrivilegeTest, PrivilegeCheckForSingleCaseSuccess)
 TEST(PrivilegeTest, PrivilegeCheckForSingleCaseFailure)
 {
     auto userPrivileges = Privileges{"Login"};
-    OperationMap entityPrivileges{
-        {boost::beast::http::verb::get, {{"ConfigureManager"}}}};
+    OperationMap entityPrivileges;
+    entityPrivileges.emplace(boost::beast::http::verb::get,
+                             std::vector<Privileges>({{"ConfigureManager"}}));
 
     EXPECT_FALSE(isMethodAllowedWithPrivileges(
         boost::beast::http::verb::get, entityPrivileges, userPrivileges));
@@ -62,9 +67,11 @@ TEST(PrivilegeTest, PrivilegeCheckForANDCaseSuccess)
 {
     auto userPrivileges = Privileges{"Login", "ConfigureManager",
                                      "ConfigureSelf"};
-    OperationMap entityPrivileges{
-        {boost::beast::http::verb::get,
-         {{"Login", "ConfigureManager", "ConfigureSelf"}}}};
+    OperationMap entityPrivileges;
+    entityPrivileges.emplace(
+        boost::beast::http::verb::get,
+        std::vector<Privileges>(
+            {{"Login", "ConfigureManager", "ConfigureSelf"}}));
 
     EXPECT_TRUE(isMethodAllowedWithPrivileges(
         boost::beast::http::verb::get, entityPrivileges, userPrivileges));
@@ -73,9 +80,11 @@ TEST(PrivilegeTest, PrivilegeCheckForANDCaseSuccess)
 TEST(PrivilegeTest, PrivilegeCheckForANDCaseFailure)
 {
     auto userPrivileges = Privileges{"Login", "ConfigureManager"};
-    OperationMap entityPrivileges{
-        {boost::beast::http::verb::get,
-         {{"Login", "ConfigureManager", "ConfigureSelf"}}}};
+    OperationMap entityPrivileges;
+    entityPrivileges.emplace(
+        boost::beast::http::verb::get,
+        std::vector<Privileges>(
+            {{"Login", "ConfigureManager", "ConfigureSelf"}}));
 
     EXPECT_FALSE(isMethodAllowedWithPrivileges(
         boost::beast::http::verb::get, entityPrivileges, userPrivileges));
@@ -84,8 +93,11 @@ TEST(PrivilegeTest, PrivilegeCheckForANDCaseFailure)
 TEST(PrivilegeTest, PrivilegeCheckForORCaseSuccess)
 {
     auto userPrivileges = Privileges{"ConfigureManager"};
-    OperationMap entityPrivileges{
-        {boost::beast::http::verb::get, {{"Login"}, {"ConfigureManager"}}}};
+    OperationMap entityPrivileges;
+    entityPrivileges.emplace(boost::beast::http::verb::get,
+                             std::vector<Privileges>({{"ConfigureManager"}}));
+    entityPrivileges.emplace(boost::beast::http::verb::get,
+                             std::vector<Privileges>({{"Login"}}));
 
     EXPECT_TRUE(isMethodAllowedWithPrivileges(
         boost::beast::http::verb::get, entityPrivileges, userPrivileges));
@@ -94,8 +106,11 @@ TEST(PrivilegeTest, PrivilegeCheckForORCaseSuccess)
 TEST(PrivilegeTest, PrivilegeCheckForORCaseFailure)
 {
     auto userPrivileges = Privileges{"ConfigureComponents"};
-    OperationMap entityPrivileges = OperationMap(
-        {{boost::beast::http::verb::get, {{"Login"}, {"ConfigureManager"}}}});
+    OperationMap entityPrivileges;
+    entityPrivileges.emplace(boost::beast::http::verb::get,
+                             std::vector<Privileges>({{"ConfigureManager"}}));
+    entityPrivileges.emplace(boost::beast::http::verb::get,
+                             std::vector<Privileges>({{"Login"}}));
 
     EXPECT_FALSE(isMethodAllowedWithPrivileges(
         boost::beast::http::verb::get, entityPrivileges, userPrivileges));
