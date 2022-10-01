@@ -22,6 +22,30 @@
       },
       "revId": "0cb8ff77fd703a309478344ef846a36bdb387926",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "db912a26_57c2ce1f",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1537,
+      "author": {
+        "id": 1000520
+      },
+      "writtenOn": "2022-10-01T04:46:57Z",
+      "side": 1,
+      "message": "Wow, great find, I\u0027m not sure how that got in there.",
+      "parentUuid": "6a225cfe_ac91522e",
+      "range": {
+        "startLine": 1537,
+        "startChar": 47,
+        "endLine": 1537,
+        "endChar": 77
+      },
+      "revId": "0cb8ff77fd703a309478344ef846a36bdb387926",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
