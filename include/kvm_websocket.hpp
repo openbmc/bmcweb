@@ -1,11 +1,10 @@
 #pragma once
 #include "app.hpp"
 #include "async_resp.hpp"
+#include "flat_map.hpp"
 #include "websocket.hpp"
 
 #include <sys/socket.h>
-
-#include <boost/container/flat_map.hpp>
 
 namespace crow
 {
@@ -162,15 +161,14 @@ class KvmSession : public std::enable_shared_from_this<KvmSession>
     bool doingWrite{false};
 };
 
-using SessionMap = boost::container::flat_map<crow::websocket::Connection*,
-                                              std::shared_ptr<KvmSession>>;
+using SessionMap =
+    bmcweb::FlatMap<crow::websocket::Connection*, std::shared_ptr<KvmSession>>;
+
 // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
 static SessionMap sessions;
 
 inline void requestRoutes(App& app)
 {
-    sessions.reserve(maxSessions);
-
     BMCWEB_ROUTE(app, "/kvm/0")
         .privileges({{"ConfigureComponents", "ConfigureManager"}})
         .websocket()
@@ -182,7 +180,6 @@ inline void requestRoutes(App& app)
             conn.close("Max sessions are already connected");
             return;
         }
-
         sessions[&conn] = std::make_shared<KvmSession>(conn);
     })
         .onclose([](crow::websocket::Connection& conn, const std::string&) {

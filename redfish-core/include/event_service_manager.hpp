@@ -17,6 +17,7 @@
 #include "dbus_utility.hpp"
 #include "error_messages.hpp"
 #include "event_service_store.hpp"
+#include "flat_map.hpp"
 #include "http_client.hpp"
 #include "metric_report.hpp"
 #include "ossl_random.hpp"
@@ -30,7 +31,6 @@
 #include <sys/inotify.h>
 
 #include <boost/asio/io_context.hpp>
-#include <boost/container/flat_map.hpp>
 #include <boost/url/format.hpp>
 #include <sdbusplus/bus/match.hpp>
 
@@ -596,7 +596,7 @@ class EventServiceManager
     size_t noOfEventLogSubscribers{0};
     size_t noOfMetricReportSubscribers{0};
     std::shared_ptr<sdbusplus::bus::match_t> matchTelemetryMonitor;
-    boost::container::flat_map<std::string, std::shared_ptr<Subscription>>
+    bmcweb::FlatMap<std::string, std::shared_ptr<Subscription>>
         subscriptionsMap;
 
     uint64_t eventId{1};

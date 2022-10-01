@@ -19,6 +19,7 @@
 
 #include "app.hpp"
 #include "dbus_utility.hpp"
+#include "flat_set.hpp"
 #include "health.hpp"
 #include "query.hpp"
 #include "redfish_util.hpp"
@@ -1244,13 +1245,8 @@ struct GetPIDValues : std::enable_shared_from_this<GetPIDValues>
             return;
         }
         // create map of <connection, path to objMgr>>
-        boost::container::flat_map<
-            std::string, std::string, std::less<>,
-            std::vector<std::pair<std::string, std::string>>>
-            objectMgrPaths;
-        boost::container::flat_set<std::string, std::less<>,
-                                   std::vector<std::string>>
-            calledConnections;
+        bmcweb::FlatMap<std::string, std::string> objectMgrPaths;
+        bmcweb::FlatSet<std::string> calledConnections;
         for (const auto& pathGroup : completion.subtree)
         {
             for (const auto& connectionGroup : pathGroup.second)

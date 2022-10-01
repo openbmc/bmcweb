@@ -17,6 +17,7 @@
 #include "async_resp.hpp"
 #include "dbus_singleton.hpp"
 #include "dbus_utility.hpp"
+#include "flat_map.hpp"
 #include "http_request.hpp"
 #include "http_response.hpp"
 #include "logging.hpp"
@@ -30,7 +31,6 @@
 
 #include <boost/beast/http/status.hpp>
 #include <boost/beast/http/verb.hpp>
-#include <boost/container/flat_map.hpp>
 #include <boost/container/vector.hpp>
 #include <boost/iterator/iterator_facade.hpp>
 #include <boost/system/error_code.hpp>
@@ -427,10 +427,7 @@ inline void getObjectAndEnumerate(
 
         // Map indicating connection name, and the path where the object
         // manager exists
-        boost::container::flat_map<
-            std::string, std::string, std::less<>,
-            std::vector<std::pair<std::string, std::string>>>
-            connections;
+        bmcweb::FlatMap<std::string, std::string> connections;
 
         for (const auto& object : *(transaction->subtree))
         {

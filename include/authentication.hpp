@@ -8,8 +8,6 @@
 #include "pam_authenticate.hpp"
 #include "webroutes.hpp"
 
-#include <boost/container/flat_set.hpp>
-
 #include <random>
 #include <utility>
 

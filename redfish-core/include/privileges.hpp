@@ -15,13 +15,11 @@
 */
 #pragma once
 
+#include "flat_map.hpp"
 #include "logging.hpp"
 #include "sessions.hpp"
 
 #include <boost/beast/http/verb.hpp>
-#include <boost/container/flat_map.hpp>
-#include <boost/container/vector.hpp>
-#include <boost/move/algo/move.hpp>
 
 #include <array>
 #include <bitset>
@@ -274,8 +272,8 @@ inline Privileges getUserPrivileges(const persistent_data::UserSession& session)
  * the ConfigureSelf privilege to operate only on your own account or
  * session.
  **/
-using OperationMap = boost::container::flat_map<boost::beast::http::verb,
-                                                std::vector<Privileges>>;
+using OperationMap =
+    bmcweb::FlatMap<boost::beast::http::verb, std::vector<Privileges>>;
 
 /* @brief Checks if user is allowed to call an operation
  *

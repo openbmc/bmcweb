@@ -1,12 +1,12 @@
 #pragma once
 #include "app.hpp"
 #include "async_resp.hpp"
+#include "flat_map.hpp"
 #include "websocket.hpp"
 
 #include <sys/socket.h>
 
 #include <boost/asio/local/stream_protocol.hpp>
-#include <boost/container/flat_map.hpp>
 
 namespace crow
 {
@@ -140,10 +140,8 @@ class ConsoleHandler : public std::enable_shared_from_this<ConsoleHandler>
     crow::websocket::Connection& conn;
 };
 
-using ObmcConsoleMap = boost::container::flat_map<
-    crow::websocket::Connection*, std::shared_ptr<ConsoleHandler>, std::less<>,
-    std::vector<std::pair<crow::websocket::Connection*,
-                          std::shared_ptr<ConsoleHandler>>>>;
+using ObmcConsoleMap = bmcweb::FlatMap<crow::websocket::Connection*,
+                                       std::shared_ptr<ConsoleHandler>>;
 
 inline ObmcConsoleMap& getConsoleHandlerMap()
 {

@@ -1,12 +1,11 @@
 #pragma once
 
 #include "app.hpp"
+#include "flat_set.hpp"
 #include "http_request.hpp"
 #include "http_response.hpp"
 #include "routing.hpp"
 #include "webroutes.hpp"
-
-#include <boost/container/flat_set.hpp>
 
 #include <filesystem>
 #include <fstream>
@@ -110,8 +109,8 @@ inline void requestRoutes(App& app)
                 }
             }
 
-            std::pair<boost::container::flat_set<std::string>::iterator, bool>
-                inserted = webroutes::routes.insert(webpath);
+            std::pair<bmcweb::FlatSet<std::string>::iterator, bool> inserted =
+                webroutes::routes.insert(webpath);
 
             if (!inserted.second)
             {

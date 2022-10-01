@@ -16,13 +16,13 @@
 #pragma once
 #include "app.hpp"
 #include "dbus_utility.hpp"
+#include "flat_map.hpp"
 #include "privileges.hpp"
 #include "websocket.hpp"
 
 #include <boost/asio/local/stream_protocol.hpp>
 #include <boost/asio/write.hpp>
 #include <boost/beast/core/buffers_to_string.hpp>
-#include <boost/container/flat_map.hpp>
 
 #include <string_view>
 
@@ -236,8 +236,8 @@ struct NbdProxyServer : std::enable_shared_from_this<NbdProxyServer>
     crow::websocket::Connection& connection;
 };
 
-using SessionMap = boost::container::flat_map<crow::websocket::Connection*,
-                                              std::shared_ptr<NbdProxyServer>>;
+using SessionMap = bmcweb::FlatMap<crow::websocket::Connection*,
+                                   std::shared_ptr<NbdProxyServer>>;
 // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
 static SessionMap sessions;
 
