@@ -177,6 +177,30 @@
       },
       "revId": "6eec41fce6d71ec8204c987b1581137ab49f7852",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cb517f1a_2ea0cc0a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-10-02T21:27:40Z",
+      "side": 1,
+      "message": "\u003e About reproduction following code performs attack \n\nThat is not a set of steps to reproduce.  Steps to reproduce generally takes the form of:\n\nBuild OpenBMC from SHA1 X for platform Y\nLaunch webui as a user, and login via \u003clogin mechanism or command\u003e\nLaunch attack server using the following commands and code \u003clink to code\u003e\nFrom user webui, do steps X, Y, and Z.\nObserve changed state on server.\n\nI have quite a few questions, but I think the most useful form of this would be to get the steps above written down, then we can continue with targeted questions.",
+      "parentUuid": "73ae0db4_ff9226fd",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 32
+      },
+      "revId": "6eec41fce6d71ec8204c987b1581137ab49f7852",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
