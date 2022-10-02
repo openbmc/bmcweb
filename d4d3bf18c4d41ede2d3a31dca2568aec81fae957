@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5f52be03_d5deca0b",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 987,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-10-02T18:44:37Z",
+      "side": 1,
+      "message": "Need v1_5_0 instead.",
+      "range": {
+        "startLine": 987,
+        "startChar": 58,
+        "endLine": 987,
+        "endChar": 64
+      },
+      "revId": "d4d3bf18c4d41ede2d3a31dca2568aec81fae957",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
