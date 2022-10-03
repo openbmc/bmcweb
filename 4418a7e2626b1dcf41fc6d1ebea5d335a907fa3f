@@ -16,6 +16,24 @@
       "message": "Are there any dependent patches here we need to wait on?",
       "revId": "4418a7e2626b1dcf41fc6d1ebea5d335a907fa3f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2d69533c_3d54a5fe",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2022-10-03T13:55:56Z",
+      "side": 1,
+      "message": "This commit will not break anything. This changes the backed property onto which we PATCH the StaticNameServers. This property is already merged to the dbus. So this is safe to go in as I believe.\n\nWe have a +2ed networkd commit https://gerrit.openbmc.org/c/openbmc/phosphor-networkd/+/50156. But that needs a rebase before submitting. This will complete the feature - to pull DHCP provided NTP servers and display it via redfish.",
+      "parentUuid": "c0eabeda_6eee88be",
+      "revId": "4418a7e2626b1dcf41fc6d1ebea5d335a907fa3f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
