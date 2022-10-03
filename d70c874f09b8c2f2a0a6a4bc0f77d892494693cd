@@ -16,6 +16,24 @@
       "message": "Can you address the failed verification and remaining unresolved issue so we can enable Redfish for YV3.5?",
       "revId": "d70c874f09b8c2f2a0a6a4bc0f77d892494693cd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c52d166a_c229dd85",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 23
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001093
+      },
+      "writtenOn": "2022-10-03T05:43:17Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "dba8e1e8_f5fee5d3",
+      "revId": "d70c874f09b8c2f2a0a6a4bc0f77d892494693cd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

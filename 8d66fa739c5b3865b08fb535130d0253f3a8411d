@@ -312,6 +312,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "426982d3_6adcb12d",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 2906,
+      "author": {
+        "id": 1001093
+      },
+      "writtenOn": "2022-10-03T05:43:17Z",
+      "side": 1,
+      "message": "This patch is added for computer systems only. So for now host number is associated with chassis no. another separate commit will be submitted specific to chassis and the logic for chassis number will be part of that patch.",
+      "parentUuid": "eaad2722_9ed8753a",
+      "range": {
+        "startLine": 2906,
+        "startChar": 33,
+        "endLine": 2906,
+        "endChar": 51
+      },
+      "revId": "8d66fa739c5b3865b08fb535130d0253f3a8411d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6d9528d5_270b51e4",
