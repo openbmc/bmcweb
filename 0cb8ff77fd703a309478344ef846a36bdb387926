@@ -70,6 +70,30 @@
       },
       "revId": "0cb8ff77fd703a309478344ef846a36bdb387926",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "651cf0cf_016cadee",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1537,
+      "author": {
+        "id": 1000520
+      },
+      "writtenOn": "2022-10-03T11:29:29Z",
+      "side": 1,
+      "message": "Thanks, will update it accordingly. Also, see my similar comment for MemoryMetrics. Is it correct for this code to continue to hardcode the version that it was written for, here? Or, should it be something that comes from the user?",
+      "parentUuid": "2418ae7b_6cbbc7aa",
+      "range": {
+        "startLine": 1537,
+        "startChar": 47,
+        "endLine": 1537,
+        "endChar": 77
+      },
+      "revId": "0cb8ff77fd703a309478344ef846a36bdb387926",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
