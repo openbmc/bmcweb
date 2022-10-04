@@ -324,6 +324,7 @@ Fields common to all schemas
 
 #### Fan
 
+- Location
 - Manufacturer
 - Model
 - PartNumber
