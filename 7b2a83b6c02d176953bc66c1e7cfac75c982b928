@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "faa6ba87_38cc1fb4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-10-04T17:35:40Z",
+      "side": 1,
+      "message": "I had offline discussions with Ed about this patch.  For the most part this patch is not really necessary.  Taking more than 30s to connect to a destination is a networking issue and not something we should be trying to specifically handle.  In general we don\u0027t want to do special case retry handling like this patch attempts.  There are also existing options like reducing the number of retry attempts and delay between each attempt.\n\nThe only part of this that is truly needed is the error checking to catch when an individual operation fails and as a result we need to make sure we abort rather than advancing to the next stage of the message sending flow.  I\u0027ll reopen this patch for review after that change has been made.",
+      "revId": "7b2a83b6c02d176953bc66c1e7cfac75c982b928",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
