@@ -125,6 +125,42 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1c0fdad7_0ba49c5b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-10-04T01:07:35Z",
+      "side": 1,
+      "message": "I have responded to all comments in this pacth",
+      "parentUuid": "9b4aca2f_09cf386e",
+      "revId": "2591e0b824cace12ea59610187aa3c065aa6b54b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8839f1e0_fb1f5a51",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-10-04T01:07:35Z",
+      "side": 1,
+      "message": "\u003e You\u0027ve pushed another patchset to this review, instead of updating 41086 like I asked.  This comment is definitely not resolved.\n\u003e \n\u003e Comments on https://gerrit.openbmc.org/c/openbmc/bmcweb/+/41086 have not been replied to.\n\nYeah, 41086 will be part of the whole chain, I\u0027m still testing it locally and plan to push it today.\nIn the meantime, I will repliy all comments from 41086.",
+      "parentUuid": "d83313e0_67d10edd",
+      "revId": "2591e0b824cace12ea59610187aa3c065aa6b54b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8323f36f_0bdecc7b",
@@ -233,6 +269,30 @@
       "side": 1,
       "message": "I see no mention of a chassis-fan association in the docs you linked.  Maybe I missed it?",
       "parentUuid": "267cd94d_d09b277b",
+      "range": {
+        "startLine": 125,
+        "startChar": 50,
+        "endLine": 125,
+        "endChar": 57
+      },
+      "revId": "2591e0b824cace12ea59610187aa3c065aa6b54b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "79766cee_45ffd074",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-10-04T01:07:35Z",
+      "side": 1,
+      "message": "\u003e I see no mention of a chassis-fan association in the docs you linked.  Maybe I missed it?\n\nOh, This is the path of the fan sensor. For all sensor paths, we have associated an all_sensors, and its rType is chassis.\n\neg: fanSensorPath\u003d/xyz/openbmc_project/sensors/fan_tach/fan0_0\n```\nbusctl get-property  xyz.openbmc_project.ObjectMapper /xyz/openbmc_project/sensors/fan_tach/fan0_0/chassis xyz.openbmc_project.Association endpoints --verbose\nARRAY \"s\" {\n        STRING \"/xyz/openbmc_project/inventory/system/chassis\";\n};\n\n```\n\nhttps://github.com/openbmc/docs/blob/fd0ec1f9212f127bf302dd4ceb8f4fa2e29a5f1d/architecture/sensor-architecture.md#association-names\n\nBut, I have updated here with a new commit, and removed this validation logic.",
+      "parentUuid": "d49ab552_9cf1086c",
       "range": {
         "startLine": 125,
         "startChar": 50,
