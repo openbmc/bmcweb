@@ -167,6 +167,57 @@ inline void getFanState(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         });
 }
 
+inline void getFanAsset(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                        const std::string& service, const std::string& path,
+                        const std::string& intf)
+{
+    sdbusplus::asio::getAllProperties(
+        *crow::connections::systemBus, service, path, intf,
+        [asyncResp](const boost::system::error_code ec,
+                    const dbus::utility::DBusPropertiesMap& propertiesList) {
+        if (ec)
+        {
+            return;
+        }
+
+        const std::string* partNumber = nullptr;
+        const std::string* serialNumber = nullptr;
+        const std::string* manufacturer = nullptr;
+        const std::string* model = nullptr;
+
+        const bool success = sdbusplus::unpackPropertiesNoThrow(
+            dbus_utils::UnpackErrorPrinter(), propertiesList, "PartNumber",
+            partNumber, "SerialNumber", serialNumber, "Manufacturer",
+            manufacturer, "Model", model);
+
+        if (!success)
+        {
+            messages::internalError(asyncResp->res);
+            return;
+        }
+
+        if (partNumber != nullptr)
+        {
+            asyncResp->res.jsonValue["PartNumber"] = *partNumber;
+        }
+
+        if (serialNumber != nullptr)
+        {
+            asyncResp->res.jsonValue["SerialNumber"] = *serialNumber;
+        }
+
+        if (manufacturer != nullptr)
+        {
+            asyncResp->res.jsonValue["Manufacturer"] = *manufacturer;
+        }
+
+        if (model != nullptr)
+        {
+            asyncResp->res.jsonValue["Model"] = *model;
+        }
+        });
+}
+
 template <typename Callback>
 inline void getObject(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                       const std::string& endpoint, Callback&& callback)
@@ -320,6 +371,10 @@ inline void doFan(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                 endpoint.empty())
             {
                 getFanHealth(asyncResp, service, fanPath, intf);
+            }
+            if (intf == "xyz.openbmc_project.Inventory.Decorator.Asset")
+            {
+                getFanAsset(asyncResp, service, fanPath, intf);
             }
         }
 
