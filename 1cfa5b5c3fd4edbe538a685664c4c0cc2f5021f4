@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "b6552042_b2f6a923",
         "filename": "/COMMIT_MSG",
@@ -20,10 +21,10 @@
         "endChar": 111
       },
       "revId": "1cfa5b5c3fd4edbe538a685664c4c0cc2f5021f4",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "d4695a6e_cc51d9c6",
         "filename": "/COMMIT_MSG",
@@ -44,10 +45,10 @@
         "endChar": 111
       },
       "revId": "1cfa5b5c3fd4edbe538a685664c4c0cc2f5021f4",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "e874698f_399af1b1",
         "filename": "redfish-core/lib/fan.hpp",
@@ -67,10 +68,10 @@
         "endChar": 43
       },
       "revId": "1cfa5b5c3fd4edbe538a685664c4c0cc2f5021f4",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "13f5cf6f_19d4cf68",
         "filename": "redfish-core/lib/fan.hpp",
@@ -91,10 +92,10 @@
         "endChar": 43
       },
       "revId": "1cfa5b5c3fd4edbe538a685664c4c0cc2f5021f4",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "abca7a0b_ebf099f7",
         "filename": "redfish-core/lib/fan.hpp",
@@ -114,10 +115,10 @@
         "endChar": 31
       },
       "revId": "1cfa5b5c3fd4edbe538a685664c4c0cc2f5021f4",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "5abcc17d_73d67d0c",
         "filename": "redfish-core/lib/fan.hpp",
@@ -138,8 +139,31 @@
         "endChar": 31
       },
       "revId": "1cfa5b5c3fd4edbe538a685664c4c0cc2f5021f4",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e9f71a14_85ab1baa",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-10-04T07:27:25Z",
+      "side": 1,
+      "message": "\u003e This is necessary.\n\nRemoved it in this commit",
+      "parentUuid": "5abcc17d_73d67d0c",
+      "range": {
+        "startLine": 6,
+        "startChar": 9,
+        "endLine": 6,
+        "endChar": 31
+      },
+      "revId": "1cfa5b5c3fd4edbe538a685664c4c0cc2f5021f4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

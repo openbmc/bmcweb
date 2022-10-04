@@ -16,6 +16,24 @@
       "message": "Could we mark comments that\u0027s obsolete as resolved?",
       "revId": "cf42d08cf182ca3ee78aa62aafa47d9dd919a16f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9906fa71_1f2d859e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 62
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-10-04T07:27:25Z",
+      "side": 1,
+      "message": "\u003e Could we mark comments that\u0027s obsolete as resolved?\n\nSure",
+      "parentUuid": "17fc7408_4a2bb3af",
+      "revId": "cf42d08cf182ca3ee78aa62aafa47d9dd919a16f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "5d8d6dcf_5a40a33d",
         "filename": "redfish-core/lib/fan.hpp",
@@ -14,10 +15,10 @@
       "side": 1,
       "message": "I think the default state should be Enabled.. So if an implementation doesn\u0027t have this property, it defaults to Enabled.\nE.g. like https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/41415",
       "revId": "79e13862bf15940f5ed845755699674f8d9a82a4",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "5f58c75f_3537c70a",
         "filename": "redfish-core/lib/fan.hpp",
@@ -32,10 +33,10 @@
       "message": "Done",
       "parentUuid": "5d8d6dcf_5a40a33d",
       "revId": "79e13862bf15940f5ed845755699674f8d9a82a4",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "9516833d_66cb29d8",
         "filename": "redfish-core/lib/fan.hpp",
@@ -49,10 +50,10 @@
       "side": 1,
       "message": "I think default should be Ok in case an implementation doesn\u0027t have this property",
       "revId": "79e13862bf15940f5ed845755699674f8d9a82a4",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "812a8b01_f21f4bf0",
         "filename": "redfish-core/lib/fan.hpp",
@@ -67,10 +68,10 @@
       "message": "Done",
       "parentUuid": "9516833d_66cb29d8",
       "revId": "79e13862bf15940f5ed845755699674f8d9a82a4",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "8fedc82f_6ee01755",
         "filename": "redfish-core/lib/fan.hpp",
@@ -90,10 +91,10 @@
         "endChar": 73
       },
       "revId": "79e13862bf15940f5ed845755699674f8d9a82a4",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "db6f864a_7b1425c1",
         "filename": "redfish-core/lib/fan.hpp",
@@ -114,10 +115,34 @@
         "endChar": 73
       },
       "revId": "79e13862bf15940f5ed845755699674f8d9a82a4",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "95363d84_a0d3cfa9",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-10-04T07:27:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "db6f864a_7b1425c1",
+      "range": {
+        "startLine": 253,
+        "startChar": 60,
+        "endLine": 261,
+        "endChar": 73
+      },
+      "revId": "79e13862bf15940f5ed845755699674f8d9a82a4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "dc1dd737_67382ca0",
         "filename": "redfish-core/lib/fan.hpp",
@@ -137,10 +162,10 @@
         "endChar": 23
       },
       "revId": "79e13862bf15940f5ed845755699674f8d9a82a4",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "52b0d89c_a5d0f2aa",
         "filename": "redfish-core/lib/fan.hpp",
@@ -161,10 +186,10 @@
         "endChar": 23
       },
       "revId": "79e13862bf15940f5ed845755699674f8d9a82a4",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "e495e6e3_36702cb1",
         "filename": "redfish-core/lib/fan.hpp",
@@ -184,10 +209,10 @@
         "endChar": 23
       },
       "revId": "79e13862bf15940f5ed845755699674f8d9a82a4",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "95e8f621_3d7581a4",
         "filename": "redfish-core/lib/fan.hpp",
@@ -208,8 +233,7 @@
         "endChar": 23
       },
       "revId": "79e13862bf15940f5ed845755699674f8d9a82a4",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

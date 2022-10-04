@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "41d1b3aa_e4a355b9",
         "filename": "redfish-core/lib/fan.hpp",
@@ -20,10 +21,10 @@
         "endChar": 72
       },
       "revId": "35740c6efd44a6a5d5b754ec94d7cf233874883f",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "aa7a2228_4b4d395f",
         "filename": "redfish-core/lib/fan.hpp",
@@ -44,10 +45,58 @@
         "endChar": 72
       },
       "revId": "35740c6efd44a6a5d5b754ec94d7cf233874883f",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8151912f_6ba4d421",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-10-04T07:27:25Z",
+      "side": 1,
+      "message": "\u003e Since this parameter is at the end, is there no need for 404 verification?\n\nyes, please ignore this comment",
+      "parentUuid": "aa7a2228_4b4d395f",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 72
+      },
+      "revId": "35740c6efd44a6a5d5b754ec94d7cf233874883f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3d42858d_b86072a5",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-10-04T07:27:25Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "aa7a2228_4b4d395f",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 72
+      },
+      "revId": "35740c6efd44a6a5d5b754ec94d7cf233874883f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "b740b45d_fa109490",
         "filename": "redfish-core/lib/fan.hpp",
@@ -67,10 +116,10 @@
         "endChar": 79
       },
       "revId": "35740c6efd44a6a5d5b754ec94d7cf233874883f",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "bd20a0f4_18b0415c",
         "filename": "redfish-core/lib/fan.hpp",
@@ -91,10 +140,34 @@
         "endChar": 79
       },
       "revId": "35740c6efd44a6a5d5b754ec94d7cf233874883f",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e1be1bce_fd85b3ec",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-10-04T07:27:25Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "bd20a0f4_18b0415c",
+      "range": {
+        "startLine": 223,
+        "startChar": 15,
+        "endLine": 223,
+        "endChar": 79
+      },
+      "revId": "35740c6efd44a6a5d5b754ec94d7cf233874883f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "14c8b34e_81473e5b",
         "filename": "redfish-core/lib/fan.hpp",
@@ -114,10 +187,10 @@
         "endChar": 55
       },
       "revId": "35740c6efd44a6a5d5b754ec94d7cf233874883f",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "6ffdda45_681610c5",
         "filename": "redfish-core/lib/fan.hpp",
@@ -138,10 +211,34 @@
         "endChar": 55
       },
       "revId": "35740c6efd44a6a5d5b754ec94d7cf233874883f",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5b6ad75d_518588a7",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-10-04T07:27:25Z",
+      "side": 1,
+      "message": "\u003e Same reason as above.\n\nUpdated it in the latest commit.",
+      "parentUuid": "6ffdda45_681610c5",
+      "range": {
+        "startLine": 293,
+        "startChar": 45,
+        "endLine": 293,
+        "endChar": 55
+      },
+      "revId": "35740c6efd44a6a5d5b754ec94d7cf233874883f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "7a9efa9d_35cd564b",
         "filename": "redfish-core/lib/fan.hpp",
@@ -161,10 +258,10 @@
         "endChar": 60
       },
       "revId": "35740c6efd44a6a5d5b754ec94d7cf233874883f",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "10630e64_dcf1ce0b",
         "filename": "redfish-core/lib/fan.hpp",
@@ -185,10 +282,10 @@
         "endChar": 60
       },
       "revId": "35740c6efd44a6a5d5b754ec94d7cf233874883f",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "a5f5ec73_27bb1009",
         "filename": "redfish-core/lib/fan.hpp",
@@ -208,10 +305,10 @@
         "endChar": 13
       },
       "revId": "35740c6efd44a6a5d5b754ec94d7cf233874883f",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "54e44101_f946cf68",
         "filename": "redfish-core/lib/fan.hpp",
@@ -232,10 +329,34 @@
         "endChar": 13
       },
       "revId": "35740c6efd44a6a5d5b754ec94d7cf233874883f",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f36481c7_5534f1e5",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 395,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-10-04T07:27:25Z",
+      "side": 1,
+      "message": "\u003e Is it modified in the getValidFanID method?\n\nUpdated it in the latest commit",
+      "parentUuid": "54e44101_f946cf68",
+      "range": {
+        "startLine": 389,
+        "startChar": 0,
+        "endLine": 395,
+        "endChar": 13
+      },
+      "revId": "35740c6efd44a6a5d5b754ec94d7cf233874883f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "f43eebd2_52036568",
         "filename": "redfish-core/lib/fan.hpp",
@@ -255,10 +376,10 @@
         "endChar": 71
       },
       "revId": "35740c6efd44a6a5d5b754ec94d7cf233874883f",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "c86a275f_cf5a5a7b",
         "filename": "redfish-core/lib/fan.hpp",
@@ -279,10 +400,34 @@
         "endChar": 71
       },
       "revId": "35740c6efd44a6a5d5b754ec94d7cf233874883f",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b6f7f9ac_b77a5ac0",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 414,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-10-04T07:27:25Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c86a275f_cf5a5a7b",
+      "range": {
+        "startLine": 414,
+        "startChar": 28,
+        "endLine": 414,
+        "endChar": 71
+      },
+      "revId": "35740c6efd44a6a5d5b754ec94d7cf233874883f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "f97f9162_8a6541fc",
         "filename": "redfish-core/lib/fan.hpp",
@@ -302,10 +447,10 @@
         "endChar": 74
       },
       "revId": "35740c6efd44a6a5d5b754ec94d7cf233874883f",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "b009ec67_5ca6fbf8",
         "filename": "redfish-core/lib/fan.hpp",
@@ -326,10 +471,10 @@
         "endChar": 74
       },
       "revId": "35740c6efd44a6a5d5b754ec94d7cf233874883f",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "f4a52467_82760524",
         "filename": "redfish-core/lib/fan.hpp",
@@ -349,10 +494,10 @@
         "endChar": 41
       },
       "revId": "35740c6efd44a6a5d5b754ec94d7cf233874883f",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "b24eed94_ad202a56",
         "filename": "redfish-core/lib/fan.hpp",
@@ -373,10 +518,10 @@
         "endChar": 41
       },
       "revId": "35740c6efd44a6a5d5b754ec94d7cf233874883f",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "911e7c3b_6065000e",
         "filename": "redfish-core/lib/fan.hpp",
@@ -396,10 +541,10 @@
         "endChar": 28
       },
       "revId": "35740c6efd44a6a5d5b754ec94d7cf233874883f",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "3aa5fae4_57649bca",
         "filename": "redfish-core/lib/fan.hpp",
@@ -420,10 +565,34 @@
         "endChar": 28
       },
       "revId": "35740c6efd44a6a5d5b754ec94d7cf233874883f",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1337fa45_1513ee84",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 567,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-10-04T07:27:25Z",
+      "side": 1,
+      "message": "\u003e Is it modified in the getValidFanID method?\n\nrefactored it in the latest commit",
+      "parentUuid": "3aa5fae4_57649bca",
+      "range": {
+        "startLine": 567,
+        "startChar": 17,
+        "endLine": 567,
+        "endChar": 28
+      },
+      "revId": "35740c6efd44a6a5d5b754ec94d7cf233874883f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "863d0731_961c823b",
         "filename": "redfish-core/lib/fan.hpp",
@@ -443,10 +612,10 @@
         "endChar": 17
       },
       "revId": "35740c6efd44a6a5d5b754ec94d7cf233874883f",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "1cf85b66_90b13900",
         "filename": "redfish-core/lib/fan.hpp",
@@ -467,10 +636,34 @@
         "endChar": 17
       },
       "revId": "35740c6efd44a6a5d5b754ec94d7cf233874883f",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fce1d419_386c58b4",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 581,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-10-04T07:27:25Z",
+      "side": 1,
+      "message": "\u003e I don’t understand the reason for removal\n\nrefactored it in the latest commit",
+      "parentUuid": "1cf85b66_90b13900",
+      "range": {
+        "startLine": 574,
+        "startChar": 0,
+        "endLine": 581,
+        "endChar": 17
+      },
+      "revId": "35740c6efd44a6a5d5b754ec94d7cf233874883f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "f6819dfe_71eca32d",
         "filename": "redfish-core/lib/fan.hpp",
@@ -490,10 +683,10 @@
         "endChar": 67
       },
       "revId": "35740c6efd44a6a5d5b754ec94d7cf233874883f",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "b22be6be_3cc7eff9",
         "filename": "redfish-core/lib/fan.hpp",
@@ -514,8 +707,31 @@
         "endChar": 67
       },
       "revId": "35740c6efd44a6a5d5b754ec94d7cf233874883f",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0c6ada7a_ec9227f2",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 594,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-10-04T07:27:25Z",
+      "side": 1,
+      "message": "\u003e I don’t understand the reason for removal\n\nrefactored it in the latest commit",
+      "parentUuid": "b22be6be_3cc7eff9",
+      "range": {
+        "startLine": 594,
+        "startChar": 12,
+        "endLine": 594,
+        "endChar": 67
+      },
+      "revId": "35740c6efd44a6a5d5b754ec94d7cf233874883f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

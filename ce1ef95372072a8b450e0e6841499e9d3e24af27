@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "b7bc817f_cb6e74c9",
         "filename": "redfish-core/lib/fan.hpp",
@@ -14,10 +15,10 @@
       "side": 1,
       "message": "Ideally this would be (this is the more common way) \n\n            if (value \u003d\u003d nullptr)\n            {\n                messages::internalError(asyncResp-\u003eres);\n                return;\n            }\n            if (*value \u003d\u003d false)\n             {\n                  asyncResp-\u003eres.jsonValue[\"Status\"][\"State\"] \u003d \"Absent\";\n             }",
       "revId": "ce1ef95372072a8b450e0e6841499e9d3e24af27",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "72d7b922_b509988a",
         "filename": "redfish-core/lib/fan.hpp",
@@ -32,10 +33,10 @@
       "message": "Ok, I will modify it.",
       "parentUuid": "b7bc817f_cb6e74c9",
       "revId": "ce1ef95372072a8b450e0e6841499e9d3e24af27",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "de9dd440_b0927d4f",
         "filename": "redfish-core/lib/fan.hpp",
@@ -50,10 +51,10 @@
       "message": "Done",
       "parentUuid": "72d7b922_b509988a",
       "revId": "ce1ef95372072a8b450e0e6841499e9d3e24af27",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "35e67c93_adaa2115",
         "filename": "redfish-core/lib/fan.hpp",
@@ -67,10 +68,10 @@
       "side": 1,
       "message": "Ideally this would be \n\n            if (value \u003d\u003d nullptr)\n            {\n                messages::internalError(asyncResp-\u003eres);\n                return;\n            }",
       "revId": "ce1ef95372072a8b450e0e6841499e9d3e24af27",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "7756a807_56fc74b8",
         "filename": "redfish-core/lib/fan.hpp",
@@ -85,10 +86,10 @@
       "message": "Ok, I will modify it.",
       "parentUuid": "35e67c93_adaa2115",
       "revId": "ce1ef95372072a8b450e0e6841499e9d3e24af27",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "5b2ce688_1860e52d",
         "filename": "redfish-core/lib/fan.hpp",
@@ -103,10 +104,10 @@
       "message": "Done",
       "parentUuid": "7756a807_56fc74b8",
       "revId": "ce1ef95372072a8b450e0e6841499e9d3e24af27",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "932312cd_f0622c66",
         "filename": "redfish-core/lib/fan.hpp",
@@ -120,10 +121,10 @@
       "side": 1,
       "message": "Not sure if this else is really needed.. \nI.e. I don\u0027t see much value in the debug log in this else",
       "revId": "ce1ef95372072a8b450e0e6841499e9d3e24af27",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "b7c46f9e_a5551e96",
         "filename": "redfish-core/lib/fan.hpp",
@@ -138,10 +139,28 @@
       "message": "Through \"all_sensors\" under /redfish/v1/Chassis/\u003cId\u003e/Sensors,\nall sensor related data can be obtained.\nThis is added to deal with data that is not fan-related.",
       "parentUuid": "932312cd_f0622c66",
       "revId": "ce1ef95372072a8b450e0e6841499e9d3e24af27",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e3096a7d_7721327d",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-10-04T07:27:25Z",
+      "side": 1,
+      "message": "\u003e Through \"all_sensors\" under /redfish/v1/Chassis/\u003cId\u003e/Sensors,\n\u003e all sensor related data can be obtained.\n\u003e This is added to deal with data that is not fan-related.\n\nRefacotred it in the latest commit",
+      "parentUuid": "b7c46f9e_a5551e96",
+      "revId": "ce1ef95372072a8b450e0e6841499e9d3e24af27",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "69ddba84_8261881d",
         "filename": "redfish-core/lib/fan.hpp",
@@ -161,10 +180,10 @@
         "endChar": 37
       },
       "revId": "ce1ef95372072a8b450e0e6841499e9d3e24af27",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "6b1f115d_b84f0acd",
         "filename": "redfish-core/lib/fan.hpp",
@@ -185,10 +204,10 @@
         "endChar": 37
       },
       "revId": "ce1ef95372072a8b450e0e6841499e9d3e24af27",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "5f3e9dbe_bf4d49ad",
         "filename": "redfish-core/lib/fan.hpp",
@@ -209,10 +228,10 @@
         "endChar": 37
       },
       "revId": "ce1ef95372072a8b450e0e6841499e9d3e24af27",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "00d18b84_4cb86432",
         "filename": "redfish-core/lib/fan.hpp",
@@ -226,10 +245,10 @@
       "side": 1,
       "message": "Again, this else really needed?",
       "revId": "ce1ef95372072a8b450e0e6841499e9d3e24af27",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "6c3166fb_a5ef3458",
         "filename": "redfish-core/lib/fan.hpp",
@@ -244,10 +263,28 @@
       "message": "Yes, same as above.",
       "parentUuid": "00d18b84_4cb86432",
       "revId": "ce1ef95372072a8b450e0e6841499e9d3e24af27",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6d4c6891_2238d989",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-10-04T07:27:25Z",
+      "side": 1,
+      "message": "\u003e Yes, same as above.\n\nUpdated it in the next patch",
+      "parentUuid": "6c3166fb_a5ef3458",
+      "revId": "ce1ef95372072a8b450e0e6841499e9d3e24af27",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "8649ff87_43bf0ef8",
         "filename": "redfish-core/lib/fan.hpp",
@@ -267,10 +304,10 @@
         "endChar": 37
       },
       "revId": "ce1ef95372072a8b450e0e6841499e9d3e24af27",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "1f0cde16_b5da300d",
         "filename": "redfish-core/lib/fan.hpp",
@@ -291,10 +328,10 @@
         "endChar": 37
       },
       "revId": "ce1ef95372072a8b450e0e6841499e9d3e24af27",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "d1149bc8_aa65b2e8",
         "filename": "redfish-core/lib/fan.hpp",
@@ -315,10 +352,10 @@
         "endChar": 37
       },
       "revId": "ce1ef95372072a8b450e0e6841499e9d3e24af27",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "365eebed_8acaa149",
         "filename": "redfish-core/lib/fan.hpp",
@@ -338,10 +375,10 @@
         "endChar": 37
       },
       "revId": "ce1ef95372072a8b450e0e6841499e9d3e24af27",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "c94e23a9_45145a2c",
         "filename": "redfish-core/lib/fan.hpp",
@@ -362,10 +399,10 @@
         "endChar": 37
       },
       "revId": "ce1ef95372072a8b450e0e6841499e9d3e24af27",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "a54d9c02_1ee2f851",
         "filename": "redfish-core/lib/fan.hpp",
@@ -386,8 +423,7 @@
         "endChar": 37
       },
       "revId": "ce1ef95372072a8b450e0e6841499e9d3e24af27",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

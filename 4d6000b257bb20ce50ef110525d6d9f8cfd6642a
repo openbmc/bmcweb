@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "12e90ffc_a251296c",
         "filename": "/COMMIT_MSG",
@@ -14,10 +15,10 @@
       "side": 1,
       "message": "Can you explain the associations and how you get the sensors ? \nmaybe a link to https://github.com/openbmc/docs/blob/919a7b6816a5f16aa72d298e81e0756d95d5031e/architecture/sensor-architecture.md#association-type-2-linking-a-low-level-hardware-item-to-its-sensors",
       "revId": "4d6000b257bb20ce50ef110525d6d9f8cfd6642a",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "8bf401ba_abc80dd5",
         "filename": "/COMMIT_MSG",
@@ -32,10 +33,10 @@
       "message": "Done",
       "parentUuid": "12e90ffc_a251296c",
       "revId": "4d6000b257bb20ce50ef110525d6d9f8cfd6642a",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "5383a3fd_2d36fccc",
         "filename": "redfish-core/lib/fan.hpp",
@@ -49,10 +50,10 @@
       "side": 1,
       "message": "If we don\u0027t have xyz.openbmc_project.Inventory.Item.Fan Mapper will return boost::system::errc::io_error correct? \nShouldn\u0027t that be a 404 ?",
       "revId": "4d6000b257bb20ce50ef110525d6d9f8cfd6642a",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "58b4762c_cb65c46d",
         "filename": "redfish-core/lib/fan.hpp",
@@ -67,10 +68,10 @@
       "message": "Done",
       "parentUuid": "5383a3fd_2d36fccc",
       "revId": "4d6000b257bb20ce50ef110525d6d9f8cfd6642a",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "387a96e8_fccdfb02",
         "filename": "redfish-core/lib/fan.hpp",
@@ -84,10 +85,10 @@
       "side": 1,
       "message": "What if that fan wasn\u0027t found?\n\nasyncResp-\u003eres.clear();\nmessages::resourceNotFound(asyncResp-\u003eres, \"fan\", fanId); ?",
       "revId": "4d6000b257bb20ce50ef110525d6d9f8cfd6642a",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "2319aa13_5f6cc00b",
         "filename": "redfish-core/lib/fan.hpp",
@@ -102,10 +103,10 @@
       "message": "Done",
       "parentUuid": "387a96e8_fccdfb02",
       "revId": "4d6000b257bb20ce50ef110525d6d9f8cfd6642a",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "16ae0ef2_4ae9bbcf",
         "filename": "redfish-core/lib/fan.hpp",
@@ -125,10 +126,10 @@
         "endChar": 34
       },
       "revId": "4d6000b257bb20ce50ef110525d6d9f8cfd6642a",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "a0a9da76_37db395c",
         "filename": "redfish-core/lib/fan.hpp",
@@ -149,10 +150,34 @@
         "endChar": 34
       },
       "revId": "4d6000b257bb20ce50ef110525d6d9f8cfd6642a",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "47a17ca4_57b2eb4e",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-10-04T07:27:25Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a0a9da76_37db395c",
+      "range": {
+        "startLine": 235,
+        "startChar": 16,
+        "endLine": 235,
+        "endChar": 34
+      },
+      "revId": "4d6000b257bb20ce50ef110525d6d9f8cfd6642a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "42bddb8a_98a7dc47",
         "filename": "redfish-core/lib/fan.hpp",
@@ -166,10 +191,10 @@
       "side": 1,
       "message": "Why are you looking in /xyz/openbmc_project/sensors for the Fan Inventory Item (xyz.openbmc_project.Inventory.Item.Fan) ?\n\nI would expect we find the fan inventory items (getFanInfo)\nthen look for the associations to the fan sensors?\nhttps://github.com/openbmc/docs/blob/919a7b6816a5f16aa72d298e81e0756d95d5031e/architecture/sensor-architecture.md#association-type-2-linking-a-low-level-hardware-item-to-its-sensors\n\nWhat am I missing?",
       "revId": "4d6000b257bb20ce50ef110525d6d9f8cfd6642a",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "a83976e1_b528572b",
         "filename": "redfish-core/lib/fan.hpp",
@@ -184,10 +209,28 @@
       "message": "Consider a dual-rotor fan. The Id obtained through Fan Inventory Item is the name of the entire fan. When obtaining the fan speed, the two fan rotors are inconsistent. Id need to be obtained separately. At this time, the name of the fan rotor needs to be obtained by calling fan sensors .",
       "parentUuid": "42bddb8a_98a7dc47",
       "revId": "4d6000b257bb20ce50ef110525d6d9f8cfd6642a",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "88af6219_987147ab",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-10-04T07:27:25Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a83976e1_b528572b",
+      "revId": "4d6000b257bb20ce50ef110525d6d9f8cfd6642a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "c1a046ed_1124bb80",
         "filename": "redfish-core/lib/fan.hpp",
@@ -207,10 +250,10 @@
         "endChar": 26
       },
       "revId": "4d6000b257bb20ce50ef110525d6d9f8cfd6642a",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "4a2c2bbc_2cb6be11",
         "filename": "redfish-core/lib/fan.hpp",
@@ -231,10 +274,10 @@
         "endChar": 26
       },
       "revId": "4d6000b257bb20ce50ef110525d6d9f8cfd6642a",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "f9c679ff_ce860ea1",
         "filename": "redfish-core/lib/fan.hpp",
@@ -254,10 +297,10 @@
         "endChar": 27
       },
       "revId": "4d6000b257bb20ce50ef110525d6d9f8cfd6642a",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "7ba4afb8_2bc5d32d",
         "filename": "redfish-core/lib/fan.hpp",
@@ -278,8 +321,7 @@
         "endChar": 27
       },
       "revId": "4d6000b257bb20ce50ef110525d6d9f8cfd6642a",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
