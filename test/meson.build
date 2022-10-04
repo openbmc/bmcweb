@@ -1,3 +1,5 @@
+fs = import('fs')
+
 gtest = dependency('gtest', main: true,disabler: true, required : false)
 gmock = dependency('gmock', required : false)
 if not gtest.found() and get_option('tests').enabled()
@@ -34,17 +36,16 @@ srcfiles_unittest = files(
   'redfish-core/lib/thermal_subsystem_test.cpp',
 )
 
-srcfiles_unittest += srcfiles_bmcweb
-
-ut_bin = executable(
-  'bmcweb_unit_test',
-  srcfiles_unittest,
-  include_directories : incdir,
-  install_dir: bindir,
-  dependencies: bmcweb_dependencies + [
-    gtest,
-    gmock,
-  ]
-)
-
-test('bmcweb_unit_test', ut_bin)
+foreach test_src : srcfiles_unittest
+  test_bin = executable(
+    fs.stem(test_src),
+    srcfiles_bmcweb + test_src,
+    include_directories : incdir,
+    install_dir: bindir,
+    dependencies: bmcweb_dependencies + [
+      gtest,
+      gmock,
+    ]
+  )
+  test(fs.stem(test_src), test_bin)
+endforeach
