@@ -230,6 +230,24 @@ inline void getFanAsset(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         });
 }
 
+inline void getFanLocation(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                           const std::string& service, const std::string& path,
+                           const std::string& intf)
+{
+    sdbusplus::asio::getProperty<std::string>(
+        *crow::connections::systemBus, service, path, intf, "LocationCode",
+        [asyncResp](const boost::system::error_code ec,
+                    const std::string& value) {
+        if (ec)
+        {
+            return;
+        }
+
+        asyncResp->res.jsonValue["Location"]["PartLocation"]["ServiceLabel"] =
+            value;
+        });
+}
+
 template <typename Callback>
 inline void getObject(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                       const std::string& endpoint, Callback&& callback)
@@ -397,6 +415,10 @@ inline void doFan(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
             if (intf == "xyz.openbmc_project.Inventory.Decorator.Asset")
             {
                 getFanAsset(asyncResp, service, fanPath, intf);
+            }
+            if (intf == "xyz.openbmc_project.Inventory.Decorator.LocationCode")
+            {
+                getFanLocation(asyncResp, service, fanPath, intf);
             }
         }
 
