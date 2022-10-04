@@ -324,6 +324,11 @@ Fields common to all schemas
 
 #### Fan
 
+- Manufacturer
+- Model
+- PartNumber
+- SerialNumber
+- SparePartNumber
 - Status
 
 ### /redfish/v1/Chassis/{ChassisId}/Power#/PowerControl/{ControlName}/
