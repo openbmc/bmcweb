@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f0ee101a_7115fd7c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-10-04T17:39:36Z",
+      "side": 1,
+      "message": "Following offline discussions with Ed, the special retry handling for connection timeouts should not be done.  That is going to be removed from the previous patch in the change and thus this patch is no longer needed.  I plan to abandon this patch once those changes have been made and the previous patch has been merged.\n\nFor more context, see https://gerrit.openbmc.org/c/openbmc/bmcweb/+/55471/comments/faa6ba87_38cc1fb4",
+      "revId": "9551bceb69fdc3a915120e221845a9dae510fac7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
