@@ -77,6 +77,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e967757d_5773974d",
+        "filename": "test/meson.build",
+        "patchSetId": 5
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-10-04T18:08:40Z",
+      "side": 1,
+      "message": "I\u0027m not quite following this line.  Isn\u0027t this largely defeating the intent of having the meson files in the folder if we\u0027re going to the parent directory?  My understanding was that meson files should handle the files for their own folder structure.",
+      "parentUuid": "087405aa_c139a2a0",
+      "range": {
+        "startLine": 38,
+        "startChar": 22,
+        "endLine": 38,
+        "endChar": 28
+      },
+      "revId": "4b687f84cb82b30ab650c56089ab4e80935ef27b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2a90e5d2_7edb3456",
         "filename": "test/meson.build",
         "patchSetId": 5
@@ -88,6 +112,30 @@
       "writtenOn": "2022-10-04T05:14:57Z",
       "side": 1,
       "message": "instead of single executable, do we want to build it into single executable per test ? so that `meson test` would run all of the tests individually \u0026 also `meson test` would run all the tests passed via test() API in parallel ? \n\nhttps://mesonbuild.com/Unit-tests.html#unit-tests\n\nsomething like :\n\n foreach test : srcfiles_unittest\n  test(test, executable(test,\n                     implicit_include_directories: false,\n                     dependencies: [\n                         gtest,\n                         gmock]),\n       workdir: meson.current_source_dir())\n endforeach",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 1
+      },
+      "revId": "4b687f84cb82b30ab650c56089ab4e80935ef27b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9eaffa13_ecfca352",
+        "filename": "test/meson.build",
+        "patchSetId": 5
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-10-04T18:08:40Z",
+      "side": 1,
+      "message": "This probably needs taken up in a different patch.",
+      "parentUuid": "2a90e5d2_7edb3456",
       "range": {
         "startLine": 41,
         "startChar": 0,
