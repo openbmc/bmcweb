@@ -363,6 +363,7 @@ inline void
                            const std::string& name,
                            const boost::system::error_code& ec, double value)
 {
+	std::cout << "Lakshmi in afterGetFanSensorValue" << std::endl;
     if (ec)
     {
         if (ec.value() != EBADR)
@@ -376,11 +377,13 @@ inline void
 
     if (!std::isfinite(value))
     {
+	std::cout << "Lakshmi in !std::isfinite(value)" << std::endl;
         asyncResp->res.jsonValue[name]["SpeedRPM"] = nullptr;
         return;
     }
     if (value < 0.0)
     {
+	std::cout << "Lakshmi (value < 0.0)" << std::endl;
         BMCWEB_LOG_ERROR("Incorrect D-Bus interface for sensor Value");
         messages::internalError(asyncResp->res);
         return;
@@ -394,6 +397,7 @@ inline void
                       const std::string& service, const std::string& sensorPath,
                       const std::string& name)
 {
+	std::cout << "Lakshmi in getFanSensorValue" << std::endl;
     sdbusplus::asio::getProperty<double>(
         *crow::connections::systemBus, service, sensorPath,
         "xyz.openbmc_project.Sensor.Value", "Value",
@@ -410,7 +414,8 @@ inline void
         sdbusplus::message::object_path(sensorPath).filename();
     if (sensorId.empty())
     {
-        return;
+	std::cout << "Lakshmi sensorId is empty" << std::endl;
+        //return;
     }
     asyncResp->res.jsonValue[name]["DataSourceUri"] = boost::urls::format(
         "/redfish/v1/Chassis/{}/Sensors/{}", chassisId, sensorId);
@@ -432,6 +437,7 @@ inline void
         return;
     }
 
+	std::cout << "Lakshmi in afterGetDbusObject" << std::endl;
     getFanSpeedPercent(asyncResp, object[0].first, sensorPaths[0], chassisId,
                        "SpeedPercent");
 }
@@ -441,11 +447,13 @@ inline void addFanSensorsSpeedPercent(
     const std::string& chassisId,
     const dbus::utility::MapperEndPoints& sensorPaths)
 {
+	std::cout << "Lakshmi in addFanSensorsSpeedPercent" << std::endl;
     std::string sensorName =
         sdbusplus::message::object_path(sensorPaths[0]).filename();
     if (sensorName.empty())
     {
-        return;
+	std::cout << "Lakshmi in sensorName.empty is empty" << std::endl;
+        //return;
     }
     dbus::utility::getDbusObject(
         sensorPaths[0], {},
@@ -457,6 +465,7 @@ inline void afterSensorGetAssociationEndPoints(
     const std::string& chassisId, const boost::system::error_code& ec,
     const dbus::utility::MapperEndPoints& sensorPaths)
 {
+	std::cout << "Lakshmi in afterGetAssociationEndPoints" << std::endl;
     if (ec)
     {
         if (ec.value() != EBADR)
@@ -470,6 +479,7 @@ inline void afterSensorGetAssociationEndPoints(
     }
     if (sensorPaths.empty())
     {
+	std::cout << "Lakshmi return sensorPaths.empty" << std::endl;
         return;
     }
     addFanSensorsSpeedPercent(asyncResp, chassisId, sensorPaths);
@@ -479,6 +489,7 @@ inline void
                             const std::string& fanPath,
                             const std::string& chassisId)
 {
+	std::cout << "Lakshmi in getFanSensorsProperties" << std::endl;
     std::string sensorPath = fanPath + "/sensors";
     dbus::utility::getAssociationEndPoints(
         sensorPath,
