@@ -334,6 +334,30 @@ inline void getPowerSupplyFirmwareVersion(
 }
 
 inline void
+    getPowerSupplyLocation(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                           const std::string& service, const std::string& path)
+{
+    sdbusplus::asio::getProperty<std::string>(
+        *crow::connections::systemBus, service, path,
+        "xyz.openbmc_project.Inventory.Decorator.LocationCode", "LocationCode",
+        [asyncResp](const boost::system::error_code& ec,
+                    const std::string& value) {
+        if (ec)
+        {
+            if (ec.value() != EBADR)
+            {
+                BMCWEB_LOG_ERROR << "DBUS response error for Location "
+                                 << ec.value();
+                messages::internalError(asyncResp->res);
+            }
+            return;
+        }
+        asyncResp->res.jsonValue["Location"]["PartLocation"]["ServiceLabel"] =
+            value;
+        });
+}
+
+inline void
     doPowerSupplyGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                      const std::string& chassisId,
                      const std::string& powerSupplyId,
@@ -384,6 +408,8 @@ inline void
                                 powerSupplyPath);
             getPowerSupplyFirmwareVersion(asyncResp, object.begin()->first,
                                           powerSupplyPath);
+            getPowerSupplyLocation(asyncResp, object.begin()->first,
+                                   powerSupplyPath);
             });
     });
 }
