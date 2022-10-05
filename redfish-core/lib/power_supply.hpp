@@ -8,6 +8,58 @@
 namespace redfish
 {
 
+inline bool checkPowerSupplyId(const std::string& powerSupplyPath,
+                               const std::string& powerSupplyId)
+{
+    std::string powerSupplyName =
+        sdbusplus::message::object_path(powerSupplyPath).filename();
+
+    return !(powerSupplyName.empty() || powerSupplyName != powerSupplyId);
+}
+
+template <typename Callback>
+inline void
+    getValidPowerSupplyPath(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                            const std::string& chassisPath,
+                            const std::string& powerSupplyId,
+                            Callback&& callback)
+{
+    auto respHandler =
+        [callback{std::forward<Callback>(callback)}, asyncResp,
+         powerSupplyId](const boost::system::error_code ec,
+                        const dbus::utility::MapperGetSubTreePathsResponse&
+                            powerSupplyPaths) {
+        BMCWEB_LOG_DEBUG << "getValidPowerSupplyPath respHandler enter";
+
+        if (ec)
+        {
+            BMCWEB_LOG_ERROR << "espHandler DBUS error: " << ec.message();
+            messages::internalError(asyncResp->res);
+            return;
+        }
+
+        for (const auto& powerSupplyPath : powerSupplyPaths)
+        {
+            if (checkPowerSupplyId(powerSupplyPath, powerSupplyId))
+            {
+                callback();
+                return;
+            }
+        }
+
+        messages::resourceNotFound(asyncResp->res, "PowerSupply",
+                                   powerSupplyId);
+    };
+
+    // Get the PowerSupply Collection
+    crow::connections::systemBus->async_method_call(
+        respHandler, "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths", chassisPath, 0,
+        std::array<const char*, 1>{
+            "xyz.openbmc_project.Inventory.Item.PowerSupply"});
+}
+
 inline void
     updatePowerSupplyList(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                           const std::string& chassisId,
@@ -97,6 +149,58 @@ inline void requestRoutesPowerSupplyCollection(App& app)
         .privileges(redfish::privileges::getPowerSupplyCollection)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handlePowerSupplyCollectionGet, std::ref(app)));
+}
+
+inline void
+    doPowerSupplyGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                     const std::string& chassisId,
+                     const std::string& powerSupplyId,
+                     const std::optional<std::string>& validChassisPath)
+{
+    if (!validChassisPath)
+    {
+        BMCWEB_LOG_ERROR << "Not a valid chassis ID" << chassisId;
+        messages::resourceNotFound(asyncResp->res, "Chassis", chassisId);
+        return;
+    }
+
+    auto getPowerSupplyIdFunc = [asyncResp, chassisId, powerSupplyId]() {
+        asyncResp->res.jsonValue["@odata.type"] =
+            "#PowerSupply.v1_5_0.PowerSupply";
+        asyncResp->res.jsonValue["Name"] = powerSupplyId;
+        asyncResp->res.jsonValue["Id"] = powerSupplyId;
+        asyncResp->res.jsonValue["@odata.id"] = crow::utility::urlFromPieces(
+            "redfish", "v1", "Chassis", chassisId, "PowerSubsystem",
+            "PowerSupplies", powerSupplyId);
+    };
+    // Get the correct Path and Service that match the input parameters
+    getValidPowerSupplyPath(asyncResp, *validChassisPath, powerSupplyId,
+                            std::move(getPowerSupplyIdFunc));
+}
+
+inline void
+    handlePowerSupplyGet(App& app, const crow::Request& req,
+                         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                         const std::string& chassisId,
+                         const std::string& powerSupplyId)
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+
+    redfish::chassis_utils::getValidChassisPath(
+        asyncResp, chassisId,
+        std::bind_front(doPowerSupplyGet, asyncResp, chassisId, powerSupplyId));
+}
+
+inline void requestRoutesPowerSupply(App& app)
+{
+    BMCWEB_ROUTE(
+        app, "/redfish/v1/Chassis/<str>/PowerSubsystem/PowerSupplies/<str>/")
+        .privileges(redfish::privileges::getPowerSupply)
+        .methods(boost::beast::http::verb::get)(
+            std::bind_front(handlePowerSupplyGet, std::ref(app)));
 }
 
 } // namespace redfish
