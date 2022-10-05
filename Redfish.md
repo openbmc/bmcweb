@@ -334,6 +334,10 @@ Fields common to all schemas
 - Members
 - Members@odata.count
 
+#### /redfish/v1/Chassis/{ChassisId}/PowerSubsystem/PowerSupplies/{PowerSupplyId}
+
+##### PowerSupply
+
 ### /redfish/v1/EventService/
 
 #### EventService
