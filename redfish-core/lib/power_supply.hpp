@@ -25,10 +25,9 @@ inline void
                             Callback&& callback)
 {
     auto respHandler =
-        [callback{std::forward<Callback>(callback)}, asyncResp,
-         powerSupplyId](const boost::system::error_code ec,
-                        const dbus::utility::MapperGetSubTreePathsResponse&
-                            powerSupplyPaths) {
+        [callback{std::forward<Callback>(callback)}, asyncResp, powerSupplyId](
+            const boost::system::error_code ec,
+            const dbus::utility::MapperGetSubTreeResponse& subtree) {
         BMCWEB_LOG_DEBUG << "getValidPowerSupplyPath respHandler enter";
 
         if (ec)
@@ -38,12 +37,20 @@ inline void
             return;
         }
 
-        for (const auto& powerSupplyPath : powerSupplyPaths)
+        for (const auto& [powerSupplyPath, serviceMap] : subtree)
         {
-            if (checkPowerSupplyId(powerSupplyPath, powerSupplyId))
+            if (serviceMap.empty())
             {
-                callback();
-                return;
+                continue;
+            }
+
+            for (const auto& [service, interfaces] : serviceMap)
+            {
+                if (checkPowerSupplyId(powerSupplyPath, powerSupplyId))
+                {
+                    callback(service, powerSupplyPath, interfaces);
+                    return;
+                }
             }
         }
 
@@ -55,7 +62,7 @@ inline void
     crow::connections::systemBus->async_method_call(
         respHandler, "xyz.openbmc_project.ObjectMapper",
         "/xyz/openbmc_project/object_mapper",
-        "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths", chassisPath, 0,
+        "xyz.openbmc_project.ObjectMapper", "GetSubTree", chassisPath, 0,
         std::array<const char*, 1>{
             "xyz.openbmc_project.Inventory.Item.PowerSupply"});
 }
@@ -152,6 +159,42 @@ inline void requestRoutesPowerSupplyCollection(App& app)
 }
 
 inline void
+    getPowerSupplyState(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                        const std::string& service, const std::string& path,
+                        const std::string& intf)
+{
+    sdbusplus::asio::getProperty<bool>(
+        *crow::connections::systemBus, service, path, intf, "Present",
+        [asyncResp](const boost::system::error_code ec, const bool value) {
+        if (ec)
+        {
+            return;
+        }
+
+        asyncResp->res.jsonValue["Status"]["State"] =
+            value ? "Enabled" : "Absent";
+        });
+}
+
+inline void
+    getPowerSupplyHealth(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                         const std::string& service, const std::string& path,
+                         const std::string& intf)
+{
+    sdbusplus::asio::getProperty<bool>(
+        *crow::connections::systemBus, service, path, intf, "Functional",
+        [asyncResp](const boost::system::error_code ec, const bool value) {
+        if (ec)
+        {
+            return;
+        }
+
+        asyncResp->res.jsonValue["Status"]["Health"] =
+            value ? "OK" : "Critical";
+        });
+}
+
+inline void
     doPowerSupplyGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                      const std::string& chassisId,
                      const std::string& powerSupplyId,
@@ -164,7 +207,10 @@ inline void
         return;
     }
 
-    auto getPowerSupplyIdFunc = [asyncResp, chassisId, powerSupplyId]() {
+    auto getPowerSupplyIdFunc =
+        [asyncResp, chassisId, powerSupplyId](
+            const std::string& service, const std::string& powerSupplyPath,
+            const std::vector<std::string>& interfaces) {
         asyncResp->res.jsonValue["@odata.type"] =
             "#PowerSupply.v1_5_0.PowerSupply";
         asyncResp->res.jsonValue["Name"] = powerSupplyId;
@@ -172,6 +218,18 @@ inline void
         asyncResp->res.jsonValue["@odata.id"] = crow::utility::urlFromPieces(
             "redfish", "v1", "Chassis", chassisId, "PowerSubsystem",
             "PowerSupplies", powerSupplyId);
+
+        for (const auto& intf : interfaces)
+        {
+            if (intf == "xyz.openbmc_project.Inventory.Item")
+            {
+                getPowerSupplyState(asyncResp, service, powerSupplyPath, intf);
+            }
+            if (intf == "xyz.openbmc_project.State.Decorator.OperationalStatus")
+            {
+                getPowerSupplyHealth(asyncResp, service, powerSupplyPath, intf);
+            }
+        }
     };
     // Get the correct Path and Service that match the input parameters
     getValidPowerSupplyPath(asyncResp, *validChassisPath, powerSupplyId,
