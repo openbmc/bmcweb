@@ -358,6 +358,132 @@ inline void getFanLocation(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
             property;
         });
 }
+inline void
+    afterGetFanSensorValue(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                           const std::string& name,
+                           const boost::system::error_code& ec, double value)
+{
+    if (ec)
+    {
+        if (ec.value() != EBADR)
+        {
+            BMCWEB_LOG_ERROR("D-Bus response error for sensor Value {}",
+                             ec.value());
+            messages::internalError(asyncResp->res);
+        }
+        return;
+    }
+
+    if (!std::isfinite(value))
+    {
+        asyncResp->res.jsonValue[name]["SpeedRPM"] = nullptr;
+        return;
+    }
+    if (value < 0.0)
+    {
+        BMCWEB_LOG_ERROR("Incorrect D-Bus interface for sensor Value");
+        messages::internalError(asyncResp->res);
+        return;
+    }
+    asyncResp->res.jsonValue[name]["SpeedRPM"] = value;
+    return;
+}
+
+inline void
+    getFanSensorValue(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                      const std::string& service, const std::string& sensorPath,
+                      const std::string& name)
+{
+    sdbusplus::asio::getProperty<double>(
+        *crow::connections::systemBus, service, sensorPath,
+        "xyz.openbmc_project.Sensor.Value", "Value",
+        std::bind_front(afterGetFanSensorValue, asyncResp, name));
+}
+
+inline void
+    getFanSpeedPercent(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                       const std::string& service,
+                       const std::string& sensorPath,
+                       const std::string& chassisId, const std::string& name)
+{
+    std::string sensorId =
+        sdbusplus::message::object_path(sensorPath).filename();
+    if (sensorId.empty())
+    {
+        return;
+    }
+    asyncResp->res.jsonValue[name]["DataSourceUri"] = boost::urls::format(
+        "/redfish/v1/Chassis/{}/Sensors/{}", chassisId, sensorId);
+    getFanSensorValue(asyncResp, service, sensorPath, name);
+}
+
+inline void
+    afterSensorGetDbusObject(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                       const dbus::utility::MapperEndPoints& sensorPaths,
+                       const std::string& chassisId,
+                       const boost::system::error_code& ec,
+                       const dbus::utility::MapperGetObject& object)
+{
+    if (ec || object.empty())
+    {
+        BMCWEB_LOG_ERROR("D-Bus response error for getDbusObject {}",
+                         ec.value());
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    getFanSpeedPercent(asyncResp, object[0].first, sensorPaths[0], chassisId,
+                       "SpeedPercent");
+}
+
+inline void addFanSensorsSpeedPercent(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& chassisId,
+    const dbus::utility::MapperEndPoints& sensorPaths)
+{
+    std::string sensorName =
+        sdbusplus::message::object_path(sensorPaths[0]).filename();
+    if (sensorName.empty())
+    {
+        return;
+    }
+    dbus::utility::getDbusObject(
+        sensorPaths[0], {},
+        std::bind_front(afterSensorGetDbusObject, asyncResp, sensorPaths, chassisId));
+}
+
+inline void afterSensorGetAssociationEndPoints(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& chassisId, const boost::system::error_code& ec,
+    const dbus::utility::MapperEndPoints& sensorPaths)
+{
+    if (ec)
+    {
+        if (ec.value() != EBADR)
+        {
+            BMCWEB_LOG_ERROR(
+                "D-Bus response error for getAssociationEndPoints {}",
+                ec.value());
+            messages::internalError(asyncResp->res);
+        }
+        return;
+    }
+    if (sensorPaths.empty())
+    {
+        return;
+    }
+    addFanSensorsSpeedPercent(asyncResp, chassisId, sensorPaths);
+}
+inline void
+    getFanSensorsProperties(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                            const std::string& fanPath,
+                            const std::string& chassisId)
+{
+    std::string sensorPath = fanPath + "/sensors";
+    dbus::utility::getAssociationEndPoints(
+        sensorPath,
+        std::bind_front(afterSensorGetAssociationEndPoints, asyncResp, chassisId));
+}
 
 inline void
     afterGetValidFanPath(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -369,6 +495,7 @@ inline void
     getFanHealth(asyncResp, fanPath, service);
     getFanAsset(asyncResp, fanPath, service);
     getFanLocation(asyncResp, fanPath, service);
+    getFanSensorsProperties(asyncResp, fanPath, chassisId);
 }
 
 inline void doFanGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
