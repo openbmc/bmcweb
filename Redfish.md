@@ -282,6 +282,9 @@ PowerControl Voltages PowerSupplies Redundancy
 - MinNumNeeded
 - MaxNumSupported
 
+#### /redfish/v1/Chassis/{ChassisId}/PowerSubsystem/PowerSupplies
+##### PowerSupplies
+
 #### /redfish/v1/EventService/
 ##### EventService
 - Actions
