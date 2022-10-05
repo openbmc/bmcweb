@@ -372,6 +372,10 @@ Fields common to all schemas
 
 - Description
 
+#### /redfish/v1/Chassis/{ChassisId}/PowerSubsystem/PowerSupplies/{PowerSupplyId}
+
+##### PowerSupply
+
 ### /redfish/v1/EventService/
 
 #### EventService
