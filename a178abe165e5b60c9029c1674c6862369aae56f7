@@ -370,6 +370,30 @@
       },
       "revId": "a178abe165e5b60c9029c1674c6862369aae56f7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6295ac4a_3c31a88a",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 1929,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-10-05T22:13:28Z",
+      "side": 1,
+      "message": "My personal alternative is to rely on things that we already know are up and functional (ie systemd) to determine the \"upness\" of the system, and totally avoid this race condition.",
+      "parentUuid": "7d9c91ff_b3495ffd",
+      "range": {
+        "startLine": 1928,
+        "startChar": 0,
+        "endLine": 1929,
+        "endChar": 60
+      },
+      "revId": "a178abe165e5b60c9029c1674c6862369aae56f7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
