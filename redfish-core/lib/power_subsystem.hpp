@@ -28,6 +28,9 @@ inline void doPowerSubsystemCollection(
         "redfish", "v1", "Chassis", chassisId, "PowerSubsystem");
     asyncResp->res.jsonValue["Status"]["State"] = "Enabled";
     asyncResp->res.jsonValue["Status"]["Health"] = "OK";
+    asyncResp->res.jsonValue["PowerSupplies"]["@odata.id"] =
+        crow::utility::urlFromPieces("redfish", "v1", "Chassis", chassisId,
+                                     "PowerSubsystem", "PowerSupplies");
 
     asyncResp->res.addHeader(
         boost::beast::http::field::link,
