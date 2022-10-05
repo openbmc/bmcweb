@@ -309,6 +309,29 @@ inline void
         });
 }
 
+inline void getPowerSupplyFirmwareVersion(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& service, const std::string& path)
+{
+    sdbusplus::asio::getProperty<std::string>(
+        *crow::connections::systemBus, service, path,
+        "xyz.openbmc_project.Software.Version", "Version",
+        [asyncResp](const boost::system::error_code& ec,
+                    const std::string& value) {
+        if (ec)
+        {
+            if (ec.value() != EBADR)
+            {
+                BMCWEB_LOG_ERROR << "DBUS response error for FirmwareVersion "
+                                 << ec;
+                messages::internalError(asyncResp->res);
+            }
+            return;
+        }
+        asyncResp->res.jsonValue["FirmwareVersion"] = value;
+        });
+}
+
 inline void
     doPowerSupplyGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                      const std::string& chassisId,
@@ -358,6 +381,8 @@ inline void
                                  powerSupplyPath);
             getPowerSupplyAsset(asyncResp, object.begin()->first,
                                 powerSupplyPath);
+            getPowerSupplyFirmwareVersion(asyncResp, object.begin()->first,
+                                          powerSupplyPath);
             });
     });
 }
