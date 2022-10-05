@@ -351,6 +351,112 @@ inline void getFanLocation(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
         });
 }
 
+inline void
+    getFanSpeedPercent(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                       const std::string& service,
+                       const std::string& sensorPath,
+                       const std::string& chassisId, const std::string& name)
+{
+    sdbusplus::asio::getProperty<double>(
+        *crow::connections::systemBus, service, sensorPath,
+        "xyz.openbmc_project.Sensor.Value", "Value",
+        [asyncResp, sensorPath, chassisId,
+         name](const boost::system::error_code ec, const double value) {
+        if (ec)
+        {
+            if (ec.value() != EBADR)
+            {
+                BMCWEB_LOG_DEBUG << "DBUS response error " << ec.message();
+                messages::internalError(asyncResp->res);
+            }
+        }
+        else
+        {
+            asyncResp->res.jsonValue[name]["Reading"] = value;
+        }
+        });
+
+    sdbusplus::asio::getProperty<uint64_t>(
+        *crow::connections::systemBus, service, sensorPath,
+        "xyz.openbmc_project.Control.FanSpeed", "Target",
+        [asyncResp, sensorPath, chassisId,
+         name](const boost::system::error_code ec, const uint64_t speed) {
+        if (ec)
+        {
+            if (ec.value() != EBADR)
+            {
+                BMCWEB_LOG_DEBUG << "DBUS response error " << ec.message();
+                messages::internalError(asyncResp->res);
+            }
+        }
+        else
+        {
+            asyncResp->res.jsonValue[name]["SpeedRPM"] = speed;
+        }
+        });
+
+    std::string sensorId =
+        sdbusplus::message::object_path(sensorPath).filename();
+    asyncResp->res.jsonValue[name]["DataSourceUri"] = boost::urls::format(
+        "/redfish/v1/Chassis/{}/Sensors/{}", chassisId, sensorId);
+}
+
+inline void
+    addFanSensorsSpeedPercent(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                            const std::string& chassisId,
+                            const dbus::utility::MapperEndPoints& sensorPaths)
+{
+    dbus::utility::getDbusObject(
+        sensorPaths[0], {},
+        [sensorPaths, asyncResp,
+         chassisId](const boost::system::error_code& ec1,
+                    const dbus::utility::MapperGetObject& object) {
+        if (ec1 || object.empty())
+        {
+            messages::internalError(asyncResp->res);
+            return;
+        }
+
+        getFanSpeedPercent(asyncResp, object[0].first, sensorPaths[0],
+                           chassisId, "SpeedPercent");
+
+        // To Do: Uncomment this code when Redfish adds support for dual motors
+        // and update the fan version.
+        /* if (sensorPaths.size() == 2)
+        {
+            getFanSpeedPercent(asyncResp, object[0].first, sensorPaths[1],
+                               chassisId, "SecondarySpeedPercent");
+        } */
+        });
+}
+
+inline void
+    addFanSensorsProperties(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                            const std::string& fanPath,
+                            const std::string& chassisId)
+{
+    std::string sensorPath = fanPath + "/sensors";
+    dbus::utility::getAssociationEndPoints(
+        sensorPath, [asyncResp, chassisId](
+                        const boost::system::error_code& ec,
+                        const dbus::utility::MapperEndPoints& sensorPaths) {
+            if (ec)
+            {
+                if (ec.value() != EBADR)
+                {
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                return;
+            }
+            if (sensorPaths.empty())
+            {
+                return;
+            }
+            addFanSensorsSpeedPercent(asyncResp, chassisId, sensorPaths);
+        });
+}
+
 inline void doFanGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                      const std::string& chassisId, const std::string& fanId,
                      const std::optional<std::string>& validChassisPath)
@@ -369,6 +475,7 @@ inline void doFanGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         getFanHealth(asyncResp, fanPath, service);
         getFanAsset(asyncResp, fanPath, service);
         getFanLocation(asyncResp, fanPath, service);
+        addFanSensorsProperties(asyncResp, fanPath, chassisId);
     });
 }
 
