@@ -366,6 +366,12 @@ Fields common to all schemas
 - MinNumNeeded
 - MaxNumSupported
 
+#### /redfish/v1/Chassis/{ChassisId}/PowerSubsystem/PowerSupplies
+
+##### PowerSupplies
+
+- Description
+
 ### /redfish/v1/EventService/
 
 #### EventService
