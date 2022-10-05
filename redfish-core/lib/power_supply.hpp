@@ -290,6 +290,24 @@ inline void
         });
 }
 
+inline void getPowerSupplyFirmwareVersion(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& service, const std::string& path,
+    const std::string& intf)
+{
+    sdbusplus::asio::getProperty<std::string>(
+        *crow::connections::systemBus, service, path, intf, "Version",
+        [asyncResp](const boost::system::error_code ec,
+                    const std::string& value) {
+        if (ec)
+        {
+            return;
+        }
+
+        asyncResp->res.jsonValue["FirmwareVersion"] = value;
+        });
+}
+
 inline void
     doPowerSupplyGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                      const std::string& chassisId,
@@ -328,6 +346,11 @@ inline void
             if (intf == "xyz.openbmc_project.Inventory.Decorator.Asset")
             {
                 getPowerSupplyAsset(asyncResp, service, powerSupplyPath, intf);
+            }
+            if (intf == "xyz.openbmc_project.Software.Version")
+            {
+                getPowerSupplyFirmwareVersion(asyncResp, service,
+                                              powerSupplyPath, intf);
             }
         }
     };
