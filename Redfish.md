@@ -378,6 +378,11 @@ Fields common to all schemas
 
 ##### PowerSupply
 
+- Manufacturer
+- Model
+- PartNumber
+- SerialNumber
+- SparePartNumber
 - Status
 
 ### /redfish/v1/EventService/
