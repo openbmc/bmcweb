@@ -371,6 +371,12 @@ Fields common to all schemas
 ##### PowerSupplies
 
 - Description
+- Members
+- Members@odata.count
+
+#### /redfish/v1/Chassis/{ChassisId}/PowerSubsystem/PowerSupplies/{PowerSupplyId}
+
+##### PowerSupply
 
 ### /redfish/v1/EventService/
 
