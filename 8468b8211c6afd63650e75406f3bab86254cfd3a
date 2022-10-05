@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "32392d99_e485f20e",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 2078,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-10-05T20:04:21Z",
+      "side": 1,
+      "message": "Note to self.  This pattern pops up often enough that it\u0027s probably worth having a utility function for it.",
+      "range": {
+        "startLine": 2073,
+        "startChar": 0,
+        "endLine": 2078,
+        "endChar": 25
+      },
+      "revId": "8468b8211c6afd63650e75406f3bab86254cfd3a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
