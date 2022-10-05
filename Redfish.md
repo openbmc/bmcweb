@@ -379,6 +379,8 @@ Fields common to all schemas
 
 ##### PowerSupply
 
+- Status
+
 ### /redfish/v1/EventService/
 
 #### EventService
