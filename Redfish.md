@@ -364,8 +364,12 @@ Fields common to all schemas
 - Manufacturer
 - Model
 - PartNumber
+- SecondarySpeedPercent/DataSourceUri
+- SecondarySpeedPercent/SpeedRPM
 - SerialNumber
 - SparePartNumber
+- SpeedPercent/DataSourceUri
+- SpeedPercent/SpeedRPM
 - Status
 
 ### /redfish/v1/Chassis/{ChassisId}/Power#/PowerControl/{ControlName}/
