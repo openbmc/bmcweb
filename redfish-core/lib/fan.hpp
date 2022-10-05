@@ -137,15 +137,46 @@ inline void getFanHealth(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 }
 
 inline void
+    getFanSpeedPercent(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                       const std::string& service, const std::string& path,
+                       const std::string& intf, const std::string& chassisId,
+                       const std::string& fanId)
+{
+    sdbusplus::asio::getProperty<double>(
+        *crow::connections::systemBus, service, path, intf, "Value",
+        [asyncResp, chassisId, fanId](const boost::system::error_code ec,
+                                      const double value) {
+        if (ec)
+        {
+            return;
+        }
+
+        asyncResp->res.jsonValue["SpeedPercent"]["Reading"] = value;
+        asyncResp->res.jsonValue["SpeedPercent"]["DataSourceUri"] =
+            crow::utility::urlFromPieces("redfish", "v1", "Chassis", chassisId,
+                                         "Sensors", "Fans", fanId);
+        asyncResp->res.jsonValue["SpeedPercent"]["@odata.id"] =
+            crow::utility::urlFromPieces("redfish", "v1", "Chassis", chassisId,
+                                         "Sensors", "Fans", fanId);
+        });
+}
+
+inline void
     getFanSensorStatus(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                        const std::string& service, const std::string& path,
-                       const std::vector<std::string>& interfaces)
+                       const std::vector<std::string>& interfaces,
+                       const std::string& chassisId, const std::string& fanId)
 {
     for (const auto& intf : interfaces)
     {
         if (intf == "xyz.openbmc_project.State.Decorator.OperationalStatus")
         {
             getFanHealth(asyncResp, service, path, intf);
+        }
+        if (intf == "xyz.openbmc_project.Sensor.Value")
+        {
+            getFanSpeedPercent(asyncResp, service, path, intf, chassisId,
+                               fanId);
         }
     }
 }
@@ -238,7 +269,8 @@ inline void getFanLocation(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 
 template <typename Callback>
 inline void getObject(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                      const std::string& endpoint, Callback&& callback)
+                      const std::string& endpoint, const std::string& chassisId,
+                      const std::string& fanId, Callback&& callback)
 {
     if (endpoint.empty())
     {
@@ -246,7 +278,8 @@ inline void getObject(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     }
 
     crow::connections::systemBus->async_method_call(
-        [asyncResp, endpoint, callback{std::forward<Callback>(callback)}](
+        [asyncResp, endpoint, chassisId, fanId,
+         callback{std::forward<Callback>(callback)}](
             const boost::system::error_code ec,
             const std::vector<std::pair<std::string, std::vector<std::string>>>&
                 object) {
@@ -259,7 +292,8 @@ inline void getObject(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         for (const auto& obj : object)
         {
             const std::string& service = obj.first;
-            callback(asyncResp, service, endpoint, obj.second);
+            callback(asyncResp, service, endpoint, obj.second, chassisId,
+                     fanId);
         }
         },
         "xyz.openbmc_project.ObjectMapper",
@@ -400,7 +434,8 @@ inline void doFan(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
             }
         }
 
-        getObject(asyncResp, endpoint, std::move(getFanSensorStatus));
+        getObject(asyncResp, endpoint, chassisId, fanId,
+                  std::move(getFanSensorStatus));
     };
 
     // Verify that the fan has the correct chassis and whether fan has a
