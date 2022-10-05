@@ -410,7 +410,7 @@ class WebSocketRule : public BaseRule
         messageHandler;
     std::function<void(crow::websocket::Connection&, std::string_view,
                        crow::websocket::MessageType type,
-                       std::function<void()>&& whenComplete)>
+                       std::function<void(bool)>&& whenComplete)>
         messageExHandler;
     std::function<void(crow::websocket::Connection&, const std::string&)>
         closeHandler;
