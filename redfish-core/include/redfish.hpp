@@ -82,6 +82,7 @@ class RedfishService
 #ifdef BMCWEB_NEW_POWERSUBSYSTEM_THERMALSUBSYSTEM
         requestRoutesPowerSubsystem(app);
         requestRoutesPowerSupplyCollection(app);
+        requestRoutesPowerSupply(app);
         requestRoutesThermalSubsystem(app);
 #endif
         requestRoutesManagerCollection(app);
