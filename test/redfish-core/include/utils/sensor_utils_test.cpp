@@ -67,6 +67,9 @@ TEST(ChassisSubNodeToString, Success)
     subNodeStr = chassisSubNodeToString(ChassisSubNode::environmentMetricsNode);
     EXPECT_EQ(subNodeStr, "EnvironmentMetrics");
 
+    subNodeStr = chassisSubNodeToString(ChassisSubNode::fansNode);
+    EXPECT_EQ(subNodeStr, "Fans");
+
     subNodeStr = chassisSubNodeToString(ChassisSubNode::powerNode);
     EXPECT_EQ(subNodeStr, "Power");
 
@@ -90,6 +93,9 @@ TEST(ChassisSubNodeFromString, Success)
     subNode = chassisSubNodeFromString("EnvironmentMetrics");
     EXPECT_EQ(subNode, ChassisSubNode::environmentMetricsNode);
 
+    subNode = chassisSubNodeFromString("Fans");
+    EXPECT_EQ(subNode, ChassisSubNode::fansNode);
+
     subNode = chassisSubNodeFromString("Power");
     EXPECT_EQ(subNode, ChassisSubNode::powerNode);
 
@@ -112,6 +118,7 @@ TEST(ChassisSubNodeFromString, Success)
 TEST(IsExcerptNode, True)
 {
     EXPECT_TRUE(isExcerptNode(ChassisSubNode::environmentMetricsNode));
+    EXPECT_TRUE(isExcerptNode(ChassisSubNode::fansNode));
     EXPECT_TRUE(isExcerptNode(ChassisSubNode::thermalMetricsNode));
 }
 
