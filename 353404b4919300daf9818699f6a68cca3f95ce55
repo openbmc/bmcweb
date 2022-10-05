@@ -34,6 +34,24 @@
       "parentUuid": "4fefe35b_bf83cd28",
       "revId": "353404b4919300daf9818699f6a68cca3f95ce55",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cbe65354_8177ffb8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-10-05T01:23:27Z",
+      "side": 1,
+      "message": "I just checked this locally. I didn\u0027t find any weirdness in the code covereage report (bmcweb-fresh/build/meson-logs/coveragereport/index.html).",
+      "parentUuid": "f711db5e_1e5a42cd",
+      "revId": "353404b4919300daf9818699f6a68cca3f95ce55",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
