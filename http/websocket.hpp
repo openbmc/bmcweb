@@ -4,9 +4,11 @@
 #include <async_resp.hpp>
 #include <boost/algorithm/string/predicate.hpp>
 #include <boost/asio/buffer.hpp>
+#include <boost/asio/steady_timer.hpp>
 #include <boost/beast/websocket.hpp>
 
 #include <array>
+#include <chrono>
 #include <functional>
 
 #ifdef BMCWEB_ENABLE_SSL
@@ -17,6 +19,9 @@ namespace crow
 {
 namespace websocket
 {
+
+static constexpr std::chrono::milliseconds readRetryInterval =
+    std::chrono::milliseconds(100);
 
 enum class MessageType
 {
@@ -83,13 +88,14 @@ class ConnectionImpl : public Connection
             messageHandlerIn,
         std::function<void(crow::websocket::Connection&, std::string_view,
                            crow::websocket::MessageType type,
-                           std::function<void()>&& whenComplete)>
+                           std::function<void(bool)>&& whenComplete)>
             messageExHandlerIn,
         std::function<void(Connection&, const std::string&)> closeHandlerIn,
         std::function<void(Connection&)> errorHandlerIn) :
         Connection(reqIn, reqIn.session == nullptr ? std::string{}
                                                    : reqIn.session->username),
-        ws(std::move(adaptorIn)), openHandler(std::move(openHandlerIn)),
+        ws(std::move(adaptorIn)), retryTimer(getIoContext()),
+        inBuffer(inString, 131088), openHandler(std::move(openHandlerIn)),
         messageHandler(std::move(messageHandlerIn)),
         messageExHandler(std::move(messageExHandlerIn)),
         closeHandler(std::move(closeHandlerIn)),
@@ -249,10 +255,32 @@ class ConnectionImpl : public Connection
 
     void doRead()
     {
-        ws.async_read_some(
-            boost::asio::buffer(inBuffer),
-            [this, self(shared_from_this())](boost::beast::error_code ec,
-                                             std::size_t bytesRead) {
+        if (inBuffer.size() > 0)
+        {
+            // There's still some data unprocessed in buffer. Wait a while and
+            // then try again.
+            retryTimer.expires_after(readRetryInterval);
+            retryTimer.async_wait([this, self(shared_from_this())](
+                                      const boost::system::error_code ec) {
+                if (ec)
+                {
+                    BMCWEB_LOG_ERROR << "doRead timer error " << ec;
+                    if (closeHandler)
+                    {
+                        closeHandler(*this, ec.what());
+                    }
+                    return;
+                }
+
+                handleMessage(inBuffer.size());
+            });
+
+            return;
+        }
+
+        ws.async_read(inBuffer,
+                      [this, self(shared_from_this())](
+                          boost::beast::error_code ec, std::size_t bytesRead) {
             if (ec)
             {
                 if (ec != boost::beast::websocket::error::closed)
@@ -266,30 +294,9 @@ class ConnectionImpl : public Connection
                 }
                 return;
             }
-            std::string_view inString(inBuffer.data(), bytesRead);
-            if (messageExHandler)
-            {
-                // Note, because of the interactions with the read buffers,
-                // this message handler overrides the normal message handler
-                messageExHandler(*this, inString, MessageType::Binary,
-                                 [this, weak(weak_from_this()), bytesRead]() {
-                    std::shared_ptr<Connection> self2 = weak.lock();
-                    if (self2 == nullptr)
-                    {
-                        return;
-                    }
 
-                    doRead();
-                });
-                return;
-            }
-
-            if (messageHandler)
-            {
-                messageHandler(*this, std::string(inString), ws.got_text());
-            }
-            doRead();
-            });
+            handleMessage(bytesRead);
+        });
     }
     void doWrite()
     {
@@ -328,9 +335,48 @@ class ConnectionImpl : public Connection
     }
 
   private:
-    boost::beast::websocket::stream<Adaptor, false> ws;
+    void handleMessage(std::size_t bytesRead)
+    {
+        if (messageExHandler)
+        {
+            // Note, because of the interactions with the read buffers,
+            // this message handler overrides the normal message handler
+            messageExHandler(
+                *this, inString, MessageType::Binary,
+                [this, self(shared_from_this()), bytesRead](bool clearBuffer) {
+                if (self == nullptr)
+                {
+                    return;
+                }
 
-    std::array<char, 8129> inBuffer{};
+                if (clearBuffer)
+                {
+                    inBuffer.consume(bytesRead);
+                    inString.clear();
+                }
+
+                doRead();
+                });
+            return;
+        }
+
+        if (messageHandler)
+        {
+            messageHandler(*this, inString, ws.got_text());
+        }
+        inBuffer.consume(bytesRead);
+        inString.clear();
+        doRead();
+    }
+
+    boost::beast::websocket::stream<Adaptor, false> ws;
+    boost::asio::steady_timer retryTimer;
+
+    std::string inString;
+    boost::asio::dynamic_string_buffer<std::string::value_type,
+                                       std::string::traits_type,
+                                       std::string::allocator_type>
+        inBuffer;
     std::vector<std::string> outBuffer;
     bool doingWrite = false;
 
@@ -338,7 +384,7 @@ class ConnectionImpl : public Connection
     std::function<void(Connection&, const std::string&, bool)> messageHandler;
     std::function<void(crow::websocket::Connection&, std::string_view,
                        crow::websocket::MessageType type,
-                       std::function<void()>&& whenComplete)>
+                       std::function<void(bool)>&& whenComplete)>
         messageExHandler;
     std::function<void(Connection&, const std::string&)> closeHandler;
     std::function<void(Connection&)> errorHandler;
