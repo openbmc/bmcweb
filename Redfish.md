@@ -380,6 +380,7 @@ Fields common to all schemas
 ##### PowerSupply
 
 - FirmwareVersion
+- Location
 - Manufacturer
 - Model
 - PartNumber
