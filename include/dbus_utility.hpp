@@ -92,6 +92,10 @@ using MapperGetAncestorsResponse = std::vector<
 
 using MapperGetSubTreePathsResponse = std::vector<std::string>;
 
+// Map of association
+using MapperGetAssociationResponse =
+    std::vector<std::tuple<std::string, std::string, std::string>>;
+
 inline void escapePathForDbus(std::string& path)
 {
     const std::regex reg("[^A-Za-z0-9_/]");
