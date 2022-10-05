@@ -74,11 +74,11 @@ inline void
             for (const auto& [service, interfaces] : serviceMap)
             {
                 auto respHandler = [asyncResp, service, powerSupplyPath,
-                                    powerSupplyId, callback]() {
+                                    powerSupplyId, interfaces, callback]() {
                     if (checkPowerSupplyId(powerSupplyPath, powerSupplyId))
                     {
                         asyncResp->res.clear();
-                        callback();
+                        callback(service, powerSupplyPath, interfaces);
                         return;
                     }
                 };
@@ -195,6 +195,42 @@ inline void requestRoutesPowerSupplyCollection(App& app)
 }
 
 inline void
+    getPowerSupplyState(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                        const std::string& service, const std::string& path,
+                        const std::string& intf)
+{
+    sdbusplus::asio::getProperty<bool>(
+        *crow::connections::systemBus, service, path, intf, "Present",
+        [asyncResp](const boost::system::error_code ec, const bool value) {
+        if (ec)
+        {
+            return;
+        }
+
+        asyncResp->res.jsonValue["Status"]["State"] =
+            value ? "Enabled" : "Absent";
+        });
+}
+
+inline void
+    getPowerSupplyHealth(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                         const std::string& service, const std::string& path,
+                         const std::string& intf)
+{
+    sdbusplus::asio::getProperty<bool>(
+        *crow::connections::systemBus, service, path, intf, "Functional",
+        [asyncResp](const boost::system::error_code ec, const bool value) {
+        if (ec)
+        {
+            return;
+        }
+
+        asyncResp->res.jsonValue["Status"]["Health"] =
+            value ? "OK" : "Critical";
+        });
+}
+
+inline void
     doPowerSupplyGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                      const std::string& chassisId,
                      const std::string& powerSupplyId,
@@ -207,7 +243,10 @@ inline void
         return;
     }
 
-    auto getPowerSupplyIdFunc = [asyncResp, chassisId, powerSupplyId]() {
+    auto getPowerSupplyIdFunc =
+        [asyncResp, chassisId, powerSupplyId](
+            const std::string& service, const std::string& powerSupplyPath,
+            const std::vector<std::string>& interfaces) {
         asyncResp->res.jsonValue["@odata.type"] =
             "#PowerSupply.v1_5_0.PowerSupply";
         asyncResp->res.jsonValue["Name"] = powerSupplyId;
@@ -215,6 +254,18 @@ inline void
         asyncResp->res.jsonValue["@odata.id"] = crow::utility::urlFromPieces(
             "redfish", "v1", "Chassis", chassisId, "PowerSubsystem",
             "PowerSupplies", powerSupplyId);
+
+        for (const auto& intf : interfaces)
+        {
+            if (intf == "xyz.openbmc_project.Inventory.Item")
+            {
+                getPowerSupplyState(asyncResp, service, powerSupplyPath, intf);
+            }
+            if (intf == "xyz.openbmc_project.State.Decorator.OperationalStatus")
+            {
+                getPowerSupplyHealth(asyncResp, service, powerSupplyPath, intf);
+            }
+        }
     };
     // Get the correct Path and Service that match the input parameters
     getValidPowerSupplyPath(asyncResp, *validChassisPath, powerSupplyId,
