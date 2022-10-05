@@ -206,5 +206,20 @@ inline void getAssociationEndPoints(
         "xyz.openbmc_project.Association", "endpoints", std::move(callback));
 }
 
+inline void
+    getDbusObject(const std::string& path, std::span<const char*> interfaces,
+                  std::function<void(const boost::system::error_code&,
+                                     const MapperGetObject&)>&& callback)
+{
+    crow::connections::systemBus->async_method_call(
+        [callback{std::move(callback)}](const boost::system::error_code& ec,
+                                        const MapperGetObject& object) {
+        callback(ec, object);
+        },
+        "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetObject", path, interfaces);
+}
+
 } // namespace utility
 } // namespace dbus
