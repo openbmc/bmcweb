@@ -205,6 +205,5 @@ inline void getAssociationEndPoints(
         *crow::connections::systemBus, "xyz.openbmc_project.ObjectMapper", path,
         "xyz.openbmc_project.Association", "endpoints", std::move(callback));
 }
-
 } // namespace utility
 } // namespace dbus
