@@ -257,6 +257,10 @@ Fields common to all schemas
 
 #### EnvironmentMetrics
 
+- FanSpeedsPercent[]/DataSourceUri
+- FanSpeedsPercent[]/SpeedRPM
+- FanSpeedsPercent@odata.count
+
 ### /redfish/v1/Chassis/{ChassisId}/Power/
 
 #### Power

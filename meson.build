@@ -398,6 +398,7 @@ srcfiles_unittest = files(
     'test/redfish-core/include/redfish_aggregator_test.cpp',
     'test/redfish-core/include/registries_test.cpp',
     'test/redfish-core/include/utils/dbus_utils.cpp',
+    'test/redfish-core/include/utils/fan_utils_test.cpp',
     'test/redfish-core/include/utils/hex_utils_test.cpp',
     'test/redfish-core/include/utils/ip_utils_test.cpp',
     'test/redfish-core/include/utils/json_utils_test.cpp',
