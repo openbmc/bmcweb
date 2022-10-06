@@ -159,6 +159,7 @@ Chassis to Drives, The name of the association is "chassis<->drive")
 
 #### /redfish/v1/Chassis/{ChassisId}/EnvironmentMetrics/
 ##### EnvironmentMetrics
+- FanSpeedsPercent
 
 #### /redfish/v1/Chassis/{ChassisId}/Power/
 ##### Power

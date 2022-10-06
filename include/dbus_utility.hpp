@@ -206,5 +206,37 @@ inline void getAssociationEndPoints(
         });
 }
 
+inline void getDbusObject(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                          const std::string& path,
+                          std::span<std::string> interfaces,
+                          std::function<void(const std::string&)>&& callback)
+{
+    crow::connections::systemBus->async_method_call(
+        [asyncResp, callback{std::move(callback)}](
+            const boost::system::error_code ec,
+            const dbus::utility::MapperGetObject& object) {
+        std::string service;
+        if (!ec)
+        {
+            // Ensure we only got one service back
+            if (object.size() == 1)
+            {
+                service = object.begin()->first;
+            }
+            else
+            {
+                BMCWEB_LOG_ERROR << "Invalid Object Size " << object.size();
+                redfish::messages::internalError(asyncResp->res);
+                return;
+            }
+            service = object.begin()->first;
+        }
+        callback(service);
+        },
+        "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetObject", path, interfaces);
+}
+
 } // namespace utility
 } // namespace dbus
