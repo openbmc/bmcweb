@@ -29,6 +29,7 @@ namespace sensor_utils
 
 enum class ChassisSubNode
 {
+    environmentMetricsNode,
     powerNode,
     sensorsNode,
     thermalNode,
@@ -40,6 +41,8 @@ constexpr std::string_view chassisSubNodeToString(ChassisSubNode subNode)
 {
     switch (subNode)
     {
+        case ChassisSubNode::environmentMetricsNode:
+            return "EnvironmentMetrics";
         case ChassisSubNode::powerNode:
             return "Power";
         case ChassisSubNode::sensorsNode:
@@ -59,7 +62,11 @@ inline ChassisSubNode chassisSubNodeFromString(const std::string& subNodeStr)
     // If none match unknownNode is returned
     ChassisSubNode subNode = ChassisSubNode::unknownNode;
 
-    if (subNodeStr == "Power")
+    if (subNodeStr == "EnvironmentMetrics")
+    {
+        subNode = ChassisSubNode::environmentMetricsNode;
+    }
+    else if (subNodeStr == "Power")
     {
         subNode = ChassisSubNode::powerNode;
     }
@@ -81,7 +88,8 @@ inline ChassisSubNode chassisSubNodeFromString(const std::string& subNodeStr)
 
 inline bool isExcerptNode(const ChassisSubNode subNode)
 {
-    return (subNode == ChassisSubNode::thermalMetricsNode);
+    return ((subNode == ChassisSubNode::thermalMetricsNode) ||
+            (subNode == ChassisSubNode::environmentMetricsNode));
 }
 
 /**
