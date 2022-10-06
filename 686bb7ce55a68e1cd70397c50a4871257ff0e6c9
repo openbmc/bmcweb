@@ -20,6 +20,47 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6924b29c_6907b995",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 47
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-10-06T23:52:58Z",
+      "side": 1,
+      "message": "+1.  George, can you comment on this, because it looks like the validator passed in your testing.  I would expect what Gunnar expects, but if the validator isn\u0027t failing on this, we need to debug and understand it.",
+      "parentUuid": "05f77ae8_0b086506",
+      "revId": "686bb7ce55a68e1cd70397c50a4871257ff0e6c9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "685127dd_48665fc5",
+        "filename": "redfish-core/lib/power_subsystem.hpp",
+        "patchSetId": 47
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-10-06T23:52:58Z",
+      "side": 1,
+      "message": "As implemented this is going to expose a PowerSubsystem for ALL chassis, including those without power supplies.  Was that the intent?  Should we be doing that?",
+      "range": {
+        "startLine": 21,
+        "startChar": 5,
+        "endLine": 24,
+        "endChar": 48
+      },
+      "revId": "686bb7ce55a68e1cd70397c50a4871257ff0e6c9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5afa6e8d_31405149",
         "filename": "redfish-core/lib/power_subsystem.hpp",
         "patchSetId": 47
@@ -31,6 +72,23 @@
       "writtenOn": "2022-10-06T17:55:26Z",
       "side": 1,
       "message": "If you remove this line, I think this can go by itself.. \nIt would be the same as https://github.com/openbmc/bmcweb/blame/master/redfish-core/lib/thermal_subsystem.hpp",
+      "revId": "686bb7ce55a68e1cd70397c50a4871257ff0e6c9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "167c2287_1991040b",
+        "filename": "redfish-core/lib/power_subsystem.hpp",
+        "patchSetId": 47
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-10-06T23:52:58Z",
+      "side": 1,
+      "message": "Per the redfish specification, Please also implement the HEAD handler (take a look at account service for the boilerplate you need).  This something that we missed in the original implementations of redfish, and we\u0027re going through and fixing it, but new code should implement HEAD to the spec.",
       "revId": "686bb7ce55a68e1cd70397c50a4871257ff0e6c9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
