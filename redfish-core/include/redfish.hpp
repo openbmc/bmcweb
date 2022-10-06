@@ -92,6 +92,7 @@ class RedfishService
         requestRoutesChassisResetActionInfo(app);
         requestRoutesChassisDrive(app);
         requestRoutesChassisDriveName(app);
+        requestSetActiveSoftwareForDrive(app);
         requestRoutesUpdateService(app);
         requestRoutesStorageCollection(app);
         requestRoutesStorage(app);
