@@ -69,6 +69,23 @@
       "message": "This had a +2 before, I think we are just waiting on https://gerrit.openbmc.org/c/openbmc/phosphor-user-manager/+/52363?",
       "revId": "e7a82a7d7da56a075d797747d30bfb83d746826b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e36b1ef1_32fbadad",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-10-06T17:49:46Z",
+      "side": 1,
+      "message": "https://gerrit.openbmc.org/c/openbmc/phosphor-user-manager/+/52363 has a +2 so after that is submitted this can go? 52363  is a prerequisite not a corequisite right?",
+      "revId": "e7a82a7d7da56a075d797747d30bfb83d746826b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
