@@ -1924,6 +1924,29 @@ inline void setDateTime(std::shared_ptr<bmcweb::AsyncResp> aResp,
         dbus::utility::DbusVariantType(us->count()));
 }
 
+inline void
+    checkStartupState(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+{
+    sdbusplus::asio::getProperty<std::string>(
+        *crow::connections::systemBus, "org.freedesktop.systemd1",
+        "/org/freedesktop/systemd1/unit/obmc-bmc-service-quiesce@0.target",
+        "org.freedesktop.systemd1.Unit", "ActiveState",
+        [asyncResp](const boost::system::error_code ec,
+                    const std::string& val) {
+        if (!ec)
+        {
+            if (val == "active")
+            {
+                asyncResp->res.jsonValue["Status"]["Health"] = "Critical";
+                asyncResp->res.jsonValue["Status"]["State"] = "Quiesced";
+                return;
+            }
+        }
+        asyncResp->res.jsonValue["Status"]["Health"] = "OK";
+        asyncResp->res.jsonValue["Status"]["State"] = "Enabled";
+        });
+}
+
 inline void requestRoutesManager(App& app)
 {
     std::string uuid = persistent_data::getConfig().systemUuid;
@@ -1944,8 +1967,6 @@ inline void requestRoutesManager(App& app)
         asyncResp->res.jsonValue["Description"] =
             "Baseboard Management Controller";
         asyncResp->res.jsonValue["PowerState"] = "On";
-        asyncResp->res.jsonValue["Status"]["State"] = "Enabled";
-        asyncResp->res.jsonValue["Status"]["Health"] = "OK";
 
         asyncResp->res.jsonValue["ManagerType"] = "BMC";
         asyncResp->res.jsonValue["UUID"] = systemd_utils::getUuid();
@@ -2066,29 +2087,25 @@ inline void requestRoutesManager(App& app)
                 chassiUrl;
         });
 
-        static bool started = false;
-
-        if (!started)
-        {
-            sdbusplus::asio::getProperty<double>(
-                *crow::connections::systemBus, "org.freedesktop.systemd1",
-                "/org/freedesktop/systemd1", "org.freedesktop.systemd1.Manager",
-                "Progress",
-                [asyncResp](const boost::system::error_code& ec,
-                            const double& val) {
-                if (ec)
-                {
-                    BMCWEB_LOG_ERROR << "Error while getting progress";
-                    messages::internalError(asyncResp->res);
-                    return;
-                }
-                if (val < 1.0)
-                {
-                    asyncResp->res.jsonValue["Status"]["State"] = "Starting";
-                    started = true;
-                }
-                });
-        }
+        sdbusplus::asio::getProperty<double>(
+            *crow::connections::systemBus, "org.freedesktop.systemd1",
+            "/org/freedesktop/systemd1", "org.freedesktop.systemd1.Manager",
+            "Progress",
+            [asyncResp](const boost::system::error_code& ec, double val) {
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR << "Error while getting progress";
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            if (val < 1.0)
+            {
+                asyncResp->res.jsonValue["Status"]["Health"] = "OK";
+                asyncResp->res.jsonValue["Status"]["State"] = "Starting";
+                return;
+            }
+            checkStartupState(asyncResp);
+            });
 
         constexpr std::array<std::string_view, 1> interfaces = {
             "xyz.openbmc_project.Inventory.Item.Bmc"};
