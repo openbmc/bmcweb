@@ -338,6 +338,7 @@ Fields common to all schemas
 
 ##### PowerSupply
 
+- EfficiencyPercent
 - FirmwareVersion
 - Location
 - Manufacturer
