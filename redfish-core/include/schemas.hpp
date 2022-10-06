@@ -32,6 +32,7 @@ namespace redfish
         "ComputerSystemCollection",
         "Drive",
         "DriveCollection",
+        "EnvironmentMetrics",
         "EthernetInterface",
         "EthernetInterfaceCollection",
         "Event",
