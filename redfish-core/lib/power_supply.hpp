@@ -365,6 +365,89 @@ inline void
         });
 }
 
+inline void handleGetEfficiencyResponse(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec, uint32_t value)
+{
+    if (ec)
+    {
+        if (ec.value() != EBADR)
+        {
+            BMCWEB_LOG_ERROR << "DBUS response error for DeratingFactor "
+                             << ec.value();
+            messages::internalError(asyncResp->res);
+        }
+        return;
+    }
+    // The PDI default value is 0, if it hasn't been set leave off
+    if (value == 0)
+    {
+        return;
+    }
+
+    nlohmann::json::array_t efficiencyRatings;
+    nlohmann::json::object_t efficiencyPercent;
+    efficiencyPercent["EfficiencyPercent"] = value;
+    efficiencyRatings.emplace_back(std::move(efficiencyPercent));
+    asyncResp->res.jsonValue["EfficiencyRatings"] =
+        std::move(efficiencyRatings);
+}
+
+inline void handlePowerSupplyAttributesSubTreeResponse(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec,
+    const dbus::utility::MapperGetSubTreeResponse& subtree)
+{
+    if (ec)
+    {
+        if (ec.value() != EBADR)
+        {
+            BMCWEB_LOG_ERROR << "DBUS response error for EfficiencyPercent "
+                             << ec.value();
+            messages::internalError(asyncResp->res);
+        }
+        return;
+    }
+
+    if (subtree.empty())
+    {
+        BMCWEB_LOG_DEBUG << "Can't find Power Supply Attributes!";
+        return;
+    }
+
+    if (subtree.size() != 1)
+    {
+        BMCWEB_LOG_ERROR
+            << "Unexpected number of paths returned by getSubTree: "
+            << subtree.size();
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    const auto& [path, serviceMap] = *subtree.begin();
+    const auto& [service, interfaces] = *serviceMap.begin();
+    sdbusplus::asio::getProperty<uint32_t>(
+        *crow::connections::systemBus, service, path,
+        "xyz.openbmc_project.Control.PowerSupplyAttributes", "DeratingFactor",
+        [asyncResp](const boost::system::error_code& ec1, uint32_t value) {
+        handleGetEfficiencyResponse(asyncResp, ec1, value);
+        });
+}
+
+inline void
+    getEfficiencyPercent(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+{
+    static constexpr std::array<std::string_view, 1> efficiencyIntf = {
+        "xyz.openbmc_project.Control.PowerSupplyAttributes"};
+
+    dbus::utility::getSubTree(
+        "/xyz/openbmc_project", 0, efficiencyIntf,
+        [asyncResp](const boost::system::error_code& ec,
+                    const dbus::utility::MapperGetSubTreeResponse& subtree) {
+        handlePowerSupplyAttributesSubTreeResponse(asyncResp, ec, subtree);
+        });
+}
+
 inline void
     doPowerSupplyGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                      const std::string& chassisId,
@@ -417,6 +500,8 @@ inline void
             getPowerSupplyLocation(asyncResp, object.begin()->first,
                                    powerSupplyPath);
             });
+
+        getEfficiencyPercent(asyncResp);
     });
 }
 
