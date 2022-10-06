@@ -6,6 +6,180 @@
 namespace redfish
 {
 
+using MapperGetAssociationResponse =
+    std::vector<std::tuple<std::string, std::string, std::string>>;
+
+template <typename Callback>
+inline void getObject(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                      const std::string& path, Callback&& callback)
+{
+    if (path.empty())
+    {
+        return;
+    }
+
+    crow::connections::systemBus->async_method_call(
+        [asyncResp, path, callback{std::forward<Callback>(callback)}](
+            const boost::system::error_code ec,
+            const std::vector<std::pair<std::string, std::vector<std::string>>>&
+                object) {
+        if (ec)
+        {
+            return;
+        }
+
+        for (const auto& obj : object)
+        {
+            const std::string& service = obj.first;
+            callback(service, path);
+        }
+        },
+        "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetObject", path,
+        std::array<std::string, 0>());
+}
+
+template <typename Callback>
+inline void
+    getfanSensorPath(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                     const std::string& chassisPath,
+                     const std::string& chassisId, Callback&& callback)
+{
+    auto respHandler =
+        [callback{std::forward<Callback>(callback)}, asyncResp, chassisPath,
+         chassisId](const boost::system::error_code ec,
+                    const dbus::utility::MapperGetSubTreeResponse& subtree) {
+        if (ec)
+        {
+            BMCWEB_LOG_ERROR << "respHandler DBUS error: " << ec.message();
+            messages::internalError(asyncResp->res);
+            return;
+        }
+
+        const static std::string assIntf =
+            "xyz.openbmc_project.Association.Definitions";
+        for (const auto& [fanPath, serviceMap] : subtree)
+        {
+            if (serviceMap.empty())
+            {
+                continue;
+            }
+
+            for (const auto& [service, interfaces] : serviceMap)
+            {
+                if (std::find_if(interfaces.begin(), interfaces.end(),
+                                 [](const auto& i) { return i == assIntf; }) ==
+                    interfaces.end())
+                {
+                    continue;
+                }
+
+                sdbusplus::asio::getProperty<MapperGetAssociationResponse>(
+                    *crow::connections::systemBus, service, fanPath, assIntf,
+                    "Associations",
+                    [callback, asyncResp, chassisPath, chassisId](
+                        const boost::system::error_code ec1,
+                        const MapperGetAssociationResponse& associations) {
+                    if (ec1)
+                    {
+                        return;
+                    }
+
+                    std::vector<std::string> fanSensorPaths;
+                    bool found = false;
+                    for (const auto& assoc : associations)
+                    {
+                        const auto& [rType, tType, endpoint] = assoc;
+                        if (rType == "sensors")
+                        {
+                            fanSensorPaths.push_back(endpoint);
+                        }
+                        else if (rType == "chassis" && endpoint == chassisPath)
+                        {
+                            found = true;
+                        }
+                    }
+
+                    if (!found)
+                    {
+                        return;
+                    }
+
+                    for (const auto& fanSensorPath : fanSensorPaths)
+                    {
+                        getObject(asyncResp, fanSensorPath,
+                                  std::move(callback));
+                    }
+                    });
+            }
+        }
+    };
+
+    crow::connections::systemBus->async_method_call(
+        respHandler, "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetSubTree",
+        "/xyz/openbmc_project", 0,
+        std::array<const char*, 1>{"xyz.openbmc_project.Inventory.Item.Fan"});
+}
+
+inline void
+    updateFanSensorList(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                        const std::string& chassisId,
+                        const std::string& fanSensorPath, double value)
+{
+    std::string fanSensorName =
+        sdbusplus::message::object_path(fanSensorPath).filename();
+    if (fanSensorName.empty())
+    {
+        return;
+    }
+
+    nlohmann::json item;
+    item["@odata.id"] = crow::utility::urlFromPieces(
+        "redfish", "v1", "Chassis", chassisId, "Sensors", fanSensorName);
+    item["DataSourceUri"] = crow::utility::urlFromPieces(
+        "redfish", "v1", "Chassis", chassisId, "Sensors", fanSensorName);
+    item["DeviceName"] = "Chassis Fan #" + fanSensorName;
+    item["DeviceName"] = value;
+
+    nlohmann::json& fanSensorList =
+        asyncResp->res.jsonValue["FanSpeedsPercent"];
+    fanSensorList.emplace_back(std::move(item));
+    asyncResp->res.jsonValue["FanSpeedsPercent@odata.count"] =
+        fanSensorList.size();
+}
+
+inline void
+    getfanSpeedsPercent(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                        const std::string& chassisPath,
+                        const std::string& chassisId)
+{
+    auto respHandler = [asyncResp, chassisId](const std::string& service,
+                                              const std::string& path) {
+        if (path.empty())
+        {
+            return;
+        }
+
+        sdbusplus::asio::getProperty<double>(
+            *crow::connections::systemBus, service, path,
+            "xyz.openbmc_project.Sensor.Value", "Value",
+            [asyncResp, chassisId, path](const boost::system::error_code ec,
+                                         const double value) {
+            if (ec)
+            {
+                return;
+            }
+
+            updateFanSensorList(asyncResp, chassisId, path, value);
+            });
+    };
+
+    getfanSensorPath(asyncResp, chassisPath, chassisId, std::move(respHandler));
+}
+
 inline void
     doEnvironmentMetrics(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                          const std::string& chassisId,
@@ -24,6 +198,7 @@ inline void
     asyncResp->res.jsonValue["Id"] = "EnvironmentMetrics";
     asyncResp->res.jsonValue["@odata.id"] = crow::utility::urlFromPieces(
         "redfish", "v1", "Chassis", chassisId, "EnvironmentMetrics");
+    getfanSpeedsPercent(asyncResp, *validChassisPath, chassisId);
 }
 
 inline void handleEnvironmentMetricsGet(
