@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "528280e2_870094b7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001329
+      },
+      "writtenOn": "2022-10-06T13:42:11Z",
+      "side": 1,
+      "message": "Regarding failed CI build: it seems failure occures because of sdbusplus version being later than the one used in base for this commit. After rebasing this change (and 51428 as well), issue should disappear.",
+      "revId": "5572b7af58864b33c5ad56dea66b3e9bdf15ca86",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
