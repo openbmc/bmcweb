@@ -227,6 +227,7 @@ Fields common to all schemas
 #### EnvironmentMetrics
 
 - FanSpeedsPercent
+- PowerWatts
 
 ### /redfish/v1/Chassis/{ChassisId}/Power/
 
