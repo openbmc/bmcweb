@@ -180,6 +180,58 @@ inline void
     getFanSensorPath(asyncResp, chassisPath, chassisId, std::move(respHandler));
 }
 
+inline void getPowerWatts(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                          const std::string& chassisPath,
+                          const std::string& chassisId)
+{
+    auto respHandler =
+        [asyncResp, chassisPath, chassisId](const std::string& service,
+                                            const std::string& path) {
+        sdbusplus::asio::getProperty<MapperGetAssociationResponse>(
+            *crow::connections::systemBus, service, path, assIntf,
+            "Associations",
+            [asyncResp, chassisPath, chassisId, service,
+             path](const boost::system::error_code ec,
+                   const MapperGetAssociationResponse& associations) {
+            if (ec)
+            {
+                return;
+            }
+
+            for (const auto& assoc : associations)
+            {
+                const auto& [rType, tType, endpoint] = assoc;
+                if (rType == "chassis" && endpoint == chassisPath)
+                {
+                    sdbusplus::asio::getProperty<double>(
+                        *crow::connections::systemBus, service, path,
+                        "xyz.openbmc_project.Sensor.Value", "Value",
+                        [asyncResp,
+                         chassisId](const boost::system::error_code ec1,
+                                    const uint32_t value) {
+                        if (ec1)
+                        {
+                            return;
+                        }
+
+                        asyncResp->res
+                            .jsonValue["PowerWatts"]["DataSourceUri"] =
+                            crow::utility::urlFromPieces(
+                                "redfish", "v1", "Chassis", chassisId,
+                                "Sensors", "total_power");
+                        asyncResp->res.jsonValue["PowerWatts"]["Reading"] =
+                            value;
+                        });
+                    break;
+                }
+            }
+            });
+    };
+
+    getObject(asyncResp, "/xyz/openbmc_project/sensors/power/total_power",
+              std::move(respHandler));
+}
+
 inline void
     doEnvironmentMetrics(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                          const std::string& chassisId,
@@ -204,6 +256,7 @@ inline void
         "</redfish/v1/JsonSchemas/EnvironmentMetrics/EnvironmentMetrics.json>; rel=describedby");
 
     getFanSpeedsPercent(asyncResp, *validChassisPath, chassisId);
+    getPowerWatts(asyncResp, *validChassisPath, chassisId);
 }
 
 inline void handleEnvironmentMetricsGet(
