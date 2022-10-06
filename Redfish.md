@@ -228,6 +228,11 @@ Fields common to all schemas
 
 #### EnvironmentMetrics
 
+- FanSpeedsPercent
+  - DataSourceUri
+  - DeviceName
+  - SpeedRPM
+
 ### /redfish/v1/Chassis/{ChassisId}/Power/
 
 #### Power
