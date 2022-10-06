@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dd94c94f_5d6f4900",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000089
+      },
+      "writtenOn": "2022-10-06T04:30:35Z",
+      "side": 1,
+      "message": "We did not support deleting LDAP certificate as there will be only 1 LDAP certificate and the user should choose to replace it rather than delete it. Not sure about the consequence of recovering the system if the user accidentally deletes the LDAP certificate. I will let @ojayanth review and confirm before merging this commit.",
+      "revId": "9fdaa4b7e16f332b21e83ca8094a1b54ad550df8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
