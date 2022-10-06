@@ -105,5 +105,29 @@ TEST(IsExcerptNode, False)
     EXPECT_FALSE(isExcerptNode(ChassisSubNode::unknownNode));
 }
 
+TEST(SensorPurposeToString, Success)
+{
+    std::string purposeStr;
+
+    purposeStr = sensorPurposeToString(SensorPurpose::totalPower);
+    EXPECT_EQ(purposeStr,
+              "xyz.openbmc_project.Sensor.Purpose.SensorPurpose.TotalPower");
+
+    purposeStr = sensorPurposeToString(SensorPurpose::unknownPurpose);
+    EXPECT_EQ(purposeStr, "");
+}
+
+TEST(SensorPurposeFromString, Success)
+{
+    SensorPurpose purpose = SensorPurpose::unknownPurpose;
+
+    purpose = sensorPurposeFromString(
+        "xyz.openbmc_project.Sensor.Purpose.SensorPurpose.TotalPower");
+    EXPECT_EQ(purpose, SensorPurpose::totalPower);
+
+    purpose = sensorPurposeFromString("");
+    EXPECT_EQ(purpose, SensorPurpose::unknownPurpose);
+}
+
 } // namespace
 } // namespace redfish::sensor_utils

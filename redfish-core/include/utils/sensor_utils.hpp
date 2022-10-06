@@ -31,6 +31,7 @@ namespace sensor_utils
 
 enum class ChassisSubNode
 {
+    environmentMetricsNode,
     powerNode,
     sensorsNode,
     thermalNode,
@@ -42,6 +43,8 @@ constexpr std::string_view chassisSubNodeToString(ChassisSubNode subNode)
 {
     switch (subNode)
     {
+        case ChassisSubNode::environmentMetricsNode:
+            return "EnvironmentMetrics";
         case ChassisSubNode::powerNode:
             return "Power";
         case ChassisSubNode::sensorsNode:
@@ -61,7 +64,11 @@ inline ChassisSubNode chassisSubNodeFromString(const std::string& subNodeStr)
     // If none match unknownNode is returned
     ChassisSubNode subNode = ChassisSubNode::unknownNode;
 
-    if (subNodeStr == "Power")
+    if (subNodeStr == "EnvironmentMetrics")
+    {
+        subNode = ChassisSubNode::environmentMetricsNode;
+    }
+    else if (subNodeStr == "Power")
     {
         subNode = ChassisSubNode::powerNode;
     }
@@ -83,7 +90,8 @@ inline ChassisSubNode chassisSubNodeFromString(const std::string& subNodeStr)
 
 inline bool isExcerptNode(const ChassisSubNode subNode)
 {
-    return (subNode == ChassisSubNode::thermalMetricsNode);
+    return ((subNode == ChassisSubNode::thermalMetricsNode) ||
+            (subNode == ChassisSubNode::environmentMetricsNode));
 }
 
 /**
@@ -757,6 +765,84 @@ inline void getAllSensorObjects(
 
             callback(ec, sensorsServiceAndPath);
         });
+}
+
+enum class SensorPurpose
+{
+    totalPower,
+    unknownPurpose,
+};
+
+constexpr std::string_view sensorPurposeToString(SensorPurpose sensorPurpose)
+{
+    switch (sensorPurpose)
+    {
+        case SensorPurpose::totalPower:
+            return "xyz.openbmc_project.Sensor.Purpose.SensorPurpose.TotalPower";
+        default:
+            return "";
+    }
+}
+
+inline SensorPurpose
+    sensorPurposeFromString(const std::string& sensorPurposeStr)
+{
+    if (sensorPurposeStr ==
+        "xyz.openbmc_project.Sensor.Purpose.SensorPurpose.TotalPower")
+    {
+        return SensorPurpose::totalPower;
+    }
+
+    // If none match unknownPurpose is returned
+    return SensorPurpose::unknownPurpose;
+}
+
+inline void getSensorByPurpose(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    SensorPurpose purposeWanted,
+    std::function<void(const boost::system::error_code&, const std::string&,
+                       const std::string&)>&& callback,
+    const boost::system::error_code& ec,
+    const SensorServicePathList& sensorsServiceAndPath)
+{
+    if (ec)
+    {
+        // Report error to callback to handle
+        callback(ec, "", "");
+        return;
+    }
+
+    for (const auto& [service, sensorPath] : sensorsServiceAndPath)
+    {
+        dbus::utility::getProperty<std::vector<std::string>>(
+            service, sensorPath, "xyz.openbmc_project.Sensor.Purpose",
+            "Purpose",
+            [asyncResp, purposeWanted, sensorPath, service,
+             callback = std::move(callback)](
+                const boost::system::error_code& ec1,
+                const std::vector<std::string>& purposeList) {
+                if (ec1)
+                {
+                    if (ec1.value() != EBADR)
+                    {
+                        BMCWEB_LOG_ERROR(
+                            "D-Bus response error getting Sensor.Purpose for {}: {}",
+                            sensorPath, ec1);
+                        messages::internalError(asyncResp->res);
+                    }
+                    return;
+                }
+
+                for (const std::string& purposeStr : purposeList)
+                {
+                    if (sensorPurposeFromString(purposeStr) == purposeWanted)
+                    {
+                        callback(ec1, sensorPath, service);
+                        return;
+                    }
+                }
+            });
+    }
 }
 
 } // namespace sensor_utils
