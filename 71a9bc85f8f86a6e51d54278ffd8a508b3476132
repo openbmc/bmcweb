@@ -22,6 +22,53 @@
       },
       "revId": "71a9bc85f8f86a6e51d54278ffd8a508b3476132",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b0ea77c9_4897ec58",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 1668,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2022-10-06T03:27:02Z",
+      "side": 1,
+      "message": "Is this always tagged ? This should come from the backend data; if tagged or untagged.",
+      "range": {
+        "startLine": 1668,
+        "startChar": 8,
+        "endLine": 1668,
+        "endChar": 46
+      },
+      "revId": "71a9bc85f8f86a6e51d54278ffd8a508b3476132",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1d6865ab_d85f5664",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 1668,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2022-10-06T03:27:02Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "4d3e4656_0baaf82e",
+      "range": {
+        "startLine": 1666,
+        "startChar": 0,
+        "endLine": 1668,
+        "endChar": 46
+      },
+      "revId": "71a9bc85f8f86a6e51d54278ffd8a508b3476132",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
