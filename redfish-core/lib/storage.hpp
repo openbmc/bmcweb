@@ -903,4 +903,225 @@ inline void requestRoutesChassisDriveName(App& app)
             std::bind_front(handleChassisDriveGet, std::ref(app)));
 }
 
+/**
+ * @brief Fetch the current active software for gssd-ddbus
+ *
+ * @return std::string Returns the object path of the current active software
+ */
+inline std::string fetchActiveSoftwareForDrive()
+{
+    std::string currentActiveSoftwareForDrive;
+    sdbusplus::asio::getProperty<std::vector<std::string>>(
+        *crow::connections::systemBus, "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/software/functional",
+        "xyz.openbmc_project.Association", "endpoints",
+        [currentActiveSoftwareForDrive](
+            const boost::system::error_code ec,
+            const std::vector<std::string>& functionalSw) mutable {
+        if (ec)
+        {
+            BMCWEB_LOG_ERROR << "error_code = " << ec;
+            BMCWEB_LOG_ERROR << "error msg = " << ec.message();
+            return;
+        }
+
+        if (functionalSw.empty())
+        {
+            BMCWEB_LOG_ERROR << "Zero functional software in system";
+            return;
+        }
+
+        for (const auto& sw : functionalSw)
+        {
+            sdbusplus::message::object_path path(sw);
+            // Get functional software for drive
+            if (path.filename().find("/xyz/openbmc_project/software/chassis") !=
+                std::string::npos)
+            {
+                currentActiveSoftwareForDrive = path.filename();
+                break;
+            }
+        }
+        return;
+        });
+    return currentActiveSoftwareForDrive;
+}
+
+/**
+ * @brief Removes the active software for drive based on the objPath provided.
+ * Deletes the association in the provided object path to
+ * "/xyz/openbmc_project/software/functional" where
+ * "/xyz/openbmc_project/software/functional" represents all the active software
+ *
+ *  @param[i, o] asyncResp Response object
+ *
+ *  @param[i] newActiveSoftwareObjPath object path to the new active software
+ * for drive
+ *
+ * @return void
+ */
+inline void removeActiveSoftwareForDrive(std::string& objPath)
+{
+    sdbusplus::asio::getProperty<
+        std::vector<std::tuple<std::string, std::string, std::string>>>(
+        *crow::connections::systemBus, "com.google.gbmc.ssd", objPath,
+        "xyz.openbmc_project.Association.Definitions", "Associations",
+        [objPath](const boost::system::error_code ec,
+                  const std::vector<std::tuple<std::string, std::string,
+                                               std::string>>& swAssociations) {
+        if (ec)
+        {
+            BMCWEB_LOG_ERROR << "DBUS response error: " << ec;
+            return;
+        }
+
+        if (swAssociations.empty())
+        {
+            BMCWEB_LOG_DEBUG << "No software associations present";
+        }
+
+        std::vector<std::tuple<std::string, std::string, std::string>>
+            newSwAssociations;
+
+        for (const auto& swAssociation : swAssociations)
+        {
+            if (get<2>(swAssociation) != "/xyz/openbmc_project/software/functional")
+            {
+                newSwAssociations.push_back(swAssociation);
+            }
+        }
+
+        // newSwAssociations is a vector with all the old associations for
+        // the objPath except the "functional" association
+        // It can also be an empty vector if no other associations (than
+        // "functional") were present
+        sdbusplus::asio::setProperty(
+            *crow::connections::systemBus, "com.google.gbmc.ssd", objPath,
+            "xyz.openbmc_project.Association.Definitions", "Associations",
+            dbus::utility::DbusVariantType(std::move(newSwAssociations)),
+            [objPath](const boost::system::error_code e) {
+            if (e)
+            {
+                BMCWEB_LOG_ERROR << "DBUS response error: " << e;
+                return;
+            }
+            BMCWEB_LOG_DEBUG << "Removed functional association for - "
+                             << objPath;
+            });
+        });
+}
+
+/**
+ * @brief Sets the active software for drive. Creates an association in the
+ * provided object path to  "/xyz/openbmc_project/software/functional" where
+ * "/xyz/openbmc_project/software/functional" represents all the active software
+ *
+ *  @param[i, o] asyncResp Response object
+ *
+ *  @param[i] newActiveSoftwareObjPath object path to the new active software
+ * for drive
+ *
+ * @return bool status to report whether the operation was successful or not
+ */
+inline bool setNewActiveSoftwareForDrive(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& newActiveSoftwareObjPath)
+{
+    // Creating Association Property Value for setting newActiveSoftware path
+    std::tuple<std::string, std::string, std::string> propertyValue(
+        "functional", "gssd_software",
+        "/xyz/openbmc_project/software/functional");
+    std::vector<std::tuple<std::string, std::string, std::string>>
+        associationPropertyValue{std::move(propertyValue)};
+
+    bool status = false;
+    // Setting a new association in the "com.google.gbmc.ssd" subtree for the
+    // required new Active software object path
+    sdbusplus::asio::setProperty(
+        *crow::connections::systemBus, "com.google.gbmc.ssd",
+        newActiveSoftwareObjPath, "xyz.openbmc_project.Association.Definitions",
+        "Associations",
+        dbus::utility::DbusVariantType(std::move(associationPropertyValue)),
+        [newActiveSoftwareObjPath, asyncResp,
+         status](const boost::system::error_code ec) mutable {
+        if (ec)
+        {
+            asyncResp->res.jsonValue["data"]["description"] =
+                "Failed to update the new active software for drive";
+            asyncResp->res.jsonValue["message"] = "500 Internal Server Error";
+            asyncResp->res.jsonValue["status"] = "error";
+            BMCWEB_LOG_ERROR << "DBUS response error: " << ec;
+            return;
+        }
+        BMCWEB_LOG_DEBUG
+            << "Set- " << newActiveSoftwareObjPath
+            << R"( Property: xyz.openbmc_project.Association.Definitions to: "functional" "gssd_software" "/xyz/openbmc_project/software/functional")";
+
+        status = true;
+        });
+    return status;
+}
+
+inline void setActiveSoftwareForDriveHandler(
+    App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+    std::optional<std::string> newActiveSoftwareObjPath;
+
+    if (!json_util::readJsonPatch(req, asyncResp->res,
+                                  "newActiveSoftwareForDrive",
+                                  newActiveSoftwareObjPath))
+    {
+        asyncResp->res.jsonValue["data"]["description"] =
+            "Unable to parse request body";
+        asyncResp->res.jsonValue["message"] = "400 Bad Request";
+        asyncResp->res.jsonValue["status"] = "error";
+        return;
+    }
+
+    if (!newActiveSoftwareObjPath)
+    {
+        asyncResp->res.jsonValue["data"]["description"] =
+            "No New Active Software Object Path found in request";
+        asyncResp->res.jsonValue["message"] = "400 Bad Request";
+        asyncResp->res.jsonValue["status"] = "error";
+        return;
+    }
+
+    // Fetching the currentActiveSoftware for Drive
+    std::string currentActiveSoftwarePath = fetchActiveSoftwareForDrive();
+    BMCWEB_LOG_DEBUG << "Current Active Software object path: "
+                     << currentActiveSoftwarePath;
+
+    // Set association for the newActiveSoftwareObjPath to functional
+    bool success =
+        setNewActiveSoftwareForDrive(asyncResp, *newActiveSoftwareObjPath);
+
+    if (success)
+    {
+        // Removing association for the currentActiveSoftware if exists
+        if (!currentActiveSoftwarePath.empty())
+        {
+            removeActiveSoftwareForDrive(currentActiveSoftwarePath);
+        }
+
+        asyncResp->res.jsonValue["data"]["description"] =
+            "New active software for drive successfully set";
+        asyncResp->res.jsonValue["message"] = "200 OK";
+        asyncResp->res.jsonValue["status"] = "ok";
+    }
+}
+
+inline void requestSetActiveSoftwareForDrive(App& app)
+{
+    BMCWEB_ROUTE(app, "/redfish/v1/Chassis/Drives/SetActiveSoftware/")
+        .privileges(redfish::privileges::privilegeSetConfigureManager)
+        .methods(boost::beast::http::verb::patch)(
+            std::bind_front(setActiveSoftwareForDriveHandler, std::ref(app)));
+}
+
 } // namespace redfish
