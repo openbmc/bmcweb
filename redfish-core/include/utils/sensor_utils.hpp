@@ -41,6 +41,7 @@ namespace sensor_utils
 
 enum class ChassisSubNode
 {
+    environmentMetricsNode,
     powerNode,
     sensorsNode,
     thermalNode,
@@ -52,6 +53,8 @@ constexpr std::string_view chassisSubNodeToString(ChassisSubNode subNode)
 {
     switch (subNode)
     {
+        case ChassisSubNode::environmentMetricsNode:
+            return "EnvironmentMetrics";
         case ChassisSubNode::powerNode:
             return "Power";
         case ChassisSubNode::sensorsNode:
@@ -71,7 +74,11 @@ inline ChassisSubNode chassisSubNodeFromString(const std::string& subNodeStr)
     // If none match unknownNode is returned
     ChassisSubNode subNode = ChassisSubNode::unknownNode;
 
-    if (subNodeStr == "Power")
+    if (subNodeStr == "EnvironmentMetrics")
+    {
+        subNode = ChassisSubNode::environmentMetricsNode;
+    }
+    else if (subNodeStr == "Power")
     {
         subNode = ChassisSubNode::powerNode;
     }
@@ -93,7 +100,8 @@ inline ChassisSubNode chassisSubNodeFromString(const std::string& subNodeStr)
 
 inline bool isExcerptNode(const ChassisSubNode subNode)
 {
-    return (subNode == ChassisSubNode::thermalMetricsNode);
+    return ((subNode == ChassisSubNode::thermalMetricsNode) ||
+            (subNode == ChassisSubNode::environmentMetricsNode));
 }
 
 /**
@@ -791,6 +799,153 @@ inline void getAllSensorObjects(
 
             callback(ec, sensorsServiceAndPath);
         });
+}
+
+enum class SensorPurpose
+{
+    totalPower,
+    unknownPurpose,
+};
+
+constexpr std::string_view sensorPurposeToString(SensorPurpose subNode)
+{
+    switch (subNode)
+    {
+        case SensorPurpose::totalPower:
+            return "xyz.openbmc_project.Sensor.Purpose.SensorPurpose.TotalPower";
+        case SensorPurpose::unknownPurpose:
+        default:
+            return "Unknown Purpose";
+    }
+}
+
+inline SensorPurpose sensorPurposeFromString(const std::string& subNodeStr)
+{
+    // If none match unknownNode is returned
+    SensorPurpose subNode = SensorPurpose::unknownPurpose;
+
+    if (subNodeStr ==
+        "xyz.openbmc_project.Sensor.Purpose.SensorPurpose.TotalPower")
+    {
+        subNode = SensorPurpose::totalPower;
+    }
+
+    return subNode;
+}
+
+inline void checkSensorPurpose(
+    const SensorServicePathList& sensorListIn, size_t sensorsIndex,
+    const SensorPurpose sensorPurpose,
+    const std::shared_ptr<SensorServicePathList>& sensorMatches,
+    const std::vector<std::string>& purposeList)
+{
+    const std::string_view checkPurposeStr =
+        sensorPurposeToString(sensorPurpose);
+
+    BMCWEB_LOG_DEBUG("checkSensorPurpose: {}", checkPurposeStr);
+
+    for (const std::string& purposeStr : purposeList)
+    {
+        if (purposeStr == checkPurposeStr)
+        {
+            // Add to list
+            auto nextSensor = sensorListIn.begin();
+            std::advance(nextSensor, sensorsIndex);
+            if (nextSensor != sensorListIn.end())
+            {
+                BMCWEB_LOG_DEBUG("checkSensorPurpose adding {} {}",
+                                 nextSensor->first, nextSensor->second);
+                sensorMatches->emplace_back(*nextSensor);
+                return;
+            }
+        }
+    }
+}
+
+/**
+ * @brief Gets sensors from list with specified purpose
+ *
+ * Checks the <sensorListIn> sensors for any which implement the specified
+ * <sensorPurpose> in interface xyz.openbmc_project.Sensor.Purpose. Adds any
+ * matches to the <sensorMatches> list. After checking all sensors in
+ * <sensorListIn> the <callback> is called with just the list of matching
+ * sensors, which could be an empty list. Additionally the <callback> is called
+ * on error and error handling is left to the callback.
+ *
+ * This function is called recursively to chain the asynchronous retrieval of
+ * the purpose for each of the sensors from <sensorListIn>. The <sensorsIndex>
+ * indicates which entry in <sensorListIn> should be processed next.
+ *
+ * @param asyncResp Response data
+ * @param[in] sensorListIn List of sensors to check
+ * @param[in] sensorPurpose Looks for sensors matching this purpose
+ * @param[out] sensorMatches Sensors from sensorListIn with sensorPurpose
+ * @param[in] callback Callback to handle list of matching sensors
+ * @param[in] sensorsIndex Index of next sensor in sensorListIn to check.
+ * Caller should not specify. Recursive calls will increment to move through
+ * <sensorListIn>.
+ */
+inline void getSensorsByPurpose(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const SensorServicePathList& sensorListIn,
+    const SensorPurpose sensorPurpose,
+    const std::shared_ptr<SensorServicePathList>& sensorMatches,
+    const std::function<void(
+        const boost::system::error_code& ec,
+        const std::shared_ptr<SensorServicePathList>& sensorMatches)>& callback,
+    size_t sensorsIndex = 0)
+{
+    BMCWEB_LOG_DEBUG("getSensorsByPurpose enter {}", sensorsIndex);
+
+    // If no more sensors left, call callback
+    if (sensorsIndex >= sensorListIn.size())
+    {
+        BMCWEB_LOG_DEBUG("getSensorsByPurpose, exit found {} matches",
+                         sensorMatches->size());
+        boost::system::error_code ec = {};
+        callback(ec, sensorMatches);
+        return;
+    }
+
+    // Operate on next sensor in list
+    auto nextSensor = sensorListIn.begin();
+    std::advance(nextSensor, sensorsIndex);
+    if (nextSensor != sensorListIn.end())
+    {
+        const std::string& serviceName = (*nextSensor).first;
+        const std::string& sensorPath = (*nextSensor).second;
+        BMCWEB_LOG_DEBUG("getSensorsByPurpose get purpose {}", sensorPath);
+
+        dbus::utility::getProperty<std::vector<std::string>>(
+            serviceName, sensorPath, "xyz.openbmc_project.Sensor.Purpose",
+            "Purpose",
+            [asyncResp, sensorListIn, sensorPurpose, sensorMatches, callback,
+             sensorsIndex](const boost::system::error_code& ec,
+                           const std::vector<std::string>& purposeList) {
+                // If not found this sensor will be skipped but allow to
+                // continue processing remaining sensors
+                if (ec && (ec != boost::system::errc::io_error) &&
+                    (ec.value() != EBADR))
+                {
+                    BMCWEB_LOG_DEBUG(
+                        "D-Bus response error for {} Sensor.Purpose: {}",
+                        sensorsIndex, ec);
+                    callback(ec, sensorMatches);
+                    return;
+                }
+
+                if (!ec)
+                {
+                    checkSensorPurpose(sensorListIn, sensorsIndex,
+                                       sensorPurpose, sensorMatches,
+                                       purposeList);
+                }
+
+                // Recurse to get purpose from next sensor
+                getSensorsByPurpose(asyncResp, sensorListIn, sensorPurpose,
+                                    sensorMatches, callback, sensorsIndex + 1);
+            });
+    }
 }
 
 } // namespace sensor_utils
