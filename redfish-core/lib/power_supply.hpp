@@ -341,6 +341,63 @@ inline void
 }
 
 inline void
+    getEfficiencyPercent(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+{
+    static const std::string efficiencyIntf =
+        "xyz.openbmc_project.Control.PowerSupplyAttributes";
+    // Gets the Power Supply Attributes such as EfficiencyPercent.
+    // Currently we only support one power supply EfficiencyPercent, use this
+    // for all the power supplies.
+    crow::connections::systemBus->async_method_call(
+        [asyncResp](const boost::system::error_code ec,
+                    const dbus::utility::MapperGetSubTreeResponse& subtree) {
+        if (ec)
+        {
+            if (ec.value() == EBADR)
+            {
+                return;
+            }
+            BMCWEB_LOG_ERROR << "respHandler DBus error " << ec.message();
+            messages::internalError(asyncResp->res);
+            return;
+        }
+
+        for (const auto& [path, serviceMap] : subtree)
+        {
+            if (serviceMap.empty())
+            {
+                continue;
+            }
+
+            for (const auto& [service, interfaces] : serviceMap)
+            {
+                sdbusplus::asio::getProperty<uint32_t>(
+                    *crow::connections::systemBus, service, path,
+                    efficiencyIntf, "DeratingFactor",
+                    [asyncResp](const boost::system::error_code ec1,
+                                const uint32_t value) {
+                    if (ec1)
+                    {
+                        return;
+                    }
+
+                    nlohmann::json item;
+                    item["EfficiencyPercent"] = value;
+                    nlohmann::json& efficiencyList =
+                        asyncResp->res.jsonValue["EfficiencyRatings"];
+                    efficiencyList.emplace_back(std::move(item));
+                    });
+            }
+        }
+        },
+        "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetSubTree",
+        "/xyz/openbmc_project", 0,
+        std::array<const char*, 1>{efficiencyIntf.c_str()});
+}
+
+inline void
     doPowerSupplyGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                      const std::string& chassisId,
                      const std::string& powerSupplyId,
@@ -394,6 +451,8 @@ inline void
                                        intf);
             }
         }
+
+        getEfficiencyPercent(asyncResp);
     };
     // Get the correct Path and Service that match the input parameters
     getValidPowerSupplyPath(asyncResp, *validChassisPath, powerSupplyId,
