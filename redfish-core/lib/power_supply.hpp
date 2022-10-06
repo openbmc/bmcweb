@@ -358,6 +358,63 @@ inline void
 }
 
 inline void
+    getEfficiencyPercent(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+{
+    // Gets the Power Supply Attributes such as EfficiencyPercent.
+    // Currently we only support one power supply EfficiencyPercent, use this
+    // for all the power supplies.
+    constexpr std::array<std::string_view, 1> efficiencyIntf = {
+        "xyz.openbmc_project.Control.PowerSupplyAttributes"};
+
+    dbus::utility::getSubTree(
+        "/xyz/openbmc_project", 0, efficiencyIntf,
+        [asyncResp](const boost::system::error_code& ec,
+                    const dbus::utility::MapperGetSubTreeResponse& subtree) {
+        if (ec)
+        {
+            if (ec.value() != EBADR)
+            {
+                BMCWEB_LOG_ERROR << "DBUS response error for EfficiencyPercent "
+                                 << ec.message();
+                messages::internalError(asyncResp->res);
+            }
+            return;
+        }
+
+        for (const auto& [path, serviceMap] : subtree)
+        {
+            for (const auto& [service, interfaces] : serviceMap)
+            {
+                for (const auto& intf : interfaces)
+                {
+                    if (intf != std::string{efficiencyIntf})
+                    {
+                        continue;
+                    }
+
+                    sdbusplus::asio::getProperty<uint32_t>(
+                        *crow::connections::systemBus, service, path, efficiencyIntf,
+                        "DeratingFactor",
+                        [asyncResp](const boost::system::error_code& ec1,
+                                    uint32_t value) {
+                        if (ec1 || value == 0)
+                        {
+                            return;
+                        }
+
+                        nlohmann::json item;
+                        item["EfficiencyPercent"] = value;
+                        nlohmann::json& efficiencyList =
+                            asyncResp->res.jsonValue["EfficiencyRatings"];
+                        efficiencyList.emplace_back(std::move(item));
+                        });
+                }
+            }
+        }
+        });
+}
+
+inline void
     doPowerSupplyGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                      const std::string& chassisId,
                      const std::string& powerSupplyId,
@@ -411,6 +468,8 @@ inline void
             getPowerSupplyLocation(asyncResp, object.begin()->first,
                                    powerSupplyPath);
             });
+
+        getEfficiencyPercent(asyncResp);
     });
 }
 
