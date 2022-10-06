@@ -1022,7 +1022,7 @@ inline void objectPropertiesToJson(
  * @param path The D-Bus path to the sensor to be built
  * @param chassisId The Chassis Id for the sensor
  * @param chassisSubNode The subnode (e.g. ThermalMetrics) of the sensor
- * @param sensorTypeExpected The expected type of the sensor
+ * @param sensorTypeExpected The expected ReadingType of the sensor
  * @param propertiesDict A dictionary of the properties to build the sensor
  * from.
  * @param sensorJson  The json object to fill
@@ -1032,7 +1032,7 @@ inline void objectPropertiesToJson(
 inline bool objectExcerptToJson(
     const std::string& path, const std::string_view chassisId,
     ChassisSubNode chassisSubNode,
-    const std::optional<std::string>& sensorTypeExpected,
+    const std::optional<sensor::ReadingType>& sensorTypeExpected,
     const dbus::utility::DBusPropertiesMap& propertiesDict,
     nlohmann::json& sensorJson)
 {
@@ -1052,10 +1052,10 @@ inline bool objectExcerptToJson(
         return false;
     }
 
-    if (sensorTypeExpected && (sensorType != *sensorTypeExpected))
+    if (sensorTypeExpected &&
+        (sensors::toReadingType(sensorType) != *sensorTypeExpected))
     {
-        BMCWEB_LOG_DEBUG("{} is not expected type {}", path,
-                         *sensorTypeExpected);
+        BMCWEB_LOG_DEBUG("{} is not expected ReadingType", path);
         return false;
     }
 

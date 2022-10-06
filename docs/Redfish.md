@@ -267,6 +267,10 @@ Fields common to all schemas
 
 #### EnvironmentMetrics
 
+- FanSpeedsPercent[]/DataSourceUri
+- FanSpeedsPercent[]/Reading
+- FanSpeedsPercent[]/SpeedRPM
+- `FanSpeedsPercent@odata.count`
 - PowerWatts/DataSourceUri
 - PowerWatts/Reading
 
