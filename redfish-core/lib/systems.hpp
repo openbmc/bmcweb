@@ -856,6 +856,40 @@ inline void getBootProgress(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
 }
 
 /**
+ * @brief Retrieves boot progress Last Update of the system
+ *
+ * @param[in] aResp  Shared pointer for generating response message.
+ *
+ * @return None.
+ */
+inline void getBootProgressLastStateTime(
+    const std::shared_ptr<bmcweb::AsyncResp>& aResp)
+{
+    sdbusplus::asio::getProperty<uint64_t>(
+        *crow::connections::systemBus, "xyz.openbmc_project.State.Host",
+        "/xyz/openbmc_project/state/host0",
+        "xyz.openbmc_project.State.Boot.Progress", "BootProgressLastUpdate",
+        [aResp](const boost::system::error_code ec,
+                const uint64_t lastStateTime) {
+        if (ec)
+        {
+            BMCWEB_LOG_DEBUG << "D-BUS response error " << ec;
+            return;
+        }
+
+        // BootProgressLastUpdate is the last time the BootProgress property
+        // was updated. The time is the Epoch time, number of microseconds
+        // since 1 Jan 1970 00::00::00 UTC."
+        // https://github.com/openbmc/phosphor-dbus-interfaces/blob/master/
+        // yaml/xyz/openbmc_project/State/Boot/Progress.interface.yaml#L11
+
+        // Convert to ISO 8601 standard
+        aResp->res.jsonValue["BootProgress"]["LastStateTime"] =
+            redfish::time_utils::getDateTimeUintUs(lastStateTimeStamp);
+        });
+}
+
+/**
  * @brief Retrieves boot override type over DBUS and fills out the response
  *
  * @param[in] aResp         Shared pointer for generating response message.
@@ -2991,6 +3025,7 @@ inline void requestRoutesSystems(App& app)
         getHostState(asyncResp);
         getBootProperties(asyncResp);
         getBootProgress(asyncResp);
+        getBootProgressLastStateTime(asyncResp);
         getPCIeDeviceList(asyncResp, "PCIeDevices");
         getHostWatchdogTimer(asyncResp);
         getPowerRestorePolicy(asyncResp);
