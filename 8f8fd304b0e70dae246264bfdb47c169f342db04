@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7270569f_b3b763d8",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-10-07T03:15:54Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "03163207_9d0c5e75",
+      "revId": "8f8fd304b0e70dae246264bfdb47c169f342db04",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6b41184b_9b119d15",
@@ -41,6 +59,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "78d72872_328bbdde",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-10-07T03:15:54Z",
+      "side": 1,
+      "message": "\u003e This isn\u0027t going to handle the case where the system has no power supplies properly.\n\nChanged `Not Found`",
+      "parentUuid": "6b41184b_9b119d15",
+      "range": {
+        "startLine": 84,
+        "startChar": 0,
+        "endLine": 84,
+        "endChar": 52
+      },
+      "revId": "8f8fd304b0e70dae246264bfdb47c169f342db04",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "69fba837_d798f4ca",
@@ -54,6 +96,30 @@
       "writtenOn": "2022-10-06T23:56:44Z",
       "side": 1,
       "message": "Why are we concatenating the name here?  Do we do this other places?",
+      "range": {
+        "startLine": 95,
+        "startChar": 66,
+        "endLine": 95,
+        "endChar": 75
+      },
+      "revId": "8f8fd304b0e70dae246264bfdb47c169f342db04",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f55b7afd_72728aaa",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-10-07T03:15:54Z",
+      "side": 1,
+      "message": "\u003e Why are we concatenating the name here?  Do we do this other places?\n\nNo, We shouldn\u0027t concatenate names here.\nRemoved",
+      "parentUuid": "69fba837_d798f4ca",
       "range": {
         "startLine": 95,
         "startChar": 66,
