@@ -56,6 +56,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a6864a86_c31a1fbf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 47
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-10-07T18:14:28Z",
+      "side": 1,
+      "message": "Can you comment on why the validator passed, despite this error in the output?  Is there a service-validator bug we need to file?",
+      "parentUuid": "725c2ec5_5a81871a",
+      "revId": "686bb7ce55a68e1cd70397c50a4871257ff0e6c9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "685127dd_48665fc5",
         "filename": "redfish-core/lib/power_subsystem.hpp",
         "patchSetId": 47
