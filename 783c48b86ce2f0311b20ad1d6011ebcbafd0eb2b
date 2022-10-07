@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ed15d04e_f464a1a7",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 914,
+      "author": {
+        "id": 1001582
+      },
+      "writtenOn": "2022-10-07T23:46:36Z",
+      "side": 1,
+      "message": "This function definition needs to change: \n\nWe would have to make a call to the drives to get the current active software image. This information will be required to remove the association after we create the association for the new Active Software.",
+      "revId": "783c48b86ce2f0311b20ad1d6011ebcbafd0eb2b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca35fe25_8dde864c",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 1027,
+      "author": {
+        "id": 1001582
+      },
+      "writtenOn": "2022-10-07T23:46:36Z",
+      "side": 1,
+      "message": "Explanation, based on the discussion:\n\nThis would set the property of the object path that was extracted from the patch request parameter and set the Associations property to \"functional\" which should make it appear in the ObjectMapper Associations.",
+      "revId": "783c48b86ce2f0311b20ad1d6011ebcbafd0eb2b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b870cdad_cb783606",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 1033,
+      "author": {
+        "id": 1001582
+      },
+      "writtenOn": "2022-10-07T23:46:36Z",
+      "side": 1,
+      "message": "change \"gssd_software\" to \"drive_software\"",
+      "revId": "783c48b86ce2f0311b20ad1d6011ebcbafd0eb2b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a9aae7e4_d8e1047f",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 1076,
+      "author": {
+        "id": 1001582
+      },
+      "writtenOn": "2022-10-07T23:46:36Z",
+      "side": 1,
+      "message": "Based on the discussion:\n\nWe have to extract the \"Links\" property and the \"Active Software Image\" property from the patch request.",
+      "revId": "783c48b86ce2f0311b20ad1d6011ebcbafd0eb2b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a9b7db58_ed9e6d27",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 1097,
+      "author": {
+        "id": 1001582
+      },
+      "writtenOn": "2022-10-07T23:46:36Z",
+      "side": 1,
+      "message": "This function definition need to change- More in the function definition.",
+      "revId": "783c48b86ce2f0311b20ad1d6011ebcbafd0eb2b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fd652c40_e78320ec",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 1122,
+      "author": {
+        "id": 1001582
+      },
+      "writtenOn": "2022-10-07T23:46:36Z",
+      "side": 1,
+      "message": "Based on the discussion: this path should be: \"redfish/v1/Chassis/\u003cchassid-id\u003e/Drives/\u003cdrive-id\u003e\"\n\nThe patch request would have a property called - \n\nLinks -\u003e Active Software Image -\u003e odata-id\n\nExplanation on the flow here:\n\n* requestSetActiveSoftwareForDrive is called with a patch request (Holding the new ActiveSoftwareImage)\n\n* This would call the handler function, which in-turn calls:\n  * fetchingCurrentSoftware\n  * settingToNewSoftwareAssociation\n  * RemovingOldSoftwareAssociation",
+      "revId": "783c48b86ce2f0311b20ad1d6011ebcbafd0eb2b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
