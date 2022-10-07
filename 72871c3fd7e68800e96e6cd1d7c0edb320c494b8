@@ -174,6 +174,24 @@
       "parentUuid": "7eed71a7_924bc388",
       "revId": "72871c3fd7e68800e96e6cd1d7c0edb320c494b8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d9915ae3_55c86428",
+        "filename": "redfish-core/lib/ut/power_subsystem_test.cpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-10-07T03:09:48Z",
+      "side": 1,
+      "message": "\u003e I tried, but the functions of powersupplies all need call dbus to get some values, which will cause the test to fail.\n\nI agree with @Chicago, I don\u0027t think we need to test the PowerSupplies.",
+      "parentUuid": "35c13a5c_aff2ae6a",
+      "revId": "72871c3fd7e68800e96e6cd1d7c0edb320c494b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
