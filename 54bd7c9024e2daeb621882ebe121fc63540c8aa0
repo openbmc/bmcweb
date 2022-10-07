@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "756e0d9a_74583e23",
         "filename": "redfish-core/lib/metric_report_definition.hpp",
@@ -20,10 +21,34 @@
         "endChar": 5
       },
       "revId": "54bd7c9024e2daeb621882ebe121fc63540c8aa0",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c806ce99_3be6a651",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-10-07T12:22:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "756e0d9a_74583e23",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 5
+      },
+      "revId": "54bd7c9024e2daeb621882ebe121fc63540c8aa0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "d47e70d8_0e5562a5",
         "filename": "redfish-core/lib/metric_report_definition.hpp",
@@ -43,8 +68,31 @@
         "endChar": 35
       },
       "revId": "54bd7c9024e2daeb621882ebe121fc63540c8aa0",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9fef366c_074d1961",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-10-07T12:22:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d47e70d8_0e5562a5",
+      "range": {
+        "startLine": 41,
+        "startChar": 7,
+        "endLine": 41,
+        "endChar": 35
+      },
+      "revId": "54bd7c9024e2daeb621882ebe121fc63540c8aa0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
