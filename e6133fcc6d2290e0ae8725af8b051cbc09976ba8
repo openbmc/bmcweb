@@ -16,6 +16,24 @@
       "message": "In the current code: sensorPath variable is set to \"/xyz/openbmc_project/sensors\" on line 118. Can we change this variable to directly ask object mapper to look for the path \"/xyz/openbmc_project/sensors/power/total_power\" which we basically start doing at line146.\n\nIf we switch to \"/xyz/openbmc_project/sensors/power/total_power\", we can save have to iterate through all the sensors on the system search for total_power. \n\n\nAlternatively,\nIf we want to keep this, can we remove the hard coding of \"/xyz/openbmc_project/sensors/power/total_power\"? \nI\u0027m not a fan of this alternative but seems like we should pick one way or the other here.",
       "revId": "e6133fcc6d2290e0ae8725af8b051cbc09976ba8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "16393961_a65264ba",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1000547
+      },
+      "writtenOn": "2022-10-08T07:24:42Z",
+      "side": 1,
+      "message": "https://gerrit.openbmc.org/c/openbmc/bmcweb/+/57717/3#:~:text\u003dgetObject(asyncResp,(respHandler))\n\nModifications are done in this patch for the mentioned issue.",
+      "parentUuid": "bae93bc7_b3dfb762",
+      "revId": "e6133fcc6d2290e0ae8725af8b051cbc09976ba8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
