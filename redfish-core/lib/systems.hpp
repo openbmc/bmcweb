@@ -30,6 +30,7 @@
 #include "utils/json_utils.hpp"
 #include "utils/pcie_util.hpp"
 #include "utils/sw_utils.hpp"
+#include "utils/systems_utils.hpp"
 #include "utils/time_utils.hpp"
 
 #include <boost/asio/error.hpp>
@@ -3226,7 +3227,19 @@ inline void
         aRsp->res.jsonValue["Links"]["Chassis"] = std::move(chassisArray);
     });
 
-    getLocationIndicatorActive(asyncResp);
+    redfish::systems_utils::getValidSystemsPath(
+        asyncResp, systemName,
+        [asyncResp,
+         systemName](const std::optional<std::string>& validSystemsPath) {
+        if (!validSystemsPath)
+        {
+            BMC_WEB_WARNING << "Systems path not found for system: "
+                            << systemName;
+            messages::resourceNotFound(asyncResp->res, "Systems", systemName);
+            return;
+        }
+        getLocationIndicatorActive(asyncResp, *validSystemsPath);
+        });
     // TODO (Gunnar): Remove IndicatorLED after enough time has passed
     getIndicatorLedState(asyncResp);
     getComputerSystem(asyncResp, health);
@@ -3353,7 +3366,22 @@ inline void handleComputerSystemPatch(
 
     if (locationIndicatorActive)
     {
-        setLocationIndicatorActive(asyncResp, *locationIndicatorActive);
+        redfish::systems_utils::getValidSystemsPath(
+            asyncResp, systemName,
+            [asyncResp, systemName,
+             locationIndicatorActive{*locationIndicatorActive}](
+                const std::optional<std::string>& validSystemsPath) {
+            if (!validSystemsPath)
+            {
+                BMC_WEB_WARNING << "Systems path not found for system: "
+                                << systemName;
+                messages::resourceNotFound(asyncResp->res, "Systems",
+                                           systemName);
+                return;
+            }
+            setLocationIndicatorActive(asyncResp, *validSystemsPath,
+                                       locationIndicatorActive);
+            });
     }
 
     // TODO (Gunnar): Remove IndicatorLED after enough time has
