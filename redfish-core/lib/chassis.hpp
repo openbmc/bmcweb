@@ -419,7 +419,7 @@ inline void
                               interface) != interfaces2.end())
                 {
                     getIndicatorLedState(asyncResp);
-                    getLocationIndicatorActive(asyncResp);
+                    getLocationIndicatorActive(asyncResp, path);
                     break;
                 }
             }
@@ -640,7 +640,7 @@ inline void
             {
                 if (indicatorChassis)
                 {
-                    setLocationIndicatorActive(asyncResp,
+                    setLocationIndicatorActive(asyncResp, path,
                                                *locationIndicatorActive);
                 }
                 else
