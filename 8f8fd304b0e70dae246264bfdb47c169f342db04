@@ -109,6 +109,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e550de79_0cb0c9d4",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-10-08T06:49:58Z",
+      "side": 1,
+      "message": "\u003e Reopened.  Not quite correct.  Not all errors are not found errors.\n\nUpdated",
+      "parentUuid": "6edaec01_3b3a56d9",
+      "range": {
+        "startLine": 84,
+        "startChar": 0,
+        "endLine": 84,
+        "endChar": 52
+      },
+      "revId": "8f8fd304b0e70dae246264bfdb47c169f342db04",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "69fba837_d798f4ca",
         "filename": "redfish-core/lib/power_supply.hpp",
         "patchSetId": 3
