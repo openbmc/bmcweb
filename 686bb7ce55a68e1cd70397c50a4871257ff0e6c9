@@ -72,6 +72,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1e088438_fb87efce",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 47
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-10-08T02:10:40Z",
+      "side": 1,
+      "message": "\u003e Can you comment on why the validator passed, despite this error in the output?  Is there a service-validator bug we need to file?\n\nThe validator test passed before I split the PowerSubsystem functionality into multiple commits, and then after splitting into multiple commits, I didn\u0027t continue testing, which was an oversight I had 😞",
+      "parentUuid": "a6864a86_c31a1fbf",
+      "revId": "686bb7ce55a68e1cd70397c50a4871257ff0e6c9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "685127dd_48665fc5",
