@@ -21,6 +21,7 @@
 #include "pcie.hpp"
 #include "query.hpp"
 #include "redfish_util.hpp"
+#include "utils/systems_utils.hpp"
 #include "utils/time_utils.hpp"
 
 #include <app.hpp>
@@ -3018,7 +3019,20 @@ inline void requestRoutesSystems(App& app)
             aRsp->res.jsonValue["Links"]["Chassis"] = std::move(chassisArray);
         });
 
-        getLocationIndicatorActive(asyncResp);
+        auto respHandler =
+            [asyncResp,
+             systemName](const std::optional<std::string>& validSystemsPath) {
+            if (!validSystemsPath)
+            {
+                messages::resourceNotFound(asyncResp->res, "Systems",
+                                           systemName);
+                return;
+            }
+            getLocationIndicatorActive(asyncResp, *validSystemsPath);
+        };
+        redfish::systems_utils::getValidSystemsPath(
+            asyncResp, systemName, std::bind_front(respHandler));
+
         // TODO (Gunnar): Remove IndicatorLED after enough time has passed
         getIndicatorLedState(asyncResp);
         getComputerSystem(asyncResp, health);
@@ -3132,7 +3146,21 @@ inline void requestRoutesSystems(App& app)
 
         if (locationIndicatorActive)
         {
-            setLocationIndicatorActive(asyncResp, *locationIndicatorActive);
+            auto respHandler =
+                [asyncResp, systemName,
+                 locationIndicatorActive{*locationIndicatorActive}](
+                    const std::optional<std::string>& validSystemsPath) {
+                if (!validSystemsPath)
+                {
+                    messages::resourceNotFound(asyncResp->res, "Systems",
+                                               systemName);
+                    return;
+                }
+                setLocationIndicatorActive(asyncResp, *validSystemsPath,
+                                           locationIndicatorActive);
+            };
+            redfish::systems_utils::getValidSystemsPath(
+                asyncResp, systemName, std::bind_front(respHandler));
         }
 
         // TODO (Gunnar): Remove IndicatorLED after enough time has
