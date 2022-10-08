@@ -2984,7 +2984,27 @@ inline void requestRoutesSystems(App& app)
             aRsp->res.jsonValue["Links"]["Chassis"] = std::move(chassisArray);
         });
 
-        getLocationIndicatorActive(asyncResp);
+        crow::connections::systemBus->async_method_call(
+            [asyncResp](const boost::system::error_code ec,
+                        const std::vector<std::string>& resp) {
+            if (ec)
+            {
+                // no inventory
+                return;
+            }
+
+            for (const auto& path : resp)
+            {
+                getLocationIndicatorActive(asyncResp, path);
+            }
+            },
+            "xyz.openbmc_project.ObjectMapper",
+            "/xyz/openbmc_project/object_mapper",
+            "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths", "/",
+            int32_t(0),
+            std::array<const char*, 1>{
+                "xyz.openbmc_project.Inventory.Item.System"});
+
         // TODO (Gunnar): Remove IndicatorLED after enough time has passed
         getIndicatorLedState(asyncResp);
         getComputerSystem(asyncResp, health);
@@ -3097,7 +3117,28 @@ inline void requestRoutesSystems(App& app)
 
         if (locationIndicatorActive)
         {
-            setLocationIndicatorActive(asyncResp, *locationIndicatorActive);
+            crow::connections::systemBus->async_method_call(
+                [asyncResp, locationIndicatorActive{*locationIndicatorActive}](
+                    const boost::system::error_code ec,
+                    const std::vector<std::string>& resp) {
+                if (ec)
+                {
+                    // no inventory
+                    return;
+                }
+
+                for (const auto& path : resp)
+                {
+                    setLocationIndicatorActive(asyncResp, path,
+                                               locationIndicatorActive);
+                }
+                },
+                "xyz.openbmc_project.ObjectMapper",
+                "/xyz/openbmc_project/object_mapper",
+                "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths", "/",
+                int32_t(0),
+                std::array<const char*, 1>{
+                    "xyz.openbmc_project.Inventory.Item.System"});
         }
 
         // TODO (Gunnar): Remove IndicatorLED after enough time has
