@@ -267,6 +267,5 @@ inline void
         service, path, "org.freedesktop.DBus.ObjectManager",
         "GetManagedObjects");
 }
-
 } // namespace utility
 } // namespace dbus
