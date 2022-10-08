@@ -3226,7 +3226,8 @@ inline void
         aRsp->res.jsonValue["Links"]["Chassis"] = std::move(chassisArray);
     });
 
-    getLocationIndicatorActive(asyncResp);
+    getLocationIndicatorActive(asyncResp,
+                               "/xyz/openbmc_project/inventory/system");
     // TODO (Gunnar): Remove IndicatorLED after enough time has passed
     getIndicatorLedState(asyncResp);
     getComputerSystem(asyncResp, health);
@@ -3353,7 +3354,9 @@ inline void handleComputerSystemPatch(
 
     if (locationIndicatorActive)
     {
-        setLocationIndicatorActive(asyncResp, *locationIndicatorActive);
+        setLocationIndicatorActive(asyncResp,
+                                   "/xyz/openbmc_project/inventory/system",
+                                   *locationIndicatorActive);
     }
 
     // TODO (Gunnar): Remove IndicatorLED after enough time has
