@@ -520,7 +520,7 @@ inline void
                     interfaces2.end())
                 {
                     getIndicatorLedState(asyncResp);
-                    getLocationIndicatorActive(asyncResp);
+                    getSystemLocationIndicatorActive(asyncResp);
                     break;
                 }
             }
@@ -741,7 +741,7 @@ inline void
             {
                 if (indicatorChassis)
                 {
-                    setLocationIndicatorActive(asyncResp,
+                    setSystemLocationIndicatorActive(asyncResp,
                                                *locationIndicatorActive);
                 }
                 else
