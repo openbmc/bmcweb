@@ -31,6 +31,7 @@
 #include "utils/json_utils.hpp"
 #include "utils/pcie_util.hpp"
 #include "utils/sw_utils.hpp"
+#include "utils/systems_utils.hpp"
 #include "utils/time_utils.hpp"
 
 #include <boost/asio/error.hpp>
@@ -1852,6 +1853,36 @@ inline void
 }
 
 /**
+ * @brief Retrieves the valid system path for a given system name.
+ *
+ * @param[in] asyncResp    Shared pointer for generating response message.
+ * @param[in] systemName   Name of the system.
+ *
+ * @return The valid system path
+ */
+inline std::string getSystemPath(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                                 const std::string& systemName)
+{
+    std::string systemPath;
+
+    redfish::systems_utils::getValidSystemPath(
+        asyncResp, systemName,
+        [&systemPath, asyncResp, systemName](
+            const std::optional<std::string>& validSystemPath) {
+            if (!validSystemPath)
+            {
+                BMCWEB_LOG_WARNING << "Systems path not found for system: "
+                                   << systemName;
+                messages::resourceNotFound(asyncResp->res, "Systems", systemName);
+                return;
+            }
+            systemPath = *validSystemPath;
+        });
+
+    return systemPath;
+}
+
+/**
  * @brief Sets AssetTag
  *
  * @param[in] asyncResp Shared pointer for generating response message.
@@ -3218,6 +3249,7 @@ inline void
                                    systemName);
         return;
     }
+    std::string systemPath = getSystemPath(asyncResp, systemName);
     asyncResp->res.addHeader(
         boost::beast::http::field::link,
         "</redfish/v1/JsonSchemas/ComputerSystem/ComputerSystem.json>; rel=describedby");
@@ -3320,7 +3352,7 @@ inline void
         aRsp->res.jsonValue["Links"]["Chassis"] = std::move(chassisArray);
     });
 
-    getLocationIndicatorActive(asyncResp);
+    getLocationIndicatorActive(asyncResp, systemPath);
     // TODO (Gunnar): Remove IndicatorLED after enough time has passed
     getIndicatorLedState(asyncResp);
     getComputerSystem(asyncResp, health);
@@ -3364,6 +3396,7 @@ inline void handleComputerSystemPatch(
                                    systemName);
         return;
     }
+    std::string systemPath = getSystemPath(asyncResp, systemName);
 
     asyncResp->res.addHeader(
         boost::beast::http::field::link,
@@ -3455,7 +3488,8 @@ inline void handleComputerSystemPatch(
 
     if (locationIndicatorActive)
     {
-        setLocationIndicatorActive(asyncResp, *locationIndicatorActive);
+        setLocationIndicatorActive(asyncResp, systemPath,
+                                   *locationIndicatorActive);
     }
 
     // TODO (Gunnar): Remove IndicatorLED after enough time has
