@@ -22,6 +22,30 @@
       },
       "revId": "0ba14ce97799b4b42cc26ca0b532f7d825b25c82",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "08942b9a_4d77f949",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-10-08T06:46:52Z",
+      "side": 1,
+      "message": "\u003e Here no type changes happen, probably no need to call the constructor\n\nCI will report the following error:\n```\n../redfish-core/include/../lib/power_supply.hpp:83:33: error: \u0027service\u0027 in capture list does not name a variable [clang-diagnostic-error]\n                    [asyncResp, service, powerSupplyPath{powerSupplyPath}\n```",
+      "parentUuid": "202773fb_cf4d0faf",
+      "range": {
+        "startLine": 75,
+        "startChar": 47,
+        "endLine": 75,
+        "endChar": 63
+      },
+      "revId": "0ba14ce97799b4b42cc26ca0b532f7d825b25c82",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
