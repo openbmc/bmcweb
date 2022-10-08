@@ -15,7 +15,9 @@
  */
 #pragma once
 
+#include "async_resp.hpp"
 #include "dbus_singleton.hpp"
+#include "error_messages.hpp"
 
 #include <boost/system/error_code.hpp> // IWYU pragma: keep
 #include <sdbusplus/message/native_types.hpp>
@@ -92,6 +94,10 @@ using MapperGetAncestorsResponse = std::vector<
 
 using MapperGetSubTreePathsResponse = std::vector<std::string>;
 
+// Map of association
+using MapperGetAssociationResponse =
+    std::vector<std::tuple<std::string, std::string, std::string>>;
+
 inline void escapePathForDbus(std::string& path)
 {
     const std::regex reg("[^A-Za-z0-9_/]");
@@ -138,6 +144,36 @@ inline void checkDbusPathExists(const std::string& path, Callback&& callback)
         "/xyz/openbmc_project/object_mapper",
         "xyz.openbmc_project.ObjectMapper", "GetObject", path,
         std::array<std::string, 0>());
+}
+
+inline void getDbusObject(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                          const std::string& path,
+                          std::span<std::string> interfaces,
+                          std::function<void(const std::string&)>&& callback)
+{
+    crow::connections::systemBus->async_method_call(
+        [asyncResp, callback](const boost::system::error_code ec,
+                              const dbus::utility::MapperGetObject& object) {
+        std::string service;
+        if (!ec)
+        {
+            // Ensure we only got one service back
+            if (object.size() == 1)
+            {
+                service = object.begin()->first;
+            }
+            else
+            {
+                BMCWEB_LOG_ERROR << "Invalid Object Size " << object.size();
+                redfish::messages::internalError(asyncResp->res);
+            }
+            service = object.begin()->first;
+        }
+        callback(service);
+        },
+        "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetObject", path, interfaces);
 }
 
 } // namespace utility
