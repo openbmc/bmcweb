@@ -69,6 +69,30 @@
       },
       "revId": "71a9bc85f8f86a6e51d54278ffd8a508b3476132",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "42b3c548_c767f82e",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 1668,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-10-08T03:28:53Z",
+      "side": 1,
+      "message": "In Linux, the VLAN virtual interface only accepted tagged frames with the VLAN ID specified. For example, eth1.100 accepts frames with VLAN Tagged 100 on eth1. They are always tagged.\n\n\"Linux can accept VLAN tagged traffic and presents each VLAN ID as a different network interface\"\nhttps://wiki.archlinux.org/title/VLAN",
+      "parentUuid": "b0ea77c9_4897ec58",
+      "range": {
+        "startLine": 1668,
+        "startChar": 8,
+        "endLine": 1668,
+        "endChar": 46
+      },
+      "revId": "71a9bc85f8f86a6e51d54278ffd8a508b3476132",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
