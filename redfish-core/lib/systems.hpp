@@ -1846,6 +1846,78 @@ inline void
     setBootEnable(asyncResp, bootEnable);
 }
 
+inline void afterGetSystemSubTree(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec,
+    const dbus::utility::MapperGetSubTreeResponse& subtree,
+    const std::function<void(const std::string& systemPath,
+                             const std::string& service)>& callback)
+{
+    if (ec)
+    {
+        BMCWEB_LOG_DEBUG("D-Bus response error on GetSubTree {}", ec);
+        messages::internalError(asyncResp->res);
+        return;
+    }
+    if (subtree.empty())
+    {
+        BMCWEB_LOG_DEBUG("Can't find system D-Bus object!");
+        messages::internalError(asyncResp->res);
+        return;
+    }
+    // Assume only 1 system D-Bus object
+    // Throw an error if there is more than 1
+    if (subtree.size() > 1)
+    {
+        BMCWEB_LOG_DEBUG("Found more than 1 system D-Bus object!");
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    if (subtree[0].first.empty() || subtree[0].second.size() != 1)
+    {
+        BMCWEB_LOG_DEBUG("Error getting system path!");
+        messages::internalError(asyncResp->res);
+        return;
+    }
+    const std::string& path = subtree[0].first;
+    const std::string& service = subtree[0].second.begin()->first;
+
+    if (service.empty())
+    {
+        BMCWEB_LOG_DEBUG("Error getting system service!");
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    callback(path, service);
+}
+
+/**
+ * @brief Retrieves the system path and service.
+ *
+ * @param[in] asyncResp    Shared pointer for generating response message.
+ * @param[in] systemName   Name of the system.
+ *
+ * @return The system path and service
+ */
+inline void getSystemPath(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::function<void(const std::string& systemPath,
+                             const std::string& service)>& callback)
+{
+    constexpr std::array<std::string_view, 1> interfaces = {
+        "xyz.openbmc_project.Inventory.Item.System"};
+
+    dbus::utility::getSubTree(
+        "/xyz/openbmc_project/inventory", 0, interfaces,
+        [asyncResp,
+         callback](const boost::system::error_code& ec,
+                   const dbus::utility::MapperGetSubTreeResponse& subTree) {
+        afterGetSystemSubTree(asyncResp, ec, subTree, callback);
+        });
+}
+
 /**
  * @brief Sets AssetTag
  *
@@ -3314,7 +3386,10 @@ inline void
         aRsp->res.jsonValue["Links"]["Chassis"] = std::move(chassisArray);
     });
 
-    getLocationIndicatorActive(asyncResp);
+    getSystemPath(asyncResp, [asyncResp](const std::string& systemPath,
+                                         const std::string&) {
+        getLocationIndicatorActive(asyncResp, systemPath);
+    });
     // TODO (Gunnar): Remove IndicatorLED after enough time has passed
     getIndicatorLedState(asyncResp);
     getComputerSystem(asyncResp, health);
@@ -3449,7 +3524,12 @@ inline void handleComputerSystemPatch(
 
     if (locationIndicatorActive)
     {
-        setLocationIndicatorActive(asyncResp, *locationIndicatorActive);
+        getSystemPath(asyncResp,
+                      [asyncResp, locationIndicatorActive](
+                          const std::string& systemPath, const std::string&) {
+            setLocationIndicatorActive(asyncResp, systemPath,
+                                       *locationIndicatorActive);
+        });
     }
 
     // TODO (Gunnar): Remove IndicatorLED after enough time has
