@@ -3331,7 +3331,7 @@ inline void
         aRsp->res.jsonValue["Links"]["Chassis"] = std::move(chassisArray);
     });
 
-    getLocationIndicatorActive(asyncResp);
+    getSystemLocationIndicatorActive(asyncResp);
     // TODO (Gunnar): Remove IndicatorLED after enough time has passed
     getIndicatorLedState(asyncResp);
     getComputerSystem(asyncResp, health);
@@ -3466,7 +3466,7 @@ inline void handleComputerSystemPatch(
 
     if (locationIndicatorActive)
     {
-        setLocationIndicatorActive(asyncResp, *locationIndicatorActive);
+        setSystemLocationIndicatorActive(asyncResp, *locationIndicatorActive);
     }
 
     // TODO (Gunnar): Remove IndicatorLED after enough time has
