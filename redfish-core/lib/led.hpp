@@ -22,6 +22,8 @@
 
 #include <sdbusplus/asio/property.hpp>
 
+#include <array>
+
 namespace redfish
 {
 /**
@@ -158,104 +160,127 @@ inline void
         dbus::utility::DbusVariantType(ledBlinkng));
 }
 
-/**
- * @brief Retrieves identify led group properties over dbus
- *
- * @param[in] asyncResp     Shared pointer for generating response message.
- *
- * @return None.
- */
-inline void getLocationIndicatorActive(
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+inline void getLedAsset(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+                        const std::string& ledGroup)
 {
-    BMCWEB_LOG_DEBUG << "Get LocationIndicatorActive";
-    sdbusplus::asio::getProperty<bool>(
-        *crow::connections::systemBus, "xyz.openbmc_project.LED.GroupManager",
-        "/xyz/openbmc_project/led/groups/enclosure_identify_blink",
-        "xyz.openbmc_project.Led.Group", "Asserted",
-        [asyncResp](const boost::system::error_code& ec, const bool blinking) {
-        // Some systems may not have enclosure_identify_blink object so
-        // proceed to get enclosure_identify state.
-        if (ec == boost::system::errc::invalid_argument)
+    constexpr std::array<std::string_view, 1> interfaces = {
+        "xyz.openbmc_project.Led.Group"};
+    dbus::utility::getDbusObject(
+        ledGroup, interfaces,
+        [aResp, ledGroup](const boost::system::error_code& ec,
+                          const dbus::utility::MapperGetObject& object) {
+        if (ec || object.size() != 1)
         {
-            BMCWEB_LOG_DEBUG
-                << "Get identity blinking LED failed, missmatch in property type";
-            messages::internalError(asyncResp->res);
-            return;
-        }
-
-        // Blinking ON, no need to check enclosure_identify assert.
-        if (!ec && blinking)
-        {
-            asyncResp->res.jsonValue["LocationIndicatorActive"] = true;
+            BMCWEB_LOG_ERROR << "DBUS response error " << ec.message();
+            messages::internalError(aResp->res);
             return;
         }
 
         sdbusplus::asio::getProperty<bool>(
-            *crow::connections::systemBus,
-            "xyz.openbmc_project.LED.GroupManager",
-            "/xyz/openbmc_project/led/groups/enclosure_identify",
+            *crow::connections::systemBus, object.begin()->first, ledGroup,
             "xyz.openbmc_project.Led.Group", "Asserted",
-            [asyncResp](const boost::system::error_code& ec2,
-                        const bool ledOn) {
-            if (ec2 == boost::system::errc::invalid_argument)
+            [aResp](const boost::system::error_code& ec1, bool assert) {
+            if (ec1)
             {
-                BMCWEB_LOG_DEBUG
-                    << "Get enclosure identity led failed, missmatch in property type";
-                messages::internalError(asyncResp->res);
+                messages::internalError(aResp->res);
                 return;
             }
 
-            if (ec2)
-            {
-                return;
-            }
-
-            asyncResp->res.jsonValue["LocationIndicatorActive"] = ledOn;
+            aResp->res.jsonValue["LocationIndicatorActive"] = assert;
             });
+        });
+}
+
+inline void setLedAsset(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+                        const std::string& ledGroup, bool ledState)
+{
+    constexpr std::array<std::string_view, 1> interfaces = {
+        "xyz.openbmc_project.Led.Group"};
+    dbus::utility::getDbusObject(
+        ledGroup, interfaces,
+        [aResp, ledGroup,
+         ledState](const boost::system::error_code& ec,
+                   const dbus::utility::MapperGetObject& object) {
+        if (ec || object.size() != 1)
+        {
+            BMCWEB_LOG_ERROR << "DBUS response error " << ec.message();
+            messages::internalError(aResp->res);
+            return;
+        }
+
+        sdbusplus::asio::setProperty(
+            *crow::connections::systemBus, object.begin()->first, ledGroup,
+            "xyz.openbmc_project.Led.Group", "Asserted", ledState,
+            [aResp](const boost::system::error_code& ec1) {
+            if (ec1)
+            {
+                messages::internalError(aResp->res);
+                return;
+            }
+            });
+        });
+}
+
+/**
+ * @brief Retrieves identify led group properties over dbus
+ *
+ * @param[in] aResp     Shared pointer for generating response message.
+ * @param[in] objPath   Object path on PIM
+ *
+ * @return None.
+ */
+inline void
+    getLocationIndicatorActive(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+                               const std::string& objPath)
+{
+    BMCWEB_LOG_DEBUG << "Get LocationIndicatorActive";
+
+    dbus::utility::getAssociationEndPoints(
+        objPath + "/identifying",
+        [aResp](const boost::system::error_code& ec,
+                const dbus::utility::MapperEndPoints& endpoints) {
+        if (ec.value() != EBADR)
+        {
+            messages::internalError(aResp->res);
+            return;
+        }
+
+        for (const auto& endpoint : endpoints)
+        {
+            getLedAsset(aResp, endpoint);
+        }
         });
 }
 
 /**
  * @brief Sets identify led group properties
  *
- * @param[in] asyncResp     Shared pointer for generating response message.
+ * @param[in] aResp     Shared pointer for generating response message.
+ * @param[in] objPath   Object path on PIM
  * @param[in] ledState  LED state passed from request
  *
  * @return None.
  */
-inline void setLocationIndicatorActive(
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, const bool ledState)
+inline void
+    setLocationIndicatorActive(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+                               const std::string& objPath, bool ledState)
 {
     BMCWEB_LOG_DEBUG << "Set LocationIndicatorActive";
 
-    crow::connections::systemBus->async_method_call(
-        [asyncResp, ledState](const boost::system::error_code& ec) mutable {
-        if (ec)
+    dbus::utility::getAssociationEndPoints(
+        objPath + "/identifying",
+        [aResp, ledState](const boost::system::error_code& ec,
+                          const dbus::utility::MapperEndPoints& endpoints) {
+        if (ec.value() != EBADR)
         {
-            // Some systems may not have enclosure_identify_blink object so
-            // lets set enclosure_identify state also if
-            // enclosure_identify_blink failed
-            crow::connections::systemBus->async_method_call(
-                [asyncResp](const boost::system::error_code& ec2) {
-                if (ec2)
-                {
-                    BMCWEB_LOG_DEBUG << "DBUS response error " << ec2;
-                    messages::internalError(asyncResp->res);
-                    return;
-                }
-                },
-                "xyz.openbmc_project.LED.GroupManager",
-                "/xyz/openbmc_project/led/groups/enclosure_identify",
-                "org.freedesktop.DBus.Properties", "Set",
-                "xyz.openbmc_project.Led.Group", "Asserted",
-                dbus::utility::DbusVariantType(ledState));
+            messages::internalError(aResp->res);
+            return;
         }
-        },
-        "xyz.openbmc_project.LED.GroupManager",
-        "/xyz/openbmc_project/led/groups/enclosure_identify_blink",
-        "org.freedesktop.DBus.Properties", "Set",
-        "xyz.openbmc_project.Led.Group", "Asserted",
-        dbus::utility::DbusVariantType(ledState));
+
+        for (const auto& endpoint : endpoints)
+        {
+            setLedAsset(aResp, endpoint, ledState);
+        }
+        });
 }
 } // namespace redfish
