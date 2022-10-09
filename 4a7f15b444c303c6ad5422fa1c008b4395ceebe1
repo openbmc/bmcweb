@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "04a992fc_d6085a4e",
         "filename": "redfish-core/lib/power_supply.hpp",
@@ -14,10 +15,28 @@
       "side": 1,
       "message": "Nit: Add `BMCWEB_LOG_DEBUG \u003c\u003c \"PowerSupply doPatch param size is not equal to 2\";`",
       "revId": "4a7f15b444c303c6ad5422fa1c008b4395ceebe1",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a9c9fc5c_df633f2a",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 572,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-10-09T04:58:17Z",
+      "side": 1,
+      "message": "\u003e Nit: Add `BMCWEB_LOG_DEBUG \u003c\u003c \"PowerSupply doPatch param size is not equal to 2\";`\n\nThis logic has been changed in the latest commit,\nPlease review: https://gerrit.openbmc.org/q/topic:redifsh-power-supply",
+      "parentUuid": "04a992fc_d6085a4e",
+      "revId": "4a7f15b444c303c6ad5422fa1c008b4395ceebe1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "d86eb184_15acfe67",
         "filename": "redfish-core/lib/power_supply.hpp",
@@ -37,10 +56,34 @@
         "endChar": 36
       },
       "revId": "4a7f15b444c303c6ad5422fa1c008b4395ceebe1",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4dad597e_6495bd51",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 584,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-10-09T04:58:17Z",
+      "side": 1,
+      "message": "\u003e please invert this check\n\nThis logic has been changed in the latest commit,\nPlease review: https://gerrit.openbmc.org/q/topic:redifsh-power-supply",
+      "parentUuid": "d86eb184_15acfe67",
+      "range": {
+        "startLine": 584,
+        "startChar": 12,
+        "endLine": 584,
+        "endChar": 36
+      },
+      "revId": "4a7f15b444c303c6ad5422fa1c008b4395ceebe1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "a40606a3_2bbaba91",
         "filename": "redfish-core/lib/power_supply.hpp",
@@ -60,10 +103,34 @@
         "endChar": 47
       },
       "revId": "4a7f15b444c303c6ad5422fa1c008b4395ceebe1",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b292516e_c5901a57",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 589,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-10-09T04:58:17Z",
+      "side": 1,
+      "message": "\u003e Why need this?\n\nThis logic has been changed in the latest commit,\nPlease review: https://gerrit.openbmc.org/q/topic:redifsh-power-supply",
+      "parentUuid": "a40606a3_2bbaba91",
+      "range": {
+        "startLine": 589,
+        "startChar": 8,
+        "endLine": 589,
+        "endChar": 47
+      },
+      "revId": "4a7f15b444c303c6ad5422fa1c008b4395ceebe1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "e9bb06cd_1d48184e",
         "filename": "redfish-core/lib/power_supply.hpp",
@@ -83,8 +150,31 @@
         "endChar": 29
       },
       "revId": "4a7f15b444c303c6ad5422fa1c008b4395ceebe1",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b23a2c13_04b4c8a9",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 614,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-10-09T04:58:17Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "e9bb06cd_1d48184e",
+      "range": {
+        "startLine": 613,
+        "startChar": 16,
+        "endLine": 614,
+        "endChar": 29
+      },
+      "revId": "4a7f15b444c303c6ad5422fa1c008b4395ceebe1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
