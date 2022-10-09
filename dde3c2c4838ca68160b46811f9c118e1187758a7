@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "cf277b2b_487fb7ff",
         "filename": "/COMMIT_MSG",
@@ -14,10 +15,10 @@
       "side": 1,
       "message": "Property for processor --\u003e This is not for processor. It is for Fans.",
       "revId": "dde3c2c4838ca68160b46811f9c118e1187758a7",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "4a8f2705_76615053",
         "filename": "/COMMIT_MSG",
@@ -32,10 +33,10 @@
       "message": "Done",
       "parentUuid": "cf277b2b_487fb7ff",
       "revId": "dde3c2c4838ca68160b46811f9c118e1187758a7",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "1bd0cce3_36204235",
         "filename": "/COMMIT_MSG",
@@ -49,10 +50,10 @@
       "side": 1,
       "message": "Looks like the commit msg was copied from the LocationIndicatorActive for CPU ?.. Please fix the entire commit message to depict fans",
       "revId": "dde3c2c4838ca68160b46811f9c118e1187758a7",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "73f5bdcc_a2444e70",
         "filename": "/COMMIT_MSG",
@@ -67,10 +68,10 @@
       "message": "Done",
       "parentUuid": "1bd0cce3_36204235",
       "revId": "dde3c2c4838ca68160b46811f9c118e1187758a7",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "b477ae78_8a29e6d1",
         "filename": "/COMMIT_MSG",
@@ -84,10 +85,10 @@
       "side": 1,
       "message": "Please have the result of \"busctl get-property\" here",
       "revId": "dde3c2c4838ca68160b46811f9c118e1187758a7",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "b8d9690e_3e8f9866",
         "filename": "/COMMIT_MSG",
@@ -102,10 +103,10 @@
       "message": "Done",
       "parentUuid": "b477ae78_8a29e6d1",
       "revId": "dde3c2c4838ca68160b46811f9c118e1187758a7",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "6cd66f88_ffdf969c",
         "filename": "/COMMIT_MSG",
@@ -119,10 +120,10 @@
       "side": 1,
       "message": "please have the result of \"busctl get-property\" here",
       "revId": "dde3c2c4838ca68160b46811f9c118e1187758a7",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "08b0674b_9a2e1acf",
         "filename": "/COMMIT_MSG",
@@ -137,10 +138,10 @@
       "message": "Done",
       "parentUuid": "6cd66f88_ffdf969c",
       "revId": "dde3c2c4838ca68160b46811f9c118e1187758a7",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "49651be1_1c801925",
         "filename": "/COMMIT_MSG",
@@ -154,10 +155,10 @@
       "side": 1,
       "message": "typo : Section",
       "revId": "dde3c2c4838ca68160b46811f9c118e1187758a7",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "c063ff41_847f4659",
         "filename": "/COMMIT_MSG",
@@ -172,10 +173,10 @@
       "message": "Done",
       "parentUuid": "49651be1_1c801925",
       "revId": "dde3c2c4838ca68160b46811f9c118e1187758a7",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "89d9a243_9f58aafa",
         "filename": "/COMMIT_MSG",
@@ -189,10 +190,10 @@
       "side": 1,
       "message": "Do you have identify_led_group of the Fan pointing to this fan2_fault -or- fan2_identify ?",
       "revId": "dde3c2c4838ca68160b46811f9c118e1187758a7",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "436174e4_8b1b7705",
         "filename": "/COMMIT_MSG",
@@ -207,10 +208,28 @@
       "message": "busctl get-property xyz.openbmc_project.ObjectMapper /xyz/openbmc_project/inventory/system/chassis/motherboard/fan3/identify_led_group xyz.openbmc_project.Association endpoints\nas 1 \"/xyz/openbmc_project/led/groups/fan3_identify\"",
       "parentUuid": "89d9a243_9f58aafa",
       "revId": "dde3c2c4838ca68160b46811f9c118e1187758a7",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "52ce23ee_365c7f55",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-10-09T01:05:13Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "436174e4_8b1b7705",
+      "revId": "dde3c2c4838ca68160b46811f9c118e1187758a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "71940a81_dfb3512f",
         "filename": "redfish-core/lib/fan.hpp",
@@ -224,10 +243,10 @@
       "side": 1,
       "message": "I believe this is far too away and making it hard to read ( at least in the Gerrit review.. when I open in the edit mode, it\u0027s somewhat better .. but it\u0027s getting too deeply nested )\n\nAlso in this way, how is it reflecting the value on both the rotors ?. I understand it has been captured in the commit msg.. but just wondering how..\n\nAlso, for CPU and DIMM commits.. we went by Associations.Definitions and also had the getDimmObject + getDimmData and setDimmObject + setDimmData\n\ndon\u0027t we need that followed here ?\n\nExample: I have these for Sensor.Values\n\n   array [\n      string \"/xyz/openbmc_project/sensors/fan_tach/fan0_0\"\n      string \"/xyz/openbmc_project/sensors/fan_tach/fan0_1\"\n      string \"/xyz/openbmc_project/sensors/fan_tach/fan1_0\"\n      string \"/xyz/openbmc_project/sensors/fan_tach/fan1_1\"\n      string \"/xyz/openbmc_project/sensors/fan_tach/fan2_0\"\n      string \"/xyz/openbmc_project/sensors/fan_tach/fan2_1\"\n      string \"/xyz/openbmc_project/sensors/fan_tach/fan3_0\"\n      string \"/xyz/openbmc_project/sensors/fan_tach/fan3_1\"\n      string \"/xyz/openbmc_project/sensors/fan_tach/fan4_0\"\n      string \"/xyz/openbmc_project/sensors/fan_tach/fan4_1\"\n      string \"/xyz/openbmc_project/sensors/fan_tach/fan5_0\"\n      string \"/xyz/openbmc_project/sensors/fan_tach/fan5_1\"\n      string \"/xyz/openbmc_project/sensors/temperature/Ambient_0_Temp\"\n      string \"/xyz/openbmc_project/sensors/temperature/Ambient_Virtual_Temp\"\n      string \"/xyz/openbmc_project/sensors/temperature/PCIE_0_Temp\"\n      string \"/xyz/openbmc_project/sensors/temperature/PCIE_1_Temp\"\n      string \"/xyz/openbmc_project/sensors/utilization/CPU\"\n      string \"/xyz/openbmc_project/sensors/utilization/Memory\"",
       "revId": "dde3c2c4838ca68160b46811f9c118e1187758a7",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "2a42b586_fd9ee527",
         "filename": "redfish-core/lib/fan.hpp",
@@ -242,10 +261,28 @@
       "message": "In the previous commit: Implements Fan schema, the code has been \nmodified to make it too difficult to read.\n\nAlso, for CPU and DIMM commits.. \nThe implemented logic is not exactly the same，\nfor the Sensor.Values above, the judgment is made first,\nand the data behind is obtained through association,\nthis is how I implemented it.",
       "parentUuid": "71940a81_dfb3512f",
       "revId": "dde3c2c4838ca68160b46811f9c118e1187758a7",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2d03151e_c02aeea8",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-10-09T01:05:13Z",
+      "side": 1,
+      "message": "\u003e In the previous commit: Implements Fan schema, the code has been \n\u003e modified to make it too difficult to read.\n\u003e \n\u003e Also, for CPU and DIMM commits.. \n\u003e The implemented logic is not exactly the same，\n\u003e for the Sensor.Values above, the judgment is made first,\n\u003e and the data behind is obtained through association,\n\u003e this is how I implemented it.\n\nThis logic has been changed in the latest commit,\nPlease review: https://gerrit.openbmc.org/q/topic:redfish-fan",
+      "parentUuid": "2a42b586_fd9ee527",
+      "revId": "dde3c2c4838ca68160b46811f9c118e1187758a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "2f89ff8d_4491bbe7",
         "filename": "redfish-core/lib/fan.hpp",
@@ -259,10 +296,10 @@
       "side": 1,
       "message": "may need a BMCWEB_DEBUG here ?",
       "revId": "dde3c2c4838ca68160b46811f9c118e1187758a7",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "88635b7b_a34dd480",
         "filename": "redfish-core/lib/fan.hpp",
@@ -277,10 +314,10 @@
       "message": "Done",
       "parentUuid": "2f89ff8d_4491bbe7",
       "revId": "dde3c2c4838ca68160b46811f9c118e1187758a7",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "3f68a4a0_fbe6edae",
         "filename": "redfish-core/lib/fan.hpp",
@@ -300,10 +337,10 @@
         "endChar": 41
       },
       "revId": "dde3c2c4838ca68160b46811f9c118e1187758a7",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "9463391e_aa5c14e8",
         "filename": "redfish-core/lib/fan.hpp",
@@ -324,10 +361,10 @@
         "endChar": 41
       },
       "revId": "dde3c2c4838ca68160b46811f9c118e1187758a7",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "4891d264_f740a29c",
         "filename": "redfish-core/lib/fan.hpp",
@@ -341,10 +378,10 @@
       "side": 1,
       "message": "skipping get fan ?.. this seems not right ?",
       "revId": "dde3c2c4838ca68160b46811f9c118e1187758a7",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "140a845d_ffa4e661",
         "filename": "redfish-core/lib/fan.hpp",
@@ -359,10 +396,28 @@
       "message": "Maybe this description is not accurate, this is the fan obtained by the fan rotor,\nFor example, fan0_1 gets fan0.",
       "parentUuid": "4891d264_f740a29c",
       "revId": "dde3c2c4838ca68160b46811f9c118e1187758a7",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "39c7ad08_44f4591e",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 715,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-10-09T01:05:13Z",
+      "side": 1,
+      "message": "\u003e Maybe this description is not accurate, this is the fan obtained by the fan rotor,\n\u003e For example, fan0_1 gets fan0.\n\nThis logic has been changed in the latest commit,\nPlease review: https://gerrit.openbmc.org/q/topic:redfish-fan",
+      "parentUuid": "140a845d_ffa4e661",
+      "revId": "dde3c2c4838ca68160b46811f9c118e1187758a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "463a6259_2487c933",
         "filename": "redfish-core/lib/fan.hpp",
@@ -382,10 +437,10 @@
         "endChar": 80
       },
       "revId": "dde3c2c4838ca68160b46811f9c118e1187758a7",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "85b1bb50_1ad179fb",
         "filename": "redfish-core/lib/fan.hpp",
@@ -406,8 +461,31 @@
         "endChar": 80
       },
       "revId": "dde3c2c4838ca68160b46811f9c118e1187758a7",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "400fc3fd_570876ff",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 734,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-10-09T01:05:13Z",
+      "side": 1,
+      "message": "\u003e This printing will indeed cause redundancy, which may be helpful for debugging when fanId is not found. Please keep it for now and see other people’s opinions.\n\nThis logic has been changed in the latest commit,\nPlease review: https://gerrit.openbmc.org/q/topic:redfish-fan",
+      "parentUuid": "85b1bb50_1ad179fb",
+      "range": {
+        "startLine": 733,
+        "startChar": 28,
+        "endLine": 734,
+        "endChar": 80
+      },
+      "revId": "dde3c2c4838ca68160b46811f9c118e1187758a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

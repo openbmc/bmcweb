@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "30278bfa_d41ba800",
         "filename": "redfish-core/lib/fan.hpp",
@@ -20,10 +21,34 @@
         "endChar": 36
       },
       "revId": "4687343bcd81f90b8ef7048d51090066b9fdd876",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dfe75411_b191f7c2",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 552,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-10-09T01:05:13Z",
+      "side": 1,
+      "message": "\u003e please invert this check \n\u003e https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/37045/66/redfish-core/lib/processor.hpp#1222\n\nThis logic has been changed in the latest commit,\nPlease review: https://gerrit.openbmc.org/q/topic:redfish-fan",
+      "parentUuid": "30278bfa_d41ba800",
+      "range": {
+        "startLine": 552,
+        "startChar": 13,
+        "endLine": 552,
+        "endChar": 36
+      },
+      "revId": "4687343bcd81f90b8ef7048d51090066b9fdd876",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "c54217dd_001b555e",
         "filename": "redfish-core/lib/fan.hpp",
@@ -43,10 +68,34 @@
         "endChar": 47
       },
       "revId": "4687343bcd81f90b8ef7048d51090066b9fdd876",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f9441588_6ae81a7a",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 557,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-10-09T01:05:13Z",
+      "side": 1,
+      "message": "\u003e Why need this?\n\nThis logic has been changed in the latest commit,\nPlease review: https://gerrit.openbmc.org/q/topic:redfish-fan",
+      "parentUuid": "c54217dd_001b555e",
+      "range": {
+        "startLine": 557,
+        "startChar": 7,
+        "endLine": 557,
+        "endChar": 47
+      },
+      "revId": "4687343bcd81f90b8ef7048d51090066b9fdd876",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "f32afea2_ea28a86f",
         "filename": "redfish-core/lib/fan.hpp",
@@ -66,8 +115,31 @@
         "endChar": 41
       },
       "revId": "4687343bcd81f90b8ef7048d51090066b9fdd876",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "20d0ad45_9e1185ae",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 597,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-10-09T01:05:13Z",
+      "side": 1,
+      "message": "\u003e please invert this check \n\u003e \n\u003e ```\n\u003e if (leaf !\u003d fanID)\n\u003e {\n\u003e   continue;\n\u003e }\n\u003e ```\n\nThis logic has been changed in the latest commit,\nPlease review: https://gerrit.openbmc.org/q/topic:redfish-fan",
+      "parentUuid": "f32afea2_ea28a86f",
+      "range": {
+        "startLine": 597,
+        "startChar": 28,
+        "endLine": 597,
+        "endChar": 41
+      },
+      "revId": "4687343bcd81f90b8ef7048d51090066b9fdd876",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
