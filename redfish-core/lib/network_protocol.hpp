@@ -484,11 +484,11 @@ inline std::string encodeServiceObjectPath(const std::string& serviceName)
 
 inline void requestRoutesNetworkProtocol(App& app)
 {
-    BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/NetworkProtocol/")
-        .privileges(redfish::privileges::patchManagerNetworkProtocol)
-        .methods(boost::beast::http::verb::patch)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+    REDFISH_ROUTE(app, "/redfish/v1/Managers/bmc/NetworkProtocol/",
+                  redfish::privileges::EntityTag::tagManagerNetworkProtocol,
+                  boost::beast::http::verb::patch)
+    ([&app](const crow::Request& req,
+            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
@@ -553,19 +553,19 @@ inline void requestRoutesNetworkProtocol(App& app)
             handleProtocolEnabled(*sshEnabled, asyncResp,
                                   encodeServiceObjectPath(sshServiceName));
         }
-        });
+    });
 
-    BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/NetworkProtocol/")
-        .privileges(redfish::privileges::getManagerNetworkProtocol)
-        .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+    REDFISH_ROUTE(app, "/redfish/v1/Managers/bmc/NetworkProtocol/",
+                  redfish::privileges::EntityTag::tagManagerNetworkProtocol,
+                  boost::beast::http::verb::get)
+    ([&app](const crow::Request& req,
+            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
         }
         getNetworkData(asyncResp, req);
-        });
+    });
 }
 
 } // namespace redfish

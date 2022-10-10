@@ -27,6 +27,11 @@
 #define BMCWEB_ROUTE(app, url)                                                 \
     app.template route<crow::black_magic::getParameterTag(url)>(url)
 
+// NOLINTNEXTLINE(cppcoreguidelines-macro-usage)
+#define REDFISH_ROUTE(app, url, entityTag, method)                             \
+    app.template route<crow::black_magic::getParameterTag(url)>(               \
+        url, entityTag, method)
+
 namespace crow
 {
 #ifdef BMCWEB_ENABLE_SSL
@@ -78,6 +83,14 @@ class App
     auto& route(std::string&& rule)
     {
         return router.newRuleTagged<Tag>(std::move(rule));
+    }
+
+    template <uint64_t Tag>
+    auto& route(std::string&& rule, redfish::privileges::EntityTag entityTagIn,
+                boost::beast::http::verb methodIn)
+    {
+        return router.newRuleTagged<Tag>(std::move(rule), entityTagIn,
+                                         methodIn);
     }
 
     App& socket(int existingSocket)

@@ -100,12 +100,12 @@ inline void
  */
 inline void requestRoutesCable(App& app)
 {
-    BMCWEB_ROUTE(app, "/redfish/v1/Cables/<str>/")
-        .privileges(redfish::privileges::getCable)
-        .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                   const std::string& cableId) {
+    REDFISH_ROUTE(app, "/redfish/v1/Cables/<str>/",
+                  redfish::privileges::EntityTag::tagCable,
+                  boost::beast::http::verb::get)
+    ([&app](const crow::Request& req,
+            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+            const std::string& cableId) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
@@ -155,7 +155,7 @@ inline void requestRoutesCable(App& app)
             "/xyz/openbmc_project/inventory", 0,
             std::array<const char*, 1>{
                 "xyz.openbmc_project.Inventory.Item.Cable"});
-        });
+    });
 }
 
 /**
@@ -163,11 +163,11 @@ inline void requestRoutesCable(App& app)
  */
 inline void requestRoutesCableCollection(App& app)
 {
-    BMCWEB_ROUTE(app, "/redfish/v1/Cables/")
-        .privileges(redfish::privileges::getCableCollection)
-        .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+    REDFISH_ROUTE(app, "/redfish/v1/Cables/",
+                  redfish::privileges::EntityTag::tagCableCollection,
+                  boost::beast::http::verb::get)
+    ([&app](const crow::Request& req,
+            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
@@ -181,7 +181,7 @@ inline void requestRoutesCableCollection(App& app)
         collection_util::getCollectionMembers(
             asyncResp, "/redfish/v1/Cables",
             {"xyz.openbmc_project.Inventory.Item.Cable"});
-        });
+    });
 }
 
 } // namespace redfish

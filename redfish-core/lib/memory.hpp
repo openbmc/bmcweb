@@ -769,12 +769,12 @@ inline void requestRoutesMemoryCollection(App& app)
     /**
      * Functions triggers appropriate requests on DBus
      */
-    BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/Memory/")
-        .privileges(redfish::privileges::getMemoryCollection)
-        .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                   const std::string& systemName) {
+    REDFISH_ROUTE(app, "/redfish/v1/Systems/<str>/Memory/",
+                  redfish::privileges::EntityTag::tagMemoryCollection,
+                  boost::beast::http::verb::get)
+    ([&app](const crow::Request& req,
+            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+            const std::string& systemName) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
@@ -795,7 +795,7 @@ inline void requestRoutesMemoryCollection(App& app)
         collection_util::getCollectionMembers(
             asyncResp, "/redfish/v1/Systems/system/Memory",
             {"xyz.openbmc_project.Inventory.Item.Dimm"});
-        });
+    });
 }
 
 inline void requestRoutesMemory(App& app)
@@ -803,12 +803,12 @@ inline void requestRoutesMemory(App& app)
     /**
      * Functions triggers appropriate requests on DBus
      */
-    BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/Memory/<str>/")
-        .privileges(redfish::privileges::getMemory)
-        .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                   const std::string& systemName, const std::string& dimmId) {
+    REDFISH_ROUTE(app, "/redfish/v1/Systems/<str>/Memory/<str>/",
+                  redfish::privileges::EntityTag::tagMemory,
+                  boost::beast::http::verb::get)
+    ([&app](const crow::Request& req,
+            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+            const std::string& systemName, const std::string& dimmId) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
@@ -821,7 +821,7 @@ inline void requestRoutesMemory(App& app)
         }
 
         getDimmData(asyncResp, dimmId);
-        });
+    });
 }
 
 } // namespace redfish

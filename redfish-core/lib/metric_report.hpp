@@ -65,11 +65,11 @@ inline bool fillReport(nlohmann::json& json, const std::string& id,
 
 inline void requestRoutesMetricReportCollection(App& app)
 {
-    BMCWEB_ROUTE(app, "/redfish/v1/TelemetryService/MetricReports/")
-        .privileges(redfish::privileges::getMetricReportCollection)
-        .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+    REDFISH_ROUTE(app, "/redfish/v1/TelemetryService/MetricReports/",
+                  redfish::privileges::EntityTag::tagMetricReportCollection,
+                  boost::beast::http::verb::get)
+    ([&app](const crow::Request& req,
+            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
@@ -83,17 +83,17 @@ inline void requestRoutesMetricReportCollection(App& app)
         collection_util::getCollectionMembers(
             asyncResp, telemetry::metricReportUri, interfaces,
             "/xyz/openbmc_project/Telemetry/Reports/TelemetryService");
-        });
+    });
 }
 
 inline void requestRoutesMetricReport(App& app)
 {
-    BMCWEB_ROUTE(app, "/redfish/v1/TelemetryService/MetricReports/<str>/")
-        .privileges(redfish::privileges::getMetricReport)
-        .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                   const std::string& id) {
+    REDFISH_ROUTE(app, "/redfish/v1/TelemetryService/MetricReports/<str>/",
+                  redfish::privileges::EntityTag::tagMetricReport,
+                  boost::beast::http::verb::get)
+    ([&app](const crow::Request& req,
+            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+            const std::string& id) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
@@ -131,6 +131,6 @@ inline void requestRoutesMetricReport(App& app)
             },
             telemetry::service, reportPath, telemetry::reportInterface,
             "Update");
-        });
+    });
 }
 } // namespace redfish
