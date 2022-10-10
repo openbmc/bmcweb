@@ -291,11 +291,11 @@ inline bool fillTrigger(
 
 inline void requestRoutesTriggerCollection(App& app)
 {
-    BMCWEB_ROUTE(app, "/redfish/v1/TelemetryService/Triggers/")
-        .privileges(redfish::privileges::getTriggersCollection)
-        .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+    REDFISH_ROUTE(app, "/redfish/v1/TelemetryService/Triggers/",
+                  redfish::privileges::EntityTag::tagTriggersCollection,
+                  boost::beast::http::verb::get)
+    ([&app](const crow::Request& req,
+            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
@@ -308,17 +308,17 @@ inline void requestRoutesTriggerCollection(App& app)
         collection_util::getCollectionMembers(
             asyncResp, telemetry::triggerUri, interfaces,
             "/xyz/openbmc_project/Telemetry/Triggers/TelemetryService");
-        });
+    });
 }
 
 inline void requestRoutesTrigger(App& app)
 {
-    BMCWEB_ROUTE(app, "/redfish/v1/TelemetryService/Triggers/<str>/")
-        .privileges(redfish::privileges::getTriggers)
-        .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                   const std::string& id) {
+    REDFISH_ROUTE(app, "/redfish/v1/TelemetryService/Triggers/<str>/",
+                  redfish::privileges::EntityTag::tagTriggers,
+                  boost::beast::http::verb::get)
+    ([&app](const crow::Request& req,
+            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+            const std::string& id) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
@@ -348,14 +348,14 @@ inline void requestRoutesTrigger(App& app)
                 messages::internalError(asyncResp->res);
             }
             });
-        });
+    });
 
-    BMCWEB_ROUTE(app, "/redfish/v1/TelemetryService/Triggers/<str>/")
-        .privileges(redfish::privileges::deleteTriggers)
-        .methods(boost::beast::http::verb::delete_)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                   const std::string& id) {
+    REDFISH_ROUTE(app, "/redfish/v1/TelemetryService/Triggers/<str>/",
+                  redfish::privileges::EntityTag::tagTriggers,
+                  boost::beast::http::verb::delete_)
+    ([&app](const crow::Request& req,
+            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+            const std::string& id) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
@@ -381,7 +381,7 @@ inline void requestRoutesTrigger(App& app)
             },
             telemetry::service, triggerPath,
             "xyz.openbmc_project.Object.Delete", "Delete");
-        });
+    });
 }
 
 } // namespace redfish

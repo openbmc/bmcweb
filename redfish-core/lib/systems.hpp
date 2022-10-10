@@ -2674,16 +2674,16 @@ inline void handleComputerSystemHead(
  */
 inline void requestRoutesSystemsCollection(App& app)
 {
-    BMCWEB_ROUTE(app, "/redfish/v1/Systems/")
-        .privileges(redfish::privileges::headComputerSystemCollection)
-        .methods(boost::beast::http::verb::head)(
-            std::bind_front(handleComputerSystemHead, std::ref(app)));
+    REDFISH_ROUTE(app, "/redfish/v1/Systems/",
+                  redfish::privileges::EntityTag::tagComputerSystemCollection,
+                  boost::beast::http::verb::head)
+    (std::bind_front(handleComputerSystemHead, std::ref(app)));
 
-    BMCWEB_ROUTE(app, "/redfish/v1/Systems/")
-        .privileges(redfish::privileges::getComputerSystemCollection)
-        .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+    REDFISH_ROUTE(app, "/redfish/v1/Systems/",
+                  redfish::privileges::EntityTag::tagComputerSystemCollection,
+                  boost::beast::http::verb::get)
+    ([&app](const crow::Request& req,
+            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
@@ -2720,7 +2720,7 @@ inline void requestRoutesSystemsCollection(App& app)
                 count = ifaceArray.size();
             }
             });
-        });
+    });
 }
 
 /**
@@ -2757,12 +2757,12 @@ inline void requestRoutesSystemActionsReset(App& app)
      * Function handles POST method request.
      * Analyzes POST body message before sends Reset request data to D-Bus.
      */
-    BMCWEB_ROUTE(app,
-                 "/redfish/v1/Systems/system/Actions/ComputerSystem.Reset/")
-        .privileges(redfish::privileges::postComputerSystem)
-        .methods(boost::beast::http::verb::post)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+    REDFISH_ROUTE(app,
+                  "/redfish/v1/Systems/system/Actions/ComputerSystem.Reset/",
+                  redfish::privileges::EntityTag::tagComputerSystem,
+                  boost::beast::http::verb::post)
+    ([&app](const crow::Request& req,
+            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
@@ -2873,7 +2873,7 @@ inline void requestRoutesSystemActionsReset(App& app)
                 "xyz.openbmc_project.State.Chassis", "RequestedPowerTransition",
                 dbus::utility::DbusVariantType{command});
         }
-        });
+    });
 }
 
 inline void handleComputerSystemCollectionHead(
@@ -2896,19 +2896,19 @@ inline void handleComputerSystemCollectionHead(
 inline void requestRoutesSystems(App& app)
 {
 
-    BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/")
-        .privileges(redfish::privileges::headComputerSystem)
-        .methods(boost::beast::http::verb::head)(
-            std::bind_front(handleComputerSystemCollectionHead, std::ref(app)));
+    REDFISH_ROUTE(app, "/redfish/v1/Systems/system/",
+                  redfish::privileges::EntityTag::tagComputerSystem,
+                  boost::beast::http::verb::head)
+    (std::bind_front(handleComputerSystemCollectionHead, std::ref(app)));
     /**
      * Functions triggers appropriate requests on DBus
      */
-    BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/")
-        .privileges(redfish::privileges::getComputerSystem)
-        .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                   const std::string& systemName) {
+    REDFISH_ROUTE(app, "/redfish/v1/Systems/<str>/",
+                  redfish::privileges::EntityTag::tagComputerSystem,
+                  boost::beast::http::verb::get)
+    ([&app](const crow::Request& req,
+            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+            const std::string& systemName) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
@@ -3037,14 +3037,14 @@ inline void requestRoutesSystems(App& app)
         getTrustedModuleRequiredToBoot(asyncResp);
         getPowerMode(asyncResp);
         getIdlePowerSaver(asyncResp);
-        });
+    });
 
-    BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/")
-        .privileges(redfish::privileges::patchComputerSystem)
-        .methods(boost::beast::http::verb::patch)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                   const std::string& systemName) {
+    REDFISH_ROUTE(app, "/redfish/v1/Systems/<str>/",
+                  redfish::privileges::EntityTag::tagComputerSystem,
+                  boost::beast::http::verb::patch)
+    ([&app](const crow::Request& req,
+            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+            const std::string& systemName) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
@@ -3161,7 +3161,7 @@ inline void requestRoutesSystems(App& app)
             setIdlePowerSaver(asyncResp, ipsEnable, ipsEnterUtil, ipsEnterTime,
                               ipsExitUtil, ipsExitTime);
         }
-        });
+    });
 }
 
 inline void handleSystemCollectionResetActionHead(
@@ -3183,19 +3183,19 @@ inline void handleSystemCollectionResetActionHead(
  */
 inline void requestRoutesSystemResetActionInfo(App& app)
 {
-    BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/ResetActionInfo/")
-        .privileges(redfish::privileges::headActionInfo)
-        .methods(boost::beast::http::verb::head)(std::bind_front(
-            handleSystemCollectionResetActionHead, std::ref(app)));
+    REDFISH_ROUTE(app, "/redfish/v1/Systems/system/ResetActionInfo/",
+                  redfish::privileges::EntityTag::tagActionInfo,
+                  boost::beast::http::verb::head)
+    (std::bind_front(handleSystemCollectionResetActionHead, std::ref(app)));
     /**
      * Functions triggers appropriate requests on DBus
      */
-    BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/ResetActionInfo/")
-        .privileges(redfish::privileges::getActionInfo)
-        .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                   const std::string& systemName) {
+    REDFISH_ROUTE(app, "/redfish/v1/Systems/<str>/ResetActionInfo/",
+                  redfish::privileges::EntityTag::tagActionInfo,
+                  boost::beast::http::verb::get)
+    ([&app](const crow::Request& req,
+            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+            const std::string& systemName) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
@@ -3237,6 +3237,6 @@ inline void requestRoutesSystemResetActionInfo(App& app)
         parameters.emplace_back(std::move(parameter));
 
         asyncResp->res.jsonValue["Parameters"] = std::move(parameters);
-        });
+    });
 }
 } // namespace redfish

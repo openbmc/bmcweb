@@ -1053,29 +1053,30 @@ inline void
 
 inline void requestNBDVirtualMediaRoutes(App& app)
 {
-    BMCWEB_ROUTE(
+    REDFISH_ROUTE(
         app,
-        "/redfish/v1/Managers/<str>/VirtualMedia/<str>/Actions/VirtualMedia.InsertMedia")
-        .privileges(redfish::privileges::postVirtualMedia)
-        .methods(boost::beast::http::verb::post)(std::bind_front(
-            handleManagersVirtualMediaActionInsertPost, std::ref(app)));
+        "/redfish/v1/Managers/<str>/VirtualMedia/<str>/Actions/VirtualMedia.InsertMedia",
+        redfish::privileges::EntityTag::tagVirtualMedia,
+        boost::beast::http::verb::post)
+    (std::bind_front(handleManagersVirtualMediaActionInsertPost,
+                     std::ref(app)));
 
-    BMCWEB_ROUTE(
+    REDFISH_ROUTE(
         app,
-        "/redfish/v1/Managers/<str>/VirtualMedia/<str>/Actions/VirtualMedia.EjectMedia")
-        .privileges(redfish::privileges::postVirtualMedia)
-        .methods(boost::beast::http::verb::post)(std::bind_front(
-            handleManagersVirtualMediaActionEject, std::ref(app)));
+        "/redfish/v1/Managers/<str>/VirtualMedia/<str>/Actions/VirtualMedia.EjectMedia",
+        redfish::privileges::EntityTag::tagVirtualMedia,
+        boost::beast::http::verb::post)
+    (std::bind_front(handleManagersVirtualMediaActionEject, std::ref(app)));
 
-    BMCWEB_ROUTE(app, "/redfish/v1/Managers/<str>/VirtualMedia/")
-        .privileges(redfish::privileges::getVirtualMediaCollection)
-        .methods(boost::beast::http::verb::get)(std::bind_front(
-            handleManagersVirtualMediaCollectionGet, std::ref(app)));
+    REDFISH_ROUTE(app, "/redfish/v1/Managers/<str>/VirtualMedia/",
+                  redfish::privileges::EntityTag::tagVirtualMediaCollection,
+                  boost::beast::http::verb::get)
+    (std::bind_front(handleManagersVirtualMediaCollectionGet, std::ref(app)));
 
-    BMCWEB_ROUTE(app, "/redfish/v1/Managers/<str>/VirtualMedia/<str>/")
-        .privileges(redfish::privileges::getVirtualMedia)
-        .methods(boost::beast::http::verb::get)(
-            std::bind_front(handleVirtualMediaGet, std::ref(app)));
+    REDFISH_ROUTE(app, "/redfish/v1/Managers/<str>/VirtualMedia/<str>/",
+                  redfish::privileges::EntityTag::tagVirtualMedia,
+                  boost::beast::http::verb::get)
+    (std::bind_front(handleVirtualMediaGet, std::ref(app)));
 }
 
 } // namespace redfish

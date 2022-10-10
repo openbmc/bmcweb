@@ -5,16 +5,20 @@
 #include "error_messages.hpp"
 #include "http_request.hpp"
 #include "http_response.hpp"
+#include "http_verbs.hpp"
 #include "logging.hpp"
 #include "privileges.hpp"
+#include "registries/privilege_registry.hpp"
 #include "sessions.hpp"
 #include "utility.hpp"
 #include "websocket.hpp"
 
 #include <async_resp.hpp>
+#include <boost/beast/http/verb.hpp>
 #include <boost/beast/ssl/ssl_stream.hpp>
 #include <boost/container/flat_map.hpp>
 
+#include <bit>
 #include <cerrno>
 #include <cstdint>
 #include <cstdlib>
@@ -27,24 +31,16 @@
 namespace crow
 {
 
-// Note, this is an imperfect abstraction.  There are a lot of verbs that we
-// use memory for, but are basically unused by most implementations.
-// Ideally we would have a list of verbs that we do use, and only index in
-// to a smaller array of those, but that would require a translation from
-// boost::beast::http::verb, to the bmcweb index.
-static constexpr size_t maxVerbIndex =
-    static_cast<size_t>(boost::beast::http::verb::patch);
-
-// MaxVerb + 1 is designated as the "not found" verb.  It is done this way
-// to keep the BaseRule as a single bitfield (thus keeping the struct small)
-// while still having a way to declare a route a "not found" route.
-static constexpr const size_t notFoundIndex = maxVerbIndex + 1;
-static constexpr const size_t methodNotAllowedIndex = notFoundIndex + 1;
-
 class BaseRule
 {
   public:
     explicit BaseRule(const std::string& thisRule) : rule(thisRule)
+    {}
+
+    explicit BaseRule(redfish::privileges::EntityTag entityTagIn,
+                      const std::string& thisRule) :
+        entityTag(entityTagIn),
+        rule(thisRule)
     {}
 
     virtual ~BaseRule() = default;
@@ -88,16 +84,61 @@ class BaseRule
         return methodsBitfield;
     }
 
+    std::optional<std::span<redfish::Privileges>>
+        getPrivilegesForRedfishRoute() const
+    {
+        if (entityTag == redfish::privileges::EntityTag::none)
+        {
+            return std::nullopt;
+        }
+        // This should not happen for Redfish routes
+        if (std::popcount(methodsBitfield) > 1)
+        {
+            return std::nullopt;
+        }
+        for (boost::beast::http::verb method : http::allRedfishMethods)
+        {
+            if ((methodsBitfield & (1U << static_cast<unsigned>(method))) > 0)
+            {
+                return redfish::Privileges::getPrivilegesForRedfishRoute(
+                    entityTag, method);
+            }
+        }
+        return std::nullopt;
+    }
+
     bool checkPrivileges(const redfish::Privileges& userPrivileges)
     {
+        std::span<redfish::Privileges> requiredPrivliegesSet;
+
+        // If it's a Redfish route
+        if (entityTag != redfish::privileges::EntityTag::none)
+        {
+            std::optional<std::span<redfish::Privileges>> redfishPrivileges =
+                getPrivilegesForRedfishRoute();
+            if (redfishPrivileges == std::nullopt)
+            {
+                // This shouldn't happen; but to be safer, return NotAuthorized
+                // on failures
+                return false;
+            }
+            requiredPrivliegesSet = *redfishPrivileges;
+        }
+        else
+        {
+            // Otherwise it's a non-Redfish route
+            requiredPrivliegesSet = privilegesSet;
+        }
+
         // If there are no privileges assigned, assume no privileges
         // required
-        if (privilegesSet.empty())
+        if (requiredPrivliegesSet.empty())
         {
             return true;
         }
 
-        for (const redfish::Privileges& requiredPrivileges : privilegesSet)
+        for (const redfish::Privileges& requiredPrivileges :
+             requiredPrivliegesSet)
         {
             if (userPrivileges.isSupersetOf(requiredPrivileges))
             {
@@ -110,10 +151,16 @@ class BaseRule
     size_t methodsBitfield{
         1 << static_cast<size_t>(boost::beast::http::verb::get)};
     static_assert(std::numeric_limits<decltype(methodsBitfield)>::digits >
-                      methodNotAllowedIndex,
+                      http::methodNotAllowedIndex,
                   "Not enough bits to store bitfield");
 
+    // Required privileges for non-Redfish routes
     std::vector<redfish::Privileges> privilegesSet;
+
+    // If |entityTag| is not |EntityTag::none|, then this route is a Redfish
+    // route
+    redfish::privileges::EntityTag entityTag =
+        redfish::privileges::EntityTag::none;
 
     std::string rule;
     std::string nameStr;
@@ -461,14 +508,14 @@ struct RuleParameterTraits
     self_t& notFound()
     {
         self_t* self = static_cast<self_t*>(this);
-        self->methodsBitfield = 1U << notFoundIndex;
+        self->methodsBitfield = 1U << http::notFoundIndex;
         return *self;
     }
 
     self_t& methodNotAllowed()
     {
         self_t* self = static_cast<self_t*>(this);
-        self->methodsBitfield = 1U << methodNotAllowedIndex;
+        self->methodsBitfield = 1U << http::methodNotAllowedIndex;
         return *self;
     }
 
@@ -578,6 +625,14 @@ class TaggedRule :
 
     explicit TaggedRule(const std::string& ruleIn) : BaseRule(ruleIn)
     {}
+
+    TaggedRule(const std::string& ruleIn,
+               redfish::privileges::EntityTag entityTagIn,
+               boost::beast::http::verb methodIn) :
+        BaseRule(entityTagIn, ruleIn)
+    {
+        RuleParameterTraits<TaggedRule<Args...>>::methods(methodIn);
+    }
 
     void validate() override
     {
@@ -1122,14 +1177,30 @@ class Router
         return *ptr;
     }
 
+    template <uint64_t N>
+    typename black_magic::Arguments<N>::type::template rebind<TaggedRule>&
+        newRuleTagged(const std::string& rule,
+                      redfish::privileges::EntityTag entityTagIn,
+                      boost::beast::http::verb methodIn)
+    {
+        using RuleT = typename black_magic::Arguments<N>::type::template rebind<
+            TaggedRule>;
+        std::unique_ptr<RuleT> ruleObject =
+            std::make_unique<RuleT>(rule, entityTagIn, methodIn);
+        RuleT* ptr = ruleObject.get();
+        allRules.emplace_back(std::move(ruleObject));
+
+        return *ptr;
+    }
+
     void internalAddRuleObject(const std::string& rule, BaseRule* ruleObject)
     {
         if (ruleObject == nullptr)
         {
             return;
         }
-        for (size_t method = 0, methodBit = 1; method <= methodNotAllowedIndex;
-             method++, methodBit <<= 1)
+        for (size_t method = 0, methodBit = 1;
+             method <= http::methodNotAllowedIndex; method++, methodBit <<= 1)
         {
             if ((ruleObject->methodsBitfield & methodBit) > 0U)
             {
@@ -1212,11 +1283,11 @@ class Router
 
         size_t reqMethodIndex = static_cast<size_t>(req.method());
         // Check to see if this url exists at any verb
-        for (size_t perMethodIndex = 0; perMethodIndex <= maxVerbIndex;
+        for (size_t perMethodIndex = 0; perMethodIndex <= http::maxVerbIndex;
              perMethodIndex++)
         {
             // Make sure it's safe to deference the array at that index
-            static_assert(maxVerbIndex <
+            static_assert(http::maxVerbIndex <
                           std::tuple_size_v<decltype(perMethods)>);
             FindRoute route = findRouteByIndex(req.url, perMethodIndex);
             if (route.rule == nullptr)
@@ -1323,13 +1394,14 @@ class Router
             // route
             if (foundRoute.allowHeader.empty())
             {
-                foundRoute.route = findRouteByIndex(req.url, notFoundIndex);
+                foundRoute.route =
+                    findRouteByIndex(req.url, http::notFoundIndex);
             }
             else
             {
                 // See if we have a method not allowed (405) handler
                 foundRoute.route =
-                    findRouteByIndex(req.url, methodNotAllowedIndex);
+                    findRouteByIndex(req.url, http::methodNotAllowedIndex);
             }
         }
 
@@ -1513,7 +1585,7 @@ class Router
         {}
     };
 
-    std::array<PerMethod, methodNotAllowedIndex + 1> perMethods;
+    std::array<PerMethod, http::maxNumMethods> perMethods;
     std::vector<std::unique_ptr<BaseRule>> allRules;
 };
 } // namespace crow
