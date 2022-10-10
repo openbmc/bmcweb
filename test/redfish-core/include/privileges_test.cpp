@@ -1,6 +1,8 @@
+#include "base_privilege.hpp"
 #include "privileges.hpp"
 
 #include <boost/beast/http/verb.hpp>
+#include <nlohmann/json.hpp>
 
 #include <array>
 
@@ -29,76 +31,70 @@ TEST(PrivilegeTest, PrivilegeConstructor)
                 UnorderedElementsAre("Login", "ConfigureManager"));
 }
 
-TEST(PrivilegeTest, PrivilegeCheckForNoPrivilegesRequired)
+TEST(PrivilegeTest, PrivilegeCheckForSingleCaseSuccess)
 {
     Privileges userPrivileges{"Login"};
 
-    OperationMap entityPrivileges{{boost::beast::http::verb::get, {{"Login"}}}};
+    std::vector<Privileges> requiredPrivileges{{"Login"}};
 
-    EXPECT_TRUE(isMethodAllowedWithPrivileges(
-        boost::beast::http::verb::get, entityPrivileges, userPrivileges));
+    EXPECT_TRUE(
+        isOperationAllowedWithPrivileges(requiredPrivileges, userPrivileges));
 }
 
-TEST(PrivilegeTest, PrivilegeCheckForSingleCaseSuccess)
+TEST(PrivilegeTest, PrivilegeCheckForNoPrivilegesRequired)
 {
-    auto userPrivileges = Privileges{"Login"};
-    OperationMap entityPrivileges{{boost::beast::http::verb::get, {}}};
+    Privileges userPrivileges{"Login"};
+    std::vector<Privileges> requiredPrivileges{};
 
-    EXPECT_TRUE(isMethodAllowedWithPrivileges(
-        boost::beast::http::verb::get, entityPrivileges, userPrivileges));
+    EXPECT_TRUE(
+        isOperationAllowedWithPrivileges(requiredPrivileges, userPrivileges));
 }
 
 TEST(PrivilegeTest, PrivilegeCheckForSingleCaseFailure)
 {
-    auto userPrivileges = Privileges{"Login"};
-    OperationMap entityPrivileges{
-        {boost::beast::http::verb::get, {{"ConfigureManager"}}}};
+    Privileges userPrivileges{"Login"};
+    std::vector<Privileges> requiredPrivileges{{"ConfigureManager"}};
 
-    EXPECT_FALSE(isMethodAllowedWithPrivileges(
-        boost::beast::http::verb::get, entityPrivileges, userPrivileges));
+    EXPECT_FALSE(
+        isOperationAllowedWithPrivileges(requiredPrivileges, userPrivileges));
 }
 
 TEST(PrivilegeTest, PrivilegeCheckForANDCaseSuccess)
 {
-    auto userPrivileges =
-        Privileges{"Login", "ConfigureManager", "ConfigureSelf"};
-    OperationMap entityPrivileges{
-        {boost::beast::http::verb::get,
-         {{"Login", "ConfigureManager", "ConfigureSelf"}}}};
+    Privileges userPrivileges{"Login", "ConfigureManager", "ConfigureSelf"};
+    std::vector<Privileges> requiredPrivileges{
+        {"Login", "ConfigureManager", "ConfigureSelf"}};
 
-    EXPECT_TRUE(isMethodAllowedWithPrivileges(
-        boost::beast::http::verb::get, entityPrivileges, userPrivileges));
+    EXPECT_TRUE(
+        isOperationAllowedWithPrivileges(requiredPrivileges, userPrivileges));
 }
 
 TEST(PrivilegeTest, PrivilegeCheckForANDCaseFailure)
 {
-    auto userPrivileges = Privileges{"Login", "ConfigureManager"};
-    OperationMap entityPrivileges{
-        {boost::beast::http::verb::get,
-         {{"Login", "ConfigureManager", "ConfigureSelf"}}}};
+    Privileges userPrivileges{"Login", "ConfigureManager"};
+    std::vector<Privileges> requiredPrivileges{
+        {"Login", "ConfigureManager", "ConfigureSelf"}};
 
-    EXPECT_FALSE(isMethodAllowedWithPrivileges(
-        boost::beast::http::verb::get, entityPrivileges, userPrivileges));
+    EXPECT_FALSE(
+        isOperationAllowedWithPrivileges(requiredPrivileges, userPrivileges));
 }
 
 TEST(PrivilegeTest, PrivilegeCheckForORCaseSuccess)
 {
-    auto userPrivileges = Privileges{"ConfigureManager"};
-    OperationMap entityPrivileges{
-        {boost::beast::http::verb::get, {{"Login"}, {"ConfigureManager"}}}};
+    Privileges userPrivileges{"ConfigureManager"};
+    std::vector<Privileges> requiredPrivileges{{"Login"}, {"ConfigureManager"}};
 
-    EXPECT_TRUE(isMethodAllowedWithPrivileges(
-        boost::beast::http::verb::get, entityPrivileges, userPrivileges));
+    EXPECT_TRUE(
+        isOperationAllowedWithPrivileges(requiredPrivileges, userPrivileges));
 }
 
 TEST(PrivilegeTest, PrivilegeCheckForORCaseFailure)
 {
-    auto userPrivileges = Privileges{"ConfigureComponents"};
-    OperationMap entityPrivileges = OperationMap(
-        {{boost::beast::http::verb::get, {{"Login"}, {"ConfigureManager"}}}});
+    Privileges userPrivileges{"ConfigureComponents"};
+    std::vector<Privileges> requiredPrivileges{{"Login"}, {"ConfigureManager"}};
 
-    EXPECT_FALSE(isMethodAllowedWithPrivileges(
-        boost::beast::http::verb::get, entityPrivileges, userPrivileges));
+    EXPECT_FALSE(
+        isOperationAllowedWithPrivileges(requiredPrivileges, userPrivileges));
 }
 
 TEST(PrivilegeTest, DefaultPrivilegeBitsetsAreEmpty)
@@ -134,5 +130,28 @@ TEST(PrivilegeTest, GetActivePrivilegeNames)
                              expectedPrivileges[2], expectedPrivileges[3],
                              expectedPrivileges[4]));
 }
+
+TEST(GetOperationMap,
+     DefaultOperationMapRespectsBasePrivilegeRegistryForEveryEntity)
+{
+    nlohmann::json expected =
+        nlohmann::json::parse(privileges::basePrivilegeStr);
+    for (size_t i = 0; i < privileges::entities.size(); ++i)
+    {
+        // TODO(nanzhou): remove after PrivilegeRegistry 1.3.1 is released
+        // See https://github.com/DMTF/Redfish/issues/5296
+        if (i == static_cast<size_t>(
+                     privileges::EntityTag::tagManagerDiagnosticData))
+        {
+            nlohmann::json::array_t arr = {};
+            arr.push_back(R"({"Privilege":["ConfigureManager"]})"_json);
+            expected["Mappings"][i]["OperationMap"]["DELETE"] = arr;
+        }
+        privileges::EntityTag tag = static_cast<privileges::EntityTag>(i);
+        EXPECT_EQ(Privileges::getOperationMap(tag),
+                  expected["Mappings"][i]["OperationMap"]);
+    }
+}
+
 } // namespace
 } // namespace redfish

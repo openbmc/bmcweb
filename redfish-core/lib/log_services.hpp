@@ -1046,12 +1046,12 @@ inline void requestRoutesSystemLogServiceCollection(App& app)
     /**
      * Functions triggers appropriate requests on DBus
      */
-    BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/LogServices/")
-        .privileges(redfish::privileges::getLogServiceCollection)
-        .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                   const std::string& systemName) {
+    REDFISH_ROUTE(app, "/redfish/v1/Systems/<str>/LogServices/",
+                  redfish::privileges::EntityTag::tagLogServiceCollection,
+                  boost::beast::http::verb::get)
+    ([&app](const crow::Request& req,
+            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+            const std::string& systemName) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
@@ -1132,17 +1132,17 @@ inline void requestRoutesSystemLogServiceCollection(App& app)
             "/xyz/openbmc_project/object_mapper",
             "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths", "/", 0,
             std::array<const char*, 1>{postCodeIface});
-        });
+    });
 }
 
 inline void requestRoutesEventLogService(App& app)
 {
-    BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/LogServices/EventLog/")
-        .privileges(redfish::privileges::getLogService)
-        .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                   const std::string& systemName) {
+    REDFISH_ROUTE(app, "/redfish/v1/Systems/<str>/LogServices/EventLog/",
+                  redfish::privileges::EntityTag::tagLogService,
+                  boost::beast::http::verb::get)
+    ([&app](const crow::Request& req,
+            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+            const std::string& systemName) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
@@ -1175,7 +1175,7 @@ inline void requestRoutesEventLogService(App& app)
 
             {"target",
              "/redfish/v1/Systems/system/LogServices/EventLog/Actions/LogService.ClearLog"}};
-        });
+    });
 }
 
 inline void requestRoutesJournalEventLogClear(App& app)
@@ -1331,12 +1331,13 @@ static LogParseError
 
 inline void requestRoutesJournalEventLogEntryCollection(App& app)
 {
-    BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/LogServices/EventLog/Entries/")
-        .privileges(redfish::privileges::getLogEntryCollection)
-        .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                   const std::string& systemName) {
+    REDFISH_ROUTE(app,
+                  "/redfish/v1/Systems/<str>/LogServices/EventLog/Entries/",
+                  redfish::privileges::EntityTag::tagLogEntryCollection,
+                  boost::beast::http::verb::get)
+    ([&app](const crow::Request& req,
+            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+            const std::string& systemName) {
         query_param::QueryCapabilities capabilities = {
             .canDelegateTop = true,
             .canDelegateSkip = true,
@@ -1429,18 +1430,18 @@ inline void requestRoutesJournalEventLogEntryCollection(App& app)
                 "/redfish/v1/Systems/system/LogServices/EventLog/Entries?$skip=" +
                 std::to_string(skip + top);
         }
-        });
+    });
 }
 
 inline void requestRoutesJournalEventLogEntry(App& app)
 {
-    BMCWEB_ROUTE(
-        app, "/redfish/v1/Systems/<str>/LogServices/EventLog/Entries/<str>/")
-        .privileges(redfish::privileges::getLogEntry)
-        .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                   const std::string& systemName, const std::string& param) {
+    REDFISH_ROUTE(
+        app, "/redfish/v1/Systems/<str>/LogServices/EventLog/Entries/<str>/",
+        redfish::privileges::EntityTag::tagLogEntry,
+        boost::beast::http::verb::get)
+    ([&app](const crow::Request& req,
+            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+            const std::string& systemName, const std::string& param) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
@@ -1500,17 +1501,18 @@ inline void requestRoutesJournalEventLogEntry(App& app)
         }
         // Requested ID was not found
         messages::resourceNotFound(asyncResp->res, "LogEntry", targetID);
-        });
+    });
 }
 
 inline void requestRoutesDBusEventLogEntryCollection(App& app)
 {
-    BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/LogServices/EventLog/Entries/")
-        .privileges(redfish::privileges::getLogEntryCollection)
-        .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                   const std::string& systemName) {
+    REDFISH_ROUTE(app,
+                  "/redfish/v1/Systems/<str>/LogServices/EventLog/Entries/",
+                  redfish::privileges::EntityTag::tagLogEntryCollection,
+                  boost::beast::http::verb::get)
+    ([&app](const crow::Request& req,
+            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+            const std::string& systemName) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
@@ -1672,18 +1674,18 @@ inline void requestRoutesDBusEventLogEntryCollection(App& app)
             },
             "xyz.openbmc_project.Logging", "/xyz/openbmc_project/logging",
             "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
-        });
+    });
 }
 
 inline void requestRoutesDBusEventLogEntry(App& app)
 {
-    BMCWEB_ROUTE(
-        app, "/redfish/v1/Systems/<str>/LogServices/EventLog/Entries/<str>/")
-        .privileges(redfish::privileges::getLogEntry)
-        .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                   const std::string& systemName, const std::string& param) {
+    REDFISH_ROUTE(
+        app, "/redfish/v1/Systems/<str>/LogServices/EventLog/Entries/<str>/",
+        redfish::privileges::EntityTag::tagLogEntry,
+        boost::beast::http::verb::get)
+    ([&app](const crow::Request& req,
+            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+            const std::string& systemName, const std::string& param) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
@@ -1772,15 +1774,15 @@ inline void requestRoutesDBusEventLogEntry(App& app)
                     std::to_string(*id) + "/attachment";
             }
             });
-        });
+    });
 
-    BMCWEB_ROUTE(
-        app, "/redfish/v1/Systems/<str>/LogServices/EventLog/Entries/<str>/")
-        .privileges(redfish::privileges::patchLogEntry)
-        .methods(boost::beast::http::verb::patch)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                   const std::string& systemName, const std::string& entryId) {
+    REDFISH_ROUTE(
+        app, "/redfish/v1/Systems/<str>/LogServices/EventLog/Entries/<str>/",
+        redfish::privileges::EntityTag::tagLogEntry,
+        boost::beast::http::verb::patch)
+    ([&app](const crow::Request& req,
+            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+            const std::string& systemName, const std::string& entryId) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
@@ -1814,16 +1816,15 @@ inline void requestRoutesDBusEventLogEntry(App& app)
             "org.freedesktop.DBus.Properties", "Set",
             "xyz.openbmc_project.Logging.Entry", "Resolved",
             dbus::utility::DbusVariantType(*resolved));
-        });
+    });
 
-    BMCWEB_ROUTE(
-        app, "/redfish/v1/Systems/<str>/LogServices/EventLog/Entries/<str>/")
-        .privileges(redfish::privileges::deleteLogEntry)
-
-        .methods(boost::beast::http::verb::delete_)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                   const std::string& systemName, const std::string& param) {
+    REDFISH_ROUTE(
+        app, "/redfish/v1/Systems/<str>/LogServices/EventLog/Entries/<str>/",
+        redfish::privileges::EntityTag::tagLogEntry,
+        boost::beast::http::verb::delete_)
+    ([&app](const crow::Request& req,
+            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+            const std::string& systemName, const std::string& param) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
@@ -1869,19 +1870,19 @@ inline void requestRoutesDBusEventLogEntry(App& app)
             respHandler, "xyz.openbmc_project.Logging",
             "/xyz/openbmc_project/logging/entry/" + entryID,
             "xyz.openbmc_project.Object.Delete", "Delete");
-        });
+    });
 }
 
 inline void requestRoutesDBusEventLogEntryDownload(App& app)
 {
-    BMCWEB_ROUTE(
+    REDFISH_ROUTE(
         app,
-        "/redfish/v1/Systems/<str>/LogServices/EventLog/Entries/<str>/attachment")
-        .privileges(redfish::privileges::getLogEntry)
-        .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                   const std::string& systemName, const std::string& param) {
+        "/redfish/v1/Systems/<str>/LogServices/EventLog/Entries/<str>/attachment",
+        redfish::privileges::EntityTag::tagLogEntry,
+        boost::beast::http::verb::get)
+    ([&app](const crow::Request& req,
+            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+            const std::string& systemName, const std::string& param) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
@@ -1970,7 +1971,7 @@ inline void requestRoutesDBusEventLogEntryDownload(App& app)
             "xyz.openbmc_project.Logging",
             "/xyz/openbmc_project/logging/entry/" + entryID,
             "xyz.openbmc_project.Logging.Entry", "GetEntry");
-        });
+    });
 }
 
 constexpr const char* hostLoggerFolderPath = "/var/log/console";
@@ -2052,12 +2053,12 @@ inline void fillHostLoggerEntryJson(const std::string& logEntryID,
 
 inline void requestRoutesSystemHostLogger(App& app)
 {
-    BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/LogServices/HostLogger/")
-        .privileges(redfish::privileges::getLogService)
-        .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                   const std::string& systemName) {
+    REDFISH_ROUTE(app, "/redfish/v1/Systems/<str>/LogServices/HostLogger/",
+                  redfish::privileges::EntityTag::tagLogService,
+                  boost::beast::http::verb::get)
+    ([&app](const crow::Request& req,
+            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+            const std::string& systemName) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
@@ -2077,18 +2078,18 @@ inline void requestRoutesSystemHostLogger(App& app)
         asyncResp->res.jsonValue["Id"] = "HostLogger";
         asyncResp->res.jsonValue["Entries"]["@odata.id"] =
             "/redfish/v1/Systems/system/LogServices/HostLogger/Entries";
-        });
+    });
 }
 
 inline void requestRoutesSystemHostLoggerCollection(App& app)
 {
-    BMCWEB_ROUTE(app,
-                 "/redfish/v1/Systems/<str>/LogServices/HostLogger/Entries/")
-        .privileges(redfish::privileges::getLogEntry)
-        .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                   const std::string& systemName) {
+    REDFISH_ROUTE(app,
+                  "/redfish/v1/Systems/<str>/LogServices/HostLogger/Entries/",
+                  redfish::privileges::EntityTag::tagLogEntry,
+                  boost::beast::http::verb::get)
+    ([&app](const crow::Request& req,
+            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+            const std::string& systemName) {
         query_param::QueryCapabilities capabilities = {
             .canDelegateTop = true,
             .canDelegateSkip = true,
@@ -2160,18 +2161,18 @@ inline void requestRoutesSystemHostLoggerCollection(App& app)
                     std::to_string(skip + top);
             }
         }
-        });
+    });
 }
 
 inline void requestRoutesSystemHostLoggerLogEntry(App& app)
 {
-    BMCWEB_ROUTE(
-        app, "/redfish/v1/Systems/<str>/LogServices/HostLogger/Entries/<str>/")
-        .privileges(redfish::privileges::getLogEntry)
-        .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                   const std::string& systemName, const std::string& param) {
+    REDFISH_ROUTE(
+        app, "/redfish/v1/Systems/<str>/LogServices/HostLogger/Entries/<str>/",
+        redfish::privileges::EntityTag::tagLogEntry,
+        boost::beast::http::verb::get)
+    ([&app](const crow::Request& req,
+            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+            const std::string& systemName, const std::string& param) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
@@ -2227,7 +2228,7 @@ inline void requestRoutesSystemHostLoggerLogEntry(App& app)
 
         // Requested ID was not found
         messages::resourceNotFound(asyncResp->res, "LogEntry", param);
-        });
+    });
 }
 
 constexpr char const* dumpManagerIface =
@@ -2311,19 +2312,19 @@ inline void handleBMCLogServicesCollectionGet(
 
 inline void requestRoutesBMCLogServiceCollection(App& app)
 {
-    BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/LogServices/")
-        .privileges(redfish::privileges::getLogServiceCollection)
-        .methods(boost::beast::http::verb::get)(
-            std::bind_front(handleBMCLogServicesCollectionGet, std::ref(app)));
+    REDFISH_ROUTE(app, "/redfish/v1/Managers/bmc/LogServices/",
+                  redfish::privileges::EntityTag::tagLogServiceCollection,
+                  boost::beast::http::verb::get)
+    (std::bind_front(handleBMCLogServicesCollectionGet, std::ref(app)));
 }
 
 inline void requestRoutesBMCJournalLogService(App& app)
 {
-    BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/LogServices/Journal/")
-        .privileges(redfish::privileges::getLogService)
-        .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+    REDFISH_ROUTE(app, "/redfish/v1/Managers/bmc/LogServices/Journal/",
+                  redfish::privileges::EntityTag::tagLogService,
+                  boost::beast::http::verb::get)
+    ([&app](const crow::Request& req,
+            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
@@ -2345,7 +2346,7 @@ inline void requestRoutesBMCJournalLogService(App& app)
 
         asyncResp->res.jsonValue["Entries"]["@odata.id"] =
             "/redfish/v1/Managers/bmc/LogServices/Journal/Entries";
-        });
+    });
 }
 
 static int
@@ -2412,11 +2413,11 @@ static int
 
 inline void requestRoutesBMCJournalLogEntryCollection(App& app)
 {
-    BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/LogServices/Journal/Entries/")
-        .privileges(redfish::privileges::getLogEntryCollection)
-        .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+    REDFISH_ROUTE(app, "/redfish/v1/Managers/bmc/LogServices/Journal/Entries/",
+                  redfish::privileges::EntityTag::tagLogEntryCollection,
+                  boost::beast::http::verb::get)
+    ([&app](const crow::Request& req,
+            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
         query_param::QueryCapabilities capabilities = {
             .canDelegateTop = true,
             .canDelegateSkip = true,
@@ -2492,18 +2493,18 @@ inline void requestRoutesBMCJournalLogEntryCollection(App& app)
                 "/redfish/v1/Managers/bmc/LogServices/Journal/Entries?$skip=" +
                 std::to_string(skip + top);
         }
-        });
+    });
 }
 
 inline void requestRoutesBMCJournalLogEntry(App& app)
 {
-    BMCWEB_ROUTE(app,
-                 "/redfish/v1/Managers/bmc/LogServices/Journal/Entries/<str>/")
-        .privileges(redfish::privileges::getLogEntry)
-        .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                   const std::string& entryID) {
+    REDFISH_ROUTE(app,
+                  "/redfish/v1/Managers/bmc/LogServices/Journal/Entries/<str>/",
+                  redfish::privileges::EntityTag::tagLogEntry,
+                  boost::beast::http::verb::get)
+    ([&app](const crow::Request& req,
+            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+            const std::string& entryID) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
@@ -2564,7 +2565,7 @@ inline void requestRoutesBMCJournalLogEntry(App& app)
             return;
         }
         asyncResp->res.jsonValue.update(bmcJournalLogEntry);
-        });
+    });
 }
 
 inline void
@@ -2797,149 +2798,158 @@ inline void handleLogServicesDumpClearLogComputerSystemPost(
 
 inline void requestRoutesBMCDumpService(App& app)
 {
-    BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/LogServices/Dump/")
-        .privileges(redfish::privileges::getLogService)
-        .methods(boost::beast::http::verb::get)(std::bind_front(
-            handleLogServicesDumpServiceGet, std::ref(app), "BMC"));
+    REDFISH_ROUTE(app, "/redfish/v1/Managers/bmc/LogServices/Dump/",
+                  redfish::privileges::EntityTag::tagLogService,
+                  boost::beast::http::verb::get)
+    (std::bind_front(handleLogServicesDumpServiceGet, std::ref(app), "BMC"));
 }
 
 inline void requestRoutesBMCDumpEntryCollection(App& app)
 {
-    BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/LogServices/Dump/Entries/")
-        .privileges(redfish::privileges::getLogEntryCollection)
-        .methods(boost::beast::http::verb::get)(std::bind_front(
-            handleLogServicesDumpEntriesCollectionGet, std::ref(app), "BMC"));
+    REDFISH_ROUTE(app, "/redfish/v1/Managers/bmc/LogServices/Dump/Entries/",
+                  redfish::privileges::EntityTag::tagLogEntryCollection,
+                  boost::beast::http::verb::get)
+    (std::bind_front(handleLogServicesDumpEntriesCollectionGet, std::ref(app),
+                     "BMC"));
 }
 
 inline void requestRoutesBMCDumpEntry(App& app)
 {
-    BMCWEB_ROUTE(app,
-                 "/redfish/v1/Managers/bmc/LogServices/Dump/Entries/<str>/")
-        .privileges(redfish::privileges::getLogEntry)
-        .methods(boost::beast::http::verb::get)(std::bind_front(
-            handleLogServicesDumpEntryGet, std::ref(app), "BMC"));
+    REDFISH_ROUTE(app,
+                  "/redfish/v1/Managers/bmc/LogServices/Dump/Entries/<str>/",
+                  redfish::privileges::EntityTag::tagLogEntry,
+                  boost::beast::http::verb::get)
+    (std::bind_front(handleLogServicesDumpEntryGet, std::ref(app), "BMC"));
 
-    BMCWEB_ROUTE(app,
-                 "/redfish/v1/Managers/bmc/LogServices/Dump/Entries/<str>/")
-        .privileges(redfish::privileges::deleteLogEntry)
-        .methods(boost::beast::http::verb::delete_)(std::bind_front(
-            handleLogServicesDumpEntryDelete, std::ref(app), "BMC"));
+    REDFISH_ROUTE(app,
+                  "/redfish/v1/Managers/bmc/LogServices/Dump/Entries/<str>/",
+                  redfish::privileges::EntityTag::tagLogEntry,
+                  boost::beast::http::verb::delete_)
+    (std::bind_front(handleLogServicesDumpEntryDelete, std::ref(app), "BMC"));
 }
 
 inline void requestRoutesBMCDumpCreate(App& app)
 {
-    BMCWEB_ROUTE(
+    REDFISH_ROUTE(
         app,
-        "/redfish/v1/Managers/bmc/LogServices/Dump/Actions/LogService.CollectDiagnosticData/")
-        .privileges(redfish::privileges::postLogService)
-        .methods(boost::beast::http::verb::post)(
-            std::bind_front(handleLogServicesDumpCollectDiagnosticDataPost,
-                            std::ref(app), "BMC"));
+        "/redfish/v1/Managers/bmc/LogServices/Dump/Actions/LogService.CollectDiagnosticData/",
+        redfish::privileges::EntityTag::tagLogService,
+        boost::beast::http::verb::post)
+    (std::bind_front(handleLogServicesDumpCollectDiagnosticDataPost,
+                     std::ref(app), "BMC"));
 }
 
 inline void requestRoutesBMCDumpClear(App& app)
 {
-    BMCWEB_ROUTE(
+    REDFISH_ROUTE(
         app,
-        "/redfish/v1/Managers/bmc/LogServices/Dump/Actions/LogService.ClearLog/")
-        .privileges(redfish::privileges::postLogService)
-        .methods(boost::beast::http::verb::post)(std::bind_front(
-            handleLogServicesDumpClearLogPost, std::ref(app), "BMC"));
+        "/redfish/v1/Managers/bmc/LogServices/Dump/Actions/LogService.ClearLog/",
+        redfish::privileges::EntityTag::tagLogService,
+        boost::beast::http::verb::post)
+    (std::bind_front(handleLogServicesDumpClearLogPost, std::ref(app), "BMC"));
 }
 
 inline void requestRoutesFaultLogDumpService(App& app)
 {
-    BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/LogServices/FaultLog/")
-        .privileges(redfish::privileges::getLogService)
-        .methods(boost::beast::http::verb::get)(std::bind_front(
-            handleLogServicesDumpServiceGet, std::ref(app), "FaultLog"));
+    REDFISH_ROUTE(app, "/redfish/v1/Managers/bmc/LogServices/FaultLog/",
+                  redfish::privileges::EntityTag::tagLogService,
+                  boost::beast::http::verb::get)
+    (std::bind_front(handleLogServicesDumpServiceGet, std::ref(app),
+                     "FaultLog"));
 }
 
 inline void requestRoutesFaultLogDumpEntryCollection(App& app)
 {
-    BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/LogServices/FaultLog/Entries/")
-        .privileges(redfish::privileges::getLogEntryCollection)
-        .methods(boost::beast::http::verb::get)(
-            std::bind_front(handleLogServicesDumpEntriesCollectionGet,
-                            std::ref(app), "FaultLog"));
+    REDFISH_ROUTE(app, "/redfish/v1/Managers/bmc/LogServices/FaultLog/Entries/",
+                  redfish::privileges::EntityTag::tagLogEntryCollection,
+                  boost::beast::http::verb::get)
+    (std::bind_front(handleLogServicesDumpEntriesCollectionGet, std::ref(app),
+                     "FaultLog"));
 }
 
 inline void requestRoutesFaultLogDumpEntry(App& app)
 {
-    BMCWEB_ROUTE(app,
-                 "/redfish/v1/Managers/bmc/LogServices/FaultLog/Entries/<str>/")
-        .privileges(redfish::privileges::getLogEntry)
-        .methods(boost::beast::http::verb::get)(std::bind_front(
-            handleLogServicesDumpEntryGet, std::ref(app), "FaultLog"));
+    REDFISH_ROUTE(
+        app, "/redfish/v1/Managers/bmc/LogServices/FaultLog/Entries/<str>/",
+        redfish::privileges::EntityTag::tagLogEntry,
+        boost::beast::http::verb::get)
+    (std::bind_front(handleLogServicesDumpEntryGet, std::ref(app), "FaultLog"));
 
-    BMCWEB_ROUTE(app,
-                 "/redfish/v1/Managers/bmc/LogServices/FaultLog/Entries/<str>/")
-        .privileges(redfish::privileges::deleteLogEntry)
-        .methods(boost::beast::http::verb::delete_)(std::bind_front(
-            handleLogServicesDumpEntryDelete, std::ref(app), "FaultLog"));
+    REDFISH_ROUTE(
+        app, "/redfish/v1/Managers/bmc/LogServices/FaultLog/Entries/<str>/",
+        redfish::privileges::EntityTag::tagLogEntry,
+        boost::beast::http::verb::delete_)
+    (std::bind_front(handleLogServicesDumpEntryDelete, std::ref(app),
+                     "FaultLog"));
 }
 
 inline void requestRoutesFaultLogDumpClear(App& app)
 {
-    BMCWEB_ROUTE(
+    REDFISH_ROUTE(
         app,
-        "/redfish/v1/Managers/bmc/LogServices/FaultLog/Actions/LogService.ClearLog/")
-        .privileges(redfish::privileges::postLogService)
-        .methods(boost::beast::http::verb::post)(std::bind_front(
-            handleLogServicesDumpClearLogPost, std::ref(app), "FaultLog"));
+        "/redfish/v1/Managers/bmc/LogServices/FaultLog/Actions/LogService.ClearLog/",
+        redfish::privileges::EntityTag::tagLogService,
+        boost::beast::http::verb::post)
+    (std::bind_front(handleLogServicesDumpClearLogPost, std::ref(app),
+                     "FaultLog"));
 }
 
 inline void requestRoutesSystemDumpService(App& app)
 {
-    BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/LogServices/Dump/")
-        .privileges(redfish::privileges::getLogService)
-        .methods(boost::beast::http::verb::get)(std::bind_front(
-            handleLogServicesDumpServiceComputerSystemGet, std::ref(app)));
+    REDFISH_ROUTE(app, "/redfish/v1/Systems/<str>/LogServices/Dump/",
+                  redfish::privileges::EntityTag::tagLogService,
+                  boost::beast::http::verb::get)
+    (std::bind_front(handleLogServicesDumpServiceComputerSystemGet,
+                     std::ref(app)));
 }
 
 inline void requestRoutesSystemDumpEntryCollection(App& app)
 {
-    BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/LogServices/Dump/Entries/")
-        .privileges(redfish::privileges::getLogEntryCollection)
-        .methods(boost::beast::http::verb::get)(std::bind_front(
-            handleLogServicesDumpEntriesCollectionComputerSystemGet,
-            std::ref(app)));
+    REDFISH_ROUTE(app, "/redfish/v1/Systems/<str>/LogServices/Dump/Entries/",
+                  redfish::privileges::EntityTag::tagLogEntryCollection,
+                  boost::beast::http::verb::get)
+    (std::bind_front(handleLogServicesDumpEntriesCollectionComputerSystemGet,
+                     std::ref(app)));
 }
 
 inline void requestRoutesSystemDumpEntry(App& app)
 {
-    BMCWEB_ROUTE(app,
-                 "/redfish/v1/Systems/<str>/LogServices/Dump/Entries/<str>/")
-        .privileges(redfish::privileges::getLogEntry)
-        .methods(boost::beast::http::verb::get)(std::bind_front(
-            handleLogServicesDumpEntryComputerSystemGet, std::ref(app)));
+    REDFISH_ROUTE(app,
+                  "/redfish/v1/Systems/<str>/LogServices/Dump/Entries/<str>/",
+                  redfish::privileges::EntityTag::tagLogEntry,
+                  boost::beast::http::verb::get)
+    (std::bind_front(handleLogServicesDumpEntryComputerSystemGet,
+                     std::ref(app)));
 
-    BMCWEB_ROUTE(app,
-                 "/redfish/v1/Systems/<str>/LogServices/Dump/Entries/<str>/")
-        .privileges(redfish::privileges::deleteLogEntry)
-        .methods(boost::beast::http::verb::delete_)(std::bind_front(
-            handleLogServicesDumpEntryComputerSystemDelete, std::ref(app)));
+    REDFISH_ROUTE(app,
+                  "/redfish/v1/Systems/<str>/LogServices/Dump/Entries/<str>/",
+                  redfish::privileges::EntityTag::tagLogEntry,
+                  boost::beast::http::verb::delete_)
+    (std::bind_front(handleLogServicesDumpEntryComputerSystemDelete,
+                     std::ref(app)));
 }
 
 inline void requestRoutesSystemDumpCreate(App& app)
 {
-    BMCWEB_ROUTE(
+    REDFISH_ROUTE(
         app,
-        "/redfish/v1/Systems/<str>/LogServices/Dump/Actions/LogService.CollectDiagnosticData/")
-        .privileges(redfish::privileges::postLogService)
-        .methods(boost::beast::http::verb::post)(std::bind_front(
-            handleLogServicesDumpCollectDiagnosticDataComputerSystemPost,
-            std::ref(app)));
+        "/redfish/v1/Systems/<str>/LogServices/Dump/Actions/LogService.CollectDiagnosticData/",
+        redfish::privileges::EntityTag::tagLogService,
+        boost::beast::http::verb::post)
+    (std::bind_front(
+        handleLogServicesDumpCollectDiagnosticDataComputerSystemPost,
+        std::ref(app)));
 }
 
 inline void requestRoutesSystemDumpClear(App& app)
 {
-    BMCWEB_ROUTE(
+    REDFISH_ROUTE(
         app,
-        "/redfish/v1/Systems/<str>/LogServices/Dump/Actions/LogService.ClearLog/")
-        .privileges(redfish::privileges::postLogService)
-        .methods(boost::beast::http::verb::post)(std::bind_front(
-            handleLogServicesDumpClearLogComputerSystemPost, std::ref(app)));
+        "/redfish/v1/Systems/<str>/LogServices/Dump/Actions/LogService.ClearLog/",
+        redfish::privileges::EntityTag::tagLogService,
+        boost::beast::http::verb::post)
+    (std::bind_front(handleLogServicesDumpClearLogComputerSystemPost,
+                     std::ref(app)));
 }
 
 inline void requestRoutesCrashdumpService(App& app)
@@ -3207,15 +3217,15 @@ inline void requestRoutesCrashdumpFile(App& app)
 {
     // Note: Deviated from redfish privilege registry for GET & HEAD
     // method for security reasons.
-    BMCWEB_ROUTE(
+    REDFISH_ROUTE(
         app,
-        "/redfish/v1/Systems/<str>/LogServices/Crashdump/Entries/<str>/<str>/")
-        .privileges(redfish::privileges::getLogEntry)
-        .methods(boost::beast::http::verb::get)(
-            [](const crow::Request& req,
-               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-               const std::string& systemName, const std::string& logID,
-               const std::string& fileName) {
+        "/redfish/v1/Systems/<str>/LogServices/Crashdump/Entries/<str>/<str>/",
+        redfish::privileges::EntityTag::tagLogEntry,
+        boost::beast::http::verb::get)
+    ([](const crow::Request& req,
+        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+        const std::string& systemName, const std::string& logID,
+        const std::string& fileName) {
         // Do not call getRedfishRoute here since the crashdump file is not a
         // Redfish resource.
 
@@ -3279,7 +3289,7 @@ inline void requestRoutesCrashdumpFile(App& app)
             *crow::connections::systemBus, crashdumpObject,
             crashdumpPath + std::string("/") + logID, crashdumpInterface,
             std::move(getStoredLogCallback));
-        });
+    });
 }
 
 enum class OEMDiagnosticType
@@ -3441,14 +3451,14 @@ inline void requestRoutesDBusLogServiceActionsClear(App& app)
      * all entries found in the Entries collection for this Log Service.
      */
 
-    BMCWEB_ROUTE(
+    REDFISH_ROUTE(
         app,
-        "/redfish/v1/Systems/<str>/LogServices/EventLog/Actions/LogService.ClearLog/")
-        .privileges(redfish::privileges::postLogService)
-        .methods(boost::beast::http::verb::post)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                   const std::string& systemName) {
+        "/redfish/v1/Systems/<str>/LogServices/EventLog/Actions/LogService.ClearLog/",
+        redfish::privileges::EntityTag::tagLogService,
+        boost::beast::http::verb::post)
+    ([&app](const crow::Request& req,
+            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+            const std::string& systemName) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
@@ -3482,7 +3492,7 @@ inline void requestRoutesDBusLogServiceActionsClear(App& app)
             respHandler, "xyz.openbmc_project.Logging",
             "/xyz/openbmc_project/logging",
             "xyz.openbmc_project.Collection.DeleteAll", "DeleteAll");
-        });
+    });
 }
 
 /****************************************************
@@ -3491,12 +3501,12 @@ inline void requestRoutesDBusLogServiceActionsClear(App& app)
  ******************************************************/
 inline void requestRoutesPostCodesLogService(App& app)
 {
-    BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/LogServices/PostCodes/")
-        .privileges(redfish::privileges::getLogService)
-        .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                   const std::string& systemName) {
+    REDFISH_ROUTE(app, "/redfish/v1/Systems/<str>/LogServices/PostCodes/",
+                  redfish::privileges::EntityTag::tagLogService,
+                  boost::beast::http::verb::get)
+    ([&app](const crow::Request& req,
+            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+            const std::string& systemName) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
@@ -3528,7 +3538,7 @@ inline void requestRoutesPostCodesLogService(App& app)
         asyncResp->res.jsonValue["Actions"]["#LogService.ClearLog"] = {
             {"target",
              "/redfish/v1/Systems/system/LogServices/PostCodes/Actions/LogService.ClearLog"}};
-        });
+    });
 }
 
 inline void requestRoutesPostCodesClear(App& app)
@@ -3816,13 +3826,13 @@ static void
 
 inline void requestRoutesPostCodesEntryCollection(App& app)
 {
-    BMCWEB_ROUTE(app,
-                 "/redfish/v1/Systems/<str>/LogServices/PostCodes/Entries/")
-        .privileges(redfish::privileges::getLogEntryCollection)
-        .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                   const std::string& systemName) {
+    REDFISH_ROUTE(app,
+                  "/redfish/v1/Systems/<str>/LogServices/PostCodes/Entries/",
+                  redfish::privileges::EntityTag::tagLogEntryCollection,
+                  boost::beast::http::verb::get)
+    ([&app](const crow::Request& req,
+            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+            const std::string& systemName) {
         query_param::QueryCapabilities capabilities = {
             .canDelegateTop = true,
             .canDelegateSkip = true,
@@ -3853,7 +3863,7 @@ inline void requestRoutesPostCodesEntryCollection(App& app)
         size_t skip = delegatedQuery.skip.value_or(0);
         size_t top = delegatedQuery.top.value_or(query_param::Query::maxTop);
         getCurrentBootNumber(asyncResp, skip, top);
-        });
+    });
 }
 
 /**
@@ -3898,15 +3908,14 @@ inline static bool parsePostCode(const std::string& postCodeID,
 
 inline void requestRoutesPostCodesEntryAdditionalData(App& app)
 {
-    BMCWEB_ROUTE(
+    REDFISH_ROUTE(
         app,
-        "/redfish/v1/Systems/<str>/LogServices/PostCodes/Entries/<str>/attachment/")
-        .privileges(redfish::privileges::getLogEntry)
-        .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                   const std::string& systemName,
-                   const std::string& postCodeID) {
+        "/redfish/v1/Systems/<str>/LogServices/PostCodes/Entries/<str>/attachment/",
+        redfish::privileges::EntityTag::tagLogEntry,
+        boost::beast::http::verb::get)
+    ([&app](const crow::Request& req,
+            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+            const std::string& systemName, const std::string& postCodeID) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
@@ -3982,18 +3991,18 @@ inline void requestRoutesPostCodesEntryAdditionalData(App& app)
             "xyz.openbmc_project.State.Boot.PostCode0",
             "/xyz/openbmc_project/State/Boot/PostCode0",
             "xyz.openbmc_project.State.Boot.PostCode", "GetPostCodes", index);
-        });
+    });
 }
 
 inline void requestRoutesPostCodesEntry(App& app)
 {
-    BMCWEB_ROUTE(
-        app, "/redfish/v1/Systems/<str>/LogServices/PostCodes/Entries/<str>/")
-        .privileges(redfish::privileges::getLogEntry)
-        .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                   const std::string& systemName, const std::string& targetID) {
+    REDFISH_ROUTE(
+        app, "/redfish/v1/Systems/<str>/LogServices/PostCodes/Entries/<str>/",
+        redfish::privileges::EntityTag::tagLogEntry,
+        boost::beast::http::verb::get)
+    ([&app](const crow::Request& req,
+            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+            const std::string& systemName, const std::string& targetID) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
@@ -4029,7 +4038,7 @@ inline void requestRoutesPostCodesEntry(App& app)
         asyncResp->res.jsonValue["Members@odata.count"] = 0;
 
         getPostCodeForEntry(asyncResp, bootIndex, codeIndex);
-        });
+    });
 }
 
 } // namespace redfish

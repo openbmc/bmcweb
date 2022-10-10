@@ -82,12 +82,12 @@ inline void requestRoutesSystemPCIeDeviceCollection(App& app)
     /**
      * Functions triggers appropriate requests on DBus
      */
-    BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/PCIeDevices/")
-        .privileges(redfish::privileges::getPCIeDeviceCollection)
-        .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                   const std::string& systemName) {
+    REDFISH_ROUTE(app, "/redfish/v1/Systems/<str>/PCIeDevices/",
+                  redfish::privileges::EntityTag::tagPCIeDeviceCollection,
+                  boost::beast::http::verb::get)
+    ([&app](const crow::Request& req,
+            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+            const std::string& systemName) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
@@ -108,7 +108,7 @@ inline void requestRoutesSystemPCIeDeviceCollection(App& app)
         asyncResp->res.jsonValue["Members"] = nlohmann::json::array();
         asyncResp->res.jsonValue["Members@odata.count"] = 0;
         getPCIeDeviceList(asyncResp, "Members");
-        });
+    });
 }
 
 inline std::optional<std::string>
@@ -152,12 +152,12 @@ inline std::optional<std::string>
 
 inline void requestRoutesSystemPCIeDevice(App& app)
 {
-    BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/PCIeDevices/<str>/")
-        .privileges(redfish::privileges::getPCIeDevice)
-        .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                   const std::string& systemName, const std::string& device) {
+    REDFISH_ROUTE(app, "/redfish/v1/Systems/<str>/PCIeDevices/<str>/",
+                  redfish::privileges::EntityTag::tagPCIeDevice,
+                  boost::beast::http::verb::get)
+    ([&app](const crow::Request& req,
+            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+            const std::string& systemName, const std::string& device) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
@@ -250,7 +250,7 @@ inline void requestRoutesSystemPCIeDevice(App& app)
         sdbusplus::asio::getAllProperties(
             *crow::connections::systemBus, pcieService, escapedPath,
             pcieDeviceInterface, std::move(getPCIeDeviceCallback));
-        });
+    });
 }
 
 inline void requestRoutesSystemPCIeFunctionCollection(App& app)
@@ -258,13 +258,13 @@ inline void requestRoutesSystemPCIeFunctionCollection(App& app)
     /**
      * Functions triggers appropriate requests on DBus
      */
-    BMCWEB_ROUTE(app,
-                 "/redfish/v1/Systems/system/PCIeDevices/<str>/PCIeFunctions/")
-        .privileges(redfish::privileges::getPCIeFunctionCollection)
-        .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                   const std::string& device) {
+    REDFISH_ROUTE(app,
+                  "/redfish/v1/Systems/system/PCIeDevices/<str>/PCIeFunctions/",
+                  redfish::privileges::EntityTag::tagPCIeFunctionCollection,
+                  boost::beast::http::verb::get)
+    ([&app](const crow::Request& req,
+            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+            const std::string& device) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
@@ -338,19 +338,19 @@ inline void requestRoutesSystemPCIeFunctionCollection(App& app)
         sdbusplus::asio::getAllProperties(
             *crow::connections::systemBus, pcieService, escapedPath,
             pcieDeviceInterface, std::move(getPCIeDeviceCallback));
-        });
+    });
 }
 
 inline void requestRoutesSystemPCIeFunction(App& app)
 {
-    BMCWEB_ROUTE(
+    REDFISH_ROUTE(
         app,
-        "/redfish/v1/Systems/system/PCIeDevices/<str>/PCIeFunctions/<str>/")
-        .privileges(redfish::privileges::getPCIeFunction)
-        .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                   const std::string& device, const std::string& function) {
+        "/redfish/v1/Systems/system/PCIeDevices/<str>/PCIeFunctions/<str>/",
+        redfish::privileges::EntityTag::tagPCIeFunction,
+        boost::beast::http::verb::get)
+    ([&app](const crow::Request& req,
+            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+            const std::string& device, const std::string& function) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
@@ -453,7 +453,7 @@ inline void requestRoutesSystemPCIeFunction(App& app)
         sdbusplus::asio::getAllProperties(
             *crow::connections::systemBus, pcieService, escapedPath,
             pcieDeviceInterface, std::move(getPCIeDeviceCallback));
-        });
+    });
 }
 
 } // namespace redfish

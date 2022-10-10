@@ -26,12 +26,12 @@ namespace redfish
 
 inline void requestRoutesThermal(App& app)
 {
-    BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/Thermal/")
-        .privileges(redfish::privileges::getThermal)
-        .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                   const std::string& chassisName) {
+    REDFISH_ROUTE(app, "/redfish/v1/Chassis/<str>/Thermal/",
+                  redfish::privileges::EntityTag::tagThermal,
+                  boost::beast::http::verb::get)
+    ([&app](const crow::Request& req,
+            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+            const std::string& chassisName) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
@@ -43,14 +43,14 @@ inline void requestRoutesThermal(App& app)
 
         // TODO Need to get Chassis Redundancy information.
         getChassisData(sensorAsyncResp);
-        });
+    });
 
-    BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/Thermal/")
-        .privileges(redfish::privileges::patchThermal)
-        .methods(boost::beast::http::verb::patch)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                   const std::string& chassisName) {
+    REDFISH_ROUTE(app, "/redfish/v1/Chassis/<str>/Thermal/",
+                  redfish::privileges::EntityTag::tagThermal,
+                  boost::beast::http::verb::patch)
+    ([&app](const crow::Request& req,
+            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+            const std::string& chassisName) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
@@ -87,7 +87,7 @@ inline void requestRoutesThermal(App& app)
             allCollections.emplace("Fans", *std::move(fanCollections));
         }
         setSensorsOverride(sensorsAsyncResp, allCollections);
-        });
+    });
 }
 
 } // namespace redfish

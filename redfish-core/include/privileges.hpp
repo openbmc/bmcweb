@@ -15,20 +15,24 @@
 */
 #pragma once
 
+#include "http_verbs.hpp"
 #include "logging.hpp"
+#include "registries/privilege_registry.hpp"
 
 #include <boost/beast/http/verb.hpp>
-#include <boost/container/flat_map.hpp>
 #include <boost/container/vector.hpp>
 #include <boost/move/algo/move.hpp>
+#include <nlohmann/json.hpp>
 
 #include <array>
 #include <bitset>
 #include <cstddef>
 #include <functional>
 #include <initializer_list>
+#include <span>
 #include <string>
 #include <string_view>
+#include <unordered_map>
 #include <utility>
 #include <vector>
 
@@ -43,20 +47,29 @@ enum class PrivilegeType
     OEM
 };
 
-/** @brief A fixed array of compile time privileges  */
-constexpr std::array<const char*, 5> basePrivileges{
-    "Login", "ConfigureManager", "ConfigureComponents", "ConfigureSelf",
-    "ConfigureUsers"};
+class Privileges;
 
-constexpr const size_t basePrivilegeCount = basePrivileges.size();
+/**
+ * @brief The OperationMap represents the privileges required for a
+ * single entity (URI).  It maps from the allowable verbs to the
+ * privileges required to use that operation.
+ *
+ * This represents the Redfish "Privilege AND and OR syntax" as given
+ * in the spec and shown in the Privilege Registry.  This does not
+ * implement any Redfish property overrides, subordinate overrides, or
+ * resource URI overrides.  This does not implement the limitation of
+ * the ConfigureSelf privilege to operate only on your own account or
+ * session.
+ **/
+using OperationMap =
+    std::array<std::vector<Privileges>, http::allRedfishMethods.size()>;
 
-/** @brief Max number of privileges per type  */
-constexpr const size_t maxPrivilegeCount = 32;
-
-/** @brief A vector of all privilege names and their indexes */
-static const std::array<std::string, maxPrivilegeCount> privilegeNames{
-    "Login", "ConfigureManager", "ConfigureComponents", "ConfigureSelf",
-    "ConfigureUsers"};
+// Mappings between entities and the relevant privileges that access those
+// entities.
+// To store the data efficiently, the implementation uses an array.
+// E.g., mappings[0] is the privileges required to access the Entity
+// |privileges::entities[0]| (which is AccelerationFunction)
+using Mappings = std::array<OperationMap, privileges::entities.size()>;
 
 /**
  * @brief Redfish privileges
@@ -90,17 +103,11 @@ class Privileges
      * @param[in] privilegeList  List of privileges to be activated
      *
      */
-    Privileges(std::initializer_list<const char*> privilegeList)
-    {
-        for (const char* privilege : privilegeList)
-        {
-            if (!setSinglePrivilege(privilege))
-            {
-                BMCWEB_LOG_CRITICAL << "Unable to set privilege " << privilege
-                                    << "in constructor";
-            }
-        }
-    }
+    Privileges(std::initializer_list<const char*> privilegeList);
+
+    explicit Privileges(uint64_t privilegeBitsetIn) :
+        privilegeBitset(privilegeBitsetIn)
+    {}
 
     /**
      * @brief Sets given privilege in the bitset
@@ -110,20 +117,7 @@ class Privileges
      * @return               None
      *
      */
-    bool setSinglePrivilege(const std::string_view privilege)
-    {
-        for (size_t searchIndex = 0; searchIndex < privilegeNames.size();
-             searchIndex++)
-        {
-            if (privilege == privilegeNames[searchIndex])
-            {
-                privilegeBitset.set(searchIndex);
-                return true;
-            }
-        }
-
-        return false;
-    }
+    bool setSinglePrivilege(std::string_view privilege);
 
     /**
      * @brief Resets the given privilege in the bitset
@@ -133,19 +127,7 @@ class Privileges
      * @return               None
      *
      */
-    bool resetSinglePrivilege(const char* privilege)
-    {
-        for (size_t searchIndex = 0; searchIndex < privilegeNames.size();
-             searchIndex++)
-        {
-            if (privilege == privilegeNames[searchIndex])
-            {
-                privilegeBitset.reset(searchIndex);
-                return true;
-            }
-        }
-        return false;
-    }
+    bool resetSinglePrivilege(std::string_view privilege);
 
     /**
      * @brief Retrieves names of all active privileges for a given type
@@ -156,29 +138,10 @@ class Privileges
      * the setSinglePrivilege is called, or the Privilege structure is destroyed
      *
      */
-    std::vector<std::string>
-        getActivePrivilegeNames(const PrivilegeType type) const
-    {
-        std::vector<std::string> activePrivileges;
+    std::vector<std::string> getActivePrivilegeNames(PrivilegeType type) const;
 
-        size_t searchIndex = 0;
-        size_t endIndex = basePrivilegeCount;
-        if (type == PrivilegeType::OEM)
-        {
-            searchIndex = basePrivilegeCount;
-            endIndex = privilegeNames.size();
-        }
-
-        for (; searchIndex < endIndex; searchIndex++)
-        {
-            if (privilegeBitset.test(searchIndex))
-            {
-                activePrivileges.emplace_back(privilegeNames[searchIndex]);
-            }
-        }
-
-        return activePrivileges;
-    }
+    // Returns active privileges of both types (Base and OEM)
+    std::vector<std::string> getAllActivePrivilegeNames() const;
 
     /**
      * @brief Determines if this Privilege set is a superset of the given
@@ -207,11 +170,34 @@ class Privileges
         return Privileges{privilegeBitset & p.privilegeBitset};
     }
 
+    static std::span<Privileges>
+        getPrivilegesForRedfishRoute(privileges::EntityTag tag,
+                                     boost::beast::http::verb method)
+    {
+        size_t tagIndex = static_cast<size_t>(tag);
+        size_t methodIndex = static_cast<size_t>(method);
+        return mappings[tagIndex][methodIndex];
+    }
+
+    // Returns the OperationMap of the given Entity
+    static nlohmann::json getOperationMap(privileges::EntityTag tag);
+
   private:
-    explicit Privileges(const std::bitset<maxPrivilegeCount>& p) :
+    explicit Privileges(const std::bitset<privileges::maxPrivilegeCount>& p) :
         privilegeBitset{p}
     {}
-    std::bitset<maxPrivilegeCount> privilegeBitset = 0;
+
+    std::bitset<privileges::maxPrivilegeCount> privilegeBitset = 0;
+
+    /** @brief A vector of all privilege names (Base + OEM)
+     *  The index of the vector implies their
+     */
+    static std::vector<std::string> privilegeNames;
+
+    // Mappings of the current PrivilegeRegistery
+    static Mappings mappings;
+
+    const static int basePrivilegeCount;
 };
 
 inline const Privileges& getUserPrivileges(const std::string& userRole)
@@ -240,21 +226,6 @@ inline const Privileges& getUserPrivileges(const std::string& userRole)
     return noaccess;
 }
 
-/**
- * @brief The OperationMap represents the privileges required for a
- * single entity (URI).  It maps from the allowable verbs to the
- * privileges required to use that operation.
- *
- * This represents the Redfish "Privilege AND and OR syntax" as given
- * in the spec and shown in the Privilege Registry.  This does not
- * implement any Redfish property overrides, subordinate overrides, or
- * resource URI overrides.  This does not implement the limitation of
- * the ConfigureSelf privilege to operate only on your own account or
- * session.
- **/
-using OperationMap = boost::container::flat_map<boost::beast::http::verb,
-                                                std::vector<Privileges>>;
-
 /* @brief Checks if user is allowed to call an operation
  *
  * @param[in] operationPrivilegesRequired   Privileges required
@@ -281,28 +252,6 @@ inline bool isOperationAllowedWithPrivileges(
         }
     }
     return false;
-}
-
-/**
- * @brief Checks if given privileges allow to call an HTTP method
- *
- * @param[in] method       HTTP method
- * @param[in] user         Privileges
- *
- * @return                 True if method allowed, false otherwise
- *
- */
-inline bool isMethodAllowedWithPrivileges(const boost::beast::http::verb method,
-                                          const OperationMap& operationMap,
-                                          const Privileges& userPrivileges)
-{
-    const auto& it = operationMap.find(method);
-    if (it == operationMap.end())
-    {
-        return false;
-    }
-
-    return isOperationAllowedWithPrivileges(it->second, userPrivileges);
 }
 
 } // namespace redfish
