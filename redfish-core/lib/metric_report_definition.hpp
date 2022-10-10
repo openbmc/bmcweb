@@ -39,6 +39,16 @@ using ReadingParameters = std::vector<std::tuple<
     std::vector<std::tuple<sdbusplus::message::object_path, std::string>>,
     std::string, std::string, uint64_t>>;
 
+inline std::string_view getErrorMessage(const sd_bus_error* dbusError)
+{
+    if (dbusError == nullptr)
+    {
+        return "";
+    }
+
+    return dbusError->message;
+}
+
 inline bool verifyCommonErrors(crow::Response& res, const std::string& id,
                                const boost::system::error_code& ec)
 {
@@ -66,6 +76,74 @@ inline bool verifyCommonErrors(crow::Response& res, const std::string& id,
         BMCWEB_LOG_ERROR("DBUS response error {}", ec);
         messages::internalError(res);
         return false;
+    }
+
+    return true;
+}
+
+inline std::string toRedfishProperty(std::string_view dbusMessage)
+{
+    if (dbusMessage == "ReportingType")
+    {
+        return "MetricReportDefinitionType";
+    }
+    if (dbusMessage == "Interval")
+    {
+        return "RecurrenceInterval";
+    }
+    if (dbusMessage == "ReadingParameters")
+    {
+        return "Metrics";
+    }
+    return std::string(dbusMessage);
+}
+
+inline bool verifyParameterStr(crow::Response& res,
+                               const boost::system::error_code& ec,
+                               std::string_view errorMessage,
+                               std::string_view key,
+                               const std::string& parameter)
+{
+    if ((ec == boost::system::errc::invalid_argument) && (errorMessage == key))
+    {
+        std::string redfishProperty = toRedfishProperty(errorMessage);
+        messages::propertyValueIncorrect(res, redfishProperty, parameter);
+        return false;
+    }
+
+    return true;
+}
+
+template <class Parameter>
+inline bool verifyParameterArray(crow::Response& res,
+                                 const boost::system::error_code& ec,
+                                 std::string_view errorMessage,
+                                 std::string_view key,
+                                 const std::span<Parameter>& parameter)
+{
+    if ((ec == boost::system::errc::invalid_argument) &&
+        (errorMessage.size() >= key.size()))
+    {
+        std::string_view errorMessageStart = errorMessage.substr(0, key.size());
+
+        if (errorMessageStart == key)
+        {
+            std::string_view errorMessageEnd =
+                errorMessage.size() > key.size()
+                    ? errorMessage.substr(errorMessage.find('.'))
+                    : "";
+            std::string redfishProperty = toRedfishProperty(errorMessageStart);
+            if (!errorMessageEnd.empty())
+            {
+                redfishProperty += errorMessageEnd;
+            }
+            nlohmann::json jsonArray = nlohmann::json::array_t{parameter};
+            messages::propertyValueIncorrect(
+                res, redfishProperty,
+                jsonArray.dump(-1, ' ', false,
+                               nlohmann::json::error_handler_t::replace));
+            return false;
+        }
     }
 
     return true;
@@ -396,14 +474,30 @@ struct AddReportArgs
         std::string collectionFunction;
         std::string collectionTimeScope;
         uint64_t collectionDuration = 0;
+
+        nlohmann::json::object_t toJson() const
+        {
+            nlohmann::json::object_t obj;
+            obj["MetricProperties"] = uris;
+            obj["CollectionFunction"] = collectionFunction;
+            obj["CollectionTimeScope"] = collectionTimeScope;
+            obj["CollectionDuration"] = time_utils::toDurationString(
+                std::chrono::milliseconds(collectionDuration));
+
+            return obj;
+        }
     };
 
     std::string id;
     std::string name;
-    std::string reportingType;
-    std::string reportUpdates;
+    std::string reportingTypeRedfish;
+    std::string reportingTypeDbus;
+    std::string reportUpdatesRedfish;
+    std::string reportUpdatesDbus;
     uint64_t appendLimit = std::numeric_limits<uint64_t>::max();
-    std::vector<std::string> reportActions;
+    std::vector<std::string> reportActionsRedfish;
+    std::vector<std::string> reportActionsDbus;
+    std::string scheduleDurationStr;
     uint64_t interval = std::numeric_limits<uint64_t>::max();
     std::vector<MetricArgs> metrics;
     bool metricReportDefinitionEnabled = true;
@@ -568,7 +662,8 @@ inline bool getUserParameters(crow::Response& res, const crow::Request& req,
                                              "MetricReportDefinitionType");
             return false;
         }
-        args.reportingType = dbusReportingType;
+        args.reportingTypeRedfish = *reportingTypeStr;
+        args.reportingTypeDbus = dbusReportingType;
     }
 
     if (reportUpdatesStr)
@@ -580,7 +675,8 @@ inline bool getUserParameters(crow::Response& res, const crow::Request& req,
                                              "ReportUpdates");
             return false;
         }
-        args.reportUpdates = dbusReportUpdates;
+        args.reportUpdatesRedfish = *reportUpdatesStr;
+        args.reportUpdatesDbus = dbusReportUpdates;
     }
 
     if (appendLimit)
@@ -595,7 +691,11 @@ inline bool getUserParameters(crow::Response& res, const crow::Request& req,
 
     if (reportActionsStr)
     {
-        if (!toDbusReportActions(res, *reportActionsStr, args.reportActions))
+        if (toDbusReportActions(res, *reportActionsStr, args.reportActionsDbus))
+        {
+            args.reportActionsRedfish = *reportActionsStr;
+        }
+        else
         {
             return false;
         }
@@ -617,6 +717,7 @@ inline bool getUserParameters(crow::Response& res, const crow::Request& req,
                                              *scheduleDurationStr);
             return false;
         }
+        args.scheduleDurationStr = *scheduleDurationStr;
         args.interval = static_cast<uint64_t>(durationNum->count());
     }
 
@@ -710,36 +811,62 @@ class AddReport
                 std::move(sensorParams), metric.collectionFunction,
                 metric.collectionTimeScope, metric.collectionDuration);
         }
-
         crow::connections::systemBus->async_method_call(
-            [asyncResp, id = args.id, uriToDbus](
-                const boost::system::error_code& ec, const std::string&) {
-            if (ec == boost::system::errc::file_exists)
+            [asyncResp, args, uriToDbus](const boost::system::error_code& ec,
+                                         const sdbusplus::message_t& msg,
+                                         const std::string&) {
+            std::string_view errorMessage = getErrorMessage(msg.get_error());
+            if (!verifyParameterStr(asyncResp->res, ec, errorMessage, "Id",
+                                    args.id))
             {
-                messages::resourceAlreadyExists(
-                    asyncResp->res, "MetricReportDefinition", "Id", id);
                 return;
             }
-            if (ec == boost::system::errc::too_many_files_open)
+            if (!verifyParameterStr(asyncResp->res, ec, errorMessage, "Name",
+                                    args.name))
             {
-                messages::createLimitReachedForResource(asyncResp->res);
                 return;
             }
-            if (ec == boost::system::errc::argument_list_too_long)
+            if (!verifyParameterStr(asyncResp->res, ec, errorMessage,
+                                    "ReportingType", args.reportingTypeRedfish))
             {
-                nlohmann::json metricProperties = nlohmann::json::array();
-                for (const auto& [uri, _] : uriToDbus)
-                {
-                    metricProperties.emplace_back(uri);
-                }
-                messages::propertyValueIncorrect(
-                    asyncResp->res, "MetricProperties", metricProperties);
                 return;
             }
-            if (ec)
+            if (!verifyParameterStr(asyncResp->res, ec, errorMessage,
+                                    "AppendLimit",
+                                    std::to_string(args.appendLimit)))
             {
-                messages::internalError(asyncResp->res);
-                BMCWEB_LOG_ERROR("respHandler DBus error {}", ec);
+                return;
+            }
+            if (!verifyParameterArray(
+                    asyncResp->res, ec, errorMessage, "ReportActions",
+                    std::span{args.reportActionsRedfish.begin(),
+                              args.reportActionsRedfish.end()}))
+            {
+                return;
+            }
+            if (!verifyParameterStr(asyncResp->res, ec, errorMessage,
+                                    "Interval", args.scheduleDurationStr))
+            {
+                return;
+            }
+            if (!verifyParameterStr(asyncResp->res, ec, errorMessage,
+                                    "ReportUpdates", args.reportUpdatesRedfish))
+            {
+                return;
+            }
+            std::vector<nlohmann::json::object_t> metricParams;
+            for (const auto& metric : args.metrics)
+            {
+                metricParams.emplace_back(metric.toJson());
+            }
+            if (!verifyParameterArray(
+                    asyncResp->res, ec, errorMessage, "MetricParams",
+                    std::span{metricParams.begin(), metricParams.end()}))
+            {
+                return;
+            }
+            if (!verifyCommonErrors(asyncResp->res, args.id, ec))
+            {
                 return;
             }
 
@@ -747,8 +874,8 @@ class AddReport
         },
             telemetry::service, "/xyz/openbmc_project/Telemetry/Reports",
             "xyz.openbmc_project.Telemetry.ReportManager", "AddReport",
-            "TelemetryService/" + args.id, args.name, args.reportingType,
-            args.reportUpdates, args.appendLimit, args.reportActions,
+            "TelemetryService/" + args.id, args.name, args.reportingTypeDbus,
+            args.reportUpdatesDbus, args.appendLimit, args.reportActionsDbus,
             args.interval, readingParams, args.metricReportDefinitionEnabled);
     }
 
@@ -772,25 +899,20 @@ class UpdateMetrics
 {
   public:
     UpdateMetrics(std::string_view idIn,
-                  const std::shared_ptr<bmcweb::AsyncResp>& asyncRespIn) :
+                  const std::shared_ptr<bmcweb::AsyncResp>& asyncRespIn,
+                  std::span<const nlohmann::json::object_t> redfishMetricsIn) :
         id(idIn),
-        asyncResp(asyncRespIn)
+        asyncResp(asyncRespIn),
+        redfishMetrics(redfishMetricsIn.begin(), redfishMetricsIn.end())
     {}
 
     ~UpdateMetrics()
     {
-        try
-        {
-            setReadingParams();
-        }
-        catch (const std::exception& e)
-        {
-            BMCWEB_LOG_ERROR("{}", e.what());
-        }
-        catch (...)
-        {
-            BMCWEB_LOG_ERROR("Unknown error");
-        }
+        boost::asio::post(
+            crow::connections::systemBus->get_io_context(),
+            std::bind_front(&setReadingParams, asyncResp, id,
+                            std::move(readingParams), readingParamsUris,
+                            metricPropertyToDbusPaths, redfishMetrics));
     }
 
     UpdateMetrics(const UpdateMetrics&) = delete;
@@ -821,7 +943,12 @@ class UpdateMetrics
             metricArgs.collectionDuration);
     }
 
-    void setReadingParams()
+    static void setReadingParams(
+        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+        const std::string& reportId, ReadingParameters readingParams,
+        const std::vector<std::vector<std::string>>& readingParamsUris,
+        const std::map<std::string, std::string>& metricPropertyToDbusPaths,
+        const std::vector<nlohmann::json::object_t>& redfishMetrics)
     {
         if (asyncResp->res.result() != boost::beast::http::status::ok)
         {
@@ -834,34 +961,55 @@ class UpdateMetrics
 
             const std::optional<std::vector<
                 std::tuple<sdbusplus::message::object_path, std::string>>>
-                readingParam = sensorPathToUri(newUris);
+                readingParam = sensorPathToUri(asyncResp, newUris,
+                                               metricPropertyToDbusPaths);
 
             if (!readingParam)
             {
                 return;
             }
 
-            std::get<0>(readingParams[index]) = *readingParam;
+            for (const std::tuple<sdbusplus::message::object_path, std::string>&
+                     value : *readingParam)
+            {
+                std::get<0>(readingParams[index]).emplace_back(value);
+            }
         }
 
         crow::connections::systemBus->async_method_call(
-            [asyncResp(this->asyncResp),
-             reportId = id](const boost::system::error_code& ec) {
+            [asyncResp, reportId,
+             redfishMetrics](const boost::system::error_code& ec,
+                             const sdbusplus::message_t& msg) {
+            std::string_view errorMessage = getErrorMessage(msg.get_error());
+            if (!verifyParameterStr(asyncResp->res, ec, errorMessage, "Id",
+                                    reportId))
+            {
+                return;
+            }
+            if (!verifyParameterArray(
+                    asyncResp->res, ec, errorMessage, "ReadingParameters",
+                    std::span{redfishMetrics.begin(), redfishMetrics.end()}))
+            {
+                return;
+            }
             if (!verifyCommonErrors(asyncResp->res, reportId, ec))
             {
                 return;
             }
         },
-            "xyz.openbmc_project.Telemetry", getDbusReportPath(id),
+            "xyz.openbmc_project.Telemetry", getDbusReportPath(reportId),
             "org.freedesktop.DBus.Properties", "Set",
             "xyz.openbmc_project.Telemetry.Report", "ReadingParameters",
             dbus::utility::DbusVariantType{readingParams});
     }
 
   private:
-    std::optional<
+    static std::optional<
         std::vector<std::tuple<sdbusplus::message::object_path, std::string>>>
-        sensorPathToUri(std::span<const std::string> uris) const
+        sensorPathToUri(
+            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+            std::span<const std::string> uris,
+            const std::map<std::string, std::string>& metricPropertyToDbusPaths)
     {
         std::vector<std::tuple<sdbusplus::message::object_path, std::string>>
             result;
@@ -881,9 +1029,10 @@ class UpdateMetrics
         return result;
     }
 
-    const std::shared_ptr<bmcweb::AsyncResp> asyncResp;
+    std::shared_ptr<bmcweb::AsyncResp> asyncResp;
     std::vector<std::vector<std::string>> readingParamsUris;
     ReadingParameters readingParams;
+    std::vector<nlohmann::json::object_t> redfishMetrics;
 };
 
 inline void
@@ -891,7 +1040,13 @@ inline void
                      std::string_view id, bool enabled)
 {
     crow::connections::systemBus->async_method_call(
-        [asyncResp, id = std::string(id)](const boost::system::error_code& ec) {
+        [asyncResp, id = std::string(id)](const boost::system::error_code& ec,
+                                          const sdbusplus::message_t& msg) {
+        if (!verifyParameterStr(asyncResp->res, ec,
+                                getErrorMessage(msg.get_error()), "Id", id))
+        {
+            return;
+        }
         if (!verifyCommonErrors(asyncResp->res, id, ec))
         {
             return;
@@ -905,10 +1060,55 @@ inline void
 
 inline void setReportTypeAndInterval(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, std::string_view id,
-    const std::string& reportingType, uint64_t recurrenceInterval)
+    const std::optional<std::string>& reportingTypeStr,
+    const std::optional<std::string>& scheduleDurationStr)
 {
+    std::string dbusReportingType;
+    if (reportingTypeStr)
+    {
+        dbusReportingType = toDbusReportingType(*reportingTypeStr);
+        if (dbusReportingType.empty())
+        {
+            messages::propertyValueNotInList(asyncResp->res, *reportingTypeStr,
+                                             "MetricReportDefinitionType");
+            return;
+        }
+    }
+
+    uint64_t recurrenceInterval = std::numeric_limits<uint64_t>::max();
+    if (scheduleDurationStr)
+    {
+        std::optional<std::chrono::milliseconds> durationNum =
+            time_utils::fromDurationString(*scheduleDurationStr);
+        if (!durationNum || durationNum->count() < 0)
+        {
+            messages::propertyValueIncorrect(
+                asyncResp->res, "RecurrenceInterval", *scheduleDurationStr);
+            return;
+        }
+
+        recurrenceInterval = static_cast<uint64_t>(durationNum->count());
+    }
+
     crow::connections::systemBus->async_method_call(
-        [asyncResp, id = std::string(id)](const boost::system::error_code& ec) {
+        [asyncResp, id = std::string(id), reportingTypeStr,
+         scheduleDurationStr](const boost::system::error_code& ec,
+                              const sdbusplus::message_t& msg) {
+        std::string_view errorMessage = getErrorMessage(msg.get_error());
+        if (!verifyParameterStr(asyncResp->res, ec, errorMessage, "Id", id))
+        {
+            return;
+        }
+        if (!verifyParameterStr(asyncResp->res, ec, errorMessage,
+                                "ReportingType", *reportingTypeStr))
+        {
+            return;
+        }
+        if (!verifyParameterStr(asyncResp->res, ec, errorMessage, "Interval",
+                                *scheduleDurationStr))
+        {
+            return;
+        }
         if (!verifyCommonErrors(asyncResp->res, id, ec))
         {
             return;
@@ -916,40 +1116,86 @@ inline void setReportTypeAndInterval(
     },
         "xyz.openbmc_project.Telemetry", getDbusReportPath(id),
         "xyz.openbmc_project.Telemetry.Report", "SetReportingProperties",
-        reportingType, recurrenceInterval);
+        dbusReportingType, recurrenceInterval);
 }
 
 inline void
     setReportUpdates(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                      std::string_view id, const std::string& reportUpdates)
 {
-    crow::connections::systemBus->async_method_call(
-        [asyncResp, id = std::string(id)](const boost::system::error_code& ec) {
+    std::string dbusReportUpdates = toDbusReportUpdates(reportUpdates);
+    if (dbusReportUpdates.empty())
+    {
+        messages::propertyValueNotInList(
+            asyncResp->res,
+            nlohmann::json(reportUpdates)
+                .dump(-1, ' ', false, nlohmann::json::error_handler_t::replace),
+            "ReportUpdates");
+        return;
+    }
+
+    auto afterSetReportUpdates =
+        [asyncResp, id = std::string(id),
+         reportUpdates](const boost::system::error_code& ec,
+                        const sdbusplus::message_t& msg) {
+        std::string_view errorMessage = getErrorMessage(msg.get_error());
+        if (!verifyParameterStr(asyncResp->res, ec, errorMessage, "Id", id))
+        {
+            return;
+        }
+        if (!verifyParameterStr(asyncResp->res, ec, errorMessage,
+                                "ReportUpdates", reportUpdates))
+        {
+            return;
+        }
         if (!verifyCommonErrors(asyncResp->res, id, ec))
         {
             return;
         }
-    },
-        "xyz.openbmc_project.Telemetry", getDbusReportPath(id),
-        "org.freedesktop.DBus.Properties", "Set",
+    };
+
+    crow::connections::systemBus->async_method_call(
+        std::move(afterSetReportUpdates), "xyz.openbmc_project.Telemetry",
+        getDbusReportPath(id), "org.freedesktop.DBus.Properties", "Set",
         "xyz.openbmc_project.Telemetry.Report", "ReportUpdates",
-        dbus::utility::DbusVariantType{reportUpdates});
+        dbus::utility::DbusVariantType{dbusReportUpdates});
 }
 
 inline void
     setReportActions(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                      std::string_view id,
-                     const std::vector<std::string>& dbusReportActions)
+                     const std::vector<std::string>& reportActions)
 {
-    crow::connections::systemBus->async_method_call(
-        [asyncResp, id = std::string(id)](const boost::system::error_code& ec) {
+    std::vector<std::string> dbusReportActions;
+    if (!toDbusReportActions(asyncResp->res, reportActions, dbusReportActions))
+    {
+        return;
+    }
+
+    auto afterSetReportActions =
+        [asyncResp, id = std::string(id),
+         reportActions](const boost::system::error_code& ec,
+                        const sdbusplus::message_t& msg) {
+        std::string_view errorMessage = getErrorMessage(msg.get_error());
+        if (!verifyParameterStr(asyncResp->res, ec, errorMessage, "Id", id))
+        {
+            return;
+        }
+        if (!verifyParameterArray(
+                asyncResp->res, ec, errorMessage, "ReportActions",
+                std::span{reportActions.begin(), reportActions.end()}))
+        {
+            return;
+        }
         if (!verifyCommonErrors(asyncResp->res, id, ec))
         {
             return;
         }
-    },
-        "xyz.openbmc_project.Telemetry", getDbusReportPath(id),
-        "org.freedesktop.DBus.Properties", "Set",
+    };
+
+    crow::connections::systemBus->async_method_call(
+        std::move(afterSetReportActions), "xyz.openbmc_project.Telemetry",
+        getDbusReportPath(id), "org.freedesktop.DBus.Properties", "Set",
         "xyz.openbmc_project.Telemetry.Report", "ReportActions",
         dbus::utility::DbusVariantType{dbusReportActions});
 }
@@ -967,7 +1213,7 @@ inline void
                                                                 metrics.end())](
             boost::system::error_code ec,
             const dbus::utility::DBusPropertiesMap& properties) mutable {
-        if (!redfish::telemetry::verifyCommonErrors(asyncResp->res, id, ec))
+        if (!verifyCommonErrors(asyncResp->res, id, ec))
         {
             return;
         }
@@ -984,7 +1230,8 @@ inline void
             return;
         }
 
-        auto updateMetricsReq = std::make_shared<UpdateMetrics>(id, asyncResp);
+        std::shared_ptr<UpdateMetrics> updateMetricsReq =
+            std::make_shared<UpdateMetrics>(id, asyncResp, redfishMetrics);
 
         boost::container::flat_set<std::pair<std::string, std::string>>
             chassisSensors;
@@ -1002,7 +1249,10 @@ inline void
                 const ReadingParameters::value_type& existing =
                     readingParams[index];
 
-                pathAndUri = std::get<0>(existing);
+                if (metric.find("MetricProperties") == metric.end())
+                {
+                    pathAndUri = std::get<0>(existing);
+                }
                 metricArgs.collectionFunction = std::get<1>(existing);
                 metricArgs.collectionTimeScope = std::get<2>(existing);
                 metricArgs.collectionDuration = std::get<3>(existing);
@@ -1122,59 +1372,18 @@ inline void
 
     if (reportUpdatesStr)
     {
-        std::string dbusReportUpdates = toDbusReportUpdates(*reportUpdatesStr);
-        if (dbusReportUpdates.empty())
-        {
-            messages::propertyValueNotInList(asyncResp->res, *reportUpdatesStr,
-                                             "ReportUpdates");
-            return;
-        }
-        setReportUpdates(asyncResp, id, dbusReportUpdates);
+        setReportUpdates(asyncResp, id, *reportUpdatesStr);
     }
 
     if (reportActionsStr)
     {
-        std::vector<std::string> dbusReportActions;
-        if (!toDbusReportActions(asyncResp->res, *reportActionsStr,
-                                 dbusReportActions))
-        {
-            return;
-        }
-        setReportActions(asyncResp, id, dbusReportActions);
+        setReportActions(asyncResp, id, *reportActionsStr);
     }
 
     if (reportingTypeStr || scheduleDurationStr)
     {
-        std::string dbusReportingType;
-        if (reportingTypeStr)
-        {
-            dbusReportingType = toDbusReportingType(*reportingTypeStr);
-            if (dbusReportingType.empty())
-            {
-                messages::propertyValueNotInList(asyncResp->res,
-                                                 *reportingTypeStr,
-                                                 "MetricReportDefinitionType");
-                return;
-            }
-        }
-
-        uint64_t recurrenceInterval = std::numeric_limits<uint64_t>::max();
-        if (scheduleDurationStr)
-        {
-            std::optional<std::chrono::milliseconds> durationNum =
-                time_utils::fromDurationString(*scheduleDurationStr);
-            if (!durationNum || durationNum->count() < 0)
-            {
-                messages::propertyValueIncorrect(
-                    asyncResp->res, "RecurrenceInterval", *scheduleDurationStr);
-                return;
-            }
-
-            recurrenceInterval = static_cast<uint64_t>(durationNum->count());
-        }
-
-        setReportTypeAndInterval(asyncResp, id, dbusReportingType,
-                                 recurrenceInterval);
+        setReportTypeAndInterval(asyncResp, id, reportingTypeStr,
+                                 scheduleDurationStr);
     }
 
     if (metrics)
@@ -1197,7 +1406,14 @@ inline void
 
     crow::connections::systemBus->async_method_call(
         [asyncResp,
-         reportId = std::string(id)](const boost::system::error_code& ec) {
+         reportId = std::string(id)](const boost::system::error_code& ec,
+                                     const sdbusplus::message_t& msg) {
+        if (!verifyParameterStr(asyncResp->res, ec,
+                                getErrorMessage(msg.get_error()), "Id",
+                                reportId))
+        {
+            return;
+        }
         if (!verifyCommonErrors(asyncResp->res, reportId, ec))
         {
             return;
