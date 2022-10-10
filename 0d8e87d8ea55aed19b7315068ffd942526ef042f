@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "131fb17c_6d2b688e",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 880,
+      "author": {
+        "id": 1000992
+      },
+      "writtenOn": "2022-10-10T08:32:50Z",
+      "side": 1,
+      "message": "Updated.",
+      "parentUuid": "65b4e00f_0015fb37",
+      "range": {
+        "startLine": 880,
+        "startChar": 8,
+        "endLine": 880,
+        "endChar": 55
+      },
+      "revId": "0d8e87d8ea55aed19b7315068ffd942526ef042f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "57515d6b_30f29520",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 4
@@ -37,6 +61,30 @@
       "writtenOn": "2022-10-07T18:10:22Z",
       "side": 1,
       "message": "This is the wrong helper function.  PDI defines the is paramter as being in microseconds since epoch, so getDateTimeUintUs is the function that should be used here.",
+      "range": {
+        "startLine": 887,
+        "startChar": 33,
+        "endLine": 887,
+        "endChar": 48
+      },
+      "revId": "0d8e87d8ea55aed19b7315068ffd942526ef042f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0dcd8a2d_05951c11",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 887,
+      "author": {
+        "id": 1000992
+      },
+      "writtenOn": "2022-10-10T08:32:50Z",
+      "side": 1,
+      "message": "Updated.",
+      "parentUuid": "57515d6b_30f29520",
       "range": {
         "startLine": 887,
         "startChar": 33,
