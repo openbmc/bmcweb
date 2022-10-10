@@ -142,6 +142,24 @@
       "parentUuid": "04829563_6a4053fd",
       "revId": "5b7480f3cff4fc3f6fc13105cdbf08659e0bffab",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "073a5b52_304232b0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-10-10T13:07:08Z",
+      "side": 1,
+      "message": "\u003e  OEM within this year\n\nBy end of 2022? I find that reasonable",
+      "parentUuid": "05f16976_55275fbe",
+      "revId": "5b7480f3cff4fc3f6fc13105cdbf08659e0bffab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
