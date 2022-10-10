@@ -337,19 +337,15 @@ inline std::optional<nlohmann::json> getLinkedTriggers(
     return std::make_optional(triggers);
 }
 
-inline bool verifyCommonErrors(crow::Response& res, const std::string& id,
-                               const boost::system::error_code ec)
+inline bool verifyCommonErrors(crow::Response& res,
+                               const boost::system::error_code ec,
+                               const sdbusplus::message_t& msg,
+                               const UserReportArgs args)
 {
-    if (ec.value() == EBADR || ec == boost::system::errc::host_unreachable)
-    {
-        messages::resourceNotFound(res, "MetricReportDefinition", id);
-        return false;
-    }
-
-    if (ec == boost::system::errc::file_exists)
+    if (args.id && ec == boost::system::errc::file_exists)
     {
         messages::resourceAlreadyExists(res, "MetricReportDefinition", "Id",
-                                        id);
+                                        *args.id);
         return false;
     }
 
@@ -359,10 +355,82 @@ inline bool verifyCommonErrors(crow::Response& res, const std::string& id,
         return false;
     }
 
+    if (ec == boost::system::errc::invalid_argument)
+    {
+        const sd_bus_error* dbusError = msg.get_error();
+        if (dbusError != nullptr)
+        {
+            if (args.id && dbusError->message == std::string_view("Id"))
+            {
+                messages::propertyValueIncorrect(res, *args.id, "Id");
+                return false;
+            }
+
+            if (args.name && dbusError->message == std::string_view("Name"))
+            {
+                messages::propertyValueIncorrect(res, *args.name, "Name");
+                return false;
+            }
+
+            if (args.reportingType &&
+                dbusError->message == std::string_view("ReportingType"))
+            {
+                messages::propertyValueIncorrect(res, *args.reportingType,
+                                                 "MetricReportDefinitionType");
+                return false;
+            }
+
+            if (args.appendLimit &&
+                dbusError->message == std::string_view("AppendLimit"))
+            {
+                messages::propertyValueIncorrect(
+                    res, std::to_string(*args.appendLimit), "AppendLimit");
+                return false;
+            }
+
+            if (args.redfishReportActions &&
+                dbusError->message == std::string_view("ReportActions"))
+            {
+                nlohmann::json reportActions = nlohmann::json::array();
+                reportActions = *args.redfishReportActions;
+                messages::propertyValueIncorrect(res, reportActions.dump(),
+                                                 "ReportActions");
+                return false;
+            }
+
+            if (args.recurrenceIntervalStr &&
+                dbusError->message == std::string_view("Interval"))
+            {
+                messages::propertyValueIncorrect(
+                    res, *args.recurrenceIntervalStr, "RecurrenceInterval");
+                return false;
+            }
+
+            if (args.reportUpdates &&
+                dbusError->message == std::string_view("ReportUpdates"))
+            {
+                messages::propertyValueIncorrect(res, *args.reportUpdates,
+                                                 "ReportUpdates");
+                return false;
+            }
+
+            if (args.redfishMetrics && std::string_view(dbusError->message)
+                                           .starts_with("ReadingParameters"))
+            {
+                nlohmann::json readingParameters = nlohmann::json::array();
+                readingParameters = *args.redfishMetrics;
+
+                messages::propertyValueIncorrect(res, readingParameters.dump(),
+                                                 "MetricProperties");
+                return false;
+            }
+        }
+    }
+
     if (ec)
     {
-        BMCWEB_LOG_ERROR << "DBUS response error " << ec;
         messages::internalError(res);
+        BMCWEB_LOG_ERROR << "respHandler DBus error " << ec;
         return false;
     }
 
@@ -629,8 +697,9 @@ class UpdateMetrics
 
         crow::connections::systemBus->async_method_call(
             [aResp = asyncResp,
-             arguments = args](const boost::system::error_code ec) {
-            if (!verifyCommonErrors(aResp->res, *arguments.id, ec))
+             arguments = args](const boost::system::error_code ec,
+                               const sdbusplus::message_t& msg) {
+            if (!verifyCommonErrors(aResp->res, ec, msg, arguments))
             {
                 return;
             }
@@ -744,13 +813,15 @@ class AddReport
         try
         {
             crow::connections::systemBus->async_method_call(
-                [aResp = asyncResp, id = args.id.value_or(""),
-                 uriToDbus = args.metricPropertyToDbusPaths, type = type](
-                    const boost::system::error_code ec, const std::string&) {
+                [aResp = asyncResp, id = args.id.value_or(""), type = type,
+                 arguments = args](const boost::system::error_code ec,
+                                   const sdbusplus::message_t& msg,
+                                   const std::string&) {
                 if (ec == boost::system::errc::argument_list_too_long)
                 {
                     nlohmann::json metricProperties = nlohmann::json::array();
-                    for (const auto& [metricProperty, _] : uriToDbus)
+                    for (const auto& [metricProperty, _] :
+                         arguments.metricPropertyToDbusPaths)
                     {
                         metricProperties.emplace_back(metricProperty);
                     }
@@ -760,7 +831,7 @@ class AddReport
                     return;
                 }
 
-                if (!verifyCommonErrors(aResp->res, id, ec))
+                if (!verifyCommonErrors(aResp->res, ec, msg, arguments))
                 {
                     return;
                 }
@@ -817,8 +888,9 @@ inline void setReportEnabled(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
     }
 
     crow::connections::systemBus->async_method_call(
-        [aResp, args](const boost::system::error_code ec) {
-        if (!verifyCommonErrors(aResp->res, *args.id, ec))
+        [aResp, args](const boost::system::error_code ec,
+                      const sdbusplus::message_t& msg) {
+        if (!verifyCommonErrors(aResp->res, ec, msg, args))
         {
             return;
         }
@@ -839,8 +911,9 @@ inline void setReportType(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
     }
 
     crow::connections::systemBus->async_method_call(
-        [aResp, args](const boost::system::error_code ec) {
-        if (!verifyCommonErrors(aResp->res, *args.id, ec))
+        [aResp, args](const boost::system::error_code ec,
+                      const sdbusplus::message_t& msg) {
+        if (!verifyCommonErrors(aResp->res, ec, msg, args))
         {
             return;
         }
@@ -861,8 +934,9 @@ inline void setReportUpdates(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
     }
 
     crow::connections::systemBus->async_method_call(
-        [aResp, args](const boost::system::error_code ec) {
-        if (!verifyCommonErrors(aResp->res, *args.id, ec))
+        [aResp, args](const boost::system::error_code ec,
+                      const sdbusplus::message_t& msg) {
+        if (!verifyCommonErrors(aResp->res, ec, msg, args))
         {
             return;
         }
@@ -883,8 +957,9 @@ inline void setReportActions(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
     }
 
     crow::connections::systemBus->async_method_call(
-        [aResp, args](const boost::system::error_code ec) {
-        if (!verifyCommonErrors(aResp->res, *args.id, ec))
+        [aResp, args](const boost::system::error_code ec,
+                      const sdbusplus::message_t& msg) {
+        if (!verifyCommonErrors(aResp->res, ec, msg, args))
         {
             return;
         }
@@ -905,8 +980,9 @@ inline void setReportInterval(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
     }
 
     crow::connections::systemBus->async_method_call(
-        [aResp, args](const boost::system::error_code ec) {
-        if (!verifyCommonErrors(aResp->res, *args.id, ec))
+        [aResp, args](const boost::system::error_code ec,
+                      const sdbusplus::message_t& msg) {
+        if (!verifyCommonErrors(aResp->res, ec, msg, args))
         {
             return;
         }
@@ -936,8 +1012,8 @@ inline void
         [asyncResp,
          args](boost::system::error_code ec,
                const dbus::utility::DBusPropertiesMap& properties) mutable {
-        if (!redfish::telemetry::verifyCommonErrors(asyncResp->res, *args.id,
-                                                    ec))
+        if (!redfish::telemetry::verifyCommonErrors(
+                asyncResp->res, ec, sdbusplus::message_t(), args))
         {
             return;
         }
@@ -1102,8 +1178,11 @@ inline void handleReportDelete(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
     const std::string reportPath = getDbusReportPath(id);
 
     crow::connections::systemBus->async_method_call(
-        [aResp, id](const boost::system::error_code ec) {
-        if (!verifyCommonErrors(aResp->res, id, ec))
+        [aResp, id](const boost::system::error_code ec,
+                    const sdbusplus::message_t& msg) {
+        UserReportArgs args;
+        args.id = id;
+        if (!verifyCommonErrors(aResp->res, ec, msg, args))
         {
             return;
         }
@@ -1207,7 +1286,10 @@ inline void requestRoutesMetricReportDefinition(App& app)
             [asyncResp,
              id](const boost::system::error_code ec,
                  const dbus::utility::DBusPropertiesMap& properties) {
-            if (!redfish::telemetry::verifyCommonErrors(asyncResp->res, id, ec))
+            telemetry::UserReportArgs args;
+            args.id = id;
+            if (!redfish::telemetry::verifyCommonErrors(
+                    asyncResp->res, ec, sdbusplus::message_t(), args))
             {
                 return;
             }
