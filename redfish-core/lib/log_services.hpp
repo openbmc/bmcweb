@@ -3438,6 +3438,46 @@ inline void requestRoutesPostCodesClear(App& app)
         });
 }
 
+/**
+ * @brief Parse post code ID and get the current value and index value
+ *        eg: postCodeID=B1-2, currentValue=1, index=2
+ *
+ * @param[in]  postCodeID     Post Code ID
+ * @param[out] currentValue   Current value
+ * @param[out] index          Index value
+ *
+ * @return bool true if the parsing is successful, false the parsing fails
+ */
+inline static bool parsePostCode(const std::string& postCodeID,
+                                 uint64_t& currentValue, uint16_t& index)
+{
+    std::vector<std::string> split;
+    boost::algorithm::split(split, postCodeID, boost::is_any_of("-"));
+    if (split.size() != 2 || split[0].length() < 2 || split[0].front() != 'B')
+    {
+        return false;
+    }
+
+    // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
+    const char* start = split[0].data() + 1;
+    // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
+    const char* end = split[0].data() + split[0].size();
+    auto [ptrIndex, ecIndex] = std::from_chars(start, end, index);
+
+    if (ptrIndex != end || ecIndex != std::errc())
+    {
+        return false;
+    }
+
+    start = split[1].data();
+
+    // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
+    end = split[1].data() + split[1].size();
+    auto [ptrValue, ecValue] = std::from_chars(start, end, currentValue);
+
+    return ptrValue == end && ecValue == std::errc();
+}
+
 static void fillPostCodeEntry(
     const std::shared_ptr<bmcweb::AsyncResp>& aResp,
     const boost::container::flat_map<
@@ -3450,8 +3490,6 @@ static void fillPostCodeEntry(
         registries::getMessage("OpenBMC.0.2.BIOSPOSTCode");
 
     uint64_t currentCodeIndex = 0;
-    nlohmann::json& logEntryArray = aResp->res.jsonValue["Members"];
-
     uint64_t firstCodeTimeUs = 0;
     for (const std::pair<uint64_t, std::tuple<uint64_t, std::vector<uint8_t>>>&
              code : postcode)
@@ -3539,9 +3577,8 @@ static void fillPostCodeEntry(
             severity = message->messageSeverity;
         }
 
-        // add to AsyncResp
-        logEntryArray.push_back({});
-        nlohmann::json& bmcLogEntry = logEntryArray.back();
+        // Format entry
+        nlohmann::json::object_t bmcLogEntry;
         bmcLogEntry["@odata.type"] = "#LogEntry.v1_9_0.LogEntry";
         bmcLogEntry["@odata.id"] =
             "/redfish/v1/Systems/system/LogServices/PostCodes/Entries/" +
@@ -3560,15 +3597,42 @@ static void fillPostCodeEntry(
                 "/redfish/v1/Systems/system/LogServices/PostCodes/Entries/" +
                 postcodeEntryID + "/attachment";
         }
+
+        // codeIndex is only specified when querying single entry, return only
+        // that entry in this case
+        if (codeIndex)
+        {
+            aResp->res.jsonValue.update(bmcLogEntry);
+        }
+        else
+        {
+            nlohmann::json& logEntryArray = aResp->res.jsonValue["Members"];
+            logEntryArray.push_back(std::move(bmcLogEntry));
+        }
     }
 }
 
 static void getPostCodeForEntry(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
-                                const uint16_t bootIndex,
-                                const uint64_t codeIndex)
+                                const std::string& entryId)
 {
+    uint16_t bootIndex = 0;
+    uint64_t codeIndex = 0;
+    if (!parsePostCode(entryId, codeIndex, bootIndex))
+    {
+        // Requested ID was not found
+        messages::resourceNotFound(aResp->res, "LogEntry", entryId);
+        return;
+    }
+
+    if (bootIndex == 0 || codeIndex == 0)
+    {
+        // 0 is an invalid index
+        messages::resourceNotFound(aResp->res, "LogEntry", entryId);
+        return;
+    }
+
     crow::connections::systemBus->async_method_call(
-        [aResp, bootIndex,
+        [aResp, entryId, bootIndex,
          codeIndex](const boost::system::error_code ec,
                     const boost::container::flat_map<
                         uint64_t, std::tuple<uint64_t, std::vector<uint8_t>>>&
@@ -3580,16 +3644,19 @@ static void getPostCodeForEntry(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
             return;
         }
 
-        // skip the empty postcode boots
         if (postcode.empty())
         {
+            messages::resourceNotFound(aResp->res, "LogEntry", entryId);
             return;
         }
 
         fillPostCodeEntry(aResp, postcode, bootIndex, codeIndex);
 
-        aResp->res.jsonValue["Members@odata.count"] =
-            aResp->res.jsonValue["Members"].size();
+        if (aResp->res.jsonValue.empty())
+        {
+            messages::resourceNotFound(aResp->res, "LogEntry", entryId);
+            return;
+        }
         },
         "xyz.openbmc_project.State.Boot.PostCode0",
         "/xyz/openbmc_project/State/Boot/PostCode0",
@@ -3718,46 +3785,6 @@ inline void requestRoutesPostCodesEntryCollection(App& app)
         });
 }
 
-/**
- * @brief Parse post code ID and get the current value and index value
- *        eg: postCodeID=B1-2, currentValue=1, index=2
- *
- * @param[in]  postCodeID     Post Code ID
- * @param[out] currentValue   Current value
- * @param[out] index          Index value
- *
- * @return bool true if the parsing is successful, false the parsing fails
- */
-inline static bool parsePostCode(const std::string& postCodeID,
-                                 uint64_t& currentValue, uint16_t& index)
-{
-    std::vector<std::string> split;
-    boost::algorithm::split(split, postCodeID, boost::is_any_of("-"));
-    if (split.size() != 2 || split[0].length() < 2 || split[0].front() != 'B')
-    {
-        return false;
-    }
-
-    // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
-    const char* start = split[0].data() + 1;
-    // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
-    const char* end = split[0].data() + split[0].size();
-    auto [ptrIndex, ecIndex] = std::from_chars(start, end, index);
-
-    if (ptrIndex != end || ecIndex != std::errc())
-    {
-        return false;
-    }
-
-    start = split[1].data();
-
-    // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
-    end = split[1].data() + split[1].size();
-    auto [ptrValue, ecValue] = std::from_chars(start, end, currentValue);
-
-    return ptrValue == end && ecValue == std::errc();
-}
-
 inline void requestRoutesPostCodesEntryAdditionalData(App& app)
 {
     BMCWEB_ROUTE(
@@ -3867,30 +3894,7 @@ inline void requestRoutesPostCodesEntry(App& app)
             return;
         }
 
-        uint16_t bootIndex = 0;
-        uint64_t codeIndex = 0;
-        if (!parsePostCode(targetID, codeIndex, bootIndex))
-        {
-            // Requested ID was not found
-            messages::resourceNotFound(asyncResp->res, "LogEntry", targetID);
-            return;
-        }
-        if (bootIndex == 0 || codeIndex == 0)
-        {
-            BMCWEB_LOG_DEBUG << "Get Post Code invalid entry string "
-                             << targetID;
-        }
-
-        asyncResp->res.jsonValue["@odata.type"] = "#LogEntry.v1_9_0.LogEntry";
-        asyncResp->res.jsonValue["@odata.id"] =
-            "/redfish/v1/Systems/system/LogServices/PostCodes/Entries";
-        asyncResp->res.jsonValue["Name"] = "BIOS POST Code Log Entries";
-        asyncResp->res.jsonValue["Description"] =
-            "Collection of POST Code Log Entries";
-        asyncResp->res.jsonValue["Members"] = nlohmann::json::array();
-        asyncResp->res.jsonValue["Members@odata.count"] = 0;
-
-        getPostCodeForEntry(asyncResp, bootIndex, codeIndex);
+        getPostCodeForEntry(asyncResp, targetID);
         });
 }
 
