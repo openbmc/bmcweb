@@ -163,6 +163,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7151d4c7_e2cb18e1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-10-10T21:49:21Z",
+      "side": 1,
+      "message": "There were no replies to the comment above about \"Documentation missing\", and I don\u0027t see the relevant redfish documentation updated in this patch.",
+      "parentUuid": "1c0fdad7_0ba49c5b",
+      "revId": "2591e0b824cace12ea59610187aa3c065aa6b54b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8323f36f_0bdecc7b",
         "filename": "redfish-core/lib/fan.hpp",
         "patchSetId": 1
