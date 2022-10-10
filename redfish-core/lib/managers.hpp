@@ -114,11 +114,11 @@ inline void requestRoutesManagerResetAction(App& app)
      * OpenBMC supports ResetType "GracefulRestart" and "ForceRestart".
      */
 
-    BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/Actions/Manager.Reset/")
-        .privileges(redfish::privileges::postManager)
-        .methods(boost::beast::http::verb::post)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+    REDFISH_ROUTE(app, "/redfish/v1/Managers/bmc/Actions/Manager.Reset/",
+                  redfish::privileges::EntityTag::tagManager,
+                  boost::beast::http::verb::post)
+    ([&app](const crow::Request& req,
+            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
@@ -151,7 +151,7 @@ inline void requestRoutesManagerResetAction(App& app)
                                               "ResetType");
 
         return;
-        });
+    });
 }
 
 /**
@@ -173,12 +173,12 @@ inline void requestRoutesManagerResetToDefaultsAction(App& app)
      * OpenBMC only supports ResetToDefaultsType "ResetAll".
      */
 
-    BMCWEB_ROUTE(app,
-                 "/redfish/v1/Managers/bmc/Actions/Manager.ResetToDefaults/")
-        .privileges(redfish::privileges::postManager)
-        .methods(boost::beast::http::verb::post)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+    REDFISH_ROUTE(app,
+                  "/redfish/v1/Managers/bmc/Actions/Manager.ResetToDefaults/",
+                  redfish::privileges::EntityTag::tagManager,
+                  boost::beast::http::verb::post)
+    ([&app](const crow::Request& req,
+            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
@@ -222,7 +222,7 @@ inline void requestRoutesManagerResetToDefaultsAction(App& app)
             "xyz.openbmc_project.Software.BMC.Updater",
             "/xyz/openbmc_project/software",
             "xyz.openbmc_project.Common.FactoryReset", "Reset");
-        });
+    });
 }
 
 /**
@@ -235,11 +235,11 @@ inline void requestRoutesManagerResetActionInfo(App& app)
      * Functions triggers appropriate requests on DBus
      */
 
-    BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/ResetActionInfo/")
-        .privileges(redfish::privileges::getActionInfo)
-        .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+    REDFISH_ROUTE(app, "/redfish/v1/Managers/bmc/ResetActionInfo/",
+                  redfish::privileges::EntityTag::tagActionInfo,
+                  boost::beast::http::verb::get)
+    ([&app](const crow::Request& req,
+            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
@@ -265,7 +265,7 @@ inline void requestRoutesManagerResetActionInfo(App& app)
         parameters.push_back(std::move(parameter));
 
         asyncResp->res.jsonValue["Parameters"] = std::move(parameters);
-        });
+    });
 }
 
 static constexpr const char* objectManagerIface =
@@ -1920,11 +1920,11 @@ inline void requestRoutesManager(App& app)
 {
     std::string uuid = persistent_data::getConfig().systemUuid;
 
-    BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/")
-        .privileges(redfish::privileges::getManager)
-        .methods(boost::beast::http::verb::get)(
-            [&app, uuid](const crow::Request& req,
-                         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+    REDFISH_ROUTE(app, "/redfish/v1/Managers/bmc/",
+                  redfish::privileges::EntityTag::tagManager,
+                  boost::beast::http::verb::get)
+    ([&app, uuid](const crow::Request& req,
+                  const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
@@ -2192,13 +2192,13 @@ inline void requestRoutesManager(App& app)
             "/xyz/openbmc_project/inventory", int32_t(0),
             std::array<const char*, 1>{
                 "xyz.openbmc_project.Inventory.Item.Bmc"});
-        });
+    });
 
-    BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/")
-        .privileges(redfish::privileges::patchManager)
-        .methods(boost::beast::http::verb::patch)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+    REDFISH_ROUTE(app, "/redfish/v1/Managers/bmc/",
+                  redfish::privileges::EntityTag::tagManager,
+                  boost::beast::http::verb::patch)
+    ([&app](const crow::Request& req,
+            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
@@ -2278,16 +2278,16 @@ inline void requestRoutesManager(App& app)
         {
             setDateTime(asyncResp, std::move(*datetime));
         }
-        });
+    });
 }
 
 inline void requestRoutesManagerCollection(App& app)
 {
-    BMCWEB_ROUTE(app, "/redfish/v1/Managers/")
-        .privileges(redfish::privileges::getManagerCollection)
-        .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+    REDFISH_ROUTE(app, "/redfish/v1/Managers/",
+                  redfish::privileges::EntityTag::tagManagerCollection,
+                  boost::beast::http::verb::get)
+    ([&app](const crow::Request& req,
+            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
@@ -2303,6 +2303,6 @@ inline void requestRoutesManagerCollection(App& app)
         nlohmann::json& bmc = members.emplace_back();
         bmc["@odata.id"] = "/redfish/v1/Managers/bmc";
         asyncResp->res.jsonValue["Members"] = std::move(members);
-        });
+    });
 }
 } // namespace redfish

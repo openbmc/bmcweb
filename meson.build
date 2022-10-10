@@ -371,6 +371,7 @@ install_subdir('static', install_dir : 'share/www', strip_directory : true)
 
 srcfiles_bmcweb = [
   'redfish-core/src/error_messages.cpp',
+  'redfish-core/src/privileges.cpp',
   'redfish-core/src/utils/json_utils.cpp',
   'src/boost_asio_ssl.cpp',
   'src/boost_asio.cpp',

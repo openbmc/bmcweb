@@ -119,12 +119,12 @@ inline void setPowerCapOverride(
 inline void requestRoutesPower(App& app)
 {
 
-    BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/Power/")
-        .privileges(redfish::privileges::getPower)
-        .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                   const std::string& chassisName) {
+    REDFISH_ROUTE(app, "/redfish/v1/Chassis/<str>/Power/",
+                  redfish::privileges::EntityTag::tagPower,
+                  boost::beast::http::verb::get)
+    ([&app](const crow::Request& req,
+            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+            const std::string& chassisName) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
@@ -303,14 +303,14 @@ inline void requestRoutesPower(App& app)
             std::array<const char*, 2>{
                 "xyz.openbmc_project.Inventory.Item.Board",
                 "xyz.openbmc_project.Inventory.Item.Chassis"});
-        });
+    });
 
-    BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/Power/")
-        .privileges(redfish::privileges::patchPower)
-        .methods(boost::beast::http::verb::patch)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                   const std::string& chassisName) {
+    REDFISH_ROUTE(app, "/redfish/v1/Chassis/<str>/Power/",
+                  redfish::privileges::EntityTag::tagPower,
+                  boost::beast::http::verb::patch)
+    ([&app](const crow::Request& req,
+            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+            const std::string& chassisName) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
@@ -340,7 +340,7 @@ inline void requestRoutesPower(App& app)
             allCollections.emplace("Voltages", *std::move(voltageCollections));
             setSensorsOverride(sensorAsyncResp, allCollections);
         }
-        });
+    });
 }
 
 } // namespace redfish

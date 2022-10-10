@@ -3040,18 +3040,18 @@ inline void handleSensorGet(App& app, const crow::Request& req,
 
 inline void requestRoutesSensorCollection(App& app)
 {
-    BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/Sensors/")
-        .privileges(redfish::privileges::getSensorCollection)
-        .methods(boost::beast::http::verb::get)(
-            std::bind_front(sensors::handleSensorCollectionGet, std::ref(app)));
+    REDFISH_ROUTE(app, "/redfish/v1/Chassis/<str>/Sensors/",
+                  redfish::privileges::EntityTag::tagSensorCollection,
+                  boost::beast::http::verb::get)
+    (std::bind_front(sensors::handleSensorCollectionGet, std::ref(app)));
 }
 
 inline void requestRoutesSensor(App& app)
 {
-    BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/Sensors/<str>/")
-        .privileges(redfish::privileges::getSensor)
-        .methods(boost::beast::http::verb::get)(
-            std::bind_front(sensors::handleSensorGet, std::ref(app)));
+    REDFISH_ROUTE(app, "/redfish/v1/Chassis/<str>/Sensors/<str>/",
+                  redfish::privileges::EntityTag::tagSensor,
+                  boost::beast::http::verb::get)
+    (std::bind_front(sensors::handleSensorGet, std::ref(app)));
 }
 
 } // namespace redfish

@@ -35,10 +35,10 @@ inline void handleManagerDiagnosticDataGet(
 
 inline void requestRoutesManagerDiagnosticData(App& app)
 {
-    BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/ManagerDiagnosticData")
-        .privileges(redfish::privileges::getManagerDiagnosticData)
-        .methods(boost::beast::http::verb::get)(
-            std::bind_front(handleManagerDiagnosticDataGet, std::ref(app)));
+    REDFISH_ROUTE(app, "/redfish/v1/Managers/bmc/ManagerDiagnosticData",
+                  redfish::privileges::EntityTag::tagManagerDiagnosticData,
+                  boost::beast::http::verb::get)
+    (std::bind_front(handleManagerDiagnosticDataGet, std::ref(app)));
 }
 
 } // namespace redfish

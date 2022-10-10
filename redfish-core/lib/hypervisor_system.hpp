@@ -1,5 +1,6 @@
 #pragma once
 
+#include "ethernet.hpp"
 #include "utils/ip_utils.hpp"
 
 #include <app.hpp>
@@ -729,11 +730,11 @@ inline void requestRoutesHypervisorSystems(App& app)
      * Hypervisor Systems derived class for delivering Computer Systems Schema.
      */
 
-    BMCWEB_ROUTE(app, "/redfish/v1/Systems/hypervisor/")
-        .privileges(redfish::privileges::getComputerSystem)
-        .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+    REDFISH_ROUTE(app, "/redfish/v1/Systems/hypervisor/",
+                  redfish::privileges::EntityTag::tagComputerSystem,
+                  boost::beast::http::verb::get)
+    ([&app](const crow::Request& req,
+            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
@@ -772,18 +773,19 @@ inline void requestRoutesHypervisorSystems(App& app)
             getHypervisorActions(asyncResp);
             // TODO: Add "SystemType" : "hypervisor"
             });
-        });
+    });
 
     /**
      * HypervisorInterfaceCollection class to handle the GET and PATCH on
      * Hypervisor Interface
      */
 
-    BMCWEB_ROUTE(app, "/redfish/v1/Systems/hypervisor/EthernetInterfaces/")
-        .privileges(redfish::privileges::getEthernetInterfaceCollection)
-        .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+    REDFISH_ROUTE(
+        app, "/redfish/v1/Systems/hypervisor/EthernetInterfaces/",
+        redfish::privileges::EntityTag::tagEthernetInterfaceCollection,
+        boost::beast::http::verb::get)
+    ([&app](const crow::Request& req,
+            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
@@ -833,15 +835,15 @@ inline void requestRoutesHypervisorSystems(App& app)
             "/xyz/openbmc_project/object_mapper",
             "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths",
             "/xyz/openbmc_project/network/hypervisor", 0, interfaces);
-        });
+    });
 
-    BMCWEB_ROUTE(app,
-                 "/redfish/v1/Systems/hypervisor/EthernetInterfaces/<str>/")
-        .privileges(redfish::privileges::getEthernetInterface)
-        .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                   const std::string& id) {
+    REDFISH_ROUTE(app,
+                  "/redfish/v1/Systems/hypervisor/EthernetInterfaces/<str>/",
+                  redfish::privileges::EntityTag::tagEthernetInterface,
+                  boost::beast::http::verb::get)
+    ([&app](const crow::Request& req,
+            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+            const std::string& id) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
@@ -865,15 +867,15 @@ inline void requestRoutesHypervisorSystems(App& app)
             parseInterfaceData(asyncResp->res.jsonValue, ifaceId, ethData,
                                ipv4Data);
             });
-        });
+    });
 
-    BMCWEB_ROUTE(app,
-                 "/redfish/v1/Systems/hypervisor/EthernetInterfaces/<str>/")
-        .privileges(redfish::privileges::patchEthernetInterface)
-        .methods(boost::beast::http::verb::patch)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                   const std::string& ifaceId) {
+    REDFISH_ROUTE(app,
+                  "/redfish/v1/Systems/hypervisor/EthernetInterfaces/<str>/",
+                  redfish::privileges::EntityTag::tagEthernetInterface,
+                  boost::beast::http::verb::patch)
+    ([&app](const crow::Request& req,
+            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+            const std::string& ifaceId) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
@@ -983,13 +985,13 @@ inline void requestRoutesHypervisorSystems(App& app)
             setIPv4InterfaceEnabled(ifaceId, false, asyncResp);
             });
         asyncResp->res.result(boost::beast::http::status::accepted);
-        });
+    });
 
-    BMCWEB_ROUTE(app, "/redfish/v1/Systems/hypervisor/ResetActionInfo/")
-        .privileges(redfish::privileges::getActionInfo)
-        .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+    REDFISH_ROUTE(app, "/redfish/v1/Systems/hypervisor/ResetActionInfo/",
+                  redfish::privileges::EntityTag::tagActionInfo,
+                  boost::beast::http::verb::get)
+    ([&app](const crow::Request& req,
+            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
@@ -1048,14 +1050,14 @@ inline void requestRoutesHypervisorSystems(App& app)
             "xyz.openbmc_project.ObjectMapper", "GetObject",
             "/xyz/openbmc_project/state/hypervisor0",
             std::array<const char*, 1>{"xyz.openbmc_project.State.Host"});
-        });
+    });
 
-    BMCWEB_ROUTE(app,
-                 "/redfish/v1/Systems/hypervisor/Actions/ComputerSystem.Reset/")
-        .privileges(redfish::privileges::postComputerSystem)
-        .methods(boost::beast::http::verb::post)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+    REDFISH_ROUTE(
+        app, "/redfish/v1/Systems/hypervisor/Actions/ComputerSystem.Reset/",
+        redfish::privileges::EntityTag::tagComputerSystem,
+        boost::beast::http::verb::post)
+    ([&app](const crow::Request& req,
+            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
@@ -1114,6 +1116,6 @@ inline void requestRoutesHypervisorSystems(App& app)
             "org.freedesktop.DBus.Properties", "Set",
             "xyz.openbmc_project.State.Host", "RequestedHostTransition",
             dbus::utility::DbusVariantType{std::move(command)});
-        });
+    });
 }
 } // namespace redfish::hypervisor
