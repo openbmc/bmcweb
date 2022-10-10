@@ -15,6 +15,7 @@
 */
 #pragma once
 
+#include "health.hpp"
 #include "utils/ip_utils.hpp"
 
 #include <app.hpp>
@@ -1732,11 +1733,12 @@ inline bool verifyNames(const std::string& parent, const std::string& iface)
 
 inline void requestEthernetInterfacesRoutes(App& app)
 {
-    BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/EthernetInterfaces/")
-        .privileges(redfish::privileges::getEthernetInterfaceCollection)
-        .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+    REDFISH_ROUTE(
+        app, "/redfish/v1/Managers/bmc/EthernetInterfaces/",
+        redfish::privileges::EntityTag::tagEthernetInterfaceCollection,
+        boost::beast::http::verb::get)
+    ([&app](const crow::Request& req,
+            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
@@ -1783,14 +1785,14 @@ inline void requestEthernetInterfacesRoutes(App& app)
             asyncResp->res.jsonValue["@odata.id"] =
                 "/redfish/v1/Managers/bmc/EthernetInterfaces";
         });
-        });
+    });
 
-    BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/EthernetInterfaces/<str>/")
-        .privileges(redfish::privileges::getEthernetInterface)
-        .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                   const std::string& ifaceId) {
+    REDFISH_ROUTE(app, "/redfish/v1/Managers/bmc/EthernetInterfaces/<str>/",
+                  redfish::privileges::EntityTag::tagEthernetInterface,
+                  boost::beast::http::verb::get)
+    ([&app](const crow::Request& req,
+            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+            const std::string& ifaceId) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
@@ -1820,14 +1822,14 @@ inline void requestEthernetInterfacesRoutes(App& app)
 
             parseInterfaceData(asyncResp, ifaceId, ethData, ipv4Data, ipv6Data);
             });
-        });
+    });
 
-    BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/EthernetInterfaces/<str>/")
-        .privileges(redfish::privileges::patchEthernetInterface)
-        .methods(boost::beast::http::verb::patch)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                   const std::string& ifaceId) {
+    REDFISH_ROUTE(app, "/redfish/v1/Managers/bmc/EthernetInterfaces/<str>/",
+                  redfish::privileges::EntityTag::tagEthernetInterface,
+                  boost::beast::http::verb::patch)
+    ([&app](const crow::Request& req,
+            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+            const std::string& ifaceId) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
@@ -1971,16 +1973,15 @@ inline void requestEthernetInterfacesRoutes(App& app)
                 handleMTUSizePatch(ifaceId, *mtuSize, asyncResp);
             }
             });
-        });
+    });
 
-    BMCWEB_ROUTE(
-        app, "/redfish/v1/Managers/bmc/EthernetInterfaces/<str>/VLANs/<str>/")
-        .privileges(redfish::privileges::getVLanNetworkInterface)
-        .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                   const std::string& parentIfaceId,
-                   const std::string& ifaceId) {
+    REDFISH_ROUTE(
+        app, "/redfish/v1/Managers/bmc/EthernetInterfaces/<str>/VLANs/<str>/",
+        redfish::privileges::EntityTag::tagVLanNetworkInterface,
+        boost::beast::http::verb::get)
+    ([&app](const crow::Request& req,
+            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+            const std::string& parentIfaceId, const std::string& ifaceId) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
@@ -2021,16 +2022,15 @@ inline void requestEthernetInterfacesRoutes(App& app)
                                            "VLanNetworkInterface", ifaceId);
             }
             });
-        });
+    });
 
-    BMCWEB_ROUTE(
-        app, "/redfish/v1/Managers/bmc/EthernetInterfaces/<str>/VLANs/<str>/")
-        .privileges(redfish::privileges::patchVLanNetworkInterface)
-        .methods(boost::beast::http::verb::patch)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                   const std::string& parentIfaceId,
-                   const std::string& ifaceId) {
+    REDFISH_ROUTE(
+        app, "/redfish/v1/Managers/bmc/EthernetInterfaces/<str>/VLANs/<str>/",
+        redfish::privileges::EntityTag::tagVLanNetworkInterface,
+        boost::beast::http::verb::patch)
+    ([&app](const crow::Request& req,
+            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+            const std::string& parentIfaceId, const std::string& ifaceId) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
@@ -2094,16 +2094,15 @@ inline void requestEthernetInterfacesRoutes(App& app)
                 return;
             }
             });
-        });
+    });
 
-    BMCWEB_ROUTE(
-        app, "/redfish/v1/Managers/bmc/EthernetInterfaces/<str>/VLANs/<str>/")
-        .privileges(redfish::privileges::deleteVLanNetworkInterface)
-        .methods(boost::beast::http::verb::delete_)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                   const std::string& parentIfaceId,
-                   const std::string& ifaceId) {
+    REDFISH_ROUTE(
+        app, "/redfish/v1/Managers/bmc/EthernetInterfaces/<str>/VLANs/<str>/",
+        redfish::privileges::EntityTag::tagVLanNetworkInterface,
+        boost::beast::http::verb::delete_)
+    ([&app](const crow::Request& req,
+            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+            const std::string& parentIfaceId, const std::string& ifaceId) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
@@ -2146,16 +2145,15 @@ inline void requestEthernetInterfacesRoutes(App& app)
                                            "VLanNetworkInterface", ifaceId);
             }
             });
-        });
+    });
 
-    BMCWEB_ROUTE(app,
-                 "/redfish/v1/Managers/bmc/EthernetInterfaces/<str>/VLANs/")
-
-        .privileges(redfish::privileges::getVLanNetworkInterfaceCollection)
-        .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                   const std::string& rootInterfaceName) {
+    REDFISH_ROUTE(
+        app, "/redfish/v1/Managers/bmc/EthernetInterfaces/<str>/VLANs/",
+        redfish::privileges::EntityTag::tagVLanNetworkInterfaceCollection,
+        boost::beast::http::verb::get)
+    ([&app](const crow::Request& req,
+            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+            const std::string& rootInterfaceName) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
@@ -2209,15 +2207,15 @@ inline void requestEthernetInterfacesRoutes(App& app)
                 "/redfish/v1/Managers/bmc/EthernetInterfaces/" +
                 rootInterfaceName + "/VLANs";
         });
-        });
+    });
 
-    BMCWEB_ROUTE(app,
-                 "/redfish/v1/Managers/bmc/EthernetInterfaces/<str>/VLANs/")
-        .privileges(redfish::privileges::postVLanNetworkInterfaceCollection)
-        .methods(boost::beast::http::verb::post)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                   const std::string& rootInterfaceName) {
+    REDFISH_ROUTE(
+        app, "/redfish/v1/Managers/bmc/EthernetInterfaces/<str>/VLANs/",
+        redfish::privileges::EntityTag::tagVLanNetworkInterfaceCollection,
+        boost::beast::http::verb::post)
+    ([&app](const crow::Request& req,
+            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+            const std::string& rootInterfaceName) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
@@ -2258,7 +2256,7 @@ inline void requestEthernetInterfacesRoutes(App& app)
             "/xyz/openbmc_project/network",
             "xyz.openbmc_project.Network.VLAN.Create", "VLAN",
             rootInterfaceName, vlanId);
-        });
+    });
 }
 
 } // namespace redfish

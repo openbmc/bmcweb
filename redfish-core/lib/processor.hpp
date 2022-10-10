@@ -1029,13 +1029,13 @@ inline void patchAppliedOperatingConfig(
 inline void requestRoutesOperatingConfigCollection(App& app)
 {
 
-    BMCWEB_ROUTE(
-        app, "/redfish/v1/Systems/system/Processors/<str>/OperatingConfigs/")
-        .privileges(redfish::privileges::getOperatingConfigCollection)
-        .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                   const std::string& cpuName) {
+    REDFISH_ROUTE(
+        app, "/redfish/v1/Systems/system/Processors/<str>/OperatingConfigs/",
+        redfish::privileges::EntityTag::tagOperatingConfigCollection,
+        boost::beast::http::verb::get)
+    ([&app](const crow::Request& req,
+            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+            const std::string& cpuName) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
@@ -1087,19 +1087,19 @@ inline void requestRoutesOperatingConfigCollection(App& app)
             "/xyz/openbmc_project/inventory", 0,
             std::array<const char*, 1>{
                 "xyz.openbmc_project.Control.Processor.CurrentOperatingConfig"});
-        });
+    });
 }
 
 inline void requestRoutesOperatingConfig(App& app)
 {
-    BMCWEB_ROUTE(
+    REDFISH_ROUTE(
         app,
-        "/redfish/v1/Systems/system/Processors/<str>/OperatingConfigs/<str>/")
-        .privileges(redfish::privileges::getOperatingConfig)
-        .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                   const std::string& cpuName, const std::string& configName) {
+        "/redfish/v1/Systems/system/Processors/<str>/OperatingConfigs/<str>/",
+        redfish::privileges::EntityTag::tagOperatingConfig,
+        boost::beast::http::verb::get)
+    ([&app](const crow::Request& req,
+            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+            const std::string& cpuName, const std::string& configName) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
@@ -1148,7 +1148,7 @@ inline void requestRoutesOperatingConfig(App& app)
             "/xyz/openbmc_project/inventory", 0,
             std::array<const char*, 1>{
                 "xyz.openbmc_project.Inventory.Item.Cpu.OperatingConfig"});
-        });
+    });
 }
 
 inline void requestRoutesProcessorCollection(App& app)
@@ -1156,12 +1156,12 @@ inline void requestRoutesProcessorCollection(App& app)
     /**
      * Functions triggers appropriate requests on DBus
      */
-    BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/Processors/")
-        .privileges(redfish::privileges::getProcessorCollection)
-        .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                   const std::string& systemName) {
+    REDFISH_ROUTE(app, "/redfish/v1/Systems/<str>/Processors/",
+                  redfish::privileges::EntityTag::tagProcessorCollection,
+                  boost::beast::http::verb::get)
+    ([&app](const crow::Request& req,
+            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+            const std::string& systemName) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
@@ -1184,7 +1184,7 @@ inline void requestRoutesProcessorCollection(App& app)
             asyncResp, "/redfish/v1/Systems/system/Processors",
             std::vector<const char*>(processorInterfaces.begin(),
                                      processorInterfaces.end()));
-        });
+    });
 }
 
 inline void requestRoutesProcessor(App& app)
@@ -1193,13 +1193,12 @@ inline void requestRoutesProcessor(App& app)
      * Functions triggers appropriate requests on DBus
      */
 
-    BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/Processors/<str>/")
-        .privileges(redfish::privileges::getProcessor)
-        .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                   const std::string& systemName,
-                   const std::string& processorId) {
+    REDFISH_ROUTE(app, "/redfish/v1/Systems/<str>/Processors/<str>/",
+                  redfish::privileges::EntityTag::tagProcessor,
+                  boost::beast::http::verb::get)
+    ([&app](const crow::Request& req,
+            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+            const std::string& systemName, const std::string& processorId) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
@@ -1219,15 +1218,14 @@ inline void requestRoutesProcessor(App& app)
         getProcessorObject(
             asyncResp, processorId,
             std::bind_front(getProcessorData, asyncResp, processorId));
-        });
+    });
 
-    BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/Processors/<str>/")
-        .privileges(redfish::privileges::patchProcessor)
-        .methods(boost::beast::http::verb::patch)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                   const std::string& systemName,
-                   const std::string& processorId) {
+    REDFISH_ROUTE(app, "/redfish/v1/Systems/<str>/Processors/<str>/",
+                  redfish::privileges::EntityTag::tagProcessor,
+                  boost::beast::http::verb::patch)
+    ([&app](const crow::Request& req,
+            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+            const std::string& systemName, const std::string& processorId) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
@@ -1262,7 +1260,7 @@ inline void requestRoutesProcessor(App& app)
                                                asyncResp, processorId,
                                                appliedConfigUri));
         }
-        });
+    });
 }
 
 } // namespace redfish

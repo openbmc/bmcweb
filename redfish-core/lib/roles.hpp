@@ -75,12 +75,12 @@ inline bool getAssignedPrivFromRole(std::string_view role,
 
 inline void requestRoutesRoles(App& app)
 {
-    BMCWEB_ROUTE(app, "/redfish/v1/AccountService/Roles/<str>/")
-        .privileges(redfish::privileges::getRole)
-        .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                   const std::string& roleId) {
+    REDFISH_ROUTE(app, "/redfish/v1/AccountService/Roles/<str>/",
+                  redfish::privileges::EntityTag::tagRole,
+                  boost::beast::http::verb::get)
+    ([&app](const crow::Request& req,
+            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+            const std::string& roleId) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
@@ -103,16 +103,16 @@ inline void requestRoutesRoles(App& app)
         asyncResp->res.jsonValue["@odata.id"] =
             "/redfish/v1/AccountService/Roles/" + roleId;
         asyncResp->res.jsonValue["AssignedPrivileges"] = std::move(privArray);
-        });
+    });
 }
 
 inline void requestRoutesRoleCollection(App& app)
 {
-    BMCWEB_ROUTE(app, "/redfish/v1/AccountService/Roles/")
-        .privileges(redfish::privileges::getRoleCollection)
-        .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+    REDFISH_ROUTE(app, "/redfish/v1/AccountService/Roles/",
+                  redfish::privileges::EntityTag::tagRoleCollection,
+                  boost::beast::http::verb::get)
+    ([&app](const crow::Request& req,
+            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
@@ -152,7 +152,7 @@ inline void requestRoutesRoleCollection(App& app)
             asyncResp->res.jsonValue["Members@odata.count"] =
                 memberArray.size();
             });
-        });
+    });
 }
 
 } // namespace redfish

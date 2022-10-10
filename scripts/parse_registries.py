@@ -1,14 +1,16 @@
 #!/usr/bin/env python3
+from atexit import register
+from email.mime import base
 import json
 import os
 
 import requests
 import argparse
 
-PRAGMA_ONCE = '''#pragma once
-'''
+PRAGMA_ONCE = """#pragma once
+"""
 
-WARNING = '''/****************************************************************
+WARNING = """/****************************************************************
  *                 READ THIS WARNING FIRST
  * This is an auto-generated header which contains definitions
  * for Redfish DMTF defined messages.
@@ -17,9 +19,12 @@ WARNING = '''/****************************************************************
  * this file are owned by DMTF.  Any modifications to these files
  * should be first pushed to the relevant registry in the DMTF
  * github organization.
- ***************************************************************/'''
+ ***************************************************************/"""
 
-REGISTRY_HEADER = PRAGMA_ONCE + WARNING + '''
+REGISTRY_HEADER = (
+    PRAGMA_ONCE
+    + WARNING
+    + """
 #include "registries.hpp"
 
 #include <array>
@@ -28,25 +33,20 @@ REGISTRY_HEADER = PRAGMA_ONCE + WARNING + '''
 
 namespace redfish::registries::{}
 {{
-'''
+"""
+)
 
 SCRIPT_DIR = os.path.dirname(os.path.realpath(__file__))
 
 include_path = os.path.realpath(
-    os.path.join(
-        SCRIPT_DIR,
-        "..",
-        "redfish-core",
-        "include",
-        "registries"))
+    os.path.join(SCRIPT_DIR, "..", "redfish-core", "include", "registries")
+)
 
-proxies = {
-    'https': os.environ.get("https_proxy", None)
-}
+proxies = {"https": os.environ.get("https_proxy", None)}
 
 
 def make_getter(dmtf_name, header_name, type_name):
-    url = 'https://redfish.dmtf.org/registries/{}'.format(dmtf_name)
+    url = "https://redfish.dmtf.org/registries/{}".format(dmtf_name)
     dmtf = requests.get(url, proxies=proxies)
     dmtf.raise_for_status()
     json_file = json.loads(dmtf.text)
@@ -62,162 +62,261 @@ def update_registries(files):
         except BaseException:
             print("{} not found".format(file))
 
-        with open(file, 'w') as registry:
+        with open(file, "w") as registry:
             registry.write(REGISTRY_HEADER.format(namespace))
             # Parse the Registry header info
             registry.write(
                 "const Header header = {{\n"
-                "    \"{json_dict[@Redfish.Copyright]}\",\n"
-                "    \"{json_dict[@odata.type]}\",\n"
-                "    \"{json_dict[Id]}\",\n"
-                "    \"{json_dict[Name]}\",\n"
-                "    \"{json_dict[Language]}\",\n"
-                "    \"{json_dict[Description]}\",\n"
-                "    \"{json_dict[RegistryPrefix]}\",\n"
-                "    \"{json_dict[RegistryVersion]}\",\n"
-                "    \"{json_dict[OwningEntity]}\",\n"
+                '    "{json_dict[@Redfish.Copyright]}",\n'
+                '    "{json_dict[@odata.type]}",\n'
+                '    "{json_dict[Id]}",\n'
+                '    "{json_dict[Name]}",\n'
+                '    "{json_dict[Language]}",\n'
+                '    "{json_dict[Description]}",\n'
+                '    "{json_dict[RegistryPrefix]}",\n'
+                '    "{json_dict[RegistryVersion]}",\n'
+                '    "{json_dict[OwningEntity]}",\n'
                 "}};\n"
                 "constexpr const char* url =\n"
-                "    \"{url}\";\n"
+                '    "{url}";\n'
                 "\n"
                 "constexpr std::array registry =\n"
                 "{{\n".format(
                     json_dict=json_dict,
                     url=url,
-                ))
+                )
+            )
 
             messages_sorted = sorted(json_dict["Messages"].items())
             for messageId, message in messages_sorted:
                 registry.write(
                     "    MessageEntry{{\n"
-                    "        \"{messageId}\",\n"
+                    '        "{messageId}",\n'
                     "        {{\n"
-                    "            \"{message[Description]}\",\n"
-                    "            \"{message[Message]}\",\n"
-                    "            \"{message[MessageSeverity]}\",\n"
+                    '            "{message[Description]}",\n'
+                    '            "{message[Message]}",\n'
+                    '            "{message[MessageSeverity]}",\n'
                     "            {message[NumberOfArgs]},\n"
                     "            {{".format(
-                        messageId=messageId,
-                        message=message
-                    ))
+                        messageId=messageId, message=message)
+                )
                 paramTypes = message.get("ParamTypes")
                 if paramTypes:
                     for paramType in paramTypes:
                         registry.write(
-                            "\n"
-                            "                \"{}\",".format(paramType)
-                        )
+                            "\n" '                "{}",'.format(paramType))
                     registry.write("\n            },\n")
                 else:
                     registry.write("},\n")
                 registry.write(
-                    "            \"{message[Resolution]}\",\n"
-                    "        }}}},\n".format(message=message))
+                    '            "{message[Resolution]}",\n'
+                    "        }}}},\n".format(message=message)
+                )
 
-            registry.write(
-                "\n};\n"
-                "\n"
-                "enum class Index\n"
-                "{\n"
-            )
+            registry.write("\n};\n" "\n" "enum class Index\n" "{\n")
             for index, (messageId, message) in enumerate(messages_sorted):
                 messageId = messageId[0].lower() + messageId[1:]
-                registry.write(
-                    "    {} = {},\n".format(messageId, index))
+                registry.write("    {} = {},\n".format(messageId, index))
             registry.write(
-                "}};\n"
-                "}} // namespace redfish::registries::{}\n"
-                .format(namespace))
+                "}};\n" "}} // namespace redfish::registries::{}\n".format(
+                    namespace)
+            )
 
 
-def get_privilege_string_from_list(privilege_list):
-    privilege_string = "{{\n"
-    for privilege_json in privilege_list:
-        privileges = privilege_json["Privilege"]
-        privilege_string += "    {"
-        for privilege in privileges:
-            if privilege == "NoAuth":
-                continue
-            privilege_string += "\""
-            privilege_string += privilege
-            privilege_string += "\",\n"
-        if privilege != "NoAuth":
-            privilege_string = privilege_string[:-2]
-        privilege_string += "}"
-        privilege_string += ",\n"
-    privilege_string = privilege_string[:-2]
-    privilege_string += "\n}}"
-    return privilege_string
-
-
-def get_variable_name_for_privilege_set(privilege_list):
-    names = []
-    for privilege_json in privilege_list:
-        privileges = privilege_json["Privilege"]
-        names.append("And".join(privileges))
-    return "Or".join(names)
-
-
-PRIVILEGE_HEADER = PRAGMA_ONCE + WARNING + '''
-#include "privileges.hpp"
-
+PRIVILEGE_HEADER = (
+    PRAGMA_ONCE
+    + WARNING
+    + """
 #include <array>
-
-// clang-format off
+#include <cstdint>
+#include <string_view>
 
 namespace redfish::privileges
 {
-'''
+"""
+)
+
+PRIVILEGE_TAILER = "} // namespace redfish::privileges"
+
+PRIVILEGE_TEST_HEADER = (
+    PRAGMA_ONCE
+    + WARNING
+    + """
+#include <string_view>
+
+namespace redfish::privileges
+{
+"""
+)
+
+PRIVILEGE_TEST_TAILER = "} // namespace redfish::privileges"
+
+# Convert a Python array to C++ initialization list
+
+
+def array_to_cpp_init_list_str(array):
+    res = '{"'
+    res += '", "'.join(array)
+    res += '"}'
+    return res
+
+
+def array_to_cpp_init_list_int(array):
+    res = "{"
+    res += ", ".join(array)
+    res += "}"
+    return res
+
+
+# Returns a bitmap or privileges AND
+# e.g., assume basePrivileges = [
+# "Login", "ConfigureManager", "ConfigureUsers", "ConfigureComponents",
+# "ConfigureSelf"];
+# If a client needs both Login and ConfigureManager privilege to access a
+# resource, then the encoding is 0b00011
+def encode(base_privileges, privileges):
+    privilege_set = set(privileges)
+    encoding = 0b0
+    for i, privilege in enumerate(base_privileges):
+        if privilege in privilege_set:
+            encoding |= 1 << i
+    return "0b" + bin(encoding)[2:].zfill(len(base_privileges))
 
 
 def make_privilege_registry():
-    path, json_file, type_name, url = \
-        make_getter('Redfish_1.3.0_PrivilegeRegistry.json',
-                    'privilege_registry.hpp', 'privilege')
-    with open(path, 'w') as registry:
+    path, json_file, type_name, url = make_getter(
+        "Redfish_1.3.0_PrivilegeRegistry.json",
+        "privilege_registry.hpp", "privilege"
+    )
+
+    max_privileges_cnt = 64
+    with open(path, "w") as registry:
         registry.write(PRIVILEGE_HEADER)
 
-        privilege_dict = {}
-        for mapping in json_file["Mappings"]:
-            # first pass, identify all the unique privilege sets
-            for operation, privilege_list in mapping["OperationMap"].items():
-                privilege_dict[get_privilege_string_from_list(
-                    privilege_list)] = (privilege_list, )
-        for index, key in enumerate(privilege_dict):
-            (privilege_list, ) = privilege_dict[key]
-            name = get_variable_name_for_privilege_set(privilege_list)
-            registry.write(
-                "const std::array<Privileges, {length}> "
-                "privilegeSet{name} = {key};\n"
-                .format(length=len(privilege_list), name=name, key=key)
-            )
-            privilege_dict[key] = (privilege_list, name)
-
-        for mapping in json_file["Mappings"]:
-            entity = mapping["Entity"]
-            registry.write("// {}\n".format(entity))
-            for operation, privilege_list in mapping["OperationMap"].items():
-                privilege_string = get_privilege_string_from_list(
-                    privilege_list)
-                operation = operation.lower()
-
-                registry.write(
-                    "const static auto& {}{} = privilegeSet{};\n".format(
-                        operation,
-                        entity,
-                        privilege_dict[privilege_string][1]))
-            registry.write("\n")
         registry.write(
-            "} // namespace redfish::privileges\n"
-            "// clang-format on\n")
+            f"constexpr const size_t maxPrivilegeCount={max_privileges_cnt};\n"
+        )
+
+        base_privileges = json_file["PrivilegesUsed"]
+
+        if len(base_privileges) > max_privileges_cnt:
+            raise Exception("Too many base privileges")
+
+        base_privileges_str = array_to_cpp_init_list_str(base_privileges)
+
+        registry.write(
+            "constexpr std::array<std::string_view, {length}> basePrivileges ="
+            "\n"
+            "{array};\n".format(length=len(base_privileges),
+                                array=base_privileges_str)
+        )
+
+        # Generate all entities
+        entities = []
+        for mapping in json_file["Mappings"]:
+            entities.append(mapping["Entity"])
+
+        entities_str = array_to_cpp_init_list_str(entities)
+
+        # Add a Tag at the begin to prevent from conflicting with reversed
+        # keywords, e.g., switch
+        entity_tags = ["tag" + entity for entity in entities]
+
+        registry.write("enum class EntityTag : int {\n")
+
+        for i in range(len(entity_tags)):
+            registry.write(entity_tags[i] + f" = {i},\n")
+        registry.write("none = {},\n".format(len(entity_tags)))
+        registry.write("};\n")
+
+        registry.write(
+            "constexpr std::array<std::string_view, {length}> entities ="
+            "{array};\n".format(length=len(entities), array=entities_str)
+        )
+
+        # key: operation, GET, POST, etc
+        # value: an 1d array representing an array of bitmaps for all the
+        # entities in sequence;
+        # The 1d array is actually a sequential version of a 2d array. The
+        # length of each sub-array is stored in operation_entity_bitmap_length
+        operation_entity_bitmaps = {
+            "GET": [],
+            "HEAD": [],
+            "PATCH": [],
+            "PUT": [],
+            "DELETE": [],
+            "POST": [],
+        }
+
+        # key: operation, GET, POST, etc
+        # value: an 1d array, value[i] represents the length of the bitmaps of
+        # an entity
+        operation_entity_bitmap_length = {
+            "GET": [],
+            "HEAD": [],
+            "PATCH": [],
+            "PUT": [],
+            "DELETE": [],
+            "POST": [],
+        }
+
+        for index, _ in enumerate(entities):
+            for method, bitmaps in operation_entity_bitmaps.items():
+                # TODO: ManagerDiagnosticData doesn't specify DELETE privileges
+                # in Redfish_1.3.0_PrivilegeRegistry.json
+                # Fixed in https://github.com/DMTF/Redfish/issues/5296
+                # Remove this when 1.3.1 is available
+                if method not in json_file["Mappings"][index]["OperationMap"]:
+                    bitmaps.append(
+                        encode(base_privileges, ["ConfigureManager"]))
+                    operation_entity_bitmap_length[method].append("1")
+                    continue
+
+                privileges_arr = \
+                    json_file["Mappings"][index]["OperationMap"][method]
+
+                for privileges in privileges_arr:
+                    bitmaps.append(
+                        encode(base_privileges, privileges["Privilege"]))
+
+                operation_entity_bitmap_length[method].append(
+                    str(len(privileges_arr)))
+
+        for method, bitmaps_array in operation_entity_bitmaps.items():
+
+            registry.write(
+                "constexpr std::array<uint64_t, {length}> "
+                "{method}BasePrivilegesBitmaps = {array};".format(
+                    length=len(bitmaps_array),
+                    method=method.lower(),
+                    array=array_to_cpp_init_list_int(bitmaps_array),
+                )
+            )
+
+            registry.write(
+                "constexpr std::array<uint64_t, {length}> "
+                "{method}BasePrivilegesLength = {array};".format(
+                    length=len(operation_entity_bitmap_length[method]),
+                    method=method.lower(),
+                    array=array_to_cpp_init_list_int(
+                        operation_entity_bitmap_length[method]
+                    ),
+                )
+            )
+
+        registry.write(PRIVILEGE_TAILER)
+
+    os.system("clang-format -i --style=file {}".format(path))
 
 
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        '--registries', type=str,
+        "--registries",
+        type=str,
         default="base,task_event,resource_event,privilege",
-        help="Comma delimited list of registries to update")
+        help="Comma delimited list of registries to update",
+    )
 
     args = parser.parse_args()
 
@@ -225,22 +324,39 @@ def main():
     files = []
 
     if "base" in registries:
-        files.append(make_getter('Base.1.13.0.json',
-                                 'base_message_registry.hpp',
-                                 'base'))
+        files.append(
+            make_getter("Base.1.13.0.json",
+                        "base_message_registry.hpp", "base")
+        )
+        registries.remove("base")
+
     if "task_event" in registries:
-        files.append(make_getter('TaskEvent.1.0.3.json',
-                                 'task_event_message_registry.hpp',
-                                 'task_event'))
+        files.append(
+            make_getter(
+                "TaskEvent.1.0.3.json",
+                "task_event_message_registry.hpp", "task_event"
+            )
+        )
+        registries.remove("task_event")
+
     if "resource_event" in registries:
-        files.append(make_getter('ResourceEvent.1.0.3.json',
-                                 'resource_event_message_registry.hpp',
-                                 'resource_event'))
+        files.append(
+            make_getter(
+                "ResourceEvent.1.0.3.json",
+                "resource_event_message_registry.hpp",
+                "resource_event",
+            )
+        )
+        registries.remove("resource_event")
 
     update_registries(files)
 
     if "privilege" in registries:
         make_privilege_registry()
+        registries.remove("privilege")
+
+    if len(registries) != 0:
+        raise Exception(",".join(registries) + " is not support!")
 
 
 if __name__ == "__main__":
