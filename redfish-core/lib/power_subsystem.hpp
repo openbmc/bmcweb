@@ -55,10 +55,10 @@ inline void handlePowerSubsystemCollectionGet(
 
 inline void requestRoutesPowerSubsystem(App& app)
 {
-    BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/PowerSubsystem/")
-        .privileges(redfish::privileges::getPowerSubsystem)
-        .methods(boost::beast::http::verb::get)(
-            std::bind_front(handlePowerSubsystemCollectionGet, std::ref(app)));
+    REDFISH_ROUTE(app, "/redfish/v1/Chassis/<str>/PowerSubsystem/",
+                  redfish::privileges::EntityTag::tagPowerSubsystem,
+                  boost::beast::http::verb::get)
+    (std::bind_front(handlePowerSubsystemCollectionGet, std::ref(app)));
 }
 
 } // namespace redfish
