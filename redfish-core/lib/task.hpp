@@ -317,12 +317,12 @@ struct TaskData : std::enable_shared_from_this<TaskData>
 
 inline void requestRoutesTaskMonitor(App& app)
 {
-    BMCWEB_ROUTE(app, "/redfish/v1/TaskService/Tasks/<str>/Monitor/")
-        .privileges(redfish::privileges::getTask)
-        .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                   const std::string& strParam) {
+    REDFISH_ROUTE(app, "/redfish/v1/TaskService/Tasks/<str>/Monitor/",
+                  redfish::privileges::EntityTag::tagTask,
+                  boost::beast::http::verb::get)
+    ([&app](const crow::Request& req,
+            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+            const std::string& strParam) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
@@ -353,17 +353,17 @@ inline void requestRoutesTaskMonitor(App& app)
             return;
         }
         ptr->populateResp(asyncResp->res);
-        });
+    });
 }
 
 inline void requestRoutesTask(App& app)
 {
-    BMCWEB_ROUTE(app, "/redfish/v1/TaskService/Tasks/<str>/")
-        .privileges(redfish::privileges::getTask)
-        .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                   const std::string& strParam) {
+    REDFISH_ROUTE(app, "/redfish/v1/TaskService/Tasks/<str>/",
+                  redfish::privileges::EntityTag::tagTask,
+                  boost::beast::http::verb::get)
+    ([&app](const crow::Request& req,
+            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+            const std::string& strParam) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
@@ -420,16 +420,16 @@ inline void requestRoutesTask(App& app)
                 2, ' ', true, nlohmann::json::error_handler_t::replace);
         }
         asyncResp->res.jsonValue["PercentComplete"] = ptr->percentComplete;
-        });
+    });
 }
 
 inline void requestRoutesTaskCollection(App& app)
 {
-    BMCWEB_ROUTE(app, "/redfish/v1/TaskService/Tasks/")
-        .privileges(redfish::privileges::getTaskCollection)
-        .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+    REDFISH_ROUTE(app, "/redfish/v1/TaskService/Tasks/",
+                  redfish::privileges::EntityTag::tagTaskCollection,
+                  boost::beast::http::verb::get)
+    ([&app](const crow::Request& req,
+            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
@@ -453,16 +453,16 @@ inline void requestRoutesTaskCollection(App& app)
                 "redfish/v1/TaskService/Tasks/" + std::to_string(task->index);
             members.emplace_back(std::move(member));
         }
-        });
+    });
 }
 
 inline void requestRoutesTaskService(App& app)
 {
-    BMCWEB_ROUTE(app, "/redfish/v1/TaskService/")
-        .privileges(redfish::privileges::getTaskService)
-        .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+    REDFISH_ROUTE(app, "/redfish/v1/TaskService/",
+                  redfish::privileges::EntityTag::tagTaskService,
+                  boost::beast::http::verb::get)
+    ([&app](const crow::Request& req,
+            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
@@ -484,7 +484,7 @@ inline void requestRoutesTaskService(App& app)
         asyncResp->res.jsonValue["ServiceEnabled"] = true;
         asyncResp->res.jsonValue["Tasks"]["@odata.id"] =
             "/redfish/v1/TaskService/Tasks";
-        });
+    });
 }
 
 } // namespace redfish

@@ -47,11 +47,11 @@ static constexpr const uint8_t maxNoOfSubscriptions = 20;
 
 inline void requestRoutesEventService(App& app)
 {
-    BMCWEB_ROUTE(app, "/redfish/v1/EventService/")
-        .privileges(redfish::privileges::getEventService)
-        .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+    REDFISH_ROUTE(app, "/redfish/v1/EventService/",
+                  redfish::privileges::EntityTag::tagEventService,
+                  boost::beast::http::verb::get)
+    ([&app](const crow::Request& req,
+            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
@@ -93,13 +93,13 @@ inline void requestRoutesEventService(App& app)
 
         asyncResp->res.jsonValue["SSEFilterPropertiesSupported"] =
             std::move(supportedSSEFilters);
-        });
+    });
 
-    BMCWEB_ROUTE(app, "/redfish/v1/EventService/")
-        .privileges(redfish::privileges::patchEventService)
-        .methods(boost::beast::http::verb::patch)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+    REDFISH_ROUTE(app, "/redfish/v1/EventService/",
+                  redfish::privileges::EntityTag::tagEventService,
+                  boost::beast::http::verb::patch)
+    ([&app](const crow::Request& req,
+            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
@@ -157,18 +157,18 @@ inline void requestRoutesEventService(App& app)
 
         EventServiceManager::getInstance().setEventServiceConfig(
             eventServiceConfig);
-        });
+    });
 }
 
 inline void requestRoutesSubmitTestEvent(App& app)
 {
 
-    BMCWEB_ROUTE(
-        app, "/redfish/v1/EventService/Actions/EventService.SubmitTestEvent/")
-        .privileges(redfish::privileges::postEventService)
-        .methods(boost::beast::http::verb::post)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+    REDFISH_ROUTE(
+        app, "/redfish/v1/EventService/Actions/EventService.SubmitTestEvent/",
+        redfish::privileges::EntityTag::tagEventService,
+        boost::beast::http::verb::post)
+    ([&app](const crow::Request& req,
+            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
@@ -180,16 +180,16 @@ inline void requestRoutesSubmitTestEvent(App& app)
             return;
         }
         asyncResp->res.result(boost::beast::http::status::no_content);
-        });
+    });
 }
 
 inline void requestRoutesEventDestinationCollection(App& app)
 {
-    BMCWEB_ROUTE(app, "/redfish/v1/EventService/Subscriptions/")
-        .privileges(redfish::privileges::getEventDestinationCollection)
-        .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+    REDFISH_ROUTE(app, "/redfish/v1/EventService/Subscriptions/",
+                  redfish::privileges::EntityTag::tagEventDestinationCollection,
+                  boost::beast::http::verb::get)
+    ([&app](const crow::Request& req,
+            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
@@ -214,12 +214,12 @@ inline void requestRoutesEventDestinationCollection(App& app)
                 "/redfish/v1/EventService/Subscriptions/" + id;
             memberArray.push_back(std::move(member));
         }
-        });
-    BMCWEB_ROUTE(app, "/redfish/v1/EventService/Subscriptions/")
-        .privileges(redfish::privileges::postEventDestinationCollection)
-        .methods(boost::beast::http::verb::post)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+    });
+    REDFISH_ROUTE(app, "/redfish/v1/EventService/Subscriptions/",
+                  redfish::privileges::EntityTag::tagEventDestinationCollection,
+                  boost::beast::http::verb::post)
+    ([&app](const crow::Request& req,
+            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
@@ -480,17 +480,17 @@ inline void requestRoutesEventDestinationCollection(App& app)
         messages::created(asyncResp->res);
         asyncResp->res.addHeader(
             "Location", "/redfish/v1/EventService/Subscriptions/" + id);
-        });
+    });
 }
 
 inline void requestRoutesEventDestination(App& app)
 {
-    BMCWEB_ROUTE(app, "/redfish/v1/EventService/Subscriptions/<str>/")
-        .privileges(redfish::privileges::getEventDestination)
-        .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                   const std::string& param) {
+    REDFISH_ROUTE(app, "/redfish/v1/EventService/Subscriptions/<str>/",
+                  redfish::privileges::EntityTag::tagEventDestination,
+                  boost::beast::http::verb::get)
+    ([&app](const crow::Request& req,
+            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+            const std::string& param) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
@@ -532,7 +532,7 @@ inline void requestRoutesEventDestination(App& app)
             mrdJsonArray.emplace_back(std::move(mdr));
         }
         asyncResp->res.jsonValue["MetricReportDefinitions"] = mrdJsonArray;
-        });
+    });
     BMCWEB_ROUTE(app, "/redfish/v1/EventService/Subscriptions/<str>/")
         // The below privilege is wrong, it should be ConfigureManager OR
         // ConfigureSelf

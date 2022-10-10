@@ -351,30 +351,30 @@ inline void handleSessionServicePatch(
 
 inline void requestRoutesSession(App& app)
 {
-    BMCWEB_ROUTE(app, "/redfish/v1/SessionService/Sessions/<str>/")
-        .privileges(redfish::privileges::headSession)
-        .methods(boost::beast::http::verb::head)(
-            std::bind_front(handleSessionHead, std::ref(app)));
+    REDFISH_ROUTE(app, "/redfish/v1/SessionService/Sessions/<str>/",
+                  redfish::privileges::EntityTag::tagSession,
+                  boost::beast::http::verb::head)
+    (std::bind_front(handleSessionHead, std::ref(app)));
 
-    BMCWEB_ROUTE(app, "/redfish/v1/SessionService/Sessions/<str>/")
-        .privileges(redfish::privileges::getSession)
-        .methods(boost::beast::http::verb::get)(
-            std::bind_front(handleSessionGet, std::ref(app)));
+    REDFISH_ROUTE(app, "/redfish/v1/SessionService/Sessions/<str>/",
+                  redfish::privileges::EntityTag::tagSession,
+                  boost::beast::http::verb::get)
+    (std::bind_front(handleSessionGet, std::ref(app)));
 
-    BMCWEB_ROUTE(app, "/redfish/v1/SessionService/Sessions/<str>/")
-        .privileges(redfish::privileges::deleteSession)
-        .methods(boost::beast::http::verb::delete_)(
-            std::bind_front(handleSessionDelete, std::ref(app)));
+    REDFISH_ROUTE(app, "/redfish/v1/SessionService/Sessions/<str>/",
+                  redfish::privileges::EntityTag::tagSession,
+                  boost::beast::http::verb::delete_)
+    (std::bind_front(handleSessionDelete, std::ref(app)));
 
-    BMCWEB_ROUTE(app, "/redfish/v1/SessionService/Sessions/")
-        .privileges(redfish::privileges::headSessionCollection)
-        .methods(boost::beast::http::verb::head)(
-            std::bind_front(handleSessionCollectionHead, std::ref(app)));
+    REDFISH_ROUTE(app, "/redfish/v1/SessionService/Sessions/",
+                  redfish::privileges::EntityTag::tagSessionCollection,
+                  boost::beast::http::verb::head)
+    (std::bind_front(handleSessionCollectionHead, std::ref(app)));
 
-    BMCWEB_ROUTE(app, "/redfish/v1/SessionService/Sessions/")
-        .privileges(redfish::privileges::getSessionCollection)
-        .methods(boost::beast::http::verb::get)(
-            std::bind_front(handleSessionCollectionGet, std::ref(app)));
+    REDFISH_ROUTE(app, "/redfish/v1/SessionService/Sessions/",
+                  redfish::privileges::EntityTag::tagSessionCollection,
+                  boost::beast::http::verb::get)
+    (std::bind_front(handleSessionCollectionGet, std::ref(app)));
 
     // Note, the next two routes technically don't match the privilege
     // registry given the way login mechanisms work.  The base privilege
@@ -391,20 +391,20 @@ inline void requestRoutesSession(App& app)
         .methods(boost::beast::http::verb::post)(
             std::bind_front(handleSessionCollectionPost, std::ref(app)));
 
-    BMCWEB_ROUTE(app, "/redfish/v1/SessionService/")
-        .privileges(redfish::privileges::headSessionService)
-        .methods(boost::beast::http::verb::head)(
-            std::bind_front(handleSessionServiceHead, std::ref(app)));
+    REDFISH_ROUTE(app, "/redfish/v1/SessionService/",
+                  redfish::privileges::EntityTag::tagSessionService,
+                  boost::beast::http::verb::head)
+    (std::bind_front(handleSessionServiceHead, std::ref(app)));
 
-    BMCWEB_ROUTE(app, "/redfish/v1/SessionService/")
-        .privileges(redfish::privileges::getSessionService)
-        .methods(boost::beast::http::verb::get)(
-            std::bind_front(handleSessionServiceGet, std::ref(app)));
+    REDFISH_ROUTE(app, "/redfish/v1/SessionService/",
+                  redfish::privileges::EntityTag::tagSessionService,
+                  boost::beast::http::verb::get)
+    (std::bind_front(handleSessionServiceGet, std::ref(app)));
 
-    BMCWEB_ROUTE(app, "/redfish/v1/SessionService/")
-        .privileges(redfish::privileges::patchSessionService)
-        .methods(boost::beast::http::verb::patch)(
-            std::bind_front(handleSessionServicePatch, std::ref(app)));
+    REDFISH_ROUTE(app, "/redfish/v1/SessionService/",
+                  redfish::privileges::EntityTag::tagSessionService,
+                  boost::beast::http::verb::patch)
+    (std::bind_front(handleSessionServicePatch, std::ref(app)));
 }
 
 } // namespace redfish
