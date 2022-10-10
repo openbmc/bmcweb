@@ -30,12 +30,12 @@ namespace redfish
 {
 inline void requestRoutesStorageCollection(App& app)
 {
-    BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/Storage/")
-        .privileges(redfish::privileges::getStorageCollection)
-        .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                   const std::string& systemName) {
+    REDFISH_ROUTE(app, "/redfish/v1/Systems/<str>/Storage/",
+                  redfish::privileges::EntityTag::tagStorageCollection,
+                  boost::beast::http::verb::get)
+    ([&app](const crow::Request& req,
+            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+            const std::string& systemName) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
@@ -58,7 +58,7 @@ inline void requestRoutesStorageCollection(App& app)
         members.emplace_back(member);
         asyncResp->res.jsonValue["Members"] = std::move(members);
         asyncResp->res.jsonValue["Members@odata.count"] = 1;
-        });
+    });
 }
 
 inline void getDrives(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -257,11 +257,11 @@ inline void
 
 inline void requestRoutesStorage(App& app)
 {
-    BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/Storage/1/")
-        .privileges(redfish::privileges::getStorage)
-        .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+    REDFISH_ROUTE(app, "/redfish/v1/Systems/system/Storage/1/",
+                  redfish::privileges::EntityTag::tagStorage,
+                  boost::beast::http::verb::get)
+    ([&app](const crow::Request& req,
+            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
@@ -278,7 +278,7 @@ inline void requestRoutesStorage(App& app)
 
         getDrives(asyncResp, health);
         getStorageControllers(asyncResp, health);
-        });
+    });
 }
 
 inline void getDriveAsset(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -554,12 +554,12 @@ static void addAllDriveInfo(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 
 inline void requestRoutesDrive(App& app)
 {
-    BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/Storage/1/Drives/<str>/")
-        .privileges(redfish::privileges::getDrive)
-        .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                   const std::string& systemName, const std::string& driveId) {
+    REDFISH_ROUTE(app, "/redfish/v1/Systems/<str>/Storage/1/Drives/<str>/",
+                  redfish::privileges::EntityTag::tagDrive,
+                  boost::beast::http::verb::get)
+    ([&app](const crow::Request& req,
+            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+            const std::string& systemName, const std::string& driveId) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
@@ -638,7 +638,7 @@ inline void requestRoutesDrive(App& app)
             "/xyz/openbmc_project/inventory", int32_t(0),
             std::array<const char*, 1>{
                 "xyz.openbmc_project.Inventory.Item.Drive"});
-        });
+    });
 }
 
 /**
@@ -744,10 +744,10 @@ inline void chassisDriveCollectionGet(
 
 inline void requestRoutesChassisDrive(App& app)
 {
-    BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/Drives/")
-        .privileges(redfish::privileges::getDriveCollection)
-        .methods(boost::beast::http::verb::get)(
-            std::bind_front(chassisDriveCollectionGet, std::ref(app)));
+    REDFISH_ROUTE(app, "/redfish/v1/Chassis/<str>/Drives/",
+                  redfish::privileges::EntityTag::tagDriveCollection,
+                  boost::beast::http::verb::get)
+    (std::bind_front(chassisDriveCollectionGet, std::ref(app)));
 }
 
 inline void buildDrive(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -897,10 +897,10 @@ inline void
  */
 inline void requestRoutesChassisDriveName(App& app)
 {
-    BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/Drives/<str>/")
-        .privileges(redfish::privileges::getChassis)
-        .methods(boost::beast::http::verb::get)(
-            std::bind_front(handleChassisDriveGet, std::ref(app)));
+    REDFISH_ROUTE(app, "/redfish/v1/Chassis/<str>/Drives/<str>/",
+                  redfish::privileges::EntityTag::tagChassis,
+                  boost::beast::http::verb::get)
+    (std::bind_front(handleChassisDriveGet, std::ref(app)));
 }
 
 } // namespace redfish

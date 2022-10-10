@@ -125,7 +125,7 @@ inline void
     if (slotType != nullptr)
     {
         std::string redfishSlotType = dbusSlotTypeToRf(*slotType);
-        if (!slotType.empty())
+        if (!slotType->empty())
         {
             messages::internalError(asyncResp->res);
             return;
@@ -187,9 +187,9 @@ inline void onMapperAssociationDone(
     sdbusplus::asio::getAllProperties(
         *crow::connections::systemBus, connectionName, pcieSlotPath,
         "xyz.openbmc_project.Inventory.Item.PCIeSlot",
-        [asyncResp](const boost::system::error_code ec,
+        [asyncResp](const boost::system::error_code ec2,
                     const dbus::utility::DBusPropertiesMap& propertiesList) {
-        onPcieSlotGetAllDone(asyncResp, ec, propertiesList);
+        onPcieSlotGetAllDone(asyncResp, ec2, propertiesList);
         });
 }
 
@@ -235,10 +235,10 @@ inline void
             // it belongs to this ChassisID
             crow::connections::systemBus->async_method_call(
                 [asyncResp, chassisID, pcieSlotPath, connectionName](
-                    const boost::system::error_code ec,
+                    const boost::system::error_code ec2,
                     const std::variant<std::vector<std::string>>& endpoints) {
                 onMapperAssociationDone(asyncResp, chassisID, pcieSlotPath,
-                                        connectionName, ec, endpoints);
+                                        connectionName, ec2, endpoints);
                 },
                 "xyz.openbmc_project.ObjectMapper",
                 std::string{pcieSlotAssociationPath},
@@ -274,10 +274,10 @@ inline void handlePCIeSlotCollectionGet(
 
 inline void requestRoutesPCIeSlots(App& app)
 {
-    BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/PCIeSlots/")
-        .privileges(redfish::privileges::getPCIeSlots)
-        .methods(boost::beast::http::verb::get)(
-            std::bind_front(handlePCIeSlotCollectionGet, std::ref(app)));
+    REDFISH_ROUTE(app, "/redfish/v1/Chassis/<str>/PCIeSlots/",
+                  redfish::privileges::EntityTag::tagPCIeSlots,
+                  boost::beast::http::verb::get)
+    (std::bind_front(handlePCIeSlotCollectionGet, std::ref(app)));
 }
 
 } // namespace redfish

@@ -349,11 +349,12 @@ class AddReport
 
 inline void requestRoutesMetricReportDefinitionCollection(App& app)
 {
-    BMCWEB_ROUTE(app, "/redfish/v1/TelemetryService/MetricReportDefinitions/")
-        .privileges(redfish::privileges::getMetricReportDefinitionCollection)
-        .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+    REDFISH_ROUTE(
+        app, "/redfish/v1/TelemetryService/MetricReportDefinitions/",
+        redfish::privileges::EntityTag::tagMetricReportDefinitionCollection,
+        boost::beast::http::verb::get)
+    ([&app](const crow::Request& req,
+            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
@@ -369,13 +370,14 @@ inline void requestRoutesMetricReportDefinitionCollection(App& app)
         collection_util::getCollectionMembers(
             asyncResp, telemetry::metricReportDefinitionUri, interfaces,
             "/xyz/openbmc_project/Telemetry/Reports/TelemetryService");
-        });
+    });
 
-    BMCWEB_ROUTE(app, "/redfish/v1/TelemetryService/MetricReportDefinitions/")
-        .privileges(redfish::privileges::postMetricReportDefinitionCollection)
-        .methods(boost::beast::http::verb::post)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+    REDFISH_ROUTE(
+        app, "/redfish/v1/TelemetryService/MetricReportDefinitions/",
+        redfish::privileges::EntityTag::tagMetricReportDefinitionCollection,
+        boost::beast::http::verb::post)
+    ([&app](const crow::Request& req,
+            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
@@ -414,18 +416,18 @@ inline void requestRoutesMetricReportDefinitionCollection(App& app)
                 addReportReq->insert(uriToDbus);
                 });
         }
-        });
+    });
 }
 
 inline void requestRoutesMetricReportDefinition(App& app)
 {
-    BMCWEB_ROUTE(app,
-                 "/redfish/v1/TelemetryService/MetricReportDefinitions/<str>/")
-        .privileges(redfish::privileges::getMetricReportDefinition)
-        .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                   const std::string& id) {
+    REDFISH_ROUTE(app,
+                  "/redfish/v1/TelemetryService/MetricReportDefinitions/<str>/",
+                  redfish::privileges::EntityTag::tagMetricReportDefinition,
+                  boost::beast::http::verb::get)
+    ([&app](const crow::Request& req,
+            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+            const std::string& id) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
@@ -454,16 +456,16 @@ inline void requestRoutesMetricReportDefinition(App& app)
 
             telemetry::fillReportDefinition(asyncResp, id, ret);
             });
-        });
-    BMCWEB_ROUTE(app,
-                 "/redfish/v1/TelemetryService/MetricReportDefinitions/<str>/")
-        .privileges(redfish::privileges::deleteMetricReportDefinitionCollection)
-        .methods(boost::beast::http::verb::delete_)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                   const std::string& id)
+    });
+    REDFISH_ROUTE(
+        app, "/redfish/v1/TelemetryService/MetricReportDefinitions/<str>/",
+        redfish::privileges::EntityTag::tagMetricReportDefinitionCollection,
+        boost::beast::http::verb::delete_)
+    ([&app](const crow::Request& req,
+            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+            const std::string& id)
 
-            {
+     {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
@@ -495,6 +497,6 @@ inline void requestRoutesMetricReportDefinition(App& app)
             },
             telemetry::service, reportPath, "xyz.openbmc_project.Object.Delete",
             "Delete");
-        });
+    });
 }
 } // namespace redfish
