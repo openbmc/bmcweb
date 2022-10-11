@@ -16,6 +16,24 @@
       "message": "Why no error?",
       "revId": "6c1035fb49449873f6d24127307f57f3fcbc2708",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "432a21de_404f79ae",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-10-11T01:27:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1ebcb21f_41d325da",
+      "revId": "6c1035fb49449873f6d24127307f57f3fcbc2708",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
