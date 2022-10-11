@@ -33,6 +33,24 @@
       "message": "Why not an error here?",
       "revId": "ac52e4f281b6f81a2f23bb433bee805d09753ac9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "79a7a962_6302be09",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-10-11T01:07:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1c49eb1c_befb1f59",
+      "revId": "ac52e4f281b6f81a2f23bb433bee805d09753ac9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
