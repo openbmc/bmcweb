@@ -168,6 +168,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9687a4df_b194570d",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-10-11T21:45:29Z",
+      "side": 1,
+      "message": "This doesn\u0027t look quite right.  What I would\u0027ve expected is something like\n\nif (ec \u003d\u003d operation_aborted){\n   return;  // Operation didn\u0027t time out and was aborted.  Connection can continue like normal.\n}\nif (ec){\n   close();  // Some other timer failure (possibly a kernel failure) close the connetion.\n   return;  \n}",
+      "parentUuid": "e962927a_d067a67d",
+      "range": {
+        "startLine": 206,
+        "startChar": 44,
+        "endLine": 206,
+        "endChar": 61
+      },
+      "revId": "828ed822bd22f111ee22b836d4c495029899541b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9537700d_0a44ac5c",
         "filename": "http/http_client.hpp",
         "patchSetId": 7

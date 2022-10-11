@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f19fd606_f0b881d8",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 351,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-10-11T21:45:29Z",
+      "side": 1,
+      "message": "?  If we timed out, don\u0027t we want to retry?",
+      "range": {
+        "startLine": 351,
+        "startChar": 8,
+        "endLine": 351,
+        "endChar": 61
+      },
+      "revId": "7ebaad5e52271baab31275ff9f6518569ad82686",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d8b54282_fd8a6dfc",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 444,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-10-11T21:45:29Z",
+      "side": 1,
+      "message": "Is this necessary?",
+      "range": {
+        "startLine": 444,
+        "startChar": 0,
+        "endLine": 444,
+        "endChar": 24
+      },
+      "revId": "7ebaad5e52271baab31275ff9f6518569ad82686",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
