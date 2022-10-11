@@ -16,6 +16,24 @@
       "message": "There was a request in the email chain for this to say \nThis fixes CVE-2022-2809\n\nCan we include that here?",
       "revId": "a188cd98a71638683ceca406e041adfa3e90368e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "71f4b960_2d9b20cc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000157
+      },
+      "writtenOn": "2022-10-11T04:31:08Z",
+      "side": 1,
+      "message": "Yes.",
+      "parentUuid": "bcc29584_d4083a6a",
+      "revId": "a188cd98a71638683ceca406e041adfa3e90368e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
