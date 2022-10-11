@@ -192,6 +192,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1a422d25_72567222",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-10-11T22:20:22Z",
+      "side": 1,
+      "message": "On timer timeout we call \"onTimeout()\".  As part of that function we close the connection and retry if we have not exhausted the retry policy.\n\nAs I understand it, closing the connection causes \"operation_aborted\" to occur and the callback such as \"afterConnect()\" gets called.  That\u0027s why I return immediately if \"operation_aborted\".\n\nIf there is a different error that occurs then we should go into our normal retry logic instead of just closing the connection.  There are a number of ways that the operation could fail outside of the operation timing out.  If we don\u0027t go into our retry logic here then we\u0027ll only ever retry on a very limited range of errors like connection attempt timeouts.\n\nDoing that would also start creeping into special retry handling cases. I thought avoiding that was a motivation for removing polling from this patch since it would have involved skipping the retry and going straight to fail.",
+      "parentUuid": "9687a4df_b194570d",
+      "range": {
+        "startLine": 206,
+        "startChar": 44,
+        "endLine": 206,
+        "endChar": 61
+      },
+      "revId": "828ed822bd22f111ee22b836d4c495029899541b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9537700d_0a44ac5c",
         "filename": "http/http_client.hpp",
         "patchSetId": 7

@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b4dffaef_cf06a37c",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 351,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-10-11T22:20:22Z",
+      "side": 1,
+      "message": "We do, but that is handled within the timer\u0027s callback \"onTimeout()\".  This is specifically catching when the timer has already expired.",
+      "parentUuid": "f19fd606_f0b881d8",
+      "range": {
+        "startLine": 351,
+        "startChar": 8,
+        "endLine": 351,
+        "endChar": 61
+      },
+      "revId": "7ebaad5e52271baab31275ff9f6518569ad82686",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d8b54282_fd8a6dfc",
         "filename": "http/http_client.hpp",
         "patchSetId": 16
@@ -37,6 +61,30 @@
       "writtenOn": "2022-10-11T21:45:29Z",
       "side": 1,
       "message": "Is this necessary?",
+      "range": {
+        "startLine": 444,
+        "startChar": 0,
+        "endLine": 444,
+        "endChar": 24
+      },
+      "revId": "7ebaad5e52271baab31275ff9f6518569ad82686",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "44abff25_fa8e7617",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 444,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-10-11T22:20:22Z",
+      "side": 1,
+      "message": "Yes I believe so.  We do not clear \"res\" after we have completely finished processing the response at the end of the message sending flow.  Instead we clear \"res\" before we copy the new response to it.\n\nIf the connection is reused then we don\u0027t want to accidentally include the body from a previously received message in the event we exhaust the retry policy and need to return a 502 Bad Gateway.",
+      "parentUuid": "d8b54282_fd8a6dfc",
       "range": {
         "startLine": 444,
         "startChar": 0,
