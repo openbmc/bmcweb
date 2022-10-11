@@ -34,6 +34,24 @@
       "parentUuid": "dd94c94f_5d6f4900",
       "revId": "9fdaa4b7e16f332b21e83ca8094a1b54ad550df8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa53a0c0_7fdd0b58",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000086
+      },
+      "writtenOn": "2022-10-11T07:04:38Z",
+      "side": 1,
+      "message": "Initial discussion related to certificate managent interfaces:\n\nhttps://lists.ozlabs.org/pipermail/openbmc/2019-January/014837.html\n\nLooks like atest Redfish schema also doesn\u0027t support certificate delete.\n\u003cAnnotation Term\u003d\"Capabilities.DeleteRestrictions\"\u003e\n\u003cRecord\u003e\n\u003cPropertyValue Property\u003d\"Deletable\" Bool\u003d\"false\"/\u003e\n\u003c/Record\u003e\n\u003c/Annotation\u003e",
+      "parentUuid": "dbf91635_3fb6928a",
+      "revId": "9fdaa4b7e16f332b21e83ca8094a1b54ad550df8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
