@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a2592e0d_9ab42b25",
+        "filename": "redfish-core/lib/power_subsystem.hpp",
+        "patchSetId": 49
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-10-11T16:56:00Z",
+      "side": 1,
+      "message": "Same question here, why is |validChassisPath| an optional?",
+      "range": {
+        "startLine": 14,
+        "startChar": 38,
+        "endLine": 14,
+        "endChar": 54
+      },
+      "revId": "d2e862bc7a9577f373bcbc01378cc8f75c5270b4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4ccb2844_e695b395",
+        "filename": "test/redfish-core/lib/power_subsystem_test.cpp",
+        "patchSetId": 49
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-10-11T16:56:00Z",
+      "side": 1,
+      "message": "this \"include\" prefix is unnecessary I believe.\n\nDoes #include \"async_resp.hpp\" work?",
+      "range": {
+        "startLine": 1,
+        "startChar": 10,
+        "endLine": 1,
+        "endChar": 17
+      },
+      "revId": "d2e862bc7a9577f373bcbc01378cc8f75c5270b4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
