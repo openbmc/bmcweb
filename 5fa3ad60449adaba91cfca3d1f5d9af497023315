@@ -95,6 +95,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8a28ac8a_0b9c26c9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-10-11T17:19:20Z",
+      "side": 1,
+      "message": "Okay, found it in https://redfish.dmtf.org/registries/Base.1.14.0.json\n\nThis is what I meant. Reference the base privilege registry.",
+      "parentUuid": "c6d64297_a865c8e5",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 18
+      },
+      "revId": "5fa3ad60449adaba91cfca3d1f5d9af497023315",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0d47e091_1a62c437",
