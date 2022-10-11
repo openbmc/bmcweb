@@ -52,6 +52,24 @@
       "parentUuid": "dbf91635_3fb6928a",
       "revId": "9fdaa4b7e16f332b21e83ca8094a1b54ad550df8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fee3f0f6_1808d1e8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-10-11T07:50:51Z",
+      "side": 1,
+      "message": "The deletable is true in the schema I found, interesting.\n\n\u003cAnnotation Term\u003d\"Capabilities.DeleteRestrictions\"\u003e\n\u003cRecord\u003e\n\u003cPropertyValue Property\u003d\"Deletable\" Bool\u003d\"true\"/\u003e\n\u003cAnnotation Term\u003d\"OData.Description\" String\u003d\"Use the DELETE operation to remove certificates.\"/\u003e\n\u003c/Record\u003e\n\u003c/Annotation\u003e\n\nhttps://redfish.dmtf.org/schemas/v1/Certificate_v1.xml\n\nOnly the CSDL(XML) schema specifies it, not in json schema",
+      "parentUuid": "fa53a0c0_7fdd0b58",
+      "revId": "9fdaa4b7e16f332b21e83ca8094a1b54ad550df8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
