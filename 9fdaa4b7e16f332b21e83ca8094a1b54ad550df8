@@ -88,6 +88,24 @@
       "parentUuid": "fee3f0f6_1808d1e8",
       "revId": "9fdaa4b7e16f332b21e83ca8094a1b54ad550df8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e9890fc3_10769c15",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-10-11T16:35:53Z",
+      "side": 1,
+      "message": "I guess no objection then?",
+      "parentUuid": "9d55139b_ad6ef5a3",
+      "revId": "9fdaa4b7e16f332b21e83ca8094a1b54ad550df8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
