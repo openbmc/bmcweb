@@ -77,6 +77,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "f230f2de_9be5602b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-10-11T17:18:30Z",
+      "side": 1,
+      "message": "\u003e Is this a bug? Why users with no-access privilege is allowed to login?\n\nMy understanding is that yes, this was the bug that triggered this discussion.\n\n\u003e \n\u003e https://github.com/openbmc/bmcweb/blob/bb759e3aeaadfec9f3aac4485f253bcc8a523e4c/include/login_routes.hpp\n\u003e \n\u003e You refer to this route, right?\n\nI\u0027m assuming it could be either of the two login routes (either the one you pointed to /login or SessionService)",
+      "parentUuid": "46370248_b373e691",
+      "range": {
+        "startLine": 9,
+        "startChar": 15,
+        "endLine": 10,
+        "endChar": 18
+      },
+      "revId": "e7a82a7d7da56a075d797747d30bfb83d746826b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "9fa6b156_af482f5d",
