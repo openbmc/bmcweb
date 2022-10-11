@@ -16,6 +16,29 @@
       "message": "Friendly ping.",
       "revId": "31f68de009ad1f00186ed60d7aa56bdf101e9d24",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c2a7de1b_6aedec23",
+        "filename": "redfish-core/src/utils/json_utils.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-10-11T17:35:48Z",
+      "side": 1,
+      "message": "In terms of long-term design, I wonder if we need a json type that just tracks this on the fly.  As-written, this is going to cause a bunch of cache reads of things that have already been computed.",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 57
+      },
+      "revId": "31f68de009ad1f00186ed60d7aa56bdf101e9d24",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
