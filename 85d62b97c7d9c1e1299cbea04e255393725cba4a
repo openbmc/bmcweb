@@ -260,6 +260,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1262d201_79d8b5e1",
+        "filename": "redfish-core/src/utils/json_utils.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-10-11T17:58:43Z",
+      "side": 1,
+      "message": "\u003e It\u0027s about being explicit and handling the case where the type is incorrect.  There are cases where it does provide a minor improvement, but they\u0027re not substantial enough to be worried about.\n\nI see. Ack.\n\n\u003e It does;  The accessor for it is nlohmann::json::type().\n\nOkay. As you said if this is about being explicit. I totally agree.",
+      "parentUuid": "dedfe400_540e299e",
+      "range": {
+        "startLine": 59,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 24
+      },
+      "revId": "85d62b97c7d9c1e1299cbea04e255393725cba4a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "913b7509_e8a8bad0",

@@ -39,6 +39,30 @@
       },
       "revId": "31f68de009ad1f00186ed60d7aa56bdf101e9d24",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "74a26093_655f3739",
+        "filename": "redfish-core/src/utils/json_utils.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-10-11T17:58:43Z",
+      "side": 1,
+      "message": "Right, we might need to use a custom allocator.\n\nhttps://stackoverflow.com/questions/66969288/how-to-get-size-of-nlohmann-json-object-in-memory\n\nI added this into the function comment as a todo.",
+      "parentUuid": "c2a7de1b_6aedec23",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 57
+      },
+      "revId": "31f68de009ad1f00186ed60d7aa56bdf101e9d24",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
