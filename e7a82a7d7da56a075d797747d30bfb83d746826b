@@ -86,6 +86,24 @@
       "message": "https://gerrit.openbmc.org/c/openbmc/phosphor-user-manager/+/52363 has a +2 so after that is submitted this can go? 52363  is a prerequisite not a corequisite right?",
       "revId": "e7a82a7d7da56a075d797747d30bfb83d746826b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d2842816_3311bb85",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-10-11T17:07:12Z",
+      "side": 1,
+      "message": "Can we merge BMCWeb first?",
+      "parentUuid": "e36b1ef1_32fbadad",
+      "revId": "e7a82a7d7da56a075d797747d30bfb83d746826b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
