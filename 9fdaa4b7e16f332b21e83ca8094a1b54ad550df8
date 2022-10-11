@@ -70,6 +70,24 @@
       "parentUuid": "fa53a0c0_7fdd0b58",
       "revId": "9fdaa4b7e16f332b21e83ca8094a1b54ad550df8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9d55139b_ad6ef5a3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000086
+      },
+      "writtenOn": "2022-10-11T13:57:04Z",
+      "side": 1,
+      "message": "If schema supports, Good to enable this feature.",
+      "parentUuid": "fee3f0f6_1808d1e8",
+      "revId": "9fdaa4b7e16f332b21e83ca8094a1b54ad550df8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
