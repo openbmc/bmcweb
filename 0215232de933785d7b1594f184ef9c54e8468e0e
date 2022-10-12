@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3c923d02_287a8fcc",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-10-12T10:02:55Z",
+      "side": 1,
+      "message": "\u003e Please try you best to IWYU, e.g., \u003cstring\u003e, \u003cmemory\u003e, \u003coptional\u003e, etc\n\nSorry, I am not familiar with iwyu, Could you please show the command of iwyu here?\nThanks.",
+      "parentUuid": "1b2c41da_e81589f1",
+      "revId": "0215232de933785d7b1594f184ef9c54e8468e0e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "76655512_170340ba",
         "filename": "redfish-core/lib/environment_metrics.hpp",
         "patchSetId": 28
@@ -31,6 +49,24 @@
       "writtenOn": "2022-10-11T16:53:46Z",
       "side": 1,
       "message": "For new code, please follow the CppCoreGuidelines: use \"\" for local headers.",
+      "revId": "0215232de933785d7b1594f184ef9c54e8468e0e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "95fd041b_12ffbe11",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-10-12T10:02:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "76655512_170340ba",
       "revId": "0215232de933785d7b1594f184ef9c54e8468e0e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -48,6 +84,30 @@
       "writtenOn": "2022-10-11T16:53:46Z",
       "side": 1,
       "message": "why do you make this optional? Any code here will feed in an invalid chassis path?",
+      "range": {
+        "startLine": 12,
+        "startChar": 35,
+        "endLine": 12,
+        "endChar": 58
+      },
+      "revId": "0215232de933785d7b1594f184ef9c54e8468e0e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2d2c5e4e_2133267a",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-10-12T10:02:55Z",
+      "side": 1,
+      "message": "\u003e why do you make this optional? Any code here will feed in an invalid chassis path?\n\nit will be judged whether the chassisId is correctly matched, otherwise it will directly return resourceNotFound.\n\nrefer:\nhttps://github.com/openbmc/bmcweb/blob/master/redfish-core/include/utils/chassis_utils.hpp#L54",
+      "parentUuid": "c2117507_e557bcbb",
       "range": {
         "startLine": 12,
         "startChar": 35,
