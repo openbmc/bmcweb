@@ -22,6 +22,30 @@
       },
       "revId": "552cf91d49cf78a3a4225b2b4af97cafe886770c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6e3bfb6c_2e85fca2",
+        "filename": "meson.build",
+        "patchSetId": 2
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-10-12T23:18:02Z",
+      "side": 1,
+      "message": "No, the space in the original place is inconsistent so I just fixed it.\n\nI am going to revert this",
+      "parentUuid": "86a37ca6_13bd0fd0",
+      "range": {
+        "startLine": 319,
+        "startChar": 0,
+        "endLine": 319,
+        "endChar": 58
+      },
+      "revId": "552cf91d49cf78a3a4225b2b4af97cafe886770c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
