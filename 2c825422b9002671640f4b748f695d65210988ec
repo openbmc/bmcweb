@@ -22,6 +22,30 @@
       },
       "revId": "2c825422b9002671640f4b748f695d65210988ec",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bdcfb003_4d433479",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 3655,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-10-12T06:49:07Z",
+      "side": 1,
+      "message": "I\u0027m afraid return value is not a good idea here. Given that get multiple entries and signle entry shares the same function, extra check is needed for the default return value. Checking the JSON content seems to be the most readable way.\n\nMay I ask the reason that checking if the JSON is empty is not preferred? Performace?",
+      "parentUuid": "c87545ca_f91d4c69",
+      "range": {
+        "startLine": 3655,
+        "startChar": 11,
+        "endLine": 3655,
+        "endChar": 40
+      },
+      "revId": "2c825422b9002671640f4b748f695d65210988ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
