@@ -69,6 +69,24 @@
       "message": "Any more comments?",
       "revId": "353404b4919300daf9818699f6a68cca3f95ce55",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "978c7aa5_78009132",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-10-12T18:25:28Z",
+      "side": 1,
+      "message": "I just compared this commit to https://gerrit.openbmc.org/c/openbmc/bmcweb/+/56569, which should be relatively representative of master\n\nThis commit:\nSummary coverage rate:\n  lines......: 56.6% (10686 of 18874 lines)\n  functions..: 49.7% (9746 of 19596 functions)\n  branches...: 25.5% (6552 of 25678 branches)\n\n\n56569 commit:\n  Summary coverage rate:\n  lines......: 35.2% (12457 of 35361 lines)\n  functions..: 44.6% (10344 of 23187 functions)\n  branches...: 19.9% (7244 of 36493 branches)\n\nShows that this dropped 15000 lines of coverage?  @Nan, Can you elaborate on what you checked locally?  Did it show this discrepancy, or is it just a CI thing?",
+      "parentUuid": "cbe65354_8177ffb8",
+      "revId": "353404b4919300daf9818699f6a68cca3f95ce55",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
