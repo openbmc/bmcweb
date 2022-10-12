@@ -70,6 +70,30 @@
       },
       "revId": "884412cce7a42a1d7b9f00d1cb3db07ec41817a6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c1c23dd1_cd03a4c2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-10-12T16:38:51Z",
+      "side": 1,
+      "message": "All users have Login privilege today.",
+      "parentUuid": "079bc92d_dfba97cd",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 33
+      },
+      "revId": "884412cce7a42a1d7b9f00d1cb3db07ec41817a6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
