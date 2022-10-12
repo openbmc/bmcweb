@@ -71,6 +71,42 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "73a87a29_0ed7ee34",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-10-12T19:56:09Z",
+      "side": 1,
+      "message": "ACK",
+      "parentUuid": "2c0a3b35_fa7f905d",
+      "revId": "fc006e0588131a4cde1879d915548768bfbeefe4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b5c09069_4426c3d5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-10-12T19:56:09Z",
+      "side": 1,
+      "message": "Sure, I guess this works then.",
+      "parentUuid": "32e5e536_003b5350",
+      "revId": "fc006e0588131a4cde1879d915548768bfbeefe4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "53a99412_da5a8872",
@@ -155,6 +191,30 @@
       "side": 1,
       "message": "this was from the example in UrlFromPieces which has the same output.",
       "parentUuid": "8f5468d0_63a4418a",
+      "range": {
+        "startLine": 109,
+        "startChar": 42,
+        "endLine": 109,
+        "endChar": 43
+      },
+      "revId": "fc006e0588131a4cde1879d915548768bfbeefe4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "add48990_6ce07cf4",
+        "filename": "test/http/utility_test.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-10-12T19:56:09Z",
+      "side": 1,
+      "message": "weeeeeird.....  maybe \u0026 before the ? is ok in teh regex.  ACK",
+      "parentUuid": "b99b44a0_be5b80c2",
       "range": {
         "startLine": 109,
         "startChar": 42,
