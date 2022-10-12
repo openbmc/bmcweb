@@ -14,6 +14,10 @@
 // limitations under the License.
 */
 #pragma once
+
+#include "async_resolve.hpp"
+#include "http_response.hpp"
+
 #include <boost/asio/connect.hpp>
 #include <boost/asio/io_context.hpp>
 #include <boost/asio/ip/address.hpp>
@@ -33,8 +37,6 @@
 #include <boost/beast/version.hpp>
 #include <boost/container/devector.hpp>
 #include <boost/system/error_code.hpp>
-#include <http/http_response.hpp>
-#include <include/async_resolve.hpp>
 #include <logging.hpp>
 #include <ssl_key_handler.hpp>
 

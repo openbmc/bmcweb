@@ -19,6 +19,7 @@
 #include "registries/base_message_registry.hpp"
 #include "registries/openbmc_message_registry.hpp"
 #include "registries/task_event_message_registry.hpp"
+#include "utility.hpp"
 
 #include <sys/inotify.h>
 
@@ -29,7 +30,6 @@
 #include <dbus_utility.hpp>
 #include <error_messages.hpp>
 #include <event_service_store.hpp>
-#include <http/utility.hpp>
 #include <http_client.hpp>
 #include <persistent_data.hpp>
 #include <random.hpp>
