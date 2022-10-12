@@ -48,6 +48,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "056f5721_e5b31ae9",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 351,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-10-12T01:04:05Z",
+      "side": 1,
+      "message": "ACK",
+      "parentUuid": "b4dffaef_cf06a37c",
+      "range": {
+        "startLine": 351,
+        "startChar": 8,
+        "endLine": 351,
+        "endChar": 61
+      },
+      "revId": "7ebaad5e52271baab31275ff9f6518569ad82686",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d8b54282_fd8a6dfc",
@@ -85,6 +109,30 @@
       "side": 1,
       "message": "Yes I believe so.  We do not clear \"res\" after we have completely finished processing the response at the end of the message sending flow.  Instead we clear \"res\" before we copy the new response to it.\n\nIf the connection is reused then we don\u0027t want to accidentally include the body from a previously received message in the event we exhaust the retry policy and need to return a 502 Bad Gateway.",
       "parentUuid": "d8b54282_fd8a6dfc",
+      "range": {
+        "startLine": 444,
+        "startChar": 0,
+        "endLine": 444,
+        "endChar": 24
+      },
+      "revId": "7ebaad5e52271baab31275ff9f6518569ad82686",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c9fb9de7_8436b5f3",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 444,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-10-12T01:04:05Z",
+      "side": 1,
+      "message": "\u003e Yes I believe so.  We do not clear \"res\" after we have completely finished processing the response at the end of the message sending flow.  Instead we clear \"res\" before we copy the new response to it.\n\u003e \n\nAt that point, what data is in the response?  I don\u0027t see any case where we\u0027d have a half-filled response.\n\n\u003e If the connection is reused then we don\u0027t want to accidentally include the body from a previously received message in the event we exhaust the retry policy and need to return a 502 Bad Gateway.\n\nThat\u0027s fair, but that needs handled in a different spot, once the response has been sent completely.",
+      "parentUuid": "44abff25_fa8e7617",
       "range": {
         "startLine": 444,
         "startChar": 0,

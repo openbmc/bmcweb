@@ -216,6 +216,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a5db24ca_6e7b2c2b",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-10-12T01:04:05Z",
+      "side": 1,
+      "message": "\u003e On timer timeout we call \"onTimeout()\".  As part of that function we close the connection and retry if we have not exhausted the retry policy.\n\nACK.  I had forgotten that.\n\n\u003e \n\u003e As I understand it, closing the connection causes \"operation_aborted\" to occur and the callback such as \"afterConnect()\" gets called.  That\u0027s why I return immediately if \"operation_aborted\".\n\n\"operation_aborted\" is generated if the operation is aborted, either via cancel() being called, or via the destruction of the object.  Generally both of these we\u0027d want to ignore and do nothing.\n\n\u003e \n\u003e If there is a different error that occurs then we should go into our normal retry logic instead of just closing the connection.\n\nIf the timer is throwing any other error, we\u0027ve hit a logic bug, or a kernel failure and we should be starting to shut down.  At least, this is how we handle it in other cases.\n\n\u003e  There are a number of ways that the operation could fail outside of the operation timing out.  If we don\u0027t go into our retry logic here then we\u0027ll only ever retry on a very limited range of errors like connection attempt timeouts.\n\u003e \n\u003e Doing that would also start creeping into special retry handling cases. I thought avoiding that was a motivation for removing polling from this patch since it would have involved skipping the retry and going straight to fail.\n\nYeah, that\u0027s fair.",
+      "parentUuid": "1a422d25_72567222",
+      "range": {
+        "startLine": 206,
+        "startChar": 44,
+        "endLine": 206,
+        "endChar": 61
+      },
+      "revId": "828ed822bd22f111ee22b836d4c495029899541b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9537700d_0a44ac5c",
         "filename": "http/http_client.hpp",
         "patchSetId": 7
