@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bc9aa7e7_8e6ce805",
+        "filename": "http/utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 565,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-10-12T22:20:22Z",
+      "side": 1,
+      "message": "I have removed it in appendUrlPiecesDetail, but didn\u0027t touch `urlFromPiecesDetail` since that was there before.",
+      "parentUuid": "bdd1941b_59156cbc",
+      "range": {
+        "startLine": 565,
+        "startChar": 19,
+        "endLine": 565,
+        "endChar": 25
+      },
+      "revId": "4fd86ec937d1801b2e67c0b7ee69cd1a707072df",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e0aaab6a_7ebe9837",
@@ -49,6 +73,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "473cea8b_a215f37b",
+        "filename": "http/utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 594,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-10-12T22:20:22Z",
+      "side": 1,
+      "message": "do you mean like\n\n```\nconst AV\u0026... args\n```\n\ninstead?\n\num, not sure why. Tested it and work as expected.",
+      "parentUuid": "e0aaab6a_7ebe9837",
+      "range": {
+        "startLine": 594,
+        "startChar": 57,
+        "endLine": 594,
+        "endChar": 59
+      },
+      "revId": "4fd86ec937d1801b2e67c0b7ee69cd1a707072df",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a3caaa79_1fb533bc",
         "filename": "test/http/utility_test.cpp",
         "patchSetId": 3
@@ -60,6 +108,30 @@
       "writtenOn": "2022-10-12T20:14:40Z",
       "side": 1,
       "message": "I believe you don\u0027t need to follow the existing pattern here.\n\nTEST(AppendUrlFromPieces, PiecesAreAppendedViaDelimiters)",
+      "range": {
+        "startLine": 99,
+        "startChar": 5,
+        "endLine": 99,
+        "endChar": 12
+      },
+      "revId": "4fd86ec937d1801b2e67c0b7ee69cd1a707072df",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8c73b818_baaf8343",
+        "filename": "test/http/utility_test.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-10-12T22:20:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a3caaa79_1fb533bc",
       "range": {
         "startLine": 99,
         "startChar": 5,
