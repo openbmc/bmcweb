@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bdd1941b_59156cbc",
+        "filename": "http/utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 565,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-10-12T20:13:17Z",
+      "side": 1,
+      "message": "nit: do we need detail in function names? The namespace has detail already.",
+      "range": {
+        "startLine": 565,
+        "startChar": 19,
+        "endLine": 565,
+        "endChar": 25
+      },
+      "revId": "4fd86ec937d1801b2e67c0b7ee69cd1a707072df",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e0aaab6a_7ebe9837",
+        "filename": "http/utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 594,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-10-12T20:13:17Z",
+      "side": 1,
+      "message": "Not in the CL, but, why isn\u0027t this type reference?",
+      "range": {
+        "startLine": 594,
+        "startChar": 57,
+        "endLine": 594,
+        "endChar": 59
+      },
+      "revId": "4fd86ec937d1801b2e67c0b7ee69cd1a707072df",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
