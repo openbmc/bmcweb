@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "86a37ca6_13bd0fd0",
+        "filename": "meson.build",
+        "patchSetId": 2
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-10-12T23:00:17Z",
+      "side": 1,
+      "message": "nit, it looks like this line was moved unintentionally?  Arguably doesn\u0027t matter, just makes the diff a little odd.",
+      "range": {
+        "startLine": 319,
+        "startChar": 0,
+        "endLine": 319,
+        "endChar": 58
+      },
+      "revId": "552cf91d49cf78a3a4225b2b4af97cafe886770c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
