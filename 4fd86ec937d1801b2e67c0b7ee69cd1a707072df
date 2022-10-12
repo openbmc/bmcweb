@@ -45,6 +45,29 @@
       },
       "revId": "4fd86ec937d1801b2e67c0b7ee69cd1a707072df",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a3caaa79_1fb533bc",
+        "filename": "test/http/utility_test.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-10-12T20:14:40Z",
+      "side": 1,
+      "message": "I believe you don\u0027t need to follow the existing pattern here.\n\nTEST(AppendUrlFromPieces, PiecesAreAppendedViaDelimiters)",
+      "range": {
+        "startLine": 99,
+        "startChar": 5,
+        "endLine": 99,
+        "endChar": 12
+      },
+      "revId": "4fd86ec937d1801b2e67c0b7ee69cd1a707072df",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
