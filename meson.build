@@ -336,9 +336,9 @@ configure_file(input: 'bmcweb_config.h.in',
 
 # Configure and install systemd unit files
 
-systemd_system_unit_dir = systemd.get_variable(pkgconfig: 'systemdsystemunitdir')
+bindir = get_option('prefix') + '/' + get_option('bindir')
 
-bindir = get_option('prefix') + '/' +get_option('bindir')
+systemd_system_unit_dir = systemd.get_variable(pkgconfig: 'systemdsystemunitdir')
 
 summary({
           'prefix' : get_option('prefix'),
@@ -346,26 +346,12 @@ summary({
           'systemd unit directory' : systemd_system_unit_dir
         }, section : 'Directories')
 
-configure_file(input : 'bmcweb.socket.in',
-               output : 'bmcweb.socket',
-               install_dir: systemd_system_unit_dir,
-               configuration: conf_data,
-               install : true)
-
-configure_file(input : 'bmcweb.service.in',
-               output : 'bmcweb.service',
-               install_dir: systemd_system_unit_dir,
-               configuration: conf_data,
-               install : true)
-
-# Copy pam-webserver to etc/pam.d
-configure_file(input : 'pam-webserver',
-               output : 'webserver',
-               copy : true,
-               install_dir: '/etc/pam.d',
-               install : true)
-
 install_subdir('static', install_dir : 'share/www', strip_directory : true)
+
+# Config subdirectory
+
+subdir('config')
+bmcweb_dependencies += conf_h_dep
 
 # Source files
 
