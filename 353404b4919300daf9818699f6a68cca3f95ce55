@@ -105,6 +105,24 @@
       "parentUuid": "978c7aa5_78009132",
       "revId": "353404b4919300daf9818699f6a68cca3f95ce55",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e9d77e9a_d91be53a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-10-12T22:57:59Z",
+      "side": 1,
+      "message": "It\u0027s all good.\n\nIdeally we would\u0027ve checked that the output is similar, although I understand why you wouldn\u0027t have thought to check it, and I probably wouldn\u0027t have either.  It\u0027s a pretty ridiculous thing that I\u0027m even a little surprised I remembered, but now that we know the output is totally different, I don\u0027t think it\u0027s something we can ignore.",
+      "parentUuid": "ed93405d_86ed3993",
+      "revId": "353404b4919300daf9818699f6a68cca3f95ce55",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
