@@ -22,6 +22,30 @@
       },
       "revId": "884412cce7a42a1d7b9f00d1cb3db07ec41817a6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e43ea6a8_6dc6c95c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-10-12T15:57:54Z",
+      "side": 1,
+      "message": "Sorry, didn\u0027t see you post this originally.\n\nI\u0027m not following the question.  What do fake users have to do with this?  For all the privileges below, the default privilege registry defines a Login privilege, so I\u0027m not sure what we\u0027d be testing that the service validator hadn\u0027t already tested.",
+      "parentUuid": "c36e08e8_2c0bd873",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 33
+      },
+      "revId": "884412cce7a42a1d7b9f00d1cb3db07ec41817a6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
