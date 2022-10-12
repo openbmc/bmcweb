@@ -33,6 +33,24 @@
       "message": "Change this to -\u003e mutable\n\nand you can remove the copy on line 69",
       "revId": "929f4cf5dc33257773be97b56bb80159c74e36cc",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e7c65d9c_2384fb7a",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-10-12T22:36:54Z",
+      "side": 1,
+      "message": "do we want to update collectionPath?\n\nwe will need to remove the Url that we append to it everytime in that case.",
+      "parentUuid": "7f78e628_ab670b41",
+      "revId": "929f4cf5dc33257773be97b56bb80159c74e36cc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
