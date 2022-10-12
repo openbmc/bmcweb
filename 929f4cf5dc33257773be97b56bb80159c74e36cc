@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "df6ae279_36b4c1ab",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-10-12T20:01:20Z",
+      "side": 1,
+      "message": "The only thing I found was a minor string copy, which could be cleaner, and up to the author if they want to do but no sense in holding this patch up for.",
+      "revId": "929f4cf5dc33257773be97b56bb80159c74e36cc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f78e628_ab670b41",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-10-12T20:01:20Z",
+      "side": 1,
+      "message": "Change this to -\u003e mutable\n\nand you can remove the copy on line 69",
+      "revId": "929f4cf5dc33257773be97b56bb80159c74e36cc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
