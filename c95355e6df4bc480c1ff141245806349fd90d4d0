@@ -297,6 +297,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "af1bd389_e2c9eff4",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 2078,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-10-12T23:01:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d730c90b_64104d11",
+      "revId": "c95355e6df4bc480c1ff141245806349fd90d4d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "bd7ff575_da7d8018",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 5
@@ -407,6 +425,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "40fe44a1_4080e91a",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 2576,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-10-12T23:01:24Z",
+      "side": 1,
+      "message": "I\u0027ll work on this fix.",
+      "parentUuid": "d148ccd3_42c27b8e",
+      "range": {
+        "startLine": 2576,
+        "startChar": 67,
+        "endLine": 2576,
+        "endChar": 69
+      },
+      "revId": "c95355e6df4bc480c1ff141245806349fd90d4d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "2336c513_76249bc4",
@@ -467,6 +509,30 @@
       "side": 1,
       "message": "This is the only thing I really have issues with.  If you want to drop this diff to another patch, I suspect this patch as-written can merge, or I\u0027m happy to try to come up with a solution to this json pointer fragment thing in this patch.  Up to you.",
       "parentUuid": "eb077947_b3b348a6",
+      "range": {
+        "startLine": 150,
+        "startChar": 24,
+        "endLine": 151,
+        "endChar": 75
+      },
+      "revId": "c95355e6df4bc480c1ff141245806349fd90d4d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4b04cb6f_6150b464",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-10-12T23:01:24Z",
+      "side": 1,
+      "message": "I\u0027ll revert for now, but that also means https://gerrit.openbmc.org/c/openbmc/bmcweb/+/57467 is wrong.\n\nI\u0027ll have to rework https://gerrit.openbmc.org/c/openbmc/bmcweb/+/57467 for now and update it in this change.",
+      "parentUuid": "f9ca6de6_c821fc8e",
       "range": {
         "startLine": 150,
         "startChar": 24,
