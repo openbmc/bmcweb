@@ -46,6 +46,30 @@
       },
       "revId": "884412cce7a42a1d7b9f00d1cb3db07ec41817a6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "079bc92d_dfba97cd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-10-12T16:35:04Z",
+      "side": 1,
+      "message": "You create a user which doesn\u0027t have Login privilege, and verify they are denied.",
+      "parentUuid": "e43ea6a8_6dc6c95c",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 33
+      },
+      "revId": "884412cce7a42a1d7b9f00d1cb3db07ec41817a6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
