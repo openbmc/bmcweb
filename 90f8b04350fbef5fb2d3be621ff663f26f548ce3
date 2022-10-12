@@ -22,6 +22,30 @@
       },
       "revId": "90f8b04350fbef5fb2d3be621ff663f26f548ce3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b768ee7_aace404e",
+        "filename": "http/utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 600,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-10-12T22:44:41Z",
+      "side": 1,
+      "message": "Do you mean that we should have the url as string and add the\n\n```\nreturn url + \"#\" + urlFromPieces(args...).string();\n```\n\nsomething like that instead?\n\nI am just using boost::url\u0027s built in helper function to do that for me.",
+      "parentUuid": "5bd3b9cc_81b31f27",
+      "range": {
+        "startLine": 600,
+        "startChar": 24,
+        "endLine": 600,
+        "endChar": 45
+      },
+      "revId": "90f8b04350fbef5fb2d3be621ff663f26f548ce3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
