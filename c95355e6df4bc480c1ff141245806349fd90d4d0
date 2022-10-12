@@ -74,6 +74,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "9e83b8a2_d3b4700a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-10-12T19:50:30Z",
+      "side": 1,
+      "message": "I\u0027m ok with a little less searchability here.  We still retain searchability on the BMCWEB_ROUTE instances, which are generally close enough to the odata.id calls that it\u0027s a trivially incremental add to get to this.\n\nArguably, we could\u0027ve written urlFromPieces as something like fmt, and kept both.\n\nurlFromPieces(\"/redfish/v1/Chassis/{}/Sensors/{}\", chassisId, sensorId)\n\nBut that seems like it might have other consequences on complexity.  I\u0027m happy to have that discussion, but not on this patch, which is already taking the pattern we discussed and decided on a long time ago and making it consistent.  Even if we chose to invent another helper function, this commit would still be needed to finish the first migration.",
+      "parentUuid": "1d37f82e_852f6266",
+      "revId": "c95355e6df4bc480c1ff141245806349fd90d4d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "f71dbfef_ca1598e9",
         "filename": "include/google/google_service_root.hpp",
         "patchSetId": 5
@@ -85,6 +103,30 @@
       "writtenOn": "2022-09-27T19:09:53Z",
       "side": 1,
       "message": "Wish this wasn\u0027t in the crow name space, oh well, something we can fix one day. \n\nhttps://github.com/openbmc/bmcweb/commit/eae855c74b30085f6ac1094f6087c6b3913a9a69",
+      "range": {
+        "startLine": 121,
+        "startChar": 44,
+        "endLine": 121,
+        "endChar": 48
+      },
+      "revId": "c95355e6df4bc480c1ff141245806349fd90d4d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "78252599_41fbd0fb",
+        "filename": "include/google/google_service_root.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-10-12T19:50:30Z",
+      "side": 1,
+      "message": "Crow arguably should be http these days.  I\u0027ve avoided doing it because I didn\u0027t want to add to all the \"going to break everyones downstream commits\" piles that we have already.  At some point when those calm down, we can add it to the queue again.",
+      "parentUuid": "f71dbfef_ca1598e9",
       "range": {
         "startLine": 121,
         "startChar": 44,
@@ -336,6 +378,76 @@
         "startChar": 67,
         "endLine": 2576,
         "endChar": 69
+      },
+      "revId": "c95355e6df4bc480c1ff141245806349fd90d4d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d148ccd3_42c27b8e",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 2576,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-10-12T19:50:30Z",
+      "side": 1,
+      "message": "Can we just fix that, and construct the URI in one spot?\n\nI\u0027m not really against this diff as written, but it seems like something worth taking 10 minutes to look into.",
+      "parentUuid": "b29ea3b5_3644eac6",
+      "range": {
+        "startLine": 2576,
+        "startChar": 67,
+        "endLine": 2576,
+        "endChar": 69
+      },
+      "revId": "c95355e6df4bc480c1ff141245806349fd90d4d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2336c513_76249bc4",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-10-12T19:50:30Z",
+      "side": 1,
+      "message": "For things like this that are entirely static, we normally wouldn\u0027t do this, we would just use the string as is, but considering that we need to set the fragment, it seems ok.",
+      "range": {
+        "startLine": 147,
+        "startChar": 0,
+        "endLine": 148,
+        "endChar": 70
+      },
+      "revId": "c95355e6df4bc480c1ff141245806349fd90d4d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eb077947_b3b348a6",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-10-12T19:50:30Z",
+      "side": 1,
+      "message": "This looks incorrect.\n\nStorageControllers/1 is not a URI, it is a fragment, or debatably a json pointer (which we also have a type for).  Considering that there\u0027s no way that std::to_string(int) can produce a value that doesn\u0027t encode properly, there\u0027s not really any reason to avoid string concatenation in this case, and even if we were going to, we would use json_pointer operator/\u003d, not url.",
+      "range": {
+        "startLine": 150,
+        "startChar": 24,
+        "endLine": 151,
+        "endChar": 75
       },
       "revId": "c95355e6df4bc480c1ff141245806349fd90d4d0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
