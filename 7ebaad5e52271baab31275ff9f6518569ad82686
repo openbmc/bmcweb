@@ -141,6 +141,30 @@
       },
       "revId": "7ebaad5e52271baab31275ff9f6518569ad82686",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "50767b70_4634a312",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 444,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-10-12T05:41:08Z",
+      "side": 1,
+      "message": "\u003e At that point, what data is in the response?  I don\u0027t see any case where we\u0027d have a half-filled response.\nIt\u0027s not half-filled, it\u0027s just leftover from the previous message that was sent.  Let\u0027s say we forward a request to /redfish/v1/Chassis/\u003csatellite_chassis_id\u003e.  We return the response and \"res\" will contain a copy of the response.\n\nNow let\u0027s say the satellite BMC goes down and we send a request to something like /redfish/v1/Chassis/\u003csatellite_chassis_id\u003e/Sensors/\u003csensor_id\u003e and it reuses the same Connection.  The BMC won\u0027t be reachable so we\u0027ll return a 502 after exhausting the retry policy.  However, \"res\" will still contain the response from /redfish/v1/Chassis/\u003csatellite_chassis_id\u003e.  If we don\u0027t clear \"res\" before calling callback() then we\u0027ll end up return the same response as before with the only change being the http status code.\n\n\u003e \u003e If the connection is reused then we don\u0027t want to accidentally include the body from a previously received message in the event we exhaust the retry policy and need to return a 502 Bad Gateway.\n\u003e That\u0027s fair, but that needs handled in a different spot, once the response has been sent completely.\nI can move the res.clear() calls to after the callback() calls rather than before.",
+      "parentUuid": "c9fb9de7_8436b5f3",
+      "range": {
+        "startLine": 444,
+        "startChar": 0,
+        "endLine": 444,
+        "endChar": 24
+      },
+      "revId": "7ebaad5e52271baab31275ff9f6518569ad82686",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
