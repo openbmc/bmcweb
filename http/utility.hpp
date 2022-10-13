@@ -585,13 +585,13 @@ class OrMorePaths
 {};
 
 template <typename... AV>
-inline boost::urls::url urlFromPieces(const AV... args)
+inline boost::urls::url urlFromPieces(const AV&... args)
 {
     return details::urlFromPiecesDetail({args...});
 }
 
 template <typename... AV>
-inline void appendUrlPieces(boost::urls::url& url, const AV... args)
+inline void appendUrlPieces(boost::urls::url& url, const AV&... args)
 {
     details::appendUrlPieces(url, {args...});
 }
