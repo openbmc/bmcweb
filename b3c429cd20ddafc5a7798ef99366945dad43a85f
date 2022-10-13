@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "aefe14f2_77bf1072",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-10-13T18:03:57Z",
+      "side": 1,
+      "message": "Can we just remove any reference to CEC and MEX? This seems to use path to determine chassis to fan but the power supply commits use assocations.. Can we settle on one?",
+      "revId": "b3c429cd20ddafc5a7798ef99366945dad43a85f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0bfe3b0b_1062817e",
         "filename": "redfish-core/lib/fan.hpp",
         "patchSetId": 8
@@ -60,6 +77,57 @@
         "endLine": 26,
         "endChar": 78
       },
+      "revId": "b3c429cd20ddafc5a7798ef99366945dad43a85f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a2fa8249_b49de913",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-10-13T18:03:57Z",
+      "side": 1,
+      "message": "What is a CEC fan? Remove?",
+      "revId": "b3c429cd20ddafc5a7798ef99366945dad43a85f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ad728058_71711b87",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-10-13T18:03:57Z",
+      "side": 1,
+      "message": "So power supplies use associations but this uses paths? \nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/57668/7/redfish-core/lib/power_supply.hpp",
+      "revId": "b3c429cd20ddafc5a7798ef99366945dad43a85f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b7fed2d6_b7e58e90",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-10-13T18:03:57Z",
+      "side": 1,
+      "message": "What is a Mex Fan? Can you just remove and this could be for all fans?",
       "revId": "b3c429cd20ddafc5a7798ef99366945dad43a85f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
