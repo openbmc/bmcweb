@@ -78,3 +78,7 @@ generate a self-signed a certificate before launching the server.  Please see
 the bmcweb source code for details on the parameters this certificate is built
 with.
 
+## Redfish Aggregation
+bmcweb is capable of aggregating resources from satellite BMCs.  Refer to
+[AGGREGATION.md](https://github.com/openbmc/bmcweb/blob/master/AGGREGATION.md)
+for more information on how to enable and use this feature.
