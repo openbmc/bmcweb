@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4767a5c9_779ec245",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-10-13T17:01:41Z",
+      "side": 1,
+      "message": "Do we have such alias already? Even if we don\u0027t, I don\u0027t prefer we put it here. There\u0027s a dbus utility lib.",
+      "range": {
+        "startLine": 27,
+        "startChar": 6,
+        "endLine": 27,
+        "endChar": 34
+      },
+      "revId": "85a8dd88767e8b8fd6bcdf462610e630ac4e97fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "67f8eb40_f94c97ba",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-10-13T17:01:41Z",
+      "side": 1,
+      "message": "This kind of global static object without trivial constructor is dangerous. I prefer you use std::string_view with inline constexpr.",
+      "range": {
+        "startLine": 30,
+        "startChar": 13,
+        "endLine": 30,
+        "endChar": 24
+      },
+      "revId": "85a8dd88767e8b8fd6bcdf462610e630ac4e97fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "978d21e9_9dc4a58f",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-10-13T17:01:41Z",
+      "side": 1,
+      "message": "Do we have an alias here?",
+      "range": {
+        "startLine": 170,
+        "startChar": 18,
+        "endLine": 170,
+        "endChar": 79
+      },
+      "revId": "85a8dd88767e8b8fd6bcdf462610e630ac4e97fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
