@@ -170,6 +170,30 @@
       },
       "revId": "0215232de933785d7b1594f184ef9c54e8468e0e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8fba5794_ccb0c758",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-10-13T17:14:26Z",
+      "side": 1,
+      "message": "I see. It\u0027s a callback that must accept an optional.",
+      "parentUuid": "2d2c5e4e_2133267a",
+      "range": {
+        "startLine": 12,
+        "startChar": 35,
+        "endLine": 12,
+        "endChar": 58
+      },
+      "revId": "0215232de933785d7b1594f184ef9c54e8468e0e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
