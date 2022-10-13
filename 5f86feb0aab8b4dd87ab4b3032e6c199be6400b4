@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6f5a7652_aea4162d",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-10-13T17:17:39Z",
+      "side": 1,
+      "message": "nit: this log level seems wrong. This branch basically means there\u0027s no such a chassis, right? Seems to me just a normal \"INFO\" is enough.",
+      "range": {
+        "startLine": 20,
+        "startChar": 19,
+        "endLine": 20,
+        "endChar": 24
+      },
+      "revId": "5f86feb0aab8b4dd87ab4b3032e6c199be6400b4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6f21b33a_4a9bbbf3",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-10-13T17:17:39Z",
+      "side": 1,
+      "message": "Just for my knowledge, why is this needed?",
+      "range": {
+        "startLine": 32,
+        "startChar": 19,
+        "endLine": 32,
+        "endChar": 28
+      },
+      "revId": "5f86feb0aab8b4dd87ab4b3032e6c199be6400b4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
