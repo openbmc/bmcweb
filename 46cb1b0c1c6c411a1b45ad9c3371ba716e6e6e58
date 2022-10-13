@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca499e64_a6ff5388",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 563,
+      "author": {
+        "id": 1000999
+      },
+      "writtenOn": "2022-10-13T08:00:39Z",
+      "side": 1,
+      "message": "How about change AdditionalDataURI to \"/redfish/v1/Systems/system/LogServices/FaultLog/Entries/\" + primaryLogId + \"/attachment\"\n\nIt looks better than the original name",
+      "range": {
+        "startLine": 561,
+        "startChar": 20,
+        "endLine": 563,
+        "endChar": 37
+      },
+      "revId": "46cb1b0c1c6c411a1b45ad9c3371ba716e6e6e58",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
