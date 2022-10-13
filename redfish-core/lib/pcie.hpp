@@ -322,7 +322,7 @@ inline void requestRoutesSystemPCIeFunctionCollection(App& app)
                 }
                 if (property == nullptr || !property->empty())
                 {
-                    return;
+                    continue;
                 }
                 nlohmann::json::object_t pcieFunction;
                 pcieFunction["@odata.id"] =
