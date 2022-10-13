@@ -189,6 +189,30 @@
       },
       "revId": "7ebaad5e52271baab31275ff9f6518569ad82686",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4ab185f1_0780cedd",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 444,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-10-13T06:47:19Z",
+      "side": 1,
+      "message": "\u003e \u003e I can move the res.clear() calls to after the callback() calls rather than before.\n\u003e I literally typed that almost word for word before I read further down.  Yep, I think that\u0027s the right approach.\nI moved res.clear() to after the callback() calls.",
+      "parentUuid": "5840e85f_4c423c8c",
+      "range": {
+        "startLine": 444,
+        "startChar": 0,
+        "endLine": 444,
+        "endChar": 24
+      },
+      "revId": "7ebaad5e52271baab31275ff9f6518569ad82686",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
