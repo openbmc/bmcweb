@@ -16,6 +16,24 @@
       "message": "Testing? I guess it built which is enough",
       "revId": "5e8692afa31d13742e1f26e78cbe49490c110f14",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "833b3fb6_9951cceb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-10-13T19:03:45Z",
+      "side": 1,
+      "message": "Yes, I believe as long as it builds we are good. The install path doesn\u0027t change at all.",
+      "parentUuid": "ae0a151b_011a5e91",
+      "revId": "5e8692afa31d13742e1f26e78cbe49490c110f14",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
