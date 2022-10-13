@@ -451,6 +451,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "bf0eb73d_29fdd56c",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 2576,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-10-13T05:25:46Z",
+      "side": 1,
+      "message": "Fixed it within this change.",
+      "parentUuid": "40fe44a1_4080e91a",
+      "range": {
+        "startLine": 2576,
+        "startChar": 67,
+        "endLine": 2576,
+        "endChar": 69
+      },
+      "revId": "c95355e6df4bc480c1ff141245806349fd90d4d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "2336c513_76249bc4",
         "filename": "redfish-core/lib/storage.hpp",
         "patchSetId": 5
@@ -533,6 +557,30 @@
       "side": 1,
       "message": "I\u0027ll revert for now, but that also means https://gerrit.openbmc.org/c/openbmc/bmcweb/+/57467 is wrong.\n\nI\u0027ll have to rework https://gerrit.openbmc.org/c/openbmc/bmcweb/+/57467 for now and update it in this change.",
       "parentUuid": "f9ca6de6_c821fc8e",
+      "range": {
+        "startLine": 150,
+        "startChar": 24,
+        "endLine": 151,
+        "endChar": 75
+      },
+      "revId": "c95355e6df4bc480c1ff141245806349fd90d4d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1fbecbfb_deeda602",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-10-13T05:25:46Z",
+      "side": 1,
+      "message": "Updated. PTAL.",
+      "parentUuid": "4b04cb6f_6150b464",
       "range": {
         "startLine": 150,
         "startChar": 24,
