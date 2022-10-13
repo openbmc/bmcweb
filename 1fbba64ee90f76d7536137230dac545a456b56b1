@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4c681912_2ac77089",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 3743,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-10-13T21:17:32Z",
+      "side": 1,
+      "message": "do you want to just move the whole JSON in?",
+      "range": {
+        "startLine": 3743,
+        "startChar": 37,
+        "endLine": 3743,
+        "endChar": 39
+      },
+      "revId": "1fbba64ee90f76d7536137230dac545a456b56b1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
