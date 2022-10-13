@@ -70,6 +70,30 @@
       },
       "revId": "0ba14ce97799b4b42cc26ca0b532f7d825b25c82",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4a65cf18_75e30bdc",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-10-13T07:37:13Z",
+      "side": 1,
+      "message": "That\u0027s because structured binding cannot be used directly in lambda capture list.",
+      "parentUuid": "7c586a19_28215b59",
+      "range": {
+        "startLine": 75,
+        "startChar": 47,
+        "endLine": 75,
+        "endChar": 63
+      },
+      "revId": "0ba14ce97799b4b42cc26ca0b532f7d825b25c82",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
