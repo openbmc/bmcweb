@@ -16,6 +16,24 @@
       "message": "LGTM. If you would like to try const reference one that\u0027s better.",
       "revId": "bea434eafc9bf6261e11d3eab5dd5e4a32643e6b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7469c7a8_2cb7150f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-10-13T21:49:53Z",
+      "side": 1,
+      "message": "I feel like there is a reason for the copy. Maybe the data goes out of scope and the reference is invalid.\n\nBut anyway, create the follow up change in https://gerrit.openbmc.org/c/openbmc/bmcweb/+/57924..",
+      "parentUuid": "51ab126e_f2f866fc",
+      "revId": "bea434eafc9bf6261e11d3eab5dd5e4a32643e6b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
