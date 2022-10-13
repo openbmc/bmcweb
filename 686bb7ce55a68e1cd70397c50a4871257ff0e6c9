@@ -139,6 +139,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "16e333ab_e43f56c7",
+        "filename": "redfish-core/lib/power_subsystem.hpp",
+        "patchSetId": 47
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-10-13T16:31:55Z",
+      "side": 1,
+      "message": "\u003e As implemented this is going to expose a PowerSubsystem for ALL chassis, including those without power supplies.  Was that the intent?  Should we be doing that?\n\nI think we would want a PowerSubsystem for all chassis, even those without power supplies. There are other Collections we have that show up even if the implementation doesn\u0027t have any of the actual resources. The collection is just empty.",
+      "parentUuid": "c89347a2_01877136",
+      "range": {
+        "startLine": 21,
+        "startChar": 5,
+        "endLine": 24,
+        "endChar": 48
+      },
+      "revId": "686bb7ce55a68e1cd70397c50a4871257ff0e6c9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5afa6e8d_31405149",
         "filename": "redfish-core/lib/power_subsystem.hpp",
         "patchSetId": 47
