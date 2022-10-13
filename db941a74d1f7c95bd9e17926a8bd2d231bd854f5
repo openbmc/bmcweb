@@ -22,6 +22,30 @@
       },
       "revId": "db941a74d1f7c95bd9e17926a8bd2d231bd854f5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1d68cb3b_3a0fda23",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-10-13T22:20:44Z",
+      "side": 1,
+      "message": "```\nclang-tidy-15 -export-fixes /tmp/tmp67870xbd/tmpnjov3h98.yaml -p\u003d./buildnffvbi7h /data0/jenkins/workspace/ci-repository/openbmc/bmcweb/test/http/utility_test.cpp\n../http/utility.hpp:590:42: error: do not implicitly decay an array into a pointer; consider using gsl::array_view or an explicit cast instead [cppcoreguidelines-pro-bounds-array-to-pointer-decay,-warnings-as-errors]\n    return details::urlFromPiecesDetail({args...});\n                                         ^\n../http/utility.hpp:596:36: error: do not implicitly decay an array into a pointer; consider using gsl::array_view or an explicit cast instead [cppcoreguidelines-pro-bounds-array-to-pointer-decay,-warnings-as-errors]\n    details::appendUrlPieces(url, {args...});\n                                   ^\n```\n\noh, interesting. Let me try to see if this is an issue.",
+      "parentUuid": "edbaf0d0_0e763783",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 18
+      },
+      "revId": "db941a74d1f7c95bd9e17926a8bd2d231bd854f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
