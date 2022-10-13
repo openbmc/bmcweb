@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3629da9a_88c745f0",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-10-13T19:37:45Z",
+      "side": 1,
+      "message": "+1. Since this is a user error, maybe just remove this trace",
+      "parentUuid": "6f5a7652_aea4162d",
+      "range": {
+        "startLine": 20,
+        "startChar": 19,
+        "endLine": 20,
+        "endChar": 24
+      },
+      "revId": "5f86feb0aab8b4dd87ab4b3032e6c199be6400b4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6f21b33a_4a9bbbf3",
         "filename": "redfish-core/lib/environment_metrics.hpp",
         "patchSetId": 30
@@ -54,6 +78,30 @@
       "writtenOn": "2022-10-13T17:17:39Z",
       "side": 1,
       "message": "Just for my knowledge, why is this needed?",
+      "range": {
+        "startLine": 32,
+        "startChar": 19,
+        "endLine": 32,
+        "endChar": 28
+      },
+      "revId": "5f86feb0aab8b4dd87ab4b3032e6c199be6400b4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1cdf18a2_aa0d665d",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-10-13T19:37:45Z",
+      "side": 1,
+      "message": "https://github.com/openbmc/bmcweb/commit/5b224921d765a93c5f93a6012109a9a748ef7cd4",
+      "parentUuid": "6f21b33a_4a9bbbf3",
       "range": {
         "startLine": 32,
         "startChar": 19,
