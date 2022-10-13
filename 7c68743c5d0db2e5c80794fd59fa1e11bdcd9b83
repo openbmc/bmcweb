@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3cb99566_f01c93e8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-10-13T17:05:31Z",
+      "side": 1,
+      "message": "nit: you might need to delete this colon. The URL is not converted to a hyperlink",
+      "range": {
+        "startLine": 14,
+        "startChar": 3,
+        "endLine": 14,
+        "endChar": 4
+      },
+      "revId": "7c68743c5d0db2e5c80794fd59fa1e11bdcd9b83",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ad00de31_ace7aa77",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
@@ -20,6 +43,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7b22665d_d6b9b52c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-10-13T17:05:31Z",
+      "side": 1,
+      "message": "Are there any other implementations?",
+      "parentUuid": "ad00de31_ace7aa77",
+      "revId": "7c68743c5d0db2e5c80794fd59fa1e11bdcd9b83",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a3c8a69d_2351776d",
         "filename": "redfish-core/lib/sensors.hpp",
         "patchSetId": 2
@@ -31,6 +72,24 @@
       "writtenOn": "2022-10-13T14:57:06Z",
       "side": 1,
       "message": "What happens if it is the default NaN ?",
+      "revId": "7c68743c5d0db2e5c80794fd59fa1e11bdcd9b83",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3e1447b7_7f98d1d4",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 967,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-10-13T17:05:31Z",
+      "side": 1,
+      "message": "Yes, I remember there is a patch to handle double value NaN. We should follow what we have done there.\n\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/56856",
+      "parentUuid": "a3c8a69d_2351776d",
       "revId": "7c68743c5d0db2e5c80794fd59fa1e11bdcd9b83",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
