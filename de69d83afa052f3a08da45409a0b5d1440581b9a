@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b2f13cb6_a401f87e",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-10-13T07:25:02Z",
+      "side": 1,
+      "message": "Use std::function instead, signature of this callback should be well known",
+      "range": {
+        "startLine": 163,
+        "startChar": 0,
+        "endLine": 163,
+        "endChar": 28
+      },
+      "revId": "de69d83afa052f3a08da45409a0b5d1440581b9a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7c98c186_ec4fe1f2",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-10-13T07:25:02Z",
+      "side": 1,
+      "message": "Use std::function instead, signature of this callback should be well known",
+      "range": {
+        "startLine": 226,
+        "startChar": 0,
+        "endLine": 227,
+        "endChar": 28
+      },
+      "revId": "de69d83afa052f3a08da45409a0b5d1440581b9a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "49907d74_0c4c15c2",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 3139,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-10-13T07:25:02Z",
+      "side": 1,
+      "message": "nit:\nprefer int32_t{0} over int32_t(0).\n\nFirst one creates int32_t from given value and verify value range.\nSecond one is c style cast from 0 to int32_t you can put value that is outside range of int32_t and it will compile, while int32_t{...} would cause compilation error.",
+      "range": {
+        "startLine": 3139,
+        "startChar": 16,
+        "endLine": 3139,
+        "endChar": 26
+      },
+      "revId": "de69d83afa052f3a08da45409a0b5d1440581b9a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
