@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f366fa3_2be4ad9c",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-10-13T07:44:22Z",
+      "side": 1,
+      "message": "can you apply that negation to this expression, it should be easier to read if there is \u0026\u0026 instead negation of ||",
+      "range": {
+        "startLine": 49,
+        "startChar": 11,
+        "endLine": 49,
+        "endChar": 73
+      },
+      "revId": "98a8e8f730aa9af0538869f12ed41dabf074d771",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "677a164c_968c726e",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-10-13T07:44:22Z",
+      "side": 1,
+      "message": "Use std::function instead, signature of this callback should be well known",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 28
+      },
+      "revId": "98a8e8f730aa9af0538869f12ed41dabf074d771",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "95f26180_398c3e48",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-10-13T07:44:22Z",
+      "side": 1,
+      "message": "use json::object instead",
+      "range": {
+        "startLine": 116,
+        "startChar": 4,
+        "endLine": 116,
+        "endChar": 19
+      },
+      "revId": "98a8e8f730aa9af0538869f12ed41dabf074d771",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
