@@ -895,6 +895,8 @@ inline void objectPropertiesToJson(
                                 "/ReadingRangeMin"_json_pointer);
         properties.emplace_back("xyz.openbmc_project.Sensor.Value", "MaxValue",
                                 "/ReadingRangeMax"_json_pointer);
+        properties.emplace_back("xyz.openbmc_project.Sensor.Accuracy",
+                                "Accuracy", "/Accuracy"_json_pointer);
     }
     else if (sensorType == "temperature")
     {
