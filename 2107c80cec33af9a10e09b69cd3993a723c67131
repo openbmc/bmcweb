@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "439267a1_4a837fb4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-10-13T20:31:14Z",
+      "side": 1,
+      "message": "How are we going from chassis\u003c-\u003efans?  Need associations documented anywhere?",
+      "revId": "2107c80cec33af9a10e09b69cd3993a723c67131",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
