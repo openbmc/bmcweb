@@ -187,6 +187,30 @@
       },
       "revId": "617985be58abbcedcbe8fa42e4f8e2ca004bbbf8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c934c284_8c0881da",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 993,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-10-14T07:22:53Z",
+      "side": 1,
+      "message": "According to link above:\n\n std::numeric_limits\u003cdouble\u003e::quiet_NaN() \u003d\u003d\n std::numeric_limits\u003cdouble\u003e::quiet_NaN() qeuals false\n \nSo I assume this if condition will always evaluate to false, std::isnan should be used instead.",
+      "parentUuid": "b80e4221_8884ae7f",
+      "range": {
+        "startLine": 993,
+        "startChar": 17,
+        "endLine": 993,
+        "endChar": 28
+      },
+      "revId": "617985be58abbcedcbe8fa42e4f8e2ca004bbbf8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
