@@ -49,6 +49,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "79bd9503_9929f259",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-10-14T01:37:20Z",
+      "side": 1,
+      "message": "No error? didn\u0027t the user just PATCH this?",
+      "revId": "394858e3b524e65d60479edc0850040cf77d0bb9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "12cc519a_58e2a4b8",
         "filename": "redfish-core/lib/led.hpp",
         "patchSetId": 7
@@ -66,6 +83,23 @@
         "endLine": 239,
         "endChar": 34
       },
+      "revId": "394858e3b524e65d60479edc0850040cf77d0bb9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5e4f3e8a_a70de46e",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 3161,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-10-14T01:37:20Z",
+      "side": 1,
+      "message": "But this is a set, shouldn\u0027t this be an error",
       "revId": "394858e3b524e65d60479edc0850040cf77d0bb9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
