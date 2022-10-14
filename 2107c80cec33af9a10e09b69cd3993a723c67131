@@ -16,6 +16,24 @@
       "message": "How are we going from chassis\u003c-\u003efans?  Need associations documented anywhere?",
       "revId": "2107c80cec33af9a10e09b69cd3993a723c67131",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "475f49a7_91e34bac",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-10-14T02:39:33Z",
+      "side": 1,
+      "message": "\u003e How are we going from chassis\u003c-\u003efans?  Need associations documented anywhere?\n\nfans\u003c-\u003efan_tach sensor\u003c-\u003eall_sensors\u003c-\u003echassis\nhttps://github.com/openbmc/docs/blob/fd0ec1f9212f127bf302dd4ceb8f4fa2e29a5f1d/architecture/sensor-architecture.md#association-names",
+      "parentUuid": "439267a1_4a837fb4",
+      "revId": "2107c80cec33af9a10e09b69cd3993a723c67131",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
