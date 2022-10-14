@@ -16,6 +16,24 @@
       "message": "Shouldn\u0027t you have Health here too?",
       "revId": "57c1bbee49e9879843593f3a2993acbcdd46ebb7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0984d3f8_f4f28f7b",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-10-14T03:22:05Z",
+      "side": 1,
+      "message": "\u003e Shouldn\u0027t you have Health here too?\n\nOops, sorry, I missed Health\nDone",
+      "parentUuid": "ae61971f_a11333cd",
+      "revId": "57c1bbee49e9879843593f3a2993acbcdd46ebb7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
