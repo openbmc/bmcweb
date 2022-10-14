@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "10af0ab3_fbf7a538",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1946,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2022-10-14T13:27:16Z",
+      "side": 1,
+      "message": "Is this comment misplaced ?\nShould this be an error ?",
+      "range": {
+        "startLine": 1946,
+        "startChar": 12,
+        "endLine": 1946,
+        "endChar": 67
+      },
+      "revId": "9ef07b807ee6f5fdac4b58e04cd09a6be0334762",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
