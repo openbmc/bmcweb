@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a5bebac5_e0e82fb1",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-10-14T01:35:25Z",
+      "side": 1,
+      "message": "Function with name like this will pollute the whole redfish namespace. \n\nConsider move to dbus_utility.hpp?",
+      "range": {
+        "startLine": 162,
+        "startChar": 12,
+        "endLine": 162,
+        "endChar": 21
+      },
+      "revId": "394858e3b524e65d60479edc0850040cf77d0bb9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a5a0ee1b_24316830",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-10-14T01:35:25Z",
+      "side": 1,
+      "message": "Apologize for the back and forth, I realized that we prefer inplace string literals nowadays for better readability and search-ability. \n\nSo just delete this global variable and use string literals.",
+      "range": {
+        "startLine": 189,
+        "startChar": 24,
+        "endLine": 189,
+        "endChar": 36
+      },
+      "revId": "394858e3b524e65d60479edc0850040cf77d0bb9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "12cc519a_58e2a4b8",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-10-14T01:35:25Z",
+      "side": 1,
+      "message": "```\nfor (const auto\u0026 [rType, _, _] : associations)\n```\n\nConsider this?",
+      "range": {
+        "startLine": 239,
+        "startChar": 17,
+        "endLine": 239,
+        "endChar": 34
+      },
+      "revId": "394858e3b524e65d60479edc0850040cf77d0bb9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
