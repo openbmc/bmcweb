@@ -18,7 +18,6 @@ void assertLogServicesDumpServiceGet(crow::Response& res)
 {
     nlohmann::json& json = res.jsonValue;
     EXPECT_EQ(json["@odata.type"], "#LogService.v1_2_0.LogService");
-    EXPECT_EQ(json["Name"], "Dump LogService");
 }
 
 void assertLogServicesBMCDumpServiceGet(crow::Response& res)
@@ -37,6 +36,7 @@ void assertLogServicesBMCDumpServiceGet(crow::Response& res)
     EXPECT_EQ(json["Entries"]["@odata.id"],
               "/redfish/v1/Managers/bmc/LogServices/Dump/Entries");
     EXPECT_EQ(json["Id"], "Dump");
+    EXPECT_EQ(json["Name"], "BMC Dump LogService");
     EXPECT_EQ(json["OverWritePolicy"], "WrapsWhenFull");
 }
 
@@ -56,6 +56,7 @@ void assertLogServicesFaultLogDumpServiceGet(crow::Response& res)
     EXPECT_EQ(json["Entries"]["@odata.id"],
               "/redfish/v1/Managers/bmc/LogServices/FaultLog/Entries");
     EXPECT_EQ(json["Id"], "FaultLog");
+    EXPECT_EQ(json["Name"], "FaultLog Dump LogService");
     EXPECT_EQ(json["OverWritePolicy"], "Unknown");
 }
 
@@ -75,6 +76,7 @@ void assertLogServicesSystemDumpServiceGet(crow::Response& res)
     EXPECT_EQ(json["Entries"]["@odata.id"],
               "/redfish/v1/Systems/system/LogServices/Dump/Entries");
     EXPECT_EQ(json["Id"], "Dump");
+    EXPECT_EQ(json["Name"], "System Dump LogService");
     EXPECT_EQ(json["OverWritePolicy"], "WrapsWhenFull");
 }
 
