@@ -41,6 +41,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "89701f26_91845d6d",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-10-14T12:35:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0bfe3b0b_1062817e",
+      "range": {
+        "startLine": 3,
+        "startChar": 10,
+        "endLine": 3,
+        "endChar": 13
+      },
+      "revId": "b3c429cd20ddafc5a7798ef99366945dad43a85f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c6a7b9f8_d1599edb",
@@ -54,6 +78,24 @@
       "writtenOn": "2022-10-11T17:02:33Z",
       "side": 1,
       "message": "Please try your best and do IWYU",
+      "revId": "b3c429cd20ddafc5a7798ef99366945dad43a85f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cd9b95e3_b893746f",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-10-14T12:35:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c6a7b9f8_d1599edb",
       "revId": "b3c429cd20ddafc5a7798ef99366945dad43a85f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -81,6 +123,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bac46613_de26ab93",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-10-14T12:35:47Z",
+      "side": 1,
+      "message": "\u003e Same question for this optional parameter\n\nrefer: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/43170/28/redfish-core/lib/environment_metrics.hpp#12",
+      "parentUuid": "da8e4d65_ac30a054",
+      "range": {
+        "startLine": 26,
+        "startChar": 62,
+        "endLine": 26,
+        "endChar": 78
+      },
+      "revId": "b3c429cd20ddafc5a7798ef99366945dad43a85f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a2fa8249_b49de913",
@@ -94,6 +160,24 @@
       "writtenOn": "2022-10-13T18:03:57Z",
       "side": 1,
       "message": "What is a CEC fan? Remove?",
+      "revId": "b3c429cd20ddafc5a7798ef99366945dad43a85f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ebe278b_22dbb7ec",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-10-14T12:35:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a2fa8249_b49de913",
       "revId": "b3c429cd20ddafc5a7798ef99366945dad43a85f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -115,6 +199,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "39bdf129_50068744",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-10-14T12:35:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ad728058_71711b87",
+      "revId": "b3c429cd20ddafc5a7798ef99366945dad43a85f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b7fed2d6_b7e58e90",
@@ -128,6 +230,24 @@
       "writtenOn": "2022-10-13T18:03:57Z",
       "side": 1,
       "message": "What is a Mex Fan? Can you just remove and this could be for all fans?",
+      "revId": "b3c429cd20ddafc5a7798ef99366945dad43a85f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "64121c7b_ee7d3088",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-10-14T12:35:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b7fed2d6_b7e58e90",
       "revId": "b3c429cd20ddafc5a7798ef99366945dad43a85f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
