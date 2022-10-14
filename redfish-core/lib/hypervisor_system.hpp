@@ -585,15 +585,16 @@ inline void handleHypervisorIPv4StaticPatch(
     // address
     const nlohmann::json& thisJson = input[0];
 
-    // For the error string
-    std::string pathString = "IPv4StaticAddresses/1";
-
     if (!thisJson.is_null() && !thisJson.empty())
     {
         std::optional<std::string> address;
         std::optional<std::string> subnetMask;
         std::optional<std::string> gateway;
         nlohmann::json thisJsonCopy = thisJson;
+
+        // For the error string
+        std::string pathString = "IPv4StaticAddresses/1";
+
         if (!json_util::readJson(thisJsonCopy, asyncResp->res, "Address",
                                  address, "SubnetMask", subnetMask, "Gateway",
                                  gateway))

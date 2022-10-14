@@ -432,7 +432,6 @@ inline void getObjectAndEnumerate(
         {
             for (const auto& connection : object.second)
             {
-                std::string& objectManagerPath = connections[connection.first];
                 for (const auto& interface : connection.second)
                 {
                     BMCWEB_LOG_DEBUG << connection.first << " has interface "
@@ -441,7 +440,7 @@ inline void getObjectAndEnumerate(
                     {
                         BMCWEB_LOG_DEBUG << "found object manager path "
                                          << object.first;
-                        objectManagerPath = object.first;
+                        connections[connection.first] = object.first;
                     }
                 }
             }
@@ -2041,7 +2040,7 @@ inline void handleDBusUrl(const crow::Request& req,
     {
         destProperty = objectPath.substr(attrPosition + strlen(attrSeperator),
                                          objectPath.length());
-        objectPath = objectPath.substr(0, attrPosition);
+        objectPath.resize(attrPosition);
     }
 
     if (req.method() == boost::beast::http::verb::post)
@@ -2053,7 +2052,7 @@ inline void handleDBusUrl(const crow::Request& req,
             std::string postProperty =
                 objectPath.substr((actionPosition + strlen(actionSeperator)),
                                   objectPath.length());
-            objectPath = objectPath.substr(0, actionPosition);
+            objectPath.resize(actionPosition);
             handleAction(req, asyncResp, objectPath, postProperty);
             return;
         }

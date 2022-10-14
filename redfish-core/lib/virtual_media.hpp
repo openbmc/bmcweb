@@ -544,8 +544,9 @@ class CredentialsProvider
     using SecureBuffer = std::unique_ptr<Buffer, Deleter<Buffer>>;
     // Using explicit definition instead of std::function to avoid implicit
     // conversions eg. stack copy instead of reference
-    using FormatterFunc = void(const std::string& username,
-                               const std::string& password, Buffer& dest);
+    using FormatterFunc =
+        std::add_pointer_t<void(const std::string& username,
+                                const std::string& password, Buffer& dest)>;
 
     CredentialsProvider(std::string&& user, std::string&& password) :
         credentials(std::move(user), std::move(password))

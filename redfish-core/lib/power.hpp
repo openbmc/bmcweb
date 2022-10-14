@@ -273,9 +273,6 @@ inline void requestRoutesPower(App& app)
                     }
                 }
 
-                nlohmann::json& value =
-                    sensorJson["PowerLimit"]["LimitInWatts"];
-
                 // LimitException is Mandatory attribute as per OCP
                 // Baseline Profile – v1.0.0, so currently making it
                 // "NoAction" as default value to make it OCP Compliant.
@@ -283,6 +280,8 @@ inline void requestRoutesPower(App& app)
 
                 if (enabled)
                 {
+                    nlohmann::json& value =
+                        sensorJson["PowerLimit"]["LimitInWatts"];
                     // Redfish specification indicates PowerLimit should
                     // be null if the limit is not enabled.
                     value = powerCap * std::pow(10, scale);

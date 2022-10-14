@@ -1168,9 +1168,9 @@ inline void handleLDAPPatch(nlohmann::json& input,
 
 inline void updateUserProperties(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
                                  const std::string& username,
-                                 std::optional<std::string> password,
+                                 std::optional<std::string> passwordIn,
                                  std::optional<bool> enabled,
-                                 std::optional<std::string> roleId,
+                                 std::optional<std::string> roleIdIn,
                                  std::optional<bool> locked)
 {
     sdbusplus::message::object_path tempObjPath(rootUserDbusPath);
@@ -1179,8 +1179,8 @@ inline void updateUserProperties(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
 
     dbus::utility::checkDbusPathExists(
         dbusObjectPath,
-        [dbusObjectPath, username, password(std::move(password)),
-         roleId(std::move(roleId)), enabled, locked,
+        [dbusObjectPath, username, password(std::move(passwordIn)),
+         roleId(std::move(roleIdIn)), enabled, locked,
          asyncResp{std::move(asyncResp)}](int rc) {
         if (rc <= 0)
         {
