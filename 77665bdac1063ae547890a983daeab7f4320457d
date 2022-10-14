@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "81cb3e7f_2625e287",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-10-14T03:06:11Z",
+      "side": 0,
+      "message": "\u003e Seems like we lost this..?\n\nNo, I dont think so.\n1. enclosure_identify_blink is not used, even in IBM\u0027s association.json and ledgroup-config.json, there is no adaptation.\n2. This association does not distinguish whether there is a blink, as long as the corresponding path is associated with the ledgroup, we can get the Asserted attribute",
+      "parentUuid": "c5a6fdd7_8b1a411b",
+      "revId": "77665bdac1063ae547890a983daeab7f4320457d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2abe8426_1dfed5fa",
         "filename": "redfish-core/lib/led.hpp",
         "patchSetId": 8
@@ -31,6 +49,24 @@
       "writtenOn": "2022-10-14T02:58:04Z",
       "side": 0,
       "message": "Moving away from\n \"/xyz/openbmc_project/led/groups/enclosure_identify\",\n \"/xyz/openbmc_project/led/groups/enclosure_identify_blink\",\n\nand to this identify_led_group association, does everyone know, is there backend implementations for this identify_led_group association?",
+      "revId": "77665bdac1063ae547890a983daeab7f4320457d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b48b9003_12fa5ddd",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-10-14T03:06:11Z",
+      "side": 0,
+      "message": "\u003e Moving away from\n\u003e  \"/xyz/openbmc_project/led/groups/enclosure_identify\",\n\u003e  \"/xyz/openbmc_project/led/groups/enclosure_identify_blink\",\n\nNo\nFor PIM, these paths should be configured to the association.json\nFor EM, dynamically configured to the association\n\n\u003e \n\u003e and to this identify_led_group association, does everyone know, is there backend implementations for this identify_led_group association?\n\nrefer: https://github.com/openbmc/docs/blob/master/architecture/LED-architecture.md#resource-identify-operation",
+      "parentUuid": "2abe8426_1dfed5fa",
       "revId": "77665bdac1063ae547890a983daeab7f4320457d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
