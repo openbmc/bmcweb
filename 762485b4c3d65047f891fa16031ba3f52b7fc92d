@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c5272059_c647a7e0",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-10-14T02:40:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fddb8631_eef07520",
+      "revId": "762485b4c3d65047f891fa16031ba3f52b7fc92d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3e8161d5_0c5f6603",
@@ -35,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d36d492e_f7da6732",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-10-14T02:40:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3e8161d5_0c5f6603",
+      "revId": "762485b4c3d65047f891fa16031ba3f52b7fc92d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c8799a63_44e20115",
@@ -48,6 +84,24 @@
       "writtenOn": "2022-10-13T17:10:58Z",
       "side": 1,
       "message": "I thought we had a default before for PowerSupplies, so if these interfaces don\u0027t exist, we still show OK/Enabled ?",
+      "revId": "762485b4c3d65047f891fa16031ba3f52b7fc92d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f7c46e90_590a5b37",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 302,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-10-14T02:40:59Z",
+      "side": 1,
+      "message": "\u003e I thought we had a default before for PowerSupplies, so if these interfaces don\u0027t exist, we still show OK/Enabled ?\n\nCorrect\nDone",
+      "parentUuid": "c8799a63_44e20115",
       "revId": "762485b4c3d65047f891fa16031ba3f52b7fc92d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
