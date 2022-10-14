@@ -211,6 +211,30 @@
       },
       "revId": "617985be58abbcedcbe8fa42e4f8e2ca004bbbf8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4ed8b6d4_ce94c6e9",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 993,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-10-14T07:41:04Z",
+      "side": 1,
+      "message": "Good catch! (NaN \u003d\u003d NaN) always returns false in IEEE 754.",
+      "parentUuid": "c934c284_8c0881da",
+      "range": {
+        "startLine": 993,
+        "startChar": 17,
+        "endLine": 993,
+        "endChar": 28
+      },
+      "revId": "617985be58abbcedcbe8fa42e4f8e2ca004bbbf8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
