@@ -2603,7 +2603,7 @@ inline void
 
     asyncResp->res.jsonValue["@odata.id"] = dumpPath;
     asyncResp->res.jsonValue["@odata.type"] = "#LogService.v1_2_0.LogService";
-    asyncResp->res.jsonValue["Name"] = "Dump LogService";
+    asyncResp->res.jsonValue["Name"] = dumpType + " Dump LogService";
     asyncResp->res.jsonValue["Description"] = dumpType + " Dump LogService";
     asyncResp->res.jsonValue["Id"] = std::filesystem::path(dumpPath).filename();
     asyncResp->res.jsonValue["OverWritePolicy"] = std::move(overWritePolicy);
