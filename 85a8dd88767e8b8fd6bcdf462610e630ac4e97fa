@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c093e2c4_700ce846",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-10-14T01:10:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4767a5c9_779ec245",
+      "range": {
+        "startLine": 27,
+        "startChar": 6,
+        "endLine": 27,
+        "endChar": 34
+      },
+      "revId": "85a8dd88767e8b8fd6bcdf462610e630ac4e97fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "67f8eb40_f94c97ba",
@@ -47,6 +71,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6766b404_85cf658b",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-10-14T01:10:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "67f8eb40_f94c97ba",
+      "range": {
+        "startLine": 30,
+        "startChar": 13,
+        "endLine": 30,
+        "endChar": 24
+      },
+      "revId": "85a8dd88767e8b8fd6bcdf462610e630ac4e97fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "978d21e9_9dc4a58f",
@@ -60,6 +108,30 @@
       "writtenOn": "2022-10-13T17:01:41Z",
       "side": 1,
       "message": "Do we have an alias here?",
+      "range": {
+        "startLine": 170,
+        "startChar": 18,
+        "endLine": 170,
+        "endChar": 79
+      },
+      "revId": "85a8dd88767e8b8fd6bcdf462610e630ac4e97fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aa4d9752_fa041464",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-10-14T01:10:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "978d21e9_9dc4a58f",
       "range": {
         "startLine": 170,
         "startChar": 18,
