@@ -22,6 +22,30 @@
       },
       "revId": "9ef07b807ee6f5fdac4b58e04cd09a6be0334762",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eeb9ed98_f96d81b1",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1946,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-10-15T16:22:30Z",
+      "side": 1,
+      "message": "This log line doesn\u0027t really need to exist.\n\nNo, this is kind of the point I made on discord, not all systems will support Quiesced, so it not existing isn\u0027t a bug.",
+      "parentUuid": "10af0ab3_fbf7a538",
+      "range": {
+        "startLine": 1946,
+        "startChar": 12,
+        "endLine": 1946,
+        "endChar": 67
+      },
+      "revId": "9ef07b807ee6f5fdac4b58e04cd09a6be0334762",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
