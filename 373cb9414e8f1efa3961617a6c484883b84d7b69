@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "6bd44885_b4d1aa35",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-10-17T23:00:01Z",
+      "side": 1,
+      "message": "My goal is to provide the client a way to find out if a LogService is a fault log, just by looking at information from the LogService schema (but not depending on the \"FaultLog\" Id). I haven\u0027t seen anything saying that Name is guaranteed to be unchanged, but I figure it should at least be more fixed than other available fields like \"Description\".",
+      "parentUuid": "ec17652c_42f14f01",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 46
+      },
+      "revId": "373cb9414e8f1efa3961617a6c484883b84d7b69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "17f0b9e7_7acc2a45",
@@ -37,6 +61,29 @@
       "writtenOn": "2022-10-17T21:49:52Z",
       "side": 1,
       "message": "Posted a question. Code-wise it is very clear.",
+      "revId": "373cb9414e8f1efa3961617a6c484883b84d7b69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "83ff7c5f_f1b00ca6",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2606,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-10-17T23:00:01Z",
+      "side": 1,
+      "message": "I would like to request that a phosphor-debug-collector maintainer review this change (especially to let us know if there is any known impact to existing clients that may be checking \"Name\").",
+      "range": {
+        "startLine": 2606,
+        "startChar": 4,
+        "endLine": 2606,
+        "endChar": 69
+      },
       "revId": "373cb9414e8f1efa3961617a6c484883b84d7b69",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
