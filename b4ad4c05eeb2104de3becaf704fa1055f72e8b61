@@ -34,6 +34,24 @@
       "parentUuid": "ce19228e_eb4c7f74",
       "revId": "b4ad4c05eeb2104de3becaf704fa1055f72e8b61",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eb05aabb_4ce16f1c",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-10-17T19:15:15Z",
+      "side": 0,
+      "message": "Let me fixed it in a new commit (this commit has been reviewed by many people).\n\nThank you Jason.",
+      "parentUuid": "6af0240d_e7671f00",
+      "revId": "b4ad4c05eeb2104de3becaf704fa1055f72e8b61",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
