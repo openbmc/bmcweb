@@ -320,7 +320,7 @@ inline void requestRoutesSystemPCIeFunctionCollection(App& app)
                         property = std::get_if<std::string>(&propEntry.second);
                     }
                 }
-                if (property == nullptr || !property->empty())
+                if (property == nullptr || property->empty())
                 {
                     continue;
                 }
