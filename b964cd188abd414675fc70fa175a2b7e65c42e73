@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "227734cc_0247b1b6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-10-17T08:13:00Z",
+      "side": 1,
+      "message": "In case KVM, bmcweb act as the proxy and internal KVM port (5900) is not directly used by external user. \n\nBut on high level BMC manageability view, Redfish NetworkProtocol schema is used for providing information to external user about all network ports used - though KVM port is internal only (It\u0027s debatable though). But our thought is to expose those details like below.\n - KVM enabled/disabled - (Read \u0026 write) - This will allow administrator to control the feature (like enable/disable KVM)\n - KVM Port (Read only) - (Note: This is mandatory params if redfish is exposing KVM node for feature enable/disable functionality)\n\nIf you disagree with above, Do you think is there away exist today to enabled/Disable KVM feature (Which not only controls KVM feature but also free up the port 5900)?",
+      "parentUuid": "9abb75e1_636491f2",
+      "range": {
+        "startLine": 24,
+        "startChar": 16,
+        "endLine": 24,
+        "endChar": 20
+      },
+      "revId": "b964cd188abd414675fc70fa175a2b7e65c42e73",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "52c0d930_729400df",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
