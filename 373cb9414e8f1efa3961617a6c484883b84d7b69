@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ec17652c_42f14f01",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-10-17T21:48:38Z",
+      "side": 1,
+      "message": "Is the client supposed to inspect Name? Is name guaranteed to be unchanged?",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 46
+      },
+      "revId": "373cb9414e8f1efa3961617a6c484883b84d7b69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
