@@ -56,6 +56,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2acfa978_d62fb348",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-10-17T21:32:48Z",
+      "side": 1,
+      "message": "\u0026\u0026",
+      "range": {
+        "startLine": 149,
+        "startChar": 63,
+        "endLine": 149,
+        "endChar": 64
+      },
+      "revId": "90083a06ad2d525ec8cec62376030d45dd771aa4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2759ab23_4ec09aa8",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-10-17T21:32:48Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this always be specifying an interface?",
+      "range": {
+        "startLine": 164,
+        "startChar": 8,
+        "endLine": 164,
+        "endChar": 35
+      },
+      "revId": "90083a06ad2d525ec8cec62376030d45dd771aa4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bb2937c4_206475d0",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 8
@@ -120,6 +166,53 @@
         "startChar": 67,
         "endLine": 3037,
         "endChar": 70
+      },
+      "revId": "90083a06ad2d525ec8cec62376030d45dd771aa4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3d813b37_cade639f",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 3037,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-10-17T21:32:48Z",
+      "side": 1,
+      "message": "\u003e At present, I think `/` is reasonable\n\nIf we\u0027re trying to get inventory interfaces, we should be looking under the inventory dbus path.  There was a discussion about this on the mailing list.",
+      "parentUuid": "82e39b52_6419a109",
+      "range": {
+        "startLine": 3037,
+        "startChar": 67,
+        "endLine": 3037,
+        "endChar": 70
+      },
+      "revId": "90083a06ad2d525ec8cec62376030d45dd771aa4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7b82c7a0_a0566370",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 3170,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-10-17T21:32:48Z",
+      "side": 1,
+      "message": "SHouldn\u0027t this be more specific?",
+      "range": {
+        "startLine": 3170,
+        "startChar": 71,
+        "endLine": 3170,
+        "endChar": 74
       },
       "revId": "90083a06ad2d525ec8cec62376030d45dd771aa4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
