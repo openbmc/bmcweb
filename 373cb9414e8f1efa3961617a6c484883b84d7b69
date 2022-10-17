@@ -22,6 +22,23 @@
       },
       "revId": "373cb9414e8f1efa3961617a6c484883b84d7b69",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "17f0b9e7_7acc2a45",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-10-17T21:49:52Z",
+      "side": 1,
+      "message": "Posted a question. Code-wise it is very clear.",
+      "revId": "373cb9414e8f1efa3961617a6c484883b84d7b69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
