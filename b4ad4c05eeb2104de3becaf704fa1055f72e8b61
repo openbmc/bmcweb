@@ -16,6 +16,24 @@
       "message": "I thought this was intentional to some extent.  I thought PCIe functions could only go in ascending order, with no gaps.\n\nMaybe this needs to be \"break\" instead?",
       "revId": "b4ad4c05eeb2104de3becaf704fa1055f72e8b61",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6af0240d_e7671f00",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 1000276
+      },
+      "writtenOn": "2022-10-17T18:32:25Z",
+      "side": 0,
+      "message": "This has been tweaked for various improvements over time, so it is a little different than how it used to work.\n\nHere is what I originally wrote for this:\n```\n+                nlohmann::json \u0026pcieFunctionList \u003d\n+                    asyncResp-\u003eres.jsonValue[\"Links\"][\"PCIeFunctions\"];\n+                pcieFunctionList \u003d nlohmann::json::array();\n+                static constexpr const int maxPciFunctionNum \u003d 8;\n+                for (int functionNum \u003d 0; functionNum \u003c maxPciFunctionNum;\n+                     functionNum++)\n+                {\n+                    // Check if this function exists by looking for a device ID\n+                    std::string devIDProperty \u003d\n+                        \"Function\" + std::to_string(functionNum) + \"DeviceId\";\n+                    if (std::string *property \u003d\n+                            sdbusplus::message::variant_ns::get_if\u003cstd::string\u003e(\n+                                \u0026pcieDevProperties[devIDProperty]);\n+                        property \u0026\u0026 !property-\u003eempty())\n+                    {\n+                        pcieFunctionList.push_back(\n+                            {{\"@odata.id\",\n+                              \"/redfish/v1/Systems/system/PCIeDevices/\" +\n+                                  device + \"/PCIeFunctions/\" +\n+                                  std::to_string(functionNum)}});\n+                    }\n+                }\n+                asyncResp-\u003eres.jsonValue[\"Links\"][\"PCIeFunctions@odata.count\"] \u003d\n+                    pcieFunctionList.size();\n```\n\nThis used to loop through all functions and add them to the list if they had a device ID.  So, I think `continue` is what we want to get the same behavior here.\n\nBTW, I did a quick search through the PCIe spec and couldn\u0027t finding anything indicating whether gaps are allowed or not in function numbering.\n\nAlso, it looks like the logic is reversed on line 323.  We want to skip if the property is empty, not if it is not empty, so I think it should be:\n`if (property \u003d\u003d nullptr || property-\u003eempty())`\n\nI\u0027m not sure if we want to fix it in this commit or separately.  I\u0027m okay with this as-is if we will fix line 323 separately.",
+      "parentUuid": "ce19228e_eb4c7f74",
+      "revId": "b4ad4c05eeb2104de3becaf704fa1055f72e8b61",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
