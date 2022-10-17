@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9bb4797d_adc27811",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-10-17T16:15:53Z",
+      "side": 1,
+      "message": "Based on https://gerrit.openbmc.org/c/openbmc/bmcweb/+/57580, we are okay with the schemas going first, as long as their is an implementation up for review ",
+      "revId": "b6b37b2c7bcb643324e28a9cfdef56fa7c3ab23e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
