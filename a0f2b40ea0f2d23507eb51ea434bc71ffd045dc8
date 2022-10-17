@@ -86,6 +86,23 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "168086ef_ff0e4eea",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000206
+      },
+      "writtenOn": "2022-10-17T15:25:32Z",
+      "side": 1,
+      "message": "@ed - can you summarise on what do you think is needed to get this commit merged ? I saw a lot of discussion about this in discord \u0026 I sort a got mixed reviews on this - while every one seems to accept that this is probably the right way to go about logging login events, this is not the right solution for logging all audit events ? and there was some discussion on moving this to pam. By pam did you mean pam modules? (Afaik libaudit is not used inside pam modules, it is used by login deamons what consumes the pam API\u0027s.) or the header file in bmcweb that uses pam API\u0027s to do the authentication ? \n\n\nIf this direction is not something you like - I can probably abandon this commit.\n",
+      "revId": "a0f2b40ea0f2d23507eb51ea434bc71ffd045dc8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "757d587e_0311a6fd",
