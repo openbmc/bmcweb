@@ -334,8 +334,9 @@ subdir('config')
 bmcweb_dependencies += conf_h_dep
 
 # Source files
+fs = import('fs')
 
-srcfiles_bmcweb = [
+srcfiles_bmcweb = files(
   'redfish-core/src/error_messages.cpp',
   'redfish-core/src/utils/json_utils.cpp',
   'src/boost_asio_ssl.cpp',
@@ -343,7 +344,7 @@ srcfiles_bmcweb = [
   'src/boost_beast.cpp',
   'src/boost_url.cpp',
   'src/dbus_singleton.cpp',
-]
+)
 
 # Generate the bmcweb executable
 executable(
@@ -356,7 +357,7 @@ executable(
   install_dir:bindir
 )
 
-srcfiles_unittest = [
+srcfiles_unittest = files(
   'test/http/crow_getroutes_test.cpp',
   'test/http/router_test.cpp',
   'test/http/utility_test.cpp',
@@ -380,19 +381,21 @@ srcfiles_unittest = [
   'test/redfish-core/lib/log_services_dump_test.cpp',
   'test/redfish-core/lib/service_root_test.cpp',
   'test/redfish-core/lib/thermal_subsystem_test.cpp',
-]
+)
 
 if(get_option('tests').enabled())
     # generate the test executable
-    ut_bin = executable(
-      'bmcweb_unit_test',
-      srcfiles_unittest + srcfiles_bmcweb,
-      include_directories : incdir,
-      install_dir: bindir,
-      dependencies: bmcweb_dependencies + [
-        gtest,
-        gmock,
-      ]
-    )
-    test('bmcweb_unit_test', ut_bin)
+    foreach test_src : srcfiles_unittest
+      test_bin = executable(
+        fs.stem(test_src),
+        srcfiles_bmcweb + test_src,
+        include_directories : incdir,
+        install_dir: bindir,
+        dependencies: bmcweb_dependencies + [
+          gtest,
+          gmock,
+        ]
+      )
+      test(fs.stem(test_src), test_bin)
+    endforeach
 endif
