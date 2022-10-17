@@ -22,6 +22,30 @@
       },
       "revId": "525fc07224884d3640e5c4a1b6a551aee024f7bd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b648c364_eb0d9210",
+        "filename": "test/redfish-core/lib/log_services_dump_test.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-10-17T18:05:22Z",
+      "side": 0,
+      "message": "Currently there isn\u0027t a default case that has no dumpType (e.g. BMC, FaultLog, System).\n\nWe could technically rewrite this line so that it checks if json[\"Name\"] *contains* (instead of equals) the string \"Dump LogService\", though it would be redundant with the specific Name checks added for each dump type.",
+      "parentUuid": "6d122698_2a7061d4",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 47
+      },
+      "revId": "525fc07224884d3640e5c4a1b6a551aee024f7bd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
