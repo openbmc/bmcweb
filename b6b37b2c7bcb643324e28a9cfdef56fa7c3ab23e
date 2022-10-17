@@ -16,6 +16,24 @@
       "message": "Based on https://gerrit.openbmc.org/c/openbmc/bmcweb/+/57580, we are okay with the schemas going first, as long as their is an implementation up for review ",
       "revId": "b6b37b2c7bcb643324e28a9cfdef56fa7c3ab23e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e017ab54_51244bdd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-10-17T21:29:18Z",
+      "side": 1,
+      "message": "We really need to just get rid of the filtering if we can afford the binary size footprint.  As we pull in more and more schemas, the value that\u0027s being added by filtering is less and less.",
+      "parentUuid": "9bb4797d_adc27811",
+      "revId": "b6b37b2c7bcb643324e28a9cfdef56fa7c3ab23e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
