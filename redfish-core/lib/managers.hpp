@@ -1932,6 +1932,22 @@ inline void setDateTime(std::shared_ptr<bmcweb::AsyncResp> aResp,
     }
 }
 
+inline void setTimeZone(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+                        const std::string& timeZone)
+{
+    std::regex tzRegex("[-+][0-1][0-9]:[0-5][0-9]");
+    auto reg = std::regex_match(timeZone, tzRegex);
+    if (reg)
+    {
+        redfish::time_utils::details::saveTimeZone(
+            redfish::time_utils::details::localTimeZone, timeZone);
+    }
+    else
+    {
+        messages::propertyValueFormatError(aResp->res, timeZone,
+                                           "DateTimeLocalOffset");
+    }
+}
 inline void requestRoutesManager(App& app)
 {
     std::string uuid = persistent_data::getConfig().systemUuid;
@@ -2222,9 +2238,11 @@ inline void requestRoutesManager(App& app)
         std::optional<nlohmann::json> oem;
         std::optional<nlohmann::json> links;
         std::optional<std::string> datetime;
+        std::optional<std::string> timeZone;
 
         if (!json_util::readJsonPatch(req, asyncResp->res, "Oem", oem,
-                                      "DateTime", datetime, "Links", links))
+                                      "DateTime", datetime, "Links", links,
+                                      "DateTimeLocalOffset", timeZone))
         {
             return;
         }
@@ -2293,6 +2311,10 @@ inline void requestRoutesManager(App& app)
         if (datetime)
         {
             setDateTime(asyncResp, std::move(*datetime));
+        }
+        if (timeZone)
+        {
+            setTimeZone(asyncResp, std::move(*timeZone));
         }
         });
 }
