@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "223e1d9a_5c2b557c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-10-18T17:37:54Z",
+      "side": 1,
+      "message": "This is breaking the existing user facing API, which might be reasonable, but needs a lot more discussion with the current users.  Some users are likely already using this Name field to do matching, so this would break them.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 63
+      },
+      "revId": "373cb9414e8f1efa3961617a6c484883b84d7b69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ec17652c_42f14f01",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
@@ -44,6 +67,23 @@
         "endLine": 10,
         "endChar": 46
       },
+      "revId": "373cb9414e8f1efa3961617a6c484883b84d7b69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8d2f2668_07d06b38",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-10-18T17:37:54Z",
+      "side": 1,
+      "message": "Please quote the portions of the spec that state that this is what the \"Name\" field is for.  As a general rule, I\u0027ve been under the understanding that the Name field is supposed to be user-facing, and not used for type safety, and that other types in the standard are intended for matching.  Happy to get to the bottom of this, but I don\u0027t think this can merge as-is without at least some documentation.",
       "revId": "373cb9414e8f1efa3961617a6c484883b84d7b69",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
