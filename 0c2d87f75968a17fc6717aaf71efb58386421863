@@ -1,6 +1,40 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "4abac337_5faa7fa2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-10-18T18:27:09Z",
+      "side": 1,
+      "message": "Can you do some sanity testing? E.g. from the GUI, do some of these impacted functions. Are you able to test the PID/FAN control Manager OEM stuff?",
+      "revId": "0c2d87f75968a17fc6717aaf71efb58386421863",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dfabdf19_6bfa3361",
+        "filename": "include/openbmc_dbus_rest.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 443,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-10-18T18:27:09Z",
+      "side": 1,
+      "message": "The code before was more readable IMO",
+      "revId": "0c2d87f75968a17fc6717aaf71efb58386421863",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "f85686e7_622c0adc",
