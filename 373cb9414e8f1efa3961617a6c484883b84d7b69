@@ -106,6 +106,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ec61422_d5cd33b4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-10-18T20:34:50Z",
+      "side": 1,
+      "message": "One type-related property that I found in the LogService schema is \"LogEntryType\" -- however the possible values (Event, Multiple, OEM, SEL) aren’t fine-grained enough to determine if a log is a fault log for this use case. If there isn\u0027t an existing property that\u0027s suitable, there\u0027s also a possibility of proposing an addition to the Redfish LogService schema such as a new \"LogType\" or\"OemLogEntryType\" property.",
+      "parentUuid": "bbdcad59_9ebfe60d",
+      "revId": "373cb9414e8f1efa3961617a6c484883b84d7b69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "17f0b9e7_7acc2a45",
