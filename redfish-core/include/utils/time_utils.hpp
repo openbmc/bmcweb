@@ -9,6 +9,7 @@
 #include <compare>
 #include <cstddef>
 #include <cstdint>
+#include <fstream>
 #include <optional>
 #include <ratio>
 #include <string>
@@ -270,6 +271,59 @@ constexpr std::tuple<IntType, unsigned, unsigned>
     return std::tuple<IntType, unsigned, unsigned>(y + (m <= 2), m, d);
 }
 
+inline float tzFormatConvert(std::string timeZone)
+{
+    try
+    {
+        auto index = timeZone.find(':');
+        timeZone = timeZone.replace(index, 1, ".");
+        std::string minute = timeZone.substr(index + 1);
+        float fValue = std::stof(minute.c_str());
+        fValue /= 60;
+        minute = std::to_string(fValue);
+        auto stringPosition = minute.find('.');
+        minute = minute.substr(stringPosition + 1);
+        timeZone = timeZone.replace(index + 1, 2, minute);
+
+        float res = std::stof(timeZone.c_str());
+        return res;
+    }
+    catch (std::exception& ex)
+    {
+        BMCWEB_LOG_ERROR << "Invalid parameter type" << ex.what();
+        return 0;
+    }
+}
+
+static std::string localTimeZone = "/etc/timezone";
+
+inline std::string getTimeZone(std::string filePath)
+{
+    std::fstream fsIn(filePath, std::ios::in);
+    if (!fsIn.is_open())
+    {
+        return "+00:00";
+    }
+    std::string temp = "";
+    fsIn >> temp;
+    if (temp.empty())
+    {
+        return "+00:00";
+    }
+    fsIn.close();
+    return temp;
+}
+
+inline void saveTimeZone(std::string filePath, std::string timeZone)
+{
+    std::fstream fsOut(filePath, std::ios::out);
+    if (!fsOut.is_open())
+        return;
+    fsOut << timeZone;
+    fsOut.close();
+    return;
+}
+
 template <typename IntType, typename Period>
 std::string toISO8061ExtendedStr(std::chrono::duration<IntType, Period> t)
 {
@@ -278,6 +332,10 @@ std::string toISO8061ExtendedStr(std::chrono::duration<IntType, Period> t)
     using hours = std::chrono::duration<int, std::ratio<3600>>;
     using days = std::chrono::duration<
         IntType, std::ratio_multiply<hours::period, std::ratio<24>>>;
+    std::string timeZone = getTimeZone(localTimeZone);
+    auto value = tzFormatConvert(timeZone);
+    int valueInSeconds = static_cast<int>(value * 3600);
+    t += std::chrono::seconds(valueInSeconds);
 
     // d is days since 1970-01-01
     days d = std::chrono::duration_cast<days>(t);
@@ -344,7 +402,7 @@ std::string toISO8061ExtendedStr(std::chrono::duration<IntType, Period> t)
         out += details::padZeros(subsec.count(), 6);
     }
 
-    out += "+00:00";
+    out += timeZone;
     return out;
 }
 } // namespace details
