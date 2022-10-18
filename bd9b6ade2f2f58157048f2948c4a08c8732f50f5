@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "25c17aae_4c13f26d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 42
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-10-18T17:58:49Z",
+      "side": 1,
+      "message": "?  What does this mean.",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 45
+      },
+      "revId": "bd9b6ade2f2f58157048f2948c4a08c8732f50f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b0f9051_14d6cc27",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 42
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-10-18T17:58:49Z",
+      "side": 1,
+      "message": "What is a \"nonexistent protocol\"?",
+      "range": {
+        "startLine": 16,
+        "startChar": 12,
+        "endLine": 16,
+        "endChar": 37
+      },
+      "revId": "bd9b6ade2f2f58157048f2948c4a08c8732f50f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7bbdaaf6_40188863",
+        "filename": "redfish-core/include/utils/service_utils.hpp",
+        "patchSetId": 42
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-10-18T17:58:49Z",
+      "side": 1,
+      "message": "This seems a little odd.  Why would we search for the service first?  Just attempt to set it, and if it fails, manage the return code appropriately?",
+      "range": {
+        "startLine": 236,
+        "startChar": 13,
+        "endLine": 236,
+        "endChar": 32
+      },
+      "revId": "bd9b6ade2f2f58157048f2948c4a08c8732f50f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "de8e9608_2f66e979",
+        "filename": "redfish-core/include/utils/service_utils.hpp",
+        "patchSetId": 42
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-10-18T17:58:49Z",
+      "side": 1,
+      "message": "Why int here?",
+      "range": {
+        "startLine": 240,
+        "startChar": 72,
+        "endLine": 240,
+        "endChar": 78
+      },
+      "revId": "bd9b6ade2f2f58157048f2948c4a08c8732f50f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fe10e390_a17d599f",
+        "filename": "redfish-core/include/utils/service_utils.hpp",
+        "patchSetId": 42
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-10-18T17:58:49Z",
+      "side": 1,
+      "message": "nullptr dereference.",
+      "range": {
+        "startLine": 256,
+        "startChar": 69,
+        "endLine": 256,
+        "endChar": 71
+      },
+      "revId": "bd9b6ade2f2f58157048f2948c4a08c8732f50f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
