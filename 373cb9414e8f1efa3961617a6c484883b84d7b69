@@ -88,6 +88,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "bbdcad59_9ebfe60d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-10-18T18:53:58Z",
+      "side": 1,
+      "message": "\u003e other types in the standard are intended for matching\n\nWhat are the attributes for example in this use case?",
+      "parentUuid": "8d2f2668_07d06b38",
+      "revId": "373cb9414e8f1efa3961617a6c484883b84d7b69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "17f0b9e7_7acc2a45",
