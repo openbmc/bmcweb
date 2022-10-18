@@ -127,6 +127,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d88f7f44_ed7bacec",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-10-18T13:40:46Z",
+      "side": 1,
+      "message": "Please see https://gerrit.openbmc.org/c/openbmc/bmcweb/+/57765/9/include/dbus_utility.hpp#150",
+      "parentUuid": "546b773f_11a35304",
+      "range": {
+        "startLine": 149,
+        "startChar": 63,
+        "endLine": 149,
+        "endChar": 64
+      },
+      "revId": "90083a06ad2d525ec8cec62376030d45dd771aa4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2759ab23_4ec09aa8",
         "filename": "include/dbus_utility.hpp",
         "patchSetId": 8
