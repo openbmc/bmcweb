@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "b18a818c_03af7a5a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 52
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-10-19T11:59:25Z",
+      "side": 1,
+      "message": "Ack, I will put that information in commit message. In meantime you can view it here: https://github.com/openbmc/phosphor-dbus-interfaces/commit/4f9c09144b60edc015291d2c120fc5b33aa0bec2",
+      "parentUuid": "4d6a82b5_28baff65",
+      "revId": "81ba8fadf43e5a2c419c613eb64f6e890a2d6124",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "4eac371c_dd4ac21d",
@@ -35,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "150ee618_ac06a179",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 52
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-10-19T11:59:25Z",
+      "side": 1,
+      "message": "Phosphor dbus-interfaces is already updated.",
+      "parentUuid": "4eac371c_dd4ac21d",
+      "revId": "81ba8fadf43e5a2c419c613eb64f6e890a2d6124",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f85563d9_b8b6649b",
@@ -48,6 +84,30 @@
       "writtenOn": "2022-10-12T18:22:09Z",
       "side": 1,
       "message": "Aren\u0027t all of these parameters required?  Why are we using the optional pointer version here?",
+      "range": {
+        "startLine": 67,
+        "startChar": 0,
+        "endLine": 74,
+        "endChar": 16
+      },
+      "revId": "81ba8fadf43e5a2c419c613eb64f6e890a2d6124",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b815b79d_b99a42fd",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 52
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-10-19T11:59:25Z",
+      "side": 1,
+      "message": "From schema point of view only name and id are required. Other parameters just happen to be supported by telemetry service backend. We can as well make them all mandatory I was just trying to implement it like other bmcweb endpoints implement GET requests.",
+      "parentUuid": "f85563d9_b8b6649b",
       "range": {
         "startLine": 67,
         "startChar": 0,
@@ -83,6 +143,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8cbc6d8b_5d32c9b0",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 52
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-10-19T11:59:25Z",
+      "side": 1,
+      "message": "The idea behind this name is to make it not breaking, currently telemetry backend supports ReadingParameters and ReadingParametersFutureVersion. When bmcweb starts using FutureVersion we change ReadingParameters to be exactly the same as ReadingParametersFutureVersion then we can do another commit to bmcweb to change the name to ReadingParameters and remove ReadingParametersFutureVersion from telemetry service backend.\n\nThanks to that we won\u0027t break anything. Other way around would be to sync changes in bmcweb and telemetry and click merge at the same time or monitor each package bump and ensure there are no new version of telemetry service before this is merged.\n\nhttps://github.com/openbmc/phosphor-dbus-interfaces/commit/4f9c09144b60edc015291d2c120fc5b33aa0bec2\n\nIn prosphor dbus interfaces there is no ReadingParametersFutureVersion as this will be renamed shortly in backend then in bmcweb to ReadingParameters after this change is merged.",
+      "parentUuid": "a847dccf_1ff088b3",
+      "range": {
+        "startLine": 80,
+        "startChar": 9,
+        "endLine": 80,
+        "endChar": 39
+      },
+      "revId": "81ba8fadf43e5a2c419c613eb64f6e890a2d6124",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "41ec74f7_8834fe1e",
         "filename": "redfish-core/lib/metric_report_definition.hpp",
         "patchSetId": 52
@@ -106,6 +190,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fff381ab_fa36da25",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 52
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-10-19T11:59:25Z",
+      "side": 1,
+      "message": "Ack, I will fix it.",
+      "parentUuid": "41ec74f7_8834fe1e",
+      "range": {
+        "startLine": 197,
+        "startChar": 12,
+        "endLine": 197,
+        "endChar": 21
+      },
+      "revId": "81ba8fadf43e5a2c419c613eb64f6e890a2d6124",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3ffec2d7_fe2e9705",
         "filename": "redfish-core/lib/metric_report_definition.hpp",
         "patchSetId": 52
@@ -117,6 +225,30 @@
       "writtenOn": "2022-10-12T18:22:09Z",
       "side": 1,
       "message": "nit, missing const.",
+      "range": {
+        "startLine": 358,
+        "startChar": 13,
+        "endLine": 358,
+        "endChar": 17
+      },
+      "revId": "81ba8fadf43e5a2c419c613eb64f6e890a2d6124",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "496db25d_b2ecf796",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 52
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-10-19T11:59:25Z",
+      "side": 1,
+      "message": "Ack, I will fix it.",
+      "parentUuid": "3ffec2d7_fe2e9705",
       "range": {
         "startLine": 358,
         "startChar": 13,
