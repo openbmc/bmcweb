@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2488e612_97331feb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 31
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-10-19T09:29:18Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "279be349_5a8c3af5",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 18
+      },
+      "revId": "562d555e2f8ed5113e32ae6668a28a2edf202299",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "907acc90_3221dc9c",
@@ -72,6 +96,24 @@
       "writtenOn": "2022-10-18T20:18:24Z",
       "side": 1,
       "message": "Instead of just returning can we add any debug message statements?",
+      "revId": "562d555e2f8ed5113e32ae6668a28a2edf202299",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2d2bb175_6cc8afb0",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-10-19T09:29:18Z",
+      "side": 1,
+      "message": "\u003e Instead of just returning can we add any debug message statements?\n\nSince there is no debug message in all the places where this method is called, I know this is not the right reason, and I want to submit a separate patch to handle this if needed",
+      "parentUuid": "042677c9_c205a5ec",
       "revId": "562d555e2f8ed5113e32ae6668a28a2edf202299",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
