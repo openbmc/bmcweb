@@ -16,6 +16,159 @@
       "message": "Need to revive and fix CI first",
       "revId": "72059a791dbb47067c4ca0207c9095aa51284853",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fddb24be_c34763c0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 28
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001292
+      },
+      "writtenOn": "2022-10-19T14:17:01Z",
+      "side": 1,
+      "message": "Few areas where parameter lists for functional arguments were not updated.  Otherwise, looks good.  Once these doc issues are fixed, I should be able to give +1.",
+      "revId": "72059a791dbb47067c4ca0207c9095aa51284853",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2da8014b_f323f7a0",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 1470,
+      "author": {
+        "id": 1001292
+      },
+      "writtenOn": "2022-10-19T14:17:01Z",
+      "side": 1,
+      "message": "Need to add this to the @param list between lines 1465 and 1466.",
+      "revId": "72059a791dbb47067c4ca0207c9095aa51284853",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dd6d72ca_2c05d3da",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 1534,
+      "author": {
+        "id": 1001292
+      },
+      "writtenOn": "2022-10-19T14:17:01Z",
+      "side": 1,
+      "message": "Need to add this to the param list between lines 1529 and 1530.",
+      "revId": "72059a791dbb47067c4ca0207c9095aa51284853",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2a28bd05_4e903cca",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 1627,
+      "author": {
+        "id": 1001292
+      },
+      "writtenOn": "2022-10-19T14:17:01Z",
+      "side": 1,
+      "message": "Need to add this to the param list between lines 1621 and 1622.",
+      "revId": "72059a791dbb47067c4ca0207c9095aa51284853",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2038b447_5076ddac",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 1703,
+      "author": {
+        "id": 1001292
+      },
+      "writtenOn": "2022-10-19T14:17:01Z",
+      "side": 1,
+      "message": "Need to add this in between line 1694 and 1695 as a @para",
+      "revId": "72059a791dbb47067c4ca0207c9095aa51284853",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c0940517_5db1ace9",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 1798,
+      "author": {
+        "id": 1001292
+      },
+      "writtenOn": "2022-10-19T14:17:01Z",
+      "side": 1,
+      "message": "Need to add this to the @param list.",
+      "revId": "72059a791dbb47067c4ca0207c9095aa51284853",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fbe70764_0ececa5d",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 1843,
+      "author": {
+        "id": 1001292
+      },
+      "writtenOn": "2022-10-19T14:17:01Z",
+      "side": 1,
+      "message": "Not sure why this @param list has extra comment lines when none of the previous blocks do.  Would suggest standardizing this to align with the other blocks here and in functions further down.",
+      "revId": "72059a791dbb47067c4ca0207c9095aa51284853",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "54e4b0c4_968382da",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 2340,
+      "author": {
+        "id": 1001292
+      },
+      "writtenOn": "2022-10-19T14:17:01Z",
+      "side": 1,
+      "message": "Need to add to the @param list.",
+      "revId": "72059a791dbb47067c4ca0207c9095aa51284853",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5e2e69bb_c0993961",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 2830,
+      "author": {
+        "id": 1001292
+      },
+      "writtenOn": "2022-10-19T14:17:01Z",
+      "side": 1,
+      "message": "Need to define parameters in an @param block for proper documentation.",
+      "revId": "72059a791dbb47067c4ca0207c9095aa51284853",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
