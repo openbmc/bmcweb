@@ -212,6 +212,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9aecbc40_b2325bfe",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 52
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-10-19T12:30:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fff381ab_fa36da25",
+      "range": {
+        "startLine": 197,
+        "startChar": 12,
+        "endLine": 197,
+        "endChar": 21
+      },
+      "revId": "81ba8fadf43e5a2c419c613eb64f6e890a2d6124",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3ffec2d7_fe2e9705",
@@ -249,6 +273,30 @@
       "side": 1,
       "message": "Ack, I will fix it.",
       "parentUuid": "3ffec2d7_fe2e9705",
+      "range": {
+        "startLine": 358,
+        "startChar": 13,
+        "endLine": 358,
+        "endChar": 17
+      },
+      "revId": "81ba8fadf43e5a2c419c613eb64f6e890a2d6124",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6ea14b27_0b6350d7",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 52
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-10-19T12:30:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "496db25d_b2ecf796",
       "range": {
         "startLine": 358,
         "startChar": 13,
