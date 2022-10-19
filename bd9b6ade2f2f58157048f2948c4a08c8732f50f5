@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "57944825_1dc0196c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 42
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-10-19T06:33:16Z",
+      "side": 1,
+      "message": "Updated with \"PATCH Port property updates the port number of given protocol.\" in commit message.",
+      "parentUuid": "25c17aae_4c13f26d",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 45
+      },
+      "revId": "bd9b6ade2f2f58157048f2948c4a08c8732f50f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3b0f9051_14d6cc27",
         "filename": "/COMMIT_MSG",
         "patchSetId": 42
@@ -37,6 +61,30 @@
       "writtenOn": "2022-10-18T17:58:49Z",
       "side": 1,
       "message": "What is a \"nonexistent protocol\"?",
+      "range": {
+        "startLine": 16,
+        "startChar": 12,
+        "endLine": 16,
+        "endChar": 37
+      },
+      "revId": "bd9b6ade2f2f58157048f2948c4a08c8732f50f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9d50ca61_ab541358",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 42
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-10-19T06:33:16Z",
+      "side": 1,
+      "message": "The patch body is something like\n\n {\n     \"SomeProtocol\": {\n         \"Port\": 123\n     }\n }\n \nIf \"SomeProtocol\" does not exist, it gives PropertyUnknown error. Updated commit message with \"PATCH Port of a nonexistent protocol property gives PropertyUnknown  error.\"",
+      "parentUuid": "3b0f9051_14d6cc27",
       "range": {
         "startLine": 16,
         "startChar": 12,
@@ -72,6 +120,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c355667d_c1227962",
+        "filename": "redfish-core/include/utils/service_utils.hpp",
+        "patchSetId": 42
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-10-19T06:33:16Z",
+      "side": 1,
+      "message": "This matches service name to be set. If the service name is bmcweb, it only matches bmcweb and ignores other one like phosphor-ipmi-net.",
+      "parentUuid": "7bbdaaf6_40188863",
+      "range": {
+        "startLine": 236,
+        "startChar": 13,
+        "endLine": 236,
+        "endChar": 32
+      },
+      "revId": "bd9b6ade2f2f58157048f2948c4a08c8732f50f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "de8e9608_2f66e979",
         "filename": "redfish-core/include/utils/service_utils.hpp",
         "patchSetId": 42
@@ -83,6 +155,30 @@
       "writtenOn": "2022-10-18T17:58:49Z",
       "side": 1,
       "message": "Why int here?",
+      "range": {
+        "startLine": 240,
+        "startChar": 72,
+        "endLine": 240,
+        "endChar": 78
+      },
+      "revId": "bd9b6ade2f2f58157048f2948c4a08c8732f50f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bfdbf14d_fe3b1dbb",
+        "filename": "redfish-core/include/utils/service_utils.hpp",
+        "patchSetId": 42
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-10-19T06:33:16Z",
+      "side": 1,
+      "message": "The callback of findMatchedServices uses the return value to check if an entry has alreaday been found. It is only used in the GET handlers, not here. But need to keep this declaration.\n\nBut this one has lifetime issue, I\u0027ve submitted a new implementation.",
+      "parentUuid": "de8e9608_2f66e979",
       "range": {
         "startLine": 240,
         "startChar": 72,
@@ -106,6 +202,30 @@
       "writtenOn": "2022-10-18T17:58:49Z",
       "side": 1,
       "message": "nullptr dereference.",
+      "range": {
+        "startLine": 256,
+        "startChar": 69,
+        "endLine": 256,
+        "endChar": 71
+      },
+      "revId": "bd9b6ade2f2f58157048f2948c4a08c8732f50f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "10ca4b0b_5598a320",
+        "filename": "redfish-core/include/utils/service_utils.hpp",
+        "patchSetId": 42
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-10-19T06:33:16Z",
+      "side": 1,
+      "message": "This one has lifetime issue, I\u0027ve submitted a new implementation. So, done.",
+      "parentUuid": "fe10e390_a17d599f",
       "range": {
         "startLine": 256,
         "startChar": 69,
