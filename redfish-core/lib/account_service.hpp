@@ -1167,8 +1167,8 @@ inline void handleLDAPPatch(nlohmann::json& input,
 }
 
 /**
- * @brief Determine whether the downgrade conditions are met.If there is only
- *        one enabled Admin user, the downgrade operation is not allowed.
+ * @brief Determine whether the modify conditions are met.If there is only
+ *        one enabled Admin user, the modify operation is not allowed.
  * @param asyncResp   Pointer to object holding response data
  * @param username   The user that needs to be modified
  * @param password   The new password
@@ -1179,15 +1179,16 @@ inline void handleLDAPPatch(nlohmann::json& input,
  * @param callback  Callback for next step in midify user ifno processing
  */
 template <typename Callback>
-void redfishJudgeDowngrade(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                           std::string username,
-                           std::optional<std::string> password,
-                           std::optional<std::string> roleId,
-                           std::optional<bool> enabled,
-                           std::optional<std::string> newUserName,
-                           std::optional<bool> locked, Callback&& callback)
+void redfishSaveOnlyAdmin(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                          std::string username,
+                          std::optional<std::string> password,
+                          std::optional<std::string> roleId,
+                          std::optional<bool> enabled,
+                          std::optional<std::string> newUserName,
+                          std::optional<bool> locked, Callback&& callback)
 {
-    if (roleId == "priv-admin")
+    if ((roleId == "priv-admin" || roleId == std::nullopt) &&
+        (enabled != false))
     {
         callback(username, password, roleId, enabled, newUserName, locked);
         return;
@@ -1207,66 +1208,37 @@ void redfishJudgeDowngrade(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         int countOfEnabledAdmin = 0;
         for (auto& userNamePath : usersDataList)
         {
-            auto userInfo = userNamePath.second;
-            auto userInfoIter =
-                userInfo.find("xyz.openbmc_project.User.Attributes");
-            if (userInfoIter == userInfo.end())
+            const std::string* userPrivPtr = nullptr;
+            const bool* userEnablePtr = nullptr;
+
+            for (const auto& [listName, listContent] : userNamePath.second)
             {
-                messages::internalError(asyncResp->res);
-                return;
-            };
-            auto attrArray = userInfoIter->second;
+                if (listName != "xyz.openbmc_project.User.Attributes")
+                {
+                    continue;
+                }
 
-            auto propKeyPrivIter = attrArray.find("UserPrivilege");
-            if (propKeyPrivIter == attrArray.end())
-            {
-                messages::internalError(asyncResp->res);
-                return;
-            };
-            auto userPrivPtr =
-                std::get_if<std::string>(&propKeyPrivIter->second);
+                for (const auto& [propName, propValue] : listContent)
+                {
+                    if (propName == "UserPrivilege")
+                    {
+                        userPrivPtr = std::get_if<std::string>(&propValue);
+                    }
+                    if (propName == "UserEnabled")
+                    {
+                        userEnablePtr = std::get_if<bool>(&propValue);
+                    }
+                }
 
-            auto propKeyEnableIter = attrArray.find("UserEnabled");
-            if (propKeyEnableIter == attrArray.end())
-            {
-                messages::internalError(asyncResp->res);
-                return;
-            };
-            auto userEnablePtr = std::get_if<bool>(&propKeyEnableIter->second);
-
-            if (userEnablePtr == nullptr || userPrivPtr == nullptr)
-            {
-                messages::internalError(asyncResp->res);
-                return;
-            }
-
-            auto propGroupsIter = attrArray.find("UserGroups");
-            if (propGroupsIter == attrArray.end())
-            {
-                messages::internalError(asyncResp->res);
-                return;
-            };
-
-            auto groupsArray =
-                std::get_if<std::vector<std::string>>(&propGroupsIter->second);
-
-            if (groupsArray == nullptr || groupsArray->empty())
-            {
-                messages::internalError(asyncResp->res);
-                return;
-            }
-
-            auto groupIt = std::find((*groupsArray).begin(),
-                                     (*groupsArray).end(), "redfish");
-
-            if (groupIt == (*groupsArray).end())
-            {
-                continue;
-            }
-
-            if ((*userPrivPtr == "priv-admin") && (*userEnablePtr))
-            {
-                countOfEnabledAdmin++;
+                if (userEnablePtr == nullptr || userPrivPtr == nullptr)
+                {
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                if ((*userPrivPtr == "priv-admin") && (*userEnablePtr))
+                {
+                    countOfEnabledAdmin++;
+                }
             }
         }
 
@@ -1279,9 +1251,18 @@ void redfishJudgeDowngrade(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         }
         if (countOfEnabledAdmin == 1)
         {
-            messages::actionNotSupported(asyncResp->res,
-                                         "Downgrade the only Admin user");
-            return;
+            if (roleId != "priv-admin" && roleId != std::nullopt)
+            {
+                messages::actionNotSupported(asyncResp->res,
+                                             "Downgrade the only Admin user");
+                return;
+            }
+            if (enabled == false)
+            {
+                messages::actionNotSupported(asyncResp->res,
+                                             "Disable the only Admin user");
+                return;
+            }
         }
 
         callback(username, password, roleId, enabled, newUserName, locked);
@@ -2121,50 +2102,51 @@ inline void
     }
 
     auto executeUpdateUserProperties =
-        [asyncResp](
-            const std::string& username, std::optional<std::string> password,
-            std::optional<std::string> roleId, std::optional<bool> enabled,
-            std::optional<std::string> newUserName,
-            std::optional<bool> locked) {
+        [asyncResp](const std::string& innerUserName,
+                    std::optional<std::string> innerPassword,
+                    std::optional<std::string> innerRoleId,
+                    std::optional<bool> innerEnabled,
+                    std::optional<std::string> innerNewUserName,
+                    std::optional<bool> innerLocked) {
         // if user name is not provided in the patch method or
         // if it matches the user name in the URI, then we are
         // treating it as updating user properties other then
         // username. If username provided doesn't match the URI,
         // then we are treating this as user rename request.
-        if (!newUserName || (newUserName.value() == username))
+        if (!innerNewUserName || (innerNewUserName.value() == innerUserName))
         {
-            updateUserProperties(asyncResp, username, password, enabled, roleId,
-                                 locked);
+            updateUserProperties(asyncResp, innerUserName, innerPassword,
+                                 innerEnabled, innerRoleId, innerLocked);
             return;
         }
         crow::connections::systemBus->async_method_call(
-            [asyncResp, username, password(std::move(password)),
-             roleId(std::move(roleId)), enabled,
-             newUser{std::string(*newUserName)},
-             locked](const boost::system::error_code ec,
-                     sdbusplus::message::message& m) {
+            [asyncResp, innerUserName, innerPassword(std::move(innerPassword)),
+             innerRoleId(std::move(innerRoleId)), innerEnabled,
+             innerNewUserName{std::string(*innerNewUserName)},
+             innerLocked](const boost::system::error_code ec,
+                          sdbusplus::message::message& m) {
             if (ec)
             {
-                userErrorMessageHandler(m.get_error(), asyncResp, newUser,
-                                        username);
+                userErrorMessageHandler(m.get_error(), asyncResp,
+                                        innerNewUserName, innerUserName);
                 return;
             }
 
-            updateUserProperties(asyncResp, newUser, password, enabled, roleId,
-                                 locked);
+            updateUserProperties(asyncResp, innerNewUserName, innerPassword,
+                                 innerEnabled, innerRoleId, innerLocked);
             },
             "xyz.openbmc_project.User.Manager", "/xyz/openbmc_project/user",
-            "xyz.openbmc_project.User.Manager", "RenameUser", username,
-            *newUserName);
+            "xyz.openbmc_project.User.Manager", "RenameUser", innerUserName,
+            *innerNewUserName);
     };
 
     // If there is only one Admin user in the enabled state, the
-    // downgrade action is prohibited.
-    if ((req.session->username == username) && roleId)
+    // action is prohibited.
+    if ((req.session->username == username) && (roleId || enabled))
     {
-        redfishJudgeDowngrade(asyncResp, username, password, roleId, enabled,
-                              newUserName, locked,
-                              std::move(executeUpdateUserProperties));
+        redfishSaveOnlyAdmin(asyncResp, username, password, roleId, enabled,
+                             newUserName, locked,
+                             std::move(executeUpdateUserProperties));
         return;
     }
     executeUpdateUserProperties(username, password, roleId, enabled,
