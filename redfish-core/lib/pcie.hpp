@@ -206,24 +206,6 @@ inline void requestRoutesSystemPCIeDevice(App& app)
                 return;
             }
 
-            if (generationInUse != nullptr)
-            {
-                std::optional<std::string> redfishGenerationInUse =
-                    redfishPcieGenerationFromDbus(*generationInUse);
-                if (!redfishGenerationInUse)
-                {
-                    messages::internalError(asyncResp->res);
-                    return;
-                }
-                if (redfishGenerationInUse->empty())
-                {
-                    // unknown, no need to handle
-                    return;
-                }
-                asyncResp->res.jsonValue["PCIeInterface"]["PCIeType"] =
-                    *redfishGenerationInUse;
-            }
-
             if (manufacturer != nullptr)
             {
                 asyncResp->res.jsonValue["Manufacturer"] = *manufacturer;
@@ -244,6 +226,24 @@ inline void requestRoutesSystemPCIeDevice(App& app)
             asyncResp->res.jsonValue["PCIeFunctions"]["@odata.id"] =
                 "/redfish/v1/Systems/system/PCIeDevices/" + device +
                 "/PCIeFunctions";
+
+            if (generationInUse != nullptr)
+            {
+                std::optional<std::string> redfishGenerationInUse =
+                    redfishPcieGenerationFromDbus(*generationInUse);
+                if (!redfishGenerationInUse)
+                {
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                if (redfishGenerationInUse->empty())
+                {
+                    // unknown, no need to handle
+                    return;
+                }
+                asyncResp->res.jsonValue["PCIeInterface"]["PCIeType"] =
+                    *redfishGenerationInUse;
+            }
         };
         std::string escapedPath = std::string(pciePath) + "/" + device;
         dbus::utility::escapePathForDbus(escapedPath);
