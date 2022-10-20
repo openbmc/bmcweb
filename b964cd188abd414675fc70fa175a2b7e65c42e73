@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e2b52db6_2c722030",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-10-20T20:34:06Z",
+      "side": 1,
+      "message": "I disagree.  The intent of ManagerNetworkProtocol is to expose the Manager external facing interfaces, not the internal ones.\n\nTo implement the use case you want:\n1. Make sure that KVM is binding to the appropriate interfaces, and not all interfaces, and then the port conflict won\u0027t matter.\n2. To disable KVM needs discussion with DMTF, although I do suspect that this is the right API for your use case.",
+      "parentUuid": "227734cc_0247b1b6",
+      "range": {
+        "startLine": 24,
+        "startChar": 16,
+        "endLine": 24,
+        "endChar": 20
+      },
+      "revId": "b964cd188abd414675fc70fa175a2b7e65c42e73",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "52c0d930_729400df",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
