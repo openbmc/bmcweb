@@ -1910,6 +1910,11 @@ inline void
     {
         return;
     }
+    if (username == req.session->username)
+    {
+        messages::actionNotSupported(asyncResp->res, "Delete the user itself");
+        return;
+    }
 
 #ifdef BMCWEB_INSECURE_DISABLE_AUTHENTICATION
     // If authentication is disabled, there are no user accounts
