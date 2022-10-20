@@ -1166,6 +1166,104 @@ inline void handleLDAPPatch(nlohmann::json& input,
         });
 }
 
+/**
+ * @brief Determine whether the downgrade conditions are met.If there is only
+ *        one enabled Admin user, the downgrade operation is not allowed.
+ * @param asyncResp   Pointer to object holding response data
+ * @param username   The user that needs to be modified
+ * @param password   The new password
+ * @param roleId   The new roleId
+ * @param enabled   The new enabled state
+ * @param newUserName   The new user name
+ * @param locked   The new locked state
+ * @param callback  Callback for next step in midify user ifno processing
+ */
+template <typename Callback>
+void redfishJudgeDowngrade(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                           std::string username,
+                           std::optional<std::string> password,
+                           std::optional<std::string> roleId,
+                           std::optional<bool> enabled,
+                           std::optional<std::string> newUserName,
+                           std::optional<bool> locked, Callback&& callback)
+{
+    if (roleId == "priv-admin" || roleId == std::nullopt)
+    {
+        callback(username, password, roleId, enabled, newUserName, locked);
+        return;
+    }
+
+    crow::connections::systemBus->async_method_call(
+        [asyncResp, username, password, roleId, enabled, newUserName, locked,
+         callback{std::move(callback)}](
+            const boost::system::error_code ec,
+            const dbus::utility::ManagedObjectType& usersDataList) {
+        if (ec)
+        {
+            messages::internalError(asyncResp->res);
+            return;
+        }
+
+        int countOfEnabledAdmin = 0;
+        for (auto& userNamePath : usersDataList)
+        {
+            const std::string* userPrivPtr = nullptr;
+            const bool* userEnablePtr = nullptr;
+
+            for (const auto& [listName, listContent] : userNamePath.second)
+            {
+                if (listName != "xyz.openbmc_project.User.Attributes")
+                {
+                    continue;
+                }
+
+                for (const auto& [propName, propValue] : listContent)
+                {
+                    if (propName == "UserPrivilege")
+                    {
+                        userPrivPtr = std::get_if<std::string>(&propValue);
+                    }
+                    if (propName == "UserEnabled")
+                    {
+                        userEnablePtr = std::get_if<bool>(&propValue);
+                    }
+                }
+
+                if (userEnablePtr == nullptr || userPrivPtr == nullptr)
+                {
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                if ((*userPrivPtr == "priv-admin") && (*userEnablePtr))
+                {
+                    countOfEnabledAdmin++;
+                }
+            }
+        }
+
+        if (countOfEnabledAdmin == 0)
+        {
+            messages::internalError(asyncResp->res);
+            BMCWEB_LOG_ERROR << "There are no Administrator users in the "
+                                "enabled state!";
+            return;
+        }
+        if (countOfEnabledAdmin == 1)
+        {
+            if (roleId != "priv-admin" && roleId != std::nullopt)
+            {
+                messages::actionNotSupported(asyncResp->res,
+                                             "Downgrade the only Admin user");
+                return;
+            }
+        }
+
+        callback(username, password, roleId, enabled, newUserName, locked);
+        },
+        "xyz.openbmc_project.User.Manager", "/xyz/openbmc_project/user",
+        "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
+}
+
 inline void updateUserProperties(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
                                  const std::string& username,
                                  std::optional<std::string> password,
@@ -1996,34 +2094,56 @@ inline void
         }
     }
 
-    // if user name is not provided in the patch method or if it
-    // matches the user name in the URI, then we are treating it as
-    // updating user properties other then username. If username
-    // provided doesn't match the URI, then we are treating this as
-    // user rename request.
-    if (!newUserName || (newUserName.value() == username))
-    {
-        updateUserProperties(asyncResp, username, password, enabled, roleId,
-                             locked);
-        return;
-    }
-    crow::connections::systemBus->async_method_call(
-        [asyncResp, username, password(std::move(password)),
-         roleId(std::move(roleId)), enabled, newUser{std::string(*newUserName)},
-         locked](const boost::system::error_code ec, sdbusplus::message_t& m) {
-        if (ec)
+    auto executeUpdateUserProperties =
+        [asyncResp](const std::string& innerUserName,
+                    std::optional<std::string> innerPassword,
+                    std::optional<std::string> innerRoleId,
+                    std::optional<bool> innerEnabled,
+                    std::optional<std::string> innerNewUserName,
+                    std::optional<bool> innerLocked) {
+        // if user name is not provided in the patch method or
+        // if it matches the user name in the URI, then we are
+        // treating it as updating user properties other then
+        // username. If username provided doesn't match the URI,
+        // then we are treating this as user rename request.
+        if (!innerNewUserName || (innerNewUserName.value() == innerUserName))
         {
-            userErrorMessageHandler(m.get_error(), asyncResp, newUser,
-                                    username);
+            updateUserProperties(asyncResp, innerUserName, innerPassword,
+                                 innerEnabled, innerRoleId, innerLocked);
             return;
         }
+        crow::connections::systemBus->async_method_call(
+            [asyncResp, innerUserName, innerPassword(std::move(innerPassword)),
+             innerRoleId(std::move(innerRoleId)), innerEnabled,
+             innerNewUserName{std::string(*innerNewUserName)},
+             innerLocked](const boost::system::error_code ec,
+                          sdbusplus::message::message& m) {
+            if (ec)
+            {
+                userErrorMessageHandler(m.get_error(), asyncResp,
+                                        innerNewUserName, innerUserName);
+                return;
+            }
 
-        updateUserProperties(asyncResp, newUser, password, enabled, roleId,
-                             locked);
-        },
-        "xyz.openbmc_project.User.Manager", "/xyz/openbmc_project/user",
-        "xyz.openbmc_project.User.Manager", "RenameUser", username,
-        *newUserName);
+            updateUserProperties(asyncResp, innerNewUserName, innerPassword,
+                                 innerEnabled, innerRoleId, innerLocked);
+            },
+            "xyz.openbmc_project.User.Manager", "/xyz/openbmc_project/user",
+            "xyz.openbmc_project.User.Manager", "RenameUser", innerUserName,
+            *innerNewUserName);
+    };
+
+    // If there is only one Admin user in the enabled state, the
+    // downgrade action is prohibited.
+    if ((req.session->username == username) && roleId)
+    {
+        redfishJudgeDowngrade(asyncResp, username, password, roleId, enabled,
+                              newUserName, locked,
+                              std::move(executeUpdateUserProperties));
+        return;
+    }
+    executeUpdateUserProperties(username, password, roleId, enabled,
+                                newUserName, locked);
 }
 
 inline void requestAccountServiceRoutes(App& app)
