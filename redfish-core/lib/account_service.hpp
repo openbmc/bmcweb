@@ -1167,8 +1167,8 @@ inline void handleLDAPPatch(nlohmann::json& input,
 }
 
 /**
- * @brief Determine whether the downgrade conditions are met.If there is only
- *        one enabled Admin user, the downgrade operation is not allowed.
+ * @brief Determine whether the modify conditions are met.If there is only
+ *        one enabled Admin user, the modify operation is not allowed.
  * @param asyncResp   Pointer to object holding response data
  * @param username   The user that needs to be modified
  * @param password   The new password
@@ -1179,15 +1179,16 @@ inline void handleLDAPPatch(nlohmann::json& input,
  * @param callback  Callback for next step in midify user ifno processing
  */
 template <typename Callback>
-void redfishJudgeDowngrade(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                           std::string username,
-                           std::optional<std::string> password,
-                           std::optional<std::string> roleId,
-                           std::optional<bool> enabled,
-                           std::optional<std::string> newUserName,
-                           std::optional<bool> locked, Callback&& callback)
+void redfishSaveOnlyAdmin(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                          std::string username,
+                          std::optional<std::string> password,
+                          std::optional<std::string> roleId,
+                          std::optional<bool> enabled,
+                          std::optional<std::string> newUserName,
+                          std::optional<bool> locked, Callback&& callback)
 {
-    if (roleId == "priv-admin")
+    if ((roleId == "priv-admin" || roleId == std::nullopt) &&
+        (enabled != false))
     {
         callback(username, password, roleId, enabled, newUserName, locked);
         return;
@@ -1279,9 +1280,18 @@ void redfishJudgeDowngrade(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         }
         if (countOfEnabledAdmin == 1)
         {
-            messages::actionNotSupported(asyncResp->res,
-                                         "Downgrade the only Admin user");
-            return;
+            if (roleId != "priv-admin" && roleId != std::nullopt)
+            {
+                messages::actionNotSupported(asyncResp->res,
+                                             "Downgrade the only Admin user");
+                return;
+            }
+            if (enabled == false)
+            {
+                messages::actionNotSupported(asyncResp->res,
+                                             "Disable the only Admin user");
+                return;
+            }
         }
 
         callback(username, password, roleId, enabled, newUserName, locked);
@@ -2159,12 +2169,12 @@ inline void
     };
 
     // If there is only one Admin user in the enabled state, the
-    // downgrade action is prohibited.
-    if ((req.session->username == username) && roleId)
+    // action is prohibited.
+    if ((req.session->username == username) && (roleId || enabled))
     {
-        redfishJudgeDowngrade(asyncResp, username, password, roleId, enabled,
-                              newUserName, locked,
-                              std::move(executeUpdateUserProperties));
+        redfishSaveOnlyAdmin(asyncResp, username, password, roleId, enabled,
+                             newUserName, locked,
+                             std::move(executeUpdateUserProperties));
         return;
     }
     executeUpdateUserProperties(username, password, roleId, enabled,
