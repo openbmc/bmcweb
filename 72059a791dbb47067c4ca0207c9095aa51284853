@@ -72,6 +72,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ebf384f2_9824c44b",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 1470,
+      "author": {
+        "id": 1001093
+      },
+      "writtenOn": "2022-10-20T11:13:43Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "2da8014b_f323f7a0",
+      "revId": "72059a791dbb47067c4ca0207c9095aa51284853",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "dd6d72ca_2c05d3da",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 28
@@ -83,6 +101,24 @@
       "writtenOn": "2022-10-19T14:17:01Z",
       "side": 1,
       "message": "Need to add this to the param list between lines 1529 and 1530.",
+      "revId": "72059a791dbb47067c4ca0207c9095aa51284853",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "64e1c81e_e540058a",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 1534,
+      "author": {
+        "id": 1001093
+      },
+      "writtenOn": "2022-10-20T11:13:43Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "dd6d72ca_2c05d3da",
       "revId": "72059a791dbb47067c4ca0207c9095aa51284853",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -106,6 +142,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9b8de863_25b10dd3",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 1627,
+      "author": {
+        "id": 1001093
+      },
+      "writtenOn": "2022-10-20T11:13:43Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "2a28bd05_4e903cca",
+      "revId": "72059a791dbb47067c4ca0207c9095aa51284853",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2038b447_5076ddac",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 28
@@ -117,6 +171,24 @@
       "writtenOn": "2022-10-19T14:17:01Z",
       "side": 1,
       "message": "Need to add this in between line 1694 and 1695 as a @para",
+      "revId": "72059a791dbb47067c4ca0207c9095aa51284853",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "997f0caf_690865d0",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 1703,
+      "author": {
+        "id": 1001093
+      },
+      "writtenOn": "2022-10-20T11:13:43Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "2038b447_5076ddac",
       "revId": "72059a791dbb47067c4ca0207c9095aa51284853",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -140,6 +212,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fab45ebf_987231ba",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 1798,
+      "author": {
+        "id": 1001093
+      },
+      "writtenOn": "2022-10-20T11:13:43Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c0940517_5db1ace9",
+      "revId": "72059a791dbb47067c4ca0207c9095aa51284853",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fbe70764_0ececa5d",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 28
@@ -151,6 +241,24 @@
       "writtenOn": "2022-10-19T14:17:01Z",
       "side": 1,
       "message": "Not sure why this @param list has extra comment lines when none of the previous blocks do.  Would suggest standardizing this to align with the other blocks here and in functions further down.",
+      "revId": "72059a791dbb47067c4ca0207c9095aa51284853",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f7b2618_69871548",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 1843,
+      "author": {
+        "id": 1001093
+      },
+      "writtenOn": "2022-10-20T11:13:43Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "fbe70764_0ececa5d",
       "revId": "72059a791dbb47067c4ca0207c9095aa51284853",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -174,6 +282,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c5a08ec1_4a455539",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 2340,
+      "author": {
+        "id": 1001093
+      },
+      "writtenOn": "2022-10-20T11:13:43Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "54e4b0c4_968382da",
+      "revId": "72059a791dbb47067c4ca0207c9095aa51284853",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5e2e69bb_c0993961",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 28
@@ -185,6 +311,24 @@
       "writtenOn": "2022-10-19T14:17:01Z",
       "side": 1,
       "message": "Need to define parameters in an @param block for proper documentation.",
+      "revId": "72059a791dbb47067c4ca0207c9095aa51284853",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b47625fe_ffe7312d",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 2830,
+      "author": {
+        "id": 1001093
+      },
+      "writtenOn": "2022-10-20T11:13:43Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "5e2e69bb_c0993961",
       "revId": "72059a791dbb47067c4ca0207c9095aa51284853",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
