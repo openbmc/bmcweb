@@ -215,13 +215,11 @@ inline void requestRoutesSystemPCIeDevice(App& app)
                     messages::internalError(asyncResp->res);
                     return;
                 }
-                if (redfishGenerationInUse->empty())
+                if (!redfishGenerationInUse->empty())
                 {
-                    // unknown, no need to handle
-                    return;
+                    asyncResp->res.jsonValue["PCIeInterface"]["PCIeType"] =
+                        *redfishGenerationInUse;
                 }
-                asyncResp->res.jsonValue["PCIeInterface"]["PCIeType"] =
-                    *redfishGenerationInUse;
             }
 
             if (manufacturer != nullptr)
