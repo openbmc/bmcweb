@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1bc823de_e6822d42",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 54
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-10-21T21:14:48Z",
+      "side": 1,
+      "message": "CI fail\n\n0\n-: UC1 Line exceeds max length (99\u003e72).\n    It\u0027s possible you intended to use one of the following exceptions:\n    1. Put logs or shell script in a quoted section with triple quotes (\u0027\u0027\u0027) before and after the section\n    2. Put a long link at the bottom in a footnote.  example: [1] https://my_long_link.com\n    Line that was too long:\n: \"https://github.com/openbmc/phosphor-dbus-interfaces/commit/4f9c09144b60edc015291d2c120fc5b33aa0bec2\"\nTraceback (most recent call last):\n  File \"/data0/jenkins/workspace/ci-repository/openbmc/unit-test.py\", line 1211, in \u003cmodule\u003e\n    check_call_cmd(f, CODE_SCAN_DIR)\n  File \"/data0/jenkins/workspace/ci-repository/openbmc/unit-test.py\", line 235, in check_call_cmd\n    check_call(cmd)\n  File \"/usr/lib/python3.10/subprocess.py\", line 369, in check_call\n    raise CalledProcessError(retcode, cmd)\nsubprocess.CalledProcessError: Command \u0027(\u0027/data0/jenkins/workspace/ci-repository/openbmc/format-code.sh\u0027, \u0027/data0/jenkins/workspace/ci-repository/openbmc/bmcweb\u0027)\u0027 returned non-zero exit status 1.\nTraceback (most recent call last):\n  File \"/data0/jenkins/workspace/ci-repository/openbmc/dbus-unit-test.py\", line 91, in \u003cmodule\u003e\n    check_call(UNIT_TEST.split(\u0027,\u0027), env\u003dos.environ)\n  File \"/usr/lib/python3.10/subprocess.py\", line 369, in check_call\n    raise CalledProcessError(retcode, cmd)\nsubprocess.CalledProcessError: Command \u0027[\u0027/data0/jenkins/workspace/ci-repository/openbmc/unit-test.py\u0027, \u0027-w\u0027, \u0027/data0/jenkins/workspace/ci-repository/openbmc\u0027, \u0027-p\u0027, \u0027bmcweb\u0027, \u0027-b\u0027, \u0027master\u0027, \u0027-v\u0027]\u0027 returned non-zero exit status 1.",
+      "revId": "d34071c4075db170df28481d5233b8b5a2579681",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "481ee9de_fcd13d37",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 54
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-10-21T21:14:48Z",
+      "side": 1,
+      "message": "Cool, would be good to get more than Overwrite ReportUpdate. \nThat support is already in https://gerrit.openbmc.org/c/openbmc/telemetry/+/46111",
+      "revId": "d34071c4075db170df28481d5233b8b5a2579681",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
