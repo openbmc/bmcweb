@@ -45,6 +45,54 @@
       },
       "revId": "b275d9e2e33ba735542064c125933867be2eded0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a02fe086_5f5e9baf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000335
+      },
+      "writtenOn": "2022-10-21T01:59:07Z",
+      "side": 1,
+      "message": "Same as another comment",
+      "parentUuid": "fc15e4cb_e027f49b",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 38
+      },
+      "revId": "b275d9e2e33ba735542064c125933867be2eded0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c5021826_7730fc05",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000335
+      },
+      "writtenOn": "2022-10-21T01:59:07Z",
+      "side": 1,
+      "message": "1. According to this line\nhttps://github.com/openbmc/bmcweb/blob/master/redfish-core/lib/pcie.hpp#L142\n\nIf \"generationInUse\" is empty or Unknown, \"redfishGenerationInUse\" will be assigned empty. (Edited the commit message)\n \n2. Before this change\nhttps://github.com/openbmc/bmcweb/commit/d1bde9e590f165f28d948fda93e48d51b30bb463#diff-89cdfefc364922f52fc8e71fb80eaecfcbffbc1143c9a9cc9a6a7f06e533d310L228\n\nThe \"PCIeType\" part is at the last check.\n\nThe change of this commit is that restore original logic and it shouldn\u0027t return nothing when call this url.",
+      "parentUuid": "475b2bcd_9d142a09",
+      "range": {
+        "startLine": 10,
+        "startChar": 18,
+        "endLine": 10,
+        "endChar": 38
+      },
+      "revId": "b275d9e2e33ba735542064c125933867be2eded0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
