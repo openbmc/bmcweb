@@ -1,0 +1,262 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c7bbf75f_2c8791a8",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1183,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-10-22T02:31:13Z",
+      "side": 1,
+      "message": "const std::string\u0026",
+      "range": {
+        "startLine": 1183,
+        "startChar": 27,
+        "endLine": 1183,
+        "endChar": 38
+      },
+      "revId": "033c748f1041613ebb713db3d8ddbee87341f210",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d0899e8f_62b8cc0b",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1190,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-10-22T02:31:13Z",
+      "side": 1,
+      "message": "if (!roleId || roleId \u003d\u003d \"priv-admin\")",
+      "range": {
+        "startLine": 1190,
+        "startChar": 4,
+        "endLine": 1190,
+        "endChar": 57
+      },
+      "revId": "033c748f1041613ebb713db3d8ddbee87341f210",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "98903f6a_3bb9dcee",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1201,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-10-22T02:31:13Z",
+      "side": 1,
+      "message": "print error log",
+      "revId": "033c748f1041613ebb713db3d8ddbee87341f210",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "80482e42_0107f1e8",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1207,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-10-22T02:31:13Z",
+      "side": 1,
+      "message": "enabledAdminCount?",
+      "range": {
+        "startLine": 1207,
+        "startChar": 12,
+        "endLine": 1207,
+        "endChar": 31
+      },
+      "revId": "033c748f1041613ebb713db3d8ddbee87341f210",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e0bdb7f_1c05a6cf",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1226,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-10-22T02:31:13Z",
+      "side": 1,
+      "message": "else if",
+      "range": {
+        "startLine": 1226,
+        "startChar": 20,
+        "endLine": 1226,
+        "endChar": 22
+      },
+      "revId": "033c748f1041613ebb713db3d8ddbee87341f210",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "21ec9e20_44f5d9e7",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1233,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-10-22T02:31:13Z",
+      "side": 1,
+      "message": "print error log",
+      "revId": "033c748f1041613ebb713db3d8ddbee87341f210",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d05edf6d_e29dee31",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1250,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-10-22T02:31:13Z",
+      "side": 1,
+      "message": "Add blank line",
+      "revId": "033c748f1041613ebb713db3d8ddbee87341f210",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c7985e9f_9f825d3c",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1253,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-10-22T02:31:13Z",
+      "side": 1,
+      "message": "Does this judgment conflict with line 1190?",
+      "range": {
+        "startLine": 1253,
+        "startChar": 11,
+        "endLine": 1253,
+        "endChar": 65
+      },
+      "revId": "033c748f1041613ebb713db3d8ddbee87341f210",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e7726a11_8d2ec8c8",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 2097,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-10-22T02:31:13Z",
+      "side": 1,
+      "message": "updateUserHandler?",
+      "range": {
+        "startLine": 2097,
+        "startChar": 9,
+        "endLine": 2097,
+        "endChar": 36
+      },
+      "revId": "033c748f1041613ebb713db3d8ddbee87341f210",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "47202210_896a3c00",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 2103,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-10-22T02:31:13Z",
+      "side": 1,
+      "message": "I did not see any changes in these parameters, they should all be passed in from the outer layer right?\nIf so, I think we can remove them?",
+      "range": {
+        "startLine": 2098,
+        "startChar": 20,
+        "endLine": 2103,
+        "endChar": 51
+      },
+      "revId": "033c748f1041613ebb713db3d8ddbee87341f210",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f5901ac_4cbc93d0",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 2109,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-10-22T02:31:13Z",
+      "side": 1,
+      "message": "if (innerNewUserName \u003d\u003d innerUserName)",
+      "range": {
+        "startLine": 2109,
+        "startChar": 12,
+        "endLine": 2109,
+        "endChar": 76
+      },
+      "revId": "033c748f1041613ebb713db3d8ddbee87341f210",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fbfe709a_80b44505",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 2138,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-10-22T02:31:13Z",
+      "side": 1,
+      "message": "It has been checked whether the roleId is `std::nullptr` in the redfishJudgeDowngrade method, so I think you can remove it",
+      "range": {
+        "startLine": 2138,
+        "startChar": 44,
+        "endLine": 2138,
+        "endChar": 53
+      },
+      "revId": "033c748f1041613ebb713db3d8ddbee87341f210",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

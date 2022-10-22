@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c35aff2d_88a1c164",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1188,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-10-22T02:31:13Z",
+      "side": 1,
+      "message": "std::function\u003cvoid(const std::string\u0026 ...)\u003e",
+      "range": {
+        "startLine": 1188,
+        "startChar": 55,
+        "endLine": 1188,
+        "endChar": 63
+      },
+      "revId": "9df84a4c499fb5dda1785c2c7c12fce7858ffad8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
