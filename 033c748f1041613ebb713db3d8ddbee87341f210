@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "36514f9f_a2268318",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-10-22T21:39:09Z",
+      "side": 1,
+      "message": "This logic does not belong in bmcweb.  There\u0027s nothing Redfish-specific about this policy, so it needs to be enforced within phosphor-user-manager, not directly in bmcweb.  bmcweb needs to stay as close to a DBus-\u003eRedfish converter as possible.",
+      "range": {
+        "startLine": 7,
+        "startChar": 25,
+        "endLine": 7,
+        "endChar": 45
+      },
+      "revId": "033c748f1041613ebb713db3d8ddbee87341f210",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c7bbf75f_2c8791a8",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 5
