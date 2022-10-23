@@ -93,6 +93,30 @@
       },
       "revId": "b275d9e2e33ba735542064c125933867be2eded0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "296361b6_8d14b3eb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-10-23T02:50:22Z",
+      "side": 1,
+      "message": "\u003e If \"generationInUse\" is empty or Unknown, \"redfishGenerationInUse\" will be assigned empty.\n\nEmpty is not a valid enum, so it should return 500 in that case ideally, although that was incorrect before, so that\u0027s fine.\n\nIf it\u0027s Unknown, we should omit the property.",
+      "parentUuid": "c5021826_7730fc05",
+      "range": {
+        "startLine": 10,
+        "startChar": 18,
+        "endLine": 10,
+        "endChar": 38
+      },
+      "revId": "b275d9e2e33ba735542064c125933867be2eded0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
