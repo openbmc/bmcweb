@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c7e1242_29f2b405",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-10-23T02:46:16Z",
+      "side": 1,
+      "message": "Can we get this quantified a little better as to WHY it\u0027s not good?  Some amount of text on why imposing this policy would be good.",
+      "range": {
+        "startLine": 10,
+        "startChar": 18,
+        "endLine": 10,
+        "endChar": 45
+      },
+      "revId": "96e56fba665e41ef60d3fbd23f89b41f387218f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fc92682c_0b45f9a7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-10-23T02:46:16Z",
+      "side": 1,
+      "message": "There are cases where this might be on purpose.  Some folks might administer their systems through IPMI, and don\u0027t want an admin redfish user?",
+      "range": {
+        "startLine": 11,
+        "startChar": 25,
+        "endLine": 11,
+        "endChar": 48
+      },
+      "revId": "96e56fba665e41ef60d3fbd23f89b41f387218f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cd47efac_323b3b9c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-10-23T02:46:16Z",
+      "side": 1,
+      "message": "This sounds like a bug in the webui.  If the user is removed, their session should be removed, and the webui should drop back to the login page.",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 60
+      },
+      "revId": "96e56fba665e41ef60d3fbd23f89b41f387218f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
