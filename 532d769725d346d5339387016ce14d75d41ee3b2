@@ -16,6 +16,24 @@
       "message": "Should this just be an \n\nif (!redfishGenerationInUse-\u003eempty()){\n   asyncResp-\u003eres.jsonValue[\"PCIeInterface\"][\"PCIeType\"] \u003d\n                    *redfishGenerationInUse;\n}\n\n\nand remote the return on line 221?",
       "revId": "532d769725d346d5339387016ce14d75d41ee3b2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "af18ded1_274505e9",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 1000335
+      },
+      "writtenOn": "2022-10-24T08:41:57Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "459cd023_0e304b45",
+      "revId": "532d769725d346d5339387016ce14d75d41ee3b2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
