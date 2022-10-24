@@ -138,6 +138,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d887454b_cab12284",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 52
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-10-24T22:34:50Z",
+      "side": 1,
+      "message": "Considering there\u0027s only one implementation of these, and they\u0027ve been supported since the first version, it\u0027s pretty reasonable to make them required.  With that said, it\u0027s not a big deal.",
+      "parentUuid": "b815b79d_b99a42fd",
+      "range": {
+        "startLine": 67,
+        "startChar": 0,
+        "endLine": 74,
+        "endChar": 16
+      },
+      "revId": "81ba8fadf43e5a2c419c613eb64f6e890a2d6124",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a847dccf_1ff088b3",
         "filename": "redfish-core/lib/metric_report_definition.hpp",
         "patchSetId": 52
@@ -173,6 +197,30 @@
       "side": 1,
       "message": "The idea behind this name is to make it not breaking, currently telemetry backend supports ReadingParameters and ReadingParametersFutureVersion. When bmcweb starts using FutureVersion we change ReadingParameters to be exactly the same as ReadingParametersFutureVersion then we can do another commit to bmcweb to change the name to ReadingParameters and remove ReadingParametersFutureVersion from telemetry service backend.\n\nThanks to that we won\u0027t break anything. Other way around would be to sync changes in bmcweb and telemetry and click merge at the same time or monitor each package bump and ensure there are no new version of telemetry service before this is merged.\n\nhttps://github.com/openbmc/phosphor-dbus-interfaces/commit/4f9c09144b60edc015291d2c120fc5b33aa0bec2\n\nIn prosphor dbus interfaces there is no ReadingParametersFutureVersion as this will be renamed shortly in backend then in bmcweb to ReadingParameters after this change is merged.",
       "parentUuid": "a847dccf_1ff088b3",
+      "range": {
+        "startLine": 80,
+        "startChar": 9,
+        "endLine": 80,
+        "endChar": 39
+      },
+      "revId": "81ba8fadf43e5a2c419c613eb64f6e890a2d6124",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cda6f799_093b75be",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 52
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-10-24T22:34:50Z",
+      "side": 1,
+      "message": "\u003e  to change the name to ReadingParameters and remove ReadingParametersFutureVersion from telemetry service backend.\n\nTHen we have to do a breaking change anyway, it just delays it, and complicates testing and merges..  Just list the commit you you need that makes the breaking change, and we can just make sure they bump at the same time.  There\u0027s only one implementation of this, so it should be trivial to just bump them at the same time, which we\u0027d have to do anyway later.",
+      "parentUuid": "8cbc6d8b_5d32c9b0",
       "range": {
         "startLine": 80,
         "startChar": 9,
@@ -339,6 +387,30 @@
       "side": 1,
       "message": "I had to revert this back to non-const. readJson function needs non const reference as parameter.",
       "parentUuid": "6ea14b27_0b6350d7",
+      "range": {
+        "startLine": 358,
+        "startChar": 13,
+        "endLine": 358,
+        "endChar": 17
+      },
+      "revId": "81ba8fadf43e5a2c419c613eb64f6e890a2d6124",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c1cffb3e_91db15e2",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 52
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-10-24T22:34:50Z",
+      "side": 1,
+      "message": "ACK.",
+      "parentUuid": "f97a2035_0e83f72e",
       "range": {
         "startLine": 358,
         "startChar": 13,
