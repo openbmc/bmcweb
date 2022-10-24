@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f43cf259_09cfee64",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-10-24T20:31:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "80918ca9_627002db",
+      "range": {
+        "startLine": 10,
+        "startChar": 41,
+        "endLine": 10,
+        "endChar": 50
+      },
+      "revId": "c4e28b198d5878731f29a7290fd9ae2824bb62e5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "11d8fa5c_2bb1a4f7",
@@ -88,6 +112,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d5f1711d_80639430",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-10-24T20:31:39Z",
+      "side": 1,
+      "message": "Added protocol validator to results.",
+      "parentUuid": "6fac52c9_892b3c92",
+      "revId": "c4e28b198d5878731f29a7290fd9ae2824bb62e5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d920ca1e_5d763c15",
@@ -105,6 +147,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f4302c9_72cdf18f",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 442,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-10-24T20:31:39Z",
+      "side": 1,
+      "message": "Fixed.  This was a merge conflict on another refactor.",
+      "parentUuid": "d920ca1e_5d763c15",
+      "revId": "c4e28b198d5878731f29a7290fd9ae2824bb62e5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "90f9bff7_d2fd251a",
@@ -118,6 +178,30 @@
       "writtenOn": "2022-10-24T19:26:05Z",
       "side": 1,
       "message": "This doesn\u0027t get all the good return code though.. I would think we would want a check for 200 - 299 like \ninverse of this https://github.com/openbmc/bmcweb/blob/77665bdac1063ae547890a983daeab7f4320457d/http/http_client.hpp#L87",
+      "range": {
+        "startLine": 231,
+        "startChar": 33,
+        "endLine": 231,
+        "endChar": 75
+      },
+      "revId": "c4e28b198d5878731f29a7290fd9ae2824bb62e5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b884a0e3_cb7929b8",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-10-24T20:31:39Z",
+      "side": 1,
+      "message": "I don\u0027t think so, and even if we did, I\u0027d like to see us add incrementally as we find use cases.  For the specific 2xx returns that we have\n\n201 created can\u0027t be cached, because it requires an action, and only returned on a POST.\n202 accepted is the same thing;  Only done on POST/PATCH.\n204, no content has no advantages here.  No-content means that the body was already empty.\n206 partial content (we don\u0027t use this, but in theory we could) is probably not something we want a user caching at all, if they\u0027re requesting a range.\n\n301/307, can\u0027t/shouldn\u0027t cache a forward.\n\n\nI think that covers all the cases.",
+      "parentUuid": "90f9bff7_d2fd251a",
       "range": {
         "startLine": 231,
         "startChar": 33,
