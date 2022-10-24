@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "11d8fa5c_2bb1a4f7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-10-24T18:54:18Z",
+      "side": 1,
+      "message": "I read the code. IMO this doesn\u0027t save any DBus traffic, does it?\n\nIt saves time transferring payload, and time marshalling/unmarshalling the response.",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 30
+      },
+      "revId": "c4e28b198d5878731f29a7290fd9ae2824bb62e5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
