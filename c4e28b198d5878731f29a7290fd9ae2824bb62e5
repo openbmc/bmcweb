@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "80918ca9_627002db",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-10-24T19:26:05Z",
+      "side": 1,
+      "message": "now that this sits on master, would be good to add the commit hash here",
+      "range": {
+        "startLine": 10,
+        "startChar": 41,
+        "endLine": 10,
+        "endChar": 50
+      },
+      "revId": "c4e28b198d5878731f29a7290fd9ae2824bb62e5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "11d8fa5c_2bb1a4f7",
         "filename": "/COMMIT_MSG",
         "patchSetId": 15
@@ -43,6 +66,63 @@
         "startChar": 0,
         "endLine": 27,
         "endChar": 30
+      },
+      "revId": "c4e28b198d5878731f29a7290fd9ae2824bb62e5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6fac52c9_892b3c92",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-10-24T19:26:05Z",
+      "side": 1,
+      "message": "Could add something on the protocol validator ?",
+      "revId": "c4e28b198d5878731f29a7290fd9ae2824bb62e5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d920ca1e_5d763c15",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 442,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-10-24T19:26:05Z",
+      "side": 1,
+      "message": "Be careful with the extra white space changes :)",
+      "revId": "c4e28b198d5878731f29a7290fd9ae2824bb62e5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "90f9bff7_d2fd251a",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-10-24T19:26:05Z",
+      "side": 1,
+      "message": "This doesn\u0027t get all the good return code though.. I would think we would want a check for 200 - 299 like \ninverse of this https://github.com/openbmc/bmcweb/blob/77665bdac1063ae547890a983daeab7f4320457d/http/http_client.hpp#L87",
+      "range": {
+        "startLine": 231,
+        "startChar": 33,
+        "endLine": 231,
+        "endChar": 75
       },
       "revId": "c4e28b198d5878731f29a7290fd9ae2824bb62e5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
