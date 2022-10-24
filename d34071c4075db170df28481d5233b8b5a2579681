@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "86e52f78_a53c497d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 54
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-10-24T11:05:30Z",
+      "side": 1,
+      "message": "Done.\n\nI had some trouble with running docker on local machine\nError: Invalid value for \u0027-e\u0027 / \u0027--extra-path\u0027: Path \u0027openbmc-build-scripts/config/gitlint/\u0027 does not exist.\n\nIn the end I executed gitling without using docker. If you have any idea why it didn\u0027t work let me know.",
+      "parentUuid": "1bc823de_e6822d42",
+      "revId": "d34071c4075db170df28481d5233b8b5a2579681",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "481ee9de_fcd13d37",
         "filename": "redfish-core/lib/metric_report_definition.hpp",
         "patchSetId": 54

@@ -38,6 +38,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "e68eaf16_286ab758",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 52
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-10-24T11:05:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b18a818c_03af7a5a",
+      "revId": "81ba8fadf43e5a2c419c613eb64f6e890a2d6124",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "4eac371c_dd4ac21d",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 52
@@ -297,6 +315,30 @@
       "side": 1,
       "message": "Done",
       "parentUuid": "496db25d_b2ecf796",
+      "range": {
+        "startLine": 358,
+        "startChar": 13,
+        "endLine": 358,
+        "endChar": 17
+      },
+      "revId": "81ba8fadf43e5a2c419c613eb64f6e890a2d6124",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f97a2035_0e83f72e",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 52
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-10-24T11:05:30Z",
+      "side": 1,
+      "message": "I had to revert this back to non-const. readJson function needs non const reference as parameter.",
+      "parentUuid": "6ea14b27_0b6350d7",
       "range": {
         "startLine": 358,
         "startChar": 13,
