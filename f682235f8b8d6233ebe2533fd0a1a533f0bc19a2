@@ -16,6 +16,24 @@
       "message": "Wouldn\u0027t you also know this already by the path (/redfish/v1/Systems/system/ vs /redfish/v1/Managers/bmc/)?",
       "revId": "f682235f8b8d6233ebe2533fd0a1a533f0bc19a2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b1301905_b02787fc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-10-25T07:04:26Z",
+      "side": 1,
+      "message": "The more specific name would help to differentiate dump types for dumps that are under the same path, for example /redfish/v1/Managers/bmc/LogServices/FaultLog vs. /redfish/v1/Managers/bmc/LogServices/Dump.",
+      "parentUuid": "fadecbed_e6eb601a",
+      "revId": "f682235f8b8d6233ebe2533fd0a1a533f0bc19a2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
