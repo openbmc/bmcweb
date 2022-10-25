@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "014a1ec1_898cea68",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-10-25T21:27:02Z",
+      "side": 1,
+      "message": "Are we sure we want to do that?  If it\u0027s just a char* pointer, isn\u0027t a char*\u0026 more expensive than just a char*?  These are templates, so I\u0027d expect them to be a reference in the compiler if it decides that\u0027s more important.\n\nWas there a functional impact you saw in doing this?",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 44
+      },
+      "revId": "db941a74d1f7c95bd9e17926a8bd2d231bd854f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "edbaf0d0_0e763783",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
