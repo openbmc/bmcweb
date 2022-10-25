@@ -235,6 +235,30 @@
       },
       "revId": "617985be58abbcedcbe8fa42e4f8e2ca004bbbf8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fcb66e20_4628076b",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 993,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-10-25T18:25:17Z",
+      "side": 1,
+      "message": "To avoid this complexity in the patch, I\u0027ve refactored the code to use std::isfinite, which I don\u0027 think there\u0027s any questions about how it works.\n\nPlease open a new one if this is still a concern with the latest patch, but the line of code this is referencing no longer exists.",
+      "parentUuid": "4ed8b6d4_ce94c6e9",
+      "range": {
+        "startLine": 993,
+        "startChar": 17,
+        "endLine": 993,
+        "endChar": 28
+      },
+      "revId": "617985be58abbcedcbe8fa42e4f8e2ca004bbbf8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
