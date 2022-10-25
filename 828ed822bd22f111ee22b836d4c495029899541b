@@ -262,6 +262,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cdaf70e1_2a4cf4b7",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-10-25T19:33:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "76cb8d61_0326c14c",
+      "range": {
+        "startLine": 206,
+        "startChar": 44,
+        "endLine": 206,
+        "endChar": 61
+      },
+      "revId": "828ed822bd22f111ee22b836d4c495029899541b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9537700d_0a44ac5c",
@@ -293,6 +317,24 @@
       "side": 1,
       "message": "This is directly related to my above comment.  It\u0027s possible for us to reach \"afterConnect()\" after the timer has already expired.  In that case we\u0027re just wanting to leave this function without touching anything.  Cancelling the timer in this specific case could cause issues since either the timer is not running or it\u0027s running but as part of a different operation that\u0027s not connection.",
       "parentUuid": "9537700d_0a44ac5c",
+      "revId": "828ed822bd22f111ee22b836d4c495029899541b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e8f493bb_f8b88614",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-10-25T19:33:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6990f7d8_ef803774",
       "revId": "828ed822bd22f111ee22b836d4c495029899541b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
