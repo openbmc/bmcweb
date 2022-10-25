@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "df63296f_7b754e60",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 17
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-10-25T19:31:44Z",
+      "side": 1,
+      "message": "Haven\u0027t seen any response from Appu in a while.  Lets move forward with this, and if his comments are still valid, we can ask that he reviews it again later.",
+      "revId": "b595326e2f64a2758a710ed006fa089583b462e7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
