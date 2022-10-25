@@ -89,6 +89,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b91baeab_26a73eb2",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-10-25T18:35:40Z",
+      "side": 1,
+      "message": "ACK; changes made.  After looking at it, yes, this does make the code a little cleaner.  Done.",
+      "parentUuid": "6d70eb37_1f421617",
+      "range": {
+        "startLine": 238,
+        "startChar": 24,
+        "endLine": 238,
+        "endChar": 25
+      },
+      "revId": "2a3de936e829263932458e627b253bb7451a5df7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b11bd8bc_dbb2358a",
