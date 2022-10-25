@@ -164,6 +164,24 @@
       "parentUuid": "042677c9_c205a5ec",
       "revId": "562d555e2f8ed5113e32ae6668a28a2edf202299",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "04d9faa5_c45fe5e8",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-10-25T23:43:44Z",
+      "side": 1,
+      "message": "WE don\u0027t generally do that on these.  There\u0027s plenty of debug information added to the response in the failing cases, generally enough to debug.",
+      "parentUuid": "2d2bb175_6cc8afb0",
+      "revId": "562d555e2f8ed5113e32ae6668a28a2edf202299",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
