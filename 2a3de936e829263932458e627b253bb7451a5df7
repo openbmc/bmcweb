@@ -67,6 +67,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6d70eb37_1f421617",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-10-25T18:10:10Z",
+      "side": 1,
+      "message": "So, there are quite a few places that said \"avoid nested branches\" or \"avoid deep indent\"\n\nIf you need references,\n\nhttps://en.wikibooks.org/wiki/Computer_Programming/Coding_Style/Minimize_nesting\nhttps://www.codeproject.com/Articles/626403/How-and-Why-to-Avoid-Excessive-Nesting\n\nWe have two options, one is to combine these two branches. I see a lot of codes combine std::option check and value check.\n\nThe other is to invert the if so we return early.\n\nDoes that answer your question?",
+      "parentUuid": "19d5e163_80f7b930",
+      "range": {
+        "startLine": 238,
+        "startChar": 24,
+        "endLine": 238,
+        "endChar": 25
+      },
+      "revId": "2a3de936e829263932458e627b253bb7451a5df7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b11bd8bc_dbb2358a",
         "filename": "http/http_response.hpp",
         "patchSetId": 16
@@ -102,6 +126,30 @@
       "side": 1,
       "message": "Done.",
       "parentUuid": "b11bd8bc_dbb2358a",
+      "range": {
+        "startLine": 253,
+        "startChar": 31,
+        "endLine": 253,
+        "endChar": 43
+      },
+      "revId": "2a3de936e829263932458e627b253bb7451a5df7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "58f55a07_c8538ea2",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-10-25T18:10:10Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "61218099_ec15536f",
       "range": {
         "startLine": 253,
         "startChar": 31,
