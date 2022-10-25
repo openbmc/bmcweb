@@ -1,3 +1,4 @@
+#include "base_privilege.hpp"
 #include "privileges.hpp"
 
 #include <boost/beast/http/verb.hpp>
@@ -128,6 +129,28 @@ TEST(PrivilegeTest, GetActivePrivilegeNames)
         UnorderedElementsAre(expectedPrivileges[0], expectedPrivileges[1],
                              expectedPrivileges[2], expectedPrivileges[3],
                              expectedPrivileges[4]));
+}
+
+TEST(GetOperationMap,
+     DefaultOperationMapRespectsBasePrivilegeRegistryForEveryEntity)
+{
+    nlohmann::json expected =
+        nlohmann::json::parse(privileges::basePrivilegeStr);
+    for (size_t i = 0; i < privileges::entities.size(); ++i)
+    {
+        // TODO(nanzhou): remove after PrivilegeRegistry 1.3.1 is released
+        // See https://github.com/DMTF/Redfish/issues/5296
+        if (i == static_cast<size_t>(
+                     privileges::EntityTag::tagManagerDiagnosticData))
+        {
+            nlohmann::json::array_t arr = {};
+            arr.push_back(R"({"Privilege":["ConfigureManager"]})"_json);
+            expected["Mappings"][i]["OperationMap"]["DELETE"] = arr;
+        }
+        privileges::EntityTag tag = static_cast<privileges::EntityTag>(i);
+        EXPECT_EQ(Privileges::getOperationMap(tag),
+                  expected["Mappings"][i]["OperationMap"]);
+    }
 }
 
 } // namespace
