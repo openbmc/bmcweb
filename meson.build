@@ -285,7 +285,7 @@ else
 endif
 bmcweb_dependencies += nlohmann_json
 
-boost = dependency('boost',version : '>=1.79.0', required : false, include_type: 'system')
+boost = dependency('boost',version : '>=1.80.0', required : false, include_type: 'system')
 if not boost.found()
   boost = subproject('boost', required: true).get_variable('boost_dep')
 endif
