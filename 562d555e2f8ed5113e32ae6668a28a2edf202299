@@ -72,6 +72,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3bc84756_d512bdd1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 31
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-10-25T16:37:34Z",
+      "side": 1,
+      "message": "About why a commit is needed, I would say something like, \"this commit improves Xyz\", \"this commits fills a gap of Abc\", \"Company has a use case like Xyz, which this commit implements\".",
+      "parentUuid": "d760964b_88b8d48f",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 18
+      },
+      "revId": "562d555e2f8ed5113e32ae6668a28a2edf202299",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "907acc90_3221dc9c",
