@@ -201,6 +201,7 @@ local.properties
 # subproject directories
 /subprojects/*
 !/subprojects/*.wrap
+!/subprojects/packagefiles
 
 # Meson Directories
 meson-logs

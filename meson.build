@@ -287,20 +287,14 @@ bmcweb_dependencies += nlohmann_json
 
 boost = dependency('boost',version : '>=1.79.0', required : false, include_type: 'system')
 if not boost.found()
-  subproject('boost', required: false)
-  boost_inc = include_directories('subprojects/boost_1_80_0/', is_system:true)
-  boost  = declare_dependency(include_directories : boost_inc)
-  boost = boost.as_system('system')
+  boost = subproject('boost', required: true).get_variable('boost_dep')
 endif
 bmcweb_dependencies += boost
 
 if cxx.has_header('boost/url/url_view.hpp')
   boost_url = declare_dependency()
 else
-  subproject('boost-url', required: false)
-  boost_url_inc = include_directories('subprojects/boost-url/include', is_system:true)
-  boost_url= declare_dependency(include_directories : boost_url_inc)
-  boost_url = boost_url.as_system('system')
+  boost_url = subproject('boost-url', required: true).get_variable('boost_url_dep')
 endif
 bmcweb_dependencies += boost_url
 
