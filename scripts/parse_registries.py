@@ -42,6 +42,12 @@ include_path = os.path.realpath(
     os.path.join(SCRIPT_DIR, "..", "redfish-core", "include", "registries")
 )
 
+privilege_test_file = os.path.join(
+    os.path.realpath(os.path.join(SCRIPT_DIR, "..",
+                     "test", "redfish-core", "include")),
+    "base_privilege.hpp",
+)
+
 proxies = {"https": os.environ.get("https_proxy", None)}
 
 
@@ -188,6 +194,16 @@ def make_privilege_registry():
         "Redfish_1.3.0_PrivilegeRegistry.json",
         "privilege_registry.hpp", "privilege"
     )
+
+    with open(privilege_test_file, "w") as registry:
+        registry.write(PRIVILEGE_TEST_HEADER)
+        registry.write(
+            'constexpr std::string_view basePrivilegeStr = R"({})";\n'.format(
+                json.dumps(json_file, indent=2)
+            )
+        )
+        registry.write(PRIVILEGE_TEST_TAILER)
+        os.system(f"clang-format -i --style=file {privilege_test_file}")
 
     max_privileges_cnt = 64
     with open(path, "w") as registry:
