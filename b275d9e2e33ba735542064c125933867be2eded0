@@ -189,6 +189,30 @@
       },
       "revId": "b275d9e2e33ba735542064c125933867be2eded0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "58faf2ed_e04cfb02",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-10-25T18:26:49Z",
+      "side": 1,
+      "message": "Empty() is used to determine if the value did not translate to Redfish properly.",
+      "parentUuid": "91f4854a_3c6d13b7",
+      "range": {
+        "startLine": 10,
+        "startChar": 18,
+        "endLine": 10,
+        "endChar": 38
+      },
+      "revId": "b275d9e2e33ba735542064c125933867be2eded0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
