@@ -47,6 +47,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ed12de3b_e31e32f3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 33
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-10-26T00:52:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "28fccb27_0d2440f4",
+      "range": {
+        "startLine": 13,
+        "startChar": 41,
+        "endLine": 13,
+        "endChar": 43
+      },
+      "revId": "0e9d041ccd263d5546b21bb916cf6b04cf547a6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f409124d_193ce6f2",
@@ -60,6 +84,30 @@
       "writtenOn": "2022-10-25T16:36:28Z",
       "side": 1,
       "message": "nit: space?",
+      "range": {
+        "startLine": 14,
+        "startChar": 24,
+        "endLine": 14,
+        "endChar": 25
+      },
+      "revId": "0e9d041ccd263d5546b21bb916cf6b04cf547a6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c4a96f7e_7f5bdd4e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 33
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-10-26T00:52:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f409124d_193ce6f2",
       "range": {
         "startLine": 14,
         "startChar": 24,
@@ -100,6 +148,30 @@
       "writtenOn": "2022-10-25T23:43:44Z",
       "side": 1,
       "message": "missing HEAD handler.",
+      "range": {
+        "startLine": 55,
+        "startChar": 43,
+        "endLine": 55,
+        "endChar": 46
+      },
+      "revId": "0e9d041ccd263d5546b21bb916cf6b04cf547a6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "276803ed_8a715432",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 33
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-10-26T00:52:16Z",
+      "side": 1,
+      "message": "\u003e missing HEAD handler.\n\nyou mean L: 31?",
+      "parentUuid": "08290af2_97906227",
       "range": {
         "startLine": 55,
         "startChar": 43,
