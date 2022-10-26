@@ -48,6 +48,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "deec2619_3df61ad2",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-10-26T13:03:44Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "39584831_61dfc021",
+      "range": {
+        "startLine": 49,
+        "startChar": 11,
+        "endLine": 49,
+        "endChar": 73
+      },
+      "revId": "98a8e8f730aa9af0538869f12ed41dabf074d771",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "677a164c_968c726e",
@@ -132,6 +156,30 @@
       "side": 1,
       "message": "Done",
       "parentUuid": "95f26180_398c3e48",
+      "range": {
+        "startLine": 116,
+        "startChar": 4,
+        "endLine": 116,
+        "endChar": 19
+      },
+      "revId": "98a8e8f730aa9af0538869f12ed41dabf074d771",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "17c730a8_cb26c0d7",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-10-26T13:03:44Z",
+      "side": 1,
+      "message": "I meant to do this like this:\n\n```\nnlohmann::json::object item;\n```",
+      "parentUuid": "cd1b176d_d23d383f",
       "range": {
         "startLine": 116,
         "startChar": 4,
