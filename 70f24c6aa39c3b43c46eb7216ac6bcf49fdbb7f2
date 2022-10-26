@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e1c4d480_cf18e82e",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-10-26T16:36:57Z",
+      "side": 1,
+      "message": "nit: you don\u0027t need these curly bracket. std::string service will be default get it an empty string",
+      "range": {
+        "startLine": 155,
+        "startChar": 27,
+        "endLine": 155,
+        "endChar": 29
+      },
+      "revId": "70f24c6aa39c3b43c46eb7216ac6bcf49fdbb7f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
