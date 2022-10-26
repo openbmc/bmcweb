@@ -49,6 +49,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3712d4fc_fd737aa1",
+        "filename": "http/routing.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1188,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-10-26T16:23:13Z",
+      "side": 1,
+      "message": "Yes, but I just follow the existing code. I can fix existing in another patch.",
+      "parentUuid": "558a2b7a_9f5f97ac",
+      "range": {
+        "startLine": 1188,
+        "startChar": 8,
+        "endLine": 1188,
+        "endChar": 30
+      },
+      "revId": "7747e05831f1a6ca3e8916ec553f1d71281e7de9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a455ceea_f4f07608",
         "filename": "redfish-core/src/privileges.cpp",
         "patchSetId": 4
