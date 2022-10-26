@@ -507,25 +507,18 @@ inline void
             thisEntry["Id"] = entryID;
             thisEntry["EntryType"] = "Event";
             thisEntry["Name"] = dumpType + " Dump Entry";
+            thisEntry["Created"] =
+                redfish::time_utils::getDateTimeUintUs(timestampUs);
 
             if (dumpType == "BMC")
             {
-                thisEntry["Created"] = redfish::time_utils::getDateTimeUint(
-                    timestampUs / 1000 / 1000);
                 thisEntry["DiagnosticDataType"] = "Manager";
                 thisEntry["AdditionalDataURI"] =
                     entriesPath + entryID + "/attachment";
                 thisEntry["AdditionalDataSizeBytes"] = size;
             }
-            else if (dumpType == "FaultLog")
-            {
-                thisEntry["Created"] =
-                    redfish::time_utils::getDateTimeUintUs(timestampUs);
-            }
             else if (dumpType == "System")
             {
-                thisEntry["Created"] = redfish::time_utils::getDateTimeUint(
-                    timestampUs / 1000 / 1000);
                 thisEntry["DiagnosticDataType"] = "OEM";
                 thisEntry["OEMDiagnosticDataType"] = "System";
                 thisEntry["AdditionalDataURI"] =
@@ -599,27 +592,18 @@ inline void
             asyncResp->res.jsonValue["Id"] = entryID;
             asyncResp->res.jsonValue["EntryType"] = "Event";
             asyncResp->res.jsonValue["Name"] = dumpType + " Dump Entry";
+            asyncResp->res.jsonValue["Created"] =
+                redfish::time_utils::getDateTimeUintUs(timestampUs);
 
             if (dumpType == "BMC")
             {
-                asyncResp->res.jsonValue["Created"] =
-                    redfish::time_utils::getDateTimeUint(timestampUs / 1000 /
-                                                         1000);
                 asyncResp->res.jsonValue["DiagnosticDataType"] = "Manager";
                 asyncResp->res.jsonValue["AdditionalDataURI"] =
                     entriesPath + entryID + "/attachment";
                 asyncResp->res.jsonValue["AdditionalDataSizeBytes"] = size;
             }
-            else if (dumpType == "FaultLog")
-            {
-                asyncResp->res.jsonValue["Created"] =
-                    redfish::time_utils::getDateTimeUintUs(timestampUs);
-            }
             else if (dumpType == "System")
             {
-                asyncResp->res.jsonValue["Created"] =
-                    redfish::time_utils::getDateTimeUint(timestampUs / 1000 /
-                                                         1000);
                 asyncResp->res.jsonValue["DiagnosticDataType"] = "OEM";
                 asyncResp->res.jsonValue["OEMDiagnosticDataType"] = "System";
                 asyncResp->res.jsonValue["AdditionalDataURI"] =
