@@ -22,6 +22,184 @@
       },
       "revId": "70f24c6aa39c3b43c46eb7216ac6bcf49fdbb7f2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e03a8358_b705e921",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-10-26T16:52:07Z",
+      "side": 1,
+      "message": "Common error #1\n\nThis also assumes that there\u0027s only 1 service in the list, completely ignoring the DBus usage rules.",
+      "range": {
+        "startLine": 158,
+        "startChar": 36,
+        "endLine": 158,
+        "endChar": 38
+      },
+      "revId": "70f24c6aa39c3b43c46eb7216ac6bcf49fdbb7f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2e5cf40d_aaba050e",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-10-26T16:52:07Z",
+      "side": 1,
+      "message": "these are generally not passed as const values.\n\nconst boost::system::error_code\u0026 ec, bool assert\n\nIs what I would expect here.",
+      "range": {
+        "startLine": 165,
+        "startChar": 56,
+        "endLine": 165,
+        "endChar": 61
+      },
+      "revId": "70f24c6aa39c3b43c46eb7216ac6bcf49fdbb7f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f14c4c17_c4066c5c",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-10-26T16:52:07Z",
+      "side": 1,
+      "message": "internalError() here?",
+      "range": {
+        "startLine": 168,
+        "startChar": 16,
+        "endLine": 168,
+        "endChar": 22
+      },
+      "revId": "70f24c6aa39c3b43c46eb7216ac6bcf49fdbb7f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c7fa810f_bc694c7a",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-10-26T16:52:07Z",
+      "side": 1,
+      "message": "LocationIndicator is different than the LED state, and should only return true if the device is currently trying to be located, and for no other reason.  Is that modeled in the backend?  This path looks like it\u0027s based on the direct value of the property.",
+      "range": {
+        "startLine": 171,
+        "startChar": 0,
+        "endLine": 171,
+        "endChar": 69
+      },
+      "revId": "70f24c6aa39c3b43c46eb7216ac6bcf49fdbb7f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b74c9b14_81326b07",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-10-26T16:52:07Z",
+      "side": 1,
+      "message": "Please don\u0027t hardcode paths like this.  Use the mapper to look them up without having to do a direct string comparison.\n\nCommon error #12",
+      "range": {
+        "startLine": 219,
+        "startChar": 30,
+        "endLine": 219,
+        "endChar": 48
+      },
+      "revId": "70f24c6aa39c3b43c46eb7216ac6bcf49fdbb7f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9c020201_97157e93",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 3026,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-10-26T16:52:07Z",
+      "side": 1,
+      "message": "Please use a more specific check here.  Not all errors are non-existence errors in the mapper.",
+      "range": {
+        "startLine": 3026,
+        "startChar": 0,
+        "endLine": 3026,
+        "endChar": 31
+      },
+      "revId": "70f24c6aa39c3b43c46eb7216ac6bcf49fdbb7f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f1b39783_a62af8d5",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 3161,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-10-26T16:52:07Z",
+      "side": 1,
+      "message": "This is going to set ALL leds within this tree.  That\u0027s almost certainly not what\u0027s intended by the user",
+      "revId": "70f24c6aa39c3b43c46eb7216ac6bcf49fdbb7f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "52d780b4_dfaf1d2c",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 3173,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-10-26T16:52:07Z",
+      "side": 1,
+      "message": "Why is this looking for Item.System?  Shouldn\u0027t this be looking for LED instances attached to a system?",
+      "range": {
+        "startLine": 3173,
+        "startChar": 21,
+        "endLine": 3173,
+        "endChar": 62
+      },
+      "revId": "70f24c6aa39c3b43c46eb7216ac6bcf49fdbb7f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
