@@ -71,6 +71,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6adf8914_47d4e6b8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 33
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-10-26T02:25:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "43233f53_d19dd12f",
+      "range": {
+        "startLine": 13,
+        "startChar": 41,
+        "endLine": 13,
+        "endChar": 43
+      },
+      "revId": "0e9d041ccd263d5546b21bb916cf6b04cf547a6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f409124d_193ce6f2",
@@ -196,6 +220,30 @@
       "side": 1,
       "message": "Like https://github.com/openbmc/bmcweb/blob/bb759e3aeaadfec9f3aac4485f253bcc8a523e4c/redfish-core/lib/redfish_sessions.hpp#L395\n\ninline void requestRoutesEnvironmentMetrics(App\u0026 app)\n{\n    BMCWEB_ROUTE(app, \"/redfish/v1/Chassis/\u003cstr\u003e/EnvironmentMetrics/\")\n        .privileges(redfish::privileges::getEnvironmentMetrics)\n        .methods(boost::beast::http::verb::get)(\n            std::bind_front(handleEnvironmentMetricsGet, std::ref(app)));\n\n    BMCWEB_ROUTE(app, \"/redfish/v1/Chassis/\u003cstr\u003e/EnvironmentMetrics/\")\n        .privileges(redfish::privileges::headEnvironmentMetrics)\n        .methods(boost::beast::http::verb::head)(\n            std::bind_front(handleEnvironmentMetricsHead, std::ref(app)));\n}",
       "parentUuid": "276803ed_8a715432",
+      "range": {
+        "startLine": 55,
+        "startChar": 43,
+        "endLine": 55,
+        "endChar": 46
+      },
+      "revId": "0e9d041ccd263d5546b21bb916cf6b04cf547a6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e363b28_3f139201",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 33
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-10-26T02:25:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "37fdee39_ba287f2a",
       "range": {
         "startLine": 55,
         "startChar": 43,
