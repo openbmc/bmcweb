@@ -188,6 +188,30 @@
       },
       "revId": "98a8e8f730aa9af0538869f12ed41dabf074d771",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bb9469e4_27e8823e",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-10-27T06:19:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "17c730a8_cb26c0d7",
+      "range": {
+        "startLine": 116,
+        "startChar": 4,
+        "endLine": 116,
+        "endChar": 19
+      },
+      "revId": "98a8e8f730aa9af0538869f12ed41dabf074d771",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
