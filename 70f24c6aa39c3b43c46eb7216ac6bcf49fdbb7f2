@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "afc83526_bff017b0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-10-27T03:07:59Z",
+      "side": 1,
+      "message": "\u003e Is this documented somewhere?\n\u003e \n\u003e https://github.com/openbmc/phosphor-dbus-interfaces/search?q\u003didentify_led_group\u0026type\u003d\n\nI answered this question once.\nrefer: https://github.com/openbmc/docs/blob/master/architecture/LED-architecture.md#redfish",
+      "parentUuid": "1df5b85c_f8390320",
+      "range": {
+        "startLine": 10,
+        "startChar": 50,
+        "endLine": 10,
+        "endChar": 68
+      },
+      "revId": "70f24c6aa39c3b43c46eb7216ac6bcf49fdbb7f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e1c4d480_cf18e82e",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-10-26T16:36:57Z",
       "side": 1,
       "message": "nit: you don\u0027t need these curly bracket. std::string service will be default get it an empty string",
+      "range": {
+        "startLine": 155,
+        "startChar": 27,
+        "endLine": 155,
+        "endChar": 29
+      },
+      "revId": "70f24c6aa39c3b43c46eb7216ac6bcf49fdbb7f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c3b31c77_469a15a3",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-10-27T03:07:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e1c4d480_cf18e82e",
       "range": {
         "startLine": 155,
         "startChar": 27,
@@ -94,6 +142,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2c89ed63_4138506a",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-10-27T03:07:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4623f660_2bbe803b",
+      "range": {
+        "startLine": 158,
+        "startChar": 36,
+        "endLine": 158,
+        "endChar": 38
+      },
+      "revId": "70f24c6aa39c3b43c46eb7216ac6bcf49fdbb7f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2e5cf40d_aaba050e",
@@ -107,6 +179,30 @@
       "writtenOn": "2022-10-26T16:52:07Z",
       "side": 1,
       "message": "these are generally not passed as const values.\n\nconst boost::system::error_code\u0026 ec, bool assert\n\nIs what I would expect here.",
+      "range": {
+        "startLine": 165,
+        "startChar": 56,
+        "endLine": 165,
+        "endChar": 61
+      },
+      "revId": "70f24c6aa39c3b43c46eb7216ac6bcf49fdbb7f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "39e1cfb4_1c4f880e",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-10-27T03:07:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2e5cf40d_aaba050e",
       "range": {
         "startLine": 165,
         "startChar": 56,
@@ -164,6 +260,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "536152c2_29a3b266",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-10-27T03:07:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8fa6401f_0279f633",
+      "range": {
+        "startLine": 168,
+        "startChar": 16,
+        "endLine": 168,
+        "endChar": 22
+      },
+      "revId": "70f24c6aa39c3b43c46eb7216ac6bcf49fdbb7f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c7fa810f_bc694c7a",
@@ -177,6 +297,30 @@
       "writtenOn": "2022-10-26T16:52:07Z",
       "side": 1,
       "message": "LocationIndicator is different than the LED state, and should only return true if the device is currently trying to be located, and for no other reason.  Is that modeled in the backend?  This path looks like it\u0027s based on the direct value of the property.",
+      "range": {
+        "startLine": 171,
+        "startChar": 0,
+        "endLine": 171,
+        "endChar": 69
+      },
+      "revId": "70f24c6aa39c3b43c46eb7216ac6bcf49fdbb7f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "62114f41_9ddb6cba",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-10-27T03:07:59Z",
+      "side": 1,
+      "message": "\u003e LocationIndicator is different than the LED state, and should only return true if the device is currently trying to be located, and for no other reason.  Is that modeled in the backend?  This path looks like it\u0027s based on the direct value of the property.\n\nSorry, I am not following.\nBecause the previous logic is like this, here I just do the refactor, @Gunnar, What do you think?",
+      "parentUuid": "c7fa810f_bc694c7a",
       "range": {
         "startLine": 171,
         "startChar": 0,
@@ -212,6 +356,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "32f82a8b_fcc78a44",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-10-27T03:07:59Z",
+      "side": 1,
+      "message": "\u003e Please don\u0027t hardcode paths like this.  Use the mapper to look them up without having to do a direct string comparison.\n\u003e \n\u003e Common error #12\n\nSorry, Do you mean we should use mapper to find paths like `/xyz/openbmc_project/.../identify_led_group`?\n\nI think we should use association to obtain the ledGroup whose rType is equal to identify_led_group. So I do not think here is hardcode.\n\nhttps://github.com/openbmc/docs/blob/master/architecture/LED-architecture.md#redfish",
+      "parentUuid": "b74c9b14_81326b07",
+      "range": {
+        "startLine": 219,
+        "startChar": 30,
+        "endLine": 219,
+        "endChar": 48
+      },
+      "revId": "70f24c6aa39c3b43c46eb7216ac6bcf49fdbb7f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9c020201_97157e93",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 9
@@ -223,6 +391,30 @@
       "writtenOn": "2022-10-26T16:52:07Z",
       "side": 1,
       "message": "Please use a more specific check here.  Not all errors are non-existence errors in the mapper.",
+      "range": {
+        "startLine": 3026,
+        "startChar": 0,
+        "endLine": 3026,
+        "endChar": 31
+      },
+      "revId": "70f24c6aa39c3b43c46eb7216ac6bcf49fdbb7f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "34dc0700_446a3922",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 3026,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-10-27T03:07:59Z",
+      "side": 1,
+      "message": "\u003e Please use a more specific check here.  Not all errors are non-existence errors in the mapper.\n\nI only refer to L: 2999 here. If this is an error, other places should also be modified synchronously.\n\nI added a systems_utils.hpp to obtain a valid systemID.",
+      "parentUuid": "9c020201_97157e93",
       "range": {
         "startLine": 3026,
         "startChar": 0,
@@ -250,6 +442,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3c26d876_db94748e",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 3161,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-10-27T03:07:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f1b39783_a62af8d5",
+      "revId": "70f24c6aa39c3b43c46eb7216ac6bcf49fdbb7f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "52d780b4_dfaf1d2c",
@@ -263,6 +473,30 @@
       "writtenOn": "2022-10-26T16:52:07Z",
       "side": 1,
       "message": "Why is this looking for Item.System?  Shouldn\u0027t this be looking for LED instances attached to a system?",
+      "range": {
+        "startLine": 3173,
+        "startChar": 21,
+        "endLine": 3173,
+        "endChar": 62
+      },
+      "revId": "70f24c6aa39c3b43c46eb7216ac6bcf49fdbb7f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "72901413_627dade8",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 3173,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-10-27T03:07:59Z",
+      "side": 1,
+      "message": "\u003e Why is this looking for Item.System?  Shouldn\u0027t this be looking for LED instances attached to a system?\n\nNo, Looking for Item.System is used to obtain the object path of the valid systemId. It has been refactored here",
+      "parentUuid": "52d780b4_dfaf1d2c",
       "range": {
         "startLine": 3173,
         "startChar": 21,
