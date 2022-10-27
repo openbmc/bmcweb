@@ -160,6 +160,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e5b88ade_fd31b18b",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 52
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-10-27T08:22:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d887454b_cab12284",
+      "range": {
+        "startLine": 67,
+        "startChar": 0,
+        "endLine": 74,
+        "endChar": 16
+      },
+      "revId": "81ba8fadf43e5a2c419c613eb64f6e890a2d6124",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a847dccf_1ff088b3",
@@ -221,6 +245,30 @@
       "side": 1,
       "message": "\u003e  to change the name to ReadingParameters and remove ReadingParametersFutureVersion from telemetry service backend.\n\nTHen we have to do a breaking change anyway, it just delays it, and complicates testing and merges..  Just list the commit you you need that makes the breaking change, and we can just make sure they bump at the same time.  There\u0027s only one implementation of this, so it should be trivial to just bump them at the same time, which we\u0027d have to do anyway later.",
       "parentUuid": "8cbc6d8b_5d32c9b0",
+      "range": {
+        "startLine": 80,
+        "startChar": 9,
+        "endLine": 80,
+        "endChar": 39
+      },
+      "revId": "81ba8fadf43e5a2c419c613eb64f6e890a2d6124",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d41b7c64_e6d064f0",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 52
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-10-27T08:22:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cda6f799_093b75be",
       "range": {
         "startLine": 80,
         "startChar": 9,
