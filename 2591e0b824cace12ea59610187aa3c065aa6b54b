@@ -197,6 +197,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f9cb1051_be6a8c4a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-10-27T06:58:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8839f1e0_fb1f5a51",
+      "revId": "2591e0b824cace12ea59610187aa3c065aa6b54b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8323f36f_0bdecc7b",
@@ -329,6 +347,30 @@
       "side": 1,
       "message": "\u003e I see no mention of a chassis-fan association in the docs you linked.  Maybe I missed it?\n\nOh, This is the path of the fan sensor. For all sensor paths, we have associated an all_sensors, and its rType is chassis.\n\neg: fanSensorPath\u003d/xyz/openbmc_project/sensors/fan_tach/fan0_0\n```\nbusctl get-property  xyz.openbmc_project.ObjectMapper /xyz/openbmc_project/sensors/fan_tach/fan0_0/chassis xyz.openbmc_project.Association endpoints --verbose\nARRAY \"s\" {\n        STRING \"/xyz/openbmc_project/inventory/system/chassis\";\n};\n\n```\n\nhttps://github.com/openbmc/docs/blob/fd0ec1f9212f127bf302dd4ceb8f4fa2e29a5f1d/architecture/sensor-architecture.md#association-names\n\nBut, I have updated here with a new commit, and removed this validation logic.",
       "parentUuid": "d49ab552_9cf1086c",
+      "range": {
+        "startLine": 125,
+        "startChar": 50,
+        "endLine": 125,
+        "endChar": 57
+      },
+      "revId": "2591e0b824cace12ea59610187aa3c065aa6b54b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e21e20c_b929f6bd",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-10-27T06:58:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "79766cee_45ffd074",
       "range": {
         "startLine": 125,
         "startChar": 50,
