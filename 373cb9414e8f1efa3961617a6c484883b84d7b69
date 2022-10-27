@@ -146,6 +146,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c3287ee9_38754b95",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-10-27T18:38:25Z",
+      "side": 1,
+      "message": "An email about the changes in this code review have been sent to the mailing list openbmc@lists.ozlabs.org\n\nSubject: \"Proposed bmcweb dump LogService \"Name\" change\"\nLink: https://lists.ozlabs.org/pipermail/openbmc/2022-October/032290.html",
+      "parentUuid": "414bd628_538f4069",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 63
+      },
+      "revId": "373cb9414e8f1efa3961617a6c484883b84d7b69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ec17652c_42f14f01",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
