@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "e156f530_ee0546a7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-10-28T16:09:50Z",
+      "side": 1,
+      "message": "And you verified the permissions didn\u0027t change? E.g. you verified ReadOnly user can GET /redfish/v1/Chassis/\u003cstr\u003e/ but not PATCH/POST?\n\nYou verified redfish::privileges::EntityTag::tagChassis is the correct privilege in both: \n\n    REDFISH_ROUTE(app, \"/redfish/v1/Chassis/\u003cstr\u003e/\",\n                  redfish::privileges::EntityTag::tagChassis,\n                  boost::beast::http::verb::get)\n    (std::bind_front(handleChassisGet, std::ref(app)));\n    REDFISH_ROUTE(app, \"/redfish/v1/Chassis/\u003cstr\u003e/\",\n                  redfish::privileges::EntityTag::tagChassis,\n                  boost::beast::http::verb::patch)\n    (std::bind_front(handleChassisPatch, std::ref(app)));",
+      "revId": "38c573867afb880ca9c72920416879d8c3c84088",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "90805556_d30e405c",
@@ -14,6 +31,23 @@
       "writtenOn": "2022-10-28T16:03:21Z",
       "side": 1,
       "message": "Can this get broken up ? +2335 -2914  is a huge commit ",
+      "revId": "38c573867afb880ca9c72920416879d8c3c84088",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "10b7ea33_c2293f42",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-10-28T16:09:50Z",
+      "side": 1,
+      "message": "Why do we need EntityTag in each one?",
       "revId": "38c573867afb880ca9c72920416879d8c3c84088",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
