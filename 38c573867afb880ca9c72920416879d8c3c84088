@@ -35,6 +35,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac6e3862_3d4a8cdd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-10-28T16:24:45Z",
+      "side": 1,
+      "message": "I have split the unit test to the child.\n\nTo help view, I have added this note in commit message:\n\n```\nPlease note: a large number of lines changed here is by the script,\nspecifically, |redfish-core/include/registries/privilege_registry.hpp|.\nThe majority of the change is in |http/routing.hpp|,\n|redfish-core/include/privileges.hpp|, and |http/http_verbs.hpp|.\n```\n\nIf you take out tree wide macro change, and the script generated |privilege_registry|. There is not a lot left. And I don\u0027t find an easy way to split this change further.",
+      "parentUuid": "90805556_d30e405c",
+      "revId": "38c573867afb880ca9c72920416879d8c3c84088",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "10b7ea33_c2293f42",
