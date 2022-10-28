@@ -110,6 +110,7 @@ namespace redfish
         "TaskService",
         "TelemetryService",
         "Thermal",
+        "ThermalMetrics",
         "ThermalSubsystem",
         "Triggers",
         "TriggersCollection",
