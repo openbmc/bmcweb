@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "125ec781_31d6c304",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-10-28T16:31:35Z",
+      "side": 1,
+      "message": "Can you mention the association used here?",
+      "revId": "e5c5484bf964fc43c71024e71111d154da620ebd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2e81683f_34ec499d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-10-28T16:31:35Z",
+      "side": 1,
+      "message": "Needs to go with the commit above right? Otherwise will fail the validator because this link will return a 404 ? Can you call that out in the commit?",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 14
+      },
+      "revId": "e5c5484bf964fc43c71024e71111d154da620ebd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "131df992_b7574fd9",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-10-28T16:31:35Z",
+      "side": 1,
+      "message": "Need to handle 404",
+      "revId": "e5c5484bf964fc43c71024e71111d154da620ebd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
