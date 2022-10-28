@@ -117,6 +117,7 @@ include_list = [
     "TaskService",
     "TelemetryService",
     "Thermal",
+    "ThermalMetrics",
     "ThermalSubsystem",
     "Triggers",
     "TriggersCollection",
