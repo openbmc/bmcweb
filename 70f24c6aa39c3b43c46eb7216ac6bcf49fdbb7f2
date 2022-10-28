@@ -333,6 +333,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2059af7d_3a40d0e6",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-10-28T03:45:10Z",
+      "side": 1,
+      "message": "I thought the LocationIndicatorActive mapped to the relevant led group so seems correct to me.  The client would PATCH this, and GET its value. These are on the inventory page on the GUI as a toggle. This seems correct to me.",
+      "parentUuid": "62114f41_9ddb6cba",
+      "range": {
+        "startLine": 171,
+        "startChar": 0,
+        "endLine": 171,
+        "endChar": 69
+      },
+      "revId": "70f24c6aa39c3b43c46eb7216ac6bcf49fdbb7f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b74c9b14_81326b07",
         "filename": "redfish-core/lib/led.hpp",
         "patchSetId": 9
