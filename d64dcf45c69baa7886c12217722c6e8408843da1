@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "317caf9a_1619593d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-10-28T15:50:50Z",
+      "side": 1,
+      "message": "What do we plan to use in thermal metrics? Why do we need this commit?",
+      "revId": "d64dcf45c69baa7886c12217722c6e8408843da1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
