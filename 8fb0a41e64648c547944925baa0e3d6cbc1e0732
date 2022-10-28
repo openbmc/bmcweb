@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "32bf6a2a_a83f273f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-10-28T16:34:29Z",
+      "side": 1,
+      "message": "2020.4 ? 2022.2?",
+      "range": {
+        "startLine": 9,
+        "startChar": 58,
+        "endLine": 9,
+        "endChar": 65
+      },
+      "revId": "8fb0a41e64648c547944925baa0e3d6cbc1e0732",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c9c86b4e_6ccc3e73",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-10-28T16:34:29Z",
+      "side": 1,
+      "message": "404",
+      "revId": "8fb0a41e64648c547944925baa0e3d6cbc1e0732",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
