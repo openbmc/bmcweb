@@ -68,6 +68,24 @@
       "message": "Why do we need EntityTag in each one?",
       "revId": "38c573867afb880ca9c72920416879d8c3c84088",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "31c9b9af_0fe13094",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-10-28T16:27:06Z",
+      "side": 1,
+      "message": "It is explained in the commit message. It\u0027s non-trivial to infer the EntityTag from the URL. Given that URL and corresponding handler is decided at\ncompile time, adding an Entity in compile time doesn\u0027t introduce much\ntoil. Tags are implemented as enum, thus no much space increased.\n\nThis commit doesn\u0027t increase binary size but filled a big gap that existing authz code has",
+      "parentUuid": "10b7ea33_c2293f42",
+      "revId": "38c573867afb880ca9c72920416879d8c3c84088",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
