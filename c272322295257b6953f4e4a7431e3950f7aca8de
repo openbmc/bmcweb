@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba2d5646_9e88cdb7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-10-28T16:19:37Z",
+      "side": 1,
+      "message": "CI is using .63 \nhttps://github.com/openbmc/openbmc-build-scripts/commit/fb612a5183ba7e4982801603062574b8cd9c0fb5\n\nLooks like Yocto too \nhttps://github.com/openbmc/openbmc/tree/master/poky/meta/recipes-devtools/meson\n\n.63 might be reasonable, .60 definitely reasonable since we are using features of .60 already.",
+      "revId": "c272322295257b6953f4e4a7431e3950f7aca8de",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
