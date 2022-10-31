@@ -71,6 +71,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "a7d3f35e_932bf32f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-10-31T16:18:55Z",
+      "side": 1,
+      "message": "Binary size testing: please take another look at commit message. Search binary size.\n\nStartup time testing: I can add. Last time I test it there was no significant difference by looking at systemd timestamps. Do you have other options for testing this?",
+      "parentUuid": "2375ecb9_71da0c8b",
+      "revId": "38c573867afb880ca9c72920416879d8c3c84088",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "90805556_d30e405c",
@@ -136,6 +154,30 @@
       "writtenOn": "2022-10-31T15:41:11Z",
       "side": 1,
       "message": "Considering that Redfish defines every type by URL, should we be avoiding putting entityTag into REDFISH_ROUTE.  For example\n\nREDFISH_ROUTE(\"/redfish/v1\", EntityTag::tagSessionCollection)\n\nWould be incorrect.",
+      "range": {
+        "startLine": 33,
+        "startChar": 13,
+        "endLine": 33,
+        "endChar": 22
+      },
+      "revId": "38c573867afb880ca9c72920416879d8c3c84088",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ed2c4507_f81ce867",
+        "filename": "http/app.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-10-31T16:18:55Z",
+      "side": 1,
+      "message": "Today, we already have this issue. It\u0027s not that this commit introduces it.\n\nI don\u0027t want to handle the complexity of inferring EntityTag from URL. This is called out in both design and this commit message. Do you have an idea about this inferring? Does it make sense to block this commit because of an existing issue?",
+      "parentUuid": "22001792_900200c5",
       "range": {
         "startLine": 33,
         "startChar": 13,
@@ -245,6 +287,30 @@
       "writtenOn": "2022-10-31T15:41:11Z",
       "side": 1,
       "message": "Please make another attempt at these data structures below.  Just because this code is generated does not meant that it\u0027s acceptable for it to be unreadable, or not follow the coding standard.  This is a security data structure, it needs to be able to be audited easily.\n\nThe previous code stored essentially the same information.",
+      "range": {
+        "startLine": 417,
+        "startChar": 0,
+        "endLine": 417,
+        "endChar": 64
+      },
+      "revId": "38c573867afb880ca9c72920416879d8c3c84088",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9c2183f0_b83fb978",
+        "filename": "redfish-core/include/registries/privilege_registry.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 417,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-10-31T16:18:55Z",
+      "side": 1,
+      "message": "Please take a look at https://gerrit.openbmc.org/c/openbmc/bmcweb/+/58192/6\n\nStoring bitmasks is called out in the design doc. The unit test guarantee any improper modification of this array results in test failures.\n\nThis is the most efficient way that I could think of. There is no easy way to store a two dimensional costexpr array.\n\nTo make these arrays readable, we can probably use a static map, if we accept it. \n\n\u003e The previous code stored essentially the same information.\n\nHow do you generate a PrivilegeRegistry from previous code?",
+      "parentUuid": "ba933006_53907b12",
       "range": {
         "startLine": 417,
         "startChar": 0,
