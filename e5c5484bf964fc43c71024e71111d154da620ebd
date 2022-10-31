@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a05e4450_0dbaf75f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-10-31T04:44:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "125ec781_31d6c304",
+      "revId": "e5c5484bf964fc43c71024e71111d154da620ebd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2e81683f_34ec499d",
@@ -31,6 +49,30 @@
       "writtenOn": "2022-10-28T16:31:35Z",
       "side": 1,
       "message": "Needs to go with the commit above right? Otherwise will fail the validator because this link will return a 404 ? Can you call that out in the commit?",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 14
+      },
+      "revId": "e5c5484bf964fc43c71024e71111d154da620ebd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5992f8f5_eccf0b29",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-10-31T04:44:28Z",
+      "side": 1,
+      "message": "\u003e Needs to go with the commit above right? Otherwise will fail the validator because this link will return a 404 ? Can you call that out in the commit?\n\nI added a commented here:\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/57668/10/redfish-core/lib/power_supply.hpp#54\n\nSo I removed it.",
+      "parentUuid": "2e81683f_34ec499d",
       "range": {
         "startLine": 27,
         "startChar": 0,
