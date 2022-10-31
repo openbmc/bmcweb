@@ -864,7 +864,7 @@ inline void objectPropertiesToJson(
             sensorJson["ReadingUnits"] = readingUnits;
         }
     }
-    else if (sensorType == "temperature")
+    if (sensorType == "temperature")
     {
         unit = "/ReadingCelsius"_json_pointer;
         sensorJson["@odata.type"] = "#Thermal.v1_3_0.Temperature";
