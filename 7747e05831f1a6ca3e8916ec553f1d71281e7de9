@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "14ebd42c_1b514bbd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-10-31T15:41:11Z",
+      "side": 1,
+      "message": "What is \"redfish test\"?",
+      "range": {
+        "startLine": 59,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 27
+      },
+      "revId": "7747e05831f1a6ca3e8916ec553f1d71281e7de9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bbb689b1_27608634",
         "filename": "http/app.hpp",
         "patchSetId": 4
@@ -38,6 +61,30 @@
       "side": 1,
       "message": "Yes, because not every route is a Redfish route. For example, web socket routes.\n\nReviewers should reject BMCWEB_ROUTE for Redfish resources after this change is merged. But non-redfish route can still use BMCWEB_ROUTE",
       "parentUuid": "bbb689b1_27608634",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 31
+      },
+      "revId": "7747e05831f1a6ca3e8916ec553f1d71281e7de9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d619eff0_95354f9b",
+        "filename": "http/app.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-10-31T15:41:11Z",
+      "side": 1,
+      "message": "Is there a way to avoid the macro here?  They\u0027re technically disallowed by the coding standard.  The macro on line 27 was only allowed because it predates bmcweb (it came from crow).\n\nPlease follow the coding standard if you\u0027re able.  If you\u0027re not able, please provide documentation as to why (wither in an inline comment or in the commit message).",
+      "parentUuid": "cf35b8e5_e5c4cad6",
       "range": {
         "startLine": 30,
         "startChar": 0,

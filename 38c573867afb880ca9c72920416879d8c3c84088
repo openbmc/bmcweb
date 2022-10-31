@@ -36,6 +36,41 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "60ef5247_9af8b356",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-10-31T15:41:11Z",
+      "side": 1,
+      "message": "+1 to the overall theme of \"this needs a much larger tested statement\".\n\nWe\u0027re messing with core privilege level things here that have significant potential to cause a CVE;  The level of testing expected here is going to be much higher.",
+      "parentUuid": "ab67fe41_91881e66",
+      "revId": "38c573867afb880ca9c72920416879d8c3c84088",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2375ecb9_71da0c8b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-10-31T15:41:11Z",
+      "side": 1,
+      "message": "Binary size testing?\n\nStartup time testing?",
+      "revId": "38c573867afb880ca9c72920416879d8c3c84088",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "90805556_d30e405c",
@@ -67,6 +102,178 @@
       "side": 1,
       "message": "I have split the unit test to the child.\n\nTo help view, I have added this note in commit message:\n\n```\nPlease note: a large number of lines changed here is by the script,\nspecifically, |redfish-core/include/registries/privilege_registry.hpp|.\nThe majority of the change is in |http/routing.hpp|,\n|redfish-core/include/privileges.hpp|, and |http/http_verbs.hpp|.\n```\n\nIf you take out tree wide macro change, and the script generated |privilege_registry|. There is not a lot left. And I don\u0027t find an easy way to split this change further.",
       "parentUuid": "90805556_d30e405c",
+      "revId": "38c573867afb880ca9c72920416879d8c3c84088",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "13c2d90a_6237d93b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-10-31T15:41:11Z",
+      "side": 1,
+      "message": "This commit still needs broken down.  As written it is too large to review, with that said, I\u0027ve gone through and reviewed some of it to get a jump start on this.",
+      "revId": "38c573867afb880ca9c72920416879d8c3c84088",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "22001792_900200c5",
+        "filename": "http/app.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-10-31T15:41:11Z",
+      "side": 1,
+      "message": "Considering that Redfish defines every type by URL, should we be avoiding putting entityTag into REDFISH_ROUTE.  For example\n\nREDFISH_ROUTE(\"/redfish/v1\", EntityTag::tagSessionCollection)\n\nWould be incorrect.",
+      "range": {
+        "startLine": 33,
+        "startChar": 13,
+        "endLine": 33,
+        "endChar": 22
+      },
+      "revId": "38c573867afb880ca9c72920416879d8c3c84088",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "94ca464a_11cd5eb5",
+        "filename": "http/app.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-10-31T15:41:11Z",
+      "side": 1,
+      "message": "The core routing layers should avoid having to know anything about Redfish.  They are intended to be reusable for non-redfish things.",
+      "range": {
+        "startLine": 89,
+        "startChar": 36,
+        "endLine": 89,
+        "endChar": 45
+      },
+      "revId": "38c573867afb880ca9c72920416879d8c3c84088",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "77ccfc42_1b10c565",
+        "filename": "http/http_verbs.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-10-31T15:41:11Z",
+      "side": 1,
+      "message": "Please put code moves in their own commit.  Also, please help to review the other commits that predate this making changes to the http verbs structures.",
+      "revId": "38c573867afb880ca9c72920416879d8c3c84088",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ae2f28f4_245a2bc8",
+        "filename": "http/routing.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-10-31T15:41:11Z",
+      "side": 1,
+      "message": "Same as above.  The core http layers should have no knowledge of Redfish.",
+      "range": {
+        "startLine": 40,
+        "startChar": 22,
+        "endLine": 40,
+        "endChar": 29
+      },
+      "revId": "38c573867afb880ca9c72920416879d8c3c84088",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e684291e_d79b501a",
+        "filename": "redfish-core/include/registries/privilege_registry.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-10-31T15:41:11Z",
+      "side": 1,
+      "message": "This is the default, and considering we\u0027re using this as an index, shouldn\u0027t this be size_t?",
+      "range": {
+        "startLine": 22,
+        "startChar": 23,
+        "endLine": 22,
+        "endChar": 26
+      },
+      "revId": "38c573867afb880ca9c72920416879d8c3c84088",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba933006_53907b12",
+        "filename": "redfish-core/include/registries/privilege_registry.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 417,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-10-31T15:41:11Z",
+      "side": 1,
+      "message": "Please make another attempt at these data structures below.  Just because this code is generated does not meant that it\u0027s acceptable for it to be unreadable, or not follow the coding standard.  This is a security data structure, it needs to be able to be audited easily.\n\nThe previous code stored essentially the same information.",
+      "range": {
+        "startLine": 417,
+        "startChar": 0,
+        "endLine": 417,
+        "endChar": 64
+      },
+      "revId": "38c573867afb880ca9c72920416879d8c3c84088",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0dc2d0b9_8d51a2c3",
+        "filename": "redfish-core/lib/hypervisor_system.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-10-31T15:41:11Z",
+      "side": 1,
+      "message": "Unclear what this has to do with this commit.",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 3,
+        "endChar": 23
+      },
       "revId": "38c573867afb880ca9c72920416879d8c3c84088",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
