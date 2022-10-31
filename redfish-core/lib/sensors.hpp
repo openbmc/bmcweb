@@ -864,10 +864,11 @@ inline void objectPropertiesToJson(
             sensorJson["ReadingUnits"] = readingUnits;
         }
     }
-    else if (sensorType == "temperature")
+    if (sensorType == "temperature")
     {
         unit = "/ReadingCelsius"_json_pointer;
         sensorJson["@odata.type"] = "#Thermal.v1_3_0.Temperature";
+
         // TODO(ed) Documentation says that path should be type fan_tach,
         // implementation seems to implement fan
     }
