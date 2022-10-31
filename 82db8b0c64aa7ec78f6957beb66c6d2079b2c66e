@@ -225,6 +225,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "06649c51_74e02ec8",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2022-10-31T23:04:06Z",
+      "side": 1,
+      "message": "Now that I look back on this question, what we\u0027re assuming is actually \"there will only be one running BMC that is visible from the current BMC\". For multi-BMC systems, an index will be used to identify different BMCs, as well as \"which one is the current BMC running the current instance of the operating system.\"\n\nIs this a fair assumption?",
+      "parentUuid": "42f40770_408850be",
+      "range": {
+        "startLine": 64,
+        "startChar": 0,
+        "endLine": 64,
+        "endChar": 37
+      },
+      "revId": "82db8b0c64aa7ec78f6957beb66c6d2079b2c66e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "da640cda_26c7e994",
         "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
         "patchSetId": 24
@@ -411,6 +435,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "534c0560_025fa4ac",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2022-10-31T23:04:06Z",
+      "side": 1,
+      "message": "I think these specific-named resources are in essence similar to other hard-coded string constants, and they are guaranteed by the daemons providing those strings, for example:\n* `/xyz/openbmc_project/state/chassis0` in chassis.hpp is provided by `x86-power-control`\n* `/xyz/openbmc_project/Intrusion` in chassis.hpp is provided by IntrusionSensor in `dbus-sensors`\n* `/xyz/openbmc_project/certs/client/ldap` in certificate_service.hpp is provided by `phosphor-certificate-manager`\n* `/xyz/openbmc_project/network/config/dhcp` in ethernet.hpp is provided by `phosphor-networkd`\n* `/xyz/openbmc_project/state/hypervisor0` in hypervisor_system.hpp is provided by `pldm`\n* `/xyz/openbmc_project/led/groups/enclosure_identify_blink` in `phosphor-led-manager`.\n\nSo similarly, I think having \"/xyz/openbmc_project//xyz/openbmc_project/sensors/utilization/CPU_User\" and alike provided by phospohr-health-monitor is a reasonable possibility to consider.",
+      "parentUuid": "440f86de_93180e61",
+      "range": {
+        "startLine": 274,
+        "startChar": 0,
+        "endLine": 275,
+        "endChar": 59
+      },
+      "revId": "82db8b0c64aa7ec78f6957beb66c6d2079b2c66e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "59a23472_bccb3b68",
@@ -448,6 +496,30 @@
       "side": 1,
       "message": "Same as above, the scope of how to identify different BMC metrics is beyond this change.",
       "parentUuid": "59a23472_bccb3b68",
+      "range": {
+        "startLine": 280,
+        "startChar": 40,
+        "endLine": 280,
+        "endChar": 49
+      },
+      "revId": "82db8b0c64aa7ec78f6957beb66c6d2079b2c66e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0052b4de_cdc9827b",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2022-10-31T23:04:06Z",
+      "side": 1,
+      "message": "I think the current agreed-upon design is: The associations between utilization sensors and the Inventory.Item.Bmc object will be used to tell BMC metrics apart from host metrics.",
+      "parentUuid": "66aba38a_885d2b8c",
       "range": {
         "startLine": 280,
         "startChar": 40,
@@ -519,6 +591,30 @@
       "side": 1,
       "message": "Looking at https://redfish.dmtf.org/schemas/v1/ManagerDiagnosticData_v1.xml\n\n/redfish/v1/Managers/{ManagerId}/ManagerDiagnosticData\n\nThis seems correct",
       "parentUuid": "08d28460_fff2030c",
+      "range": {
+        "startLine": 301,
+        "startChar": 48,
+        "endLine": 301,
+        "endChar": 69
+      },
+      "revId": "82db8b0c64aa7ec78f6957beb66c6d2079b2c66e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "82ace352_65ffca49",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2022-10-31T23:04:06Z",
+      "side": 1,
+      "message": "The schema does not have Autoexpand, and does not have any hyperlinks either, so if my understanding is correct, there is nothing to expand from this resource yet, and we don\u0027t need to do anything special to it.",
+      "parentUuid": "92dfb432_d74c6636",
       "range": {
         "startLine": 301,
         "startChar": 48,

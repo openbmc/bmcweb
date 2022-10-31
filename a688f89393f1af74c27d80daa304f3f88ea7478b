@@ -165,6 +165,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e3245b2b_545d3d50",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1000500
+      },
+      "writtenOn": "2022-10-31T23:04:06Z",
+      "side": 1,
+      "message": "I documented this a bit in phosphor-health-monitor (change 45835), let me know if there are other places where documents need to be added.",
+      "parentUuid": "edfa4a2d_7d21ad81",
+      "revId": "a688f89393f1af74c27d80daa304f3f88ea7478b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d07a651c_b6e5d1d8",
