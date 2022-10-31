@@ -89,6 +89,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "b7eeb48a_f7567227",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-10-31T16:21:44Z",
+      "side": 1,
+      "message": "\u003e Binary size testing: please take another look at commit message. Search binary size.\n\nACK.  I see this now.\n\n\u003e \n\u003e Startup time testing: I can add. Last time I test it there was no significant difference by looking at systemd timestamps. Do you have other options for testing this?\n\n\nWhen we did the same analysis years ago we did it with print statements, but if you can think of anything better, feel free to propose it.",
+      "parentUuid": "a7d3f35e_932bf32f",
+      "revId": "38c573867afb880ca9c72920416879d8c3c84088",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "90805556_d30e405c",
