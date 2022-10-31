@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2a726d0e_aca1b9d1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-10-31T07:45:49Z",
+      "side": 1,
+      "message": "\u003e 2020.4 ? 2022.2?\n\n2022.2",
+      "parentUuid": "32bf6a2a_a83f273f",
+      "range": {
+        "startLine": 9,
+        "startChar": 58,
+        "endLine": 9,
+        "endChar": 65
+      },
+      "revId": "8fb0a41e64648c547944925baa0e3d6cbc1e0732",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c9c86b4e_6ccc3e73",
@@ -37,6 +61,24 @@
       "writtenOn": "2022-10-28T16:34:29Z",
       "side": 1,
       "message": "404",
+      "revId": "8fb0a41e64648c547944925baa0e3d6cbc1e0732",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7c3b1a3f_a8fbac8f",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-10-31T07:45:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c9c86b4e_6ccc3e73",
       "revId": "8fb0a41e64648c547944925baa0e3d6cbc1e0732",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
