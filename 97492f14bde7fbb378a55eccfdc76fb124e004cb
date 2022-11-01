@@ -1231,6 +1231,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8fc000eb_077eb977",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 379,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-11-01T01:49:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b1a955de_b84ea528",
+      "range": {
+        "startLine": 379,
+        "startChar": 18,
+        "endLine": 379,
+        "endChar": 21
+      },
+      "revId": "97492f14bde7fbb378a55eccfdc76fb124e004cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fc78482e_3ec01e6d",
