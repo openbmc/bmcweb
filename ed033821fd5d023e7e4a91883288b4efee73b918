@@ -54,6 +54,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "dae659e6_5dc0eef7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-11-01T00:39:28Z",
+      "side": 1,
+      "message": "👍",
+      "parentUuid": "111e1fac_3400d33b",
+      "revId": "ed033821fd5d023e7e4a91883288b4efee73b918",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "e2386b29_70fa3ff0",
@@ -132,6 +150,30 @@
       "side": 1,
       "message": "Let me be clear. Previously, the codes search all the services that implement ObjectManager, for both sensors and ObjectMapper. So, if the ObjectMapper puts the ObjectManager in other places, previous codes still handle it.\n\nWe happen to fix the ObjectManager path of ObjectMapper in the same commit with sensors.",
       "parentUuid": "9c4bccc1_95433afb",
+      "range": {
+        "startLine": 1750,
+        "startChar": 53,
+        "endLine": 1750,
+        "endChar": 65
+      },
+      "revId": "ed033821fd5d023e7e4a91883288b4efee73b918",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bb41e60c_2ffc9819",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1750,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-11-01T00:39:28Z",
+      "side": 1,
+      "message": "Oh, I see what you\u0027re saying.  Now the ObjectMapper is on a fixed path.  Mentioned in the commit message.",
+      "parentUuid": "7ca7815d_97aba286",
       "range": {
         "startLine": 1750,
         "startChar": 53,
