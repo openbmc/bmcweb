@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3ba5d615_ee597e95",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 554,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-11-01T19:14:26Z",
+      "side": 1,
+      "message": "doesn\u0027t this need to be head?",
+      "range": {
+        "startLine": 554,
+        "startChar": 41,
+        "endLine": 554,
+        "endChar": 66
+      },
+      "revId": "32885244706a678cd0e14fef393e3d01a6e3d197",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "240f6f7d_bb35e096",
         "filename": "redfish-core/lib/network_protocol.hpp",
         "patchSetId": 3
