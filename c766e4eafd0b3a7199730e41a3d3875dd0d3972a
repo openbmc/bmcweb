@@ -72,6 +72,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "41c7318b_69c93116",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 38
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-11-01T03:23:41Z",
+      "side": 1,
+      "message": "\u003e \u003e Sorry, I checked `redfishtool`(https://github.com/DMTF/Redfishtool/), but I do not know how to use `redfishtool`.\n\u003e \u003e Could you point me an example with `POST code upload`? thanks.\n\u003e \n\u003e @Ed, Do you have any advice?\n\n@Ed, Redfishtool does not support UpdateService yet.",
+      "parentUuid": "b1014d52_49bfc9cf",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 2
+      },
+      "revId": "c766e4eafd0b3a7199730e41a3d3875dd0d3972a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d2636756_65f93939",
