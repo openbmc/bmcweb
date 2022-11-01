@@ -22,6 +22,76 @@
       },
       "revId": "4b23e596fcb4be69a14ecf38aa0f7c563db26dac",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e509f5cd_c9ff1591",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 30
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2022-11-01T15:46:07Z",
+      "side": 1,
+      "message": "Can you elaborate on what you\u0027re looking for?  I don\u0027t think this is something explicitly documented in a Redfish schema or anything.\n\nThere are a few phosphor-state-manager and architecture documents that specify multi-hosts are suppose to be numbered this way.",
+      "parentUuid": "b57241cf_f9d5d5b6",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 69
+      },
+      "revId": "4b23e596fcb4be69a14ecf38aa0f7c563db26dac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "127f01e2_c3bd3863",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2022-11-01T15:46:07Z",
+      "side": 1,
+      "message": "This seems a little unusual to me to name this function \"Index\" but return a string, which I guess is a string representation of the index but doesn\u0027t help the long term readability of the code.",
+      "range": {
+        "startLine": 83,
+        "startChar": 36,
+        "endLine": 83,
+        "endChar": 41
+      },
+      "revId": "4b23e596fcb4be69a14ecf38aa0f7c563db26dac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5047f9ee_bc767624",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2022-11-01T15:46:07Z",
+      "side": 1,
+      "message": "Suggest some more defensive programming such as:\n\n```\nstatic constexpr std::string_view systemToken \u003d \"system\";\nstatic constexpr std::string zero \u003d \"0\";\n\nauto location \u003d systemNameStr.rfind(systemTokenStr);\nif (location \u003d\u003d std::string::npos) return zero;\n\nauto index \u003d systemNameStr.substr(location + systemToken.length())\nif (index.length() \u003d\u003d 0) return zero;\n\nreturn index;\n```",
+      "range": {
+        "startLine": 85,
+        "startChar": 0,
+        "endLine": 91,
+        "endChar": 57
+      },
+      "revId": "4b23e596fcb4be69a14ecf38aa0f7c563db26dac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
