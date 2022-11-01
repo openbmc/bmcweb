@@ -94,6 +94,30 @@
       },
       "revId": "9ef07b807ee6f5fdac4b58e04cd09a6be0334762",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3696f7b0_a34e42ad",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1946,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-11-01T20:23:29Z",
+      "side": 1,
+      "message": "Seems reasonable.  Will make the change once I get some indication that this patchset overall would work for the proposed use case.  Sunitha?",
+      "parentUuid": "b54292f3_ea69ff93",
+      "range": {
+        "startLine": 1946,
+        "startChar": 12,
+        "endLine": 1946,
+        "endChar": 67
+      },
+      "revId": "9ef07b807ee6f5fdac4b58e04cd09a6be0334762",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
