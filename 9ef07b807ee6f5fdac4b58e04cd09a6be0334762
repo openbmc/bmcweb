@@ -70,6 +70,30 @@
       },
       "revId": "9ef07b807ee6f5fdac4b58e04cd09a6be0334762",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b54292f3_ea69ff93",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1946,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-11-01T19:12:48Z",
+      "side": 1,
+      "message": "\u003e No, this is kind of the point I made on discord, not all systems will support Quiesced, so it not existing isn\u0027t a bug.\n\nNot sure this should be a BMCWEB_LOG_ERROR then, how about a WARNING or INFO ?",
+      "parentUuid": "fad0d20f_ef65d4c2",
+      "range": {
+        "startLine": 1946,
+        "startChar": 12,
+        "endLine": 1946,
+        "endChar": 67
+      },
+      "revId": "9ef07b807ee6f5fdac4b58e04cd09a6be0334762",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
