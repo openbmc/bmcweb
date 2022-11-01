@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "111e1fac_3400d33b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-11-01T00:26:12Z",
+      "side": 1,
+      "message": "SensorCollection expand yes.\n\n\u003e I\u0027d be surprised if it didn\u0027t increase the performance, but sure, when I load this back on my system I can run a query..\n\nRight, I am interested to see how much it speeds up.",
+      "parentUuid": "8bc13b20_4d102bb2",
+      "revId": "ed033821fd5d023e7e4a91883288b4efee73b918",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "e2386b29_70fa3ff0",
@@ -90,6 +108,30 @@
       "side": 1,
       "message": "I\u0027m not following the question about what we would mention in the commit message.  Sorry, I\u0027ve read the above a couple times and I don\u0027t quite understand.  The ObjectMapper still puts the ObjectManager at root.  Arguably this code could be improved, but I\u0027m not sure what it has to do with this refactoring, which was changing the sensor paths.",
       "parentUuid": "3861a38a_fb74e9ea",
+      "range": {
+        "startLine": 1750,
+        "startChar": 53,
+        "endLine": 1750,
+        "endChar": 65
+      },
+      "revId": "ed033821fd5d023e7e4a91883288b4efee73b918",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ca7815d_97aba286",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1750,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-11-01T00:26:12Z",
+      "side": 1,
+      "message": "Let me be clear. Previously, the codes search all the services that implement ObjectManager, for both sensors and ObjectMapper. So, if the ObjectMapper puts the ObjectManager in other places, previous codes still handle it.\n\nWe happen to fix the ObjectManager path of ObjectMapper in the same commit with sensors.",
+      "parentUuid": "9c4bccc1_95433afb",
       "range": {
         "startLine": 1750,
         "startChar": 53,
