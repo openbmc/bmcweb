@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "67603119_206748e4",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-11-02T16:14:36Z",
+      "side": 1,
+      "message": "Is this important here that we construct a single string and append twice?\n\nDoes this chained concat generate temporary multiple strings?",
+      "range": {
+        "startLine": 177,
+        "startChar": 8,
+        "endLine": 177,
+        "endChar": 19
+      },
+      "revId": "bcc0f1c1ca57578980f9c0f268d3a56c1e178859",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8b5af705_2a1fd065",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 1951,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-11-02T16:14:36Z",
+      "side": 1,
+      "message": "Hmm, is this really indented to be in this patch? You +2ed this patch? To me these changes are not relevant.",
+      "range": {
+        "startLine": 1951,
+        "startChar": 4,
+        "endLine": 1951,
+        "endChar": 20
+      },
+      "revId": "bcc0f1c1ca57578980f9c0f268d3a56c1e178859",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
