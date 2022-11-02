@@ -213,6 +213,30 @@
       },
       "revId": "bcc0f1c1ca57578980f9c0f268d3a56c1e178859",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bb43a4ea_11e7903d",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 1951,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-11-02T19:18:59Z",
+      "side": 1,
+      "message": "\u003e Not necessarily.  The spec doesn\u0027t REQUIRE it in all cases.\n\u003e  because it\u0027s only required for ManagerAccount\n\nHmm, where is that? Isn\u0027t If-Match an HTTP requirement?\n\nIIUC, Redfish-Protocol-Validator just happens to use certain resource to test this header. Like what they have done in Usercase-Validator: they don\u0027t test expand on every URL.\n\n\u003e I did the minimum required to get us to pass protocol validator\n\nI understood this that this commit can pass the test case in Redfish-Protocol-Validator",
+      "parentUuid": "e3edeeca_49733fc0",
+      "range": {
+        "startLine": 1951,
+        "startChar": 4,
+        "endLine": 1951,
+        "endChar": 20
+      },
+      "revId": "bcc0f1c1ca57578980f9c0f268d3a56c1e178859",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
