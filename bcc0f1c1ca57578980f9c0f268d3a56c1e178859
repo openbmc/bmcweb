@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1d643ca7_fd25907c",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-11-02T17:28:38Z",
+      "side": 1,
+      "message": "Ask a further question, do you know hwy this doesn\u0027t apply\n\nhttps://clang.llvm.org/extra/clang-tidy/checks/performance/inefficient-string-concatenation.html",
+      "parentUuid": "5282e259_c778907d",
+      "range": {
+        "startLine": 177,
+        "startChar": 8,
+        "endLine": 177,
+        "endChar": 19
+      },
+      "revId": "bcc0f1c1ca57578980f9c0f268d3a56c1e178859",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8b5af705_2a1fd065",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 15
@@ -85,6 +109,30 @@
       "side": 1,
       "message": "I\u0027m not following how they\u0027re not relevant.  This function needed to be broken out so that we could do a comparison of the user values on line 2001, which is required for implementing this feature.  Can you elaborate on why this isn\u0027t relevant to this patch?",
       "parentUuid": "8b5af705_2a1fd065",
+      "range": {
+        "startLine": 1951,
+        "startChar": 4,
+        "endLine": 1951,
+        "endChar": 20
+      },
+      "revId": "bcc0f1c1ca57578980f9c0f268d3a56c1e178859",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8b37a094_e78e6156",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 1951,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-11-02T17:28:38Z",
+      "side": 1,
+      "message": "Okay, rephrased. \"This commit implements that behavior for one handler ManagerAccount.\", do we expect every handler implement similar logic?\n\nThe previous if-none-match header handles all the resources, right?",
+      "parentUuid": "78287bbd_1d95e927",
       "range": {
         "startLine": 1951,
         "startChar": 4,
