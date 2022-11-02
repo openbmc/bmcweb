@@ -70,6 +70,30 @@
       },
       "revId": "90f8b04350fbef5fb2d3be621ff663f26f548ce3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8cfb0014_c11a3451",
+        "filename": "http/utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 600,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-11-02T19:29:38Z",
+      "side": 1,
+      "message": "Current concern is that we have a function that contains a single, relatively simple line of code.  \n\n\n\u003e Do you mean that we should have the url as string and add the\n\nNo, I misunderstood that this wasn\u0027t a member function.",
+      "parentUuid": "414b83ed_2ebf4c46",
+      "range": {
+        "startLine": 600,
+        "startChar": 24,
+        "endLine": 600,
+        "endChar": 45
+      },
+      "revId": "90f8b04350fbef5fb2d3be621ff663f26f548ce3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
