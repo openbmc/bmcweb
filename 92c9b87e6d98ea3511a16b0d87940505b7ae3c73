@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8e2aac20_aac6cfa0",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 1601,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-11-02T22:38:04Z",
+      "side": 1,
+      "message": "I have added more to the unit tests.\n\n```\n    // The following characters will be converted to ASCII number\n    // `[{]}\\|\"\u003c\u003e/?#%^\n    url \u003d\n        urlFromPieces(\"~1234567890-_\u003d+qwertyuiopasdfghjklzxcvbnm;:\u0027,.!@$\u0026*()\");\n    EXPECT_EQ(std::string_view(url.data(), url.size()),\n              \"/~1234567890-_\u003d+qwertyuiopasdfghjklzxcvbnm;:\u0027,.!@$\u0026*()\");\n```\n\nand just found the characters that is invalid. Is that enough? OR should we just revert this for the user ids.",
+      "parentUuid": "f77cdf07_9bce0a63",
+      "range": {
+        "startLine": 1601,
+        "startChar": 0,
+        "endLine": 1601,
+        "endChar": 73
+      },
+      "revId": "92c9b87e6d98ea3511a16b0d87940505b7ae3c73",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c0a8452e_813fba8a",
         "filename": "redfish-core/lib/event_service.hpp",
         "patchSetId": 13
