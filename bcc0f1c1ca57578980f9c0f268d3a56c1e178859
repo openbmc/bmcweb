@@ -74,6 +74,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ae101e71_4793742f",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-11-02T18:58:04Z",
+      "side": 1,
+      "message": "Yes, but it requires understanding how the compiler breaks down the request.\n\n\"\\\"\" + intToHexString(hashval, 8) + \"\\\"\";\nis the line of code\n\nwhich decomposes into something like\n\n(OP std::string::operator+(const char*) (OP std::string::operator+(const char*)))\n\noperator+ has move semantics, which doesn\u0027t require a string copy, and it can reuse the memory in the meantime.  If I had instead written\n\nstd::string quote \u003d \"\\\"\";\nquote + intToHexString(hashval, 8) + quote;\n\nClang would\u0027ve triggered the warning.",
+      "parentUuid": "1d643ca7_fd25907c",
+      "range": {
+        "startLine": 177,
+        "startChar": 8,
+        "endLine": 177,
+        "endChar": 19
+      },
+      "revId": "bcc0f1c1ca57578980f9c0f268d3a56c1e178859",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8b5af705_2a1fd065",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 15
@@ -133,6 +157,30 @@
       "side": 1,
       "message": "Okay, rephrased. \"This commit implements that behavior for one handler ManagerAccount.\", do we expect every handler implement similar logic?\n\nThe previous if-none-match header handles all the resources, right?",
       "parentUuid": "78287bbd_1d95e927",
+      "range": {
+        "startLine": 1951,
+        "startChar": 4,
+        "endLine": 1951,
+        "endChar": 20
+      },
+      "revId": "bcc0f1c1ca57578980f9c0f268d3a56c1e178859",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f47ab7b2_dd3c12a8",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 1951,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-11-02T18:58:04Z",
+      "side": 1,
+      "message": "\u003e Okay, rephrased. \"This commit implements that behavior for one handler ManagerAccount.\", do we expect every handler implement similar logic?\n\nNot necessarily.  The spec doesn\u0027t REQUIRE it in all cases.\n\n\u003e \n\u003e The previous if-none-match header handles all the resources, right?\n\nCorrect, but that was able to be done generically for all requests with a direct comparison.  It\u0027s not clear to me in code how to implement if-none-match generically, and because it\u0027s only required for ManagerAccount, I did the minimum required to get us to pass protocol validator.",
+      "parentUuid": "8b37a094_e78e6156",
       "range": {
         "startLine": 1951,
         "startChar": 4,
