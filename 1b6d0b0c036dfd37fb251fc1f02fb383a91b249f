@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1d11f0bf_1761dc7d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 81
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-11-02T16:38:39Z",
+      "side": 1,
+      "message": "A one sentence commit message is rarely enough detail for a new feature.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 66
+      },
+      "revId": "1b6d0b0c036dfd37fb251fc1f02fb383a91b249f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0913296f_82533d94",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 81
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-11-02T16:38:39Z",
+      "side": 1,
+      "message": "This isn\u0027t a valid target.  It\u0027s surprising that this would succeed.",
+      "range": {
+        "startLine": 15,
+        "startChar": 34,
+        "endLine": 15,
+        "endChar": 56
+      },
+      "revId": "1b6d0b0c036dfd37fb251fc1f02fb383a91b249f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
