@@ -16,6 +16,24 @@
       "message": "What do we plan to use in thermal metrics? Why do we need this commit?",
       "revId": "d64dcf45c69baa7886c12217722c6e8408843da1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b01c73f_637a6a91",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-11-02T08:12:08Z",
+      "side": 1,
+      "message": "\u003e What do we plan to use in thermal metrics? Why do we need this commit?\n\nThere is a commit here that has implemented ThermalMetrics, I want to split it into two commits.\n\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/41121",
+      "parentUuid": "317caf9a_1619593d",
+      "revId": "d64dcf45c69baa7886c12217722c6e8408843da1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
