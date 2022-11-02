@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5282e259_c778907d",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-11-02T17:04:37Z",
+      "side": 1,
+      "message": "In this case, I don\u0027t believe it does given the operator rules in c++, and clang-tidy doesn\u0027t warn on it.",
+      "parentUuid": "67603119_206748e4",
+      "range": {
+        "startLine": 177,
+        "startChar": 8,
+        "endLine": 177,
+        "endChar": 19
+      },
+      "revId": "bcc0f1c1ca57578980f9c0f268d3a56c1e178859",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8b5af705_2a1fd065",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 15
