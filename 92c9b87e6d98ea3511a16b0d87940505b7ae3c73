@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "428fb4bd_be9720bb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-11-02T19:41:14Z",
+      "side": 1,
+      "message": "Overall this looks fine, just needs some testing to make sure we\u0027re not breaking things worse.",
+      "revId": "92c9b87e6d98ea3511a16b0d87940505b7ae3c73",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f77cdf07_9bce0a63",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 1601,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-11-02T19:41:14Z",
+      "side": 1,
+      "message": "Can you please test if this causes bugs with a username like:\n\n\"my-user\" or \"my_user\" or \"my\u003cunicode character\u003euser\".\n\nCurrently this is a place where the end user is in control of the URI, so we need to make sure that escaping things isn\u0027t going to break anything.",
+      "range": {
+        "startLine": 1601,
+        "startChar": 0,
+        "endLine": 1601,
+        "endChar": 73
+      },
+      "revId": "92c9b87e6d98ea3511a16b0d87940505b7ae3c73",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c0a8452e_813fba8a",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-11-02T19:41:14Z",
+      "side": 1,
+      "message": "Same thing here.  This ID is in control of the user.  We need to test that the escaping isn\u0027t going to break the collection.",
+      "range": {
+        "startLine": 214,
+        "startChar": 68,
+        "endLine": 214,
+        "endChar": 69
+      },
+      "revId": "92c9b87e6d98ea3511a16b0d87940505b7ae3c73",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
