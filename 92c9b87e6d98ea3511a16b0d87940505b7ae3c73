@@ -67,6 +67,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a332a303_e9ab16bb",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 1601,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-11-02T22:41:57Z",
+      "side": 1,
+      "message": "It\u0027s not really about unit tests.  This would require an integration test, of which I think there are some in test-automation repo that you could use.  You looked up the characters that get encoded in a URI.  What characters get encoded in a dbus path and pam user?  I\u0027m not sure I know the answer to that without testing.  The example I gave you above are the common ones that folks expect to work, and that should be on the golden path.  I can live with less-than-ideal behavior in the error paths when sending in bad characters, but we need to test the common cases.\n\n\n\u003e should we just revert this for the user ids.\n\nUp to you.  If you don\u0027t want to test it, yes, you could avoid changing those.",
+      "parentUuid": "8e2aac20_aac6cfa0",
+      "range": {
+        "startLine": 1601,
+        "startChar": 0,
+        "endLine": 1601,
+        "endChar": 73
+      },
+      "revId": "92c9b87e6d98ea3511a16b0d87940505b7ae3c73",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c0a8452e_813fba8a",
         "filename": "redfish-core/lib/event_service.hpp",
         "patchSetId": 13
