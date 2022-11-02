@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "74f2348a_bf88e82c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1001084
+      },
+      "writtenOn": "2022-11-02T20:25:29Z",
+      "side": 1,
+      "message": "Currently we are unable or have limitation to run redfish validator for upstream bmcweb. Maybe mark it as WIP until we have a setup to test?",
+      "parentUuid": "d5312e7f_cf127ae0",
+      "revId": "137880e09842e3a5e88ad60d93ad43f237bb1f4a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "efa4573e_b3e8d415",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -31,6 +49,24 @@
       "writtenOn": "2022-11-02T20:08:57Z",
       "side": 1,
       "message": "Remove? Ali did an original downstream commit but don\u0027t think he did anything here",
+      "revId": "137880e09842e3a5e88ad60d93ad43f237bb1f4a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cfb3bcec_98ebef11",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1001084
+      },
+      "writtenOn": "2022-11-02T20:25:29Z",
+      "side": 1,
+      "message": "Will remove it...",
+      "parentUuid": "efa4573e_b3e8d415",
       "revId": "137880e09842e3a5e88ad60d93ad43f237bb1f4a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
