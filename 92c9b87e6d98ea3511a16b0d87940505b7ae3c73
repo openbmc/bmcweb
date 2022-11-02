@@ -115,6 +115,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "35e4ff15_76580a7b",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 1601,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-11-02T22:50:04Z",
+      "side": 1,
+      "message": "I will try it with https://github.com/openbmc/openbmc-test-automation/blob/master/redfish/account_service/test_user_account.robot\n\n(assuming that I know how to setup rebot tests). oops.",
+      "parentUuid": "91b8c9ad_b3159135",
+      "range": {
+        "startLine": 1601,
+        "startChar": 0,
+        "endLine": 1601,
+        "endChar": 73
+      },
+      "revId": "92c9b87e6d98ea3511a16b0d87940505b7ae3c73",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c0a8452e_813fba8a",
         "filename": "redfish-core/lib/event_service.hpp",
         "patchSetId": 13
