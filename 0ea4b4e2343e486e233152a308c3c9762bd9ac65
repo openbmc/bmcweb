@@ -22,6 +22,30 @@
       },
       "revId": "0ea4b4e2343e486e233152a308c3c9762bd9ac65",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a3de063b_aad9226f",
+        "filename": "redfish-core/lib/power_subsystem.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-11-02T08:09:37Z",
+      "side": 0,
+      "message": "\u003e So you no longer call doPowerSubsystemCollection? Why is it still needed ?\n\nOops, I forgot to remove this method.\nRemoved",
+      "parentUuid": "5b41c852_d58c7c91",
+      "range": {
+        "startLine": 53,
+        "startChar": 24,
+        "endLine": 53,
+        "endChar": 50
+      },
+      "revId": "0ea4b4e2343e486e233152a308c3c9762bd9ac65",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
