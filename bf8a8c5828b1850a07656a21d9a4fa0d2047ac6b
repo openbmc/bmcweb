@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a7c170a4_514ac7e0",
+        "filename": "redfish-core/include/snmp_trap_event_clients.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2022-11-02T12:33:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dd56a9a0_910fb24f",
+      "range": {
+        "startLine": 8,
+        "startChar": 4,
+        "endLine": 8,
+        "endChar": 51
+      },
+      "revId": "bf8a8c5828b1850a07656a21d9a4fa0d2047ac6b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f23a024a_7ccfd139",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-11-02T06:28:26Z",
       "side": 1,
       "message": "1_8_0",
+      "range": {
+        "startLine": 51,
+        "startChar": 27,
+        "endLine": 51,
+        "endChar": 33
+      },
+      "revId": "bf8a8c5828b1850a07656a21d9a4fa0d2047ac6b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c69fa5ad_aa4e175e",
+        "filename": "redfish-core/include/snmp_trap_event_clients.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2022-11-02T12:33:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f23a024a_7ccfd139",
       "range": {
         "startLine": 51,
         "startChar": 27,
@@ -70,6 +118,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9efa6534_a166bcb4",
+        "filename": "redfish-core/include/snmp_trap_event_clients.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2022-11-02T12:33:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2c1d0b60_8cd4d788",
+      "range": {
+        "startLine": 91,
+        "startChar": 13,
+        "endLine": 91,
+        "endChar": 32
+      },
+      "revId": "bf8a8c5828b1850a07656a21d9a4fa0d2047ac6b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e3cb0a80_5a14b076",
@@ -83,6 +155,30 @@
       "writtenOn": "2022-11-02T06:28:26Z",
       "side": 1,
       "message": "If `interfaces` is passed as a parameter, there is no need to call the GetAll method of DBus in the doGetSnmpTrapClientdata method",
+      "range": {
+        "startLine": 107,
+        "startChar": 12,
+        "endLine": 107,
+        "endChar": 63
+      },
+      "revId": "bf8a8c5828b1850a07656a21d9a4fa0d2047ac6b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d5f07952_0cf8bb0f",
+        "filename": "redfish-core/include/snmp_trap_event_clients.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2022-11-02T12:33:11Z",
+      "side": 1,
+      "message": "\"GetALL\" is no longer used in doGetSnmpTrapClientdata method.",
+      "parentUuid": "e3cb0a80_5a14b076",
       "range": {
         "startLine": 107,
         "startChar": 12,
@@ -110,6 +206,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "37731c22_741cb1ff",
+        "filename": "redfish-core/include/snmp_trap_event_clients.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2022-11-02T12:33:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6caf0b52_c024166f",
+      "revId": "bf8a8c5828b1850a07656a21d9a4fa0d2047ac6b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4be4fb6c_ccc03475",
@@ -123,6 +237,30 @@
       "writtenOn": "2022-11-02T06:28:26Z",
       "side": 1,
       "message": "1_8_0",
+      "range": {
+        "startLine": 216,
+        "startChar": 46,
+        "endLine": 216,
+        "endChar": 52
+      },
+      "revId": "bf8a8c5828b1850a07656a21d9a4fa0d2047ac6b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "72831652_9a70700d",
+        "filename": "redfish-core/include/snmp_trap_event_clients.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2022-11-02T12:33:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4be4fb6c_ccc03475",
       "range": {
         "startLine": 216,
         "startChar": 46,
@@ -156,6 +294,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "70d3e17a_65840594",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2022-11-02T12:33:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ed06e4ec_290a5e66",
+      "range": {
+        "startLine": 206,
+        "startChar": 16,
+        "endLine": 206,
+        "endChar": 63
+      },
+      "revId": "bf8a8c5828b1850a07656a21d9a4fa0d2047ac6b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "04257496_226b99ac",
@@ -169,6 +331,30 @@
       "writtenOn": "2022-11-02T06:28:26Z",
       "side": 1,
       "message": "Move to L:241?",
+      "range": {
+        "startLine": 195,
+        "startChar": 4,
+        "endLine": 212,
+        "endChar": 0
+      },
+      "revId": "bf8a8c5828b1850a07656a21d9a4fa0d2047ac6b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "610ec94f_c33eeb51",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2022-11-02T12:33:11Z",
+      "side": 1,
+      "message": "Can\u0027t move to line 241. We need “Members@odata.count”, whether snmptrap exists or not.",
+      "parentUuid": "04257496_226b99ac",
       "range": {
         "startLine": 195,
         "startChar": 4,
@@ -202,6 +388,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "439deebb_6b61c7ec",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2022-11-02T12:33:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5dbb4523_86e4fbe9",
+      "range": {
+        "startLine": 217,
+        "startChar": 12,
+        "endLine": 218,
+        "endChar": 29
+      },
+      "revId": "bf8a8c5828b1850a07656a21d9a4fa0d2047ac6b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6f9d7181_c8b710c5",
@@ -215,6 +425,30 @@
       "writtenOn": "2022-11-02T06:28:26Z",
       "side": 1,
       "message": "auto?",
+      "range": {
+        "startLine": 227,
+        "startChar": 15,
+        "endLine": 228,
+        "endChar": 57
+      },
+      "revId": "bf8a8c5828b1850a07656a21d9a4fa0d2047ac6b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7fc568ae_fca6cc85",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2022-11-02T12:33:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6f9d7181_c8b710c5",
       "range": {
         "startLine": 227,
         "startChar": 15,
@@ -248,6 +482,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "033b4d25_6cf0e62c",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 535,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2022-11-02T12:33:11Z",
+      "side": 1,
+      "message": "done, Modified method name",
+      "parentUuid": "d3f281ca_9bf1643d",
+      "range": {
+        "startLine": 535,
+        "startChar": 12,
+        "endLine": 535,
+        "endChar": 31
+      },
+      "revId": "bf8a8c5828b1850a07656a21d9a4fa0d2047ac6b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8c43bee6_1de2f33d",
@@ -261,6 +519,30 @@
       "writtenOn": "2022-11-02T06:28:26Z",
       "side": 1,
       "message": "We can restore this if we set a default parameter for the addSubscription method?\n\n```\nstd::string addSubscription(const std::shared_ptr\u003cSubscription\u003e\u0026 subValue,\n                                const std::string\u0026 subscriptionId \u003d \"\",\n                                const bool updateFile \u003d true)\n```",
+      "range": {
+        "startLine": 539,
+        "startChar": 7,
+        "endLine": 543,
+        "endChar": 38
+      },
+      "revId": "bf8a8c5828b1850a07656a21d9a4fa0d2047ac6b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f234fb28_f1a3587f",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 543,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2022-11-02T12:33:11Z",
+      "side": 1,
+      "message": "We have discussed about the default parameter. It is not recommended.",
+      "parentUuid": "8c43bee6_1de2f33d",
       "range": {
         "startLine": 539,
         "startChar": 7,
