@@ -51,6 +51,24 @@
       "parentUuid": "7f78e628_ab670b41",
       "revId": "929f4cf5dc33257773be97b56bb80159c74e36cc",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8401c2ad_0655c55d",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-11-02T17:00:04Z",
+      "side": 1,
+      "message": "Oh, I see.  Gotcha.  Yeah, fine as is.  It\u0027s a copy anyway.",
+      "parentUuid": "e7c65d9c_2384fb7a",
+      "revId": "929f4cf5dc33257773be97b56bb80159c74e36cc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
