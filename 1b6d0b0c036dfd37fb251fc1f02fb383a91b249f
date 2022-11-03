@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "211a1c40_a88bbf38",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 81
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-11-03T11:54:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1d11f0bf_1761dc7d",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 66
+      },
+      "revId": "1b6d0b0c036dfd37fb251fc1f02fb383a91b249f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0913296f_82533d94",
@@ -61,6 +85,30 @@
       "side": 1,
       "message": "Is there an official DMTF tool we can use for this testing?",
       "parentUuid": "0913296f_82533d94",
+      "range": {
+        "startLine": 15,
+        "startChar": 34,
+        "endLine": 15,
+        "endChar": 56
+      },
+      "revId": "1b6d0b0c036dfd37fb251fc1f02fb383a91b249f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a39fb54_936229f7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 81
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-11-03T11:54:15Z",
+      "side": 1,
+      "message": "\u003e Is there an official DMTF tool we can use for this testing?\n\nI looked up redfishtool and didn\u0027t test this method\n\n\u003e This isn\u0027t a valid target.  It\u0027s surprising that this would succeed.\n\nSee DSP0266_1.16.0\n```\nPOST /redfish/v1/UpdateService/upload HTTP/1.1\nHost: \u003chost-path\u003e\nContent-Type: multipart/form-data; boundary\u003d---------------------------d74496d66958873e\nContent-Length: \u003ccomputed-length\u003e\nConnection: keep-alive\nX-Auth-Token: \u003csession-auth-token\u003e\n-----------------------------d74496d66958873e\nContent-Disposition: form-data; name\u003d\"UpdateParameters\"\nContent-Type: application/json\n{\n\"Targets\": [\"/redfish/v1/Managers/1\"],\n\"@Redfish.OperationApplyTime\": \"OnReset\",\n\"Oem\": {}\n}\n-----------------------------d74496d66958873e\nContent-Disposition: form-data; name\u003d\"UpdateFile\"; filename\u003d\"flash.bin\"\nContent-Type: application/octet-stream\n\u003csoftware image binary\u003e\n```",
+      "parentUuid": "c6a5a584_31f0fb10",
       "range": {
         "startLine": 15,
         "startChar": 34,
