@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "80b8eb52_8a0cd40d",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 556,
+      "author": {
+        "id": 1000999
+      },
+      "writtenOn": "2022-11-03T04:44:45Z",
+      "side": 1,
+      "message": "The DEN0069D SBMR 2.0 specifies at section C.3.2 RAS Redfish message format:\n\nDiagnosticDataType: The type of the diagnostics binary file. For platform error records, this can be OS,\n\nPreOS, CPER, CPERSection, or OEM.\n\n– When using Redfish to report CPER data, SBMR requires setting this property to CPER when the content is a complete CPER Record with a Header and one or more Sections, or CPERSection when the content is a single CPER Section (and a Section Descriptor) without a Header. This allows user software to distinguish CPER records from other diagnostics files.\n\n\nSo if thisEntry is CPER type then DiagnosticDataType should be CPER, not OEM here.",
+      "range": {
+        "startLine": 555,
+        "startChar": 13,
+        "endLine": 556,
+        "endChar": 73
+      },
+      "revId": "46cb1b0c1c6c411a1b45ad9c3371ba716e6e6e58",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ca499e64_a6ff5388",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 4
