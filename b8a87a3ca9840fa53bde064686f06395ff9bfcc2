@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "99c08d1b_7efe57af",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 58
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-11-03T15:12:19Z",
+      "side": 1,
+      "message": "API change in telemetry service is ready to be merged. We already tested it with this change and everything is working fine: https://gerrit.openbmc.org/c/openbmc/telemetry/+/58229",
+      "revId": "b8a87a3ca9840fa53bde064686f06395ff9bfcc2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
