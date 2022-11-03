@@ -48,15 +48,17 @@ inline void
     {
         if (!std::isfinite(*length))
         {
-            if (std::isnan(*length))
+            // Cable length is NaN by default, do not throw an error
+            if (!std::isnan(*length))
             {
+                messages::internalError(resp);
                 return;
             }
-            messages::internalError(resp);
-            return;
         }
-
-        resp.jsonValue["LengthMeters"] = *length;
+        else
+        {
+            resp.jsonValue["LengthMeters"] = *length;
+        }
     }
 }
 
