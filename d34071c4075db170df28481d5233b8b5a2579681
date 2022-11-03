@@ -51,6 +51,24 @@
       "message": "Cool, would be good to get more than Overwrite ReportUpdate. \nThat support is already in https://gerrit.openbmc.org/c/openbmc/telemetry/+/46111",
       "revId": "d34071c4075db170df28481d5233b8b5a2579681",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "66b42e06_48009445",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 54
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-11-03T10:57:48Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "481ee9de_fcd13d37",
+      "revId": "d34071c4075db170df28481d5233b8b5a2579681",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
