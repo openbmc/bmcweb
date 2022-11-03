@@ -16,6 +16,23 @@
       "message": "Verified on my local machine with C++ compiler gcc 12.2.0 \"c++ (Debian 12.2.0-3) 12.2.0\". Build failed without this patchset and passes with this patchset applied.",
       "revId": "6c7d53a54ac436b4e9a18ec59b9e3833ad16c6a5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "92cd2e61_438e8fe8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-11-03T17:59:42Z",
+      "side": 1,
+      "message": "As always, happy to discuss, but merging quickly to fix the regression so folks don\u0027t get blocked.",
+      "revId": "6c7d53a54ac436b4e9a18ec59b9e3833ad16c6a5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
