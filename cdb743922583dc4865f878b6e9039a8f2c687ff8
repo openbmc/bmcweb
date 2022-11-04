@@ -20,6 +20,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ee07c784_e7dd6e9f",
+        "filename": "http/routing.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1166,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-11-04T08:14:06Z",
+      "side": 1,
+      "message": "use sdbusplus::unpackPropertiesNoThrow instead of this loop",
+      "range": {
+        "startLine": 1166,
+        "startChar": 12,
+        "endLine": 1166,
+        "endChar": 52
+      },
+      "revId": "cdb743922583dc4865f878b6e9039a8f2c687ff8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2fdcd52e_332c1e08",
         "filename": "http/routing.hpp",
         "patchSetId": 5
@@ -100,6 +123,30 @@
       "writtenOn": "2022-08-25T14:42:05Z",
       "side": 1,
       "message": "?",
+      "range": {
+        "startLine": 1308,
+        "startChar": 32,
+        "endLine": 1308,
+        "endChar": 40
+      },
+      "revId": "cdb743922583dc4865f878b6e9039a8f2c687ff8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "340beaf3_fb7c1767",
+        "filename": "http/routing.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1308,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-11-04T08:14:06Z",
+      "side": 1,
+      "message": "I also wonder why this change was made.",
+      "parentUuid": "27b175f0_cc424b62",
       "range": {
         "startLine": 1308,
         "startChar": 32,
