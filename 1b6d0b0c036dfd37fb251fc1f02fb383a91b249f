@@ -117,6 +117,30 @@
       },
       "revId": "1b6d0b0c036dfd37fb251fc1f02fb383a91b249f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "685a2de0_1ff9f7ca",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 81
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-11-04T15:40:38Z",
+      "side": 1,
+      "message": "\u003e See DSP0266_1.16.0\n\nI see that.  The target is still invalid.  In the example in the spec, it might be valid, but in the way you\u0027ve used it here on openbmc, it\u0027s invalid.",
+      "parentUuid": "8a39fb54_936229f7",
+      "range": {
+        "startLine": 15,
+        "startChar": 34,
+        "endLine": 15,
+        "endChar": 56
+      },
+      "revId": "1b6d0b0c036dfd37fb251fc1f02fb383a91b249f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
