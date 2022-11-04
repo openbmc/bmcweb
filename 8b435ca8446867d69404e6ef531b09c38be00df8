@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "28ffb2d5_7efe4644",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 43
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000520
+      },
+      "writtenOn": "2022-11-04T00:15:25Z",
+      "side": 1,
+      "message": "Although this is essentially done, the overall design of ExternalStorer (as it stands now) did not pass review: 52150 and 52295 were abandoned, over time. I\u0027m marking this as WIP (not necessarily abandoned).\n",
+      "revId": "8b435ca8446867d69404e6ef531b09c38be00df8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
