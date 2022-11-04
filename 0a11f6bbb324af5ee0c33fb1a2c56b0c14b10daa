@@ -58,6 +58,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "41537cf5_7cefd88e",
+        "filename": "AGGREGATION.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-11-04T17:12:11Z",
+      "side": 1,
+      "message": "Off the top of my head these are the remaining features:\n1. Aggregate all top level resource collections\n2. Add links to satellite only collections in responses from service root and other appropriate locations\n3. Generate aggregation prefix from uuid\n4. Contains/ContainedBy relationship between local and aggregated Chassis resource\n5. Aggregate more than one satellite\n6. Add Authentication (login with satellites)\n7. Support HTTPS connection to satellite.\n\n\nThere are already various levels of WIP patches for a number of those features.  How many are needed to turn it on by default?  My guess is the first 3, maybe #5 as well.",
+      "parentUuid": "d729af33_b501e24e",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 63
+      },
+      "revId": "0a11f6bbb324af5ee0c33fb1a2c56b0c14b10daa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c6a1a4b2_62ce3829",
@@ -77,6 +101,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "656e645a_0acae698",
+        "filename": "AGGREGATION.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-11-04T17:12:11Z",
+      "side": 1,
+      "message": "I\u0027m open to it, but in what way do you mean?",
+      "parentUuid": "c6a1a4b2_62ce3829",
+      "revId": "0a11f6bbb324af5ee0c33fb1a2c56b0c14b10daa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "70b35bf8_2764e195",
         "filename": "AGGREGATION.md",
         "patchSetId": 2
@@ -88,6 +130,30 @@
       "writtenOn": "2022-11-04T16:49:30Z",
       "side": 1,
       "message": "Nit, maybe just omit this?  This command itself isn\u0027t going to work on any bmc.",
+      "range": {
+        "startLine": 104,
+        "startChar": 0,
+        "endLine": 104,
+        "endChar": 45
+      },
+      "revId": "0a11f6bbb324af5ee0c33fb1a2c56b0c14b10daa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ae57985_bccf743a",
+        "filename": "AGGREGATION.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-11-04T17:12:11Z",
+      "side": 1,
+      "message": "The terminal command or the entire example?  I also do the same thing in the later example.",
+      "parentUuid": "70b35bf8_2764e195",
       "range": {
         "startLine": 104,
         "startChar": 0,
