@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd26efcc_760f2215",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 609,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-11-04T18:37:36Z",
+      "side": 0,
+      "message": "There was offline discussion about instead using this to clear the body:\n\nasyncResp-\u003eres.stringResponse-\u003ebase().clear();\n\nTurns out that still clobbers \"OData-Version\" from the header.  It\u0027s better to just avoid this step entirely since it doesn\u0027t actually serve a purpose.",
+      "range": {
+        "startLine": 607,
+        "startChar": 0,
+        "endLine": 609,
+        "endChar": 56
+      },
+      "revId": "6c7d53a54ac436b4e9a18ec59b9e3833ad16c6a5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
