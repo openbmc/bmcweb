@@ -16,6 +16,24 @@
       "message": "I am confused why this doesn\u0027t work? Because it doesn\u0027t fill out CableTypeDescription if it returns here?",
       "revId": "291d709d3505cb345259e7d78eb6c8b765499c1b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "743e7f9a_6f7042ba",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1001084
+      },
+      "writtenOn": "2022-11-04T18:14:33Z",
+      "side": 0,
+      "message": "Any properties that are added after \"Length\" in \"sdbusplus::unpackPropertiesNoThrow\" to retrieve will not be populated.\n\nIn the following example, we will not be able to retrieve CableStatus if Length is NaN:\nconst bool success \u003d sdbusplus::unpackPropertiesNoThrow(\n        dbus_utils::UnpackErrorPrinter(), properties, \n        \"CableTypeDescription\", cableTypeDescription, \n        \"Length\", length, \n        \"CableStatus\", cableStatus);",
+      "parentUuid": "50f584ce_7e8826ca",
+      "revId": "291d709d3505cb345259e7d78eb6c8b765499c1b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
