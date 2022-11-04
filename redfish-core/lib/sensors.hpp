@@ -2948,6 +2948,69 @@ inline void
                                sensors::node::sensors));
 }
 
+inline void getSingleInventoryObject(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& path,
+    const std::function<void(InventoryItem*)>&& callback)
+{
+    crow::connections::systemBus->async_method_call(
+        [asyncResp, path, callback = std::move(callback)](
+            boost::system::error_code ec,
+            const ::dbus::utility::MapperGetObject& obj) {
+        if (ec)
+        {
+            messages::internalError(asyncResp->res);
+            return;
+        }
+        ::dbus::utility::DBusInteracesMap interfacesMap;
+        for (const auto& [service, interfaces] : obj)
+        {
+            for (const std::string& interface : interfaces)
+            {
+                // TODO: Get properties. Right now, this only works properly for
+                // RelatedItems
+                interfacesMap.emplace_back(
+                    interface, ::dbus::utility::DBusPropertiesMap());
+            }
+        }
+        InventoryItem item(path);
+        storeInventoryItemData(item, interfacesMap);
+        callback(&item);
+        },
+        "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetObject", path,
+        std::array<std::string, 0>());
+}
+
+inline void
+    getSingleInventory(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                       const std::string& sensorPath,
+                       const std::function<void(InventoryItem*)>&& callback)
+{
+    sdbusplus::asio::getProperty<std::vector<std::string>>(
+        *crow::connections::systemBus, "xyz.openbmc_project.ObjectMapper",
+        sensorPath + "/inventory", "xyz.openbmc_project.Association",
+        "endpoints",
+        [asyncResp, callback = std::move(callback)](
+            boost::system::error_code ec,
+            const std::vector<std::string>& endpoints) {
+        if (ec || endpoints.empty())
+        {
+            callback(nullptr);
+            return;
+        }
+        if (endpoints.size() > 1)
+        {
+            BMCWEB_LOG_WARNING << "Found multiple inventory items for sensor";
+        }
+        // We seem to be assuming that there is a single inventory item
+        // associated with each sensor in the current implementation.
+        getSingleInventoryObject(asyncResp, endpoints.front(),
+                                 std::move(callback));
+        });
+}
+
 inline void
     getSensorFromDbus(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                       const std::string& sensorPath,
@@ -2977,8 +3040,15 @@ inline void
         std::string name = path.filename();
         path = path.parent_path();
         std::string type = path.filename();
-        objectPropertiesToJson(name, type, sensors::node::sensors, valuesDict,
-                               asyncResp->res.jsonValue, nullptr);
+
+        getSingleInventory(asyncResp, sensorPath,
+                           [name = std::move(name), type = std::move(type),
+                            valuesDict = std::move(valuesDict),
+                            asyncResp](InventoryItem* inventoryItem) {
+            objectPropertiesToJson(name, type, sensors::node::sensors,
+                                   valuesDict, asyncResp->res.jsonValue,
+                                   inventoryItem);
+        });
         });
 }
 
