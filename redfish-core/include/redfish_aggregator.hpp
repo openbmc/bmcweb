@@ -604,9 +604,6 @@ class RedfishAggregator
 
             BMCWEB_LOG_DEBUG << "Added prefix to parsed satellite response";
 
-            asyncResp->res.stringResponse.emplace(
-                boost::beast::http::response<
-                    boost::beast::http::string_body>{});
             asyncResp->res.result(resp.result());
             asyncResp->res.jsonValue = std::move(jsonVal);
 
@@ -690,9 +687,6 @@ class RedfishAggregator
 
                 BMCWEB_LOG_DEBUG
                     << "Collection does not exist, overwriting asyncResp";
-                asyncResp->res.stringResponse.emplace(
-                    boost::beast::http::response<
-                        boost::beast::http::string_body>{});
                 asyncResp->res.result(resp.result());
                 asyncResp->res.jsonValue = std::move(jsonVal);
 
