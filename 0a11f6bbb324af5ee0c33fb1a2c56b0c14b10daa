@@ -37,6 +37,23 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "2650aa3e_ae43f6ee",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-11-04T19:20:50Z",
+      "side": 1,
+      "message": "Thanks for writing this. I am good with this, some minor things but I think this is a great start ",
+      "revId": "0a11f6bbb324af5ee0c33fb1a2c56b0c14b10daa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "d729af33_b501e24e",
         "filename": "AGGREGATION.md",
         "patchSetId": 2
@@ -84,6 +101,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "684ac417_ee976751",
+        "filename": "AGGREGATION.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-11-04T19:20:50Z",
+      "side": 1,
+      "message": "I think 7 as well because otherwise you have to have a bmcweb with insecure options (we don\u0027t recommend insecure options for production) as the Satellite. Without that, it still feels like a non-production / wip option",
+      "parentUuid": "41537cf5_7cefd88e",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 63
+      },
+      "revId": "0a11f6bbb324af5ee0c33fb1a2c56b0c14b10daa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c6a1a4b2_62ce3829",
         "filename": "AGGREGATION.md",
         "patchSetId": 2
@@ -113,6 +154,29 @@
       "side": 1,
       "message": "I\u0027m open to it, but in what way do you mean?",
       "parentUuid": "c6a1a4b2_62ce3829",
+      "revId": "0a11f6bbb324af5ee0c33fb1a2c56b0c14b10daa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa2e6936_40336506",
+        "filename": "AGGREGATION.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-11-04T19:20:50Z",
+      "side": 1,
+      "message": "responses",
+      "range": {
+        "startLine": 91,
+        "startChar": 4,
+        "endLine": 91,
+        "endChar": 13
+      },
       "revId": "0a11f6bbb324af5ee0c33fb1a2c56b0c14b10daa",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -159,6 +223,76 @@
         "startChar": 0,
         "endLine": 104,
         "endChar": 45
+      },
+      "revId": "0a11f6bbb324af5ee0c33fb1a2c56b0c14b10daa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fc9f3395_7c545b2b",
+        "filename": "AGGREGATION.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-11-04T19:20:50Z",
+      "side": 1,
+      "message": "maybe do \ncurl -k -H \"X-Auth-Token: $token\" https://${bmc}/redfish/v1/Systems \nlike we do in https://github.com/openbmc/docs/blob/master/REDFISH-cheatsheet.md or yeah just omit it",
+      "parentUuid": "7ae57985_bccf743a",
+      "range": {
+        "startLine": 104,
+        "startChar": 0,
+        "endLine": 104,
+        "endChar": 45
+      },
+      "revId": "0a11f6bbb324af5ee0c33fb1a2c56b0c14b10daa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "96fce9fa_7d368094",
+        "filename": "AGGREGATION.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-11-04T19:20:50Z",
+      "side": 1,
+      "message": "same comment here",
+      "range": {
+        "startLine": 134,
+        "startChar": 17,
+        "endLine": 134,
+        "endChar": 26
+      },
+      "revId": "0a11f6bbb324af5ee0c33fb1a2c56b0c14b10daa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bd0b5b92_ad8e6894",
+        "filename": "AGGREGATION.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-11-04T19:20:50Z",
+      "side": 1,
+      "message": "response",
+      "range": {
+        "startLine": 148,
+        "startChar": 42,
+        "endLine": 148,
+        "endChar": 50
       },
       "revId": "0a11f6bbb324af5ee0c33fb1a2c56b0c14b10daa",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
