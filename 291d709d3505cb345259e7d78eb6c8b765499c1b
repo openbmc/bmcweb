@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "50f584ce_7e8826ca",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-11-04T17:39:28Z",
+      "side": 0,
+      "message": "I am confused why this doesn\u0027t work? Because it doesn\u0027t fill out CableTypeDescription if it returns here?",
+      "revId": "291d709d3505cb345259e7d78eb6c8b765499c1b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

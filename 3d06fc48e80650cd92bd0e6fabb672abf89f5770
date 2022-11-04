@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d33a57e7_83825a92",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-11-04T17:39:28Z",
+      "side": 1,
+      "message": "[1] https://gerrit.openbmc.org/c/openbmc/bmcweb/+/50265/4..7/redfish-core/lib/cable.hpp#b51\n\nwould allow for this all in one line, oh well",
+      "revId": "3d06fc48e80650cd92bd0e6fabb672abf89f5770",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
