@@ -16,6 +16,86 @@
       "message": "Good summary of what you got in place!",
       "revId": "0a11f6bbb324af5ee0c33fb1a2c56b0c14b10daa",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf413563_96c3db99",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-11-04T16:49:30Z",
+      "side": 1,
+      "message": "LGTM.  Only some VERY minor nits.",
+      "revId": "0a11f6bbb324af5ee0c33fb1a2c56b0c14b10daa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d729af33_b501e24e",
+        "filename": "AGGREGATION.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-11-04T16:49:30Z",
+      "side": 1,
+      "message": "We need to get this feature more fleshed out, and get this turned on by default.",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 63
+      },
+      "revId": "0a11f6bbb324af5ee0c33fb1a2c56b0c14b10daa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c6a1a4b2_62ce3829",
+        "filename": "AGGREGATION.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-11-04T16:49:30Z",
+      "side": 1,
+      "message": "DO we need to mention $metadata?",
+      "revId": "0a11f6bbb324af5ee0c33fb1a2c56b0c14b10daa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "70b35bf8_2764e195",
+        "filename": "AGGREGATION.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-11-04T16:49:30Z",
+      "side": 1,
+      "message": "Nit, maybe just omit this?  This command itself isn\u0027t going to work on any bmc.",
+      "range": {
+        "startLine": 104,
+        "startChar": 0,
+        "endLine": 104,
+        "endChar": 45
+      },
+      "revId": "0a11f6bbb324af5ee0c33fb1a2c56b0c14b10daa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
