@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "86929cb0_26f411a3",
+        "filename": "http/websocket.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-11-04T08:09:12Z",
+      "side": 1,
+      "message": "You are calling Response constructor which will create r-value reference, there is no need to std::move this.",
+      "range": {
+        "startLine": 137,
+        "startChar": 29,
+        "endLine": 137,
+        "endChar": 51
+      },
+      "revId": "d23d031523fa17fa581dd1d29f8cf9a1a377fd72",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
