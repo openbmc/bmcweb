@@ -231,17 +231,10 @@ inline void parseLDAPConfigData(nlohmann::json& jsonResponse,
         BMCWEB_LOG_DEBUG << "Pushing the data groupName="
                          << obj.second.groupName << "\n";
 
-        nlohmann::json::array_t remoteGroupArray;
         nlohmann::json::object_t remoteGroup;
         remoteGroup["RemoteGroup"] = obj.second.groupName;
-        remoteGroupArray.emplace_back(std::move(remoteGroup));
-        roleMapArray.emplace_back(std::move(remoteGroupArray));
-
-        nlohmann::json::array_t localRoleArray;
-        nlohmann::json::object_t localRole;
-        localRole["LocalRole"] = getRoleIdFromPrivilege(obj.second.privilege);
-        localRoleArray.emplace_back(std::move(localRole));
-        roleMapArray.emplace_back(std::move(localRoleArray));
+        remoteGroup["LocalRole"] = getRoleIdFromPrivilege(obj.second.privilege);
+        roleMapArray.emplace_back(std::move(remoteGroup));
     }
 }
 
