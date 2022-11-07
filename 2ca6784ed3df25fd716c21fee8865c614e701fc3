@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3d027782_58d27c69",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1044,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-11-07T16:16:21Z",
+      "side": 1,
+      "message": "Where is this defined? I don\u0027t see it upstream code.",
+      "range": {
+        "startLine": 1044,
+        "startChar": 12,
+        "endLine": 1044,
+        "endChar": 64
+      },
+      "revId": "2ca6784ed3df25fd716c21fee8865c614e701fc3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "451fb5e4_4880b5f4",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1059,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-11-07T16:16:21Z",
+      "side": 1,
+      "message": "Use crow::utility::urlFromPieces for forming the URL.",
+      "range": {
+        "startLine": 1059,
+        "startChar": 48,
+        "endLine": 1059,
+        "endChar": 111
+      },
+      "revId": "2ca6784ed3df25fd716c21fee8865c614e701fc3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "315d74a4_274cfbce",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1108,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-11-07T16:16:21Z",
+      "side": 1,
+      "message": "Same as above, use crow::utility::urlFromPieces",
+      "range": {
+        "startLine": 1108,
+        "startChar": 42,
+        "endLine": 1108,
+        "endChar": 115
+      },
+      "revId": "2ca6784ed3df25fd716c21fee8865c614e701fc3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f5927375_9d11577d",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 3863,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-11-07T16:16:21Z",
+      "side": 1,
+      "message": "I couldn\u0027t find the computerSystemIndex related changes, It might be dependent on other patches, If so, please do add dependency in topic. \n\nIn OpenBMC \"system\" is default name used, But i see this code assign Index 0 to \"Host\" so not clear where exactly these are defined. Is there any design document associated with it which i missed?",
+      "range": {
+        "startLine": 3856,
+        "startChar": 0,
+        "endLine": 3863,
+        "endChar": 17
+      },
+      "revId": "2ca6784ed3df25fd716c21fee8865c614e701fc3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
