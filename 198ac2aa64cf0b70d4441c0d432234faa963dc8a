@@ -16,6 +16,23 @@
       "message": "Looks like https://gerrit.openbmc.org/c/openbmc/bmcweb/+/57355/4/redfish-core/lib/network_protocol.hpp",
       "revId": "198ac2aa64cf0b70d4441c0d432234faa963dc8a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f47653a6_43384cbf",
+        "filename": "redfish-core/lib/power_subsystem.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-11-07T18:16:01Z",
+      "side": 1,
+      "message": "Not sure you need a ERROR LOG here, oh well. Like how you did it without one on https://gerrit.openbmc.org/c/openbmc/bmcweb/+/43170/39/redfish-core/lib/environment_metrics.hpp \n\nOh well.",
+      "revId": "198ac2aa64cf0b70d4441c0d432234faa963dc8a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
