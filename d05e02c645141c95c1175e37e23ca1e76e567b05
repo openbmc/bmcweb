@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ac7ea935_7d656362",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-11-07T18:07:15Z",
+      "side": 1,
+      "message": "This was changed here: https://github.com/openbmc/bmcweb/commit/613dabea03cd2f5cb999be37aaf539280c63ea7a#diff-a6441dc86bbef5cbe2192c66717e8b938f9ee3a02670ff54c702338095a0d660",
+      "revId": "d05e02c645141c95c1175e37e23ca1e76e567b05",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
