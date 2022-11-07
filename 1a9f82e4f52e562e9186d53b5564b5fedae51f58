@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bb299b4a_e37b9dd6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-11-07T16:05:40Z",
+      "side": 1,
+      "message": "Redfish validator is just extra requirement, you must perform unit test in specified change and document the test results here.\n\nAlso Title and description not appropriate.",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 33
+      },
+      "revId": "1a9f82e4f52e562e9186d53b5564b5fedae51f58",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
