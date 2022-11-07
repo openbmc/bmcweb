@@ -335,26 +335,26 @@ inline void getFanAsset(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         });
 }
 
-inline void getFanLocation(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+inline void getFanLocation(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                            const std::string& fanPath,
                            const std::string& service)
 {
     sdbusplus::asio::getProperty<std::string>(
         *crow::connections::systemBus, service, fanPath,
         "xyz.openbmc_project.Inventory.Decorator.LocationCode", "LocationCode",
-        [aResp](const boost::system::error_code& ec,
-                const std::string& property) {
+        [asyncResp](const boost::system::error_code& ec,
+                    const std::string& property) {
         if (ec)
         {
             if (ec.value() != EBADR)
             {
                 BMCWEB_LOG_ERROR("DBUS response error for Location{}",
                                  ec.value());
-                messages::internalError(aResp->res);
+                messages::internalError(asyncResp->res);
             }
             return;
         }
-        aResp->res.jsonValue["Location"]["PartLocation"]["ServiceLabel"] =
+        asyncResp->res.jsonValue["Location"]["PartLocation"]["ServiceLabel"] =
             property;
         });
 }
