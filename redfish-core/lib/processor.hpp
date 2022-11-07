@@ -49,36 +49,39 @@ constexpr std::array<const char*, 2> processorInterfaces = {
  * @param[in,out]   aResp       Async HTTP response.
  * @param[in]       service     D-Bus service to query.
  * @param[in]       objPath     D-Bus object to query.
+ * @param[in]       jsonPtr     json pointer to index the response fields
  */
 inline void getProcessorUUID(std::shared_ptr<bmcweb::AsyncResp> aResp,
                              const std::string& service,
-                             const std::string& objPath)
+                             const std::string& objPath,
+                             const nlohmann::json::json_pointer& jsonPtr)
 {
     BMCWEB_LOG_DEBUG << "Get Processor UUID";
     sdbusplus::asio::getProperty<std::string>(
         *crow::connections::systemBus, service, objPath,
         "xyz.openbmc_project.Common.UUID", "UUID",
-        [objPath, aResp{std::move(aResp)}](const boost::system::error_code ec,
-                                           const std::string& property) {
+        [objPath, jsonPtr, aResp{std::move(aResp)}](
+            const boost::system::error_code ec, const std::string& property) {
         if (ec)
         {
             BMCWEB_LOG_DEBUG << "DBUS response error";
             messages::internalError(aResp->res);
             return;
         }
-        aResp->res.jsonValue["UUID"] = property;
+        aResp->res.jsonValue[jsonPtr]["UUID"] = property;
         });
 }
 
 inline void getCpuDataByInterface(
     const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+    const nlohmann::json::json_pointer& jsonPtr,
     const dbus::utility::DBusInteracesMap& cpuInterfacesProperties)
 {
     BMCWEB_LOG_DEBUG << "Get CPU resources by interface.";
 
     // Set the default value of state
-    aResp->res.jsonValue["Status"]["State"] = "Enabled";
-    aResp->res.jsonValue["Status"]["Health"] = "OK";
+    aResp->res.jsonValue[jsonPtr]["Status"]["State"] = "Enabled";
+    aResp->res.jsonValue[jsonPtr]["Status"]["Health"] = "OK";
 
     for (const auto& interface : cpuInterfacesProperties)
     {
@@ -96,7 +99,7 @@ inline void getCpuDataByInterface(
                 if (!*cpuPresent)
                 {
                     // Slot is not populated
-                    aResp->res.jsonValue["Status"]["State"] = "Absent";
+                    aResp->res.jsonValue[jsonPtr]["Status"]["State"] = "Absent";
                 }
             }
             else if (property.first == "Functional")
@@ -109,7 +112,8 @@ inline void getCpuDataByInterface(
                 }
                 if (!*cpuFunctional)
                 {
-                    aResp->res.jsonValue["Status"]["Health"] = "Critical";
+                    aResp->res.jsonValue[jsonPtr]["Status"]["Health"] =
+                        "Critical";
                 }
             }
             else if (property.first == "CoreCount")
@@ -121,14 +125,14 @@ inline void getCpuDataByInterface(
                     messages::internalError(aResp->res);
                     return;
                 }
-                aResp->res.jsonValue["TotalCores"] = *coresCount;
+                aResp->res.jsonValue[jsonPtr]["TotalCores"] = *coresCount;
             }
             else if (property.first == "MaxSpeedInMhz")
             {
                 const uint32_t* value = std::get_if<uint32_t>(&property.second);
                 if (value != nullptr)
                 {
-                    aResp->res.jsonValue["MaxSpeedMHz"] = *value;
+                    aResp->res.jsonValue[jsonPtr]["MaxSpeedMHz"] = *value;
                 }
             }
             else if (property.first == "Socket")
@@ -137,7 +141,7 @@ inline void getCpuDataByInterface(
                     std::get_if<std::string>(&property.second);
                 if (value != nullptr)
                 {
-                    aResp->res.jsonValue["Socket"] = *value;
+                    aResp->res.jsonValue[jsonPtr]["Socket"] = *value;
                 }
             }
             else if (property.first == "ThreadCount")
@@ -145,7 +149,7 @@ inline void getCpuDataByInterface(
                 const uint16_t* value = std::get_if<uint16_t>(&property.second);
                 if (value != nullptr)
                 {
-                    aResp->res.jsonValue["TotalThreads"] = *value;
+                    aResp->res.jsonValue[jsonPtr]["TotalThreads"] = *value;
                 }
             }
             else if (property.first == "EffectiveFamily")
@@ -153,7 +157,8 @@ inline void getCpuDataByInterface(
                 const uint16_t* value = std::get_if<uint16_t>(&property.second);
                 if (value != nullptr && *value != 2)
                 {
-                    aResp->res.jsonValue["ProcessorId"]["EffectiveFamily"] =
+                    aResp->res
+                        .jsonValue[jsonPtr]["ProcessorId"]["EffectiveFamily"] =
                         "0x" + intToHexString(*value, 4);
                 }
             }
@@ -167,7 +172,8 @@ inline void getCpuDataByInterface(
                 }
                 if (*value != 0)
                 {
-                    aResp->res.jsonValue["ProcessorId"]["EffectiveModel"] =
+                    aResp->res
+                        .jsonValue[jsonPtr]["ProcessorId"]["EffectiveModel"] =
                         "0x" + intToHexString(*value, 4);
                 }
             }
@@ -176,8 +182,8 @@ inline void getCpuDataByInterface(
                 const uint64_t* value = std::get_if<uint64_t>(&property.second);
                 if (value != nullptr && *value != 0)
                 {
-                    aResp->res
-                        .jsonValue["ProcessorId"]["IdentificationRegisters"] =
+                    aResp->res.jsonValue[jsonPtr]["ProcessorId"]
+                                        ["IdentificationRegisters"] =
                         "0x" + intToHexString(*value, 16);
                 }
             }
@@ -191,7 +197,8 @@ inline void getCpuDataByInterface(
                 }
                 if (*value != 0)
                 {
-                    aResp->res.jsonValue["ProcessorId"]["MicrocodeInfo"] =
+                    aResp->res
+                        .jsonValue[jsonPtr]["ProcessorId"]["MicrocodeInfo"] =
                         "0x" + intToHexString(*value, 8);
                 }
             }
@@ -205,7 +212,7 @@ inline void getCpuDataByInterface(
                 }
                 if (*value != 0)
                 {
-                    aResp->res.jsonValue["ProcessorId"]["Step"] =
+                    aResp->res.jsonValue[jsonPtr]["ProcessorId"]["Step"] =
                         "0x" + intToHexString(*value, 4);
                 }
             }
@@ -216,12 +223,13 @@ inline void getCpuDataByInterface(
 inline void getCpuDataByService(std::shared_ptr<bmcweb::AsyncResp> aResp,
                                 const std::string& cpuId,
                                 const std::string& service,
-                                const std::string& objPath)
+                                const std::string& objPath,
+                                const nlohmann::json::json_pointer& jsonPtr)
 {
     BMCWEB_LOG_DEBUG << "Get available system cpu resources by service.";
 
     crow::connections::systemBus->async_method_call(
-        [cpuId, service, objPath, aResp{std::move(aResp)}](
+        [cpuId, service, objPath, jsonPtr, aResp{std::move(aResp)}](
             const boost::system::error_code ec,
             const dbus::utility::ManagedObjectType& dbusData) {
         if (ec)
@@ -230,9 +238,9 @@ inline void getCpuDataByService(std::shared_ptr<bmcweb::AsyncResp> aResp,
             messages::internalError(aResp->res);
             return;
         }
-        aResp->res.jsonValue["Id"] = cpuId;
-        aResp->res.jsonValue["Name"] = "Processor";
-        aResp->res.jsonValue["ProcessorType"] = "CPU";
+        aResp->res.jsonValue[jsonPtr]["Id"] = cpuId;
+        aResp->res.jsonValue[jsonPtr]["Name"] = "Processor";
+        aResp->res.jsonValue[jsonPtr]["ProcessorType"] = "CPU";
 
         bool slotPresent = false;
         std::string corePath = objPath + "/core";
@@ -241,7 +249,7 @@ inline void getCpuDataByService(std::shared_ptr<bmcweb::AsyncResp> aResp,
         {
             if (object.first.str == objPath)
             {
-                getCpuDataByInterface(aResp, object.second);
+                getCpuDataByInterface(aResp, jsonPtr, object.second);
             }
             else if (object.first.str.starts_with(corePath))
             {
@@ -277,10 +285,10 @@ inline void getCpuDataByService(std::shared_ptr<bmcweb::AsyncResp> aResp,
             if (totalCores == 0)
             {
                 // Slot is not populated, set status end return
-                aResp->res.jsonValue["Status"]["State"] = "Absent";
-                aResp->res.jsonValue["Status"]["Health"] = "OK";
+                aResp->res.jsonValue[jsonPtr]["Status"]["State"] = "Absent";
+                aResp->res.jsonValue[jsonPtr]["Status"]["Health"] = "OK";
             }
-            aResp->res.jsonValue["TotalCores"] = totalCores;
+            aResp->res.jsonValue[jsonPtr]["TotalCores"] = totalCores;
         }
         return;
         },
@@ -290,13 +298,14 @@ inline void getCpuDataByService(std::shared_ptr<bmcweb::AsyncResp> aResp,
 
 inline void getCpuAssetData(std::shared_ptr<bmcweb::AsyncResp> aResp,
                             const std::string& service,
-                            const std::string& objPath)
+                            const std::string& objPath,
+                            const nlohmann::json::json_pointer& jsonPtr)
 {
     BMCWEB_LOG_DEBUG << "Get Cpu Asset Data";
     sdbusplus::asio::getAllProperties(
         *crow::connections::systemBus, service, objPath,
         "xyz.openbmc_project.Inventory.Decorator.Asset",
-        [objPath, aResp{std::move(aResp)}](
+        [objPath, jsonPtr, aResp{std::move(aResp)}](
             const boost::system::error_code ec,
             const dbus::utility::DBusPropertiesMap& properties) {
         if (ec)
@@ -325,52 +334,54 @@ inline void getCpuAssetData(std::shared_ptr<bmcweb::AsyncResp> aResp,
 
         if (serialNumber != nullptr && !serialNumber->empty())
         {
-            aResp->res.jsonValue["SerialNumber"] = *serialNumber;
+            aResp->res.jsonValue[jsonPtr]["SerialNumber"] = *serialNumber;
         }
 
         if ((model != nullptr) && !model->empty())
         {
-            aResp->res.jsonValue["Model"] = *model;
+            aResp->res.jsonValue[jsonPtr]["Model"] = *model;
         }
 
         if (manufacturer != nullptr)
         {
-            aResp->res.jsonValue["Manufacturer"] = *manufacturer;
+            aResp->res.jsonValue[jsonPtr]["Manufacturer"] = *manufacturer;
 
             // Otherwise would be unexpected.
             if (manufacturer->find("Intel") != std::string::npos)
             {
-                aResp->res.jsonValue["ProcessorArchitecture"] = "x86";
-                aResp->res.jsonValue["InstructionSet"] = "x86-64";
+                aResp->res.jsonValue[jsonPtr]["ProcessorArchitecture"] = "x86";
+                aResp->res.jsonValue[jsonPtr]["InstructionSet"] = "x86-64";
             }
             else if (manufacturer->find("IBM") != std::string::npos)
             {
-                aResp->res.jsonValue["ProcessorArchitecture"] = "Power";
-                aResp->res.jsonValue["InstructionSet"] = "PowerISA";
+                aResp->res.jsonValue[jsonPtr]["ProcessorArchitecture"] =
+                    "Power";
+                aResp->res.jsonValue[jsonPtr]["InstructionSet"] = "PowerISA";
             }
         }
 
         if (partNumber != nullptr)
         {
-            aResp->res.jsonValue["PartNumber"] = *partNumber;
+            aResp->res.jsonValue[jsonPtr]["PartNumber"] = *partNumber;
         }
 
         if (sparePartNumber != nullptr && !sparePartNumber->empty())
         {
-            aResp->res.jsonValue["SparePartNumber"] = *sparePartNumber;
+            aResp->res.jsonValue[jsonPtr]["SparePartNumber"] = *sparePartNumber;
         }
         });
 }
 
 inline void getCpuRevisionData(std::shared_ptr<bmcweb::AsyncResp> aResp,
                                const std::string& service,
-                               const std::string& objPath)
+                               const std::string& objPath,
+                               const nlohmann::json::json_pointer& jsonPtr)
 {
     BMCWEB_LOG_DEBUG << "Get Cpu Revision Data";
     sdbusplus::asio::getAllProperties(
         *crow::connections::systemBus, service, objPath,
         "xyz.openbmc_project.Inventory.Decorator.Revision",
-        [objPath, aResp{std::move(aResp)}](
+        [objPath, jsonPtr, aResp{std::move(aResp)}](
             const boost::system::error_code ec,
             const dbus::utility::DBusPropertiesMap& properties) {
         if (ec)
@@ -393,20 +404,21 @@ inline void getCpuRevisionData(std::shared_ptr<bmcweb::AsyncResp> aResp,
 
         if (version != nullptr)
         {
-            aResp->res.jsonValue["Version"] = *version;
+            aResp->res.jsonValue[jsonPtr]["Version"] = *version;
         }
         });
 }
 
 inline void getAcceleratorDataByService(
     std::shared_ptr<bmcweb::AsyncResp> aResp, const std::string& acclrtrId,
-    const std::string& service, const std::string& objPath)
+    const std::string& service, const std::string& objPath,
+    const nlohmann::json::json_pointer& jsonPtr)
 {
     BMCWEB_LOG_DEBUG
         << "Get available system Accelerator resources by service.";
     sdbusplus::asio::getAllProperties(
         *crow::connections::systemBus, service, objPath, "",
-        [acclrtrId, aResp{std::move(aResp)}](
+        [acclrtrId, jsonPtr, aResp{std::move(aResp)}](
             const boost::system::error_code ec,
             const dbus::utility::DBusPropertiesMap& properties) {
         if (ec)
@@ -445,11 +457,11 @@ inline void getAcceleratorDataByService(
             }
         }
 
-        aResp->res.jsonValue["Id"] = acclrtrId;
-        aResp->res.jsonValue["Name"] = "Processor";
-        aResp->res.jsonValue["Status"]["State"] = state;
-        aResp->res.jsonValue["Status"]["Health"] = health;
-        aResp->res.jsonValue["ProcessorType"] = "Accelerator";
+        aResp->res.jsonValue[jsonPtr]["Id"] = acclrtrId;
+        aResp->res.jsonValue[jsonPtr]["Name"] = "Processor";
+        aResp->res.jsonValue[jsonPtr]["Status"]["State"] = state;
+        aResp->res.jsonValue[jsonPtr]["Status"]["Health"] = health;
+        aResp->res.jsonValue[jsonPtr]["ProcessorType"] = "Accelerator";
         });
 }
 
@@ -465,12 +477,14 @@ using BaseSpeedPrioritySettingsProperty =
  * OperatingConfig D-Bus property.
  *
  * @param[in,out]   aResp               Async HTTP response.
+ * @param[in]       jsonPtr     json pointer to index the response fields
  * @param[in]       baseSpeedSettings   Full list of base speed priority groups,
  *                                      to use to determine the list of high
  *                                      speed cores.
  */
 inline void highSpeedCoreIdsHandler(
     const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+    const nlohmann::json::json_pointer& jsonPtr,
     const BaseSpeedPrioritySettingsProperty& baseSpeedSettings)
 {
     // The D-Bus property does not indicate which bucket is the "high
@@ -489,7 +503,8 @@ inline void highSpeedCoreIdsHandler(
         }
     }
 
-    nlohmann::json& jsonCoreIds = aResp->res.jsonValue["HighSpeedCoreIDs"];
+    nlohmann::json& jsonCoreIds =
+        aResp->res.jsonValue[jsonPtr]["HighSpeedCoreIDs"];
     jsonCoreIds = nlohmann::json::array();
 
     // There may not be any entries in the D-Bus property, so only populate
@@ -508,11 +523,13 @@ inline void highSpeedCoreIdsHandler(
  * @param[in]       cpuId       CPU D-Bus name.
  * @param[in]       service     D-Bus service to query.
  * @param[in]       objPath     D-Bus object to query.
+ * @param[in]       jsonPtr     json pointer to index the response fields
  */
 inline void getCpuConfigData(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
                              const std::string& cpuId,
                              const std::string& service,
-                             const std::string& objPath)
+                             const std::string& objPath,
+                             const nlohmann::json::json_pointer& jsonPtr)
 {
     BMCWEB_LOG_INFO << "Getting CPU operating configs for " << cpuId;
 
@@ -520,7 +537,7 @@ inline void getCpuConfigData(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
     sdbusplus::asio::getAllProperties(
         *crow::connections::systemBus, service, objPath,
         "xyz.openbmc_project.Control.Processor.CurrentOperatingConfig",
-        [aResp, cpuId,
+        [aResp, jsonPtr, cpuId,
          service](const boost::system::error_code ec,
                   const dbus::utility::DBusPropertiesMap& properties) {
         if (ec)
@@ -553,7 +570,7 @@ inline void getCpuConfigData(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
                               "/OperatingConfigs";
             nlohmann::json::object_t operatingConfig;
             operatingConfig["@odata.id"] = uri;
-            json["OperatingConfigs"] = std::move(operatingConfig);
+            json[jsonPtr]["OperatingConfigs"] = std::move(operatingConfig);
 
             // Reuse the D-Bus config object name for the Redfish
             // URI
@@ -571,7 +588,8 @@ inline void getCpuConfigData(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
             uri += dbusPath.substr(baseNamePos + 1);
             nlohmann::json::object_t appliedOperatingConfig;
             appliedOperatingConfig["@odata.id"] = uri;
-            json["AppliedOperatingConfig"] = std::move(appliedOperatingConfig);
+            json[jsonPtr]["AppliedOperatingConfig"] =
+                std::move(appliedOperatingConfig);
 
             // Once we found the current applied config, queue another
             // request to read the base freq core ids out of that
@@ -581,7 +599,7 @@ inline void getCpuConfigData(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
                 "xyz.openbmc_project.Inventory.Item.Cpu."
                 "OperatingConfig",
                 "BaseSpeedPrioritySettings",
-                [aResp](
+                [aResp, jsonPtr](
                     const boost::system::error_code ec2,
                     const BaseSpeedPrioritySettingsProperty& baseSpeedList) {
                 if (ec2)
@@ -591,13 +609,13 @@ inline void getCpuConfigData(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
                     return;
                 }
 
-                highSpeedCoreIdsHandler(aResp, baseSpeedList);
+                highSpeedCoreIdsHandler(aResp, jsonPtr, baseSpeedList);
                 });
         }
 
         if (baseSpeedPriorityEnabled != nullptr)
         {
-            json["BaseSpeedPriorityState"] =
+            json[jsonPtr]["BaseSpeedPriorityState"] =
                 *baseSpeedPriorityEnabled ? "Enabled" : "Disabled";
         }
         });
@@ -610,17 +628,19 @@ inline void getCpuConfigData(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
  * @param[in,out]   aResp       Async HTTP response.
  * @param[in]       service     D-Bus service to query.
  * @param[in]       objPath     D-Bus object to query.
+ * @param[in]       jsonPtr     json pointer to index the response fields
  */
 inline void getCpuLocationCode(std::shared_ptr<bmcweb::AsyncResp> aResp,
                                const std::string& service,
-                               const std::string& objPath)
+                               const std::string& objPath,
+                               const nlohmann::json::json_pointer& jsonPtr)
 {
     BMCWEB_LOG_DEBUG << "Get Cpu Location Data";
     sdbusplus::asio::getProperty<std::string>(
         *crow::connections::systemBus, service, objPath,
         "xyz.openbmc_project.Inventory.Decorator.LocationCode", "LocationCode",
-        [objPath, aResp{std::move(aResp)}](const boost::system::error_code ec,
-                                           const std::string& property) {
+        [objPath, jsonPtr, aResp{std::move(aResp)}](
+            const boost::system::error_code ec, const std::string& property) {
         if (ec)
         {
             BMCWEB_LOG_DEBUG << "DBUS response error";
@@ -628,7 +648,8 @@ inline void getCpuLocationCode(std::shared_ptr<bmcweb::AsyncResp> aResp,
             return;
         }
 
-        aResp->res.jsonValue["Location"]["PartLocation"]["ServiceLabel"] =
+        aResp->res
+            .jsonValue[jsonPtr]["Location"]["PartLocation"]["ServiceLabel"] =
             property;
         });
 }
@@ -640,25 +661,27 @@ inline void getCpuLocationCode(std::shared_ptr<bmcweb::AsyncResp> aResp,
  * @param[in,out]   aResp       Async HTTP response.
  * @param[in]       service     D-Bus service to query.
  * @param[in]       objPath     D-Bus object to query.
+ * @param[in]       jsonPtr     json pointer to index the response fields
  */
 inline void getCpuUniqueId(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
                            const std::string& service,
-                           const std::string& objectPath)
+                           const std::string& objectPath,
+                           const nlohmann::json::json_pointer& jsonPtr)
 {
     BMCWEB_LOG_DEBUG << "Get CPU UniqueIdentifier";
     sdbusplus::asio::getProperty<std::string>(
         *crow::connections::systemBus, service, objectPath,
         "xyz.openbmc_project.Inventory.Decorator.UniqueIdentifier",
         "UniqueIdentifier",
-        [aResp](boost::system::error_code ec, const std::string& id) {
+        [aResp, jsonPtr](boost::system::error_code ec, const std::string& id) {
         if (ec)
         {
             BMCWEB_LOG_ERROR << "Failed to read cpu unique id: " << ec;
             messages::internalError(aResp->res);
             return;
         }
-        aResp->res.jsonValue["ProcessorId"]["ProtectedIdentificationNumber"] =
-            id;
+        aResp->res.jsonValue[jsonPtr]["ProcessorId"]
+                            ["ProtectedIdentificationNumber"] = id;
         });
 }
 
@@ -745,14 +768,16 @@ inline void getProcessorObject(const std::shared_ptr<bmcweb::AsyncResp>& resp,
 }
 
 inline void getProcessorData(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+                             const nlohmann::json::json_pointer& jsonPtr,
                              const std::string& processorId,
                              const std::string& objectPath,
                              const dbus::utility::MapperServiceMap& serviceMap)
 {
-    aResp->res.jsonValue["@odata.type"] = "#Processor.v1_11_0.Processor";
-    aResp->res.jsonValue["@odata.id"] = crow::utility::urlFromPieces(
+    aResp->res.jsonValue[jsonPtr]["@odata.type"] =
+        "#Processor.v1_11_0.Processor";
+    aResp->res.jsonValue[jsonPtr]["@odata.id"] = crow::utility::urlFromPieces(
         "redfish", "v1", "Systems", "system", "Processors", processorId);
-    aResp->res.jsonValue["SubProcessors"]["@odata.id"] =
+    aResp->res.jsonValue[jsonPtr]["SubProcessors"]["@odata.id"] =
         crow::utility::urlFromPieces("redfish", "v1", "Systems", "system",
                                      "Processors", processorId,
                                      "SubProcessors");
@@ -763,43 +788,44 @@ inline void getProcessorData(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
         {
             if (interface == "xyz.openbmc_project.Inventory.Decorator.Asset")
             {
-                getCpuAssetData(aResp, serviceName, objectPath);
+                getCpuAssetData(aResp, serviceName, objectPath, jsonPtr);
             }
             else if (interface ==
                      "xyz.openbmc_project.Inventory.Decorator.Revision")
             {
-                getCpuRevisionData(aResp, serviceName, objectPath);
+                getCpuRevisionData(aResp, serviceName, objectPath, jsonPtr);
             }
             else if (interface == "xyz.openbmc_project.Inventory.Item.Cpu")
             {
-                getCpuDataByService(aResp, processorId, serviceName,
-                                    objectPath);
+                getCpuDataByService(aResp, processorId, serviceName, objectPath,
+                                    jsonPtr);
             }
             else if (interface ==
                      "xyz.openbmc_project.Inventory.Item.Accelerator")
             {
                 getAcceleratorDataByService(aResp, processorId, serviceName,
-                                            objectPath);
+                                            objectPath, jsonPtr);
             }
             else if (
                 interface ==
                 "xyz.openbmc_project.Control.Processor.CurrentOperatingConfig")
             {
-                getCpuConfigData(aResp, processorId, serviceName, objectPath);
+                getCpuConfigData(aResp, processorId, serviceName, objectPath,
+                                 jsonPtr);
             }
             else if (interface ==
                      "xyz.openbmc_project.Inventory.Decorator.LocationCode")
             {
-                getCpuLocationCode(aResp, serviceName, objectPath);
+                getCpuLocationCode(aResp, serviceName, objectPath, jsonPtr);
             }
             else if (interface == "xyz.openbmc_project.Common.UUID")
             {
-                getProcessorUUID(aResp, serviceName, objectPath);
+                getProcessorUUID(aResp, serviceName, objectPath, jsonPtr);
             }
             else if (interface ==
                      "xyz.openbmc_project.Inventory.Decorator.UniqueIdentifier")
             {
-                getCpuUniqueId(aResp, serviceName, objectPath);
+                getCpuUniqueId(aResp, serviceName, objectPath, jsonPtr);
             }
         }
     }
@@ -917,19 +943,20 @@ inline void
 
 inline void getCoreThreadDataByService(
     const std::shared_ptr<bmcweb::AsyncResp>& aResp,
-    const std::string& processorId, const std::string& coreId,
-    const std::string& threadId,
+    const nlohmann::json::json_pointer& jsonPtr, const std::string& processorId,
+    const std::string& coreId, const std::string& threadId,
     const dbus::utility::DBusInteracesMap& interfaceMap)
 {
-    aResp->res.jsonValue["@odata.type"] = "#Processor.v1_11_0.Processor";
-    aResp->res.jsonValue["@odata.id"] = crow::utility::urlFromPieces(
+    aResp->res.jsonValue[jsonPtr]["@odata.type"] =
+        "#Processor.v1_11_0.Processor";
+    aResp->res.jsonValue[jsonPtr]["@odata.id"] = crow::utility::urlFromPieces(
         "redfish", "v1", "Systems", "system", "Processors", processorId,
         "SubProcessors", coreId, "SubProcessors", threadId);
-    aResp->res.jsonValue["Name"] = "SubProcessor";
-    aResp->res.jsonValue["Id"] = threadId;
+    aResp->res.jsonValue[jsonPtr]["Name"] = "SubProcessor";
+    aResp->res.jsonValue[jsonPtr]["Id"] = threadId;
 
-    aResp->res.jsonValue["Status"]["State"] = "Enabled";
-    aResp->res.jsonValue["Status"]["Health"] = "OK";
+    aResp->res.jsonValue[jsonPtr]["Status"]["State"] = "Enabled";
+    aResp->res.jsonValue[jsonPtr]["Status"]["Health"] = "OK";
 
     bool present = false;
     bool functional = false;
@@ -976,7 +1003,7 @@ inline void getCoreThreadDataByService(
                         messages::internalError(aResp->res);
                         return;
                     }
-                    aResp->res.jsonValue["Name"] = *prettyName;
+                    aResp->res.jsonValue[jsonPtr]["Name"] = *prettyName;
                 }
             }
         }
@@ -992,7 +1019,8 @@ inline void getCoreThreadDataByService(
                         messages::internalError(aResp->res);
                         return;
                     }
-                    aResp->res.jsonValue["ProcessorId"]["MicrocodeInfo"] =
+                    aResp->res
+                        .jsonValue[jsonPtr]["ProcessorId"]["MicrocodeInfo"] =
                         "0x" + intToHexString(*value, 8);
                 }
             }
@@ -1001,12 +1029,12 @@ inline void getCoreThreadDataByService(
 
     if (!present)
     {
-        aResp->res.jsonValue["Status"]["State"] = "Absent";
+        aResp->res.jsonValue[jsonPtr]["Status"]["State"] = "Absent";
     }
 
     if (!functional)
     {
-        aResp->res.jsonValue["Status"]["Health"] = "Critical";
+        aResp->res.jsonValue[jsonPtr]["Status"]["Health"] = "Critical";
     }
 }
 
@@ -1135,9 +1163,9 @@ inline void getSubProcessorThreadData(
                                 continue;
                             }
 
-                            getCoreThreadDataByService(aResp, processorId,
-                                                       coreId, threadId,
-                                                       interfaces);
+                            getCoreThreadDataByService(aResp, ""_json_pointer,
+                                                       processorId, coreId,
+                                                       threadId, interfaces);
                             return;
                         }
                         // Object not found
@@ -1210,24 +1238,26 @@ inline void getSubProcessorThreadMembers(
 
 inline void
     getCpuCoreDataByService(const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+                            const nlohmann::json::json_pointer& jsonPtr,
                             const std::string& processorId,
                             const std::string& coreId,
                             const dbus::utility::DBusInteracesMap& interfaceMap)
 {
-    aResp->res.jsonValue["@odata.type"] = "#Processor.v1_11_0.Processor";
-    aResp->res.jsonValue["@odata.id"] = crow::utility::urlFromPieces(
+    aResp->res.jsonValue[jsonPtr]["@odata.type"] =
+        "#Processor.v1_11_0.Processor";
+    aResp->res.jsonValue[jsonPtr]["@odata.id"] = crow::utility::urlFromPieces(
         "redfish", "v1", "Systems", "system", "Processors", processorId,
         "SubProcessors", coreId);
 
-    aResp->res.jsonValue["Name"] = "SubProcessor";
-    aResp->res.jsonValue["Id"] = coreId;
-    aResp->res.jsonValue["SubProcessors"]["@odata.id"] =
+    aResp->res.jsonValue[jsonPtr]["Name"] = "SubProcessor";
+    aResp->res.jsonValue[jsonPtr]["Id"] = coreId;
+    aResp->res.jsonValue[jsonPtr]["SubProcessors"]["@odata.id"] =
         crow::utility::urlFromPieces("redfish", "v1", "Systems", "system",
                                      "Processors", processorId, "SubProcessors",
                                      coreId, "SubProcessors");
 
-    aResp->res.jsonValue["Status"]["State"] = "Enabled";
-    aResp->res.jsonValue["Status"]["Health"] = "OK";
+    aResp->res.jsonValue[jsonPtr]["Status"]["State"] = "Enabled";
+    aResp->res.jsonValue[jsonPtr]["Status"]["Health"] = "OK";
 
     bool present = false;
     bool functional = false;
@@ -1274,7 +1304,7 @@ inline void
                         messages::internalError(aResp->res);
                         return;
                     }
-                    aResp->res.jsonValue["Name"] = *prettyName;
+                    aResp->res.jsonValue[jsonPtr]["Name"] = *prettyName;
                 }
             }
         }
@@ -1290,7 +1320,8 @@ inline void
                         messages::internalError(aResp->res);
                         return;
                     }
-                    aResp->res.jsonValue["ProcessorId"]["MicrocodeInfo"] =
+                    aResp->res
+                        .jsonValue[jsonPtr]["ProcessorId"]["MicrocodeInfo"] =
                         "0x" + intToHexString(*value, 8);
                 }
             }
@@ -1299,12 +1330,12 @@ inline void
 
     if (!present)
     {
-        aResp->res.jsonValue["Status"]["State"] = "Absent";
+        aResp->res.jsonValue[jsonPtr]["Status"]["State"] = "Absent";
     }
 
     if (!functional)
     {
-        aResp->res.jsonValue["Status"]["Health"] = "Critical";
+        aResp->res.jsonValue[jsonPtr]["Status"]["Health"] = "Critical";
     }
 }
 
@@ -1431,7 +1462,8 @@ inline void getSubProcessorCoreData(
                                 continue;
                             }
 
-                            getCpuCoreDataByService(aResp, processorId, coreId,
+                            getCpuCoreDataByService(aResp, ""_json_pointer,
+                                                    processorId, coreId,
                                                     interfaces);
                             return;
                         }
@@ -1921,9 +1953,9 @@ inline void requestRoutesProcessor(App& app)
             return;
         }
 
-        getProcessorObject(
-            asyncResp, processorId,
-            std::bind_front(getProcessorData, asyncResp, processorId));
+        getProcessorObject(asyncResp, processorId,
+                           std::bind_front(getProcessorData, asyncResp,
+                                           ""_json_pointer, processorId));
         });
 
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/Processors/<str>/")
