@@ -52,6 +52,24 @@
       "parentUuid": "743e7f9a_6f7042ba",
       "revId": "291d709d3505cb345259e7d78eb6c8b765499c1b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "46ae2eaa_b72fbc50",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-11-07T18:10:12Z",
+      "side": 0,
+      "message": "So currently this isn\u0027t a problem but if any other properties are added to unpackPropertiesNoThrow after Length it becomes a problem. Ack.",
+      "parentUuid": "4e0ff1d1_5f0841ad",
+      "revId": "291d709d3505cb345259e7d78eb6c8b765499c1b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
