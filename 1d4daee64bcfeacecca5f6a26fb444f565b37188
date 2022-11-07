@@ -16,6 +16,24 @@
       "message": "Please follow https://github.com/openbmc/bmcweb/blob/master/DEVELOPING.md to format your commit message. Also including a Tested msg",
       "revId": "1d4daee64bcfeacecca5f6a26fb444f565b37188",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "18125e35_19fbd316",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000855
+      },
+      "writtenOn": "2022-11-07T17:53:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "399b03c8_c3c4aa3b",
+      "revId": "1d4daee64bcfeacecca5f6a26fb444f565b37188",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
