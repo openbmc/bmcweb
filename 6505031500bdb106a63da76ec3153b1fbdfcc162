@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a2c427ce_5d8ee51f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 55
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-11-07T14:51:40Z",
+      "side": 1,
+      "message": "Can you also test the generic event subscription to make sure it didn\u0027t impacted?",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 6
+      },
+      "revId": "6505031500bdb106a63da76ec3153b1fbdfcc162",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7db1080a_22de5121",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 55
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-11-07T14:51:40Z",
+      "side": 1,
+      "message": "Is the subscription data is persistent or not along with AC cycles? That test needs to be covered here.",
+      "revId": "6505031500bdb106a63da76ec3153b1fbdfcc162",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa734e98_7ca2f652",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 55
+      },
+      "lineNbr": 883,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-11-07T14:51:40Z",
+      "side": 1,
+      "message": "Since you changed the signature of this API and passing the subscriptionId as input param, So returnning string is unnecessary. Avoid const and use subscriptionId input param for filling it.",
+      "range": {
+        "startLine": 882,
+        "startChar": 4,
+        "endLine": 883,
+        "endChar": 66
+      },
+      "revId": "6505031500bdb106a63da76ec3153b1fbdfcc162",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "90917fa1_70b77a54",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 55
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-11-07T14:51:40Z",
+      "side": 1,
+      "message": "Setting member count here is wrong. When control reached here means i\u0027s not filled with SNMP members right?",
+      "range": {
+        "startLine": 211,
+        "startChar": 4,
+        "endLine": 211,
+        "endChar": 73
+      },
+      "revId": "6505031500bdb106a63da76ec3153b1fbdfcc162",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3af3ac93_ce4bfc0a",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 55
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-11-07T14:51:40Z",
+      "side": 1,
+      "message": "With this code, first it will try the SNMP D-BUs object irrespective if the OEM having support (including backend service) for it or not. This is not right approach. Let\u0027s move all snmp specific objection collection in separate API instead of following fall-back mechanism.\n\nKeep original subscription collection as is and below you can add doCollecSNMPObject(asyncResp) with passing async. That we can have isolated (Can be controlled via Build flag).",
+      "range": {
+        "startLine": 258,
+        "startChar": 0,
+        "endLine": 265,
+        "endChar": 71
+      },
+      "revId": "6505031500bdb106a63da76ec3153b1fbdfcc162",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
