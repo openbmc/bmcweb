@@ -46,6 +46,30 @@
       },
       "revId": "f41891b7885fe7dbcf23b5e95a13463d1ba882dd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0fbee6b8_e9f8bb9a",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 39
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-11-07T18:16:38Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "436c7906_d5656892",
+      "range": {
+        "startLine": 45,
+        "startChar": 1,
+        "endLine": 60,
+        "endChar": 101
+      },
+      "revId": "f41891b7885fe7dbcf23b5e95a13463d1ba882dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
