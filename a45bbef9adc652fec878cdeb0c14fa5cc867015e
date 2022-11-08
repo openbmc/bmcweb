@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8828dcc8_07808e1e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-11-08T21:00:43Z",
+      "side": 1,
+      "message": "Why is this needed? Please expand the commit msg, no real commit msg body.",
+      "revId": "a45bbef9adc652fec878cdeb0c14fa5cc867015e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
