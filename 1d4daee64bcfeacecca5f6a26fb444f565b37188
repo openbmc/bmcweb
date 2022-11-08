@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "590a4b9e_9cd370f5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-11-08T01:49:44Z",
+      "side": 1,
+      "message": "can you identify where the code seg faulted?  I don\u0027t see anything in your review that should\u0027ve caused a seg fault.",
+      "parentUuid": "252b625c_0654c088",
+      "range": {
+        "startLine": 9,
+        "startChar": 31,
+        "endLine": 9,
+        "endChar": 38
+      },
+      "revId": "1d4daee64bcfeacecca5f6a26fb444f565b37188",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "399b03c8_c3c4aa3b",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
