@@ -21,5 +21,6 @@ TEST(FillMessageArgs, ArgsAreFilledCorrectly)
     EXPECT_EQ(fillMessageArgs({}, "%"), "");
     EXPECT_EQ(fillMessageArgs({}, "%foo"), "");
 }
+
 } // namespace
 } // namespace redfish::registries
