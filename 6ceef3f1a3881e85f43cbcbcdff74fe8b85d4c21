@@ -34,6 +34,24 @@
       "parentUuid": "088f8bae_96d13669",
       "revId": "6ceef3f1a3881e85f43cbcbcdff74fe8b85d4c21",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "66319a0e_2ef0c9be",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 61
+      },
+      "lineNbr": 1096,
+      "author": {
+        "id": 1001369
+      },
+      "writtenOn": "2022-11-08T17:44:10Z",
+      "side": 1,
+      "message": "The associations between cpu and core (containing, contained_by) have been documented in phosphor-dbus-interfaces. The link to the documentation is in the CL description",
+      "parentUuid": "aefb7eda_7a4c8311",
+      "revId": "6ceef3f1a3881e85f43cbcbcdff74fe8b85d4c21",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
