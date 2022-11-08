@@ -1,6 +1,7 @@
 #pragma once
 
 #include "app.hpp"
+#include "logging.hpp"
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
 #include "utils/chassis_utils.hpp"
