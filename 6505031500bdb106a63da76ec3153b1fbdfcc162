@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c1ac1e6f_45b3e3d2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 55
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2022-11-08T20:05:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a2c427ce_5d8ee51f",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 6
+      },
+      "revId": "6505031500bdb106a63da76ec3153b1fbdfcc162",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7db1080a_22de5121",
@@ -41,6 +65,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4882d68a_750e3bc6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 55
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2022-11-08T20:05:58Z",
+      "side": 1,
+      "message": "Please see: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/38599/55//COMMIT_MSG#72\nI have tested AD cycles and DC cycles.",
+      "parentUuid": "7db1080a_22de5121",
+      "revId": "6505031500bdb106a63da76ec3153b1fbdfcc162",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fa734e98_7ca2f652",
@@ -54,6 +96,30 @@
       "writtenOn": "2022-11-07T14:51:40Z",
       "side": 1,
       "message": "Since you changed the signature of this API and passing the subscriptionId as input param, So returnning string is unnecessary. Avoid const and use subscriptionId input param for filling it.",
+      "range": {
+        "startLine": 882,
+        "startChar": 4,
+        "endLine": 883,
+        "endChar": 66
+      },
+      "revId": "6505031500bdb106a63da76ec3153b1fbdfcc162",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6369a8eb_b87a3c2f",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 55
+      },
+      "lineNbr": 883,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2022-11-08T20:05:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fa734e98_7ca2f652",
       "range": {
         "startLine": 882,
         "startChar": 4,
@@ -89,6 +155,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "96332aaf_bef19a3a",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 55
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2022-11-08T20:05:58Z",
+      "side": 1,
+      "message": "\u003e When control reached here means i\u0027s not filled with SNMP members right?\n\nNo. When control reached line 218 means i\u0027s not filled with SNMP members.\nLines 195 to 211 are used to obtain other subscriptions except snmptrap subscriptions.",
+      "parentUuid": "90917fa1_70b77a54",
+      "range": {
+        "startLine": 211,
+        "startChar": 4,
+        "endLine": 211,
+        "endChar": 73
+      },
+      "revId": "6505031500bdb106a63da76ec3153b1fbdfcc162",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3af3ac93_ce4bfc0a",
         "filename": "redfish-core/lib/event_service.hpp",
         "patchSetId": 55
@@ -100,6 +190,30 @@
       "writtenOn": "2022-11-07T14:51:40Z",
       "side": 1,
       "message": "With this code, first it will try the SNMP D-BUs object irrespective if the OEM having support (including backend service) for it or not. This is not right approach. Let\u0027s move all snmp specific objection collection in separate API instead of following fall-back mechanism.\n\nKeep original subscription collection as is and below you can add doCollecSNMPObject(asyncResp) with passing async. That we can have isolated (Can be controlled via Build flag).",
+      "range": {
+        "startLine": 258,
+        "startChar": 0,
+        "endLine": 265,
+        "endChar": 71
+      },
+      "revId": "6505031500bdb106a63da76ec3153b1fbdfcc162",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "50527c06_49b5a6ff",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 55
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 1000400
+      },
+      "writtenOn": "2022-11-08T20:05:58Z",
+      "side": 1,
+      "message": "\u003e  Let\u0027s move all snmp specific objection collection in separate API instead of following fall-back mechanism.\n\nI did this at first, but for some reasons, it has changed to the current code. Please see this discussion:\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/38599/comments/de83f299_6811323a",
+      "parentUuid": "3af3ac93_ce4bfc0a",
       "range": {
         "startLine": 258,
         "startChar": 0,
