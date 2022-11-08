@@ -33,6 +33,24 @@
       "message": "Not sure you need a ERROR LOG here, oh well. Like how you did it without one on https://gerrit.openbmc.org/c/openbmc/bmcweb/+/43170/39/redfish-core/lib/environment_metrics.hpp \n\nOh well.",
       "revId": "198ac2aa64cf0b70d4441c0d432234faa963dc8a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "14d8010a_bbd1f09a",
+        "filename": "redfish-core/lib/power_subsystem.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-11-08T00:16:01Z",
+      "side": 1,
+      "message": "\u003e Not sure you need a ERROR LOG here, oh well. Like how you did it without one on https://gerrit.openbmc.org/c/openbmc/bmcweb/+/43170/39/redfish-core/lib/environment_metrics.hpp \n\u003e \n\u003e Oh well.\n\nWe need a ERROR LOG here, I will update 43170",
+      "parentUuid": "f47653a6_43384cbf",
+      "revId": "198ac2aa64cf0b70d4441c0d432234faa963dc8a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
