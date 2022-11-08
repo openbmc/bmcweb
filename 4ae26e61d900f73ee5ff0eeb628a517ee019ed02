@@ -70,6 +70,24 @@
       "parentUuid": "d3ab61e4_b8acef28",
       "revId": "4ae26e61d900f73ee5ff0eeb628a517ee019ed02",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "98cf6c86_12dcc41c",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1000520
+      },
+      "writtenOn": "2022-11-08T21:50:52Z",
+      "side": 1,
+      "message": "Can you follow the model of what was used on the line above, for systemToken?\n\nYou need to use a std::string_view object instead of a std::string object. Although it would make the most logical sense, our compiler is not new enough to allow std::string to be constexpr.\n\nhttps://www.cppstories.com/2021/constexpr-vecstr-cpp20/\n\nThe string view will be viewing the literal \"0\" which is a C string literal. C string literals have static lifetime (equal to the program itself), so this is safe.\n\nhttps://stackoverflow.com/questions/9970295/life-time-of-a-string-literal-in-c",
+      "parentUuid": "d3ab61e4_b8acef28",
+      "revId": "4ae26e61d900f73ee5ff0eeb628a517ee019ed02",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
