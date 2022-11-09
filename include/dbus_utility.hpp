@@ -24,7 +24,9 @@
 #include <cstddef>
 #include <cstdint>
 #include <filesystem>
+#include <functional>
 #include <regex>
+#include <span>
 #include <sstream>
 #include <string>
 #include <tuple>
@@ -138,6 +140,37 @@ inline void checkDbusPathExists(const std::string& path, Callback&& callback)
         "/xyz/openbmc_project/object_mapper",
         "xyz.openbmc_project.ObjectMapper", "GetObject", path,
         std::array<std::string, 0>());
+}
+
+inline void
+    getSubTree(const std::string& path, std::span<std::string> interfaces,
+               std::function<void(const boost::system::error_code&,
+                                  const MapperGetSubTreeResponse&)>&& callback)
+{
+    crow::connections::systemBus->async_method_call(
+        [callback{std::move(callback)}](
+            const boost::system::error_code ec,
+            const MapperGetSubTreeResponse& subtree) { callback(ec, subtree); },
+        "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetSubTree", path, 0, interfaces);
+}
+
+inline void getSubTreePaths(
+    const std::string& path, std::span<std::string> interfaces,
+    std::function<void(const boost::system::error_code&,
+                       const MapperGetSubTreePathsResponse&)>&& callback)
+{
+    crow::connections::systemBus->async_method_call(
+        [callback{std::move(callback)}](
+            const boost::system::error_code ec,
+            const MapperGetSubTreePathsResponse& subtreePaths) {
+        callback(ec, subtreePaths);
+        },
+        "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths", path, 0,
+        interfaces);
 }
 
 } // namespace utility
