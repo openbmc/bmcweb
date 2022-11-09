@@ -240,5 +240,211 @@ TEST(processResponse, validResponseCodes)
     assertProcessResponse(507);
 }
 
+TEST(processResponse, preserveHeaders)
+{
+    auto asyncResp = std::make_shared<bmcweb::AsyncResp>();
+    asyncResp->res.addHeader("OData-Version", "4.0");
+    asyncResp->res.result(boost::beast::http::status::ok);
+
+    crow::Response resp;
+    resp.addHeader("OData-Version", "3.0");
+    resp.addHeader(boost::beast::http::field::location,
+                   "/redfish/v1/Chassis/Test");
+    resp.result(boost::beast::http::status::too_many_requests); // 429
+
+    RedfishAggregator::processResponse("prefix", asyncResp, resp);
+    EXPECT_EQ(asyncResp->res.resultInt(), 429);
+    EXPECT_EQ(asyncResp->res.getHeaderValue("OData-Version"), "4.0");
+    EXPECT_EQ(asyncResp->res.getHeaderValue("Location"), "");
+
+    asyncResp->res.result(boost::beast::http::status::ok);
+    resp.result(boost::beast::http::status::bad_gateway); // 502
+
+    RedfishAggregator::processResponse("prefix", asyncResp, resp);
+    EXPECT_EQ(asyncResp->res.resultInt(), 502);
+    EXPECT_EQ(asyncResp->res.getHeaderValue("OData-Version"), "4.0");
+    EXPECT_EQ(asyncResp->res.getHeaderValue("Location"), "");
+}
+
+// Helper function to correctly populate a ComputerSystem collection response
+void populateCollectionResponse(crow::Response& resp)
+{
+    nlohmann::json jsonResp = nlohmann::json::parse(R"(
+    {
+      "@odata.id": "/redfish/v1/Systems",
+      "@odata.type": "#ComputerSystemCollection.ComputerSystemCollection",
+      "Members": [
+        {
+          "@odata.id": "/redfish/v1/Systems/system"
+        }
+      ],
+      "Members@odata.count": 1,
+      "Name": "Computer System Collection"
+    }
+    )",
+                                                    nullptr, false);
+
+    resp.clear();
+    // resp.body() =
+    //     jsonResp.dump(2, ' ', true,
+    //     nlohmann::json::error_handler_t::replace);
+    resp.jsonValue = std::move(jsonResp);
+    resp.addHeader("OData-Version", "4.0");
+    resp.addHeader("Content-Type", "application/json");
+    resp.result(boost::beast::http::status::ok);
+}
+
+void populateCollectionNotFound(crow::Response& resp)
+{
+    resp.clear();
+    resp.addHeader("OData-Version", "4.0");
+    resp.result(boost::beast::http::status::not_found);
+}
+
+// Used with the above functions to convert the response to appear like it's
+// from a satellite which will not have a json component
+void convertToSat(crow::Response& resp)
+{
+    resp.body() = resp.jsonValue.dump(2, ' ', true,
+                                      nlohmann::json::error_handler_t::replace);
+    resp.jsonValue.clear();
+}
+
+TEST(processCollectionResponse, localOnly)
+{
+    auto asyncResp = std::make_shared<bmcweb::AsyncResp>();
+    crow::Response resp;
+    populateCollectionResponse(asyncResp->res);
+    populateCollectionNotFound(resp);
+
+    RedfishAggregator::processCollectionResponse("prefix", asyncResp, resp);
+    EXPECT_EQ(asyncResp->res.getHeaderValue("OData-Version"), "4.0");
+    EXPECT_EQ(asyncResp->res.resultInt(), 200);
+    EXPECT_EQ(asyncResp->res.getHeaderValue("Content-Type"),
+              "application/json");
+    EXPECT_EQ(asyncResp->res.jsonValue["Members@odata.count"], 1);
+    for (auto& member : asyncResp->res.jsonValue["Members"])
+    {
+        // There should only be one member
+        EXPECT_EQ(member["@odata.id"], "/redfish/v1/Systems/system");
+    }
+}
+
+TEST(processCollectionResponse, satelliteOnly)
+{
+    auto asyncResp = std::make_shared<bmcweb::AsyncResp>();
+    crow::Response resp;
+    populateCollectionNotFound(asyncResp->res);
+    populateCollectionResponse(resp);
+    convertToSat(resp);
+
+    RedfishAggregator::processCollectionResponse("prefix", asyncResp, resp);
+    EXPECT_EQ(asyncResp->res.getHeaderValue("OData-Version"), "4.0");
+    EXPECT_EQ(asyncResp->res.resultInt(), 200);
+    EXPECT_EQ(asyncResp->res.getHeaderValue("Content-Type"),
+              "application/json");
+    EXPECT_EQ(asyncResp->res.jsonValue["Members@odata.count"], 1);
+    for (auto& member : asyncResp->res.jsonValue["Members"])
+    {
+        // There should only be one member
+        EXPECT_EQ(member["@odata.id"], "/redfish/v1/Systems/prefix_system");
+    }
+}
+
+TEST(processCollectionResponse, bothExist)
+{
+    auto asyncResp = std::make_shared<bmcweb::AsyncResp>();
+    crow::Response resp;
+    populateCollectionResponse(asyncResp->res);
+    populateCollectionResponse(resp);
+    convertToSat(resp);
+
+    RedfishAggregator::processCollectionResponse("prefix", asyncResp, resp);
+    EXPECT_EQ(asyncResp->res.getHeaderValue("OData-Version"), "4.0");
+    EXPECT_EQ(asyncResp->res.resultInt(), 200);
+    EXPECT_EQ(asyncResp->res.getHeaderValue("Content-Type"),
+              "application/json");
+    EXPECT_EQ(asyncResp->res.jsonValue["Members@odata.count"], 2);
+
+    bool foundLocal = false;
+    bool foundSat = false;
+    for (auto& member : asyncResp->res.jsonValue["Members"])
+    {
+        if (member["@odata.id"] == "/redfish/v1/Systems/system")
+        {
+            foundLocal = true;
+        }
+        else if (member["@odata.id"] == "/redfish/v1/Systems/prefix_system")
+        {
+            foundSat = true;
+        }
+    }
+    EXPECT_TRUE(foundLocal);
+    EXPECT_TRUE(foundSat);
+}
+
+TEST(processCollectionResponse, satelliteWrongContentHeader)
+{
+    auto asyncResp = std::make_shared<bmcweb::AsyncResp>();
+    crow::Response resp;
+    populateCollectionResponse(asyncResp->res);
+    populateCollectionResponse(resp);
+    convertToSat(resp);
+
+    // Ignore the satellite even though otherwise valid
+    resp.addHeader("Content-Type", "");
+
+    RedfishAggregator::processCollectionResponse("prefix", asyncResp, resp);
+    EXPECT_EQ(asyncResp->res.getHeaderValue("OData-Version"), "4.0");
+    EXPECT_EQ(asyncResp->res.resultInt(), 200);
+    EXPECT_EQ(asyncResp->res.getHeaderValue("Content-Type"),
+              "application/json");
+    EXPECT_EQ(asyncResp->res.jsonValue["Members@odata.count"], 1);
+    for (auto& member : asyncResp->res.jsonValue["Members"])
+    {
+        EXPECT_EQ(member["@odata.id"], "/redfish/v1/Systems/system");
+    }
+}
+
+TEST(processCollectionResponse, neitherExist)
+{
+    auto asyncResp = std::make_shared<bmcweb::AsyncResp>();
+    crow::Response resp;
+    populateCollectionNotFound(asyncResp->res);
+    populateCollectionNotFound(resp);
+    convertToSat(resp);
+
+    RedfishAggregator::processCollectionResponse("prefix", asyncResp, resp);
+    EXPECT_EQ(asyncResp->res.getHeaderValue("OData-Version"), "4.0");
+    EXPECT_EQ(asyncResp->res.resultInt(), 404);
+    EXPECT_EQ(asyncResp->res.getHeaderValue("Content-Type"), "");
+}
+
+TEST(processCollectionResponse, preserveHeaders)
+{
+    auto asyncResp = std::make_shared<bmcweb::AsyncResp>();
+    crow::Response resp;
+    populateCollectionNotFound(asyncResp->res);
+    populateCollectionResponse(resp);
+    convertToSat(resp);
+
+    resp.addHeader("OData-Version", "3.0");
+    resp.addHeader(boost::beast::http::field::location,
+                   "/redfish/v1/Chassis/Test");
+
+    // We skip processing collection responses that have a 429 or 502 code
+    resp.result(boost::beast::http::status::too_many_requests); // 429
+    RedfishAggregator::processCollectionResponse("prefix", asyncResp, resp);
+    EXPECT_EQ(asyncResp->res.resultInt(), 404);
+    EXPECT_EQ(asyncResp->res.getHeaderValue("OData-Version"), "4.0");
+    EXPECT_EQ(asyncResp->res.getHeaderValue("Location"), "");
+
+    resp.result(boost::beast::http::status::bad_gateway); // 502
+    RedfishAggregator::processCollectionResponse("prefix", asyncResp, resp);
+    EXPECT_EQ(asyncResp->res.resultInt(), 404);
+    EXPECT_EQ(asyncResp->res.getHeaderValue("OData-Version"), "4.0");
+    EXPECT_EQ(asyncResp->res.getHeaderValue("Location"), "");
+}
+
 } // namespace
 } // namespace redfish
