@@ -16,7 +16,7 @@ namespace
 constexpr const char* chassisId = "ChassisId";
 constexpr const char* validChassisPath = "ChassisPath";
 
-void assertThemalCollectionGet(crow::Response& res)
+void assertThermalCollectionGet(crow::Response& res)
 {
     nlohmann::json& json = res.jsonValue;
     EXPECT_EQ(json["@odata.type"], "#ThermalSubsystem.v1_0_0.ThermalSubsystem");
@@ -32,7 +32,7 @@ TEST(ThermalSubsystemCollectionTest,
      ThermalSubsystemCollectionStaticAttributesAreExpected)
 {
     auto shareAsyncResp = std::make_shared<bmcweb::AsyncResp>();
-    shareAsyncResp->res.setCompleteRequestHandler(assertThemalCollectionGet);
+    shareAsyncResp->res.setCompleteRequestHandler(assertThermalCollectionGet);
     doThermalSubsystemCollection(
         shareAsyncResp, chassisId,
         std::make_optional<std::string>(validChassisPath));
