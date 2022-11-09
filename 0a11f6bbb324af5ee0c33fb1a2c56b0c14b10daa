@@ -125,6 +125,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9dfabe7d_40eeb5aa",
+        "filename": "AGGREGATION.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-11-09T20:25:22Z",
+      "side": 1,
+      "message": "Sounds good.  I can add a section that mentions these planned/missing features",
+      "parentUuid": "684ac417_ee976751",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 63
+      },
+      "revId": "0a11f6bbb324af5ee0c33fb1a2c56b0c14b10daa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c6a1a4b2_62ce3829",
         "filename": "AGGREGATION.md",
         "patchSetId": 2
@@ -171,6 +195,24 @@
       "writtenOn": "2022-11-04T22:11:48Z",
       "side": 1,
       "message": "I think this topic from rde forum is probably similar to this concern?   \nhttps://redfishforum.com/thread/314/metadata-document-rde-devices",
+      "revId": "0a11f6bbb324af5ee0c33fb1a2c56b0c14b10daa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b2bf5fef_acbe61ec",
+        "filename": "AGGREGATION.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-11-09T20:25:22Z",
+      "side": 1,
+      "message": "Yeah that touches on the part about versions differing between the aggregator and satellites.  Outside of that though there is still the issue of how large some of the JsonSchema files are.  In testing there were singular ones which were larger than the internal HTTP client\u0027s response buffer could handle.  It seems reasonable to expect the operator of the aggregating BMC to keep the BMC up to date so that the satellite BMCs are not using newer schema versions.",
+      "parentUuid": "fb9df5ce_158734fb",
       "revId": "0a11f6bbb324af5ee0c33fb1a2c56b0c14b10daa",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -259,6 +301,30 @@
       "side": 1,
       "message": "maybe do \ncurl -k -H \"X-Auth-Token: $token\" https://${bmc}/redfish/v1/Systems \nlike we do in https://github.com/openbmc/docs/blob/master/REDFISH-cheatsheet.md or yeah just omit it",
       "parentUuid": "7ae57985_bccf743a",
+      "range": {
+        "startLine": 104,
+        "startChar": 0,
+        "endLine": 104,
+        "endChar": 45
+      },
+      "revId": "0a11f6bbb324af5ee0c33fb1a2c56b0c14b10daa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cbb1deac_40d4a76b",
+        "filename": "AGGREGATION.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-11-09T20:25:22Z",
+      "side": 1,
+      "message": "I want to include an example of how a collection looks so I\u0027ll use Gunnar\u0027s first suggestion",
+      "parentUuid": "fc9f3395_7c545b2b",
       "range": {
         "startLine": 104,
         "startChar": 0,
