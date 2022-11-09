@@ -69,6 +69,24 @@
       "parentUuid": "14d8010a_bbd1f09a",
       "revId": "198ac2aa64cf0b70d4441c0d432234faa963dc8a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2ce453af_f99855fc",
+        "filename": "redfish-core/lib/power_subsystem.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-11-09T00:19:23Z",
+      "side": 1,
+      "message": "\u003e Why do you need an ERROR LOG? You returned to the client resourceNotFound, it is almost for sure a client problem.. \n\u003e It doesn\u0027t seem like a LOG_ERROR to me.. \n\u003e LOG_ERROR would be any server error, any internal error. \n\u003e A 404 might be a LOG_WARNING.. But I don\u0027t think it should be a BMCWEB_LOG_ERROR\n\nRight, I agree with you.\nDone",
+      "parentUuid": "c2857f9d_4e76ee62",
+      "revId": "198ac2aa64cf0b70d4441c0d432234faa963dc8a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
