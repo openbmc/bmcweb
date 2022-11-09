@@ -124,6 +124,24 @@
       "parentUuid": "eb639b6c_bf9612f5",
       "revId": "4ae26e61d900f73ee5ff0eeb628a517ee019ed02",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c2d7042e_7730fcee",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1000520
+      },
+      "writtenOn": "2022-11-09T19:44:42Z",
+      "side": 1,
+      "message": "When this function returns, yes, it should still return as std::string, because as you said the caller will need to modify it further. You can construct a std::string from a std::string_view just fine, and it will perform the copy at that time.\n\nAt any case, this is somewhat of a micro-optimization, and I would caution against bikeshedding. Unless this function is a performance hotspot, I\u0027m OK with whatever, as long as the behavior is correct.",
+      "parentUuid": "f2ac8d94_0b92b299",
+      "revId": "4ae26e61d900f73ee5ff0eeb628a517ee019ed02",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
