@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4e665b53_f12df9c6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-11-09T18:44:36Z",
+      "side": 1,
+      "message": "I don\u0027t see any recent changes, has this always been wrong?\nhttps://github.com/openbmc/bmcweb/blame/master/redfish-core/lib/sensors.hpp#L867",
+      "revId": "093b89d92e7f7285c5e77f3396fbeaf09407835d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
