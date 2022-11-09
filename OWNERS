@@ -78,28 +78,38 @@ matchers:
 # unit tests
 - suffix: _test.cpp
   owners:
-      nanzhoumails@gmail.com
+      - nanzhoumails@gmail.com
 
 # Redfish schemas
 - exact: redfish-core/include/query.hpp
-      nanzhoumails@gmail.com
+  owners:
+      - nanzhoumails@gmail.com
 - exact: redfish-core/include/utils/query_param.hpp
-      nanzhoumails@gmail.com
+  owners:
+      - nanzhoumails@gmail.com
 - exact: redfish-core/lib/certificate_service.hpp
-      nanzhoumails@gmail.com
+  owners:
+      - nanzhoumails@gmail.com
 - exact: redfish-core/lib/log_service.hpp
-      nanzhoumails@gmail.com
+  owners:
+      - nanzhoumails@gmail.com
 - exact: redfish-core/lib/memory.hpp
-      nanzhoumails@gmail.com
+  owners:
+      - nanzhoumails@gmail.com
 - exact: redfish-core/lib/sensors.hpp
-      nanzhoumails@gmail.com
-      krzysztof.grobelny@intel.com
+  owners:
+      - nanzhoumails@gmail.com
+      - krzysztof.grobelny@intel.com
 - exact: redfish-core/lib/event_service.hpp
-      krzysztof.grobelny@intel.com
+  owners:
+      - krzysztof.grobelny@intel.com
 - exact: redfish-core/lib/power.hpp
-      krzysztof.grobelny@intel.com
+  owners:
+      - krzysztof.grobelny@intel.com
 - exact: redfish-core/lib/thermal.hpp
-      krzysztof.grobelny@intel.com
+  owners:
+      - krzysztof.grobelny@intel.com
 - exact: redfish-core/lib/virtual_media.hpp
-      krzysztof.grobelny@intel.com
+  owners:
+      - krzysztof.grobelny@intel.com
 
