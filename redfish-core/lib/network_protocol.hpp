@@ -320,9 +320,9 @@ inline void
     // Any remaining array elements should be removed
     currentNtpServers.erase(currentNtpServer, currentNtpServers.end());
 
-    crow::connections::systemBus->async_method_call(
+    auto respHandler =
         [asyncResp, currentNtpServers](
-            boost::system::error_code ec,
+            const boost::system::error_code& ec,
             const dbus::utility::MapperGetSubTreeResponse& subtree) {
         if (ec)
         {
@@ -357,13 +357,12 @@ inline void
                 }
             }
         }
-        },
-        "xyz.openbmc_project.ObjectMapper",
-        "/xyz/openbmc_project/object_mapper",
-        "xyz.openbmc_project.ObjectMapper", "GetSubTree",
-        "/xyz/openbmc_project", 0,
-        std::array<const char*, 1>{
-            "xyz.openbmc_project.Network.EthernetInterface"});
+    };
+
+    std::vector<std::string> interfaces = {
+        "xyz.openbmc_project.Network.EthernetInterface"};
+    dbus::utility::getSubTree("/xyz/openbmc_project", interfaces,
+                              std::move(respHandler));
 }
 
 inline void
@@ -371,9 +370,9 @@ inline void
                           const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                           const std::string& netBasePath)
 {
-    crow::connections::systemBus->async_method_call(
+    auto respHandler =
         [protocolEnabled, asyncResp,
-         netBasePath](const boost::system::error_code ec,
+         netBasePath](const boost::system::error_code& ec,
                       const dbus::utility::MapperGetSubTreeResponse& subtree) {
         if (ec)
         {
@@ -412,13 +411,12 @@ inline void
                     dbus::utility::DbusVariantType{protocolEnabled});
             }
         }
-        },
-        "xyz.openbmc_project.ObjectMapper",
-        "/xyz/openbmc_project/object_mapper",
-        "xyz.openbmc_project.ObjectMapper", "GetSubTree",
-        "/xyz/openbmc_project/control/service", 0,
-        std::array<const char*, 1>{
-            "xyz.openbmc_project.Control.Service.Attributes"});
+    };
+
+    std::vector<std::string> interfaces = {
+        "xyz.openbmc_project.Control.Service.Attributes"};
+    dbus::utility::getSubTree("/xyz/openbmc_project/control/service",
+                              interfaces, std::move(respHandler));
 }
 
 inline std::string getHostName()
