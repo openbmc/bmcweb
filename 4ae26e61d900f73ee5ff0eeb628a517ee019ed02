@@ -106,6 +106,24 @@
       "parentUuid": "98cf6c86_12dcc41c",
       "revId": "4ae26e61d900f73ee5ff0eeb628a517ee019ed02",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f2ac8d94_0b92b299",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2022-11-09T17:04:27Z",
+      "side": 1,
+      "message": "\u003e wait, can we declare std:string constexpr now? I don\u0027t believe std::string satisfies \"non-trivial destructor\"\n\nYes, std::string\u0027s constructor is now constexpr as of C++20.\n\n\u003e I hope it is fine to declare as string_view and convert to string before returning.\n\nYou shouldn\u0027t need an explicit conversion.  std::string can be converted from std::string_view, so just returning a string view will construct a string at the return site.\n\nIn any case, the issue you were running into was, unfortunately, with clang and not with gcc.  The clang-tidy stuff still doesn\u0027t correctly support constexpr strings.",
+      "parentUuid": "eb639b6c_bf9612f5",
+      "revId": "4ae26e61d900f73ee5ff0eeb628a517ee019ed02",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
