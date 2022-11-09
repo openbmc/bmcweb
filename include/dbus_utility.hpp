@@ -140,5 +140,34 @@ inline void checkDbusPathExists(const std::string& path, Callback&& callback)
         std::array<std::string, 0>());
 }
 
+inline void getSubTree(
+    const std::string& path, const std::vector<std::string>& interfaces,
+    const std::function<void(const MapperGetSubTreeResponse&)>&& callback)
+{
+    crow::connections::systemBus->async_method_call(
+        [callback](const boost::system::error_code ec,
+                   const MapperGetSubTreeResponse& subtree) {
+        callback(ec, subtree);
+        },
+        "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetSubTree", path, 0, interfaces);
+}
+
+inline void getSubTreePaths(
+    const std::string& path, const std::vector<std::string>& interfaces,
+    const std::function<void(const MapperGetSubTreeResponse&)>&& callback)
+{
+    crow::connections::systemBus->async_method_call(
+        [callback](const boost::system::error_code ec,
+                   const MapperGetSubTreePathsResponse& subtreePaths) {
+        callback(ec, subtreePaths);
+        },
+        "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "getGetSubTreePaths", path, 0,
+        interfaces);
+}
+
 } // namespace utility
 } // namespace dbus
