@@ -15,7 +15,9 @@
  */
 #pragma once
 
+#include "async_resp.hpp"
 #include "dbus_singleton.hpp"
+#include "error_messages.hpp"
 
 #include <boost/system/error_code.hpp> // IWYU pragma: keep
 #include <sdbusplus/message/native_types.hpp>
@@ -138,6 +140,28 @@ inline void checkDbusPathExists(const std::string& path, Callback&& callback)
         "/xyz/openbmc_project/object_mapper",
         "xyz.openbmc_project.ObjectMapper", "GetObject", path,
         std::array<std::string, 0>());
+}
+
+inline void getGetSubTree(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& path, const std::vector<std::string>& interfaces,
+    const std::function<void(const MapperGetSubTreeResponse&)>&& callback)
+{
+    crow::connections::systemBus->async_method_call(
+        [asyncResp, callback](const boost::system::error_code ec,
+                              const MapperGetSubTreeResponse& subtree) {
+        if (ec)
+        {
+            BMCWEB_LOG_DEBUG << "GetSubTree response error" << ec.message();
+            redfish::messages::internalError(asyncResp->res);
+            return;
+        }
+
+        callback(subtree);
+        },
+        "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetSubTree", path, 0, interfaces);
 }
 
 } // namespace utility
