@@ -22,6 +22,30 @@
       },
       "revId": "1dd7ec20998cbc0fa9ed036e6de7d8a02e231751",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ab826a16_de66f8b5",
+        "filename": "Redfish.md",
+        "patchSetId": 42
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-11-09T00:45:43Z",
+      "side": 1,
+      "message": "+1. I vote we drop these, add this to the patch that implements",
+      "parentUuid": "90fb64d1_94fe6075",
+      "range": {
+        "startLine": 162,
+        "startChar": 0,
+        "endLine": 164,
+        "endChar": 12
+      },
+      "revId": "1dd7ec20998cbc0fa9ed036e6de7d8a02e231751",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
