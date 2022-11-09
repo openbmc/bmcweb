@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "90fb64d1_94fe6075",
+        "filename": "Redfish.md",
+        "patchSetId": 42
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-11-09T00:40:38Z",
+      "side": 1,
+      "message": "These properties aren\u0027t added in this patch, which, as you\u0027ve written this, makes this patch require that the whole series merge at once.  I suspect you can just drop these, then this patch can merge without the later ones.",
+      "range": {
+        "startLine": 162,
+        "startChar": 0,
+        "endLine": 164,
+        "endChar": 12
+      },
+      "revId": "1dd7ec20998cbc0fa9ed036e6de7d8a02e231751",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
