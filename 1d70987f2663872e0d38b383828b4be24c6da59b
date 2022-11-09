@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f2c1f0ca_3209a97d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-11-09T17:56:58Z",
+      "side": 1,
+      "message": "Please add in the patch stack at least one user of these helper methods, so we\u0027re not checking in dead code.  Overall, it looks good.",
+      "revId": "1d70987f2663872e0d38b383828b4be24c6da59b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1887a96c_cbd96a02",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-11-09T17:56:58Z",
+      "side": 1,
+      "message": "string_view",
+      "range": {
+        "startLine": 144,
+        "startChar": 4,
+        "endLine": 144,
+        "endChar": 22
+      },
+      "revId": "1d70987f2663872e0d38b383828b4be24c6da59b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d848474b_5e6bb25d",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-11-09T17:56:58Z",
+      "side": 1,
+      "message": "Span.",
+      "range": {
+        "startLine": 144,
+        "startChar": 35,
+        "endLine": 144,
+        "endChar": 46
+      },
+      "revId": "1d70987f2663872e0d38b383828b4be24c6da59b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
