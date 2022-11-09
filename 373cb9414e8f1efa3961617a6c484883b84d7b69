@@ -170,6 +170,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "aa69e83d_e19cbaf7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-11-09T01:40:06Z",
+      "side": 1,
+      "message": "The feedback in the email thread was to bring up the issue (how to provide a client a way to determine the type of log content in a LogService) to the DMTF Redfish standards body. I have opened an issue in the Redfish github (https://github.com/DMTF/Redfish/issues/5326) as well as a corresponding pull request (https://github.com/DMTF/Redfish/pull/5336) proposing a new LogPurpose (enum) property and new OemLogPurpose (string) property in the LogService schema, and welcome feedback on them.",
+      "parentUuid": "c3287ee9_38754b95",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 63
+      },
+      "revId": "373cb9414e8f1efa3961617a6c484883b84d7b69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ec17652c_42f14f01",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
