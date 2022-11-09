@@ -578,7 +578,15 @@ class RedfishAggregator
         if (resp.resultInt() != 200)
         {
             BMCWEB_LOG_DEBUG << "No need to parse satellite response";
-            asyncResp->res.stringResponse = std::move(resp.stringResponse);
+            if ((resp.resultInt() == 429) || (resp.resultInt() == 502))
+            {
+                // Preserve the headers if we didn't actually send the request
+                asyncResp->res.result(resp.result());
+            }
+            else
+            {
+                asyncResp->res.stringResponse = std::move(resp.stringResponse);
+            }
             return;
         }
 
@@ -635,7 +643,11 @@ class RedfishAggregator
                 << "Collection resource does not exist in satellite BMC \""
                 << prefix << "\"";
             // Return the error if we haven't had any successes
-            if (asyncResp->res.resultInt() != 200)
+            // 429 and 502 mean we didn't actually send the request so don't
+            // overwrite the response headers in that case
+            if ((asyncResp->res.resultInt() != 200) &&
+                (asyncResp->res.resultInt() != 429) &&
+                (asyncResp->res.resultInt() != 502))
             {
                 asyncResp->res.stringResponse = std::move(resp.stringResponse);
             }
@@ -654,6 +666,7 @@ class RedfishAggregator
 
                 // Notify the user if doing so won't overwrite a valid response
                 if ((asyncResp->res.resultInt() != 200) &&
+                    (asyncResp->res.resultInt() != 429) &&
                     (asyncResp->res.resultInt() != 502))
                 {
                     messages::operationFailed(asyncResp->res);
@@ -738,6 +751,7 @@ class RedfishAggregator
             // aggregating BMC, and if we did not already set this warning due
             // to a failure from a different satellite
             if ((asyncResp->res.resultInt() != 200) &&
+                (asyncResp->res.resultInt() != 429) &&
                 (asyncResp->res.resultInt() != 502))
             {
                 messages::operationFailed(asyncResp->res);
