@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d04406bf_be129047",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-11-10T22:06:45Z",
+      "side": 1,
+      "message": "Okay, I know what fails now. Please format your commit message so it follows the 50/72 rule",
+      "range": {
+        "startLine": 9,
+        "startChar": 96,
+        "endLine": 9,
+        "endChar": 101
+      },
+      "revId": "509a20ab4b6b571042712df4c4eb0816a42cf633",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d0823db4_adf774af",
         "filename": "/COMMIT_MSG",
         "patchSetId": 8
