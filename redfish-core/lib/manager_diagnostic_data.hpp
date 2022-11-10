@@ -62,6 +62,10 @@ struct ProcessStatistics
     float utime;
     float stime;
     float uptimeSeconds;
+    long memoryUsage;
+    std::string objPath;
+    std::string serviceName;
+    uint restartCount;
 };
 
 ProcessStatistics parseTcommUtimeStimeString(std::string_view content,
@@ -81,11 +85,11 @@ ProcessStatistics parseTcommUtimeStimeString(std::string_view content,
 
     if (pCol != nullptr)
     {
-        const int fields[] = {1, 13, 14}; // tcomm, utime, stime
+        const int fields[] = {1, 13, 14, 23}; // tcomm, utime, stime
         int fieldIdx = 0;
-        for (int colIdx = 0; colIdx < 15; ++colIdx)
+        for (int colIdx = 0; colIdx < 24; ++colIdx)
         {
-            if (fieldIdx < 3 && colIdx == fields[fieldIdx])
+            if (fieldIdx < 4 && colIdx == fields[fieldIdx])
             {
                 switch (fieldIdx)
                 {
@@ -110,6 +114,10 @@ ProcessStatistics parseTcommUtimeStimeString(std::string_view content,
                             ret.stime = t;
                         }
                         break;
+                    }
+                    case 3:
+                    {
+                        ret.memoryUsage = std::atol(pCol);
                     }
                 }
                 ++fieldIdx;
@@ -140,6 +148,81 @@ ProcessStatistics getProcessStatistics(const int pid, const long ticksPerSec,
                         static_cast<float>(st_atim.tv_nsec) / 1000000.0f;
     ret.uptimeSeconds = (millisNow - millisCtime) / 1000.0f;
     return ret;
+}
+
+void populateDaemonStats(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                         ProcessStatistics& ps)
+{
+    crow::connections::systemBus->async_method_call(
+        [asyncResp, ps](const boost::system::error_code serviceNameEc,
+                        dbus::utility::DbusVariantType& serviceName) mutable {
+        if (serviceNameEc)
+        {
+            BMCWEB_LOG_ERROR << "Dbus call issue for pid " << ps.pid;
+            return;
+        }
+
+        ps.serviceName = std::get<std::string>(serviceName);
+
+        crow::connections::systemBus->async_method_call(
+            [asyncResp,
+             ps](const boost::system::error_code restartCountEc,
+                 dbus::utility::DbusVariantType& restartCount) mutable {
+            if (restartCountEc)
+            {
+                BMCWEB_LOG_ERROR << "Dbus call issue for pid " << ps.pid;
+                return;
+            }
+
+            ps.restartCount = std::get<uint32_t>(restartCount);
+
+            nlohmann::json processStat;
+            processStat["CommandLine"] = ps.tcomm + " - " + ps.serviceName +
+                                         " (" + std::to_string(ps.pid) + ")";
+            processStat["KernelTimeSeconds"] = ps.stime;
+            processStat["ResidentSetSizeBytes"] = ps.memoryUsage;
+            processStat["RestartCount"] = ps.restartCount;
+            processStat["UptimeSeconds"] = ps.uptimeSeconds;
+            processStat["UserTimeSeconds"] = ps.utime;
+            asyncResp->res.jsonValue["TopProcesses"].push_back(processStat);
+            },
+            "org.freedesktop.systemd1", ps.objPath.c_str(),
+            "org.freedesktop.DBus.Properties", "Get",
+            "org.freedesktop.systemd1.Service", "NRestarts");
+        },
+        "org.freedesktop.systemd1", ps.objPath.c_str(),
+        "org.freedesktop.DBus.Properties", "Get",
+        "org.freedesktop.systemd1.Unit", "Id");
+}
+
+void getDaemonStats(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                    ProcessStatistics& ps)
+{
+    crow::connections::systemBus->async_method_call(
+        [asyncResp, ps](const boost::system::error_code ec,
+                        sdbusplus::message::object_path& objPath) mutable {
+        if (ec)
+        {
+            BMCWEB_LOG_DEBUG << "This pid " << ps.pid << " has no systemd unit";
+            nlohmann::json processStat;
+            processStat["CommandLine"] =
+                ps.tcomm + " (" + std::to_string(ps.pid) + ")";
+            processStat["KernelTimeSeconds"] = ps.stime;
+            processStat["ResidentSetSizeBytes"] = ps.memoryUsage;
+            processStat["UptimeSeconds"] = ps.uptimeSeconds;
+            processStat["UserTimeSeconds"] = ps.utime;
+            asyncResp->res.jsonValue["TopProcesses"].push_back(processStat);
+            return;
+        }
+
+        BMCWEB_LOG_DEBUG << "This pid " << ps.pid << " has service name "
+                         << objPath.str;
+        ps.objPath = objPath.str;
+        populateDaemonStats(asyncResp, ps);
+        },
+        "org.freedesktop.systemd1", "/org/freedesktop/systemd1",
+        "org.freedesktop.systemd1.Manager", "GetUnitByPID",
+        static_cast<uint32_t>(ps.pid));
 }
 
 /**
@@ -173,17 +256,11 @@ void populateProcessUptime(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
         return a.uptimeSeconds > b.uptimeSeconds;
     });
 
-    nlohmann::json processStats = nlohmann::json::array();
-    for (const auto& ps : pss)
+    asyncResp->res.jsonValue["TopProcesses"] = nlohmann::json::array();
+    for (auto& ps : pss)
     {
-        nlohmann::json processStat;
-        processStat["CommandLine"] = std::to_string(ps.pid) + " " + ps.tcomm;
-        processStat["UserTimeSeconds"] = ps.utime;
-        processStat["KernelTimeSeconds"] = ps.stime;
-        processStat["UptimeSeconds"] = ps.uptimeSeconds;
-        processStats.push_back(processStat);
+        getDaemonStats(asyncResp, ps);
     }
-    asyncResp->res.jsonValue["TopProcesses"] = processStats;
 }
 
 /**
