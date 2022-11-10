@@ -34,6 +34,41 @@
       "parentUuid": "01f9e399_ef8219d4",
       "revId": "32d9a653b253e963eab9c9d49a377d4d48e9ea8a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b8273eff_b62f6fbb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-11-10T17:33:16Z",
+      "side": 1,
+      "message": "Thanks!",
+      "parentUuid": "800429db_101d6ab8",
+      "revId": "32d9a653b253e963eab9c9d49a377d4d48e9ea8a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aa219a7d_05089e62",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-11-10T17:33:16Z",
+      "side": 1,
+      "message": "I believe this change can be submitted now. It\u0027s fixing a typo in a unit test.",
+      "revId": "32d9a653b253e963eab9c9d49a377d4d48e9ea8a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
