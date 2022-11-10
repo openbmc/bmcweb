@@ -219,6 +219,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "34159194_b3129d5b",
+        "filename": "AGGREGATION.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-11-10T01:31:54Z",
+      "side": 1,
+      "message": "#metadata is the CSDL equivalent of JsonSchemas, and arguably more used than JsonShemas, so it should probably be mentioned in how we handle it special (although I don\u0027t think we handle it specially today).",
+      "parentUuid": "656e645a_0acae698",
+      "revId": "0a11f6bbb324af5ee0c33fb1a2c56b0c14b10daa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fa2e6936_40336506",
         "filename": "AGGREGATION.md",
         "patchSetId": 2
