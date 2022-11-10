@@ -68,6 +68,30 @@
       },
       "revId": "509a20ab4b6b571042712df4c4eb0816a42cf633",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "09032f02_5e10324a",
+        "filename": "include/gzip_helper.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-11-10T22:15:44Z",
+      "side": 1,
+      "message": "https://gerrit.openbmc.org/c/openbmc/bmcweb/+/58619\n\nSee this. Let\u0027s remove these four files for now. Might be caused by different Clang versions",
+      "parentUuid": "e770355b_452bf75b",
+      "range": {
+        "startLine": 50,
+        "startChar": 38,
+        "endLine": 50,
+        "endChar": 42
+      },
+      "revId": "509a20ab4b6b571042712df4c4eb0816a42cf633",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
