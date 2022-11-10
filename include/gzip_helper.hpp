@@ -47,7 +47,7 @@ inline bool gzipInflate(const std::string& compressedBytes,
         strm.next_out =
             (Bytef*)(uncompressedBytes.data() + strm.total_out); // NOLINT
         strm.avail_out =
-            ((uLong)uncompressedBytes.size() - strm.total_out); // NOLINT
+            ((uLong)uncompressedBytes.size() - strm.total_out);  // NOLINT
 
         // Inflate another chunk.
         int err = inflate(&strm, Z_SYNC_FLUSH);
