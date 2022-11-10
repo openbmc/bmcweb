@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eddb4860_14f8aa95",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-11-10T22:15:59Z",
+      "side": 1,
+      "message": "Clang-format is run on every patch.  I\u0027m guessing something is different about your environment?",
+      "revId": "9fd70eb50c15342a978cce215d5bf4098531bafd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
