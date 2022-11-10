@@ -152,6 +152,24 @@
       "parentUuid": "3e1447b7_7f98d1d4",
       "revId": "7c68743c5d0db2e5c80794fd59fa1e11bdcd9b83",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d0c4c693_0d7bbc29",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 967,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-11-10T18:35:45Z",
+      "side": 1,
+      "message": "Right above, CriticalHigh/CriticalLow\u0027s default to NAN.. so this is the same. \nWe could leave off if NAN.. \n\nRedfish says null is okay though so I guess I am okay here\n\n                \"Accuracy\": {\n                    \"description\": \"The estimated percent error of measured versus actual values.\",\n                    \"longDescription\": \"This property shall contain the percent error +/- of the measured versus actual values of the Reading property.\",\n                    \"readonly\": true,\n                    \"type\": [\n                        \"number\",\n                        \"null\"\n                    ],\n                    \"units\": \"%\"\n                },\n\nhttps://github.com/openbmc/phosphor-dbus-interfaces/blob/388b58f9a878f45b8ec243152cac5eb44ec90ced/yaml/xyz/openbmc_project/Sensor/Threshold/Critical.interface.yaml#L23",
+      "parentUuid": "f6f5f49a_2e1b17eb",
+      "revId": "7c68743c5d0db2e5c80794fd59fa1e11bdcd9b83",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
