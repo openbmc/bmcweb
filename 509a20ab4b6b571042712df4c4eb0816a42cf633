@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d9464313_940fafdc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1001584
+      },
+      "writtenOn": "2022-11-10T22:59:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d04406bf_be129047",
+      "range": {
+        "startLine": 9,
+        "startChar": 96,
+        "endLine": 9,
+        "endChar": 101
+      },
+      "revId": "509a20ab4b6b571042712df4c4eb0816a42cf633",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d0823db4_adf774af",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-11-10T22:04:24Z",
       "side": 1,
       "message": "This is not needed in commit message. Are the formats solved? CI still fails.",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 51
+      },
+      "revId": "509a20ab4b6b571042712df4c4eb0816a42cf633",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2589cc54_2397387a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1001584
+      },
+      "writtenOn": "2022-11-10T22:59:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d0823db4_adf774af",
       "range": {
         "startLine": 11,
         "startChar": 0,
@@ -94,6 +142,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f0838b4c_6003349e",
+        "filename": "http/http_verbs.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1001584
+      },
+      "writtenOn": "2022-11-10T22:59:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "714d0dbc_de61f6d0",
+      "range": {
+        "startLine": 5,
+        "startChar": 10,
+        "endLine": 5,
+        "endChar": 15
+      },
+      "revId": "509a20ab4b6b571042712df4c4eb0816a42cf633",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d968d178_766389f5",
@@ -131,6 +203,30 @@
       "side": 1,
       "message": "What\u0027s your recommendation here? Does keeping it crow work?",
       "parentUuid": "d968d178_766389f5",
+      "range": {
+        "startLine": 7,
+        "startChar": 10,
+        "endLine": 7,
+        "endChar": 14
+      },
+      "revId": "509a20ab4b6b571042712df4c4eb0816a42cf633",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "de5e1357_21105cb2",
+        "filename": "http/http_verbs.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1001584
+      },
+      "writtenOn": "2022-11-10T22:59:47Z",
+      "side": 1,
+      "message": "Keeping it to crow. We can change if needed after the discussion",
+      "parentUuid": "38291a04_6903e2f0",
       "range": {
         "startLine": 7,
         "startChar": 10,
@@ -188,6 +284,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cd2a2646_cc034425",
+        "filename": "include/gzip_helper.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1001584
+      },
+      "writtenOn": "2022-11-10T22:59:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "09032f02_5e10324a",
+      "range": {
+        "startLine": 50,
+        "startChar": 38,
+        "endLine": 50,
+        "endChar": 42
+      },
+      "revId": "509a20ab4b6b571042712df4c4eb0816a42cf633",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5538ed8e_a576246f",
@@ -201,6 +321,30 @@
       "writtenOn": "2022-11-10T22:22:41Z",
       "side": 1,
       "message": "unintended whitespace changes?",
+      "range": {
+        "startLine": 38,
+        "startChar": 8,
+        "endLine": 38,
+        "endChar": 14
+      },
+      "revId": "509a20ab4b6b571042712df4c4eb0816a42cf633",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd87a9a3_55f0221e",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1001584
+      },
+      "writtenOn": "2022-11-10T22:59:47Z",
+      "side": 1,
+      "message": "Excluding these files from patch",
+      "parentUuid": "5538ed8e_a576246f",
       "range": {
         "startLine": 38,
         "startChar": 8,
