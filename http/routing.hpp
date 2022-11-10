@@ -5,6 +5,7 @@
 #include "error_messages.hpp"
 #include "http_request.hpp"
 #include "http_response.hpp"
+#include "http_verbs.hpp"
 #include "logging.hpp"
 #include "privileges.hpp"
 #include "sessions.hpp"
@@ -26,20 +27,6 @@
 
 namespace crow
 {
-
-// Note, this is an imperfect abstraction.  There are a lot of verbs that we
-// use memory for, but are basically unused by most implementations.
-// Ideally we would have a list of verbs that we do use, and only index in
-// to a smaller array of those, but that would require a translation from
-// boost::beast::http::verb, to the bmcweb index.
-static constexpr size_t maxVerbIndex =
-    static_cast<size_t>(boost::beast::http::verb::patch);
-
-// MaxVerb + 1 is designated as the "not found" verb.  It is done this way
-// to keep the BaseRule as a single bitfield (thus keeping the struct small)
-// while still having a way to declare a route a "not found" route.
-static constexpr const size_t notFoundIndex = maxVerbIndex + 1;
-static constexpr const size_t methodNotAllowedIndex = notFoundIndex + 1;
 
 class BaseRule
 {
@@ -110,7 +97,7 @@ class BaseRule
     size_t methodsBitfield{
         1 << static_cast<size_t>(boost::beast::http::verb::get)};
     static_assert(std::numeric_limits<decltype(methodsBitfield)>::digits >
-                      methodNotAllowedIndex,
+                      crow::methodNotAllowedIndex,
                   "Not enough bits to store bitfield");
 
     std::vector<redfish::Privileges> privilegesSet;
@@ -461,14 +448,14 @@ struct RuleParameterTraits
     self_t& notFound()
     {
         self_t* self = static_cast<self_t*>(this);
-        self->methodsBitfield = 1U << notFoundIndex;
+        self->methodsBitfield = 1U << crow::notFoundIndex;
         return *self;
     }
 
     self_t& methodNotAllowed()
     {
         self_t* self = static_cast<self_t*>(this);
-        self->methodsBitfield = 1U << methodNotAllowedIndex;
+        self->methodsBitfield = 1U << crow::methodNotAllowedIndex;
         return *self;
     }
 
@@ -1128,8 +1115,8 @@ class Router
         {
             return;
         }
-        for (size_t method = 0, methodBit = 1; method <= methodNotAllowedIndex;
-             method++, methodBit <<= 1)
+        for (size_t method = 0, methodBit = 1;
+             method <= crow::methodNotAllowedIndex; method++, methodBit <<= 1)
         {
             if ((ruleObject->methodsBitfield & methodBit) > 0U)
             {
@@ -1212,11 +1199,11 @@ class Router
 
         size_t reqMethodIndex = static_cast<size_t>(req.method());
         // Check to see if this url exists at any verb
-        for (size_t perMethodIndex = 0; perMethodIndex <= maxVerbIndex;
+        for (size_t perMethodIndex = 0; perMethodIndex <= crow::maxVerbIndex;
              perMethodIndex++)
         {
             // Make sure it's safe to deference the array at that index
-            static_assert(maxVerbIndex <
+            static_assert(crow::maxVerbIndex <
                           std::tuple_size_v<decltype(perMethods)>);
             FindRoute route = findRouteByIndex(req.url, perMethodIndex);
             if (route.rule == nullptr)
@@ -1323,13 +1310,14 @@ class Router
             // route
             if (foundRoute.allowHeader.empty())
             {
-                foundRoute.route = findRouteByIndex(req.url, notFoundIndex);
+                foundRoute.route =
+                    findRouteByIndex(req.url, crow::notFoundIndex);
             }
             else
             {
                 // See if we have a method not allowed (405) handler
                 foundRoute.route =
-                    findRouteByIndex(req.url, methodNotAllowedIndex);
+                    findRouteByIndex(req.url, crow::methodNotAllowedIndex);
             }
         }
 
@@ -1513,7 +1501,7 @@ class Router
         {}
     };
 
-    std::array<PerMethod, methodNotAllowedIndex + 1> perMethods;
+    std::array<PerMethod, crow::maxNumMethods> perMethods;
     std::vector<std::unique_ptr<BaseRule>> allRules;
 };
 } // namespace crow
