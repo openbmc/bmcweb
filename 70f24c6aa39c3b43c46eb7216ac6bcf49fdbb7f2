@@ -355,6 +355,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "89ee3986_9c861467",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-11-10T13:33:17Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "2059af7d_3a40d0e6",
+      "range": {
+        "startLine": 171,
+        "startChar": 0,
+        "endLine": 171,
+        "endChar": 69
+      },
+      "revId": "70f24c6aa39c3b43c46eb7216ac6bcf49fdbb7f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b74c9b14_81326b07",
@@ -392,6 +416,30 @@
       "side": 1,
       "message": "\u003e Please don\u0027t hardcode paths like this.  Use the mapper to look them up without having to do a direct string comparison.\n\u003e \n\u003e Common error #12\n\nSorry, Do you mean we should use mapper to find paths like `/xyz/openbmc_project/.../identify_led_group`?\n\nI think we should use association to obtain the ledGroup whose rType is equal to identify_led_group. So I do not think here is hardcode.\n\nhttps://github.com/openbmc/docs/blob/master/architecture/LED-architecture.md#redfish",
       "parentUuid": "b74c9b14_81326b07",
+      "range": {
+        "startLine": 219,
+        "startChar": 30,
+        "endLine": 219,
+        "endChar": 48
+      },
+      "revId": "70f24c6aa39c3b43c46eb7216ac6bcf49fdbb7f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "827b257d_e465e25f",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-11-10T13:33:17Z",
+      "side": 1,
+      "message": "\u003e \u003e Please don\u0027t hardcode paths like this.  Use the mapper to look them up without having to do a direct string comparison.\n\u003e \u003e \n\u003e \u003e Common error #12\n\u003e \n\u003e Sorry, Do you mean we should use mapper to find paths like `/xyz/openbmc_project/.../identify_led_group`?\n\u003e \n\u003e I think we should use association to obtain the ledGroup whose rType is equal to identify_led_group. So I do not think here is hardcode.\n\u003e \n\u003e https://github.com/openbmc/docs/blob/master/architecture/LED-architecture.md#redfish\n\n@Ed, For this association, it has been merged by: https://gerrit.openbmc.org/c/openbmc/phosphor-dbus-interfaces/+/58299",
+      "parentUuid": "32f82a8b_fcc78a44",
       "range": {
         "startLine": 219,
         "startChar": 30,
