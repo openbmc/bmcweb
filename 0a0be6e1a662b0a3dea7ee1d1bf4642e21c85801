@@ -1,0 +1,181 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "575905fd_10782400",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 70
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-11-10T00:51:22Z",
+      "side": 1,
+      "message": "Thanks Nikhil, LGTM\nBut I left a couple of comments, and it will be reviewed quickly if you can split it into 2pathces.",
+      "revId": "0a0be6e1a662b0a3dea7ee1d1bf4642e21c85801",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bbc5c02c_05e7e2b7",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 70
+      },
+      "lineNbr": 752,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-11-10T00:51:22Z",
+      "side": 1,
+      "message": "add head link",
+      "revId": "0a0be6e1a662b0a3dea7ee1d1bf4642e21c85801",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a31683f7_e213bec1",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 70
+      },
+      "lineNbr": 810,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-11-10T00:51:22Z",
+      "side": 1,
+      "message": "std::function",
+      "range": {
+        "startLine": 810,
+        "startChar": 62,
+        "endLine": 810,
+        "endChar": 69
+      },
+      "revId": "0a0be6e1a662b0a3dea7ee1d1bf4642e21c85801",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e7515871_a523e737",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 70
+      },
+      "lineNbr": 960,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-11-10T00:51:22Z",
+      "side": 1,
+      "message": "Need to be consistent with https://gerrit.openbmc.org/c/openbmc/bmcweb/+/38570/70/redfish-core/include/utils/collection.hpp#113 format?",
+      "range": {
+        "startLine": 947,
+        "startChar": 1,
+        "endLine": 960,
+        "endChar": 5
+      },
+      "revId": "0a0be6e1a662b0a3dea7ee1d1bf4642e21c85801",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1fc357e2_d1fbe45b",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 70
+      },
+      "lineNbr": 983,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-11-10T00:51:22Z",
+      "side": 1,
+      "message": "as above",
+      "range": {
+        "startLine": 969,
+        "startChar": 8,
+        "endLine": 983,
+        "endChar": 0
+      },
+      "revId": "0a0be6e1a662b0a3dea7ee1d1bf4642e21c85801",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2aa2028f_cc2c721a",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 70
+      },
+      "lineNbr": 1002,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-11-10T00:51:22Z",
+      "side": 1,
+      "message": "as above",
+      "range": {
+        "startLine": 989,
+        "startChar": 12,
+        "endLine": 1002,
+        "endChar": 12
+      },
+      "revId": "0a0be6e1a662b0a3dea7ee1d1bf4642e21c85801",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "09877358_dfac18e6",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 70
+      },
+      "lineNbr": 1118,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-11-10T00:51:22Z",
+      "side": 1,
+      "message": "add head link",
+      "revId": "0a0be6e1a662b0a3dea7ee1d1bf4642e21c85801",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "188d705b_096f8783",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 70
+      },
+      "lineNbr": 1609,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-11-10T00:51:22Z",
+      "side": 1,
+      "message": "add head",
+      "revId": "0a0be6e1a662b0a3dea7ee1d1bf4642e21c85801",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "84b447e9_4da581f2",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 70
+      },
+      "lineNbr": 1631,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-11-10T00:51:22Z",
+      "side": 1,
+      "message": "as above",
+      "revId": "0a0be6e1a662b0a3dea7ee1d1bf4642e21c85801",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
