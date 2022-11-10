@@ -16,6 +16,24 @@
       "message": "I don\u0027t see any recent changes, has this always been wrong?\nhttps://github.com/openbmc/bmcweb/blame/master/redfish-core/lib/sensors.hpp#L867",
       "revId": "093b89d92e7f7285c5e77f3396fbeaf09407835d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "77334701_3f17ee63",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1001094
+      },
+      "writtenOn": "2022-11-10T03:38:32Z",
+      "side": 1,
+      "message": "Yes, this is how it has always been.\nWe discovered this issue while deprecating the URI for the thermal power sensor (redfish-allow-deprecated-power-thermal).",
+      "parentUuid": "4e665b53_f12df9c6",
+      "revId": "093b89d92e7f7285c5e77f3396fbeaf09407835d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
