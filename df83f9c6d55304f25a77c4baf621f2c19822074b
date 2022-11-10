@@ -45,6 +45,29 @@
       },
       "revId": "df83f9c6d55304f25a77c4baf621f2c19822074b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f0c8c55_b89ca6cc",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1047,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-11-10T17:41:57Z",
+      "side": 1,
+      "message": "Could you combine these two branches?\n\nsystemName !\u003d \"system\" \u0026\u0026 !(collection_util::isValidSystem(computerSystemIndex))",
+      "range": {
+        "startLine": 1045,
+        "startChar": 8,
+        "endLine": 1047,
+        "endChar": 71
+      },
+      "revId": "df83f9c6d55304f25a77c4baf621f2c19822074b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
