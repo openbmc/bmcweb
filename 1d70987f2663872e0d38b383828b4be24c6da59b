@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac8a41cb_5f02ee7f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-11-10T13:22:38Z",
+      "side": 1,
+      "message": "\u003e Please add in the patch stack at least one user of these helper methods, so we\u0027re not checking in dead code.  Overall, it looks good.\n\nThanks Ed, Done",
+      "parentUuid": "f2c1f0ca_3209a97d",
+      "revId": "1d70987f2663872e0d38b383828b4be24c6da59b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1887a96c_cbd96a02",
@@ -66,6 +84,54 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5cef22fc_2894ec57",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-11-10T13:22:38Z",
+      "side": 1,
+      "message": "\u003e string_view\n\nNo, Because the async_method_call method does not support std::string_view type",
+      "parentUuid": "1887a96c_cbd96a02",
+      "range": {
+        "startLine": 144,
+        "startChar": 4,
+        "endLine": 144,
+        "endChar": 22
+      },
+      "revId": "1d70987f2663872e0d38b383828b4be24c6da59b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1c18b0b0_9e98d3da",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-11-10T13:22:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d848474b_5e6bb25d",
+      "range": {
+        "startLine": 144,
+        "startChar": 35,
+        "endLine": 144,
+        "endChar": 46
+      },
+      "revId": "1d70987f2663872e0d38b383828b4be24c6da59b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b93cdb97_9a395540",
         "filename": "include/dbus_utility.hpp",
         "patchSetId": 6
@@ -77,6 +143,30 @@
       "writtenOn": "2022-11-09T18:22:44Z",
       "side": 1,
       "message": "const r-value reference?",
+      "range": {
+        "startLine": 146,
+        "startChar": 61,
+        "endLine": 146,
+        "endChar": 64
+      },
+      "revId": "1d70987f2663872e0d38b383828b4be24c6da59b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d2ca0cb7_72e7f0a2",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-11-10T13:22:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b93cdb97_9a395540",
       "range": {
         "startLine": 146,
         "startChar": 61,
