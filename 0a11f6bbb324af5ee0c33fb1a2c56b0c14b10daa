@@ -255,6 +255,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8e322f58_9ceba2b1",
+        "filename": "AGGREGATION.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-11-11T19:18:57Z",
+      "side": 1,
+      "message": "\u003e Aggregation currently doesn\u0027t do anything special for $metadata.\n\nRight..... this needs some amount of mention.\n\n\u003e  I\u0027m not familiar with using $metadata so I\u0027m using this thread for reference https://redfishforum.com/thread/550/metadata-link-header.\n\u003e \n\u003e It doesn\u0027t seem like we treat /redfish/v1/$metadata as an actual endpoint.  \n\nI\u0027m not sure where you got this idea, but we do.\nhttps://github.com/openbmc/bmcweb/blob/master/static/redfish/v1/%24metadata/index.xml\n\n\n\u003e Instead requests to there get treated as requests to /redfish/v1.\n\nNo.... they don\u0027t.  You probably forgot to escape the $ in your bash curl request (if I had to guess, because I\u0027ve done the same thing before).\n\n\u003e  I don\u0027t know if it matters that I\u0027m just sending normal curl requests.\n\u003e \n\u003e If $metadata is a collection like /redfish/v1/JsonSchemas is then we\u0027d aggregate it like any other collection since we don\u0027t have a specific blocker like we do for /redfish/v1/JsonSchemas.\n\nit\u0027s not a \"normal\" collection.  It\u0027s the schema collection, which has a lot of weird stuff.\n\n\u003e \n\u003e Even then, \"@odata.type\" doesn\u0027t include a full path so aggregation won\u0027t touch that field as part of aggregation.\n\nI\u0027m not sure what this statement has to do with anything?  The path is enough to look up the schema via $metadata, which is what tools like redfish-service-validator does.\n\n\u003e  It will look like aggregated resources are using the metadata definition on the aggregating bmc.\n\u003e \n\u003e Also, aggregation doesn\u0027t touch header fields when we receive valid responses from satellites.\n\nAs a side comment, I\u0027m not sure this policy is going to be able to survive very long.  I very much suspect that when we start to think through query param forwarding and cache forwarding, this is going to be important.\n\n\u003e  We only copy over the JSON payload so if the \"Link\" header exists it gets dropped.  That might not be much of an issue right now because currently there are not too many endpoints that bmcweb adds a \"Link\" header for.  Maybe that needs to change in the future?\n\u003e \n\u003e If any of these information sounds relevant then I can add it to the write-up.",
+      "parentUuid": "b74332fb_7f667ba7",
+      "revId": "0a11f6bbb324af5ee0c33fb1a2c56b0c14b10daa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fa2e6936_40336506",
         "filename": "AGGREGATION.md",
         "patchSetId": 2
