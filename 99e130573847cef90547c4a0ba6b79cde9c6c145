@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "99d3a798_b2965d48",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-11-11T20:11:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f443cac5_6cca04f5",
+      "range": {
+        "startLine": 55,
+        "startChar": 56,
+        "endLine": 55,
+        "endChar": 65
+      },
+      "revId": "99e130573847cef90547c4a0ba6b79cde9c6c145",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e31421d4_118044c3",
