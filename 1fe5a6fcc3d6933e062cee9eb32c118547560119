@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2422bead_c4f7220b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-11-11T00:13:22Z",
+      "side": 1,
+      "message": "Other maintainers, are you okay with no Redfish validator testing in this commit?\n\nI would still suggest you do Redfish Validator testing though; the experience will be used in the future",
+      "revId": "1fe5a6fcc3d6933e062cee9eb32c118547560119",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a38c7f95_e062cf7b",
         "filename": "http/routing.hpp",
         "patchSetId": 13
