@@ -429,6 +429,30 @@
       },
       "revId": "bcc0f1c1ca57578980f9c0f268d3a56c1e178859",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c95d0d4_688b4b3a",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 1951,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-11-11T19:59:48Z",
+      "side": 1,
+      "message": "Take a look at what\u0027s up there now.  It has other compromises in that we have to make some copies of the Request object, but I think is more in line with what you were thinking?",
+      "parentUuid": "742e0f38_1b0eead7",
+      "range": {
+        "startLine": 1951,
+        "startChar": 4,
+        "endLine": 1951,
+        "endChar": 20
+      },
+      "revId": "bcc0f1c1ca57578980f9c0f268d3a56c1e178859",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
