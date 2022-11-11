@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c8ffc8ff_fbf71c03",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-11-11T00:29:12Z",
+      "side": 1,
+      "message": "\u003e Other maintainers, are you okay with no Redfish validator testing in this commit?\n\nNo\n\n\u003e \n\u003e I would still suggest you do Redfish Validator testing though; the experience will be used in the future\n\nThe intent of Redfish service validator is that it runs a large representative number of commands in a short amount of time.  SOME testing is required (\"It builds\" isn\u0027t acceptable) and FWIW, I think that redfish service validator is the easiest, but if there\u0027s other stuff that you want to test.",
+      "parentUuid": "2422bead_c4f7220b",
+      "revId": "1fe5a6fcc3d6933e062cee9eb32c118547560119",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a38c7f95_e062cf7b",
         "filename": "http/routing.hpp",
         "patchSetId": 13
@@ -31,6 +49,30 @@
       "writtenOn": "2022-11-11T00:12:10Z",
       "side": 1,
       "message": "This is not needed. The whole class is in crow namespace",
+      "range": {
+        "startLine": 100,
+        "startChar": 22,
+        "endLine": 100,
+        "endChar": 26
+      },
+      "revId": "1fe5a6fcc3d6933e062cee9eb32c118547560119",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "900c7c8d_3c2c60a2",
+        "filename": "http/routing.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-11-11T00:29:12Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "a38c7f95_e062cf7b",
       "range": {
         "startLine": 100,
         "startChar": 22,
