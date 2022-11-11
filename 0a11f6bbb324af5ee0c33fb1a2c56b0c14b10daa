@@ -315,6 +315,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9e018062_5e202cbc",
+        "filename": "AGGREGATION.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-11-11T21:47:23Z",
+      "side": 1,
+      "message": "\u003e \u003e \u003e Aggregation currently doesn\u0027t do anything special for $metadata.\n\u003e \u003e Right..... this needs some amount of mention.\n\u003e Alright I\u0027ll add a mention of that to the doc\n\u003e \n\u003e \n\u003e \u003e \u003e I\u0027m not familiar with using $metadata so I\u0027m using this thread for reference https://redfishforum.com/thread/550/metadata-link-header.\n\u003e \u003e \u003e It doesn\u0027t seem like we treat /redfish/v1/$metadata as an actual endpoint.\n\u003e \u003e I\u0027m not sure where you got this idea, but we do.\n\u003e \u003e https://github.com/openbmc/bmcweb/blob/master/static/redfish/v1/%24metadata/index.xml\n\u003e \u003e \u003e \n\u003e \u003e \u003e Instead requests to there get treated as requests to /redfish/v1.\n\u003e \u003e No.... they don\u0027t.  You probably forgot to escape the $ in your bash curl request (if I had to guess, because I\u0027ve done the same thing before).\n\u003e Yup I forgot to escape it and that\u0027s why it looked like we weren\u0027t handling it.\n\u003e \n\u003e \n\u003e \u003e it\u0027s not a \"normal\" collection.  It\u0027s the schema collection, which has a lot of weird stuff.\n\u003e I can\u0027t tell where exactly the hook is for handling /redfish/v1/$metadata, but it does not hit our query parameters handling and thus it doesn\u0027t reach the aggregation hook.\n\ncheck webassets.hpp.  Today it\u0027s a fixed static file, so it just uses that handling.  As part of aggregation, that will probably have to move to code, rather than generating it at compile time.\n\n\u003e  If it was somehow to reach aggregation handling then it would be handled like a \"normal\" collection such that the response from the satellite would be ignored because it\u0027s not of type application/json.  It would\u0027ve also been ignored because it doesn\u0027t contain the expected \"Members\" array.\n\nIt\u0027s also XML..... so yeah..... it\u0027s not going to be able to be parsed as json.\n\n\u003e \n\u003e \n\u003e \u003e \u003e Even then, \"@odata.type\" doesn\u0027t include a full path so aggregation won\u0027t touch that field as part of aggregation.\n\u003e \u003e I\u0027m not sure what this statement has to do with anything?  The path is enough to look up the schema via $metadata, which is what tools like redfish-service-validator does.\n\u003e I\u0027m saying that when querying a satellite resource, there won\u0027t be anything added to \"@odata.type\" to indicate that the info is supposed to come from the $metadata of a satellite BMC.\n\nCorrect, because as far as the caller is concerned, there is no \"satellite $metadata\".  It all gets aggregated.\n\n\u003e  Whatever entity can use the value of \"@odata.type\" to lookup the schema, but the result will be from the aggregating BMC instead of the satellite.\n\nRight, but we need some way for the aggregating bmc to aggregate the schema files.  We punted on this originally, but we should probably document that assumption here, which is where my original comment was geared at.\n\n\u003e \n\u003e \n\u003e \u003e As a side comment, I\u0027m not sure this policy is going to be able to survive very long.  I very much suspect that when we start to think through query param forwarding and cache forwarding, this is going to be important.\n\u003e Yeah I\u0027m getting that feeling as well.  I\u0027ve maybe bumped up against this issue already in forwarding responses from satellite BMCs.  For valid response codes we only copy over the JSON response and use the aggregator\u0027s headers.  For invalid codes we copy over the entire message.  That\u0027s a potential issue since it includes the satellite\u0027s headers.",
+      "parentUuid": "3da42f05_00603bb1",
+      "revId": "0a11f6bbb324af5ee0c33fb1a2c56b0c14b10daa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fa2e6936_40336506",
         "filename": "AGGREGATION.md",
         "patchSetId": 2
