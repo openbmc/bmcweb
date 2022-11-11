@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "caf525c8_2a8358a9",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 70
+      },
+      "lineNbr": 752,
+      "author": {
+        "id": 1001369
+      },
+      "writtenOn": "2022-11-11T03:28:35Z",
+      "side": 1,
+      "message": "Done.. Can you tell me how to test these head links change ?",
+      "parentUuid": "bbc5c02c_05e7e2b7",
+      "revId": "0a0be6e1a662b0a3dea7ee1d1bf4642e21c85801",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a31683f7_e213bec1",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 70
@@ -106,6 +124,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c4cbede6_265108df",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 70
+      },
+      "lineNbr": 810,
+      "author": {
+        "id": 1001369
+      },
+      "writtenOn": "2022-11-11T03:28:35Z",
+      "side": 1,
+      "message": "As of now I am keeping this as template argument to conform with the rest of bmcweb format.",
+      "parentUuid": "8f9a5e51_81b7f5da",
+      "range": {
+        "startLine": 810,
+        "startChar": 62,
+        "endLine": 810,
+        "endChar": 69
+      },
+      "revId": "0a0be6e1a662b0a3dea7ee1d1bf4642e21c85801",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e7515871_a523e737",
@@ -119,6 +161,30 @@
       "writtenOn": "2022-11-10T00:51:22Z",
       "side": 1,
       "message": "Need to be consistent with https://gerrit.openbmc.org/c/openbmc/bmcweb/+/38570/70/redfish-core/include/utils/collection.hpp#113 format?",
+      "range": {
+        "startLine": 947,
+        "startChar": 1,
+        "endLine": 960,
+        "endChar": 5
+      },
+      "revId": "0a0be6e1a662b0a3dea7ee1d1bf4642e21c85801",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6686b4b8_9cb4a504",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 70
+      },
+      "lineNbr": 960,
+      "author": {
+        "id": 1001369
+      },
+      "writtenOn": "2022-11-11T03:28:35Z",
+      "side": 1,
+      "message": "No... Here we are not dealing core collections, so the format in collection.hpp#113 should not be used here. I think maybe in collection it is intended to not report error if its io_error, based on the implementation of getCollectionMembers().",
+      "parentUuid": "e7515871_a523e737",
       "range": {
         "startLine": 947,
         "startChar": 1,
@@ -152,6 +218,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "96f19293_07897e4a",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 70
+      },
+      "lineNbr": 983,
+      "author": {
+        "id": 1001369
+      },
+      "writtenOn": "2022-11-11T03:28:35Z",
+      "side": 1,
+      "message": "Same as above.",
+      "parentUuid": "1fc357e2_d1fbe45b",
+      "range": {
+        "startLine": 969,
+        "startChar": 8,
+        "endLine": 983,
+        "endChar": 0
+      },
+      "revId": "0a0be6e1a662b0a3dea7ee1d1bf4642e21c85801",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2aa2028f_cc2c721a",
@@ -165,6 +255,30 @@
       "writtenOn": "2022-11-10T00:51:22Z",
       "side": 1,
       "message": "as above",
+      "range": {
+        "startLine": 989,
+        "startChar": 12,
+        "endLine": 1002,
+        "endChar": 12
+      },
+      "revId": "0a0be6e1a662b0a3dea7ee1d1bf4642e21c85801",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d4fa2e7c_be4df8c7",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 70
+      },
+      "lineNbr": 1002,
+      "author": {
+        "id": 1001369
+      },
+      "writtenOn": "2022-11-11T03:28:35Z",
+      "side": 1,
+      "message": "Same as above.",
+      "parentUuid": "2aa2028f_cc2c721a",
       "range": {
         "startLine": 989,
         "startChar": 12,
@@ -192,6 +306,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb667c23_74635938",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 70
+      },
+      "lineNbr": 1118,
+      "author": {
+        "id": 1001369
+      },
+      "writtenOn": "2022-11-11T03:28:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "09877358_dfac18e6",
+      "revId": "0a0be6e1a662b0a3dea7ee1d1bf4642e21c85801",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "188d705b_096f8783",
@@ -209,6 +341,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1afc1439_2ed94aa1",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 70
+      },
+      "lineNbr": 1609,
+      "author": {
+        "id": 1001369
+      },
+      "writtenOn": "2022-11-11T03:28:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "188d705b_096f8783",
+      "revId": "0a0be6e1a662b0a3dea7ee1d1bf4642e21c85801",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "84b447e9_4da581f2",
@@ -222,6 +372,24 @@
       "writtenOn": "2022-11-10T00:51:22Z",
       "side": 1,
       "message": "as above",
+      "revId": "0a0be6e1a662b0a3dea7ee1d1bf4642e21c85801",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0b74f412_b91991f1",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 70
+      },
+      "lineNbr": 1631,
+      "author": {
+        "id": 1001369
+      },
+      "writtenOn": "2022-11-11T03:28:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "84b447e9_4da581f2",
       "revId": "0a0be6e1a662b0a3dea7ee1d1bf4642e21c85801",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
