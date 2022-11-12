@@ -121,6 +121,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7acabb81_884f6ed3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-11-12T02:21:26Z",
+      "side": 1,
+      "message": "\u003e So, have we tested that for dbus-sensors systems this behavior fails gracefully?\n\nWe tested it for dbus-sensors systems and this behavior won\u0027t fail.\n1. Since dbus-sensors has not implemented the xyz.openbmc_project.Sensor.Accuracy interface, the Accuracy attribute will not be displayed on Redfish.\n2. I manually added the xyz.openbmc_project.Sensor.Accuracy interface to dbus-sensors, and the display effect is the same as now.",
+      "parentUuid": "46aabe49_7f46c66c",
+      "revId": "7c68743c5d0db2e5c80794fd59fa1e11bdcd9b83",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a3c8a69d_2351776d",
         "filename": "redfish-core/lib/sensors.hpp",
         "patchSetId": 2
@@ -222,6 +240,24 @@
       "side": 1,
       "message": "\u003e If it is the default NAN, Redfish will show it like this\n\n\nI\u0027m not sure we want Accuracy: null if accuracy is not supported.  null is supposed to be \"supported but unavailable at this time\".  Omiting the property is supposed to be unsupported (at least this was the discussion the last time I brought this up at DMTF level).\n\n\nAs a practical matter, considering 90+% of systems don\u0027t implement this, adding:\nAccuracy: null\nto all of their sensors for all existing systems doesn\u0027t seem like great behavior, and certainly not behavior that I want to explain to everyone about why their sensor values changed.\n\n\u003e We should follow what we have done there.\n\nThat is changing the behavior for Reading, which is different.  In OpenBMC, there is no such thing as a sensor that doesn\u0027t support Reading/Value, so pushing null there makes sense.  I\u0027m not sure it does for the accuracy case.",
       "parentUuid": "9fd9b92d_b8d2f13f",
+      "revId": "7c68743c5d0db2e5c80794fd59fa1e11bdcd9b83",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cecfd92c_bec34106",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 967,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-11-12T02:21:26Z",
+      "side": 1,
+      "message": "\u003e \u003e If it is the default NAN, Redfish will show it like this\n\u003e \n\u003e \n\u003e I\u0027m not sure we want Accuracy: null if accuracy is not supported.  null is supposed to be \"supported but unavailable at this time\".  Omiting the property is supposed to be unsupported (at least this was the discussion the last time I brought this up at DMTF level).\n\n@Matt, What do you think?\n\n\u003e \n\u003e \n\u003e As a practical matter, considering 90+% of systems don\u0027t implement this, adding:\n\u003e Accuracy: null\n\u003e to all of their sensors for all existing systems doesn\u0027t seem like great behavior, and certainly not behavior that I want to explain to everyone about why their sensor values changed.\n\u003e \n\u003e \u003e We should follow what we have done there.\n\u003e \n\u003e That is changing the behavior for Reading, which is different.  In OpenBMC, there is no such thing as a sensor that doesn\u0027t support Reading/Value, so pushing null there makes sense.  I\u0027m not sure it does for the accuracy case.",
+      "parentUuid": "1d6949d2_6841fd80",
       "revId": "7c68743c5d0db2e5c80794fd59fa1e11bdcd9b83",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
