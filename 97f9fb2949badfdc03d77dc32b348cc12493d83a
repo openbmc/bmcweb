@@ -22,6 +22,23 @@
       },
       "revId": "97f9fb2949badfdc03d77dc32b348cc12493d83a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0bd1e92a_cdd1c4ea",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-11-14T18:14:52Z",
+      "side": 1,
+      "message": "This methods existence doesn\u0027t align with our uses of DBus.  Please take a look at other examples for how to determine the existence of an interface.\n\nIf you think that parsing XML is a better option, I\u0027m happy to have that discussion outside of adding a new feature, but I suspect that wasn\u0027t your intent here.",
+      "revId": "97f9fb2949badfdc03d77dc32b348cc12493d83a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
