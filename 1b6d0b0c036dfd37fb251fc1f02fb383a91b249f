@@ -141,6 +141,23 @@
       },
       "revId": "1b6d0b0c036dfd37fb251fc1f02fb383a91b249f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3bfb9b34_5f226bca",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 81
+      },
+      "lineNbr": 615,
+      "author": {
+        "id": 1001438
+      },
+      "writtenOn": "2022-11-14T09:07:54Z",
+      "side": 1,
+      "message": "Where is the targets being used?",
+      "revId": "1b6d0b0c036dfd37fb251fc1f02fb383a91b249f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
