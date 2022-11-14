@@ -43,6 +43,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "48c61375_f1990512",
+        "filename": "http/verb.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-11-14T20:07:07Z",
+      "side": 1,
+      "message": "???? For an enum?  I\u0027m not sure how to write a unit test for an enum.  Can you be more specific?",
+      "parentUuid": "6b2d8591_d4f1d689",
+      "revId": "7fc17091c20e151610286711b4c0a9fbb8089681",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0af9cbc2_1041df2f",
         "filename": "http/verb.hpp",
         "patchSetId": 3
@@ -66,6 +84,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "87968cce_d8ab8c3b",
+        "filename": "http/verb.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-11-14T20:07:07Z",
+      "side": 1,
+      "message": "Probably does.  ACK.",
+      "parentUuid": "0af9cbc2_1041df2f",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 48
+      },
+      "revId": "7fc17091c20e151610286711b4c0a9fbb8089681",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c35e3528_f15470e4",
         "filename": "http/verb.hpp",
         "patchSetId": 3
@@ -77,6 +119,30 @@
       "writtenOn": "2022-11-14T18:29:42Z",
       "side": 1,
       "message": "This can be std::string_view",
+      "range": {
+        "startLine": 52,
+        "startChar": 12,
+        "endLine": 52,
+        "endChar": 18
+      },
+      "revId": "7fc17091c20e151610286711b4c0a9fbb8089681",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b1ae5802_4c21259e",
+        "filename": "http/verb.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-11-14T20:07:07Z",
+      "side": 1,
+      "message": "As a general rule I don\u0027t think string_view output parameters are recommended given the subtleties in rvalue semantics.  Is there something in the coding standard you\u0027re referencing that says that?",
+      "parentUuid": "c35e3528_f15470e4",
       "range": {
         "startLine": 52,
         "startChar": 12,
