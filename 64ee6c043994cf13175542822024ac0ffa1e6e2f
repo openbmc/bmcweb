@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6cca2462_1809776c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-11-14T20:18:19Z",
+      "side": 1,
+      "message": "Could you do some quick sanity testing ? Then remove the WIP",
+      "revId": "64ee6c043994cf13175542822024ac0ffa1e6e2f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
