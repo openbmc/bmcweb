@@ -120,6 +120,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "45dd83b7_cf0a1998",
+        "filename": "http/verb.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-11-14T23:17:52Z",
+      "side": 1,
+      "message": "\u003e Could you write tests for httpVerbToString / httpVerbFromBoost ?\n\nYes, this is what I meant.",
+      "parentUuid": "fbecd336_6af38832",
+      "revId": "7fc17091c20e151610286711b4c0a9fbb8089681",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0af9cbc2_1041df2f",
         "filename": "http/verb.hpp",
         "patchSetId": 3
@@ -202,6 +220,30 @@
       "side": 1,
       "message": "As a general rule I don\u0027t think string_view output parameters are recommended given the subtleties in rvalue semantics.  Is there something in the coding standard you\u0027re referencing that says that?",
       "parentUuid": "c35e3528_f15470e4",
+      "range": {
+        "startLine": 52,
+        "startChar": 12,
+        "endLine": 52,
+        "endChar": 18
+      },
+      "revId": "7fc17091c20e151610286711b4c0a9fbb8089681",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c44b9a6a_6d938ba0",
+        "filename": "http/verb.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-11-14T23:17:52Z",
+      "side": 1,
+      "message": "I didn\u0027t say string_view are preferred anywhere as output parameters. \n\nThese are string literals with static storage. There is an example below.\n\nhttps://abseil.io/docs/cpp/guides/strings#string_view\n\nDoes string_view save a temporary string construction when you do \n\n```\nif (httpVerbToString(HttpVerb::Delete) \u003d\u003d \"DELETE\")\n```",
+      "parentUuid": "b1ae5802_4c21259e",
       "range": {
         "startLine": 52,
         "startChar": 12,
