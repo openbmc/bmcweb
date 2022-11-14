@@ -111,6 +111,24 @@
       "parentUuid": "d2e5120b_8541c713",
       "revId": "97f9fb2949badfdc03d77dc32b348cc12493d83a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1329e501_7ae0c675",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-11-14T18:56:56Z",
+      "side": 1,
+      "message": "Also, from DBUS_USAGE.md\n\n\"There are interfaces for which there is an expectation that there will only ever be one producer in the project (ex bmc networking, user management). In these cases, it is desirable to call the daemon by well known name directly. Bmcweb APIs should call the mapper in cases where it\u0027s reasonably expected that multiple implementations exist (ex, CPU management, Sensors).\"",
+      "parentUuid": "29839672_2e2c3ecc",
+      "revId": "97f9fb2949badfdc03d77dc32b348cc12493d83a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
