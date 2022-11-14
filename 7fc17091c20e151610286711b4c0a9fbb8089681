@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "488a4fc1_8ecd7b96",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-11-14T20:16:05Z",
+      "side": 1,
+      "message": "I would expect for testing, PATCH, GET, POST, PUT, and DELETE tested. (e.g.  added a user (POST), Verified the new user created (GET), updated the user\u0027s permission (PATCH),  deleted the user)",
+      "revId": "7fc17091c20e151610286711b4c0a9fbb8089681",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0363a3ae_8def7b8d",
         "filename": "http/routing.hpp",
         "patchSetId": 3
@@ -79,6 +96,24 @@
       "side": 1,
       "message": "???? For an enum?  I\u0027m not sure how to write a unit test for an enum.  Can you be more specific?",
       "parentUuid": "6b2d8591_d4f1d689",
+      "revId": "7fc17091c20e151610286711b4c0a9fbb8089681",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fbecd336_6af38832",
+        "filename": "http/verb.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-11-14T20:16:05Z",
+      "side": 1,
+      "message": "Could you write tests for httpVerbToString / httpVerbFromBoost ?",
+      "parentUuid": "48c61375_f1990512",
       "revId": "7fc17091c20e151610286711b4c0a9fbb8089681",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
