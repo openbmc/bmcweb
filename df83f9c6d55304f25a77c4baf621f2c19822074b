@@ -47,6 +47,23 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "af309dc2_d498d024",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001292
+      },
+      "writtenOn": "2022-11-14T20:24:16Z",
+      "side": 1,
+      "message": "I\u0027m wondering why the systemName is always expected to start with \u0027system\u0027.  This does not conform to the DMTF Redfish ComputerSystem schema or mockups which show other values such as the serial number can be used to indicate the system names in a multi-host mockup (https://redfish.dmtf.org/redfish/mockups/v1/1207).  We should allow the system names to be driven by the platform configuration and not hard-coded.",
+      "revId": "df83f9c6d55304f25a77c4baf621f2c19822074b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3f0c8c55_b89ca6cc",
@@ -65,6 +82,121 @@
         "startChar": 8,
         "endLine": 1047,
         "endChar": 71
+      },
+      "revId": "df83f9c6d55304f25a77c4baf621f2c19822074b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "228c4315_78d61abb",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 3689,
+      "author": {
+        "id": 1001292
+      },
+      "writtenOn": "2022-11-14T20:24:16Z",
+      "side": 1,
+      "message": "Should this be systemName to be consistent with supporting multi-host systems?",
+      "range": {
+        "startLine": 3689,
+        "startChar": 40,
+        "endLine": 3689,
+        "endChar": 48
+      },
+      "revId": "df83f9c6d55304f25a77c4baf621f2c19822074b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1f9f3cbf_2556707a",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 3702,
+      "author": {
+        "id": 1001292
+      },
+      "writtenOn": "2022-11-14T20:24:16Z",
+      "side": 1,
+      "message": "Same here...\n\nLooking at the DMTF Redfish multi-host mockups at https://redfish.dmtf.org/redfish/mockups/v1/1207, under the Systems, the name of the system can be a multitude of things including the serial number of each sled.  We should not be hardcoding this to \u0027system#.",
+      "range": {
+        "startLine": 3702,
+        "startChar": 44,
+        "endLine": 3702,
+        "endChar": 52
+      },
+      "revId": "df83f9c6d55304f25a77c4baf621f2c19822074b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6eae8a67_09030e11",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 3873,
+      "author": {
+        "id": 1001292
+      },
+      "writtenOn": "2022-11-14T20:24:16Z",
+      "side": 1,
+      "message": "Assuming the systemName will always by \u0027system\u0027 is not in alignment with the DMTF Redfish schemas which allow for other names here.",
+      "range": {
+        "startLine": 3873,
+        "startChar": 3,
+        "endLine": 3873,
+        "endChar": 35
+      },
+      "revId": "df83f9c6d55304f25a77c4baf621f2c19822074b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "da7dc246_abed96e2",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 3952,
+      "author": {
+        "id": 1001292
+      },
+      "writtenOn": "2022-11-14T20:24:16Z",
+      "side": 1,
+      "message": "We should not be forcing the systemname to always be \u0027system\u0027 or start with \u0027system\u0027.",
+      "range": {
+        "startLine": 3951,
+        "startChar": 6,
+        "endLine": 3952,
+        "endChar": 9
+      },
+      "revId": "df83f9c6d55304f25a77c4baf621f2c19822074b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ea806fa5_6db3e201",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 3957,
+      "author": {
+        "id": 1001292
+      },
+      "writtenOn": "2022-11-14T20:24:16Z",
+      "side": 1,
+      "message": "Was a command originally here?",
+      "range": {
+        "startLine": 3957,
+        "startChar": 13,
+        "endLine": 3957,
+        "endChar": 17
       },
       "revId": "df83f9c6d55304f25a77c4baf621f2c19822074b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
