@@ -93,6 +93,24 @@
       "parentUuid": "ee7d0c2c_570e877b",
       "revId": "97f9fb2949badfdc03d77dc32b348cc12493d83a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29839672_2e2c3ecc",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-11-14T18:34:56Z",
+      "side": 1,
+      "message": "I asked why first 😊  Why would we do this, when we don\u0027t do it anywhere else?\n\nAt a minimum, we know the existing code patterns work for building reasonably reliable Redfish endpoints.  As a start, we shouldn\u0027t change without reason, so the onus is on the change-maker to talk about (documented in the developing guide) why we\u0027re changing.\n\n\nOff the top of my head: \n1. It duplicates code already in the mapper.\n2. it has race conditions that have already been solved and debugged in the matter.\n3. It imposes a hard requirement on tinyxml in bmcweb, whereas previously, only dbus-rest required it.\n4. It doesn\u0027t work properly if the interfaces are split between two daemons.\n5. (guessing) it is most likely slower, given the XML payload is going to be several orders of magnitude larger than the mapper response.",
+      "parentUuid": "d2e5120b_8541c713",
+      "revId": "97f9fb2949badfdc03d77dc32b348cc12493d83a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
