@@ -16,6 +16,24 @@
       "message": "Could you do some quick sanity testing ? Then remove the WIP",
       "revId": "64ee6c043994cf13175542822024ac0ffa1e6e2f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dd8af591_99b05dab",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-11-14T20:40:37Z",
+      "side": 1,
+      "message": "That was the plan, but I don\u0027t remember the actual steps to do it.  I\u0027ll give it a try, but we really need to get this into the standard (which is being worked) then get it supported by the \"normal\" tools.  This ad-hoc stuff is a mess to try to test every time we need to make a change.",
+      "parentUuid": "6cca2462_1809776c",
+      "revId": "64ee6c043994cf13175542822024ac0ffa1e6e2f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
