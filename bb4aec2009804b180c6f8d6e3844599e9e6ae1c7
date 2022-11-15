@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "02c5e16f_a82bd2af",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 403,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-11-15T19:32:10Z",
+      "side": 1,
+      "message": "Could you also link which daemon implements this interface? Is it already in phosphor-debug-collector?",
+      "range": {
+        "startLine": 403,
+        "startChar": 45,
+        "endLine": 403,
+        "endChar": 57
+      },
+      "revId": "bb4aec2009804b180c6f8d6e3844599e9e6ae1c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ea55aa28_a68d0f10",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 549,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-11-15T19:32:10Z",
+      "side": 1,
+      "message": "Are there possibilities that among these two string, one is empty, the other is not?",
+      "range": {
+        "startLine": 549,
+        "startChar": 30,
+        "endLine": 549,
+        "endChar": 35
+      },
+      "revId": "bb4aec2009804b180c6f8d6e3844599e9e6ae1c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
