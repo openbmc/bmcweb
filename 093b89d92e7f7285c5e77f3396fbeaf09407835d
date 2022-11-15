@@ -34,6 +34,24 @@
       "parentUuid": "4e665b53_f12df9c6",
       "revId": "093b89d92e7f7285c5e77f3396fbeaf09407835d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "af3bd678_11b8b718",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-11-15T10:35:24Z",
+      "side": 1,
+      "message": "Gunnar, Previous Sensors node (chassissSubNode) doesn\u0027t have many sensors and so the set of sensors fall in above loop are very less and not shown much impact, though code exist from long time.  After Sensors aggregation (Moving all sensors under Sensors node - /redfish/v1/Chassis/\u003cid\u003e/Sensors), All sensors are falling under it is going through invalid path (https://github.com/openbmc/bmcweb/blob/master/redfish-core/lib/sensors.hpp#L803-L819 ) and exposed the issue. It\u0027s not due to any recent changes.",
+      "parentUuid": "77334701_3f17ee63",
+      "revId": "093b89d92e7f7285c5e77f3396fbeaf09407835d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
