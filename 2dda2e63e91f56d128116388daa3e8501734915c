@@ -48,6 +48,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "669766cc_8cbe75e4",
+        "filename": "redfish-core/lib/power_subsystem.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-11-15T20:25:21Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "ab27d7bc_75a996db",
+      "range": {
+        "startLine": 27,
+        "startChar": 4,
+        "endLine": 29,
+        "endChar": 89
+      },
+      "revId": "2dda2e63e91f56d128116388daa3e8501734915c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5c709a20_c5f9f2d9",
