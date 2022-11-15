@@ -45,6 +45,30 @@
       },
       "revId": "bb4aec2009804b180c6f8d6e3844599e9e6ae1c7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "496771ac_3d596f25",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 549,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-11-15T19:32:55Z",
+      "side": 1,
+      "message": "Should we just set them separately in the JSON?",
+      "parentUuid": "ea55aa28_a68d0f10",
+      "range": {
+        "startLine": 549,
+        "startChar": 30,
+        "endLine": 549,
+        "endChar": 35
+      },
+      "revId": "bb4aec2009804b180c6f8d6e3844599e9e6ae1c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
