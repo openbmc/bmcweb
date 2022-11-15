@@ -93,6 +93,30 @@
       },
       "revId": "75e5dcb09eb664dae14de5600a7b703cd63bb03a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "afc661df_55349e51",
+        "filename": "redfish-core/lib/power_subsystem.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-11-15T02:23:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4d6bfb76_e35151c3",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 72
+      },
+      "revId": "75e5dcb09eb664dae14de5600a7b703cd63bb03a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
