@@ -1619,7 +1619,7 @@ inline void parseInterfaceData(
 
     if (ethData.nicEnabled)
     {
-        jsonResponse["LinkStatus"] = "LinkUp";
+        jsonResponse["LinkStatus"] = ethData.linkUp ? "LinkUp" : "LinkDown";
         jsonResponse["Status"]["State"] = "Enabled";
     }
     else
@@ -1628,7 +1628,6 @@ inline void parseInterfaceData(
         jsonResponse["Status"]["State"] = "Disabled";
     }
 
-    jsonResponse["LinkStatus"] = ethData.linkUp ? "LinkUp" : "LinkDown";
     jsonResponse["SpeedMbps"] = ethData.speed;
     jsonResponse["MTUSize"] = ethData.mtuSize;
     jsonResponse["MACAddress"] = ethData.macAddress;
