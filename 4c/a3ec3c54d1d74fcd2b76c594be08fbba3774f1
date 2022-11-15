@@ -1,0 +1,9 @@
+Code-Review+2: Gunnar Mills <gmills@us.ibm.com>
+Code-Review+1: George Liu <liuxiwei@inspur.com>
+Code-Review+1: Nan Zhou <nanzhoumails@gmail.com>
+Verified+1: OpenBMC CI <openbmcbump-ci@yahoo.com>
+Submitted-by: George Liu <liuxiwei@inspur.com>
+Submitted-at: Tue, 15 Nov 2022 02:44:09 +0000
+Reviewed-on: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/43170
+Project: openbmc/bmcweb
+Branch: refs/heads/master
