@@ -169,6 +169,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c699ec70_332e70a9",
+        "filename": "redfish-core/include/query.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-11-15T23:19:02Z",
+      "side": 1,
+      "message": "It didn\u0027t compile because |app| doesn\u0027t take const reference to the request.\n\nI am not just randomly sending comments. I did experiments on this yesterday before I made such comment. If we don\u0027t use reference, we will call the copy constructor of Request multiple times.\n\nSo, this compiles,\n\n```\nvoid afterIfMatchRequest(crow::App\u0026 app,\n                         const std::shared_ptr\u003cbmcweb::AsyncResp\u003e\u0026 asyncResp,\n                         crow::Request\u0026 req,\n                         std::string_view ifMatchHeader,\n                         const crow::Response\u0026 resIn)\n```\n\nI believe std::bind_front does a copy first. Then it pass that copy as a reference to this |afterIfMatchRequest| function.",
+      "parentUuid": "902e6ed8_9fe01f2e",
+      "range": {
+        "startLine": 36,
+        "startChar": 25,
+        "endLine": 36,
+        "endChar": 38
+      },
+      "revId": "178e7c95056247d4e80d7f7bfea4754be4ea02a3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ea1215d8_bd0d2bed",
         "filename": "redfish-core/include/query.hpp",
         "patchSetId": 16
