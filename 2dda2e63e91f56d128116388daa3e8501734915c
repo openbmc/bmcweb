@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ab27d7bc_75a996db",
+        "filename": "redfish-core/lib/power_subsystem.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-11-15T19:53:51Z",
+      "side": 1,
+      "message": "This adding the header first, matches more with what I see other places. E.g. https://github.com/openbmc/bmcweb/blob/b6d5d45ce974b4cc3dce0f524843da4ac6e5f7f8/redfish-core/lib/systems.hpp#L2694 \n\nAdding the header then the properties but this is such small detail, I think it could go either place.",
+      "parentUuid": "ea637ab7_dc6d3b85",
+      "range": {
+        "startLine": 27,
+        "startChar": 4,
+        "endLine": 29,
+        "endChar": 89
+      },
+      "revId": "2dda2e63e91f56d128116388daa3e8501734915c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5c709a20_c5f9f2d9",
         "filename": "redfish-core/lib/power_subsystem.hpp",
         "patchSetId": 6
@@ -37,6 +61,30 @@
       "writtenOn": "2022-11-15T19:27:28Z",
       "side": 1,
       "message": "I thought GET should also have this link header, right?",
+      "range": {
+        "startLine": 65,
+        "startChar": 12,
+        "endLine": 65,
+        "endChar": 45
+      },
+      "revId": "2dda2e63e91f56d128116388daa3e8501734915c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6af014d9_522f691d",
+        "filename": "redfish-core/lib/power_subsystem.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-11-15T19:53:51Z",
+      "side": 1,
+      "message": "It calls doPowerSubsystemCollection which has the adds the link header right?",
+      "parentUuid": "5c709a20_c5f9f2d9",
       "range": {
         "startLine": 65,
         "startChar": 12,

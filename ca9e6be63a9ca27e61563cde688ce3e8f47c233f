@@ -22,6 +22,30 @@
       },
       "revId": "ca9e6be63a9ca27e61563cde688ce3e8f47c233f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8771fb26_3552304a",
+        "filename": "redfish-core/lib/power_subsystem.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-11-15T19:53:51Z",
+      "side": 0,
+      "message": "I think he did this to match with the other resourceNotFound in powersubsystem/thermalsubsystem (i agree could be another patch). I prefer not logging a LOG ERROR on a user error so agree with the change\n\nOverall, George, please do be careful with unrelated changes.",
+      "parentUuid": "f2b69f36_368fd10a",
+      "range": {
+        "startLine": 23,
+        "startChar": 8,
+        "endLine": 23,
+        "endChar": 66
+      },
+      "revId": "ca9e6be63a9ca27e61563cde688ce3e8f47c233f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
