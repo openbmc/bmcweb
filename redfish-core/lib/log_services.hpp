@@ -341,6 +341,7 @@ static bool
 inline void parseDumpEntryFromDbusObject(
     const dbus::utility::ManagedObjectType::value_type& object,
     std::string& dumpStatus, uint64_t& size, uint64_t& timestampUs,
+    std::string& originatorId, std::string& originatorType,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     for (const auto& interfaceMap : object.second)
@@ -395,6 +396,52 @@ inline void parseDumpEntryFromDbusObject(
                     }
                     timestampUs = *usecsTimeStamp;
                     break;
+                }
+            }
+        }
+        else if (interfaceMap.first ==
+                 "xyz.openbmc_project.Common.OriginatedBy")
+        {
+            for (const auto& propertyMap : interfaceMap.second)
+            {
+                if (propertyMap.first == "OriginatorId")
+                {
+                    const std::string* id =
+                        std::get_if<std::string>(&propertyMap.second);
+                    if (id == nullptr)
+                    {
+                        messages::internalError(asyncResp->res);
+                        break;
+                    }
+                    originatorId = *id;
+                }
+
+                if (propertyMap.first == "OriginatorType")
+                {
+                    const std::string* type =
+                        std::get_if<std::string>(&propertyMap.second);
+                    if (type == nullptr)
+                    {
+                        messages::internalError(asyncResp->res);
+                        break;
+                    }
+                    if (*type ==
+                        "xyz.openbmc_project.Common.OriginatedBy.OriginatorTypes.Client")
+                    {
+                        originatorType = "Client";
+                    }
+                    else if (
+                        *type ==
+                        "xyz.openbmc_project.Common.OriginatedBy.OriginatorTypes.Internal")
+                    {
+                        originatorType = "Internal";
+                    }
+                    else if (
+                        *type ==
+                        "xyz.openbmc_project.Common.OriginatedBy.OriginatorTypes.SupportingService")
+                    {
+                        originatorType = "SupportingService";
+                    }
                 }
             }
         }
@@ -483,6 +530,8 @@ inline void
             uint64_t timestampUs = 0;
             uint64_t size = 0;
             std::string dumpStatus;
+            std::string originatorId;
+            std::string originatorType;
             nlohmann::json::object_t thisEntry;
 
             std::string entryID = object.first.filename();
@@ -492,6 +541,7 @@ inline void
             }
 
             parseDumpEntryFromDbusObject(object, dumpStatus, size, timestampUs,
+                                         originatorId, originatorType,
                                          asyncResp);
 
             if (dumpStatus !=
@@ -502,13 +552,19 @@ inline void
                 continue;
             }
 
-            thisEntry["@odata.type"] = "#LogEntry.v1_9_0.LogEntry";
+            thisEntry["@odata.type"] = "#LogEntry.v1_11_0.LogEntry";
             thisEntry["@odata.id"] = entriesPath + entryID;
             thisEntry["Id"] = entryID;
             thisEntry["EntryType"] = "Event";
             thisEntry["Name"] = dumpType + " Dump Entry";
             thisEntry["Created"] =
                 redfish::time_utils::getDateTimeUintUs(timestampUs);
+
+            if (!originatorId.empty())
+            {
+                thisEntry["Originator"] = originatorId;
+                thisEntry["OriginatorType"] = originatorType;
+            }
 
             if (dumpType == "BMC")
             {
@@ -571,9 +627,12 @@ inline void
             uint64_t timestampUs = 0;
             uint64_t size = 0;
             std::string dumpStatus;
+            std::string originatorId;
+            std::string originatorType;
 
             parseDumpEntryFromDbusObject(objectPath, dumpStatus, size,
-                                         timestampUs, asyncResp);
+                                         timestampUs, originatorId,
+                                         originatorType, asyncResp);
 
             if (dumpStatus !=
                     "xyz.openbmc_project.Common.Progress.OperationStatus.Completed" &&
@@ -587,13 +646,19 @@ inline void
             }
 
             asyncResp->res.jsonValue["@odata.type"] =
-                "#LogEntry.v1_9_0.LogEntry";
+                "#LogEntry.v1_11_0.LogEntry";
             asyncResp->res.jsonValue["@odata.id"] = entriesPath + entryID;
             asyncResp->res.jsonValue["Id"] = entryID;
             asyncResp->res.jsonValue["EntryType"] = "Event";
             asyncResp->res.jsonValue["Name"] = dumpType + " Dump Entry";
             asyncResp->res.jsonValue["Created"] =
                 redfish::time_utils::getDateTimeUintUs(timestampUs);
+
+            if (!originatorId.empty())
+            {
+                asyncResp->res.jsonValue["Originator"] = originatorId;
+                asyncResp->res.jsonValue["OriginatorType"] = originatorType;
+            }
 
             if (dumpType == "BMC")
             {
@@ -896,6 +961,13 @@ inline void createDump(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 
     std::vector<std::pair<std::string, std::variant<std::string, uint64_t>>>
         createDumpParamVec;
+
+    createDumpParamVec.emplace_back(std::make_pair(
+        "xyz.openbmc_project.Dump.Create.CreateParameters.OriginatorId",
+        req.session->clientIp));
+    createDumpParamVec.emplace_back(std::make_pair(
+        "xyz.openbmc_project.Dump.Create.CreateParameters.OriginatorType",
+        "xyz.openbmc_project.Common.OriginatedBy.OriginatorTypes.Client"));
 
     crow::connections::systemBus->async_method_call(
         [asyncResp, payload(task::Payload(req)), dumpPath](
