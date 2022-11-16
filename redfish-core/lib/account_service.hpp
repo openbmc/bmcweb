@@ -2006,9 +2006,9 @@ inline void
 
 inline void requestAccountServiceRoutes(App& app)
 {
-
     BMCWEB_ROUTE(app, "/redfish/v1/AccountService/")
-        .privileges(redfish::privileges::headAccountService)
+        .privileges(redfish::privileges::getPrivilegesFromUrlAndMethod(
+            "/redfish/v1/AccountService/", HttpVerb::Head))
         .methods(boost::beast::http::verb::head)(
             std::bind_front(handleAccountServiceHead, std::ref(app)));
 
@@ -2019,32 +2019,38 @@ inline void requestAccountServiceRoutes(App& app)
             std::bind_front(handleAccountServiceGet, std::ref(app)));
 
     BMCWEB_ROUTE(app, "/redfish/v1/AccountService/")
-        .privileges(redfish::privileges::patchAccountService)
+        .privileges(redfish::privileges::getPrivilegesFromUrlAndMethod(
+            "/redfish/v1/AccountService/", HttpVerb::Patch))
         .methods(boost::beast::http::verb::patch)(
             std::bind_front(handleAccountServicePatch, std::ref(app)));
 
     BMCWEB_ROUTE(app, "/redfish/v1/AccountService/Accounts/")
-        .privileges(redfish::privileges::headManagerAccountCollection)
+        .privileges(redfish::privileges::getPrivilegesFromUrlAndMethod(
+            "/redfish/v1/AccountService/Accounts/", HttpVerb::Head))
         .methods(boost::beast::http::verb::head)(
             std::bind_front(handleAccountCollectionHead, std::ref(app)));
 
     BMCWEB_ROUTE(app, "/redfish/v1/AccountService/Accounts/")
-        .privileges(redfish::privileges::getManagerAccountCollection)
+        .privileges(redfish::privileges::getPrivilegesFromUrlAndMethod(
+            "/redfish/v1/AccountService/Accounts/", HttpVerb::Get))
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handleAccountCollectionGet, std::ref(app)));
 
     BMCWEB_ROUTE(app, "/redfish/v1/AccountService/Accounts/")
-        .privileges(redfish::privileges::postManagerAccountCollection)
+        .privileges(redfish::privileges::getPrivilegesFromUrlAndMethod(
+            "/redfish/v1/AccountService/Accounts/", HttpVerb::Post))
         .methods(boost::beast::http::verb::post)(
             std::bind_front(handleAccountCollectionPost, std::ref(app)));
 
     BMCWEB_ROUTE(app, "/redfish/v1/AccountService/Accounts/<str>/")
-        .privileges(redfish::privileges::headManagerAccount)
+        .privileges(redfish::privileges::getPrivilegesFromUrlAndMethod(
+            "/redfish/v1/AccountService/Accounts/<str>/", HttpVerb::Head))
         .methods(boost::beast::http::verb::head)(
             std::bind_front(handleAccountHead, std::ref(app)));
 
     BMCWEB_ROUTE(app, "/redfish/v1/AccountService/Accounts/<str>/")
-        .privileges(redfish::privileges::getManagerAccount)
+        .privileges(redfish::privileges::getPrivilegesFromUrlAndMethod(
+            "/redfish/v1/AccountService/Accounts/<str>/", HttpVerb::Get))
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handleAccountGet, std::ref(app)));
 
@@ -2057,7 +2063,8 @@ inline void requestAccountServiceRoutes(App& app)
             std::bind_front(handleAccountPatch, std::ref(app)));
 
     BMCWEB_ROUTE(app, "/redfish/v1/AccountService/Accounts/<str>/")
-        .privileges(redfish::privileges::deleteManagerAccount)
+        .privileges(redfish::privileges::getPrivilegesFromUrlAndMethod(
+            "/redfish/v1/AccountService/Accounts/<str>/", HttpVerb::Delete))
         .methods(boost::beast::http::verb::delete_)(
             std::bind_front(handleAccounttDelete, std::ref(app)));
 }
