@@ -20,6 +20,7 @@
 #include <app.hpp>
 #include <query.hpp>
 #include <registries/privilege_registry.hpp>
+#include <verb.hpp>
 
 namespace redfish
 {
@@ -27,7 +28,8 @@ namespace redfish
 inline void requestRoutesThermal(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/Thermal/")
-        .privileges(redfish::privileges::getThermal)
+        .privileges(redfish::privileges::getPrivilegesFromUrlAndMethod(
+            "/redfish/v1/Chassis/<str>/Thermal/", HttpVerb::Get))
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -46,7 +48,8 @@ inline void requestRoutesThermal(App& app)
         });
 
     BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/Thermal/")
-        .privileges(redfish::privileges::patchThermal)
+        .privileges(redfish::privileges::getPrivilegesFromUrlAndMethod(
+            "/redfish/v1/Chassis/<str>/Thermal/", HttpVerb::Patch))
         .methods(boost::beast::http::verb::patch)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
