@@ -82,6 +82,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ec1c0cc_5cdc7213",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001292
+      },
+      "writtenOn": "2022-11-16T17:45:50Z",
+      "side": 1,
+      "message": "Ed, sorry yes, you are correct.  The use of \u0027system\u0027 is in alignment with the Redfish schema.  What I wanted to convey was captured much better in your last statement.  I was expecting some flexibility in the system names and was unaware of the extensive hard coding of URIs in the bmcweb code.  Since this is expected, I\u0027ll remove my -1 on this patchset.",
+      "parentUuid": "c815c5f5_eecd8820",
+      "revId": "df83f9c6d55304f25a77c4baf621f2c19822074b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3f0c8c55_b89ca6cc",
@@ -142,6 +160,30 @@
       "side": 1,
       "message": "I don\u0027t think so?  That would break the redfish tree.",
       "parentUuid": "228c4315_78d61abb",
+      "range": {
+        "startLine": 3689,
+        "startChar": 40,
+        "endLine": 3689,
+        "endChar": 48
+      },
+      "revId": "df83f9c6d55304f25a77c4baf621f2c19822074b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bd050b26_945fd6d1",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 3689,
+      "author": {
+        "id": 1001292
+      },
+      "writtenOn": "2022-11-16T17:45:50Z",
+      "side": 1,
+      "message": "OK, my confusion as this function has systemIdx passed in.  In other places in this file, the systemName variable is used to build the URI such as lines 1059-1060 and 1110-1111.",
+      "parentUuid": "b521ac0e_c42e9aa7",
       "range": {
         "startLine": 3689,
         "startChar": 40,
@@ -223,6 +265,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "678f8843_de1fa163",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 3702,
+      "author": {
+        "id": 1001292
+      },
+      "writtenOn": "2022-11-16T17:45:50Z",
+      "side": 1,
+      "message": "The comment was not meant to say the mockups should be followed 100%.  The concern was around hard-coding the value of system\u003cN\u003e.  Since this is done elsewhere in the code, my comment is out of place.\n\nPlease forgive me for the comments as I\u0027m still learning the codebase and community expectations.",
+      "parentUuid": "22116c68_de016cdc",
+      "range": {
+        "startLine": 3702,
+        "startChar": 44,
+        "endLine": 3702,
+        "endChar": 52
+      },
+      "revId": "df83f9c6d55304f25a77c4baf621f2c19822074b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6eae8a67_09030e11",
@@ -283,6 +349,30 @@
       "writtenOn": "2022-11-14T20:24:16Z",
       "side": 1,
       "message": "We should not be forcing the systemname to always be \u0027system\u0027 or start with \u0027system\u0027.",
+      "range": {
+        "startLine": 3951,
+        "startChar": 6,
+        "endLine": 3952,
+        "endChar": 9
+      },
+      "revId": "df83f9c6d55304f25a77c4baf621f2c19822074b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c3bfa516_19e3cb84",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 3952,
+      "author": {
+        "id": 1001292
+      },
+      "writtenOn": "2022-11-16T17:45:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da7dc246_abed96e2",
       "range": {
         "startLine": 3951,
         "startChar": 6,
