@@ -32,6 +32,7 @@
 #include <utils/dbus_utils.hpp>
 #include <utils/json_utils.hpp>
 #include <utils/sw_utils.hpp>
+#include <verb.hpp>
 
 #include <variant>
 
@@ -2675,12 +2676,14 @@ inline void handleComputerSystemHead(
 inline void requestRoutesSystemsCollection(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/")
-        .privileges(redfish::privileges::headComputerSystemCollection)
+        .privileges(redfish::privileges::getPrivilegesFromUrlAndMethod(
+            "/redfish/v1/Systems/", HttpVerb::Head))
         .methods(boost::beast::http::verb::head)(
             std::bind_front(handleComputerSystemHead, std::ref(app)));
 
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/")
-        .privileges(redfish::privileges::getComputerSystemCollection)
+        .privileges(redfish::privileges::getPrivilegesFromUrlAndMethod(
+            "/redfish/v1/Systems/", HttpVerb::Get))
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
@@ -2759,7 +2762,9 @@ inline void requestRoutesSystemActionsReset(App& app)
      */
     BMCWEB_ROUTE(app,
                  "/redfish/v1/Systems/system/Actions/ComputerSystem.Reset/")
-        .privileges(redfish::privileges::postComputerSystem)
+        .privileges(redfish::privileges::getPrivilegesFromUrlAndMethod(
+            "/redfish/v1/Systems/system/Actions/ComputerSystem.Reset/",
+            HttpVerb::Post))
         .methods(boost::beast::http::verb::post)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
@@ -2897,14 +2902,16 @@ inline void requestRoutesSystems(App& app)
 {
 
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/")
-        .privileges(redfish::privileges::headComputerSystem)
+        .privileges(redfish::privileges::getPrivilegesFromUrlAndMethod(
+            "/redfish/v1/Systems/system/", HttpVerb::Head))
         .methods(boost::beast::http::verb::head)(
             std::bind_front(handleComputerSystemCollectionHead, std::ref(app)));
     /**
      * Functions triggers appropriate requests on DBus
      */
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/")
-        .privileges(redfish::privileges::getComputerSystem)
+        .privileges(redfish::privileges::getPrivilegesFromUrlAndMethod(
+            "/redfish/v1/Systems/<str>/", HttpVerb::Get))
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -3040,7 +3047,8 @@ inline void requestRoutesSystems(App& app)
         });
 
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/")
-        .privileges(redfish::privileges::patchComputerSystem)
+        .privileges(redfish::privileges::getPrivilegesFromUrlAndMethod(
+            "/redfish/v1/Systems/<str>/", HttpVerb::Patch))
         .methods(boost::beast::http::verb::patch)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -3184,14 +3192,16 @@ inline void handleSystemCollectionResetActionHead(
 inline void requestRoutesSystemResetActionInfo(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/ResetActionInfo/")
-        .privileges(redfish::privileges::headActionInfo)
+        .privileges(redfish::privileges::getPrivilegesFromUrlAndMethod(
+            "/redfish/v1/Systems/system/ResetActionInfo/", HttpVerb::Head))
         .methods(boost::beast::http::verb::head)(std::bind_front(
             handleSystemCollectionResetActionHead, std::ref(app)));
     /**
      * Functions triggers appropriate requests on DBus
      */
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/ResetActionInfo/")
-        .privileges(redfish::privileges::getActionInfo)
+        .privileges(redfish::privileges::getPrivilegesFromUrlAndMethod(
+            "/redfish/v1/Systems/system/ResetActionInfo/", HttpVerb::Get))
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,

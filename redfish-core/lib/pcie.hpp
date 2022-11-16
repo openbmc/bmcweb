@@ -24,6 +24,7 @@
 #include <sdbusplus/asio/property.hpp>
 #include <sdbusplus/unpack_properties.hpp>
 #include <utils/dbus_utils.hpp>
+#include <verb.hpp>
 
 namespace redfish
 {
@@ -83,7 +84,8 @@ inline void requestRoutesSystemPCIeDeviceCollection(App& app)
      * Functions triggers appropriate requests on DBus
      */
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/PCIeDevices/")
-        .privileges(redfish::privileges::getPCIeDeviceCollection)
+        .privileges(redfish::privileges::getPrivilegesFromUrlAndMethod(
+            "/redfish/v1/Systems/<str>/PCIeDevices/", HttpVerb::Get))
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -153,7 +155,8 @@ inline std::optional<std::string>
 inline void requestRoutesSystemPCIeDevice(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/PCIeDevices/<str>/")
-        .privileges(redfish::privileges::getPCIeDevice)
+        .privileges(redfish::privileges::getPrivilegesFromUrlAndMethod(
+            "/redfish/v1/Systems/<str>/PCIeDevices/<str>/", HttpVerb::Get))
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -258,7 +261,9 @@ inline void requestRoutesSystemPCIeFunctionCollection(App& app)
      */
     BMCWEB_ROUTE(app,
                  "/redfish/v1/Systems/system/PCIeDevices/<str>/PCIeFunctions/")
-        .privileges(redfish::privileges::getPCIeFunctionCollection)
+        .privileges(redfish::privileges::getPrivilegesFromUrlAndMethod(
+            "/redfish/v1/Systems/system/PCIeDevices/<str>/PCIeFunctions/",
+            HttpVerb::Get))
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -344,7 +349,9 @@ inline void requestRoutesSystemPCIeFunction(App& app)
     BMCWEB_ROUTE(
         app,
         "/redfish/v1/Systems/system/PCIeDevices/<str>/PCIeFunctions/<str>/")
-        .privileges(redfish::privileges::getPCIeFunction)
+        .privileges(redfish::privileges::getPrivilegesFromUrlAndMethod(
+            "/redfish/v1/Systems/system/PCIeDevices/<str>/PCIeFunctions/<str>/",
+            HttpVerb::Get))
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
