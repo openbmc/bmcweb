@@ -16,6 +16,24 @@
       "message": "I am okay with no Redfish validator test for this commit",
       "revId": "7e46f4e4f4241133a0dc61b0b32edac66a7e9614",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "74375fda_99ac046e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-11-16T20:42:09Z",
+      "side": 1,
+      "message": "No......  This is exactly the kind of patch we need service validator run on, because they\u0027re making semantic and type changes to the redfish tree.  The service validator is the best test we have for this.",
+      "parentUuid": "ac5b19d4_2f763154",
+      "revId": "7e46f4e4f4241133a0dc61b0b32edac66a7e9614",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
