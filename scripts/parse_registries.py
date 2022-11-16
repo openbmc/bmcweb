@@ -235,7 +235,8 @@ def make_privilege_registry():
                         entity,
                         privilege_dict[privilege_string][1]))
             registry.write("\n")
-# Generate all entities
+
+        # Generate all entities
         entities = []
         for mapping in json_file["Mappings"]:
             entities.append(mapping["Entity"])
