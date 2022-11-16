@@ -7,34 +7,40 @@
 #include <nlohmann/json.hpp>
 #include <privileges.hpp>
 #include <routing.hpp>
+#include <sdbusplus/asio/connection.hpp>
+#include <sdbusplus/bus.hpp>
+#include <sdbusplus/bus/match.hpp>
 
 #include <array>
+#include <fstream>
 #include <optional>
 #include <string>
+#include <thread>
+#include <tuple>
+#include <variant>
+#include <vector>
 
 namespace redfish
 {
 
-bool isNumericPath(const std::string_view path, int& value)
+std::optional<int> isNumericPath(const std::string_view path)
 {
     size_t p = path.rfind('/');
     if (p == std::string::npos)
     {
-        return false;
+        return std::nullopt;
     }
     int id = 0;
     for (size_t i = p + 1; i < path.size(); ++i)
     {
         const char ch = path[i];
         if (ch < '0' || ch > '9')
-            return false;
-        else
         {
-            id = id * 10 + (ch - '0');
+            return std::nullopt;
         }
+        id = id * 10 + (ch - '0');
     }
-    value = id;
-    return true;
+    return id;
 }
 
 long getTicksPerSec()
@@ -52,14 +58,18 @@ std::string readFileIntoString(const std::string_view fileName)
         std::getline(ifs, line);
         ss << line;
         if (ifs.good())
+        {
             ss << std::endl;
+        }
     }
+    ifs.close();
     return ss.str();
 }
 
 struct ProcessStatistics
 {
     int pid;
+    int fileDescriptorCount;
     std::string tcomm;
     float utime;
     float stime;
@@ -87,11 +97,11 @@ ProcessStatistics parseTcommUtimeStimeString(std::string_view content,
 
     if (pCol != nullptr)
     {
-        const int fields[] = {1, 13, 14, 23}; // tcomm, utime, stime
-        int fieldIdx = 0;
+        std::array<int,4> fields{1, 13, 14, 23}; // tcomm, utime, stime
+        uint fieldIdx = 0;
         for (int colIdx = 0; colIdx < 24; ++colIdx)
         {
-            if (fieldIdx < 4 && colIdx == fields[fieldIdx])
+            if (fieldIdx < fields.size() && colIdx == fields[fieldIdx])
             {
                 switch (fieldIdx)
                 {
@@ -130,10 +140,17 @@ ProcessStatistics parseTcommUtimeStimeString(std::string_view content,
 
     if (ticksPerSec <= 0)
     {
-        fprintf(stderr, "ticksPerSec is equal or less than zero\n");
+        BMCWEB_LOG_ERROR << "ticksPerSec is equal or less than zero\n";
     }
 
     return ret;
+}
+
+int getFdCount(const int pid)
+{
+    const std::string& fdPath = "/proc/" + std::to_string(pid) + "/fd";
+    return std::distance(std::filesystem::directory_iterator(fdPath),
+                         std::filesystem::directory_iterator{});
 }
 
 ProcessStatistics getProcessStatistics(const int pid, const long ticksPerSec,
@@ -149,6 +166,7 @@ ProcessStatistics getProcessStatistics(const int pid, const long ticksPerSec,
     float millisCtime = static_cast<float>(st_atim.tv_sec) * 1000.0f +
                         static_cast<float>(st_atim.tv_nsec) / 1000000.0f;
     ret.uptimeSeconds = (millisNow - millisCtime) / 1000.0f;
+    ret.fileDescriptorCount = getFdCount(pid);
     return ret;
 }
 
@@ -181,6 +199,7 @@ void populateDaemonStats(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
             nlohmann::json processStat;
             processStat["CommandLine"] = ps.tcomm + " - " + ps.serviceName +
                                          " (" + std::to_string(ps.pid) + ")";
+            processStat["NFileDescriptors"] = ps.fileDescriptorCount;
             processStat["KernelTimeSeconds"] = ps.stime;
             processStat["ResidentSetSizeBytes"] = ps.memoryUsage;
             processStat["RestartCount"] = ps.restartCount;
@@ -205,20 +224,21 @@ void getDaemonStats(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                         sdbusplus::message::object_path& objPath) mutable {
         if (ec)
         {
-            BMCWEB_LOG_DEBUG << "This pid " << ps.pid << " has no systemd unit";
+            //BMCWEB_LOG_DEBUG << "This pid " << ps.pid << " has no systemd unit";
             nlohmann::json processStat;
             processStat["CommandLine"] =
                 ps.tcomm + " (" + std::to_string(ps.pid) + ")";
+            processStat["NFileDescriptors"] = ps.fileDescriptorCount;
             processStat["KernelTimeSeconds"] = ps.stime;
             processStat["ResidentSetSizeBytes"] = ps.memoryUsage;
             processStat["UptimeSeconds"] = ps.uptimeSeconds;
             processStat["UserTimeSeconds"] = ps.utime;
-            asyncResp->res.jsonValue["TopProcesses"].push_back(processStat);
+            //asyncResp->res.jsonValue["TopProcesses"].push_back(processStat);
             return;
         }
 
-        BMCWEB_LOG_DEBUG << "This pid " << ps.pid << " has service name "
-                         << objPath.str;
+        // BMCWEB_LOG_DEBUG << "This pid " << ps.pid << " has service name "
+        //                  << objPath.str;
         ps.objPath = objPath.str;
         populateDaemonStats(asyncResp, ps);
         },
@@ -244,11 +264,11 @@ void populateProcessUptime(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
     for (const auto& procEntry : std::filesystem::directory_iterator(procPath))
     {
         const std::string& path = procEntry.path();
-        int pid = -1;
-        if (isNumericPath(path, pid))
+        std::optional<int> pid = isNumericPath(path);
+        if (pid.has_value())
         {
             ProcessStatistics ps =
-                getProcessStatistics(pid, ticksPerSec, millisNow);
+                getProcessStatistics(*pid, ticksPerSec, millisNow);
             pss.push_back(ps);
         }
     }
@@ -263,6 +283,42 @@ void populateProcessUptime(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
     {
         getDaemonStats(asyncResp, ps);
     }
+}
+
+std::array<uint64_t, 3> parseBootInfo()
+{
+    const std::string& bootInfoPath = "/var/google/bootinfo";
+    std::string bootinfoFile = readFileIntoString(bootInfoPath);
+    char* col = strtok(bootinfoFile.data(), " ");
+
+    // {Boot Count, Crash Count}
+    std::array<uint64_t, 3> bootinfo{0, 0, 0};
+
+    // If file does not exist, then just set boot and crash counts to 0
+
+    for (size_t i = 0; i < bootinfo.size(); ++i)
+    {
+        if (col == NULL)
+        {
+            break;
+        }
+
+        bootinfo[i] = static_cast<uint64_t>(std::stoull(col));
+        col = strtok(NULL, " ");
+    }
+
+    return bootinfo;
+}
+
+void populateBootInfo(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+{
+    std::array<uint64_t, 3> bootinfo = parseBootInfo();
+
+    nlohmann::json bootStats;
+    bootStats["BootCount"] = bootinfo[0];
+    bootStats["CrashCount"] = bootinfo[1];
+
+    asyncResp->res.jsonValue["BootInfo"] = bootStats;
 }
 
 /**
@@ -287,6 +343,56 @@ inline void handleManagerDiagnosticDataGet(
     asyncResp->res.jsonValue["Name"] = "Manager Diagnostic Data";
 
     populateProcessUptime(asyncResp);
+    populateBootInfo(asyncResp);
+}
+
+void updateBootStats()
+{
+    crow::connections::systemBus->async_method_call(
+        [](const boost::system::error_code ec,
+           dbus::utility::DBusPropertiesMap& properties) {
+        if (ec)
+        {
+            BMCWEB_LOG_ERROR << "Cannot get BMC host properties" << ec;
+            return;
+        }
+
+        std::array<uint64_t, 3> bootinfo = parseBootInfo();
+        bool updated = false;
+
+        for (const auto& it : properties)
+        {
+            // If last reboot time is different then what is stored, then update
+            // info
+            if (it.first == "LastRebootTime" &&
+                std::get<uint64_t>(it.second) != bootinfo[2])
+            {
+                updated = true;
+                bootinfo[2] = std::get<uint64_t>(it.second);
+            }
+
+            if (it.first == "LastRebootCause" && updated)
+            {
+                ++bootinfo[0];
+                if (std::get<std::string>(it.second) ==
+                    "xyz.openbmc_project.State.BMC.RebootCause.Unknown")
+                {
+                    ++bootinfo[1];
+                }
+            }
+        }
+
+        if (updated)
+        {
+            std::ofstream bootinfoFile("/var/google/bootinfo");
+            bootinfoFile << bootinfo[0] << " " << bootinfo[1] << " "
+                         << bootinfo[2] << '\n';
+            bootinfoFile.close();
+        }
+        },
+        "xyz.openbmc_project.State.BMC", "/xyz/openbmc_project/state/bmc0",
+        "org.freedesktop.DBus.Properties", "GetAll",
+        "xyz.openbmc_project.State.BMC");
 }
 
 inline void requestRoutesManagerDiagnosticData(App& app)
@@ -295,6 +401,8 @@ inline void requestRoutesManagerDiagnosticData(App& app)
         .privileges(redfish::privileges::getManagerDiagnosticData)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handleManagerDiagnosticDataGet, std::ref(app)));
+
+    updateBootStats();
 }
 
 } // namespace redfish
