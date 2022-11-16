@@ -54,6 +54,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "745f3e5b_e408cd6e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-11-16T20:40:58Z",
+      "side": 1,
+      "message": "Adding it to commit message is still good to have IMO since it makes it easier to find the source.",
+      "parentUuid": "c926b37b_aade3a17",
+      "revId": "624cd22049d49dd56684b1f2df6d5f84eea7e857",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "68172ea0_c913727e",
