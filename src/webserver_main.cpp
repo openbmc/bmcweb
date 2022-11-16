@@ -62,6 +62,8 @@ inline void setupSocket(crow::App& app)
 static int run()
 {
     crow::Logger::setLogLevel(crow::LogLevel::Debug);
+    struct timespec time_start, time_end;
+    clock_gettime(CLOCK_MONOTONIC, &time_start);
 
     auto io = std::make_shared<boost::asio::io_context>();
     App app(io);
@@ -144,6 +146,15 @@ static int run()
     BMCWEB_LOG_INFO << "Start Hostname Monitor Service...";
     crow::hostname_monitor::registerHostnameSignal();
 #endif
+
+    clock_gettime(CLOCK_MONOTONIC, &time_end);
+
+    double nsecElapsed =
+        static_cast<double>(time_end.tv_nsec - time_start.tv_nsec) / 1000000.0;
+    long double rtt_msec =
+        (time_end.tv_sec - time_start.tv_sec) * 1000.0 + nsecElapsed;
+
+    BMCWEB_LOG_DEBUG << "elapsed time: " << rtt_msec;
 
     app.run();
     io->run();
