@@ -806,7 +806,6 @@ inline bool validateAndSplitUrl(std::string_view destUrl, std::string& urlProto,
 
     return true;
 }
-
 } // namespace utility
 } // namespace crow
 
