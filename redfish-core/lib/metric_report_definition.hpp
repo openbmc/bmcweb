@@ -12,6 +12,7 @@
 #include <sdbusplus/asio/property.hpp>
 #include <sdbusplus/unpack_properties.hpp>
 #include <utils/dbus_utils.hpp>
+#include <verb.hpp>
 
 #include <map>
 #include <tuple>
@@ -347,7 +348,9 @@ class AddReport
 inline void requestRoutesMetricReportDefinitionCollection(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/TelemetryService/MetricReportDefinitions/")
-        .privileges(redfish::privileges::getMetricReportDefinitionCollection)
+        .privileges(redfish::privileges::getPrivilegesFromUrlAndMethod(
+            "/redfish/v1/TelemetryService/MetricReportDefinitions/",
+            HttpVerb::Get))
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
@@ -372,7 +375,9 @@ inline void requestRoutesMetricReportDefinitionCollection(App& app)
         });
 
     BMCWEB_ROUTE(app, "/redfish/v1/TelemetryService/MetricReportDefinitions/")
-        .privileges(redfish::privileges::postMetricReportDefinitionCollection)
+        .privileges(redfish::privileges::getPrivilegesFromUrlAndMethod(
+            "/redfish/v1/TelemetryService/MetricReportDefinitions/",
+            HttpVerb::Post))
         .methods(boost::beast::http::verb::post)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
@@ -421,7 +426,9 @@ inline void requestRoutesMetricReportDefinition(App& app)
 {
     BMCWEB_ROUTE(app,
                  "/redfish/v1/TelemetryService/MetricReportDefinitions/<str>/")
-        .privileges(redfish::privileges::getMetricReportDefinition)
+        .privileges(redfish::privileges::getPrivilegesFromUrlAndMethod(
+            "/redfish/v1/TelemetryService/MetricReportDefinitions/<str>/",
+            HttpVerb::Get))
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -457,7 +464,9 @@ inline void requestRoutesMetricReportDefinition(App& app)
         });
     BMCWEB_ROUTE(app,
                  "/redfish/v1/TelemetryService/MetricReportDefinitions/<str>/")
-        .privileges(redfish::privileges::deleteMetricReportDefinitionCollection)
+        .privileges(redfish::privileges::getPrivilegesFromUrlAndMethod(
+            "/redfish/v1/TelemetryService/MetricReportDefinitions/<str>/",
+            HttpVerb::Delete))
         .methods(boost::beast::http::verb::delete_)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
