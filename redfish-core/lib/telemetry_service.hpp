@@ -84,7 +84,8 @@ inline void handleTelemetryServiceGet(
 inline void requestRoutesTelemetryService(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/TelemetryService/")
-        .privileges(redfish::privileges::getTelemetryService)
+        .privileges(redfish::privileges::getPrivilegesFromUrlAndMethod(
+            "/redfish/v1/TelemetryService/", HttpVerb::Get))
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handleTelemetryServiceGet, std::ref(app)));
 }

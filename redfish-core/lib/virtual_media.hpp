@@ -1056,24 +1056,30 @@ inline void requestNBDVirtualMediaRoutes(App& app)
     BMCWEB_ROUTE(
         app,
         "/redfish/v1/Managers/<str>/VirtualMedia/<str>/Actions/VirtualMedia.InsertMedia")
-        .privileges(redfish::privileges::postVirtualMedia)
+        .privileges(redfish::privileges::getPrivilegesFromUrlAndMethod(
+            "/redfish/v1/Managers/<str>/VirtualMedia/<str>/Actions/VirtualMedia.InsertMedia",
+            HttpVerb::Post))
         .methods(boost::beast::http::verb::post)(std::bind_front(
             handleManagersVirtualMediaActionInsertPost, std::ref(app)));
 
     BMCWEB_ROUTE(
         app,
         "/redfish/v1/Managers/<str>/VirtualMedia/<str>/Actions/VirtualMedia.EjectMedia")
-        .privileges(redfish::privileges::postVirtualMedia)
+        .privileges(redfish::privileges::getPrivilegesFromUrlAndMethod(
+            "/redfish/v1/Managers/<str>/VirtualMedia/<str>/Actions/VirtualMedia.EjectMedia",
+            HttpVerb::Post))
         .methods(boost::beast::http::verb::post)(std::bind_front(
             handleManagersVirtualMediaActionEject, std::ref(app)));
 
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/<str>/VirtualMedia/")
-        .privileges(redfish::privileges::getVirtualMediaCollection)
+        .privileges(redfish::privileges::getPrivilegesFromUrlAndMethod(
+            "/redfish/v1/Managers/<str>/VirtualMedia/", HttpVerb::Get))
         .methods(boost::beast::http::verb::get)(std::bind_front(
             handleManagersVirtualMediaCollectionGet, std::ref(app)));
 
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/<str>/VirtualMedia/<str>/")
-        .privileges(redfish::privileges::getVirtualMedia)
+        .privileges(redfish::privileges::getPrivilegesFromUrlAndMethod(
+            "/redfish/v1/Managers/<str>/VirtualMedia/<str>/", HttpVerb::Get))
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handleVirtualMediaGet, std::ref(app)));
 }

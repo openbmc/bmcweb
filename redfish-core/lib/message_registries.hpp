@@ -66,7 +66,8 @@ inline void requestRoutesMessageRegistryFileCollection(App& app)
      * Functions triggers appropriate requests on DBus
      */
     BMCWEB_ROUTE(app, "/redfish/v1/Registries/")
-        .privileges(redfish::privileges::getMessageRegistryFileCollection)
+        .privileges(redfish::privileges::getPrivilegesFromUrlAndMethod(
+            "/redfish/v1/Registries/", HttpVerb::Get))
         .methods(boost::beast::http::verb::get)(std::bind_front(
             handleMessageRegistryFileCollectionGet, std::ref(app)));
 }
@@ -141,7 +142,8 @@ inline void handleMessageRoutesMessageRegistryFileGet(
 inline void requestRoutesMessageRegistryFile(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Registries/<str>/")
-        .privileges(redfish::privileges::getMessageRegistryFile)
+        .privileges(redfish::privileges::getPrivilegesFromUrlAndMethod(
+            "/redfish/v1/Registries/<str>/", HttpVerb::Get))
         .methods(boost::beast::http::verb::get)(std::bind_front(
             handleMessageRoutesMessageRegistryFileGet, std::ref(app)));
 }
@@ -247,7 +249,8 @@ inline void handleMessageRegistryGet(
 inline void requestRoutesMessageRegistry(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Registries/<str>/<str>/")
-        .privileges(redfish::privileges::getMessageRegistryFile)
+        .privileges(redfish::privileges::getPrivilegesFromUrlAndMethod(
+            "/redfish/v1/Registries/<str>/<str>/", HttpVerb::Get))
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handleMessageRegistryGet, std::ref(app)));
 }

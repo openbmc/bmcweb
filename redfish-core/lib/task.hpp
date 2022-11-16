@@ -318,7 +318,8 @@ struct TaskData : std::enable_shared_from_this<TaskData>
 inline void requestRoutesTaskMonitor(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/TaskService/Tasks/<str>/Monitor/")
-        .privileges(redfish::privileges::getTask)
+        .privileges(redfish::privileges::getPrivilegesFromUrlAndMethod(
+            "/redfish/v1/TaskService/Tasks/<str>/Monitor/", HttpVerb::Get))
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -359,7 +360,8 @@ inline void requestRoutesTaskMonitor(App& app)
 inline void requestRoutesTask(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/TaskService/Tasks/<str>/")
-        .privileges(redfish::privileges::getTask)
+        .privileges(redfish::privileges::getPrivilegesFromUrlAndMethod(
+            "/redfish/v1/TaskService/Tasks/<str>/", HttpVerb::Get))
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -426,7 +428,8 @@ inline void requestRoutesTask(App& app)
 inline void requestRoutesTaskCollection(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/TaskService/Tasks/")
-        .privileges(redfish::privileges::getTaskCollection)
+        .privileges(redfish::privileges::getPrivilegesFromUrlAndMethod(
+            "/redfish/v1/TaskService/Tasks/", HttpVerb::Get))
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
@@ -459,7 +462,8 @@ inline void requestRoutesTaskCollection(App& app)
 inline void requestRoutesTaskService(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/TaskService/")
-        .privileges(redfish::privileges::getTaskService)
+        .privileges(redfish::privileges::getPrivilegesFromUrlAndMethod(
+            "/redfish/v1/TaskService/", HttpVerb::Get))
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {

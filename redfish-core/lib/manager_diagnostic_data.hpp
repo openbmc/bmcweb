@@ -36,7 +36,9 @@ inline void handleManagerDiagnosticDataGet(
 inline void requestRoutesManagerDiagnosticData(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/ManagerDiagnosticData")
-        .privileges(redfish::privileges::getManagerDiagnosticData)
+        .privileges(redfish::privileges::getPrivilegesFromUrlAndMethod(
+            "/redfish/v1/Managers/bmc/ManagerDiagnosticData",
+            HttpVerb::Get))
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handleManagerDiagnosticDataGet, std::ref(app)));
 }
