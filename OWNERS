@@ -90,7 +90,7 @@ matchers:
 - exact: redfish-core/lib/certificate_service.hpp
   owners:
       - nanzhoumails@gmail.com
-- exact: redfish-core/lib/log_service.hpp
+- exact: redfish-core/lib/log_services.hpp
   owners:
       - nanzhoumails@gmail.com
 - exact: redfish-core/lib/memory.hpp
