@@ -5,9 +5,11 @@
 #include <sdbusplus/unpack_properties.hpp>
 #include <utils/dbus_utils.hpp>
 #include <utils/json_utils.hpp>
+#include <verb.hpp>
 
 namespace redfish
 {
+
 /**
  * @brief Fill cable specific properties.
  * @param[in,out]   resp        HTTP response.
@@ -101,7 +103,8 @@ inline void
 inline void requestRoutesCable(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Cables/<str>/")
-        .privileges(redfish::privileges::getCable)
+        .privileges(redfish::privileges::getPrivilegesFromUrlAndMethod(
+            "/redfish/v1/Cables/<str>/", HttpVerb::Get))
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -164,7 +167,8 @@ inline void requestRoutesCable(App& app)
 inline void requestRoutesCableCollection(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Cables/")
-        .privileges(redfish::privileges::getCableCollection)
+        .privileges(redfish::privileges::getPrivilegesFromUrlAndMethod(
+            "/redfish/v1/Cables/", HttpVerb::Get))
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
