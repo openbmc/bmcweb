@@ -4,10 +4,15 @@
 #include <query.hpp>
 #include <registries/privilege_registry.hpp>
 #include <utils/sw_utils.hpp>
+#include <verb.hpp>
 
 namespace redfish
 {
+
+using EntityTag = redfish::privileges::EntityTag;
+
 /**
+ *
  * BiosService class supports handle get method for bios.
  */
 inline void
@@ -83,10 +88,21 @@ inline void
         "xyz.openbmc_project.Common.FactoryReset", "Reset");
 }
 
+inline void setEntityTagsInRegistry()
+{
+    redfish::privileges::entityTagMap
+        ["/redfish/v1/Systems/<str>/Bios/Actions/Bios.ResetBios/"] =
+            EntityTag::tagBios;
+}
+
 inline void requestRoutesBiosReset(App& app)
 {
+    setEntityTagsInRegistry();
+
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/Bios/Actions/Bios.ResetBios/")
-        .privileges(redfish::privileges::postBios)
+        .privileges(redfish::privileges::getPrivilegesFromUrlAndMethod(
+            "/redfish/v1/Systems/<str>/Bios/Actions/Bios.ResetBios/",
+            HttpVerb::Post))
         .methods(boost::beast::http::verb::post)(
             std::bind_front(handleBiosResetPost, std::ref(app)));
 }
