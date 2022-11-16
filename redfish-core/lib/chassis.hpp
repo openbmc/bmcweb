@@ -27,9 +27,12 @@
 #include <sdbusplus/unpack_properties.hpp>
 #include <utils/collection.hpp>
 #include <utils/dbus_utils.hpp>
+#include <verb.hpp>
 
 namespace redfish
 {
+
+using EntityTag = redfish::privileges::EntityTag;
 
 /**
  * @brief Retrieves chassis state properties over dbus
@@ -729,6 +732,13 @@ inline void handleChassisResetActionInfoGet(
     asyncResp->res.jsonValue["Parameters"] = std::move(parameters);
 }
 
+inline void setEntityTagsInRegistry()
+{
+    redfish::privileges::entityTagMap
+        ["/redfish/v1/Chassis/<str>/ResetActionInfo/"] =
+            EntityTag::tagActionInfo;
+}
+
 /**
  * ChassisResetActionInfo derived class for delivering Chassis
  * ResetType AllowableValues using ResetInfo schema.
@@ -736,7 +746,8 @@ inline void handleChassisResetActionInfoGet(
 inline void requestRoutesChassisResetActionInfo(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/ResetActionInfo/")
-        .privileges(redfish::privileges::getActionInfo)
+        .privileges(redfish::privileges::getPrivilegesFromUrlAndMethod(
+            "/redfish/v1/Chassis/<str>/ResetActionInfo/", HttpVerb::Get))
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handleChassisResetActionInfoGet, std::ref(app)));
 }
