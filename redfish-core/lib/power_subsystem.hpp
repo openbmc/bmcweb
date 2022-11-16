@@ -6,6 +6,8 @@
 #include "registries/privilege_registry.hpp"
 #include "utils/chassis_utils.hpp"
 
+#include <verb.hpp>
+
 #include <memory>
 #include <optional>
 #include <string>

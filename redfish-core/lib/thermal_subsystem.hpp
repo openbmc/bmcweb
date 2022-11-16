@@ -7,6 +7,8 @@
 #include "utils/chassis_utils.hpp"
 #include "utils/json_utils.hpp"
 
+#include <verb.hpp>
+
 #include <optional>
 #include <string>
 

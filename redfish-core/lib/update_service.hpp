@@ -25,6 +25,7 @@
 #include <sdbusplus/unpack_properties.hpp>
 #include <utils/dbus_utils.hpp>
 #include <utils/sw_utils.hpp>
+#include <verb.hpp>
 
 namespace redfish
 {
@@ -401,7 +402,9 @@ inline void requestRoutesUpdateServiceActionsSimpleUpdate(App& app)
 {
     BMCWEB_ROUTE(
         app, "/redfish/v1/UpdateService/Actions/UpdateService.SimpleUpdate/")
-        .privileges(redfish::privileges::postUpdateService)
+        .privileges(redfish::privileges::getPrivilegesFromUrlAndMethod(
+            "/redfish/v1/UpdateService/Actions/UpdateService.SimpleUpdate/",
+            HttpVerb::Post))
         .methods(boost::beast::http::verb::post)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
@@ -547,7 +550,8 @@ inline void
 inline void requestRoutesUpdateService(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/UpdateService/")
-        .privileges(redfish::privileges::getUpdateService)
+        .privileges(redfish::privileges::getPrivilegesFromUrlAndMethod(
+            "/redfish/v1/UpdateService/", HttpVerb::Get))
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
@@ -623,7 +627,8 @@ inline void requestRoutesUpdateService(App& app)
             });
         });
     BMCWEB_ROUTE(app, "/redfish/v1/UpdateService/")
-        .privileges(redfish::privileges::patchUpdateService)
+        .privileges(redfish::privileges::getPrivilegesFromUrlAndMethod(
+            "/redfish/v1/UpdateService/", HttpVerb::Patch))
         .methods(boost::beast::http::verb::patch)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
@@ -712,7 +717,8 @@ inline void requestRoutesUpdateService(App& app)
 // removed.
 #ifdef BMCWEB_ENABLE_REDFISH_UPDATESERVICE_OLD_POST_URL
     BMCWEB_ROUTE(app, "/redfish/v1/UpdateService/")
-        .privileges(redfish::privileges::postUpdateService)
+        .privileges(redfish::privileges::getPrivilegesFromUrlAndMethod(
+            "/redfish/v1/UpdateService/", HttpVerb::Post))
         .methods(boost::beast::http::verb::post)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
@@ -724,7 +730,8 @@ inline void requestRoutesUpdateService(App& app)
         });
 #endif
     BMCWEB_ROUTE(app, "/redfish/v1/UpdateService/update/")
-        .privileges(redfish::privileges::postUpdateService)
+        .privileges(redfish::privileges::getPrivilegesFromUrlAndMethod(
+            "/redfish/v1/UpdateService/update/", HttpVerb::Post))
         .methods(boost::beast::http::verb::post)(
             std::bind_front(handleUpdateServicePost, std::ref(app)));
 }
@@ -732,7 +739,8 @@ inline void requestRoutesUpdateService(App& app)
 inline void requestRoutesSoftwareInventoryCollection(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/UpdateService/FirmwareInventory/")
-        .privileges(redfish::privileges::getSoftwareInventoryCollection)
+        .privileges(redfish::privileges::getPrivilegesFromUrlAndMethod(
+            "/redfish/v1/UpdateService/FirmwareInventory/", HttpVerb::Get))
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
@@ -892,7 +900,9 @@ inline void
 inline void requestRoutesSoftwareInventory(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/UpdateService/FirmwareInventory/<str>/")
-        .privileges(redfish::privileges::getSoftwareInventory)
+        .privileges(redfish::privileges::getPrivilegesFromUrlAndMethod(
+            "/redfish/v1/UpdateService/FirmwareInventory/<str>/",
+            HttpVerb::Get))
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
