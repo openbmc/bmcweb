@@ -34,6 +34,24 @@
       "parentUuid": "439267a1_4a837fb4",
       "revId": "2107c80cec33af9a10e09b69cd3993a723c67131",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5af09cfd_f091c308",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-11-16T09:14:49Z",
+      "side": 1,
+      "message": "\u003e \u003e How are we going from chassis\u003c-\u003efans?  Need associations documented anywhere?\n\u003e \n\u003e fans\u003c-\u003efan_tach sensor\u003c-\u003eall_sensors\u003c-\u003echassis\n\u003e https://github.com/openbmc/docs/blob/fd0ec1f9212f127bf302dd4ceb8f4fa2e29a5f1d/architecture/sensor-architecture.md#association-names\n\n@Gunnar, @Ed\nRelevant associated documents are here:\nhttps://gerrit.openbmc.org/c/openbmc/phosphor-dbus-interfaces/+/58300",
+      "parentUuid": "475f49a7_91e34bac",
+      "revId": "2107c80cec33af9a10e09b69cd3993a723c67131",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
