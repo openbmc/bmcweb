@@ -27,6 +27,7 @@
 #include <utils/collection.hpp>
 #include <utils/hex_utils.hpp>
 #include <utils/json_utils.hpp>
+#include <verb.hpp>
 
 namespace redfish
 {
@@ -770,7 +771,8 @@ inline void requestRoutesMemoryCollection(App& app)
      * Functions triggers appropriate requests on DBus
      */
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/Memory/")
-        .privileges(redfish::privileges::getMemoryCollection)
+        .privileges(redfish::privileges::getPrivilegesFromUrlAndMethod(
+            "/redfish/v1/Systems/<str>/Memory/", HttpVerb::Get))
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -804,7 +806,8 @@ inline void requestRoutesMemory(App& app)
      * Functions triggers appropriate requests on DBus
      */
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/Memory/<str>/")
-        .privileges(redfish::privileges::getMemory)
+        .privileges(redfish::privileges::getPrivilegesFromUrlAndMethod(
+            "/redfish/v1/Systems/<str>/Memory/<str>/", HttpVerb::Get))
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,

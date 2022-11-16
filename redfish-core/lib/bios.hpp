@@ -4,10 +4,13 @@
 #include <query.hpp>
 #include <registries/privilege_registry.hpp>
 #include <utils/sw_utils.hpp>
+#include <verb.hpp>
 
 namespace redfish
 {
+
 /**
+ *
  * BiosService class supports handle get method for bios.
  */
 inline void
@@ -41,7 +44,8 @@ inline void
 inline void requestRoutesBiosService(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/Bios/")
-        .privileges(redfish::privileges::getBios)
+        .privileges(redfish::privileges::getPrivilegesFromUrlAndMethod(
+            "/redfish/v1/Systems/<str>/Bios/", HttpVerb::Get))
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handleBiosServiceGet, std::ref(app)));
 }
@@ -86,7 +90,9 @@ inline void
 inline void requestRoutesBiosReset(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/Bios/Actions/Bios.ResetBios/")
-        .privileges(redfish::privileges::postBios)
+        .privileges(redfish::privileges::getPrivilegesFromUrlAndMethod(
+            "/redfish/v1/Systems/<str>/Bios/Actions/Bios.ResetBios/",
+            HttpVerb::Post))
         .methods(boost::beast::http::verb::post)(
             std::bind_front(handleBiosResetPost, std::ref(app)));
 }
