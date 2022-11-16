@@ -62,12 +62,15 @@ inline void setupSocket(crow::App& app)
 static int run()
 {
     crow::Logger::setLogLevel(crow::LogLevel::Debug);
+    BMCWEB_LOG_DEBUG << "Start mainserver";
 
     auto io = std::make_shared<boost::asio::io_context>();
     App app(io);
 
     sdbusplus::asio::connection systemBus(*io);
     crow::connections::systemBus = &systemBus;
+
+    BMCWEB_LOG_DEBUG << "Setup done";
 
     // Static assets need to be initialized before Authorization, because auth
     // needs to build the whitelist from the static routes
