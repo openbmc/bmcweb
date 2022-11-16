@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e264603a_2c35636c",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-11-16T00:32:21Z",
+      "side": 1,
+      "message": "No longer applicable after reverting back to using the mapper in getDumpServiceInfo().",
+      "parentUuid": "b3f1e587_c2b5f7e4",
+      "range": {
+        "startLine": 154,
+        "startChar": 12,
+        "endLine": 154,
+        "endChar": 33
+      },
+      "revId": "97f9fb2949badfdc03d77dc32b348cc12493d83a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0bd1e92a_cdd1c4ea",
@@ -127,6 +151,24 @@
       "side": 1,
       "message": "Also, from DBUS_USAGE.md\n\n\"There are interfaces for which there is an expectation that there will only ever be one producer in the project (ex bmc networking, user management). In these cases, it is desirable to call the daemon by well known name directly. Bmcweb APIs should call the mapper in cases where it\u0027s reasonably expected that multiple implementations exist (ex, CPU management, Sensors).\"",
       "parentUuid": "29839672_2e2c3ecc",
+      "revId": "97f9fb2949badfdc03d77dc32b348cc12493d83a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "daa6f13a_226c3ac5",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1001143
+      },
+      "writtenOn": "2022-11-16T00:32:21Z",
+      "side": 1,
+      "message": "Reverted back to using the mapper (like patchset 3).\n\nEd, thanks for the explanation. Do you have any examples to share that could help illustrate #2 (race conditions related to introspection) and #5 (interfaces split between two daemons) for my understanding?",
+      "parentUuid": "1329e501_7ae0c675",
       "revId": "97f9fb2949badfdc03d77dc32b348cc12493d83a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
