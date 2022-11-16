@@ -66,6 +66,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c815c5f5_eecd8820",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-11-16T16:56:57Z",
+      "side": 1,
+      "message": "\u003e This does not conform to the DMTF Redfish ComputerSystem schema\n\nCan you expand on this?  I believe we are in-line with what the specification allows.\n\nThe mockups are not normative, they are examples, and do not set the limits of what a conforming redfish instance is allowed to do.\n\n\u003e We should allow the system names to be driven by the platform configuration and not hard-coded.\n\nNo disagreement this would be an improvement, but implementing this is non-trivial.  Is this something you\u0027re interested in pushing patches to accomplish?  I would expect it could be done similarly to how Name is used in EM.",
+      "parentUuid": "af309dc2_d498d024",
+      "revId": "df83f9c6d55304f25a77c4baf621f2c19822074b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3f0c8c55_b89ca6cc",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 6
@@ -100,6 +118,30 @@
       "writtenOn": "2022-11-14T20:24:16Z",
       "side": 1,
       "message": "Should this be systemName to be consistent with supporting multi-host systems?",
+      "range": {
+        "startLine": 3689,
+        "startChar": 40,
+        "endLine": 3689,
+        "endChar": 48
+      },
+      "revId": "df83f9c6d55304f25a77c4baf621f2c19822074b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b521ac0e_c42e9aa7",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 3689,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-11-16T16:56:57Z",
+      "side": 1,
+      "message": "I don\u0027t think so?  That would break the redfish tree.",
+      "parentUuid": "228c4315_78d61abb",
       "range": {
         "startLine": 3689,
         "startChar": 40,
@@ -159,6 +201,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "22116c68_de016cdc",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 3702,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-11-16T16:56:57Z",
+      "side": 1,
+      "message": "My opinion is:\n1. Constraining URIs to \"system\" and \"system\u003cN\u003e\" is perfectly fine for now, and allowed in the Redfish specification.\n2. URIs are opaque by definition in the spec, so whether we use a hash, an id, an index, or a human-readable string, is at the discretion of bmcweb.\n3. There are LOTS of other places where we hardcode URI ids in non system-specific ways.\n4. The mockups are an _example_.  They can not and do not convey all requirements in the spec, so if someone is trying to make the argument that we don\u0027t follow the specification, they need to use wording in the specification to do it, not that we don\u0027t follow the mockups.  There\u0027s almost no case where we follow the mockups 100%.\n5. At such time as someone is willing to put forward the significant effort to make the names configurable per system, we can hardcode the existing systems to what they are today (ie system and system\u003cn\u003e), so I don\u0027t see this patch being a significant impediment to making URIs configurable in the future.",
+      "parentUuid": "d0a125c9_3f8e3c34",
+      "range": {
+        "startLine": 3702,
+        "startChar": 44,
+        "endLine": 3702,
+        "endChar": 52
+      },
+      "revId": "df83f9c6d55304f25a77c4baf621f2c19822074b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6eae8a67_09030e11",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 6
@@ -170,6 +236,30 @@
       "writtenOn": "2022-11-14T20:24:16Z",
       "side": 1,
       "message": "Assuming the systemName will always by \u0027system\u0027 is not in alignment with the DMTF Redfish schemas which allow for other names here.",
+      "range": {
+        "startLine": 3873,
+        "startChar": 3,
+        "endLine": 3873,
+        "endChar": 35
+      },
+      "revId": "df83f9c6d55304f25a77c4baf621f2c19822074b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce3eb99c_ab538f39",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 3873,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-11-16T16:56:57Z",
+      "side": 1,
+      "message": "Please quote the specification section you\u0027re referring to.  To my undestanding \"system\" is allowed in the naming convention for Ids.",
+      "parentUuid": "6eae8a67_09030e11",
       "range": {
         "startLine": 3873,
         "startChar": 3,
