@@ -20,6 +20,7 @@
 #include "cable.hpp"
 #include "certificate_service.hpp"
 #include "chassis.hpp"
+#include "entitytag.hpp"
 #include "ethernet.hpp"
 #include "event_service.hpp"
 #include "hypervisor_system.hpp"
@@ -67,6 +68,7 @@ class RedfishService
      */
     explicit RedfishService(App& app)
     {
+        setEntityTagsInRegistry();
         requestAccountServiceRoutes(app);
         requestRoutesRoles(app);
         requestRoutesRoleCollection(app);
@@ -169,7 +171,7 @@ class RedfishService
         requestRoutesSystemResetActionInfo(app);
         requestRoutesBiosService(app);
         requestRoutesBiosReset(app);
-
+        
 #ifdef BMCWEB_ENABLE_VM_NBDPROXY
         requestNBDVirtualMediaRoutes(app);
 #endif // BMCWEB_ENABLE_VM_NBDPROXY
