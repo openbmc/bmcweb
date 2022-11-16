@@ -10,6 +10,7 @@
 #include <sdbusplus/unpack_properties.hpp>
 #include <utils/dbus_utils.hpp>
 #include <utils/json_utils.hpp>
+#include <verb.hpp>
 
 namespace redfish
 {
@@ -275,7 +276,8 @@ inline void handlePCIeSlotCollectionGet(
 inline void requestRoutesPCIeSlots(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/PCIeSlots/")
-        .privileges(redfish::privileges::getPCIeSlots)
+        .privileges(redfish::privileges::getPrivilegesFromUrlAndMethod(
+            "/redfish/v1/Chassis/<str>/PCIeSlots/", HttpVerb::Get))
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handlePCIeSlotCollectionGet, std::ref(app)));
 }
