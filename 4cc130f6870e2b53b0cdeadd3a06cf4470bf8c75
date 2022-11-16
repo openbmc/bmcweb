@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "24d70bce_38cfb4f9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-11-16T20:46:50Z",
+      "side": 1,
+      "message": "Hey George, what\u0027s the backend daemon of power supplies?",
+      "range": {
+        "startLine": 7,
+        "startChar": 11,
+        "endLine": 7,
+        "endChar": 24
+      },
+      "revId": "4cc130f6870e2b53b0cdeadd3a06cf4470bf8c75",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c41b2ab2_a387cd45",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-11-16T20:46:50Z",
+      "side": 1,
+      "message": "You don\u0027t have a power namespace, so does it makes more sense to add a \"Power\" to this function name?",
+      "range": {
+        "startLine": 30,
+        "startChar": 12,
+        "endLine": 30,
+        "endChar": 24
+      },
+      "revId": "4cc130f6870e2b53b0cdeadd3a06cf4470bf8c75",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
