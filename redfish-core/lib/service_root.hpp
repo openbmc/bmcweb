@@ -25,6 +25,7 @@
 #include <query.hpp>
 #include <registries/privilege_registry.hpp>
 #include <utils/systemd_utils.hpp>
+#include <verb.hpp>
 
 namespace redfish
 {
@@ -110,11 +111,13 @@ inline void
 inline void requestRoutesServiceRoot(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/")
-        .privileges(redfish::privileges::headServiceRoot)
+        .privileges(redfish::privileges::getPrivilegesFromUrlAndMethod(
+            "/redfish/v1/", HttpVerb::Head))
         .methods(boost::beast::http::verb::head)(
             std::bind_front(handleServiceRootHead, std::ref(app)));
     BMCWEB_ROUTE(app, "/redfish/v1/")
-        .privileges(redfish::privileges::getServiceRoot)
+        .privileges(redfish::privileges::getPrivilegesFromUrlAndMethod(
+            "/redfish/v1/", HttpVerb::Get))
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handleServiceRootGet, std::ref(app)));
 }
