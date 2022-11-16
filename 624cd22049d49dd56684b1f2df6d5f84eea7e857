@@ -158,6 +158,24 @@
       "parentUuid": "fc06621a_17db046c",
       "revId": "624cd22049d49dd56684b1f2df6d5f84eea7e857",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dea6a5cd_c92d8132",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-11-16T20:43:49Z",
+      "side": 1,
+      "message": "Type changes are EXACTLY the kind of thing that we need service validator run on.  Had the person that wrote this Memory code originally run service validator on it, it would\u0027ve found this bug, and this patchset would never have been required.",
+      "parentUuid": "8d1156ef_b289f025",
+      "revId": "624cd22049d49dd56684b1f2df6d5f84eea7e857",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
