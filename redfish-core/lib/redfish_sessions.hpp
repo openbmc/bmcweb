@@ -23,6 +23,7 @@
 #include <query.hpp>
 #include <registries/privilege_registry.hpp>
 #include <utils/json_utils.hpp>
+#include <verb.hpp>
 
 namespace redfish
 {
@@ -352,27 +353,32 @@ inline void handleSessionServicePatch(
 inline void requestRoutesSession(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/SessionService/Sessions/<str>/")
-        .privileges(redfish::privileges::headSession)
+        .privileges(redfish::privileges::getPrivilegesFromUrlAndMethod(
+            "/redfish/v1/SessionService/Sessions/<str>/", HttpVerb::Head))
         .methods(boost::beast::http::verb::head)(
             std::bind_front(handleSessionHead, std::ref(app)));
 
     BMCWEB_ROUTE(app, "/redfish/v1/SessionService/Sessions/<str>/")
-        .privileges(redfish::privileges::getSession)
+        .privileges(redfish::privileges::getPrivilegesFromUrlAndMethod(
+            "/redfish/v1/SessionService/Sessions/<str>/", HttpVerb::Get))
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handleSessionGet, std::ref(app)));
 
     BMCWEB_ROUTE(app, "/redfish/v1/SessionService/Sessions/<str>/")
-        .privileges(redfish::privileges::deleteSession)
+        .privileges(redfish::privileges::getPrivilegesFromUrlAndMethod(
+            "/redfish/v1/SessionService/Sessions/<str>/", HttpVerb::Delete))
         .methods(boost::beast::http::verb::delete_)(
             std::bind_front(handleSessionDelete, std::ref(app)));
 
     BMCWEB_ROUTE(app, "/redfish/v1/SessionService/Sessions/")
-        .privileges(redfish::privileges::headSessionCollection)
+        .privileges(redfish::privileges::getPrivilegesFromUrlAndMethod(
+            "/redfish/v1/SessionService/Sessions/", HttpVerb::Head))
         .methods(boost::beast::http::verb::head)(
             std::bind_front(handleSessionCollectionHead, std::ref(app)));
 
     BMCWEB_ROUTE(app, "/redfish/v1/SessionService/Sessions/")
-        .privileges(redfish::privileges::getSessionCollection)
+        .privileges(redfish::privileges::getPrivilegesFromUrlAndMethod(
+            "/redfish/v1/SessionService/Sessions/", HttpVerb::Get))
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handleSessionCollectionGet, std::ref(app)));
 
@@ -392,17 +398,20 @@ inline void requestRoutesSession(App& app)
             std::bind_front(handleSessionCollectionPost, std::ref(app)));
 
     BMCWEB_ROUTE(app, "/redfish/v1/SessionService/")
-        .privileges(redfish::privileges::headSessionService)
+        .privileges(redfish::privileges::getPrivilegesFromUrlAndMethod(
+            "/redfish/v1/SessionService/", HttpVerb::Head))
         .methods(boost::beast::http::verb::head)(
             std::bind_front(handleSessionServiceHead, std::ref(app)));
 
     BMCWEB_ROUTE(app, "/redfish/v1/SessionService/")
-        .privileges(redfish::privileges::getSessionService)
+        .privileges(redfish::privileges::getPrivilegesFromUrlAndMethod(
+            "/redfish/v1/SessionService/", HttpVerb::Get))
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handleSessionServiceGet, std::ref(app)));
 
     BMCWEB_ROUTE(app, "/redfish/v1/SessionService/")
-        .privileges(redfish::privileges::patchSessionService)
+        .privileges(redfish::privileges::getPrivilegesFromUrlAndMethod(
+            "/redfish/v1/SessionService/", HttpVerb::Patch))
         .methods(boost::beast::http::verb::patch)(
             std::bind_front(handleSessionServicePatch, std::ref(app)));
 }
