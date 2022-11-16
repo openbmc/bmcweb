@@ -193,16 +193,25 @@ inline void requestRoutesSystemPCIeDevice(App& app)
             const std::string* manufacturer = nullptr;
             const std::string* deviceType = nullptr;
             const std::string* generationInUse = nullptr;
+            const size_t* lanesInUse = nullptr;
 
             const bool success = sdbusplus::unpackPropertiesNoThrow(
                 dbus_utils::UnpackErrorPrinter(), pcieDevProperties,
                 "Manufacturer", manufacturer, "DeviceType", deviceType,
-                "GenerationInUse", generationInUse);
+                "LanesInUse", lanesInUse, "GenerationInUse", generationInUse);
 
             if (!success)
             {
                 messages::internalError(asyncResp->res);
                 return;
+            }
+
+            // The default value of LanesInUse is 0, and the field will be
+            // left as off if it is a default value.
+            if (lanesInUse != nullptr && *lanesInUse != 0)
+            {
+                asyncResp->res.jsonValue["PCIeInterface"]["LanesInUse"] =
+                    *lanesInUse;
             }
 
             if (generationInUse != nullptr)

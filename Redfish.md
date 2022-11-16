@@ -768,6 +768,11 @@ other.
 - Members
 - Members@odata.count
 
+### /redfish/v1/Systems/system/PCIeDevices/{PCIeDevice}/
+
+- PCIeInterface
+  - LanesInUse
+
 ### /redfish/v1/Systems/system/Processors/
 
 #### ProcessorCollection
