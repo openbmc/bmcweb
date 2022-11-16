@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "680c6c63_77da1c95",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-11-16T05:36:23Z",
+      "side": 1,
+      "message": "Something like, might be more clear (make it clear this is doing 2 things):\n\nAlong with adding Link header, this commit updates ThermalSubsystem to respond to HEAD requests. The link header is something required by the Redfish spec. \n\nOh well.",
+      "revId": "7cdc7685e6381dc251c6badc6f92f124ae4b5457",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
