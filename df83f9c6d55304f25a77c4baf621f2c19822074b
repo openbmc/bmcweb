@@ -100,6 +100,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8740dfd3_90d9b2da",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-11-16T19:10:37Z",
+      "side": 1,
+      "message": "Feel free to send patches that make the code meet your expectations closer.  Happy to discuss how to make this stuff better handled by code, and there is some precidence for it, but hardcoding IDs like this is a HUUUUUUGE complexity simplification, so we\u0027ll need to figure out how to manage what you want in code.",
+      "parentUuid": "1ec1c0cc_5cdc7213",
+      "revId": "df83f9c6d55304f25a77c4baf621f2c19822074b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3f0c8c55_b89ca6cc",
@@ -279,6 +297,30 @@
       "side": 1,
       "message": "The comment was not meant to say the mockups should be followed 100%.  The concern was around hard-coding the value of system\u003cN\u003e.  Since this is done elsewhere in the code, my comment is out of place.\n\nPlease forgive me for the comments as I\u0027m still learning the codebase and community expectations.",
       "parentUuid": "22116c68_de016cdc",
+      "range": {
+        "startLine": 3702,
+        "startChar": 44,
+        "endLine": 3702,
+        "endChar": 52
+      },
+      "revId": "df83f9c6d55304f25a77c4baf621f2c19822074b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e36f0ddd_f056868c",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 3702,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-11-16T19:10:37Z",
+      "side": 1,
+      "message": "No worries.",
+      "parentUuid": "678f8843_de1fa163",
       "range": {
         "startLine": 3702,
         "startChar": 44,
