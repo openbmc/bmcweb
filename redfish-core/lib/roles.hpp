@@ -20,6 +20,7 @@
 #include <query.hpp>
 #include <registries/privilege_registry.hpp>
 #include <sdbusplus/asio/property.hpp>
+#include <verb.hpp>
 
 #include <variant>
 namespace redfish
@@ -68,7 +69,8 @@ inline bool getAssignedPrivFromRole(std::string_view role,
 inline void requestRoutesRoles(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/AccountService/Roles/<str>/")
-        .privileges(redfish::privileges::getRole)
+        .privileges(redfish::privileges::getPrivilegesFromUrlAndMethod(
+            "/redfish/v1/AccountService/Roles/<str>/", HttpVerb::Get))
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -101,7 +103,8 @@ inline void requestRoutesRoles(App& app)
 inline void requestRoutesRoleCollection(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/AccountService/Roles/")
-        .privileges(redfish::privileges::getRoleCollection)
+        .privileges(redfish::privileges::getPrivilegesFromUrlAndMethod(
+            "/redfish/v1/AccountService/Roles/<str>/", HttpVerb::Get))
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {

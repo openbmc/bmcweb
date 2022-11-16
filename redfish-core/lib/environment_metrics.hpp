@@ -73,12 +73,14 @@ inline void handleEnvironmentMetricsGet(
 inline void requestRoutesEnvironmentMetrics(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/EnvironmentMetrics/")
-        .privileges(redfish::privileges::headEnvironmentMetrics)
+        .privileges(redfish::privileges::getPrivilegesFromUrlAndMethod(
+            "/redfish/v1/Chassis/<str>/EnvironmentMetrics/", HttpVerb::Head))
         .methods(boost::beast::http::verb::head)(
             std::bind_front(handleEnvironmentMetricsHead, std::ref(app)));
 
     BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/EnvironmentMetrics/")
-        .privileges(redfish::privileges::getEnvironmentMetrics)
+        .privileges(redfish::privileges::getPrivilegesFromUrlAndMethod(
+            "/redfish/v1/Chassis/<str>/EnvironmentMetrics/", HttpVerb::Get))
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handleEnvironmentMetricsGet, std::ref(app)));
 }

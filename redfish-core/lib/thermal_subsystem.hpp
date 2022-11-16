@@ -7,6 +7,8 @@
 #include "utils/chassis_utils.hpp"
 #include "utils/json_utils.hpp"
 
+#include <verb.hpp>
+
 #include <optional>
 #include <string>
 
@@ -83,12 +85,14 @@ inline void handleThermalSubsystemCollectionGet(
 inline void requestRoutesThermalSubsystem(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/ThermalSubsystem/")
-        .privileges(redfish::privileges::headThermalSubsystem)
+        .privileges(redfish::privileges::getPrivilegesFromUrlAndMethod(
+            "/redfish/v1/Chassis/<str>/ThermalSubsystem/", HttpVerb::Head))
         .methods(boost::beast::http::verb::head)(std::bind_front(
             handleThermalSubsystemCollectionHead, std::ref(app)));
 
     BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/ThermalSubsystem/")
-        .privileges(redfish::privileges::getThermalSubsystem)
+        .privileges(redfish::privileges::getPrivilegesFromUrlAndMethod(
+            "/redfish/v1/Chassis/<str>/ThermalSubsystem/", HttpVerb::Get))
         .methods(boost::beast::http::verb::get)(std::bind_front(
             handleThermalSubsystemCollectionGet, std::ref(app)));
 }
