@@ -20,6 +20,7 @@
 #include "cable.hpp"
 #include "certificate_service.hpp"
 #include "chassis.hpp"
+#include "entitytag.hpp"
 #include "environment_metrics.hpp"
 #include "ethernet.hpp"
 #include "event_service.hpp"
@@ -68,6 +69,7 @@ class RedfishService
      */
     explicit RedfishService(App& app)
     {
+        setEntityTagsInRegistry();
         requestAccountServiceRoutes(app);
         requestRoutesRoles(app);
         requestRoutesRoleCollection(app);

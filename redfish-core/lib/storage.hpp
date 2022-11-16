@@ -25,13 +25,15 @@
 #include <sdbusplus/asio/property.hpp>
 #include <sdbusplus/unpack_properties.hpp>
 #include <utils/dbus_utils.hpp>
+#include <verb.hpp>
 
 namespace redfish
 {
 inline void requestRoutesStorageCollection(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/Storage/")
-        .privileges(redfish::privileges::getStorageCollection)
+        .privileges(redfish::privileges::getPrivilegesFromUrlAndMethod(
+            "/redfish/v1/Systems/<str>/Storage/", HttpVerb::Get))
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -258,7 +260,8 @@ inline void
 inline void requestRoutesStorage(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/system/Storage/1/")
-        .privileges(redfish::privileges::getStorage)
+        .privileges(redfish::privileges::getPrivilegesFromUrlAndMethod(
+            "/redfish/v1/Systems/system/Storage/1/", HttpVerb::Get))
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
@@ -555,7 +558,8 @@ static void addAllDriveInfo(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 inline void requestRoutesDrive(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/Storage/1/Drives/<str>/")
-        .privileges(redfish::privileges::getDrive)
+        .privileges(redfish::privileges::getPrivilegesFromUrlAndMethod(
+            "/redfish/v1/Systems/<str>/Storage/1/Drives/<str>/", HttpVerb::Get))
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -745,7 +749,8 @@ inline void chassisDriveCollectionGet(
 inline void requestRoutesChassisDrive(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/Drives/")
-        .privileges(redfish::privileges::getDriveCollection)
+        .privileges(redfish::privileges::getPrivilegesFromUrlAndMethod(
+            "/redfish/v1/Chassis/<str>/Drives/", HttpVerb::Get))
         .methods(boost::beast::http::verb::get)(
             std::bind_front(chassisDriveCollectionGet, std::ref(app)));
 }
@@ -898,7 +903,8 @@ inline void
 inline void requestRoutesChassisDriveName(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/Drives/<str>/")
-        .privileges(redfish::privileges::getChassis)
+        .privileges(redfish::privileges::getPrivilegesFromUrlAndMethod(
+            "/redfish/v1/Chassis/<str>/Drives/<str>/", HttpVerb::Get))
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handleChassisDriveGet, std::ref(app)));
 }
