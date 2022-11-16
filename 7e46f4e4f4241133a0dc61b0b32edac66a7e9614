@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac5b19d4_2f763154",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-11-16T20:37:45Z",
+      "side": 1,
+      "message": "I am okay with no Redfish validator test for this commit",
+      "revId": "7e46f4e4f4241133a0dc61b0b32edac66a7e9614",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
