@@ -194,16 +194,24 @@ inline void requestRoutesSystemPCIeDevice(App& app)
             const std::string* manufacturer = nullptr;
             const std::string* deviceType = nullptr;
             const std::string* generationInUse = nullptr;
+            const std::string* lanesInUse = nullptr;
 
             const bool success = sdbusplus::unpackPropertiesNoThrow(
                 dbus_utils::UnpackErrorPrinter(), pcieDevProperties,
                 "Manufacturer", manufacturer, "DeviceType", deviceType,
+                "LanesInUse", lanesInUse,
                 "GenerationInUse", generationInUse);
 
             if (!success)
             {
                 messages::internalError(asyncResp->res);
                 return;
+            }
+
+            if (lanesInUse != nullptr)
+            {
+                asyncResp->res.jsonValue["PCIeInterface"]["LanesInUse"] =
+                        *redfishLanesInUse;
             }
 
             if (generationInUse != nullptr)
