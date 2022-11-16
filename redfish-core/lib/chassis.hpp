@@ -27,6 +27,7 @@
 #include <sdbusplus/unpack_properties.hpp>
 #include <utils/collection.hpp>
 #include <utils/dbus_utils.hpp>
+#include <verb.hpp>
 
 namespace redfish
 {
@@ -160,7 +161,8 @@ inline void handleChassisCollectionGet(
 inline void requestRoutesChassisCollection(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Chassis/")
-        .privileges(redfish::privileges::getChassisCollection)
+        .privileges(redfish::privileges::getPrivilegesFromUrlAndMethod(
+            "/redfish/v1/Chassis/", HttpVerb::Get))
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handleChassisCollectionGet, std::ref(app)));
 }
@@ -587,12 +589,14 @@ inline void
 inline void requestRoutesChassis(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/")
-        .privileges(redfish::privileges::getChassis)
+        .privileges(redfish::privileges::getPrivilegesFromUrlAndMethod(
+            "/redfish/v1/Chassis/<str>/", HttpVerb::Get))
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handleChassisGet, std::ref(app)));
 
     BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/")
-        .privileges(redfish::privileges::patchChassis)
+        .privileges(redfish::privileges::getPrivilegesFromUrlAndMethod(
+            "/redfish/v1/Chassis/<str>/", HttpVerb::Patch))
         .methods(boost::beast::http::verb::patch)(
             std::bind_front(handleChassisPatch, std::ref(app)));
 }
@@ -696,7 +700,8 @@ inline void handleChassisResetActionInfoPost(
 inline void requestRoutesChassisResetAction(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/Actions/Chassis.Reset/")
-        .privileges(redfish::privileges::postChassis)
+        .privileges(redfish::privileges::getPrivilegesFromUrlAndMethod(
+            "/redfish/v1/Chassis/<str>/Actions/Chassis.Reset/", HttpVerb::Post))
         .methods(boost::beast::http::verb::post)(
             std::bind_front(handleChassisResetActionInfoPost, std::ref(app)));
 }
@@ -736,7 +741,8 @@ inline void handleChassisResetActionInfoGet(
 inline void requestRoutesChassisResetActionInfo(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/ResetActionInfo/")
-        .privileges(redfish::privileges::getActionInfo)
+        .privileges(redfish::privileges::getPrivilegesFromUrlAndMethod(
+            "/redfish/v1/Chassis/<str>/ResetActionInfo/", HttpVerb::Get))
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handleChassisResetActionInfoGet, std::ref(app)));
 }

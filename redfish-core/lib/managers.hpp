@@ -29,6 +29,7 @@
 #include <boost/date_time.hpp>
 #include <sdbusplus/asio/property.hpp>
 #include <sdbusplus/unpack_properties.hpp>
+#include <verb.hpp>
 
 #include <algorithm>
 #include <cstdint>
@@ -115,7 +116,8 @@ inline void requestRoutesManagerResetAction(App& app)
      */
 
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/Actions/Manager.Reset/")
-        .privileges(redfish::privileges::postManager)
+        .privileges(redfish::privileges::getPrivilegesFromUrlAndMethod(
+            "/redfish/v1/Managers/bmc/Actions/Manager.Reset/", HttpVerb::Post))
         .methods(boost::beast::http::verb::post)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
@@ -175,7 +177,9 @@ inline void requestRoutesManagerResetToDefaultsAction(App& app)
 
     BMCWEB_ROUTE(app,
                  "/redfish/v1/Managers/bmc/Actions/Manager.ResetToDefaults/")
-        .privileges(redfish::privileges::postManager)
+        .privileges(redfish::privileges::getPrivilegesFromUrlAndMethod(
+            "/redfish/v1/Managers/bmc/Actions/Manager.ResetToDefaults/",
+            HttpVerb::Post))
         .methods(boost::beast::http::verb::post)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
@@ -236,7 +240,8 @@ inline void requestRoutesManagerResetActionInfo(App& app)
      */
 
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/ResetActionInfo/")
-        .privileges(redfish::privileges::getActionInfo)
+        .privileges(redfish::privileges::getPrivilegesFromUrlAndMethod(
+            "/redfish/v1/Managers/bmc/ResetActionInfo/", HttpVerb::Get))
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
@@ -1937,7 +1942,8 @@ inline void requestRoutesManager(App& app)
     std::string uuid = persistent_data::getConfig().systemUuid;
 
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/")
-        .privileges(redfish::privileges::getManager)
+        .privileges(redfish::privileges::getPrivilegesFromUrlAndMethod(
+            "/redfish/v1/Managers/bmc/", HttpVerb::Get))
         .methods(boost::beast::http::verb::get)(
             [&app, uuid](const crow::Request& req,
                          const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
@@ -2211,7 +2217,8 @@ inline void requestRoutesManager(App& app)
         });
 
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/")
-        .privileges(redfish::privileges::patchManager)
+        .privileges(redfish::privileges::getPrivilegesFromUrlAndMethod(
+            "/redfish/v1/Managers/bmc/", HttpVerb::Patch))
         .methods(boost::beast::http::verb::patch)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
@@ -2300,7 +2307,8 @@ inline void requestRoutesManager(App& app)
 inline void requestRoutesManagerCollection(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/")
-        .privileges(redfish::privileges::getManagerCollection)
+        .privileges(redfish::privileges::getPrivilegesFromUrlAndMethod(
+            "/redfish/v1/Managers/", HttpVerb::Get))
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {

@@ -26,6 +26,7 @@
 #include <sdbusplus/asio/property.hpp>
 #include <utils/json_utils.hpp>
 #include <utils/stl_utils.hpp>
+#include <verb.hpp>
 
 #include <optional>
 #include <variant>
@@ -484,7 +485,8 @@ void handleBmcNetworkProtocolHead(
 inline void requestRoutesNetworkProtocol(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/NetworkProtocol/")
-        .privileges(redfish::privileges::patchManagerNetworkProtocol)
+        .privileges(redfish::privileges::getPrivilegesFromUrlAndMethod(
+            "/redfish/v1/Managers/bmc/NetworkProtocol/", HttpVerb::Patch))
         .methods(boost::beast::http::verb::patch)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
@@ -554,12 +556,14 @@ inline void requestRoutesNetworkProtocol(App& app)
         });
 
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/NetworkProtocol/")
-        .privileges(redfish::privileges::headManagerNetworkProtocol)
+        .privileges(redfish::privileges::getPrivilegesFromUrlAndMethod(
+            "/redfish/v1/Managers/bmc/NetworkProtocol/", HttpVerb::Head))
         .methods(boost::beast::http::verb::head)(
             std::bind_front(handleBmcNetworkProtocolHead, std::ref(app)));
 
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/NetworkProtocol/")
-        .privileges(redfish::privileges::getManagerNetworkProtocol)
+        .privileges(redfish::privileges::getPrivilegesFromUrlAndMethod(
+            "/redfish/v1/Managers/bmc/NetworkProtocol/", HttpVerb::Get))
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {

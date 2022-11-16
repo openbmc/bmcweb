@@ -31,6 +31,7 @@
 #include <utils/collection.hpp>
 #include <utils/dbus_utils.hpp>
 #include <utils/json_utils.hpp>
+#include <verb.hpp>
 
 namespace redfish
 {
@@ -1031,7 +1032,9 @@ inline void requestRoutesOperatingConfigCollection(App& app)
 
     BMCWEB_ROUTE(
         app, "/redfish/v1/Systems/system/Processors/<str>/OperatingConfigs/")
-        .privileges(redfish::privileges::getOperatingConfigCollection)
+        .privileges(redfish::privileges::getPrivilegesFromUrlAndMethod(
+            "/redfish/v1/Systems/system/Processors/<str>/OperatingConfigs/",
+            HttpVerb::Get))
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -1096,7 +1099,9 @@ inline void requestRoutesOperatingConfig(App& app)
     BMCWEB_ROUTE(
         app,
         "/redfish/v1/Systems/system/Processors/<str>/OperatingConfigs/<str>/")
-        .privileges(redfish::privileges::getOperatingConfig)
+        .privileges(redfish::privileges::getPrivilegesFromUrlAndMethod(
+            "/redfish/v1/Systems/system/Processors/<str>/OperatingConfigs/<str>/",
+            HttpVerb::Get))
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -1158,7 +1163,8 @@ inline void requestRoutesProcessorCollection(App& app)
      * Functions triggers appropriate requests on DBus
      */
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/Processors/")
-        .privileges(redfish::privileges::getProcessorCollection)
+        .privileges(redfish::privileges::getPrivilegesFromUrlAndMethod(
+            "/redfish/v1/Systems/<str>/Processors/", HttpVerb::Get))
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -1196,7 +1202,8 @@ inline void requestRoutesProcessor(App& app)
      */
 
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/Processors/<str>/")
-        .privileges(redfish::privileges::getProcessor)
+        .privileges(redfish::privileges::getPrivilegesFromUrlAndMethod(
+            "/redfish/v1/Systems/<str>/Processors/<str>/", HttpVerb::Get))
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -1224,7 +1231,8 @@ inline void requestRoutesProcessor(App& app)
         });
 
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/Processors/<str>/")
-        .privileges(redfish::privileges::patchProcessor)
+        .privileges(redfish::privileges::getPrivilegesFromUrlAndMethod(
+            "/redfish/v1/Systems/<str>/Processors/<str>/", HttpVerb::Patch))
         .methods(boost::beast::http::verb::patch)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
