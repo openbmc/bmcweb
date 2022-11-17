@@ -3,6 +3,46 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a8628b6a_41db4117",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-11-17T18:13:17Z",
+      "side": 1,
+      "message": "Can you please run git blame and CC the folks that originally checked this in?  Assuming it was used, this is going to be a breaking change.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 9
+      },
+      "revId": "7616de3fc2ed95e68eef7855c0659dcc97807c65",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0e576542_49c0e04d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-11-17T18:13:17Z",
+      "side": 1,
+      "message": "Tested.",
+      "revId": "7616de3fc2ed95e68eef7855c0659dcc97807c65",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0d650d9f_80983912",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 1
