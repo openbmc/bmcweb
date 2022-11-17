@@ -266,6 +266,24 @@
       "parentUuid": "8341ea68_cd7dc948",
       "revId": "624cd22049d49dd56684b1f2df6d5f84eea7e857",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8070cad9_87524a3b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-11-17T18:56:41Z",
+      "side": 1,
+      "message": "I now get your point, you are worried about integers are not correct.\n\n```\nMemoryLocation {\tobject\t\tMemory connection information to sockets and memory controllers.\n      Channel\tinteger\tread-only\n(null)\tThe channel number to which the memory device is connected.\n      MemoryController\tinteger\tread-only\n(null)\tThe memory controller number to which the memory device is connected.\n      Slot\tinteger\tread-only\n(null)\tThe slot number to which the memory device is connected.\n      Socket\tinteger\tread-only\n(null)\tThe socket number to which the memory device is connected.\n}```\n\n\n\u003e 1. How did we get this wrong in the first place (considering that everyone needs to test, and a test for this should\u0027ve failed).  Have the original authors of this been CCed?\n\nThis won\u0027t be tested by Redfish Validator in the first place, unless the author inspects the payload of Memory, or the backend breaks PDI and implement attributes as strings. Do you agree with this? The whole |MemoryLocation| is just omitted if backends follow PDI and BMCWeb uses wrong types.\n\n\u003e 2. What backends do we have that are using the \"wrong\" API and need fixed.\n\nDon\u0027t understand this. The PDI said these are integers.  I didn\u0027t find any backend providing this in OpenBMC. The author of this commit used a fake object to hit these codes for testing. \n\nYou might have been thinking about this: there is a backend saying these attributes are strings, bmcweb reads them as strings, and publish them into Redfish as strings. We are wrong all the time.\n\nI don\u0027t believe this is true. I believe these types are just wrong in bmcweb.\n\n\u003e What does redfish-service-validator say about this.\n\nThe only way without backends in OpenBMC is to create mock objects, as the author has been done. Do you suggest they run validator on these mock objects?\n\nDo you have an idea if I missed something and there does be a backend?",
+      "parentUuid": "307b31da_08c18a68",
+      "revId": "624cd22049d49dd56684b1f2df6d5f84eea7e857",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
