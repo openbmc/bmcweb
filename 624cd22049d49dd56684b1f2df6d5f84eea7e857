@@ -212,6 +212,24 @@
       "parentUuid": "38311cea_7a6854cb",
       "revId": "624cd22049d49dd56684b1f2df6d5f84eea7e857",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "43865d8d_9a0a0954",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-11-17T17:16:32Z",
+      "side": 1,
+      "message": "\u003e If the type is wrong, |MemoryLocation| is just omitted\n\nThat\u0027s not true.  Take a look at lines 558-577.  These 4 types are loaded DIRECTLY into the Redfish output., and as-written are changing the type we put in the json output.  So some things that this patchset needs to answer are:\n\n1. How did we get this wrong in the first place (considering that everyone needs to test, and a test for this should\u0027ve failed).  Have the original authors of this been CCed?\n2. What backends do we have that are using the \"wrong\" API and need fixed.\n3. What does redfish-service-validator say about this.",
+      "parentUuid": "1d63de27_e087086e",
+      "revId": "624cd22049d49dd56684b1f2df6d5f84eea7e857",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
