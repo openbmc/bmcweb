@@ -74,6 +74,23 @@
       "message": "The -2 is to prevent submitting ",
       "revId": "7e46f4e4f4241133a0dc61b0b32edac66a7e9614",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "422cc8b7_534b08da",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-11-17T18:32:53Z",
+      "side": 1,
+      "message": "Lower to +1 while this is in discussion",
+      "revId": "7e46f4e4f4241133a0dc61b0b32edac66a7e9614",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
