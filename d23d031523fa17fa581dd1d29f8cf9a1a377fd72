@@ -22,6 +22,30 @@
       },
       "revId": "d23d031523fa17fa581dd1d29f8cf9a1a377fd72",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2771e6d4_62f397c3",
+        "filename": "http/websocket.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1000907
+      },
+      "writtenOn": "2022-11-17T14:08:50Z",
+      "side": 1,
+      "message": "This code was added by \"Abhishek Patel\". \nI guess we are trying to construct a Response object using boost::beast::websocket::response_type, and std::move would prevent another allocation and a copy.\nAm i missing something ?",
+      "parentUuid": "86929cb0_26f411a3",
+      "range": {
+        "startLine": 137,
+        "startChar": 29,
+        "endLine": 137,
+        "endChar": 51
+      },
+      "revId": "d23d031523fa17fa581dd1d29f8cf9a1a377fd72",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
