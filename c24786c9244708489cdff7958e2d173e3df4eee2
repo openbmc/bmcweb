@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "94b1fb02_aa91bc2e",
+        "filename": "redfish-core/include/registries/privilege_registry.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-11-17T22:42:03Z",
+      "side": 1,
+      "message": "Why do you change this from array to vector?",
+      "range": {
+        "startLine": 24,
+        "startChar": 11,
+        "endLine": 24,
+        "endChar": 17
+      },
+      "revId": "c24786c9244708489cdff7958e2d173e3df4eee2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a3e696a9_56c11ee7",
+        "filename": "redfish-core/include/registries/privilege_registry.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-11-17T22:42:03Z",
+      "side": 1,
+      "message": "space please",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 1
+      },
+      "revId": "c24786c9244708489cdff7958e2d173e3df4eee2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
