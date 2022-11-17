@@ -302,6 +302,24 @@
       "parentUuid": "8070cad9_87524a3b",
       "revId": "624cd22049d49dd56684b1f2df6d5f84eea7e857",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb0f2839_dabc08b8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-11-17T19:28:57Z",
+      "side": 1,
+      "message": "Do you suggest the owner of this commit takes action items, or the reviewers\n\nIIUC about your comments, you expect the author to take actions.",
+      "parentUuid": "05536afe_9b5154f3",
+      "revId": "624cd22049d49dd56684b1f2df6d5f84eea7e857",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
