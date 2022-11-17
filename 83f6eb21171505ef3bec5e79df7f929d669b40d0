@@ -22,6 +22,30 @@
       },
       "revId": "83f6eb21171505ef3bec5e79df7f929d669b40d0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c7f38db4_66e86c37",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1001252
+      },
+      "writtenOn": "2022-11-17T01:40:38Z",
+      "side": 1,
+      "message": "Updated the root cause and link to the validator issue in commit message.",
+      "parentUuid": "39c0ca85_f30da74b",
+      "range": {
+        "startLine": 10,
+        "startChar": 44,
+        "endLine": 10,
+        "endChar": 68
+      },
+      "revId": "83f6eb21171505ef3bec5e79df7f929d669b40d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
