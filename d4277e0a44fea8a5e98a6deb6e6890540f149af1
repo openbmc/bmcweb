@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "04201b04_b50a7cf0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-11-17T00:58:46Z",
+      "side": 1,
+      "message": "This points at line 48 which is     if (!redfish::setUpRedfishRoute(app, req, asyncResp)). \nHow is that redundant code ?",
+      "revId": "d4277e0a44fea8a5e98a6deb6e6890540f149af1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

@@ -93,6 +93,30 @@
       },
       "revId": "463d395e1aae7b6bfa0073506795ac1c9fa8134b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c41046ee_42bc2851",
+        "filename": "redfish-core/lib/thermal_subsystem.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-11-17T00:58:46Z",
+      "side": 1,
+      "message": "\u003e Yes, Becasue the following line of code is not necessary:\n\u003e https://gerrit.openbmc.org/c/openbmc/bmcweb/+/58731/2/redfish-core/lib/thermal_subsystem.hpp#b48\n\n\nI am confused by your comment? It looks like you updated the variable name (to a better name if you ask me). I am confused about, how this line of code has anything to do with that updated variable name.",
+      "parentUuid": "18d4fa5f_b0719a28",
+      "range": {
+        "startLine": 71,
+        "startChar": 23,
+        "endLine": 71,
+        "endChar": 32
+      },
+      "revId": "463d395e1aae7b6bfa0073506795ac1c9fa8134b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
