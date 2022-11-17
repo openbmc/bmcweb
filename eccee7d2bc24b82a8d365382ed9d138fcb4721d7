@@ -1,0 +1,228 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e1a23a4_49b0dd07",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 64
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-11-17T17:05:13Z",
+      "side": 1,
+      "message": "Partial review.",
+      "revId": "eccee7d2bc24b82a8d365382ed9d138fcb4721d7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "99cc87c2_26d00fbc",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 64
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-11-17T17:05:13Z",
+      "side": 1,
+      "message": "Please don\u0027t brace construct basic values.  I can\u0027t think of any other place we do that, and it\u0027s less clear than just initializing to a known value.",
+      "range": {
+        "startLine": 67,
+        "startChar": 0,
+        "endLine": 69,
+        "endChar": 22
+      },
+      "revId": "eccee7d2bc24b82a8d365382ed9d138fcb4721d7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ad477ccd_834342d6",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 64
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-11-17T17:05:13Z",
+      "side": 1,
+      "message": "Why is error messages a property?  We shouldn\u0027t need to unpack this I think?",
+      "range": {
+        "startLine": 70,
+        "startChar": 4,
+        "endLine": 70,
+        "endChar": 67
+      },
+      "revId": "eccee7d2bc24b82a8d365382ed9d138fcb4721d7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "84e2f6ec_137ef175",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 64
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-11-17T17:05:13Z",
+      "side": 1,
+      "message": "Nit, if we\u0027re changing this loop already, we should be using nlohmann::json::array_t to avoid the copy in this case.",
+      "range": {
+        "startLine": 85,
+        "startChar": 4,
+        "endLine": 85,
+        "endChar": 29
+      },
+      "revId": "eccee7d2bc24b82a8d365382ed9d138fcb4721d7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "26154025_984b6f55",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 64
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-11-17T17:05:13Z",
+      "side": 1,
+      "message": "Typo on Readfish.",
+      "range": {
+        "startLine": 88,
+        "startChar": 38,
+        "endLine": 88,
+        "endChar": 42
+      },
+      "revId": "eccee7d2bc24b82a8d365382ed9d138fcb4721d7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "09980aab_a4448c14",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 64
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-11-17T17:05:13Z",
+      "side": 1,
+      "message": "this as well should just be a nlohmann::json::array_t, rather than loading an array into a json object.",
+      "range": {
+        "startLine": 102,
+        "startChar": 4,
+        "endLine": 102,
+        "endChar": 18
+      },
+      "revId": "eccee7d2bc24b82a8d365382ed9d138fcb4721d7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c66c1803_b7acaf8a",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 64
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-11-17T17:05:13Z",
+      "side": 1,
+      "message": "std::move",
+      "range": {
+        "startLine": 120,
+        "startChar": 26,
+        "endLine": 120,
+        "endChar": 32
+      },
+      "revId": "eccee7d2bc24b82a8d365382ed9d138fcb4721d7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2c5e2c47_8715debc",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 64
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-11-17T17:05:13Z",
+      "side": 1,
+      "message": "This doesn\u0027t look right.  if it\u0027s in an error state, we return disabled?  Should we be returning an error state?",
+      "range": {
+        "startLine": 124,
+        "startChar": 19,
+        "endLine": 124,
+        "endChar": 39
+      },
+      "revId": "eccee7d2bc24b82a8d365382ed9d138fcb4721d7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "03622aea_c203a3fd",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 64
+      },
+      "lineNbr": 461,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-11-17T17:05:13Z",
+      "side": 1,
+      "message": "I\u0027m not comfortable with bmcweb using this API.  it seems to be taking an array of type-safe things, and smashing them into a map.  This would normally be done with method arguments, which keeps the type/name pairs consistent.  Can you comment on why that wasn\u0027t done here?  As-written, this puts bmcweb in charge of the API interface (given that the actual api is a dict) which in our designs, it really shouldn\u0027t be in charge of.",
+      "range": {
+        "startLine": 461,
+        "startChar": 64,
+        "endLine": 461,
+        "endChar": 73
+      },
+      "revId": "eccee7d2bc24b82a8d365382ed9d138fcb4721d7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bd3fa6d2_5281d200",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 64
+      },
+      "lineNbr": 467,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-11-17T17:05:13Z",
+      "side": 1,
+      "message": "Common error #5",
+      "range": {
+        "startLine": 464,
+        "startChar": 0,
+        "endLine": 467,
+        "endChar": 9
+      },
+      "revId": "eccee7d2bc24b82a8d365382ed9d138fcb4721d7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
