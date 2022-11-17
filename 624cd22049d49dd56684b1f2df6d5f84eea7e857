@@ -320,6 +320,24 @@
       "parentUuid": "05536afe_9b5154f3",
       "revId": "624cd22049d49dd56684b1f2df6d5f84eea7e857",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f919086b_2eeacd01",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-11-17T19:40:59Z",
+      "side": 1,
+      "message": "\u003e Do you suggest the owner of this commit takes action items, or the reviewers\n\u003e \n\u003e IIUC about your comments, you expect the author to take actions.\n\nThe owner is what we document in the developing guide.  If there\u0027s parts that make that impossible for the owner to go, generally reviewers will step up to help, or us maintainers will make a judgement call but we can\u0027t be checking in completely un-run and un-tested code.  We\u0027ve done that in the past, and it lead to mass instability.",
+      "parentUuid": "fb0f2839_dabc08b8",
+      "revId": "624cd22049d49dd56684b1f2df6d5f84eea7e857",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
