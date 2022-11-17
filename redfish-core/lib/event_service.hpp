@@ -142,12 +142,12 @@ inline void requestRoutesEventService(App& app)
 
         if (retryInterval)
         {
-            // Supported range [30 - 180]
-            if ((*retryInterval < 30) || (*retryInterval > 180))
+            // Supported range [5 - 180]
+            if ((*retryInterval < 5) || (*retryInterval > 180))
             {
                 messages::queryParameterOutOfRange(
                     asyncResp->res, std::to_string(*retryInterval),
-                    "DeliveryRetryIntervalSeconds", "[30-180]");
+                    "DeliveryRetryIntervalSeconds", "[5-180]");
             }
             else
             {
