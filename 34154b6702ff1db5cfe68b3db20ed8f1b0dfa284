@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8674ff38_185a2c65",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-11-17T23:59:27Z",
+      "side": 1,
+      "message": "This is going to run after async_accept, done here:\nhttps://github.com/openbmc/bmcweb/blob/master/http/websocket.hpp#L140\n\nThis is a problem, because it will lead to cases where the response returns both the connection upgrade headers, AND the error code.  Per the http RFC, we can\u0027t be returning both.  We should only be returning the websocket upgrade headers in the cases where we also return 101.\n\nTo handle this properly, we need to run the authorization before async_accept.",
+      "revId": "34154b6702ff1db5cfe68b3db20ed8f1b0dfa284",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
