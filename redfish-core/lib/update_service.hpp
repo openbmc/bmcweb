@@ -202,11 +202,12 @@ static void
                             {
                                 if (property.first == "Progress")
                                 {
-                                    const std::string* progressStr =
-                                        std::get_if<std::string>(
-                                            &property.second);
-                                    if (progressStr == nullptr)
+                                     progress = std::get_if<uint8_t>(&property.second);
+                                    if (progress == nullptr)
                                     {
+#ifdef DEBUG
+					    std::cout<< "Progress is NULL"<<std::endl;
+#endif
                                         taskData->messages.emplace_back(
                                             messages::internalError());
                                         return task::completed;
@@ -218,11 +219,10 @@ static void
                             {
                                 return !task::completed;
                             }
-                            taskData->percentComplete =
-                                static_cast<int>(*progress);
+                            taskData->percentComplete = *progress;
                             taskData->messages.emplace_back(
                                 messages::taskProgressChanged(
-                                    index, static_cast<size_t>(*progress)));
+                                    index, *progress));
 
                             // if we're getting status updates it's
                             // still alive, update timer
