@@ -57,6 +57,23 @@
       "parentUuid": "ac5b19d4_2f763154",
       "revId": "7e46f4e4f4241133a0dc61b0b32edac66a7e9614",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a1f29a4_bed36e2a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-11-17T17:36:30Z",
+      "side": 1,
+      "message": "The -2 is to prevent submitting ",
+      "revId": "7e46f4e4f4241133a0dc61b0b32edac66a7e9614",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
