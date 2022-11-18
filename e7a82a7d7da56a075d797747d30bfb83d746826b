@@ -103,6 +103,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "1a5fbcb5_c63f467d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-11-18T20:04:03Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "f230f2de_9be5602b",
+      "range": {
+        "startLine": 9,
+        "startChar": 15,
+        "endLine": 10,
+        "endChar": 18
+      },
+      "revId": "e7a82a7d7da56a075d797747d30bfb83d746826b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "9fa6b156_af482f5d",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 9
@@ -149,6 +173,24 @@
       "side": 1,
       "message": "Can we merge BMCWeb first?",
       "parentUuid": "e36b1ef1_32fbadad",
+      "revId": "e7a82a7d7da56a075d797747d30bfb83d746826b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "45d66329_086cce3c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-11-18T20:04:03Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "d2842816_3311bb85",
       "revId": "e7a82a7d7da56a075d797747d30bfb83d746826b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
