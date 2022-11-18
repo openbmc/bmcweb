@@ -1,0 +1,107 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c017c343_0e4ffad3",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 66
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-11-18T01:41:16Z",
+      "side": 1,
+      "message": "please refer: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/57765/15/include/dbus_utility.hpp#145",
+      "range": {
+        "startLine": 167,
+        "startChar": 49,
+        "endLine": 167,
+        "endChar": 58
+      },
+      "revId": "91c4947655c91122d7a0666f1f7649a9f7c662da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ded26e8e_ce96ff1b",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 66
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-11-18T01:41:16Z",
+      "side": 1,
+      "message": "add head link",
+      "revId": "91c4947655c91122d7a0666f1f7649a9f7c662da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d0dbe42b_f3aa05c7",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 66
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-11-18T01:41:16Z",
+      "side": 1,
+      "message": "I dont think this is correct, We do not have a association for it?",
+      "range": {
+        "startLine": 243,
+        "startChar": 12,
+        "endLine": 243,
+        "endChar": 79
+      },
+      "revId": "91c4947655c91122d7a0666f1f7649a9f7c662da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2dd32e2b_7637187d",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 66
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-11-18T01:41:16Z",
+      "side": 1,
+      "message": "Could you depend on this patch?\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/58580",
+      "range": {
+        "startLine": 252,
+        "startChar": 45,
+        "endLine": 252,
+        "endChar": 60
+      },
+      "revId": "91c4947655c91122d7a0666f1f7649a9f7c662da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4cded545_1e796ab4",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 66
+      },
+      "lineNbr": 784,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-11-18T01:41:16Z",
+      "side": 1,
+      "message": "Please add head\nrefer: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/58206",
+      "revId": "91c4947655c91122d7a0666f1f7649a9f7c662da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
