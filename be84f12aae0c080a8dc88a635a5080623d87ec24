@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bec3edf6_757f4824",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-11-18T01:02:10Z",
+      "side": 1,
+      "message": "alignment",
+      "range": {
+        "startLine": 93,
+        "startChar": 3,
+        "endLine": 93,
+        "endChar": 10
+      },
+      "revId": "be84f12aae0c080a8dc88a635a5080623d87ec24",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eb89b6aa_c213ff91",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-11-18T01:02:10Z",
+      "side": 1,
+      "message": "const \u0026?",
+      "range": {
+        "startLine": 100,
+        "startChar": 70,
+        "endLine": 100,
+        "endChar": 75
+      },
+      "revId": "be84f12aae0c080a8dc88a635a5080623d87ec24",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "decb4ecb_20742496",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-11-18T01:02:10Z",
+      "side": 1,
+      "message": "std::span",
+      "range": {
+        "startLine": 102,
+        "startChar": 41,
+        "endLine": 102,
+        "endChar": 52
+      },
+      "revId": "be84f12aae0c080a8dc88a635a5080623d87ec24",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "037b38b4_ccfc907f",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-11-18T01:02:10Z",
+      "side": 1,
+      "message": "remove?",
+      "range": {
+        "startLine": 110,
+        "startChar": 42,
+        "endLine": 110,
+        "endChar": 60
+      },
+      "revId": "be84f12aae0c080a8dc88a635a5080623d87ec24",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1220194d_83db79ef",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-11-18T01:02:10Z",
+      "side": 1,
+      "message": "Could you depend on this patch?\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/58580",
+      "range": {
+        "startLine": 183,
+        "startChar": 49,
+        "endLine": 183,
+        "endChar": 64
+      },
+      "revId": "be84f12aae0c080a8dc88a635a5080623d87ec24",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
