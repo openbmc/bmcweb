@@ -50,6 +50,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "443745e6_33df9918",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-11-18T19:55:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eeaf3b7c_1b2edd16",
+      "range": {
+        "startLine": 162,
+        "startChar": 16,
+        "endLine": 162,
+        "endChar": 22
+      },
+      "revId": "0081ad9934179b10db80336a1ddb5da36d4df14c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "a03abd17_a15cd534",
         "filename": "include/dbus_utility.hpp",
         "patchSetId": 14
