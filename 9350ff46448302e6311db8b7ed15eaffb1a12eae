@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3c17539d_4dc83074",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-11-18T22:07:18Z",
+      "side": 1,
+      "message": "We can move this to dedicated functions in future patches.",
+      "range": {
+        "startLine": 327,
+        "startChar": 8,
+        "endLine": 327,
+        "endChar": 10
+      },
+      "revId": "9350ff46448302e6311db8b7ed15eaffb1a12eae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
