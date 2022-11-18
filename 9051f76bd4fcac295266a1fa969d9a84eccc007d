@@ -16,6 +16,23 @@
       "message": "I believe Redfish Validator can catch this error\n\nCould you test that and indicate behavior of Redfish Validator before/after this change?",
       "revId": "9051f76bd4fcac295266a1fa969d9a84eccc007d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "82723c50_fa3fc2c9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-11-18T22:02:48Z",
+      "side": 1,
+      "message": "Code change LGTM. This is a bug (or typo) I believe",
+      "revId": "9051f76bd4fcac295266a1fa969d9a84eccc007d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
