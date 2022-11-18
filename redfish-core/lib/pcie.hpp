@@ -389,7 +389,7 @@ inline void requestRoutesSystemPCIeFunction(App& app)
                     continue;
                 }
             }
-            if (devIdProperty == nullptr || !devIdProperty->empty())
+            if (devIdProperty == nullptr || devIdProperty->empty())
             {
                 messages::resourceNotFound(asyncResp->res, "PCIeFunction",
                                            function);
