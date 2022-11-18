@@ -16,6 +16,29 @@
       "message": "LGTM",
       "revId": "3467924daa413c649ff20f6e4b782ce742e5f4f9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d98b8193_220eecc4",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-11-18T20:00:43Z",
+      "side": 1,
+      "message": "Ed suggests |const boost::system::error_code\u0026| for everywhere.",
+      "range": {
+        "startLine": 166,
+        "startChar": 33,
+        "endLine": 166,
+        "endChar": 43
+      },
+      "revId": "3467924daa413c649ff20f6e4b782ce742e5f4f9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
