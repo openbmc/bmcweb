@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "3c135892_56d00b1e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-11-18T19:38:10Z",
+      "side": 1,
+      "message": "5 seconds is arbitrary, just like 30 seconds was. \nI would support 1 or even 0 but 5 was what the client wanted and what has been tested. \n1 and specially 0 would be a bit more risk (cpu/memory of retrying multiple events immediately? not sure this is really much of a concern). Going with 5 today. \nI added this to my commit msg in case someone in the future wasn\u0027t to lower further.",
+      "parentUuid": "20399803_d86113ff",
+      "range": {
+        "startLine": 10,
+        "startChar": 59,
+        "endLine": 10,
+        "endChar": 68
+      },
+      "revId": "10c4332d21e2dc031a672d4b961a325df2ebe165",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "2077b7f8_7bc15271",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 1
@@ -37,6 +61,24 @@
       "writtenOn": "2022-11-17T23:43:12Z",
       "side": 1,
       "message": "Overall, this seems like an improvement, and is fine as-is.  I think we could open the range up even more, but up to Gunnar if he wants to.",
+      "revId": "10c4332d21e2dc031a672d4b961a325df2ebe165",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7c799fa0_5185cad2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-11-18T19:38:10Z",
+      "side": 1,
+      "message": "Went with 5 today.",
+      "parentUuid": "2077b7f8_7bc15271",
       "revId": "10c4332d21e2dc031a672d4b961a325df2ebe165",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
