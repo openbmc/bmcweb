@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4364ebf0_29f59a0e",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 64
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-11-18T15:06:29Z",
+      "side": 1,
+      "message": "Ack, I will fix it.",
+      "parentUuid": "99cc87c2_26d00fbc",
+      "range": {
+        "startLine": 67,
+        "startChar": 0,
+        "endLine": 69,
+        "endChar": 22
+      },
+      "revId": "eccee7d2bc24b82a8d365382ed9d138fcb4721d7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ad477ccd_834342d6",
         "filename": "redfish-core/lib/metric_report_definition.hpp",
         "patchSetId": 64
@@ -54,6 +78,30 @@
       "writtenOn": "2022-11-17T17:05:13Z",
       "side": 1,
       "message": "Why is error messages a property?  We shouldn\u0027t need to unpack this I think?",
+      "range": {
+        "startLine": 70,
+        "startChar": 4,
+        "endLine": 70,
+        "endChar": 67
+      },
+      "revId": "eccee7d2bc24b82a8d365382ed9d138fcb4721d7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0576a652_97b52257",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 64
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-11-18T15:06:29Z",
+      "side": 1,
+      "message": "We encountered design issue which we tried to solve by adding this property if you have other ideas it would be helpful. Let me explain the issue, during PATCH operation you can modify one or more properties in bmcweb there is whole context of PATCH request, but backend get few separate calls for single request.\n\nFor example:\n{\n  \"ReportingType\": \"Periodic\",\n  \"Schedule\": { \"RecurrenceInterval\": \"PT5S\" }\n}\n\nIt is translated to two set property requests on dbus.\n\"Set\", \"ReportingType\", \"Periodic\"\n\"Set\", \"Schedule\", 5000\n\nAfter completing first request report will be in invalid state because it will be set to \"Periodic\", but schedule is not yet change. And we have no way in backend to tell if there will be update for \"Schedule\". So unless we want to duplicate all error handling in bmcweb we needed to provide additional property which describes errors. This allows to implement \"State\" property correctly without creating copy of validation code in bmcweb and it is foundation to implement \"Conditions\" property in the future.",
+      "parentUuid": "ad477ccd_834342d6",
       "range": {
         "startLine": 70,
         "startChar": 4,
@@ -89,6 +137,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a3ee7d11_c5b0273a",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 64
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-11-18T15:06:29Z",
+      "side": 1,
+      "message": "Ack, I will fix it.",
+      "parentUuid": "84e2f6ec_137ef175",
+      "range": {
+        "startLine": 85,
+        "startChar": 4,
+        "endLine": 85,
+        "endChar": 29
+      },
+      "revId": "eccee7d2bc24b82a8d365382ed9d138fcb4721d7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "26154025_984b6f55",
         "filename": "redfish-core/lib/metric_report_definition.hpp",
         "patchSetId": 64
@@ -100,6 +172,30 @@
       "writtenOn": "2022-11-17T17:05:13Z",
       "side": 1,
       "message": "Typo on Readfish.",
+      "range": {
+        "startLine": 88,
+        "startChar": 38,
+        "endLine": 88,
+        "endChar": 42
+      },
+      "revId": "eccee7d2bc24b82a8d365382ed9d138fcb4721d7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "936b031e_ac0ff1eb",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 64
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-11-18T15:06:29Z",
+      "side": 1,
+      "message": "Ack, I will fix it.",
+      "parentUuid": "26154025_984b6f55",
       "range": {
         "startLine": 88,
         "startChar": 38,
@@ -135,6 +231,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ebfdd17f_56b373a0",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 64
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-11-18T15:06:29Z",
+      "side": 1,
+      "message": "Ack, I will fix it.",
+      "parentUuid": "09980aab_a4448c14",
+      "range": {
+        "startLine": 102,
+        "startChar": 4,
+        "endLine": 102,
+        "endChar": 18
+      },
+      "revId": "eccee7d2bc24b82a8d365382ed9d138fcb4721d7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c66c1803_b7acaf8a",
         "filename": "redfish-core/lib/metric_report_definition.hpp",
         "patchSetId": 64
@@ -146,6 +266,30 @@
       "writtenOn": "2022-11-17T17:05:13Z",
       "side": 1,
       "message": "std::move",
+      "range": {
+        "startLine": 120,
+        "startChar": 26,
+        "endLine": 120,
+        "endChar": 32
+      },
+      "revId": "eccee7d2bc24b82a8d365382ed9d138fcb4721d7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9c1b7581_a1ff2158",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 64
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-11-18T15:06:29Z",
+      "side": 1,
+      "message": "Ack, I will fix it.",
+      "parentUuid": "c66c1803_b7acaf8a",
       "range": {
         "startLine": 120,
         "startChar": 26,
@@ -181,6 +325,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5bf06954_c2b15374",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 64
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-11-18T15:06:29Z",
+      "side": 1,
+      "message": "You are right. Since there is no error state in schema the closest state can be:\n\n\"Offline\" indicates the resource is unavailable intentionally and requires action to make it available.",
+      "parentUuid": "2c5e2c47_8715debc",
+      "range": {
+        "startLine": 124,
+        "startChar": 19,
+        "endLine": 124,
+        "endChar": 39
+      },
+      "revId": "eccee7d2bc24b82a8d365382ed9d138fcb4721d7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "03622aea_c203a3fd",
         "filename": "redfish-core/lib/metric_report_definition.hpp",
         "patchSetId": 64
@@ -204,6 +372,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f0c83208_d567723b",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 64
+      },
+      "lineNbr": 461,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-11-18T15:06:29Z",
+      "side": 1,
+      "message": "All you said is true. Since we both agree on disadvantages I will try to explain why we did it in a different way and what advantages we think this solution has.\n\n\n- Other services usually have methods with only few arguments, AddReport have quite a lot arguments and most of them are optional. This change in API simplifies creating scripts and tests scenarios for telemetry backend, because only few parameters can be provided instead of all of them.\n\n- This also removes default values from bmcweb, all default values are kept in telemetry backend.\n\n- It will be easier to add new features that require new parameters. Adding new parameter won\u0027t break anything. We can add new parameter in telemetry backend and it won\u0027t break the code that it is not using that new parameter yet. All script and tests that use dbus API will also keep working because changes in API won\u0027t break code anymore.",
+      "parentUuid": "03622aea_c203a3fd",
+      "range": {
+        "startLine": 461,
+        "startChar": 64,
+        "endLine": 461,
+        "endChar": 73
+      },
+      "revId": "eccee7d2bc24b82a8d365382ed9d138fcb4721d7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bd3fa6d2_5281d200",
         "filename": "redfish-core/lib/metric_report_definition.hpp",
         "patchSetId": 64
@@ -215,6 +407,30 @@
       "writtenOn": "2022-11-17T17:05:13Z",
       "side": 1,
       "message": "Common error #5",
+      "range": {
+        "startLine": 464,
+        "startChar": 0,
+        "endLine": 467,
+        "endChar": 9
+      },
+      "revId": "eccee7d2bc24b82a8d365382ed9d138fcb4721d7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb729489_67ffdaab",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 64
+      },
+      "lineNbr": 467,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-11-18T15:06:29Z",
+      "side": 1,
+      "message": "This is possible exception that is being throw from sdbusplus when async_method_call takes as an argument std::variant which is used during calling \u0027Set\u0027 on properties interface.\n\nBecause this is possible case where exception is throw in destructor this catch was needed to silence clang-tidy error.",
+      "parentUuid": "bd3fa6d2_5281d200",
       "range": {
         "startLine": 464,
         "startChar": 0,
