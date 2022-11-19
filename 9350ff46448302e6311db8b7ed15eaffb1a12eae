@@ -22,6 +22,30 @@
       },
       "revId": "9350ff46448302e6311db8b7ed15eaffb1a12eae",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5f52ea7a_d2546a55",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-11-19T00:55:10Z",
+      "side": 1,
+      "message": "\u003e We can move this to dedicated functions in future patches.\n\nThis is what I expected, but at present, some functions do something when ec is not equal to 0.",
+      "parentUuid": "3c17539d_4dc83074",
+      "range": {
+        "startLine": 327,
+        "startChar": 8,
+        "endLine": 327,
+        "endChar": 10
+      },
+      "revId": "9350ff46448302e6311db8b7ed15eaffb1a12eae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
