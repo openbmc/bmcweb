@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c16fcade_f9e93637",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000907
+      },
+      "writtenOn": "2022-11-21T10:11:29Z",
+      "side": 1,
+      "message": "Its being resolved in the latest patch set.",
+      "parentUuid": "2f1bbd5b_fb8ace6d",
+      "range": {
+        "startLine": 9,
+        "startChar": 20,
+        "endLine": 9,
+        "endChar": 27
+      },
+      "revId": "d23d031523fa17fa581dd1d29f8cf9a1a377fd72",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "86929cb0_26f411a3",
