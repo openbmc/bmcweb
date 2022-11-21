@@ -41,6 +41,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2ba750ef_4d34c967",
+        "filename": "http/routing.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1166,
+      "author": {
+        "id": 1000907
+      },
+      "writtenOn": "2022-11-21T10:05:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ee07c784_e7dd6e9f",
+      "range": {
+        "startLine": 1166,
+        "startChar": 12,
+        "endLine": 1166,
+        "endChar": 52
+      },
+      "revId": "cdb743922583dc4865f878b6e9039a8f2c687ff8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2fdcd52e_332c1e08",
@@ -54,6 +78,30 @@
       "writtenOn": "2022-08-25T14:42:05Z",
       "side": 1,
       "message": "Possible nullptr dereference.  Pass by reference maybe?",
+      "range": {
+        "startLine": 1236,
+        "startChar": 20,
+        "endLine": 1236,
+        "endChar": 23
+      },
+      "revId": "cdb743922583dc4865f878b6e9039a8f2c687ff8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "10707d54_3e5a9be6",
+        "filename": "http/routing.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1236,
+      "author": {
+        "id": 1000907
+      },
+      "writtenOn": "2022-11-21T10:05:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2fdcd52e_332c1e08",
       "range": {
         "startLine": 1236,
         "startChar": 20,
@@ -87,6 +135,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e832279c_d328e61e",
+        "filename": "http/routing.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1249,
+      "author": {
+        "id": 1000907
+      },
+      "writtenOn": "2022-11-21T10:05:52Z",
+      "side": 1,
+      "message": "bind_front was throwing some errors coz of templated functions.\nHandled it differently by moving majority of code to a separate function and keeping the Lambda short",
+      "parentUuid": "fc4bb8f7_8c9797b6",
+      "range": {
+        "startLine": 1155,
+        "startChar": 0,
+        "endLine": 1249,
+        "endChar": 24
+      },
+      "revId": "cdb743922583dc4865f878b6e9039a8f2c687ff8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "273e9b6d_4eb1a73b",
@@ -100,6 +172,30 @@
       "writtenOn": "2022-08-25T14:42:05Z",
       "side": 1,
       "message": "Why was this copied?  Websockets don\u0027t need to return an allow header, and don\u0027t really have a verb, so an allow header doesn\u0027t make sense.",
+      "range": {
+        "startLine": 1272,
+        "startChar": 0,
+        "endLine": 1283,
+        "endChar": 9
+      },
+      "revId": "cdb743922583dc4865f878b6e9039a8f2c687ff8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f29ab1b2_91a79323",
+        "filename": "http/routing.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1283,
+      "author": {
+        "id": 1000907
+      },
+      "writtenOn": "2022-11-21T10:05:52Z",
+      "side": 1,
+      "message": "Section Removed",
+      "parentUuid": "273e9b6d_4eb1a73b",
       "range": {
         "startLine": 1272,
         "startChar": 0,
@@ -157,6 +253,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a0d6b363_c824c57b",
+        "filename": "http/routing.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1308,
+      "author": {
+        "id": 1000907
+      },
+      "writtenOn": "2022-11-21T10:05:52Z",
+      "side": 1,
+      "message": "It was picked up by mistake. Reverted",
+      "parentUuid": "340beaf3_fb7c1767",
+      "range": {
+        "startLine": 1308,
+        "startChar": 32,
+        "endLine": 1308,
+        "endChar": 40
+      },
+      "revId": "cdb743922583dc4865f878b6e9039a8f2c687ff8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c33303cb_d7d9e058",
@@ -170,6 +290,30 @@
       "writtenOn": "2022-08-25T14:42:05Z",
       "side": 1,
       "message": "This shouldnt\u0027 be a lambda either.  Use a normal function with bind_front",
+      "range": {
+        "startLine": 1326,
+        "startChar": 0,
+        "endLine": 1348,
+        "endChar": 13
+      },
+      "revId": "cdb743922583dc4865f878b6e9039a8f2c687ff8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d838248a_d4fec2c3",
+        "filename": "http/routing.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1348,
+      "author": {
+        "id": 1000907
+      },
+      "writtenOn": "2022-11-21T10:05:52Z",
+      "side": 1,
+      "message": "I see that only a Try catch block is here and no major code is present here.\nIt just appears lengthy as the Error Logs are being wrapped into multiple lines.\nOtherwise it is a very tiny snippet of code",
+      "parentUuid": "c33303cb_d7d9e058",
       "range": {
         "startLine": 1326,
         "startChar": 0,
