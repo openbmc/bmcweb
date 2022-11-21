@@ -33,6 +33,23 @@
       "message": "Code change LGTM. This is a bug (or typo) I believe",
       "revId": "9051f76bd4fcac295266a1fa969d9a84eccc007d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7f158301_bfe0fa40",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-11-21T17:41:02Z",
+      "side": 1,
+      "message": "Looks like it has been there a while. \nThis line was added in https://github.com/openbmc/bmcweb/commit/b9d36b4791d77a47e1f3c5c4564fcdf7cc68c115#diff-89cdfefc364922f52fc8e71fb80eaecfcbffbc1143c9a9cc9a6a7f06e533d310 ",
+      "revId": "9051f76bd4fcac295266a1fa969d9a84eccc007d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
