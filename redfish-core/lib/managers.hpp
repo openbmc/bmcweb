@@ -1946,7 +1946,7 @@ inline void requestRoutesManager(App& app)
             return;
         }
         asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1/Managers/bmc";
-        asyncResp->res.jsonValue["@odata.type"] = "#Manager.v1_14_0.Manager";
+        asyncResp->res.jsonValue["@odata.type"] = "#Manager.v1_16_0.Manager";
         asyncResp->res.jsonValue["Id"] = "bmc";
         asyncResp->res.jsonValue["Name"] = "OpenBmc Manager";
         asyncResp->res.jsonValue["Description"] =
@@ -1966,6 +1966,8 @@ inline void requestRoutesManager(App& app)
             "/redfish/v1/Managers/bmc/NetworkProtocol";
         asyncResp->res.jsonValue["EthernetInterfaces"]["@odata.id"] =
             "/redfish/v1/Managers/bmc/EthernetInterfaces";
+        asyncResp->res.jsonValue["DedicatedNetworkPorts"]["@odata.id"] = 
+            "/redfish/v1/Managers/bmc/DedicatedNetworkPorts";
 
 #ifdef BMCWEB_ENABLE_VM_NBDPROXY
         asyncResp->res.jsonValue["VirtualMedia"]["@odata.id"] =
