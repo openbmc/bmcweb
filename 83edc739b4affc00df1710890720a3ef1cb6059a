@@ -93,6 +93,23 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ed33694_aaa09c6c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-11-22T18:59:20Z",
+      "side": 1,
+      "message": "Pretty sure this fails the validator if the association isn\u0027t there ",
+      "revId": "83edc739b4affc00df1710890720a3ef1cb6059a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b8b25eca_e0b4f5e8",
