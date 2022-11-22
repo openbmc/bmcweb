@@ -331,6 +331,42 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4799fc82_3bd144f8",
+        "filename": "AGGREGATION.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-11-22T17:20:25Z",
+      "side": 1,
+      "message": "I\u0027ve added an additional section which mentions that aggregation currently makes the same assumptions around $metadata as it does for /redfish/v1/$metadata.  Please reopen this thread if you think additional information should be included",
+      "parentUuid": "b2bf5fef_acbe61ec",
+      "revId": "0a11f6bbb324af5ee0c33fb1a2c56b0c14b10daa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "816b2494_5cbcfbf6",
+        "filename": "AGGREGATION.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-11-22T17:20:25Z",
+      "side": 1,
+      "message": "\u003e \u003e  Whatever entity can use the value of \"@odata.type\" to lookup the schema, but the result will be from the aggregating BMC instead of the satellite.\n\u003e Right, but we need some way for the aggregating bmc to aggregate the schema files.  We punted on this originally, but we should probably document that assumption here, which is where my original comment was geared at.\n\nAlright I think I understand now.  I\u0027ve added an additional clarification for $metadata to the doc.  It\u0027s immediately after this portion on /redfish/v1/JsonSchemas.\n\nI\u0027m going to mark this resolved, but please let me know if you think I should include additional information like the discussion from the link provided in Milton\u0027s comment.  I\u0027m assuming we\u0027ll ultimately want to do something rather than make assumptions.  My preference is to not include talk of that until there\u0027s something more concrete, kinda like how there is list of specific features that must be implemented before we can turn on aggregation by default.",
+      "parentUuid": "9e018062_5e202cbc",
+      "revId": "0a11f6bbb324af5ee0c33fb1a2c56b0c14b10daa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fa2e6936_40336506",
