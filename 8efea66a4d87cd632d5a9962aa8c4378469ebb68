@@ -20,6 +20,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "49d64d44_b0638e2d",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-11-22T19:10:17Z",
+      "side": 1,
+      "message": "nit: some missing headers, vector, boost headers for error, error messages",
+      "range": {
+        "startLine": 8,
+        "startChar": 10,
+        "endLine": 8,
+        "endChar": 16
+      },
+      "revId": "8efea66a4d87cd632d5a9962aa8c4378469ebb68",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9960eda1_4ec86dcc",
         "filename": "redfish-core/lib/fan.hpp",
         "patchSetId": 15
@@ -31,6 +54,29 @@
       "writtenOn": "2022-11-22T19:06:28Z",
       "side": 1,
       "message": "What if you don\u0027t have any?",
+      "revId": "8efea66a4d87cd632d5a9962aa8c4378469ebb68",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c13a8aab_ff602db6",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-11-22T19:10:17Z",
+      "side": 1,
+      "message": "nit: this does nothing, the whole function can be empty for now?",
+      "range": {
+        "startLine": 38,
+        "startChar": 4,
+        "endLine": 42,
+        "endChar": 5
+      },
       "revId": "8efea66a4d87cd632d5a9962aa8c4378469ebb68",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
