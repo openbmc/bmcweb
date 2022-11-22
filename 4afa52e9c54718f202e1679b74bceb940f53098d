@@ -58,6 +58,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "084f2b27_77b4debb",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1519,
+      "author": {
+        "id": 1000998
+      },
+      "writtenOn": "2022-11-22T19:16:02Z",
+      "side": 1,
+      "message": "There is already code that checks the inventory association here: https://github.com/openbmc/bmcweb/blob/master/redfish-core/lib/sensors.hpp#L1710",
+      "parentUuid": "493db7c7_9ddb313c",
+      "revId": "4afa52e9c54718f202e1679b74bceb940f53098d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fb1d876e_99174635",
@@ -71,6 +89,24 @@
       "writtenOn": "2022-09-13T20:36:33Z",
       "side": 1,
       "message": "So for each different inventory item we have a related item to, we will have to add that interface here..?",
+      "revId": "4afa52e9c54718f202e1679b74bceb940f53098d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "07115e28_7594923e",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1673,
+      "author": {
+        "id": 1000998
+      },
+      "writtenOn": "2022-11-22T19:16:02Z",
+      "side": 1,
+      "message": "Yes. I suppose we could just remove the interface list from the GetSubTree call, but there\u0027s also the code that converts the dbus path to the odata.id for the Redfish resource, which is somewhat interface specific (https://gerrit.openbmc.org/c/openbmc/bmcweb/+/54236/8/redfish-core/lib/sensors.hpp#1520).",
+      "parentUuid": "fb1d876e_99174635",
       "revId": "4afa52e9c54718f202e1679b74bceb940f53098d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
