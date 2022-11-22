@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dcd676af_88885811",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001264
+      },
+      "writtenOn": "2022-11-22T08:10:06Z",
+      "side": 1,
+      "message": "Hi @Ed,\n\nI think there is a logic changed of createNewObject in this commit https://github.com/openbmc/bmcweb/commit/ea2b670d306d85d6975b6174024985491af04a89/\n\nThe original code try to set createNewObject to true if interface not found in exist object.\nhttps://github.com/openbmc/bmcweb/blob/5f2caaef9fec67f3b4da92b7eddcf125b6987f46/redfish-core/lib/managers.hpp#L1037-L1070\n\nBut current code set true when interface found.\nhttps://github.com/openbmc/bmcweb/blob/ea2b670d306d85d6975b6174024985491af04a89/redfish-core/lib/managers.hpp#L1533-L1563\n\n",
+      "revId": "29ac6bd430006b0ad87ff160e8c08f9b5ab33861",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
