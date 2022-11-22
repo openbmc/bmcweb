@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d848cce6_422f4991",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-11-22T19:04:10Z",
+      "side": 1,
+      "message": "Does it use associations or how does it find the PowerWatts?",
+      "revId": "af0a962fda91e91cbfb28f64f50bb56b835e3d49",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "66a23ae5_83bc5b66",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-11-22T19:04:10Z",
+      "side": 1,
+      "message": "Redfish.md update?",
+      "revId": "af0a962fda91e91cbfb28f64f50bb56b835e3d49",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
