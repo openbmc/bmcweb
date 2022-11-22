@@ -34,6 +34,57 @@
       "parentUuid": "039ca104_2b151536",
       "revId": "83edc739b4affc00df1710890720a3ef1cb6059a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9a39a98f_b307329b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-11-22T18:42:53Z",
+      "side": 1,
+      "message": "Could you write a test for this?",
+      "revId": "83edc739b4affc00df1710890720a3ef1cb6059a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b8b25eca_e0b4f5e8",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-11-22T18:42:53Z",
+      "side": 1,
+      "message": "Can this be generic and moved to like dbus_utility?\n\ngetAssociationEndPoints ?",
+      "revId": "83edc739b4affc00df1710890720a3ef1cb6059a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c090bf2d_82c16efa",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-11-22T18:42:53Z",
+      "side": 1,
+      "message": "If your chassis doesn\u0027t have any  powered_by associations, you hit this resourceNotFound but you still have the link to /redfish/v1/Chassis/\u003cstr\u003e/PowerSubsystem/PowerSupplies/ in PowerSubsystem. \n\nI don\u0027t think this works, a system without a powered_by association is going to fail the validator. \nI think you should just return or callback here, instead of a resourceNotFound",
+      "revId": "83edc739b4affc00df1710890720a3ef1cb6059a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
