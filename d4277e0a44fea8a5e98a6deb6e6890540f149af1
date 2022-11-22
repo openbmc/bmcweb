@@ -52,6 +52,23 @@
       "parentUuid": "7533f642_b9595f40",
       "revId": "d4277e0a44fea8a5e98a6deb6e6890540f149af1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff6169e4_8c3868fa",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-11-22T19:07:13Z",
+      "side": 1,
+      "message": "LGTM. Left a comment on lambda usage",
+      "revId": "d4277e0a44fea8a5e98a6deb6e6890540f149af1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
