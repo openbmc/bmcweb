@@ -34,6 +34,7 @@
 #include "network_protocol.hpp"
 #include "pcie.hpp"
 #include "ports.hpp"
+#include "port_metrics.hpp"
 #include "power.hpp"
 #include "power_subsystem.hpp"
 #include "processor.hpp"
@@ -77,6 +78,7 @@ class RedfishService
         requestRoutesSession(app);
         requestEthernetInterfacesRoutes(app);
         requestPortsRoutes(app);
+        requestPortMetricsRoutes(app);
 #ifdef BMCWEB_ALLOW_DEPRECATED_POWER_THERMAL
         requestRoutesThermal(app);
         requestRoutesPower(app);

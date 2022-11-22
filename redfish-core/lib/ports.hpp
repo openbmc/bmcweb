@@ -5,6 +5,7 @@
 
 #include <arpa/inet.h>
 #include <ifaddrs.h>
+#include <linux/if_link.h>
 #include <netdb.h>
 #include <stdlib.h>
 #include <sys/socket.h>
@@ -25,6 +26,8 @@ struct PortInfo
     int speed;
     bool enabled;
     bool linkUp;
+    uint TXDropped;
+    uint RXDropped;
 };
 
 int getSpeed(std::string interfaceName)
@@ -81,12 +84,17 @@ PortInfo getPortInfo(const int portId)
 
         if (portNum == portId)
         {
-            BMCWEB_LOG_DEBUG << "Got port " << ifa->ifa_name;
             portInfo.portId = portNum;
             portInfo.interfaceName = ifa->ifa_name;
             portInfo.speed = getSpeed(ifa->ifa_name);
             portInfo.enabled = getEnabled(ifa->ifa_name);
             portInfo.linkUp = getLinkUp(ifa->ifa_name);
+
+            struct rtnl_link_stats* stats =
+                static_cast<rtnl_link_stats*>(ifa->ifa_data);
+            portInfo.TXDropped = stats->tx_dropped;
+            portInfo.RXDropped = stats->rx_dropped;
+
             freeifaddrs(ifaddr);
             return portInfo;
         }
@@ -164,13 +172,16 @@ inline void handleDedicatedNetworkPortsGet(
     asyncResp->res.jsonValue["@odata.id"] =
         "/redfish/v1/Managers/bmc/DedicatedNetworkPorts/" +
         std::to_string(portId);
-    asyncResp->res.jsonValue["Name"] = "Network Port";
-    asyncResp->res.jsonValue["Id"] = portInfo.interfaceName;
+    asyncResp->res.jsonValue["Name"] = portInfo.interfaceName;
+    asyncResp->res.jsonValue["Id"] = portInfo.portId;
     asyncResp->res.jsonValue["PortId"] = portInfo.portId;
     asyncResp->res.jsonValue["CurrentSpeedGbps"] = portInfo.speed;
     asyncResp->res.jsonValue["LinkState"] =
         getLinkState(portInfo.linkUp, portInfo.enabled);
-    asyncResp->res.jsonValue["Description"] = "Network Port information";
+    asyncResp->res.jsonValue["Description"] = "Port information";
+    asyncResp->res.jsonValue["Metrics"]["@odata.id"] =
+        "/redfish/v1/Managers/bmc/DedicatedNetworkPorts/" +
+        std::to_string(portId) + "/Metrics";
 }
 
 inline void handleDedicatedNetworkPortsCollectionGet(
