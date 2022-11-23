@@ -427,7 +427,7 @@ inline void
                     boost::container::flat_set<IPv6AddressData>& ipv6Config)
 {
     const std::string ipv6PathStart =
-        "/xyz/openbmc_project/network/" + ethifaceId + "/ipv6/";
+        "/xyz/openbmc_project/network/" + ethifaceId;
 
     // Since there might be several IPv6 configurations aligned with
     // single ethernet interface, loop over all of them
@@ -505,7 +505,7 @@ inline void
                   boost::container::flat_set<IPv4AddressData>& ipv4Config)
 {
     const std::string ipv4PathStart =
-        "/xyz/openbmc_project/network/" + ethifaceId + "/ipv4/";
+        "/xyz/openbmc_project/network/" + ethifaceId;
 
     // Since there might be several IPv4 configurations aligned with
     // single ethernet interface, loop over all of them
