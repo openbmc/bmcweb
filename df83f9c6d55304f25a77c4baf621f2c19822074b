@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a1d8cf75_9207f781",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1001135
+      },
+      "writtenOn": "2022-11-23T14:00:12Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "115b7fdf_7520ad3f",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 8,
+        "endChar": 0
+      },
+      "revId": "df83f9c6d55304f25a77c4baf621f2c19822074b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "64053efa_9bd62bf3",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-11-10T17:39:29Z",
       "side": 1,
       "message": "Could you also mention service validator results?",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 44
+      },
+      "revId": "df83f9c6d55304f25a77c4baf621f2c19822074b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b8ef8ba8_773bae57",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1001135
+      },
+      "writtenOn": "2022-11-23T14:00:12Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "64053efa_9bd62bf3",
       "range": {
         "startLine": 22,
         "startChar": 0,
@@ -148,6 +196,30 @@
       "writtenOn": "2022-11-10T17:41:57Z",
       "side": 1,
       "message": "Could you combine these two branches?\n\nsystemName !\u003d \"system\" \u0026\u0026 !(collection_util::isValidSystem(computerSystemIndex))",
+      "range": {
+        "startLine": 1045,
+        "startChar": 8,
+        "endLine": 1047,
+        "endChar": 71
+      },
+      "revId": "df83f9c6d55304f25a77c4baf621f2c19822074b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f956c142_a3a9a837",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1047,
+      "author": {
+        "id": 1001135
+      },
+      "writtenOn": "2022-11-23T14:00:12Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "3f0c8c55_b89ca6cc",
       "range": {
         "startLine": 1045,
         "startChar": 8,
@@ -479,6 +551,30 @@
       "writtenOn": "2022-11-14T20:24:16Z",
       "side": 1,
       "message": "Was a command originally here?",
+      "range": {
+        "startLine": 3957,
+        "startChar": 13,
+        "endLine": 3957,
+        "endChar": 17
+      },
+      "revId": "df83f9c6d55304f25a77c4baf621f2c19822074b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e00320a_32840bed",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 3957,
+      "author": {
+        "id": 1001135
+      },
+      "writtenOn": "2022-11-23T14:00:12Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "ea806fa5_6db3e201",
       "range": {
         "startLine": 3957,
         "startChar": 13,
