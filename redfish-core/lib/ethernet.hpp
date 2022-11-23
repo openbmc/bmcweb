@@ -429,20 +429,40 @@ inline void
                     const dbus::utility::ManagedObjectType& dbusData,
                     boost::container::flat_set<IPv6AddressData>& ipv6Config)
 {
-    const std::string ipv6PathStart =
-        "/xyz/openbmc_project/network/" + ethifaceId + "/ipv6/";
+    const std::string ipPathStart =
+        "/xyz/openbmc_project/network/" + ethifaceId;
 
     // Since there might be several IPv6 configurations aligned with
     // single ethernet interface, loop over all of them
     for (const auto& objpath : dbusData)
     {
         // Check if proper pattern for object path appears
-        if (objpath.first.str.starts_with(ipv6PathStart))
+        if (objpath.first.str.starts_with(ipPathStart + "/"))
         {
             for (const auto& interface : objpath.second)
             {
                 if (interface.first == "xyz.openbmc_project.Network.IP")
                 {
+                    auto type = std::find_if(interface.second.begin(),
+                                             interface.second.end(),
+                                             [](const auto& property) {
+                        return property.first == "Type";
+                    });
+                    if (type == interface.second.end())
+                    {
+                        continue;
+                    }
+
+                    const std::string* typeStr =
+                        std::get_if<std::string>(&type->second);
+
+                    if (typeStr == nullptr ||
+                        (*typeStr !=
+                         "xyz.openbmc_project.Network.IP.Protocol.IPv6"))
+                    {
+                        continue;
+                    }
+
                     // Instance IPv6AddressData structure, and set as
                     // appropriate
                     std::pair<
@@ -451,7 +471,7 @@ inline void
                         it = ipv6Config.insert(IPv6AddressData{});
                     IPv6AddressData& ipv6Address = *it.first;
                     ipv6Address.id =
-                        objpath.first.str.substr(ipv6PathStart.size());
+                        objpath.first.str.substr(ipPathStart.size());
                     for (const auto& property : interface.second)
                     {
                         if (property.first == "Address")
@@ -507,20 +527,40 @@ inline void
                   const dbus::utility::ManagedObjectType& dbusData,
                   boost::container::flat_set<IPv4AddressData>& ipv4Config)
 {
-    const std::string ipv4PathStart =
-        "/xyz/openbmc_project/network/" + ethifaceId + "/ipv4/";
+    const std::string ipPathStart =
+        "/xyz/openbmc_project/network/" + ethifaceId;
 
     // Since there might be several IPv4 configurations aligned with
     // single ethernet interface, loop over all of them
     for (const auto& objpath : dbusData)
     {
         // Check if proper pattern for object path appears
-        if (objpath.first.str.starts_with(ipv4PathStart))
+        if (objpath.first.str.starts_with(ipPathStart + "/"))
         {
             for (const auto& interface : objpath.second)
             {
                 if (interface.first == "xyz.openbmc_project.Network.IP")
                 {
+                    auto type = std::find_if(interface.second.begin(),
+                                             interface.second.end(),
+                                             [](const auto& property) {
+                        return property.first == "Type";
+                    });
+                    if (type == interface.second.end())
+                    {
+                        continue;
+                    }
+
+                    const std::string* typeStr =
+                        std::get_if<std::string>(&type->second);
+
+                    if (typeStr == nullptr ||
+                        (*typeStr !=
+                         "xyz.openbmc_project.Network.IP.Protocol.IPv4"))
+                    {
+                        continue;
+                    }
+
                     // Instance IPv4AddressData structure, and set as
                     // appropriate
                     std::pair<
@@ -529,7 +569,7 @@ inline void
                         it = ipv4Config.insert(IPv4AddressData{});
                     IPv4AddressData& ipv4Address = *it.first;
                     ipv4Address.id =
-                        objpath.first.str.substr(ipv4PathStart.size());
+                        objpath.first.str.substr(ipPathStart.size());
                     for (const auto& property : interface.second)
                     {
                         if (property.first == "Address")
