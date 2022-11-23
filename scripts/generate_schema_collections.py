@@ -266,17 +266,17 @@ def generate_top_collections():
             "\n"
             "namespace redfish\n"
             "{{\n"
-            '// Note that each URI actually begins with "/redfish/v1/"\n'
+            '// Note that each URI actually begins with "/redfish/v1"\n'
             "// They've been omitted to save space and reduce search time\n"
             "constexpr std::array<std::string_view, {TOTAL}> "
             "topCollections{{\n".format(WARNING=WARNING, TOTAL=TOTAL)
         )
 
         for collection in sorted(top_collections):
-            # All URIs start with "/redfish/v1/".  We can omit that portion to
+            # All URIs start with "/redfish/v1".  We can omit that portion to
             # save memory and reduce lookup time
             hpp_file.write(
-                '    "{}",\n'.format(collection.split("/redfish/v1/")[1])
+                '    "{}",\n'.format(collection.split("/redfish/v1")[1])
             )
 
         hpp_file.write("};\n} // namespace redfish\n")
