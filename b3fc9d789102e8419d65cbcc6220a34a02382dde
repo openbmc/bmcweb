@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1278a39e_843a6032",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-11-23T15:19:36Z",
+      "side": 1,
+      "message": "Can you add an example of where this will be used? E.g. PowerSupplies from the chassis.\n\nI assume you tested with a commit like https://gerrit.openbmc.org/c/openbmc/bmcweb/+/57668 ?",
+      "revId": "b3fc9d789102e8419d65cbcc6220a34a02382dde",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
