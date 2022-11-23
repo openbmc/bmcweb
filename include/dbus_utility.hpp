@@ -15,9 +15,12 @@
  */
 #pragma once
 
+#include "async_resp.hpp"
 #include "dbus_singleton.hpp"
+#include "error_messages.hpp"
 
 #include <boost/system/error_code.hpp> // IWYU pragma: keep
+#include <sdbusplus/asio/property.hpp>
 #include <sdbusplus/message/native_types.hpp>
 
 #include <array>
@@ -25,6 +28,7 @@
 #include <cstdint>
 #include <filesystem>
 #include <functional>
+#include <optional>
 #include <regex>
 #include <span>
 #include <sstream>
@@ -93,6 +97,7 @@ using MapperGetAncestorsResponse = std::vector<
               std::vector<std::pair<std::string, std::vector<std::string>>>>>;
 
 using MapperGetSubTreePathsResponse = std::vector<std::string>;
+using MapperEndPoints = std::vector<std::string>;
 
 inline void escapePathForDbus(std::string& path)
 {
@@ -171,6 +176,34 @@ inline void getSubTreePaths(
         "/xyz/openbmc_project/object_mapper",
         "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths", path, 0,
         interfaces);
+}
+
+inline void getAssociationEndPoints(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& path,
+    std::function<void(const std::optional<MapperEndPoints>&)>&& callback)
+{
+    sdbusplus::asio::getProperty<MapperEndPoints>(
+        *crow::connections::systemBus, "xyz.openbmc_project.ObjectMapper", path,
+        "xyz.openbmc_project.Association", "endpoints",
+        [asyncResp,
+         callback{std::move(callback)}](const boost::system::error_code& ec,
+                                        const MapperEndPoints& endpoints) {
+        if (ec)
+        {
+            if (ec.value() == EBADR)
+            {
+                callback(std::nullopt);
+                return;
+            }
+
+            BMCWEB_LOG_ERROR << "Failed to get endpoints, error_code = " << ec
+                             << ", error message = " << ec.message();
+            redfish::messages::internalError(asyncResp->res);
+            return;
+        }
+        callback(endpoints);
+        });
 }
 
 } // namespace utility
