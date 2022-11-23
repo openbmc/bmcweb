@@ -81,44 +81,49 @@ static void addPrefixToItem(nlohmann::json& item, std::string_view prefix)
         return;
     }
 
-    // We don't need to add prefixes to these URIs since
-    // /redfish/v1/UpdateService/ itself is not a collection:
-    // /redfish/v1/UpdateService/FirmwareInventory
-    // /redfish/v1/UpdateService/SoftwareInventory
-    if (crow::utility::readUrlSegments(thisUrl, "redfish", "v1",
-                                       "UpdateService", "FirmwareInventory") ||
-        crow::utility::readUrlSegments(thisUrl, "redfish", "v1",
-                                       "UpdateService", "SoftwareInventory"))
+    // Check array adding a segment each time until collection is identified
+    // Add prefix to segment after the collection
+    const boost::urls::segments_view& urlSegments = thisUrl.segments();
+    //std::string currentUrl; // Needed for lookup purposes
+    bool addedPrefix = false;
+    boost::urls::url url("/");
+    boost::urls::segments_view::iterator it = urlSegments.begin();
+    const boost::urls::segments_view::iterator end = urlSegments.end();
+
+    for (; it != end; it++)
     {
-        BMCWEB_LOG_DEBUG << "Skipping UpdateService URI prefix fixing";
-        return;
+        collectionItem = *it;
+        // Trailing "/" will result in an empty segment.  In that case we need
+        // to return so we don't apply a prefix to top level collections such
+        // as "/redfish/v1/Chassis/"
+        if (collectionItem.empty())
+        {
+            return;
+        }
+
+        if (std::binary_search(topCollections.begin(), topCollections.end(),
+                               url.buffer()))
+        {
+            collectionItem.insert(0, "_");
+            collectionItem.insert(0, prefix);
+            url.segments().push_back(collectionItem);
+            it++;
+            addedPrefix = true;
+            break;
+        }
+
+        url.segments().push_back(*it);
     }
 
-    // We need to add a prefix to FirmwareInventory and SoftwareInventory
-    // resources:
-    // /redfish/v1/UpdateService/FirmwareInventory/<id>
-    // /redfish/v1/UpdateService/SoftwareInventory/<id>
-    std::string collectionName;
-    if (crow::utility::readUrlSegments(
-            thisUrl, "redfish", "v1", "UpdateService", std::ref(collectionName),
-            std::ref(collectionItem), crow::utility::OrMorePaths()))
+    // Finish constructing the URL here (if needed) to avoid additional checks
+    for (; it != end; it++)
     {
-        collectionItem.insert(0, "_");
-        collectionItem.insert(0, prefix);
-        item = crow::utility::replaceUrlSegment(thisUrl, 4, collectionItem);
-        return;
+        url.segments().push_back(*it);
     }
 
-    // If we reach here then we need to add a prefix to resource IDs that take
-    // the general form of "/redfish/v1/<collection>/<id> such as:
-    // /redfish/v1/Chassis/foo
-    if (crow::utility::readUrlSegments(
-            thisUrl, "redfish", "v1", std::ref(collectionName),
-            std::ref(collectionItem), crow::utility::OrMorePaths()))
+    if (addedPrefix)
     {
-        collectionItem.insert(0, "_");
-        collectionItem.insert(0, prefix);
-        item = crow::utility::replaceUrlSegment(thisUrl, 3, collectionItem);
+        item = url;
     }
 }
 
