@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "48d7ef8f_3a767eb6",
+        "filename": "redfish-core/include/utils/systems_utils.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-11-23T01:57:03Z",
+      "side": 1,
+      "message": "include what you use.\n\n#include \u003cfunctional\u003e\n#include \u003cstring\u003e\n#include \u003coptional\u003e\n#include \u003carray\u003e\n#include \u003cutility\u003e (std::move)\n\n#include \u003cboost/system/error_code.hpp\u003e ?",
+      "revId": "c662aa48eaa42d753b1e0074f9ec645c27e4192f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "39061fd0_3ed06866",
         "filename": "redfish-core/lib/led.hpp",
         "patchSetId": 16
@@ -43,6 +60,29 @@
         "startChar": 16,
         "endLine": 43,
         "endChar": 71
+      },
+      "revId": "c662aa48eaa42d753b1e0074f9ec645c27e4192f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ab39a6b2_1d3f24f7",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 3158,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-11-23T01:57:03Z",
+      "side": 1,
+      "message": "Shouldn\u0027t we be doing this for all the properties? Doesn\u0027t this code replace what is on lines 3066-3071 ?\n\n        if (systemName !\u003d \"system\")\n        {\n            messages::resourceNotFound(asyncResp-\u003eres, \"ComputerSystem\",\n                                       systemName);\n            return;\n        }\n\nI guess maybe this is okay for now? Just weird we are looking for the system name only for this property",
+      "range": {
+        "startLine": 3149,
+        "startChar": 0,
+        "endLine": 3158,
+        "endChar": 17
       },
       "revId": "c662aa48eaa42d753b1e0074f9ec645c27e4192f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
