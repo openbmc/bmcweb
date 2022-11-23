@@ -41,23 +41,10 @@ inline void
                                 const bool populateLinkToImages)
 {
     // Used later to determine running (known on Redfish as active) Sw images
-    sdbusplus::asio::getProperty<std::vector<std::string>>(
-        *crow::connections::systemBus, "xyz.openbmc_project.ObjectMapper",
-        "/xyz/openbmc_project/software/functional",
-        "xyz.openbmc_project.Association", "endpoints",
-        [aResp, swVersionPurpose, activeVersionPropName,
-         populateLinkToImages](const boost::system::error_code ec,
-                               const std::vector<std::string>& functionalSw) {
-        BMCWEB_LOG_DEBUG << "populateSoftwareInformation enter";
-        if (ec)
-        {
-            BMCWEB_LOG_ERROR << "error_code = " << ec;
-            BMCWEB_LOG_ERROR << "error msg = " << ec.message();
-            messages::internalError(aResp->res);
-            return;
-        }
-
-        if (functionalSw.empty())
+    auto respHandler =
+        [aResp, swVersionPurpose, activeVersionPropName, populateLinkToImages](
+            const std::optional<dbus::utility::MapperEndPoints>& functionalSw) {
+        if (!functionalSw || functionalSw->empty())
         {
             // Could keep going and try to populate SoftwareImages but
             // something is seriously wrong, so just fail
@@ -70,7 +57,7 @@ inline void
         // example functionalSw:
         // v as 2 "/xyz/openbmc_project/software/ace821ef"
         //        "/xyz/openbmc_project/software/230fb078"
-        for (const auto& sw : functionalSw)
+        for (const auto& sw : *functionalSw)
         {
             sdbusplus::message::object_path path(sw);
             std::string leaf = path.filename();
@@ -222,7 +209,11 @@ inline void
             "xyz.openbmc_project.ObjectMapper", "GetSubTree",
             "/xyz/openbmc_project/software", static_cast<int32_t>(0),
             std::array<const char*, 1>{"xyz.openbmc_project.Software.Version"});
-        });
+    };
+
+    dbus::utility::getAssociationEndPoints(
+        aResp, "/xyz/openbmc_project/software/functional",
+        std::move(respHandler));
 }
 
 /**
