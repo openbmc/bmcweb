@@ -35,6 +35,7 @@
 #include <sdbusplus/unpack_properties.hpp>
 
 #include <array>
+#include <iomanip>
 #include <string_view>
 #include <variant>
 
@@ -758,6 +759,12 @@ inline std::string dbusToRfBootProgress(const std::string& dbusBootProgress)
     {
         rfBpLastState = "OSRunning";
     }
+    else if (dbusBootProgress ==
+             "xyz.openbmc_project.State.Boot.Progress.ProgressStages."
+             "OEM")
+    {
+        rfBpLastState = "OEM";
+    }
     else
     {
         BMCWEB_LOG_DEBUG << "Unsupported D-Bus BootProgress "
@@ -885,6 +892,108 @@ inline void getBootProgressLastStateTime(
         // Convert to ISO 8601 standard
         aResp->res.jsonValue["BootProgress"]["LastStateTime"] =
             redfish::time_utils::getDateTimeUintUs(lastStateTime);
+        });
+}
+
+/**
+ * @brief Retrieves boot progress OemLastState of the system
+ *
+ * @param[in] aResp  Shared pointer for generating response message.
+ *
+ * @return None.
+ */
+inline void
+    getBootProgressOemLastState(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
+{
+    /* Check the boot progress LastState */
+    sdbusplus::asio::getProperty<std::string>(
+        *crow::connections::systemBus, "xyz.openbmc_project.State.Host",
+        "/xyz/openbmc_project/state/host0",
+        "xyz.openbmc_project.State.Boot.Progress", "BootProgress",
+        [aResp](const boost::system::error_code ec,
+                const std::string& bootProgressStr) {
+        if (ec)
+        {
+            // BootProgress is an optional object so just do nothing if
+            // not found
+            return;
+        }
+        /* The OemLastState only present if LastState is "OEM" */
+        if (dbusToRfBootProgress(bootProgressStr) == "OEM")
+        {
+            crow::connections::systemBus->async_method_call(
+                [aResp](const boost::system::error_code ec2,
+                        const std::variant<
+                            std::tuple<uint64_t, std::vector<uint8_t>>>&
+                            bootProgressOemLastState) {
+                if (ec2)
+                {
+                    return;
+                }
+
+                std::string bootProgressOemLastStateStr = "0x";
+                std::stringstream tmp;
+                uint64_t bootProgress1st = 0;
+                std::vector<uint8_t> bootProgress2nd;
+
+                const std::tuple<uint64_t, std::vector<uint8_t>>*
+                    bootProgressOemLastStatePtr =
+                        std::get_if<std::tuple<uint64_t, std::vector<uint8_t>>>(
+                            &bootProgressOemLastState);
+                if (bootProgressOemLastStatePtr == nullptr)
+                {
+                    messages::internalError(aResp->res);
+                }
+
+                /* The OemLastState updated to the PostCodes Boot.Raw:
+                 * https://github.com/openbmc/phosphor-dbus-interfaces/blob/master/yaml/
+                 * xyz/openbmc_project/State/Boot/Raw.interface.yaml#L6
+                 * The type of the Boot.Raw value is struct[uint64,array[byte]]
+                 */
+                /* Get the first element of the boot progress code, uint64 type
+                 */
+                bootProgress1st = std::get<0>(*bootProgressOemLastStatePtr);
+                /* Get second element of the boot progress, array[byte] type */
+                bootProgress2nd = std::get<1>(*bootProgressOemLastStatePtr);
+                /* Formatting boot progress code */
+                tmp << std::hex << std::setfill('0');
+
+                /* Set "OemLastState": to "" if there is no boot progress code
+                 */
+                if (bootProgress1st == 0)
+                {
+                    bootProgressOemLastStateStr = "";
+                }
+                else
+                {
+                    /* Get first bytes of the boot progress code */
+                    tmp << std::setw(2)
+                        << static_cast<uint64_t>(bootProgress1st);
+
+                    if (!bootProgress2nd.empty())
+                    {
+                        /* Get the last byte of the boot progress code */
+                        for (uint8_t i : bootProgress2nd)
+                        {
+                            tmp << std::setw(2) << static_cast<uint16_t>(i);
+                        }
+                    }
+                    /* Padding, Ex: 0x1020304 to 0x01020304 */
+                    if ((tmp.str().size() % 2) != 0)
+                    {
+                        bootProgressOemLastStateStr = "0x0";
+                    }
+                    bootProgressOemLastStateStr += tmp.str();
+                }
+
+                aResp->res.jsonValue["BootProgress"]["OemLastState"] =
+                    bootProgressOemLastStateStr;
+                },
+                "xyz.openbmc_project.State.Boot.Raw",
+                "/xyz/openbmc_project/state/boot/raw0",
+                "org.freedesktop.DBus.Properties", "Get",
+                "xyz.openbmc_project.State.Boot.Raw", "Value");
+        }
         });
 }
 
@@ -3010,6 +3119,7 @@ inline void requestRoutesSystems(App& app)
         getBootProperties(asyncResp);
         getBootProgress(asyncResp);
         getBootProgressLastStateTime(asyncResp);
+        getBootProgressOemLastState(asyncResp);
         getPCIeDeviceList(asyncResp, "PCIeDevices");
         getHostWatchdogTimer(asyncResp);
         getPowerRestorePolicy(asyncResp);
