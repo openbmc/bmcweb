@@ -241,6 +241,30 @@
       },
       "revId": "a8ffdb09e1ce92ff0dc828dae2f3eb2928af14f2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d500217d_4728295e",
+        "filename": "scripts/generate_schema_enums.py",
+        "patchSetId": 15
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-11-23T14:44:59Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "5e2cc8dc_498563f2",
+      "range": {
+        "startLine": 80,
+        "startChar": 0,
+        "endLine": 81,
+        "endChar": 39
+      },
+      "revId": "a8ffdb09e1ce92ff0dc828dae2f3eb2928af14f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
