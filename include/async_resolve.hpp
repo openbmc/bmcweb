@@ -1,6 +1,7 @@
 #pragma once
 #include <boost/asio/ip/address.hpp>
 #include <boost/asio/ip/basic_endpoint.hpp>
+#include <boost/asio/ip/tcp.hpp>
 #include <sdbusplus/message.hpp>
 
 #include <charconv>
