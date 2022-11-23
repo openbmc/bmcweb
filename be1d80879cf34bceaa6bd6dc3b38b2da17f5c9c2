@@ -386,6 +386,75 @@
       },
       "revId": "be1d80879cf34bceaa6bd6dc3b38b2da17f5c9c2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "73756d90_41d64a9a",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 2784,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-11-23T19:05:47Z",
+      "side": 1,
+      "message": "Prefer define variables as near as possible to where it\u0027s firstly used, so that the scope of this variable can be reduced.",
+      "range": {
+        "startLine": 2784,
+        "startChar": 28,
+        "endLine": 2784,
+        "endChar": 35
+      },
+      "revId": "be1d80879cf34bceaa6bd6dc3b38b2da17f5c9c2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "100e396e_bd072f6d",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 2785,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-11-23T19:05:47Z",
+      "side": 1,
+      "message": "Need to check if |objects| is empty or not before indexing the first item.",
+      "range": {
+        "startLine": 2785,
+        "startChar": 60,
+        "endLine": 2785,
+        "endChar": 67
+      },
+      "revId": "be1d80879cf34bceaa6bd6dc3b38b2da17f5c9c2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ab4b74e7_31afd60d",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 2801,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-11-23T19:05:47Z",
+      "side": 1,
+      "message": "Why +1?",
+      "range": {
+        "startLine": 2801,
+        "startChar": 29,
+        "endLine": 2801,
+        "endChar": 33
+      },
+      "revId": "be1d80879cf34bceaa6bd6dc3b38b2da17f5c9c2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
