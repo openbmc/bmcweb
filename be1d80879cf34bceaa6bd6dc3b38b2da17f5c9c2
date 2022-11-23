@@ -47,6 +47,53 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "878017cd_ae82d998",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 32
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-11-23T19:02:23Z",
+      "side": 1,
+      "message": "patrick@stwcx.xyz\n\nWhat do you think about this? I believe we should get an alignment about this first.\n\n\u003e What if the system in question doesn\u0027t support independent reset or host state?\n\nDo we have any backend exposing this kind of system without states?",
+      "parentUuid": "0f556976_69946444",
+      "range": {
+        "startLine": 15,
+        "startChar": 9,
+        "endLine": 16,
+        "endChar": 50
+      },
+      "revId": "be1d80879cf34bceaa6bd6dc3b38b2da17f5c9c2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d72e5f73_335a4f62",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 32
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-11-23T19:02:23Z",
+      "side": 1,
+      "message": "Could you mention what kind of tests are performed?",
+      "range": {
+        "startLine": 35,
+        "startChar": 15,
+        "endLine": 35,
+        "endChar": 21
+      },
+      "revId": "be1d80879cf34bceaa6bd6dc3b38b2da17f5c9c2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "dbaece37_82324a13",
@@ -290,6 +337,52 @@
         "startChar": 0,
         "endLine": 129,
         "endChar": 18
+      },
+      "revId": "be1d80879cf34bceaa6bd6dc3b38b2da17f5c9c2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "252c3d41_7435c172",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-11-23T19:02:23Z",
+      "side": 1,
+      "message": "For new code, please use \"\" for local headers",
+      "range": {
+        "startLine": 29,
+        "startChar": 15,
+        "endLine": 29,
+        "endChar": 22
+      },
+      "revId": "be1d80879cf34bceaa6bd6dc3b38b2da17f5c9c2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4960157c_31eccda3",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 1261,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-11-23T19:02:23Z",
+      "side": 1,
+      "message": "nit, no bracket is needed. this also applies to other places",
+      "range": {
+        "startLine": 1261,
+        "startChar": 8,
+        "endLine": 1261,
+        "endChar": 9
       },
       "revId": "be1d80879cf34bceaa6bd6dc3b38b2da17f5c9c2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
