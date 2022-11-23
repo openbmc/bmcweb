@@ -96,6 +96,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2b6c757d_1bd73079",
+        "filename": "redfish-core/lib/thermal_subsystem.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-11-23T00:35:39Z",
+      "side": 1,
+      "message": "\u003e \u003e \u003e Yes, Becasue the following line of code is not necessary:\n\u003e \u003e \u003e https://gerrit.openbmc.org/c/openbmc/bmcweb/+/58731/2/redfish-core/lib/thermal_subsystem.hpp#b48\n\u003e \u003e \n\u003e \u003e \n\u003e \u003e I am confused by your comment? It looks like you updated the variable name (to a better name if you ask me). I am confused about, how this line of code has anything to do with that updated variable name.\n\u003e \n\u003e \u003e same as above\n\u003e \n\u003e Seems like Ed is suggesting using a dedicated function + std::bind_front. Here we just bind a lambda, which is sort of weird.\n\u003e \n\u003e \u003e But Could you kindly explain what issues in debugging with lambda?\n\u003e \n\u003e IMO lambdas are less readable.\n\u003e \n\u003e But here the lambda is really short. Do we accept it?\n\nThanks Nan, I am fine with std::bind_front",
+      "parentUuid": "d9a213ed_13704adb",
+      "range": {
+        "startLine": 65,
+        "startChar": 58,
+        "endLine": 65,
+        "endChar": 69
+      },
+      "revId": "463d395e1aae7b6bfa0073506795ac1c9fa8134b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7bceb0b4_050ec257",
