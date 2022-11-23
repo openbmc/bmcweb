@@ -367,6 +367,7 @@ srcfiles_unittest = files(
   'test/include/multipart_test.cpp',
   'test/include/openbmc_dbus_rest_test.cpp',
   'test/redfish-core/include/privileges_test.cpp',
+  'test/redfish-core/include/redfish_aggregator_test.cpp',
   'test/redfish-core/include/registries_test.cpp',
   'test/redfish-core/include/utils/hex_utils_test.cpp',
   'test/redfish-core/include/utils/ip_utils_test.cpp',
