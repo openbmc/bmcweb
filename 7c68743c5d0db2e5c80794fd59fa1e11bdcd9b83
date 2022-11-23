@@ -332,6 +332,24 @@
       "parentUuid": "937d581e_69650e87",
       "revId": "7c68743c5d0db2e5c80794fd59fa1e11bdcd9b83",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "06fe6abe_9ec43153",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 967,
+      "author": {
+        "id": 1000318
+      },
+      "writtenOn": "2022-11-23T15:14:09Z",
+      "side": 1,
+      "message": "\u003e \n\u003e If the DBus does not implement the `xyz.openbmc_project.Sensor.Accuracy` interface, the `\"Accuracy\": null` will not be displayed in Redfish. I mean, if the DBus has the `xyz.openbmc_project.Sensor.Accuracy` interface and the Accuracy value is equal to NAN, then the `\"Accuracy\": null` will be displayed in redfish, is this expected?\n\nI\u0027m not sure, hopefully Ed or Gunnar can answer that.  I\u0027d recommend whatever behavior is expected for other interfaces.",
+      "parentUuid": "246b2235_df47ad45",
+      "revId": "7c68743c5d0db2e5c80794fd59fa1e11bdcd9b83",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
