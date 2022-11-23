@@ -18,6 +18,7 @@
 #include "dbus_singleton.hpp"
 
 #include <boost/system/error_code.hpp> // IWYU pragma: keep
+#include <sdbusplus/asio/property.hpp>
 #include <sdbusplus/message/native_types.hpp>
 
 #include <array>
@@ -94,6 +95,7 @@ using MapperGetAncestorsResponse = std::vector<
               std::vector<std::pair<std::string, std::vector<std::string>>>>>;
 
 using MapperGetSubTreePathsResponse = std::vector<std::string>;
+using MapperEndPoints = std::vector<sdbusplus::message::object_path>;
 
 inline void escapePathForDbus(std::string& path)
 {
@@ -191,6 +193,16 @@ inline void
         "xyz.openbmc_project.ObjectMapper",
         "/xyz/openbmc_project/object_mapper",
         "xyz.openbmc_project.ObjectMapper", "GetObject", path, interfaces);
+}
+
+inline void getAssociationEndPoints(
+    const std::string& path,
+    std::function<void(const boost::system::error_code&,
+                       const MapperEndPoints&)>&& callback)
+{
+    sdbusplus::asio::getProperty<MapperEndPoints>(
+        *crow::connections::systemBus, "xyz.openbmc_project.ObjectMapper", path,
+        "xyz.openbmc_project.Association", "endpoints", std::move(callback));
 }
 
 } // namespace utility
