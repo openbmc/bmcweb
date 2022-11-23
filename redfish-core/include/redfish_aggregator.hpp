@@ -6,6 +6,8 @@
 #include <http_client.hpp>
 #include <http_connection.hpp>
 
+#include <array>
+
 namespace redfish
 {
 
@@ -14,6 +16,38 @@ enum class Result
     LocalHandle,
     NoLocalHandle
 };
+
+// clang-format off
+// These are all of the properties as of version 2022.2 of the Redfish Resource
+// and Schema Guide whose Type is "string (URI)" and the name does not end in a
+// case-insensitive form of "uri".  That version of the schema is associated
+// with version 1.16.0 of the Redfish Specification.  Going forward, new URI
+// properties should end in URI so this list should not need to be maintained as
+// the spec is updated.  NOTE: These have been pre-sorted in order to be
+// compatible with binary search
+constexpr std::array nonUriProperties{
+    "@Redfish.ActionInfo",
+    // "@odata.context", // We can't fix /redfish/v1/$metadata URIs
+    "@odata.id",
+    // "Destination", // Only used by EventService and won't be a Redfish URI
+    // "HostName", // Isn't actually a Redfish URI
+    "Image",
+    "MetricProperty",
+    "OriginOfCondition",
+    "TaskMonitor",
+    "target", // normal string, but target URI for POST to invoke an action
+};
+// clang-format on
+
+// Determines if the passed property contains a URI.  Those property names
+// either end with a case-insensitive version of "uri" or are specifically
+// defined in the above array.
+inline bool isPropertyUri(const std::string_view propertyName)
+{
+    return boost::iends_with(propertyName, "uri") ||
+           std::binary_search(nonUriProperties.begin(), nonUriProperties.end(),
+                              propertyName);
+}
 
 static void addPrefixToItem(nlohmann::json& item, std::string_view prefix)
 {
@@ -87,30 +121,8 @@ static void addPrefixToItem(nlohmann::json& item, std::string_view prefix)
     }
 }
 
-// We need to attempt to update all URIs under Actions
-static void addPrefixesToActions(nlohmann::json& json, std::string_view prefix)
-{
-    nlohmann::json::object_t* object =
-        json.get_ptr<nlohmann::json::object_t*>();
-    if (object != nullptr)
-    {
-        for (std::pair<const std::string, nlohmann::json>& item : *object)
-        {
-            std::string* strValue = item.second.get_ptr<std::string*>();
-            if (strValue != nullptr)
-            {
-                addPrefixToItem(item.second, prefix);
-            }
-            else
-            {
-                addPrefixesToActions(item.second, prefix);
-            }
-        }
-    }
-}
-
 // Search the json for all URIs and add the supplied prefix if the URI is for
-// and aggregated resource.
+// an aggregated resource.
 static void addPrefixes(nlohmann::json& json, std::string_view prefix)
 {
     nlohmann::json::object_t* object =
@@ -119,19 +131,12 @@ static void addPrefixes(nlohmann::json& json, std::string_view prefix)
     {
         for (std::pair<const std::string, nlohmann::json>& item : *object)
         {
-            if (item.first == "Actions")
+            if (isPropertyUri(item.first))
             {
-                addPrefixesToActions(item.second, prefix);
+                addPrefixToItem(item.second, prefix);
                 continue;
             }
 
-            // TODO: Update with the uri naming language from the specification
-            // when it gets released in 1.17
-            if ((item.first == "@odata.id") ||
-                boost::algorithm::iends_with(item.first, "uri"))
-            {
-                addPrefixToItem(item.second, prefix);
-            }
             // Recusively parse the rest of the json
             addPrefixes(item.second, prefix);
         }
