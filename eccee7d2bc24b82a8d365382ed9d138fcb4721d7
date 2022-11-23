@@ -65,6 +65,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1d37454b_918d19e1",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 64
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-11-23T09:06:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4364ebf0_29f59a0e",
+      "range": {
+        "startLine": 67,
+        "startChar": 0,
+        "endLine": 69,
+        "endChar": 22
+      },
+      "revId": "eccee7d2bc24b82a8d365382ed9d138fcb4721d7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ad477ccd_834342d6",
@@ -159,6 +183,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a4895322_9ab19ea6",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 64
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-11-23T09:06:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a3ee7d11_c5b0273a",
+      "range": {
+        "startLine": 85,
+        "startChar": 4,
+        "endLine": 85,
+        "endChar": 29
+      },
+      "revId": "eccee7d2bc24b82a8d365382ed9d138fcb4721d7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "26154025_984b6f55",
@@ -206,6 +254,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "373533c2_ca39690a",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 64
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-11-23T09:06:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "936b031e_ac0ff1eb",
+      "range": {
+        "startLine": 88,
+        "startChar": 38,
+        "endLine": 88,
+        "endChar": 42
+      },
+      "revId": "eccee7d2bc24b82a8d365382ed9d138fcb4721d7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "09980aab_a4448c14",
@@ -243,6 +315,30 @@
       "side": 1,
       "message": "Ack, I will fix it.",
       "parentUuid": "09980aab_a4448c14",
+      "range": {
+        "startLine": 102,
+        "startChar": 4,
+        "endLine": 102,
+        "endChar": 18
+      },
+      "revId": "eccee7d2bc24b82a8d365382ed9d138fcb4721d7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "51b87f26_897268dd",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 64
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-11-23T09:06:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ebfdd17f_56b373a0",
       "range": {
         "startLine": 102,
         "startChar": 4,
@@ -347,6 +443,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad6d77cd_7a120300",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 64
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-11-23T09:06:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5bf06954_c2b15374",
+      "range": {
+        "startLine": 124,
+        "startChar": 19,
+        "endLine": 124,
+        "endChar": 39
+      },
+      "revId": "eccee7d2bc24b82a8d365382ed9d138fcb4721d7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "03622aea_c203a3fd",
@@ -384,6 +504,30 @@
       "side": 1,
       "message": "All you said is true. Since we both agree on disadvantages I will try to explain why we did it in a different way and what advantages we think this solution has.\n\n\n- Other services usually have methods with only few arguments, AddReport have quite a lot arguments and most of them are optional. This change in API simplifies creating scripts and tests scenarios for telemetry backend, because only few parameters can be provided instead of all of them.\n\n- This also removes default values from bmcweb, all default values are kept in telemetry backend.\n\n- It will be easier to add new features that require new parameters. Adding new parameter won\u0027t break anything. We can add new parameter in telemetry backend and it won\u0027t break the code that it is not using that new parameter yet. All script and tests that use dbus API will also keep working because changes in API won\u0027t break code anymore.",
       "parentUuid": "03622aea_c203a3fd",
+      "range": {
+        "startLine": 461,
+        "startChar": 64,
+        "endLine": 461,
+        "endChar": 73
+      },
+      "revId": "eccee7d2bc24b82a8d365382ed9d138fcb4721d7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b030669_05945b73",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 64
+      },
+      "lineNbr": 461,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-11-23T09:06:00Z",
+      "side": 1,
+      "message": "Dbus provides same signature as return value when we are performing GetAll. When Set is performed then sv is used. AddReport would have same signature of SetAll if it existed in dbus.\n\nIn my opinion this is more flexible and backward compatible than being forced to always pass all parameters in specified order.",
+      "parentUuid": "f0c83208_d567723b",
       "range": {
         "startLine": 461,
         "startChar": 64,
