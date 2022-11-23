@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ce209c55_76eeaa50",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 66
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1001437
+      },
+      "writtenOn": "2022-11-23T04:40:51Z",
+      "side": 1,
+      "message": "Not sure what benefit of calling as a separate function. however I\u0027ll take a look after this https://gerrit.openbmc.org/c/openbmc/bmcweb/+/57765/15/include/dbus_utility.hpp#145 is merged.",
+      "parentUuid": "c017c343_0e4ffad3",
+      "range": {
+        "startLine": 167,
+        "startChar": 49,
+        "endLine": 167,
+        "endChar": 58
+      },
+      "revId": "91c4947655c91122d7a0666f1f7649a9f7c662da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ded26e8e_ce96ff1b",
@@ -64,6 +88,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "60ad59a6_b8293ff5",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 66
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 1001437
+      },
+      "writtenOn": "2022-11-23T04:40:51Z",
+      "side": 1,
+      "message": "There is an association for FRU components present in chassis and `assembly`.",
+      "parentUuid": "d0dbe42b_f3aa05c7",
+      "range": {
+        "startLine": 243,
+        "startChar": 12,
+        "endLine": 243,
+        "endChar": 79
+      },
+      "revId": "91c4947655c91122d7a0666f1f7649a9f7c662da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2dd32e2b_7637187d",
@@ -77,6 +125,30 @@
       "writtenOn": "2022-11-18T01:41:16Z",
       "side": 1,
       "message": "Could you depend on this patch?\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/58580",
+      "range": {
+        "startLine": 252,
+        "startChar": 45,
+        "endLine": 252,
+        "endChar": 60
+      },
+      "revId": "91c4947655c91122d7a0666f1f7649a9f7c662da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "502ec639_bbc9a615",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 66
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 1001437
+      },
+      "writtenOn": "2022-11-23T04:40:51Z",
+      "side": 1,
+      "message": "for above same reason, not now.",
+      "parentUuid": "2dd32e2b_7637187d",
       "range": {
         "startLine": 252,
         "startChar": 45,
