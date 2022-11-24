@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0d0c31d9_bf835881",
+        "filename": "redfish-core/include/utils/systems_utils.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-11-24T11:26:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "48d7ef8f_3a767eb6",
+      "revId": "c662aa48eaa42d753b1e0074f9ec645c27e4192f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "39061fd0_3ed06866",
@@ -78,6 +96,30 @@
       "writtenOn": "2022-11-23T01:57:03Z",
       "side": 1,
       "message": "Shouldn\u0027t we be doing this for all the properties? Doesn\u0027t this code replace what is on lines 3066-3071 ?\n\n        if (systemName !\u003d \"system\")\n        {\n            messages::resourceNotFound(asyncResp-\u003eres, \"ComputerSystem\",\n                                       systemName);\n            return;\n        }\n\nI guess maybe this is okay for now? Just weird we are looking for the system name only for this property",
+      "range": {
+        "startLine": 3149,
+        "startChar": 0,
+        "endLine": 3158,
+        "endChar": 17
+      },
+      "revId": "c662aa48eaa42d753b1e0074f9ec645c27e4192f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f8fb71e2_5df87a57",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 3158,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-11-24T11:26:40Z",
+      "side": 1,
+      "message": "No, I do not think that is correct(lines 3066-3071), I will fix it in the next commit, but not the current commit.\nBecause for this URL(/redfish/v1/Systems/\u003cstr\u003e), systemName may be other values, in other words, systemID does not have to be equal to system, maybe system1,system2...",
+      "parentUuid": "ab39a6b2_1d3f24f7",
       "range": {
         "startLine": 3149,
         "startChar": 0,
