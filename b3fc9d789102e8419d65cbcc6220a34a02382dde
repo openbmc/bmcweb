@@ -16,6 +16,24 @@
       "message": "Can you add an example of where this will be used? E.g. PowerSupplies from the chassis.\n\nI assume you tested with a commit like https://gerrit.openbmc.org/c/openbmc/bmcweb/+/57668 ?",
       "revId": "b3fc9d789102e8419d65cbcc6220a34a02382dde",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0ccbc052_cf88f6fa",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-11-24T10:54:29Z",
+      "side": 1,
+      "message": "\u003e Can you add an example of where this will be used? E.g. PowerSupplies from the chassis.\n\u003e \n\u003e I assume you tested with a commit like https://gerrit.openbmc.org/c/openbmc/bmcweb/+/57668 ?\n\nSure, updated",
+      "parentUuid": "1278a39e_843a6032",
+      "revId": "b3fc9d789102e8419d65cbcc6220a34a02382dde",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
