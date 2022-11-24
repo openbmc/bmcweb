@@ -48,6 +48,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "23d54444_f97f4d7e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1001135
+      },
+      "writtenOn": "2022-11-24T09:46:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a1d8cf75_9207f781",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 8,
+        "endChar": 0
+      },
+      "revId": "df83f9c6d55304f25a77c4baf621f2c19822074b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "64053efa_9bd62bf3",
@@ -220,6 +244,30 @@
       "side": 1,
       "message": "Ack",
       "parentUuid": "3f0c8c55_b89ca6cc",
+      "range": {
+        "startLine": 1045,
+        "startChar": 8,
+        "endLine": 1047,
+        "endChar": 71
+      },
+      "revId": "df83f9c6d55304f25a77c4baf621f2c19822074b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5411d3d5_39c4ba1e",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1047,
+      "author": {
+        "id": 1001135
+      },
+      "writtenOn": "2022-11-24T09:46:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f956c142_a3a9a837",
       "range": {
         "startLine": 1045,
         "startChar": 8,
@@ -575,6 +623,30 @@
       "side": 1,
       "message": "Ack",
       "parentUuid": "ea806fa5_6db3e201",
+      "range": {
+        "startLine": 3957,
+        "startChar": 13,
+        "endLine": 3957,
+        "endChar": 17
+      },
+      "revId": "df83f9c6d55304f25a77c4baf621f2c19822074b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e7dd2a80_ac6ac0a4",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 3957,
+      "author": {
+        "id": 1001135
+      },
+      "writtenOn": "2022-11-24T09:46:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2e00320a_32840bed",
       "range": {
         "startLine": 3957,
         "startChar": 13,
