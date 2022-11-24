@@ -16,6 +16,24 @@
       "message": "This is going to run after async_accept, done here:\nhttps://github.com/openbmc/bmcweb/blob/master/http/websocket.hpp#L140\n\nThis is a problem, because it will lead to cases where the response returns both the connection upgrade headers, AND the error code.  Per the http RFC, we can\u0027t be returning both.  We should only be returning the websocket upgrade headers in the cases where we also return 101.\n\nTo handle this properly, we need to run the authorization before async_accept.",
       "revId": "34154b6702ff1db5cfe68b3db20ed8f1b0dfa284",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e0f6c67_cd50159b",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 1000907
+      },
+      "writtenOn": "2022-11-24T22:21:39Z",
+      "side": 1,
+      "message": "I think it is more of an OR condition. We would either be returning an error OR the Upgraded connection would take over the adaptor and return respective response.\n\nIn the handleUpgrade function of routing.hpp, we return instantly in case of any error(s). So the asyncRes obj would have respective error, and the control wouldn\u0027t go till async_accept of websocket. And upon reaching to the above highlighted line(Line 386), we would just return an error. \nIn case of success, we aren\u0027t returning any response from here. \nThe Line 404 is for the success condition where we delete the completion handler.\n\n\nRegarding auth before async_accept, the patchset https://gerrit.openbmc.org/c/openbmc/bmcweb/+/46991/ handles it.\n\nThis patch is mainly focused to add async support to handleUpgrade.",
+      "parentUuid": "8674ff38_185a2c65",
+      "revId": "34154b6702ff1db5cfe68b3db20ed8f1b0dfa284",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
