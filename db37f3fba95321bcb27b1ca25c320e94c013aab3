@@ -93,6 +93,30 @@
       },
       "revId": "db37f3fba95321bcb27b1ca25c320e94c013aab3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "95eb6f60_a1777cb0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-11-25T09:13:45Z",
+      "side": 1,
+      "message": "Did you run redfish service validator? It could be useful in this case. What what endpoints did you check? All of them? It would be nice to know which endpoints were tested. Also word about expected results would be useful. I guess we want to have exactly same response before and after the change, since this commit is quite big one I would like to know if there is any visible change to user.",
+      "parentUuid": "3879818e_8128cab2",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 11
+      },
+      "revId": "db37f3fba95321bcb27b1ca25c320e94c013aab3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
