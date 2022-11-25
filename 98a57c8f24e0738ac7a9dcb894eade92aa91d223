@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "49feeeaa_dfb9db6f",
+        "filename": "http/routing.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1252,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-11-25T09:08:14Z",
+      "side": 1,
+      "message": "Since you are asserting that remoteUser must be present you can make unpackPropertiesNoThrow to do that instead.\n\nSimply do: boll remoteUser \u003d false;\n\nThen unpackPropertiesNoThrow will return false if this property is missing. Proper information will be logged by UnpackErrorPrinter.",
+      "range": {
+        "startLine": 1252,
+        "startChar": 8,
+        "endLine": 1252,
+        "endChar": 41
+      },
+      "revId": "98a57c8f24e0738ac7a9dcb894eade92aa91d223",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bef6cc3c_1d8cd5b2",
+        "filename": "http/routing.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1276,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-11-25T09:08:14Z",
+      "side": 1,
+      "message": "Your logs are incorrect. unpackPropertiesNotThrow ensures that if property is present it has correct type. So if your code reach this place you can be 100% sure that \"RemoteUser\" property was missing.",
+      "range": {
+        "startLine": 1276,
+        "startChar": 12,
+        "endLine": 1276,
+        "endChar": 76
+      },
+      "revId": "98a57c8f24e0738ac7a9dcb894eade92aa91d223",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e1442a5e_ebd28c5d",
+        "filename": "http/routing.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1288,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2022-11-25T09:08:14Z",
+      "side": 1,
+      "message": "unpackPropertiesNotThrow ensures type is correct. If passwordExpired is nullptr it means that it was missing. Otherwise unpackPropertiesNotThrow would return false.",
+      "range": {
+        "startLine": 1287,
+        "startChar": 18,
+        "endLine": 1288,
+        "endChar": 66
+      },
+      "revId": "98a57c8f24e0738ac7a9dcb894eade92aa91d223",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
