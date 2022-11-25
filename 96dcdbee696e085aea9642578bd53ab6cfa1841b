@@ -22,6 +22,30 @@
       },
       "revId": "96dcdbee696e085aea9642578bd53ab6cfa1841b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "64e19d65_3f7cede7",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 1001049
+      },
+      "writtenOn": "2022-11-25T14:34:22Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "7ad132f6_3ba397c4",
+      "range": {
+        "startLine": 218,
+        "startChar": 38,
+        "endLine": 218,
+        "endChar": 44
+      },
+      "revId": "96dcdbee696e085aea9642578bd53ab6cfa1841b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
