@@ -73,6 +73,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "709587f2_24e605c4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 32
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1001093
+      },
+      "writtenOn": "2022-11-25T05:37:22Z",
+      "side": 1,
+      "message": "From the entity manager we can configure individual host with Item.System interface\nso that \n/redfish/v1/Systems/twin_lake_1\n/redfish/v1/Systems/twin_lake_2\n/redfish/v1/Systems/twin_lake_3\n/redfish/v1/Systems/twin_lake_4\nRight now Item.System is not used by many platforms comparing to the host power instances this patch has implemented. So we need to request all\nthe platforms to use Item.System with a common naming standard. \n\nspecifically the host number needs to be appended at the end as follows\n\nsingle host \n/redfish/v1/Systems/\u003chost-name\u003e_0\n\nmultihost\n/redfish/v1/Systems/\u003chost-name\u003e_1\n.\n.\n/redfish/v1/Systems/\u003chost-name\u003e_N\n\nThe specific host number is needed is because,\nthere are power control events like host power on/off and update current hoststate which are part of the \"systems.hpp\" and it requires the respective\nhost number to do the power control actions \n\nexample \"host\" + computerSystemIndex is used for power restore policy\n\nsdbusplus::asio::getProperty\u003cstd::string\u003e(\n        *crow::connections::systemBus, \"xyz.openbmc_project.Settings\",\n        \"/xyz/openbmc_project/control/host+ computerSystemIndex + /power_restore_policy\",\n        \"xyz.openbmc_project.Control.Power.RestorePolicy\", \"PowerRestorePolicy\",\n        [aResp](const boost::system::error_code ec, const std::string\u0026 policy) {\n        }\n        \nEd Tanous, Nan Zhou can you give your suggestion on this?",
+      "parentUuid": "878017cd_ae82d998",
+      "range": {
+        "startLine": 15,
+        "startChar": 9,
+        "endLine": 16,
+        "endChar": 50
+      },
+      "revId": "be1d80879cf34bceaa6bd6dc3b38b2da17f5c9c2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d72e5f73_335a4f62",
         "filename": "/COMMIT_MSG",
         "patchSetId": 32
