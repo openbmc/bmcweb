@@ -767,7 +767,7 @@ inline void createDumpTaskCallback(
 
         std::shared_ptr<task::TaskData> task = task::TaskData::createTask(
             [createdObjPath, dumpEntryPath, dumpId, isProgressIntfPresent](
-                boost::system::error_code err, sdbusplus::message::message& msg,
+                boost::system::error_code err, sdbusplus::message_t& msg,
                 const std::shared_ptr<task::TaskData>& taskData) {
             if (err)
             {
@@ -898,10 +898,9 @@ inline void createDump(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         createDumpParamVec;
 
     crow::connections::systemBus->async_method_call(
-        [asyncResp, payload(task::Payload(req)),
-         dumpPath](const boost::system::error_code ec,
-                   const sdbusplus::message::message& msg,
-                   const sdbusplus::message::object_path& objPath) mutable {
+        [asyncResp, payload(task::Payload(req)), dumpPath](
+            const boost::system::error_code ec, const sdbusplus::message_t& msg,
+            const sdbusplus::message::object_path& objPath) mutable {
         if (ec)
         {
             BMCWEB_LOG_ERROR << "CreateDump resp_handler got error " << ec;
