@@ -1040,7 +1040,7 @@ inline void
 
     crow::connections::systemBus->async_method_call(
         [asyncResp, macAddress](const boost::system::error_code ec,
-                                const sdbusplus::message::message& msg) {
+                                const sdbusplus::message_t& msg) {
         if (ec)
         {
             const sd_bus_error* err = msg.get_error();
