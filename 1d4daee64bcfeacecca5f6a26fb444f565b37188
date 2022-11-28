@@ -98,6 +98,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "841db80a_40b322c3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-11-28T17:45:59Z",
+      "side": 1,
+      "message": "This would imply that we have a safety problem somewhere else.  Can you point to the line of code that causes the undefined behavior?  Can we update it to follow the coding standard?",
+      "parentUuid": "569a69a2_f29f3d01",
+      "range": {
+        "startLine": 9,
+        "startChar": 31,
+        "endLine": 9,
+        "endChar": 38
+      },
+      "revId": "1d4daee64bcfeacecca5f6a26fb444f565b37188",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "399b03c8_c3c4aa3b",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
