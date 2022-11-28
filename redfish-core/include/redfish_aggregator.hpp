@@ -490,6 +490,8 @@ class RedfishAggregator
             return;
         }
 
+        // TODOME: Clean this up
+
         std::string updateServiceName;
         std::string memberName;
         if (crow::utility::readUrlSegments(
@@ -778,11 +780,6 @@ class RedfishAggregator
         using crow::utility::OrMorePaths;
         using crow::utility::readUrlSegments;
         const boost::urls::url_view& url = thisReq.urlView;
-        // UpdateService is the only top level resource that is not a Collection
-        if (readUrlSegments(url, "redfish", "v1", "UpdateService"))
-        {
-            return Result::LocalHandle;
-        }
 
         // We don't need to aggregate JsonSchemas due to potential issues such
         // as version mismatches between aggregator and satellite BMCs.  For
@@ -794,6 +791,51 @@ class RedfishAggregator
             return Result::LocalHandle;
         }
 
+        // Is the request for a top level resource collection such as:
+        // /redfish/v1/Chassis
+        // /redfish/v1/UpdateService/FirmwareInventory
+        const boost::urls::segments_view& urlSegments = url.segments();
+        std::string collectionItem;
+        std::string currentUrl;
+        boost::urls::segments_view::iterator it = urlSegments.begin();
+        boost::urls::segments_view::iterator end = urlSegments.end();
+
+        for (; it != end; it++)
+        {
+            collectionItem = std::string_view((*it).data(), (*it).size());
+            if (topCollections.contains(currentUrl))
+            {
+                // We've match a resource collection so this current segment
+                // must contain an aggregation prefix
+                if (collectionItem.starts_with("5B247A"))
+                {
+                    BMCWEB_LOG_DEBUG << "Need to forward a request";
+
+                    // Extract the prefix from the request's URI, retrieve the
+                    // associated satellite config information, and then forward the
+                    // request to that satellite.
+                    startAggregation(AggregationType::Resource, thisReq, asyncResp);
+                    return Result::NoLocalHandle;
+                }
+
+                BMCWEB_LOG_DEBUG << "DEBUG: ID was: " << collectionItem;
+
+                // We didn't recognize a prefix so just handle it locally
+                return Result::LocalHandle;
+            }
+
+            currentUrl += "/" + collectionItem;
+        }
+
+        // currentUrl now contains the full url.  We can see if it's a known
+        // top level collection
+        if (topCollections.contains(currentUrl))
+        {
+            startAggregation(AggregationType::Collection, thisReq, asyncResp);
+            return Result::LocalHandle;
+        }
+
+/*
         if (readUrlSegments(url, "redfish", "v1", "UpdateService",
                             "SoftwareInventory") ||
             readUrlSegments(url, "redfish", "v1", "UpdateService",
@@ -842,7 +884,7 @@ class RedfishAggregator
             }
             return Result::LocalHandle;
         }
-
+*/
         BMCWEB_LOG_DEBUG << "Aggregation not required";
         return Result::LocalHandle;
     }
