@@ -50,6 +50,24 @@
       "message": "Looks like it has been there a while. \nThis line was added in https://github.com/openbmc/bmcweb/commit/b9d36b4791d77a47e1f3c5c4564fcdf7cc68c115#diff-89cdfefc364922f52fc8e71fb80eaecfcbffbc1143c9a9cc9a6a7f06e533d310 ",
       "revId": "9051f76bd4fcac295266a1fa969d9a84eccc007d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "30fafa8b_8fcab55d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000335
+      },
+      "writtenOn": "2022-11-28T10:28:17Z",
+      "side": 1,
+      "message": "Redfish Service Validator result\nBefore:\n/redfish/v1/Systems/system/PCIeDevices/\u003cdevice\u003e/PCIeFunctions/0 (response time: 0:00:00.119580) \n\nERROR - URI did not return resource /redfish/v1/Systems/system/PCIeDevices/\u003cdevice\u003e/PCIeFunctions/0\n\nGET Failure HTTP Code (404)\t\nfailGet: 1\n\nAfter:\n/redfish/v1/Systems/system/PCIeDevices/\u003cdevice\u003e/PCIeFunctions/0 (response time: 0:00:00.119111) PCIeFunction\n\nGET Success HTTP Code (200)\t\npass: 12\npassGet: 1\npassRedfishUri: 1\nskipOptional: 9",
+      "parentUuid": "e396a611_ee37f545",
+      "revId": "9051f76bd4fcac295266a1fa969d9a84eccc007d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
