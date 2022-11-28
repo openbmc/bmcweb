@@ -265,6 +265,30 @@
       },
       "revId": "a8ffdb09e1ce92ff0dc828dae2f3eb2928af14f2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "42f1eba3_37964cd3",
+        "filename": "scripts/generate_schema_enums.py",
+        "patchSetId": 15
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-11-28T18:27:30Z",
+      "side": 1,
+      "message": "Sorry, missed this comment initially.  The enums need a state for \"Unable to parse string into a valid enumeration\" for when we get an invalid string from the user.  From my perspective, I thought that \"Invalid\" made sense, and this check was just for sanity testing to make sure we didn\u0027t end up with duplicates that caused compiler errors.  I don\u0027t think any Redfish Enums declare an invalid state, so I don\u0027t think there\u0027s a conflict, but I\u0027m open to changing to something else if you think there\u0027s a way to make this more clear.  Can you sketch out what you think would make sense in this context?  It\u0027s not very clear from either message.",
+      "parentUuid": "d500217d_4728295e",
+      "range": {
+        "startLine": 80,
+        "startChar": 0,
+        "endLine": 81,
+        "endChar": 39
+      },
+      "revId": "a8ffdb09e1ce92ff0dc828dae2f3eb2928af14f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
