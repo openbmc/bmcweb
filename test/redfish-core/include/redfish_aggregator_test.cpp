@@ -81,8 +81,9 @@ TEST(addPrefixToItem, ValidURIs)
 TEST(addPrefixToItem, UnsupportedURIs)
 {
     nlohmann::json jsonRequest;
-    constexpr std::array invalidRoots{"FakeCollection", "PowerEquipment",
-                                      "TaskService", "TelemetryService/Entries",
+    constexpr std::array invalidRoots{"FakeCollection", "JsonSchemas",
+                                      "PowerEquipment", "TaskService",
+                                      "TelemetryService/Entries",
                                       "UpdateService"};
 
     constexpr std::array validIDs{"1",
@@ -117,6 +118,7 @@ TEST(addPrefixToItem, TopLevelCollections)
     constexpr std::array validRoots{"Cables",
                                     "Chassis/",
                                     "Fabrics",
+                                    "JsonSchemas",
                                     "PowerEquipment/FloorPDUs",
                                     "Systems",
                                     "TaskService/Tasks",
