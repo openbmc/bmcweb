@@ -74,6 +74,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "569a69a2_f29f3d01",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000855
+      },
+      "writtenOn": "2022-11-28T15:06:43Z",
+      "side": 1,
+      "message": "yes, you are right, this code is not causing the code seg fault, but is the root of the problem, when VUE does a patch with this the wrong JSON, the webserver crashes in another part of the code.\nDo you want me to remove the word \"crashed\"?",
+      "parentUuid": "590a4b9e_9cd370f5",
+      "range": {
+        "startLine": 9,
+        "startChar": 31,
+        "endLine": 9,
+        "endChar": 38
+      },
+      "revId": "1d4daee64bcfeacecca5f6a26fb444f565b37188",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "399b03c8_c3c4aa3b",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
