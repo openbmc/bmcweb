@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "955aab44_ef899d53",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-11-28T17:53:47Z",
+      "side": 1,
+      "message": "NVM, missed the comment where it had been run.",
+      "parentUuid": "adff5a86_abd9d3c8",
+      "revId": "9051f76bd4fcac295266a1fa969d9a84eccc007d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e396a611_ee37f545",
