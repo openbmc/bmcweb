@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4c12377b_d9816e2a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-11-28T17:57:56Z",
+      "side": 1,
+      "message": "Trivial typedef change made by the sdbusplus maintainer.  Merging quickly.",
+      "revId": "c79fa7b3cff5b7b81f0728b1b0fe4b1d3248f14d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
