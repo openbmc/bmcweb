@@ -497,25 +497,26 @@ class RedfishAggregator
             return;
         }
 
-        std::string updateServiceName;
-        std::string memberName;
-        if (crow::utility::readUrlSegments(
-                thisReq.urlView, "redfish", "v1", "UpdateService",
-                std::ref(updateServiceName), std::ref(memberName),
-                crow::utility::OrMorePaths()))
-        {
-            // Must be FirmwareInventory or SoftwareInventory
-            findSatellite(thisReq, asyncResp, satelliteInfo, memberName);
-            return;
-        }
+        const boost::urls::segments_view& urlSegments =
+            thisReq.urlView.segments();
+        std::string collectionItem;
+        std::string currentUrl;
+        boost::urls::segments_view::iterator it = urlSegments.begin();
+        boost::urls::segments_view::iterator end = urlSegments.end();
 
-        std::string collectionName;
-        if (crow::utility::readUrlSegments(
-                thisReq.urlView, "redfish", "v1", std::ref(collectionName),
-                std::ref(memberName), crow::utility::OrMorePaths()))
+        for (; it != end; it++)
         {
-            findSatellite(thisReq, asyncResp, satelliteInfo, memberName);
-            return;
+            collectionItem = std::string_view((*it).data(), (*it).size());
+            if (topCollections.contains(currentUrl))
+            {
+                // We've match a resource collection so this current segment
+                // must contain an aggregation prefix
+                findSatellite(thisReq, asyncResp, satelliteInfo,
+                              collectionItem);
+                return;
+            }
+
+            currentUrl += "/" + collectionItem;
         }
 
         // We shouldn't reach this point since we should've hit one of the
@@ -785,11 +786,6 @@ class RedfishAggregator
         using crow::utility::OrMorePaths;
         using crow::utility::readUrlSegments;
         const boost::urls::url_view& url = thisReq.urlView;
-        // UpdateService is the only top level resource that is not a Collection
-        if (readUrlSegments(url, "redfish", "v1", "UpdateService"))
-        {
-            return Result::LocalHandle;
-        }
 
         // We don't need to aggregate JsonSchemas due to potential issues such
         // as version mismatches between aggregator and satellite BMCs.  For
@@ -801,52 +797,58 @@ class RedfishAggregator
             return Result::LocalHandle;
         }
 
-        if (readUrlSegments(url, "redfish", "v1", "UpdateService",
-                            "SoftwareInventory") ||
-            readUrlSegments(url, "redfish", "v1", "UpdateService",
-                            "FirmwareInventory"))
-        {
-            startAggregation(AggregationType::Collection, thisReq, asyncResp);
-            return Result::LocalHandle;
-        }
+        // Parse the URI to see if it begins with a known top level collection
+        // such as:
+        // /redfish/v1/Chassis
+        // /redfish/v1/UpdateService/FirmwareInventory
+        const boost::urls::segments_view& urlSegments = url.segments();
+        std::string collectionItem;
+        std::string currentUrl;
+        boost::urls::segments_view::iterator it = urlSegments.begin();
+        boost::urls::segments_view::iterator end = urlSegments.end();
 
-        // Is the request for a resource collection?:
-        // /redfish/v1/<resource>
-        // e.g. /redfish/v1/Chassis
-        std::string collectionName;
-        if (readUrlSegments(url, "redfish", "v1", std::ref(collectionName)))
+        for (; it != end; it++)
         {
-            startAggregation(AggregationType::Collection, thisReq, asyncResp);
-            return Result::LocalHandle;
-        }
-
-        // We know that the ID of an aggregated resource will begin with
-        // "5B247A".  For the most part the URI will begin like this:
-        // /redfish/v1/<resource>/<resource ID>
-        // Note, FirmwareInventory and SoftwareInventory are "special" because
-        // they are two levels deep, but still need aggregated
-        // /redfish/v1/UpdateService/FirmwareInventory/<FirmwareInventory ID>
-        // /redfish/v1/UpdateService/SoftwareInventory/<SoftwareInventory ID>
-        std::string memberName;
-        if (readUrlSegments(url, "redfish", "v1", "UpdateService",
-                            "SoftwareInventory", std::ref(memberName),
-                            OrMorePaths()) ||
-            readUrlSegments(url, "redfish", "v1", "UpdateService",
-                            "FirmwareInventory", std::ref(memberName),
-                            OrMorePaths()) ||
-            readUrlSegments(url, "redfish", "v1", std::ref(collectionName),
-                            std::ref(memberName), OrMorePaths()))
-        {
-            if (memberName.starts_with("5B247A"))
+            collectionItem = std::string_view((*it).data(), (*it).size());
+            if (topCollections.contains(currentUrl))
             {
-                BMCWEB_LOG_DEBUG << "Need to forward a request";
+                // We've matched a resource collection so this current segment
+                // might contain an aggregation prefix
+                if (collectionItem.starts_with("5B247A"))
+                {
+                    BMCWEB_LOG_DEBUG << "Need to forward a request";
 
-                // Extract the prefix from the request's URI, retrieve the
-                // associated satellite config information, and then forward the
-                // request to that satellite.
-                startAggregation(AggregationType::Resource, thisReq, asyncResp);
-                return Result::NoLocalHandle;
+                    // Extract the prefix from the request's URI, retrieve the
+                    // associated satellite config information, and then forward
+                    // the request to that satellite.
+                    startAggregation(AggregationType::Resource, thisReq,
+                                     asyncResp);
+                    return Result::NoLocalHandle;
+                }
+
+                // Handle collection URI with a trailing backslash
+                // e.g. /redfish/v1/Chassis/
+                it++;
+                if ((it == end) && collectionItem.empty())
+                {
+                    startAggregation(AggregationType::Collection, thisReq,
+                                     asyncResp);
+                }
+
+                // We didn't recognize the prefix or it's a collection with a
+                // trailing "/".  In both cases we still want to locally handle
+                // the request
+                return Result::LocalHandle;
             }
+
+            currentUrl += "/" + collectionItem;
+        }
+
+        // If we made it here then currentUrl could contain a top level
+        // collection URI without a trailing "/", e.g. /redfish/v1/Chassis
+        if (topCollections.contains(currentUrl))
+        {
+            startAggregation(AggregationType::Collection, thisReq, asyncResp);
             return Result::LocalHandle;
         }
 
