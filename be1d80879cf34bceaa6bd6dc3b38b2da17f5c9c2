@@ -207,6 +207,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "dc72ea23_c963fb9f",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1001093
+      },
+      "writtenOn": "2022-11-29T13:48:37Z",
+      "side": 1,
+      "message": "I hope common error 12 is applicable for parsing uri or dbus object paths. This logic only takes a string to compare and considers all possible outcomes.\nis this fine?",
+      "parentUuid": "eb3fc402_4813fba9",
+      "range": {
+        "startLine": 88,
+        "startChar": 0,
+        "endLine": 88,
+        "endChar": 53
+      },
+      "revId": "be1d80879cf34bceaa6bd6dc3b38b2da17f5c9c2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "43f90a05_18faed87",
         "filename": "redfish-core/include/utils/collection.hpp",
         "patchSetId": 32
@@ -218,6 +242,30 @@
       "writtenOn": "2022-11-16T20:55:18Z",
       "side": 1,
       "message": "isn\u0027t this wrong?  This means that \"system\" was not found at all, so\n\n\"foobar\" should not return zero, it should return error.",
+      "range": {
+        "startLine": 89,
+        "startChar": 20,
+        "endLine": 89,
+        "endChar": 37
+      },
+      "revId": "be1d80879cf34bceaa6bd6dc3b38b2da17f5c9c2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8b6f1acf_4a48cfe4",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1001093
+      },
+      "writtenOn": "2022-11-29T13:48:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "43f90a05_18faed87",
       "range": {
         "startLine": 89,
         "startChar": 20,
@@ -241,6 +289,30 @@
       "writtenOn": "2022-11-16T20:55:18Z",
       "side": 1,
       "message": "nit, cppcheck is going to ask that this be .empty() for readability.",
+      "range": {
+        "startLine": 95,
+        "startChar": 14,
+        "endLine": 95,
+        "endChar": 27
+      },
+      "revId": "be1d80879cf34bceaa6bd6dc3b38b2da17f5c9c2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8af90c51_fc55d1cc",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1001093
+      },
+      "writtenOn": "2022-11-29T13:48:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a1a22e28_b2f51687",
       "range": {
         "startLine": 95,
         "startChar": 14,
@@ -276,6 +348,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d9792070_e0516e1c",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1001093
+      },
+      "writtenOn": "2022-11-29T13:48:37Z",
+      "side": 1,
+      "message": "used object mapper based query to get the matching interface and the matching host number specific object path.",
+      "parentUuid": "31e44dc9_c8ff89c0",
+      "range": {
+        "startLine": 102,
+        "startChar": 0,
+        "endLine": 107,
+        "endChar": 1
+      },
+      "revId": "be1d80879cf34bceaa6bd6dc3b38b2da17f5c9c2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ac8ef7c9_0ae635c1",
         "filename": "redfish-core/include/utils/collection.hpp",
         "patchSetId": 32
@@ -287,6 +383,30 @@
       "writtenOn": "2022-11-16T20:55:18Z",
       "side": 1,
       "message": "nit, please remove this variable, and just return early.",
+      "range": {
+        "startLine": 110,
+        "startChar": 0,
+        "endLine": 110,
+        "endChar": 24
+      },
+      "revId": "be1d80879cf34bceaa6bd6dc3b38b2da17f5c9c2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "34958451_51a11b61",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1001093
+      },
+      "writtenOn": "2022-11-29T13:48:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ac8ef7c9_0ae635c1",
       "range": {
         "startLine": 110,
         "startChar": 0,
@@ -344,6 +464,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c8d3358b_02589558",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1001093
+      },
+      "writtenOn": "2022-11-29T13:48:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b6fdd046_ae9c8162",
+      "range": {
+        "startLine": 120,
+        "startChar": 0,
+        "endLine": 120,
+        "endChar": 72
+      },
+      "revId": "be1d80879cf34bceaa6bd6dc3b38b2da17f5c9c2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5785828a_4a6db4c2",
@@ -367,6 +511,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7bcf724e_8cf9f093",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1001093
+      },
+      "writtenOn": "2022-11-29T13:48:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5785828a_4a6db4c2",
+      "range": {
+        "startLine": 126,
+        "startChar": 0,
+        "endLine": 126,
+        "endChar": 22
+      },
+      "revId": "be1d80879cf34bceaa6bd6dc3b38b2da17f5c9c2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "faebe7d5_a02f808d",
@@ -380,6 +548,30 @@
       "writtenOn": "2022-11-16T20:55:18Z",
       "side": 1,
       "message": "return false.",
+      "range": {
+        "startLine": 129,
+        "startChar": 0,
+        "endLine": 129,
+        "endChar": 18
+      },
+      "revId": "be1d80879cf34bceaa6bd6dc3b38b2da17f5c9c2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "43b60f21_ece6f333",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1001093
+      },
+      "writtenOn": "2022-11-29T13:48:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "faebe7d5_a02f808d",
       "range": {
         "startLine": 129,
         "startChar": 0,
