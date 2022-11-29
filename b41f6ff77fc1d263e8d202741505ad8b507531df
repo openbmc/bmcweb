@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e2c6ce7d_4d6b9931",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-11-29T17:13:06Z",
+      "side": 1,
+      "message": "This patch is related to the other ones in the chain, but does not directly build on the earlier patches in the chain.  I\u0027m going to reorganize so that it\u0027s the first patch in the chain.",
+      "revId": "b41f6ff77fc1d263e8d202741505ad8b507531df",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
