@@ -16,6 +16,24 @@
       "message": "Could you link the backend please so I can do a sanity check",
       "revId": "8713da9ee70ae359c743e9e401de409b864b28b3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6878d7df_d9a52f7c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000335
+      },
+      "writtenOn": "2022-11-29T06:20:16Z",
+      "side": 1,
+      "message": "After survey, it changed by this commit. Although the commit message didn\u0027t mention it.\nhttps://github.com/openbmc/phosphor-networkd/commit/59e5b91d9784274d1d99b4c10e939c38606efacc\n\nAlso, I checked with @WAK that this object path is what he expects.\nhttps://discord.com/channels/775381525260664832/775381525260664836/1044873098010316840",
+      "parentUuid": "28822b4c_cdda5f7f",
+      "revId": "8713da9ee70ae359c743e9e401de409b864b28b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
