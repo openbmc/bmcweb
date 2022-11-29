@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "15e86d8e_2e9d7c6d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-11-29T18:35:11Z",
+      "side": 1,
+      "message": "This patch is ready to be reviewed.  However, I should note that the changes for this patch use the same approach I do in in a previous patch https://gerrit.openbmc.org/c/openbmc/bmcweb/+/58928/comments/fbde0a61_babbe6e3.  \n\nAny concerns in that patch will likely be applicable here as well.  I will update this patch accordingly if that happens.",
+      "revId": "6b529f7b51778b0b23adb4107443289fa90e29e9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
