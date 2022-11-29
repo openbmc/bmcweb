@@ -337,6 +337,30 @@
       },
       "revId": "a8ffdb09e1ce92ff0dc828dae2f3eb2928af14f2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2f22656d_0cfb1017",
+        "filename": "scripts/generate_schema_enums.py",
+        "patchSetId": 15
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-11-29T17:48:16Z",
+      "side": 1,
+      "message": "this \"invalid\" \u003d\u003e \"Unable to parse string into a valid enumeration\" \nOne could imagine scenarios in which the state of something is invalid\n\n\nYou could imagine an enum like\nCertificateStatus \u003d{Authorized, authenticated, NoAuth ... Invalid}, \none might want to do different things if the enum is invalid, then if a cert is Invalid. \n\nBut I don\u0027t feel too strongly about this.",
+      "parentUuid": "8748c0e5_4fecca61",
+      "range": {
+        "startLine": 80,
+        "startChar": 0,
+        "endLine": 81,
+        "endChar": 39
+      },
+      "revId": "a8ffdb09e1ce92ff0dc828dae2f3eb2928af14f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
