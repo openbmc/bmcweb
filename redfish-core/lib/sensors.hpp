@@ -19,6 +19,7 @@
 #include <boost/algorithm/string/classification.hpp>
 #include <boost/algorithm/string/find.hpp>
 #include <boost/algorithm/string/predicate.hpp>
+#include <boost/algorithm/string/replace.hpp>
 #include <boost/algorithm/string/split.hpp>
 #include <boost/range/algorithm/replace_copy_if.hpp>
 #include <dbus_singleton.hpp>
@@ -802,7 +803,7 @@ inline void objectPropertiesToJson(
 {
     if (chassisSubNode == sensors::node::sensors)
     {
-        std::string subNodeEscaped(chassisSubNode);
+        std::string subNodeEscaped(sensorType);
         subNodeEscaped.erase(
             std::remove(subNodeEscaped.begin(), subNodeEscaped.end(), '_'),
             subNodeEscaped.end());
@@ -2693,6 +2694,24 @@ inline bool
     return false;
 }
 
+inline std::pair<std::string, std::string>
+    splitSensorNameAndType(std::string_view sensorId)
+{
+    size_t index = sensorId.find('_');
+    if (index == std::string::npos)
+    {
+        return std::make_pair<std::string, std::string>("", "");
+    }
+    std::string sensorType{sensorId.substr(0, index)};
+    std::string sensorName{sensorId.substr(index + 1)};
+    // fan_pwm and fan_tach need special handling
+    if (sensorType == "fantach" || sensorType == "fanpwm")
+    {
+        sensorType.insert(3, 1, '_');
+    }
+    return std::make_pair(sensorType, sensorName);
+}
+
 /**
  * @brief Entry point for overriding sensor values of given sensor
  *
@@ -2749,8 +2768,10 @@ inline void setSensorsOverride(
         for (const auto& item : overrideMap)
         {
             const auto& sensor = item.first;
-            if (!findSensorNameUsingSensorPath(sensor, *sensorsList,
-                                               *sensorNames))
+            std::pair<std::string, std::string> sensorNameType =
+                splitSensorNameAndType(sensor);
+            if (!findSensorNameUsingSensorPath(sensorNameType.second,
+                                               *sensorsList, *sensorNames))
             {
                 BMCWEB_LOG_INFO << "Unable to find memberId " << item.first;
                 messages::resourceNotFound(sensorAsyncResp->asyncResp->res,
@@ -2991,33 +3012,28 @@ inline void handleSensorGet(App& app, const crow::Request& req,
     {
         return;
     }
-    size_t index = sensorId.find('_');
-    if (index == std::string::npos)
+    std::pair<std::string, std::string> nameType =
+        splitSensorNameAndType(sensorId);
+    if (nameType.first.empty() || nameType.second.empty())
     {
         messages::resourceNotFound(asyncResp->res, sensorId, "Sensor");
         return;
     }
+
     asyncResp->res.jsonValue["@odata.id"] = crow::utility::urlFromPieces(
         "redfish", "v1", "Chassis", chassisId, "Sensors", sensorId);
-    std::string sensorType = sensorId.substr(0, index);
-    std::string sensorName = sensorId.substr(index + 1);
-    // fan_pwm and fan_tach need special handling
-    if (sensorType == "fantach" || sensorType == "fanpwm")
-    {
-        sensorType.insert(3, 1, '_');
-    }
 
     BMCWEB_LOG_DEBUG << "Sensor doGet enter";
 
     const std::array<const char*, 1> interfaces = {
         "xyz.openbmc_project.Sensor.Value"};
-    std::string sensorPath =
-        "/xyz/openbmc_project/sensors/" + sensorType + '/' + sensorName;
+    std::string sensorPath = "/xyz/openbmc_project/sensors/" + nameType.first +
+                             '/' + nameType.second;
     // Get a list of all of the sensors that implement Sensor.Value
     // and get the path and service name associated with the sensor
     crow::connections::systemBus->async_method_call(
-        [asyncResp, sensorPath,
-         sensorName](const boost::system::error_code ec,
+        [asyncResp,
+         sensorPath](const boost::system::error_code ec,
                      const ::dbus::utility::MapperGetObject& subtree) {
         BMCWEB_LOG_DEBUG << "respHandler1 enter";
         if (ec)
