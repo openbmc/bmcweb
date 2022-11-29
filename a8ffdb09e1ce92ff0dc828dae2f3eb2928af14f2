@@ -361,6 +361,30 @@
       },
       "revId": "a8ffdb09e1ce92ff0dc828dae2f3eb2928af14f2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "937a2ff1_77b0c991",
+        "filename": "scripts/generate_schema_enums.py",
+        "patchSetId": 15
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-11-29T19:21:34Z",
+      "side": 1,
+      "message": "\u003e Let\u0027s say there was a future enum that wanted to include \"Invalid\" as a value.\n\nIn the very unlikely case that Redfish backpedaled, and started using the \"Invalid\" keyword on their enums, we could pretty easily just find/replace to a different word.  I don\u0027t think whatever decision we make here will be fatal.\n\n\u003e  I\u0027m assuming that new enum would use \"Invalid\" in the same way that this patch in places like sensors.hpp is using \"Invalid\".\n\nI don\u0027t expect any code to actually use Invalid, except for comparisons for \"string couldn\u0027t be converted to a valid enum\".\n\n\n\u003e One could imagine scenarios in which the state of something is invalid\n\nRight, which would go into status codes.  An individual property cannot be invalid in Redfish.\n\n\n\u003e CertificateStatus \u003d{Authorized, authenticated, NoAuth ... Invalid}, \n\nSee above.  If Redfish decides to start using the enum \"invalid\" it\u0027s a trivial find and replace to swap \"invalid\" for \"new word that we pick later\".  I feel pretty strongly that this isn\u0027t going to give us a step backwards.",
+      "parentUuid": "2f22656d_0cfb1017",
+      "range": {
+        "startLine": 80,
+        "startChar": 0,
+        "endLine": 81,
+        "endChar": 39
+      },
+      "revId": "a8ffdb09e1ce92ff0dc828dae2f3eb2928af14f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

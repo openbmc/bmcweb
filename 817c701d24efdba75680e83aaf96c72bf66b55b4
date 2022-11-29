@@ -39,6 +39,24 @@
       "message": "IMO it is worth the increase in binary size. \nI have seen a fair amount of bugs with these Redfish enums, and I think they will continue in the future (e.g., I have seen multiple simple bugs around spelling and capitalization of Redfish Enums).\nThis is also another thing reviewers don\u0027t have to worry as much about.  \n\nThis adds more files and another generate script, but I think the pros outweigh the cons (with the main con being the increase in binary size).\n\nFull disclosure, IBM is less concerned with binary size due to larger flash on its latest machines. The mailing would give companies a chance to object..?",
       "revId": "817c701d24efdba75680e83aaf96c72bf66b55b4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e3cf4ca1_12cd980d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 19
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-11-29T19:21:34Z",
+      "side": 1,
+      "message": "\u003e IMO it is worth the increase in binary size. \n\n+1.  I should also mention that every time I do the measurement, I get a different answer.  It\u0027s so far in the noise that it almost doesn\u0027t matter and depends very heavily on compiler versions and generated code compression complexity.\n\n\u003e I have seen a fair amount of bugs with these Redfish enums, and I think they will continue in the future (e.g., I have seen multiple simple bugs around spelling and capitalization of Redfish Enums).\n\u003e This is also another thing reviewers don\u0027t have to worry as much about.  \n\u003e \n\u003e This adds more files and another generate script, but I think the pros outweigh the cons (with the main con being the increase in binary size).\n\n+1\n\n\u003e \n\u003e Full disclosure, IBM is less concerned with binary size due to larger flash on its latest machines. The mailing would give companies a chance to object..?\n\nConsidering that this minor increase is well within some of the savings we\u0027ve had in the last 12 months, this should be fine.  Out of curiosity, does IBM not plan to ever update their old systems against CVEs?  (for example the most recent one).  Having a large binary size would prevent upgrading older platforms.",
+      "parentUuid": "637a77a2_2bd3de82",
+      "revId": "817c701d24efdba75680e83aaf96c72bf66b55b4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
