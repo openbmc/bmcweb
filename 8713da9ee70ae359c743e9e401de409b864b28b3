@@ -68,6 +68,24 @@
       "message": "extractIPV6Data and extractIPData have the same parsing logic with interface `xyz.openbmc_project.Network.IP`. so both `IPv6Addresses` and `IPv4Addresses` have ipv4 and ipv6.",
       "revId": "8713da9ee70ae359c743e9e401de409b864b28b3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a970d63a_5ebda175",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2022-11-29T16:40:40Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "36485b7a_e1e4669d",
+      "revId": "8713da9ee70ae359c743e9e401de409b864b28b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
