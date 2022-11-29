@@ -289,6 +289,30 @@
       },
       "revId": "a8ffdb09e1ce92ff0dc828dae2f3eb2928af14f2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bea50f42_553860c8",
+        "filename": "scripts/generate_schema_enums.py",
+        "patchSetId": 15
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-11-29T03:55:12Z",
+      "side": 1,
+      "message": "gotcha, because there are no current uses of \"Invalid\" as an enum value it is not as serious an issue.\n\nIf the state were\"_InvalidEnumField\" we would be far less likely to have collisions.",
+      "parentUuid": "42f1eba3_37964cd3",
+      "range": {
+        "startLine": 80,
+        "startChar": 0,
+        "endLine": 81,
+        "endChar": 39
+      },
+      "revId": "a8ffdb09e1ce92ff0dc828dae2f3eb2928af14f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
