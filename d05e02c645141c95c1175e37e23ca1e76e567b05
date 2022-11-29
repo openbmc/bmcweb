@@ -69,6 +69,23 @@
       "message": "Code LGTM, would like to see the commit message be a little more precise.",
       "revId": "d05e02c645141c95c1175e37e23ca1e76e567b05",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f8e10afb_43a9deab",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-11-29T02:39:55Z",
+      "side": 1,
+      "message": "Need some clarity on the commit msg/comments but code looks good to me. ",
+      "revId": "d05e02c645141c95c1175e37e23ca1e76e567b05",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
