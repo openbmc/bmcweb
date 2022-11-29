@@ -22,6 +22,30 @@
       },
       "revId": "c1d019a6056a2a0ef50e577b3139ab5a8dc49355",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "97d8315e_41fc7924",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 831,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-11-29T19:59:33Z",
+      "side": 1,
+      "message": "\u003e Hi Ed, I am bit late but Just need clarification on this. Is it required to prefix with Sensors for each sensor name while using GET method from Redfish. Its like misleading sensor name to the user I feel. \n\u003e Ex:  \"Id\": \"Sensors_Core_25_CPU1\",\n\u003e But while patching the sensor from Redfish, user has to remove the prefix (Sensors_) to patch value for actual sensor name.\n\u003e \n\u003e Patch Body: \n\u003e {    \n\u003e     \"Id\": \"Core_25_CPU1\",   --\u003e removed prefix Sensors_\n\u003e     \"Reading\": 27.0\n\u003e }\n\nThat seems like a problem.  Let me take a look.",
+      "parentUuid": "1b77077b_86c36ba1",
+      "range": {
+        "startLine": 830,
+        "startChar": 0,
+        "endLine": 831,
+        "endChar": 37
+      },
+      "revId": "c1d019a6056a2a0ef50e577b3139ab5a8dc49355",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
