@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "631d6baf_9f681029",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 19
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-11-29T02:53:14Z",
+      "side": 1,
+      "message": "+1.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 61
+      },
+      "revId": "817c701d24efdba75680e83aaf96c72bf66b55b4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "637a77a2_2bd3de82",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 19
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-11-29T02:53:14Z",
+      "side": 1,
+      "message": "IMO it is worth the increase in binary size. \nI have seen a fair amount of bugs with these Redfish enums, and I think they will continue in the future (e.g., I have seen multiple simple bugs around spelling and capitalization of Redfish Enums).\nThis is also another thing reviewers don\u0027t have to worry as much about.  \n\nThis adds more files and another generate script, but I think the pros outweigh the cons (with the main con being the increase in binary size).\n\nFull disclosure, IBM is less concerned with binary size due to larger flash on its latest machines. The mailing would give companies a chance to object..?",
+      "revId": "817c701d24efdba75680e83aaf96c72bf66b55b4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
