@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9956672c_960d3926",
+        "filename": "redfish-core/include/registries/privilege_registry.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-11-30T23:00:16Z",
+      "side": 1,
+      "message": "These are just format changes.",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 78
+      },
+      "revId": "3b1d9b80126c3257938b373a3bdd9d9f22d016ef",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7b9c07d3_d8c293ff",
+        "filename": "redfish-core/include/registries/privilege_registry.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 1740,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-11-30T23:00:16Z",
+      "side": 1,
+      "message": "Ed has a comment that these are not needed, we just need to specify the first one.\n\n```\n   tagAccelerationFunction \u003d 0,\n```",
+      "range": {
+        "startLine": 1740,
+        "startChar": 40,
+        "endLine": 1740,
+        "endChar": 41
+      },
+      "revId": "3b1d9b80126c3257938b373a3bdd9d9f22d016ef",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

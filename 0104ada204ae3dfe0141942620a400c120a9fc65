@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "affa6a1f_d227387b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 28
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-11-30T23:00:16Z",
+      "side": 1,
+      "message": "Could you please address some of the comments in the previous commit?\n\nSome outstanding ones that I remember: binary size, daemon start up time before and after this commit",
+      "range": {
+        "startLine": 38,
+        "startChar": 7,
+        "endLine": 38,
+        "endChar": 14
+      },
+      "revId": "0104ada204ae3dfe0141942620a400c120a9fc65",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
