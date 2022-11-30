@@ -22,6 +22,52 @@
       },
       "revId": "0104ada204ae3dfe0141942620a400c120a9fc65",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dca486e5_0411a0e1",
+        "filename": "http/routing.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 492,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-11-30T23:03:20Z",
+      "side": 1,
+      "message": "this can be std::span",
+      "range": {
+        "startLine": 492,
+        "startChar": 34,
+        "endLine": 492,
+        "endChar": 40
+      },
+      "revId": "0104ada204ae3dfe0141942620a400c120a9fc65",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d5740eca_c39108bb",
+        "filename": "redfish-core/lib/entitytag.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-11-30T23:03:20Z",
+      "side": 1,
+      "message": "Several questions here,\n\nHow do we maintain this list? What if a newly added resource missed modifying this list? A good default behavior is that we deny the access if the resource is not in the list. Is this implemented?\n\nAlso, how can we make sure this list is correct? I assume it is hand-written, right?",
+      "range": {
+        "startLine": 12,
+        "startChar": 7,
+        "endLine": 12,
+        "endChar": 22
+      },
+      "revId": "0104ada204ae3dfe0141942620a400c120a9fc65",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
