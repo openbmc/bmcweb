@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5033fb26_8577b420",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000335
+      },
+      "writtenOn": "2022-11-30T06:34:16Z",
+      "side": 1,
+      "message": "In fact, it\u0027s phosphor-networkd changed first.\nhttps://github.com/openbmc/phosphor-networkd/commit/59e5b91d9784274d1d99b4c10e939c38606efacc\n\nAlso, I checked with @WAK that this object path is what he expects.\nhttps://discord.com/channels/775381525260664832/775381525260664836/1044873098010316840",
+      "parentUuid": "c96e7a56_a7aecd67",
+      "revId": "8713da9ee70ae359c743e9e401de409b864b28b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "28822b4c_cdda5f7f",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 1
@@ -119,6 +137,24 @@
       "side": 1,
       "message": "+1",
       "parentUuid": "36485b7a_e1e4669d",
+      "revId": "8713da9ee70ae359c743e9e401de409b864b28b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2a839048_6a1eb15d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000335
+      },
+      "writtenOn": "2022-11-30T06:34:16Z",
+      "side": 1,
+      "message": "Oh, you are right. It\u0027s an obvious mistake. I\u0027m sorry.\nThank you for finding this. Then I think it needs to figure out how to distinguish `IPv6Addresses` from `IPv4Addresses` after the dbus object path changes.",
+      "parentUuid": "a970d63a_5ebda175",
       "revId": "8713da9ee70ae359c743e9e401de409b864b28b3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
