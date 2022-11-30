@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a12ad5cc_1d833b1b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1001584
+      },
+      "writtenOn": "2022-11-30T23:06:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c49e679e_3efa0a52",
+      "revId": "082b4027d251c4c27116b5b6dc8706048abb3175",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "75c95f4a_72f67666",
@@ -31,6 +49,24 @@
       "writtenOn": "2022-11-30T22:58:34Z",
       "side": 1,
       "message": "Tested: code compiles. Code move only. Redfish validator passed in the next commit.",
+      "revId": "082b4027d251c4c27116b5b6dc8706048abb3175",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ce48664_49f3c570",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1001584
+      },
+      "writtenOn": "2022-11-30T23:06:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "75c95f4a_72f67666",
       "revId": "082b4027d251c4c27116b5b6dc8706048abb3175",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
