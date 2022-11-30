@@ -138,6 +138,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "971fff0b_7f5130ee",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 64
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-11-30T17:40:40Z",
+      "side": 1,
+      "message": "\u003e After completing first request report will be in invalid state because it will be set to \"Periodic\", but schedule is not yet change\n\nAre there more examples to this?  Seems like it\u0027s easily fixed by just making sure we set the schedule parameter first, before we set ReportType?\n\nAnother option would be a dedicated \"update parameter\" method, that allows patching all properties in a single request in an atomic way.\n\n\u003e This allows to implement \"State\" property correctly without creating copy of validation code in bmcweb and it is foundation to implement \"Conditions\" property in the future.\n\nWhat are we trying to convey in the state property?  THat the report definition is in error?",
+      "parentUuid": "0576a652_97b52257",
+      "range": {
+        "startLine": 70,
+        "startChar": 4,
+        "endLine": 70,
+        "endChar": 67
+      },
+      "revId": "eccee7d2bc24b82a8d365382ed9d138fcb4721d7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "84e2f6ec_137ef175",
         "filename": "redfish-core/lib/metric_report_definition.hpp",
         "patchSetId": 64
@@ -564,6 +588,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a52082e9_a78c3029",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 64
+      },
+      "lineNbr": 461,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-11-30T17:40:40Z",
+      "side": 1,
+      "message": "\u003e AddReport have quite a lot arguments and most of them are optional.\n\nDoes that significantly change things though?  There\u0027s other dbus methods with a large number of arguments.  Is there some limit on argument count?  We generally represent optional arguments using some kind of default;  Empty string for strings, 0, MIN_INT, or MAX_INT for numbers, epoch for time.  Is there a reason we couldnt\u0027 do that here?\n\n\u003e This also removes default values from bmcweb, all default values are kept in telemetry backend.\n\nThis is overall good, and agreed, that\u0027s a good design goal.  bmcweb should not be in charge of defaults (given that they\u0027re effectively business logic).\n\n\u003e It will be easier to add new features that require new parameters.\n\nI\u0027m not sure I agree with that.  It\u0027s only easier because we no longer have a typesafe API that can be inspected and reused.  That doesn\u0027t seem like an appropriate tradeoff to me.",
+      "parentUuid": "3b030669_05945b73",
+      "range": {
+        "startLine": 461,
+        "startChar": 64,
+        "endLine": 461,
+        "endChar": 73
+      },
+      "revId": "eccee7d2bc24b82a8d365382ed9d138fcb4721d7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bd3fa6d2_5281d200",
         "filename": "redfish-core/lib/metric_report_definition.hpp",
         "patchSetId": 64
@@ -599,6 +647,30 @@
       "side": 1,
       "message": "This is possible exception that is being throw from sdbusplus when async_method_call takes as an argument std::variant which is used during calling \u0027Set\u0027 on properties interface.\n\nBecause this is possible case where exception is throw in destructor this catch was needed to silence clang-tidy error.",
       "parentUuid": "bd3fa6d2_5281d200",
+      "range": {
+        "startLine": 464,
+        "startChar": 0,
+        "endLine": 467,
+        "endChar": 9
+      },
+      "revId": "eccee7d2bc24b82a8d365382ed9d138fcb4721d7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6c181439_3a6bdb4a",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 64
+      },
+      "lineNbr": 467,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-11-30T17:40:40Z",
+      "side": 1,
+      "message": "\u003e This is possible exception that is being throw from sdbusplus when async_method_call takes as an argument std::variant which is used during calling \u0027Set\u0027 on properties interface.\n\nWe need to fix that.  async_method_call should return an error code, not throw an exception.  we should not be catching in bmcweb code when the API shouldnt\u0027 be throwing.  Can you point to where the exception is thrown from?\n\n\u003e \n\u003e Because this is possible case where exception is throw in destructor this catch was needed to silence clang-tidy error.\n\nWhich destructor?  In new code we should be wrapping that in an io_service.post() to avoid throwing in a destructor.",
+      "parentUuid": "fb729489_67ffdaab",
       "range": {
         "startLine": 464,
         "startChar": 0,
