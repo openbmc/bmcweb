@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d9c1af15_588aa820",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-11-30T00:10:48Z",
+      "side": 1,
+      "message": "Quote please for system headers.",
+      "range": {
+        "startLine": 23,
+        "startChar": 28,
+        "endLine": 23,
+        "endChar": 29
+      },
+      "revId": "7b0241d95fa94e09dabdc12ae5117537a29182c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5e0704b5_a095ff50",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-11-30T00:10:48Z",
+      "side": 1,
+      "message": "nit: you can return here, then you don\u0027t need the \"else\" branch",
+      "revId": "7b0241d95fa94e09dabdc12ae5117537a29182c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "75a35889_68082a00",
+        "filename": "redfish-core/include/utils/sw_utils.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-11-30T00:10:48Z",
+      "side": 1,
+      "message": "nit, does \"functionalSw-\u003eempty()\" work here?",
+      "range": {
+        "startLine": 47,
+        "startChar": 44,
+        "endLine": 47,
+        "endChar": 45
+      },
+      "revId": "7b0241d95fa94e09dabdc12ae5117537a29182c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
