@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6db2f468_fd74a01f",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-11-30T21:39:06Z",
+      "side": 1,
+      "message": "Alright I\u0027ve made the change.",
+      "parentUuid": "87a492b7_602fba87",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 37
+      },
+      "revId": "29215b73daca1eb157c494c160856712b67a43ad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9126d669_839c3ef9",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-11-30T18:12:12Z",
       "side": 1,
       "message": "Where did this come from?  I don\u0027t see it in 2022.2",
+      "range": {
+        "startLine": 38,
+        "startChar": 5,
+        "endLine": 38,
+        "endChar": 17
+      },
+      "revId": "29215b73daca1eb157c494c160856712b67a43ad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "47916d24_36fa746b",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-11-30T21:39:06Z",
+      "side": 1,
+      "message": "That was supposed to be HttpBootUri.  It\u0027s since been removed as part of removing all properties that end in case-insensitive \"uri\".",
+      "parentUuid": "9126d669_839c3ef9",
       "range": {
         "startLine": 38,
         "startChar": 5,
@@ -72,6 +120,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "45b75ead_ebb62345",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-11-30T21:39:06Z",
+      "side": 1,
+      "message": "That\u0027s a difficult problem.  The good news is I don\u0027t think we have to be that picky.  This change is only for fixing URIs in responses.  We won\u0027t ever forward requests for generic external URIs.  It\u0027s only for known Redfish URIs.\n\nWe call addPrefixToItem() to perform the actual fixing and it will only do that if the URI is for a known aggregated resource.  As part of that it must begin with /redfish/v1.  Public URIs won\u0027t fit that bill and thus be left as is.",
+      "parentUuid": "24594642_0950b77c",
+      "range": {
+        "startLine": 49,
+        "startChar": 5,
+        "endLine": 49,
+        "endChar": 19
+      },
+      "revId": "29215b73daca1eb157c494c160856712b67a43ad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "36276da3_64da0b63",
         "filename": "redfish-core/include/redfish_aggregator.hpp",
         "patchSetId": 6
@@ -83,6 +155,24 @@
       "writtenOn": "2022-11-30T18:12:12Z",
       "side": 1,
       "message": "One thing I see from the list above is that a majority of them end in \"URI\".  Considering that I got \"URI properties must end in URI\" into the standard, could we make this more resilient to added properties, and OEM properties with something like:\n\nstd::array\u003cstd::string_view, X\u003e nonUriProperties{\n   \"@odata.id\"\n   ,...\n}\n\nif (boost::iendswith(propertyName, \"uri\") || std::binary_search(nonUriProperties.begin(), nonUriProperties.end(), propertyName) !\u003d nonUriProperties.end()){\n\n}\n\n\nThat keeps us relatively future proof, so long as Redfish doesn\u0027t add any URI properties that don\u0027t end in URI (which they\u0027ve now been informed to not) and when OEM properties add a URI, that will get aggregated properly as well?",
+      "revId": "29215b73daca1eb157c494c160856712b67a43ad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d048ae9f_b2abc1eb",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-11-30T21:39:06Z",
+      "side": 1,
+      "message": "The future proofing you describe happens in line 141 where you posted a different comment https://gerrit.openbmc.org/c/openbmc/bmcweb/+/58937/comments/414be755_c59bf4ce.\n\nI\u0027ve moved this check into its own function just to make it clearer what\u0027s going on.",
+      "parentUuid": "36276da3_64da0b63",
       "revId": "29215b73daca1eb157c494c160856712b67a43ad",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -100,6 +190,30 @@
       "writtenOn": "2022-11-30T18:12:12Z",
       "side": 1,
       "message": "Wait.... we already do the above.....   Maybe that list just needs culled?",
+      "range": {
+        "startLine": 141,
+        "startChar": 0,
+        "endLine": 141,
+        "endChar": 64
+      },
+      "revId": "29215b73daca1eb157c494c160856712b67a43ad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "97ba31f7_bac39dba",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-11-30T21:39:06Z",
+      "side": 1,
+      "message": "This is for future proofing purposes.  I wanted the list to be exhaustive so that\u0027s why there is some redundancy.  I know that currently that means this check will never actually return true since the first part of the if statement will catch all existing properties.\n\nI\u0027ll just go ahead and remove the redundancies from the list now that it is no longer an unordered_set.  That\u0027ll also help speed up the lookup process now that it\u0027s using binary search.",
+      "parentUuid": "414be755_c59bf4ce",
       "range": {
         "startLine": 141,
         "startChar": 0,
