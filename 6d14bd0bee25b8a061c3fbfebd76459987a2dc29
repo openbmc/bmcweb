@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "007281e3_ee2ff406",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-11-30T06:14:11Z",
+      "side": 1,
+      "message": "\u003e Maybe use template function type to be consistent with bmcweb code?\n\nThere is no stronger requirement to use template or std::function here, I tend to use std::function because its callback parameters are well known.",
+      "parentUuid": "c6b88228_9836434d",
+      "range": {
+        "startLine": 184,
+        "startChar": 3,
+        "endLine": 184,
+        "endChar": 74
+      },
+      "revId": "6d14bd0bee25b8a061c3fbfebd76459987a2dc29",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "60ea971d_1316f1c9",
         "filename": "include/dbus_utility.hpp",
         "patchSetId": 9
@@ -37,6 +61,30 @@
       "writtenOn": "2022-11-30T01:56:04Z",
       "side": 1,
       "message": "Why not just use MapperGetSubTreePathsResponse ?",
+      "range": {
+        "startLine": 186,
+        "startChar": 33,
+        "endLine": 186,
+        "endChar": 48
+      },
+      "revId": "6d14bd0bee25b8a061c3fbfebd76459987a2dc29",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9cad9dbb_5ef14c3b",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-11-30T06:14:11Z",
+      "side": 1,
+      "message": "\u003e Why not just use MapperGetSubTreePathsResponse ?\n\nNo, That\u0027s not the right way, although they describe the same attributes, but their meanings are completely different, that\u0027s a lazy way 😊",
+      "parentUuid": "60ea971d_1316f1c9",
       "range": {
         "startLine": 186,
         "startChar": 33,
