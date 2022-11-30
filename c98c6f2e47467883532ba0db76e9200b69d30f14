@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0013f267_e2e5c277",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-11-30T18:27:01Z",
+      "side": 1,
+      "message": "You should use readJsonAction() PAI instead of readJsonPatch() as this is not Patch operation.",
+      "range": {
+        "startLine": 118,
+        "startChar": 20,
+        "endLine": 118,
+        "endChar": 33
+      },
+      "revId": "c98c6f2e47467883532ba0db76e9200b69d30f14",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
