@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5d1426ac_fe11fc18",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-11-30T01:09:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d9c1af15_588aa820",
+      "range": {
+        "startLine": 23,
+        "startChar": 28,
+        "endLine": 23,
+        "endChar": 29
+      },
+      "revId": "7b0241d95fa94e09dabdc12ae5117537a29182c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5e0704b5_a095ff50",
@@ -41,6 +65,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e2266fd2_0edbc8ed",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-11-30T01:09:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5e0704b5_a095ff50",
+      "revId": "7b0241d95fa94e09dabdc12ae5117537a29182c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "75a35889_68082a00",
@@ -54,6 +96,30 @@
       "writtenOn": "2022-11-30T00:10:48Z",
       "side": 1,
       "message": "nit, does \"functionalSw-\u003eempty()\" work here?",
+      "range": {
+        "startLine": 47,
+        "startChar": 44,
+        "endLine": 47,
+        "endChar": 45
+      },
+      "revId": "7b0241d95fa94e09dabdc12ae5117537a29182c5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "50068c4a_b69cfb27",
+        "filename": "redfish-core/include/utils/sw_utils.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-11-30T01:09:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "75a35889_68082a00",
       "range": {
         "startLine": 47,
         "startChar": 44,
