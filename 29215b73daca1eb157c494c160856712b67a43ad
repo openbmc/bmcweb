@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "87a492b7_602fba87",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-11-30T18:12:12Z",
+      "side": 1,
+      "message": "This should be a constexpr array to avoid startup problems.",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 37
+      },
+      "revId": "29215b73daca1eb157c494c160856712b67a43ad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9126d669_839c3ef9",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-11-30T18:12:12Z",
+      "side": 1,
+      "message": "Where did this come from?  I don\u0027t see it in 2022.2",
+      "range": {
+        "startLine": 38,
+        "startChar": 5,
+        "endLine": 38,
+        "endChar": 17
+      },
+      "revId": "29215b73daca1eb157c494c160856712b67a43ad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "24594642_0950b77c",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-11-30T18:12:12Z",
+      "side": 1,
+      "message": "This doesn\u0027t need aggregated.  \"PublicationUri\" is supposed to be world-facing.  Which brings up a fun problem of \"we need to be able to identify non-relative URIs that don\u0027t point to this bmc\".",
+      "range": {
+        "startLine": 49,
+        "startChar": 5,
+        "endLine": 49,
+        "endChar": 19
+      },
+      "revId": "29215b73daca1eb157c494c160856712b67a43ad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "36276da3_64da0b63",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-11-30T18:12:12Z",
+      "side": 1,
+      "message": "One thing I see from the list above is that a majority of them end in \"URI\".  Considering that I got \"URI properties must end in URI\" into the standard, could we make this more resilient to added properties, and OEM properties with something like:\n\nstd::array\u003cstd::string_view, X\u003e nonUriProperties{\n   \"@odata.id\"\n   ,...\n}\n\nif (boost::iendswith(propertyName, \"uri\") || std::binary_search(nonUriProperties.begin(), nonUriProperties.end(), propertyName) !\u003d nonUriProperties.end()){\n\n}\n\n\nThat keeps us relatively future proof, so long as Redfish doesn\u0027t add any URI properties that don\u0027t end in URI (which they\u0027ve now been informed to not) and when OEM properties add a URI, that will get aggregated properly as well?",
+      "revId": "29215b73daca1eb157c494c160856712b67a43ad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "414be755_c59bf4ce",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-11-30T18:12:12Z",
+      "side": 1,
+      "message": "Wait.... we already do the above.....   Maybe that list just needs culled?",
+      "range": {
+        "startLine": 141,
+        "startChar": 0,
+        "endLine": 141,
+        "endChar": 64
+      },
+      "revId": "29215b73daca1eb157c494c160856712b67a43ad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
