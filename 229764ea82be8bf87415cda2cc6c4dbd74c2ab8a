@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "17006ee1_b0df4784",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 20
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-11-30T23:34:11Z",
+      "side": 1,
+      "message": "Question for those looking at this thread.  Is \"redfish_defs\" a good enough name?  It seems mediocre to me, but I couldn\u0027t come up with a better one creatively.",
+      "revId": "229764ea82be8bf87415cda2cc6c4dbd74c2ab8a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
