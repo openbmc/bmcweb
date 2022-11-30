@@ -134,8 +134,41 @@ inline void getProcessorProperties(
 
     BMCWEB_LOG_DEBUG << "Got " << properties.size() << " Cpu properties.";
 
-    // TODO: Get Model
+    const std::string* modelStr = nullptr;
 
+    const bool modelsuccess = sdbusplus::unpackPropertiesNoThrow(
+        dbus_utils::UnpackErrorPrinter(), properties, "Family", modelStr);
+
+    if (!modelsuccess)
+    {
+        return;
+    }
+
+    if ((modelStr != nullptr) && (*modelStr != ""))
+    {
+        nlohmann::json& prevModel =
+            aResp->res.jsonValue["ProcessorSummary"]["Model"];
+        std::string* prevModelPtr = prevModel.get_ptr<std::string*>();
+
+        // If CPU Models are different, use the first entry in
+        // alphabetical order
+
+        // If Model has never been set
+        // before, set it to *modelStr
+        if (prevModelPtr == nullptr)
+        {
+            prevModel = *modelStr;
+        }
+        // If Model has been set before, only change if new Model is
+        // higher in alphabetical order
+        else
+        {
+            if (*modelStr < *prevModelPtr)
+            {
+                prevModel = *modelStr;
+            }
+        }
+    }
     const uint16_t* coreCount = nullptr;
 
     const bool success = sdbusplus::unpackPropertiesNoThrow(
