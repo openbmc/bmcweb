@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f6eaff19_179e9cfc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000416
+      },
+      "writtenOn": "2022-11-30T07:58:57Z",
+      "side": 1,
+      "message": "Below is the change expecting. \n\nindex fb882821..99a793ed 100644\n--- a/redfish-core/lib/sensors.hpp\n+++ b/redfish-core/lib/sensors.hpp\n@@ -807,16 +807,10 @@ inline void objectPropertiesToJson(\n {\n     if (chassisSubNode \u003d\u003d sensors::node::sensors)\n     {\n-        std::string subNodeEscaped(chassisSubNode);\n-        subNodeEscaped.erase(\n-            std::remove(subNodeEscaped.begin(), subNodeEscaped.end(), \u0027_\u0027),\n-            subNodeEscaped.end());\n\n         // For sensors in SensorCollection we set Id instead of MemberId,\n         // including power sensors.\n-        subNodeEscaped +\u003d \u0027_\u0027;\n-        subNodeEscaped +\u003d sensorName;\n-        sensorJson[\"Id\"] \u003d std::move(subNodeEscaped);\n+        sensorJson[\"Id\"] \u003d std::move(sensorName);\n\n         std::string sensorNameEs(sensorName);\n         std::replace(sensorNameEs.begin(), sensorNameEs.end(), \u0027_\u0027, \u0027 \u0027);\n",
+      "revId": "c1d019a6056a2a0ef50e577b3139ab5a8dc49355",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1b77077b_86c36ba1",
@@ -110,6 +127,30 @@
       "side": 1,
       "message": "Can you take a look and see if: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/59027\n\nFixes your problem?",
       "parentUuid": "28784d2a_f72a0912",
+      "range": {
+        "startLine": 830,
+        "startChar": 0,
+        "endLine": 831,
+        "endChar": 37
+      },
+      "revId": "c1d019a6056a2a0ef50e577b3139ab5a8dc49355",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d0fe607e_50aaa794",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 831,
+      "author": {
+        "id": 1000416
+      },
+      "writtenOn": "2022-11-30T07:58:57Z",
+      "side": 1,
+      "message": "No. Below is the change I am expecting. \nindex fb882821..99a793ed 100644\n--- a/redfish-core/lib/sensors.hpp\n+++ b/redfish-core/lib/sensors.hpp\n@@ -807,16 +807,10 @@ inline void objectPropertiesToJson(\n {\n     if (chassisSubNode \u003d\u003d sensors::node::sensors)\n     {\n-        std::string subNodeEscaped(chassisSubNode);\n-        subNodeEscaped.erase(\n-            std::remove(subNodeEscaped.begin(), subNodeEscaped.end(), \u0027_\u0027),\n-            subNodeEscaped.end());\n\n         // For sensors in SensorCollection we set Id instead of MemberId,\n         // including power sensors.\n-        subNodeEscaped +\u003d \u0027_\u0027;\n-        subNodeEscaped +\u003d sensorName;\n-        sensorJson[\"Id\"] \u003d std::move(subNodeEscaped);\n+        sensorJson[\"Id\"] \u003d std::move(sensorName);\n\n         std::string sensorNameEs(sensorName);\n         std::replace(sensorNameEs.begin(), sensorNameEs.end(), \u0027_\u0027, \u0027 \u0027);",
+      "parentUuid": "e8449d94_26c8cf61",
       "range": {
         "startLine": 830,
         "startChar": 0,
