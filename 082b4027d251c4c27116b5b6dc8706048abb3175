@@ -16,6 +16,23 @@
       "message": "Please add why we see a potential circular dependency",
       "revId": "082b4027d251c4c27116b5b6dc8706048abb3175",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "75c95f4a_72f67666",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-11-30T22:58:34Z",
+      "side": 1,
+      "message": "Tested: code compiles. Code move only. Redfish validator passed in the next commit.",
+      "revId": "082b4027d251c4c27116b5b6dc8706048abb3175",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
