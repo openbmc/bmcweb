@@ -34,6 +34,24 @@
       "parentUuid": "3dcf4023_27bce31b",
       "revId": "4ca3ec3c54d1d74fcd2b76c594be08fbba3774f1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3add8e38_bd51646a",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1622,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2022-11-30T10:52:32Z",
+      "side": 0,
+      "message": "IS DMTF talking about physical link or Link as a whole which covers both physical link and interface up.\n\nYou can still do \nifconfig interface up (while the physical link is down, Please correct me if it is not true)(I.e Interface is up and Link is down)",
+      "parentUuid": "b488b1c2_a3fecd9e",
+      "revId": "4ca3ec3c54d1d74fcd2b76c594be08fbba3774f1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
