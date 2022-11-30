@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e897546_ccdc8906",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-11-30T19:33:58Z",
+      "side": 1,
+      "message": "binary size impact?",
+      "revId": "e91548ce8ffd14693f41d5537a217dfc8315e680",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b5700d76_8adeb5f7",
+        "filename": "redfish-core/include/aggregation_utils.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-11-30T19:33:58Z",
+      "side": 1,
+      "message": "Please see the runtime memory usage requirements in the developing guide.  This should be using a constexpr array, like we do other places.",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 37
+      },
+      "revId": "e91548ce8ffd14693f41d5537a217dfc8315e680",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a6ca4200_58ca2804",
+        "filename": "redfish-core/include/aggregation_utils.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-11-30T19:33:58Z",
+      "side": 1,
+      "message": "There\u0027s some collections of these that we really shouldn\u0027t aggregate in a conventional sense.  TaskService for example, likely needs special handling to present a correct async task to clients.  TelemetryService is likely similar.  Account/Session service we shouldnt aggregate at all, because they\u0027re specific to the service root (ie, an aggregator user shouldn\u0027t be able to create a session on a sub ServiceRoot, only on the service root we\u0027re working with).\n\nThis is a great start;  Lets keep iterating on it.",
+      "revId": "e91548ce8ffd14693f41d5537a217dfc8315e680",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e2d94a5a_a9c5ca45",
+        "filename": "redfish-core/include/aggregation_utils.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-11-30T19:33:58Z",
+      "side": 1,
+      "message": "As I look at this.... this is looking like a less memory efficient version of the http router.  I wonder if we should be looking at that code as at least a model for this, or storing this as a trie?\n\nAlternatively, should we just have the policy that we have a BMCWEB_ROUTE for every top level collection, regardless of whether the bmc implements it?\n\nThis needs more thought for long-term consequences.",
+      "revId": "e91548ce8ffd14693f41d5537a217dfc8315e680",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
