@@ -212,6 +212,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8184e81b_e67d803f",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1001049
+      },
+      "writtenOn": "2022-12-01T06:57:00Z",
+      "side": 1,
+      "message": "It is documented in phosphor-dbus-interfaces\n\n### Interface xyz.openbmc_project.BIOSConfigManager\n\n- Object Path: `/xyz/openbmc_project/bios_config/manager0`\n\nMethods:\n\n- `SetAttribute` -To set the particular BIOS attribute with new value.\n- `GetAttribute` -To get the bios attribute current and pending values.\n- `GetPendingAttributes` -To get all pending bios Atrributes list.\n- `SetPendingAttributes` -To set all pending bios Atrributes list.\n\nProperites:\n\n- `ResetBIOSSettings` - To reset the BIOS settings based on the Reset Flag.\n- `AllBaseAttributes` - To store all bios attributes details.\n\nSignals:\n\n- `PendingAttributesCreated` - Signal sent out, when Pending attributes list\n  created.\n\n### Interface xyz.openbmc_project.BIOSConfig.Password\n\nMethods:\n\n- `VerifyPassword`\n- `ChangePassword`\n\nProperities:\n\n- `IsPasswordInitDone` - To indicate BIOS password related details are received\n  or not.\n\n[design]: https://github.com/openbmc/docs/blob/master/designs/remote-bios-configuration.md",
+      "parentUuid": "974f1023_650ce86e",
+      "range": {
+        "startLine": 169,
+        "startChar": 0,
+        "endLine": 169,
+        "endChar": 52
+      },
+      "revId": "1eddd9aaa588408fca237c8697a18e4df31e5aa1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bcf95cc7_4a68a359",
