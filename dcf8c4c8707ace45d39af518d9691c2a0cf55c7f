@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f921d1d_b35c7492",
+        "filename": "http/verb.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-12-01T01:40:57Z",
+      "side": 1,
+      "message": "I prefer no default,\n\nhttps://abseil.io/tips/147",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 15
+      },
+      "revId": "dcf8c4c8707ace45d39af518d9691c2a0cf55c7f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "59b4b5e8_77fc4a3b",
+        "filename": "http/verb.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-12-01T01:40:57Z",
+      "side": 1,
+      "message": "Is this comment needed? HttpVerb::Max will fall in default, right?",
+      "range": {
+        "startLine": 67,
+        "startChar": 66,
+        "endLine": 67,
+        "endChar": 79
+      },
+      "revId": "dcf8c4c8707ace45d39af518d9691c2a0cf55c7f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "da2a4a71_34dd9110",
+        "filename": "test/http/verb_test.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-12-01T01:40:57Z",
+      "side": 1,
+      "message": "ASSERT_TRUE",
+      "range": {
+        "startLine": 30,
+        "startChar": 8,
+        "endLine": 30,
+        "endChar": 19
+      },
+      "revId": "dcf8c4c8707ace45d39af518d9691c2a0cf55c7f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
