@@ -81,6 +81,24 @@
       "parentUuid": "637a77a2_2bd3de82",
       "revId": "817c701d24efdba75680e83aaf96c72bf66b55b4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4850bb47_161f864c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 19
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-12-01T19:24:19Z",
+      "side": 1,
+      "message": "\u003e Considering that this minor increase is well within some of the savings we\u0027ve had in the last 12 months, this should be fine.  Out of curiosity, does IBM not plan to ever update their old systems against CVEs?  (for example the most recent one).  Having a large binary size would prevent upgrading older platforms.\n\nWe continue to update our old system and yes a larger binary size would impact that. The system I am thinking of, shipped 2017 so we are at 5 years, not sure how many more years it will be supported. \n\n\u003e Considering that this minor increase is well within some of the savings we\u0027ve had in the last 12 months, this should be fine.\n\nAgree. I am good.",
+      "parentUuid": "e3cf4ca1_12cd980d",
+      "revId": "817c701d24efdba75680e83aaf96c72bf66b55b4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
