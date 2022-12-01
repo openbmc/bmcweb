@@ -50,6 +50,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3e02e044_4fc8a6cc",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-01T00:02:21Z",
+      "side": 1,
+      "message": "This almost definitely doesn\u0027t need to be aggregated because it\u0027s been deprecated in the standard.  I wonder if we should just strip @odata.context entirely in aggregated responses?",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 21
+      },
+      "revId": "29215b73daca1eb157c494c160856712b67a43ad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e4a30b03_d0224cd1",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-01T00:02:21Z",
+      "side": 1,
+      "message": "This almost definitely doesn\u0027t need to be aggregated.  The hostname of the bmc doesn\u0027t change because it\u0027s been aggregated.",
+      "range": {
+        "startLine": 37,
+        "startChar": 5,
+        "endLine": 37,
+        "endChar": 13
+      },
+      "revId": "29215b73daca1eb157c494c160856712b67a43ad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9126d669_839c3ef9",
         "filename": "redfish-core/include/redfish_aggregator.hpp",
         "patchSetId": 6
@@ -85,6 +131,30 @@
       "side": 1,
       "message": "That was supposed to be HttpBootUri.  It\u0027s since been removed as part of removing all properties that end in case-insensitive \"uri\".",
       "parentUuid": "9126d669_839c3ef9",
+      "range": {
+        "startLine": 38,
+        "startChar": 5,
+        "endLine": 38,
+        "endChar": 17
+      },
+      "revId": "29215b73daca1eb157c494c160856712b67a43ad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6cd4e5ad_ecb0cacd",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-01T00:02:21Z",
+      "side": 1,
+      "message": "👍",
+      "parentUuid": "47916d24_36fa746b",
       "range": {
         "startLine": 38,
         "startChar": 5,
@@ -142,6 +212,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bf8efc90_224b9650",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-01T00:02:21Z",
+      "side": 1,
+      "message": "\u003e That\u0027s a difficult problem.  The good news is I don\u0027t think we have to be that picky.  This change is only for fixing URIs in responses.  We won\u0027t ever forward requests for generic external URIs.  It\u0027s only for known Redfish URIs.\n\nRight, but PublicationUri will show up in a JsonSchema response.\n\n\u003e \n\u003e We call addPrefixToItem() to perform the actual fixing and it will only do that if the URI is for a known aggregated resource.  As part of that it must begin with /redfish/v1.  Public URIs won\u0027t fit that bill and thus be left as is.\n\nI THINK that solves it, so long as we\u0027re explicitly checking host() as well as path() and not just path (I think the common DMTF publication locations start with redfish/v1 as well)",
+      "parentUuid": "45b75ead_ebb62345",
+      "range": {
+        "startLine": 49,
+        "startChar": 5,
+        "endLine": 49,
+        "endChar": 19
+      },
+      "revId": "29215b73daca1eb157c494c160856712b67a43ad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "36276da3_64da0b63",
@@ -173,6 +267,24 @@
       "side": 1,
       "message": "The future proofing you describe happens in line 141 where you posted a different comment https://gerrit.openbmc.org/c/openbmc/bmcweb/+/58937/comments/414be755_c59bf4ce.\n\nI\u0027ve moved this check into its own function just to make it clearer what\u0027s going on.",
       "parentUuid": "36276da3_64da0b63",
+      "revId": "29215b73daca1eb157c494c160856712b67a43ad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7eaddd8e_aab2955d",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-01T00:02:21Z",
+      "side": 1,
+      "message": "👍",
+      "parentUuid": "d048ae9f_b2abc1eb",
       "revId": "29215b73daca1eb157c494c160856712b67a43ad",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
