@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3affef96_e57f1e9a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-12-01T21:07:25Z",
+      "side": 1,
+      "message": "When I applied the patch in its current form (std::array for topCollections and std::unordered_map for topCollectionsParents), the size of BMCWeb\u0027s binary (32-bit ARM) increased by just under 66 KB.  Is that acceptable or concerning?",
+      "parentUuid": "8e897546_ccdc8906",
+      "revId": "e91548ce8ffd14693f41d5537a217dfc8315e680",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b5700d76_8adeb5f7",
         "filename": "redfish-core/include/aggregation_utils.hpp",
         "patchSetId": 15
@@ -31,6 +49,30 @@
       "writtenOn": "2022-11-30T19:33:58Z",
       "side": 1,
       "message": "Please see the runtime memory usage requirements in the developing guide.  This should be using a constexpr array, like we do other places.",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 37
+      },
+      "revId": "e91548ce8ffd14693f41d5537a217dfc8315e680",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f5fbf481_53a07c50",
+        "filename": "redfish-core/include/aggregation_utils.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-12-01T21:07:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b5700d76_8adeb5f7",
       "range": {
         "startLine": 18,
         "startChar": 0,
@@ -60,6 +102,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c5e5423b_9ee1f2ba",
+        "filename": "redfish-core/include/aggregation_utils.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-12-01T21:07:25Z",
+      "side": 1,
+      "message": "Ignoring Account/Session makes sense so I can remove that.  We\u0027re not currently wanting to aggregate JsonSchemas so I\u0027ll remove that as well.  Right now we just specific check for it in the code in order to ignore it.\n\nTaskService and TelemetryService are a bit interesting because there might be some relevant information at those endpoints on the satellite, but we don\u0027t expose them via the aggregator because they are not actually collections.  I don\u0027t think it\u0027s that big of an issue since the actual collections that we aggregate are things like MetricReports and Tasks which exist downtree.\n\nWe currently don\u0027t aggregate UpdateService, but we do aggregate its FirmwareInventory and SoftwareInventory collections.  TaskService and TelemetryService are structured in the same way so we should be able to handle them the same way.",
+      "parentUuid": "a6ca4200_58ca2804",
+      "revId": "e91548ce8ffd14693f41d5537a217dfc8315e680",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e2d94a5a_a9c5ca45",
         "filename": "redfish-core/include/aggregation_utils.hpp",
         "patchSetId": 15
@@ -71,6 +131,24 @@
       "writtenOn": "2022-11-30T19:33:58Z",
       "side": 1,
       "message": "As I look at this.... this is looking like a less memory efficient version of the http router.  I wonder if we should be looking at that code as at least a model for this, or storing this as a trie?\n\nAlternatively, should we just have the policy that we have a BMCWEB_ROUTE for every top level collection, regardless of whether the bmc implements it?\n\nThis needs more thought for long-term consequences.",
+      "revId": "e91548ce8ffd14693f41d5537a217dfc8315e680",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bb479212_80b3fc4b",
+        "filename": "redfish-core/include/aggregation_utils.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-12-01T21:07:25Z",
+      "side": 1,
+      "message": "\u003e As I look at this.... this is looking like a less memory efficient version of the http router.  I wonder if we should be looking at that code as at least a model for this, or storing this as a trie?\n\nI think trie makes more since because we only really need to know if we have a URI match.  I was originally considering a trie instead of this unordered_map, but it seemed more difficult to implement cleanly as well as more tedious to use for lookups.  The latter doesn\u0027t seem as much of a concern after completing other patches in the chain and already having to parse URIs a segment at a time.\n\n\n\u003e Alternatively, should we just have the policy that we have a BMCWEB_ROUTE for every top level collection, regardless of whether the bmc implements it?\n\nI don\u0027t think we need to actually handle the top level collections so much as make sure there is is a link to it in the parent.  We have a generic 404 handler that allows us to attempt aggregation when a request comes for an unsupported resource or collection.  The request would be handled locally and forwarded to the satellite.  When the responses are reconciled we see that we locally returned a 404 so we\u0027ll just return the satellite response as the overall response if it\u0027s a 200.\n\n\n\u003e This needs more thought for long-term consequences.\n\nIt wouldn\u0027t be difficult to go into all parents of top level collections and add links to the unsupported collection.  It\u0027ll be a bit wonky though showing links that in most instances will return a 404 regardless of aggregation being enabled.  There are roughly 70 links to top level collections or parents of a top level collection such as /redfish/v1/CompositionService.  Exposing such a large number of 404 links does not seem very user friendly to those who need to walk the tree.\n\nI\u0027m also worried that we\u0027ll still have to permanently maintain these URIs going forward.  Any time a new top level collection is added to the spec then we\u0027ll have to manually go into the code and add links to it in the parent code.\n\n\nMy preference is probably to take the trie approach since we won\u0027t have to manually maintain anything going forward.  I think we can live with needing to query the satellites now when we query endpoints like /redfish/v1.  On the satellite side these parent URIs shouldn\u0027t require nearly as many dbus calls as what\u0027s required for handling collection requests for example.\n\nIf that is an issue then I think it would be worth making an aggregation specific cache for things like this where it\u0027d save us needing to query a satellite for information that shouldn\u0027t change.  We\u0027d still refresh the cache of course.  Some other use cases would be knowing what query parameters such as $expand are supported by each satellite as well as what the URI for the root Chassis is.",
+      "parentUuid": "e2d94a5a_a9c5ca45",
       "revId": "e91548ce8ffd14693f41d5537a217dfc8315e680",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
