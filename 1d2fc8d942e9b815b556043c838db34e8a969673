@@ -50,6 +50,98 @@
       "message": "This patchset also flags 10 new cppcheck warnings.  Please check the jenkins results and fix them.",
       "revId": "1d2fc8d942e9b815b556043c838db34e8a969673",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "926e7dc5_13e9111e",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-12-01T18:51:23Z",
+      "side": 1,
+      "message": "Some OEM\u0027s might not have BIOS configuration support and so the D-BUs service. So returning error will break the functionality. So in such cases, It can return the empty attributes. So this condition can\u0027t treated as failure. So remove this internalError.",
+      "range": {
+        "startLine": 215,
+        "startChar": 12,
+        "endLine": 215,
+        "endChar": 52
+      },
+      "revId": "1d2fc8d942e9b815b556043c838db34e8a969673",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ebefd7c8_d05cf5a1",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-12-01T18:51:23Z",
+      "side": 1,
+      "message": "Log the \"item.second\" information for better debugging.",
+      "range": {
+        "startLine": 281,
+        "startChar": 44,
+        "endLine": 283,
+        "endChar": 67
+      },
+      "revId": "1d2fc8d942e9b815b556043c838db34e8a969673",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1c1f0d61_f8ea5196",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 409,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-12-01T18:51:23Z",
+      "side": 1,
+      "message": "Its too bind lamda function and code. Use bind_front to move this to its own function.",
+      "range": {
+        "startLine": 211,
+        "startChar": 73,
+        "endLine": 409,
+        "endChar": 10
+      },
+      "revId": "1d2fc8d942e9b815b556043c838db34e8a969673",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba0d44be_f04d5051",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 414,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2022-12-01T18:51:23Z",
+      "side": 1,
+      "message": "Instead of relaying on GetObject() which uses hardcode D-BUS path, Its better to user \"GetSubTree\" which uses D-Bus interface(Which is more reliable). So using D-Bus interface, We can get all \"D-Bus Object Paths\" and associated \"D-Bus services\" for fetching the \"BaseBIOSTable\"",
+      "range": {
+        "startLine": 406,
+        "startChar": 12,
+        "endLine": 414,
+        "endChar": 38
+      },
+      "revId": "1d2fc8d942e9b815b556043c838db34e8a969673",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
