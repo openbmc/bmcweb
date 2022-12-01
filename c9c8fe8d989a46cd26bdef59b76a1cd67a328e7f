@@ -16,6 +16,24 @@
       "message": "I updated the commit message, is now ok?",
       "revId": "c9c8fe8d989a46cd26bdef59b76a1cd67a328e7f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "549903d2_623dfe78",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-12-01T21:59:22Z",
+      "side": 1,
+      "message": "LGTM",
+      "parentUuid": "d0cf9b5c_487758b9",
+      "revId": "c9c8fe8d989a46cd26bdef59b76a1cd67a328e7f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
