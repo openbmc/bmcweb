@@ -92,6 +92,29 @@
       },
       "revId": "229764ea82be8bf87415cda2cc6c4dbd74c2ab8a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7a8741c9_f28d05d4",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-12-01T01:55:36Z",
+      "side": 1,
+      "message": "What\u0027s the plan of updating all redfish-core codes? All at once, incrementally?",
+      "range": {
+        "startLine": 115,
+        "startChar": 21,
+        "endLine": 115,
+        "endChar": 32
+      },
+      "revId": "229764ea82be8bf87415cda2cc6c4dbd74c2ab8a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
