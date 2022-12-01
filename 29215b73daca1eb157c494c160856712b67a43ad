@@ -95,6 +95,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "227ffce1_28776ff7",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-01T21:08:52Z",
+      "side": 1,
+      "message": "\u003e In general I don\u0027t think we should get into having aggregation stripping away deprecated properties and other fields from aggregated responses.\n\nI agree with the statement you made, we shouldn\u0027t be stripping \"Properties\", of which this isn\u0027t a property, it\u0027s a metadata context that\u0027s supposed to relate to the ServiceRoot.  At best, forwarding it as-is is incorrect, because it can\u0027t be resolved post-aggregation.  That\u0027s why I\u0027m suggesting removing it.  There\u0027s no \"good\" way to make it correct, and I\u0027d rather it just not be there than be wrong.\n\n\u003e  That seems like opening a big can of worms.\n\u003e \n\u003e In this specific case it looks like the values would look like \"/redfish/v1/$metadata#ComputerSystem.ComputerSystem\".  That\u0027s not a format we can perform fixing on so it\u0027d get left as is.  I might as well remove it from the list then since we\u0027ll never perform fixing on it.\n\nI still think we should remove it entirely, but we can take that up in another patch.  Removing it from the list is fine for this patch.",
+      "parentUuid": "0a33bc21_0b8fa89e",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 21
+      },
+      "revId": "29215b73daca1eb157c494c160856712b67a43ad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e4a30b03_d0224cd1",
@@ -132,6 +156,30 @@
       "side": 1,
       "message": "Alright I\u0027ll remove it and probably leave a comment justifying doing so.  Interesting sidenote: the hostname property for AggregationSource is of type \"string (URI)\", while the other instances of hostname property are only \"string\".",
       "parentUuid": "e4a30b03_d0224cd1",
+      "range": {
+        "startLine": 37,
+        "startChar": 5,
+        "endLine": 37,
+        "endChar": 13
+      },
+      "revId": "29215b73daca1eb157c494c160856712b67a43ad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e94bf045_c751c381",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-01T21:08:52Z",
+      "side": 1,
+      "message": "greeeeeeeeat.  Didn\u0027t realize we had that same property used in two places.  What a pain...",
+      "parentUuid": "f4411920_f288440f",
       "range": {
         "startLine": 37,
         "startChar": 5,
@@ -298,6 +346,30 @@
       "side": 1,
       "message": "\u003e I THINK that solves it, so long as we\u0027re explicitly checking host() as well as path() and not just path (I think the common DMTF publication locations start with redfish/v1 as well)\n\nThese are examples from https://www.dmtf.org/sites/default/files/standards/documents/DSP2046_2022.2.pdf#page\u003d366:\n\"PublicationUri\": \"http://redfish.dmtf.org/schemas/v1/Chassis.v1_11_0.json\"\n\"PublicationUri\": \"http://schemas.contoso.com/Chassis.v1_11_0.xy.json\"\n\nWe call parse_relative_ref() on the string and that doesn\u0027t extract the path.  If the URI begins with something like \"http://\" then it fails to parse and we return early.  Interestingly, a string like \"www.redfish.dmtf.org/redfish/v1/Chassis\" will parse.  However, after converting to url_view the entire path is recognized as \"www.redfish.dmtf.org/redfish/v1/Chassis\" so we wouldn\u0027t apply a prefix in that scenario either.",
       "parentUuid": "bf8efc90_224b9650",
+      "range": {
+        "startLine": 49,
+        "startChar": 5,
+        "endLine": 49,
+        "endChar": 19
+      },
+      "revId": "29215b73daca1eb157c494c160856712b67a43ad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "16657604_2c64fd4c",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-01T21:08:52Z",
+      "side": 1,
+      "message": "ACK",
+      "parentUuid": "9220e243_6df0bfed",
       "range": {
         "startLine": 49,
         "startChar": 5,
