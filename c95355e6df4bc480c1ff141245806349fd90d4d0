@@ -137,6 +137,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "07c1df2c_3bfe13ee",
+        "filename": "include/google/google_service_root.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-12-01T21:26:57Z",
+      "side": 1,
+      "message": "Ack.",
+      "parentUuid": "78252599_41fbd0fb",
+      "range": {
+        "startLine": 121,
+        "startChar": 44,
+        "endLine": 121,
+        "endChar": 48
+      },
+      "revId": "c95355e6df4bc480c1ff141245806349fd90d4d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f5156509_38715d6e",
