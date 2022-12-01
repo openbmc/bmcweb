@@ -51,6 +51,24 @@
       "message": "Question: does openbmc enum naming convention apply here?",
       "revId": "229764ea82be8bf87415cda2cc6c4dbd74c2ab8a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1e618854_b9186b5b",
+        "filename": "redfish-core/include/redfish_defs/account_service.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-12-01T01:51:18Z",
+      "side": 1,
+      "message": "Oh I asked that in the other thread. Mark as resolved.",
+      "parentUuid": "2d834953_5509569d",
+      "revId": "229764ea82be8bf87415cda2cc6c4dbd74c2ab8a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
