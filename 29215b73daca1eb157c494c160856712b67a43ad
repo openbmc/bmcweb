@@ -73,6 +73,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0a33bc21_0b8fa89e",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-12-01T20:51:20Z",
+      "side": 1,
+      "message": "In general I don\u0027t think we should get into having aggregation stripping away deprecated properties and other fields from aggregated responses.  That seems like opening a big can of worms.\n\nIn this specific case it looks like the values would look like \"/redfish/v1/$metadata#ComputerSystem.ComputerSystem\".  That\u0027s not a format we can perform fixing on so it\u0027d get left as is.  I might as well remove it from the list then since we\u0027ll never perform fixing on it.",
+      "parentUuid": "3e02e044_4fc8a6cc",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 21
+      },
+      "revId": "29215b73daca1eb157c494c160856712b67a43ad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e4a30b03_d0224cd1",
         "filename": "redfish-core/include/redfish_aggregator.hpp",
         "patchSetId": 6
@@ -84,6 +108,30 @@
       "writtenOn": "2022-12-01T00:02:21Z",
       "side": 1,
       "message": "This almost definitely doesn\u0027t need to be aggregated.  The hostname of the bmc doesn\u0027t change because it\u0027s been aggregated.",
+      "range": {
+        "startLine": 37,
+        "startChar": 5,
+        "endLine": 37,
+        "endChar": 13
+      },
+      "revId": "29215b73daca1eb157c494c160856712b67a43ad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f4411920_f288440f",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-12-01T20:51:20Z",
+      "side": 1,
+      "message": "Alright I\u0027ll remove it and probably leave a comment justifying doing so.  Interesting sidenote: the hostname property for AggregationSource is of type \"string (URI)\", while the other instances of hostname property are only \"string\".",
+      "parentUuid": "e4a30b03_d0224cd1",
       "range": {
         "startLine": 37,
         "startChar": 5,
@@ -226,6 +274,30 @@
       "side": 1,
       "message": "\u003e That\u0027s a difficult problem.  The good news is I don\u0027t think we have to be that picky.  This change is only for fixing URIs in responses.  We won\u0027t ever forward requests for generic external URIs.  It\u0027s only for known Redfish URIs.\n\nRight, but PublicationUri will show up in a JsonSchema response.\n\n\u003e \n\u003e We call addPrefixToItem() to perform the actual fixing and it will only do that if the URI is for a known aggregated resource.  As part of that it must begin with /redfish/v1.  Public URIs won\u0027t fit that bill and thus be left as is.\n\nI THINK that solves it, so long as we\u0027re explicitly checking host() as well as path() and not just path (I think the common DMTF publication locations start with redfish/v1 as well)",
       "parentUuid": "45b75ead_ebb62345",
+      "range": {
+        "startLine": 49,
+        "startChar": 5,
+        "endLine": 49,
+        "endChar": 19
+      },
+      "revId": "29215b73daca1eb157c494c160856712b67a43ad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9220e243_6df0bfed",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-12-01T20:51:20Z",
+      "side": 1,
+      "message": "\u003e I THINK that solves it, so long as we\u0027re explicitly checking host() as well as path() and not just path (I think the common DMTF publication locations start with redfish/v1 as well)\n\nThese are examples from https://www.dmtf.org/sites/default/files/standards/documents/DSP2046_2022.2.pdf#page\u003d366:\n\"PublicationUri\": \"http://redfish.dmtf.org/schemas/v1/Chassis.v1_11_0.json\"\n\"PublicationUri\": \"http://schemas.contoso.com/Chassis.v1_11_0.xy.json\"\n\nWe call parse_relative_ref() on the string and that doesn\u0027t extract the path.  If the URI begins with something like \"http://\" then it fails to parse and we return early.  Interestingly, a string like \"www.redfish.dmtf.org/redfish/v1/Chassis\" will parse.  However, after converting to url_view the entire path is recognized as \"www.redfish.dmtf.org/redfish/v1/Chassis\" so we wouldn\u0027t apply a prefix in that scenario either.",
+      "parentUuid": "bf8efc90_224b9650",
       "range": {
         "startLine": 49,
         "startChar": 5,
