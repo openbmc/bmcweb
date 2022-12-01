@@ -16,6 +16,24 @@
       "message": "Question for those looking at this thread.  Is \"redfish_defs\" a good enough name?  It seems mediocre to me, but I couldn\u0027t come up with a better one creatively.",
       "revId": "229764ea82be8bf87415cda2cc6c4dbd74c2ab8a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a348840d_1ffa5a8b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 20
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-12-01T00:00:23Z",
+      "side": 1,
+      "message": "What about something like \"enums\", \"redfish_enums\", or \"enum_defs\"?  I\u0027d kinda like some form of \"enum\" in the name, but it\u0027s not that big of a deal.",
+      "parentUuid": "17006ee1_b0df4784",
+      "revId": "229764ea82be8bf87415cda2cc6c4dbd74c2ab8a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
