@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "72b2e540_a595835e",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 552,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-01T16:55:22Z",
+      "side": 1,
+      "message": "?  This is taking a dbus enum and loading it directly into a Redfish enum.  Surely that\u0027s not 1:1?  I would expect dbus enus to be something of the form of xyz.openbmc_project.OriginatorType.Foo, which definitely doesn\u0027t match redfish.",
+      "range": {
+        "startLine": 552,
+        "startChar": 0,
+        "endLine": 552,
+        "endChar": 61
+      },
+      "revId": "0691bbe193629543d3ccab7491ddbb97135028ee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
