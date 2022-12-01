@@ -72,6 +72,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e44afd8b_e718db96",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-12-01T21:54:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2035dfef_3a3d86a4",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 18
+      },
+      "revId": "e04a738854311b63155817223e14cf0432ad3d86",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d60bfcf9_9f9ea1bb",
@@ -143,6 +167,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "76d9e717_2e18fcc9",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-12-01T21:54:30Z",
+      "side": 1,
+      "message": "Alright I\u0027ve commented it out while the bug works its way through.",
+      "parentUuid": "f2f43a22_a5402803",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 35
+      },
+      "revId": "e04a738854311b63155817223e14cf0432ad3d86",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "14e32c29_72449b47",
@@ -156,6 +204,30 @@
       "writtenOn": "2022-12-01T00:02:21Z",
       "side": 1,
       "message": "Aggregating async Tasks needs more thought than this.  I suspect we should omit this for now, but very likely the aggregator TaskService will need a special implementation for aggregation.",
+      "range": {
+        "startLine": 37,
+        "startChar": 5,
+        "endLine": 37,
+        "endChar": 16
+      },
+      "revId": "e04a738854311b63155817223e14cf0432ad3d86",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "135d813c_951c5b01",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-12-01T21:54:30Z",
+      "side": 1,
+      "message": "I\u0027m not understanding the concern.  TaskMonitor only appears in responses from /redfish/v1/TaskService/Tasks/{TaskId}.  That can be an aggregated resource since Tasks is a top level collection.\n\nThe example in the schema is:\n\"TaskMonitor\": \"/taskmon/545\"\n\nThat path would not get modified by the prefix fixing logic.",
+      "parentUuid": "14e32c29_72449b47",
       "range": {
         "startLine": 37,
         "startChar": 5,
