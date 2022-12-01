@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d470d1c6_009d8f89",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 20
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-01T18:25:56Z",
+      "side": 1,
+      "message": "Maybe \"generated\".  My thinking with that is that:\n\"we\u0027re already in the redfish-core folder, so adding \"redfish\" again doesn\u0027t add value\"\n\nWe will likely have more generated files in the future.  What about a combination\n\nredfish-core/include/generated/enum/account_service.hpp\n?",
+      "parentUuid": "a348840d_1ffa5a8b",
+      "revId": "229764ea82be8bf87415cda2cc6c4dbd74c2ab8a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2d834953_5509569d",
         "filename": "redfish-core/include/redfish_defs/account_service.hpp",
         "patchSetId": 20
@@ -94,6 +112,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f415c0c8_39ea7941",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-01T18:25:56Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "4c43ba5b_844ce636",
+      "range": {
+        "startLine": 24,
+        "startChar": 42,
+        "endLine": 24,
+        "endChar": 43
+      },
+      "revId": "229764ea82be8bf87415cda2cc6c4dbd74c2ab8a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7a8741c9_f28d05d4",
@@ -107,6 +149,30 @@
       "writtenOn": "2022-12-01T01:55:36Z",
       "side": 1,
       "message": "What\u0027s the plan of updating all redfish-core codes? All at once, incrementally?",
+      "range": {
+        "startLine": 115,
+        "startChar": 21,
+        "endLine": 115,
+        "endChar": 32
+      },
+      "revId": "229764ea82be8bf87415cda2cc6c4dbd74c2ab8a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f877bca_0baac236",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-01T18:25:56Z",
+      "side": 1,
+      "message": "As with most things, incrementally.  Where we\u0027re able, we try to avoid \"big bang\" type changes.  With these enums, I think the existing code can be moved over incrementally over time, although we could likely come up with a few large commits that moves basically everything over, but I\u0027d like us to get a little experience with these first.",
+      "parentUuid": "7a8741c9_f28d05d4",
       "range": {
         "startLine": 115,
         "startChar": 21,
