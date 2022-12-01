@@ -612,6 +612,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7641ef67_18c37bc9",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 64
+      },
+      "lineNbr": 461,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-12-01T19:30:11Z",
+      "side": 1,
+      "message": "\u003e This would normally be done with method arguments, which keeps the type/name pairs consistent.\n\n+1. \n\n\u003e I\u0027m not sure I agree with that.  It\u0027s only easier because we no longer have a typesafe API that can be inspected and reused.  That doesn\u0027t seem like an appropriate tradeoff to me.\n\n+1.",
+      "parentUuid": "a52082e9_a78c3029",
+      "range": {
+        "startLine": 461,
+        "startChar": 64,
+        "endLine": 461,
+        "endChar": 73
+      },
+      "revId": "eccee7d2bc24b82a8d365382ed9d138fcb4721d7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bd3fa6d2_5281d200",
         "filename": "redfish-core/lib/metric_report_definition.hpp",
         "patchSetId": 64
