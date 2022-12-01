@@ -39,6 +39,24 @@
       "message": "Why Max here?",
       "revId": "85fde5fc495657fc9dcb4f12d807b0744a1d6b60",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6646a9b4_68caaac3",
+        "filename": "http/verb.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1001584
+      },
+      "writtenOn": "2022-12-01T21:17:39Z",
+      "side": 1,
+      "message": "This is the avoid the usage of default. I want to alert the programmer if they add a new HttpVerb. Using default might obscure this required change if needed.",
+      "parentUuid": "12cc6382_2614f1e6",
+      "revId": "85fde5fc495657fc9dcb4f12d807b0744a1d6b60",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
