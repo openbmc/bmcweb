@@ -234,6 +234,30 @@
       },
       "revId": "be84f12aae0c080a8dc88a635a5080623d87ec24",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f033b57_47cb9404",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1001369
+      },
+      "writtenOn": "2022-12-02T02:02:09Z",
+      "side": 1,
+      "message": "Since your change is merged, I updated the CL to use the getSubTreePaths API",
+      "parentUuid": "399e38ec_236bbb53",
+      "range": {
+        "startLine": 183,
+        "startChar": 49,
+        "endLine": 183,
+        "endChar": 64
+      },
+      "revId": "be84f12aae0c080a8dc88a635a5080623d87ec24",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
