@@ -74,6 +74,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3ba52a46_5705b782",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1001584
+      },
+      "writtenOn": "2022-12-02T01:24:53Z",
+      "side": 1,
+      "message": "I have done Redfish Service Validator in future commit, will add to commit msg",
+      "parentUuid": "ab782c66_7e098c34",
+      "revId": "7fc17091c20e151610286711b4c0a9fbb8089681",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0363a3ae_8def7b8d",
         "filename": "http/routing.hpp",
         "patchSetId": 3
