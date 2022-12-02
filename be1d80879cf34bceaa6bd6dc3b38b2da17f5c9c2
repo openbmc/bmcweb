@@ -121,6 +121,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "318bc46f_42714bb4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 32
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1001093
+      },
+      "writtenOn": "2022-12-02T05:37:40Z",
+      "side": 1,
+      "message": "Hi Ed I have checked the option of using \"Item.System\" interface to discover computer systems. This interface is not used by many platforms and some of the platforms used this is not directly used as computer system context.  \nexample : \n\nhttps://github.com/openbmc/openbmc/blob/2a35c66601ea646d03f53f8ee1e0bea3acf179c1/meta-quanta/meta-gbs/recipes-phosphor/configuration/gbs-yaml-config/gbs-ipmi-fru.yaml\n\nin this file Item.System is used under motherboard\n\nand\n\nin this file Item.System is used under chassis\n\nhttps://github.com/openbmc/openbmc/blob/2a35c66601ea646d03f53f8ee1e0bea3acf179c1/meta-openpower/recipes-phosphor/ipmi/hostboot-inventory-config/config.yaml\n\nThe host power interface is more relatable with the existing systems as existing systems that use x86-power-control and phosphor-state-manager for host power objects and both host dbus objects are similar and discovered through this.\n\nneed your suggestion on this. shall we split the implementation of Item.System based discovery as a separate patch after all platforms adapted Item.System interface. as standard computer system .",
+      "parentUuid": "3e23d618_203aeacb",
+      "range": {
+        "startLine": 15,
+        "startChar": 9,
+        "endLine": 16,
+        "endChar": 50
+      },
+      "revId": "be1d80879cf34bceaa6bd6dc3b38b2da17f5c9c2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d72e5f73_335a4f62",
         "filename": "/COMMIT_MSG",
         "patchSetId": 32
@@ -172,6 +196,30 @@
       "writtenOn": "2022-11-16T20:55:18Z",
       "side": 1,
       "message": "string_view please.",
+      "range": {
+        "startLine": 84,
+        "startChar": 33,
+        "endLine": 84,
+        "endChar": 51
+      },
+      "revId": "be1d80879cf34bceaa6bd6dc3b38b2da17f5c9c2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cecdfa95_68f0c5cd",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1001093
+      },
+      "writtenOn": "2022-12-02T05:37:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8b36725a_93f26fc9",
       "range": {
         "startLine": 84,
         "startChar": 33,
@@ -605,6 +653,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a71aa28_543f2d3f",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1001093
+      },
+      "writtenOn": "2022-12-02T05:37:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "252c3d41_7435c172",
+      "range": {
+        "startLine": 29,
+        "startChar": 15,
+        "endLine": 29,
+        "endChar": 22
+      },
+      "revId": "be1d80879cf34bceaa6bd6dc3b38b2da17f5c9c2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4960157c_31eccda3",
@@ -618,6 +690,30 @@
       "writtenOn": "2022-11-23T19:02:23Z",
       "side": 1,
       "message": "nit, no bracket is needed. this also applies to other places",
+      "range": {
+        "startLine": 1261,
+        "startChar": 8,
+        "endLine": 1261,
+        "endChar": 9
+      },
+      "revId": "be1d80879cf34bceaa6bd6dc3b38b2da17f5c9c2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d30b450_6b35e598",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 1261,
+      "author": {
+        "id": 1001093
+      },
+      "writtenOn": "2022-12-02T05:37:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4960157c_31eccda3",
       "range": {
         "startLine": 1261,
         "startChar": 8,
@@ -664,6 +760,30 @@
       "writtenOn": "2022-11-23T19:05:47Z",
       "side": 1,
       "message": "Need to check if |objects| is empty or not before indexing the first item.",
+      "range": {
+        "startLine": 2785,
+        "startChar": 60,
+        "endLine": 2785,
+        "endChar": 67
+      },
+      "revId": "be1d80879cf34bceaa6bd6dc3b38b2da17f5c9c2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2fc80b82_7fbeae61",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 2785,
+      "author": {
+        "id": 1001093
+      },
+      "writtenOn": "2022-12-02T05:37:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "100e396e_bd072f6d",
       "range": {
         "startLine": 2785,
         "startChar": 60,
