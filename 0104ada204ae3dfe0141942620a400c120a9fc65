@@ -68,6 +68,30 @@
       },
       "revId": "0104ada204ae3dfe0141942620a400c120a9fc65",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ab3f54f2_a79c5dff",
+        "filename": "redfish-core/lib/entitytag.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1001584
+      },
+      "writtenOn": "2022-12-02T01:24:44Z",
+      "side": 1,
+      "message": "It is handwritten, the plan is to deny any patches to that entry in the privilege registry if a newly added resource missed adding to that list. Making sure that the list is correct could be a script/test that tries to patch every resource. If it fails any one, then the list isnt correct.",
+      "parentUuid": "d5740eca_c39108bb",
+      "range": {
+        "startLine": 12,
+        "startChar": 7,
+        "endLine": 12,
+        "endChar": 22
+      },
+      "revId": "0104ada204ae3dfe0141942620a400c120a9fc65",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
