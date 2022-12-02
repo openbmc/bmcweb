@@ -33,6 +33,24 @@
       "message": "This commit looks good for Static NTP Server configurations only. \nDynamic NTP Server details will not be fetched with this change. Probably that can be a separate commit later once the schema is fixed at DMTF?",
       "revId": "fcd2682a23e3a66d1fee65d866d2b002e8424af6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b759cdcf_66ba0f6d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-02T17:27:32Z",
+      "side": 1,
+      "message": "Agreed.  Lets fix the existing regression now, and we can work on the new features as another commit.",
+      "parentUuid": "8cc8ae08_1747921c",
+      "revId": "fcd2682a23e3a66d1fee65d866d2b002e8424af6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
