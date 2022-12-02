@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e64b6ad_2d47fd22",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2022-12-02T06:45:22Z",
+      "side": 1,
+      "message": "To get the NTP server working for both static and dynamic cases; all changes done at https://gerrit.openbmc.org/c/openbmc/bmcweb/+/52671 needs to be added back to bmcweb along with a DMTF schema file fix for issue https://github.com/DMTF/Redfish/issues/5311",
+      "revId": "fcd2682a23e3a66d1fee65d866d2b002e8424af6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
