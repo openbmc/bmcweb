@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a5ba7e49_ea753837",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-12-02T20:53:30Z",
+      "side": 1,
+      "message": "There are a few things I can try to further reduce the size.\n\nFor std::array topCollections I can remove \"/redfish/v1\" from the start of each URI.  I could also convert this to a trie.\n\nFor the topCollectionsParents it\u0027s already been established that I can\u0027t use std::unordered_map.  That will likely be replaced by a trie or something else with a smaller footprint.\n\nThere\u0027s also the possibility of being able to represent both as a single unified trie.",
+      "parentUuid": "3affef96_e57f1e9a",
+      "revId": "e91548ce8ffd14693f41d5537a217dfc8315e680",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b5700d76_8adeb5f7",
         "filename": "redfish-core/include/aggregation_utils.hpp",
         "patchSetId": 15
@@ -114,6 +132,24 @@
       "side": 1,
       "message": "Ignoring Account/Session makes sense so I can remove that.  We\u0027re not currently wanting to aggregate JsonSchemas so I\u0027ll remove that as well.  Right now we just specific check for it in the code in order to ignore it.\n\nTaskService and TelemetryService are a bit interesting because there might be some relevant information at those endpoints on the satellite, but we don\u0027t expose them via the aggregator because they are not actually collections.  I don\u0027t think it\u0027s that big of an issue since the actual collections that we aggregate are things like MetricReports and Tasks which exist downtree.\n\nWe currently don\u0027t aggregate UpdateService, but we do aggregate its FirmwareInventory and SoftwareInventory collections.  TaskService and TelemetryService are structured in the same way so we should be able to handle them the same way.",
       "parentUuid": "a6ca4200_58ca2804",
+      "revId": "e91548ce8ffd14693f41d5537a217dfc8315e680",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3421832a_f7113b7f",
+        "filename": "redfish-core/include/aggregation_utils.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-12-02T20:53:30Z",
+      "side": 1,
+      "message": "I\u0027ve removed JsonSchemas, AccountService, and SessionService.  I also needed to remove Sessions since ServiceRoot can link directly to that collection and it only appears at SessionService/Sessions.",
+      "parentUuid": "c5e5423b_9ee1f2ba",
       "revId": "e91548ce8ffd14693f41d5537a217dfc8315e680",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
