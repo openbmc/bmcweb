@@ -110,6 +110,30 @@
       },
       "revId": "e9c5eca96341eff0b5312b691e774b17e751667e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "52fc72f5_17f3f23c",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 867,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-12-02T17:59:56Z",
+      "side": 1,
+      "message": "Sorry, what is missing before for temperature sensors?",
+      "parentUuid": "89a67c9b_42b454ed",
+      "range": {
+        "startLine": 867,
+        "startChar": 8,
+        "endLine": 867,
+        "endChar": 18
+      },
+      "revId": "e9c5eca96341eff0b5312b691e774b17e751667e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
