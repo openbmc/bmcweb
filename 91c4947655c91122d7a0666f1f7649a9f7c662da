@@ -65,6 +65,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "df9775fc_b9f40f97",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 66
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 1001437
+      },
+      "writtenOn": "2022-12-03T02:22:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ded26e8e_ce96ff1b",
+      "revId": "91c4947655c91122d7a0666f1f7649a9f7c662da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d0dbe42b_f3aa05c7",
@@ -172,6 +190,24 @@
       "writtenOn": "2022-11-18T01:41:16Z",
       "side": 1,
       "message": "Please add head\nrefer: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/58206",
+      "revId": "91c4947655c91122d7a0666f1f7649a9f7c662da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "97143135_e4dfaf4b",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 66
+      },
+      "lineNbr": 784,
+      "author": {
+        "id": 1001437
+      },
+      "writtenOn": "2022-12-03T02:22:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4cded545_1e796ab4",
       "revId": "91c4947655c91122d7a0666f1f7649a9f7c662da",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
