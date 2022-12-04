@@ -6,11 +6,10 @@
 import argparse
 import json
 import logging
-import os.path
-import requests
-import traceback
 import time
-from requests.auth import HTTPBasicAuth
+import traceback
+
+import requests
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--host", help="Host to connect to", required=True)
@@ -45,7 +44,7 @@ def requests_get(url):
 
         return data
 
-    except Exception as err:
+    except Exception:
         traceback.print_exc()
         pass
 
@@ -62,8 +61,8 @@ def label_parser(url, label):
 def main():
     logging.captureWarnings(True)
     totalEntryUri = (
-        "https://{}/redfish/v1/Systems/system/"
-        + "LogServices/HostLogger/Entries/".format(args.host)
+        f"https://{args.host}/redfish/v1/Systems/system/"
+        + "LogServices/HostLogger/Entries/"
     )
     id = 0
     entryCount = 0

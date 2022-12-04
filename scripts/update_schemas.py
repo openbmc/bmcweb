@@ -2,12 +2,11 @@
 import requests
 import zipfile
 from io import BytesIO
-from packaging.version import Version, parse
+from packaging.version import parse
 
 import os
 from collections import OrderedDict, defaultdict
 import shutil
-import json
 
 import xml.etree.ElementTree as ET
 
