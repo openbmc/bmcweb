@@ -215,6 +215,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e4b64a4_a448d13d",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-12-05T23:39:08Z",
+      "side": 1,
+      "message": "Nice then I\u0027ll completely remove it instead of just commenting it out.",
+      "parentUuid": "567e9443_da745a6d",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 35
+      },
+      "revId": "e04a738854311b63155817223e14cf0432ad3d86",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "14e32c29_72449b47",
@@ -276,6 +300,30 @@
       "side": 1,
       "message": "TaskMonitor points to a URI that is outside of the redfish tree, and has task monitor semantics, rather than normal redfish tree semantics.  If you aggregate a TaskMonitor URI per the normal rules, the TaskMonitor will be broken and non-functional.\n\nIn theory, for async tasks, the aggregator connection needs to have special handling for it, and integrate the Async tasks into the aggregated collection.  This is likely non-trivial, but will need to be done at some point.",
       "parentUuid": "135d813c_951c5b01",
+      "range": {
+        "startLine": 37,
+        "startChar": 5,
+        "endLine": 37,
+        "endChar": 16
+      },
+      "revId": "e04a738854311b63155817223e14cf0432ad3d86",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9cba59cb_5e0782a2",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-12-05T23:39:08Z",
+      "side": 1,
+      "message": "\u003e TaskMonitor points to a URI that is outside of the redfish tree, and has task monitor semantics, rather than normal redfish tree semantics\nThat doesn\u0027t seem to always be the case.  Right now we set TaskMonitor as /redfish/v1/TaskService/Tasks/\u003cTaskId\u003e/Monitor https://github.com/openbmc/bmcweb/blob/master/redfish-core/lib/task.hpp#L407-L411.  We would want to fixup that link since we\u0027ll be able to aggregate it when this chain of patches lands.\n\n\u003e If you aggregate a TaskMonitor URI per the normal rules, the TaskMonitor will be broken and non-functional.\nWe won\u0027t aggregate any URI that is not part of a top level collection in the Redfish tree.  If it\u0027s an external URI then the prefix fixing logic would ignore it anyway.  If there\u0027s a situation where the URI is not in the redfish tree, but it\u0027s somehow local to the satellite BMC, then I\u0027m not sure how we\u0027d handle aggregating requests to it.  BMCWeb wouldn\u0027t normally handle ones outside of the redfish tree.\n\n\u003e In theory, for async tasks, the aggregator connection needs to have special handling for it, and integrate the Async tasks into the aggregated collection.  This is likely non-trivial, but will need to be done at some point.\nThat should get implemented as part of https://gerrit.openbmc.org/c/openbmc/bmcweb/+/59004/10.  The URI for a given satellite Task will be /redfish/v1/TaskService/Tasks/{TaskId}.  /redfish/v1/TaskService/Tasks is a top level collection and as such the satellite task will be exposed as /redfish/v1/TaskService/Tasks/{prefix}_{TaskID}.",
+      "parentUuid": "3aaf892c_c8237788",
       "range": {
         "startLine": 37,
         "startChar": 5,
