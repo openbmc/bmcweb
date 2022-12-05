@@ -70,6 +70,30 @@
       },
       "revId": "0691bbe193629543d3ccab7491ddbb97135028ee",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1aa7206c_5e3ac714",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 552,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-05T17:02:35Z",
+      "side": 1,
+      "message": "Right, of which OriginatorType is a Redfish Enum, not a string.  Can you please link the phosphor-dbus-interfaces review that you\u0027re working through?",
+      "parentUuid": "9f156190_fa3cb247",
+      "range": {
+        "startLine": 552,
+        "startChar": 0,
+        "endLine": 552,
+        "endChar": 61
+      },
+      "revId": "0691bbe193629543d3ccab7491ddbb97135028ee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
