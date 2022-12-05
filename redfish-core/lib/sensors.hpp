@@ -802,16 +802,10 @@ inline void objectPropertiesToJson(
 {
     if (chassisSubNode == sensors::node::sensors)
     {
-        std::string subNodeEscaped(chassisSubNode);
-        subNodeEscaped.erase(
-            std::remove(subNodeEscaped.begin(), subNodeEscaped.end(), '_'),
-            subNodeEscaped.end());
 
         // For sensors in SensorCollection we set Id instead of MemberId,
         // including power sensors.
-        subNodeEscaped += '_';
-        subNodeEscaped += sensorName;
-        sensorJson["Id"] = std::move(subNodeEscaped);
+        sensorJson["Id"] = sensorName;
 
         std::string sensorNameEs(sensorName);
         std::replace(sensorNameEs.begin(), sensorNameEs.end(), '_', ' ');
