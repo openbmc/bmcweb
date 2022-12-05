@@ -260,6 +260,30 @@
       },
       "revId": "e04a738854311b63155817223e14cf0432ad3d86",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3aaf892c_c8237788",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-05T17:37:50Z",
+      "side": 1,
+      "message": "TaskMonitor points to a URI that is outside of the redfish tree, and has task monitor semantics, rather than normal redfish tree semantics.  If you aggregate a TaskMonitor URI per the normal rules, the TaskMonitor will be broken and non-functional.\n\nIn theory, for async tasks, the aggregator connection needs to have special handling for it, and integrate the Async tasks into the aggregated collection.  This is likely non-trivial, but will need to be done at some point.",
+      "parentUuid": "135d813c_951c5b01",
+      "range": {
+        "startLine": 37,
+        "startChar": 5,
+        "endLine": 37,
+        "endChar": 16
+      },
+      "revId": "e04a738854311b63155817223e14cf0432ad3d86",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
