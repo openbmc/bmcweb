@@ -56,6 +56,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "11ab7b54_e86a9aa9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-05T17:48:17Z",
+      "side": 1,
+      "message": "\u003e increased by just under 66 KB.  Is that acceptable or concerning?\n\nThat\u0027s totally fine, just that we need to be aware when we\u0027re adding large structures like this, and be aware that generated files in the past have potentially added 100+KB worth of size, which would make bmcweb not fit on a lot of implementations.  We do have some headspace, and in theory all of this is saved if we disable aggregation, so this is fine.",
+      "parentUuid": "a5ba7e49_ea753837",
+      "revId": "e91548ce8ffd14693f41d5537a217dfc8315e680",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b5700d76_8adeb5f7",
         "filename": "redfish-core/include/aggregation_utils.hpp",
         "patchSetId": 15
