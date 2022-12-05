@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd8122fa_8696e993",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-05T17:44:53Z",
+      "side": 1,
+      "message": "A couple super nit picks (feel free to ignore if you want) and one function that could use a unit test, and this is good to go.",
+      "revId": "b5468e3b690d5dc93cbbb04e63cce396d944acfa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "258086f7_0c23e033",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-05T17:44:53Z",
+      "side": 1,
+      "message": "Can we get a unit test case or two for this method?  Just 3-4 examples of properties should be fine.",
+      "revId": "b5468e3b690d5dc93cbbb04e63cce396d944acfa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "88fa8eb0_0eba67a4",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-05T17:44:53Z",
+      "side": 1,
+      "message": "nit, normally we don\u0027t pass string_views by const.  Up to you.",
+      "range": {
+        "startLine": 46,
+        "startChar": 26,
+        "endLine": 46,
+        "endChar": 31
+      },
+      "revId": "b5468e3b690d5dc93cbbb04e63cce396d944acfa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f7ec01a_c9d56fa4",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-05T17:44:53Z",
+      "side": 1,
+      "message": "nit, extra parens.",
+      "range": {
+        "startLine": 48,
+        "startChar": 11,
+        "endLine": 48,
+        "endChar": 12
+      },
+      "revId": "b5468e3b690d5dc93cbbb04e63cce396d944acfa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
