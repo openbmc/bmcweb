@@ -74,6 +74,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d5deadd6_ad45676c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-12-05T21:46:04Z",
+      "side": 1,
+      "message": "SGTM.  I ended up removing the std::unordered_map as part of an idea I outline in another comment.  With that the increase should end up being smaller.  I\u0027ll leave this open for now and revisit when the code changes and size increase are more finalized.",
+      "parentUuid": "11ab7b54_e86a9aa9",
+      "revId": "e91548ce8ffd14693f41d5537a217dfc8315e680",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b5700d76_8adeb5f7",
         "filename": "redfish-core/include/aggregation_utils.hpp",
         "patchSetId": 15
@@ -203,6 +221,24 @@
       "side": 1,
       "message": "\u003e As I look at this.... this is looking like a less memory efficient version of the http router.  I wonder if we should be looking at that code as at least a model for this, or storing this as a trie?\n\nI think trie makes more since because we only really need to know if we have a URI match.  I was originally considering a trie instead of this unordered_map, but it seemed more difficult to implement cleanly as well as more tedious to use for lookups.  The latter doesn\u0027t seem as much of a concern after completing other patches in the chain and already having to parse URIs a segment at a time.\n\n\n\u003e Alternatively, should we just have the policy that we have a BMCWEB_ROUTE for every top level collection, regardless of whether the bmc implements it?\n\nI don\u0027t think we need to actually handle the top level collections so much as make sure there is is a link to it in the parent.  We have a generic 404 handler that allows us to attempt aggregation when a request comes for an unsupported resource or collection.  The request would be handled locally and forwarded to the satellite.  When the responses are reconciled we see that we locally returned a 404 so we\u0027ll just return the satellite response as the overall response if it\u0027s a 200.\n\n\n\u003e This needs more thought for long-term consequences.\n\nIt wouldn\u0027t be difficult to go into all parents of top level collections and add links to the unsupported collection.  It\u0027ll be a bit wonky though showing links that in most instances will return a 404 regardless of aggregation being enabled.  There are roughly 70 links to top level collections or parents of a top level collection such as /redfish/v1/CompositionService.  Exposing such a large number of 404 links does not seem very user friendly to those who need to walk the tree.\n\nI\u0027m also worried that we\u0027ll still have to permanently maintain these URIs going forward.  Any time a new top level collection is added to the spec then we\u0027ll have to manually go into the code and add links to it in the parent code.\n\n\nMy preference is probably to take the trie approach since we won\u0027t have to manually maintain anything going forward.  I think we can live with needing to query the satellites now when we query endpoints like /redfish/v1.  On the satellite side these parent URIs shouldn\u0027t require nearly as many dbus calls as what\u0027s required for handling collection requests for example.\n\nIf that is an issue then I think it would be worth making an aggregation specific cache for things like this where it\u0027d save us needing to query a satellite for information that shouldn\u0027t change.  We\u0027d still refresh the cache of course.  Some other use cases would be knowing what query parameters such as $expand are supported by each satellite as well as what the URI for the root Chassis is.",
       "parentUuid": "e2d94a5a_a9c5ca45",
+      "revId": "e91548ce8ffd14693f41d5537a217dfc8315e680",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf621a89_9d52ff3f",
+        "filename": "redfish-core/include/aggregation_utils.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-12-05T21:46:04Z",
+      "side": 1,
+      "message": "I have a new idea.  I think I can get away with only the array of top level collections.  For the parents of top level collections I should be able to do a separate binary search routine that uses the same array rather than the unordered_map I was generating.\n\nFor example, \"/redfish/v1/UpdateService/SoftwareInventory\" is an entry in the array.  That URI also tells me that \"/redfish/v1\" can contain a link to \"/redfish/v1/UpdateService\".  It also tells me that \"/redfish/v1/UpdateService\" can contain a link to \"/redfish/v1/UpdateService/SoftwareInventory\".\n\nThis will be implemented in a future patch since there is not currently one in the chain that uses the topCollectionParents unordered_map.  For now I\u0027ve ripped out the portion of the script that generates the unordered_map and removed references to it.",
+      "parentUuid": "bb479212_80b3fc4b",
       "revId": "e91548ce8ffd14693f41d5537a217dfc8315e680",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
