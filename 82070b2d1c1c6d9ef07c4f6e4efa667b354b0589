@@ -16,6 +16,75 @@
       "message": "George, Please take a look! 😊",
       "revId": "82070b2d1c1c6d9ef07c4f6e4efa667b354b0589",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d195c20f_02fe5df8",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-12-05T00:34:37Z",
+      "side": 1,
+      "message": "#include ”dbus_utility.hpp“",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 3,
+        "endChar": 27
+      },
+      "revId": "82070b2d1c1c6d9ef07c4f6e4efa667b354b0589",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f9e22311_6b1c54fd",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-12-05T00:34:37Z",
+      "side": 1,
+      "message": "i or in?",
+      "range": {
+        "startLine": 158,
+        "startChar": 10,
+        "endLine": 158,
+        "endChar": 11
+      },
+      "revId": "82070b2d1c1c6d9ef07c4f6e4efa667b354b0589",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9c5e4d40_be795669",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-12-05T00:34:37Z",
+      "side": 1,
+      "message": "Please review: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/58924\nThis patch will be merged this week 😊",
+      "range": {
+        "startLine": 176,
+        "startChar": 69,
+        "endLine": 176,
+        "endChar": 78
+      },
+      "revId": "82070b2d1c1c6d9ef07c4f6e4efa667b354b0589",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
