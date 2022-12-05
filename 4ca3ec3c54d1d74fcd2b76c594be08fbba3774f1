@@ -88,6 +88,24 @@
       "parentUuid": "388b16a1_ba7655bc",
       "revId": "4ca3ec3c54d1d74fcd2b76c594be08fbba3774f1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "903ce222_789275c6",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1622,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2022-12-05T07:43:27Z",
+      "side": 0,
+      "message": "Yes, I think just share the DMTF discussion thread here and take this MR as it.",
+      "parentUuid": "9adef0e4_45ab7136",
+      "revId": "4ca3ec3c54d1d74fcd2b76c594be08fbba3774f1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
