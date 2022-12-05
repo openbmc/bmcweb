@@ -46,6 +46,30 @@
       },
       "revId": "0691bbe193629543d3ccab7491ddbb97135028ee",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9f156190_fa3cb247",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 552,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2022-12-05T05:14:41Z",
+      "side": 1,
+      "message": "\u003e In method parseDumpEntryFromDbusObject:line 402 , these properties are fetched from the dbus. The property name used here is same name\n\nYes,in line 429 - the dbus enum will be fetched, type casted to string and then be assigned to \"originatorType\"",
+      "parentUuid": "aeffe35b_5b9b82de",
+      "range": {
+        "startLine": 552,
+        "startChar": 0,
+        "endLine": 552,
+        "endChar": 61
+      },
+      "revId": "0691bbe193629543d3ccab7491ddbb97135028ee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
