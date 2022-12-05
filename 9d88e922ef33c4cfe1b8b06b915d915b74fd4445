@@ -35,6 +35,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "48c04809_4966de6a",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-12-05T05:55:42Z",
+      "side": 1,
+      "message": "\u003e Can this be generic?\n\nupdated it",
+      "parentUuid": "dd909777_726bfa9c",
+      "revId": "9d88e922ef33c4cfe1b8b06b915d915b74fd4445",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f532b991_957ffaf9",
@@ -48,6 +66,24 @@
       "writtenOn": "2022-11-22T19:02:57Z",
       "side": 1,
       "message": "Shouldn\u0027t this have already checked chassis?\nShould you just leave off if this association doesn\u0027t exist?",
+      "revId": "9d88e922ef33c4cfe1b8b06b915d915b74fd4445",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "432a8f3f_465b731f",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-12-05T05:55:42Z",
+      "side": 1,
+      "message": "\u003e Shouldn\u0027t this have already checked chassis?\n\u003e Should you just leave off if this association doesn\u0027t exist?\n\nUpdated it",
+      "parentUuid": "f532b991_957ffaf9",
       "revId": "9d88e922ef33c4cfe1b8b06b915d915b74fd4445",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
