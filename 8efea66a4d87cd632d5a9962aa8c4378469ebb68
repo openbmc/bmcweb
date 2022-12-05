@@ -76,6 +76,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c128ce9e_1b7dd3ac",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-12-05T01:01:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "49d64d44_b0638e2d",
+      "range": {
+        "startLine": 8,
+        "startChar": 10,
+        "endLine": 8,
+        "endChar": 16
+      },
+      "revId": "8efea66a4d87cd632d5a9962aa8c4378469ebb68",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9960eda1_4ec86dcc",
@@ -93,6 +117,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "47cc8813_1d9be44f",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-12-05T01:01:46Z",
+      "side": 1,
+      "message": "\u003e What if you don\u0027t have any?\n\nI have updated there",
+      "parentUuid": "9960eda1_4ec86dcc",
+      "revId": "8efea66a4d87cd632d5a9962aa8c4378469ebb68",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c13a8aab_ff602db6",
@@ -106,6 +148,30 @@
       "writtenOn": "2022-11-22T19:10:17Z",
       "side": 1,
       "message": "nit: this does nothing, the whole function can be empty for now?",
+      "range": {
+        "startLine": 38,
+        "startChar": 4,
+        "endLine": 42,
+        "endChar": 5
+      },
+      "revId": "8efea66a4d87cd632d5a9962aa8c4378469ebb68",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1e169ba7_b9299e10",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-12-05T01:01:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c13a8aab_ff602db6",
       "range": {
         "startLine": 38,
         "startChar": 4,
