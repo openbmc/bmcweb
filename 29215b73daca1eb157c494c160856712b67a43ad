@@ -238,6 +238,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "76f96021_0ec38d17",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-05T17:41:12Z",
+      "side": 1,
+      "message": "No, it\u0027s a pain because Hostname exists in both AggregationSource, which should be aggregated, and in Manager, where it shouldn\u0027t\u0027 be aggregated.",
+      "parentUuid": "9e5f59b6_1adf8eb9",
+      "range": {
+        "startLine": 37,
+        "startChar": 5,
+        "endLine": 37,
+        "endChar": 13
+      },
+      "revId": "29215b73daca1eb157c494c160856712b67a43ad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9126d669_839c3ef9",
