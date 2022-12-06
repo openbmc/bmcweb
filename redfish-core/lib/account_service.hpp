@@ -26,6 +26,7 @@
 #include <sdbusplus/unpack_properties.hpp>
 #include <utils/dbus_utils.hpp>
 #include <utils/json_utils.hpp>
+#include <verb.hpp>
 
 #include <optional>
 #include <string>
@@ -2012,7 +2013,8 @@ inline void requestAccountServiceRoutes(App& app)
             std::bind_front(handleAccountServiceHead, std::ref(app)));
 
     BMCWEB_ROUTE(app, "/redfish/v1/AccountService/")
-        .privileges(redfish::privileges::getAccountService)
+        .privileges(redfish::privileges::getPrivilegesFromUrlAndMethod(
+            "/redfish/v1/AccountService/", HttpVerb::Get))
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handleAccountServiceGet, std::ref(app)));
 
