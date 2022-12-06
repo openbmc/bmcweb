@@ -91,6 +91,29 @@
       },
       "revId": "72b341a2c96720ffa99a185829ef754904465d17",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a1476cb0_36163b65",
+        "filename": "redfish-core/lib/entitytag.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-12-06T22:04:40Z",
+      "side": 1,
+      "message": "The naming convention for files is snake_case I believe",
+      "range": {
+        "startLine": 3,
+        "startChar": 10,
+        "endLine": 3,
+        "endChar": 20
+      },
+      "revId": "72b341a2c96720ffa99a185829ef754904465d17",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
