@@ -50,6 +50,23 @@
       "message": "LGTM",
       "revId": "416c9f3060fbf8e8ffa0c47688e306cb4ae961db",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a0ca3308_7ece2633",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 73
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2022-12-06T22:08:24Z",
+      "side": 1,
+      "message": "I can only speak about the accuracy of the d-bus interface path, name, value, when writing and reading. Leaving the bmcweb-specific internals to the maintainers.\n\nLooking fwd to this patch as there has been queries of use-cases where a user can specify to not update a chip, such as a backup NOR on a system, and being able to set the WriteProtected value via Redfish would help with that.",
+      "revId": "416c9f3060fbf8e8ffa0c47688e306cb4ae961db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
