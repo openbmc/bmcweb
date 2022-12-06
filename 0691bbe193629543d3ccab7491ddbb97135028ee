@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fd897af7_7b72b1ec",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-12-06T21:29:15Z",
+      "side": 1,
+      "message": "Validator passed?",
+      "revId": "0691bbe193629543d3ccab7491ddbb97135028ee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "72b2e540_a595835e",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 3
@@ -92,6 +109,47 @@
         "endLine": 552,
         "endChar": 61
       },
+      "revId": "0691bbe193629543d3ccab7491ddbb97135028ee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e346e565_c1c20fcb",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 552,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-12-06T21:29:15Z",
+      "side": 1,
+      "message": "+1. Even though https://github.com/openbmc/phosphor-dbus-interfaces/blob/a1347418307d31a94bd21f22897aa508df938dcf/yaml/xyz/openbmc_project/Common/OriginatedBy.interface.yaml#L20 matches Redfish\n\n       \"OriginatorTypes\": {\n            \"enum\": [\n                \"Client\",\n                \"Internal\",\n                \"SupportingService\"\n            ],\n\nwe should still have a translateOriginatorTypeDbusToRedfish",
+      "parentUuid": "1aa7206c_5e3ac714",
+      "range": {
+        "startLine": 552,
+        "startChar": 0,
+        "endLine": 552,
+        "endChar": 61
+      },
+      "revId": "0691bbe193629543d3ccab7491ddbb97135028ee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6ce2dcab_5bcaa3b5",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 643,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-12-06T21:29:15Z",
+      "side": 1,
+      "message": "So if we don\u0027t have a originator Id, we leave off the originiator Type, I guess that would exclude the defaults so I think this is fine.",
       "revId": "0691bbe193629543d3ccab7491ddbb97135028ee",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
