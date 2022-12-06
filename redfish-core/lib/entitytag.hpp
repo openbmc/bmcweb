@@ -317,6 +317,10 @@ inline void setEntityTagsInRegistry()
     redfish::privileges::entityTagMap["/redfish/v1/Chassis/<str>/Power/"] =
         EntityTag::tagPower;
 
+    // privilege_registry.hpp
+    redfish::privileges::entityTagMap["/redfish/v1/AccountService/PrivilegeMap"] =
+        EntityTag::tagAccountService;
+
     // processor.hpp
     redfish::privileges::entityTagMap
         ["/redfish/v1/Systems/system/Processors/<str>/OperatingConfigs/"] =
