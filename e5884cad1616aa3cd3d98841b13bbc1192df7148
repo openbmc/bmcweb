@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "92959db3_9c62194d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-06T16:28:23Z",
+      "side": 1,
+      "message": "This is still incorrect.  The correct response here is temperature_CPU2_PVCCD_Controller_Temp",
+      "range": {
+        "startLine": 47,
+        "startChar": 11,
+        "endLine": 47,
+        "endChar": 37
+      },
+      "revId": "e5884cad1616aa3cd3d98841b13bbc1192df7148",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "aaa207f0_d9ce6738",
@@ -32,6 +55,24 @@
       "side": 1,
       "message": "Yes, I have tested with that code. Behavior of the code changes same as previous. Its not fixing the sensor Id issue. I was expected reply from you. But I think you may on leave.",
       "parentUuid": "aaa207f0_d9ce6738",
+      "revId": "e5884cad1616aa3cd3d98841b13bbc1192df7148",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6d5a898d_69b390bf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-06T16:28:23Z",
+      "side": 1,
+      "message": "Where were you expecting a reply from me?  Can you review https://gerrit.openbmc.org/c/openbmc/bmcweb/+/59027 and post the comment there about what you tested and what the result is?",
+      "parentUuid": "f33db451_3b64df21",
       "revId": "e5884cad1616aa3cd3d98841b13bbc1192df7148",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
