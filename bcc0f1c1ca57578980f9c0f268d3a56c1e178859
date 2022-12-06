@@ -477,6 +477,30 @@
       },
       "revId": "bcc0f1c1ca57578980f9c0f268d3a56c1e178859",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8d5213bd_6a4400dd",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 1951,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-12-06T21:09:27Z",
+      "side": 1,
+      "message": "I thought we hit problems in the past copying the Request object since it includes the body payload?\n\nhttps://github.com/openbmc/bmcweb/commit/a3e65892add97ce68816c1544c0aa21591239fc7\n\nhttps://discord.com/channels/775381525260664832/855566794994221117/888171699625934908",
+      "parentUuid": "f5e22ea3_10136da5",
+      "range": {
+        "startLine": 1951,
+        "startChar": 4,
+        "endLine": 1951,
+        "endChar": 20
+      },
+      "revId": "bcc0f1c1ca57578980f9c0f268d3a56c1e178859",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
