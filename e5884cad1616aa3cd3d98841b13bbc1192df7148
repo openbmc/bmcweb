@@ -16,6 +16,24 @@
       "message": "Did you see https://gerrit.openbmc.org/c/openbmc/bmcweb/+/59027\n\n?",
       "revId": "e5884cad1616aa3cd3d98841b13bbc1192df7148",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f33db451_3b64df21",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000416
+      },
+      "writtenOn": "2022-12-06T06:59:15Z",
+      "side": 1,
+      "message": "Yes, I have tested with that code. Behavior of the code changes same as previous. Its not fixing the sensor Id issue. I was expected reply from you. But I think you may on leave.",
+      "parentUuid": "aaa207f0_d9ce6738",
+      "revId": "e5884cad1616aa3cd3d98841b13bbc1192df7148",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
