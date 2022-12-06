@@ -1318,6 +1318,8 @@ inline void
     json["ServiceEnabled"] = true;
     json["MaxPasswordLength"] = 20;
     json["Accounts"]["@odata.id"] = "/redfish/v1/AccountService/Accounts";
+    json["PrivilegeMap"]["@odata.id"] =
+        "/redfish/v1/AccountService/PrivilegeMap";
     json["Roles"]["@odata.id"] = "/redfish/v1/AccountService/Roles";
     json["Oem"]["OpenBMC"]["@odata.type"] =
         "#OemAccountService.v1_0_0.AccountService";

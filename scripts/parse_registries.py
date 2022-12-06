@@ -166,6 +166,7 @@ PRIVILEGE_HEADER = PRAGMA_ONCE + WARNING + '''
 #include <map>
 #include <span>
 #include <string>
+#include <string_view>
 #include <vector>
 
 namespace redfish::privileges
@@ -253,7 +254,12 @@ def make_privilege_registry():
         for i in range(1, len(entity_tags)):
             registry.write("\t" + entity_tags[i] + ",\n")
         registry.write("\tnone,\n")
-        registry.write("};\n")
+        registry.write("};\n\n")
+
+        registry.write(
+            "constexpr std::array<std::string_view, {length}> entities ="
+            "{array};\n".format(length=len(entities), array=entities_str)
+        )
 
         # Write URL -> EntityTag Map
         registry.write(

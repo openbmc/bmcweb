@@ -36,6 +36,7 @@
 #include "pcie.hpp"
 #include "power.hpp"
 #include "power_subsystem.hpp"
+#include "privilege_registry.hpp"
 #include "processor.hpp"
 #include "redfish_sessions.hpp"
 #include "redfish_v1.hpp"
@@ -71,6 +72,7 @@ class RedfishService
     {
         setEntityTagsInRegistry();
         requestAccountServiceRoutes(app);
+        requestRoutesPrivilegeRegistry(app);
         requestRoutesRoles(app);
         requestRoutesRoleCollection(app);
         requestRoutesServiceRoot(app);
