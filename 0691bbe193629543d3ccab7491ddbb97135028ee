@@ -137,6 +137,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "45720966_89689c8d",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 552,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-06T23:38:22Z",
+      "side": 1,
+      "message": "At this level they don\u0027t match, becauese the dbus interface would be\n\nxyz.openbmc_project.Common.OriginatedBy.Client\nect\n\nwhich doesn\u0027t match Redfish.",
+      "parentUuid": "e346e565_c1c20fcb",
+      "range": {
+        "startLine": 552,
+        "startChar": 0,
+        "endLine": 552,
+        "endChar": 61
+      },
+      "revId": "0691bbe193629543d3ccab7491ddbb97135028ee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "6ce2dcab_5bcaa3b5",
