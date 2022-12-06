@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f82ac949_2f3e1834",
+        "filename": "redfish-core/lib/privilege_registry.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-12-06T19:07:23Z",
+      "side": 1,
+      "message": "Please add unit test for this",
+      "range": {
+        "startLine": 21,
+        "startChar": 12,
+        "endLine": 21,
+        "endChar": 38
+      },
+      "revId": "83d9ee3b004f135af2af63aa1ebdf7b711f32e2d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
