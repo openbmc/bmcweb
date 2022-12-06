@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "43dce99a_37e5d9f8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 16
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-12-06T21:41:35Z",
+      "side": 1,
+      "message": "I am confused by this statement, don\u0027t you just display all the fans with the cooled_by association from the chassis? I am confused how/why you would treat dual-rotor differently? Is a dual-rotor fan, 1 or 2 Redfish endpoints?\nIs /redfish/v1/Chassis/chassis/ThermalSubsystem/Fans/fan2_0 rotor 0 of fan 2?",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 17
+      },
+      "revId": "087b9cecfd796121d459257ce63d7989c184351b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "35763bf5_fcc5ff07",
         "filename": "/COMMIT_MSG",
         "patchSetId": 16
