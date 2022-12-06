@@ -22,6 +22,30 @@
       },
       "revId": "9732f2acfbac33608e42a49aac86cf95efd18666",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "59b166ce_81c8a631",
+        "filename": "redfish-core/include/query.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-06T19:32:53Z",
+      "side": 1,
+      "message": "No, this is an intentional copy, because the bind_front on line 97 needs to capture by value.  I thought about doing the copy on line 97 inline, but that seemed worse.",
+      "parentUuid": "d13d1e3c_5df56c3b",
+      "range": {
+        "startLine": 64,
+        "startChar": 9,
+        "endLine": 64,
+        "endChar": 15
+      },
+      "revId": "9732f2acfbac33608e42a49aac86cf95efd18666",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
