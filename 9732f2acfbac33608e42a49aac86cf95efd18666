@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d13d1e3c_5df56c3b",
+        "filename": "redfish-core/include/query.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-12-06T19:01:19Z",
+      "side": 1,
+      "message": "Is this copy by indent?",
+      "range": {
+        "startLine": 64,
+        "startChar": 9,
+        "endLine": 64,
+        "endChar": 15
+      },
+      "revId": "9732f2acfbac33608e42a49aac86cf95efd18666",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
