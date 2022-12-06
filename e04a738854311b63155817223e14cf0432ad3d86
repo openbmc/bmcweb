@@ -332,6 +332,30 @@
       },
       "revId": "e04a738854311b63155817223e14cf0432ad3d86",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4a6fe3b5_1a468a5d",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-06T16:23:26Z",
+      "side": 1,
+      "message": "\u003e \u003e TaskMonitor points to a URI that is outside of the redfish tree, and has task monitor semantics, rather than normal redfish tree semantics\n\u003e That doesn\u0027t seem to always be the case.  Right now we set TaskMonitor as /redfish/v1/TaskService/Tasks/\u003cTaskId\u003e/Monitor https://github.com/openbmc/bmcweb/blob/master/redfish-core/lib/task.hpp#L407-L411.  We would want to fixup that link since we\u0027ll be able to aggregate it when this chain of patches lands.\n\nRight, but you have to realize that /redfish/v1/TaskService/Tasks/\u003cTaskId\u003e/Monitor is something that openbmc picked, and while the URI looks like it\u0027s in the redfish tree (which we do for peoples sanity) it\u0027s actually not a Redfish CRUD node.  With that said, maybe aggregating it would give the right behavior?  This needs more thought.\n\n\u003e \n\u003e \u003e If you aggregate a TaskMonitor URI per the normal rules, the TaskMonitor will be broken and non-functional.\n\u003e We won\u0027t aggregate any URI that is not part of a top level collection in the Redfish tree.  If it\u0027s an external URI then the prefix fixing logic would ignore it anyway.  If there\u0027s a situation where the URI is not in the redfish tree, but it\u0027s somehow local to the satellite BMC, then I\u0027m not sure how we\u0027d handle aggregating requests to it.  BMCWeb wouldn\u0027t normally handle ones outside of the redfish tree.\n\nI suspect we need to just not aggregate it or omit it, but lets discuss in a future patch.\n\n\u003e \n\u003e \u003e In theory, for async tasks, the aggregator connection needs to have special handling for it, and integrate the Async tasks into the aggregated collection.  This is likely non-trivial, but will need to be done at some point.\n\u003e That should get implemented as part of https://gerrit.openbmc.org/c/openbmc/bmcweb/+/59004/10.  The URI for a given satellite Task will be /redfish/v1/TaskService/Tasks/{TaskId}.  /redfish/v1/TaskService/Tasks is a top level collection and as such the satellite task will be exposed as /redfish/v1/TaskService/Tasks/{prefix}_{TaskID}.\n\nRight, but the task monitor isn\u0027t going to forward correctly, because the task monitor could be something totally different.\n\noh well, problem for another day.  I\u0027m satisfied.",
+      "parentUuid": "9cba59cb_5e0782a2",
+      "range": {
+        "startLine": 37,
+        "startChar": 5,
+        "endLine": 37,
+        "endChar": 16
+      },
+      "revId": "e04a738854311b63155817223e14cf0432ad3d86",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
