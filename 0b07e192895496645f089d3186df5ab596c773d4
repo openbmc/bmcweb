@@ -16,6 +16,24 @@
       "message": "Other collections list \n\n- Description\n- Members@odata.count\n- Members",
       "revId": "0b07e192895496645f089d3186df5ab596c773d4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3de6b0ac_1d789227",
+        "filename": "Redfish.md",
+        "patchSetId": 17
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-12-07T02:11:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "533e330f_670d87d1",
+      "revId": "0b07e192895496645f089d3186df5ab596c773d4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
