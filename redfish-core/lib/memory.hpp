@@ -792,9 +792,11 @@ inline void requestRoutesMemoryCollection(App& app)
         asyncResp->res.jsonValue["@odata.id"] =
             "/redfish/v1/Systems/system/Memory";
 
+        std::vector<const char*> interfaces{
+            "xyz.openbmc_project.Inventory.Item.Dimm"};
         collection_util::getCollectionMembers(
             asyncResp, boost::urls::url("/redfish/v1/Systems/system/Memory"),
-            {"xyz.openbmc_project.Inventory.Item.Dimm"});
+            interfaces);
         });
 }
 

@@ -37,9 +37,10 @@ inline void handleRootOfTrustCollectionGet(
     asyncResp->res.jsonValue["@odata.id"] = "/google/v1/RootOfTrustCollection";
     asyncResp->res.jsonValue["@odata.type"] =
         "#RootOfTrustCollection.RootOfTrustCollection";
+    std::vector<const char*> interfaces{"xyz.openbmc_project.Control.Hoth"};
     redfish::collection_util::getCollectionMembers(
         asyncResp, boost::urls::url("/google/v1/RootOfTrustCollection"),
-        {"xyz.openbmc_project.Control.Hoth"}, "/xyz/openbmc_project");
+        interfaces, "/xyz/openbmc_project");
 }
 
 // Helper struct to identify a resolved D-Bus object interface

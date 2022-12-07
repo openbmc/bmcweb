@@ -304,7 +304,7 @@ inline void requestRoutesTriggerCollection(App& app)
         asyncResp->res.jsonValue["@odata.id"] =
             "/redfish/v1/TelemetryService/Triggers";
         asyncResp->res.jsonValue["Name"] = "Triggers Collection";
-        const std::vector<const char*> interfaces{telemetry::triggerInterface};
+        std::vector<const char*> interfaces{telemetry::triggerInterface};
         collection_util::getCollectionMembers(
             asyncResp,
             boost::urls::url("/redfish/v1/TelemetryService/Triggers"),

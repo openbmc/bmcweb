@@ -15,6 +15,7 @@
 */
 #pragma once
 
+#include "dbus_utility.hpp"
 #include "gzfile.hpp"
 #include "http_utility.hpp"
 #include "human_sort.hpp"
@@ -35,7 +36,6 @@
 #include <boost/beast/http/verb.hpp>
 #include <boost/container/flat_map.hpp>
 #include <boost/system/linux_error.hpp>
-#include <dbus_utility.hpp>
 #include <error_messages.hpp>
 #include <query.hpp>
 #include <registries/privilege_registry.hpp>
@@ -44,6 +44,7 @@
 #include <utils/dbus_utils.hpp>
 #include <utils/time_utils.hpp>
 
+#include <array>
 #include <charconv>
 #include <filesystem>
 #include <optional>
@@ -958,10 +959,13 @@ inline void clearDump(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 {
     std::string dumpTypeLowerCopy =
         std::string(boost::algorithm::to_lower_copy(dumpType));
+    std::string interface = "xyz.openbmc_project.Dump.Entry." + dumpType;
+    std::array<const char*, 1> interfaces = {interface.c_str()};
 
-    crow::connections::systemBus->async_method_call(
+    dbus::utility::getSubTreePaths(
+        "/xyz/openbmc_project/dump/" + dumpTypeLowerCopy, 0, interfaces,
         [asyncResp, dumpType](
-            const boost::system::error_code ec,
+            const boost::system::error_code& ec,
             const dbus::utility::MapperGetSubTreePathsResponse& subTreePaths) {
         if (ec)
         {
@@ -980,13 +984,7 @@ inline void clearDump(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
             }
             deleteDumpEntry(asyncResp, logID, dumpType);
         }
-        },
-        "xyz.openbmc_project.ObjectMapper",
-        "/xyz/openbmc_project/object_mapper",
-        "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths",
-        "/xyz/openbmc_project/dump/" + dumpTypeLowerCopy, 0,
-        std::array<std::string, 1>{"xyz.openbmc_project.Dump.Entry." +
-                                   dumpType});
+        });
 }
 
 inline static void
@@ -1023,7 +1021,6 @@ inline static void
     }
 }
 
-constexpr char const* postCodeIface = "xyz.openbmc_project.State.Boot.PostCode";
 inline void requestRoutesSystemLogServiceCollection(App& app)
 {
     /**
@@ -1083,8 +1080,11 @@ inline void requestRoutesSystemLogServiceCollection(App& app)
         asyncResp->res.jsonValue["Members@odata.count"] =
             logServiceArray.size();
 
-        crow::connections::systemBus->async_method_call(
-            [asyncResp](const boost::system::error_code ec,
+        std::array<const char*, 1> interfaces = {
+            "xyz.openbmc_project.State.Boot.PostCode"};
+        dbus::utility::getSubTreePaths(
+            "/", 0, interfaces,
+            [asyncResp](const boost::system::error_code& ec,
                         const dbus::utility::MapperGetSubTreePathsResponse&
                             subtreePath) {
             if (ec)
@@ -1110,11 +1110,7 @@ inline void requestRoutesSystemLogServiceCollection(App& app)
                     return;
                 }
             }
-            },
-            "xyz.openbmc_project.ObjectMapper",
-            "/xyz/openbmc_project/object_mapper",
-            "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths", "/", 0,
-            std::array<const char*, 1>{postCodeIface});
+            });
         });
 }
 
@@ -2213,8 +2209,6 @@ inline void requestRoutesSystemHostLoggerLogEntry(App& app)
         });
 }
 
-constexpr char const* dumpManagerIface =
-    "xyz.openbmc_project.Collection.DeleteAll";
 inline void handleBMCLogServicesCollectionGet(
     crow::App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
@@ -2244,9 +2238,12 @@ inline void handleBMCLogServicesCollectionGet(
     asyncResp->res.jsonValue["Members@odata.count"] = logServiceArray.size();
 
 #ifdef BMCWEB_ENABLE_REDFISH_DUMP_LOG
-    auto respHandler =
+    std::array<const char*, 1> interfaces = {
+        "xyz.openbmc_project.Collection.DeleteAll"};
+    dbus::utility::getSubTreePaths(
+        "/xyz/openbmc_project/dump", 0, interfaces,
         [asyncResp](
-            const boost::system::error_code ec,
+            const boost::system::error_code& ec,
             const dbus::utility::MapperGetSubTreePathsResponse& subTreePaths) {
         if (ec)
         {
@@ -2281,14 +2278,7 @@ inline void handleBMCLogServicesCollectionGet(
 
         asyncResp->res.jsonValue["Members@odata.count"] =
             logServiceArrayLocal.size();
-    };
-
-    crow::connections::systemBus->async_method_call(
-        respHandler, "xyz.openbmc_project.ObjectMapper",
-        "/xyz/openbmc_project/object_mapper",
-        "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths",
-        "/xyz/openbmc_project/dump", 0,
-        std::array<const char*, 1>{dumpManagerIface});
+        });
 #endif
 }
 
@@ -3111,8 +3101,10 @@ inline void requestRoutesCrashdumpEntryCollection(App& app)
             return;
         }
 
-        crow::connections::systemBus->async_method_call(
-            [asyncResp](const boost::system::error_code ec,
+        std::array<const char*, 1> interfaces = {crashdumpInterface};
+        dbus::utility::getSubTreePaths(
+            "/", 0, interfaces,
+            [asyncResp](const boost::system::error_code& ec,
                         const std::vector<std::string>& resp) {
             if (ec)
             {
@@ -3148,11 +3140,7 @@ inline void requestRoutesCrashdumpEntryCollection(App& app)
                 logCrashdumpEntry(asyncResp, logID,
                                   asyncResp->res.jsonValue["Members"]);
             }
-            },
-            "xyz.openbmc_project.ObjectMapper",
-            "/xyz/openbmc_project/object_mapper",
-            "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths", "", 0,
-            std::array<const char*, 1>{crashdumpInterface});
+            });
         });
 }
 
