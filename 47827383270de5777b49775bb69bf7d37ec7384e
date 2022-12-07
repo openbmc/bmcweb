@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "78ec78cc_e0f09990",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-07T19:04:20Z",
+      "side": 1,
+      "message": "This file was added so run-clang-tidy works appropriately when run from a normal shell (non-meson), which can help in testing new clang-tidy versions, or non ARM clang-tidy, which can have different results.  Given the tiny footprint, it seems like overkill to remove, unless it\u0027s actually blocking some other thing that\u0027s more important?",
+      "range": {
+        "startLine": 9,
+        "startChar": 68,
+        "endLine": 9,
+        "endChar": 69
+      },
+      "revId": "47827383270de5777b49775bb69bf7d37ec7384e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
