@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4ffe83d9_93a909c7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 18
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-12-07T23:44:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d34f2315_3f2650da",
+      "range": {
+        "startLine": 9,
+        "startChar": 12,
+        "endLine": 9,
+        "endChar": 23
+      },
+      "revId": "3a81f2b6861cd5c25eb1c82c2d60333df64154c9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c1380144_fed3fea6",
@@ -47,6 +71,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6c8f159c_ca0145db",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 18
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-12-07T23:44:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c1380144_fed3fea6",
+      "range": {
+        "startLine": 10,
+        "startChar": 20,
+        "endLine": 10,
+        "endChar": 27
+      },
+      "revId": "3a81f2b6861cd5c25eb1c82c2d60333df64154c9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "08e538f7_d064c8b5",
@@ -60,6 +108,24 @@
       "writtenOn": "2022-12-07T19:03:10Z",
       "side": 1,
       "message": "Can you mention, the members property is implemented in a future commit with the PowerSupply implementation, this is so the validator will pass",
+      "revId": "3a81f2b6861cd5c25eb1c82c2d60333df64154c9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b522824_0b456c51",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 18
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-12-07T23:44:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "08e538f7_d064c8b5",
       "revId": "3a81f2b6861cd5c25eb1c82c2d60333df64154c9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
