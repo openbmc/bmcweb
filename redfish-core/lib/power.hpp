@@ -16,14 +16,16 @@
 */
 #pragma once
 
+#include "dbus_utility.hpp"
 #include "sensors.hpp"
 #include "utils/chassis_utils.hpp"
 
 #include <app.hpp>
-#include <dbus_utility.hpp>
 #include <query.hpp>
 #include <registries/privilege_registry.hpp>
 #include <sdbusplus/asio/property.hpp>
+
+#include <array>
 
 namespace redfish
 {
@@ -143,8 +145,12 @@ inline void requestRoutesPower(App& app)
         // chassis power limit
 
         using Mapper = dbus::utility::MapperGetSubTreePathsResponse;
-        auto chassisHandler =
-            [sensorAsyncResp](const boost::system::error_code e,
+        const std::array<const char*, 2> interfaces = {
+            "xyz.openbmc_project.Inventory.Item.Board",
+            "xyz.openbmc_project.Inventory.Item.Chassis"};
+        dbus::utility::getSubTreePaths(
+            "/xyz/openbmc_project/inventory", 0, interfaces,
+            [sensorAsyncResp](const boost::system::error_code& e,
                               const Mapper& chassisPaths) {
             if (e)
             {
@@ -294,16 +300,7 @@ inline void requestRoutesPower(App& app)
                 "/xyz/openbmc_project/control/host0/power_cap",
                 "xyz.openbmc_project.Control.Power.Cap",
                 std::move(valueHandler));
-        };
-
-        crow::connections::systemBus->async_method_call(
-            std::move(chassisHandler), "xyz.openbmc_project.ObjectMapper",
-            "/xyz/openbmc_project/object_mapper",
-            "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths",
-            "/xyz/openbmc_project/inventory", 0,
-            std::array<const char*, 2>{
-                "xyz.openbmc_project.Inventory.Item.Board",
-                "xyz.openbmc_project.Inventory.Item.Chassis"});
+            });
         });
 
     BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/Power/")
