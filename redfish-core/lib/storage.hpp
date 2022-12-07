@@ -15,11 +15,11 @@
 */
 #pragma once
 
+#include "dbus_utility.hpp"
 #include "health.hpp"
 #include "openbmc_dbus_rest.hpp"
 
 #include <app.hpp>
-#include <dbus_utility.hpp>
 #include <query.hpp>
 #include <registries/privilege_registry.hpp>
 #include <sdbusplus/asio/property.hpp>
@@ -64,9 +64,9 @@ inline void requestRoutesStorageCollection(App& app)
 inline void getDrives(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                       const std::shared_ptr<HealthPopulate>& health)
 {
-    crow::connections::systemBus->async_method_call(
+    auto respHandler =
         [asyncResp, health](
-            const boost::system::error_code ec,
+            const boost::system::error_code& ec,
             const dbus::utility::MapperGetSubTreePathsResponse& driveList) {
         if (ec)
         {
@@ -100,12 +100,11 @@ inline void getDrives(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         }
 
         count = driveArray.size();
-        },
-        "xyz.openbmc_project.ObjectMapper",
-        "/xyz/openbmc_project/object_mapper",
-        "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths",
-        "/xyz/openbmc_project/inventory", int32_t(0),
-        std::array<const char*, 1>{"xyz.openbmc_project.Inventory.Item.Drive"});
+    };
+    dbus::utility::getSubTreePaths(
+        "/xyz/openbmc_project/inventory",
+        std::vector<std::string>{"xyz.openbmc_project.Inventory.Item.Drive"},
+        std::move(respHandler));
 }
 
 inline void

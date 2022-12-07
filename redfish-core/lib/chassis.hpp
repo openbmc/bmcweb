@@ -15,12 +15,12 @@
 */
 #pragma once
 
+#include "dbus_utility.hpp"
 #include "health.hpp"
 #include "led.hpp"
 #include "utils/json_utils.hpp"
 
 #include <app.hpp>
-#include <dbus_utility.hpp>
 #include <query.hpp>
 #include <registries/privilege_registry.hpp>
 #include <sdbusplus/asio/property.hpp>
@@ -604,18 +604,10 @@ inline void requestRoutesChassis(App& app)
 inline void
     doChassisPowerCycle(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    const char* busName = "xyz.openbmc_project.ObjectMapper";
-    const char* path = "/xyz/openbmc_project/object_mapper";
-    const char* interface = "xyz.openbmc_project.ObjectMapper";
-    const char* method = "GetSubTreePaths";
-
-    const std::array<const char*, 1> interfaces = {
-        "xyz.openbmc_project.State.Chassis"};
-
     // Use mapper to get subtree paths.
-    crow::connections::systemBus->async_method_call(
+    auto respHandler =
         [asyncResp](
-            const boost::system::error_code ec,
+            const boost::system::error_code& ec,
             const dbus::utility::MapperGetSubTreePathsResponse& chassisList) {
         if (ec)
         {
@@ -656,8 +648,10 @@ inline void
             processName, objectPath, "org.freedesktop.DBus.Properties", "Set",
             interfaceName, destProperty,
             dbus::utility::DbusVariantType{propertyValue});
-        },
-        busName, path, interface, method, "/", 0, interfaces);
+    };
+    dbus::utility::getSubTreePaths(
+        "/", std::vector<std::string>{"xyz.openbmc_project.State.Chassis"},
+        std::move(respHandler));
 }
 
 inline void handleChassisResetActionInfoPost(

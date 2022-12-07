@@ -13,6 +13,7 @@
 // limitations under the License.
 
 #pragma once
+#include "dbus_utility.hpp"
 #include "http_request.hpp"
 #include "http_response.hpp"
 #include "logging.hpp"
@@ -1641,10 +1642,10 @@ inline void handleDelete(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 inline void handleList(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                        const std::string& objectPath, int32_t depth = 0)
 {
-    crow::connections::systemBus->async_method_call(
+    auto respHandler =
         [asyncResp](
-            const boost::system::error_code ec,
-            const dbus::utility::MapperGetSubTreePathsResponse& objectPaths) {
+            const boost::system::error_code& ec,
+            const dbus::utility::MapperGetSubTreePathsResponse& subtreePaths) {
         if (ec)
         {
             setErrorResponse(asyncResp->res,
@@ -1655,13 +1656,11 @@ inline void handleList(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         {
             asyncResp->res.jsonValue["status"] = "ok";
             asyncResp->res.jsonValue["message"] = "200 OK";
-            asyncResp->res.jsonValue["data"] = objectPaths;
+            asyncResp->res.jsonValue["data"] = subtreePaths;
         }
-        },
-        "xyz.openbmc_project.ObjectMapper",
-        "/xyz/openbmc_project/object_mapper",
-        "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths", objectPath,
-        depth, std::array<std::string, 0>());
+    };
+    dbus::utility::getSubTreePaths(objectPath, std::vector<std::string>{},
+                                   std::move(respHandler), depth);
 }
 
 inline void handleEnumerate(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,

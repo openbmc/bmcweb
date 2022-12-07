@@ -15,6 +15,7 @@
 */
 #pragma once
 
+#include "dbus_utility.hpp"
 #include "utils/ip_utils.hpp"
 
 #include <app.hpp>
@@ -22,7 +23,6 @@
 #include <boost/algorithm/string/split.hpp>
 #include <boost/container/flat_set.hpp>
 #include <dbus_singleton.hpp>
-#include <dbus_utility.hpp>
 #include <error_messages.hpp>
 #include <query.hpp>
 #include <registries/privilege_registry.hpp>
@@ -1589,9 +1589,6 @@ inline void parseInterfaceData(
     const boost::container::flat_set<IPv4AddressData>& ipv4Data,
     const boost::container::flat_set<IPv6AddressData>& ipv6Data)
 {
-    constexpr const std::array<const char*, 1> inventoryForEthernet = {
-        "xyz.openbmc_project.Inventory.Item.Ethernet"};
-
     nlohmann::json& jsonResponse = asyncResp->res.jsonValue;
     jsonResponse["Id"] = ifaceId;
     jsonResponse["@odata.id"] =
@@ -1599,9 +1596,8 @@ inline void parseInterfaceData(
     jsonResponse["InterfaceEnabled"] = ethData.nicEnabled;
 
     auto health = std::make_shared<HealthPopulate>(asyncResp);
-
-    crow::connections::systemBus->async_method_call(
-        [health](const boost::system::error_code ec,
+    auto respHandler =
+        [health](const boost::system::error_code& ec,
                  const dbus::utility::MapperGetSubTreePathsResponse& resp) {
         if (ec)
         {
@@ -1609,11 +1605,11 @@ inline void parseInterfaceData(
         }
 
         health->inventory = resp;
-        },
-        "xyz.openbmc_project.ObjectMapper",
-        "/xyz/openbmc_project/object_mapper",
-        "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths", "/", int32_t(0),
-        inventoryForEthernet);
+    };
+    dbus::utility::getSubTreePaths(
+        "/",
+        std::vector<std::string>{"xyz.openbmc_project.Inventory.Item.Ethernet"},
+        std::move(respHandler));
 
     health->populate();
 

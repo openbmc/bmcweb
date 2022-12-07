@@ -2984,16 +2984,15 @@ inline void requestRoutesSystems(App& app)
             nlohmann::json::array_t({"KVMIP"});
 
 #endif // BMCWEB_ENABLE_KVM
-        constexpr const std::array<const char*, 4> inventoryForSystems = {
+        std::vector<std::string> inventoryForSystems = {
             "xyz.openbmc_project.Inventory.Item.Dimm",
             "xyz.openbmc_project.Inventory.Item.Cpu",
             "xyz.openbmc_project.Inventory.Item.Drive",
             "xyz.openbmc_project.Inventory.Item.StorageController"};
 
         auto health = std::make_shared<HealthPopulate>(asyncResp);
-        crow::connections::systemBus->async_method_call(
-            [health](const boost::system::error_code ec,
-                     const std::vector<std::string>& resp) {
+        auto respHandler = [health](const boost::system::error_code& ec,
+                                    const std::vector<std::string>& resp) {
             if (ec)
             {
                 // no inventory
@@ -3001,11 +3000,9 @@ inline void requestRoutesSystems(App& app)
             }
 
             health->inventory = resp;
-            },
-            "xyz.openbmc_project.ObjectMapper",
-            "/xyz/openbmc_project/object_mapper",
-            "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths", "/",
-            int32_t(0), inventoryForSystems);
+        };
+        dbus::utility::getSubTreePaths("/", inventoryForSystems,
+                                       std::move(respHandler));
 
         health->populate();
 

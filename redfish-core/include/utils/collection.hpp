@@ -25,14 +25,14 @@ namespace collection_util
 inline void
     getCollectionMembers(std::shared_ptr<bmcweb::AsyncResp> aResp,
                          const boost::urls::url& collectionPath,
-                         const std::vector<const char*>& interfaces,
+                         const std::vector<std::string>& interfaces,
                          const char* subtree = "/xyz/openbmc_project/inventory")
 {
     BMCWEB_LOG_DEBUG << "Get collection members for: "
                      << collectionPath.string();
-    crow::connections::systemBus->async_method_call(
+    auto respHandler =
         [collectionPath, aResp{std::move(aResp)}](
-            const boost::system::error_code ec,
+            const boost::system::error_code& ec,
             const dbus::utility::MapperGetSubTreePathsResponse& objects) {
         if (ec == boost::system::errc::io_error)
         {
@@ -73,11 +73,8 @@ inline void
             members.push_back(std::move(member));
         }
         aResp->res.jsonValue["Members@odata.count"] = members.size();
-        },
-        "xyz.openbmc_project.ObjectMapper",
-        "/xyz/openbmc_project/object_mapper",
-        "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths", subtree, 0,
-        interfaces);
+    };
+    dbus::utility::getSubTreePaths(subtree, interfaces, std::move(respHandler));
 }
 
 } // namespace collection_util
