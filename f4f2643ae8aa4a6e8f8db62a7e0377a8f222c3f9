@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "e431c916_67fcd4d3",
+        "filename": "DEVELOPING.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2022-12-07T17:57:51Z",
+      "side": 1,
+      "message": "Indentation is meaningless in markdown, except for lists and sub lists.   So this indentation was getting complained about by markdownlint and I changed to quote-syntax, which seemed to be the intent of the original text.",
+      "parentUuid": "0028017e_ca2f7806",
+      "revId": "f4f2643ae8aa4a6e8f8db62a7e0377a8f222c3f9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "548a949c_adafc0ec",
@@ -31,6 +49,24 @@
       "writtenOn": "2022-12-07T17:52:14Z",
       "side": 1,
       "message": "Yeah I think it is fine these are bigger\n\nhttps://github.com/openbmc/bmcweb/blob/master/Redfish.md#redfishv1",
+      "revId": "f4f2643ae8aa4a6e8f8db62a7e0377a8f222c3f9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7fe95cb6_93fcbfc5",
+        "filename": "Redfish.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2022-12-07T17:57:51Z",
+      "side": 1,
+      "message": "Yeah.  Another thing markdownlint complains about is if you do not go directly to the next level of subtitle.  ## -\u003e #### is a no-go.  I promoted all these one level and hopefully I did it right.",
+      "parentUuid": "548a949c_adafc0ec",
       "revId": "f4f2643ae8aa4a6e8f8db62a7e0377a8f222c3f9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
