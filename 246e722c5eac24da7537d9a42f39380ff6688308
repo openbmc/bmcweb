@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "45936368_aa1285c9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-12-07T21:46:17Z",
+      "side": 1,
+      "message": "Can you have Intel add you to their approved Gerrit list so you don\u0027t get \"User not approved, see admin, no CI\"",
+      "revId": "246e722c5eac24da7537d9a42f39380ff6688308",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
