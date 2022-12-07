@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "23ead92b_9b4568be",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000416
+      },
+      "writtenOn": "2022-12-07T10:19:11Z",
+      "side": 1,
+      "message": "Hi Ed, below is the response getting from Senors url.\nGET: https://\u003cBMC-IP\u003e/redfish/v1/Chassis/\u003cBaseboard\u003e/Sensors/fantach_Fan_1\n{\n    \"@odata.id\": \"/redfish/v1/Chassis/\u003cBaseboard\u003e/Sensors/fantach_Fan_1\",\n    \"@odata.type\": \"#Sensor.v1_2_0.Sensor\",\n    \"Id\": \"Sensors_Fan_1\",\n    \"Name\": \"Fan 1\",\n    \"Reading\": 13468.0,\n    \"ReadingRangeMax\": 25000.0,\n    \"ReadingRangeMin\": 0.0,\n    \"ReadingType\": \"Rotational\",\n    \"ReadingUnits\": \"RPM\",\n    \"Status\": {\n        \"Health\": \"OK\",\n        \"State\": \"Enabled\"\n    }\n}\n\nDid not observed any difference before and after this change. So I pushed change in different patch.\n59131: Fix sensor Id name change | https://gerrit.openbmc.org/c/openbmc/bmcweb/+/59131",
+      "revId": "c122e65c041472d7768bcfdf5dff4ecdb61c1c62",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
