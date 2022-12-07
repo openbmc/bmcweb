@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "887e141a_1dfbb0fa",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 1764,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-12-07T19:33:18Z",
+      "side": 1,
+      "message": "isn\u0027t this check for required properties?\nI don\u0027t think we want this here. \n\nI don\u0027t think updateTimestamp should be here either but that is separate",
+      "range": {
+        "startLine": 1763,
+        "startChar": 67,
+        "endLine": 1764,
+        "endChar": 33
+      },
+      "revId": "2b954309ce919564ec643265e5c0c9200c568c55",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
