@@ -356,6 +356,30 @@
       },
       "revId": "e04a738854311b63155817223e14cf0432ad3d86",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a5e8ac2f_9f15a2a9",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2022-12-07T06:56:08Z",
+      "side": 1,
+      "message": "\u003e oh well, problem for another day.  I\u0027m satisfied.\n\nSGTM.  This will likely come up again as part of the patch I previously linked which adds support for all top level collections.  Per offline discussion, the play might be to just completely strip TaskMonitor from responses and then create a future patch which would implement some type of special handling for the URI.",
+      "parentUuid": "4a6fe3b5_1a468a5d",
+      "range": {
+        "startLine": 37,
+        "startChar": 5,
+        "endLine": 37,
+        "endChar": 16
+      },
+      "revId": "e04a738854311b63155817223e14cf0432ad3d86",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
