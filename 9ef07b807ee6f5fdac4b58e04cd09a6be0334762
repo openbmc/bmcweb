@@ -142,6 +142,30 @@
       },
       "revId": "9ef07b807ee6f5fdac4b58e04cd09a6be0334762",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "35236144_4ce9fff3",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1946,
+      "author": {
+        "id": 1000021
+      },
+      "writtenOn": "2022-12-07T01:44:32Z",
+      "side": 1,
+      "message": "This log is in the wrong place.  If !ec, so ec is 0, and the unit exists ... \nthe log, if implemented, should be in the else path not the !ec path.",
+      "parentUuid": "ce27d7b4_3dc8532d",
+      "range": {
+        "startLine": 1946,
+        "startChar": 12,
+        "endLine": 1946,
+        "endChar": 67
+      },
+      "revId": "9ef07b807ee6f5fdac4b58e04cd09a6be0334762",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
