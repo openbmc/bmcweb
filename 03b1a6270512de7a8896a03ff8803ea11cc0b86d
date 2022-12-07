@@ -16,6 +16,24 @@
       "message": "Good stuff. We won\u0027t move to this until they actually release 1.81.0 ?",
       "revId": "03b1a6270512de7a8896a03ff8803ea11cc0b86d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "97056ab0_032ae290",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-07T22:35:46Z",
+      "side": 1,
+      "message": "In discord I was saying we should just move to boost 1.81.0 beta 1, just to get ahead of this stuff and get it tested before boost 1.81 lands.  That depends on whether our review process is shorter or longer than the boost dev cycle though.  I\u0027d really like to get this done while I have spare time, but we\u0027ll see.",
+      "parentUuid": "5cef7ee9_646ce80b",
+      "revId": "03b1a6270512de7a8896a03ff8803ea11cc0b86d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
