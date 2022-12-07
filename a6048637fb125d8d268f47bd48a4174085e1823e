@@ -108,6 +108,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fccf76ad_7950cb27",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-12-07T20:12:17Z",
+      "side": 1,
+      "message": "Is 0 a valid value though? \nLike can\u0027t you have 0 lanes in use ?\n          \"The number of PCIe lanes in use by this device.\"",
+      "parentUuid": "941deb76_f6d6fb80",
+      "range": {
+        "startLine": 202,
+        "startChar": 30,
+        "endLine": 202,
+        "endChar": 40
+      },
+      "revId": "a6048637fb125d8d268f47bd48a4174085e1823e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "37b3f6c5_960d90de",
         "filename": "redfish-core/lib/pcie.hpp",
         "patchSetId": 7
