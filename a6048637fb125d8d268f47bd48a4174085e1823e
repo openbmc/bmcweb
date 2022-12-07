@@ -132,6 +132,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ea346843_d54fda38",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-07T20:18:21Z",
+      "side": 1,
+      "message": "If 0 lanes are in use, then how is the link functional?  I\u0027d be fine with 255 or something else as \"do not populate\", but at least in my head, 0 seems like it still works?",
+      "parentUuid": "fccf76ad_7950cb27",
+      "range": {
+        "startLine": 202,
+        "startChar": 30,
+        "endLine": 202,
+        "endChar": 40
+      },
+      "revId": "a6048637fb125d8d268f47bd48a4174085e1823e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "37b3f6c5_960d90de",
         "filename": "redfish-core/lib/pcie.hpp",
         "patchSetId": 7
