@@ -1,16 +1,18 @@
 #pragma once
 
+#include "dbus_utility.hpp"
 #include "utils/dbus_utils.hpp"
 
 #include <app.hpp>
 #include <async_resp.hpp>
 #include <boost/system/linux_error.hpp>
-#include <dbus_utility.hpp>
 #include <http_response.hpp>
 #include <query.hpp>
 #include <registries/privilege_registry.hpp>
 #include <sdbusplus/asio/property.hpp>
 #include <sdbusplus/unpack_properties.hpp>
+
+#include <array>
 
 namespace redfish
 {
@@ -212,9 +214,12 @@ static void
                        const nlohmann::json::json_pointer& listPtr,
                        const nlohmann::json::json_pointer& countPtr)
 {
-    crow::connections::systemBus->async_method_call(
+    constexpr std::array<std::string_view, 1> interfaces = {
+        certs::certPropIntf};
+    dbus::utility::getSubTreePaths(
+        basePath, 0, interfaces,
         [asyncResp, listPtr, countPtr](
-            const boost::system::error_code ec,
+            const boost::system::error_code& ec,
             const dbus::utility::MapperGetSubTreePathsResponse& certPaths) {
         if (ec)
         {
@@ -265,11 +270,7 @@ static void
         }
 
         asyncResp->res.jsonValue[countPtr] = links.size();
-        },
-        "xyz.openbmc_project.ObjectMapper",
-        "/xyz/openbmc_project/object_mapper",
-        "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths", basePath, 0,
-        std::array<const char*, 1>{certs::certPropIntf});
+        });
 }
 
 /**

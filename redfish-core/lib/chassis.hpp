@@ -15,18 +15,20 @@
 */
 #pragma once
 
+#include "dbus_utility.hpp"
 #include "health.hpp"
 #include "led.hpp"
 #include "utils/json_utils.hpp"
 
 #include <app.hpp>
-#include <dbus_utility.hpp>
 #include <query.hpp>
 #include <registries/privilege_registry.hpp>
 #include <sdbusplus/asio/property.hpp>
 #include <sdbusplus/unpack_properties.hpp>
 #include <utils/collection.hpp>
 #include <utils/dbus_utils.hpp>
+
+#include <array>
 
 namespace redfish
 {
@@ -147,10 +149,11 @@ inline void handleChassisCollectionGet(
     asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1/Chassis";
     asyncResp->res.jsonValue["Name"] = "Chassis Collection";
 
+    constexpr std::array<std::string_view, 2> interfaces{
+        "xyz.openbmc_project.Inventory.Item.Board",
+        "xyz.openbmc_project.Inventory.Item.Chassis"};
     collection_util::getCollectionMembers(
-        asyncResp, boost::urls::url("/redfish/v1/Chassis"),
-        {"xyz.openbmc_project.Inventory.Item.Board",
-         "xyz.openbmc_project.Inventory.Item.Chassis"});
+        asyncResp, boost::urls::url("/redfish/v1/Chassis"), interfaces);
 }
 
 /**
@@ -604,18 +607,14 @@ inline void requestRoutesChassis(App& app)
 inline void
     doChassisPowerCycle(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    const char* busName = "xyz.openbmc_project.ObjectMapper";
-    const char* path = "/xyz/openbmc_project/object_mapper";
-    const char* interface = "xyz.openbmc_project.ObjectMapper";
-    const char* method = "GetSubTreePaths";
-
-    const std::array<const char*, 1> interfaces = {
+    constexpr std::array<std::string_view, 1> interfaces = {
         "xyz.openbmc_project.State.Chassis"};
 
     // Use mapper to get subtree paths.
-    crow::connections::systemBus->async_method_call(
+    dbus::utility::getSubTreePaths(
+        "/", 0, interfaces,
         [asyncResp](
-            const boost::system::error_code ec,
+            const boost::system::error_code& ec,
             const dbus::utility::MapperGetSubTreePathsResponse& chassisList) {
         if (ec)
         {
@@ -656,8 +655,7 @@ inline void
             processName, objectPath, "org.freedesktop.DBus.Properties", "Set",
             interfaceName, destProperty,
             dbus::utility::DbusVariantType{propertyValue});
-        },
-        busName, path, interface, method, "/", 0, interfaces);
+        });
 }
 
 inline void handleChassisResetActionInfoPost(

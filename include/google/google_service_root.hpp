@@ -9,6 +9,7 @@
 #include <utils/hex_utils.hpp>
 #include <utils/json_utils.hpp>
 
+#include <array>
 #include <vector>
 
 namespace crow
@@ -37,9 +38,11 @@ inline void handleRootOfTrustCollectionGet(
     asyncResp->res.jsonValue["@odata.id"] = "/google/v1/RootOfTrustCollection";
     asyncResp->res.jsonValue["@odata.type"] =
         "#RootOfTrustCollection.RootOfTrustCollection";
+    const std::array<std::string_view, 1> interfaces{
+        "xyz.openbmc_project.Control.Hoth"};
     redfish::collection_util::getCollectionMembers(
         asyncResp, boost::urls::url("/google/v1/RootOfTrustCollection"),
-        {"xyz.openbmc_project.Control.Hoth"}, "/xyz/openbmc_project");
+        interfaces, "/xyz/openbmc_project");
 }
 
 // Helper struct to identify a resolved D-Bus object interface
@@ -94,7 +97,7 @@ inline void resolveRoT(const std::string& command,
                        ResolvedEntityHandler&& entityHandler)
 {
 
-    std::array<std::string, 1> hothIfaces = {
+    constexpr std::array<std::string_view, 1> hothIfaces = {
         "xyz.openbmc_project.Control.Hoth"};
     crow::connections::systemBus->async_method_call(
         [command, asyncResp, rotId,

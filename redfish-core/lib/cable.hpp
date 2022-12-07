@@ -1,10 +1,14 @@
 #pragma once
-#include <dbus_utility.hpp>
+
+#include "dbus_utility.hpp"
+
 #include <query.hpp>
 #include <sdbusplus/asio/property.hpp>
 #include <sdbusplus/unpack_properties.hpp>
 #include <utils/dbus_utils.hpp>
 #include <utils/json_utils.hpp>
+
+#include <array>
 
 namespace redfish
 {
@@ -179,10 +183,10 @@ inline void requestRoutesCableCollection(App& app)
         asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1/Cables";
         asyncResp->res.jsonValue["Name"] = "Cable Collection";
         asyncResp->res.jsonValue["Description"] = "Collection of Cable Entries";
-
+        constexpr std::array<std::string_view, 1> interfaces{
+            "xyz.openbmc_project.Inventory.Item.Cable"};
         collection_util::getCollectionMembers(
-            asyncResp, boost::urls::url("/redfish/v1/Cables"),
-            {"xyz.openbmc_project.Inventory.Item.Cable"});
+            asyncResp, boost::urls::url("/redfish/v1/Cables"), interfaces);
         });
 }
 
