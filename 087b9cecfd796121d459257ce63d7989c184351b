@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7c7e1bcf_dd8fe936",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 16
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-12-07T07:17:58Z",
+      "side": 1,
+      "message": "\u003e I am confused by this statement, don\u0027t you just display all the fans with the cooled_by association from the chassis? I am confused how/why you would treat dual-rotor differently? Is a dual-rotor fan, 1 or 2 Redfish endpoints?\n\nFor all fans, some fans are single rotor, some fans are dual rotor.\neg:\nSingle rotor: fan0\nDual rotor: fan0/fan0_0 \u0026 fan0/fan0_1\nBut the association between the fan and the chassis is fan0 and chassis, not fan0/fan0_0 and chassis\nSo we can judge whether the current fan is a dual-rotor through the association between fan and sensor(https://github.com/ibm-openbmc/openbmc/blob/1030.00/meta-ibm/recipes-phosphor/inventory/phosphor-inventory-manager/p10bmc/ibm%2Crainier-4u_associations.json#L19-L27).\n\n\n\u003e Is /redfish/v1/Chassis/chassis/ThermalSubsystem/Fans/fan2_0 rotor 0 of fan 2?\n\nYes, and fan2_1 is rotor 1 of fan 2.",
+      "parentUuid": "43dce99a_37e5d9f8",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 17
+      },
+      "revId": "087b9cecfd796121d459257ce63d7989c184351b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "35763bf5_fcc5ff07",
         "filename": "/COMMIT_MSG",
         "patchSetId": 16
@@ -37,6 +61,24 @@
       "writtenOn": "2022-12-06T21:34:01Z",
       "side": 1,
       "message": "This code doesn\u0027t have the members, maybe include that statement. \nCould add a link to the assocation https://github.com/openbmc/phosphor-dbus-interfaces/search?q\u003dcooled_by",
+      "revId": "087b9cecfd796121d459257ce63d7989c184351b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ef0c482f_24e2eeda",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 16
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-12-07T07:17:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "35763bf5_fcc5ff07",
       "revId": "087b9cecfd796121d459257ce63d7989c184351b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -106,6 +148,30 @@
       "writtenOn": "2022-12-06T21:43:57Z",
       "side": 1,
       "message": "Seems like dead code to me but it is used in the next commit so 🤷",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 1
+      },
+      "revId": "087b9cecfd796121d459257ce63d7989c184351b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "61617a9d_bf31926e",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2022-12-07T07:17:58Z",
+      "side": 1,
+      "message": "\u003e Seems like dead code to me but it is used in the next commit so 🤷\n\nYes, these codes should logically belong in the current commit, but in order for the validator to pass, I recommend keeping these.",
+      "parentUuid": "b6a9bfa3_d602da3d",
       "range": {
         "startLine": 15,
         "startChar": 0,
