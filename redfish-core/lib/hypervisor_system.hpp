@@ -1,18 +1,20 @@
 #pragma once
 
+#include "dbus_utility.hpp"
 #include "utils/ip_utils.hpp"
 
 #include <app.hpp>
 #include <boost/container/flat_set.hpp>
 #include <dbus_singleton.hpp>
-#include <dbus_utility.hpp>
 #include <error_messages.hpp>
 #include <query.hpp>
 #include <registries/privilege_registry.hpp>
 #include <sdbusplus/asio/property.hpp>
 #include <utils/json_utils.hpp>
 
+#include <array>
 #include <optional>
+#include <string_view>
 #include <utility>
 
 // TODO(ed) requestRoutesHypervisorSystems seems to have copy-pasted a
@@ -786,12 +788,13 @@ inline void requestRoutesHypervisorSystems(App& app)
         {
             return;
         }
-        const std::array<const char*, 1> interfaces = {
+        constexpr std::array<std::string_view, 1> interfaces = {
             "xyz.openbmc_project.Network.EthernetInterface"};
 
-        crow::connections::systemBus->async_method_call(
+        dbus::utility::getSubTreePaths(
+            "/xyz/openbmc_project/network/hypervisor", 0, interfaces,
             [asyncResp](
-                const boost::system::error_code error,
+                const boost::system::error_code& error,
                 const dbus::utility::MapperGetSubTreePathsResponse& ifaceList) {
             if (error)
             {
@@ -826,11 +829,7 @@ inline void requestRoutesHypervisorSystems(App& app)
                 ifaceArray.push_back(std::move(ethIface));
             }
             asyncResp->res.jsonValue["Members@odata.count"] = ifaceArray.size();
-            },
-            "xyz.openbmc_project.ObjectMapper",
-            "/xyz/openbmc_project/object_mapper",
-            "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths",
-            "/xyz/openbmc_project/network/hypervisor", 0, interfaces);
+            });
         });
 
     BMCWEB_ROUTE(app,
