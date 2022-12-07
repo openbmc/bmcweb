@@ -46,6 +46,30 @@
       },
       "revId": "47827383270de5777b49775bb69bf7d37ec7384e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0977d080_bb8abbdd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-07T19:29:08Z",
+      "side": 1,
+      "message": "Yep, you\u0027re right.  I was thinking of the clang-tidy files that exist in the subprojects folder directly.  This is fine as-written.",
+      "parentUuid": "1d5ad5a7_a1f5175b",
+      "range": {
+        "startLine": 9,
+        "startChar": 68,
+        "endLine": 9,
+        "endChar": 69
+      },
+      "revId": "47827383270de5777b49775bb69bf7d37ec7384e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
