@@ -16,6 +16,7 @@
 #pragma once
 
 #include "dbus_singleton.hpp"
+#include "dbus_utility.hpp"
 #include "health.hpp"
 #include "led.hpp"
 #include "pcie.hpp"
@@ -25,7 +26,6 @@
 
 #include <app.hpp>
 #include <boost/container/flat_map.hpp>
-#include <dbus_utility.hpp>
 #include <registries/privilege_registry.hpp>
 #include <sdbusplus/asio/property.hpp>
 #include <sdbusplus/unpack_properties.hpp>
@@ -33,6 +33,7 @@
 #include <utils/json_utils.hpp>
 #include <utils/sw_utils.hpp>
 
+#include <array>
 #include <variant>
 
 namespace redfish
@@ -2991,8 +2992,9 @@ inline void requestRoutesSystems(App& app)
             "xyz.openbmc_project.Inventory.Item.StorageController"};
 
         auto health = std::make_shared<HealthPopulate>(asyncResp);
-        crow::connections::systemBus->async_method_call(
-            [health](const boost::system::error_code ec,
+        dbus::utility::getSubTreePaths(
+            "/", 0, inventoryForSystems,
+            [health](const boost::system::error_code& ec,
                      const std::vector<std::string>& resp) {
             if (ec)
             {
@@ -3001,11 +3003,7 @@ inline void requestRoutesSystems(App& app)
             }
 
             health->inventory = resp;
-            },
-            "xyz.openbmc_project.ObjectMapper",
-            "/xyz/openbmc_project/object_mapper",
-            "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths", "/",
-            int32_t(0), inventoryForSystems);
+            });
 
         health->populate();
 
