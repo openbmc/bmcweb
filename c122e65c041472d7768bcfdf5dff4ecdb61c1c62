@@ -34,6 +34,24 @@
       "parentUuid": "23ead92b_9b4568be",
       "revId": "c122e65c041472d7768bcfdf5dff4ecdb61c1c62",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "57677aa5_b12df013",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-07T22:28:56Z",
+      "side": 1,
+      "message": "I\u0027ve also updated this patch to fix your GET case that you pointed out.  Can you test again?",
+      "parentUuid": "af1af0d9_230b449d",
+      "revId": "c122e65c041472d7768bcfdf5dff4ecdb61c1c62",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
