@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0028017e_ca2f7806",
+        "filename": "DEVELOPING.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-12-07T17:52:14Z",
+      "side": 1,
+      "message": "Don\u0027t the quotes help here? This is a direct quote",
+      "revId": "f4f2643ae8aa4a6e8f8db62a7e0377a8f222c3f9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "548a949c_adafc0ec",
+        "filename": "Redfish.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-12-07T17:52:14Z",
+      "side": 1,
+      "message": "Yeah I think it is fine these are bigger\n\nhttps://github.com/openbmc/bmcweb/blob/master/Redfish.md#redfishv1",
+      "revId": "f4f2643ae8aa4a6e8f8db62a7e0377a8f222c3f9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
