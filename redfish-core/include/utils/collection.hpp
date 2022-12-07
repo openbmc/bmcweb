@@ -1,8 +1,12 @@
 #pragma once
 
+#include "dbus_utility.hpp"
+
 #include <human_sort.hpp>
 
+#include <span>
 #include <string>
+#include <string_view>
 #include <vector>
 
 namespace redfish
@@ -25,14 +29,15 @@ namespace collection_util
 inline void
     getCollectionMembers(std::shared_ptr<bmcweb::AsyncResp> aResp,
                          const boost::urls::url& collectionPath,
-                         const std::vector<const char*>& interfaces,
+                         std::span<const std::string_view> interfaces,
                          const char* subtree = "/xyz/openbmc_project/inventory")
 {
     BMCWEB_LOG_DEBUG << "Get collection members for: "
                      << collectionPath.buffer();
-    crow::connections::systemBus->async_method_call(
+    dbus::utility::getSubTreePaths(
+        subtree, 0, interfaces,
         [collectionPath, aResp{std::move(aResp)}](
-            const boost::system::error_code ec,
+            const boost::system::error_code& ec,
             const dbus::utility::MapperGetSubTreePathsResponse& objects) {
         if (ec == boost::system::errc::io_error)
         {
@@ -73,11 +78,7 @@ inline void
             members.push_back(std::move(member));
         }
         aResp->res.jsonValue["Members@odata.count"] = members.size();
-        },
-        "xyz.openbmc_project.ObjectMapper",
-        "/xyz/openbmc_project/object_mapper",
-        "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths", subtree, 0,
-        interfaces);
+        });
 }
 
 } // namespace collection_util
