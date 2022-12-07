@@ -3,20 +3,23 @@
 # Example of streaming sensor values from openbmc using the /subscribe api
 # requires websockets package to be installed
 
+import argparse
 import asyncio
-import ssl
-import websockets
 import base64
 import json
-import argparse
+import ssl
+
+import websockets
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--host", help="Host to connect to", required=True)
 parser.add_argument(
-    "--username", help="Username to connect with", default="root")
+    "--username", help="Username to connect with", default="root"
+)
 parser.add_argument("--password", help="Password to use", default="0penBmc")
-parser.add_argument('--ssl', default=True,
-                    action=argparse.BooleanOptionalAction)
+parser.add_argument(
+    "--ssl", default=True, action=argparse.BooleanOptionalAction
+)
 
 args = parser.parse_args()
 
@@ -29,27 +32,30 @@ sensor_type_map = {
     "altitude": "Meters",
     "current": "Amps",
     "energy": "Joules",
-    "cfm": "CFM"
+    "cfm": "CFM",
 }
 
 
 async def hello():
-    protocol = 'ws'
+    protocol = "ws"
     if args.ssl:
-        protocol += 's'
-    uri = '{}://{}/subscribe'.format(protocol, args.host)
+        protocol += "s"
+    uri = "{}://{}/subscribe".format(protocol, args.host)
     ssl_context = ssl.SSLContext()
-    authbytes = "{}:{}".format(args.username, args.password).encode('ascii')
-    auth = "Basic {}".format(base64.b64encode(authbytes).decode('ascii'))
+    authbytes = "{}:{}".format(args.username, args.password).encode("ascii")
+    auth = "Basic {}".format(base64.b64encode(authbytes).decode("ascii"))
     headers = {"Authorization": auth}
-    async with \
-        websockets.connect(uri, ssl=ssl_context, extra_headers=headers) \
-            if args.ssl else websockets.connect(uri, extra_headers=headers) \
-            as websocket:
-        request = json.dumps({
-            "paths": ["/xyz/openbmc_project/sensors"],
-            "interfaces": ["xyz.openbmc_project.Sensor.Value"]
-        })
+    async with websockets.connect(
+        uri, ssl=ssl_context, extra_headers=headers
+    ) if args.ssl else websockets.connect(
+        uri, extra_headers=headers
+    ) as websocket:
+        request = json.dumps(
+            {
+                "paths": ["/xyz/openbmc_project/sensors"],
+                "interfaces": ["xyz.openbmc_project.Sensor.Value"],
+            }
+        )
         await websocket.send(request)
 
         while True:

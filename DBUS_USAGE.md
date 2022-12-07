@@ -10,15 +10,15 @@ schemas:
 - If the DBus interface definition has an "unknown" or "unspecified" value,
   detecting these will omit the property from the Redfish tree, in line with the
   Redfish specification.
-- All DBus interfaces on all object paths are optional.  An object missing an
+- All DBus interfaces on all object paths are optional. An object missing an
   interface is never an error, and shall simply omit the relevant properties
   and/or actions from that Redfish Resource.
-- bmcweb will code to the DBus interface itself.  This means that daemons are
+- bmcweb will code to the DBus interface itself. This means that daemons are
   expected to handle functionally bad, but DBus-correct input in their own
-  process, and return appropriate return codes.  This is done to reduce the
+  process, and return appropriate return codes. This is done to reduce the
   duplication in input processing between the various user-facing daemons.
 - There are interfaces for which there is an expectation that there will only
-  ever be one producer in the project (ex bmc networking, user management).  In
+  ever be one producer in the project (ex bmc networking, user management). In
   these cases, it is desirable to call the daemon by well known name directly.
   Bmcweb APIs should call the mapper in cases where it's reasonably expected
   that multiple implementations exist (ex, CPU management, Sensors).

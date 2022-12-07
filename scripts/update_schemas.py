@@ -1,14 +1,13 @@
 #!/usr/bin/env python3
-import requests
-import zipfile
-from io import BytesIO
-from packaging.version import parse
-
 import os
-from collections import OrderedDict, defaultdict
 import shutil
-
 import xml.etree.ElementTree as ET
+import zipfile
+from collections import OrderedDict, defaultdict
+from io import BytesIO
+
+import requests
+from packaging.version import parse
 
 VERSION = "DSP8010_2022.2"
 
@@ -42,7 +41,7 @@ include_list = [
     "ComputerSystemCollection",
     "Drive",
     "DriveCollection",
-    'EnvironmentMetrics',
+    "EnvironmentMetrics",
     "EthernetInterface",
     "EthernetInterfaceCollection",
     "Event",
@@ -254,7 +253,6 @@ json_schema_files = OrderedDict(
 
 csdl_filenames.sort(key=version_sort_key)
 with open(metadata_index_path, "w") as metadata_index:
-
     metadata_index.write('<?xml version="1.0" encoding="UTF-8"?>\n')
     metadata_index.write(
         "<edmx:Edmx xmlns:edmx="
@@ -270,7 +268,6 @@ with open(metadata_index_path, "w") as metadata_index:
             continue
 
         with open(os.path.join(schema_path, filename), "wb") as schema_out:
-
             metadata_index.write(
                 '    <edmx:Reference Uri="/redfish/v1/schema/'
                 + filename
@@ -289,16 +286,14 @@ with open(metadata_index_path, "w") as metadata_index:
                             namespace = data_child.attrib["Namespace"]
                             if namespace.startswith("RedfishExtensions"):
                                 metadata_index.write(
-                                    "        "
-                                    '<edmx:Include Namespace="'
+                                    '        <edmx:Include Namespace="'
                                     + namespace
                                     + '"  Alias="Redfish"/>\n'
                                 )
 
                             else:
                                 metadata_index.write(
-                                    "        "
-                                    '<edmx:Include Namespace="'
+                                    '        <edmx:Include Namespace="'
                                     + namespace
                                     + '"/>\n'
                                 )
@@ -392,6 +387,6 @@ with open(os.path.join(cpp_path, "schemas.hpp"), "w") as hpp_file:
     for schema_file in json_schema_files:
         hpp_file.write('        "{}",\n'.format(schema_file))
 
-    hpp_file.write("    };\n" "}\n")
+    hpp_file.write("    };\n}\n")
 
 zip_ref.close()
