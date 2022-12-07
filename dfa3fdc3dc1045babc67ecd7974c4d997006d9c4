@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3e124883_cf3e80d3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-07T19:10:48Z",
+      "side": 1,
+      "message": "This is basically all whitespace changes.  Out of an abundance of not wanting to see a gazillion merge conflicts if this doesn\u0027t merge quickly, I\u0027m going to get this on master, because the changes look reasonable to me.  If there are any post-merge comments, either I will personally put up fixes, or work with Patrick to get them fixed.  Feel free to review further, but merging quickly to avoid conflicts.",
+      "revId": "dfa3fdc3dc1045babc67ecd7974c4d997006d9c4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
