@@ -157,7 +157,7 @@ inline void
 }
 
 inline void getSubTreePaths(
-    const std::string& path, std::span<std::string> interfaces,
+    const std::string& path, int32_t depth, std::span<const char*> interfaces,
     std::function<void(const boost::system::error_code&,
                        const MapperGetSubTreePathsResponse&)>&& callback)
 {
@@ -169,7 +169,7 @@ inline void getSubTreePaths(
         },
         "xyz.openbmc_project.ObjectMapper",
         "/xyz/openbmc_project/object_mapper",
-        "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths", path, 0,
+        "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths", path, depth,
         interfaces);
 }
 
