@@ -15,6 +15,7 @@
 */
 #pragma once
 
+#include "dbus_utility.hpp"
 #include "generated/enums/sensor.hpp"
 
 #include <app.hpp>
@@ -39,6 +40,7 @@
 #include <set>
 #include <utility>
 #include <variant>
+#include <vector>
 
 namespace redfish
 {
@@ -514,14 +516,14 @@ void getChassis(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                 std::span<std::string_view> sensorTypes, Callback&& callback)
 {
     BMCWEB_LOG_DEBUG << "getChassis enter";
-    const std::array<const char*, 2> interfaces = {
+    const std::vector<std::string> interfaces = {
         "xyz.openbmc_project.Inventory.Item.Board",
         "xyz.openbmc_project.Inventory.Item.Chassis"};
     auto respHandler =
         [callback{std::forward<Callback>(callback)}, asyncResp,
          chassisIdStr{std::string(chassisId)},
          chassisSubNode{std::string(chassisSubNode)}, sensorTypes](
-            const boost::system::error_code ec,
+            const boost::system::error_code& ec,
             const dbus::utility::MapperGetSubTreePathsResponse& chassisPaths) {
         BMCWEB_LOG_DEBUG << "getChassis respHandler enter";
         if (ec)
@@ -584,11 +586,9 @@ void getChassis(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     };
 
     // Get the Chassis Collection
-    crow::connections::systemBus->async_method_call(
-        respHandler, "xyz.openbmc_project.ObjectMapper",
-        "/xyz/openbmc_project/object_mapper",
-        "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths",
-        "/xyz/openbmc_project/inventory", 0, interfaces);
+    dbus::utility::getSubTreePaths("/xyz/openbmc_project/inventory", interfaces,
+                                   std::move(respHandler));
+    BMCWEB_LOG_DEBUG << "getChassis exit";
     BMCWEB_LOG_DEBUG << "getChassis exit";
 }
 

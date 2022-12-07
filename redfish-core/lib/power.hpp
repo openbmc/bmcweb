@@ -16,11 +16,11 @@
 */
 #pragma once
 
+#include "dbus_utility.hpp"
 #include "sensors.hpp"
 #include "utils/chassis_utils.hpp"
 
 #include <app.hpp>
-#include <dbus_utility.hpp>
 #include <query.hpp>
 #include <registries/privilege_registry.hpp>
 #include <sdbusplus/asio/property.hpp>
@@ -144,7 +144,7 @@ inline void requestRoutesPower(App& app)
 
         using Mapper = dbus::utility::MapperGetSubTreePathsResponse;
         auto chassisHandler =
-            [sensorAsyncResp](const boost::system::error_code e,
+            [sensorAsyncResp](const boost::system::error_code& e,
                               const Mapper& chassisPaths) {
             if (e)
             {
@@ -296,14 +296,12 @@ inline void requestRoutesPower(App& app)
                 std::move(valueHandler));
         };
 
-        crow::connections::systemBus->async_method_call(
-            std::move(chassisHandler), "xyz.openbmc_project.ObjectMapper",
-            "/xyz/openbmc_project/object_mapper",
-            "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths",
-            "/xyz/openbmc_project/inventory", 0,
-            std::array<const char*, 2>{
+        dbus::utility::getSubTreePaths(
+            "/xyz/openbmc_project/inventory",
+            std::vector<std::string>{
                 "xyz.openbmc_project.Inventory.Item.Board",
-                "xyz.openbmc_project.Inventory.Item.Chassis"});
+                "xyz.openbmc_project.Inventory.Item.Chassis"},
+            std::move(chassisHandler));
         });
 
     BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/Power/")

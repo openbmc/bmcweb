@@ -1,11 +1,11 @@
 #pragma once
 
+#include "dbus_utility.hpp"
 #include "utils/ip_utils.hpp"
 
 #include <app.hpp>
 #include <boost/container/flat_set.hpp>
 #include <dbus_singleton.hpp>
-#include <dbus_utility.hpp>
 #include <error_messages.hpp>
 #include <query.hpp>
 #include <registries/privilege_registry.hpp>
@@ -787,12 +787,10 @@ inline void requestRoutesHypervisorSystems(App& app)
         {
             return;
         }
-        const std::array<const char*, 1> interfaces = {
-            "xyz.openbmc_project.Network.EthernetInterface"};
 
-        crow::connections::systemBus->async_method_call(
+        auto respHandler =
             [asyncResp](
-                const boost::system::error_code error,
+                const boost::system::error_code& error,
                 const dbus::utility::MapperGetSubTreePathsResponse& ifaceList) {
             if (error)
             {
@@ -827,11 +825,12 @@ inline void requestRoutesHypervisorSystems(App& app)
                 ifaceArray.push_back(std::move(ethIface));
             }
             asyncResp->res.jsonValue["Members@odata.count"] = ifaceArray.size();
-            },
-            "xyz.openbmc_project.ObjectMapper",
-            "/xyz/openbmc_project/object_mapper",
-            "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths",
-            "/xyz/openbmc_project/network/hypervisor", 0, interfaces);
+        };
+        dbus::utility::getSubTreePaths(
+            "/xyz/openbmc_project/network/hypervisor",
+            std::vector<std::string>{
+                "xyz.openbmc_project.Network.EthernetInterface"},
+            std::move(respHandler));
         });
 
     BMCWEB_ROUTE(app,

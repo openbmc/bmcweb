@@ -16,6 +16,7 @@
 
 #pragma once
 
+#include "dbus_utility.hpp"
 #include "generated/enums/pcie_device.hpp"
 
 #include <app.hpp>
@@ -40,7 +41,7 @@ static inline void
                       const std::string& name)
 {
     auto getPCIeMapCallback =
-        [asyncResp, name](const boost::system::error_code ec,
+        [asyncResp, name](const boost::system::error_code& ec,
                           const dbus::utility::MapperGetSubTreePathsResponse&
                               pcieDevicePaths) {
         if (ec)
@@ -72,11 +73,8 @@ static inline void
         }
         asyncResp->res.jsonValue[name + "@odata.count"] = pcieDeviceList.size();
     };
-    crow::connections::systemBus->async_method_call(
-        std::move(getPCIeMapCallback), "xyz.openbmc_project.ObjectMapper",
-        "/xyz/openbmc_project/object_mapper",
-        "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths",
-        std::string(pciePath) + "/", 1, std::array<std::string, 0>());
+    dbus::utility::getSubTreePaths(pciePath, std::vector<std::string>{},
+                                   std::move(getPCIeMapCallback), 1);
 }
 
 inline void requestRoutesSystemPCIeDeviceCollection(App& app)

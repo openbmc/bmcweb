@@ -16,12 +16,12 @@
 #pragma once
 
 #include "dbus_singleton.hpp"
+#include "dbus_utility.hpp"
 #include "error_messages.hpp"
 #include "health.hpp"
 
 #include <app.hpp>
 #include <boost/container/flat_map.hpp>
-#include <dbus_utility.hpp>
 #include <query.hpp>
 #include <registries/privilege_registry.hpp>
 #include <sdbusplus/asio/property.hpp>
@@ -1075,9 +1075,9 @@ inline void requestRoutesOperatingConfigCollection(App& app)
 
         // First find the matching CPU object so we know how to
         // constrain our search for related Config objects.
-        crow::connections::systemBus->async_method_call(
+        auto respHandler =
             [asyncResp, cpuName](
-                const boost::system::error_code ec,
+                const boost::system::error_code& ec,
                 const dbus::utility::MapperGetSubTreePathsResponse& objects) {
             if (ec)
             {
@@ -1109,13 +1109,12 @@ inline void requestRoutesOperatingConfigCollection(App& app)
                     object.c_str());
                 return;
             }
-            },
-            "xyz.openbmc_project.ObjectMapper",
-            "/xyz/openbmc_project/object_mapper",
-            "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths",
-            "/xyz/openbmc_project/inventory", 0,
-            std::array<const char*, 1>{
-                "xyz.openbmc_project.Control.Processor.CurrentOperatingConfig"});
+        };
+        dbus::utility::getSubTreePaths(
+            "/xyz/openbmc_project/inventory",
+            std::vector<std::string>{
+                "xyz.openbmc_project.Control.Processor.CurrentOperatingConfig"},
+            std::move(respHandler));
         });
 }
 
@@ -1221,7 +1220,7 @@ inline void requestRoutesProcessorCollection(App& app)
         collection_util::getCollectionMembers(
             asyncResp,
             boost::urls::url("/redfish/v1/Systems/system/Processors"),
-            std::vector<const char*>(processorInterfaces.begin(),
+            std::vector<std::string>(processorInterfaces.begin(),
                                      processorInterfaces.end()));
         });
 }
