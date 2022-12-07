@@ -22,6 +22,30 @@
       },
       "revId": "47827383270de5777b49775bb69bf7d37ec7384e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1d5ad5a7_a1f5175b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2022-12-07T19:27:35Z",
+      "side": 1,
+      "message": "\u003e This file was added so run-clang-tidy works appropriately when run from a normal shell (non-meson)\n\nAre you sure?  I was almost positve that this \u0027.clang-ignore\u0027 file was something of our own invention.\n\nThis search shows no hits: https://github.com/search?q\u003dorg%3Allvm-mirror+clang-ignore\u0026type\u003dcode\n\nSearching for \u0027clang-ignore\u0027, \u0027clang-format-ignore\u0027 and \u0027clang-tidy-ignore\u0027 on your favorite search engine reveals almost nothing relevant except feature request issues on Github or this Meson stuff.\n\nThe run-clang-tidy source only has the word \"ignore\" in an unrelated part:\nhttps://github.com/llvm/llvm-project/blob/2e999b7dd1934a44d38c3a753460f1e5a217e9a5/clang-tools-extra/clang-tidy/tool/run-clang-tidy.py#L183\n\n\u003e Given the tiny footprint, it seems like overkill to remove, unless it\u0027s actually blocking some other thing that\u0027s more important?\n\nYou\u0027re welcome to leave it in place.  I was just cleaning up all of them because they seemed to have been a relic of the previous clang-format code not using git-ls-files and people having issues with subprojects having a different formatting scheme.",
+      "parentUuid": "78ec78cc_e0f09990",
+      "range": {
+        "startLine": 9,
+        "startChar": 68,
+        "endLine": 9,
+        "endChar": 69
+      },
+      "revId": "47827383270de5777b49775bb69bf7d37ec7384e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
