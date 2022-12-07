@@ -1,4 +1,4 @@
-## Redfish OEM Resources
+# Redfish OEM Resources
 
 The Redfish specification allows for OEM resources and properties to be
 implemented by OEMs. As a general rule, OpenBMC discourages the use of OEM
@@ -6,7 +6,7 @@ namespaces in APIs. In line with this, bmcweb does not expose an API for adding
 OEM properties in a backward API compatible way for resources that have not been
 merged to master.
 
-### Why?
+## Why?
 
 OEM properties in an open source project pose many problems when compared to
 their closed source brethren in terms of reliability, code reuse, compatibility,
@@ -40,7 +40,7 @@ and maintenance.
    leads to positive API design changes up front, which increases the usefulness
    of the code we write within the industry.
 
-### How?
+## How?
 
 If you've read the above, and still think an OEM property is warranted, please
 take the following steps.

@@ -19,7 +19,7 @@ are the steps for using the SDK and QEMU.
   directions in the gerrit setup document.
 - Clone bmcweb from gerrit
 
-  ```
+  ```sh
   git clone ssh://openbmc.gerrit/openbmc/bmcweb/
   ```
 
@@ -28,7 +28,7 @@ are the steps for using the SDK and QEMU.
 
 - Reduce binary size by stripping it when ready for testing
 
-  ```
+  ```sh
   arm-openbmc-linux-gnueabi-strip bmcweb
   ```
 
@@ -38,7 +38,7 @@ are the steps for using the SDK and QEMU.
 
 - Copy your bmcweb you want to test to /tmp/ in QEMU
 
-  ```
+  ```sh
   scp -P 2222 bmcweb root@127.0.0.1:/tmp/
   ```
 
@@ -48,7 +48,7 @@ are the steps for using the SDK and QEMU.
 
 - Stop bmcweb service within your QEMU session
 
-  ```
+  ```sh
   systemctl stop bmcweb
   ```
 
@@ -61,7 +61,7 @@ are the steps for using the SDK and QEMU.
 - If running within a system that has read-only /usr/ filesystem, issue the
   following commands one time per QEMU boot to make the filesystem writeable
 
-  ```
+  ```sh
   mkdir -p /var/persist/usr
   mkdir -p /var/persist/work/usr
   mount -t overlay -o lowerdir=/usr,upperdir=/var/persist/usr,workdir=/var/persist/work/usr overlay /usr
@@ -69,20 +69,20 @@ are the steps for using the SDK and QEMU.
 
 - Remove the existing bmcweb from the filesystem in QEMU
 
-  ```
+  ```sh
   rm /usr/bin/bmcweb
   ```
 
 - Link to your new bmcweb in /tmp/
 
-  ```
+  ```sh
   ln -sf /tmp/bmcweb /usr/bin/bmcweb
   ```
 
 - Test your changes. bmcweb will be started automatically upon your first REST
   or Redfish command
 
-  ```
+  ```sh
   curl -c cjar -b cjar -k -X POST https://127.0.0.1:2443/login -d "{\"data\": [ \"root\", \"0penBmc\" ] }"
   curl -c cjar -b cjar -k -X GET https://127.0.0.1:2443/xyz/openbmc_project/state/bmc0
   ```

@@ -1,6 +1,8 @@
-## Why does bmcweb use so many headers? My build times are slow!##
+# bmcweb headers
 
-TL; DR, History
+**Why does bmcweb use so many headers? My build times are slow!**
+
+TL;DR, History
 
 bmcweb at one point was a crow-based project. Evidence of this can still be seen
 in the http/.hpp files that still contain references to the crow namespaces.
@@ -19,7 +21,7 @@ implemented 3-4 times in the project, the latest of which is below. The intent
 of this document is largely to save effort for the next person, so they can at
 least start from the existing prior attempts.
 
-https://gerrit.openbmc.org/c/openbmc/bmcweb/+/49039
+<https://gerrit.openbmc.org/c/openbmc/bmcweb/+/49039>
 
 Moving to cpp files without handling any architecture has the net result of
 making total compilation slower, not faster, as the slowest-to-compile parts end
@@ -31,7 +33,7 @@ there have been proposed a few ideas might provide some relief;
 
 - Moving the Request and Response containers to opaque structures, so a majority
   of code only needs to #include the interface, not any of the template code.
-  https://gerrit.openbmc.org/c/openbmc/bmcweb/+/37445 Doing this exposed a
+  <https://gerrit.openbmc.org/c/openbmc/bmcweb/+/37445> Doing this exposed a
   number of mediocre practices in the route handlers, where routes made copies
   of requests/responses, relied on APIs that should've been internal, and other
   practices that make this migration less straightforward, but is still being

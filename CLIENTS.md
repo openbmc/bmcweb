@@ -1,3 +1,5 @@
+# Client overview
+
 bmcweb being a user and network facing daemon, is subject to a vast array of
 tests and clients that could target it. The below attempts to provide a
 non-exhaustive list of tests and clients that bmcweb is expected to be
@@ -31,13 +33,13 @@ portion of the OpenBMC Redfish use cases.
 Status: Passing for some machines with CI integration.
 
 slowloris: A tool to verify timeouts and DOS attack mitigation is implemented
-properly. https://github.com/gkbrk/slowloris
+properly. <https://github.com/gkbrk/slowloris>
 
 Status: Passing, no automated enforcement.
 
 testssl.sh: A tool for verifying the corectness of the bmcweb cipher suites
 against current recommended security standards
-https://github.com/drwetter/testssl.sh
+<https://github.com/drwetter/testssl.sh>
 
 Status: Unknown
 
@@ -55,7 +57,7 @@ git@github.com:DMTF/python-redfish-library.git
 Status: Compatible
 
 Redfish-Event-Listener: An example client for testing and implementing
-EventService handlers. https://github.com/DMTF/Redfish-Event-Listener
+EventService handlers. <https://github.com/DMTF/Redfish-Event-Listener>
 
 Status: Compatible. No CI integration.
 
@@ -65,6 +67,6 @@ git@github.com:DMTF/Redfish-Tacklebox.git
 Status: Unknown.
 
 redfishtool: A generic command line tool for reading and writing operations to
-the Redfish server. https://github.com/DMTF/Redfishtool
+the Redfish server. <https://github.com/DMTF/Redfishtool>
 
 Status: Compatible. No automated testing.

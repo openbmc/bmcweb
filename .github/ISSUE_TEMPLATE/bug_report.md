@@ -12,7 +12,7 @@ assignees: ""
 QEMU, please add
 
 What specific OpenBMC versions (SHA1) did you use? (note, SHA1 should be
-resolvable to https://github.com/openbmc/openbmc)
+resolvable to <https://github.com/openbmc/openbmc>)
 
 **To Reproduce** Steps to reproduce the behavior:
 

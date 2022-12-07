@@ -12,7 +12,7 @@ The webserver implements a few distinct interfaces:
   to dbus and the objects it represents.
 - Serial: A serial websocket for interacting with the host serial console
   through websockets.
-- Redfish: A protocol compliant, (Redfish.md)[DBus to Redfish translator].
+- Redfish: A protocol compliant, [DBus to Redfish translator](Redfish.md).
 - KVM: A websocket based implementation of the RFB (VNC) frame buffer protocol
   intended to mate to webui-vue to provide a complete KVM implementation.
 
@@ -50,9 +50,9 @@ privilege level.
 
 bmcweb is configured per the
 [meson build files](https://mesonbuild.com/Build-options.html). Available
-options are documented in meson_options.txt
+options are documented in `meson_options.txt`
 
-## Compile bmcweb with default options:
+## Compile bmcweb with default options
 
 ```ascii
 meson builddir
@@ -83,7 +83,7 @@ EXTRA_OEMESON:pn-bmcweb:append = "-Dbmcweb-logging='enabled'"
 
 bmcweb relies on some on-system data for storage of persistent data that is
 internal to the process. Details on the exact data stored and when it is
-read/written can seen from the persistent_data namespace.
+read/written can seen from the `persistent_data` namespace.
 
 ## TLS certificate generation
 
