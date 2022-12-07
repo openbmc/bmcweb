@@ -16,12 +16,14 @@
 #pragma once
 
 #include "async_resp.hpp"
+#include "dbus_utility.hpp"
 
 #include <app.hpp>
 #include <dbus_singleton.hpp>
-#include <dbus_utility.hpp>
 #include <nlohmann/json.hpp>
 
+#include <array>
+#include <string_view>
 #include <variant>
 
 namespace redfish
@@ -192,9 +194,12 @@ struct HealthPopulate : std::enable_shared_from_this<HealthPopulate>
 
     void getGlobalPath()
     {
+        const std::array<const char*, 1> interfaces = {
+            "xyz.openbmc_project.Inventory.Item.Global"};
         std::shared_ptr<HealthPopulate> self = shared_from_this();
-        crow::connections::systemBus->async_method_call(
-            [self](const boost::system::error_code ec,
+        dbus::utility::getSubTreePaths(
+            "/", 0, interfaces,
+            [self](const boost::system::error_code& ec,
                    const dbus::utility::MapperGetSubTreePathsResponse& resp) {
             if (ec || resp.size() != 1)
             {
@@ -202,12 +207,7 @@ struct HealthPopulate : std::enable_shared_from_this<HealthPopulate>
                 return;
             }
             self->globalInventoryPath = resp[0];
-            },
-            "xyz.openbmc_project.ObjectMapper",
-            "/xyz/openbmc_project/object_mapper",
-            "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths", "/", 0,
-            std::array<const char*, 1>{
-                "xyz.openbmc_project.Inventory.Item.Global"});
+            });
     }
 
     void getAllStatusAssociations()

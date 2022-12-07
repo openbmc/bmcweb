@@ -16,12 +16,12 @@
 #pragma once
 
 #include "dbus_singleton.hpp"
+#include "dbus_utility.hpp"
 #include "error_messages.hpp"
 #include "health.hpp"
 
 #include <app.hpp>
 #include <boost/container/flat_map.hpp>
-#include <dbus_utility.hpp>
 #include <query.hpp>
 #include <registries/privilege_registry.hpp>
 #include <sdbusplus/asio/property.hpp>
@@ -31,6 +31,9 @@
 #include <utils/collection.hpp>
 #include <utils/dbus_utils.hpp>
 #include <utils/json_utils.hpp>
+
+#include <array>
+#include <string_view>
 
 namespace redfish
 {
@@ -1075,9 +1078,12 @@ inline void requestRoutesOperatingConfigCollection(App& app)
 
         // First find the matching CPU object so we know how to
         // constrain our search for related Config objects.
-        crow::connections::systemBus->async_method_call(
+        const std::array<const char*, 1> interfaces = {
+            "xyz.openbmc_project.Control.Processor.CurrentOperatingConfig"};
+        dbus::utility::getSubTreePaths(
+            "/xyz/openbmc_project/inventory", 0, interfaces,
             [asyncResp, cpuName](
-                const boost::system::error_code ec,
+                const boost::system::error_code& ec,
                 const dbus::utility::MapperGetSubTreePathsResponse& objects) {
             if (ec)
             {
@@ -1100,22 +1106,18 @@ inline void requestRoutesOperatingConfigCollection(App& app)
 
                 // Use the common search routine to construct the
                 // Collection of all Config objects under this CPU.
+                const std::array<const char*, 1> interface {
+                    "xyz.openbmc_project.Inventory.Item.Cpu.OperatingConfig"
+                };
                 collection_util::getCollectionMembers(
                     asyncResp,
                     crow::utility::urlFromPieces("redfish", "v1", "Systems",
                                                  "system", "Processors",
                                                  cpuName, "OperatingConfigs"),
-                    {"xyz.openbmc_project.Inventory.Item.Cpu.OperatingConfig"},
-                    object.c_str());
+                    interface, object.c_str());
                 return;
             }
-            },
-            "xyz.openbmc_project.ObjectMapper",
-            "/xyz/openbmc_project/object_mapper",
-            "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths",
-            "/xyz/openbmc_project/inventory", 0,
-            std::array<const char*, 1>{
-                "xyz.openbmc_project.Control.Processor.CurrentOperatingConfig"});
+            });
         });
 }
 
@@ -1221,8 +1223,7 @@ inline void requestRoutesProcessorCollection(App& app)
         collection_util::getCollectionMembers(
             asyncResp,
             boost::urls::url("/redfish/v1/Systems/system/Processors"),
-            std::vector<const char*>(processorInterfaces.begin(),
-                                     processorInterfaces.end()));
+            processorInterfaces);
         });
 }
 

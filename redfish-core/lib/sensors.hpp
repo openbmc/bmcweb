@@ -15,6 +15,7 @@
 */
 #pragma once
 
+#include "dbus_utility.hpp"
 #include "generated/enums/sensor.hpp"
 
 #include <app.hpp>
@@ -34,10 +35,12 @@
 #include <utils/json_utils.hpp>
 #include <utils/query_param.hpp>
 
+#include <array>
 #include <cmath>
 #include <iterator>
 #include <map>
 #include <set>
+#include <string_view>
 #include <utility>
 #include <variant>
 
@@ -518,11 +521,14 @@ void getChassis(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::array<const char*, 2> interfaces = {
         "xyz.openbmc_project.Inventory.Item.Board",
         "xyz.openbmc_project.Inventory.Item.Chassis"};
-    auto respHandler =
+
+    // Get the Chassis Collection
+    dbus::utility::getSubTreePaths(
+        "/xyz/openbmc_project/inventory", 0, interfaces,
         [callback{std::forward<Callback>(callback)}, asyncResp,
          chassisIdStr{std::string(chassisId)},
          chassisSubNode{std::string(chassisSubNode)}, sensorTypes](
-            const boost::system::error_code ec,
+            const boost::system::error_code& ec,
             const dbus::utility::MapperGetSubTreePathsResponse& chassisPaths) {
         BMCWEB_LOG_DEBUG << "getChassis respHandler enter";
         if (ec)
@@ -581,14 +587,7 @@ void getChassis(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
             BMCWEB_LOG_DEBUG << "Finishing with " << culledSensorList->size();
             callback(culledSensorList);
             });
-    };
-
-    // Get the Chassis Collection
-    crow::connections::systemBus->async_method_call(
-        respHandler, "xyz.openbmc_project.ObjectMapper",
-        "/xyz/openbmc_project/object_mapper",
-        "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths",
-        "/xyz/openbmc_project/inventory", 0, interfaces);
+        });
     BMCWEB_LOG_DEBUG << "getChassis exit";
 }
 

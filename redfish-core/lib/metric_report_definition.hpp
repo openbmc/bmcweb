@@ -13,7 +13,9 @@
 #include <sdbusplus/unpack_properties.hpp>
 #include <utils/dbus_utils.hpp>
 
+#include <array>
 #include <map>
+#include <string_view>
 #include <tuple>
 #include <variant>
 
@@ -359,7 +361,7 @@ inline void requestRoutesMetricReportDefinitionCollection(App& app)
         asyncResp->res.jsonValue["@odata.id"] =
             "/redfish/v1/TelemetryService/MetricReportDefinitions";
         asyncResp->res.jsonValue["Name"] = "Metric Definition Collection";
-        const std::vector<const char*> interfaces{telemetry::reportInterface};
+        const std::array<const char*, 1> interfaces{telemetry::reportInterface};
         collection_util::getCollectionMembers(
             asyncResp,
             boost::urls::url(

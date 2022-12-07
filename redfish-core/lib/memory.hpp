@@ -28,6 +28,9 @@
 #include <utils/hex_utils.hpp>
 #include <utils/json_utils.hpp>
 
+#include <array>
+#include <string_view>
+
 namespace redfish
 {
 
@@ -792,9 +795,11 @@ inline void requestRoutesMemoryCollection(App& app)
         asyncResp->res.jsonValue["@odata.id"] =
             "/redfish/v1/Systems/system/Memory";
 
+        const std::array<const char*, 1> interfaces{
+            "xyz.openbmc_project.Inventory.Item.Dimm"};
         collection_util::getCollectionMembers(
             asyncResp, boost::urls::url("/redfish/v1/Systems/system/Memory"),
-            {"xyz.openbmc_project.Inventory.Item.Dimm"});
+            interfaces);
         });
 }
 

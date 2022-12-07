@@ -9,6 +9,8 @@
 #include <utils/hex_utils.hpp>
 #include <utils/json_utils.hpp>
 
+#include <array>
+#include <string_view>
 #include <vector>
 
 namespace crow
@@ -37,9 +39,11 @@ inline void handleRootOfTrustCollectionGet(
     asyncResp->res.jsonValue["@odata.id"] = "/google/v1/RootOfTrustCollection";
     asyncResp->res.jsonValue["@odata.type"] =
         "#RootOfTrustCollection.RootOfTrustCollection";
+    const std::array<const char*, 1> interfaces{
+        "xyz.openbmc_project.Control.Hoth"};
     redfish::collection_util::getCollectionMembers(
         asyncResp, boost::urls::url("/google/v1/RootOfTrustCollection"),
-        {"xyz.openbmc_project.Control.Hoth"}, "/xyz/openbmc_project");
+        interfaces, "/xyz/openbmc_project");
 }
 
 // Helper struct to identify a resolved D-Bus object interface

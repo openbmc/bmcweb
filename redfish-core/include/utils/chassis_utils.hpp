@@ -1,5 +1,11 @@
 #pragma once
+
+#include "dbus_utility.hpp"
+
 #include <async_resp.hpp>
+
+#include <array>
+#include <string_view>
 
 namespace redfish
 {
@@ -20,9 +26,11 @@ void getValidChassisPath(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         "xyz.openbmc_project.Inventory.Item.Board",
         "xyz.openbmc_project.Inventory.Item.Chassis"};
 
-    auto respHandler =
+    // Get the Chassis Collection
+    dbus::utility::getSubTreePaths(
+        "/xyz/openbmc_project/inventory", 0, interfaces,
         [callback{std::forward<Callback>(callback)}, asyncResp,
-         chassisId](const boost::system::error_code ec,
+         chassisId](const boost::system::error_code& ec,
                     const dbus::utility::MapperGetSubTreePathsResponse&
                         chassisPaths) mutable {
         BMCWEB_LOG_DEBUG << "getValidChassisPath respHandler enter";
@@ -51,14 +59,7 @@ void getValidChassisPath(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
             }
         }
         callback(chassisPath);
-    };
-
-    // Get the Chassis Collection
-    crow::connections::systemBus->async_method_call(
-        respHandler, "xyz.openbmc_project.ObjectMapper",
-        "/xyz/openbmc_project/object_mapper",
-        "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths",
-        "/xyz/openbmc_project/inventory", 0, interfaces);
+        });
     BMCWEB_LOG_DEBUG << "checkChassisId exit";
 }
 
