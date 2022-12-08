@@ -33,6 +33,23 @@
       "message": "Can you do a quick sanity test?",
       "revId": "b14486678de71367608a9ee48313fa3f7ccc3803",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "07535d45_2f8c6d0e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-12-08T22:33:47Z",
+      "side": 1,
+      "message": "How are these lines found? via grep?",
+      "revId": "b14486678de71367608a9ee48313fa3f7ccc3803",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
