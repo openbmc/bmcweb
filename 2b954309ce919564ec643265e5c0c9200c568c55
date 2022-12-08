@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "83138c5b_2e5fe492",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 1664,
+      "author": {
+        "id": 1000008
+      },
+      "writtenOn": "2022-12-08T20:41:38Z",
+      "side": 1,
+      "message": "If ServiceProviderNotify was missing for some reason, then this would try to dereference a null pointer.  I guess that\u0027s what the existing code does anyway in 1670 - 1675 so maybe it\u0027s safe to do.",
+      "range": {
+        "startLine": 1664,
+        "startChar": 44,
+        "endLine": 1664,
+        "endChar": 51
+      },
+      "revId": "2b954309ce919564ec643265e5c0c9200c568c55",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "887e141a_1dfbb0fa",
