@@ -201,8 +201,7 @@ class SessionStore
 {
   public:
     std::shared_ptr<UserSession> generateUserSession(
-        const std::string_view username,
-        const boost::asio::ip::address& clientIp,
+        std::string_view username, const boost::asio::ip::address& clientIp,
         const std::optional<std::string>& clientId,
         PersistenceType persistence = PersistenceType::TIMEOUT,
         bool isConfigureSelfOnly = false)
@@ -264,8 +263,7 @@ class SessionStore
         return it.first->second;
     }
 
-    std::shared_ptr<UserSession>
-        loginSessionByToken(const std::string_view token)
+    std::shared_ptr<UserSession> loginSessionByToken(std::string_view token)
     {
         applySessionTimeouts();
         if (token.size() != sessionTokenSize)
@@ -282,7 +280,7 @@ class SessionStore
         return userSession;
     }
 
-    std::shared_ptr<UserSession> getSessionByUid(const std::string_view uid)
+    std::shared_ptr<UserSession> getSessionByUid(std::string_view uid)
     {
         applySessionTimeouts();
         // TODO(Ed) this is inefficient

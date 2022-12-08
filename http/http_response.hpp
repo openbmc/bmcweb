@@ -27,7 +27,7 @@ struct Response
 
     nlohmann::json jsonValue;
 
-    void addHeader(const std::string_view key, const std::string_view value)
+    void addHeader(std::string_view key, std::string_view value)
     {
         stringResponse->set(key, value);
     }

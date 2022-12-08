@@ -10,7 +10,7 @@ namespace messages
 
 inline nlohmann::json
     getLogResourceEvent(redfish::registries::resource_event::Index name,
-                        std::span<const std::string_view> args)
+                        std::span<std::string_view> args)
 {
     size_t index = static_cast<size_t>(name);
     if (index >= redfish::registries::resource_event::registry.size())

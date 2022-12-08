@@ -108,7 +108,7 @@ struct NbdProxyServer : std::enable_shared_from_this<NbdProxyServer>
             "xyz.openbmc_project.VirtualMedia.Proxy", "Mount");
     }
 
-    void send(const std::string_view data)
+    void send(std::string_view data)
     {
         boost::asio::buffer_copy(ws2uxBuf.prepare(data.size()),
                                  boost::asio::buffer(data));
