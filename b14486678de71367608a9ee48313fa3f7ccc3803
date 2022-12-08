@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c1f9d361_d4ff55be",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-12-08T20:51:41Z",
+      "side": 1,
+      "message": "Can you add a link to like https://quuxplusone.github.io/blog/2021/11/09/pass-string-view-by-value/ or some other resource that explains why ;)\nOr add a reason or 2 in the commit msg itself",
+      "revId": "b14486678de71367608a9ee48313fa3f7ccc3803",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cbef4708_7e88f03d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2022-12-08T20:51:41Z",
+      "side": 1,
+      "message": "Can you do a quick sanity test?",
+      "revId": "b14486678de71367608a9ee48313fa3f7ccc3803",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
