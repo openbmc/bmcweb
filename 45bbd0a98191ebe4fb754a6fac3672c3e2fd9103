@@ -16,6 +16,29 @@
       "message": "I think this can just be removed?",
       "revId": "45bbd0a98191ebe4fb754a6fac3672c3e2fd9103",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "283c7d1b_2c583f33",
+        "filename": "scripts/update_schemas.py",
+        "patchSetId": 28
+      },
+      "lineNbr": 403,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-08T20:02:37Z",
+      "side": 1,
+      "message": "With aggregation, we now technically \"support\" these.",
+      "range": {
+        "startLine": 403,
+        "startChar": 0,
+        "endLine": 403,
+        "endChar": 54
+      },
+      "revId": "45bbd0a98191ebe4fb754a6fac3672c3e2fd9103",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
