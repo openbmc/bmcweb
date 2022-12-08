@@ -16,6 +16,75 @@
       "message": "Friendly ping to request review/approval!",
       "revId": "41accb614d8e933ba0ae9937e4399d2fc95f20b4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "63ec0258_7c6ee922",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-12-08T00:14:52Z",
+      "side": 1,
+      "message": "nit: weird case mixes here",
+      "range": {
+        "startLine": 94,
+        "startChar": 28,
+        "endLine": 94,
+        "endChar": 32
+      },
+      "revId": "41accb614d8e933ba0ae9937e4399d2fc95f20b4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ac590881_945ff2c5",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-12-08T00:14:52Z",
+      "side": 1,
+      "message": "This functions to me is to get a dbus response sorted and then get that into the JSON response, where the name of the function to me is just to sort something. Consider a better name?",
+      "range": {
+        "startLine": 100,
+        "startChar": 12,
+        "endLine": 100,
+        "endChar": 43
+      },
+      "revId": "41accb614d8e933ba0ae9937e4399d2fc95f20b4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aa952a3c_5b3c37c2",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-12-08T00:14:52Z",
+      "side": 1,
+      "message": "Please add unit test for new code like this that\u0027s unit testable.",
+      "range": {
+        "startLine": 100,
+        "startChar": 12,
+        "endLine": 100,
+        "endChar": 43
+      },
+      "revId": "41accb614d8e933ba0ae9937e4399d2fc95f20b4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
