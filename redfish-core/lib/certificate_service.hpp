@@ -145,7 +145,7 @@ class CertificateFile
  * @return None
  */
 static void updateCertIssuerOrSubject(nlohmann::json& out,
-                                      const std::string_view value)
+                                      std::string_view value)
 {
     // example: O=openbmc-project.xyz,CN=localhost
     std::string_view::iterator i = value.begin();
@@ -160,16 +160,14 @@ static void updateCertIssuerOrSubject(nlohmann::json& out,
         {
             break;
         }
-        const std::string_view key(tokenBegin,
-                                   static_cast<size_t>(i - tokenBegin));
+        std::string_view key(tokenBegin, static_cast<size_t>(i - tokenBegin));
         ++i;
         tokenBegin = i;
         while (i != value.end() && *i != ',')
         {
             ++i;
         }
-        const std::string_view val(tokenBegin,
-                                   static_cast<size_t>(i - tokenBegin));
+        std::string_view val(tokenBegin, static_cast<size_t>(i - tokenBegin));
         if (key == "L")
         {
             out["City"] = val;

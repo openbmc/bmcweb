@@ -110,7 +110,7 @@ class Privileges
      * @return               None
      *
      */
-    bool setSinglePrivilege(const std::string_view privilege)
+    bool setSinglePrivilege(std::string_view privilege)
     {
         for (size_t searchIndex = 0; searchIndex < privilegeNames.size();
              searchIndex++)

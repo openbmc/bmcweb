@@ -221,7 +221,7 @@ class SensorsAsyncResp
     SensorsAsyncResp(const std::shared_ptr<bmcweb::AsyncResp>& asyncRespIn,
                      const std::string& chassisIdIn,
                      const std::span<std::string_view> typesIn,
-                     const std::string_view& subNode, bool efficientExpandIn) :
+                     std::string_view subNode, bool efficientExpandIn) :
         asyncResp(asyncRespIn),
         chassisId(chassisIdIn), types(typesIn), chassisSubNode(subNode),
         efficientExpand(efficientExpandIn)

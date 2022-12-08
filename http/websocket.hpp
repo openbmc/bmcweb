@@ -148,7 +148,7 @@ class ConnectionImpl : public Connection
         });
     }
 
-    void sendBinary(const std::string_view msg) override
+    void sendBinary(std::string_view msg) override
     {
         ws.binary(true);
         outBuffer.emplace_back(msg);
@@ -162,7 +162,7 @@ class ConnectionImpl : public Connection
         doWrite();
     }
 
-    void sendText(const std::string_view msg) override
+    void sendText(std::string_view msg) override
     {
         ws.text(true);
         outBuffer.emplace_back(msg);
@@ -176,7 +176,7 @@ class ConnectionImpl : public Connection
         doWrite();
     }
 
-    void close(const std::string_view msg) override
+    void close(std::string_view msg) override
     {
         ws.async_close(
             {boost::beast::websocket::close_code::normal, msg},

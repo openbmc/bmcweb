@@ -57,7 +57,7 @@ inline void addSecurityHeaders(const crow::Request& req [[maybe_unused]],
                                                  "object-src *; "
                                                  "base-uri *");
 
-        const std::string_view origin = req.getHeaderValue("Origin");
+        std::string_view origin = req.getHeaderValue("Origin");
         res.addHeader(bf::access_control_allow_origin, origin);
         res.addHeader(bf::access_control_allow_methods, "GET, "
                                                         "POST, "

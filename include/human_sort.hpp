@@ -22,8 +22,7 @@ enum class ModeType
 
 } // namespace details
 
-inline int alphanumComp(const std::string_view left,
-                        const std::string_view right)
+inline int alphanumComp(std::string_view left, std::string_view right)
 {
 
     std::string_view::const_iterator l = left.begin();
