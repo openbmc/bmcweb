@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c4ec5d79_dcb28a18",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 437,
+      "author": {
+        "id": 1000188
+      },
+      "writtenOn": "2022-12-08T22:38:37Z",
+      "side": 1,
+      "message": "Can you keep this as starts_with, in case we put the ip objects under a subpath so that we don\u0027t have to change this in the future.",
+      "revId": "a2a3b777b0d1509626cbb555c57addec4ffae3fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
