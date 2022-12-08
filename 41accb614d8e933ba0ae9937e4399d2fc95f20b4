@@ -85,6 +85,29 @@
       },
       "revId": "41accb614d8e933ba0ae9937e4399d2fc95f20b4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6c55010e_9e11c384",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-12-08T00:15:55Z",
+      "side": 1,
+      "message": "prefer const string reference over pointer.",
+      "range": {
+        "startLine": 171,
+        "startChar": 42,
+        "endLine": 171,
+        "endChar": 53
+      },
+      "revId": "41accb614d8e933ba0ae9937e4399d2fc95f20b4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
