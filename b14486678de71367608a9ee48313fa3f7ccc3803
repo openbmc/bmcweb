@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6fa3a18c_1229dccf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-12-08T23:28:20Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "c1f9d361_d4ff55be",
+      "revId": "b14486678de71367608a9ee48313fa3f7ccc3803",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cbef4708_7e88f03d",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
@@ -84,6 +102,23 @@
       "side": 1,
       "message": "Ack",
       "parentUuid": "2374bbdc_5e7090d8",
+      "revId": "b14486678de71367608a9ee48313fa3f7ccc3803",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb38233d_3ab63511",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2022-12-08T23:28:20Z",
+      "side": 1,
+      "message": "Good fix in general.",
       "revId": "b14486678de71367608a9ee48313fa3f7ccc3803",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
