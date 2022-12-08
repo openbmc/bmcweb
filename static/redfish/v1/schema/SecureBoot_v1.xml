@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!---->
+<!--################################################################################       -->
+<!--# Redfish Schema:  SecureBoot v1.1.0                                                   -->
+<!--#                                                                                      -->
+<!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
+<!--# available at http://www.dmtf.org/standards/redfish                                   -->
+<!--# Copyright 2014-2022 DMTF.                                                            -->
+<!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
+<!--################################################################################       -->
+<!---->
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Core.V1.xml">
+    <edmx:Include Namespace="Org.OData.Core.V1" Alias="OData"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Capabilities.V1.xml">
+    <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Resource_v1.xml">
+    <edmx:Include Namespace="Resource.v1_0_0"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml">
+    <edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/SecureBootDatabaseCollection_v1.xml">
+    <edmx:Include Namespace="SecureBootDatabaseCollection"/>
+  </edmx:Reference>
+
+  <edmx:DataServices>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SecureBoot">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+
+      <EntityType Name="SecureBoot" BaseType="Resource.v1_0_0.Resource" Abstract="true">
+        <Annotation Term="OData.Description" String="The SecureBoot schema contains UEFI Secure Boot information and represents properties for managing the UEFI Secure Boot functionality of a system."/>
+        <Annotation Term="OData.LongDescription" String="This resource contains UEFI Secure Boot information for a Redfish implementation."/>
+        <Annotation Term="Capabilities.InsertRestrictions">
+          <Record>
+            <PropertyValue Property="Insertable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.UpdateRestrictions">
+          <Record>
+            <PropertyValue Property="Updatable" Bool="true"/>
+            <Annotation Term="OData.Description" String="Secure Boot can be updated to enable or disable the service."/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.DeleteRestrictions">
+          <Record>
+            <PropertyValue Property="Deletable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Redfish.Uris">
+          <Collection>
+            <String>/redfish/v1/Systems/{ComputerSystemId}/SecureBoot</String>
+            <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/SecureBoot</String>
+            <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/SecureBoot</String>
+          </Collection>
+        </Annotation>
+      </EntityType>
+
+      <Action Name="ResetKeys" IsBound="true">
+        <Annotation Term="OData.Description" String="This action resets the UEFI Secure Boot keys."/>
+        <Annotation Term="OData.LongDescription" String="This action shall reset the UEFI Secure Boot key databases.  The `ResetAllKeysToDefault` value shall reset all UEFI Secure Boot key databases to their default values.  The `DeleteAllKeys` value shall delete the content of all UEFI Secure Boot key databases.  The `DeletePK` value shall delete the content of the PK Secure Boot key database."/>
+        <Parameter Name="SecureBoot" Type="SecureBoot.v1_0_0.Actions"/>
+        <Parameter Name="ResetKeysType" Type="SecureBoot.v1_0_0.ResetKeysType" Nullable="false">
+          <Annotation Term="OData.Description" String="The type of reset or delete to perform on the UEFI Secure Boot databases."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall specify the type of reset or delete to perform on the UEFI Secure Boot databases."/>
+        </Parameter>
+      </Action>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SecureBoot.v1_0_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2016.1"/>
+
+      <EntityType Name="SecureBoot" BaseType="SecureBoot.SecureBoot">
+        <Property Name="SecureBootEnable" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="An indication of whether UEFI Secure Boot is enabled."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the UEFI Secure Boot takes effect on next boot.  This property can be enabled in UEFI boot mode only."/>
+        </Property>
+        <Property Name="SecureBootCurrentBoot" Type="SecureBoot.v1_0_0.SecureBootCurrentBootType">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The UEFI Secure Boot state during the current boot cycle."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate the UEFI Secure Boot state during the current boot cycle."/>
+        </Property>
+        <Property Name="SecureBootMode" Type="SecureBoot.v1_0_0.SecureBootModeType">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The current UEFI Secure Boot Mode."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the current UEFI Secure Boot mode, as defined in the UEFI Specification."/>
+        </Property>
+        <Property Name="Actions" Type="SecureBoot.v1_0_0.Actions" Nullable="false">
+          <Annotation Term="OData.Description" String="The available actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this resource."/>
+        </Property>
+      </EntityType>
+
+      <EnumType Name="SecureBootCurrentBootType">
+        <Member Name="Enabled">
+          <Annotation Term="OData.Description" String="UEFI Secure Boot is currently enabled."/>
+        </Member>
+        <Member Name="Disabled">
+          <Annotation Term="OData.Description" String="UEFI Secure Boot is currently disabled."/>
+        </Member>
+      </EnumType>
+
+      <EnumType Name="SecureBootModeType">
+        <Member Name="SetupMode">
+          <Annotation Term="OData.Description" String="UEFI Secure Boot is currently in Setup Mode."/>
+        </Member>
+        <Member Name="UserMode">
+          <Annotation Term="OData.Description" String="UEFI Secure Boot is currently in User Mode."/>
+        </Member>
+        <Member Name="AuditMode">
+          <Annotation Term="OData.Description" String="UEFI Secure Boot is currently in Audit Mode."/>
+        </Member>
+        <Member Name="DeployedMode">
+          <Annotation Term="OData.Description" String="UEFI Secure Boot is currently in Deployed Mode."/>
+        </Member>
+      </EnumType>
+
+      <EnumType Name="ResetKeysType">
+        <Member Name="ResetAllKeysToDefault">
+          <Annotation Term="OData.Description" String="Reset the contents of all UEFI Secure Boot key databases, including the PK key database, to the default values."/>
+        </Member>
+        <Member Name="DeleteAllKeys">
+          <Annotation Term="OData.Description" String="Delete the contents of all UEFI Secure Boot key databases, including the PK key database.  This puts the system in Setup Mode."/>
+        </Member>
+        <Member Name="DeletePK">
+          <Annotation Term="OData.Description" String="Delete the contents of the PK UEFI Secure Boot database.  This puts the system in Setup Mode."/>
+        </Member>
+      </EnumType>
+
+      <ComplexType Name="Actions">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The available actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
+        <Property Name="Oem" Type="SecureBoot.v1_0_0.OemActions" Nullable="false">
+          <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this resource."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="OemActions">
+        <Annotation Term="OData.AdditionalProperties" Bool="true"/>
+        <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this resource."/>
+      </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SecureBoot.v1_0_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to show that annotations in previous namespaces were updated."/>
+      <EntityType Name="SecureBoot" BaseType="SecureBoot.v1_0_0.SecureBoot"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SecureBoot.v1_0_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to show that annotations in previous namespaces were updated."/>
+      <EntityType Name="SecureBoot" BaseType="SecureBoot.v1_0_1.SecureBoot"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SecureBoot.v1_0_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add requirements on the action parameters to show they are mandatory through Nullable=false, and corrects the short and long descriptions in the defined actions."/>
+      <EntityType Name="SecureBoot" BaseType="SecureBoot.v1_0_2.SecureBoot"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SecureBoot.v1_0_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
+      <EntityType Name="SecureBoot" BaseType="SecureBoot.v1_0_3.SecureBoot"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SecureBoot.v1_0_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format."/>
+      <EntityType Name="SecureBoot" BaseType="SecureBoot.v1_0_4.SecureBoot"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SecureBoot.v1_0_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines."/>
+      <EntityType Name="SecureBoot" BaseType="SecureBoot.v1_0_5.SecureBoot"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SecureBoot.v1_0_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions as needed to reference UEFI Secure Boot databases."/>
+      <EntityType Name="SecureBoot" BaseType="SecureBoot.v1_0_6.SecureBoot"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SecureBoot.v1_1_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2020.1"/>
+
+      <EntityType Name="SecureBoot" BaseType="SecureBoot.v1_0_7.SecureBoot">
+        <NavigationProperty Name="SecureBootDatabases" Type="SecureBootDatabaseCollection.SecureBootDatabaseCollection" ContainsTarget="true" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="A link to the collection of UEFI Secure Boot databases."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall be a link to a resource collection of type SecureBootDatabaseCollection."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </EntityType>
+    </Schema>
+
+  </edmx:DataServices>
+</edmx:Edmx>

@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!---->
+<!--################################################################################       -->
+<!--# Redfish Schema:  KeyPolicy v1.0.0                                                    -->
+<!--#                                                                                      -->
+<!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
+<!--# available at http://www.dmtf.org/standards/redfish                                   -->
+<!--# Copyright 2014-2022 DMTF.                                                            -->
+<!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
+<!--################################################################################       -->
+<!---->
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Core.V1.xml">
+    <edmx:Include Namespace="Org.OData.Core.V1" Alias="OData"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Capabilities.V1.xml">
+    <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Resource_v1.xml">
+    <edmx:Include Namespace="Resource.v1_0_0"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml">
+    <edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish"/>
+    <edmx:Include Namespace="Validation.v1_0_0" Alias="Validation"/>
+  </edmx:Reference>
+
+  <edmx:DataServices>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="KeyPolicy">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+
+      <EntityType Name="KeyPolicy" BaseType="Resource.v1_0_0.Resource" Abstract="true">
+        <Annotation Term="OData.Description" String="The KeyPolicy schema describes settings for how keys are allowed to be used for accessing devices or services."/>
+        <Annotation Term="OData.LongDescription" String="This resource shall represent a key policy for a Redfish implementation."/>
+        <Annotation Term="Capabilities.InsertRestrictions">
+          <Record>
+            <PropertyValue Property="Insertable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.UpdateRestrictions">
+          <Record>
+            <PropertyValue Property="Updatable" Bool="true"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.DeleteRestrictions">
+          <Record>
+            <PropertyValue Property="Deletable" Bool="true"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Redfish.Uris">
+          <Collection>
+            <String>/redfish/v1/KeyService/NVMeoFKeyPolicies/{KeyPolicyId}</String>
+          </Collection>
+        </Annotation>
+      </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="KeyPolicy.v1_0_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2021.2"/>
+
+      <EntityType Name="KeyPolicy" BaseType="KeyPolicy.KeyPolicy">
+        <Property Name="KeyPolicyType" Type="KeyPolicy.v1_0_0.KeyPolicyType">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The type of key policy."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the type of key policy."/>
+          <Annotation Term="Redfish.RequiredOnCreate"/>
+        </Property>
+        <Property Name="IsDefault" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="Indicates if this is the default key policy."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate if this key policy is the policy applied when no other policies are specified."/>
+        </Property>
+        <Property Name="NVMeoF" Type="KeyPolicy.v1_0_0.NVMeoF">
+          <Annotation Term="OData.Description" String="NVMe-oF specific properties."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain NVMe-oF specific properties for this key policy.  This property shall be present if KeyPolicyType contains the value `NVMeoF`."/>
+        </Property>
+        <Property Name="Actions" Type="KeyPolicy.v1_0_0.Actions" Nullable="false">
+          <Annotation Term="OData.Description" String="The available actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this resource."/>
+        </Property>
+      </EntityType>
+
+      <EnumType Name="KeyPolicyType">
+        <Member Name="NVMeoF">
+          <Annotation Term="OData.Description" String="An NVMe-oF key policy."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the key policy is for an NVMe-oF key."/>
+        </Member>
+      </EnumType>
+
+      <ComplexType Name="NVMeoF">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="NVMe-oF specific properties."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain NVMe-oF specific properties for a key policy."/>
+        <Property Name="SecurityProtocolAllowList" Type="Collection(KeyPolicy.v1_0_0.NVMeoFSecurityProtocolType)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The security protocols that this key policy allows."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the security protocols that this key policy allows.  NVMe-oF channels are restricted to security protocols in this list.  The absence of the property shall indicate any security protocol is allowed.  An empty list shall indicate no security protocols are allowed."/>
+        </Property>
+        <Property Name="OEMSecurityProtocolAllowList" Type="Collection(Edm.String)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The OEM security protocols that this key policy allows."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the OEM-defined security protocols that this key policy allows.  NVMe-oF channels are restricted to OEM-defined security protocols in this list.  An empty list shall indicate no security protocols are allowed.  This property shall be present if SecurityProtocolAllowList contains `OEM`."/>
+        </Property>
+        <Property Name="SecureHashAllowList" Type="Collection(KeyPolicy.v1_0_0.NVMeoFSecureHashType)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The secure hash algorithms that this key policy allows."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the secure hash algorithms that this key policy allows.  The absence of the property shall indicate any secure hash algorithm is allowed.  An empty list shall indicate no secure hash algorithms are allowed."/>
+        </Property>
+        <Property Name="SecurityTransportAllowList" Type="Collection(KeyPolicy.v1_0_0.NVMeoFSecurityTransportType)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The security transports that this key policy allows."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the security transports that this key policy allows.  The absence of the property shall indicate any security transport is allowed.  An empty list shall indicate no security transports are allowed."/>
+        </Property>
+        <Property Name="CipherSuiteAllowList" Type="Collection(KeyPolicy.v1_0_0.NVMeoFCipherSuiteType)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The cipher suites that this key policy allows."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the cipher suites that this key policy allows.  The absence of the property shall indicate any cipher suite is allowed.  An empty list shall indicate no cipher suites are allowed."/>
+        </Property>
+        <Property Name="DHGroupAllowList" Type="Collection(KeyPolicy.v1_0_0.NVMeoFDHGroupType)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The Diffie-Hellman (DH) groups that this key policy allows."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the Diffie-Hellman (DH) groups that this key policy allows.  The absence of the property shall indicate any DH group is allowed.  An empty list shall indicate no DH groups are allowed."/>
+        </Property>
+      </ComplexType>
+
+      <EnumType Name="NVMeoFSecurityProtocolType">
+        <Annotation Term="OData.Description" String="The NVMe security protocols that a key is allowed to use."/>
+        <Annotation Term="OData.LongDescription" String="This enumeration shall list the NVMe security protocols that a key is allowed to use."/>
+        <Member Name="DHHC">
+          <Annotation Term="OData.Description" String="Diffie-Hellman Hashed Message Authentication Code Challenge Handshake Authentication Protocol (DH-HMAC-CHAP)."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the Diffie-Hellman Hashed Message Authentication Code Challenge Handshake Authentication Protocol (DH-HMAC-CHAP) as defined by the NVMe Base Specification."/>
+        </Member>
+        <Member Name="TLS_PSK">
+          <Annotation Term="OData.Description" String="Transport Layer Security Pre-Shared Key (TLS PSK)."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate Transport Layer Security Pre-Shared Key (TLS PSK) as defined by the NVMe TCP Transport Specification."/>
+        </Member>
+        <Member Name="OEM">
+          <Annotation Term="OData.Description" String="OEM."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate an OEM-defined security protocol.  The OEMSecurityProtocolAllowList property shall contain the specific OEM protocol."/>
+        </Member>
+      </EnumType>
+
+      <EnumType Name="NVMeoFSecureHashType">
+        <Annotation Term="OData.Description" String="The NVMe secure hash algorithms that a key is allowed to use."/>
+        <Annotation Term="OData.LongDescription" String="This enumeration shall list the NVMe secure hash algorithms that a key is allowed to use."/>
+        <Member Name="SHA256">
+          <Annotation Term="OData.Description" String="SHA-256."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the SHA-256 hash function as defined by the 'DH-HMAC-CHAP hash function identifiers' figure in the NVMe Base Specification."/>
+        </Member>
+        <Member Name="SHA384">
+          <Annotation Term="OData.Description" String="SHA-384."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the SHA-384 hash function as defined by the 'DH-HMAC-CHAP hash function identifiers' figure in the NVMe Base Specification."/>
+        </Member>
+        <Member Name="SHA512">
+          <Annotation Term="OData.Description" String="SHA-512."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the SHA-512 hash function as defined by the 'DH-HMAC-CHAP hash function identifiers' figure in the NVMe Base Specification."/>
+        </Member>
+      </EnumType>
+
+      <EnumType Name="NVMeoFSecurityTransportType">
+        <Annotation Term="OData.Description" String="The NVMe security transports that a key is allowed to use."/>
+        <Annotation Term="OData.LongDescription" String="This enumeration shall list the NVMe security transports that a key is allowed to use."/>
+        <Member Name="TLSv2">
+          <Annotation Term="OData.Description" String="Transport Layer Security (TLS) v2."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate Transport Layer Security (TLS) v2 as defined by the 'Transport Specific Address Subtype Definition for NVMe/TCP Transport' figure in the NVMe TCP Transport Specification."/>
+        </Member>
+        <Member Name="TLSv3">
+          <Annotation Term="OData.Description" String="Transport Layer Security (TLS) v3."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate Transport Layer Security (TLS) v3 as defined by the 'Transport Specific Address Subtype Definition for NVMe/TCP Transport' figure in the NVMe TCP Transport Specification."/>
+        </Member>
+      </EnumType>
+
+      <EnumType Name="NVMeoFCipherSuiteType">
+        <Annotation Term="OData.Description" String="The NVMe cipher suites that a key is allowed to use."/>
+        <Annotation Term="OData.LongDescription" String="This enumeration shall list the NVMe cipher suites that a key is allowed to use."/>
+        <Member Name="TLS_AES_128_GCM_SHA256">
+          <Annotation Term="OData.Description" String="TLS_AES_128_GCM_SHA256."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate TLS_AES_128_GCM_SHA256 as defined by the 'Mandatory and Recommended Cipher Suites' clause in the NVMe TCP Transport Specification."/>
+        </Member>
+        <Member Name="TLS_AES_256_GCM_SHA384">
+          <Annotation Term="OData.Description" String="TLS_AES_256_GCM_SHA384."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate TLS_AES_256_GCM_SHA384 as defined by the 'Mandatory and Recommended Cipher Suites' clause in the NVMe TCP Transport Specification."/>
+        </Member>
+      </EnumType>
+
+      <EnumType Name="NVMeoFDHGroupType">
+        <Annotation Term="OData.Description" String="The NVMe Diffie-Hellman (DH) groups that a key is allowed to use."/>
+        <Annotation Term="OData.LongDescription" String="This enumeration shall list the Diffie-Hellman (DH) groups that a key is allowed to use."/>
+        <Member Name="FFDHE2048">
+          <Annotation Term="OData.Description" String="2048-bit Diffie-Hellman (DH) group."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the 2048-bit Diffie-Hellman (DH) group as defined by the 'DH-HMAC-CHAP Diffie-Hellman group identifiers' figure in the NVMe Base Specification."/>
+        </Member>
+        <Member Name="FFDHE3072">
+          <Annotation Term="OData.Description" String="3072-bit Diffie-Hellman (DH) group."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the 3072-bit Diffie-Hellman (DH) group as defined by the 'DH-HMAC-CHAP Diffie-Hellman group identifiers' figure in the NVMe Base Specification."/>
+        </Member>
+        <Member Name="FFDHE4096">
+          <Annotation Term="OData.Description" String="4096-bit Diffie-Hellman (DH) group."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the 4096-bit Diffie-Hellman (DH) group as defined by the 'DH-HMAC-CHAP Diffie-Hellman group identifiers' figure in the NVMe Base Specification."/>
+        </Member>
+        <Member Name="FFDHE6144">
+          <Annotation Term="OData.Description" String="6144-bit Diffie-Hellman (DH) group."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the 2048-bit Diffie-Hellman (DH) group as defined by the 'DH-HMAC-CHAP Diffie-Hellman group identifiers' figure in the NVMe Base Specification."/>
+        </Member>
+        <Member Name="FFDHE8192">
+          <Annotation Term="OData.Description" String="8192-bit Diffie-Hellman (DH) group."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the 8192-bit Diffie-Hellman (DH) group as defined by the 'DH-HMAC-CHAP Diffie-Hellman group identifiers' figure in the NVMe Base Specification."/>
+        </Member>
+      </EnumType>
+
+      <ComplexType Name="Actions">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The available actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
+        <Property Name="Oem" Type="KeyPolicy.v1_0_0.OemActions" Nullable="false">
+          <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this resource."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="OemActions">
+        <Annotation Term="OData.AdditionalProperties" Bool="true"/>
+        <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this resource."/>
+      </ComplexType>
+    </Schema>
+
+  </edmx:DataServices>
+</edmx:Edmx>

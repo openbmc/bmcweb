@@ -1,0 +1,1468 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/swordfish/v1/Volume.v1_8_0.json",
+    "$ref": "#/definitions/Volume",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2015-2022 Storage Networking Industry Association (SNIA), USA. All rights reserved.",
+    "definitions": {
+        "Actions": {
+            "additionalProperties": false,
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "#Volume.AssignReplicaTarget": {
+                    "$ref": "#/definitions/AssignReplicaTarget"
+                },
+                "#Volume.ChangeRAIDLayout": {
+                    "$ref": "#/definitions/ChangeRAIDLayout"
+                },
+                "#Volume.CheckConsistency": {
+                    "$ref": "#/definitions/CheckConsistency"
+                },
+                "#Volume.CreateReplicaTarget": {
+                    "$ref": "#/definitions/CreateReplicaTarget"
+                },
+                "#Volume.ForceEnable": {
+                    "$ref": "#/definitions/ForceEnable"
+                },
+                "#Volume.Initialize": {
+                    "$ref": "#/definitions/Initialize"
+                },
+                "#Volume.RemoveReplicaRelationship": {
+                    "$ref": "#/definitions/RemoveReplicaRelationship"
+                },
+                "#Volume.ResumeReplication": {
+                    "$ref": "#/definitions/ResumeReplication"
+                },
+                "#Volume.ReverseReplicationRelationship": {
+                    "$ref": "#/definitions/ReverseReplicationRelationship"
+                },
+                "#Volume.SplitReplication": {
+                    "$ref": "#/definitions/SplitReplication"
+                },
+                "#Volume.SuspendReplication": {
+                    "$ref": "#/definitions/SuspendReplication"
+                },
+                "Oem": {
+                    "$ref": "#/definitions/OemActions"
+                }
+            },
+            "type": "object"
+        },
+        "AssignReplicaTarget": {
+            "additionalProperties": false,
+            "description": "This action is used to establish a replication relationship by assigning an existing volume to serve as a target replica for an existing source volume.",
+            "longDescription": "This action shall be used to establish a replication relationship by assigning an existing volume to serve as a target replica for an existing source volume.",
+            "parameters": {
+                "ReplicaType": {
+                    "$ref": "http://redfish.dmtf.org/schemas/swordfish/v1/StorageReplicaInfo.json#/definitions/ReplicaType",
+                    "description": "The type of replica relationship to be created.",
+                    "longDescription": "This parameter shall contain the type of replica relationship to be created (e.g., Clone, Mirror, Snap).",
+                    "requiredParameter": true
+                },
+                "ReplicaUpdateMode": {
+                    "$ref": "http://redfish.dmtf.org/schemas/swordfish/v1/StorageReplicaInfo.json#/definitions/ReplicaUpdateMode",
+                    "description": "The replica update mode (synchronous vs asynchronous).",
+                    "longDescription": "This parameter shall specify the replica update mode.",
+                    "requiredParameter": true
+                },
+                "TargetVolume": {
+                    "description": "The Uri to the existing target volume.",
+                    "longDescription": "This parameter shall contain the Uri to the existing target volume.",
+                    "requiredParameter": true,
+                    "type": "string"
+                }
+            },
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "target": {
+                    "description": "Link to invoke action",
+                    "format": "uri-reference",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "Friendly action name",
+                    "type": "string"
+                }
+            },
+            "type": "object",
+            "versionAdded": "v1_4_0"
+        },
+        "ChangeRAIDLayout": {
+            "additionalProperties": false,
+            "description": "Request system change the RAID layout of the volume.",
+            "longDescription": "This action shall request the system to change the RAID layout of the volume.  Depending on the combination of the submitted parameters, this could be changing the RAID type, changing the span count, changing the number of drives used by the volume, or another configuration change supported by the system. Note that usage of this action while online may potentially cause data loss if the available capacity is reduced.",
+            "parameters": {
+                "Drives": {
+                    "description": "An array of the drives to be used by the volume.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Drive.json#/definitions/Drive"
+                    },
+                    "longDescription": "This parameter shall contain an array of the drives to be used by the volume.",
+                    "type": "array"
+                },
+                "MediaSpanCount": {
+                    "description": "The requested number of media elements used per span in the secondary RAID for a hierarchical RAID type.",
+                    "longDescription": "This parameter shall contain the requested number of media elements used per span in the secondary RAID for a hierarchical RAID type.",
+                    "type": "integer"
+                },
+                "RAIDType": {
+                    "$ref": "http://redfish.dmtf.org/schemas/swordfish/v1/Volume.json#/definitions/RAIDType",
+                    "description": "The requested RAID type for the volume.",
+                    "longDescription": "This parameter shall contain the requested RAID type for the volume."
+                },
+                "StripSizeBytes": {
+                    "description": "The number of blocks (bytes) requested for new strip size.",
+                    "longDescription": "This parameter shall contain the number of blocks (bytes) requested for the strip size.",
+                    "type": "integer"
+                }
+            },
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "target": {
+                    "description": "Link to invoke action",
+                    "format": "uri-reference",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "Friendly action name",
+                    "type": "string"
+                }
+            },
+            "type": "object",
+            "versionAdded": "v1_5_0"
+        },
+        "CheckConsistency": {
+            "additionalProperties": false,
+            "description": "This action is used to force a check of the Volume's parity or redundant data to ensure it matches calculated values.",
+            "longDescription": "This defines the name of the custom action supported on this resource.",
+            "parameters": {},
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "target": {
+                    "description": "Link to invoke action",
+                    "format": "uri-reference",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "Friendly action name",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "CreateReplicaTarget": {
+            "additionalProperties": false,
+            "description": "This action is used to create a new volume resource to provide expanded data protection through a replica relationship with the specified source volume.",
+            "longDescription": "This action shall be used to create a new volume resource to provide expanded data protection through a replica relationship with the specified source volume.",
+            "parameters": {
+                "ReplicaType": {
+                    "$ref": "http://redfish.dmtf.org/schemas/swordfish/v1/StorageReplicaInfo.json#/definitions/ReplicaType",
+                    "description": "The type of replica relationship to be created.",
+                    "longDescription": "This parameter shall contain the type of replica relationship to be created (e.g., Clone, Mirror, Snap).",
+                    "requiredParameter": true
+                },
+                "ReplicaUpdateMode": {
+                    "$ref": "http://redfish.dmtf.org/schemas/swordfish/v1/StorageReplicaInfo.json#/definitions/ReplicaUpdateMode",
+                    "description": "The replica update mode (synchronous vs asynchronous).",
+                    "longDescription": "This parameter shall specify the replica update mode.",
+                    "requiredParameter": true
+                },
+                "TargetStoragePool": {
+                    "description": "The Uri to the existing target Storage Pool.",
+                    "longDescription": "This parameter shall contain the Uri to the existing StoragePool in which to create the target volume.",
+                    "requiredParameter": true,
+                    "type": "string"
+                },
+                "VolumeName": {
+                    "description": "The Name for the new target volume.",
+                    "longDescription": "This parameter shall contain the Name for the target volume.",
+                    "type": "string"
+                }
+            },
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "target": {
+                    "description": "Link to invoke action",
+                    "format": "uri-reference",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "Friendly action name",
+                    "type": "string"
+                }
+            },
+            "type": "object",
+            "versionAdded": "v1_4_0"
+        },
+        "ForceEnable": {
+            "additionalProperties": false,
+            "description": "Request system force the volume to an enabled state regardless of data loss.",
+            "longDescription": "This action shall request the system to force the volume to enabled state regardless of data loss scenarios.",
+            "parameters": {},
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "target": {
+                    "description": "Link to invoke action",
+                    "format": "uri-reference",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "Friendly action name",
+                    "type": "string"
+                }
+            },
+            "type": "object",
+            "versionAdded": "v1_5_0"
+        },
+        "Initialize": {
+            "additionalProperties": false,
+            "description": "This action is used to prepare the contents of the volume for use by the system. If InitializeMethod is not specified in the request body, but the property InitializeMethod is specified, the property InitializeMethod value should be used. If neither is specified, the InitializeMethod should be Foreground.",
+            "longDescription": "This defines the name of the custom action supported on this resource. If InitializeMethod is not specified in the request body, but the property InitializeMethod is specified, the property InitializeMethod value should be used. If neither is specified, the InitializeMethod should be Foreground.",
+            "parameters": {
+                "InitializeMethod": {
+                    "$ref": "http://redfish.dmtf.org/schemas/swordfish/v1/Volume.json#/definitions/InitializeMethod",
+                    "description": "The type of initialization to be performed.",
+                    "longDescription": "This defines the property name for the action."
+                },
+                "InitializeType": {
+                    "$ref": "http://redfish.dmtf.org/schemas/swordfish/v1/Volume.json#/definitions/InitializeType",
+                    "deprecated": "Deprecated in favor of the InitializeMethod property.",
+                    "description": "The type of initialization to be performed.",
+                    "longDescription": "This defines the property name for the action."
+                }
+            },
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "target": {
+                    "description": "Link to invoke action",
+                    "format": "uri-reference",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "Friendly action name",
+                    "type": "string"
+                }
+            },
+            "type": "object",
+            "versionAdded": "v1_5_0"
+        },
+        "Links": {
+            "additionalProperties": false,
+            "description": "Add ability to manage spare capacity.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "CacheDataVolumes": {
+                    "description": "A pointer to the data volumes this volume serves as a cache volume.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/swordfish/v1/Volume.json#/definitions/Volume"
+                    },
+                    "longDescription": "This shall be a pointer to the cache data volumes this volume serves as a cache volume.  The corresponding VolumeUsage property shall be set to CacheOnly when this property is used.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_6_0"
+                },
+                "CacheDataVolumes@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "CacheVolumeSource": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/swordfish/v1/Volume.json#/definitions/Volume"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "A pointer to the cache volume source for this volume.",
+                    "longDescription": "This shall be a pointer to the cache volume source for this volume. The corresponding VolumeUsage property shall be set to Data when this property is used.",
+                    "readonly": true,
+                    "versionAdded": "v1_6_0"
+                },
+                "ClassOfService": {
+                    "$ref": "http://redfish.dmtf.org/schemas/swordfish/v1/ClassOfService.json#/definitions/ClassOfService",
+                    "description": "The ClassOfService that this storage volume conforms to.",
+                    "longDescription": "This property shall contain a reference to the ClassOfService that this storage volume conforms to.",
+                    "readonly": true,
+                    "versionAdded": "v1_1_0"
+                },
+                "ClientEndpoints": {
+                    "description": "An array of references to the client Endpoints associated with this volume.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Endpoint.json#/definitions/Endpoint"
+                    },
+                    "longDescription": "The value of this property shall be references to the client Endpoints this volume is associated with.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_4_0"
+                },
+                "ClientEndpoints@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "ConsistencyGroups": {
+                    "description": "An array of references to the ConsistencyGroups associated with this volume.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/swordfish/v1/ConsistencyGroup.json#/definitions/ConsistencyGroup"
+                    },
+                    "longDescription": "The value of this property shall be references to the ConsistencyGroups this volume is associated with.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_4_0"
+                },
+                "ConsistencyGroups@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "DedicatedSpareDrives": {
+                    "description": "An array of references to the drives which are dedicated spares for this volume.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Drive.json#/definitions/Drive"
+                    },
+                    "longDescription": "The value of this property shall be a reference to the resources that this volume is associated with and shall reference resources of type Drive. This property shall only contain references to Drive entities which are currently assigned as a dedicated spare and are able to support this Volume.",
+                    "readonly": false,
+                    "type": "array",
+                    "versionAdded": "v1_2_0"
+                },
+                "DedicatedSpareDrives@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "Drives": {
+                    "description": "An array of references to the drives which contain this volume. This will reference Drives that either wholly or only partly contain this volume.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Drive.json#/definitions/Drive"
+                    },
+                    "longDescription": "The value of this property shall be a reference to the resources that this volume is associated with and shall reference resources of type Drive. This property shall only contain references to Drive entities which are currently members of the Volume, not hot spare Drives which are not currently a member of the volume.",
+                    "readonly": true,
+                    "type": "array"
+                },
+                "Drives@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "JournalingMedia": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Resource"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "A pointer to the Resource that serves as a journaling media for this volume.",
+                    "longDescription": "This shall be a pointer to the journaling media used for this Volume to address the write hole issue. Valid when WriteHoleProtectionPolicy property is set to 'Journaling'.",
+                    "readonly": false,
+                    "versionAdded": "v1_5_0"
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties contained in this object shall conform to the Redfish Specification-described requirements."
+                },
+                "OwningStorageResource": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Storage.json#/definitions/Storage",
+                    "description": "A pointer to the Storage resource that owns or contains this volume.",
+                    "longDescription": "This shall be a pointer to the Storage resource that owns or contains this volume.",
+                    "readonly": true,
+                    "versionAdded": "v1_5_0"
+                },
+                "OwningStorageService": {
+                    "$ref": "http://redfish.dmtf.org/schemas/swordfish/v1/StorageService.json#/definitions/StorageService",
+                    "description": "A pointer to the StorageService that owns or contains this volume.",
+                    "longDescription": "This shall be a pointer to the StorageService that owns or contains this volume.",
+                    "readonly": true,
+                    "versionAdded": "v1_4_0"
+                },
+                "ServerEndpoints": {
+                    "description": "An array of references to the server Endpoints associated with this volume.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Endpoint.json#/definitions/Endpoint"
+                    },
+                    "longDescription": "The value of this property shall be references to the server Endpoints this volume is associated with.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_4_0"
+                },
+                "ServerEndpoints@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "SpareResourceSets": {
+                    "description": "An array of references to SpareResourceSets.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/swordfish/v1/SpareResourceSet.json#/definitions/SpareResourceSet"
+                    },
+                    "longDescription": "Each referenced SpareResourceSet shall contain resources that may be utilized to replace the capacity provided by a failed resource having a compatible type.",
+                    "readonly": false,
+                    "type": "array",
+                    "versionAdded": "v1_3_0"
+                },
+                "SpareResourceSets@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "StorageGroups": {
+                    "description": "An array of references to the StorageGroups associated with this volume.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/swordfish/v1/StorageGroup.json#/definitions/StorageGroup"
+                    },
+                    "longDescription": "The value of this property shall be references to the StorageGroups this volume is associated with.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_4_0"
+                },
+                "StorageGroups@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                }
+            },
+            "type": "object"
+        },
+        "NVMeNamespaceProperties": {
+            "additionalProperties": false,
+            "description": "This contains properties to use when Volume is used to describe an NVMe Namespace.",
+            "longDescription": "This contains properties to use when Volume is used to describe an NVMe Namespace.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "FormattedLBASize": {
+                    "description": "The LBA data size and metadata size combination that the namespace has been formatted with.",
+                    "longDescription": "This property shall contain the LBA data size and metadata size combination that the namespace has been formatted with. This is a 4-bit data structure.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_5_0"
+                },
+                "IsShareable": {
+                    "description": "Indicates the namespace is shareable.",
+                    "longDescription": "This property shall indicate whether the namespace is shareable.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_5_0"
+                },
+                "LBAFormatsSupported": {
+                    "description": "A list of the LBA format types supported for the namespace, or potential namespaces.",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "http://redfish.dmtf.org/schemas/swordfish/v1/Volume.json#/definitions/LBAFormatType"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ]
+                    },
+                    "longDescription": "This shall be a list of the LBA formats supported for the namespace, or potential namespaces.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_8_0"
+                },
+                "MetadataTransferredAtEndOfDataLBA": {
+                    "description": "This property indicates whether or not the metadata is transferred at the end of the LBA creating an extended data LBA.",
+                    "longDescription": "This property shall indicate whether or not the metadata is transferred at the end of the LBA creating an extended data LBA.",
+                    "readonly": true,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_5_0"
+                },
+                "NVMeVersion": {
+                    "description": "The version of the NVMe Base Specification supported.",
+                    "longDescription": "This property shall contain the version of the NVMe Base Specification supported.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_5_0"
+                },
+                "NamespaceFeatures": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/NamespaceFeatures"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "This property contains a set of Namespace Features.",
+                    "longDescription": "This property shall contain a set of Namespace Features.",
+                    "versionAdded": "v1_5_0"
+                },
+                "NamespaceId": {
+                    "description": "The NVMe Namespace Identifier for this namespace.",
+                    "longDescription": "This property shall contain the NVMe Namespace Identifier for this namespace. This property shall be a hex value. Namespace identifiers are not durable and do not have meaning outside the scope of the NVMe subsystem. NSID 0x0, 0xFFFFFFFF, 0xFFFFFFFE are special purpose values.",
+                    "pattern": "^0[xX](([a-fA-F]|[0-9])*)$",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_5_0"
+                },
+                "NumberLBAFormats": {
+                    "description": "The number of LBA data size and metadata size combinations supported by this namespace. The value of this property is between 0 and 16.",
+                    "longDescription": "This property shall contain the number of LBA data size and metadata size combinations supported by this namespace. The value of this property is between 0 and 16. LBA formats with an index set beyond this value will not be supported.",
+                    "minimum": 0,
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "units": "By",
+                    "versionAdded": "v1_5_0"
+                }
+            },
+            "type": "object"
+        },
+        "NamespaceFeatures": {
+            "additionalProperties": false,
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "SupportsAtomicTransactionSize": {
+                    "description": "Indicates that the NVM fields for Namespace preferred write granularity (NPWG), write alignment (NPWA), deallocate granularity (NPDG), deallocate alignment (NPDA) and optimal write size (NOWS)  are defined for this namespace and should be used by the host for I/O optimization.",
+                    "longDescription": "This property shall indicate whether or not the NVM fields for Namespace preferred write granularity (NPWG), write alignment (NPWA), deallocate granularity (NPDG), deallocate alignment (NPDA) and optimal write size (NOWS)  are defined for this namespace and should be used by the host for I/O optimization.",
+                    "readonly": true,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_5_0"
+                },
+                "SupportsDeallocatedOrUnwrittenLBError": {
+                    "description": "This property indicates that the controller supports deallocated or unwritten logical block error for this namespace.",
+                    "longDescription": "This property shall indicate that the controller supports deallocated or unwritten logical block error for this namespace.",
+                    "readonly": true,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_5_0"
+                },
+                "SupportsIOPerformanceHints": {
+                    "description": "Indicates that the Namespace Atomic Write Unit Normal (NAWUN), Namespace Atomic Write Unit Power Fail (NAWUPF), and Namespace Atomic Compare and Write Unit (NACWU) fields are defined for this namespace and should be used by the host for this namespace instead of the controller-level properties AWUN, AWUPF, and ACWU.",
+                    "longDescription": "This property shall indicate that the Namespace Atomic Write Unit Normal (NAWUN), Namespace Atomic Write Unit Power Fail (NAWUPF), and Namespace Atomic Compare and Write Unit (NACWU) fields are defined for this namespace and should be used by the host for this namespace instead of the controller-level properties AWUN, AWUPF, and ACWU.",
+                    "readonly": true,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_5_0"
+                },
+                "SupportsNGUIDReuse": {
+                    "description": "This property indicates that the namespace supports the use of an NGUID (namespace globally unique identifier) value.",
+                    "longDescription": "This property shall indicate that the namespace supports the use of an NGUID (namespace globally unique identifier) value.",
+                    "readonly": true,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_5_0"
+                },
+                "SupportsThinProvisioning": {
+                    "description": "This property indicates whether or not the NVMe Namespace supports thin provisioning.",
+                    "longDescription": "This property shall indicate whether or not the NVMe Namespace supports thin provisioning. Specifically, the namespace capacity reported may be less than the namespace size.",
+                    "readonly": true,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_5_0"
+                }
+            },
+            "type": "object"
+        },
+        "OemActions": {
+            "additionalProperties": true,
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {},
+            "type": "object"
+        },
+        "Operation": {
+            "additionalProperties": false,
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "AssociatedFeaturesRegistry": {
+                    "$ref": "http://redfish.dmtf.org/schemas/swordfish/v1/FeaturesRegistry.json#/definitions/FeaturesRegistry",
+                    "description": "A reference to the task associated with the operation if any.",
+                    "readonly": true
+                },
+                "OperationName": {
+                    "description": "The name of the operation.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "PercentageComplete": {
+                    "description": "The percentage of the operation that has been completed.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                }
+            },
+            "type": "object"
+        },
+        "RemoveReplicaRelationship": {
+            "additionalProperties": false,
+            "description": "This action is used to disable data synchronization between a source and target volume, remove the replication relationship, and optionally delete the target volume.",
+            "longDescription": "This action shall be used to disable data synchronization between a source and target volume, remove the replication relationship, and optionally delete the target volume.",
+            "parameters": {
+                "DeleteTargetVolume": {
+                    "description": "Indicate whether or not to delete the target volume as part of the operation.",
+                    "longDescription": "This parameter shall indicate whether or not to delete the target volume as part of the operation. If not defined, the system should use its default behavior.",
+                    "type": "boolean"
+                },
+                "TargetVolume": {
+                    "description": "The Uri to the existing target volume.",
+                    "longDescription": "This parameter shall contain the Uri to the existing target volume.",
+                    "requiredParameter": true,
+                    "type": "string"
+                }
+            },
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "target": {
+                    "description": "Link to invoke action",
+                    "format": "uri-reference",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "Friendly action name",
+                    "type": "string"
+                }
+            },
+            "type": "object",
+            "versionAdded": "v1_4_0"
+        },
+        "ResumeReplication": {
+            "additionalProperties": false,
+            "description": "This action is used to resume the active data synchronization between a source and target volume, without otherwise altering the replication relationship.",
+            "longDescription": "This action shall be used to resume the active data synchronization between a source and target volume, without otherwise altering the replication relationship.",
+            "parameters": {
+                "TargetVolume": {
+                    "description": "The Uri to the existing target volume.",
+                    "longDescription": "This parameter shall contain the Uri to the existing target volume.",
+                    "requiredParameter": true,
+                    "type": "string"
+                }
+            },
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "target": {
+                    "description": "Link to invoke action",
+                    "format": "uri-reference",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "Friendly action name",
+                    "type": "string"
+                }
+            },
+            "type": "object",
+            "versionAdded": "v1_4_0"
+        },
+        "ReverseReplicationRelationship": {
+            "additionalProperties": false,
+            "description": "This action is used to reverse the replication relationship between a source and target volume.",
+            "longDescription": "This action shall be used to reverse the replication relationship between a source and target volume.",
+            "parameters": {
+                "TargetVolume": {
+                    "description": "The Uri to the existing target volume.",
+                    "longDescription": "This parameter shall contain the Uri to the existing target volume.",
+                    "requiredParameter": true,
+                    "type": "string"
+                }
+            },
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "target": {
+                    "description": "Link to invoke action",
+                    "format": "uri-reference",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "Friendly action name",
+                    "type": "string"
+                }
+            },
+            "type": "object",
+            "versionAdded": "v1_4_0"
+        },
+        "SplitReplication": {
+            "additionalProperties": false,
+            "description": "This action is used to split the replication relationship and suspend data synchronization between a source and target volume.",
+            "longDescription": "This action shall be used to split the replication relationship and suspend data synchronization between a source and target volume.",
+            "parameters": {
+                "TargetVolume": {
+                    "description": "The Uri to the existing target volume.",
+                    "longDescription": "This parameter shall contain the Uri to the existing target volume.",
+                    "requiredParameter": true,
+                    "type": "string"
+                }
+            },
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "target": {
+                    "description": "Link to invoke action",
+                    "format": "uri-reference",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "Friendly action name",
+                    "type": "string"
+                }
+            },
+            "type": "object",
+            "versionAdded": "v1_4_0"
+        },
+        "SuspendReplication": {
+            "additionalProperties": false,
+            "description": "This action is used to suspend active data synchronization between a source and target volume, without otherwise altering the replication relationship.",
+            "longDescription": "This action shall be used to suspend active data synchronization between a source and target volume, without otherwise altering the replication relationship.",
+            "parameters": {
+                "TargetVolume": {
+                    "description": "The Uri to the existing target volume.",
+                    "longDescription": "This parameter shall contain the Uri to the existing target volume.",
+                    "requiredParameter": true,
+                    "type": "string"
+                }
+            },
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "target": {
+                    "description": "Link to invoke action",
+                    "format": "uri-reference",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "Friendly action name",
+                    "type": "string"
+                }
+            },
+            "type": "object",
+            "versionAdded": "v1_4_0"
+        },
+        "Volume": {
+            "additionalProperties": false,
+            "description": "Volume contains properties used to describe a volume, virtual disk, LUN, or other logical storage entity for any system.",
+            "longDescription": "This resource shall be used to represent a volume, virtual disk, logical disk, LUN, or other logical storage for a Redfish implementation.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "@odata.context": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/context"
+                },
+                "@odata.etag": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/etag"
+                },
+                "@odata.id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/id"
+                },
+                "@odata.type": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/type"
+                },
+                "AccessCapabilities": {
+                    "description": "Supported IO access capabilities.",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "http://redfish.dmtf.org/schemas/swordfish/v1/DataStorageLoSCapabilities.json#/definitions/StorageAccessCapability"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ]
+                    },
+                    "longDescription": "Each entry shall specify a current storage access capability.",
+                    "readonly": false,
+                    "type": "array",
+                    "versionAdded": "v1_1_0"
+                },
+                "Actions": {
+                    "$ref": "#/definitions/Actions",
+                    "description": "The available actions for this resource.",
+                    "longDescription": "The Actions property shall contain the available actions for this resource."
+                },
+                "AllocatedPools": {
+                    "$ref": "http://redfish.dmtf.org/schemas/swordfish/v1/StoragePoolCollection.json#/definitions/StoragePoolCollection",
+                    "description": "An array of references to StoragePools allocated from this Volume.",
+                    "longDescription": "The value of this property shall contain references to all storage pools allocated from this volume.",
+                    "readonly": true,
+                    "versionAdded": "v1_1_0"
+                },
+                "BlockSizeBytes": {
+                    "description": "The size of the smallest addressable unit (Block) of this volume in bytes.",
+                    "longDescription": "This property shall contain size of the smallest addressable unit of the associated volume.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "units": "By"
+                },
+                "Capacity": {
+                    "$ref": "http://redfish.dmtf.org/schemas/swordfish/v1/Capacity.v1_0_0.json#/definitions/Capacity",
+                    "description": "Capacity utilization.",
+                    "longDescription": "Information about the utilization of capacity allocated to this storage volume.",
+                    "versionAdded": "v1_1_0"
+                },
+                "CapacityBytes": {
+                    "description": "The size in bytes of this Volume.",
+                    "longDescription": "This property shall contain the size in bytes of the associated volume.",
+                    "readonly": false,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "units": "By"
+                },
+                "CapacitySources": {
+                    "autoExpand": true,
+                    "description": "An array of space allocations to this volume.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/swordfish/v1/Capacity.json#/definitions/CapacitySource"
+                    },
+                    "longDescription": "Fully or partially consumed storage from a source resource. Each entry provides capacity allocation information from a named source resource.",
+                    "readonly": false,
+                    "type": "array",
+                    "versionAdded": "v1_1_0"
+                },
+                "CapacitySources@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "Compressed": {
+                    "description": "Indicator of whether or not the Volume has compression enabled.",
+                    "longDescription": "This property shall contain a boolean indicator if the Volume is currently utilizing compression or not.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_4_0"
+                },
+                "Deduplicated": {
+                    "description": "Indicator of whether or not the Volume has deduplication enabled.",
+                    "longDescription": "This property shall contain a boolean indicator if the Volume is currently utilizing deduplication or not.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_4_0"
+                },
+                "Description": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Description"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "readonly": true
+                },
+                "DisplayName": {
+                    "description": "A user-configurable string to name the volume.",
+                    "longDescription": "This property shall contain a user-configurable string to name the volume.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_4_0"
+                },
+                "Encrypted": {
+                    "description": "Is this Volume encrypted.",
+                    "longDescription": "This property shall contain a boolean indicator if the Volume is currently utilizing encryption or not.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                },
+                "EncryptionTypes": {
+                    "description": "The types of encryption used by this Volume.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/swordfish/v1/Volume.json#/definitions/EncryptionTypes"
+                    },
+                    "longDescription": "This property shall contain the types of encryption used by this Volume.",
+                    "readonly": false,
+                    "type": "array"
+                },
+                "IOPerfModeEnabled": {
+                    "description": "Indicates the IO performance mode setting for the volume.",
+                    "longDescription": "This property shall indicate whether IO performance mode is enabled for the volume.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_5_0"
+                },
+                "IOStatistics": {
+                    "$ref": "http://redfish.dmtf.org/schemas/swordfish/v1/IOStatistics.json#/definitions/IOStatistics",
+                    "description": "Statistics for this volume.",
+                    "longDescription": "The value shall represent IO statistics for this volume.",
+                    "versionAdded": "v1_2_0"
+                },
+                "Id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
+                    "readonly": true
+                },
+                "Identifiers": {
+                    "description": "The Durable names for the volume.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Identifier"
+                    },
+                    "longDescription": "This property shall contain a list of all known durable names for the associated volume.",
+                    "type": "array"
+                },
+                "InitializeMethod": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/swordfish/v1/Volume.json#/definitions/InitializeMethod"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "Indicates the Initialization Method used for this volume. If InitializeMethod is not specified, the InitializeMethod should be Foreground.",
+                    "longDescription": "This property shall indicate the initialization method used for this volume. If InitializeMethod is not specified, the InitializeMethod should be Foreground. This value reflects the most recently used Initialization Method, and may be changed using the Initialize Action.",
+                    "readonly": true,
+                    "versionAdded": "v1_6_0"
+                },
+                "IsBootCapable": {
+                    "description": "This property indicates whether or not the Volume contains a boot image and is capable of booting.",
+                    "longDescription": "This property shall indicate whether or not the Volume contains a boot image and is capable of booting.  This property may be settable by an admin or client with visibility into the contents of the volume. This property should only be set to true when VolumeUsage is either not specified, or when VolumeUsage is set to Data or SystemData.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_7_0"
+                },
+                "Links": {
+                    "$ref": "#/definitions/Links",
+                    "description": "Contains references to other resources that are related to this resource.",
+                    "longDescription": "The Links property, as described by the Redfish Specification, shall contain references to resources that are related to, but not contained by (subordinate to), this resource."
+                },
+                "LogicalUnitNumber": {
+                    "description": "Indicates the host-visible LogicalUnitNumber assigned to this Volume.",
+                    "longDescription": "This property shall contain host-visible LogicalUnitNumber assigned to this Volume. This property shall only be used when in a single connect configuration and no StorageGroup configuration is used.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_4_0"
+                },
+                "LowSpaceWarningThresholdPercents": {
+                    "description": "Low space warning.",
+                    "items": {
+                        "type": [
+                            "integer",
+                            "null"
+                        ]
+                    },
+                    "longDescription": "Each time the following value is less than one of the values in the array the LOW_SPACE_THRESHOLD_WARNING event shall be triggered: Across all CapacitySources entries, percent = (SUM(AllocatedBytes) - SUM(ConsumedBytes))/SUM(AllocatedBytes).",
+                    "readonly": false,
+                    "type": "array",
+                    "units": "%",
+                    "versionAdded": "v1_1_0"
+                },
+                "Manufacturer": {
+                    "description": "The manufacturer or OEM of this storage volume.",
+                    "longDescription": "This property shall contain a value that represents the manufacturer or implementer of the storage volume.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                },
+                "MaxBlockSizeBytes": {
+                    "description": "Max Block size in bytes.",
+                    "longDescription": "This property shall contain size of the largest addressable unit of this storage volume.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "units": "By",
+                    "versionAdded": "v1_1_0"
+                },
+                "MediaSpanCount": {
+                    "description": "Indicates the number of media elements used per span in the secondary RAID for a hierarchical RAID type.",
+                    "longDescription": "This property shall indicate the number of media elements used per span in the secondary RAID for a hierarchical RAID type.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_4_0"
+                },
+                "Model": {
+                    "description": "The model number for this storage volume.",
+                    "longDescription": "The value is assigned by the manufacturer and shall represents a specific storage volume implementation.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                },
+                "NVMeNamespaceProperties": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/NVMeNamespaceProperties"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "This property contains properties to use when Volume is used to describe an NVMe Namespace.",
+                    "longDescription": "This property shall contain properties to use when Volume is used to describe an NVMe Namespace.",
+                    "versionAdded": "v1_5_0"
+                },
+                "Name": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
+                    "readonly": true
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties that this object contains shall conform to the Redfish Specification-described requirements."
+                },
+                "Operations": {
+                    "description": "The operations currently running on the Volume.",
+                    "items": {
+                        "$ref": "#/definitions/Operation"
+                    },
+                    "longDescription": "This property shall contain a list of all currently running on the Volume.",
+                    "type": "array"
+                },
+                "OptimumIOSizeBytes": {
+                    "description": "The size in bytes of this Volume's optimum IO size.",
+                    "longDescription": "This property shall contain the optimum IO size to use when performing IO on this volume. For logical disks, this is the stripe size. For physical disks, this describes the physical sector size.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "units": "By"
+                },
+                "ProvisioningPolicy": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/swordfish/v1/DataStorageLoSCapabilities.json#/definitions/ProvisioningPolicy"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "This property specifies the volume's storage allocation, or provisioning policy.",
+                    "longDescription": "This property shall specify the volume's supported storage allocation policy.",
+                    "readonly": false,
+                    "versionAdded": "v1_4_0"
+                },
+                "RAIDType": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/swordfish/v1/Volume.json#/definitions/RAIDType"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The RAID type of this volume.",
+                    "longDescription": "This property shall contain the RAID type of the associated Volume.",
+                    "readonly": true,
+                    "versionAdded": "v1_3_1"
+                },
+                "ReadCachePolicy": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/swordfish/v1/Volume.json#/definitions/ReadCachePolicyType"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "Indicates the read cache policy setting for the Volume.",
+                    "longDescription": "This property shall contain a boolean indicator of the read cache policy for the Volume.",
+                    "readonly": false,
+                    "versionAdded": "v1_4_0"
+                },
+                "RecoverableCapacitySourceCount": {
+                    "description": "Current number of capacity source resources that are available as replacements.",
+                    "longDescription": "The value is the number of available capacity source resources currently available in the event that an equivalent capacity source resource fails.",
+                    "readonly": false,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_3_0"
+                },
+                "RemainingCapacityPercent": {
+                    "description": "The percentage of the capacity remaining in the Volume.",
+                    "longDescription": "If present, this value shall return  {[(SUM(AllocatedBytes) - SUM(ConsumedBytes)]/SUM(AllocatedBytes)}*100 represented as an integer value.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_2_0"
+                },
+                "ReplicaInfo": {
+                    "$ref": "http://redfish.dmtf.org/schemas/swordfish/v1/StorageReplicaInfo.v1_3_0.json#/definitions/ReplicaInfo",
+                    "description": "Describes this storage volume in its role as a target replica.",
+                    "longDescription": "This property shall describe the replica relationship between this storage volume and a corresponding source volume.",
+                    "versionAdded": "v1_1_0"
+                },
+                "ReplicaTargets": {
+                    "description": "The resources that are target replicas of this source.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
+                    },
+                    "longDescription": "The value shall reference the target replicas that are sourced by this replica.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_3_0"
+                },
+                "ReplicaTargets@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "Status": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
+                    "description": "The property contains the status of the Volume.",
+                    "longDescription": "The property shall contain the status of the Volume."
+                },
+                "StorageGroups": {
+                    "$ref": "http://redfish.dmtf.org/schemas/swordfish/v1/StorageGroupCollection.json#/definitions/StorageGroupCollection",
+                    "description": "An array of references to Storage Groups that includes this volume.",
+                    "longDescription": "The value of this property shall contain references to all storage groups that include this volume.",
+                    "readonly": true,
+                    "versionAdded": "v1_1_0"
+                },
+                "StripSizeBytes": {
+                    "description": "The number of blocks (bytes) in a strip in a disk array that uses striped data mapping.",
+                    "longDescription": "The number of consecutively addressed virtual disk blocks (bytes) mapped to consecutively addressed blocks on a single member extent of a disk array. Synonym for stripe depth and chunk size.",
+                    "readonly": false,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "units": "By",
+                    "versionAdded": "v1_4_0"
+                },
+                "VolumeType": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/swordfish/v1/Volume.json#/definitions/VolumeType"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "deprecated": "Deprecated in favor of explicit use of RAIDType.",
+                    "description": "The type of this volume.",
+                    "longDescription": "This property shall contain the type of the associated Volume.",
+                    "readonly": true
+                },
+                "VolumeUsage": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/swordfish/v1/Volume.json#/definitions/VolumeUsageType"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "Indicates the Volume usage type setting for the Volume.",
+                    "longDescription": "This property shall contain the volume usage type for the Volume.",
+                    "readonly": true,
+                    "versionAdded": "v1_4_0"
+                },
+                "WriteCachePolicy": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/swordfish/v1/Volume.json#/definitions/WriteCachePolicyType"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "Indicates the write cache policy setting for the Volume.",
+                    "longDescription": "This property shall contain a boolean indicator of the write cache policy for the Volume.",
+                    "readonly": false,
+                    "versionAdded": "v1_4_0"
+                },
+                "WriteCacheState": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/swordfish/v1/Volume.json#/definitions/WriteCacheStateType"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "Indicates the WriteCacheState policy setting for the Volume.",
+                    "longDescription": "This property shall contain the WriteCacheState policy setting for the Volume.",
+                    "readonly": true,
+                    "versionAdded": "v1_4_0"
+                },
+                "WriteHoleProtectionPolicy": {
+                    "$ref": "http://redfish.dmtf.org/schemas/swordfish/v1/Volume.json#/definitions/WriteHoleProtectionPolicyType",
+                    "description": "The policy that the RAID volume is using to address the write hole issue.",
+                    "longDescription": "This property specifies the policy that is enabled to address the write hole issue on the RAID volume. If no policy is enabled at the moment, this property shall be set to 'Off'.",
+                    "readonly": false,
+                    "versionAdded": "v1_4_0"
+                }
+            },
+            "required": [
+                "@odata.id",
+                "@odata.type",
+                "Id",
+                "Name"
+            ],
+            "type": "object"
+        }
+    },
+    "owningEntity": "SNIA",
+    "release": "WIP v1.2.4",
+    "title": "#Volume.v1_8_0.Volume"
+}

@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!---->
+<!--################################################################################       -->
+<!--# Redfish Schema:  AggregationService v1.0.1                                           -->
+<!--#                                                                                      -->
+<!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
+<!--# available at http://www.dmtf.org/standards/redfish                                   -->
+<!--# Copyright 2014-2022 DMTF.                                                            -->
+<!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
+<!--################################################################################       -->
+<!---->
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Core.V1.xml">
+   <edmx:Include Namespace="Org.OData.Core.V1" Alias="OData"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Measures.V1.xml">
+    <edmx:Include Namespace="Org.OData.Measures.V1" Alias="Measures"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Capabilities.V1.xml">
+    <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml">
+    <edmx:Include Namespace="Validation.v1_0_0" Alias="Validation"/>
+    <edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Resource_v1.xml">
+    <edmx:Include Namespace="Resource"/>
+    <edmx:Include Namespace="Resource.v1_0_0"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/AggregationSourceCollection_v1.xml">
+    <edmx:Include Namespace="AggregationSourceCollection"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/AggregateCollection_v1.xml">
+    <edmx:Include Namespace="AggregateCollection"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/ConnectionMethodCollection_v1.xml">
+    <edmx:Include Namespace="ConnectionMethodCollection"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/ComputerSystem_v1.xml">
+    <edmx:Include Namespace="ComputerSystem"/>
+  </edmx:Reference>
+
+  <edmx:DataServices>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AggregationService">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+
+      <EntityType Name="AggregationService" BaseType="Resource.v1_0_0.Resource" Abstract="true">
+        <Annotation Term="OData.Description" String="The AggregationService schema contains properties for managing aggregation operations, either on ad hoc combinations of resources or on defined sets of resources called aggregates.  Access points define the properties needed to access the entity being aggregated and connection methods describe the protocol or other semantics of the connection."/>
+        <Annotation Term="OData.LongDescription" String="This resource shall represent an aggregation service for a Redfish implementation."/>
+        <Annotation Term="OData.AdditionalProperties" Bool="true"/>
+        <Annotation Term="Capabilities.InsertRestrictions">
+          <Record>
+            <PropertyValue Property="Insertable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.UpdateRestrictions">
+          <Record>
+            <PropertyValue Property="Updatable" Bool="true"/>
+            <Annotation Term="OData.Description" String="The aggregation service can be updated to change some properties"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.DeleteRestrictions">
+          <Record>
+            <PropertyValue Property="Deletable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Redfish.Uris">
+          <Collection>
+            <String>/redfish/v1/AggregationService</String>
+          </Collection>
+        </Annotation>
+      </EntityType>
+
+      <Action Name="Reset" IsBound="true">
+        <Annotation Term="OData.Description" String="This action is used to reset a set of resources.  For example this could be a list of computer systems."/>
+        <Annotation Term="OData.LongDescription" String="This action shall perform a reset of a set of resources."/>
+        <Parameter Name="Aggregate" Type="AggregationService.v1_0_0.Actions"/>
+        <Parameter Name="DelayBetweenBatchesInSeconds" Type="Edm.Int64">
+          <Annotation Term="OData.Description" String="The delay of the batches of elements being reset in seconds."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the delay of the batches of elements being reset in seconds."/>
+          <Annotation Term="Validation.Minimum" Int="0"/>
+          <Annotation Term="Measures.Unit" String="s"/>
+        </Parameter>
+        <Parameter Name="BatchSize" Type="Edm.Int64">
+          <Annotation Term="OData.Description" String="The number of elements in each batch being reset."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the number of elements in each batch simultaneously being issued a reset."/>
+          <Annotation Term="Validation.Minimum" Int="0"/>
+        </Parameter>
+        <Parameter Name="ResetType" Type="Resource.ResetType">
+          <Annotation Term="OData.Description" String="The type of reset."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the type of reset.  The service can accept a request without the parameter and perform an implementation-specific default reset."/>
+        </Parameter>
+        <Parameter Name="TargetURIs" Type="Collection(Resource.Resource)" Nullable="false">
+          <Annotation Term="OData.Description" String="An array of links to the resources being reset."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain an array of links to the resources being reset."/>
+        </Parameter>
+      </Action>
+
+      <Action Name="SetDefaultBootOrder" IsBound="true">
+        <Annotation Term="OData.Description" String="This action is used to restore the boot order to the default state for the specified computer systems."/>
+        <Annotation Term="OData.LongDescription" String="This action shall restore the boot order to the default state for the specified computer systems."/>
+        <Parameter Name="AggregationService" Type="AggregationService.v1_0_0.Actions" />
+        <Parameter Name="Systems" Type="Collection(ComputerSystem.ComputerSystem)" Nullable="false">
+          <Annotation Term="OData.Description" String="The computer systems to restore."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain an array of links to resources of type ComputerSystem."/>
+        </Parameter>
+      </Action>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AggregationService.v1_0_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2020.2"/>
+
+      <EntityType Name="AggregationService" BaseType="AggregationService.AggregationService">
+        <Property Name="ServiceEnabled" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="An indication of whether the aggregation service is enabled."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the aggregation service is enabled."/>
+        </Property>
+        <Property Name="Status" Type="Resource.Status" Nullable="false">
+          <Annotation Term="OData.Description" String="The status and health of the resource and its subordinate or dependent resources."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain any status or health properties of the resource."/>
+        </Property>
+        <NavigationProperty Name="Aggregates" Type="AggregateCollection.AggregateCollection" ContainsTarget="true" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The link to the collection of aggregates associated with this service."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type AggregateCollection."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+        <NavigationProperty Name="AggregationSources" Type="AggregationSourceCollection.AggregationSourceCollection" ContainsTarget="true" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The link to the collection of aggregation sources associated with this service."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type AggregationSourceCollection."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+        <NavigationProperty Name="ConnectionMethods" Type="ConnectionMethodCollection.ConnectionMethodCollection" ContainsTarget="true" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The link to the collection of connection methods associated with this service."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type ConnectionMethodCollection."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+        <Property Name="Actions" Type="AggregationService.v1_0_0.Actions" Nullable="false">
+          <Annotation Term="OData.Description" String="The available actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this resource."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="Actions">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The available actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
+        <Property Name="Oem" Type="AggregationService.v1_0_0.OemActions" Nullable="false">
+          <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this resource."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="OemActions">
+        <Annotation Term="OData.AdditionalProperties" Bool="true"/>
+        <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this resource."/>
+      </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AggregationService.v1_0_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created specify 64-bit integers in OpenAPI."/>
+      <EntityType Name="AggregationService" BaseType="AggregationService.v1_0_0.AggregationService"/>
+    </Schema>
+
+  </edmx:DataServices>
+</edmx:Edmx>

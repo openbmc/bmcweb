@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!---->
+<!--################################################################################       -->
+<!--# Redfish Schema:  BatteryMetrics v1.0.1                                               -->
+<!--#                                                                                      -->
+<!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
+<!--# available at http://www.dmtf.org/standards/redfish                                   -->
+<!--# Copyright 2014-2022 DMTF.                                                            -->
+<!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
+<!--################################################################################       -->
+<!---->
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Core.V1.xml">
+    <edmx:Include Namespace="Org.OData.Core.V1" Alias="OData"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Capabilities.V1.xml">
+    <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml">
+    <edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish"/>
+    <edmx:Include Namespace="Validation.v1_0_0" Alias="Validation"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Resource_v1.xml">
+    <edmx:Include Namespace="Resource"/>
+    <edmx:Include Namespace="Resource.v1_0_0"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Sensor_v1.xml">
+    <edmx:Include Namespace="Sensor"/>
+  </edmx:Reference>
+
+  <edmx:DataServices>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="BatteryMetrics">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+
+      <EntityType Name="BatteryMetrics" BaseType="Resource.v1_0_0.Resource" Abstract="true">
+        <Annotation Term="OData.Description" String="The BatteryMetrics schema contains definitions for the metrics of a battery unit."/>
+        <Annotation Term="OData.LongDescription" String="This resource shall be used to represent the metrics of a battery unit for a Redfish implementation."/>
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="Capabilities.InsertRestrictions">
+          <Record>
+            <PropertyValue Property="Insertable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.UpdateRestrictions">
+          <Record>
+            <PropertyValue Property="Updatable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.DeleteRestrictions">
+          <Record>
+            <PropertyValue Property="Deletable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Redfish.Uris">
+          <Collection>
+            <String>/redfish/v1/Chassis/{ChassisId}/PowerSubsystem/Batteries/{BatteryId}/Metrics</String>
+          </Collection>
+        </Annotation>
+      </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="BatteryMetrics.v1_0_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2021.2"/>
+
+      <EntityType Name="BatteryMetrics" BaseType="BatteryMetrics.BatteryMetrics">
+        <Property Name="Status" Type="Resource.Status" Nullable="false">
+          <Annotation Term="OData.Description" String="The status and health of the resource and its subordinate or dependent resources."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain any status or health properties of the resource."/>
+        </Property>
+        <Property Name="DischargeCycles" Type="Edm.Decimal">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The number of discharges this battery sustained."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number of discharges this battery sustained."/>
+          <Annotation Term="Validation.Minimum" Int="0"/>
+        </Property>
+        <NavigationProperty Name="InputVoltage" Type="Sensor.Sensor" Nullable="false">
+          <Annotation Term="OData.Description" String="The input voltage (V) for this battery."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the input voltage, in volt units, for this battery.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `Voltage`."/>
+          <Annotation Term="Redfish.ExcerptCopy" String="Voltage"/>
+        </NavigationProperty>
+        <NavigationProperty Name="InputCurrentAmps" Type="Sensor.Sensor" Nullable="false">
+          <Annotation Term="OData.Description" String="The input current (A) for this battery."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the input current, in ampere units, for this battery.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `Current`."/>
+          <Annotation Term="Redfish.ExcerptCopy" String="Current"/>
+        </NavigationProperty>
+        <NavigationProperty Name="OutputVoltages" Type="Collection(Sensor.Sensor)">
+          <Annotation Term="OData.Description" String="The output voltages (V) for this battery."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the output voltages, in volt units, for this battery.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `Voltage`.  The sensors shall appear in the same array order as the OutputCurrentAmps property."/>
+          <Annotation Term="Redfish.ExcerptCopy" String="Voltage"/>
+        </NavigationProperty>
+        <NavigationProperty Name="OutputCurrentAmps" Type="Collection(Sensor.Sensor)">
+          <Annotation Term="OData.Description" String="The output currents (A) for this battery."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the output currents, in ampere units, for this battery.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `Current`.  The sensors shall appear in the same array order as the OutputVoltages property."/>
+          <Annotation Term="Redfish.ExcerptCopy" String="Current"/>
+        </NavigationProperty>
+        <NavigationProperty Name="StoredEnergyWattHours" Type="Sensor.Sensor" Nullable="false">
+          <Annotation Term="OData.Description" String="The energy (Wh) stored in this battery."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the stored energy, in watt-hour units, for this battery.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `EnergyWh`."/>
+          <Annotation Term="Redfish.ExcerptCopy"/>
+        </NavigationProperty>
+        <NavigationProperty Name="StoredChargeAmpHours" Type="Sensor.Sensor" Nullable="false">
+          <Annotation Term="OData.Description" String="The charge (Ah) stored in this battery."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the stored charge, in ampere-hours units, for this battery.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `ChargeAh`."/>
+          <Annotation Term="Redfish.ExcerptCopy"/>
+        </NavigationProperty>
+        <NavigationProperty Name="TemperatureCelsius" Type="Sensor.Sensor" Nullable="false">
+          <Annotation Term="OData.Description" String="The temperature (C) for this battery."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the temperature, in degrees Celsius units, for this battery.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `Temperature`."/>
+          <Annotation Term="Redfish.ExcerptCopy"/>
+        </NavigationProperty>
+        <NavigationProperty Name="ChargePercent" Type="Sensor.Sensor" Nullable="false">
+          <Annotation Term="OData.Description" String="The amount of charge available (percent) in this battery."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the amount of charge available, in percent units, in this battery.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `Percent`."/>
+          <Annotation Term="Redfish.ExcerptCopy"/>
+        </NavigationProperty>
+        <NavigationProperty Name="CellVoltages" Type="Collection(Sensor.Sensor)">
+          <Annotation Term="OData.Description" String="The cell voltages (V) for this battery."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the cell voltages, in volt units, for this battery.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `Voltage`."/>
+          <Annotation Term="Redfish.ExcerptCopy" String="Voltage"/>
+        </NavigationProperty>
+        <Property Name="Actions" Type="BatteryMetrics.v1_0_0.Actions" Nullable="false">
+          <Annotation Term="OData.Description" String="The available actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this resource."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="Actions">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The available actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
+        <Property Name="Oem" Type="BatteryMetrics.v1_0_0.OemActions" Nullable="false">
+          <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this resource."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="OemActions">
+        <Annotation Term="OData.AdditionalProperties" Bool="true"/>
+        <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this resource."/>
+      </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="BatteryMetrics.v1_0_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions to tie excerpt property definitions to a specific type of Sensor or Control."/>
+      <EntityType Name="BatteryMetrics" BaseType="BatteryMetrics.v1_0_0.BatteryMetrics"/>
+    </Schema>
+
+  </edmx:DataServices>
+</edmx:Edmx>

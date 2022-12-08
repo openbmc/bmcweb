@@ -1,0 +1,586 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!---->
+<!--################################################################################       -->
+<!--# Redfish Schema:  ProcessorMetrics v1.6.0                                             -->
+<!--#                                                                                      -->
+<!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
+<!--# available at http://www.dmtf.org/standards/redfish                                   -->
+<!--# Copyright 2014-2022 DMTF.                                                            -->
+<!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
+<!--################################################################################       -->
+<!---->
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Core.V1.xml">
+    <edmx:Include Namespace="Org.OData.Core.V1" Alias="OData"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Capabilities.V1.xml">
+    <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Measures.V1.xml">
+    <edmx:Include Namespace="Org.OData.Measures.V1" Alias="Measures"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml">
+    <edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish"/>
+    <edmx:Include Namespace="Validation.v1_0_0" Alias="Validation"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Resource_v1.xml">
+    <edmx:Include Namespace="Resource.v1_0_0"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Sensor_v1.xml">
+    <edmx:Include Namespace="Sensor"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/PCIeDevice_v1.xml">
+    <edmx:Include Namespace="PCIeDevice"/>
+  </edmx:Reference>
+
+  <edmx:DataServices>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ProcessorMetrics">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+
+      <EntityType Name="ProcessorMetrics" BaseType="Resource.v1_0_0.Resource" Abstract="true">
+        <Annotation Term="OData.Description" String="The ProcessorMetrics schema contains usage and health statistics for a processor."/>
+        <Annotation Term="OData.LongDescription" String="This resource contains the processor metrics for a single processor in a Redfish implementation."/>
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="Capabilities.InsertRestrictions">
+          <Record>
+            <PropertyValue Property="Insertable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.UpdateRestrictions">
+          <Record>
+            <PropertyValue Property="Updatable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.DeleteRestrictions">
+          <Record>
+            <PropertyValue Property="Deletable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Redfish.Uris">
+          <Collection>
+            <String>/redfish/v1/Systems/{ComputerSystemId}/ProcessorSummary/ProcessorMetrics</String>
+            <String>/redfish/v1/Systems/{ComputerSystemId}/Processors/{ProcessorId}/ProcessorMetrics</String>
+            <String>/redfish/v1/Systems/{ComputerSystemId}/Processors/{ProcessorId}/SubProcessors/{ProcessorId2}/ProcessorMetrics</String>
+            <String>/redfish/v1/Systems/{ComputerSystemId}/Processors/{ProcessorId}/SubProcessors/{ProcessorId2}/SubProcessors/{ProcessorId3}/ProcessorMetrics</String>
+            <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Processors/{ProcessorId}/ProcessorMetrics</String>
+            <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Processors/{ProcessorId}/SubProcessors/{ProcessorId2}/ProcessorMetrics</String>
+            <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Processors/{ProcessorId}/SubProcessors/{ProcessorId2}/SubProcessors/{ProcessorId3}/ProcessorMetrics</String>
+            <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/ProcessorSummary/ProcessorMetrics</String>
+            <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Processors/{ProcessorId}/ProcessorMetrics</String>
+            <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Processors/{ProcessorId}/SubProcessors/{ProcessorId2}/ProcessorMetrics</String>
+            <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Processors/{ProcessorId}/SubProcessors/{ProcessorId2}/SubProcessors/{ProcessorId3}/ProcessorMetrics</String>
+            <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Processors/{ProcessorId}/ProcessorMetrics</String>
+            <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Processors/{ProcessorId}/SubProcessors/{ProcessorId2}/ProcessorMetrics</String>
+            <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Processors/{ProcessorId}/SubProcessors/{ProcessorId2}/SubProcessors/{ProcessorId3}/ProcessorMetrics</String>
+            <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/ProcessorSummary/ProcessorMetrics</String>
+            <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Processors/{ProcessorId}/ProcessorMetrics</String>
+            <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Processors/{ProcessorId}/SubProcessors/{ProcessorId2}/ProcessorMetrics</String>
+            <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Processors/{ProcessorId}/SubProcessors/{ProcessorId2}/SubProcessors/{ProcessorId3}/ProcessorMetrics</String>
+            <String>/redfish/v1/Chassis/{ChassisId}/NetworkAdapters/{NetworkAdapterId}/Processors/{ProcessorId}/ProcessorMetrics</String>
+            <String>/redfish/v1/Chassis/{ChassisId}/NetworkAdapters/{NetworkAdapterId}/Processors/{ProcessorId}/SubProcessors/{ProcessorId2}/ProcessorMetrics</String>
+            <String>/redfish/v1/Chassis/{ChassisId}/NetworkAdapters/{NetworkAdapterId}/Processors/{ProcessorId}/SubProcessors/{ProcessorId2}/SubProcessors/{ProcessorId3}/ProcessorMetrics</String>
+          </Collection>
+        </Annotation>
+      </EntityType>
+
+      <Action Name="ClearCurrentPeriod" IsBound="true">
+        <Annotation Term="OData.Description" String="This action sets the CurrentPeriod property's values to 0."/>
+        <Annotation Term="OData.LongDescription" String="This action shall set the CurrentPeriod property's values to 0."/>
+        <Parameter Name="ProcessorMetrics" Type="ProcessorMetrics.v1_0_0.Actions"/>
+        <Annotation Term="Redfish.Revisions">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+              <PropertyValue Property="Version" String="v1_2_0"/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </Action>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ProcessorMetrics.v1_0_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2018.3"/>
+
+      <EntityType Name="ProcessorMetrics" BaseType="ProcessorMetrics.ProcessorMetrics">
+        <Property Name="BandwidthPercent" Type="Edm.Decimal">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The bandwidth usage of this processor as a percentage."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the bandwidth usage of the processor as a percentage.  When this resource is subordinate to the ProcessorSummary object, this property shall be the CPU utilization over all processors as a percentage."/>
+          <Annotation Term="Validation.Minimum" Int="0"/>
+          <Annotation Term="Measures.Unit" String="%"/>
+        </Property>
+        <Property Name="AverageFrequencyMHz" Type="Edm.Decimal">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The average frequency of the processor."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain average frequency in MHz, across all enabled cores in the processor.  When this resource is subordinate to the ProcessorSummary object, this property is not applicable."/>
+          <Annotation Term="Measures.Unit" String="MHz"/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
+                <PropertyValue Property="Version" String="v1_1_0"/>
+                <PropertyValue Property="Description" String="This property has been deprecated in favor of OperatingSpeedMHz property."/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Property>
+        <Property Name="ThrottlingCelsius" Type="Edm.Decimal">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The CPU margin to throttle (temperature offset in degree Celsius)."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the CPU margin to throttle based on an offset between the maximum temperature in which the processor can operate, and the processor's current temperature.  When this resource is subordinate to the ProcessorSummary object, this property is not applicable."/>
+          <Annotation Term="Measures.Unit" String="Cel"/>
+        </Property>
+        <Property Name="TemperatureCelsius" Type="Edm.Decimal">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The temperature of the processor."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the temperature, in Celsius, of the processor.  When this resource is subordinate to the ProcessorSummary object, this property shall be the average temperature, in Celsius, over all processors."/>
+          <Annotation Term="Measures.Unit" String="Cel"/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
+                <PropertyValue Property="Version" String="v1_2_0"/>
+                <PropertyValue Property="Description" String="This property has been deprecated in favor of the properties in EnvironmentMetrics."/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Property>
+        <Property Name="ConsumedPowerWatt" Type="Edm.Decimal">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The power, in watts, that the processor has consumed."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the power, in watts, that the processor has consumed.  When this resource is subordinate to the ProcessorSummary object, this property shall be the sum of power, in watts, that all processors have consumed."/>
+          <Annotation Term="Measures.Unit" String="W"/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
+                <PropertyValue Property="Version" String="v1_2_0"/>
+                <PropertyValue Property="Description" String="This property has been deprecated in favor of the properties in EnvironmentMetrics."/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Property>
+        <Property Name="FrequencyRatio" Type="Edm.Decimal">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The frequency relative to the nominal processor frequency ratio."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the frequency relative to the nominal processor frequency ratio of this processor.  When this resource is subordinate to the ProcessorSummary object, this property shall be the average FrequencyRatio over all processors."/>
+        </Property>
+        <Property Name="Cache" Type="Collection(ProcessorMetrics.v1_0_0.CacheMetrics)" Nullable="false">
+          <Annotation Term="OData.Description" String="The processor cache metrics."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain properties that describe this processor's cache.  When this resource is subordinate to the ProcessorSummary object, this property is not applicable."/>
+        </Property>
+        <Property Name="LocalMemoryBandwidthBytes" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The local memory bandwidth usage in bytes."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the local memory bandwidth usage of this processor in bytes.  When this resource is subordinate to the ProcessorSummary object, this property shall be the sum of LocalMemoryBandwidthBytes over all processors."/>
+          <Annotation Term="Measures.Unit" String="By"/>
+        </Property>
+        <Property Name="RemoteMemoryBandwidthBytes" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The remote memory bandwidth usage in bytes."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the remote memory bandwidth usage of this processor in bytes.  When this resource is subordinate to the ProcessorSummary object, this property shall be the sum of RemoteMemoryBandwidthBytes over all processors."/>
+          <Annotation Term="Measures.Unit" String="By"/>
+        </Property>
+        <Property Name="KernelPercent" Type="Edm.Decimal">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The percentage of time spent in kernel mode."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain total percentage of time the processor has spent in kernel mode.  When this resource is subordinate to the ProcessorSummary object, this property shall be the average KernelPercent over all processors."/>
+          <Annotation Term="Validation.Minimum" Int="0"/>
+          <Annotation Term="Measures.Unit" String="%"/>
+        </Property>
+        <Property Name="UserPercent" Type="Edm.Decimal">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The percentage of time spent in user mode."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain total percentage of time the processor has spent in user mode.  When this resource is subordinate to the ProcessorSummary object, this property shall be the average UserPercent over all processors."/>
+          <Annotation Term="Validation.Minimum" Int="0"/>
+          <Annotation Term="Measures.Unit" String="%"/>
+        </Property>
+        <Property Name="CoreMetrics" Type="Collection(ProcessorMetrics.v1_0_0.CoreMetrics)" Nullable="false">
+          <Annotation Term="OData.Description" String="The processor core metrics."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain properties that describe the cores of this processor.  When this resource is subordinate to the ProcessorSummary object, this property is not applicable."/>
+        </Property>
+        <Property Name="Actions" Type="ProcessorMetrics.v1_0_0.Actions" Nullable="false">
+          <Annotation Term="OData.Description" String="The available actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this resource."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="CoreMetrics">
+        <Annotation Term="OData.Description" String="The processor core metrics."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain properties that describe the cores of a processor."/>
+        <Property Name="CoreId" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The processor core identifier."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the identifier of the core within the processor."/>
+        </Property>
+        <Property Name="InstructionsPerCycle" Type="Edm.Decimal">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The number of instructions per clock cycle of this core."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number of instructions per clock cycle of this core in the processor."/>
+        </Property>
+        <Property Name="UnhaltedCycles" Type="Edm.Decimal">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The unhalted cycles count of this core."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number of unhalted cycles of this core in the processor."/>
+        </Property>
+        <Property Name="MemoryStallCount" Type="Edm.Decimal">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The number of stalled cycles due to memory operations."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number of stalled cycles due to memory operations of this core in the processor."/>
+        </Property>
+        <Property Name="IOStallCount" Type="Edm.Decimal">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The number of stalled cycles due to I/O operations."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number of stalled cycles due to I/O operations of this core in the processor."/>
+        </Property>
+        <Property Name="CoreCache" Type="Collection(ProcessorMetrics.v1_0_0.CacheMetrics)" Nullable="false">
+          <Annotation Term="OData.Description" String="The cache metrics of this core in the processor."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain properties that describe the cache metrics of this core in the processor."/>
+        </Property>
+        <Property Name="CStateResidency" Type="Collection(ProcessorMetrics.v1_0_0.CStateResidency)" Nullable="false">
+          <Annotation Term="OData.Description" String="The C-state residency of this core in the processor."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain properties that describe the C-state residency of this core in the processor."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="CacheMetrics">
+        <Annotation Term="OData.Description" String="The processor core metrics."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain properties that describe cache metrics of a processor or core."/>
+        <Property Name="Level" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The cache level."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the level of the cache in the processor or core."/>
+        </Property>
+        <Property Name="CacheMiss" Type="Edm.Decimal">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The number of cache line misses in millions."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number of cache line misses of the processor or core in millions."/>
+        </Property>
+        <Property Name="HitRatio" Type="Edm.Decimal">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The cache line hit ratio."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the cache hit ratio of the processor or core."/>
+        </Property>
+        <Property Name="CacheMissesPerInstruction" Type="Edm.Decimal">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The number of cache misses per instruction."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number of cache misses per instruction of the processor or core."/>
+        </Property>
+        <Property Name="OccupancyBytes" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The total cache level occupancy in bytes."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total cache occupancy of the processor or core in bytes."/>
+          <Annotation Term="Measures.Unit" String="By"/>
+        </Property>
+        <Property Name="OccupancyPercent" Type="Edm.Decimal">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The total cache occupancy percentage."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total cache occupancy percentage of the processor or core."/>
+          <Annotation Term="Validation.Minimum" Int="0"/>
+          <Annotation Term="Measures.Unit" String="%"/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="CStateResidency">
+        <Annotation Term="OData.Description" String="The C-state residency of the processor."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain properties that describe the C-state residency of the processor or core."/>
+        <Property Name="Level" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The C-state level, such as C0, C1, or C2."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the C-state level, such as C0, C1, or C2.  When this resource is subordinate to the ProcessorSummary object, this property is not applicable."/>
+        </Property>
+        <Property Name="ResidencyPercent" Type="Edm.Decimal">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The percentage of time that the processor or core has spent in this particular level of C-state."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the percentage of time that the processor or core has spent in this particular level of C-state.  When this resource is subordinate to the ProcessorSummary object, this property is not applicable."/>
+          <Annotation Term="Validation.Minimum" Int="0"/>
+          <Annotation Term="Measures.Unit" String="%"/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="Actions">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The available actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
+        <Property Name="Oem" Type="ProcessorMetrics.v1_0_0.OemActions" Nullable="false">
+          <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this resource."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="OemActions">
+        <Annotation Term="OData.AdditionalProperties" Bool="true"/>
+        <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this resource."/>
+      </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ProcessorMetrics.v1_0_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format, and to add a missing term to several properties to disallow them from being null."/>
+      <EntityType Name="ProcessorMetrics" BaseType="ProcessorMetrics.v1_0_0.ProcessorMetrics"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ProcessorMetrics.v1_0_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions to give guidance to the usage of certain properties when the metrics is used for a summary of all processors in a system.  It was also created to update descriptions that this schema defines."/>
+      <EntityType Name="ProcessorMetrics" BaseType="ProcessorMetrics.v1_0_1.ProcessorMetrics"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ProcessorMetrics.v1_0_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="ProcessorMetrics" BaseType="ProcessorMetrics.v1_0_2.ProcessorMetrics"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ProcessorMetrics.v1_0_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="ProcessorMetrics" BaseType="ProcessorMetrics.v1_0_3.ProcessorMetrics"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ProcessorMetrics.v1_0_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the descriptions of BandwidthPercent that allows for various types of processors."/>
+      <EntityType Name="ProcessorMetrics" BaseType="ProcessorMetrics.v1_0_4.ProcessorMetrics"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ProcessorMetrics.v1_1_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2020.1"/>
+      <Annotation Term="OData.Description" String="This version was created to deprecate AverageFrequencyMHz in favor of OperatingSpeedMHz property."/>
+
+      <EntityType Name="ProcessorMetrics" BaseType="ProcessorMetrics.v1_0_2.ProcessorMetrics">
+        <Property Name="OperatingSpeedMHz" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Operating speed of the processor in MHz."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the operating speed of the processor in MHz.  The operating speed of the processor may change more frequently than the manager is able to monitor."/>
+          <Annotation Term="Measures.Unit" String="MHz"/>
+        </Property>
+      </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ProcessorMetrics.v1_1_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="ProcessorMetrics" BaseType="ProcessorMetrics.v1_1_0.ProcessorMetrics"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ProcessorMetrics.v1_1_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="ProcessorMetrics" BaseType="ProcessorMetrics.v1_1_1.ProcessorMetrics"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ProcessorMetrics.v1_1_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various description to use proper normative terminology."/>
+      <EntityType Name="ProcessorMetrics" BaseType="ProcessorMetrics.v1_1_2.ProcessorMetrics"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ProcessorMetrics.v1_1_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the descriptions of BandwidthPercent that allows for various types of processors."/>
+      <EntityType Name="ProcessorMetrics" BaseType="ProcessorMetrics.v1_1_3.ProcessorMetrics"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ProcessorMetrics.v1_2_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2020.4"/>
+      <Annotation Term="OData.Description" String="This version was created to add CorrectableECCErrorCount and UncorrectableECCErrorCount properties for CurrentPeriod and LifeTime of the processor cache memory.  It was also was created to deprecate TemperatureCelsius and ConsumedPowerWatt in favor of Sensor properties in EnvironmentMetrics."/>
+
+      <EntityType Name="ProcessorMetrics" BaseType="ProcessorMetrics.v1_1_2.ProcessorMetrics">
+        <Property Name="CacheMetricsTotal" Type="ProcessorMetrics.v1_2_0.CacheMetricsTotal" Nullable="false">
+          <Annotation Term="OData.Description" String="The total cache metrics for this processor."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain properties that describe the metrics for all of the cache memory of this processor."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="CacheMetricsTotal">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The total cache metrics for a processor."/>
+        <Annotation Term="OData.LongDescription" String="This property shall contain properties that describe the metrics for all of the cache memory for a processor."/>
+        <Property Name="CurrentPeriod" Type="ProcessorMetrics.v1_2_0.CurrentPeriod" Nullable="false">
+          <Annotation Term="OData.Description" String="The cache metrics since the last reset or ClearCurrentPeriod action for this processor."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain properties that describe the metrics for the current period of cache memory for this processor."/>
+        </Property>
+        <Property Name="LifeTime" Type="ProcessorMetrics.v1_2_0.LifeTime" Nullable="false">
+          <Annotation Term="OData.Description" String="The cache metrics for the lifetime of this processor."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain properties that describe the metrics for the lifetime of cache memory for this processor."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="CurrentPeriod">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The cache memory metrics since the last system reset or ClearCurrentPeriod action for a processor."/>
+        <Annotation Term="OData.LongDescription" String="This type shall describe the cache memory metrics since last system reset or ClearCurrentPeriod action for a processor."/>
+        <Property Name="CorrectableECCErrorCount" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The number of the correctable errors of cache memory since reset or ClearCurrentPeriod action for this processor."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number of correctable errors of cache memory since reset or ClearCurrentPeriod action for this processor.  When this resource is subordinate to the ProcessorSummary object, this property shall be the sum of CorrectableECCErrorCount over all processors."/>
+        </Property>
+        <Property Name="UncorrectableECCErrorCount" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The number of the uncorrectable errors of cache memory since reset or ClearCurrentPeriod action for this processor."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number of uncorrectable errors of cache memory since reset or ClearCurrentPeriod action for this processor.  When this resource is subordinate to the ProcessorSummary object, this property shall be the sum of UncorrectableECCErrorCount over all processors."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="LifeTime">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The cache memory metrics for the lifetime for a processor."/>
+        <Annotation Term="OData.LongDescription" String="This type shall describe the cache memory metrics since manufacturing for a processor."/>
+        <Property Name="CorrectableECCErrorCount" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The number of the correctable errors for the lifetime of the cache memory."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number of the correctable errors for the lifetime of cache memory.  When this resource is subordinate to the ProcessorSummary object, this property shall be the sum of CorrectableECCErrorCount over all processors."/>
+        </Property>
+        <Property Name="UncorrectableECCErrorCount" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The number of the uncorrectable errors for the lifetime of the cache memory."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number of the uncorrectable errors for the lifetime of cache memory.  When this resource is subordinate to the ProcessorSummary object, this property shall be the sum of UncorrectableECCErrorCount over all processors."/>
+        </Property>
+      </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ProcessorMetrics.v1_2_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various description to use proper normative terminology."/>
+      <EntityType Name="ProcessorMetrics" BaseType="ProcessorMetrics.v1_2_0.ProcessorMetrics"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ProcessorMetrics.v1_2_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the descriptions of BandwidthPercent that allows for various types of processors."/>
+      <EntityType Name="ProcessorMetrics" BaseType="ProcessorMetrics.v1_2_1.ProcessorMetrics"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ProcessorMetrics.v1_2_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify CurrentPeriod can be cleared on either a reset or ClearCurrentPeriod action."/>
+      <EntityType Name="ProcessorMetrics" BaseType="ProcessorMetrics.v1_2_2.ProcessorMetrics"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ProcessorMetrics.v1_3_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2021.2"/>
+
+      <EntityType Name="ProcessorMetrics" BaseType="ProcessorMetrics.v1_2_2.ProcessorMetrics">
+        <NavigationProperty Name="CoreVoltage" Type="Sensor.Sensor">
+          <Annotation Term="OData.Description" String="The core voltage (V) of this processor."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall contain the core voltage, in volt units, of this processor.  The core voltage of the processor may change more frequently than the manager is able to monitor.  The value of the DataSourceUri property, if present, shall reference a resource of type Sensor with the ReadingType property containing the value `Voltage`."/>
+          <Annotation Term="Redfish.ExcerptCopy" String="Voltage"/>
+        </NavigationProperty>
+      </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ProcessorMetrics.v1_3_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions to tie excerpt property definitions to a specific type of Sensor or Control."/>
+      <EntityType Name="ProcessorMetrics" BaseType="ProcessorMetrics.v1_3_0.ProcessorMetrics"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ProcessorMetrics.v1_3_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify CurrentPeriod can be cleared on either a reset or ClearCurrentPeriod action."/>
+      <EntityType Name="ProcessorMetrics" BaseType="ProcessorMetrics.v1_3_1.ProcessorMetrics"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ProcessorMetrics.v1_4_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2021.3"/>
+
+      <EntityType Name="ProcessorMetrics" BaseType="ProcessorMetrics.v1_3_0.ProcessorMetrics">
+        <Property Name="PCIeErrors" Type="PCIeDevice.PCIeErrors" Nullable="false">
+          <Annotation Term="OData.Description" String="The PCIe errors associated with this processor."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the PCIe errors associated with this processor."/>
+        </Property>
+      </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ProcessorMetrics.v1_4_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions to tie excerpt property definitions to a specific type of Sensor or Control."/>
+      <EntityType Name="ProcessorMetrics" BaseType="ProcessorMetrics.v1_4_0.ProcessorMetrics"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ProcessorMetrics.v1_4_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify CurrentPeriod can be cleared on either a reset or ClearCurrentPeriod action."/>
+      <EntityType Name="ProcessorMetrics" BaseType="ProcessorMetrics.v1_4_1.ProcessorMetrics"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ProcessorMetrics.v1_5_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2022.1"/>
+
+      <EntityType Name="ProcessorMetrics" BaseType="ProcessorMetrics.v1_4_2.ProcessorMetrics">
+        <Property Name="CorrectableCoreErrorCount" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The number of the correctable core errors."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number of correctable core errors, such as TLB or cache errors.  When this resource is subordinate to the ProcessorSummary object, this property shall be the sum of CorrectableCoreErrorCount over all processors."/>
+        </Property>
+        <Property Name="UncorrectableCoreErrorCount" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The number of the uncorrectable core errors."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number of uncorrectable core errors, such as TLB or cache errors.  When this resource is subordinate to the ProcessorSummary object, this property shall be the sum of UncorrectableCoreErrorCount over all processors."/>
+        </Property>
+        <Property Name="CorrectableOtherErrorCount" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The number of the correctable errors of all other components."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number of the correctable errors of all other components.  When this resource is subordinate to the ProcessorSummary object, this property shall be the sum of CorrectableOtherErrorCount over all processors."/>
+        </Property>
+        <Property Name="UncorrectableOtherErrorCount" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The number of the uncorrectable errors of all other components."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number of the uncorrectable errors of all other components.  When this resource is subordinate to the ProcessorSummary object, this property shall be the sum of UncorrectableOtherErrorCount over all processors."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="CoreMetrics" BaseType="ProcessorMetrics.v1_0_0.CoreMetrics">
+       <Property Name="CorrectableCoreErrorCount" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The number of the correctable core errors."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number of correctable core errors, such as TLB or cache errors.  When this resource is subordinate to the ProcessorSummary object, this property shall be the sum of CorrectableCoreErrorCount over all processors."/>
+        </Property>
+        <Property Name="UncorrectableCoreErrorCount" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The number of the uncorrectable core errors."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number of uncorrectable core errors, such as TLB or cache errors.  When this resource is subordinate to the ProcessorSummary object, this property shall be the sum of UncorrectableCoreErrorCount over all processors."/>
+        </Property>
+        <Property Name="CorrectableOtherErrorCount" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The number of the correctable errors of all other components."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number of the correctable errors of all other components.  When this resource is subordinate to the ProcessorSummary object, this property shall be the sum of CorrectableOtherErrorCount over all processors."/>
+        </Property>
+        <Property Name="UncorrectableOtherErrorCount" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The number of the uncorrectable errors of all other components."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number of the uncorrectable errors of all other components.  When this resource is subordinate to the ProcessorSummary object, this property shall be the sum of UncorrectableOtherErrorCount over all processors."/>
+        </Property>
+      </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ProcessorMetrics.v1_6_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2022.2"/>
+
+      <EntityType Name="ProcessorMetrics" BaseType="ProcessorMetrics.v1_5_0.ProcessorMetrics">
+        <Property Name="PowerLimitThrottleDuration" Type="Edm.Duration">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The total duration of throttling caused by a power limit of the processor since reset."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total duration of throttling caused by a power limit of the processor since reset."/>
+        </Property>
+        <Property Name="ThermalLimitThrottleDuration" Type="Edm.Duration">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The total duration of throttling caused by a thermal limit of the processor since reset."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total duration of throttling caused by a thermal limit of the processor since reset."/>
+        </Property>
+      </EntityType>
+    </Schema>
+
+  </edmx:DataServices>
+</edmx:Edmx>

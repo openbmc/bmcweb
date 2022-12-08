@@ -1,0 +1,858 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/Control.v1_2_0.json",
+    "$ref": "#/definitions/Control",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2022 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "Actions": {
+            "additionalProperties": false,
+            "description": "The available actions for this resource.",
+            "longDescription": "This type shall contain the available actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "#Control.ResetToDefaults": {
+                    "$ref": "#/definitions/ResetToDefaults"
+                },
+                "Oem": {
+                    "$ref": "#/definitions/OemActions",
+                    "description": "The available OEM-specific actions for this resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this resource."
+                }
+            },
+            "type": "object"
+        },
+        "Control": {
+            "additionalProperties": false,
+            "description": "The Control schema describes a control point and its properties.",
+            "longDescription": "This resource shall represent a control point for a Redfish implementation.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "@odata.context": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/context"
+                },
+                "@odata.etag": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/etag"
+                },
+                "@odata.id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/id"
+                },
+                "@odata.type": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/type"
+                },
+                "Accuracy": {
+                    "description": "The estimated percent error of measured versus actual values.",
+                    "longDescription": "This property shall contain the percent error of the measured versus actual values of the SetPoint property.",
+                    "readonly": true,
+                    "type": [
+                        "number",
+                        "null"
+                    ],
+                    "units": "%"
+                },
+                "Actions": {
+                    "$ref": "#/definitions/Actions",
+                    "description": "The available actions for this resource.",
+                    "longDescription": "This property shall contain the available actions for this resource."
+                },
+                "AllowableMax": {
+                    "description": "The maximum possible setting for this control.",
+                    "excerpt": "Control",
+                    "longDescription": "This property shall indicate the maximum possible value of the SetPoint or SettingMax properties for this control.  Services shall not accept values for SetPoint or SettingMax above this value.",
+                    "readonly": true,
+                    "type": [
+                        "number",
+                        "null"
+                    ]
+                },
+                "AllowableMin": {
+                    "description": "The minimum possible setting for this control.",
+                    "excerpt": "Control",
+                    "longDescription": "This property shall indicate the minimum possible value of the SetPoint or SettingMin properties for this control.  Services shall not accept values for SetPoint or SettingMin below this value.",
+                    "readonly": true,
+                    "type": [
+                        "number",
+                        "null"
+                    ]
+                },
+                "AllowableNumericValues": {
+                    "description": "The supported values for the set point.",
+                    "excerpt": "ControlRange",
+                    "items": {
+                        "type": [
+                            "number",
+                            "null"
+                        ]
+                    },
+                    "longDescription": "This property shall contain the supported values for this control.  The units shall follow the value of SetPointUnits.  This property should only be present when the set point or range has a limited set of supported values that cannot be accurately described using the Increment property.",
+                    "readonly": true,
+                    "type": "array"
+                },
+                "AssociatedSensors": {
+                    "description": "An array of links to the sensors associated with this control.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.json#/definitions/Sensor"
+                    },
+                    "longDescription": "This property shall contain an array of links to resources of type Sensor that represent the sensors related to this control.",
+                    "readonly": true,
+                    "type": "array"
+                },
+                "AssociatedSensors@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "ControlDelaySeconds": {
+                    "description": "The time delay in seconds before the control will activate once the value has deviated from the set point.",
+                    "longDescription": "This property shall contain the time in seconds that will elapse after the control value deviates above or below the value of SetPoint before the control will activate.",
+                    "readonly": false,
+                    "type": [
+                        "number",
+                        "null"
+                    ]
+                },
+                "ControlLoop": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/ControlLoop"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The control loop details.",
+                    "longDescription": "This property shall contain the details for the control loop described by this resource."
+                },
+                "ControlMode": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/ControlMode"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The current operating mode of the control.",
+                    "excerpt": "Control",
+                    "longDescription": "This property shall contain the operating mode of the control.",
+                    "readonly": false
+                },
+                "ControlType": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/ControlType"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The type of control.",
+                    "longDescription": "This property shall contain the type of the control.",
+                    "readonly": true
+                },
+                "DeadBand": {
+                    "description": "The maximum deviation from the set point allowed before the control will activate.",
+                    "longDescription": "This property shall contain the maximum deviation value allowed above or below the value of SetPoint before the control will activate.",
+                    "readonly": false,
+                    "type": [
+                        "number",
+                        "null"
+                    ]
+                },
+                "Description": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Description"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "readonly": true
+                },
+                "Id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
+                    "readonly": true
+                },
+                "Implementation": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/ImplementationType"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The implementation of the control.",
+                    "longDescription": "This property shall contain the implementation of the control.",
+                    "readonly": true
+                },
+                "Increment": {
+                    "description": "The smallest increment supported for the set point.",
+                    "longDescription": "This property shall contain the smallest change allowed to the value of the SetPoint, SettingMin, or SettingMax properties.  The units shall follow the value of SetPointUnits.",
+                    "readonly": true,
+                    "type": [
+                        "number",
+                        "null"
+                    ]
+                },
+                "Location": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Location",
+                    "description": "The location information for this control.",
+                    "longDescription": "This property shall indicate the location information for this control."
+                },
+                "Name": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
+                    "readonly": true
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties that this object contains shall conform to the Redfish Specification-described requirements."
+                },
+                "PhysicalContext": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/PhysicalContext.json#/definitions/PhysicalContext"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The area or device to which this control applies.",
+                    "longDescription": "This property shall contain a description of the affected component or region within the equipment to which this control applies.",
+                    "readonly": true
+                },
+                "PhysicalSubContext": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/PhysicalContext.json#/definitions/PhysicalSubContext"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The usage or location within a device to which this control applies.",
+                    "longDescription": "This property shall contain a description of the usage or sub-region within the equipment to which this control applies.  This property generally differentiates multiple controls within the same PhysicalContext instance.",
+                    "readonly": true
+                },
+                "RelatedItem": {
+                    "description": "An array of links to resources that this control services.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
+                    },
+                    "longDescription": "This property shall contain an array of links to resources that this control services.",
+                    "readonly": true,
+                    "type": "array"
+                },
+                "RelatedItem@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "Sensor": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.json#/definitions/SensorExcerpt"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The sensor reading associated with this control.",
+                    "excerptCopy": "SensorExcerpt",
+                    "longDescription": "This property shall contain the Sensor excerpt directly associated with this control.  The value of the DataSourceUri property shall reference a resource of type Sensor.  This property shall not be present if multiple sensors are associated with a single control."
+                },
+                "SetPoint": {
+                    "description": "The desired set point of the control.",
+                    "excerpt": "ControlSingle",
+                    "longDescription": "This property shall contain the desired set point control value.  The units shall follow the value of SetPointUnits.",
+                    "readonly": false,
+                    "type": [
+                        "number",
+                        "null"
+                    ]
+                },
+                "SetPointType": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/SetPointType"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The set point type used to operate the control.",
+                    "longDescription": "This property shall contain the type of set point definitions used to describe this control.",
+                    "readonly": true
+                },
+                "SetPointUnits": {
+                    "description": "The units of the set point.",
+                    "longDescription": "This property shall contain the units of the control's set point.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "SetPointUpdateTime": {
+                    "description": "The date and time that the set point was changed.",
+                    "format": "date-time",
+                    "longDescription": "This property shall contain the date and time that the value of SetPoint was last changed.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "SettingMax": {
+                    "description": "The maximum set point in the allowed range.",
+                    "excerpt": "ControlRange",
+                    "longDescription": "This property shall contain the maximum desired set point within the acceptable range.  The service shall reject values greater than the value of AllowableMax.  The units shall follow the value of SetPointUnits.",
+                    "readonly": false,
+                    "type": [
+                        "number",
+                        "null"
+                    ]
+                },
+                "SettingMin": {
+                    "description": "The minimum set point in the allowed range.",
+                    "excerpt": "ControlRange",
+                    "longDescription": "This property shall contain the minimum desired set point within the acceptable range.  The service shall reject values less than the value of AllowableMin.  The units shall follow the value of SetPointUnits.",
+                    "readonly": false,
+                    "type": [
+                        "number",
+                        "null"
+                    ]
+                },
+                "Status": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
+                    "description": "The status and health of the resource and its subordinate or dependent resources.",
+                    "longDescription": "This property shall contain any status or health properties of the resource."
+                }
+            },
+            "required": [
+                "@odata.id",
+                "@odata.type",
+                "Id",
+                "Name"
+            ],
+            "type": "object"
+        },
+        "ControlExcerpt": {
+            "additionalProperties": false,
+            "description": "The Control schema describes a control point and its properties.",
+            "excerpt": "Control",
+            "longDescription": "This resource shall represent a control point for a Redfish implementation.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "AllowableMax": {
+                    "description": "The maximum possible setting for this control.",
+                    "excerpt": "Control",
+                    "longDescription": "This property shall indicate the maximum possible value of the SetPoint or SettingMax properties for this control.  Services shall not accept values for SetPoint or SettingMax above this value.",
+                    "readonly": true,
+                    "type": [
+                        "number",
+                        "null"
+                    ]
+                },
+                "AllowableMin": {
+                    "description": "The minimum possible setting for this control.",
+                    "excerpt": "Control",
+                    "longDescription": "This property shall indicate the minimum possible value of the SetPoint or SettingMin properties for this control.  Services shall not accept values for SetPoint or SettingMin below this value.",
+                    "readonly": true,
+                    "type": [
+                        "number",
+                        "null"
+                    ]
+                },
+                "ControlMode": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/ControlMode"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The current operating mode of the control.",
+                    "excerpt": "Control",
+                    "longDescription": "This property shall contain the operating mode of the control.",
+                    "readonly": false
+                },
+                "DataSourceUri": {
+                    "description": "The link to the resource that provides the data for this control.",
+                    "excerptCopyOnly": true,
+                    "format": "uri-reference",
+                    "longDescription": "This property shall contain a URI to the resource that provides the source of the excerpt contained within this copy.  If no source resource is implemented, meaning the excerpt represents the only available data, this property shall not be present.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "Reading": {
+                    "description": "The reading of the sensor associated with this control.",
+                    "excerptCopyOnly": true,
+                    "longDescription": "This property shall contain the value of the Reading property of the Sensor resource directly associated with this control.  This property shall not be present if multiple sensors are associated with a single control.",
+                    "readonly": true,
+                    "type": [
+                        "number",
+                        "null"
+                    ]
+                },
+                "ReadingUnits": {
+                    "description": "The units of the sensor reading associated with this control.",
+                    "excerptCopyOnly": true,
+                    "longDescription": "This property shall contain the units of the sensor's reading and thresholds.  This property shall not be present if multiple sensors are associated with a single control.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "type": "object"
+        },
+        "ControlLoop": {
+            "additionalProperties": false,
+            "description": "The details and coefficients used to operate a control loop.",
+            "longDescription": "This type shall describe the details of a control loop.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "CoefficientUpdateTime": {
+                    "description": "The date and time that the control loop coefficients were changed.",
+                    "format": "date-time",
+                    "longDescription": "This property shall contain the date and time that any of the coefficients for the control loop were last changed.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "Differential": {
+                    "description": "The differential coefficient.",
+                    "longDescription": "This property shall contain the coefficient for the differential factor in a control loop.",
+                    "readonly": false,
+                    "type": [
+                        "number",
+                        "null"
+                    ]
+                },
+                "Integral": {
+                    "description": "The integral coefficient.",
+                    "longDescription": "This property shall contain the coefficient for the integral factor in a control loop.",
+                    "readonly": false,
+                    "type": [
+                        "number",
+                        "null"
+                    ]
+                },
+                "Proportional": {
+                    "description": "The proportional coefficient.",
+                    "longDescription": "This property shall contain the coefficient for the proportional factor in a control loop.",
+                    "readonly": false,
+                    "type": [
+                        "number",
+                        "null"
+                    ]
+                }
+            },
+            "type": "object"
+        },
+        "ControlMode": {
+            "enum": [
+                "Automatic",
+                "Override",
+                "Manual",
+                "Disabled"
+            ],
+            "enumDescriptions": {
+                "Automatic": "Automatically adjust control to meet the set point.",
+                "Disabled": "The control has been disabled.",
+                "Manual": "No automatic adjustments are made to the control.",
+                "Override": "User override of the automatic set point value."
+            },
+            "type": "string"
+        },
+        "ControlRangeExcerpt": {
+            "additionalProperties": false,
+            "description": "The Control schema describes a control point and its properties.",
+            "excerpt": "ControlRange",
+            "longDescription": "This resource shall represent a control point for a Redfish implementation.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "AllowableMax": {
+                    "description": "The maximum possible setting for this control.",
+                    "excerpt": "Control",
+                    "longDescription": "This property shall indicate the maximum possible value of the SetPoint or SettingMax properties for this control.  Services shall not accept values for SetPoint or SettingMax above this value.",
+                    "readonly": true,
+                    "type": [
+                        "number",
+                        "null"
+                    ]
+                },
+                "AllowableMin": {
+                    "description": "The minimum possible setting for this control.",
+                    "excerpt": "Control",
+                    "longDescription": "This property shall indicate the minimum possible value of the SetPoint or SettingMin properties for this control.  Services shall not accept values for SetPoint or SettingMin below this value.",
+                    "readonly": true,
+                    "type": [
+                        "number",
+                        "null"
+                    ]
+                },
+                "AllowableNumericValues": {
+                    "description": "The supported values for the set point.",
+                    "excerpt": "ControlRange",
+                    "items": {
+                        "type": [
+                            "number",
+                            "null"
+                        ]
+                    },
+                    "longDescription": "This property shall contain the supported values for this control.  The units shall follow the value of SetPointUnits.  This property should only be present when the set point or range has a limited set of supported values that cannot be accurately described using the Increment property.",
+                    "readonly": true,
+                    "type": "array"
+                },
+                "ControlMode": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/ControlMode"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The current operating mode of the control.",
+                    "excerpt": "Control",
+                    "longDescription": "This property shall contain the operating mode of the control.",
+                    "readonly": false
+                },
+                "DataSourceUri": {
+                    "description": "The link to the resource that provides the data for this control.",
+                    "excerptCopyOnly": true,
+                    "format": "uri-reference",
+                    "longDescription": "This property shall contain a URI to the resource that provides the source of the excerpt contained within this copy.  If no source resource is implemented, meaning the excerpt represents the only available data, this property shall not be present.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "Reading": {
+                    "description": "The reading of the sensor associated with this control.",
+                    "excerptCopyOnly": true,
+                    "longDescription": "This property shall contain the value of the Reading property of the Sensor resource directly associated with this control.  This property shall not be present if multiple sensors are associated with a single control.",
+                    "readonly": true,
+                    "type": [
+                        "number",
+                        "null"
+                    ]
+                },
+                "ReadingUnits": {
+                    "description": "The units of the sensor reading associated with this control.",
+                    "excerptCopyOnly": true,
+                    "longDescription": "This property shall contain the units of the sensor's reading and thresholds.  This property shall not be present if multiple sensors are associated with a single control.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "SettingMax": {
+                    "description": "The maximum set point in the allowed range.",
+                    "excerpt": "ControlRange",
+                    "longDescription": "This property shall contain the maximum desired set point within the acceptable range.  The service shall reject values greater than the value of AllowableMax.  The units shall follow the value of SetPointUnits.",
+                    "readonly": false,
+                    "type": [
+                        "number",
+                        "null"
+                    ]
+                },
+                "SettingMin": {
+                    "description": "The minimum set point in the allowed range.",
+                    "excerpt": "ControlRange",
+                    "longDescription": "This property shall contain the minimum desired set point within the acceptable range.  The service shall reject values less than the value of AllowableMin.  The units shall follow the value of SetPointUnits.",
+                    "readonly": false,
+                    "type": [
+                        "number",
+                        "null"
+                    ]
+                }
+            },
+            "type": "object"
+        },
+        "ControlSingleExcerpt": {
+            "additionalProperties": false,
+            "description": "The Control schema describes a control point and its properties.",
+            "excerpt": "ControlSingle",
+            "longDescription": "This resource shall represent a control point for a Redfish implementation.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "AllowableMax": {
+                    "description": "The maximum possible setting for this control.",
+                    "excerpt": "Control",
+                    "longDescription": "This property shall indicate the maximum possible value of the SetPoint or SettingMax properties for this control.  Services shall not accept values for SetPoint or SettingMax above this value.",
+                    "readonly": true,
+                    "type": [
+                        "number",
+                        "null"
+                    ]
+                },
+                "AllowableMin": {
+                    "description": "The minimum possible setting for this control.",
+                    "excerpt": "Control",
+                    "longDescription": "This property shall indicate the minimum possible value of the SetPoint or SettingMin properties for this control.  Services shall not accept values for SetPoint or SettingMin below this value.",
+                    "readonly": true,
+                    "type": [
+                        "number",
+                        "null"
+                    ]
+                },
+                "ControlMode": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/ControlMode"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The current operating mode of the control.",
+                    "excerpt": "Control",
+                    "longDescription": "This property shall contain the operating mode of the control.",
+                    "readonly": false
+                },
+                "DataSourceUri": {
+                    "description": "The link to the resource that provides the data for this control.",
+                    "excerptCopyOnly": true,
+                    "format": "uri-reference",
+                    "longDescription": "This property shall contain a URI to the resource that provides the source of the excerpt contained within this copy.  If no source resource is implemented, meaning the excerpt represents the only available data, this property shall not be present.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "Reading": {
+                    "description": "The reading of the sensor associated with this control.",
+                    "excerptCopyOnly": true,
+                    "longDescription": "This property shall contain the value of the Reading property of the Sensor resource directly associated with this control.  This property shall not be present if multiple sensors are associated with a single control.",
+                    "readonly": true,
+                    "type": [
+                        "number",
+                        "null"
+                    ]
+                },
+                "ReadingUnits": {
+                    "description": "The units of the sensor reading associated with this control.",
+                    "excerptCopyOnly": true,
+                    "longDescription": "This property shall contain the units of the sensor's reading and thresholds.  This property shall not be present if multiple sensors are associated with a single control.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "SetPoint": {
+                    "description": "The desired set point of the control.",
+                    "excerpt": "ControlSingle",
+                    "longDescription": "This property shall contain the desired set point control value.  The units shall follow the value of SetPointUnits.",
+                    "readonly": false,
+                    "type": [
+                        "number",
+                        "null"
+                    ]
+                }
+            },
+            "type": "object"
+        },
+        "ControlType": {
+            "enum": [
+                "Temperature",
+                "Power",
+                "Frequency",
+                "FrequencyMHz",
+                "Pressure"
+            ],
+            "enumDescriptions": {
+                "Frequency": "Frequency (Hz) control.",
+                "FrequencyMHz": "Frequency (MHz) control.",
+                "Power": "Power (W) control or power limit.",
+                "Pressure": "Pressure (kPa) control.",
+                "Temperature": "Temperature (C) control or thermostat."
+            },
+            "enumLongDescriptions": {
+                "Frequency": "This value shall indicate a control used to limit the operating frequency, in hertz units, of a device, either to a single set point or within a range, and the SetPointUnits property shall contain `Hz`.",
+                "FrequencyMHz": "This value shall indicate a control used to limit the operating frequency, in megahertz units, of a device, either to a single set point or within a range, and the SetPointUnits property shall contain `MHz`.",
+                "Power": "This value shall indicate a control used to regulate or limit maximum power consumption, in watt units, either to a single set point or within a range, and the SetPointUnits property shall contain `W`.",
+                "Pressure": "This value shall indicate a control used to adjust pressure in a system, in kilopascal units, and the SetPointUnits property shall contain `kPa`.",
+                "Temperature": "This value shall indicate a control used to regulate temperature, in units of degrees Celsius, either to a single set point or within a range, and the SetPointUnits property shall contain `Cel`."
+            },
+            "enumVersionAdded": {
+                "FrequencyMHz": "v1_1_0",
+                "Pressure": "v1_1_0"
+            },
+            "type": "string"
+        },
+        "ImplementationType": {
+            "enum": [
+                "Programmable",
+                "Direct",
+                "Monitored"
+            ],
+            "enumDescriptions": {
+                "Direct": "The set point directly affects the control value.",
+                "Monitored": "A physical control that cannot be adjusted through this interface.",
+                "Programmable": "The set point can be adjusted through this interface."
+            },
+            "type": "string"
+        },
+        "OemActions": {
+            "additionalProperties": true,
+            "description": "The available OEM-specific actions for this resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {},
+            "type": "object"
+        },
+        "ResetToDefaults": {
+            "additionalProperties": false,
+            "description": "The action resets the values of writable properties to factory defaults.",
+            "longDescription": "This action shall reset the values of writable properties in this resource to their default values as specified by the manufacturer.",
+            "parameters": {},
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "target": {
+                    "description": "Link to invoke action",
+                    "format": "uri-reference",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "Friendly action name",
+                    "type": "string"
+                }
+            },
+            "type": "object",
+            "versionAdded": "v1_2_0"
+        },
+        "SetPointType": {
+            "enum": [
+                "Single",
+                "Range"
+            ],
+            "enumDescriptions": {
+                "Range": "Control uses a range of values.",
+                "Single": "Control uses a single set point."
+            },
+            "enumLongDescriptions": {
+                "Range": "This value shall indicate the control utilizes a set point range for its operation.  The SettingMin and SettingMax properties shall be present for this control type.  The SetPoint property shall not be present for this control type.",
+                "Single": "This value shall indicate the control utilizes a single set point for its operation.  The SetPoint property shall be present for this control type.  The SettingMin and SettingMax properties shall not be present for this control type."
+            },
+            "type": "string"
+        }
+    },
+    "owningEntity": "DMTF",
+    "release": "2022.2",
+    "title": "#Control.v1_2_0.Control"
+}

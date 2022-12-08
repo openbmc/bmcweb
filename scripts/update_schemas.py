@@ -23,116 +23,6 @@ WARNING = """/****************************************************************
  * github organization.
  ***************************************************************/"""
 
-# To use a new schema, add to list and rerun tool
-include_list = [
-    "AccountService",
-    "ActionInfo",
-    "Assembly",
-    "AttributeRegistry",
-    "Bios",
-    "Cable",
-    "CableCollection",
-    "Certificate",
-    "CertificateCollection",
-    "CertificateLocations",
-    "CertificateService",
-    "Chassis",
-    "ChassisCollection",
-    "ComputerSystem",
-    "ComputerSystemCollection",
-    "Drive",
-    "DriveCollection",
-    "EnvironmentMetrics",
-    "EthernetInterface",
-    "EthernetInterfaceCollection",
-    "Event",
-    "EventDestination",
-    "EventDestinationCollection",
-    "EventService",
-    "Fan",
-    "FanCollection",
-    "IPAddresses",
-    "JsonSchemaFile",
-    "JsonSchemaFileCollection",  # redfish/v1/JsonSchemas
-    "LogEntry",
-    "LogEntryCollection",
-    "LogService",
-    "LogServiceCollection",
-    "Manager",
-    "ManagerAccount",
-    "ManagerAccountCollection",
-    "ManagerCollection",
-    "ManagerDiagnosticData",
-    "ManagerNetworkProtocol",
-    "Memory",
-    "MemoryCollection",
-    "Message",
-    "MessageRegistry",
-    "MessageRegistryCollection",
-    "MessageRegistryFile",
-    "MessageRegistryFileCollection",
-    "MetricDefinition",
-    "MetricDefinitionCollection",
-    "MetricReport",
-    "MetricReportCollection",
-    "MetricReportDefinition",
-    "MetricReportDefinitionCollection",
-    "OperatingConfig",
-    "OperatingConfigCollection",
-    "PCIeDevice",
-    "PCIeDeviceCollection",
-    "PCIeFunction",
-    "PCIeFunctionCollection",
-    "PhysicalContext",
-    "PCIeSlots",
-    "Power",
-    "PowerSubsystem",
-    "PowerSupply",
-    "PowerSupplyCollection",
-    "Privileges",  # Used in Role
-    "Processor",
-    "ProcessorCollection",
-    "RedfishError",
-    "RedfishExtensions",
-    "Redundancy",
-    "Resource",
-    "Role",
-    "RoleCollection",
-    "Sensor",
-    "SensorCollection",
-    "ServiceRoot",
-    "Session",
-    "SessionCollection",
-    "SessionService",
-    "Settings",
-    "SoftwareInventory",
-    "SoftwareInventoryCollection",
-    "Storage",
-    "StorageCollection",
-    "StorageController",
-    "StorageControllerCollection",
-    "Task",
-    "TaskCollection",
-    "TaskService",
-    "TelemetryService",
-    "Thermal",
-    "ThermalMetrics",
-    "ThermalSubsystem",
-    "Triggers",
-    "TriggersCollection",
-    "UpdateService",
-    "VLanNetworkInterfaceCollection",
-    "VLanNetworkInterface",
-    "VirtualMedia",
-    "VirtualMediaCollection",
-    "odata",
-    "odata-v4",
-    "redfish-error",
-    "redfish-payload-annotations",
-    "redfish-schema",
-    "redfish-schema-v1",
-]
-
 SCRIPT_DIR = os.path.dirname(os.path.realpath(__file__))
 
 proxies = {"https": os.environ.get("https_proxy", None)}
@@ -231,12 +121,9 @@ json_schema_files = defaultdict(list)
 for zip_filepath in zip_ref.namelist():
     if zip_filepath.startswith("csdl/") and (zip_filepath != "csdl/"):
         csdl_filenames.append(os.path.basename(zip_filepath))
-    elif zip_filepath.startswith("json-schema/"):
+    elif zip_filepath.startswith("json-schema/") and zip_filepath != "json-schema/":
         filename = os.path.basename(zip_filepath)
         filenamesplit = filename.split(".")
-        # exclude schemas again to save flash space
-        if filenamesplit[0] not in include_list:
-            continue
         json_schema_files[filenamesplit[0]].append(filename)
     elif zip_filepath.startswith("openapi/"):
         pass
@@ -264,9 +151,6 @@ with open(metadata_index_path, "w") as metadata_index:
     for filename in csdl_filenames:
         # filename looks like Zone_v1.xml
         filenamesplit = filename.split("_")
-        if filenamesplit[0] not in include_list:
-            print("excluding schema: " + filename)
-            continue
 
         with open(os.path.join(schema_path, filename), "wb") as schema_out:
             metadata_index.write(

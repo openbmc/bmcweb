@@ -1,0 +1,618 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!---->
+<!--################################################################################       -->
+<!--# Redfish Schema:  ResourceBlock v1.4.0                                                -->
+<!--#                                                                                      -->
+<!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
+<!--# available at http://www.dmtf.org/standards/redfish                                   -->
+<!--# Copyright 2014-2022 DMTF.                                                            -->
+<!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
+<!--################################################################################       -->
+<!---->
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Core.V1.xml">
+    <edmx:Include Namespace="Org.OData.Core.V1" Alias="OData"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Capabilities.V1.xml">
+    <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml">
+    <edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish"/>
+    <edmx:Include Namespace="Validation.v1_0_0" Alias="Validation"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Resource_v1.xml">
+    <edmx:Include Namespace="Resource"/>
+    <edmx:Include Namespace="Resource.v1_0_0"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Chassis_v1.xml">
+    <edmx:Include Namespace="Chassis"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/ComputerSystem_v1.xml">
+    <edmx:Include Namespace="ComputerSystem"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/EthernetInterface_v1.xml">
+    <edmx:Include Namespace="EthernetInterface"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Memory_v1.xml">
+    <edmx:Include Namespace="Memory"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/NetworkInterface_v1.xml">
+    <edmx:Include Namespace="NetworkInterface"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Processor_v1.xml">
+    <edmx:Include Namespace="Processor"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/SimpleStorage_v1.xml">
+    <edmx:Include Namespace="SimpleStorage"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Storage_v1.xml">
+    <edmx:Include Namespace="Storage"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Zone_v1.xml">
+    <edmx:Include Namespace="Zone"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Drive_v1.xml">
+    <edmx:Include Namespace="Drive"/>
+  </edmx:Reference>
+
+  <edmx:DataServices>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ResourceBlock">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+
+      <EntityType Name="ResourceBlock" BaseType="Resource.v1_0_0.Resource" Abstract="true">
+        <Annotation Term="OData.Description" String="The ResourceBlock schema contains definitions resource blocks, its components, and affinity to composed devices."/>
+        <Annotation Term="OData.LongDescription" String="This resource shall represent a resource block for a Redfish implementation."/>
+        <Annotation Term="Capabilities.InsertRestrictions">
+          <Record>
+            <PropertyValue Property="Insertable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.UpdateRestrictions">
+          <Record>
+            <PropertyValue Property="Updatable" Bool="true"/>
+            <Annotation Term="OData.Description" String="Writable properties, such as the reservation setting, can be updated for resource blocks."/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.DeleteRestrictions">
+          <Record>
+            <PropertyValue Property="Deletable" Bool="true"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Redfish.Uris">
+          <Collection>
+            <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}</String>
+            <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}</String>
+          </Collection>
+        </Annotation>
+      </EntityType>
+
+      <ComplexType Name="ResourceBlockLimits" Abstract="true"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ResourceBlock.v1_0_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2017.1"/>
+
+      <EntityType Name="ResourceBlock" BaseType="ResourceBlock.ResourceBlock">
+        <Property Name="Status" Type="Resource.Status" Nullable="false">
+          <Annotation Term="OData.Description" String="The status and health of the resource and its subordinate or dependent resources."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain any status or health properties of the resource."/>
+        </Property>
+        <Property Name="CompositionStatus" Type="ResourceBlock.v1_0_0.CompositionStatus" Nullable="false">
+          <Annotation Term="OData.Description" String="The composition status details for this resource block."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain composition status information about this resource block."/>
+          <Annotation Term="Redfish.Required"/>
+        </Property>
+        <Property Name="ResourceBlockType" Type="Collection(ResourceBlock.v1_0_0.ResourceBlockType)" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The types of resources available on this resource block."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of enumerated values that describe the type of resources available."/>
+          <Annotation Term="Redfish.Required"/>
+        </Property>
+        <Property Name="Links" Type="ResourceBlock.v1_0_0.Links" Nullable="false">
+          <Annotation Term="OData.Description" String="The links to other resources that are related to this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."/>
+        </Property>
+        <Property Name="Actions" Type="ResourceBlock.v1_0_0.Actions" Nullable="false">
+          <Annotation Term="OData.Description" String="The available actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this resource."/>
+        </Property>
+        <NavigationProperty Name="Processors" Type="Collection(Processor.Processor)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An array of links to the processors available in this resource block."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resource of type Processor that this resource block contains."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+        <NavigationProperty Name="Memory" Type="Collection(Memory.Memory)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An array of links to the memory available in this resource block."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resource of type Memory that this resource block contains."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+        <NavigationProperty Name="Storage" Type="Collection(Storage.Storage)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An array of links to the storage available in this resource block."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resource of type Storage that this resource block contains."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+        <NavigationProperty Name="SimpleStorage" Type="Collection(SimpleStorage.SimpleStorage)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An array of links to the simple storage available in this resource block."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resource of type SimpleStorage that this resource block contains."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+        <NavigationProperty Name="EthernetInterfaces" Type="Collection(EthernetInterface.EthernetInterface)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An array of links to the Ethernet interfaces available in this resource block."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resource of type EthernetInterface that this resource block contains."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+        <NavigationProperty Name="NetworkInterfaces" Type="Collection(NetworkInterface.NetworkInterface)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An array of links to the Network Interfaces available in this resource block."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resource of type NetworkInterface that this resource block contains."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+        <NavigationProperty Name="ComputerSystems" Type="Collection(ComputerSystem.ComputerSystem)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An array of links to the computer systems available in this resource block."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resource of type ComputerSystem that this resource block contains."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </EntityType>
+
+      <ComplexType Name="Links" BaseType="Resource.Links">
+        <Annotation Term="OData.Description" String="The links to other resources that are related to this resource."/>
+        <Annotation Term="OData.LongDescription" String="This Redfish Specification-described type shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."/>
+        <NavigationProperty Name="ComputerSystems" Type="Collection(ComputerSystem.ComputerSystem)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An array of links to the computer systems that are composed from this resource block."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type ComputerSystem that represent the computer systems composed from this resource block."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+        <NavigationProperty Name="Chassis" Type="Collection(Chassis.Chassis)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An array of links to the chassis in which this resource block is contained."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type Chassis that represent the physical container associated with this resource block."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+        <NavigationProperty Name="Zones" Type="Collection(Zone.Zone)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An array of links to the zones in which this resource block is bound."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type Zone that represent the binding constraints associated with this resource block."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </ComplexType>
+
+      <ComplexType Name="Actions">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The available actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
+        <Property Name="Oem" Type="ResourceBlock.v1_0_0.OemActions" Nullable="false">
+          <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this resource."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="OemActions">
+        <Annotation Term="OData.AdditionalProperties" Bool="true"/>
+        <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this resource."/>
+      </ComplexType>
+
+      <EnumType Name="ResourceBlockType">
+        <Member Name="Compute">
+          <Annotation Term="OData.Description" String="This resource block contains resources of type `Processor` and `Memory` in a manner that creates a compute complex."/>
+        </Member>
+        <Member Name="Processor">
+          <Annotation Term="OData.Description" String="This resource block contains resources of type `Processor`."/>
+        </Member>
+        <Member Name="Memory">
+          <Annotation Term="OData.Description" String="This resource block contains resources of type `Memory`."/>
+        </Member>
+        <Member Name="Network">
+          <Annotation Term="OData.Description" String="This resource block contains network resources, such as resource of type `EthernetInterface` and `NetworkInterface`."/>
+        </Member>
+        <Member Name="Storage">
+          <Annotation Term="OData.Description" String="This resource block contains storage resources, such as resources of type `Storage` and `SimpleStorage`."/>
+        </Member>
+        <Member Name="ComputerSystem">
+          <Annotation Term="OData.Description" String="This resource block contains resources of type `ComputerSystem`."/>
+        </Member>
+        <Member Name="Expansion">
+          <Annotation Term="OData.Description" String="This resource block is capable of changing over time based on its configuration.  Different types of devices within this resource block can be added and removed over time."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_2_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="IndependentResource">
+          <Annotation Term="OData.Description" String="This resource block is capable of being consumed as a standalone component.  This resource block can represent things such as a software platform on one or more computer systems or an appliance that provides composable resources and other services, and can be managed independently of the Redfish service."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_4_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+      </EnumType>
+
+      <ComplexType Name="CompositionStatus">
+        <Annotation Term="OData.Description" String="Composition status of the resource block."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain properties that describe the high level composition status of the resource block."/>
+        <Property Name="Reserved" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="An indication of whether any client has reserved the resource block."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether any client has reserved the resource block.  A client sets this property after the resource block is identified as composed.  It shall provide a way for multiple clients to negotiate the ownership of the resource block."/>
+        </Property>
+        <Property Name="CompositionState" Type="ResourceBlock.v1_0_0.CompositionState">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The current state of the resource block from a composition perspective."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an enumerated value that describes the composition state of the resource block."/>
+          <Annotation Term="Redfish.Required"/>
+        </Property>
+      </ComplexType>
+
+      <EnumType Name="CompositionState">
+        <Member Name="Composing">
+          <Annotation Term="OData.Description" String="Intermediate state indicating composition is in progress."/>
+        </Member>
+        <Member Name="ComposedAndAvailable">
+          <Annotation Term="OData.Description" String="The resource block is currently participating in one or more compositions, and is available to use in more compositions."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_1_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="Composed">
+          <Annotation Term="OData.Description" String="Final successful state of a resource block that has participated in composition."/>
+        </Member>
+        <Member Name="Unused">
+          <Annotation Term="OData.Description" String="The resource block is free and can participate in composition."/>
+        </Member>
+        <Member Name="Failed">
+          <Annotation Term="OData.Description" String="The final composition resulted in failure and manual intervention might be required to fix it."/>
+        </Member>
+        <Member Name="Unavailable">
+          <Annotation Term="OData.Description" String="The resource block has been made unavailable by the service, such as due to maintenance being performed on the resource block."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_2_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+      </EnumType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ResourceBlock.v1_0_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
+      <EntityType Name="ResourceBlock" BaseType="ResourceBlock.v1_0_0.ResourceBlock"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ResourceBlock.v1_0_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to use the new revisions annotation."/>
+      <EntityType Name="ResourceBlock" BaseType="ResourceBlock.v1_0_1.ResourceBlock"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ResourceBlock.v1_0_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format."/>
+      <EntityType Name="ResourceBlock" BaseType="ResourceBlock.v1_0_2.ResourceBlock"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ResourceBlock.v1_0_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines."/>
+      <EntityType Name="ResourceBlock" BaseType="ResourceBlock.v1_0_3.ResourceBlock"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ResourceBlock.v1_0_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="ResourceBlock" BaseType="ResourceBlock.v1_0_4.ResourceBlock"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ResourceBlock.v1_0_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created specify 64-bit integers in OpenAPI."/>
+      <EntityType Name="ResourceBlock" BaseType="ResourceBlock.v1_0_5.ResourceBlock"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ResourceBlock.v1_1_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2018.1"/>
+
+      <EntityType Name="ResourceBlock" BaseType="ResourceBlock.v1_0_0.ResourceBlock"/>
+
+      <ComplexType Name="CompositionStatus" BaseType="ResourceBlock.v1_0_0.CompositionStatus">
+        <Property Name="SharingCapable" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An indication of whether this resource block can participate in multiple compositions simultaneously."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether this resource block can participate in multiple compositions simultaneously.  If this property is not provided, it shall be assumed that this resource block is not capable of being shared."/>
+        </Property>
+        <Property Name="SharingEnabled" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="An indication of whether this resource block is allowed to participate in multiple compositions simultaneously."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether this resource block can participate in multiple compositions simultaneously.  The service shall reject modifications of this property with HTTP 400 Bad Request if this resource block is already being used as part of a composed resource.  If `false`, the service shall not use the `ComposedAndAvailable` state for this resource block."/>
+        </Property>
+        <Property Name="MaxCompositions" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The maximum number of compositions in which this resource block can participate simultaneously."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a number indicating the maximum number of compositions in which this resource block can participate simultaneously.  Services can have additional constraints that prevent this value from being achieved, such as due to system topology and current composed resource utilization.  If SharingCapable is `false`, this value shall be set to `1`.  The service shall support this property if SharingCapable supported."/>
+          <Annotation Term="Validation.Minimum" Int="1"/>
+        </Property>
+        <Property Name="NumberOfCompositions" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The number of compositions in which this resource block is currently participating."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number of compositions in which this resource block is currently participating."/>
+          <Annotation Term="Validation.Minimum" Int="0"/>
+        </Property>
+      </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ResourceBlock.v1_1_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
+      <EntityType Name="ResourceBlock" BaseType="ResourceBlock.v1_1_0.ResourceBlock"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ResourceBlock.v1_1_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to use the new revisions annotation."/>
+      <EntityType Name="ResourceBlock" BaseType="ResourceBlock.v1_1_1.ResourceBlock"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ResourceBlock.v1_1_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format."/>
+      <EntityType Name="ResourceBlock" BaseType="ResourceBlock.v1_1_2.ResourceBlock"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ResourceBlock.v1_1_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines."/>
+      <EntityType Name="ResourceBlock" BaseType="ResourceBlock.v1_1_3.ResourceBlock"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ResourceBlock.v1_1_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="ResourceBlock" BaseType="ResourceBlock.v1_1_4.ResourceBlock"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ResourceBlock.v1_1_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created specify 64-bit integers in OpenAPI."/>
+      <EntityType Name="ResourceBlock" BaseType="ResourceBlock.v1_1_5.ResourceBlock"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ResourceBlock.v1_2_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2018.2"/>
+      <Annotation Term="OData.Description" String="This version was created to add Expansion to the ResourceBlockType enumeration.  It was also created to add Unavailable to the CompositionState enumeration."/>
+
+      <EntityType Name="ResourceBlock" BaseType="ResourceBlock.v1_1_1.ResourceBlock"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ResourceBlock.v1_2_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to use the new revisions annotation."/>
+      <EntityType Name="ResourceBlock" BaseType="ResourceBlock.v1_2_0.ResourceBlock"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ResourceBlock.v1_2_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format."/>
+      <EntityType Name="ResourceBlock" BaseType="ResourceBlock.v1_2_1.ResourceBlock"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ResourceBlock.v1_2_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines."/>
+      <EntityType Name="ResourceBlock" BaseType="ResourceBlock.v1_2_2.ResourceBlock"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ResourceBlock.v1_2_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="ResourceBlock" BaseType="ResourceBlock.v1_2_3.ResourceBlock"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ResourceBlock.v1_2_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created specify 64-bit integers in OpenAPI."/>
+      <EntityType Name="ResourceBlock" BaseType="ResourceBlock.v1_2_4.ResourceBlock"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ResourceBlock.v1_3_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2018.3"/>
+
+      <EntityType Name="ResourceBlock" BaseType="ResourceBlock.v1_2_1.ResourceBlock">
+        <NavigationProperty Name="Drives" Type="Collection(Drive.Drive)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An array of links to the drives available in this resource block."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resource of type Drive that this resource block contains."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </EntityType>
+
+      <ComplexType Name="ResourceBlockLimits" BaseType="ResourceBlock.ResourceBlockLimits">
+        <Annotation Term="OData.Description" String="This type specifies the allowable quantities of types of resource blocks for a composition request."/>
+        <Annotation Term="OData.LongDescription" String="This object shall specify the allowable quantities of types of resource blocks for a given composition request."/>
+        <Property Name="MinCompute" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The minimum number of resource blocks of type `Compute` required for the composition request."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an integer that specifies the minimum number of resource blocks of type `Compute` required for the composition request."/>
+          <Annotation Term="Validation.Minimum" Int="0"/>
+        </Property>
+        <Property Name="MaxCompute" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The maximum number of resource blocks of type `Compute` allowed for the composition request."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an integer that specifies the maximum number of resource blocks of type `Compute` allowed for the composition request."/>
+          <Annotation Term="Validation.Minimum" Int="1"/>
+        </Property>
+        <Property Name="MinProcessor" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The minimum number of resource blocks of type `Processor` required for the composition request."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an integer that specifies the minimum number of resource blocks of type `Processor` required for the composition request."/>
+          <Annotation Term="Validation.Minimum" Int="0"/>
+        </Property>
+        <Property Name="MaxProcessor" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The maximum number of resource blocks of type `Processor` allowed for the composition request."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an integer that specifies the maximum number of resource blocks of type `Processor` allowed for the composition request."/>
+          <Annotation Term="Validation.Minimum" Int="1"/>
+        </Property>
+        <Property Name="MinMemory" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The minimum number of resource blocks of type `Memory` required for the composition request."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an integer that specifies the minimum number of resource blocks of type `Memory` required for the composition request."/>
+          <Annotation Term="Validation.Minimum" Int="0"/>
+        </Property>
+        <Property Name="MaxMemory" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The maximum number of resource blocks of type `Memory` allowed for the composition request."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an integer that specifies the maximum number of resource blocks of type `Memory` allowed for the composition request."/>
+          <Annotation Term="Validation.Minimum" Int="1"/>
+        </Property>
+        <Property Name="MinNetwork" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The minimum number of resource blocks of type `Network` required for the composition request."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an integer that specifies the minimum number of resource blocks of type `Network` required for the composition request."/>
+          <Annotation Term="Validation.Minimum" Int="0"/>
+        </Property>
+        <Property Name="MaxNetwork" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The maximum number of resource blocks of type `Network` allowed for the composition request."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an integer that specifies the maximum number of resource blocks of type `Network` allowed for the composition request."/>
+          <Annotation Term="Validation.Minimum" Int="1"/>
+        </Property>
+        <Property Name="MinStorage" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The minimum number of resource blocks of type `Storage` required for the composition request."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an integer that specifies the minimum number of resource blocks of type `Storage` required for the composition request."/>
+          <Annotation Term="Validation.Minimum" Int="0"/>
+        </Property>
+        <Property Name="MaxStorage" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The maximum number of resource blocks of type `Storage` allowed for the composition request."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an integer that specifies the maximum number of resource blocks of type `Storage` allowed for the composition request."/>
+          <Annotation Term="Validation.Minimum" Int="1"/>
+        </Property>
+        <Property Name="MinComputerSystem" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The minimum number of resource blocks of type `ComputerSystem` required for the composition request."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an integer that specifies the minimum number of resource blocks of type `ComputerSystem` required for the composition request."/>
+          <Annotation Term="Validation.Minimum" Int="0"/>
+        </Property>
+        <Property Name="MaxComputerSystem" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The maximum number of resource blocks of type `ComputerSystem` allowed for the composition request."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an integer that specifies the maximum number of resource blocks of type `ComputerSystem` allowed for the composition request."/>
+          <Annotation Term="Validation.Minimum" Int="1"/>
+        </Property>
+        <Property Name="MinExpansion" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The minimum number of resource blocks of type `Expansion` required for the composition request."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an integer that specifies the minimum number of resource blocks of type `Expansion` required for the composition request."/>
+          <Annotation Term="Validation.Minimum" Int="0"/>
+        </Property>
+        <Property Name="MaxExpansion" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The maximum number of resource blocks of type `Expansion` allowed for the composition request."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an integer that specifies the maximum number of resource blocks of type `Expansion` allowed for the composition request."/>
+          <Annotation Term="Validation.Minimum" Int="1"/>
+        </Property>
+      </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ResourceBlock.v1_3_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format."/>
+      <EntityType Name="ResourceBlock" BaseType="ResourceBlock.v1_3_0.ResourceBlock"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ResourceBlock.v1_3_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines."/>
+      <EntityType Name="ResourceBlock" BaseType="ResourceBlock.v1_3_1.ResourceBlock"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ResourceBlock.v1_3_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="ResourceBlock" BaseType="ResourceBlock.v1_3_2.ResourceBlock"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ResourceBlock.v1_3_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created specify 64-bit integers in OpenAPI."/>
+      <EntityType Name="ResourceBlock" BaseType="ResourceBlock.v1_3_3.ResourceBlock"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ResourceBlock.v1_4_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2020.4"/>
+      <Annotation Term="OData.Description" String="This version was created to add the Pool and Client properties.  It was also created to add `IndependentResource` to the ResourceBlockType enumeration.  It was also created to add the ConsumingResourceBlocks and SupplyingResourceBlocks properties to Links."/>
+
+      <EntityType Name="ResourceBlock" BaseType="ResourceBlock.v1_3_4.ResourceBlock">
+        <Property Name="Pool" Type="ResourceBlock.v1_4_0.PoolType">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The pool to which this resource block belongs."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the pool to which this resource block belongs.  If this resource block is not assigned to a client, this property shall contain the value `Unassigned`.  If this resource block is assigned to a client, this property shall not contain the value `Unassigned`."/>
+        </Property>
+        <Property Name="Client" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The client to which this resource block is assigned."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the client to which this resource block is assigned."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="Links" BaseType="ResourceBlock.v1_0_0.Links">
+        <NavigationProperty Name="ConsumingResourceBlocks" Type="Collection(ResourceBlock.ResourceBlock)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An array of links to resource blocks that depend on this resource block."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type ResourceBlock that represent the resource blocks that depend on this resource block as a component."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+        <NavigationProperty Name="SupplyingResourceBlocks" Type="Collection(ResourceBlock.ResourceBlock)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An array of links to resource blocks that this resource block depends on."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type ResourceBlock that represent the resource blocks that this resource block depends on as components."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </ComplexType>
+
+      <EnumType Name="PoolType">
+        <Member Name="Free">
+          <Annotation Term="OData.Description" String="This resource block is in the free pool and is not contributing to any composed resources."/>
+        </Member>
+        <Member Name="Active">
+          <Annotation Term="OData.Description" String="This resource block is in the active pool and is contributing to at least one composed resource as a result of a composition request."/>
+        </Member>
+        <Member Name="Unassigned">
+          <Annotation Term="OData.Description" String="This resource block is not assigned to any pools."/>
+        </Member>
+      </EnumType>
+    </Schema>
+
+  </edmx:DataServices>
+</edmx:Edmx>
