@@ -103,8 +103,7 @@ inline bool validateFilename(const std::string& filename)
 
 inline void setErrorResponse(crow::Response& res,
                              boost::beast::http::status result,
-                             const std::string& desc,
-                             const std::string_view msg)
+                             const std::string& desc, std::string_view msg)
 {
     res.result(result);
     res.jsonValue["data"]["description"] = desc;

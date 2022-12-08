@@ -90,7 +90,7 @@ static const Message*
     return nullptr;
 }
 
-static const Message* getMessage(const std::string_view& messageID)
+static const Message* getMessage(std::string_view messageID)
 {
     // Redfish MessageIds are in the form
     // RegistryName.MajorVersion.MinorVersion.MessageKey, so parse it to find
@@ -141,7 +141,7 @@ inline std::string translateSeverityDbusToRedfish(const std::string& s)
 }
 
 inline static int getJournalMetadata(sd_journal* journal,
-                                     const std::string_view& field,
+                                     std::string_view field,
                                      std::string_view& contents)
 {
     const char* data = nullptr;
@@ -163,8 +163,8 @@ inline static int getJournalMetadata(sd_journal* journal,
 }
 
 inline static int getJournalMetadata(sd_journal* journal,
-                                     const std::string_view& field,
-                                     const int& base, long int& contents)
+                                     std::string_view field, const int& base,
+                                     long int& contents)
 {
     int ret = 0;
     std::string_view metadata;
@@ -3272,8 +3272,7 @@ enum class OEMDiagnosticType
     invalid,
 };
 
-inline OEMDiagnosticType
-    getOEMDiagnosticType(const std::string_view& oemDiagStr)
+inline OEMDiagnosticType getOEMDiagnosticType(std::string_view oemDiagStr)
 {
     if (oemDiagStr == "OnDemand")
     {

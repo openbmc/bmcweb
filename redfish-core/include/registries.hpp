@@ -61,7 +61,7 @@ inline std::string
 {
     std::string ret;
     size_t reserve = msg.size();
-    for (const std::string_view& arg : messageArgs)
+    for (std::string_view arg : messageArgs)
     {
         reserve += arg.size();
     }
@@ -102,7 +102,7 @@ inline nlohmann::json::object_t
     std::string msg =
         redfish::registries::fillMessageArgs(args, entry.second.message);
     nlohmann::json jArgs = nlohmann::json::array();
-    for (const std::string_view arg : args)
+    for (std::string_view arg : args)
     {
         jArgs.push_back(arg);
     }

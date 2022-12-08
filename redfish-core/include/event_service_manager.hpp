@@ -109,7 +109,7 @@ static const Message*
     return nullptr;
 }
 
-static const Message* formatMessage(const std::string_view& messageID)
+static const Message* formatMessage(std::string_view messageID)
 {
     // Redfish MessageIds are in the form
     // RegistryName.MajorVersion.MinorVersion.MessageKey, so parse it to find

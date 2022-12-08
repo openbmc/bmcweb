@@ -109,7 +109,7 @@ inline bool isContentTypeAllowed(std::string_view header, ContentType type,
     return type == allowed;
 }
 
-inline std::string urlEncode(const std::string_view value)
+inline std::string urlEncode(std::string_view value)
 {
     std::ostringstream escaped;
     escaped.fill('0');
