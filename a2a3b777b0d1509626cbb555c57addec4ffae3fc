@@ -16,6 +16,24 @@
       "message": "Can you keep this as starts_with, in case we put the ip objects under a subpath so that we don\u0027t have to change this in the future.",
       "revId": "a2a3b777b0d1509626cbb555c57addec4ffae3fc",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d382184f_90fb106b",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 437,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2022-12-08T23:10:48Z",
+      "side": 1,
+      "message": "IMO, no;  We shouldn\u0027t be randomly moving the paths of objects.  I\u0027m perfectly fine having another review if the paths move again, but starts_with generally doesn\u0027t work, because it means that eth1 and eth11 become the same thing.",
+      "parentUuid": "c4ec5d79_dcb28a18",
+      "revId": "a2a3b777b0d1509626cbb555c57addec4ffae3fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
